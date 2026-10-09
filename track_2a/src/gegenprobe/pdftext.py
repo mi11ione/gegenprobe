@@ -53,6 +53,8 @@ def fetch_pdf(url: str, expect_sha256: str | None = None) -> tuple[str, Path]:
         if p.exists():
             return expect_sha256, p
     b = net.get(url, timeout=180)
+    if b"%PDF" not in b[:1024]:   # some servers prepend whitespace (Zürich city); HTML error pages have no marker
+        raise ValueError(f"not a PDF: {url}")
     h = sha256_bytes(b)
     if expect_sha256 and h != expect_sha256:
         raise ValueError(f"sha256 mismatch for {url}: {h} != {expect_sha256}")

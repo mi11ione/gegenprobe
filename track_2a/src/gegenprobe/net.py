@@ -59,8 +59,17 @@ def allowed(url: str) -> bool:
     return True if rp is None else rp.can_fetch(UA, url)
 
 
+def quote_url(url: str) -> str:
+    """Percent-encode raw spaces, umlauts etc. that OPD stores unencoded in document URLs (already-encoded parts are kept)."""
+    p = urllib.parse.urlsplit(url)
+    return urllib.parse.urlunsplit((p.scheme, p.netloc.encode("idna").decode() if not p.netloc.isascii() else p.netloc,
+                                    urllib.parse.quote(p.path, safe="/%:@!$&'()*+,;=~-._"),
+                                    urllib.parse.quote(p.query, safe="=&%:/?@!$'()*+,;~-._"), p.fragment))
+
+
 def open_url(url: str, data: bytes | None = None, headers: dict | None = None, timeout: int = 120, tries: int = 5):
     """Return an open response (caller closes). Raises Disallowed if robots.txt forbids the URL."""
+    url = quote_url(url)
     if not allowed(url):
         raise Disallowed(url)
     host = urllib.parse.urlsplit(url).netloc
