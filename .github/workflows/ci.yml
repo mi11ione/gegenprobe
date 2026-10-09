@@ -1,0 +1,42 @@
+name: ci
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+defaults:
+  run:
+    working-directory: track_2a
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita
+      - run: pip install -r requirements.txt ruff==0.16.10
+      - run: ruff check src eval tests
+      - run: PYTHONPATH=src:. python -m pytest -q
+      - name: claims.tsv recomputed from results files
+        run: PYTHONPATH=src:. python -m gegenprobe.claims check
+      - name: data/ stays under the 100 MB limit
+        run: test $(du -sm data | cut -f1) -le 100
+  make-run:
+    # the judges' path: clean checkout, Docker, CPU, no secrets
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - run: /usr/bin/time -v make run 2>&1 | tee make_run.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: make-run, path: "track_2a/make_run.log\ntrack_2a/out/run_report.json"}
+  secrets:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: gitleaks/gitleaks-action@v2
+        env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
