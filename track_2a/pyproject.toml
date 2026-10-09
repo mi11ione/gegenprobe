@@ -1,0 +1,26 @@
+[project]
+name = "gegenprobe"
+version = "0.1.0"
+description = "Census, repair and closed-set conversion of Swiss parliamentary affairs (OpenParlData) with Apertus"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2.10,<3",
+  "jinja2>=3.1",
+  "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+gguf = ["llama-cpp-python"]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 130
+src = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
