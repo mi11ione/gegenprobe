@@ -1,0 +1,2013 @@
+{
+ "$defs": {
+  "Actor": {
+   "additionalProperties": false,
+   "properties": {
+    "role": {
+     "enum": [
+      "submitter",
+      "co_signatory",
+      "first_signatory",
+      "on_behalf_of_group",
+      "addressed_body",
+      "answering_body",
+      "executive_signatory",
+      "presiding_officer",
+      "secretary",
+      "committee",
+      "committee_member",
+      "rapporteur",
+      "referenced_member",
+      "roll_call_voter",
+      "other"
+     ],
+     "title": "Role",
+     "type": "string"
+    },
+    "kind": {
+     "enum": [
+      "person",
+      "parliamentary_group",
+      "party",
+      "committee",
+      "executive",
+      "parliament",
+      "administration",
+      "public",
+      "other"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "name": {
+     "discriminator": {
+      "mapping": {
+       "null": "#/$defs/TypedNull",
+       "value": "#/$defs/TextValue"
+      },
+      "propertyName": "kind"
+     },
+     "oneOf": [
+      {
+       "$ref": "#/$defs/TextValue"
+      },
+      {
+       "$ref": "#/$defs/TypedNull"
+      }
+     ],
+     "title": "Name"
+    },
+    "opd_person_id": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Opd Person Id"
+    },
+    "party": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Party"
+    },
+    "group": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Group"
+    }
+   },
+   "required": [
+    "role",
+    "kind",
+    "name"
+   ],
+   "title": "Actor",
+   "type": "object"
+  },
+  "AffairRef": {
+   "additionalProperties": false,
+   "properties": {
+    "body_key": {
+     "title": "Body Key",
+     "type": "string"
+    },
+    "number": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Number"
+    },
+    "opd_id": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Opd Id"
+    }
+   },
+   "required": [
+    "body_key"
+   ],
+   "title": "AffairRef",
+   "type": "object"
+  },
+  "AffairTypeV": {
+   "additionalProperties": false,
+   "properties": {
+    "harmonised": {
+     "enum": [
+      "motion",
+      "postulate",
+      "interpellation",
+      "question",
+      "question_time",
+      "parliamentary_initiative",
+      "cantonal_initiative",
+      "popular_initiative",
+      "government_affair",
+      "petition",
+      "consultation",
+      "election",
+      "amendment",
+      "naturalisation",
+      "report",
+      "information_document",
+      "approval_decision",
+      "budget",
+      "miscellaneous",
+      "unknown"
+     ],
+     "title": "Harmonised",
+     "type": "string"
+    },
+    "opd_harmonised_id": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Opd Harmonised Id"
+    },
+    "source_label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "the body's own type name, e.g. 'Dringliche Interpellation'",
+     "title": "Source Label"
+    },
+    "urgent": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Urgent"
+    }
+   },
+   "required": [
+    "harmonised"
+   ],
+   "title": "AffairTypeV",
+   "type": "object"
+  },
+  "Body": {
+   "additionalProperties": false,
+   "properties": {
+    "key": {
+     "description": "OPD body_key, e.g. BE, CHE, 261",
+     "title": "Key",
+     "type": "string"
+    },
+    "name": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Name"
+    },
+    "level": {
+     "enum": [
+      "federal",
+      "cantonal",
+      "communal"
+     ],
+     "title": "Level",
+     "type": "string"
+    },
+    "languages": {
+     "default": [],
+     "items": {
+      "enum": [
+       "de",
+       "fr",
+       "it",
+       "rm",
+       "en"
+      ],
+      "type": "string"
+     },
+     "title": "Languages",
+     "type": "array"
+    }
+   },
+   "required": [
+    "key",
+    "level"
+   ],
+   "title": "Body",
+   "type": "object"
+  },
+  "DateValue": {
+   "additionalProperties": false,
+   "description": "An ISO date with provenance (basis=normalised when read from a span like '28. August 2024').",
+   "properties": {
+    "kind": {
+     "const": "value",
+     "default": "value",
+     "title": "Kind",
+     "type": "string"
+    },
+    "value": {
+     "format": "date",
+     "title": "Value",
+     "type": "string"
+    },
+    "role": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "semantic role of the value (e.g. a DateRole for dates)",
+     "title": "Role"
+    },
+    "basis": {
+     "enum": [
+      "extracted",
+      "normalised",
+      "metadata",
+      "inferred"
+     ],
+     "title": "Basis",
+     "type": "string"
+    },
+    "route": {
+     "enum": [
+      "metadata",
+      "rule",
+      "apertus",
+      "ocr+rule",
+      "ocr+apertus"
+     ],
+     "title": "Route",
+     "type": "string"
+    },
+    "doc": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Document.doc_id the span points into",
+     "title": "Doc"
+    },
+    "page": {
+     "anyOf": [
+      {
+       "minimum": 1,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Page"
+    },
+    "char_start": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Char Start"
+    },
+    "char_end": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Char End"
+    },
+    "quote": {
+     "anyOf": [
+      {
+       "maxLength": 400,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "verbatim source text at the span (short)",
+     "title": "Quote"
+    },
+    "source": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "structured record for basis=metadata, e.g. 'opd:events/618276'",
+     "title": "Source"
+    },
+    "model_build": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Model Build"
+    },
+    "theta": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Theta"
+    },
+    "margin": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "null margin of the forced choice (nats); value kept iff margin <= theta",
+     "title": "Margin"
+    },
+    "candidates": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "size of the closed candidate set the model chose from",
+     "title": "Candidates"
+    }
+   },
+   "required": [
+    "value",
+    "basis",
+    "route"
+   ],
+   "title": "DateValue",
+   "type": "object"
+  },
+  "DatedEvent": {
+   "additionalProperties": false,
+   "properties": {
+    "role": {
+     "enum": [
+      "submitted",
+      "answer_decided",
+      "answer_dispatched",
+      "answered",
+      "scheduled",
+      "debated",
+      "referred_to_committee",
+      "decided",
+      "closed",
+      "withdrawn",
+      "published",
+      "entry_into_force",
+      "deadline",
+      "referendum_deadline",
+      "popular_vote",
+      "other"
+     ],
+     "title": "Role",
+     "type": "string"
+    },
+    "date": {
+     "discriminator": {
+      "mapping": {
+       "null": "#/$defs/TypedNull",
+       "value": "#/$defs/DateValue"
+      },
+      "propertyName": "kind"
+     },
+     "oneOf": [
+      {
+       "$ref": "#/$defs/DateValue"
+      },
+      {
+       "$ref": "#/$defs/TypedNull"
+      }
+     ],
+     "title": "Date"
+    },
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "source event title, e.g. 'Beantwortet'",
+     "title": "Label"
+    }
+   },
+   "required": [
+    "role",
+    "date"
+   ],
+   "title": "DatedEvent",
+   "type": "object"
+  },
+  "DecisionValue": {
+   "additionalProperties": false,
+   "properties": {
+    "kind": {
+     "const": "value",
+     "default": "value",
+     "title": "Kind",
+     "type": "string"
+    },
+    "value": {
+     "enum": [
+      "adopted",
+      "rejected",
+      "referred",
+      "converted_to_postulate",
+      "partially_adopted",
+      "written_off",
+      "not_written_off",
+      "acknowledged",
+      "withdrawn",
+      "lapsed",
+      "returned",
+      "no_decision",
+      "pending"
+     ],
+     "title": "Value",
+     "type": "string"
+    },
+    "role": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "semantic role of the value (e.g. a DateRole for dates)",
+     "title": "Role"
+    },
+    "basis": {
+     "enum": [
+      "extracted",
+      "normalised",
+      "metadata",
+      "inferred"
+     ],
+     "title": "Basis",
+     "type": "string"
+    },
+    "route": {
+     "enum": [
+      "metadata",
+      "rule",
+      "apertus",
+      "ocr+rule",
+      "ocr+apertus"
+     ],
+     "title": "Route",
+     "type": "string"
+    },
+    "doc": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Document.doc_id the span points into",
+     "title": "Doc"
+    },
+    "page": {
+     "anyOf": [
+      {
+       "minimum": 1,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Page"
+    },
+    "char_start": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Char Start"
+    },
+    "char_end": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Char End"
+    },
+    "quote": {
+     "anyOf": [
+      {
+       "maxLength": 400,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "verbatim source text at the span (short)",
+     "title": "Quote"
+    },
+    "source": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "structured record for basis=metadata, e.g. 'opd:events/618276'",
+     "title": "Source"
+    },
+    "model_build": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Model Build"
+    },
+    "theta": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Theta"
+    },
+    "margin": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "null margin of the forced choice (nats); value kept iff margin <= theta",
+     "title": "Margin"
+    },
+    "candidates": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "size of the closed candidate set the model chose from",
+     "title": "Candidates"
+    }
+   },
+   "required": [
+    "value",
+    "basis",
+    "route"
+   ],
+   "title": "DecisionValue",
+   "type": "object"
+  },
+  "Document": {
+   "additionalProperties": false,
+   "properties": {
+    "doc_id": {
+     "description": "stable id, e.g. 'opd:404590', 'be-ogd:0778ef86...', 'fedlex:eli/fga/2014/2095/de'",
+     "title": "Doc Id",
+     "type": "string"
+    },
+    "source": {
+     "enum": [
+      "opd",
+      "canton",
+      "commune",
+      "fedlex",
+      "curia_vista",
+      "other"
+     ],
+     "title": "Source",
+     "type": "string"
+    },
+    "url": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Url"
+    },
+    "sha256": {
+     "anyOf": [
+      {
+       "pattern": "^[0-9a-f]{64}$",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Sha256"
+    },
+    "role": {
+     "enum": [
+      "question",
+      "answer",
+      "decision",
+      "message",
+      "report",
+      "minutes",
+      "agenda",
+      "annex",
+      "publication",
+      "placeholder",
+      "other"
+     ],
+     "title": "Role",
+     "type": "string"
+    },
+    "language": {
+     "anyOf": [
+      {
+       "enum": [
+        "de",
+        "fr",
+        "it",
+        "rm",
+        "en"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Language"
+    },
+    "n_pages": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "N Pages"
+    },
+    "extractor": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "pdftotext-<ver> | tesseract-<ver>-<langs> | opd-text",
+     "title": "Extractor"
+    },
+    "image_only": {
+     "default": false,
+     "title": "Image Only",
+     "type": "boolean"
+    },
+    "opd_text_status": {
+     "anyOf": [
+      {
+       "enum": [
+        "ok",
+        "null",
+        "blank",
+        "failed",
+        "placeholder"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Opd Text Status"
+    },
+    "parts": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/DocumentPart"
+     },
+     "title": "Parts",
+     "type": "array"
+    }
+   },
+   "required": [
+    "doc_id",
+    "source",
+    "role"
+   ],
+   "title": "Document",
+   "type": "object"
+  },
+  "DocumentPart": {
+   "additionalProperties": false,
+   "properties": {
+    "kind": {
+     "enum": [
+      "table",
+      "annex",
+      "image",
+      "signature",
+      "stamp",
+      "handwriting",
+      "header",
+      "footer",
+      "budget_table",
+      "toc"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "page_from": {
+     "minimum": 1,
+     "title": "Page From",
+     "type": "integer"
+    },
+    "page_to": {
+     "minimum": 1,
+     "title": "Page To",
+     "type": "integer"
+    },
+    "label": {
+     "anyOf": [
+      {
+       "maxLength": 200,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    }
+   },
+   "required": [
+    "kind",
+    "page_from",
+    "page_to"
+   ],
+   "title": "DocumentPart",
+   "type": "object"
+  },
+  "ExtractionRun": {
+   "additionalProperties": false,
+   "properties": {
+    "converter_version": {
+     "title": "Converter Version",
+     "type": "string"
+    },
+    "schema_version": {
+     "const": "0.1.0",
+     "default": "0.1.0",
+     "title": "Schema Version",
+     "type": "string"
+    },
+    "created": {
+     "format": "date-time",
+     "title": "Created",
+     "type": "string"
+    },
+    "builds": {
+     "default": [],
+     "description": "model builds consulted (e.g. 'gguf:apertus-v1.5-8b-text-q4_k_m')",
+     "items": {
+      "type": "string"
+     },
+     "title": "Builds",
+     "type": "array"
+    },
+    "notes": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Notes"
+    }
+   },
+   "required": [
+    "converter_version",
+    "created"
+   ],
+   "title": "ExtractionRun",
+   "type": "object"
+  },
+  "GovRecommendationValue": {
+   "additionalProperties": false,
+   "properties": {
+    "kind": {
+     "const": "value",
+     "default": "value",
+     "title": "Kind",
+     "type": "string"
+    },
+    "value": {
+     "enum": [
+      "accept",
+      "reject",
+      "convert",
+      "partial",
+      "accept_and_write_off",
+      "none",
+      "not_applicable"
+     ],
+     "title": "Value",
+     "type": "string"
+    },
+    "role": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "semantic role of the value (e.g. a DateRole for dates)",
+     "title": "Role"
+    },
+    "basis": {
+     "enum": [
+      "extracted",
+      "normalised",
+      "metadata",
+      "inferred"
+     ],
+     "title": "Basis",
+     "type": "string"
+    },
+    "route": {
+     "enum": [
+      "metadata",
+      "rule",
+      "apertus",
+      "ocr+rule",
+      "ocr+apertus"
+     ],
+     "title": "Route",
+     "type": "string"
+    },
+    "doc": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Document.doc_id the span points into",
+     "title": "Doc"
+    },
+    "page": {
+     "anyOf": [
+      {
+       "minimum": 1,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Page"
+    },
+    "char_start": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Char Start"
+    },
+    "char_end": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Char End"
+    },
+    "quote": {
+     "anyOf": [
+      {
+       "maxLength": 400,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "verbatim source text at the span (short)",
+     "title": "Quote"
+    },
+    "source": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "structured record for basis=metadata, e.g. 'opd:events/618276'",
+     "title": "Source"
+    },
+    "model_build": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Model Build"
+    },
+    "theta": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Theta"
+    },
+    "margin": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "null margin of the forced choice (nats); value kept iff margin <= theta",
+     "title": "Margin"
+    },
+    "candidates": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "size of the closed candidate set the model chose from",
+     "title": "Candidates"
+    }
+   },
+   "required": [
+    "value",
+    "basis",
+    "route"
+   ],
+   "title": "GovRecommendationValue",
+   "type": "object"
+  },
+  "ProceduralStateValue": {
+   "additionalProperties": false,
+   "properties": {
+    "kind": {
+     "const": "value",
+     "default": "value",
+     "title": "Kind",
+     "type": "string"
+    },
+    "value": {
+     "enum": [
+      "submitted",
+      "pending_answer",
+      "answered",
+      "scheduled",
+      "in_committee",
+      "debated",
+      "referred",
+      "decided",
+      "closed",
+      "withdrawn",
+      "lapsed",
+      "unknown"
+     ],
+     "title": "Value",
+     "type": "string"
+    },
+    "role": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "semantic role of the value (e.g. a DateRole for dates)",
+     "title": "Role"
+    },
+    "basis": {
+     "enum": [
+      "extracted",
+      "normalised",
+      "metadata",
+      "inferred"
+     ],
+     "title": "Basis",
+     "type": "string"
+    },
+    "route": {
+     "enum": [
+      "metadata",
+      "rule",
+      "apertus",
+      "ocr+rule",
+      "ocr+apertus"
+     ],
+     "title": "Route",
+     "type": "string"
+    },
+    "doc": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Document.doc_id the span points into",
+     "title": "Doc"
+    },
+    "page": {
+     "anyOf": [
+      {
+       "minimum": 1,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Page"
+    },
+    "char_start": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Char Start"
+    },
+    "char_end": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Char End"
+    },
+    "quote": {
+     "anyOf": [
+      {
+       "maxLength": 400,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "verbatim source text at the span (short)",
+     "title": "Quote"
+    },
+    "source": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "structured record for basis=metadata, e.g. 'opd:events/618276'",
+     "title": "Source"
+    },
+    "model_build": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Model Build"
+    },
+    "theta": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Theta"
+    },
+    "margin": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "null margin of the forced choice (nats); value kept iff margin <= theta",
+     "title": "Margin"
+    },
+    "candidates": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "size of the closed candidate set the model chose from",
+     "title": "Candidates"
+    }
+   },
+   "required": [
+    "value",
+    "basis",
+    "route"
+   ],
+   "title": "ProceduralStateValue",
+   "type": "object"
+  },
+  "QAPair": {
+   "additionalProperties": false,
+   "description": "One question and the executive's answer to it. The answer may live in a document or in a text record (CHE texts).",
+   "properties": {
+    "question_doc": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Question Doc"
+    },
+    "answer_doc": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Answer Doc"
+    },
+    "answer_text_ref": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "e.g. 'opd:texts/123' for Curia Vista answers",
+     "title": "Answer Text Ref"
+    },
+    "link_status": {
+     "enum": [
+      "attached",
+      "agenda",
+      "parentless",
+      "absent",
+      "image_only",
+      "oral",
+      "not_applicable"
+     ],
+     "title": "Link Status",
+     "type": "string"
+    },
+    "answering_body": {
+     "discriminator": {
+      "mapping": {
+       "null": "#/$defs/TypedNull",
+       "value": "#/$defs/TextValue"
+      },
+      "propertyName": "kind"
+     },
+     "oneOf": [
+      {
+       "$ref": "#/$defs/TextValue"
+      },
+      {
+       "$ref": "#/$defs/TypedNull"
+      }
+     ],
+     "title": "Answering Body"
+    },
+    "answer_date": {
+     "discriminator": {
+      "mapping": {
+       "null": "#/$defs/TypedNull",
+       "value": "#/$defs/DateValue"
+      },
+      "propertyName": "kind"
+     },
+     "oneOf": [
+      {
+       "$ref": "#/$defs/DateValue"
+      },
+      {
+       "$ref": "#/$defs/TypedNull"
+      }
+     ],
+     "title": "Answer Date"
+    },
+    "answer_identifier": {
+     "description": "decision number of the answer, e.g. RRB-Nr. 879/2024",
+     "discriminator": {
+      "mapping": {
+       "null": "#/$defs/TypedNull",
+       "value": "#/$defs/TextValue"
+      },
+      "propertyName": "kind"
+     },
+     "oneOf": [
+      {
+       "$ref": "#/$defs/TextValue"
+      },
+      {
+       "$ref": "#/$defs/TypedNull"
+      }
+     ],
+     "title": "Answer Identifier"
+    }
+   },
+   "required": [
+    "link_status",
+    "answering_body",
+    "answer_date",
+    "answer_identifier"
+   ],
+   "title": "QAPair",
+   "type": "object"
+  },
+  "RelatedAffair": {
+   "additionalProperties": false,
+   "properties": {
+    "relation": {
+     "enum": [
+      "answers",
+      "answered_by",
+      "follows_up",
+      "replaces",
+      "replaced_by",
+      "joined_with",
+      "same_subject",
+      "cites",
+      "implements",
+      "counter_proposal_to",
+      "other"
+     ],
+     "title": "Relation",
+     "type": "string"
+    },
+    "ref": {
+     "$ref": "#/$defs/AffairRef"
+    },
+    "evidence": {
+     "discriminator": {
+      "mapping": {
+       "null": "#/$defs/TypedNull",
+       "value": "#/$defs/TextValue"
+      },
+      "propertyName": "kind"
+     },
+     "oneOf": [
+      {
+       "$ref": "#/$defs/TextValue"
+      },
+      {
+       "$ref": "#/$defs/TypedNull"
+      }
+     ],
+     "title": "Evidence"
+    }
+   },
+   "required": [
+    "relation",
+    "ref",
+    "evidence"
+   ],
+   "title": "RelatedAffair",
+   "type": "object"
+  },
+  "TextValue": {
+   "additionalProperties": false,
+   "properties": {
+    "kind": {
+     "const": "value",
+     "default": "value",
+     "title": "Kind",
+     "type": "string"
+    },
+    "value": {
+     "title": "Value",
+     "type": "string"
+    },
+    "role": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "semantic role of the value (e.g. a DateRole for dates)",
+     "title": "Role"
+    },
+    "basis": {
+     "enum": [
+      "extracted",
+      "normalised",
+      "metadata",
+      "inferred"
+     ],
+     "title": "Basis",
+     "type": "string"
+    },
+    "route": {
+     "enum": [
+      "metadata",
+      "rule",
+      "apertus",
+      "ocr+rule",
+      "ocr+apertus"
+     ],
+     "title": "Route",
+     "type": "string"
+    },
+    "doc": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Document.doc_id the span points into",
+     "title": "Doc"
+    },
+    "page": {
+     "anyOf": [
+      {
+       "minimum": 1,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Page"
+    },
+    "char_start": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Char Start"
+    },
+    "char_end": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Char End"
+    },
+    "quote": {
+     "anyOf": [
+      {
+       "maxLength": 400,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "verbatim source text at the span (short)",
+     "title": "Quote"
+    },
+    "source": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "structured record for basis=metadata, e.g. 'opd:events/618276'",
+     "title": "Source"
+    },
+    "model_build": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Model Build"
+    },
+    "theta": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Theta"
+    },
+    "margin": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "null margin of the forced choice (nats); value kept iff margin <= theta",
+     "title": "Margin"
+    },
+    "candidates": {
+     "anyOf": [
+      {
+       "minimum": 0,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "size of the closed candidate set the model chose from",
+     "title": "Candidates"
+    }
+   },
+   "required": [
+    "value",
+    "basis",
+    "route"
+   ],
+   "title": "TextValue",
+   "type": "object"
+  },
+  "TypedNull": {
+   "additionalProperties": false,
+   "description": "An explicit, typed absence. A converter never returns a bare None for a field it was asked to fill.",
+   "properties": {
+    "kind": {
+     "const": "null",
+     "default": "null",
+     "title": "Kind",
+     "type": "string"
+    },
+    "null_reason": {
+     "enum": [
+      "not_in_corpus",
+      "unlinked",
+      "text_failed",
+      "image_only",
+      "oral",
+      "present_unanchored",
+      "not_applicable"
+     ],
+     "title": "Null Reason",
+     "type": "string"
+    },
+    "role": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Role"
+    },
+    "route": {
+     "enum": [
+      "metadata",
+      "rule",
+      "apertus",
+      "ocr+rule",
+      "ocr+apertus"
+     ],
+     "title": "Route",
+     "type": "string"
+    },
+    "evidence": {
+     "description": "why: the record, rule or abstention that established the null",
+     "minLength": 1,
+     "title": "Evidence",
+     "type": "string"
+    },
+    "doc": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Doc"
+    },
+    "related_doc": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "for unlinked: the OPD doc that holds the value but is not attached",
+     "title": "Related Doc"
+    },
+    "model_build": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Model Build"
+    },
+    "theta": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Theta"
+    },
+    "margin": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Margin"
+    }
+   },
+   "required": [
+    "null_reason",
+    "route",
+    "evidence"
+   ],
+   "title": "TypedNull",
+   "type": "object"
+  }
+ },
+ "additionalProperties": false,
+ "description": "A parliamentary affair in schema v0.1.",
+ "properties": {
+  "schema_version": {
+   "const": "0.1.0",
+   "default": "0.1.0",
+   "title": "Schema Version",
+   "type": "string"
+  },
+  "ref": {
+   "$ref": "#/$defs/AffairRef"
+  },
+  "body": {
+   "$ref": "#/$defs/Body"
+  },
+  "type": {
+   "$ref": "#/$defs/AffairTypeV"
+  },
+  "title": {
+   "additionalProperties": {
+    "type": "string"
+   },
+   "default": {},
+   "propertyNames": {
+    "enum": [
+     "de",
+     "fr",
+     "it",
+     "rm",
+     "en"
+    ]
+   },
+   "title": "Title",
+   "type": "object"
+  },
+  "languages": {
+   "default": [],
+   "items": {
+    "enum": [
+     "de",
+     "fr",
+     "it",
+     "rm",
+     "en"
+    ],
+    "type": "string"
+   },
+   "title": "Languages",
+   "type": "array"
+  },
+  "actors": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/Actor"
+   },
+   "title": "Actors",
+   "type": "array"
+  },
+  "dates": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/DatedEvent"
+   },
+   "title": "Dates",
+   "type": "array"
+  },
+  "procedural_state": {
+   "discriminator": {
+    "mapping": {
+     "null": "#/$defs/TypedNull",
+     "value": "#/$defs/ProceduralStateValue"
+    },
+    "propertyName": "kind"
+   },
+   "oneOf": [
+    {
+     "$ref": "#/$defs/ProceduralStateValue"
+    },
+    {
+     "$ref": "#/$defs/TypedNull"
+    }
+   ],
+   "title": "Procedural State"
+  },
+  "decision": {
+   "discriminator": {
+    "mapping": {
+     "null": "#/$defs/TypedNull",
+     "value": "#/$defs/DecisionValue"
+    },
+    "propertyName": "kind"
+   },
+   "oneOf": [
+    {
+     "$ref": "#/$defs/DecisionValue"
+    },
+    {
+     "$ref": "#/$defs/TypedNull"
+    }
+   ],
+   "title": "Decision"
+  },
+  "government_recommendation": {
+   "discriminator": {
+    "mapping": {
+     "null": "#/$defs/TypedNull",
+     "value": "#/$defs/GovRecommendationValue"
+    },
+    "propertyName": "kind"
+   },
+   "oneOf": [
+    {
+     "$ref": "#/$defs/GovRecommendationValue"
+    },
+    {
+     "$ref": "#/$defs/TypedNull"
+    }
+   ],
+   "title": "Government Recommendation"
+  },
+  "qa": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/QAPair"
+   },
+   "title": "Qa",
+   "type": "array"
+  },
+  "answer_link_status": {
+   "enum": [
+    "attached",
+    "agenda",
+    "parentless",
+    "absent",
+    "image_only",
+    "oral",
+    "not_applicable"
+   ],
+   "title": "Answer Link Status",
+   "type": "string"
+  },
+  "related_affairs": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/RelatedAffair"
+   },
+   "title": "Related Affairs",
+   "type": "array"
+  },
+  "documents": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/Document"
+   },
+   "title": "Documents",
+   "type": "array"
+  },
+  "extraction": {
+   "$ref": "#/$defs/ExtractionRun"
+  }
+ },
+ "required": [
+  "ref",
+  "body",
+  "type",
+  "procedural_state",
+  "decision",
+  "government_recommendation",
+  "answer_link_status",
+  "extraction"
+ ],
+ "title": "Affair",
+ "type": "object"
+}

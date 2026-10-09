@@ -1,0 +1,139 @@
+{
+ "schema_version": "0.1.0",
+ "ref": {
+  "body_key": "CHE",
+  "number": "14.089",
+  "opd_id": 58009
+ },
+ "body": {
+  "key": "CHE",
+  "name": "Bundesversammlung",
+  "level": "federal",
+  "languages": [
+   "de",
+   "fr",
+   "it"
+  ]
+ },
+ "type": {
+  "harmonised": "government_affair",
+  "opd_harmonised_id": 9,
+  "source_label": "Geschäft des Bundesrates"
+ },
+ "title": {
+  "de": "Für eine faire Verkehrsfinanzierung. Volksinitiative",
+  "fr": "Pour un financement équitable des transports. Initiative populaire"
+ },
+ "languages": [
+  "de",
+  "fr",
+  "it"
+ ],
+ "actors": [],
+ "dates": [
+  {
+   "role": "published",
+   "date": {
+    "kind": "value",
+    "value": "2014-11-19",
+    "role": "published",
+    "basis": "normalised",
+    "route": "rule",
+    "doc": "fedlex:eli/fga/2014/2095/de",
+    "page": 1,
+    "char_start": 372,
+    "char_end": 389,
+    "quote": "19. November 2014"
+   },
+   "label": "Botschaft des Bundesrates"
+  },
+  {
+   "role": "other",
+   "date": {
+    "kind": "value",
+    "value": "2014-03-10",
+    "role": "other",
+    "basis": "normalised",
+    "route": "rule",
+    "doc": "fedlex:eli/fga/2014/2095/de",
+    "page": 1,
+    "char_start": 237,
+    "char_end": 250,
+    "quote": "10. März 2014"
+   },
+   "label": "Volksinitiative eingereicht"
+  },
+  {
+   "role": "closed",
+   "date": {
+    "kind": "value",
+    "value": "2015-06-19",
+    "role": "closed",
+    "basis": "metadata",
+    "route": "metadata",
+    "source": "opd:events/107097"
+   },
+   "label": "Erledigt"
+  }
+ ],
+ "procedural_state": {
+  "kind": "value",
+  "value": "closed",
+  "basis": "metadata",
+  "route": "metadata",
+  "source": "opd:events/107097"
+ },
+ "decision": {
+  "kind": "value",
+  "value": "adopted",
+  "role": "final vote on the federal decree",
+  "basis": "metadata",
+  "route": "metadata",
+  "source": "opd:events/363707#title_de='Annahme in der Schlussabstimmung' (unharmonised in OPD)"
+ },
+ "government_recommendation": {
+  "kind": "value",
+  "value": "reject",
+  "basis": "inferred",
+  "route": "rule",
+  "doc": "fedlex:eli/fga/2014/2095/de",
+  "page": 2,
+  "char_start": 920,
+  "char_end": 973,
+  "quote": "empfiehlt Volk und Ständen, die Initiative abzulehnen"
+ },
+ "qa": [],
+ "answer_link_status": "not_applicable",
+ "related_affairs": [],
+ "documents": [
+  {
+   "doc_id": "opd:38879",
+   "source": "opd",
+   "url": "http://www.admin.ch/opc/de/federal-gazette/2014/9657.pdf",
+   "role": "placeholder",
+   "language": "de",
+   "image_only": false,
+   "opd_text_status": "placeholder",
+   "parts": []
+  },
+  {
+   "doc_id": "fedlex:eli/fga/2014/2095/de",
+   "source": "fedlex",
+   "url": "https://www.fedlex.admin.ch/filestore/fedlex.data.admin.ch/eli/fga/2014/2095/de/pdf-a/fedlex-data-admin-ch-eli-fga-2014-2095-de-pdf-a.pdf",
+   "sha256": "ef0da1854be3de6aed18a811ed7bc0c031b404160afe27390e19a47162c69b8b",
+   "role": "publication",
+   "language": "de",
+   "n_pages": 2,
+   "extractor": "pdftotext-26.02.0",
+   "image_only": false,
+   "parts": []
+  }
+ ],
+ "extraction": {
+  "converter_version": "samples-hand-0.1",
+  "schema_version": "0.1.0",
+  "created": "2026-10-09T20:00:00Z",
+  "builds": [],
+  "notes": "hand-built sample from spikes/recovery/results.md §7; not converter output"
+ }
+}

@@ -1,0 +1,65 @@
+[
+ {
+  "key": "not_in_corpus",
+  "labels": {
+   "de": "nicht im Korpus",
+   "fr": "absent du corpus",
+   "it": "assente dal corpus",
+   "en": "no document or record holding the value exists in OPD or at the source we checked"
+  }
+ },
+ {
+  "key": "unlinked",
+  "labels": {
+   "de": "vorhanden, aber nicht verknüpft",
+   "fr": "présent mais non lié",
+   "it": "presente ma non collegato",
+   "en": "the document exists in OPD but is not attached to the affair"
+  }
+ },
+ {
+  "key": "text_failed",
+  "labels": {
+   "de": "Textextraktion fehlgeschlagen",
+   "fr": "extraction du texte échouée",
+   "it": "estrazione del testo fallita",
+   "en": "document attached but its text is null, failed or a placeholder"
+  }
+ },
+ {
+  "key": "image_only",
+  "labels": {
+   "de": "nur Bild (Scan)",
+   "fr": "image seulement (scan)",
+   "it": "solo immagine (scansione)",
+   "en": "scanned PDF without a text layer"
+  }
+ },
+ {
+  "key": "oral",
+  "labels": {
+   "de": "mündlich beantwortet",
+   "fr": "réponse orale",
+   "it": "risposta orale",
+   "en": "answered orally; no written value exists"
+  }
+ },
+ {
+  "key": "present_unanchored",
+  "labels": {
+   "de": "im Text, aber ohne Anker",
+   "fr": "dans le texte, sans ancre",
+   "it": "nel testo, senza ancoraggio",
+   "en": "candidate values present but none is anchored to the field's role"
+  }
+ },
+ {
+  "key": "not_applicable",
+  "labels": {
+   "de": "nicht anwendbar",
+   "fr": "sans objet",
+   "it": "non applicabile",
+   "en": "the field does not apply to this affair type"
+  }
+ }
+]

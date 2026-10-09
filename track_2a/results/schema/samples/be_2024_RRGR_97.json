@@ -1,0 +1,144 @@
+{
+ "schema_version": "0.1.0",
+ "ref": {
+  "body_key": "BE",
+  "number": "2024.RRGR.97",
+  "opd_id": 130832
+ },
+ "body": {
+  "key": "BE",
+  "name": "Grosser Rat des Kantons Bern",
+  "level": "cantonal",
+  "languages": [
+   "de",
+   "fr"
+  ]
+ },
+ "type": {
+  "harmonised": "interpellation",
+  "opd_harmonised_id": 8,
+  "source_label": "Interpellation"
+ },
+ "title": {
+  "de": "Besorgniserregender Anstieg von antisemitischen, islamfeindlichen und rassistischen Vorfällen auch an Berner Schulen"
+ },
+ "languages": [
+  "de",
+  "fr"
+ ],
+ "actors": [],
+ "dates": [
+  {
+   "role": "submitted",
+   "date": {
+    "kind": "value",
+    "value": "2024-03-13",
+    "role": "submitted",
+    "basis": "metadata",
+    "route": "metadata",
+    "source": "opd:events/20753"
+   },
+   "label": "Eingereicht"
+  },
+  {
+   "role": "answered",
+   "date": {
+    "kind": "value",
+    "value": "2024-09-04",
+    "role": "answered",
+    "basis": "metadata",
+    "route": "metadata",
+    "source": "opd:events/393932"
+   },
+   "label": "Beantwortet"
+  }
+ ],
+ "procedural_state": {
+  "kind": "value",
+  "value": "scheduled",
+  "basis": "metadata",
+  "route": "metadata",
+  "source": "opd:events/675389"
+ },
+ "decision": {
+  "kind": "null",
+  "null_reason": "not_in_corpus",
+  "route": "metadata",
+  "evidence": "no decision event in OPD"
+ },
+ "government_recommendation": {
+  "kind": "value",
+  "value": "not_applicable",
+  "basis": "metadata",
+  "route": "metadata",
+  "source": "opd:affairs/130832#type_harmonized_id=8"
+ },
+ "qa": [
+  {
+   "question_doc": "opd:300609",
+   "link_status": "parentless",
+   "answering_body": {
+    "kind": "value",
+    "value": "Regierungsrat",
+    "basis": "metadata",
+    "route": "metadata",
+    "source": "opd:events/393932#actor_de=Regierung"
+   },
+   "answer_date": {
+    "kind": "null",
+    "null_reason": "unlinked",
+    "route": "metadata",
+    "evidence": "RRB-04.09.2024 (910/2024) is in OPD as parentless docs 89814 (DE) and 253383 (FR) with no affair_id; the affair has only its Vorstoss attached",
+    "related_doc": "opd:89814"
+   },
+   "answer_identifier": {
+    "kind": "null",
+    "null_reason": "unlinked",
+    "route": "metadata",
+    "evidence": "see answer_date",
+    "related_doc": "opd:89814"
+   }
+  }
+ ],
+ "answer_link_status": "parentless",
+ "related_affairs": [],
+ "documents": [
+  {
+   "doc_id": "opd:300609",
+   "source": "opd",
+   "url": "https://ogd.parl.apps.be.ch/pdf-upload/1b36381927d448dcaeb2de41ecc13fa9-332.pdf",
+   "role": "question",
+   "language": "de",
+   "image_only": false,
+   "opd_text_status": "ok",
+   "parts": []
+  },
+  {
+   "doc_id": "opd:89814",
+   "source": "opd",
+   "url": "https://www.rrgr-service.apps.be.ch/api/rr/documents/document/57f55bdf5e4b41f9a78fc4278461cf37-332/27/RRB-04.09.2024-de.pdf",
+   "role": "answer",
+   "language": "de",
+   "image_only": false,
+   "opd_text_status": "ok",
+   "parts": []
+  },
+  {
+   "doc_id": "opd:253383",
+   "source": "opd",
+   "url": "https://www.rrgr-service.apps.be.ch/api/rr/documents/document/a83b8687ca494f9c947f37699e630741-332/26/RRB-04.09.2024-fr.pdf",
+   "role": "answer",
+   "language": "fr",
+   "image_only": false,
+   "opd_text_status": "ok",
+   "parts": []
+  }
+ ],
+ "extraction": {
+  "converter_version": "samples-hand-0.1",
+  "schema_version": "0.1.0",
+  "created": "2026-10-09T20:00:00Z",
+  "builds": [],
+  "notes": "hand-built sample from spikes/recovery/results.md §7; not converter output"
+ }
+}

@@ -1,0 +1,205 @@
+{
+ "schema_version": "0.1.0",
+ "ref": {
+  "body_key": "BE",
+  "number": "2024.RRGR.91",
+  "opd_id": 130828
+ },
+ "body": {
+  "key": "BE",
+  "name": "Grosser Rat des Kantons Bern",
+  "level": "cantonal",
+  "languages": [
+   "de",
+   "fr"
+  ]
+ },
+ "type": {
+  "harmonised": "interpellation",
+  "opd_harmonised_id": 8,
+  "source_label": "Interpellation"
+ },
+ "title": {
+  "de": "Wie wirkt sich die BVG-Reform auf die Versicherten der Bernischen Pensionskasse (BPK) und der Bernischen Lehrerversicherungskasse (BLVK) aus?"
+ },
+ "languages": [
+  "de",
+  "fr"
+ ],
+ "actors": [
+  {
+   "role": "addressed_body",
+   "kind": "executive",
+   "name": {
+    "kind": "value",
+    "value": "Regierungsrat",
+    "basis": "inferred",
+    "route": "rule",
+    "doc": "be-ogd:0778ef860e7d4e5c8ab89d1fe2922a42",
+    "page": 1,
+    "char_start": 29,
+    "char_end": 56,
+    "quote": "Antwort des Regierungsrates"
+   }
+  }
+ ],
+ "dates": [
+  {
+   "role": "submitted",
+   "date": {
+    "kind": "value",
+    "value": "2024-03-13",
+    "role": "submitted",
+    "basis": "metadata",
+    "route": "metadata",
+    "source": "opd:events/271159"
+   },
+   "label": "Eingereicht"
+  },
+  {
+   "role": "submitted",
+   "date": {
+    "kind": "value",
+    "value": "2024-03-13",
+    "role": "submitted",
+    "basis": "normalised",
+    "route": "rule",
+    "doc": "be-ogd:0778ef860e7d4e5c8ab89d1fe2922a42",
+    "page": 1,
+    "char_start": 178,
+    "char_end": 188,
+    "quote": "13.03.2024"
+   },
+   "label": "Eingereicht am"
+  },
+  {
+   "role": "answered",
+   "date": {
+    "kind": "value",
+    "value": "2024-08-28",
+    "role": "answered",
+    "basis": "metadata",
+    "route": "metadata",
+    "source": "opd:events/84384"
+   },
+   "label": "Beantwortet"
+  },
+  {
+   "role": "scheduled",
+   "date": {
+    "kind": "value",
+    "value": "2024-11-25",
+    "role": "scheduled",
+    "basis": "metadata",
+    "route": "metadata",
+    "source": "opd:events/675383"
+   },
+   "label": "Traktandiert"
+  }
+ ],
+ "procedural_state": {
+  "kind": "value",
+  "value": "scheduled",
+  "basis": "metadata",
+  "route": "metadata",
+  "source": "opd:events/675383"
+ },
+ "decision": {
+  "kind": "null",
+  "null_reason": "not_in_corpus",
+  "route": "metadata",
+  "evidence": "no decision event in OPD (last event 'Traktandiert' 2024-11-25); an interpellation is debated, not decided, unless a declaration of satisfaction is recorded"
+ },
+ "government_recommendation": {
+  "kind": "value",
+  "value": "not_applicable",
+  "basis": "metadata",
+  "route": "metadata",
+  "source": "opd:affairs/130828#type_harmonized_id=8"
+ },
+ "qa": [
+  {
+   "question_doc": "opd:83619",
+   "answer_doc": "be-ogd:0778ef860e7d4e5c8ab89d1fe2922a42",
+   "link_status": "parentless",
+   "answering_body": {
+    "kind": "value",
+    "value": "Regierungsrat",
+    "basis": "inferred",
+    "route": "rule",
+    "doc": "be-ogd:0778ef860e7d4e5c8ab89d1fe2922a42",
+    "page": 1,
+    "char_start": 29,
+    "char_end": 56,
+    "quote": "Antwort des Regierungsrates"
+   },
+   "answer_date": {
+    "kind": "value",
+    "value": "2024-08-28",
+    "role": "answer_decided",
+    "basis": "normalised",
+    "route": "rule",
+    "doc": "be-ogd:0778ef860e7d4e5c8ab89d1fe2922a42",
+    "page": 1,
+    "char_start": 437,
+    "char_end": 452,
+    "quote": "28. August 2024"
+   },
+   "answer_identifier": {
+    "kind": "value",
+    "value": "879/2024",
+    "role": "RRB-Nr.",
+    "basis": "extracted",
+    "route": "rule",
+    "doc": "be-ogd:0778ef860e7d4e5c8ab89d1fe2922a42",
+    "page": 1,
+    "char_start": 424,
+    "char_end": 432,
+    "quote": "879/2024"
+   }
+  }
+ ],
+ "answer_link_status": "parentless",
+ "related_affairs": [],
+ "documents": [
+  {
+   "doc_id": "opd:83619",
+   "source": "opd",
+   "url": "https://ogd.parl.apps.be.ch/pdf-upload/9997a07610a24df2bf39f04920b6b276-332.pdf",
+   "role": "question",
+   "language": "de",
+   "image_only": false,
+   "opd_text_status": "ok",
+   "parts": []
+  },
+  {
+   "doc_id": "opd:404590",
+   "source": "opd",
+   "url": "https://www.rrgr-service.apps.be.ch/api/rr/documents/document/0778ef860e7d4e5c8ab89d1fe2922a42-332/27/RRB-28.08.2024-de.pdf",
+   "role": "answer",
+   "language": "de",
+   "image_only": false,
+   "opd_text_status": "ok",
+   "parts": []
+  },
+  {
+   "doc_id": "be-ogd:0778ef860e7d4e5c8ab89d1fe2922a42",
+   "source": "canton",
+   "url": "https://ogd.parl.apps.be.ch/pdf-upload/0778ef860e7d4e5c8ab89d1fe2922a42-332.pdf",
+   "sha256": "aee311edbe3633cbc60d581aa17b6a4f368d8ec31eeae3dbe16c44e6e05bce32",
+   "role": "answer",
+   "language": "de",
+   "n_pages": 5,
+   "extractor": "pdftotext-26.02.0",
+   "image_only": false,
+   "parts": []
+  }
+ ],
+ "extraction": {
+  "converter_version": "samples-hand-0.1",
+  "schema_version": "0.1.0",
+  "created": "2026-10-09T20:00:00Z",
+  "builds": [],
+  "notes": "hand-built sample from spikes/recovery/results.md §7; not converter output"
+ }
+}
