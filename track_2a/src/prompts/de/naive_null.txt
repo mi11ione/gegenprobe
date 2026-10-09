@@ -1,0 +1,7 @@
+Hier ist ein Dokument eines Schweizer Parlaments (Bund, Kanton oder Gemeinde) zu einem parlamentarischen Vorstoss.
+
+<dokument>
+{doc}
+</dokument>
+
+Wann hat die Regierung (die Exekutive) diesen Vorstoss beantwortet, mit welchem Beschluss (Nummer), und was hat sie geantwortet? Stütze dich ausschliesslich auf das Dokument. Wenn eine Angabe nicht im Dokument steht, setze null; erfinde nichts und verwende nicht das Einreichungsdatum. Gib als Beleg ein wörtliches Zitat aus dem Dokument an, das das Antwortdatum enthält (oder null). Antworte als JSON-Objekt mit genau diesen Schlüsseln in dieser Reihenfolge: {"antwort_datum": "JJJJ-MM-TT" oder null, "beschluss_nr": "..." oder null, "antwort_zusammenfassung": "..." oder null, "beleg": "..." oder null}

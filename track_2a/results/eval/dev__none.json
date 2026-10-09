@@ -1,0 +1,1791 @@
+{
+ "split": "dev",
+ "build": "none",
+ "theta": null,
+ "n_docs": 127,
+ "served_fingerprints": [],
+ "arms": {
+  "rules": {
+   "strict": {
+    "ALL": {
+     "n": 127,
+     "correct": 54,
+     "correct_null": 72,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 126,
+     "exact_rate": 0.9921259842519685,
+     "exact_ci": [
+      0.9567449252236082,
+      0.9986087237687615
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.001391276231238591,
+      0.04325507477639201
+     ],
+     "n_gold_null": 72,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.05065293981139638
+     ],
+     "n_gold_value": 55,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "de_canton": {
+     "n": 10,
+     "correct": 5,
+     "correct_null": 5,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 10,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.7224598312333834,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.2775401687666166
+     ],
+     "n_gold_null": 5,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.43449149475208104
+     ],
+     "n_gold_value": 5,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "de_commune": {
+     "n": 13,
+     "correct": 4,
+     "correct_null": 9,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 13,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.7718981569447083,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.22810184305529166
+     ],
+     "n_gold_null": 9,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2991527535509594
+     ],
+     "n_gold_value": 4,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "fr_canton": {
+     "n": 20,
+     "correct": 8,
+     "correct_null": 12,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 20,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.8388698745050667,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.16113012549493322
+     ],
+     "n_gold_null": 12,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2425007574992425
+     ],
+     "n_gold_value": 8,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "fr_commune": {
+     "n": 19,
+     "correct": 7,
+     "correct_null": 11,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 18,
+     "exact_rate": 0.9473684210526315,
+     "exact_ci": [
+      0.7536078466345479,
+      0.99064824750947
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.009351752490529969,
+      0.2463921533654521
+     ],
+     "n_gold_null": 11,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      2.7755575615628914e-17,
+      0.2588400172488141
+     ],
+     "n_gold_value": 8,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "it_canton": {
+     "n": 20,
+     "correct": 8,
+     "correct_null": 12,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 20,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.8388698745050667,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.16113012549493322
+     ],
+     "n_gold_null": 12,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2425007574992425
+     ],
+     "n_gold_value": 8,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "it_commune": {
+     "n": 10,
+     "correct": 4,
+     "correct_null": 6,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 10,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.7224598312333834,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.2775401687666166
+     ],
+     "n_gold_null": 6,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.3903430336530645
+     ],
+     "n_gold_value": 4,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "ocr_ti": {
+     "n": 5,
+     "correct": 3,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 5,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.5655085052479191,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.43449149475208104
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "n_gold_value": 3,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "spike_be_zh_bs": {
+     "n": 30,
+     "correct": 15,
+     "correct_null": 15,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 30,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.8864829086095221,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.113517091390478
+     ],
+     "n_gold_null": 15,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.20388926630434784
+     ],
+     "n_gold_value": 15,
+     "model_decided": 0,
+     "model_share": 0.0
+    }
+   },
+   "lenient": {
+    "ALL": {
+     "n": 127,
+     "correct": 55,
+     "correct_null": 72,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 127,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.9706393073762475,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.02936069262375269
+     ],
+     "n_gold_null": 72,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.05065293981139638
+     ],
+     "n_gold_value": 55,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "de_canton": {
+     "n": 10,
+     "correct": 5,
+     "correct_null": 5,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 10,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.7224598312333834,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.2775401687666166
+     ],
+     "n_gold_null": 5,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.43449149475208104
+     ],
+     "n_gold_value": 5,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "de_commune": {
+     "n": 13,
+     "correct": 4,
+     "correct_null": 9,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 13,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.7718981569447083,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.22810184305529166
+     ],
+     "n_gold_null": 9,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2991527535509594
+     ],
+     "n_gold_value": 4,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "fr_canton": {
+     "n": 20,
+     "correct": 8,
+     "correct_null": 12,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 20,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.8388698745050667,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.16113012549493322
+     ],
+     "n_gold_null": 12,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2425007574992425
+     ],
+     "n_gold_value": 8,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "fr_commune": {
+     "n": 19,
+     "correct": 8,
+     "correct_null": 11,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 19,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.8318156346315496,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.16818436536845052
+     ],
+     "n_gold_null": 11,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      2.7755575615628914e-17,
+      0.2588400172488141
+     ],
+     "n_gold_value": 8,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "it_canton": {
+     "n": 20,
+     "correct": 8,
+     "correct_null": 12,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 20,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.8388698745050667,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.16113012549493322
+     ],
+     "n_gold_null": 12,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2425007574992425
+     ],
+     "n_gold_value": 8,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "it_commune": {
+     "n": 10,
+     "correct": 4,
+     "correct_null": 6,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 10,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.7224598312333834,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.2775401687666166
+     ],
+     "n_gold_null": 6,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.3903430336530645
+     ],
+     "n_gold_value": 4,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "ocr_ti": {
+     "n": 5,
+     "correct": 3,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 5,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.5655085052479191,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.43449149475208104
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "n_gold_value": 3,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "spike_be_zh_bs": {
+     "n": 30,
+     "correct": 15,
+     "correct_null": 15,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 30,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.8864829086095221,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.113517091390478
+     ],
+     "n_gold_null": 15,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.20388926630434784
+     ],
+     "n_gold_value": 15,
+     "model_decided": 0,
+     "model_share": 0.0
+    }
+   }
+  }
+ },
+ "per_doc": [
+  {
+   "doc_id": 350899,
+   "cell": "de_canton",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 599034,
+   "cell": "de_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 96334,
+   "cell": "de_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 513092,
+   "cell": "de_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 248912,
+   "cell": "de_canton",
+   "gold": "2023-03-08",
+   "rules": {
+    "status": "value",
+    "value": "2023-03-08",
+    "rule": "be_rrb_new"
+   }
+  },
+  {
+   "doc_id": 600129,
+   "cell": "de_canton",
+   "gold": "1993-03-17",
+   "rules": {
+    "status": "value",
+    "value": "1993-03-17",
+    "rule": "protokoll_sitzung"
+   }
+  },
+  {
+   "doc_id": 412502,
+   "cell": "de_canton",
+   "gold": "2019-08-27",
+   "rules": {
+    "status": "value",
+    "value": "2019-08-27",
+    "rule": "rrb_vom"
+   }
+  },
+  {
+   "doc_id": 517948,
+   "cell": "de_canton",
+   "gold": "2021-03-15",
+   "rules": {
+    "status": "value",
+    "value": "2021-03-15",
+    "rule": "lu_antrag"
+   }
+  },
+  {
+   "doc_id": 28082,
+   "cell": "de_canton",
+   "gold": "2015-12-02",
+   "rules": {
+    "status": "value",
+    "value": "2015-12-02",
+    "rule": "datum_rr_sitzung"
+   }
+  },
+  {
+   "doc_id": 472207,
+   "cell": "de_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 286048,
+   "cell": "de_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 329669,
+   "cell": "de_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 122377,
+   "cell": "de_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 280415,
+   "cell": "de_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 332118,
+   "cell": "de_commune",
+   "gold": "2016-11-30",
+   "rules": {
+    "status": "value",
+    "value": "2016-11-30",
+    "rule": "place_date_head"
+   }
+  },
+  {
+   "doc_id": 229052,
+   "cell": "de_commune",
+   "gold": "2007-02-21",
+   "rules": {
+    "status": "value",
+    "value": "2007-02-21",
+    "rule": "place_date_head"
+   }
+  },
+  {
+   "doc_id": 278586,
+   "cell": "de_commune",
+   "gold": "2005-07-13",
+   "rules": {
+    "status": "value",
+    "value": "2005-07-13",
+    "rule": "place_date_head"
+   }
+  },
+  {
+   "doc_id": 381814,
+   "cell": "de_commune",
+   "gold": "2005-09-28",
+   "rules": {
+    "status": "value",
+    "value": "2005-09-28",
+    "rule": "place_date_head"
+   }
+  },
+  {
+   "doc_id": 4598,
+   "cell": "de_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 622152,
+   "cell": "de_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 436871,
+   "cell": "fr_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 538828,
+   "cell": "fr_canton",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 525480,
+   "cell": "fr_canton",
+   "gold": "2021-10-26",
+   "rules": {
+    "status": "value",
+    "value": "2021-10-26",
+    "rule": "place_date_tail"
+   }
+  },
+  {
+   "doc_id": 585856,
+   "cell": "fr_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 436172,
+   "cell": "fr_canton",
+   "gold": "2021-09-01",
+   "rules": {
+    "status": "value",
+    "value": "2021-09-01",
+    "rule": "date_de_depot_head"
+   }
+  },
+  {
+   "doc_id": 352736,
+   "cell": "fr_canton",
+   "gold": "2006-12-20",
+   "rules": {
+    "status": "value",
+    "value": "2006-12-20",
+    "rule": "proces_verbal_exec"
+   }
+  },
+  {
+   "doc_id": 419511,
+   "cell": "fr_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 427005,
+   "cell": "fr_canton",
+   "gold": "2023-07-12",
+   "rules": {
+    "status": "value",
+    "value": "2023-07-12",
+    "rule": "place_date_tail"
+   }
+  },
+  {
+   "doc_id": 443155,
+   "cell": "fr_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 196043,
+   "cell": "fr_canton",
+   "gold": "2012-04-04",
+   "rules": {
+    "status": "value",
+    "value": "2012-04-04",
+    "rule": "signature_block"
+   }
+  },
+  {
+   "doc_id": 556000,
+   "cell": "fr_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 869016,
+   "cell": "fr_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 19598,
+   "cell": "fr_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 869024,
+   "cell": "fr_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 19238,
+   "cell": "fr_commune",
+   "gold": "2021-12-23",
+   "rules": {
+    "status": "value",
+    "value": "2021-12-23",
+    "rule": "place_date_head"
+   }
+  },
+  {
+   "doc_id": 868872,
+   "cell": "fr_commune",
+   "gold": "2018-10-16",
+   "rules": {
+    "status": "value",
+    "value": "2018-10-16",
+    "rule": "place_date_head"
+   }
+  },
+  {
+   "doc_id": 246008,
+   "cell": "fr_commune",
+   "gold": "2007-03-21",
+   "rules": {
+    "status": "value",
+    "value": "2007-04-02",
+    "rule": "date_line_above_heading_head"
+   }
+  },
+  {
+   "doc_id": 19663,
+   "cell": "fr_commune",
+   "gold": "2024-10-24",
+   "rules": {
+    "status": "value",
+    "value": "2024-10-24",
+    "rule": "fr_adopte_seance"
+   }
+  },
+  {
+   "doc_id": 297057,
+   "cell": "fr_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 21941,
+   "cell": "fr_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 166615,
+   "cell": "it_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 375990,
+   "cell": "it_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 876792,
+   "cell": "it_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 424973,
+   "cell": "it_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 110047,
+   "cell": "it_canton",
+   "gold": "2022-06-28",
+   "rules": {
+    "status": "value",
+    "value": "2022-06-28",
+    "rule": "it_rg"
+   }
+  },
+  {
+   "doc_id": 220830,
+   "cell": "it_canton",
+   "gold": "2022-07-13",
+   "rules": {
+    "status": "value",
+    "value": "2022-07-13",
+    "rule": "it_rg"
+   }
+  },
+  {
+   "doc_id": 375225,
+   "cell": "it_canton",
+   "gold": "2022-05-30",
+   "rules": {
+    "status": "value",
+    "value": "2022-05-30",
+    "rule": "it_risposta_del"
+   }
+  },
+  {
+   "doc_id": 375932,
+   "cell": "it_canton",
+   "gold": "2020-05-04",
+   "rules": {
+    "status": "value",
+    "value": "2020-05-04",
+    "rule": "it_risposta_del"
+   }
+  },
+  {
+   "doc_id": 166404,
+   "cell": "it_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 50899,
+   "cell": "it_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 346038,
+   "cell": "it_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 883815,
+   "cell": "it_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 135220,
+   "cell": "it_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 884786,
+   "cell": "it_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 295567,
+   "cell": "it_commune",
+   "gold": "2012-02-01",
+   "rules": {
+    "status": "value",
+    "value": "2012-02-01",
+    "rule": "it_ris_label"
+   }
+  },
+  {
+   "doc_id": 884496,
+   "cell": "it_commune",
+   "gold": "2020-01-31",
+   "rules": {
+    "status": "value",
+    "value": "2020-01-31",
+    "rule": "date_line_above_heading_head"
+   }
+  },
+  {
+   "doc_id": 243626,
+   "cell": "it_commune",
+   "gold": "2011-09-28",
+   "rules": {
+    "status": "value",
+    "value": "2011-09-28",
+    "rule": "it_ris_label"
+   }
+  },
+  {
+   "doc_id": 884537,
+   "cell": "it_commune",
+   "gold": "2011-03-16",
+   "rules": {
+    "status": "value",
+    "value": "2011-03-16",
+    "rule": "place_date_head"
+   }
+  },
+  {
+   "doc_id": 243782,
+   "cell": "it_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 296039,
+   "cell": "it_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 424652,
+   "cell": "ocr_ti",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 325462,
+   "cell": "ocr_ti",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 375440,
+   "cell": "ocr_ti",
+   "gold": "2018-07-11",
+   "rules": {
+    "status": "value",
+    "value": "2018-07-11",
+    "rule": "ti_header_date_head"
+   }
+  },
+  {
+   "doc_id": 424715,
+   "cell": "ocr_ti",
+   "gold": "2019-07-10",
+   "rules": {
+    "status": "value",
+    "value": "2019-07-10",
+    "rule": "ti_header_date_head"
+   }
+  },
+  {
+   "doc_id": 325384,
+   "cell": "ocr_ti",
+   "gold": "2021-06-02",
+   "rules": {
+    "status": "value",
+    "value": "2021-06-02",
+    "rule": "it_rg"
+   }
+  },
+  {
+   "doc_id": 382066,
+   "cell": "de_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 4132,
+   "cell": "de_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 622057,
+   "cell": "de_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 530606,
+   "cell": "fr_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 140581,
+   "cell": "fr_canton",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 45084,
+   "cell": "fr_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 638401,
+   "cell": "fr_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 646521,
+   "cell": "fr_canton",
+   "gold": "2025-11-19",
+   "rules": {
+    "status": "value",
+    "value": "2025-11-19",
+    "rule": "date_de_depot_head"
+   }
+  },
+  {
+   "doc_id": 143820,
+   "cell": "fr_canton",
+   "gold": "2014-04-30",
+   "rules": {
+    "status": "value",
+    "value": "2014-04-30",
+    "rule": "be_ace_split"
+   }
+  },
+  {
+   "doc_id": 638736,
+   "cell": "fr_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 588458,
+   "cell": "fr_canton",
+   "gold": "2015-04-28",
+   "rules": {
+    "status": "value",
+    "value": "2015-04-28",
+    "rule": "place_date_tail"
+   }
+  },
+  {
+   "doc_id": 213042,
+   "cell": "fr_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 300226,
+   "cell": "fr_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 19528,
+   "cell": "fr_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 868991,
+   "cell": "fr_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 869031,
+   "cell": "fr_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 397640,
+   "cell": "fr_commune",
+   "gold": "2022-11-17",
+   "rules": {
+    "status": "value",
+    "value": "2022-11-17",
+    "rule": "fr_adopte_seance"
+   }
+  },
+  {
+   "doc_id": 868806,
+   "cell": "fr_commune",
+   "gold": "2020-01-27",
+   "rules": {
+    "status": "value",
+    "value": "2020-01-27",
+    "rule": "place_date_head"
+   }
+  },
+  {
+   "doc_id": 138378,
+   "cell": "fr_commune",
+   "gold": "2013-05-22",
+   "rules": {
+    "status": "value",
+    "value": "2013-05-22",
+    "rule": "date_line_above_heading_head"
+   }
+  },
+  {
+   "doc_id": 296673,
+   "cell": "fr_commune",
+   "gold": "2024-10-24",
+   "rules": {
+    "status": "value",
+    "value": "2024-10-24",
+    "rule": "fr_adopte_seance"
+   }
+  },
+  {
+   "doc_id": 245154,
+   "cell": "fr_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 299330,
+   "cell": "fr_commune",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 557561,
+   "cell": "it_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 110091,
+   "cell": "it_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 105281,
+   "cell": "it_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 110111,
+   "cell": "it_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 166761,
+   "cell": "it_canton",
+   "gold": "2024-07-03",
+   "rules": {
+    "status": "value",
+    "value": "2024-07-03",
+    "rule": "it_rg"
+   }
+  },
+  {
+   "doc_id": 677313,
+   "cell": "it_canton",
+   "gold": "2026-02-04",
+   "rules": {
+    "status": "value",
+    "value": "2026-02-04",
+    "rule": "it_rg"
+   }
+  },
+  {
+   "doc_id": 531046,
+   "cell": "it_canton",
+   "gold": "2025-05-07",
+   "rules": {
+    "status": "value",
+    "value": "2025-05-07",
+    "rule": "it_rg"
+   }
+  },
+  {
+   "doc_id": 273843,
+   "cell": "it_canton",
+   "gold": "2017-06-19",
+   "rules": {
+    "status": "value",
+    "value": "2017-06-19",
+    "rule": "it_risposta_del"
+   }
+  },
+  {
+   "doc_id": 109783,
+   "cell": "it_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 109769,
+   "cell": "it_canton",
+   "gold": null,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 84090,
+   "cell": "spike_be_zh_bs",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 83619,
+   "cell": "spike_be_zh_bs",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 301010,
+   "cell": "spike_be_zh_bs",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 554764,
+   "cell": "spike_be_zh_bs",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 538825,
+   "cell": "spike_be_zh_bs",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 554812,
+   "cell": "spike_be_zh_bs",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 688308,
+   "cell": "spike_be_zh_bs",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 647288,
+   "cell": "spike_be_zh_bs",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 300347,
+   "cell": "spike_be_zh_bs",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 139899,
+   "cell": "spike_be_zh_bs",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 194910,
+   "cell": "spike_be_zh_bs",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 300609,
+   "cell": "spike_be_zh_bs",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 22731,
+   "cell": "spike_be_zh_bs",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 140572,
+   "cell": "spike_be_zh_bs",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 538756,
+   "cell": "spike_be_zh_bs",
+   "gold": null,
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 604197,
+   "cell": "spike_be_zh_bs",
+   "gold": "2025-10-15",
+   "rules": {
+    "status": "value",
+    "value": "2025-10-15",
+    "rule": "be_rrb_split"
+   }
+  },
+  {
+   "doc_id": 247971,
+   "cell": "spike_be_zh_bs",
+   "gold": "2013-11-18",
+   "rules": {
+    "status": "value",
+    "value": "2013-11-18",
+    "rule": "be_rrb_split"
+   }
+  },
+  {
+   "doc_id": 351183,
+   "cell": "spike_be_zh_bs",
+   "gold": "2013-12-18",
+   "rules": {
+    "status": "value",
+    "value": "2013-12-18",
+    "rule": "be_rrb_split"
+   }
+  },
+  {
+   "doc_id": 23283,
+   "cell": "spike_be_zh_bs",
+   "gold": "2014-02-26",
+   "rules": {
+    "status": "value",
+    "value": "2014-02-26",
+    "rule": "be_rrb_split"
+   }
+  },
+  {
+   "doc_id": 351217,
+   "cell": "spike_be_zh_bs",
+   "gold": "2013-10-23",
+   "rules": {
+    "status": "value",
+    "value": "2013-10-23",
+    "rule": "be_rrb_split"
+   }
+  },
+  {
+   "doc_id": 330139,
+   "cell": "spike_be_zh_bs",
+   "gold": "2023-09-27",
+   "rules": {
+    "status": "value",
+    "value": "2023-09-27",
+    "rule": "protokoll_sitzung"
+   }
+  },
+  {
+   "doc_id": 473388,
+   "cell": "spike_be_zh_bs",
+   "gold": "2025-03-19",
+   "rules": {
+    "status": "value",
+    "value": "2025-03-19",
+    "rule": "protokoll_sitzung"
+   }
+  },
+  {
+   "doc_id": 171575,
+   "cell": "spike_be_zh_bs",
+   "gold": "2024-04-17",
+   "rules": {
+    "status": "value",
+    "value": "2024-04-17",
+    "rule": "protokoll_sitzung"
+   }
+  },
+  {
+   "doc_id": 59972,
+   "cell": "spike_be_zh_bs",
+   "gold": "2023-05-10",
+   "rules": {
+    "status": "value",
+    "value": "2023-05-10",
+    "rule": "protokoll_sitzung"
+   }
+  },
+  {
+   "doc_id": 171354,
+   "cell": "spike_be_zh_bs",
+   "gold": "2024-06-26",
+   "rules": {
+    "status": "value",
+    "value": "2024-06-26",
+    "rule": "protokoll_sitzung"
+   }
+  },
+  {
+   "doc_id": 205512,
+   "cell": "spike_be_zh_bs",
+   "gold": "2023-10-31",
+   "rules": {
+    "status": "value",
+    "value": "2023-10-31",
+    "rule": "rrb_vom"
+   }
+  },
+  {
+   "doc_id": 408531,
+   "cell": "spike_be_zh_bs",
+   "gold": "2024-05-07",
+   "rules": {
+    "status": "value",
+    "value": "2024-05-07",
+    "rule": "rrb_vom"
+   }
+  },
+  {
+   "doc_id": 362548,
+   "cell": "spike_be_zh_bs",
+   "gold": "2023-01-31",
+   "rules": {
+    "status": "value",
+    "value": "2023-01-31",
+    "rule": "rrb_vom"
+   }
+  },
+  {
+   "doc_id": 93903,
+   "cell": "spike_be_zh_bs",
+   "gold": "2024-05-28",
+   "rules": {
+    "status": "value",
+    "value": "2024-05-28",
+    "rule": "rrb_vom"
+   }
+  },
+  {
+   "doc_id": 357926,
+   "cell": "spike_be_zh_bs",
+   "gold": "2023-03-07",
+   "rules": {
+    "status": "value",
+    "value": "2023-03-07",
+    "rule": "rrb_vom"
+   }
+  }
+ ]
+}
