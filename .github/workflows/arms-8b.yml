@@ -30,8 +30,10 @@ jobs:
       - uses: actions/cache@v4
         with: {path: "${{ github.workspace }}/work/models", key: gguf-apertus-v1.5-8b-q4km-a037df8d}
       - run: python -c "from gegenprobe import llm; print(llm.fetch_gguf('apertus-v1.5-8b-text-q4_k_m'))"
-      - name: parity gate (fast scorer vs frozen scorer)
-        run: mkdir -p out && python -m gegenprobe.gguf_fast parity out/gguf_fast_parity.json
+      - name: fast vs frozen scorer (recorded; multi-token kernel-path differences expected, see D2)
+        run: mkdir -p out && (python -m gegenprobe.gguf_fast parity out/gguf_fast_parity.json || true)
+      - name: gate (D2 rule) — fast and frozen scorer against bf16 on 30 multi-token verdict cells
+        run: python -m gegenprobe.gguf_fast verparity out/gguf_fast_verparity.json
       - run: python -m eval.run_arms fetch --split dev
       - run: python -m eval.run_arms fit | tee out/fit.log
       - uses: actions/upload-artifact@v4

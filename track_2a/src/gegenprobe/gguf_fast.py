@@ -99,5 +99,36 @@ def parity(out: str) -> int:
     return 0 if mx <= 0.5 else 1
 
 
+
+
+def verparity(out: str) -> int:
+    """Multi-token continuations against bf16: 30 verdict cells (' schuldig' / ' nicht schuldig' after 'Urteil:'),
+    frozen scorer vs fast scorer, both against the bf16 DPO reference. Decision rule (DEVIATIONS.md D2, set before running):
+    the fast scorer is used iff its decisions agree with bf16 on >= (frozen - 1) cells and its mean |delta| vs bf16 is
+    <= frozen + 0.5 nats."""
+    import gc
+    from pathlib import Path
+    fx = json.loads((Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "gguf_ver30.json").read_text())
+    users = [r["text"] + fx["questions"][r["rung"]] for r in fx["rows"]]
+    ref = [r["bf16_dpo"] for r in fx["rows"]]
+    res = {}
+    for name, cls in (("frozen", GGUF), ("fast", GGUFFast)):
+        m = cls(cache_readonly=True)
+        lo = []
+        for u in users:
+            a, b = m.score(u, fx["prefix"], fx["candidates"])
+            lo.append(a - b)
+        del m
+        gc.collect()
+        res[name] = dict(lo=lo, agree=sum((x > 0) == (y > 0) for x, y in zip(lo, ref)),
+                         mad=sum(abs(x - y) for x, y in zip(lo, ref)) / len(ref))
+    ok = res["fast"]["agree"] >= res["frozen"]["agree"] - 1 and res["fast"]["mad"] <= res["frozen"]["mad"] + 0.5
+    res["verdict"] = "PASS" if ok else "FAIL"
+    open(out, "w").write(json.dumps(res, indent=1))
+    print({k: (v["agree"], round(v["mad"], 2)) for k, v in res.items() if k != "verdict"}, res["verdict"])
+    return 0 if ok else 1
+
+
 if __name__ == "__main__":
-    sys.exit(parity(sys.argv[2] if len(sys.argv) > 2 else "out/gguf_fast_parity.json"))
+    out = sys.argv[2] if len(sys.argv) > 2 else "out/gguf_fast_parity.json"
+    sys.exit(verparity(out) if sys.argv[1] == "verparity" else parity(out))

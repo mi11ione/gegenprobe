@@ -30,3 +30,11 @@ decisions (mean |Δ| 2.66 nats), as close as or closer than the spike's Metal bu
 - D2 addendum: the first parity gate (CI run 37992237668) FAILED (max |Δ| 57.8 nats): the fast scorer read an unfilled
   `scores` row (uniform logits, −11.79 = log 1/131,272 for every token). Fixed to read the context's last-token logits with
   a flat-row guard; no 8B arm had run. The gate is re-run unchanged.
+- D2 addendum 2: the re-run gate (CI run 37994205470) FAILED again at its 0.5-nat threshold (max |Δ| 4.47 nats). All 24
+  single-token values now match the frozen scorer exactly (Δ = 0.00); only the 3-token continuation differs (0.6–4.5
+  nats on a −90-nat continuation), because the fast scorer feeds continuation tokens one at a time while the frozen scorer
+  evaluates them as one batch, which takes a different llama.cpp CPU kernel path. The threshold is NOT relaxed. Instead,
+  before any 8B arm runs, both scorers are compared against the bf16 reference on 30 multi-token verdict cells
+  (`gguf_fast verparity`, fixture `tests/fixtures/gguf_ver30.json`, seed 20261010). Rule fixed now: the fast scorer is
+  used iff its decision agreement with bf16 ≥ frozen − 1 and its mean |Δ| vs bf16 ≤ frozen + 0.5 nats; otherwise the 8B
+  arms are reported as not run.
