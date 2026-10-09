@@ -1,6 +1,6 @@
 # Gegenprobe (Track 2A, OpenParlData). Judges: `make run` (Docker, CPU, clean checkout).
 # Development targets run on the host with .venv (python 3.11); every target is re-runnable and writes under results/.
-.PHONY: run test lint claims census census-scan census-replay repair repair-network nightly-offline convert eval report install-nightly docker-build
+.PHONY: figures run test lint claims census census-scan census-replay repair repair-network nightly-offline convert eval report install-nightly docker-build
 
 PY ?= .venv/bin/python
 IMAGE ?= gegenprobe:latest
@@ -103,3 +103,7 @@ eval:
 
 report:
 	@echo "report: TODO"
+
+# ---- figures (dev only; needs the [report] extra: matplotlib)
+figures:
+	$(PY) -m report.figures

@@ -1,0 +1,54 @@
+{
+ "document": {
+  "doc_id": "be-ogd:0778ef860e7d4e5c8ab89d1fe2922a42",
+  "url": "https://ogd.parl.apps.be.ch/pdf-upload/0778ef860e7d4e5c8ab89d1fe2922a42-332.pdf",
+  "sha256": "aee311edbe3633cbc60d581aa17b6a4f368d8ec31eeae3dbe16c44e6e05bce32",
+  "language": "de",
+  "n_pages": 5,
+  "extractor": "pdftotext-26.02.0"
+ },
+ "answer_date_rules": {
+  "kind": "value",
+  "value": "2024-08-28",
+  "role": "answer_decided",
+  "basis": "normalised",
+  "route": "rule",
+  "doc": "be-ogd:0778ef860e7d4e5c8ab89d1fe2922a42",
+  "page": 1,
+  "char_start": 437,
+  "char_end": 452,
+  "quote": "28. August 2024",
+  "context": "vom 28. August 2024"
+ },
+ "answer_date_cascade": {
+  "value": "2024-08-28",
+  "route": "rule",
+  "matches_expected": true
+ },
+ "recommendation": {
+  "kind": "null",
+  "null_reason": "not_applicable",
+  "route": "rule",
+  "evidence": "affair_type",
+  "doc": "be-ogd:0778ef860e7d4e5c8ab89d1fe2922a42"
+ },
+ "apertus_pointer": null,
+ "checks": [
+  {
+   "check": "span",
+   "code": "ok"
+  },
+  {
+   "check": "distractor",
+   "code": "pass"
+  },
+  {
+   "check": "self_deletion",
+   "code": "pass"
+  },
+  {
+   "check": "span",
+   "code": "ok"
+  }
+ ]
+}

@@ -516,22 +516,65 @@
    }
   }
  },
+ "recommendation": {
+  "rec_rules": {
+   "n": 127,
+   "correct": 127,
+   "correct_ci": [
+    0.9706393073762475,
+    1.0
+   ],
+   "n_gold_value": 2,
+   "correct_on_value": 2,
+   "n_gold_null": 125,
+   "invented_on_null": 0,
+   "invented_on_null_ci": [
+    0.0,
+    0.0298164567965626
+   ]
+  }
+ },
  "per_doc": [
   {
    "doc_id": 350899,
    "cell": "de_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2015-06-08",
+    "2015-09-09",
+    "2015-09-11",
+    "2015-09-11"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 599034,
    "cell": "de_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2002-06-17"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -541,7 +584,18 @@
    "doc_id": 96334,
    "cell": "de_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2013-09-27"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -551,7 +605,18 @@
    "doc_id": 513092,
    "cell": "de_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2017-10-30"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -561,57 +626,149 @@
    "doc_id": 248912,
    "cell": "de_canton",
    "gold": "2023-03-08",
+   "lenient": [],
+   "doc_dates": [
+    "2023-03-08",
+    "2013-06-13",
+    "2022-06-15",
+    "2022-11-16",
+    "2023-01-15",
+    "2023-01-15",
+    "2023-01-15"
+   ],
    "rules": {
     "status": "value",
     "value": "2023-03-08",
-    "rule": "be_rrb_new"
+    "rule": "be_rrb_new",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
    }
   },
   {
    "doc_id": 600129,
    "cell": "de_canton",
    "gold": "1993-03-17",
+   "lenient": [],
+   "doc_dates": [
+    "1993-03-17",
+    "1992-11-23",
+    "1993-03-17"
+   ],
    "rules": {
     "status": "value",
     "value": "1993-03-17",
-    "rule": "protokoll_sitzung"
+    "rule": "protokoll_sitzung",
+    "route": "rule"
+   },
+   "rec_gold": "reject",
+   "rec_rules": {
+    "status": "value",
+    "value": "reject",
+    "rule": "rec_reject"
    }
   },
   {
    "doc_id": 412502,
    "cell": "de_canton",
    "gold": "2019-08-27",
+   "lenient": [
+    "2019-08-28",
+    "2019-08-30"
+   ],
+   "doc_dates": [
+    "2019-08-28",
+    "2019-08-27",
+    "2017-12-14",
+    "2019-08-30"
+   ],
    "rules": {
     "status": "value",
     "value": "2019-08-27",
-    "rule": "rrb_vom"
+    "rule": "rrb_vom",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
    }
   },
   {
    "doc_id": 517948,
    "cell": "de_canton",
    "gold": "2021-03-15",
+   "lenient": [],
+   "doc_dates": [
+    "2021-03-15",
+    "2021-03-15",
+    "2021-03-15",
+    "2021-01-28",
+    "2021-03-05",
+    "2021-03-08",
+    "2021-03-12"
+   ],
    "rules": {
     "status": "value",
     "value": "2021-03-15",
-    "rule": "lu_antrag"
+    "rule": "lu_antrag",
+    "route": "rule"
+   },
+   "rec_gold": "accept",
+   "rec_rules": {
+    "status": "value",
+    "value": "accept",
+    "rule": "rec_accept"
    }
   },
   {
    "doc_id": 28082,
    "cell": "de_canton",
    "gold": "2015-12-02",
+   "lenient": [],
+   "doc_dates": [
+    "2015-12-02",
+    "1999-09-08",
+    "2000-10-25",
+    "2002-03-26",
+    "2003-12-03",
+    "2017-12-31",
+    "2015-07-16"
+   ],
    "rules": {
     "status": "value",
     "value": "2015-12-02",
-    "rule": "datum_rr_sitzung"
+    "rule": "datum_rr_sitzung",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
    }
   },
   {
    "doc_id": 472207,
    "cell": "de_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2022-02-21"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -621,17 +778,40 @@
    "doc_id": 286048,
    "cell": "de_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2023-10-04"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 329669,
    "cell": "de_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2007-12-10",
+    "2007-06-22"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -641,67 +821,167 @@
    "doc_id": 122377,
    "cell": "de_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2023-05-10",
+    "2023-05-01"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 280415,
    "cell": "de_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2011-09-19"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 332118,
    "cell": "de_commune",
    "gold": "2016-11-30",
+   "lenient": [],
+   "doc_dates": [
+    "2016-11-30",
+    "2016-09-19"
+   ],
    "rules": {
     "status": "value",
     "value": "2016-11-30",
-    "rule": "place_date_head"
+    "rule": "place_date_head",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 229052,
    "cell": "de_commune",
    "gold": "2007-02-21",
+   "lenient": [],
+   "doc_dates": [
+    "2007-02-21",
+    "2006-10-30",
+    "2005-09-25",
+    "2006-10-31",
+    "2007-01-18",
+    "2006-05-17",
+    "2007-01-12",
+    "2007-01-17",
+    "2007-01-22"
+   ],
    "rules": {
     "status": "value",
     "value": "2007-02-21",
-    "rule": "place_date_head"
+    "rule": "place_date_head",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 278586,
    "cell": "de_commune",
    "gold": "2005-07-13",
+   "lenient": [],
+   "doc_dates": [
+    "2005-07-13",
+    "2005-04-18",
+    "2006-01-01",
+    "2006-01-01",
+    "2005-01-01",
+    "2006-01-01",
+    "2006-01-01",
+    "2006-01-01"
+   ],
    "rules": {
     "status": "value",
     "value": "2005-07-13",
-    "rule": "place_date_head"
+    "rule": "place_date_head",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 381814,
    "cell": "de_commune",
    "gold": "2005-09-28",
+   "lenient": [],
+   "doc_dates": [
+    "2005-09-28",
+    "2005-06-27",
+    "2005-06-23",
+    "2004-02-25",
+    "2004-01-21"
+   ],
    "rules": {
     "status": "value",
     "value": "2005-09-28",
-    "rule": "place_date_head"
+    "rule": "place_date_head",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 4598,
    "cell": "de_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2014-09-17",
+    "2014-04-02",
+    "2014-05-14"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -711,7 +991,19 @@
    "doc_id": 622152,
    "cell": "de_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2010-06-28",
+    "2010-07-01"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -721,7 +1013,26 @@
    "doc_id": 436871,
    "cell": "fr_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2023-03-07",
+    "2022-10-14",
+    "2023-04-02",
+    "2022-12-05",
+    "2023-02-07",
+    "2023-02-09",
+    "2023-04-02",
+    "2022-12-05",
+    "2023-01-09"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -731,27 +1042,68 @@
    "doc_id": 538828,
    "cell": "fr_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-02-24",
+    "2025-03-06",
+    "2020-01-14",
+    "2025-02-26",
+    "2025-02-26",
+    "2025-02-26"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 525480,
    "cell": "fr_canton",
    "gold": "2021-10-26",
+   "lenient": [],
+   "doc_dates": [
+    "1993-09-22",
+    "2021-10-26"
+   ],
    "rules": {
     "status": "value",
     "value": "2021-10-26",
-    "rule": "place_date_tail"
+    "rule": "place_date_tail",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 585856,
    "cell": "fr_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2019-03-14",
+    "2016-11-15",
+    "2018-01-22"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -761,47 +1113,121 @@
    "doc_id": 436172,
    "cell": "fr_canton",
    "gold": "2021-09-01",
+   "lenient": [],
+   "doc_dates": [
+    "2021-09-01",
+    "2021-05-20",
+    "2022-03-08"
+   ],
    "rules": {
     "status": "value",
     "value": "2021-09-01",
-    "rule": "date_de_depot_head"
-   }
-  },
-  {
-   "doc_id": 352736,
-   "cell": "fr_canton",
-   "gold": "2006-12-20",
-   "rules": {
-    "status": "value",
-    "value": "2006-12-20",
-    "rule": "proces_verbal_exec"
-   }
-  },
-  {
-   "doc_id": 419511,
-   "cell": "fr_canton",
-   "gold": null,
-   "rules": {
+    "rule": "date_de_depot_head",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
    }
   },
   {
+   "doc_id": 352736,
+   "cell": "fr_canton",
+   "gold": "2006-12-20",
+   "lenient": [],
+   "doc_dates": [
+    "2006-12-20",
+    "1997-05-05",
+    "1997-10-29",
+    "2002-11-25",
+    "2006-02-28",
+    "2006-02-01",
+    "2006-02-08",
+    "2006-09-01"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2006-12-20",
+    "rule": "proces_verbal_exec",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 419511,
+   "cell": "fr_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2014-04-23"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
+   }
+  },
+  {
    "doc_id": 427005,
    "cell": "fr_canton",
    "gold": "2023-07-12",
+   "lenient": [],
+   "doc_dates": [
+    "2021-11-14",
+    "2022-12-31",
+    "2022-12-31",
+    "2022-12-31",
+    "2018-10-03",
+    "2023-07-12"
+   ],
    "rules": {
     "status": "value",
     "value": "2023-07-12",
-    "rule": "place_date_tail"
+    "rule": "place_date_tail",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 443155,
    "cell": "fr_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2003-04-28",
+    "2003-03-19",
+    "2002-03-12",
+    "1996-12-17",
+    "1997-02-24",
+    "1993-10-07"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -811,17 +1237,42 @@
    "doc_id": 196043,
    "cell": "fr_canton",
    "gold": "2012-04-04",
+   "lenient": [],
+   "doc_dates": [
+    "1945-05-06",
+    "1996-01-16",
+    "1996-01-16",
+    "2012-04-04"
+   ],
    "rules": {
     "status": "value",
     "value": "2012-04-04",
-    "rule": "signature_block"
+    "rule": "signature_block",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
    }
   },
   {
    "doc_id": 556000,
    "cell": "fr_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-05-23"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -831,17 +1282,40 @@
    "doc_id": 869016,
    "cell": "fr_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-05-17",
+    "2024-08-23"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 19598,
    "cell": "fr_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-02-17"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -851,7 +1325,19 @@
    "doc_id": 869024,
    "cell": "fr_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-04-14",
+    "2025-05-13"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -861,47 +1347,124 @@
    "doc_id": 19238,
    "cell": "fr_commune",
    "gold": "2021-12-23",
+   "lenient": [],
+   "doc_dates": [
+    "2021-12-23",
+    "2019-03-12",
+    "2019-03-12",
+    "2021-01-07",
+    "2018-11-15",
+    "2021-02-11"
+   ],
    "rules": {
     "status": "value",
     "value": "2021-12-23",
-    "rule": "place_date_head"
+    "rule": "place_date_head",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 868872,
    "cell": "fr_commune",
    "gold": "2018-10-16",
+   "lenient": [],
+   "doc_dates": [
+    "2018-10-16",
+    "2017-08-22",
+    "2017-10-16",
+    "2017-10-16"
+   ],
    "rules": {
     "status": "value",
     "value": "2018-10-16",
-    "rule": "place_date_head"
+    "rule": "place_date_head",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
    }
   },
   {
    "doc_id": 246008,
    "cell": "fr_commune",
    "gold": "2007-03-21",
+   "lenient": [
+    "2007-04-02"
+   ],
+   "doc_dates": [
+    "2007-04-02",
+    "2005-11-09",
+    "2007-03-21"
+   ],
    "rules": {
     "status": "value",
     "value": "2007-04-02",
-    "rule": "date_line_above_heading_head"
+    "rule": "date_line_above_heading_head",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
    }
   },
   {
    "doc_id": 19663,
    "cell": "fr_commune",
    "gold": "2024-10-24",
+   "lenient": [],
+   "doc_dates": [
+    "2024-10-24",
+    "2023-09-07",
+    "2023-12-31",
+    "2024-10-24"
+   ],
    "rules": {
     "status": "value",
     "value": "2024-10-24",
-    "rule": "fr_adopte_seance"
+    "rule": "fr_adopte_seance",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 297057,
    "cell": "fr_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2018-08-28",
+    "2018-08-28",
+    "2016-10-13",
+    "2018-08-28",
+    "2018-08-28",
+    "2018-08-28",
+    "2017-08-24",
+    "2018-08-28"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -911,7 +1474,32 @@
    "doc_id": 21941,
    "cell": "fr_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2013-09-09",
+    "2013-09-09",
+    "2013-09-09",
+    "2013-09-09",
+    "2013-09-09",
+    "2013-09-09",
+    "2013-09-09",
+    "2013-09-09",
+    "2013-09-09",
+    "2013-09-09",
+    "2013-09-09",
+    "2013-09-09",
+    "2013-09-09",
+    "2013-09-09",
+    "2013-09-09"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -921,17 +1509,40 @@
    "doc_id": 166615,
    "cell": "it_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2020-09-07",
+    "2020-09-03"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 375990,
    "cell": "it_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2019-06-03"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -941,7 +1552,18 @@
    "doc_id": 876792,
    "cell": "it_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2026-05-18"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -951,57 +1573,158 @@
    "doc_id": 424973,
    "cell": "it_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-06-07",
+    "2024-05-25",
+    "2023-09-20",
+    "2017-03-27"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 110047,
    "cell": "it_canton",
    "gold": "2022-06-28",
+   "lenient": [],
+   "doc_dates": [
+    "2022-06-28",
+    "2022-05-26",
+    "2022-06-28",
+    "2022-06-28",
+    "2019-10-09"
+   ],
    "rules": {
     "status": "value",
     "value": "2022-06-28",
-    "rule": "it_rg"
+    "rule": "it_rg",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 220830,
    "cell": "it_canton",
    "gold": "2022-07-13",
+   "lenient": [],
+   "doc_dates": [
+    "2022-07-13",
+    "2020-02-27",
+    "2020-02-23",
+    "2020-03-09",
+    "2022-07-13",
+    "2020-01-27",
+    "2020-02-17",
+    "2022-07-13"
+   ],
    "rules": {
     "status": "value",
     "value": "2022-07-13",
-    "rule": "it_rg"
+    "rule": "it_rg",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 375225,
    "cell": "it_canton",
    "gold": "2022-05-30",
+   "lenient": [],
+   "doc_dates": [
+    "2022-05-30",
+    "2022-05-19",
+    "2022-04-12",
+    "2022-04-12",
+    "2021-09-30",
+    "2020-01-15",
+    "2013-01-01",
+    "2021-09-30",
+    "2022-03-29"
+   ],
    "rules": {
     "status": "value",
     "value": "2022-05-30",
-    "rule": "it_risposta_del"
+    "rule": "it_risposta_del",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 375932,
    "cell": "it_canton",
    "gold": "2020-05-04",
+   "lenient": [
+    "2021-05-04"
+   ],
+   "doc_dates": [
+    "2020-05-04",
+    "2021-04-23",
+    "2020-11-24",
+    "2020-11-24",
+    "2020-11-24"
+   ],
    "rules": {
     "status": "value",
     "value": "2020-05-04",
-    "rule": "it_risposta_del"
+    "rule": "it_risposta_del",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 166404,
    "cell": "it_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2020-04-30",
+    "2019-05-02",
+    "2019-10-23",
+    "2019-05-02",
+    "2021-01-01",
+    "2022-01-01",
+    "2022-01-01",
+    "2021-01-01"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1011,7 +1734,20 @@
    "doc_id": 50899,
    "cell": "it_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2018-03-22",
+    "2017-12-11",
+    "2018-01-17"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1021,17 +1757,40 @@
    "doc_id": 346038,
    "cell": "it_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-02-03",
+    "2025-01-30"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 883815,
    "cell": "it_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-12-05"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1041,17 +1800,47 @@
    "doc_id": 135220,
    "cell": "it_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2019-07-06",
+    "2018-11-14",
+    "2018-11-21",
+    "2019-04-30"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 884786,
    "cell": "it_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2021-11-05",
+    "2021-01-31",
+    "2021-11-05",
+    "2021-10-26",
+    "2018-10-03",
+    "2021-11-05"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1061,47 +1850,119 @@
    "doc_id": 295567,
    "cell": "it_commune",
    "gold": "2012-02-01",
+   "lenient": [
+    "2012-02-10"
+   ],
+   "doc_dates": [
+    "2012-02-10",
+    "2012-02-01",
+    "2011-10-14",
+    "2010-10-06"
+   ],
    "rules": {
     "status": "value",
     "value": "2012-02-01",
-    "rule": "it_ris_label"
+    "rule": "it_ris_label",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 884496,
    "cell": "it_commune",
    "gold": "2020-01-31",
+   "lenient": [],
+   "doc_dates": [
+    "2020-01-31",
+    "2019-12-01"
+   ],
    "rules": {
     "status": "value",
     "value": "2020-01-31",
-    "rule": "date_line_above_heading_head"
+    "rule": "date_line_above_heading_head",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
    }
   },
   {
    "doc_id": 243626,
    "cell": "it_commune",
    "gold": "2011-09-28",
+   "lenient": [
+    "2011-10-06"
+   ],
+   "doc_dates": [
+    "2011-10-06",
+    "2011-09-28",
+    "2008-03-10"
+   ],
    "rules": {
     "status": "value",
     "value": "2011-09-28",
-    "rule": "it_ris_label"
+    "rule": "it_ris_label",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 884537,
    "cell": "it_commune",
    "gold": "2011-03-16",
+   "lenient": [],
+   "doc_dates": [
+    "2011-03-16",
+    "2010-08-20",
+    "2009-01-01",
+    "2010-08-27"
+   ],
    "rules": {
     "status": "value",
     "value": "2011-03-16",
-    "rule": "place_date_head"
+    "rule": "place_date_head",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
    }
   },
   {
    "doc_id": 243782,
    "cell": "it_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2019-12-09",
+    "2016-12-12",
+    "2016-12-19",
+    "2017-02-06",
+    "2019-12-31"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1111,7 +1972,20 @@
    "doc_id": 296039,
    "cell": "it_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2011-11-07",
+    "2014-12-31",
+    "2014-12-31"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1121,67 +1995,169 @@
    "doc_id": 424652,
    "cell": "ocr_ti",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2018-11-02"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 325462,
    "cell": "ocr_ti",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2020-05-25"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 375440,
    "cell": "ocr_ti",
    "gold": "2018-07-11",
+   "lenient": [],
+   "doc_dates": [
+    "2018-07-11",
+    "2018-04-23",
+    "2014-12-23",
+    "2013-05-29",
+    "2018-05-22"
+   ],
    "rules": {
     "status": "value",
     "value": "2018-07-11",
-    "rule": "ti_header_date_head"
+    "rule": "ti_header_date_head",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 424715,
    "cell": "ocr_ti",
    "gold": "2019-07-10",
+   "lenient": [],
+   "doc_dates": [
+    "2019-07-10",
+    "2018-09-08",
+    "2017-08-21",
+    "2019-07-10"
+   ],
    "rules": {
     "status": "value",
     "value": "2019-07-10",
-    "rule": "ti_header_date_head"
+    "rule": "ti_header_date_head",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 325384,
    "cell": "ocr_ti",
    "gold": "2021-06-02",
+   "lenient": [],
+   "doc_dates": [
+    "2021-06-02",
+    "2017-06-06",
+    "2021-06-02",
+    "2021-06-02",
+    "2021-06-02",
+    "2007-08-20",
+    "2007-11-21",
+    "2021-06-02",
+    "2014-10-28",
+    "2015-10-07",
+    "2016-11-24",
+    "2018-03-14",
+    "2014-07-25",
+    "2019-09-04",
+    "2021-06-02",
+    "2021-04-27",
+    "2021-04-27"
+   ],
    "rules": {
     "status": "value",
     "value": "2021-06-02",
-    "rule": "it_rg"
+    "rule": "it_rg",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 382066,
    "cell": "de_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2022-03-28",
+    "2022-03-28"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 4132,
    "cell": "de_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2023-06-26",
+    "2023-06-26"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1191,7 +2167,23 @@
    "doc_id": 622057,
    "cell": "de_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2018-03-19",
+    "2015-04-20",
+    "1989-11-26",
+    "2016-06-15",
+    "2018-06-01",
+    "2018-03-22"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1201,7 +2193,18 @@
    "doc_id": 530606,
    "cell": "fr_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-07-02"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1211,17 +2214,42 @@
    "doc_id": 140581,
    "cell": "fr_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2020-09-03",
+    "2020-09-23",
+    "2020-09-23"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
    }
   },
   {
    "doc_id": 45084,
    "cell": "fr_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2021-10-27",
+    "2021-10-27"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1231,57 +2259,141 @@
    "doc_id": 638401,
    "cell": "fr_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-11-11",
+    "2025-11-01"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 646521,
    "cell": "fr_canton",
    "gold": "2025-11-19",
+   "lenient": [],
+   "doc_dates": [
+    "2025-11-19",
+    "2025-10-31",
+    "2024-05-31",
+    "1985-09-12",
+    "1999-05-20",
+    "2019-06-21"
+   ],
    "rules": {
     "status": "value",
     "value": "2025-11-19",
-    "rule": "date_de_depot_head"
-   }
-  },
-  {
-   "doc_id": 143820,
-   "cell": "fr_canton",
-   "gold": "2014-04-30",
-   "rules": {
-    "status": "value",
-    "value": "2014-04-30",
-    "rule": "be_ace_split"
-   }
-  },
-  {
-   "doc_id": 638736,
-   "cell": "fr_canton",
-   "gold": null,
-   "rules": {
+    "rule": "date_de_depot_head",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
    }
   },
   {
+   "doc_id": 143820,
+   "cell": "fr_canton",
+   "gold": "2014-04-30",
+   "lenient": [],
+   "doc_dates": [
+    "2013-11-26",
+    "2014-04-30",
+    "2013-11-27",
+    "2013-12-02",
+    "2013-11-27"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2014-04-30",
+    "rule": "be_ace_split",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 638736,
+   "cell": "fr_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-11-19",
+    "2025-11-19",
+    "2025-11-20",
+    "2023-10-07",
+    "2025-11-19",
+    "2025-11-20"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
+   }
+  },
+  {
    "doc_id": 588458,
    "cell": "fr_canton",
    "gold": "2015-04-28",
+   "lenient": [],
+   "doc_dates": [
+    "2014-09-09",
+    "2015-04-15",
+    "2015-04-28"
+   ],
    "rules": {
     "status": "value",
     "value": "2015-04-28",
-    "rule": "place_date_tail"
+    "rule": "place_date_tail",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
    }
   },
   {
    "doc_id": 213042,
    "cell": "fr_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2010-09-28",
+    "2010-09-08"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1291,7 +2403,27 @@
    "doc_id": 300226,
    "cell": "fr_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2011-05-25",
+    "2011-09-07",
+    "2011-11-01",
+    "1993-05-04",
+    "2004-11-13",
+    "2012-02-20",
+    "1993-05-04",
+    "2010-03-24",
+    "2012-02-23",
+    "2012-02-20"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1301,7 +2433,21 @@
    "doc_id": 19528,
    "cell": "fr_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2006-11-26",
+    "2020-10-12",
+    "2022-03-08",
+    "2017-03-06"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1311,67 +2457,184 @@
    "doc_id": 868991,
    "cell": "fr_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2017-06-19",
+    "2020-12-14",
+    "2023-01-23",
+    "2017-06-19",
+    "2020-12-14",
+    "2021-08-19",
+    "2017-06-19",
+    "2020-12-14",
+    "2023-08-18"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 869031,
    "cell": "fr_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-06-16",
+    "2025-05-14",
+    "2025-03-17",
+    "2025-09-08"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 397640,
    "cell": "fr_commune",
    "gold": "2022-11-17",
+   "lenient": [],
+   "doc_dates": [
+    "2022-11-17",
+    "2022-07-15",
+    "2022-11-17"
+   ],
    "rules": {
     "status": "value",
     "value": "2022-11-17",
-    "rule": "fr_adopte_seance"
+    "rule": "fr_adopte_seance",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 868806,
    "cell": "fr_commune",
    "gold": "2020-01-27",
+   "lenient": [],
+   "doc_dates": [
+    "2020-01-27",
+    "2018-09-09",
+    "2019-02-04",
+    "2019-01-13"
+   ],
    "rules": {
     "status": "value",
     "value": "2020-01-27",
-    "rule": "place_date_head"
+    "rule": "place_date_head",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
    }
   },
   {
    "doc_id": 138378,
    "cell": "fr_commune",
    "gold": "2013-05-22",
+   "lenient": [],
+   "doc_dates": [
+    "2013-05-22",
+    "2013-01-16",
+    "2008-07-08",
+    "2011-06-15",
+    "2011-03-14",
+    "2011-08-25",
+    "2011-10-25",
+    "2011-12-08",
+    "2012-10-31",
+    "2012-11-15",
+    "2012-06-25",
+    "2011-06-15",
+    "2011-03-14",
+    "2011-08-25",
+    "2011-10-25",
+    "2011-12-08"
+   ],
    "rules": {
     "status": "value",
     "value": "2013-05-22",
-    "rule": "date_line_above_heading_head"
+    "rule": "date_line_above_heading_head",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
    }
   },
   {
    "doc_id": 296673,
    "cell": "fr_commune",
    "gold": "2024-10-24",
+   "lenient": [],
+   "doc_dates": [
+    "2024-03-12",
+    "2024-10-24",
+    "2024-10-24"
+   ],
    "rules": {
     "status": "value",
     "value": "2024-10-24",
-    "rule": "fr_adopte_seance"
+    "rule": "fr_adopte_seance",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 245154,
    "cell": "fr_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2022-11-08",
+    "2022-11-08",
+    "2022-06-23",
+    "2022-11-08",
+    "2022-09-08",
+    "2022-11-08",
+    "2022-09-22",
+    "2022-11-08"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1381,7 +2644,31 @@
    "doc_id": 299330,
    "cell": "fr_commune",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2018-12-15",
+    "2018-12-15",
+    "2018-12-15",
+    "2018-12-15",
+    "2018-12-15",
+    "2018-12-15",
+    "2018-12-15",
+    "2018-12-18",
+    "2018-12-15",
+    "2018-12-15",
+    "2018-12-15",
+    "2018-12-15",
+    "2018-12-15",
+    "2018-12-15"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1391,7 +2678,18 @@
    "doc_id": 557561,
    "cell": "it_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-09-15"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1401,77 +2699,190 @@
    "doc_id": 110091,
    "cell": "it_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-07-29",
+    "2024-07-19",
+    "2024-07-19"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 105281,
    "cell": "it_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2018-07-26"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 110111,
    "cell": "it_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-06-11"
+   ],
    "rules": {
     "status": "abstain",
     "value": null,
-    "rule": "no_anchor"
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 166761,
    "cell": "it_canton",
    "gold": "2024-07-03",
+   "lenient": [],
+   "doc_dates": [
+    "2024-07-03",
+    "2024-05-16",
+    "2024-07-03",
+    "2024-06-26",
+    "2024-07-03"
+   ],
    "rules": {
     "status": "value",
     "value": "2024-07-03",
-    "rule": "it_rg"
+    "rule": "it_rg",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 677313,
    "cell": "it_canton",
    "gold": "2026-02-04",
+   "lenient": [],
+   "doc_dates": [
+    "2026-02-04",
+    "2025-11-07",
+    "2021-02-24",
+    "2021-07-01",
+    "2023-12-31",
+    "2026-02-04",
+    "2026-02-04"
+   ],
    "rules": {
     "status": "value",
     "value": "2026-02-04",
-    "rule": "it_rg"
+    "rule": "it_rg",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 531046,
    "cell": "it_canton",
    "gold": "2025-05-07",
+   "lenient": [],
+   "doc_dates": [
+    "2025-05-07",
+    "2025-03-12",
+    "2025-02-22",
+    "2025-02-23",
+    "2025-05-07",
+    "2025-05-07"
+   ],
    "rules": {
     "status": "value",
     "value": "2025-05-07",
-    "rule": "it_rg"
+    "rule": "it_rg",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 273843,
    "cell": "it_canton",
    "gold": "2017-06-19",
+   "lenient": [],
+   "doc_dates": [
+    "2017-06-19",
+    "2017-05-26",
+    "2017-05-31",
+    "2017-06-14",
+    "2017-02-10",
+    "2017-06-14"
+   ],
    "rules": {
     "status": "value",
     "value": "2017-06-19",
-    "rule": "it_risposta_del"
+    "rule": "it_risposta_del",
+    "route": "rule"
+   },
+   "rec_gold": "not_applicable",
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 109783,
    "cell": "it_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2023-02-28",
+    "2022-12-21",
+    "2023-02-27",
+    "2023-02-27"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1481,7 +2892,22 @@
    "doc_id": 109769,
    "cell": "it_canton",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2019-01-07",
+    "2018-11-07",
+    "2016-05-31",
+    "1994-06-22",
+    "2002-06-25"
+   ],
    "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
     "status": "abstain",
     "value": null,
     "rule": "no_anchor"
@@ -1491,300 +2917,745 @@
    "doc_id": 84090,
    "cell": "spike_be_zh_bs",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-01-23",
+    "2024-01-01",
+    "2024-03-19",
+    "2024-03-19"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 83619,
    "cell": "spike_be_zh_bs",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-03-13",
+    "2024-03-27",
+    "2024-03-27"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 301010,
    "cell": "spike_be_zh_bs",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-09-02",
+    "2024-09-17"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 554764,
    "cell": "spike_be_zh_bs",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-02-06",
+    "2025-02-06",
+    "2025-02-06"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 538825,
    "cell": "spike_be_zh_bs",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-04-24",
+    "2025-06-05",
+    "2025-04-24",
+    "2025-04-24"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 554812,
    "cell": "spike_be_zh_bs",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-06-19",
+    "2025-09-04",
+    "2025-09-16",
+    "2025-09-16"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 688308,
    "cell": "spike_be_zh_bs",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-09-11",
+    "2025-09-24",
+    "2025-09-24"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 647288,
    "cell": "spike_be_zh_bs",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-06-12",
+    "2025-06-26",
+    "2025-06-26"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 300347,
    "cell": "spike_be_zh_bs",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-06-12",
+    "2024-04-17",
+    "2024-06-27",
+    "2024-06-27"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 139899,
    "cell": "spike_be_zh_bs",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-03-05",
+    "2024-03-19",
+    "2024-03-19",
+    "2024-03-19"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 194910,
    "cell": "spike_be_zh_bs",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-06-03",
+    "2024-06-20",
+    "2024-06-20"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 300609,
    "cell": "spike_be_zh_bs",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-03-13",
+    "2024-03-27",
+    "2024-03-27"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 22731,
    "cell": "spike_be_zh_bs",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-09-09",
+    "2024-11-28",
+    "2024-08-21",
+    "2024-09-19",
+    "2024-09-19"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 140572,
    "cell": "spike_be_zh_bs",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-06-03",
+    "2024-06-19",
+    "2024-06-19"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 538756,
    "cell": "spike_be_zh_bs",
    "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-06-02",
+    "2025-06-05",
+    "2025-06-02",
+    "2025-06-02"
+   ],
    "rules": {
     "status": "null",
     "value": null,
-    "rule": "be_empty_template"
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 604197,
    "cell": "spike_be_zh_bs",
    "gold": "2025-10-15",
+   "lenient": [],
+   "doc_dates": [
+    "2025-06-04",
+    "2025-10-15",
+    "2025-06-16",
+    "2025-06-16",
+    "2025-06-16",
+    "2025-06-16"
+   ],
    "rules": {
     "status": "value",
     "value": "2025-10-15",
-    "rule": "be_rrb_split"
+    "rule": "be_rrb_split",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 247971,
    "cell": "spike_be_zh_bs",
    "gold": "2013-11-18",
+   "lenient": [],
+   "doc_dates": [
+    "2013-08-13",
+    "2013-11-18",
+    "2013-09-05",
+    "2014-01-01"
+   ],
    "rules": {
     "status": "value",
     "value": "2013-11-18",
-    "rule": "be_rrb_split"
+    "rule": "be_rrb_split",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 351183,
    "cell": "spike_be_zh_bs",
    "gold": "2013-12-18",
+   "lenient": [],
+   "doc_dates": [
+    "2013-07-24",
+    "2013-12-18",
+    "2013-09-05",
+    "2013-12-17",
+    "2013-12-17",
+    "2013-12-17"
+   ],
    "rules": {
     "status": "value",
     "value": "2013-12-18",
-    "rule": "be_rrb_split"
+    "rule": "be_rrb_split",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 23283,
    "cell": "spike_be_zh_bs",
    "gold": "2014-02-26",
+   "lenient": [],
+   "doc_dates": [
+    "2014-01-30",
+    "2014-02-26",
+    "2014-02-07",
+    "1996-09-18",
+    "2006-10-06",
+    "2014-02-07",
+    "2014-02-07",
+    "2014-02-07"
+   ],
    "rules": {
     "status": "value",
     "value": "2014-02-26",
-    "rule": "be_rrb_split"
+    "rule": "be_rrb_split",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 351217,
    "cell": "spike_be_zh_bs",
    "gold": "2013-10-23",
+   "lenient": [],
+   "doc_dates": [
+    "2013-09-02",
+    "2013-10-23",
+    "2013-09-05",
+    "2013-06-29",
+    "2013-09-08"
+   ],
    "rules": {
     "status": "value",
     "value": "2013-10-23",
-    "rule": "be_rrb_split"
+    "rule": "be_rrb_split",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 330139,
    "cell": "spike_be_zh_bs",
    "gold": "2023-09-27",
+   "lenient": [],
+   "doc_dates": [
+    "2023-09-27",
+    "2023-07-03",
+    "2023-06-13",
+    "2023-06-13",
+    "2022-03-30",
+    "2022-05-19",
+    "2023-06-13"
+   ],
    "rules": {
     "status": "value",
     "value": "2023-09-27",
-    "rule": "protokoll_sitzung"
+    "rule": "protokoll_sitzung",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 473388,
    "cell": "spike_be_zh_bs",
    "gold": "2025-03-19",
+   "lenient": [],
+   "doc_dates": [
+    "2025-03-19",
+    "2025-02-03",
+    "2022-01-01",
+    "2024-05-22",
+    "2017-11-27",
+    "2024-05-22"
+   ],
    "rules": {
     "status": "value",
     "value": "2025-03-19",
-    "rule": "protokoll_sitzung"
+    "rule": "protokoll_sitzung",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 171575,
    "cell": "spike_be_zh_bs",
    "gold": "2024-04-17",
+   "lenient": [],
+   "doc_dates": [
+    "2024-04-17",
+    "2023-12-12",
+    "2023-09-04",
+    "2023-11-15",
+    "2023-09-04",
+    "2023-11-15"
+   ],
    "rules": {
     "status": "value",
     "value": "2024-04-17",
-    "rule": "protokoll_sitzung"
+    "rule": "protokoll_sitzung",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 59972,
    "cell": "spike_be_zh_bs",
    "gold": "2023-05-10",
+   "lenient": [],
+   "doc_dates": [
+    "2023-05-10",
+    "2023-03-13",
+    "2023-03-15",
+    "2023-07-01",
+    "2022-01-01"
+   ],
    "rules": {
     "status": "value",
     "value": "2023-05-10",
-    "rule": "protokoll_sitzung"
+    "rule": "protokoll_sitzung",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 171354,
    "cell": "spike_be_zh_bs",
    "gold": "2024-06-26",
+   "lenient": [],
+   "doc_dates": [
+    "2024-06-26",
+    "2024-06-03",
+    "2024-07-01",
+    "2024-07-01",
+    "2024-07-01"
+   ],
    "rules": {
     "status": "value",
     "value": "2024-06-26",
-    "rule": "protokoll_sitzung"
+    "rule": "protokoll_sitzung",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 205512,
    "cell": "spike_be_zh_bs",
    "gold": "2023-10-31",
+   "lenient": [
+    "2023-11-01"
+   ],
+   "doc_dates": [
+    "2023-11-03",
+    "2023-11-01",
+    "2023-10-31",
+    "2023-10-18",
+    "1951-10-03"
+   ],
    "rules": {
     "status": "value",
     "value": "2023-10-31",
-    "rule": "rrb_vom"
+    "rule": "rrb_vom",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 408531,
    "cell": "spike_be_zh_bs",
    "gold": "2024-05-07",
+   "lenient": [
+    "2024-05-08"
+   ],
+   "doc_dates": [
+    "2024-05-10",
+    "2024-05-08",
+    "2024-05-07",
+    "2024-04-10",
+    "1876-06-06",
+    "2005-03-23",
+    "2025-01-01"
+   ],
    "rules": {
     "status": "value",
     "value": "2024-05-07",
-    "rule": "rrb_vom"
+    "rule": "rrb_vom",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 362548,
    "cell": "spike_be_zh_bs",
    "gold": "2023-01-31",
+   "lenient": [
+    "2023-02-01"
+   ],
+   "doc_dates": [
+    "2023-02-03",
+    "2023-02-01",
+    "2023-01-31",
+    "2023-01-10"
+   ],
    "rules": {
     "status": "value",
     "value": "2023-01-31",
-    "rule": "rrb_vom"
+    "rule": "rrb_vom",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 93903,
    "cell": "spike_be_zh_bs",
    "gold": "2024-05-28",
+   "lenient": [
+    "2024-05-29"
+   ],
+   "doc_dates": [
+    "2024-05-31",
+    "2024-05-29",
+    "2024-05-28",
+    "2024-05-15",
+    "2016-12-16"
+   ],
    "rules": {
     "status": "value",
     "value": "2024-05-28",
-    "rule": "rrb_vom"
+    "rule": "rrb_vom",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   },
   {
    "doc_id": 357926,
    "cell": "spike_be_zh_bs",
    "gold": "2023-03-07",
+   "lenient": [
+    "2023-03-08"
+   ],
+   "doc_dates": [
+    "2023-03-10",
+    "2023-03-08",
+    "2023-03-07",
+    "2023-02-08"
+   ],
    "rules": {
     "status": "value",
     "value": "2023-03-07",
-    "rule": "rrb_vom"
+    "rule": "rrb_vom",
+    "route": "rule"
+   },
+   "rec_gold": null,
+   "rec_rules": {
+    "status": "null",
+    "value": null,
+    "rule": "affair_type"
    }
   }
  ]

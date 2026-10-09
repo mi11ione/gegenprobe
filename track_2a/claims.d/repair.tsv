@@ -1,13 +1,13 @@
 id	shown	file	path	fmt	command	where
-repair.be_relink	2,459	results/repair/summary.json	by_action.relink	int	python -m gegenprobe.repair.run	docs/repair.md
-repair.be_fetch	49	results/repair/summary.json	by_action.fetch	int	python -m gegenprobe.repair.run	docs/repair.md
+repair.be_relink	2,459	results/repair/summary.json	by_action.relink	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md
+repair.be_fetch	49	results/repair/summary.json	by_action.fetch	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md
 repair.agenda_join	592	results/repair/summary.json	by_action.agenda_join	int	python -m gegenprobe.repair.run	docs/repair.md
-repair.vs_retype_oral	1,008	results/repair/summary.json	by_action.retype_oral	int	python -m gegenprobe.repair.run	docs/repair.md
+repair.vs_retype_oral	1,008	results/repair/summary.json	by_action.retype_oral	int	python -m gegenprobe.repair.run	docs/repair.md,README.md
 repair.ocr_affairs	1,351	results/repair/summary.json	by_action.ocr	int	python -m gegenprobe.repair.run	docs/repair.md,docs/nightly.md
 repair.che_placeholder_docs	29,946	results/repair/summary.json	by_action.placeholder_replace	int	python -m gegenprobe.repair.run	docs/repair.md,docs/nightly.md
 repair.affairs_with_action	5,459	results/repair/summary.json	affairs_with_action	int	python -m gegenprobe.repair.run	docs/repair.md
-repair.be_source_answered	3,532	results/repair/be_placement.json	total.source_answered	int	python -m gegenprobe.repair.be placement	docs/repair.md
-repair.be_attached	229	results/repair/be_placement.json	total.attached	int	python -m gegenprobe.repair.be placement	docs/repair.md
+repair.be_source_answered	3,532	results/repair/be_placement.json	total.source_answered	int	python -m gegenprobe.repair.be placement	docs/repair.md,README.md,docs/form_notes.md
+repair.be_attached	229	results/repair/be_placement.json	total.attached	int	python -m gegenprobe.repair.be placement	docs/repair.md,README.md,docs/form_notes.md
 repair.be_via_agenda	527	results/repair/be_placement.json	total.via_agenda	int	python -m gegenprobe.repair.be placement	docs/repair.md
 repair.be_parentless	2,638	results/repair/be_placement.json	total.orphan_uid	int	python -m gegenprobe.repair.be placement	docs/repair.md
 repair.be_absent	138	results/repair/be_placement.json	total.absent	int	python -m gegenprobe.repair.be placement	docs/repair.md
@@ -15,9 +15,9 @@ repair.be40_verified	40/40	results/repair/be_verify40.json	verified_spike_rule/n
 repair.be40_ci	[91.2, 100]	results/repair/be_verify40.json	ci_spike_rule	ci	python -m gegenprobe.repair.be verify40	docs/repair.md
 repair.be40_event_eq	39/39	results/repair/be_verify40.json	event_eq_rrb/with_answer_event	frac	python -m gegenprobe.repair.be verify40	docs/repair.md,docs/schema.md
 repair.be40_event_ci	[91, 100]	results/repair/be_verify40.json	ci_event_eq_rrb	ci	python -m gegenprobe.repair.be verify40	docs/repair.md
-repair.relink_sample_idhead	40/40	results/repair/be_relink_sample.json	identity_and_heading/n	frac	python -m gegenprobe.repair.be sample	docs/repair.md
+repair.relink_sample_idhead	40/40	results/repair/be_relink_sample.json	identity_and_heading/n	frac	python -m gegenprobe.repair.be sample	docs/repair.md,README.md
 repair.relink_sample_idhead_ci	[91.2, 100]	results/repair/be_relink_sample.json	ci_identity_and_heading	ci	python -m gegenprobe.repair.be sample	docs/repair.md
-repair.relink_sample_date	36/40	results/repair/be_relink_sample.json	date_eq_event/with_answer_event	frac	python -m gegenprobe.repair.be sample	docs/repair.md
+repair.relink_sample_date	36/40	results/repair/be_relink_sample.json	date_eq_event/with_answer_event	frac	python -m gegenprobe.repair.be sample	docs/repair.md,README.md
 repair.relink_sample_date_ci	[76.9, 96]	results/repair/be_relink_sample.json	ci_date_eq_event	ci	python -m gegenprobe.repair.be sample	docs/repair.md
 repair.relink_sample_posthoc	39/40	results/repair/be_relink_sample_posthoc.json	triple/n	frac	python -m gegenprobe.repair.be recheck	docs/repair.md
 repair.relink_sample_posthoc_ci	[87.1, 99.6]	results/repair/be_relink_sample_posthoc.json	ci_triple	ci	python -m gegenprobe.repair.be recheck	docs/repair.md
@@ -34,7 +34,7 @@ repair.che_curia_ci	[4.6, 18]	results/repair/che_curia.json	ci_substantive	ci	py
 repair.vs_gap_with_ant	1,112	results/repair/vs_summary.json	counts.gap_with_ant_doc	int	python -m gegenprobe.repair.vs list	docs/repair.md
 repair.ocr_image_only	15/30	results/repair/ocr_probe.json	image_only/n_docs	frac	python -m gegenprobe.repair.ocr probe 3	docs/repair.md
 repair.ocr_vs_stubs	13	results/repair/ocr_probe.json	categories.text_layer_oral_stub	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md
-repair.ocr_ok	15/15	results/repair/ocr_probe.json	image_only_ok/image_only	frac	python -m gegenprobe.repair.ocr probe 3	docs/repair.md
+repair.ocr_ok	15/15	results/repair/ocr_probe.json	image_only_ok/image_only	frac	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,README.md
 repair.ocr_ok_ci	[79.6, 100]	results/repair/ocr_probe.json	ci_image_only_ok	ci	python -m gegenprobe.repair.ocr probe 3	docs/repair.md
 repair.ocr_accents_multi	467	results/repair/ocr_probe.json	image_multi.accented_chars	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md
 repair.ocr_accents_eng	133	results/repair/ocr_probe.json	image_eng.accented_chars	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md

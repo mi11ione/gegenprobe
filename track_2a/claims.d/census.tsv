@@ -1,19 +1,19 @@
 id	shown	file	path	fmt	command	where
 census.in_scope_affairs	198,594	results/census/summary.json	national.n	int	make census	-
-census.written_answer_events	91,268	results/census/summary.json	national.ev_answer	int	make census	-
-census.gap	16,749	results/census/summary.json	national.gap	int	make census	-
-census.gap_share	18.4%	results/census/summary.json	national.gap/national.ev_answer	pct1	make census	-
+census.written_answer_events	91,268	results/census/summary.json	national.ev_answer	int	make census	README.md,docs/form_notes.md
+census.gap	16,749	results/census/summary.json	national.gap	int	make census	README.md,docs/form_notes.md
+census.gap_share	18.4%	results/census/summary.json	national.gap/national.ev_answer	pct1	make census	README.md,docs/form_notes.md
 census.gap_prime	16,157	results/census/summary.json	national.gap_after_agenda_join	int	make census	-
 census.agenda_rejoin	592	results/census/summary.json	agenda_rejoin_in_gap	int	make census	-
 census.gap_2024_25	1,855	results/census/summary.json	national_2024_25.gap	int	make census	-
 census.gap_share_2024_25	14.3%	results/census/summary.json	national_2024_25.gap/national_2024_25.ev_answer	pct1	make census	-
-census.bodies_with_affairs	89	results/census/matrix.json	n_bodies	int	make census	-
+census.bodies_with_affairs	89	results/census/matrix.json	n_bodies	int	make census	README.md,docs/form_notes.md
 census.bodies_in_scope	86	results/census/summary.json	n_bodies_in_scope	int	make census	-
 census.link_parentless_be	2,459	results/census/summary.json	link_status.parentless	int	make census	-
 census.link_image_only	1,352	results/census/summary.json	link_status.image_only	int	make census	-
 census.link_absent	11,330	results/census/summary.json	link_status.absent	int	make census	-
 census.vs_oral_stubs	1,016	results/census/summary.json	gap_prime_decomposition.other_vs_oral_stub	int	make census	-
-census.other_no_answer_doc	11,206	results/census/summary.json	gap_prime_decomposition.other_no_answer_doc	int	make census	-
+census.other_no_answer_doc	11,206	results/census/summary.json	gap_prime_decomposition.other_no_answer_doc	int	make census	README.md
 census.other_doc_no_text	2,366	results/census/summary.json	gap_prime_decomposition.other_doc_present_no_text	int	make census	-
 census.be_gap_prime	2,510	results/census/summary.json	be_gap_prime.n	int	make census	-
 census.be_gap_source_answer	2,508	results/census/summary.json	be_gap_prime.source_has_answer	int	make census	-
@@ -25,9 +25,9 @@ census.parentless_docs_be_share	64.5%	results/census/summary.json	parentless_doc
 census.docs_total	902,754	results/census/summary.json	parentless_docs.docs_total	int	make census	-
 census.spike_cells_identical	5,444	results/census/spike_reproduction.json	cells_ours	int	make census	-
 census.spike_field_differences	0	results/census/spike_reproduction.json	field_differences	int	make census	-
-matrix.fields_feasible	4	results/census/matrix.json	tier_counts.feasible	int	make census	-
-matrix.fields_partial	13	results/census/matrix.json	tier_counts.partial	int	make census	-
-matrix.fields_fundamental	0	results/census/matrix.json	tier_counts.fundamentally different	int	make census	-
+matrix.fields_feasible	4	results/census/matrix.json	tier_counts.feasible	int	make census	README.md,docs/form_notes.md
+matrix.fields_partial	13	results/census/matrix.json	tier_counts.partial	int	make census	README.md,docs/form_notes.md
+matrix.fields_fundamental	0	results/census/matrix.json	tier_counts.fundamentally different	int	make census	README.md,docs/form_notes.md
 matrix.gov_rec_meta_pooled	34.2%	results/census/matrix.json	fields.government_recommendation.pooled_meta	pct1	make census	-
 matrix.gov_rec_pdf_bodies	56	results/census/matrix.json	fields.government_recommendation.status_counts.pdf	int	make census	-
 matrix.related_affairs_pdf_bodies	76	results/census/matrix.json	fields.related_affairs.status_counts.pdf	int	make census	-
