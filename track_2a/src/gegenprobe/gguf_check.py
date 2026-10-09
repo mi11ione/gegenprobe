@@ -40,5 +40,37 @@ def main(argv: list[str]) -> int:
     return 0 if ok else 1
 
 
+def diag(argv: list[str]) -> int:
+    """Second opinion on the same CPU: dump the exact token ids this scorer feeds llama.cpp, so the spike's own libllama
+    scorer (tools/llscore.cpp) can score them; then compare the two. Separates scorer bugs from backend numerics.
+        python -m gegenprobe.gguf_check diag-ids ids.txt
+        python -m gegenprobe.gguf_check diag-compare ids.txt llscore_out.txt mine.json
+    """
+    fx = json.loads(FIX.read_text())
+    if argv[0] == "diag-ids":
+        m = GGUF(cache_readonly=True)
+        m._load()
+        with open(argv[1], "w") as f:
+            for r in fx["rows"]:
+                head = m.render(r["text"] + fx["questions"][r["rung"]])
+                pre = m._tok(head)
+                cands = [m._tok(head + c)[len(pre):] for c in fx["candidates"]]
+                f.write(" ".join(map(str, pre)) + "".join(" ; " + " ".join(map(str, c)) for c in cands) + "\n")
+        return 0
+    ids = open(argv[1]).read().splitlines()
+    ll = [line.split("|")[0].split() for line in open(argv[2]).read().splitlines()]
+    mine = json.loads(Path(argv[3]).read_text())["rows"]
+    out = []
+    for r, lls, mrow, idl in zip(fx["rows"], ll, mine, ids):
+        lo = float(lls[0]) - float(lls[1])
+        out.append(dict(key=mrow["key"], n_prompt=len(idl.split(";")[0].split()), metal_ref=r["lo_conv"], llscore_cpu=lo,
+                        scorer_cpu=mrow["got"], scorer_minus_llscore=mrow["got"] - lo))
+        print(out[-1])
+    mx = max(abs(x["scorer_minus_llscore"]) for x in out)
+    print(f"max |scorer - llscore(CPU)| = {mx:.4f} nats")
+    return 0 if mx < 0.05 else 1
+
+
 if __name__ == "__main__":
-    sys.exit(main(sys.argv[1:]))
+    a = sys.argv[1:]
+    sys.exit(diag(a) if a and a[0].startswith("diag") else main(a))

@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       task:
-        description: "selfcheck | arms"
+        description: "selfcheck | diag | arms"
         default: selfcheck
       args:
         description: "extra args for the arms runner (e.g. --arm P8 --shard 0/4)"
@@ -42,6 +42,18 @@ jobs:
       - name: selfcheck
         if: inputs.task == 'selfcheck'
         run: python -m gegenprobe.gguf_check out/gguf_parity.json
+      - name: diag (spike libllama scorer on the same CPU)
+        if: inputs.task == 'diag'
+        run: |
+          python -m gegenprobe.gguf_check out/gguf_parity.json || true
+          git clone -q --depth 1 https://github.com/ggml-org/llama.cpp "$GP_WORK/llama.cpp"
+          git -C "$GP_WORK/llama.cpp" rev-parse HEAD | tee out/llama_cpp_commit.txt
+          cmake -S "$GP_WORK/llama.cpp" -B "$GP_WORK/lb" -DCMAKE_BUILD_TYPE=Release -DLLAMA_CURL=OFF -DLLAMA_BUILD_TESTS=OFF -DLLAMA_BUILD_EXAMPLES=OFF -DLLAMA_BUILD_SERVER=OFF > /dev/null
+          cmake --build "$GP_WORK/lb" -j4 --target llama > /dev/null
+          c++ -std=c++17 -O2 tools/llscore.cpp -I"$GP_WORK/llama.cpp/include" -I"$GP_WORK/llama.cpp/ggml/include" -L"$GP_WORK/lb/bin" -lllama -o "$GP_WORK/llscore"
+          python -m gegenprobe.gguf_check diag-ids out/ids.txt
+          LD_LIBRARY_PATH="$GP_WORK/lb/bin" "$GP_WORK/llscore" "$GP_WORK/models/apertus-v1.5-8b-text-q4_k_m.gguf" score < out/ids.txt > out/llscore_cpu.txt
+          python -m gegenprobe.gguf_check diag-compare out/ids.txt out/llscore_cpu.txt out/gguf_parity.json | tee out/diag.txt
       - name: arms
         if: inputs.task == 'arms'
         run: python -m eval.run_arms --backend gguf ${{ inputs.args }}
