@@ -36,7 +36,7 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/work/models
-          key: gguf-apertus-v1.5-8b-q4km-a037df8d
+          key: model-cache-apertus-8b-gguf-v1
       - name: fetch pinned GGUF (sha256-verified)
         run: python -c "from gegenprobe import llm; print(llm.fetch_gguf('apertus-v1.5-8b-text-q4_k_m'))"
       - name: selfcheck

@@ -1,0 +1,178 @@
+{
+ "label": "POST-HOC (not pre-registered): anatomy of cascade errors",
+ "n": 15,
+ "kinds": {
+  "misattributed | apertus | gold_null": 5,
+  "misattributed | apertus | gold_value": 2,
+  "misattributed | rule | gold_null": 2,
+  "misattributed | rule | gold_value": 2,
+  "false_null | apertus | gold_value": 4
+ },
+ "rows": [
+  {
+   "doc_id": 7088,
+   "cell": "de_commune",
+   "gold": null,
+   "pred": "2014-12-17",
+   "route": "apertus",
+   "rule": "no_anchor",
+   "margin": 4.708614177476797,
+   "outcome": "misattributed",
+   "chosen_line": "37. Ratssitzung vom 17. Dezember 2014"
+  },
+  {
+   "doc_id": 19243,
+   "cell": "fr_commune",
+   "gold": "2023-04-06",
+   "pred": "2019-05-28",
+   "route": "apertus",
+   "rule": "heading_without_date",
+   "margin": 5.582058994543104,
+   "outcome": "misattributed",
+   "chosen_line": "Résolution de Madame Graziella Schaller du mardi 28 mai 2019 adoptée par le Con"
+  },
+  {
+   "doc_id": 28271,
+   "cell": "de_canton",
+   "gold": null,
+   "pred": "2022-06-29",
+   "route": "rule",
+   "rule": "datum_rr_sitzung",
+   "margin": null,
+   "outcome": "misattributed",
+   "chosen_line": "29. Juni 2022"
+  },
+  {
+   "doc_id": 68367,
+   "cell": "de_commune",
+   "gold": null,
+   "pred": "2023-11-15",
+   "route": "apertus",
+   "rule": "no_anchor",
+   "margin": 3.7501110411362752,
+   "outcome": "misattributed",
+   "chosen_line": "Mitteilung an den Stadtrat sowie amtliche Publikation am 15. November 2023"
+  },
+  {
+   "doc_id": 166950,
+   "cell": "ocr_ti",
+   "gold": "2016-10-12",
+   "pred": "2000-11-23",
+   "route": "rule",
+   "rule": "it_rg",
+   "margin": null,
+   "outcome": "misattributed",
+   "chosen_line": "progetto. La scelta è stata decisa dal Consiglio di Stato con RG N. 5254 del 23 novembre 2000."
+  },
+  {
+   "doc_id": 249052,
+   "cell": "fr_canton",
+   "gold": "2010-02-18",
+   "pred": null,
+   "route": "apertus",
+   "rule": "no_anchor",
+   "margin": 32.70184071414324,
+   "outcome": "false_null",
+   "chosen_line": null
+  },
+  {
+   "doc_id": 273540,
+   "cell": "it_canton",
+   "gold": "2023-12-20",
+   "pred": "2024-02-06",
+   "route": "apertus",
+   "rule": "no_anchor",
+   "margin": 4.380429002665689,
+   "outcome": "misattributed",
+   "chosen_line": "6 febbraio 2024"
+  },
+  {
+   "doc_id": 437131,
+   "cell": "fr_canton",
+   "gold": "2001-09-17",
+   "pred": null,
+   "route": "apertus",
+   "rule": "no_anchor",
+   "margin": 15.04020444836694,
+   "outcome": "false_null",
+   "chosen_line": null
+  },
+  {
+   "doc_id": 558796,
+   "cell": "de_commune",
+   "gold": "2002-10-02",
+   "pred": null,
+   "route": "apertus",
+   "rule": "no_anchor",
+   "margin": 13.186756530313506,
+   "outcome": "false_null",
+   "chosen_line": null
+  },
+  {
+   "doc_id": 622143,
+   "cell": "de_commune",
+   "gold": null,
+   "pred": "2011-03-03",
+   "route": "apertus",
+   "rule": "no_anchor",
+   "margin": 6.92793064717516,
+   "outcome": "misattributed",
+   "chosen_line": "Winterthur, 3. März 2011 (Publikationsdatum)"
+  },
+  {
+   "doc_id": 660479,
+   "cell": "de_commune",
+   "gold": null,
+   "pred": "2001-06-12",
+   "route": "apertus",
+   "rule": "no_anchor",
+   "margin": 3.9998791545398014,
+   "outcome": "misattributed",
+   "chosen_line": "Dienstag, 12. Juni 2001, 16.00 Uhr, Waaghaus"
+  },
+  {
+   "doc_id": 671937,
+   "cell": "fr_commune",
+   "gold": null,
+   "pred": "2026-01-13",
+   "route": "apertus",
+   "rule": "no_anchor",
+   "margin": -10.4999979263745,
+   "outcome": "misattributed",
+   "chosen_line": "e séance du mardi 13janvier2026"
+  },
+  {
+   "doc_id": 862297,
+   "cell": "de_canton",
+   "gold": null,
+   "pred": "2026-04-29",
+   "route": "rule",
+   "rule": "datum_rr_sitzung",
+   "margin": null,
+   "outcome": "misattributed",
+   "chosen_line": "29. April 2026"
+  },
+  {
+   "doc_id": 868895,
+   "cell": "fr_commune",
+   "gold": "2018-12-17",
+   "pred": "2019-01-15",
+   "route": "rule",
+   "rule": "place_date_head",
+   "margin": null,
+   "outcome": "misattributed",
+   "chosen_line": "Collombey-Muraz, le 15 janvier 2019"
+  },
+  {
+   "doc_id": 886123,
+   "cell": "it_commune",
+   "gold": "2016-12-20",
+   "pred": null,
+   "route": "apertus",
+   "rule": "no_anchor",
+   "margin": 14.827889674437987,
+   "outcome": "false_null",
+   "chosen_line": null
+  }
+ ]
+}

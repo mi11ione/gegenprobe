@@ -78,7 +78,8 @@ def board(res: dict) -> list[str]:
 
 
 def main(ctx: dict | None = None) -> dict:
-    files = sorted((RESULTS / "eval").glob("*.json"))
+    # scoreboards only: <split>__<build>.json (hypotheses__, gold_agreement, gguf_impl60 are derived files)
+    files = sorted(p for s in ("dev", "heldout") for p in (RESULTS / "eval").glob(f"{s}__*.json"))
     if not files:
         return dict(status="PASS", summary="no evaluation results committed yet")
     bad, report, heldout, partial = [], [], 0, []
