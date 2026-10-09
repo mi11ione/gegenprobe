@@ -1,0 +1,183 @@
+{
+ "note": "5 BE affairs; every field the bulk join reads, from the 2026-10-06 OPD exports and 2026-10-08 canton OGD tables",
+ "affairs": [
+  {
+   "id": 37873,
+   "number": "2015.RRGR.870",
+   "external_id": "e06578fa1e7d4b89855292abc72ff68f"
+  },
+  {
+   "id": 38782,
+   "number": "2019.RRGR.246",
+   "external_id": "ec84f18fef034a809fd55c8a27f99ed0"
+  },
+  {
+   "id": 39249,
+   "number": "2021.RRGR.201",
+   "external_id": "562e364d00d5477d908f0c5c45af783c"
+  },
+  {
+   "id": 130694,
+   "number": "2024.RRGR.139",
+   "external_id": "5b6434feb1774fd698e7833f7b3e64c0"
+  },
+  {
+   "id": 130828,
+   "number": "2024.RRGR.91",
+   "external_id": "6a48b9a04f104315930e962381518f8b"
+  }
+ ],
+ "parentless_docs": [
+  {
+   "id": 25854,
+   "url": "https://www.rrgr-service.apps.be.ch/api/rr/documents/document/b79755e9dd2b45fcbda483c8da45b164-332/33/RRB-01.12.2021-de.pdf",
+   "uid": "b79755e9dd2b45fcbda483c8da45b164"
+  },
+  {
+   "id": 404200,
+   "url": "https://www.rrgr-service.apps.be.ch/api/rr/documents/document/01cab899412c4500965750f4e89cbec5-332/5/I-216-2015-vorstossantwort-de.pdf",
+   "uid": "01cab899412c4500965750f4e89cbec5"
+  },
+  {
+   "id": 354754,
+   "url": "https://www.rrgr-service.apps.be.ch/api/rr/documents/document/c6247a9bd3694412990245f4c25a543d-332/6/RRB-04.03.2020-de.pdf",
+   "uid": "c6247a9bd3694412990245f4c25a543d"
+  },
+  {
+   "id": 89794,
+   "url": "https://www.rrgr-service.apps.be.ch/api/rr/documents/document/32b3c0a30652426a8febadfb59844c1e-332/8/RRB-28.08.2024-fr.pdf",
+   "uid": "32b3c0a30652426a8febadfb59844c1e"
+  },
+  {
+   "id": 142542,
+   "url": "https://www.rrgr-service.apps.be.ch/api/rr/documents/document/645977a3ab304d0bb5ffa376100ff990-332/13/RRB-01.12.2021-fr.pdf",
+   "uid": "645977a3ab304d0bb5ffa376100ff990"
+  },
+  {
+   "id": 404201,
+   "url": "https://www.rrgr-service.apps.be.ch/api/rr/documents/document/be32d196e19e47e48d0b99be7c7acbe9-332/7/I-216-2015-vorstossantwort-fr.pdf",
+   "uid": "be32d196e19e47e48d0b99be7c7acbe9"
+  },
+  {
+   "id": 29200,
+   "url": "https://www.rrgr-service.apps.be.ch/api/rr/documents/document/a533657c82cf4844b26c3a3d615c537b-332/6/RRB-04.03.2020-fr.pdf",
+   "uid": "a533657c82cf4844b26c3a3d615c537b"
+  },
+  {
+   "id": 404590,
+   "url": "https://www.rrgr-service.apps.be.ch/api/rr/documents/document/0778ef860e7d4e5c8ab89d1fe2922a42-332/27/RRB-28.08.2024-de.pdf",
+   "uid": "0778ef860e7d4e5c8ab89d1fe2922a42"
+  }
+ ],
+ "answer_events": {
+  "39249": [
+   "2021-12-01"
+  ],
+  "37873": [
+   "2016-02-03"
+  ],
+  "130694": [
+   "2024-10-23"
+  ],
+  "130828": [
+   "2024-08-28"
+  ],
+  "38782": [
+   "2020-03-04"
+  ]
+ },
+ "expected": [
+  {
+   "body": "BE",
+   "affair_id": "130828",
+   "affair_number": "2024.RRGR.91",
+   "action": "relink",
+   "opd_doc_id": "404590",
+   "source_doc_uid": "0778ef860e7d4e5c8ab89d1fe2922a42",
+   "source_doc_title": "RRB-28.08.2024-de",
+   "source_url": "https://ogd.parl.apps.be.ch/pdf-upload/0778ef860e7d4e5c8ab89d1fe2922a42-332.pdf",
+   "checks": "",
+   "verified": "",
+   "note": "canton OGD dokument.csv join on dokument_geschaeft_uid == affair.external_id"
+  },
+  {
+   "body": "BE",
+   "affair_id": "130694",
+   "affair_number": "2024.RRGR.139",
+   "action": "fetch",
+   "opd_doc_id": "",
+   "source_doc_uid": "f45d6cfb071f4d4091e1ed42202213e9",
+   "source_doc_title": "RRB-23.10.2024-de",
+   "source_url": "https://ogd.parl.apps.be.ch/pdf-upload/f45d6cfb071f4d4091e1ed42202213e9-332.pdf",
+   "checks": "",
+   "verified": "",
+   "note": "canton OGD dokument.csv join on dokument_geschaeft_uid == affair.external_id"
+  },
+  {
+   "body": "BE",
+   "affair_id": "39249",
+   "affair_number": "2021.RRGR.201",
+   "action": "relink",
+   "opd_doc_id": "25854",
+   "source_doc_uid": "b79755e9dd2b45fcbda483c8da45b164",
+   "source_doc_title": "RRB-01.12.2021-de",
+   "source_url": "https://ogd.parl.apps.be.ch/pdf-upload/b79755e9dd2b45fcbda483c8da45b164-332.pdf",
+   "checks": "",
+   "verified": "",
+   "note": "canton OGD dokument.csv join on dokument_geschaeft_uid == affair.external_id"
+  },
+  {
+   "body": "BE",
+   "affair_id": "38782",
+   "affair_number": "2019.RRGR.246",
+   "action": "relink",
+   "opd_doc_id": "354754",
+   "source_doc_uid": "c6247a9bd3694412990245f4c25a543d",
+   "source_doc_title": "RRB-04.03.2020-de",
+   "source_url": "https://ogd.parl.apps.be.ch/pdf-upload/c6247a9bd3694412990245f4c25a543d-332.pdf",
+   "checks": "",
+   "verified": "",
+   "note": "canton OGD dokument.csv join on dokument_geschaeft_uid == affair.external_id"
+  },
+  {
+   "body": "BE",
+   "affair_id": "37873",
+   "affair_number": "2015.RRGR.870",
+   "action": "relink",
+   "opd_doc_id": "404200",
+   "source_doc_uid": "01cab899412c4500965750f4e89cbec5",
+   "source_doc_title": "I-216-2015-vorstossantwort-de",
+   "source_url": "https://ogd.parl.apps.be.ch/pdf-upload/01cab899412c4500965750f4e89cbec5-332.pdf",
+   "checks": "",
+   "verified": "",
+   "note": "canton OGD dokument.csv join on dokument_geschaeft_uid == affair.external_id"
+  }
+ ],
+ "pdfs": {
+  "2024.RRGR.91": {
+   "url": "https://ogd.parl.apps.be.ch/pdf-upload/0778ef860e7d4e5c8ab89d1fe2922a42-332.pdf",
+   "sha256": "aee311edbe3633cbc60d581aa17b6a4f368d8ec31eeae3dbe16c44e6e05bce32",
+   "copy": "canton_ogd"
+  },
+  "2024.RRGR.139": {
+   "url": "https://ogd.parl.apps.be.ch/pdf-upload/f45d6cfb071f4d4091e1ed42202213e9-332.pdf",
+   "sha256": "2c1400090d99f879cd6fcbb3fb5691fe15d9c810a338f793b21fe6cef37c29f3",
+   "copy": "canton_ogd"
+  },
+  "2021.RRGR.201": {
+   "url": "https://www.rrgr-service.apps.be.ch/api/rr/documents/document/b79755e9dd2b45fcbda483c8da45b164-332/33/RRB-01.12.2021-de.pdf",
+   "sha256": "6a86f22e2ce2fc459f907cc24ddf28116541df90045b934cebacaa0ebe1e41b3",
+   "copy": "opd_parentless"
+  },
+  "2019.RRGR.246": {
+   "url": "https://www.rrgr-service.apps.be.ch/api/rr/documents/document/c6247a9bd3694412990245f4c25a543d-332/6/RRB-04.03.2020-de.pdf",
+   "sha256": "3e7a9476b4faa0dedc9e69ab22eee1bbe8ff119a09eb17ff16abacccc5f77026",
+   "copy": "opd_parentless"
+  },
+  "2015.RRGR.870": {
+   "url": "https://www.rrgr-service.apps.be.ch/api/rr/documents/document/01cab899412c4500965750f4e89cbec5-332/5/I-216-2015-vorstossantwort-de.pdf",
+   "sha256": "9b01de13d67ee4c514e1601975709c66afc64cecb1e8c7ab4a8e60dcdbcce9b8",
+   "copy": "opd_parentless"
+  }
+ }
+}

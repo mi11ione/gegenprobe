@@ -1,0 +1,237 @@
+{
+ "affairs_with_action": 5459,
+ "by_action": {
+  "agenda_join": 592,
+  "fetch": 49,
+  "ocr": 1351,
+  "placeholder_replace": 29946,
+  "relink": 2459,
+  "retype_oral": 1008
+ },
+ "by_body": {
+  "131": {
+   "agenda_join": 8,
+   "ocr": 52
+  },
+  "191": {
+   "ocr": 37
+  },
+  "198": {
+   "ocr": 2
+  },
+  "230": {
+   "agenda_join": 64
+  },
+  "2831": {
+   "ocr": 16
+  },
+  "296": {
+   "agenda_join": 3,
+   "ocr": 44
+  },
+  "4289": {
+   "ocr": 18
+  },
+  "4671": {
+   "ocr": 31
+  },
+  "5002": {
+   "ocr": 49
+  },
+  "5113": {
+   "ocr": 3
+  },
+  "5586": {
+   "ocr": 15
+  },
+  "581": {
+   "ocr": 24
+  },
+  "AR": {
+   "ocr": 2
+  },
+  "BE": {
+   "agenda_join": 517,
+   "fetch": 49,
+   "ocr": 1,
+   "relink": 2459
+  },
+  "BL": {
+   "ocr": 56
+  },
+  "BS": {
+   "ocr": 24
+  },
+  "CHE": {
+   "placeholder_replace": 29946
+  },
+  "FR": {
+   "ocr": 9
+  },
+  "GR": {
+   "ocr": 2
+  },
+  "JU": {
+   "ocr": 1
+  },
+  "OW": {
+   "ocr": 12
+  },
+  "SG": {
+   "ocr": 1
+  },
+  "SH": {
+   "ocr": 1
+  },
+  "SO": {
+   "ocr": 1
+  },
+  "TG": {
+   "ocr": 50
+  },
+  "TI": {
+   "ocr": 775
+  },
+  "VS": {
+   "ocr": 103,
+   "retype_oral": 1008
+  },
+  "ZH": {
+   "ocr": 22
+  }
+ },
+ "placeholder_docs": 29946,
+ "precision": {
+  "agenda_join": {
+   "affairs": 592,
+   "rule": "in-corpus join agendas.item_affair_id; no network"
+  },
+  "che_curia": {
+   "ci": [
+    4.6,
+    18.0
+   ],
+   "formula_only": 60,
+   "note": "CHE answers are in the texts export; for the 75 CHE gap affairs Curia Vista OData has",
+   "nothing": 8,
+   "substantive": [
+    7,
+    75
+   ]
+  },
+  "fetch_and_source": {
+   "ci": [
+    91.2,
+    100.0
+   ],
+   "ci_event": [
+    91.0,
+    100.0
+   ],
+   "ci_triple": [
+    87.1,
+    99.6
+   ],
+   "event_eq_rrb": [
+    39,
+    39
+   ],
+   "sample": "40 random 2024-25 BE interpellations without an attached answer (seed 20261008)",
+   "triple": [
+    39,
+    40
+   ],
+   "verified": [
+    40,
+    40
+   ]
+  },
+  "ocr": {
+   "categories": {
+    "image_only": 15,
+    "text_layer_full": 1,
+    "text_layer_oral_stub": 13,
+    "text_layer_short": 1
+   },
+   "ci": [
+    79.6,
+    100.0
+   ],
+   "image_only_ok": [
+    15,
+    15
+   ],
+   "sample": "30 random gap affairs outside BE/CHE with an answer doc but no OPD text (seed 20261008)"
+  },
+  "placeholder_replace": {
+   "backlog_run": {
+    "ci": [
+     67.0,
+     88.8
+    ],
+    "docs": 50,
+    "eli_found": 49,
+    "s_per_doc": 2.1,
+    "verified_rule": 40
+   },
+   "ci_inspection": [
+    83.9,
+    100.0
+   ],
+   "ci_rule": [
+    76.4,
+    99.1
+   ],
+   "inspection": [
+    20,
+    20
+   ],
+   "rule": [
+    19,
+    20
+   ],
+   "sample": "20 random placeholder docs (seed 20261008)"
+  },
+  "relink": {
+   "ci": [
+    91.2,
+    100.0
+   ],
+   "ci_date": [
+    76.9,
+    96.0
+   ],
+   "ci_triple": [
+    76.9,
+    96.0
+   ],
+   "date_eq_event": [
+    36,
+    40
+   ],
+   "identity_and_heading": [
+    40,
+    40
+   ],
+   "posthoc_ci": [
+    87.1,
+    99.6
+   ],
+   "posthoc_parser_v2_triple": [
+    39,
+    40
+   ],
+   "sample": "pre-registered 40 of 2,459 relink rows, OPD's own copy fetched",
+   "seed": 20261009,
+   "triple": [
+    36,
+    40
+   ]
+  },
+  "retype_oral": {
+   "of_gap_with_ant_doc": 1112,
+   "retyped": 1008,
+   "rule": "VS _ANT doc text < 200 chars matching 'réponse orale|mündliche Antwort'"
+  }
+ }
+}

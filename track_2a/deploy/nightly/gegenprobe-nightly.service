@@ -1,0 +1,20 @@
+# Gegenprobe nightly monitor + repair job (one container run per night).
+# Installed by `make install-nightly`; the timer below triggers it after OPD's own export job (exports are dated ~04:45 UTC).
+[Unit]
+Description=Gegenprobe nightly: OpenParlData answer-linking monitor and repair lists
+Wants=network-online.target
+After=network-online.target docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+# Persistent state (export caches, scan metadata, state.json) and outputs live on the host, never in the image.
+Environment=GP_HOME=/var/lib/gegenprobe
+ExecStartPre=/usr/bin/mkdir -p ${GP_HOME}/work ${GP_HOME}/results
+ExecStart=/usr/bin/docker run --rm --name gegenprobe-nightly \
+  -e GP_WORK=/var/gegenprobe/work \
+  -v ${GP_HOME}/work:/var/gegenprobe/work \
+  -v ${GP_HOME}/results:/app/results/monitor \
+  gegenprobe:latest python -m gegenprobe.monitor.nightly run
+TimeoutStartSec=4h
+Nice=10

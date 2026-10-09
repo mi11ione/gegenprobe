@@ -1,6 +1,6 @@
 # Gegenprobe (Track 2A, OpenParlData). Judges: `make run` (Docker, CPU, clean checkout).
 # Development targets run on the host with .venv (python 3.11); every target is re-runnable and writes under results/.
-.PHONY: run test lint claims census census-scan census-replay repair convert eval report install-nightly docker-build
+.PHONY: run test lint claims census census-scan census-replay repair repair-network nightly-offline convert eval report install-nightly docker-build
 
 PY ?= .venv/bin/python
 IMAGE ?= gegenprobe:latest
@@ -41,12 +41,33 @@ census-replay:
 	$(PY) -m gegenprobe.census.replay
 
 # ---- repair (owner: repair workstream)
+# Model-free. Needs the census tables (data/census), the cached exports (GP_OPD_RAW, GP_DOCS_META) and the canton OGD tables
+# (WORK/be_ogd; `$(PY) -m gegenprobe.repair.be fetch-ogd`). Network steps: sample (40 PDFs), che backlog, che curia, vs scan.
 repair:
-	@echo "repair: TODO"
+	$(PY) -m gegenprobe.repair.be list          # 2,459 relink + 49 fetch; exits 1 unless identical to the delivered fixture
+	$(PY) -m gegenprobe.repair.be placement
+	$(PY) -m gegenprobe.repair.be verify40      # 40 cached source PDFs (spikes/recovery)
+	$(PY) -m gegenprobe.repair.be recheck       # post-hoc parser v2 on the pre-registered sample (cached texts)
+	$(PY) -m gegenprobe.repair.che reproduce
+	$(PY) -m gegenprobe.repair.agenda
+	$(PY) -m gegenprobe.repair.vs list
+	$(PY) -m gegenprobe.repair.ocr probe 3
+	$(PY) -m gegenprobe.repair.che list
+	$(PY) -m gegenprobe.repair.run
+	$(PY) -m gegenprobe.repair.demo
+
+repair-network:   # one-off measurements that fetch documents (polite: >= 1.2 s per host); results are committed
+	$(PY) -m gegenprobe.repair.be sample        # pre-registered: data/repair/prereg_be_relink_sample.md
+	$(PY) -m gegenprobe.repair.che backlog 50
+	$(PY) -m gegenprobe.repair.che curia
+	$(PY) -m gegenprobe.repair.vs scan
+
+nightly-offline:
+	$(PY) -m gegenprobe.monitor.nightly offline
 
 # ---- nightly (owner: repair workstream)
 install-nightly:
-	@echo "install-nightly: TODO"
+	sh deploy/nightly/install.sh
 
 # ---- convert (owner: convert workstream)
 #   convert           model-free: spike replay through calibrate.py, rules on the dev pool, convert tests

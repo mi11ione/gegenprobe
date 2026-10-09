@@ -1,0 +1,10 @@
+[Unit]
+Description=Run the Gegenprobe nightly job every day at 07:30 Europe/Zurich
+
+[Timer]
+OnCalendar=*-*-* 07:30:00 Europe/Zurich
+Persistent=true
+RandomizedDelaySec=10min
+
+[Install]
+WantedBy=timers.target
