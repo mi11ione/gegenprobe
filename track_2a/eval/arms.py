@@ -91,18 +91,42 @@ def _lang(doc: dict) -> str:
     return {"fr": "fr", "it": "it", "oc": "it"}.get(doc["cell"][:2], "de")
 
 
+REC_THETA = 0.0  # recommendation pointer: no dev labels to fit on (2 non-null on dev), θ = 0 declared in PREREG (exploratory)
+REC_VALUES = {"accept", "reject", "convert", "partial"}
+
+
+def score_rec(rows: list[dict]) -> dict:
+    """Exact enum match; gold none/not_applicable/None form the null class (a null prediction is correct there)."""
+    from gegenprobe.stats import wilson
+
+    n = len(rows)
+    ok = sum((r["pred"] == r["gold"]) if r["gold"] in REC_VALUES else (r["pred"] is None) for r in rows)
+    on_null = [r for r in rows if r["gold"] not in REC_VALUES]
+    inv = sum(r["pred"] is not None for r in on_null)
+    vals = [r for r in rows if r["gold"] in REC_VALUES]
+    return dict(n=n, correct=ok, correct_ci=list(wilson(ok, n)), n_gold_value=len(vals),
+                correct_on_value=sum(r["pred"] == r["gold"] for r in vals), n_gold_null=len(on_null), invented_on_null=inv,
+                invented_on_null_ci=list(wilson(inv, len(on_null))))
+
+
 def theta_path(build: str) -> Path:
     return THETA_DIR / f"{llm._slug(build)}.json"
 
 
 def fit(be, prompt_variant: str = "") -> dict:
+    from concurrent.futures import ThreadPoolExecutor
+
     docs = load_split("dev")
-    ids, m, y = [], [], []
-    for d in docs:
-        p = pointer.answer_date(be, d["pages"], _lang(d), theta=0.0, variant=prompt_variant)
-        ids.append(d["doc_id"])
-        m.append(p.margin if p.candidates else 1e9)
-        y.append(d["label"]["answer_date"] is None)
+
+    def one(d):
+        return pointer.answer_date(be, d["pages"], _lang(d), theta=0.0, variant=prompt_variant)
+
+    workers = int(os.environ.get("GP_WORKERS", "3"))  # low concurrency: Public AI answers 429 under load
+    with ThreadPoolExecutor(workers) as ex:
+        res = list(ex.map(one, docs))
+    ids = [d["doc_id"] for d in docs]
+    m = [p.margin if p.candidates else 1e9 for p in res]
+    y = [d["label"]["answer_date"] is None for d in docs]
     keep = [i for i, v in enumerate(m) if v != 1e9]  # documents without any date cannot inform θ
     c = calibrate.calibrate(
         be.build, prompt_variant or "answer_date", [ids[i] for i in keep], [m[i] for i in keep], [y[i] for i in keep]
@@ -115,7 +139,8 @@ def fit(be, prompt_variant: str = "") -> dict:
 
 def run(be, split: str, arms: list[str], theta: float | None) -> dict:
     docs = load_split(split)
-    rows = {a: [] for a in arms}
+    rows = {a: [] for a in arms if a != "recommendation"}
+    rec_rows: dict[str, list] = {}
     per_doc = []
     for d in docs:
         lab, pages = d["label"], d["pages"]
@@ -147,6 +172,20 @@ def run(be, split: str, arms: list[str], theta: float | None) -> dict:
                     )
                 )
                 rec[f"naive_{arm}"] = dict(date=g["date"], receipt_ok=g["receipt_ok"], gen=g["gen"][:400], route="apertus")
+        if "recommendation" in arms:
+            gold_rec = lab.get("recommendation")
+            rr = rules.recommendation(pages, d.get("affair_type"))
+            r_val = rr.get("value") if rr["status"] == "value" else None
+            rec["rec_gold"] = gold_rec
+            rec["rec_rules"] = dict(status=rr["status"], value=r_val, rule=rr["rule"])
+            rec_rows.setdefault("rec_rules", []).append(dict(cell=d["cell"], gold=gold_rec, pred=r_val))
+            if be is not None:
+                pr = pointer.recommendation(be, pages, _lang(d), REC_THETA)
+                rec["rec_pointer"] = dict(value=pr.value, margin=pr.margin)
+                rec_rows.setdefault("rec_pointer", []).append(dict(cell=d["cell"], gold=gold_rec, pred=pr.value))
+                c_val = r_val if rr["status"] == "value" else (None if rr["status"] == "null" else pr.value)
+                rec_rows.setdefault("rec_cascade", []).append(dict(cell=d["cell"], gold=gold_rec, pred=c_val,
+                                                                   route="rule" if rr["status"] != "abstain" else "apertus"))
         per_doc.append(rec)
     res = dict(
         split=split,
@@ -155,6 +194,7 @@ def run(be, split: str, arms: list[str], theta: float | None) -> dict:
         n_docs=len(docs),
         served_fingerprints=sorted(getattr(be, "served", set())) if be else [],
         arms={a: dict(strict=summarise(r, True), lenient=summarise(r, False)) for a, r in rows.items() if r},
+        recommendation={a: score_rec(r) for a, r in rec_rows.items()},
         per_doc=per_doc,
     )
     out = RESULTS / "eval" / f"{split}__{llm._slug(res['build'])}.json"
@@ -168,7 +208,7 @@ def main():
     ap.add_argument("cmd", choices=["fit", "run"])
     ap.add_argument("--backend", default="none")
     ap.add_argument("--split", default="heldout")
-    ap.add_argument("--arms", default="rules,pointer,cascade,naive")
+    ap.add_argument("--arms", default="rules,pointer,cascade,naive,recommendation")
     a = ap.parse_args()
     be = backend(a.backend)
     if a.cmd == "fit":
