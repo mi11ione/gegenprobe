@@ -1,0 +1,54 @@
+name: gguf-8b
+# Real Apertus v1.5 8B runs (GGUF Q4_K_M, llama.cpp CPU). Public AI's "-8b" name serves the 70B, so the 8B arms run here.
+# Manual only. `selfcheck` validates the scorer against the spike's libllama reference; `arms` runs a frozen eval arm and
+# uploads the hash-keyed model cache as an artifact (committed afterwards under data/model_cache/gguf_*).
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: "selfcheck | arms"
+        default: selfcheck
+      args:
+        description: "extra args for the arms runner (e.g. --arm P8 --shard 0/4)"
+        default: ""
+permissions:
+  contents: read
+defaults:
+  run:
+    working-directory: track_2a
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    env:
+      GP_WORK: ${{ github.workspace }}/work
+      PYTHONPATH: src:.
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils
+      - name: llama-cpp-python (CPU wheel, pinned)
+        run: |
+          pip install -r requirements.txt
+          pip install --only-binary=:all: --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu llama-cpp-python==0.3.35 \
+            || CMAKE_ARGS="-DGGML_NATIVE=ON" pip install llama-cpp-python==0.3.35
+      - uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/work/models
+          key: gguf-apertus-v1.5-8b-q4km-a037df8d
+      - name: fetch pinned GGUF (sha256-verified)
+        run: python -c "from gegenprobe import llm; print(llm.fetch_gguf('apertus-v1.5-8b-text-q4_k_m'))"
+      - name: selfcheck
+        if: inputs.task == 'selfcheck'
+        run: python -m gegenprobe.gguf_check out/gguf_parity.json
+      - name: arms
+        if: inputs.task == 'arms'
+        run: python -m eval.run_arms --backend gguf ${{ inputs.args }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gguf-${{ inputs.task }}-${{ github.run_id }}
+          path: |
+            track_2a/out/
+            track_2a/data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m/

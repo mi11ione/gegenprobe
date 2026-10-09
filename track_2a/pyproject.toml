@@ -21,6 +21,11 @@ where = ["src"]
 line-length = 130
 src = ["src"]
 
+[tool.ruff.lint]
+# explicit set: pyflakes, pycodestyle, bugbear (ruff >= 0.16 widened its default selection)
+select = ["E", "F", "W", "B"]
+ignore = ["B905", "E731"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src", "."]

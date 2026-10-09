@@ -51,7 +51,8 @@ def model_step() -> dict:
             return dict(status="SKIP", backend="gguf", reason=f"GGUF unavailable ({type(e).__name__}: {e}); replay only")
     if os.environ.get("LLM_BASE_URL") and os.environ.get("LLM_NAME"):
         return dict(status="PASS", backend="openai", model=os.environ["LLM_NAME"])
-    return dict(status="SKIP", backend=None, reason="no LLM_BASE_URL/LLM_NAME and GP_GGUF!=1: model outputs replayed from data/model_cache")
+    return dict(status="SKIP", backend=None,
+                reason="no LLM_BASE_URL/LLM_NAME and GP_GGUF!=1: model outputs replayed from data/model_cache")
 
 
 def main() -> int:

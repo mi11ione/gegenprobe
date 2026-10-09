@@ -6,4 +6,5 @@ from .paths import ROOT
 def main(ctx: dict) -> dict:
     rows = load(ROOT / "claims.tsv")
     errs = check(rows)
-    return dict(status="FAIL" if errs else "PASS", summary=f"{len(rows)} claims recomputed, {len(errs)} failing", errors=errs[:50])
+    return dict(status="FAIL" if errs else "PASS", summary=f"{len(rows)} claims recomputed, {len(errs)} failing",
+                errors=errs[:50])
