@@ -8,8 +8,8 @@ repair.che_placeholder_docs	29,946	results/repair/summary.json	by_action.placeho
 repair.affairs_with_action	5,459	results/repair/summary.json	affairs_with_action	int	python -m gegenprobe.repair.run	docs/repair.md
 repair.be_source_answered	3,532	results/repair/be_placement.json	total.source_answered	int	python -m gegenprobe.repair.be placement	docs/repair.md,README.md,docs/form_notes.md,technical_report.md
 repair.be_attached	229	results/repair/be_placement.json	total.attached	int	python -m gegenprobe.repair.be placement	docs/repair.md,README.md,docs/form_notes.md,technical_report.md
-repair.be_via_agenda	527	results/repair/be_placement.json	total.via_agenda	int	python -m gegenprobe.repair.be placement	docs/repair.md
-repair.be_parentless	2,638	results/repair/be_placement.json	total.orphan_uid	int	python -m gegenprobe.repair.be placement	docs/repair.md,technical_report.md
+repair.be_via_agenda	527	results/repair/be_placement.json	total.via_agenda	int	python -m gegenprobe.repair.be placement	docs/repair.md,README.md
+repair.be_parentless	2,638	results/repair/be_placement.json	total.orphan_uid	int	python -m gegenprobe.repair.be placement	docs/repair.md,technical_report.md,README.md
 repair.be_absent	138	results/repair/be_placement.json	total.absent	int	python -m gegenprobe.repair.be placement	docs/repair.md
 repair.be40_verified	40/40	results/repair/be_verify40.json	verified_spike_rule/n	frac	python -m gegenprobe.repair.be verify40	docs/repair.md,technical_report.md
 repair.be40_ci	[91.2, 100]	results/repair/be_verify40.json	ci_spike_rule	ci	python -m gegenprobe.repair.be verify40	docs/repair.md,technical_report.md
@@ -23,7 +23,7 @@ repair.relink_sample_posthoc	39/40	results/repair/be_relink_sample_posthoc.json	
 repair.relink_sample_posthoc_ci	[87.1, 99.6]	results/repair/be_relink_sample_posthoc.json	ci_triple	ci	python -m gegenprobe.repair.be recheck	docs/repair.md
 repair.che20_rule	19/20	results/repair/che_reproduce.json	verified_rule/n	frac	python -m gegenprobe.repair.che reproduce	docs/repair.md,technical_report.md
 repair.che20_rule_ci	[76.4, 99.1]	results/repair/che_reproduce.json	ci_rule	ci	python -m gegenprobe.repair.che reproduce	docs/repair.md
-repair.che20_inspect	20/20	results/repair/che_reproduce.json	correct_on_inspection/n	frac	python -m gegenprobe.repair.che reproduce	docs/repair.md,technical_report.md
+repair.che20_inspect	20/20	results/repair/che_reproduce.json	correct_on_inspection/n	frac	python -m gegenprobe.repair.che reproduce	docs/repair.md
 repair.che20_inspect_ci	[83.9, 100]	results/repair/che_reproduce.json	ci_inspection	ci	python -m gegenprobe.repair.che reproduce	docs/repair.md
 repair.che50_rule	40/50	results/repair/che_backlog_run.json	verified_rule/total_done	frac	python -m gegenprobe.repair.che backlog 50 && python -m gegenprobe.repair.che stats	docs/repair.md,technical_report.md
 repair.che50_rule_ci	[67, 88.8]	results/repair/che_backlog_run.json	ci_rule	ci	python -m gegenprobe.repair.che backlog 50	docs/repair.md,technical_report.md

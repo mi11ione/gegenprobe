@@ -7,5 +7,5 @@ The project lives in [`track_2a/`](track_2a/). Start with [`track_2a/README.md`]
 cd track_2a && make run      # Docker, CPU, clean checkout
 ```
 
-Code: Apache-2.0 ([LICENSE](LICENSE)). Report: CC-BY-4.0. Data in `track_2a/data/`: CDLA-Permissive-2.0
+Code: Apache-2.0 ([LICENSE](LICENSE)). Report: CC-BY-4.0 ([track_2a/docs/LICENSE-report.txt](track_2a/docs/LICENSE-report.txt)). Data in `track_2a/data/`: CDLA-Permissive-2.0
 ([track_2a/data/LICENSE](track_2a/data/LICENSE)).

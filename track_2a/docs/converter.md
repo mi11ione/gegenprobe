@@ -13,6 +13,16 @@ document (PDF → pdftotext pages; image-only → tesseract deu+fra+ita)
   └─ (iii) pointer       residue only: forced choice over {dates in the document} ∪ {null}; null iff margin > θ(build, prompt)
 ```
 
+## Modes (`convert/modes.py`) — decided by the pre-registered held-out test
+
+| mode | what writes the field | model | held-out (answer date, 154 documents) |
+|---|---|---|---|
+| `rules_only` (**default**) | OPD metadata + frozen rules; the residue stays a typed null (`present_unanchored` / `not_in_document`) | none | 135/154 exact, values on 2/90 answerless documents, 0 fabricated |
+| `review` | as `rules_only`; the pointer's value on the residue is attached as `suggestion` {value, page, span, quote, margin, θ, build} with `needs_review: true`, never written into the field | Apertus pointer | accepting every suggestion = the cascade arm: 139/154, false nulls 15 → 4, values on answerless 2 → 7 |
+
+Branch B of the pre-registration (H2, `eval/prereg/PREREG.md`): Apertus did not measurably add null-safety over the
+rules, so it does not write values unattended. `cascade.py` (pre-registration-locked) is unchanged; `modes.py` wraps it.
+
 ## Candidate lattice (`convert/lattice.py`)
 - **Dates.** Numeric (`28.08.2024`, `28/08/2024`, `2024-08-28`) and day + month name in DE/FR/IT, full or abbreviated
   (`1er mars`, `1° ottobre`, `3 déc.`, `15 sett.`, `15juillet`). Invalid calendar dates are dropped, as are years outside

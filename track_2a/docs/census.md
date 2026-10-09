@@ -53,7 +53,7 @@ Assigned to every in-scope affair, first match wins:
 | `absent` | no answer document in OPD | body-specific source adapter (BE: canton fetch) |
 | `not_applicable` | no answer event and no answer text | — |
 
-## 3. Feasibility matrix: criteria (written before the table was computed)
+## 3. Feasibility matrix: criteria (written before the table was computed; criteria and matrix were committed together)
 
 **Unit.** Field × body. A body is *eligible* for a field when it has at least 20 applicable affairs (below that the cell is
 `n/a`, shown but not used for tiers). The 89 bodies are those with in-scope affairs.
@@ -71,7 +71,7 @@ outcome and government recommendation; all documents for language.
 - `route` = metadata | metadata+<extraction route> | <extraction route> | not representable (no source), where the
   extraction route is fixed per field: `rule` (anchored dates, affair numbers that exist in OPD, addressed-body headings) or
   `apertus` (closed-set pointer: government-recommendation enum, unanchored dates, OCR'd text), always with `null` allowed;
-- `accuracy` = measured extraction accuracy for the route in this cell — **empty until the converter evaluation fills it**.
+- `accuracy` = measured extraction accuracy for the route in this cell — left empty; the held-out evaluation measured the answer date per language × level cell, not per body (`results/census/matrix_accuracy.json`).
 
 **Per-field tier**, applied by code over eligible bodies:
 1. **feasible** — the field is `metadata` in ≥ 80% of eligible bodies: a common schema can carry it today.
@@ -169,6 +169,6 @@ Across 54 parliaments with ≥ 20 written-answer interventions, the answer text 
 - Year comes from the affair number where it starts with a year, else from `begin_date` (affected by the BE 2024-10-28 import date).
 - Parentless counts do not check `news_id` (not kept by the scan).
 - `co-signatories` is a lower bound (no co-signers vs. unrecorded is indistinguishable in metadata).
-- Extraction accuracy per cell is empty until the converter evaluation fills it; `pdf` cells say a converter *can* work there, not that it does.
+- The `accuracy` column stays empty: measured extraction accuracy exists only for the answer date, per language x level cell of the held-out gold set rather than per body (`results/census/matrix_accuracy.json`; no federal documents in the gold set). `pdf` cells say a converter *can* work there, not that it does.
 
 <!-- END GENERATED: census results -->

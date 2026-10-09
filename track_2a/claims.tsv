@@ -22,7 +22,7 @@ census.parentless_docs_national	231,499	results/census/summary.json	parentless_d
 census.parentless_docs_share	25.6%	results/census/summary.json	parentless_docs.national_share	pct1	make census	-
 census.parentless_docs_be	32,115	results/census/summary.json	parentless_docs.BE	int	make census	-
 census.parentless_docs_be_share	64.5%	results/census/summary.json	parentless_docs.BE_share	pct1	make census	-
-census.docs_total	902,754	results/census/summary.json	parentless_docs.docs_total	int	make census	-
+census.docs_total	902,754	results/census/summary.json	parentless_docs.docs_total	int	make census	README.md,technical_report.md
 census.spike_cells_identical	5,444	results/census/spike_reproduction.json	cells_ours	int	make census	-
 census.spike_field_differences	0	results/census/spike_reproduction.json	field_differences	int	make census	-
 matrix.fields_feasible	4	results/census/matrix.json	tier_counts.feasible	int	make census	README.md,docs/form_notes.md,technical_report.md
@@ -37,7 +37,7 @@ matrix.question_time_oral_share	20.7%	results/census/matrix.json	concept_split.a
 question.median_days	68	results/census/question.json	national.median_days	int	make census	technical_report.md
 question.text_share_now	82.3%	results/census/question.json	national.text_share_now	pct1	make census	technical_report.md
 question.text_share_after_relink	85.0%	results/census/question.json	national.text_share_after_relink	pct1	make census	technical_report.md
-question.bodies	54	results/census/question.json	n_bodies	int	make census	technical_report.md
+question.bodies	54	results/census/question.json	n_bodies	int	make census	technical_report.md,README.md
 question.median_days_question_time	5	results/census/question.json	by_type.Question time.median_days	int	make census	technical_report.md
 findings.che_placeholder_docs	30,033	results/census/findings.json	findings.0.count	int	make census	-
 findings.che_placeholder_share	57.3%	results/census/findings.json	findings.0.share	pct1	make census	technical_report.md
@@ -49,7 +49,7 @@ findings.be_begin_import_date	557	results/census/findings.json	findings.6.on_202
 findings.type_unharmonised_share	17.1%	results/census/findings.json	findings.9.share	pct1	make census	-
 findings.state_harmonised	278	results/census/findings.json	findings.10.count	int	make census	-
 findings.persons_contact_fields	6	results/census/findings.json	findings.11.count	int	make census	technical_report.md
-question.same_day_bodies	7	results/census/question.json	n_same_day_bodies	int	make census	technical_report.md
+question.same_day_bodies	7	results/census/question.json	n_same_day_bodies	int	make census	technical_report.md,README.md
 census.vs_oral_canonical	1,008	results/census/vs_reconcile.json	canonical.value	int	python -m gegenprobe.census.reconcile_vs	docs/census.md,technical_report.md
 census.vs_oral_proxy_only	8	results/census/vs_reconcile.json	only_census	int	python -m gegenprobe.census.reconcile_vs	-
 census.vs_proxy_precision	99.2%	results/census/vs_reconcile.json	doc_level.proxy_precision	pct1	python -m gegenprobe.census.reconcile_vs	docs/census.md
@@ -86,8 +86,8 @@ eval.rules.exact	135/154	results/report/eval_numbers.json	arms.rules.exact/arms.
 eval.rules.exact_ci	[81.5, 92]	results/report/eval_numbers.json	arms.rules.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.rules.correct	47	results/report/eval_numbers.json	arms.rules.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.rules.correct_null	88	results/report/eval_numbers.json	arms.rules.correct_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
-eval.rules.false_null	15	results/report/eval_numbers.json	arms.rules.false_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
-eval.rules.misattributed	4	results/report/eval_numbers.json	arms.rules.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.rules.false_null	15	results/report/eval_numbers.json	arms.rules.false_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
+eval.rules.misattributed	4	results/report/eval_numbers.json	arms.rules.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
 eval.rules.fabricated	0	results/report/eval_numbers.json	arms.rules.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.rules.invented_on_null	2	results/report/eval_numbers.json	arms.rules.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.pointer.exact	130/154	results/report/eval_numbers.json	arms.pointer.exact/arms.pointer.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
@@ -95,15 +95,15 @@ eval.pointer.exact_ci	[77.9, 89.3]	results/report/eval_numbers.json	arms.pointer
 eval.pointer.correct	46	results/report/eval_numbers.json	arms.pointer.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.pointer.correct_null	84	results/report/eval_numbers.json	arms.pointer.correct_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.pointer.false_null	8	results/report/eval_numbers.json	arms.pointer.false_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
-eval.pointer.misattributed	16	results/report/eval_numbers.json	arms.pointer.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.pointer.misattributed	16	results/report/eval_numbers.json	arms.pointer.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.pointer.fabricated	0	results/report/eval_numbers.json	arms.pointer.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.pointer.invented_on_null	6	results/report/eval_numbers.json	arms.pointer.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.cascade.exact	139/154	results/report/eval_numbers.json	arms.cascade.exact/arms.cascade.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
 eval.cascade.exact_ci	[84.6, 94]	results/report/eval_numbers.json	arms.cascade.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
 eval.cascade.correct	56	results/report/eval_numbers.json	arms.cascade.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.cascade.correct_null	83	results/report/eval_numbers.json	arms.cascade.correct_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
-eval.cascade.false_null	4	results/report/eval_numbers.json	arms.cascade.false_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
-eval.cascade.misattributed	11	results/report/eval_numbers.json	arms.cascade.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.cascade.false_null	4	results/report/eval_numbers.json	arms.cascade.false_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
+eval.cascade.misattributed	11	results/report/eval_numbers.json	arms.cascade.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
 eval.cascade.fabricated	0	results/report/eval_numbers.json	arms.cascade.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.cascade.invented_on_null	7	results/report/eval_numbers.json	arms.cascade.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.naive_plain.exact	98/154	results/report/eval_numbers.json	arms.naive_plain.exact/arms.naive_plain.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
@@ -111,7 +111,7 @@ eval.naive_plain.exact_ci	[55.8, 70.8]	results/report/eval_numbers.json	arms.nai
 eval.naive_plain.correct	47	results/report/eval_numbers.json	arms.naive_plain.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.naive_plain.correct_null	51	results/report/eval_numbers.json	arms.naive_plain.correct_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.naive_plain.false_null	9	results/report/eval_numbers.json	arms.naive_plain.false_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
-eval.naive_plain.misattributed	23	results/report/eval_numbers.json	arms.naive_plain.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.naive_plain.misattributed	23	results/report/eval_numbers.json	arms.naive_plain.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.naive_plain.fabricated	24	results/report/eval_numbers.json	arms.naive_plain.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
 eval.naive_plain.invented_on_null	39	results/report/eval_numbers.json	arms.naive_plain.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.naive_null.exact	134/154	results/report/eval_numbers.json	arms.naive_null.exact/arms.naive_null.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
@@ -119,7 +119,7 @@ eval.naive_null.exact_ci	[80.8, 91.4]	results/report/eval_numbers.json	arms.naiv
 eval.naive_null.correct	47	results/report/eval_numbers.json	arms.naive_null.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.naive_null.correct_null	87	results/report/eval_numbers.json	arms.naive_null.correct_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.naive_null.false_null	9	results/report/eval_numbers.json	arms.naive_null.false_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
-eval.naive_null.misattributed	11	results/report/eval_numbers.json	arms.naive_null.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.naive_null.misattributed	11	results/report/eval_numbers.json	arms.naive_null.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.naive_null.fabricated	0	results/report/eval_numbers.json	arms.naive_null.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.naive_null.invented_on_null	3	results/report/eval_numbers.json	arms.naive_null.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.naive_plain.on_null_frac	39/90	results/report/eval_numbers.json	arms.naive_plain.invented_on_null/arms.naive_plain.n_gold_null	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
@@ -148,6 +148,21 @@ eval.posthoc.ocr_de	17/22	results/report/eval_numbers.json	posthoc.ocr_pointer_d
 eval.posthoc.ocr_it	21/22	results/report/eval_numbers.json	posthoc.ocr_pointer_it/posthoc.ocr_n	frac	python -m eval.posthoc curve|ocr_it ; python -m report.eval_numbers	technical_report.md
 eval.rec.on_null	28/144	results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json	recommendation.rec_pointer.invented_on_null/recommendation.rec_pointer.n_gold_null	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.rec.cascade_on_null	24/144	results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json	recommendation.rec_cascade.invented_on_null/recommendation.rec_cascade.n_gold_null	frac	python -m eval.arms run --split heldout ...	technical_report.md
+repair.be_linkable_breakdown_text_present	155	results/repair/be_reconcile.json	parentless_breakdown.answer text already present in OPD (other document or texts)	int	python -m gegenprobe.repair.reconcile_be	README.md,technical_report.md
+repair.be_linkable_breakdown_no_event	24	results/repair/be_reconcile.json	parentless_breakdown.no written-answer event in OPD (not counted as missing)	int	python -m gegenprobe.repair.reconcile_be	README.md,technical_report.md
+repair.be_parentless_not_in_list	179	results/repair/be_reconcile.json	parentless_not_in_list	int	python -m gegenprobe.repair.reconcile_be	README.md,technical_report.md,docs/form_notes.md
+repair.be_linkable	3,394	results/repair/be_reconcile.json	linkable_within_opd	int	python -m gegenprobe.repair.reconcile_be	README.md,docs/form_notes.md
+cost.residue_docs	97	results/report/cost.json	residue_docs	int	python -m report.cost	README.md,technical_report.md
+cost.heldout_docs	154	results/report/cost.json	heldout_docs	int	python -m report.cost	README.md,technical_report.md
+cost.residue_share	63%	results/report/cost.json	residue_share	pct0	python -m report.cost	README.md,technical_report.md
+cost.calls_per_doc	3.5	results/report/cost.json	calls_per_residue_doc_mean	f1	python -m report.cost	README.md,technical_report.md
+cost.billed_tokens_per_doc	5,905	results/report/cost.json	billed_prompt_tokens_per_residue_doc_mean	int	python -m report.cost	README.md,technical_report.md
+cost.unique_tokens_per_doc	1,593	results/report/cost.json	unique_prefill_tokens_per_residue_doc_mean	int	python -m report.cost	README.md,technical_report.md
+cost.projection_billions	3.4	results/report/cost.json	projection_billed_prompt_tokens_billions	f1	python -m report.cost	README.md,technical_report.md
+cost.projection_usd	336	results/report/cost.json	projection_usd_at_list_price	int	python -m report.cost	README.md,technical_report.md
+cost.projection_usd_x10	3,357	results/report/cost.json	projection_usd_at_list_price_x10	int	python -m report.cost	README.md,technical_report.md
+cost.rules_cpu_hours	0.5	results/report/cost.json	rules_cpu_hours_corpus	f1	python -m report.cost	README.md,technical_report.md
+cost.corpus_docs	902,754	results/report/cost.json	corpus_documents	int	python -m report.cost	README.md,technical_report.md
 repair.be_relink	2,459	results/repair/summary.json	by_action.relink	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md,technical_report.md
 repair.be_fetch	49	results/repair/summary.json	by_action.fetch	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md,technical_report.md
 repair.agenda_join	592	results/repair/summary.json	by_action.agenda_join	int	python -m gegenprobe.repair.run	docs/repair.md,technical_report.md
@@ -157,8 +172,8 @@ repair.che_placeholder_docs	29,946	results/repair/summary.json	by_action.placeho
 repair.affairs_with_action	5,459	results/repair/summary.json	affairs_with_action	int	python -m gegenprobe.repair.run	docs/repair.md
 repair.be_source_answered	3,532	results/repair/be_placement.json	total.source_answered	int	python -m gegenprobe.repair.be placement	docs/repair.md,README.md,docs/form_notes.md,technical_report.md
 repair.be_attached	229	results/repair/be_placement.json	total.attached	int	python -m gegenprobe.repair.be placement	docs/repair.md,README.md,docs/form_notes.md,technical_report.md
-repair.be_via_agenda	527	results/repair/be_placement.json	total.via_agenda	int	python -m gegenprobe.repair.be placement	docs/repair.md
-repair.be_parentless	2,638	results/repair/be_placement.json	total.orphan_uid	int	python -m gegenprobe.repair.be placement	docs/repair.md,technical_report.md
+repair.be_via_agenda	527	results/repair/be_placement.json	total.via_agenda	int	python -m gegenprobe.repair.be placement	docs/repair.md,README.md
+repair.be_parentless	2,638	results/repair/be_placement.json	total.orphan_uid	int	python -m gegenprobe.repair.be placement	docs/repair.md,technical_report.md,README.md
 repair.be_absent	138	results/repair/be_placement.json	total.absent	int	python -m gegenprobe.repair.be placement	docs/repair.md
 repair.be40_verified	40/40	results/repair/be_verify40.json	verified_spike_rule/n	frac	python -m gegenprobe.repair.be verify40	docs/repair.md,technical_report.md
 repair.be40_ci	[91.2, 100]	results/repair/be_verify40.json	ci_spike_rule	ci	python -m gegenprobe.repair.be verify40	docs/repair.md,technical_report.md
@@ -172,7 +187,7 @@ repair.relink_sample_posthoc	39/40	results/repair/be_relink_sample_posthoc.json	
 repair.relink_sample_posthoc_ci	[87.1, 99.6]	results/repair/be_relink_sample_posthoc.json	ci_triple	ci	python -m gegenprobe.repair.be recheck	docs/repair.md
 repair.che20_rule	19/20	results/repair/che_reproduce.json	verified_rule/n	frac	python -m gegenprobe.repair.che reproduce	docs/repair.md,technical_report.md
 repair.che20_rule_ci	[76.4, 99.1]	results/repair/che_reproduce.json	ci_rule	ci	python -m gegenprobe.repair.che reproduce	docs/repair.md
-repair.che20_inspect	20/20	results/repair/che_reproduce.json	correct_on_inspection/n	frac	python -m gegenprobe.repair.che reproduce	docs/repair.md,technical_report.md
+repair.che20_inspect	20/20	results/repair/che_reproduce.json	correct_on_inspection/n	frac	python -m gegenprobe.repair.che reproduce	docs/repair.md
 repair.che20_inspect_ci	[83.9, 100]	results/repair/che_reproduce.json	ci_inspection	ci	python -m gegenprobe.repair.che reproduce	docs/repair.md
 repair.che50_rule	40/50	results/repair/che_backlog_run.json	verified_rule/total_done	frac	python -m gegenprobe.repair.che backlog 50 && python -m gegenprobe.repair.che stats	docs/repair.md,technical_report.md
 repair.che50_rule_ci	[67, 88.8]	results/repair/che_backlog_run.json	ci_rule	ci	python -m gegenprobe.repair.che backlog 50	docs/repair.md,technical_report.md

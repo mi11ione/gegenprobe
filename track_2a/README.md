@@ -10,14 +10,20 @@ parliamentary question:
 - **Reality:** of 91,268 interventions whose events record a written answer, **16,749 (18.4%) have no answer text in
   OPD**. In Bern only 229 of the 3,532 answers the canton publishes (6.5%) are attached to their affair, yet most of the
   rest already sit in OPD, unlinked.
-- **Repair:** deterministic joins bring Bern to 3,394 linked answers (96.1%) without any model. Across Switzerland,
-  3,107 missing answers are recoverable by deterministic routes (Bern's relink: affair number and answer heading
-  confirmed 40/40 on a pre-registered sample, decision date 36/40, one miss being a typo in the canton's own PDF), 1,008 Valais "missing" answers are in fact oral,
-  and 11,206 need per-parliament source adapters. That last number is the honest remainder, stated as such.
+- **Repair:** in Bern, 3,394 of the canton's answers (96.1%) are linkable within OPD without any model: 229 attached,
+  527 under an agenda item, 2,638 as parentless documents. The delivered list relinks 2,459 of the parentless ones and
+  fetches 49; the other 179 parentless answers belong to affairs whose answer text is already in OPD (155) or that OPD
+  records without a written-answer event (24), so they are not missing (`results/repair/be_reconcile.json`). Across
+  Switzerland, 3,107 missing answers are recoverable by deterministic routes (agenda join, Bern relink and fetch, federal
+  Curia Vista); the Bern relink is sample-verified (affair number and answer heading 40/40 on a pre-registered sample,
+  decision date 36/40, one miss being a typo in the canton's own PDF), the agenda join and Curia routes are not. 1,008
+  Valais "missing" answers are in fact oral, and 11,206 need per-parliament source adapters. That last number is the
+  honest remainder, stated as such.
 - **Schema:** a field-by-field verdict over 89 parliaments says which parts of an affair can be represented consistently
   and where the parliaments differ (below).
-- **Converter:** rules first, then Apertus as a closed-set pointer with a calibrated null, every value with page and
-  character span. The naive alternative, Apertus generating the JSON freely from a plain prompt, gives an answer date for
+- **Converter:** rules first; Apertus is a closed-set pointer with a calibrated null, every value with page and
+  character span. After the pre-registered held-out test the default mode is **rules only**; Apertus runs on the rules'
+  residue as a review suggestion (`src/gegenprobe/convert/modes.py`, below). The naive alternative, Apertus generating the JSON freely from a plain prompt, gives an answer date for
   15/15 (local 8B) and 14/15 (70B) Bern interpellations that have no answer; a null-allowed prompt fixes this on the 70B
   (0/15) but not on the local 8B (still 14/15).
 
@@ -42,7 +48,8 @@ What `make run` does (`src/gegenprobe/run.py`; it exits non-zero on any failure)
 4. **convert** — sample documents through the cascade; span re-check, typed nulls, footer-distractor and self-deletion
    tests; live pointer margins compared with the committed cache.
 5. **eval** — re-scores the committed evaluation results and prints the scoreboard.
-6. **claims** — every number in this README and the report is recomputed from its results file (`claims.tsv`).
+6. **claims** — every number in this README and the report is recomputed from a results file in this repository
+   (`claims.tsv`); figures cited from earlier spikes are marked as cited (`results/report/cited_spikes.json`), not recomputed.
 
 Network access is optional: without it, the live slices report SKIP and everything else still replays.
 
@@ -59,10 +66,11 @@ Network access is optional: without it, the live slices report SKIP and everythi
 | Repair lists in OPD's export layout | `results/repair/repair_<body>.{tsv,json}`, `docs/repair.md` |
 | Nightly job (systemd timer + container) | `src/gegenprobe/monitor/`, `deploy/nightly/`, `make install-nightly`, `docs/nightly.md` |
 
-## Is a common schema feasible? (`results/census/matrix.json`, criteria fixed before computing in `docs/census.md` §3)
+## Is a common schema feasible? (`results/census/matrix.json`, criteria in `docs/census.md` §3, written down before computing; not separately committed)
 
-Over 17 fields and 89 parliaments, **4 fields are feasible** from OPD metadata alone (submission date, answer date,
-procedural history, answer-link status), **13 are partial** (in the metadata for some parliaments, only in the PDF for
+Over 17 fields and 89 parliaments, **4 fields are feasible** from OPD metadata alone (submission date, answer date —
+the answer-event date, which in 7 of 54 bodies is the submission date for most affairs — procedural history,
+answer-link status), **13 are partial** (in the metadata for some parliaments, only in the PDF for
 others: type, submitter, co-signatories, addressed body, Q/A pairing, dispatch and decision dates, decision outcome,
 government recommendation, procedural state, related affairs, language, usable document text), and **0 are fundamentally
 different** by the pre-declared rule. Where the concept itself splits (oral answers, question time, same-day "answer"
@@ -107,24 +115,29 @@ before any label existed (`eval/prereg/PREREG.md`, `eval/prereg/LOCK`, commit `8
 deviations in `eval/prereg/DEVIATIONS.md`. Answer date, strict, frozen code; Apertus = 70B weights served as
 `swiss-ai/apertus-v1.5-8b` (details: report §6).
 
-| arm | exact [95% CI] | fabricated | values on the 90 answerless |
-|---|---|---|---|
-| rules only | 135/154 [81.5, 92] | 0 | 2 |
-| pointer (Apertus on every document) | 130/154 [77.9, 89.3] | 0 | 6 |
-| **cascade: rules, then pointer (shipped)** | **139/154 [84.6, 94]** | **0** | 7 |
-| naive free generation, plain prompt | 98/154 [55.8, 70.8] | **24** | 39 |
-| naive free generation, null-allowed | 134/154 [80.8, 91.4] | 0 | 3 |
+| arm | exact [95% CI] | wrong date printed in the document | fabricated | values on the 90 answerless |
+|---|---|---|---|---|
+| **rules only (default mode)** | **135/154 [81.5, 92]** | 4 | 0 | 2 |
+| pointer (Apertus on every document) | 130/154 [77.9, 89.3] | 16 | 0 | 6 |
+| cascade: rules, then pointer on the residue | 139/154 [84.6, 94] | 11 | 0 | 7 |
+| naive free generation, plain prompt | 98/154 [55.8, 70.8] | 23 | 24 | 39 |
+| naive free generation, null-allowed | 134/154 [80.8, 91.4] | 11 | 0 | 3 |
 <!-- SLOT: 8B rows -->
 
 - **H1 null safety: FAIL.** The cascade puts a value on 7 of 90 answerless documents (upper Wilson bound 15.2%, target 10%).
 - **H2: Branch B.** Cascade vs rules on the French, Italian and OCR cells: 5 documents only the cascade gets right,
-  1 only the rules (exact McNemar p = 0.22). As registered: Apertus is kept only where it measurably adds null-safety.
+  1 only the rules (exact McNemar p = 0.22). Apertus does not measurably add null-safety over the rules (values on
+  answerless documents: cascade 7/90, rules 2/90), so under the registered rule it is **not kept in the unattended
+  path**: the default mode is rules only, and the pointer's answers on the rules' residue are review suggestions.
 - **H3: PASS.** The pointer's null margin separates answerless from answered documents with AUROC 0.969.
 - **H4: triggered.** 3 of 8 Apertus-decided French/Italian values are wrong; the post-hoc θ sweep is in the report.
 
-The honest reading: the rules carry the extraction. A well-prompted 70B (null-allowed) is about as accurate as our
-cascade; what the closed-set pointer adds is structural: it cannot fabricate a value, every value has page and span,
-and its margin is a reliable abstention signal. The naive plain prompt fabricates 24 dates.
+The honest reading: the rules carry the extraction. Accepting every pointer answer on the residue would cut false nulls
+from 15 to 4 but add misattributions (wrong dates printed in the document 4 → 11; values on answerless documents 2 → 7),
+so a reviewer, not the pipeline, accepts them: each suggestion arrives with page, span and margin. A well-prompted 70B
+(null-allowed) is about as accurate as the cascade. What the closed-set pointer adds is structural: it cannot fabricate
+a value, every value has page and span, and its margin separates answered from answerless documents (AUROC 0.969),
+though the frozen θ was too permissive (H1 failed). The naive plain prompt fabricates 24 dates.
 
 ![Held-out scoreboard](docs/figures/fig5_scoreboard.png)
 
@@ -136,8 +149,10 @@ and its margin is a reliable abstention signal. The naive plain prompt fabricate
 - **Builds:** development and evaluation ran on Public AI. Its `swiss-ai/apertus-v1.5-8b` name serves the **70B**
   weights (measured, see the report), so results labelled "Public AI" are 70B results. The 8B runs locally as GGUF
   Q4_K_M on CPU (llama.cpp); θ does not transfer between builds, so each build gets its own.
-- **Why not more:** the rules and OPD metadata already decide most values; Apertus is kept where it measurably adds
-  null-safety. The report states where it fell short.
+- **Modes:** `rules_only` (default, unattended, no model) and `review` (the pointer on the rules' residue; its value is a
+  suggestion with page, span, margin and `needs_review: true` for OPD's existing manual-review step). This follows the
+  pre-registered Branch B: Apertus did not measurably add null-safety over the rules on held-out documents, so it does
+  not write values unattended. The report states where it fell short.
 
 ## Sovereignty and runtime dependencies
 
@@ -152,6 +167,13 @@ The running system contacts only the sources it repairs and, optionally, the mod
 | ws.parlament.ch (Curia Vista OData) | a federal affair number | CHE answers missing from the texts export |
 | huggingface.co, only with `GP_GGUF=1` | GET of the pinned GGUF weights (once) | local 8B scoring |
 | the LLM endpoint the operator sets (`LLM_BASE_URL`) — or none | document text of public parliamentary documents | the Apertus pointer |
+
+**Cost.** The default `rules_only` mode needs no model: measured on the held-out texts, the rules would take about
+0.5 CPU-hours for all 902,754 documents in OPD's export. In `review` mode the pointer runs only on the rules'
+residue (97 of 154 held-out documents, 63%), with 3.5 calls per residue document and 5,905 billed prompt tokens
+(1,593 unique prefill tokens) on average; projected to OPD's 902,754 documents that is about 3.4 billion billed prompt
+tokens, $336 at Public AI's list price for that name ($3,357 at ten times the volume); a server with prefix caching
+computes far fewer (`results/report/cost.json`; the residue share comes from a stratified sample, not the corpus mix).
 
 With `GP_GGUF=1` the model runs in-process on CPU and no document text leaves the machine. Public AI was used for
 development and evaluation only; it may route requests outside Switzerland and is not a runtime target. All requests use
@@ -172,5 +194,5 @@ least 1.2 s between requests to one host.
 
 ## Licences
 
-Code: Apache-2.0 (`../LICENSE`). Report: CC-BY-4.0. Data in `data/`: CDLA-Permissive-2.0 (`data/LICENSE`); it holds
+Code: Apache-2.0 (`../LICENSE`). Report: CC-BY-4.0 (`docs/LICENSE-report.txt`). Data in `data/`: CDLA-Permissive-2.0 (`data/LICENSE`); it holds
 identifiers, URLs, hashes, counts, labels and short quotations only — no full document texts and no personal contact data.

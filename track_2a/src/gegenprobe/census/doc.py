@@ -152,7 +152,9 @@ def render() -> str:
         "import date).",
         "- Parentless counts do not check `news_id` (not kept by the scan).",
         "- `co-signatories` is a lower bound (no co-signers vs. unrecorded is indistinguishable in metadata).",
-        "- Extraction accuracy per cell is empty until the converter evaluation fills it; `pdf` cells say a converter *can* "
+        "- The `accuracy` column stays empty: measured extraction accuracy exists only for the answer date, per language x level "
+        "cell of the held-out gold set rather than per body (`results/census/matrix_accuracy.json`; no federal documents in the "
+        "gold set). `pdf` cells say a converter *can* "
         "work there, not that it does.",
         "",
         END,

@@ -1,0 +1,22 @@
+{
+ "build": "publicai_swiss-ai_apertus-v1.5-8b",
+ "heldout_docs": 154,
+ "residue_docs": 97,
+ "residue_share": 0.6298701298701299,
+ "calls_per_residue_doc_mean": 3.515463917525773,
+ "billed_prompt_tokens_per_residue_doc_mean": 5904.505154639175,
+ "unique_prefill_tokens_per_residue_doc_mean": 1593.360824742268,
+ "heldout_pointer_billed_prompt_tokens": 572737,
+ "corpus_documents": 902754,
+ "projection_billed_prompt_tokens": 3357406608.4285717,
+ "projection_billed_prompt_tokens_x10": 33574066084.285717,
+ "projection_billed_prompt_tokens_billions": 3.3574066084285716,
+ "projection_usd_at_list_price": 335.7406608428572,
+ "projection_usd_at_list_price_x10": 3357.406608428572,
+ "price_usd_per_million_prompt_tokens": 0.1,
+ "rules_cpu_seconds_heldout": 0.3210586290806532,
+ "rules_docs_per_second": 479.6631706831142,
+ "rules_cpu_hours_corpus": 0.5227939423468182,
+ "corpus_source": "results/census/summary.json parentless_docs.docs_total (OPD docs export rows)",
+ "caveat": "residue share measured on the stratified held-out sample, not on the corpus mix"
+}

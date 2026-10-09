@@ -204,7 +204,7 @@ def fig3(n: dict) -> None:
     fig, ax = plt.subplots(figsize=(7.2, 1.9))
     before = [("attached to the affair", pl["attached"], BLUE), ("under an agenda item", pl["via_agenda"], AQUA),
               ("parentless, canton uid", pl["orphan_uid"], ORANGE), ("absent", pl["absent"], GRAY)]
-    after = [("linked to the affair (229 + 527 + 2,638)", n["be_linked_after_joins"], BLUE), ("absent", pl["absent"], GRAY)]
+    after = [("linkable within OPD (229 + 527 + 2,638)", n["be_linked_after_joins"], BLUE), ("absent", pl["absent"], GRAY)]
     for yi, segs in ((1, before), (0, after)):
         left = 0
         for lab, v, c in segs:
@@ -216,15 +216,16 @@ def fig3(n: dict) -> None:
     ax.text(tot, 0.33, f"absent {fmt(pl['absent'])}: fetch from the canton", ha="right", va="bottom", fontsize=6.5, color=INK2)
     ax.legend(handles=[Patch(color=c, label=f"{lab} {fmt(v)}") for lab, v, c in before], loc="upper center",
               bbox_to_anchor=(0.5, -0.32), ncol=4, frameon=False, fontsize=6.6)
-    ax.set_yticks([1, 0], ["OPD today", "after the two joins"], fontsize=7.5)
+    ax.set_yticks([1, 0], ["OPD today", "linkable within OPD"], fontsize=7.5)
     ax.set_xlim(0, tot)
     ax.set_ylim(-0.45, 1.45)
     ax.spines["left"].set_visible(False)
     ax.tick_params(axis="y", length=0)
     ax.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: fmt(int(v))))
     ax.tick_params(axis="x", labelsize=7)
-    ax.set_title(f"Bern: {fmt(tot)} answers the canton publishes; linked in OPD {n['be_linked_before_share']:.1%} → "
-                 f"{n['be_linked_after_share']:.1%} by deterministic joins", loc="left", fontsize=8.5, color=INK)
+    ax.set_title(f"Bern: {fmt(tot)} answers the canton publishes; attached in OPD {n['be_linked_before_share']:.1%}, "
+                 f"linkable within OPD {n['be_linked_after_share']:.1%} (deterministic joins)",
+                 loc="left", fontsize=8.5, color=INK)
     save(fig, "fig3_be_before_after")
 
 
@@ -292,8 +293,8 @@ def _find_quote(sample: dict, needle: str) -> dict:
 
 
 # ---------------------------------------------------------------- fig 5: held-out scoreboard (filled by the integrator)
-ARMS5 = [("rules", "rules only (no model)"), ("pointer", "pointer: Apertus on every document"),
-         ("cascade", "cascade: rules, then pointer (shipped)"), ("naive_plain", "naive free generation, plain prompt"),
+ARMS5 = [("rules", "rules only (default, no model)"), ("pointer", "pointer: Apertus on every document"),
+         ("cascade", "cascade: rules, then pointer (review)"), ("naive_plain", "naive free generation, plain prompt"),
          ("naive_null", "naive free generation, null-allowed")]
 
 

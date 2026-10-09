@@ -98,8 +98,10 @@ arms:
 	$(PY) -m eval.arms run --split $(SPLIT) --backend $(BACKEND)
 
 # ---- eval / report (owner: integrator)
-eval:
-	@echo "eval: TODO"
+eval:  # no model: re-score every committed evaluation file, recompute H1-H4, matrix accuracy and cost
+	$(PY) -m eval.replay
+	$(PY) -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b
+	$(PY) -m report.matrix_accuracy
 
 report:  # technical_report.md -> TeamName_Report.pdf (needs the [report] extra and Chrome/Chromium; CHROME=... to override)
 	$(PY) -m report.render

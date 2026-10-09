@@ -22,7 +22,7 @@ census.parentless_docs_national	231,499	results/census/summary.json	parentless_d
 census.parentless_docs_share	25.6%	results/census/summary.json	parentless_docs.national_share	pct1	make census	-
 census.parentless_docs_be	32,115	results/census/summary.json	parentless_docs.BE	int	make census	-
 census.parentless_docs_be_share	64.5%	results/census/summary.json	parentless_docs.BE_share	pct1	make census	-
-census.docs_total	902,754	results/census/summary.json	parentless_docs.docs_total	int	make census	-
+census.docs_total	902,754	results/census/summary.json	parentless_docs.docs_total	int	make census	README.md,technical_report.md
 census.spike_cells_identical	5,444	results/census/spike_reproduction.json	cells_ours	int	make census	-
 census.spike_field_differences	0	results/census/spike_reproduction.json	field_differences	int	make census	-
 matrix.fields_feasible	4	results/census/matrix.json	tier_counts.feasible	int	make census	README.md,docs/form_notes.md,technical_report.md
@@ -37,7 +37,7 @@ matrix.question_time_oral_share	20.7%	results/census/matrix.json	concept_split.a
 question.median_days	68	results/census/question.json	national.median_days	int	make census	technical_report.md
 question.text_share_now	82.3%	results/census/question.json	national.text_share_now	pct1	make census	technical_report.md
 question.text_share_after_relink	85.0%	results/census/question.json	national.text_share_after_relink	pct1	make census	technical_report.md
-question.bodies	54	results/census/question.json	n_bodies	int	make census	technical_report.md
+question.bodies	54	results/census/question.json	n_bodies	int	make census	technical_report.md,README.md
 question.median_days_question_time	5	results/census/question.json	by_type.Question time.median_days	int	make census	technical_report.md
 findings.che_placeholder_docs	30,033	results/census/findings.json	findings.0.count	int	make census	-
 findings.che_placeholder_share	57.3%	results/census/findings.json	findings.0.share	pct1	make census	technical_report.md
@@ -49,7 +49,7 @@ findings.be_begin_import_date	557	results/census/findings.json	findings.6.on_202
 findings.type_unharmonised_share	17.1%	results/census/findings.json	findings.9.share	pct1	make census	-
 findings.state_harmonised	278	results/census/findings.json	findings.10.count	int	make census	-
 findings.persons_contact_fields	6	results/census/findings.json	findings.11.count	int	make census	technical_report.md
-question.same_day_bodies	7	results/census/question.json	n_same_day_bodies	int	make census	technical_report.md
+question.same_day_bodies	7	results/census/question.json	n_same_day_bodies	int	make census	technical_report.md,README.md
 census.vs_oral_canonical	1,008	results/census/vs_reconcile.json	canonical.value	int	python -m gegenprobe.census.reconcile_vs	docs/census.md,technical_report.md
 census.vs_oral_proxy_only	8	results/census/vs_reconcile.json	only_census	int	python -m gegenprobe.census.reconcile_vs	-
 census.vs_proxy_precision	99.2%	results/census/vs_reconcile.json	doc_level.proxy_precision	pct1	python -m gegenprobe.census.reconcile_vs	docs/census.md

@@ -1,0 +1,195 @@
+{
+ "field": "answer_date",
+ "source": "results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json (frozen, pre-registered)",
+ "unit": "language x level cell",
+ "federal_documents_in_gold": 0,
+ "other_fields_evaluated": "recommendation (exploratory) only",
+ "cells": {
+  "de_canton": {
+   "bodies": [
+    "BE",
+    "BS",
+    "LU",
+    "ZH"
+   ],
+   "rules": {
+    "exact": 17,
+    "n": 22,
+    "ci": [
+     56.6,
+     89.9
+    ],
+    "values_on_answerless": 2,
+    "answerless": 13
+   },
+   "cascade": {
+    "exact": 20,
+    "n": 22,
+    "ci": [
+     72.2,
+     97.5
+    ],
+    "values_on_answerless": 2,
+    "answerless": 13
+   }
+  },
+  "de_commune": {
+   "bodies": [
+    "230",
+    "261",
+    "3203"
+   ],
+   "rules": {
+    "exact": 20,
+    "n": 22,
+    "ci": [
+     72.2,
+     97.5
+    ],
+    "values_on_answerless": 0,
+    "answerless": 14
+   },
+   "cascade": {
+    "exact": 17,
+    "n": 22,
+    "ci": [
+     56.6,
+     89.9
+    ],
+    "values_on_answerless": 4,
+    "answerless": 14
+   }
+  },
+  "fr_canton": {
+   "bodies": [
+    "BE",
+    "GE",
+    "JU",
+    "VS"
+   ],
+   "rules": {
+    "exact": 19,
+    "n": 22,
+    "ci": [
+     66.7,
+     95.3
+    ],
+    "values_on_answerless": 0,
+    "answerless": 13
+   },
+   "cascade": {
+    "exact": 20,
+    "n": 22,
+    "ci": [
+     72.2,
+     97.5
+    ],
+    "values_on_answerless": 0,
+    "answerless": 13
+   }
+  },
+  "fr_commune": {
+   "bodies": [
+    "5586",
+    "6152",
+    "6621"
+   ],
+   "rules": {
+    "exact": 19,
+    "n": 22,
+    "ci": [
+     66.7,
+     95.3
+    ],
+    "values_on_answerless": 0,
+    "answerless": 14
+   },
+   "cascade": {
+    "exact": 19,
+    "n": 22,
+    "ci": [
+     66.7,
+     95.3
+    ],
+    "values_on_answerless": 1,
+    "answerless": 14
+   }
+  },
+  "it_canton": {
+   "bodies": [
+    "TI"
+   ],
+   "rules": {
+    "exact": 21,
+    "n": 22,
+    "ci": [
+     78.2,
+     99.2
+    ],
+    "values_on_answerless": 0,
+    "answerless": 13
+   },
+   "cascade": {
+    "exact": 21,
+    "n": 22,
+    "ci": [
+     78.2,
+     99.2
+    ],
+    "values_on_answerless": 0,
+    "answerless": 13
+   }
+  },
+  "it_commune": {
+   "bodies": [
+    "5192",
+    "5254"
+   ],
+   "rules": {
+    "exact": 18,
+    "n": 22,
+    "ci": [
+     61.5,
+     92.7
+    ],
+    "values_on_answerless": 0,
+    "answerless": 13
+   },
+   "cascade": {
+    "exact": 21,
+    "n": 22,
+    "ci": [
+     78.2,
+     99.2
+    ],
+    "values_on_answerless": 0,
+    "answerless": 13
+   }
+  },
+  "ocr_ti": {
+   "bodies": [
+    "TI"
+   ],
+   "rules": {
+    "exact": 21,
+    "n": 22,
+    "ci": [
+     78.2,
+     99.2
+    ],
+    "values_on_answerless": 0,
+    "answerless": 10
+   },
+   "cascade": {
+    "exact": 21,
+    "n": 22,
+    "ci": [
+     78.2,
+     99.2
+    ],
+    "values_on_answerless": 0,
+    "answerless": 10
+   }
+  }
+ }
+}

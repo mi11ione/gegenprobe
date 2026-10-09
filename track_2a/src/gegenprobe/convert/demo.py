@@ -10,6 +10,8 @@ Per document
       live backend (ctx["backend"]: LLM_BASE_URL or GGUF) -> fresh scores, compared with the committed cache;
       otherwise   -> replay of the committed hash-keyed cache (data/model_cache); no cached entry -> "rules-only"
   3 cascade with the pointer on the residue, when θ for the build is committed (data/convert/theta/<build>.json)
+  4 operating modes (convert/modes.py): the reported answer is the default `rules_only` field; `review` adds the
+    pointer's residue value as a suggestion flagged needs_review (pre-registered Branch B, report §6)
 
 Live-vs-cache tolerance (fixed): same decision and |Δ margin| <= 1.0 nat. Basis: the measured prefill-vs-decode noise on the
 Public AI vLLM backend is σ = 0.26 nats per log-probability (spikes/live §a); a margin combines lp(null) and a logsumexp
@@ -29,7 +31,7 @@ from pathlib import Path
 from .. import llm, pdftext
 from ..paths import DATA, WORK
 from ..validate import distractor, recheck, self_deletion
-from . import cascade, pointer, rules
+from . import cascade, modes, pointer, rules
 
 DEMO = DATA / "convert" / "demo_docs.json"
 THETA_DIR = DATA / "convert" / "theta"
@@ -147,10 +149,19 @@ def run_doc(d: dict, ctx: dict, live, live_build: str | None, replay) -> dict:
             res["checks"] += _checks(x2, pages)
         except llm.CacheMiss:
             res["cascade"] = None
-    a = res.get("cascade") or res["rules"]
-    got = a["answer_date"].get("value") if a["answer_date"]["kind"] == "value" else None
-    res["answer_date"] = dict(value=got, route=a["answer_date"]["route"],
-                              null_reason=a["answer_date"].get("null_reason"), matches_expected=got == d["expected_answer_date"])
+    # 4 operating modes (convert/modes.py): the unattended field is rules_only (default, Branch B); review attaches the
+    #   pointer's residue value as a suggestion for OPD's manual-review step
+    doc = dict(pages=pages, lang=lang, image_only=img)
+    res["mode_rules_only"] = modes.answer_date(doc)
+    try:
+        res["mode_review"] = modes.answer_date(doc, "review", be, theta_c) if theta_c is not None else None
+    except llm.CacheMiss:
+        res["mode_review"] = None
+    a = res["mode_rules_only"]
+    got = a.get("value")
+    res["answer_date"] = dict(value=got, route=a["route"], mode=modes.DEFAULT, null_reason=a.get("null_reason"),
+                              suggestion=(res["mode_review"] or {}).get("suggestion"),
+                              matches_expected=got == d["expected_answer_date"])
     res["status"] = "FAIL" if any(not c["ok"] and c["check"] != "self_deletion" for c in res["checks"]) else "PASS"
     return res
 
