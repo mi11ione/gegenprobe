@@ -1,0 +1,100 @@
+{
+ "build": "publicai_swiss-ai_apertus-v1.5-8b",
+ "theta": 10.395354058425431,
+ "n": 154,
+ "H1": {
+  "per_cell": {
+   "de_canton": [
+    2,
+    13
+   ],
+   "de_commune": [
+    4,
+    14
+   ],
+   "fr_canton": [
+    0,
+    13
+   ],
+   "fr_commune": [
+    1,
+    14
+   ],
+   "it_canton": [
+    0,
+    13
+   ],
+   "it_commune": [
+    0,
+    13
+   ],
+   "ocr_ti": [
+    0,
+    10
+   ]
+  },
+  "max_per_cell": 4,
+  "pooled": [
+   7,
+   90
+  ],
+  "pooled_ci": [
+   0.03818432959772764,
+   0.15194030595835836
+  ],
+  "pass_per_cell": false,
+  "pass_pooled": false,
+  "naive_plain_values_on_null": [
+   39,
+   90
+  ],
+  "pass": false
+ },
+ "H2": {
+  "primary_fr_it_ocr": {
+   "n": 110,
+   "cascade_correct": 102,
+   "rules_correct": 98,
+   "cascade_only": 5,
+   "rules_only": 1,
+   "p": 0.21875
+  },
+  "branch": "B",
+  "secondary_pooled_all": {
+   "n": 154,
+   "cascade_correct": 139,
+   "rules_correct": 135,
+   "cascade_only": 9,
+   "rules_only": 5,
+   "p": 0.4239501953125
+  },
+  "secondary_pointer_vs_rules_all": {
+   "pointer_only": 10,
+   "rules_only": 15,
+   "p": 0.42435622215270996
+  }
+ },
+ "H3": {
+  "auroc": 0.96875,
+  "n_null": 86,
+  "n_value": 64,
+  "no_candidates": 4,
+  "pass_": true
+ },
+ "H4": {
+  "apertus_decided_fr_it_values": 8,
+  "wrong": 3,
+  "wrong_ids": [
+   19243,
+   273540,
+   671937
+  ],
+  "triggers_posthoc_curve": true
+ },
+ "model_share": {
+  "apertus": 16,
+  "values": 67,
+  "apertus_decisions_incl_nulls": 93,
+  "n": 154
+ }
+}
