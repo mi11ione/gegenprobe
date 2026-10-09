@@ -1,0 +1,32 @@
+{
+ "role_scoring_auroc": {
+  "value": 0.57,
+  "source": "spikes/inversions/results.md (S6 role pointer on BE: AUROC of max P(government_answer))"
+ },
+ "public_ai_identical_greedy_cells": {
+  "value": 760,
+  "of": 792,
+  "source": "spikes/live/results.md §0 (apertus-v1.5-8b vs -70b names)"
+ },
+ "mmlu_8b_name": {
+  "value": 84.4,
+  "source": "FINAL/vision-2A.md correction 2 (250 MMLU items, -8b name)"
+ },
+ "mmlu_v1_8b_route": {
+  "value": 70.8,
+  "source": "FINAL/vision-2A.md correction 2 (apertus-8b-instruct, same items)"
+ },
+ "qwen_fallback": {
+  "value": 3,
+  "of": 3,
+  "source": "spikes/live/results.md §e (system message or prefill to apertus-v1.5-70b)"
+ },
+ "decode_tok_s_8b_name": {
+  "value": "21–28",
+  "source": "spikes/live/results.md §0 speed probe"
+ },
+ "decode_tok_s_v1_8b": {
+  "value": 93,
+  "source": "spikes/live/results.md §0 speed probe"
+ }
+}

@@ -1,19 +1,19 @@
 id	shown	file	path	fmt	command	where
 census.in_scope_affairs	198,594	results/census/summary.json	national.n	int	make census	-
-census.written_answer_events	91,268	results/census/summary.json	national.ev_answer	int	make census	README.md,docs/form_notes.md
-census.gap	16,749	results/census/summary.json	national.gap	int	make census	README.md,docs/form_notes.md
-census.gap_share	18.4%	results/census/summary.json	national.gap/national.ev_answer	pct1	make census	README.md,docs/form_notes.md
+census.written_answer_events	91,268	results/census/summary.json	national.ev_answer	int	make census	README.md,docs/form_notes.md,technical_report.md
+census.gap	16,749	results/census/summary.json	national.gap	int	make census	README.md,docs/form_notes.md,technical_report.md
+census.gap_share	18.4%	results/census/summary.json	national.gap/national.ev_answer	pct1	make census	README.md,docs/form_notes.md,technical_report.md
 census.gap_prime	16,157	results/census/summary.json	national.gap_after_agenda_join	int	make census	-
 census.agenda_rejoin	592	results/census/summary.json	agenda_rejoin_in_gap	int	make census	-
-census.gap_2024_25	1,855	results/census/summary.json	national_2024_25.gap	int	make census	-
-census.gap_share_2024_25	14.3%	results/census/summary.json	national_2024_25.gap/national_2024_25.ev_answer	pct1	make census	-
-census.bodies_with_affairs	89	results/census/matrix.json	n_bodies	int	make census	README.md,docs/form_notes.md
+census.gap_2024_25	1,855	results/census/summary.json	national_2024_25.gap	int	make census	technical_report.md
+census.gap_share_2024_25	14.3%	results/census/summary.json	national_2024_25.gap/national_2024_25.ev_answer	pct1	make census	technical_report.md
+census.bodies_with_affairs	89	results/census/matrix.json	n_bodies	int	make census	README.md,docs/form_notes.md,technical_report.md
 census.bodies_in_scope	86	results/census/summary.json	n_bodies_in_scope	int	make census	-
 census.link_parentless_be	2,459	results/census/summary.json	link_status.parentless	int	make census	-
 census.link_image_only	1,352	results/census/summary.json	link_status.image_only	int	make census	-
 census.link_absent	11,330	results/census/summary.json	link_status.absent	int	make census	-
 census.vs_oral_stubs	1,016	results/census/summary.json	gap_prime_decomposition.other_vs_oral_stub	int	make census	-
-census.other_no_answer_doc	11,206	results/census/summary.json	gap_prime_decomposition.other_no_answer_doc	int	make census	README.md
+census.other_no_answer_doc	11,206	results/census/summary.json	gap_prime_decomposition.other_no_answer_doc	int	make census	README.md,technical_report.md
 census.other_doc_no_text	2,366	results/census/summary.json	gap_prime_decomposition.other_doc_present_no_text	int	make census	-
 census.be_gap_prime	2,510	results/census/summary.json	be_gap_prime.n	int	make census	-
 census.be_gap_source_answer	2,508	results/census/summary.json	be_gap_prime.source_has_answer	int	make census	-
@@ -25,22 +25,22 @@ census.parentless_docs_be_share	64.5%	results/census/summary.json	parentless_doc
 census.docs_total	902,754	results/census/summary.json	parentless_docs.docs_total	int	make census	-
 census.spike_cells_identical	5,444	results/census/spike_reproduction.json	cells_ours	int	make census	-
 census.spike_field_differences	0	results/census/spike_reproduction.json	field_differences	int	make census	-
-matrix.fields_feasible	4	results/census/matrix.json	tier_counts.feasible	int	make census	README.md,docs/form_notes.md
-matrix.fields_partial	13	results/census/matrix.json	tier_counts.partial	int	make census	README.md,docs/form_notes.md
-matrix.fields_fundamental	0	results/census/matrix.json	tier_counts.fundamentally different	int	make census	README.md,docs/form_notes.md
-matrix.gov_rec_meta_pooled	34.2%	results/census/matrix.json	fields.government_recommendation.pooled_meta	pct1	make census	-
-matrix.gov_rec_pdf_bodies	56	results/census/matrix.json	fields.government_recommendation.status_counts.pdf	int	make census	-
+matrix.fields_feasible	4	results/census/matrix.json	tier_counts.feasible	int	make census	README.md,docs/form_notes.md,technical_report.md
+matrix.fields_partial	13	results/census/matrix.json	tier_counts.partial	int	make census	README.md,docs/form_notes.md,technical_report.md
+matrix.fields_fundamental	0	results/census/matrix.json	tier_counts.fundamentally different	int	make census	README.md,docs/form_notes.md,technical_report.md
+matrix.gov_rec_meta_pooled	34.2%	results/census/matrix.json	fields.government_recommendation.pooled_meta	pct1	make census	technical_report.md
+matrix.gov_rec_pdf_bodies	56	results/census/matrix.json	fields.government_recommendation.status_counts.pdf	int	make census	technical_report.md
 matrix.related_affairs_pdf_bodies	76	results/census/matrix.json	fields.related_affairs.status_counts.pdf	int	make census	-
 matrix.type_meta_bodies	61	results/census/matrix.json	fields.type.status_counts.metadata	int	make census	-
 matrix.qa_pairing_meta_pooled	82.3%	results/census/matrix.json	fields.qa_pairing.pooled_meta	pct1	make census	-
-matrix.question_time_oral_share	20.7%	results/census/matrix.json	concept_split.answer_modality_by_type.Question time.oral_share	pct1	make census	-
-question.median_days	68	results/census/question.json	national.median_days	int	make census	-
-question.text_share_now	82.3%	results/census/question.json	national.text_share_now	pct1	make census	-
-question.text_share_after_relink	85.0%	results/census/question.json	national.text_share_after_relink	pct1	make census	-
-question.bodies	54	results/census/question.json	n_bodies	int	make census	-
-question.median_days_question_time	5	results/census/question.json	by_type.Question time.median_days	int	make census	-
+matrix.question_time_oral_share	20.7%	results/census/matrix.json	concept_split.answer_modality_by_type.Question time.oral_share	pct1	make census	technical_report.md
+question.median_days	68	results/census/question.json	national.median_days	int	make census	technical_report.md
+question.text_share_now	82.3%	results/census/question.json	national.text_share_now	pct1	make census	technical_report.md
+question.text_share_after_relink	85.0%	results/census/question.json	national.text_share_after_relink	pct1	make census	technical_report.md
+question.bodies	54	results/census/question.json	n_bodies	int	make census	technical_report.md
+question.median_days_question_time	5	results/census/question.json	by_type.Question time.median_days	int	make census	technical_report.md
 findings.che_placeholder_docs	30,033	results/census/findings.json	findings.0.count	int	make census	-
-findings.che_placeholder_share	57.3%	results/census/findings.json	findings.0.share	pct1	make census	-
+findings.che_placeholder_share	57.3%	results/census/findings.json	findings.0.share	pct1	make census	technical_report.md
 findings.doc_language_null_share	58.2%	results/census/findings.json	findings.3.share	pct1	make census	-
 findings.docs_without_affairs	8	results/census/findings.json	findings.4.count	int	make census	-
 findings.numbers_from_dates	5,528	results/census/findings.json	findings.5.count	int	make census	-
@@ -48,9 +48,9 @@ findings.be_begin_off	800	results/census/findings.json	findings.6.count	int	make
 findings.be_begin_import_date	557	results/census/findings.json	findings.6.on_2024_10_28	int	make census	-
 findings.type_unharmonised_share	17.1%	results/census/findings.json	findings.9.share	pct1	make census	-
 findings.state_harmonised	278	results/census/findings.json	findings.10.count	int	make census	-
-findings.persons_contact_fields	6	results/census/findings.json	findings.11.count	int	make census	-
-question.same_day_bodies	7	results/census/question.json	n_same_day_bodies	int	make census	-
-census.vs_oral_canonical	1,008	results/census/vs_reconcile.json	canonical.value	int	python -m gegenprobe.census.reconcile_vs	docs/census.md
+findings.persons_contact_fields	6	results/census/findings.json	findings.11.count	int	make census	technical_report.md
+question.same_day_bodies	7	results/census/question.json	n_same_day_bodies	int	make census	technical_report.md
+census.vs_oral_canonical	1,008	results/census/vs_reconcile.json	canonical.value	int	python -m gegenprobe.census.reconcile_vs	docs/census.md,technical_report.md
 census.vs_oral_proxy_only	8	results/census/vs_reconcile.json	only_census	int	python -m gegenprobe.census.reconcile_vs	-
 census.vs_proxy_precision	99.2%	results/census/vs_reconcile.json	doc_level.proxy_precision	pct1	python -m gegenprobe.census.reconcile_vs	docs/census.md
 census.vs_proxy_recall	100.0%	results/census/vs_reconcile.json	doc_level.proxy_recall	pct1	python -m gegenprobe.census.reconcile_vs	docs/census.md
@@ -60,80 +60,111 @@ convert.f2_final_g64_plain_loo	20/20	results/convert/spike_replay.json	f2.final|
 convert.f2_final_g64_plain_theta	-32.3	results/convert/spike_replay.json	f2.final|chat_plain.theta	f1	python -m eval.replay_spikes	-
 convert.f2_final_g64_null_theta	-9.4	results/convert/spike_replay.json	f2.final|chat_null.theta	f1	python -m eval.replay_spikes	-
 convert.f2_dwq_null_theta	-14.8	results/convert/spike_replay.json	f2.final_dwq|chat_null.theta	f1	python -m eval.replay_spikes	-
-convert.f2_transfer_rlvr_final_plain	0.25	results/convert/spike_replay.json	transfer.chat_plain|RLVR->final.acc	f2	python -m eval.replay_spikes	-
+convert.f2_transfer_rlvr_final_plain	0.25	results/convert/spike_replay.json	transfer.chat_plain|RLVR->final.acc	f2	python -m eval.replay_spikes	technical_report.md
 convert.shape_a_theta	4.9	results/convert/spike_replay.json	shape.a_json_null.theta	f1	python -m eval.replay_spikes	-
 convert.shape_a_be_loo	20/20	results/convert/spike_replay.json	shape.a_json_null.BE_loo.correct/shape.a_json_null.BE_loo.n	frac	python -m eval.replay_spikes	-
 convert.shape_a_zhbs_kept_correct	10/10	results/convert/spike_replay.json	shape.a_json_null.ctrl_kept_correct/shape.a_json_null.ctrl_n	frac	python -m eval.replay_spikes	-
 convert.shape_a_be_answered_date_ok	2/5	results/convert/spike_replay.json	shape.a_json_null.BE_answered_date_correct/shape.a_json_null.BE_answered_n	frac	python -m eval.replay_spikes	-
-convert.naive8b_plain_invented	15/15	results/convert/spike_replay.json	naive.round7_dwq_8b|plain.invented_on_null_docs/naive.round7_dwq_8b|plain.n_gold_null	frac	python -m eval.replay_spikes	README.md,docs/form_notes.md
+convert.naive8b_plain_invented	15/15	results/convert/spike_replay.json	naive.round7_dwq_8b|plain.invented_on_null_docs/naive.round7_dwq_8b|plain.n_gold_null	frac	python -m eval.replay_spikes	README.md,docs/form_notes.md,technical_report.md
 convert.naive8b_plain_fabricated	7	results/convert/spike_replay.json	naive.round7_dwq_8b|plain.fabricated	int	python -m eval.replay_spikes	-
-convert.naive8b_null_invented	14/15	results/convert/spike_replay.json	naive.round7_dwq_8b|null.invented_on_null_docs/naive.round7_dwq_8b|null.n_gold_null	frac	python -m eval.replay_spikes	README.md
-convert.naive8b_null_receipt_pass	10/15	results/convert/spike_replay.json	naive.round7_dwq_8b|null.invented_passing_receipt_check/naive.round7_dwq_8b|null.n_gold_null	frac	python -m eval.replay_spikes	-
-convert.naive_live_plain_invented	14/15	results/convert/spike_replay.json	naive.live_publicai_70b_via_8b_name|plain.invented_on_null_docs/naive.live_publicai_70b_via_8b_name|plain.n_gold_null	frac	python -m eval.replay_spikes	README.md,docs/form_notes.md
-convert.naive_live_null_invented	0/15	results/convert/spike_replay.json	naive.live_publicai_70b_via_8b_name|null.invented_on_null_docs/naive.live_publicai_70b_via_8b_name|null.n_gold_null	frac	python -m eval.replay_spikes	README.md
+convert.naive8b_null_invented	14/15	results/convert/spike_replay.json	naive.round7_dwq_8b|null.invented_on_null_docs/naive.round7_dwq_8b|null.n_gold_null	frac	python -m eval.replay_spikes	README.md,technical_report.md
+convert.naive8b_null_receipt_pass	10/15	results/convert/spike_replay.json	naive.round7_dwq_8b|null.invented_passing_receipt_check/naive.round7_dwq_8b|null.n_gold_null	frac	python -m eval.replay_spikes	technical_report.md
+convert.naive_live_plain_invented	14/15	results/convert/spike_replay.json	naive.live_publicai_70b_via_8b_name|plain.invented_on_null_docs/naive.live_publicai_70b_via_8b_name|plain.n_gold_null	frac	python -m eval.replay_spikes	README.md,docs/form_notes.md,technical_report.md
+convert.naive_live_null_invented	0/15	results/convert/spike_replay.json	naive.live_publicai_70b_via_8b_name|null.invented_on_null_docs/naive.live_publicai_70b_via_8b_name|null.n_gold_null	frac	python -m eval.replay_spikes	README.md,technical_report.md
 convert.live_null_margin_auroc	1.00	results/convert/spike_replay.json	live.null.auroc	f2	python -m eval.replay_spikes	-
 convert.rules_dev_exact	126/127	results/convert/rules_dev.json	strict.ALL.exact/strict.ALL.n	frac	python -m eval.dev_rules	-
 convert.rules_dev_invented_on_null	0/72	results/convert/rules_dev.json	strict.ALL.invented_on_null/strict.ALL.n_gold_null	frac	python -m eval.dev_rules	-
 docs.text_present	74,519	results/report/figure_numbers.json	text_present	int	python -m report.figures	-
-docs.be_linked_before_share	6.5%	results/report/figure_numbers.json	be_linked_before_share	pct1	python -m report.figures	README.md,docs/form_notes.md
+docs.be_linked_before_share	6.5%	results/report/figure_numbers.json	be_linked_before_share	pct1	python -m report.figures	README.md,docs/form_notes.md,technical_report.md
 docs.be_linked_after	3,394	results/report/figure_numbers.json	be_linked_after_joins	int	python -m report.figures	README.md,docs/form_notes.md
-docs.be_linked_after_share	96.1%	results/report/figure_numbers.json	be_linked_after_share	pct1	python -m report.figures	README.md,docs/form_notes.md
+docs.be_linked_after_share	96.1%	results/report/figure_numbers.json	be_linked_after_share	pct1	python -m report.figures	README.md,docs/form_notes.md,technical_report.md
 docs.repairable_deterministic	3,107	results/report/figure_numbers.json	repairable_deterministic	int	python -m report.figures	README.md
-docs.matrix_fields	17	results/report/figure_numbers.json	matrix_fields	int	python -m report.figures	README.md
-docs.theta_publicai	10.40	data/convert/theta/publicai_swiss-ai_apertus-v1.5-8b.json	answer_date.theta	f2	python -m eval.arms fit --backend gateway:swiss-ai/apertus-v1.5-8b:2a-theta:1.0	README.md
+docs.matrix_fields	17	results/report/figure_numbers.json	matrix_fields	int	python -m report.figures	README.md,technical_report.md
+docs.theta_publicai	10.40	data/convert/theta/publicai_swiss-ai_apertus-v1.5-8b.json	answer_date.theta	f2	python -m eval.arms fit --backend gateway:swiss-ai/apertus-v1.5-8b:2a-theta:1.0	README.md,technical_report.md
 docs.sample_null_margin	88.25	docs/samples/ti_question_typed_null.json	apertus_pointer.margin	f2	python -m report.samples	README.md
-repair.be_relink	2,459	results/repair/summary.json	by_action.relink	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md
-repair.be_fetch	49	results/repair/summary.json	by_action.fetch	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md
-repair.agenda_join	592	results/repair/summary.json	by_action.agenda_join	int	python -m gegenprobe.repair.run	docs/repair.md
-repair.vs_retype_oral	1,008	results/repair/summary.json	by_action.retype_oral	int	python -m gegenprobe.repair.run	docs/repair.md,README.md
+repair.be_relink	2,459	results/repair/summary.json	by_action.relink	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md,technical_report.md
+repair.be_fetch	49	results/repair/summary.json	by_action.fetch	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md,technical_report.md
+repair.agenda_join	592	results/repair/summary.json	by_action.agenda_join	int	python -m gegenprobe.repair.run	docs/repair.md,technical_report.md
+repair.vs_retype_oral	1,008	results/repair/summary.json	by_action.retype_oral	int	python -m gegenprobe.repair.run	docs/repair.md,README.md,technical_report.md
 repair.ocr_affairs	1,351	results/repair/summary.json	by_action.ocr	int	python -m gegenprobe.repair.run	docs/repair.md,docs/nightly.md
-repair.che_placeholder_docs	29,946	results/repair/summary.json	by_action.placeholder_replace	int	python -m gegenprobe.repair.run	docs/repair.md,docs/nightly.md
+repair.che_placeholder_docs	29,946	results/repair/summary.json	by_action.placeholder_replace	int	python -m gegenprobe.repair.run	docs/repair.md,docs/nightly.md,technical_report.md
 repair.affairs_with_action	5,459	results/repair/summary.json	affairs_with_action	int	python -m gegenprobe.repair.run	docs/repair.md
-repair.be_source_answered	3,532	results/repair/be_placement.json	total.source_answered	int	python -m gegenprobe.repair.be placement	docs/repair.md,README.md,docs/form_notes.md
-repair.be_attached	229	results/repair/be_placement.json	total.attached	int	python -m gegenprobe.repair.be placement	docs/repair.md,README.md,docs/form_notes.md
+repair.be_source_answered	3,532	results/repair/be_placement.json	total.source_answered	int	python -m gegenprobe.repair.be placement	docs/repair.md,README.md,docs/form_notes.md,technical_report.md
+repair.be_attached	229	results/repair/be_placement.json	total.attached	int	python -m gegenprobe.repair.be placement	docs/repair.md,README.md,docs/form_notes.md,technical_report.md
 repair.be_via_agenda	527	results/repair/be_placement.json	total.via_agenda	int	python -m gegenprobe.repair.be placement	docs/repair.md
-repair.be_parentless	2,638	results/repair/be_placement.json	total.orphan_uid	int	python -m gegenprobe.repair.be placement	docs/repair.md
+repair.be_parentless	2,638	results/repair/be_placement.json	total.orphan_uid	int	python -m gegenprobe.repair.be placement	docs/repair.md,technical_report.md
 repair.be_absent	138	results/repair/be_placement.json	total.absent	int	python -m gegenprobe.repair.be placement	docs/repair.md
-repair.be40_verified	40/40	results/repair/be_verify40.json	verified_spike_rule/n	frac	python -m gegenprobe.repair.be verify40	docs/repair.md
-repair.be40_ci	[91.2, 100]	results/repair/be_verify40.json	ci_spike_rule	ci	python -m gegenprobe.repair.be verify40	docs/repair.md
-repair.be40_event_eq	39/39	results/repair/be_verify40.json	event_eq_rrb/with_answer_event	frac	python -m gegenprobe.repair.be verify40	docs/repair.md,docs/schema.md
+repair.be40_verified	40/40	results/repair/be_verify40.json	verified_spike_rule/n	frac	python -m gegenprobe.repair.be verify40	docs/repair.md,technical_report.md
+repair.be40_ci	[91.2, 100]	results/repair/be_verify40.json	ci_spike_rule	ci	python -m gegenprobe.repair.be verify40	docs/repair.md,technical_report.md
+repair.be40_event_eq	39/39	results/repair/be_verify40.json	event_eq_rrb/with_answer_event	frac	python -m gegenprobe.repair.be verify40	docs/repair.md,docs/schema.md,technical_report.md
 repair.be40_event_ci	[91, 100]	results/repair/be_verify40.json	ci_event_eq_rrb	ci	python -m gegenprobe.repair.be verify40	docs/repair.md
-repair.relink_sample_idhead	40/40	results/repair/be_relink_sample.json	identity_and_heading/n	frac	python -m gegenprobe.repair.be sample	docs/repair.md,README.md
-repair.relink_sample_idhead_ci	[91.2, 100]	results/repair/be_relink_sample.json	ci_identity_and_heading	ci	python -m gegenprobe.repair.be sample	docs/repair.md
-repair.relink_sample_date	36/40	results/repair/be_relink_sample.json	date_eq_event/with_answer_event	frac	python -m gegenprobe.repair.be sample	docs/repair.md,README.md
-repair.relink_sample_date_ci	[76.9, 96]	results/repair/be_relink_sample.json	ci_date_eq_event	ci	python -m gegenprobe.repair.be sample	docs/repair.md
+repair.relink_sample_idhead	40/40	results/repair/be_relink_sample.json	identity_and_heading/n	frac	python -m gegenprobe.repair.be sample	docs/repair.md,README.md,technical_report.md
+repair.relink_sample_idhead_ci	[91.2, 100]	results/repair/be_relink_sample.json	ci_identity_and_heading	ci	python -m gegenprobe.repair.be sample	docs/repair.md,technical_report.md
+repair.relink_sample_date	36/40	results/repair/be_relink_sample.json	date_eq_event/with_answer_event	frac	python -m gegenprobe.repair.be sample	docs/repair.md,README.md,technical_report.md
+repair.relink_sample_date_ci	[76.9, 96]	results/repair/be_relink_sample.json	ci_date_eq_event	ci	python -m gegenprobe.repair.be sample	docs/repair.md,technical_report.md
 repair.relink_sample_posthoc	39/40	results/repair/be_relink_sample_posthoc.json	triple/n	frac	python -m gegenprobe.repair.be recheck	docs/repair.md
 repair.relink_sample_posthoc_ci	[87.1, 99.6]	results/repair/be_relink_sample_posthoc.json	ci_triple	ci	python -m gegenprobe.repair.be recheck	docs/repair.md
-repair.che20_rule	19/20	results/repair/che_reproduce.json	verified_rule/n	frac	python -m gegenprobe.repair.che reproduce	docs/repair.md
+repair.che20_rule	19/20	results/repair/che_reproduce.json	verified_rule/n	frac	python -m gegenprobe.repair.che reproduce	docs/repair.md,technical_report.md
 repair.che20_rule_ci	[76.4, 99.1]	results/repair/che_reproduce.json	ci_rule	ci	python -m gegenprobe.repair.che reproduce	docs/repair.md
-repair.che20_inspect	20/20	results/repair/che_reproduce.json	correct_on_inspection/n	frac	python -m gegenprobe.repair.che reproduce	docs/repair.md
+repair.che20_inspect	20/20	results/repair/che_reproduce.json	correct_on_inspection/n	frac	python -m gegenprobe.repair.che reproduce	docs/repair.md,technical_report.md
 repair.che20_inspect_ci	[83.9, 100]	results/repair/che_reproduce.json	ci_inspection	ci	python -m gegenprobe.repair.che reproduce	docs/repair.md
-repair.che50_rule	40/50	results/repair/che_backlog_run.json	verified_rule/total_done	frac	python -m gegenprobe.repair.che backlog 50 && python -m gegenprobe.repair.che stats	docs/repair.md
-repair.che50_rule_ci	[67, 88.8]	results/repair/che_backlog_run.json	ci_rule	ci	python -m gegenprobe.repair.che backlog 50	docs/repair.md
+repair.che50_rule	40/50	results/repair/che_backlog_run.json	verified_rule/total_done	frac	python -m gegenprobe.repair.che backlog 50 && python -m gegenprobe.repair.che stats	docs/repair.md,technical_report.md
+repair.che50_rule_ci	[67, 88.8]	results/repair/che_backlog_run.json	ci_rule	ci	python -m gegenprobe.repair.che backlog 50	docs/repair.md,technical_report.md
 repair.che50_short_docs	7	results/repair/che_backlog_run.json	failure_types.short_document_identity_ok	int	python -m gegenprobe.repair.che stats	docs/repair.md
 repair.che_s_per_doc	2.1	results/repair/che_backlog_run.json	s_per_doc	f1	python -m gegenprobe.repair.che backlog 50	docs/repair.md,docs/nightly.md
 repair.che_curia	7/75	results/repair/che_curia.json	substantive/n	frac	python -m gegenprobe.repair.che curia	docs/repair.md
 repair.che_curia_ci	[4.6, 18]	results/repair/che_curia.json	ci_substantive	ci	python -m gegenprobe.repair.che curia	docs/repair.md
 repair.vs_gap_with_ant	1,112	results/repair/vs_summary.json	counts.gap_with_ant_doc	int	python -m gegenprobe.repair.vs list	docs/repair.md
-repair.ocr_image_only	15/30	results/repair/ocr_probe.json	image_only/n_docs	frac	python -m gegenprobe.repair.ocr probe 3	docs/repair.md
-repair.ocr_vs_stubs	13	results/repair/ocr_probe.json	categories.text_layer_oral_stub	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md
-repair.ocr_ok	15/15	results/repair/ocr_probe.json	image_only_ok/image_only	frac	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,README.md
-repair.ocr_ok_ci	[79.6, 100]	results/repair/ocr_probe.json	ci_image_only_ok	ci	python -m gegenprobe.repair.ocr probe 3	docs/repair.md
-repair.ocr_accents_multi	467	results/repair/ocr_probe.json	image_multi.accented_chars	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md
-repair.ocr_accents_eng	133	results/repair/ocr_probe.json	image_eng.accented_chars	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md
+repair.ocr_image_only	15/30	results/repair/ocr_probe.json	image_only/n_docs	frac	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,technical_report.md
+repair.ocr_vs_stubs	13	results/repair/ocr_probe.json	categories.text_layer_oral_stub	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,technical_report.md
+repair.ocr_ok	15/15	results/repair/ocr_probe.json	image_only_ok/image_only	frac	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,README.md,technical_report.md
+repair.ocr_ok_ci	[79.6, 100]	results/repair/ocr_probe.json	ci_image_only_ok	ci	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,technical_report.md
+repair.ocr_accents_multi	467	results/repair/ocr_probe.json	image_multi.accented_chars	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,technical_report.md
+repair.ocr_accents_eng	133	results/repair/ocr_probe.json	image_eng.accented_chars	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,technical_report.md
 repair.ocr_s_per_page	6.9	results/repair/ocr_probe.json	image_multi.secs_per_page	f1	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,docs/nightly.md
-repair.nightly_offline_s	260.5	results/monitor/run.json	timings.total_s	f1	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
+repair.nightly_offline_s	260.5	results/monitor/run.json	timings.total_s	f1	python -m gegenprobe.monitor.nightly offline	docs/nightly.md,technical_report.md
 repair.nightly_extract_s	228.0	results/monitor/run.json	timings.extract_s	f1	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
-repair.che_backlog_hours	17.5	results/repair/che_backlog_run.json	est_hours_full_backlog	f1	python -m gegenprobe.repair.che stats	docs/repair.md,docs/nightly.md
+repair.che_backlog_hours	17.5	results/repair/che_backlog_run.json	est_hours_full_backlog	f1	python -m gegenprobe.repair.che stats	docs/repair.md,docs/nightly.md,technical_report.md
 repair.vs_gap	1,409	results/repair/vs_summary.json	counts.gap	int	python -m gegenprobe.repair.vs list	docs/repair.md
 repair.vs_pas_de_reponse_docs	38	results/repair/vs_summary.json	short_text_heads.3.1	int	python -m gegenprobe.repair.vs list	docs/repair.md
 repair.vs_urgente_docs	11	results/repair/vs_summary.json	short_text_heads.4.1	int	python -m gegenprobe.repair.vs list	docs/repair.md
 repair.nightly_be_rate	26.37	results/monitor/rates.json	BE.rate	f2	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
 repair.nightly_new_rows	0	results/monitor/run.json	be_repair_new_since_last_night	int	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
-repair.index_docs_changed	68/116	results/monitor/index_diff.json	census_inputs.docs_texts_changed/census_inputs.docs_texts_files	frac	python -m gegenprobe.monitor.nightly index	docs/nightly.md
+repair.index_docs_changed	68/116	results/monitor/index_diff.json	census_inputs.docs_texts_changed/census_inputs.docs_texts_files	frac	python -m gegenprobe.monitor.nightly index	docs/nightly.md,technical_report.md
+report.theta_auroc	0.99	results/report/report_numbers.json	theta.auroc	f2	python -m report.stats / CI run (see file)	technical_report.md
+report.theta_loo	124/127	results/report/report_numbers.json	theta.loo_correct/theta.loo_n	frac	python -m report.stats / CI run (see file)	technical_report.md
+report.theta_loo_ci	[93.3, 99.2]	results/report/report_numbers.json	theta.loo_ci_pct	ci	python -m report.stats / CI run (see file)	technical_report.md
+report.cited_identical	760/792	results/report/cited_spikes.json	public_ai_identical_greedy_cells.value/public_ai_identical_greedy_cells.of	frac	python -m report.stats / CI run (see file)	technical_report.md
+report.cited_mmlu_8bname	84.4	results/report/cited_spikes.json	mmlu_8b_name.value	f1	python -m report.stats / CI run (see file)	technical_report.md
+report.cited_mmlu_v1	70.8	results/report/cited_spikes.json	mmlu_v1_8b_route.value	f1	python -m report.stats / CI run (see file)	technical_report.md
+report.cited_qwen	3/3	results/report/cited_spikes.json	qwen_fallback.value/qwen_fallback.of	frac	python -m report.stats / CI run (see file)	technical_report.md
+report.cited_role_auroc	0.57	results/report/cited_spikes.json	role_scoring_auroc.value	f2	python -m report.stats / CI run (see file)	technical_report.md
+report.gguf_lcp_agree	58/60	results/eval/gguf_impl60.json	table.llama_cpp_python.decisions_agree_bf16/table.llama_cpp_python.n	frac	python -m report.stats / CI run (see file)	technical_report.md
+report.gguf_lcp_mad	2.66	results/eval/gguf_impl60.json	table.llama_cpp_python.mean_abs_delta_bf16	f2	python -m report.stats / CI run (see file)	technical_report.md
+report.gguf_metal_agree	57/60	results/eval/gguf_impl60.json	table.metal_q4_spike.decisions_agree_bf16/table.metal_q4_spike.n	frac	python -m report.stats / CI run (see file)	technical_report.md
+report.gguf_metal_mad	2.87	results/eval/gguf_impl60.json	table.metal_q4_spike.mean_abs_delta_bf16	f2	python -m report.stats / CI run (see file)	technical_report.md
+report.gguf_master_agree	57/60	results/eval/gguf_impl60.json	table.llscore_master.decisions_agree_bf16/table.llscore_master.n	frac	python -m report.stats / CI run (see file)	technical_report.md
+report.gguf_master_mad	3.25	results/eval/gguf_impl60.json	table.llscore_master.mean_abs_delta_bf16	f2	python -m report.stats / CI run (see file)	technical_report.md
+report.gguf_vend_agree	58/60	results/eval/gguf_impl60.json	table.llscore_vendored.decisions_agree_bf16/table.llscore_vendored.n	frac	python -m report.stats / CI run (see file)	technical_report.md
+report.gguf_vend_mad	3.34	results/eval/gguf_impl60.json	table.llscore_vendored.mean_abs_delta_bf16	f2	python -m report.stats / CI run (see file)	technical_report.md
+report.gguf_selfcheck	10/12	results/eval/gguf_impl60.json	preset_selfcheck.decisions_agree/preset_selfcheck.n	frac	python -m report.stats / CI run (see file)	technical_report.md
+report.gguf_selfcheck_mad	3.16	results/eval/gguf_impl60.json	preset_selfcheck.mean_abs_delta	f2	python -m report.stats / CI run (see file)	technical_report.md
+report.heldout_n	154	results/report/report_numbers.json	heldout.n	int	python -m report.stats / CI run (see file)	technical_report.md
+report.heldout_value	64	results/report/report_numbers.json	heldout.with_value	int	python -m report.stats / CI run (see file)	technical_report.md
+report.heldout_null	90	results/report/report_numbers.json	heldout.gold_null	int	python -m report.stats / CI run (see file)	technical_report.md
+report.heldout_rec_values	10	results/report/report_numbers.json	heldout.rec_values	int	python -m report.stats / CI run (see file)	technical_report.md
+report.kappa_present	0.95	results/eval/gold_agreement.json	agreement.answer_present.kappa	f2	python -m eval.gold.annotate merge	technical_report.md
+report.kappa_date	0.94	results/eval/gold_agreement.json	agreement.answer_date.kappa	f2	python -m eval.gold.annotate merge	technical_report.md
+report.kappa_rec	0.42	results/eval/gold_agreement.json	agreement.recommendation.kappa	f2	python -m eval.gold.annotate merge	technical_report.md
+report.date_raw	148/154	results/eval/gold_agreement.json	agreement.answer_date.raw/agreement.answer_date.n	frac	python -m eval.gold.annotate merge	technical_report.md
+report.a3	41	results/eval/gold_agreement.json	decided_by_A3	int	python -m eval.gold.annotate merge	technical_report.md
+report.oracle_match	37	results/eval/gold_agreement.json	oracle.match	int	python -m eval.gold.annotate merge	technical_report.md
+report.oracle_mismatch	7	results/eval/gold_agreement.json	oracle.mismatch	int	python -m eval.gold.annotate merge	technical_report.md
+report.chao2_per_body	57.4	data/census/cited_evidence.json	chao2.new_accounts_per_body_mean	f1	census (cited)	technical_report.md
+report.bilanz_bodies	12	data/census/cited_evidence.json	booking.bodies	int	census (cited)	technical_report.md
 schema.opd_affairs	325,691	results/schema/vocab_summary.json	affairs	int	python -m gegenprobe.schema.vocab	docs/schema.md
-schema.type_harmonised_share	82.9%	results/schema/vocab_summary.json	affairs_type_harmonised_share	pct1	python -m gegenprobe.schema.vocab	docs/schema.md
-schema.state_harmonised_n	278	results/schema/vocab_summary.json	affairs_state_harmonised	int	python -m gegenprobe.schema.vocab	docs/schema.md
+schema.type_harmonised_share	82.9%	results/schema/vocab_summary.json	affairs_type_harmonised_share	pct1	python -m gegenprobe.schema.vocab	docs/schema.md,technical_report.md
+schema.state_harmonised_n	278	results/schema/vocab_summary.json	affairs_state_harmonised	int	python -m gegenprobe.schema.vocab	docs/schema.md,technical_report.md
 schema.opd_events	915,238	results/schema/vocab_summary.json	events	int	python -m gegenprobe.schema.vocab	docs/schema.md
 schema.events_harmonised_share	72.1%	results/schema/vocab_summary.json	events_harmonised_share	pct1	python -m gegenprobe.schema.vocab	docs/schema.md
 schema.event_titles	84	results/schema/vocab_summary.json	opd_event_titles	int	python -m gegenprobe.schema.vocab	docs/schema.md

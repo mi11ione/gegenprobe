@@ -13,7 +13,7 @@ dependencies = [
 [project.optional-dependencies]
 gguf = ["llama-cpp-python"]
 dev = ["pytest>=8", "ruff>=0.6"]
-report = ["matplotlib>=3.9"]  # report figures only (python -m report.figures); not in the runtime image
+report = ["matplotlib>=3.9", "markdown>=3.6"]  # figures and PDF rendering (python -m report.figures / report.render); not in the runtime image
 
 [tool.setuptools.packages.find]
 where = ["src"]

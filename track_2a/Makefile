@@ -101,8 +101,8 @@ arms:
 eval:
 	@echo "eval: TODO"
 
-report:
-	@echo "report: TODO"
+report:  # technical_report.md -> TeamName_Report.pdf (needs the [report] extra and Chrome/Chromium; CHROME=... to override)
+	$(PY) -m report.render
 
 # ---- figures (dev only; needs the [report] extra: matplotlib)
 figures:

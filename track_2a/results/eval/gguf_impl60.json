@@ -1,0 +1,24 @@
+{
+ "source": "GitHub Actions run 37975752529 (workflow gguf-8b, task impl), artifact out/gguf_impl.json; fixture tests/fixtures/gguf_impl60.json (60 conv cells drawn with seed 20261009)",
+ "reference": "bf16 DPO checkpoint (spikes/linie9/results/stage_bf16_DPO.json), standing in for final bf16",
+ "model_file": "Colby/apertus-v1.5-8b-text-Q4_K_M-GGUF, sha256 a037df8d87ff6caacee794ee85f55342f2152e0d359b7389033300c3bee5f299",
+ "table": {
+  "llama_cpp_python": {"label": "llama-cpp-python 0.3.35, CPU (our scorer)", "decisions_agree_bf16": 58, "n": 60, "mean_abs_delta_bf16": 2.659081967671712},
+  "metal_q4_spike": {"label": "libllama, Metal (spike reference)", "decisions_agree_bf16": 57, "n": 60, "mean_abs_delta_bf16": 2.871521949621619},
+  "llscore_master": {"label": "libllama master, CPU", "decisions_agree_bf16": 57, "n": 60, "mean_abs_delta_bf16": 3.2467208865143244},
+  "llscore_vendored": {"label": "libllama as vendored by llama-cpp-python 0.3.35, CPU", "decisions_agree_bf16": 58, "n": 60, "mean_abs_delta_bf16": 3.3359333674116454}
+ },
+ "pairwise_mean_abs_delta": {
+  "llama_cpp_python~metal_q4_spike": 1.1793382013281677,
+  "llama_cpp_python~llscore_master": 1.3295975366198112,
+  "llama_cpp_python~llscore_vendored": 1.5001249950470181,
+  "llscore_master~metal_q4_spike": 0.9819754914036011,
+  "llscore_master~llscore_vendored": 1.3234772363824192,
+  "llscore_vendored~metal_q4_spike": 1.2106440234295954
+ },
+ "preset_selfcheck": {
+  "source": "GitHub Actions run 37970947075 (workflow gguf-8b, task selfcheck), 12 cells nearest the decision boundary + 2 saturated",
+  "rule": "every decision agrees with the Metal reference and mean |delta| <= 1.0 nat (fixed before the run)",
+  "decisions_agree": 10, "n": 12, "mean_abs_delta": 3.16, "verdict": "FAIL"
+ }
+}
