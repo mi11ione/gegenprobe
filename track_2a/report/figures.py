@@ -292,12 +292,61 @@ def _find_quote(sample: dict, needle: str) -> dict:
 
 
 # ---------------------------------------------------------------- fig 5: held-out scoreboard (filled by the integrator)
+ARMS5 = [("rules", "rules only (no model)"), ("pointer", "pointer: Apertus on every document"),
+         ("cascade", "cascade: rules, then pointer (shipped)"), ("naive_plain", "naive free generation, plain prompt"),
+         ("naive_null", "naive free generation, null-allowed")]
+
+
 def fig5() -> bool:
-    files = sorted((RESULTS / "eval").glob("heldout__*.json"))
-    if not files:
+    """Held-out scoreboard (frozen, pre-registered) + post-hoc θ curve (labelled). 70B weights served as apertus-v1.5-8b."""
+    build = "publicai_swiss-ai_apertus-v1.5-8b"
+    p = RESULTS / "eval" / f"heldout__{build}.json"
+    if not p.exists():
         return False
-    print(f"fig5: {len(files)} held-out results file(s) present; scoreboard figure not implemented yet (integrator)")
-    return False
+    d = json.loads(p.read_text())
+    curve = j("eval/posthoc/theta_curve.json")["table"]
+    fig, (ax, bx) = plt.subplots(1, 2, figsize=(7.4, 2.6), gridspec_kw=dict(width_ratios=[2.1, 1], wspace=0.32))
+    segs = [("correct", "correct date", RAMP["600"], None), ("correct_null", "correct null", RAMP["250"], None),
+            ("false_null", "false null", GRAY_LIGHT, None), ("misattributed", "wrong date printed in the document", ORANGE, None),
+            ("fabricated", "date printed nowhere (fabricated)", ORANGE, "////")]
+    for yi, (arm, _label) in enumerate(reversed(ARMS5)):
+        s = d["arms"][arm]["strict"]["ALL"]
+        x = 0
+        for key, _, col, hatch in segs:
+            w = s[key]
+            if w:
+                ax.barh(yi, w, left=x, color=col, hatch=hatch, edgecolor=SURFACE if not hatch else "#ffffff", linewidth=0.6,
+                        height=0.62)
+                if w >= 6:
+                    box = dict(boxstyle="round,pad=0.15", fc=SURFACE, ec="none") if hatch else None
+                    ax.text(x + w / 2, yi, str(w), ha="center", va="center", fontsize=7, bbox=box,
+                            color=INK if hatch or col not in (RAMP["600"], ORANGE) else SURFACE)
+            x += w
+        ax.text(x + 2, yi, f"{s['exact']}/{s['n']}", va="center", fontsize=7.5, color=INK, fontweight="bold")
+    ax.set_yticks(range(len(ARMS5)), [lab for _, lab in reversed(ARMS5)], fontsize=7.5)
+    ax.set_xlim(0, 175)
+    ax.set_xlabel("held-out documents (n = 154: 64 with an answer date, 90 without)", fontsize=7.5)
+    ax.set_title("Frozen, pre-registered held-out result (answer date, strict)", fontsize=8.5, loc="left", color=INK)
+    ax.legend(handles=[Patch(facecolor=c, hatch=h, edgecolor="#ffffff", label=lab) for _, lab, c, h in segs],
+              fontsize=6.5, frameon=False, loc="upper center", bbox_to_anchor=(0.45, -0.22), ncol=5, columnspacing=0.8,
+              handlelength=1.2)
+    th = [r["theta"] for r in curve]
+    bx.plot(th, [r["exact"] for r in curve], color=RAMP["600"], lw=1.4, marker="o", ms=2.5, label="cascade exact /154")
+    bx2 = bx.twinx()
+    bx2.plot(th, [r["invented_on_null"] for r in curve], color=ORANGE, lw=1.4, marker="o", ms=2.5,
+             label="values on gold-null /90")
+    fz = next(r for r in curve if r["frozen"])
+    bx.axvline(fz["theta"], color=INK2, ls="--", lw=0.8)
+    bx.text(fz["theta"] + 1, 133.3, f"frozen θ {fz['theta']:.1f}", fontsize=6.5, color=INK2)
+    bx.set_ylim(132, 145)
+    bx2.set_ylim(0, 13)
+    bx2.spines["right"].set_visible(True)
+    bx.set_xlabel("null-margin threshold θ (nats)", fontsize=7.5)
+    bx.set_ylabel("exact", fontsize=7, color=RAMP["600"])
+    bx2.set_ylabel("values on gold-null", fontsize=7, color=ORANGE)
+    bx.set_title("POST HOC (not pre-registered): θ sweep", fontsize=8.5, loc="left", color=INK)
+    save(fig, "fig5_scoreboard")
+    return True
 
 
 def main() -> None:

@@ -101,7 +101,32 @@ margin is far above the calibrated threshold, so the field is a typed null inste
 
 ## Evaluation (held-out, pre-registered)
 
-<!-- PLACEHOLDER (integrator): held-out scoreboard, H1–H4 outcomes, figure 5. -->
+154 held-out documents (German/French/Italian × canton/commune, plus Ticino scans through OCR; 64 with an answer date,
+90 without), labels by blind double annotation with no human judgement (`docs/gold_protocol.md`), registration locked
+before any label existed (`eval/prereg/PREREG.md`, `eval/prereg/LOCK`, commit `812030f`; labels commit `ded0033`),
+deviations in `eval/prereg/DEVIATIONS.md`. Answer date, strict, frozen code; Apertus = 70B weights served as
+`swiss-ai/apertus-v1.5-8b` (details: report §6).
+
+| arm | exact [95% CI] | fabricated | values on the 90 answerless |
+|---|---|---|---|
+| rules only | 135/154 [81.5, 92] | 0 | 2 |
+| pointer (Apertus on every document) | 130/154 [77.9, 89.3] | 0 | 6 |
+| **cascade: rules, then pointer (shipped)** | **139/154 [84.6, 94]** | **0** | 7 |
+| naive free generation, plain prompt | 98/154 [55.8, 70.8] | **24** | 39 |
+| naive free generation, null-allowed | 134/154 [80.8, 91.4] | 0 | 3 |
+<!-- SLOT: 8B rows -->
+
+- **H1 null safety: FAIL.** The cascade puts a value on 7 of 90 answerless documents (upper Wilson bound 15.2%, target 10%).
+- **H2: Branch B.** Cascade vs rules on the French, Italian and OCR cells: 5 documents only the cascade gets right,
+  1 only the rules (exact McNemar p = 0.22). As registered: Apertus is kept only where it measurably adds null-safety.
+- **H3: PASS.** The pointer's null margin separates answerless from answered documents with AUROC 0.969.
+- **H4: triggered.** 3 of 8 Apertus-decided French/Italian values are wrong; the post-hoc θ sweep is in the report.
+
+The honest reading: the rules carry the extraction. A well-prompted 70B (null-allowed) is about as accurate as our
+cascade; what the closed-set pointer adds is structural: it cannot fabricate a value, every value has page and span,
+and its margin is a reliable abstention signal. The naive plain prompt fabricates 24 dates.
+
+![Held-out scoreboard](docs/figures/fig5_scoreboard.png)
 
 ## Use of Apertus
 

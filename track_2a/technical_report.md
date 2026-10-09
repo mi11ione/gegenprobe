@@ -8,7 +8,7 @@
 **Reality.** Of 91,268 interventions whose events record a written government answer, **16,749 (18.4%) have no answer text in OPD** (2024–25: 1,855, 14.3%). In Bern the canton lists 3,532 answers, but OPD attaches only 229 (6.5%) to their affair; 2,638 already sit in OPD as documents without any parent. 57.3% of federal documents store Fedlex's "JavaScript required" page as their text.
 **Repair.** A model-free census types every missing answer by cause, and deterministic routes put answers back: 2,459 Bern relinks plus 49 fetches (the list reproduces byte-for-byte), 592 agenda joins, 1,008 Valais answers retyped as oral, OCR for image-only scans. Bern goes from 6.5% to 96.1% of answers linked.
 **Schema.** Over 17 fields × 89 bodies, by criteria written down before computing: **4 fields feasible today, 13 partial, 0 fundamentally different** — the concepts are shared; what differs is *where* the value lives (metadata in some parliaments, only in PDFs in others) and the vocabulary.
-**Converter.** Free-generation Apertus invents an answer date on 14/15 answerless documents (live, 70B) and 15/15 (local 8B). Our converter lets Apertus only *point* at a value that exists in the document, or say null, and every value carries page and character span. The held-out, pre-registered evaluation is in §6. <!-- PLACEHOLDER: one-line scoreboard -->
+**Converter.** Free-generation Apertus invents an answer date on 14/15 answerless documents (live, 70B) and 15/15 (local 8B). Our converter lets Apertus only *point* at a value that exists in the document, or say null, and every value carries page and character span. On 154 held-out documents (pre-registered, blind gold) the shipped cascade is exact on 139 (rules alone 135, naive free generation 98 with 24 fabricated dates) and fabricates nothing by construction; its gain over the rules is not significant, so by our own registration Apertus stays only where it adds null-safety (§6).
 
 ## 2. Architecture
 
@@ -24,7 +24,7 @@ Four components, each runnable alone (`docs/`):
 
 ## 3. Use of Apertus
 
-**Where and why.** Apertus decides only where rules cannot: unanchored dates, French/Italian formats without a lexicon hit, OCR'd text, the government-recommendation enum, and links to other affairs. The census and repair are model-free on purpose: they need to be exact, and they are.
+**Where and why.** Apertus decides only where rules cannot: unanchored dates, French/Italian formats without a lexicon hit, OCR'd text, the government-recommendation enum, and links to other affairs. The census and repair are model-free on purpose: they need to be exact, and they are. On the held-out set the rules carry the extraction; Apertus decides 93 of 154 documents (the residue, mostly by abstaining) and supplies 16/67 values, which in operation go through OPD's existing manual-review step.
 
 **Closed-set pointer** (`convert/pointer.py`, prompts in `src/prompts/{de,fr,it}`). The user message holds the document (truncated at 12,000 characters) and the question; the assistant turn is prefilled with a JSON prefix (`{"antwort_datum":`); every candidate — `null` and each distinct date printed in the document — is scored as a continuation by its summed log-probability (exact forced choice through `prompt_logprobs`). The decision is null if `lp(null) − logsumexp(lp(dates)) > θ`, else the best date, mapped back to its span (nearest answer anchor if it occurs more than once).
 
@@ -32,7 +32,7 @@ Four components, each runnable alone (`docs/`):
 
 **Which Apertus.** All Apertus inference ran on Public AI through a budget gateway that caches by request hash and logs every call; no Apertus ran on our machines. Prior measurements (`results/report/cited_spikes.json`) shaped three rules: (a) the `swiss-ai/apertus-v1.5-8b` name serves the **70B** weights (760/792 greedy outputs byte-identical to the 70B name; 84.4% vs 70.8% on the same MMLU items as the v1 8B route), so we label every result from it as 70B; (b) a system message or prefill sent to the `-70b` name is silently answered by Qwen-SEA-LION-32B (3/3), so forced choice goes only to the `-8b` name and the response `model` field is checked on every call; (c) identical requests come from a response cache, so generation passes a seed. The real 8B runs as GGUF Q4_K_M (sha256-pinned) under llama.cpp on a CPU runner. Before trusting that path we compared four implementations of the same file against bf16 on 60 cells: our llama-cpp-python scorer agrees with bf16 on 58/60 decisions (mean |Δ| 2.66 nats), the spike's Metal build on 57/60 (2.87), libllama master on CPU on 57/60 (3.25) and the vendored libllama on 58/60 (3.34) (`results/eval/gguf_impl60.json`). An earlier parity rule we had fixed in advance — agree with the Metal build within 1.0 nat on 12 near-boundary cells — **failed** (10/12, 3.16 nats); the 60-cell table shows why: implementations of one file differ from each other by about as much, and all sit equally far from bf16.
 
-**Where Apertus fell short.** Free generation invents: asked when the government answered, it writes a precise date on 15/15 answerless Bern documents (local 8B) and 14/15 (live 70B), often copying the "Letzte Bearbeitung" footer; a naive verbatim-quote check approves 10/15 of the local inventions. A null-allowed prompt fixes it on the 70B (0/15) but not on the 8B (14/15). Asking Apertus for the *role* of each date failed (AUROC 0.57). The pointer is the response to all three.
+**Where Apertus fell short.** Free generation invents: asked when the government answered, it writes a precise date on 15/15 answerless Bern documents (local 8B) and 14/15 (live 70B), often copying the "Letzte Bearbeitung" footer; a naive verbatim-quote check approves 10/15 of the local inventions. A null-allowed prompt fixes it on the 70B (0/15) but not on the 8B (14/15). Asking Apertus for the *role* of each date failed (AUROC 0.57). The pointer is the response to all three. On held-out documents the plain prompt fabricated 24 dates and put a value on 39/90 answerless documents, while the null-allowed prompt on the same 70B weights was competitive with our cascade (134/154, §6).
 
 ![fig4](docs/figures/fig4_naive_contrast.png)
 *Figure 4. Naive free generation vs the relinked source (2024.RRGR.91).*
@@ -73,22 +73,37 @@ OPD bulk exports from `files.openparldata.ch/exports` (affairs, events, agendas,
 
 **Deviations** (`eval/prereg/DEVIATIONS.md`): D1 the frozen code prompts the Ticino scans in German (run as frozen, Italian re-run reported post hoc); D2 a faster GGUF scorer for the 8B arms, behind a parity gate; D3 the 8B θ is fitted without the 30 spike dev items whose texts are not in the repository, on the runner's own text extraction.
 
-<!-- PLACEHOLDER: results table (arm × cell), H1–H4 outcomes, Branch A/B verdict, fig5 scoreboard, 8B rows, D1 post-hoc row -->
+**Results** (frozen code, 70B weights, replayed offline from the hash cache, one served fingerprint; `results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json`; answer date, strict).
 
-| arm | exact | correct null | false null | misattributed | fabricated | model share |
-|---|---|---|---|---|---|---|
-| rules | | | | | | |
-| pointer (70B weights) | | | | | | |
-| cascade (shipped) | | | | | | |
-| naive plain / null-allowed | | | | | | |
+| arm | exact [95% CI] | correct date | correct null | false null | wrong date printed in the document | fabricated | values on the 90 answerless |
+|---|---|---|---|---|---|---|---|
+| rules only | 135/154 [81.5, 92] | 47 | 88 | 15 | 4 | 0 | 2 |
+| pointer (Apertus on every document) | 130/154 [77.9, 89.3] | 46 | 84 | 8 | 16 | 0 | 6 |
+| **cascade (shipped)** | **139/154 [84.6, 94]** | **56** | 83 | **4** | 11 | **0** | 7 |
+| naive, plain prompt | 98/154 [55.8, 70.8] | 47 | 51 | 9 | 23 | **24** | 39 |
+| naive, null-allowed prompt | 134/154 [80.8, 91.4] | 47 | 87 | 9 | 11 | 0 | 3 |
+<!-- SLOT: 8B rows -->
+
+![fig5](docs/figures/fig5_scoreboard.png)
+*Figure 5. Held-out scoreboard (left, frozen) and a post-hoc sweep of θ (right, labelled).*
+
+**Pre-registered outcomes, as computed** (`results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json`).
+**H1 null safety — FAIL.** The cascade puts a value on 7 of 90 answerless documents (upper Wilson bound 15.2% against the 10% target), 4 of them in the German communal cell (limit 1 per cell). The naive plain prompt does so on 39/90.
+**H2 — Branch B.** On the French, Italian and OCR cells (n = 110) the cascade is right where the rules are wrong on 5 documents and the reverse on 1 (exact McNemar p = 0.22); over all cells 9 against 5 (p = 0.42). In the words we registered: Apertus is kept only where it measurably adds null-safety. Concretely, that is the abstention signal of H3 and the guarantee that no value can be fabricated, not extraction accuracy.
+**H3 margin separation — PASS.** The null margin separates answerless from answered documents with AUROC 0.969 on the length-matched set; the spike's 1.00 was confounded by length.
+**H4 — triggered.** 3 of the 8 values Apertus decided on French or Italian documents are wrong, so we publish the θ curve below.
+
+**What the comparison says.** On the same 70B weights, the naive null-allowed prompt reaches 134/154 and puts a value on only 3/90 answerless documents: competitive with the cascade on accuracy, and safer on nulls at the frozen θ. What the closed-set pointer adds is structural: it cannot fabricate (0 by construction, not by prompt), every value carries page and span, θ is tunable per build, and its margin is an abstention signal (AUROC 0.969). The naive plain prompt fabricates 24 dates.
+
+**Post hoc (not pre-registered; `results/eval/posthoc/`).** *θ sweep:* the dev-fitted θ = 10.40 is too permissive on held-out; at θ between 0 and 2.5 the cascade would be exact on 142–143 with 3 values on answerless documents. θ = 0 is also what the earlier live spike observed, so this is the hypothesis for the next pre-registration, not a result. *Error anatomy:* every Apertus value on an answerless document is a real date of a parliament document (a session or publication date), i.e. misattribution, not invention; two of the four rule errors are the two "executive's own business" documents on which the annotators split. *D1:* with the Italian prompt the pointer goes from 17/22 to 21/22 on the Ticino scans; the cascade stays at 21/22.
 
 ## 7. Limitations
 
-The held-out set is 154 documents; per-cell intervals are wide. Gold labels come from AI annotators with high but not perfect agreement; the protocol and every disagreement are public. The recommendation field has only 10 non-null gold values, so its arm is exploratory. The 70B results come from one provider build (one vLLM fingerprint), which may change without notice — θ must be refitted per build. 11,206 missing answers need source adapters we did not build; OCR was measured on 30 documents. The nightly cost from outside OPD is an estimate.
+The held-out set is 154 documents; per-cell intervals are wide. Gold labels come from AI annotators with high but not perfect agreement; the protocol and every disagreement are public. The recommendation field has only 10 non-null gold values, so its arm is exploratory; at the declared θ = 0 the recommendation pointer puts a value on 28/144 documents without one (24/144 in the cascade), so it is not usable as is. The 70B results come from one provider build (one vLLM fingerprint), which may change without notice — θ must be refitted per build. 11,206 missing answers need source adapters we did not build; OCR was measured on 30 documents. The nightly cost from outside OPD is an estimate.
 
 ## 8. Reproducibility
 
-`make run` (Docker, CPU, clean checkout) recomputes the census from the vendored extract and asserts equality, replays the Bern join and triple check, converts sample documents through the cascade with span, typed-null, distractor and self-deletion checks, re-scores every committed evaluation file, and recomputes every number in this report from `claims.tsv` (each row: shown value, results file, JSON path, producing command); CI fails on any drift. Model outputs are replayed from a hash-keyed cache; with `LLM_BASE_URL` (vLLM-style) or `GGUF=1` a live slice runs. Seeds, snapshot dates and sha256 hashes are in `data/` and `eval/gold/SEEDS.md`.
+`make run` (Docker, CPU, clean checkout) recomputes the census and asserts equality, replays the Bern join and triple check, runs sample documents through the cascade with span, typed-null, distractor and self-deletion checks, re-scores every evaluation file, and recomputes every number in this report from `claims.tsv` (value, results file, JSON path, command); CI fails on any drift. Model outputs are replayed from a hash-keyed cache; with `LLM_BASE_URL` (vLLM-style) or `GGUF=1` a live slice runs. Seeds, snapshot dates and sha256 hashes are in `data/` and `eval/gold/SEEDS.md`.
 
 ## 9. Declarations
 

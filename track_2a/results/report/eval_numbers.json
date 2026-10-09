@@ -1,0 +1,126 @@
+{
+ "build": "publicai_swiss-ai_apertus-v1.5-8b",
+ "arms": {
+  "rules": {
+   "exact": 135,
+   "n": 154,
+   "exact_ci_pct": [
+    81.5,
+    92.0
+   ],
+   "correct": 47,
+   "correct_null": 88,
+   "false_null": 15,
+   "misattributed": 4,
+   "fabricated": 0,
+   "invented_on_null": 2,
+   "n_gold_null": 90,
+   "n_gold_value": 64,
+   "invented_on_null_ci_pct": [
+    0.6,
+    7.7
+   ],
+   "lenient_exact": 136
+  },
+  "pointer": {
+   "exact": 130,
+   "n": 154,
+   "exact_ci_pct": [
+    77.9,
+    89.3
+   ],
+   "correct": 46,
+   "correct_null": 84,
+   "false_null": 8,
+   "misattributed": 16,
+   "fabricated": 0,
+   "invented_on_null": 6,
+   "n_gold_null": 90,
+   "n_gold_value": 64,
+   "invented_on_null_ci_pct": [
+    3.1,
+    13.8
+   ],
+   "lenient_exact": 132
+  },
+  "cascade": {
+   "exact": 139,
+   "n": 154,
+   "exact_ci_pct": [
+    84.6,
+    94.0
+   ],
+   "correct": 56,
+   "correct_null": 83,
+   "false_null": 4,
+   "misattributed": 11,
+   "fabricated": 0,
+   "invented_on_null": 7,
+   "n_gold_null": 90,
+   "n_gold_value": 64,
+   "invented_on_null_ci_pct": [
+    3.8,
+    15.2
+   ],
+   "lenient_exact": 140
+  },
+  "naive_plain": {
+   "exact": 98,
+   "n": 154,
+   "exact_ci_pct": [
+    55.8,
+    70.8
+   ],
+   "correct": 47,
+   "correct_null": 51,
+   "false_null": 9,
+   "misattributed": 23,
+   "fabricated": 24,
+   "invented_on_null": 39,
+   "n_gold_null": 90,
+   "n_gold_value": 64,
+   "invented_on_null_ci_pct": [
+    33.6,
+    53.6
+   ],
+   "lenient_exact": 101
+  },
+  "naive_null": {
+   "exact": 134,
+   "n": 154,
+   "exact_ci_pct": [
+    80.8,
+    91.4
+   ],
+   "correct": 47,
+   "correct_null": 87,
+   "false_null": 9,
+   "misattributed": 11,
+   "fabricated": 0,
+   "invented_on_null": 3,
+   "n_gold_null": 90,
+   "n_gold_value": 64,
+   "invented_on_null_ci_pct": [
+    1.1,
+    9.3
+   ],
+   "lenient_exact": 139
+  }
+ },
+ "auroc_str": "0.969",
+ "h2_p_primary_str": "0.22",
+ "h2_p_pooled_str": "0.42",
+ "posthoc": {
+  "best_exact": 143,
+  "best_theta": 2.5,
+  "theta0_25_exact": [
+   142,
+   143
+  ],
+  "theta0_25_on_null": 3,
+  "ocr_pointer_de": 17,
+  "ocr_pointer_it": 21,
+  "ocr_cascade_it": 21,
+  "ocr_n": 22
+ }
+}

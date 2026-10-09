@@ -55,7 +55,7 @@ census.vs_oral_proxy_only	8	results/census/vs_reconcile.json	only_census	int	pyt
 census.vs_proxy_precision	99.2%	results/census/vs_reconcile.json	doc_level.proxy_precision	pct1	python -m gegenprobe.census.reconcile_vs	docs/census.md
 census.vs_proxy_recall	100.0%	results/census/vs_reconcile.json	doc_level.proxy_recall	pct1	python -m gegenprobe.census.reconcile_vs	docs/census.md
 census.reextract_image_only	15	results/repair/ocr_probe.json	categories.image_only	int	python -m gegenprobe.repair.ocr probe 3	docs/census.md
-convert.f2_final_g64_plain_auroc	1.00	results/convert/spike_replay.json	f2.final|chat_plain.auroc	f2	python -m eval.replay_spikes	-
+convert.f2_final_g64_plain_auroc	1.00	results/convert/spike_replay.json	f2.final|chat_plain.auroc	f2	python -m eval.replay_spikes	technical_report.md
 convert.f2_final_g64_plain_loo	20/20	results/convert/spike_replay.json	f2.final|chat_plain.loo_correct/f2.final|chat_plain.n	frac	python -m eval.replay_spikes	-
 convert.f2_final_g64_plain_theta	-32.3	results/convert/spike_replay.json	f2.final|chat_plain.theta	f1	python -m eval.replay_spikes	-
 convert.f2_final_g64_null_theta	-9.4	results/convert/spike_replay.json	f2.final|chat_null.theta	f1	python -m eval.replay_spikes	-
@@ -82,6 +82,72 @@ docs.repairable_deterministic	3,107	results/report/figure_numbers.json	repairabl
 docs.matrix_fields	17	results/report/figure_numbers.json	matrix_fields	int	python -m report.figures	README.md,technical_report.md
 docs.theta_publicai	10.40	data/convert/theta/publicai_swiss-ai_apertus-v1.5-8b.json	answer_date.theta	f2	python -m eval.arms fit --backend gateway:swiss-ai/apertus-v1.5-8b:2a-theta:1.0	README.md,technical_report.md
 docs.sample_null_margin	88.25	docs/samples/ti_question_typed_null.json	apertus_pointer.margin	f2	python -m report.samples	README.md
+eval.rules.exact	135/154	results/report/eval_numbers.json	arms.rules.exact/arms.rules.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
+eval.rules.exact_ci	[81.5, 92]	results/report/eval_numbers.json	arms.rules.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
+eval.rules.correct	47	results/report/eval_numbers.json	arms.rules.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.rules.correct_null	88	results/report/eval_numbers.json	arms.rules.correct_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.rules.false_null	15	results/report/eval_numbers.json	arms.rules.false_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.rules.misattributed	4	results/report/eval_numbers.json	arms.rules.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.rules.fabricated	0	results/report/eval_numbers.json	arms.rules.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.rules.invented_on_null	2	results/report/eval_numbers.json	arms.rules.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
+eval.pointer.exact	130/154	results/report/eval_numbers.json	arms.pointer.exact/arms.pointer.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
+eval.pointer.exact_ci	[77.9, 89.3]	results/report/eval_numbers.json	arms.pointer.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
+eval.pointer.correct	46	results/report/eval_numbers.json	arms.pointer.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.pointer.correct_null	84	results/report/eval_numbers.json	arms.pointer.correct_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.pointer.false_null	8	results/report/eval_numbers.json	arms.pointer.false_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.pointer.misattributed	16	results/report/eval_numbers.json	arms.pointer.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.pointer.fabricated	0	results/report/eval_numbers.json	arms.pointer.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.pointer.invented_on_null	6	results/report/eval_numbers.json	arms.pointer.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
+eval.cascade.exact	139/154	results/report/eval_numbers.json	arms.cascade.exact/arms.cascade.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
+eval.cascade.exact_ci	[84.6, 94]	results/report/eval_numbers.json	arms.cascade.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
+eval.cascade.correct	56	results/report/eval_numbers.json	arms.cascade.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.cascade.correct_null	83	results/report/eval_numbers.json	arms.cascade.correct_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.cascade.false_null	4	results/report/eval_numbers.json	arms.cascade.false_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.cascade.misattributed	11	results/report/eval_numbers.json	arms.cascade.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.cascade.fabricated	0	results/report/eval_numbers.json	arms.cascade.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.cascade.invented_on_null	7	results/report/eval_numbers.json	arms.cascade.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
+eval.naive_plain.exact	98/154	results/report/eval_numbers.json	arms.naive_plain.exact/arms.naive_plain.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
+eval.naive_plain.exact_ci	[55.8, 70.8]	results/report/eval_numbers.json	arms.naive_plain.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
+eval.naive_plain.correct	47	results/report/eval_numbers.json	arms.naive_plain.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.naive_plain.correct_null	51	results/report/eval_numbers.json	arms.naive_plain.correct_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.naive_plain.false_null	9	results/report/eval_numbers.json	arms.naive_plain.false_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.naive_plain.misattributed	23	results/report/eval_numbers.json	arms.naive_plain.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.naive_plain.fabricated	24	results/report/eval_numbers.json	arms.naive_plain.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
+eval.naive_plain.invented_on_null	39	results/report/eval_numbers.json	arms.naive_plain.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
+eval.naive_null.exact	134/154	results/report/eval_numbers.json	arms.naive_null.exact/arms.naive_null.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
+eval.naive_null.exact_ci	[80.8, 91.4]	results/report/eval_numbers.json	arms.naive_null.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
+eval.naive_null.correct	47	results/report/eval_numbers.json	arms.naive_null.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.naive_null.correct_null	87	results/report/eval_numbers.json	arms.naive_null.correct_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.naive_null.false_null	9	results/report/eval_numbers.json	arms.naive_null.false_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.naive_null.misattributed	11	results/report/eval_numbers.json	arms.naive_null.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.naive_null.fabricated	0	results/report/eval_numbers.json	arms.naive_null.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.naive_null.invented_on_null	3	results/report/eval_numbers.json	arms.naive_null.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
+eval.naive_plain.on_null_frac	39/90	results/report/eval_numbers.json	arms.naive_plain.invented_on_null/arms.naive_plain.n_gold_null	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.naive_null.on_null_frac	3/90	results/report/eval_numbers.json	arms.naive_null.invented_on_null/arms.naive_null.n_gold_null	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.n_gold_value	64	results/report/eval_numbers.json	arms.cascade.n_gold_value	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
+eval.h1.pooled	7	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H1.pooled.0	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md,docs/form_notes.md
+eval.h1.upper	15.2%	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H1.pooled_ci.1	pct1	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md,docs/form_notes.md
+eval.h1.max_cell	4	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H1.max_per_cell	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
+eval.h2.n	110	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.primary_fr_it_ocr.n	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
+eval.h2.cascade_only	5	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.primary_fr_it_ocr.cascade_only	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md
+eval.h2.rules_only	1	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.primary_fr_it_ocr.rules_only	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md
+eval.h2.p	0.22	results/report/eval_numbers.json	h2_p_primary_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md,docs/form_notes.md
+eval.h2.pooled_cascade_only	9	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.secondary_pooled_all.cascade_only	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
+eval.h2.pooled_rules_only	5	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.secondary_pooled_all.rules_only	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
+eval.h2.p_pooled	0.42	results/report/eval_numbers.json	h2_p_pooled_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
+eval.h2.branch	B	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.branch	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
+eval.h3.auroc	0.969	results/report/eval_numbers.json	auroc_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md,docs/form_notes.md
+eval.h4.wrong	3	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H4.wrong	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md
+eval.h4.n	8	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H4.apertus_decided_fr_it_values	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md
+eval.share.apertus_values	16/67	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	model_share.apertus/model_share.values	frac	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
+eval.share.decisions	93	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	model_share.apertus_decisions_incl_nulls	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
+eval.posthoc.best	143	results/report/eval_numbers.json	posthoc.best_exact	int	python -m eval.posthoc curve|ocr_it ; python -m report.eval_numbers	technical_report.md
+eval.posthoc.lo	142	results/report/eval_numbers.json	posthoc.theta0_25_exact.0	int	python -m eval.posthoc curve|ocr_it ; python -m report.eval_numbers	technical_report.md
+eval.posthoc.on_null	3	results/report/eval_numbers.json	posthoc.theta0_25_on_null	int	python -m eval.posthoc curve|ocr_it ; python -m report.eval_numbers	technical_report.md
+eval.posthoc.ocr_de	17/22	results/report/eval_numbers.json	posthoc.ocr_pointer_de/posthoc.ocr_n	frac	python -m eval.posthoc curve|ocr_it ; python -m report.eval_numbers	technical_report.md
+eval.posthoc.ocr_it	21/22	results/report/eval_numbers.json	posthoc.ocr_pointer_it/posthoc.ocr_n	frac	python -m eval.posthoc curve|ocr_it ; python -m report.eval_numbers	technical_report.md
+eval.rec.on_null	28/144	results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json	recommendation.rec_pointer.invented_on_null/recommendation.rec_pointer.n_gold_null	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.rec.cascade_on_null	24/144	results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json	recommendation.rec_cascade.invented_on_null/recommendation.rec_cascade.n_gold_null	frac	python -m eval.arms run --split heldout ...	technical_report.md
 repair.be_relink	2,459	results/repair/summary.json	by_action.relink	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md,technical_report.md
 repair.be_fetch	49	results/repair/summary.json	by_action.fetch	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md,technical_report.md
 repair.agenda_join	592	results/repair/summary.json	by_action.agenda_join	int	python -m gegenprobe.repair.run	docs/repair.md,technical_report.md

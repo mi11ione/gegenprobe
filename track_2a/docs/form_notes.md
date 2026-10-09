@@ -18,10 +18,13 @@ Gegenprobe, Track 2A OpenParlData. Every number below is recomputed from a resul
   a threshold θ calibrated per build; every value has page and character span (`docs/samples/`). The naive alternative,
   free JSON generation from a plain prompt, gives an answer date for 15/15 (local 8B) and 14/15 (70B) answerless
   documents (`results/convert/spike_replay.json`, `docs/figures/fig4_naive_contrast.png`).
-- **Held-out, pre-registered evaluation.** <!-- PLACEHOLDER: held-out numbers (H1–H4), arms rules / pointer / cascade /
-  naive, Wilson CIs --> 154 documents, DE/FR/IT × canton/commune + an OCR cell; registration locked before any label
-  existed (`eval/prereg/LOCK`, commit timestamp); labels by blind double annotation (`docs/gold_protocol.md`);
-  deviations listed in `eval/prereg/DEVIATIONS.md`.
+- **Held-out, pre-registered evaluation (we report the failures too).** 154 documents, DE/FR/IT × canton/commune + an
+  OCR cell; registration locked before any label existed (`eval/prereg/LOCK`); labels by blind double annotation, no
+  human judgement (`docs/gold_protocol.md`). Exact answer date: shipped cascade 139/154 [84.6, 94], rules alone 135/154,
+  naive plain prompt 98/154 with 24 fabricated dates, naive null-allowed 134/154; the cascade fabricates 0 by
+  construction. H1 null safety FAIL (7 of 90 answerless get a value, bound 15.2%); H2 Branch B (p = 0.22: Apertus is kept
+  only where it measurably adds null-safety); H3 PASS (abstention AUROC 0.969). Table and figure: README "Evaluation",
+  `docs/figures/fig5_scoreboard.png`, `results/eval/`.
 - **Runs anywhere, sovereign by default.** `make run` in Docker on CPU replays every headline; the model is any
   vLLM-style endpoint or Apertus v1.5 8B GGUF in-process (no document text leaves the machine). Runtime services and
   what each receives: README "Sovereignty". Coding assistants (Claude Code) declared; maturity: census/repair deployable

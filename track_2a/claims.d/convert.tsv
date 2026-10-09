@@ -1,5 +1,5 @@
 id	shown	file	path	fmt	command	where
-convert.f2_final_g64_plain_auroc	1.00	results/convert/spike_replay.json	f2.final|chat_plain.auroc	f2	python -m eval.replay_spikes	-
+convert.f2_final_g64_plain_auroc	1.00	results/convert/spike_replay.json	f2.final|chat_plain.auroc	f2	python -m eval.replay_spikes	technical_report.md
 convert.f2_final_g64_plain_loo	20/20	results/convert/spike_replay.json	f2.final|chat_plain.loo_correct/f2.final|chat_plain.n	frac	python -m eval.replay_spikes	-
 convert.f2_final_g64_plain_theta	-32.3	results/convert/spike_replay.json	f2.final|chat_plain.theta	f1	python -m eval.replay_spikes	-
 convert.f2_final_g64_null_theta	-9.4	results/convert/spike_replay.json	f2.final|chat_null.theta	f1	python -m eval.replay_spikes	-
