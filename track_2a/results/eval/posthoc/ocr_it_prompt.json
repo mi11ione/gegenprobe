@@ -1,0 +1,118 @@
+{
+ "label": "POST-HOC (deviation D1): OCR cell with the Italian prompt, \u03b8 unchanged",
+ "theta": 10.395354058425431,
+ "arms": {
+  "pointer_de_frozen": {
+   "n": 22,
+   "correct": 7,
+   "correct_null": 10,
+   "false_null": 3,
+   "misattributed": 2,
+   "fabricated": 0,
+   "exact": 17,
+   "exact_rate": 0.7727272727272727,
+   "exact_ci": [
+    0.5655964393704065,
+    0.8987710920517964
+   ],
+   "invented": 2,
+   "invented_ci": [
+    0.025294896282837792,
+    0.2781538065838578
+   ],
+   "n_gold_null": 10,
+   "invented_on_null": 0,
+   "invented_on_null_ci": [
+    0.0,
+    0.2775401687666166
+   ],
+   "n_gold_value": 12,
+   "model_decided": 22,
+   "model_share": 1.0
+  },
+  "pointer_it": {
+   "n": 22,
+   "correct": 11,
+   "correct_null": 10,
+   "false_null": 0,
+   "misattributed": 1,
+   "fabricated": 0,
+   "exact": 21,
+   "exact_rate": 0.9545454545454546,
+   "exact_ci": [
+    0.7820151050048196,
+    0.9919307806988522
+   ],
+   "invented": 1,
+   "invented_ci": [
+    0.008069219301147859,
+    0.21798489499518053
+   ],
+   "n_gold_null": 10,
+   "invented_on_null": 0,
+   "invented_on_null_ci": [
+    0.0,
+    0.2775401687666166
+   ],
+   "n_gold_value": 12,
+   "model_decided": 22,
+   "model_share": 1.0
+  },
+  "cascade_de_frozen": {
+   "n": 22,
+   "correct": 11,
+   "correct_null": 10,
+   "false_null": 0,
+   "misattributed": 1,
+   "fabricated": 0,
+   "exact": 21,
+   "exact_rate": 0.9545454545454546,
+   "exact_ci": [
+    0.7820151050048196,
+    0.9919307806988522
+   ],
+   "invented": 1,
+   "invented_ci": [
+    0.008069219301147859,
+    0.21798489499518053
+   ],
+   "n_gold_null": 10,
+   "invented_on_null": 0,
+   "invented_on_null_ci": [
+    0.0,
+    0.2775401687666166
+   ],
+   "n_gold_value": 12,
+   "model_decided": 10,
+   "model_share": 0.45454545454545453
+  },
+  "cascade_it": {
+   "n": 22,
+   "correct": 11,
+   "correct_null": 10,
+   "false_null": 0,
+   "misattributed": 1,
+   "fabricated": 0,
+   "exact": 21,
+   "exact_rate": 0.9545454545454546,
+   "exact_ci": [
+    0.7820151050048196,
+    0.9919307806988522
+   ],
+   "invented": 1,
+   "invented_ci": [
+    0.008069219301147859,
+    0.21798489499518053
+   ],
+   "n_gold_null": 10,
+   "invented_on_null": 0,
+   "invented_on_null_ci": [
+    0.0,
+    0.2775401687666166
+   ],
+   "n_gold_value": 12,
+   "model_decided": 10,
+   "model_share": 0.45454545454545453
+  }
+ }
+}
