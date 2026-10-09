@@ -34,7 +34,13 @@ class GGUFFast(GGUF):
         return self._llm
 
     def _last_logp(self) -> np.ndarray:
-        row = np.asarray(self._llm.scores[self._llm.n_tokens - 1], dtype=np.float64)
+        """Logits of the last evaluated token, read from the llama context (llama-cpp-python 0.3.35 does not copy them into
+        `scores` when logits_all=False: that row stays zero, i.e. uniform — caught by the CI parity gate)."""
+        import llama_cpp
+        ptr = llama_cpp.llama_get_logits_ith(self._llm._ctx.ctx, -1)
+        row = np.ctypeslib.as_array(ptr, shape=(self._llm.n_vocab(),)).astype(np.float64)
+        if not row.std() > 0:
+            raise RuntimeError("flat logits row: scorer is not reading the model output")
         m = row.max()
         return row - (m + np.log(np.exp(row - m).sum()))
 

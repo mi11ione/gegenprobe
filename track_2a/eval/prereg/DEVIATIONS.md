@@ -27,3 +27,6 @@ decisions (mean |Δ| 2.66 nats), as close as or closer than the spike's Metal bu
   so 8B inputs can differ in whitespace and OCR noise; labels are ISO dates, which these differences rarely move.
 - 8B arms: rules, pointer, cascade on `answer_date`. The exploratory recommendation and naive arms are not run on 8B
   (runner minutes); the naive 8B contrast is cited from round 7 (local 8B, 15/15 invented).
+- D2 addendum: the first parity gate (CI run 37992237668) FAILED (max |Δ| 57.8 nats): the fast scorer read an unfilled
+  `scores` row (uniform logits, −11.79 = log 1/131,272 for every token). Fixed to read the context's last-token logits with
+  a flat-row guard; no 8B arm had run. The gate is re-run unchanged.
