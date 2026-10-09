@@ -58,6 +58,7 @@ jobs:
         if: inputs.task == 'impl'
         run: |
           set -e
+          mkdir -p out
           python -m gegenprobe.gguf_check impl-ids out/impl_ids.txt
           python -m gegenprobe.gguf_check impl-mine out/impl_mine.json
           M="$GP_WORK/models/apertus-v1.5-8b-text-q4_k_m.gguf"
