@@ -1,0 +1,199 @@
+{
+ "findings": [
+  {
+   "count": 30033,
+   "definition": "docs export `text` < 4,000 chars matching /JavaScript/ (census/defs.text_status)",
+   "denominator": 52450,
+   "id": "che_placeholder",
+   "share": 0.5726,
+   "source": "data/census/docs*.tsv.gz",
+   "statement": "Federal (CHE) documents whose stored text is Fedlex's 'JavaScript required' page",
+   "verified": "recomputed"
+  },
+  {
+   "count": 1,
+   "definition": "FR is French-majority (bilingual canton); a 'DE' tag misdirects language stratification",
+   "denominator": 1,
+   "id": "lang_tag_FR",
+   "source": "data/census/bodies.tsv.gz",
+   "statement": "bodies.lang tags canton FR as 'DE'",
+   "value": "DE",
+   "verified": "recomputed"
+  },
+  {
+   "count": 1,
+   "definition": "VS is French-majority (bilingual canton); a 'DE' tag misdirects language stratification",
+   "denominator": 1,
+   "id": "lang_tag_VS",
+   "source": "data/census/bodies.tsv.gz",
+   "statement": "bodies.lang tags canton VS as 'DE'",
+   "value": "DE",
+   "verified": "recomputed"
+  },
+  {
+   "bodies_all_null": [
+    "1059",
+    "3427",
+    "4001"
+   ],
+   "count": 525363,
+   "definition": "docs export `language` null or empty; bodies listed have >= 100 docs, all untagged",
+   "denominator": 902754,
+   "id": "doc_language_null",
+   "n_bodies_all_null": 3,
+   "share": 0.582,
+   "source": "data/census/docs*.tsv.gz",
+   "statement": "Documents without a language tag",
+   "verified": "recomputed"
+  },
+  {
+   "bodies": [
+    {
+     "docs": 3268,
+     "key": "5938",
+     "name": "Yverdon-les-Bains"
+    },
+    {
+     "docs": 388,
+     "key": "6023",
+     "name": "Conthey"
+    },
+    {
+     "docs": 364,
+     "key": "6025",
+     "name": "Vétroz"
+    },
+    {
+     "docs": 181,
+     "key": "6082",
+     "name": "Ayent"
+    },
+    {
+     "docs": 516,
+     "key": "6133",
+     "name": "Fully"
+    },
+    {
+     "docs": 72,
+     "key": "6136",
+     "name": "Martigny"
+    },
+    {
+     "docs": 114,
+     "key": "6217",
+     "name": "Saint-Maurice"
+    },
+    {
+     "docs": 1153,
+     "key": "6266",
+     "name": "Sion"
+    }
+   ],
+   "count": 8,
+   "definition": "body_key present in the docs exports, absent from affairs",
+   "id": "docs_without_affairs",
+   "source": "data/census/*",
+   "statement": "Bodies with a docs export but zero affairs",
+   "verified": "recomputed"
+  },
+  {
+   "by_body": {
+    "2937": 272,
+    "3203": 3220,
+    "5113": 1,
+    "5254": 3,
+    "AG": 289,
+    "AI": 68,
+    "AR": 90,
+    "BE": 90,
+    "BL": 137,
+    "BS": 74,
+    "GL": 42,
+    "GR": 49,
+    "JU": 213,
+    "LIE": 536,
+    "NE": 2,
+    "SG": 77,
+    "SO": 104,
+    "SZ": 38,
+    "VS": 79,
+    "ZG": 144
+   },
+   "count": 5528,
+   "definition": "affairs.number contains YYYY-MM-DD or YYYY.MM.DD",
+   "denominator": 325691,
+   "id": "numbers_from_dates",
+   "source": "data/census/affairs.tsv.gz",
+   "statement": "Affair numbers that are dates",
+   "verified": "recomputed"
+  },
+  {
+   "count": 800,
+   "definition": "|year(begin_date) - year(number)| > 1; 2024-10-28 is the likely import date (ask OPD before calling it an error)",
+   "denominator": 8193,
+   "id": "be_begin_date_import",
+   "on_2024_10_28": 557,
+   "source": "data/census/affairs.tsv.gz",
+   "statement": "BE affairs whose begin_date is > 1 year off the year in their number",
+   "verified": "recomputed"
+  },
+  {
+   "count": 0,
+   "definition": "sha256 of the fetched PDF vs docs.hash",
+   "denominator": 2,
+   "id": "hash_not_sha256",
+   "source": "spikes/data/report.md row 10",
+   "statement": "The docs `hash` field is not the PDF's sha256 (0/2 matched); `size` matches the bytes",
+   "verified": "cited"
+  },
+  {
+   "definition": "begin_date (recomputed) vs PDF text (cited)",
+   "id": "grparl_384_date",
+   "source": "data/census/affairs.tsv.gz; spikes/data/report.md row 13",
+   "statement": "2025.GRPARL.384: OPD begin_date vs the date printed in the PDF",
+   "value": {
+    "opd_begin": "2025-06-18",
+    "pdf": "19.06.2025"
+   },
+   "verified": "recomputed+cited"
+  },
+  {
+   "count": 55767,
+   "definition": "affairs.type_harmonized_en null",
+   "denominator": 325691,
+   "id": "type_unharmonised",
+   "share": 0.1712,
+   "source": "data/census/affairs.tsv.gz",
+   "statement": "Affairs without a harmonised type",
+   "verified": "recomputed"
+  },
+  {
+   "count": 278,
+   "definition": "affairs.state_name_harmonized_id not null",
+   "denominator": 325691,
+   "id": "state_harmonised",
+   "share": 0.0009,
+   "source": "data/census/affairs.tsv.gz",
+   "statement": "Affairs with a harmonised procedural state",
+   "verified": "recomputed"
+  },
+  {
+   "count": 6,
+   "definition": "field names of persons.ndjson.gz matching mail/phone/address/birth (values never read or stored)",
+   "denominator": 60,
+   "fields": [
+    "birthday",
+    "birthday_format",
+    "email",
+    "phone",
+    "postal_code",
+    "street"
+   ],
+   "id": "persons_contact_fields",
+   "source": "data/census/persons_fields.json",
+   "statement": "The public persons export carries contact/birth fields",
+   "verified": "recomputed (field names only)"
+  }
+ ],
+ "n": 12
+}

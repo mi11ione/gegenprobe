@@ -1,0 +1,79 @@
+{
+ "note": "Copied (not recomputed) from the 8 Oct 2026 S3-BILANZ spike: 12 bodies x ~8 documents, rule-based atom inventory. Recomputing needs the fetched documents, which are not committed.",
+ "source": {
+  "file": "spikes/bilanz/results/results.json",
+  "sha256": "bea53840e4f08538c8afa2633021ff6a89b4cc0553c905c4f7de771e2bc9ffe9",
+  "prereg": "spikes/bilanz/prereg.md (sha256 5d9a9767…, frozen 2026-10-07T23:21:17Z)",
+  "report": "spikes/bilanz/results.md"
+ },
+ "schema_gaps": [
+  {
+   "gap": "person roles",
+   "detail": "presiding officer, secretary/clerk, executive signatory, committee member, co-signatory, roll-call voter, referenced colleague; person atoms 92% in suspense"
+  },
+  {
+   "gap": "comparison amounts",
+   "detail": "prior year, budget vs actual; amount atoms 69% in suspense"
+  },
+  {
+   "gap": "dates and laws of other polities",
+   "detail": "federal law dates, other cantons' events"
+  },
+  {
+   "gap": "dates of other affairs",
+   "detail": "cross-references to other affairs' events"
+  },
+  {
+   "gap": "entry-into-force and deadline dates",
+   "detail": "not representable as submission/decision/answer roles"
+  }
+ ],
+ "booking": {
+  "atoms": 2356,
+  "booked": 1274,
+  "suspense": 1082,
+  "suspense_share": 0.459,
+  "bodies": 12,
+  "docs": 94
+ },
+ "chao2": {
+  "verdict": "KILLED: no saturation; schema incompleteness cannot be estimated lexically",
+  "coarse": {
+   "S_obs_fit": 431,
+   "Q1": 424,
+   "Q2": 7,
+   "S_est": 10239,
+   "ci95": [
+    5515,
+    19352
+   ],
+   "S_obs_12": 689,
+   "K1_inside_ci": false
+  },
+  "fine": {
+   "S_obs_fit": 507,
+   "S_est": 56404,
+   "ci95": [
+    22366,
+    143447
+   ],
+   "S_obs_12": 916,
+   "K1_inside_ci": false
+  },
+  "new_accounts_per_body_mean": 57.4,
+  "curve_mean_1000_perms_coarse": [
+   59,
+   118,
+   177,
+   236,
+   292,
+   351,
+   408,
+   464,
+   521,
+   577,
+   633,
+   689
+  ]
+ }
+}
