@@ -4,8 +4,9 @@
         == normalise_date("28 agosto 2024") == normalise_date("2024-08-28") == "2024-08-28"
 
 Accepted: day-month-year with a 4-digit year ("28.8.2024", "28. 08. 2024", "1er août 2024", "1° agosto 2024", "1º", "1.",
-"28 Aug. 2024", "Sept."), ISO yyyy-mm-dd, and dd/mm/yyyy. Refused: 2-digit years ("28.08.24"), impossible dates (30.02.2024),
-month-year only. `find_dates` returns every match with its character span, for span re-checks and candidate lattices.
+"28 Aug. 2024", "Sept.", and the space-less "23décembre2021" that pdftotext produces from some layouts), ISO yyyy-mm-dd,
+and dd/mm/yyyy. Refused: 2-digit years ("28.08.24"), impossible dates (30.02.2024), month-year only. `find_dates` returns
+every match with its character span, for span re-checks and candidate lattices.
 """
 from __future__ import annotations
 
@@ -31,7 +32,7 @@ MONTH = {name: m for m, names in _MONTHS.items() for name in names}
 _mon_alt = "|".join(sorted((re.escape(n) for n in MONTH), key=len, reverse=True))
 
 DATE_RE = re.compile(
-    r"(?<![\d.])(?P<d1>[0-3]?\d)\s?(?:\.|er|°|º|o)?\s*(?:(?P<m1>[01]?\d)\s?\.\s?|(?P<mn>" + _mon_alt + r")\.?\s+)"
+    r"(?<![\d.])(?P<d1>[0-3]?\d)\s?(?:\.|er|°|º|o)?\s*(?:(?P<m1>[01]?\d)\s?\.\s?|(?P<mn>" + _mon_alt + r")\.?\s*)"
     r"(?P<y1>(?:1[89]|2\d)\d\d)(?![\d])"
     r"|(?<![\d])(?P<y2>(?:1[89]|2\d)\d\d)-(?P<m2>[01]\d)-(?P<d2>[0-3]\d)(?![\d])"
     r"|(?<![\d/])(?P<d3>[0-3]?\d)/(?P<m3>[01]?\d)/(?P<y3>(?:1[89]|2\d)\d\d)(?![\d])",

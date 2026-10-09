@@ -380,6 +380,20 @@
      "description": "verbatim source text at the span (short)",
      "title": "Quote"
     },
+    "context": {
+     "anyOf": [
+      {
+       "maxLength": 400,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "the source line around the span, for review (not checked)",
+     "title": "Context"
+    },
     "source": {
      "anyOf": [
       {
@@ -644,6 +658,20 @@
      "default": null,
      "description": "verbatim source text at the span (short)",
      "title": "Quote"
+    },
+    "context": {
+     "anyOf": [
+      {
+       "maxLength": 400,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "the source line around the span, for review (not checked)",
+     "title": "Context"
     },
     "source": {
      "anyOf": [
@@ -1086,6 +1114,20 @@
      "description": "verbatim source text at the span (short)",
      "title": "Quote"
     },
+    "context": {
+     "anyOf": [
+      {
+       "maxLength": 400,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "the source line around the span, for review (not checked)",
+     "title": "Context"
+    },
     "source": {
      "anyOf": [
       {
@@ -1285,6 +1327,20 @@
      "default": null,
      "description": "verbatim source text at the span (short)",
      "title": "Quote"
+    },
+    "context": {
+     "anyOf": [
+      {
+       "maxLength": 400,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "the source line around the span, for review (not checked)",
+     "title": "Context"
     },
     "source": {
      "anyOf": [
@@ -1641,6 +1697,20 @@
      "description": "verbatim source text at the span (short)",
      "title": "Quote"
     },
+    "context": {
+     "anyOf": [
+      {
+       "maxLength": 400,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "the source line around the span, for review (not checked)",
+     "title": "Context"
+    },
     "source": {
      "anyOf": [
       {
@@ -1732,7 +1802,8 @@
       "image_only",
       "oral",
       "present_unanchored",
-      "not_applicable"
+      "not_applicable",
+      "not_in_document"
      ],
      "title": "Null Reason",
      "type": "string"

@@ -53,6 +53,7 @@ every value tied to the place in the source it came from.
 | `oral` | the question was answered orally, so no written value exists | metadata, rule, ocr+rule |
 | `present_unanchored` | candidate values are present, but none is anchored to the field's role | rule, apertus, ocr+* |
 | `not_applicable` | the field does not apply to this affair type | metadata, rule |
+| `not_in_document` | this document was read and does not contain the value (document-level; other documents of the affair may) | rule, apertus, ocr+* |
 
 A model abstention (`route: apertus`) must have `margin > theta`.
 
@@ -79,7 +80,7 @@ distinguishable), `scheduled`, `debated`, `referred_to_committee`, `decided`, `c
 `entry_into_force`, `deadline`, `referendum_deadline`, `popular_vote`, `other`.
 
 OPD's harmonised "Beantwortet" event maps to `answered`, not to `answer_decided`, because OPD does not say which of the two
-it is. In BE the event date equals the RRB decision date in 39/39 sampled affairs (`spikes/recovery`). The converter may
+it is. In BE the event date equals the RRB decision date in 39/39 sampled affairs (`results/repair/be_verify40.json`). The converter may
 therefore use it as `answer_decided` for BE only, and records that as a body-specific rule.
 
 ### Actor roles
@@ -89,8 +90,8 @@ The roles are `submitter`, `first_signatory`, `co_signatory`, `on_behalf_of_grou
 `referenced_member`, `roll_call_voter` and `other`.
 
 The second half of this list exists because a rule-based reading of 94 documents from 12 bodies (`spikes/bilanz`) found
-person roles that a submitter/co-signatory model cannot hold. Persons were the account most often left unbooked (92% of
-person atoms).
+person roles that a submitter/co-signatory model cannot hold. Person mentions had the highest unbooked ("suspense") rate of
+any atom type (`data/census/cited_evidence.json`, copied from the pre-registered Bilanz spike).
 
 ### Procedural state, decision, government recommendation
 

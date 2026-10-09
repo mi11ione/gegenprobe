@@ -13,7 +13,7 @@ repair.be_parentless	2,638	results/repair/be_placement.json	total.orphan_uid	int
 repair.be_absent	138	results/repair/be_placement.json	total.absent	int	python -m gegenprobe.repair.be placement	docs/repair.md
 repair.be40_verified	40/40	results/repair/be_verify40.json	verified_spike_rule/n	frac	python -m gegenprobe.repair.be verify40	docs/repair.md
 repair.be40_ci	[91.2, 100]	results/repair/be_verify40.json	ci_spike_rule	ci	python -m gegenprobe.repair.be verify40	docs/repair.md
-repair.be40_event_eq	39/39	results/repair/be_verify40.json	event_eq_rrb/with_answer_event	frac	python -m gegenprobe.repair.be verify40	docs/repair.md
+repair.be40_event_eq	39/39	results/repair/be_verify40.json	event_eq_rrb/with_answer_event	frac	python -m gegenprobe.repair.be verify40	docs/repair.md,docs/schema.md
 repair.be40_event_ci	[91, 100]	results/repair/be_verify40.json	ci_event_eq_rrb	ci	python -m gegenprobe.repair.be verify40	docs/repair.md
 repair.relink_sample_idhead	40/40	results/repair/be_relink_sample.json	identity_and_heading/n	frac	python -m gegenprobe.repair.be sample	docs/repair.md
 repair.relink_sample_idhead_ci	[91.2, 100]	results/repair/be_relink_sample.json	ci_identity_and_heading	ci	python -m gegenprobe.repair.be sample	docs/repair.md

@@ -30,7 +30,8 @@ Route = Literal["metadata", "rule", "apertus", "ocr+rule", "ocr+apertus"]
 MODEL_ROUTES = ("apertus", "ocr+apertus")
 SPAN_ROUTES = ("rule", "apertus", "ocr+rule", "ocr+apertus")
 Basis = Literal["extracted", "normalised", "metadata", "inferred"]
-NullReason = Literal["not_in_corpus", "unlinked", "text_failed", "image_only", "oral", "present_unanchored", "not_applicable"]
+NullReason = Literal["not_in_corpus", "unlinked", "text_failed", "image_only", "oral", "present_unanchored", "not_applicable",
+                     "not_in_document"]
 # which routes may produce which null reason (a model can only abstain on a document it read)
 NULL_ROUTES: dict[str, tuple[str, ...]] = {
     "not_in_corpus": ("metadata", "rule", "apertus", "ocr+rule", "ocr+apertus"),
@@ -40,6 +41,9 @@ NULL_ROUTES: dict[str, tuple[str, ...]] = {
     "oral": ("metadata", "rule", "ocr+rule"),
     "present_unanchored": ("rule", "apertus", "ocr+rule", "ocr+apertus"),
     "not_applicable": ("metadata", "rule"),
+    # document-level: this document was read (by rules or the model) and the value is not in it. Affair-level absence needs
+    # the census/repair join and is not_in_corpus / unlinked instead.
+    "not_in_document": ("rule", "apertus", "ocr+rule", "ocr+apertus"),
 }
 AnswerLinkStatus = Literal["attached", "agenda", "parentless", "absent", "image_only", "oral", "not_applicable"]
 AffairType = Literal[
@@ -91,6 +95,7 @@ class Valued(BaseModel, Generic[T]):
     char_start: int | None = Field(None, ge=0)
     char_end: int | None = Field(None, ge=0)
     quote: str | None = Field(None, max_length=400, description="verbatim source text at the span (short)")
+    context: str | None = Field(None, max_length=400, description="the source line around the span, for review (not checked)")
     source: str | None = Field(None, description="structured record for basis=metadata, e.g. 'opd:events/618276'")
     model_build: str | None = None
     theta: float | None = None
@@ -100,7 +105,13 @@ class Valued(BaseModel, Generic[T]):
     @model_validator(mode="after")
     def _consistent(self):
         has_span = self.page is not None and self.char_start is not None and self.char_end is not None
-        if self.basis in ("extracted", "normalised", "inferred") or self.route in SPAN_ROUTES:
+        # a closed-set classification by the model over the whole document (e.g. a recommendation enum) has no single span:
+        # it must name the document and the size of the closed set it chose from
+        doc_level = self.basis == "inferred" and self.route in MODEL_ROUTES and not has_span
+        if doc_level:
+            if not (self.doc and self.candidates):
+                raise ValueError("a document-level model classification needs doc and candidates")
+        elif self.basis in ("extracted", "normalised", "inferred") or self.route in SPAN_ROUTES:
             if not (has_span and self.doc and self.quote):
                 raise ValueError(f"route={self.route} basis={self.basis} needs doc, page, char_start, char_end and quote")
         if has_span and self.char_end <= self.char_start:
@@ -331,3 +342,91 @@ def iter_fields(affair: Affair):
         yield f"qa.{i}.answer_identifier", q.answer_identifier
     for i, r in enumerate(affair.related_affairs):
         yield f"related_affairs.{i}.evidence", r.evidence
+
+
+# ----------------------------------------------------------------------------------------------- document-level extraction
+class DocExtraction(BaseModel):
+    """What ONE document says, as the converter read it (convert.cascade). Affair-level assembly (metadata events, link
+    status, several documents) happens in `Affair`; a DocExtraction is what a reviewer checks against a single PDF.
+    `recommendation` / `related_affair` are absent when the converter was not asked for them."""
+    model_config = _strict
+    schema_version: Literal["0.1.0"] = SCHEMA_VERSION
+    doc: Document
+    answer_date: DateF
+    recommendation: GovRecommendationF | None = None
+    related_affair: StrF | None = None
+    extraction: ExtractionRun
+
+    @model_validator(mode="after")
+    def _same_doc(self):
+        for name in ("answer_date", "recommendation", "related_affair"):
+            v = getattr(self, name)
+            if v is not None and v.doc is not None and v.doc != self.doc.doc_id:
+                raise ValueError(f"{name}.doc={v.doc!r} is not this document ({self.doc.doc_id!r})")
+        return self
+
+
+_ROLE = {"decision": "answer_decided", "dispatch": "answer_dispatched", None: "answered"}
+_MODEL_KEYS = ("model_build", "theta", "margin")
+
+
+def from_converter(rec: dict, pages: list[str] | None = None, doc: dict | None = None,
+                   converter_version: str = "gegenprobe-0.1.0") -> DocExtraction:
+    """Adapter from convert.cascade.convert() output to a validated DocExtraction.
+
+    rec    {"doc_id", "sha256", "extractor", "fields": {name: provenance dict | typed-null dict}}
+    pages  the cached page texts the spans index into; when given, `quote` is set to the exact text at the span (what the
+           span re-check verifies) and the converter's line excerpt goes to `context`
+    doc    optional Document fields (source, url, role, language, n_pages, image_only)
+    Routes become ocr+rule / ocr+apertus when the text came from tesseract."""
+    extractor = rec.get("extractor") or (doc or {}).get("extractor")
+    ocr = bool(extractor and extractor.startswith("tesseract"))
+    doc_id = str(rec.get("doc_id")) if str(rec.get("doc_id", "")).count(":") else f"opd:{rec.get('doc_id')}"
+    d = dict(doc_id=doc_id, source="opd", role="other", sha256=rec.get("sha256"), extractor=extractor, image_only=ocr)
+    d.update({k: v for k, v in (doc or {}).items() if k in Document.model_fields and k != "doc_id"})
+    builds = set()
+
+    def route(r: str, null_reason: str | None = None) -> str:
+        # text-reading routes become ocr+*; decisions that did not read the text (e.g. not_applicable from the affair type,
+        # image_only/text_failed from an empty extraction) keep their route
+        o = f"ocr+{r}"
+        if ocr and r in ("rule", "apertus") and (null_reason is None or o in NULL_ROUTES[null_reason]):
+            return o
+        return r
+
+    def conv(f: dict | None, kind: str):
+        if f is None:
+            return None
+        rt = route(f["route"], f.get("null_reason") if f.get("value") is None else None)
+        model = {k: f.get(k) for k in _MODEL_KEYS} if rt in MODEL_ROUTES else {}
+        cand = {"candidates": f["candidates"]} if rt in MODEL_ROUTES and f.get("candidates") is not None else {}
+        if rt in MODEL_ROUTES:
+            builds.add(f.get("model_build"))
+        if f.get("value") is None:
+            ev = f.get("rule") or "model abstention"
+            if rt in MODEL_ROUTES:
+                ev = f"closed-set pointer abstained: margin {f.get('margin'):.2f} > theta {f.get('theta'):.2f}"
+            return TypedNull(null_reason=f["null_reason"], route=rt, evidence=ev, doc=doc_id, **model)
+        span = {}
+        if f.get("page") is not None:
+            span = dict(page=f["page"], char_start=f["char_start"], char_end=f["char_end"], context=f.get("quote"))
+            span["quote"] = pages[f["page"] - 1][f["char_start"]:f["char_end"]] if pages else f.get("quote")
+        if kind == "date":
+            if rt == "metadata":
+                return DateValue(value=f["value"], role=_ROLE.get(f.get("role"), "answered"), basis="metadata", route=rt,
+                                 source="opd:events (answer event date, printed in this document)", doc=doc_id, **span)
+            return DateValue(value=f["value"], role=_ROLE.get(f.get("role"), "answered"), basis="normalised", route=rt,
+                             doc=doc_id, **span, **model, **cand)
+        if kind == "rec":
+            return GovRecommendationValue(value=f["value"], basis="inferred", route=rt, doc=doc_id, **span, **model, **cand)
+        return TextValue(value=f["value"], basis="extracted", route=rt, doc=doc_id, **span, **model, **cand)
+
+    fl = rec["fields"]
+    return DocExtraction(
+        doc=Document(**d),
+        answer_date=conv(fl["answer_date"], "date"),
+        recommendation=conv(fl.get("recommendation"), "rec"),
+        related_affair=conv(fl.get("related_affair"), "text"),
+        extraction=ExtractionRun(converter_version=converter_version, created=dt.datetime.now(dt.timezone.utc),
+                                 builds=sorted(b for b in builds if b)),
+    )

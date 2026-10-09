@@ -121,15 +121,16 @@ def run(be, split: str, arms: list[str], theta: float | None) -> dict:
         lab, pages = d["label"], d["pages"]
         dd = [c["value"] for c in lattice.dates(pages)]
         base = dict(cell=d["cell"], gold=lab["answer_date"], lenient=lab.get("answer_date_lenient") or [], doc_dates=dd)
-        rec = dict(doc_id=d["doc_id"], cell=d["cell"], gold=lab["answer_date"])
+        rec = dict(doc_id=d["doc_id"], cell=d["cell"], gold=lab["answer_date"], lenient=base["lenient"], doc_dates=dd)
         if "rules" in arms:
             r = rules.answer_date(pages, d["image_only"])
             rows["rules"].append(dict(base, pred=r.get("value") if r["status"] == "value" else None, route="rule"))
-            rec["rules"] = dict(status=r["status"], value=r.get("value"), rule=r["rule"])
+            rec["rules"] = dict(status=r["status"], value=r.get("value"), rule=r["rule"], route="rule")
         if be is not None and theta is not None and "pointer" in arms:
             p = pointer.answer_date(be, pages, _lang(d), theta, anchors=rules.anchors(pages))
             rows["pointer"].append(dict(base, pred=p.value, route="apertus"))
-            rec["pointer"] = dict(value=p.value, margin=p.margin, n_cands=len(p.candidates), truncated=p.truncated)
+            rec["pointer"] = dict(value=p.value, margin=p.margin, n_cands=len(p.candidates), truncated=p.truncated,
+                                  route="apertus")
         if be is not None and theta is not None and "cascade" in arms:
             c = cascade.answer_date(dict(pages=pages, lang=_lang(d), image_only=d["image_only"]), be, theta, use_metadata=False)
             rows["cascade"].append(dict(base, pred=c.get("value"), route=c["route"]))
@@ -145,7 +146,7 @@ def run(be, split: str, arms: list[str], theta: float | None) -> dict:
                         receipt_ok=g["receipt_ok"],
                     )
                 )
-                rec[f"naive_{arm}"] = dict(date=g["date"], receipt_ok=g["receipt_ok"], gen=g["gen"][:400])
+                rec[f"naive_{arm}"] = dict(date=g["date"], receipt_ok=g["receipt_ok"], gen=g["gen"][:400], route="apertus")
         per_doc.append(rec)
     res = dict(
         split=split,

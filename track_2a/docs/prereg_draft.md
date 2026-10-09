@@ -9,9 +9,13 @@ One (document, field) pair from `data/gold/heldout_docs.jsonl`. Fields:
 
 | field | value space | gold |
 |---|---|---|
-| `answer_date` | ISO date that occurs in the document, or null | the date the executive **decided** its answer (RRB/ACE/risoluzione date, "Sitzung vom", "séance du", "seduta del"); null when the document contains no government answer |
-| `answer_date_lenient` | as above | decided date **or** the dispatch/letter date of the answer ("Basel, 3. März 2025") |
-| `recommendation` | accept / reject / convert / partial / none / null | the executive's recommendation to parliament, only where the document states one |
+| `answer_date` (strict) | ISO date, or null | the date the executive **decided** its answer as printed in this document (RRB-Nr. … vom, Sitzung vom, N° ACE … du, séance du, RG n. … del, ris. mun.); if no decision date is printed, the dispatch/letter date of the answer; null when the document contains no executive answer (`data/gold/README.md`) |
+| `answer_date` (lenient) | as above | strict gold, or any other printed date the annotators list as a defensible answer date (e.g. the letter date next to the RRB date) |
+| `recommendation` (secondary, exploratory) | accept / reject / convert / partial / none / not_applicable | the executive's recommendation to parliament, only where printed |
+
+Labels: two blind Claude-agent annotators (A1 Opus, A2 Sonnet) and a third (A3 Opus) on disagreements only; quotes verified
+verbatim by code; κ reported; OPD answer-event dates are an external check, never a label source (`docs/gold_protocol.md`).
+No human labels or adjudication.
 
 Date roles (frozen): `submitted` (lodged by the member), `answer_decided` (executive decision), `answer_dispatched`
 (letter/publication of the answer), `debated` (parliament session), `decided` (parliament decision), `admin` (footer,
@@ -27,9 +31,10 @@ Date roles (frozen): `submitted` (lodged by the member), `answer_decided` (execu
 | N70-null | naive free generation, null-allowed prompt (`P_NULL`) + verbatim-quote check | as above |
 | P8 / N8 | the same on Apertus v1.5 **8B** (GGUF Q4_K_M, sha256 a037df8d…, llama.cpp CPU) | CI CPU runner; reported only if run before the deadline, otherwise listed as not run |
 
-## Metrics (per cell = language × level, plus the OCR cell; and pooled)
-- exact (strict and lenient) on answered documents; **invented** = a value where gold is null, or a value that does not occur
-  in the document; **wrong** = a value that occurs in the document but is not gold; correct null; false null.
+## Metrics (per cell = language × level, plus the OCR cell; and pooled) — `eval/score.py`, frozen
+- per document: correct · correct_null · false_null · **misattributed** (a wrong date that occurs in the document) ·
+  **fabricated** (a date that occurs nowhere in the document); exact = correct + correct_null; wrong values =
+  misattributed + fabricated; **invented_on_null** = any value on a document whose gold is null.
 - Wilson 95% intervals for every proportion. Model share N/M = values decided by Apertus / all non-null values.
 - Margin separation: AUROC of the null margin, answered vs answerless, on the **length-matched** held-out set (both classes
   1,000–2,000 tokens, approximated as chars/4) — the F2 length confound is broken by design.

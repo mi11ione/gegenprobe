@@ -13,6 +13,7 @@ printed in the document (then it gets that span).
 
 from __future__ import annotations
 
+from ..schema import schema_v0_1
 from . import lattice, pointer, rules
 
 NULL_REASONS = (
@@ -62,8 +63,10 @@ def answer_date(doc: dict, backend=None, theta: float | None = None, use_metadat
     if r["status"] == "null":
         return _null(r["null_reason"], "rule", rule=r["rule"])
     # (iii) pointer on the residue
+    if not doc_dates:  # nothing to point at: no model call
+        return _null("not_in_document", "rule", rule=r["rule"], residue=True)
     if backend is None or theta is None:
-        return _null("present_unanchored" if doc_dates else "not_in_document", "rule", rule=r["rule"], residue=True)
+        return _null("present_unanchored", "rule", rule=r["rule"], residue=True)
     p = pointer.answer_date(backend, pages, doc.get("lang") or "de", theta, anchors=rules.anchors(pages), variant=variant)
     common = dict(
         model_build=p.model_build,
@@ -73,6 +76,7 @@ def answer_date(doc: dict, backend=None, theta: float | None = None, use_metadat
         truncated=p.truncated,
         rule=r["rule"],
         residue=True,
+        candidates=len(p.candidates),
     )
     if p.value is None:
         return _null("not_in_document", "apertus", **common)
@@ -95,10 +99,9 @@ def convert(doc: dict, backend=None, thetas: dict | None = None, use_metadata: b
         out["fields"]["recommendation"] = _null(rec["null_reason"], "rule", rule=rec["rule"])
     elif backend is not None and "recommendation" in thetas:
         p = pointer.recommendation(backend, doc["pages"], doc.get("lang") or "de", thetas["recommendation"])
+        m = dict(margin=p.margin, theta=p.theta, model_build=p.model_build, candidates=len(p.candidates))
         out["fields"]["recommendation"] = (
-            _null("not_in_document", "apertus", margin=p.margin, theta=p.theta, model_build=p.model_build)
-            if p.value is None
-            else _value(p.value, None, None, "apertus", margin=p.margin, theta=p.theta, model_build=p.model_build)
+            _null("not_in_document", "apertus", **m) if p.value is None else _value(p.value, None, None, "apertus", **m)
         )
     else:
         out["fields"]["recommendation"] = _null("present_unanchored", "rule", rule=rec["rule"], residue=True)
@@ -106,20 +109,17 @@ def convert(doc: dict, backend=None, thetas: dict | None = None, use_metadata: b
         p = pointer.related_affair(
             backend, doc["pages"], doc.get("lang") or "de", doc["body"], doc.get("affair_number"), thetas["related_affair"]
         )
-        out["fields"]["related_affair"] = (
-            _null("not_in_document", "apertus", margin=p.margin, theta=p.theta)
-            if p.value is None
-            else _value(p.value, None, p.span, "apertus", margin=p.margin, theta=p.theta, model_build=p.model_build)
-        )
+        m = dict(margin=p.margin, theta=p.theta, model_build=p.model_build, candidates=len(p.candidates))
+        if not p.candidates:  # no other OPD affair number printed: nothing was asked
+            out["fields"]["related_affair"] = _null("not_in_document", "rule", rule="no_affair_number_candidates")
+        else:
+            out["fields"]["related_affair"] = (
+                _null("not_in_document", "apertus", **m) if p.value is None else _value(p.value, None, p.span, "apertus", **m)
+            )
     return out
 
 
-def to_schema(rec: dict):
-    """Single adapter to the Pydantic model; imported lazily so the converter runs without the schema package."""
-    try:
-        from ..schema import schema_v0_1 as s  # noqa: F401
-    except Exception:  # schema workstream not merged yet
-        return rec
-    if hasattr(s, "from_converter"):
-        return s.from_converter(rec)
-    return rec
+def to_schema(rec: dict, pages: list[str] | None = None, doc: dict | None = None):
+    """Single adapter to the Pydantic model: convert() output -> validated schema_v0_1.DocExtraction. With `pages`, every
+    quote is the exact text at its span (what validate.recheck verifies)."""
+    return schema_v0_1.from_converter(rec, pages=pages, doc=doc)

@@ -80,7 +80,7 @@ def build() -> None:
     print("demo slice:", len(dok), "dokument rows,", len(orph), "parentless docs")
 
 
-def run() -> int:
+def run(report: bool = False) -> int | dict:
     s = json.loads((DEMO / "slice.json").read_text())
     answers, geschaeft = be.load_ogd_files(DEMO / "ogd_dokument.csv", DEMO / "ogd_geschaeft.csv")
     affairs = {a["id"]: a for a in s["affairs"]}
@@ -110,7 +110,7 @@ def run() -> int:
         f"{'PASS' if ok_full else 'FAIL'}"
     )
     by_nr = {g["geschaeft_nr"]: g for g in geschaeft.values()}
-    n_checked = 0
+    n_checked, checked = 0, []
     for r in rows:
         n = r["affair_number"]
         p = s["pdfs"][n]
@@ -124,6 +124,8 @@ def run() -> int:
             text, n, (by_nr.get(n) or {}).get("geschaeft_vorstoss_nummer"), s["answer_events"].get(str(r["affair_id"]), [])
         )
         n_checked += 1
+        checked.append(dict(affair=n, action=r["action"], identity=chk["identity"], heading=chk["heading"],
+                            rrb_date=chk["rrb_date"], opd_events=chk["opd_answer_events"], triple=chk["triple"]))
         print(
             f"[repair]   {n:<15} {r['action']:<6} identity={chk['identity']!s:<5} heading={chk['heading']!s:<5} "
             f"RRB {chk['rrb_nr']} vom {chk['rrb_date']} vs OPD event {chk['opd_answer_events']} -> "
@@ -131,10 +133,23 @@ def run() -> int:
         )
     expected_fail = {"2015.RRGR.870"}
     print(f"[repair] triple check run on {n_checked}/{len(rows)} documents (expected review: {sorted(expected_fail)})")
+    if report:
+        unexpected = [c["affair"] for c in checked if not c["triple"] and c["affair"] not in expected_fail]
+        ok = ok_join and ok_full and not unexpected
+        summ = (f"BE join on vendored slice {'reproduces' if ok_join else 'DIFFERS from'} expected rows; committed list "
+                f"{n_rel} relink + {n_fet} fetch {'identical to' if reg['identical'] else 'DIFFERS from'} the list delivered "
+                f"to OPD; triple check {sum(c['triple'] for c in checked)}/{n_checked} verified"
+                + (f" ({n_checked}/{len(rows)} fetched)" if n_checked < len(rows) else "")
+                + f", expected review {sorted(expected_fail)}" + (f", UNEXPECTED {unexpected}" if unexpected else ""))
+        return dict(ok=ok, summary=summ, rows=checked)
     return 0 if ok_join and ok_full else 1
 
 
-def main(argv: list[str]) -> int:
+def main(argv) -> int | dict:
+    """CLI: main(sys.argv[1:]). `make run` step 3: main(ctx) with the gegenprobe.run context dict."""
+    if isinstance(argv, dict):
+        r = run(report=True)
+        return dict(status="PASS" if r["ok"] else "FAIL", summary=r["summary"], rows=r["rows"])
     if argv and argv[0] == "build":
         build()
         return 0

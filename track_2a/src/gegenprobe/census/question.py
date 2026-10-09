@@ -49,7 +49,8 @@ def compute(root: Path = CENSUS, F: dict | None = None) -> dict:
         p = per[x["b"]]
         p["written"] += 1
         p["text_now"] += x["link"] in ("attached", "agenda")
-        # measured repair routes: agenda relink, BE parentless relink, OCR of image-only scans (6/7 probe, reported separately)
+        # measured repair routes counted here: agenda join, BE parentless relink. OCR of image-only scans (15/15 recovered in
+        # the repair probe, results/repair/ocr_probe.json) is not counted: only the 30-document probe was actually OCR'd
         p["text_after_repair"] += x["link"] in ("attached", "agenda", "parentless")
         sub = x["sub_date"] or x["begin"]
         if not x["sub_date"] and x["b"] == "BE" and x["begin"] == BE_IMPORT_DATE:

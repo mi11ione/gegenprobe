@@ -184,3 +184,10 @@ def test_summarise():
     s = summarise(recs)
     assert s["answer_date"]["distractor"] == dict(passed=1, failed=1, skipped=0, n=2)
     assert "| answer_date | distractor | 1/2 | 1 | 0 |" in to_markdown(s)
+
+
+def test_glued_month_name_dates_from_pdftotext():
+    from gegenprobe.validate.dates import find_dates, normalise_date
+    assert normalise_date("23décembre2021") == "2021-12-23"
+    assert normalise_date("Lausanne, le 23décembre2021") == "2021-12-23"
+    assert [d["iso"] for d in find_dates("am 3.März2020 beschlossen")] == ["2020-03-03"]

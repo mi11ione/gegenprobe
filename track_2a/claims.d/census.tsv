@@ -50,3 +50,8 @@ findings.type_unharmonised_share	17.1%	results/census/findings.json	findings.9.s
 findings.state_harmonised	278	results/census/findings.json	findings.10.count	int	make census	-
 findings.persons_contact_fields	6	results/census/findings.json	findings.11.count	int	make census	-
 question.same_day_bodies	7	results/census/question.json	n_same_day_bodies	int	make census	-
+census.vs_oral_canonical	1,008	results/census/vs_reconcile.json	canonical.value	int	python -m gegenprobe.census.reconcile_vs	docs/census.md
+census.vs_oral_proxy_only	8	results/census/vs_reconcile.json	only_census	int	python -m gegenprobe.census.reconcile_vs	-
+census.vs_proxy_precision	99.2%	results/census/vs_reconcile.json	doc_level.proxy_precision	pct1	python -m gegenprobe.census.reconcile_vs	docs/census.md
+census.vs_proxy_recall	100.0%	results/census/vs_reconcile.json	doc_level.proxy_recall	pct1	python -m gegenprobe.census.reconcile_vs	docs/census.md
+census.reextract_image_only	15	results/repair/ocr_probe.json	categories.image_only	int	python -m gegenprobe.repair.ocr probe 3	docs/census.md

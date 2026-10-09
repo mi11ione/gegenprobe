@@ -49,7 +49,7 @@ Assigned to every in-scope affair, first match wins:
 | — the rest only where a written answer is expected (`ev_answer`) — | | |
 | `parentless` | BE: the canton OGD lists an answer whose canton document uid sits in OPD with no affair, agenda or meeting | relink by canton uid |
 | `oral` | VS `_ANT` document whose OPD text is the 80–95-char stub "cf. réponse orale du Conseil d'Etat"; or only oral answer events | retype; no document expected |
-| `image_only` | an answer document is attached but OPD holds no usable text (29/30 sampled were image-only scans, `spikes/recovery/reextract.json`) | OCR deu+fra+ita |
+| `image_only` | an answer document is attached but OPD holds no usable text (a re-fetch of 30 sampled documents found 15 image-only scans, 13 VS oral-answer pointers with a text layer and 2 others, `results/repair/ocr_probe.json`) | OCR deu+fra+ita |
 | `absent` | no answer document in OPD | body-specific source adapter (BE: canton fetch) |
 | `not_applicable` | no answer event and no answer text | — |
 
@@ -92,7 +92,7 @@ change the tier: a raw label without a harmonised mapping is a lookup-table prob
 
 **Reproduction.** The ported funnel reproduces the 8 Oct spike cell for cell: 5,444 body × type × year cells, 0 differing values, document-status table identical: True.
 
-**Answer-link status** (all in-scope affairs): `absent` 11,330, `agenda` 932, `attached` 116,466, `image_only` 1,352, `not_applicable` 61,013, `oral` 5,042, `parentless` 2,459. Of gap′: BE 2,510 (canton lists an answer for 2,508; 2,459 relinkable parentless documents), CHE 75, other bodies with an answer document but no text 2,366 (of which VS oral stubs 1,016), other bodies with no answer document 11,206.
+**Answer-link status** (all in-scope affairs): `absent` 11,330, `agenda` 932, `attached` 116,466, `image_only` 1,352, `not_applicable` 61,013, `oral` 5,042, `parentless` 2,459. Of gap′: BE 2,510 (canton lists an answer for 2,508; 2,459 relinkable parentless documents), CHE 75, other bodies with an answer document but no text 2,366 (of which VS oral stubs 1,016 by the length proxy; 1,008 by the exact text rule that the repair list uses, `results/census/vs_reconcile.json`), other bodies with no answer document 11,206.
 
 ### Field-tier table
 
@@ -136,7 +136,7 @@ Status counts are over eligible bodies (≥ 20 applicable affairs). `meta`/`doc`
 - Postulate: 250 of 20,528 answered affairs have only an oral answer (1.2%).
 - Question: 1,196 of 38,824 answered affairs have only an oral answer (3.1%).
 - Question time: 2,914 of 14,087 answered affairs have only an oral answer (20.7%).
-- VS files 1,016 oral answers as an `_ANT` stub document, not as an oral event.
+- VS files 1,008 oral answers as an `_ANT` stub document, not as an oral event (exact text rule; the census length proxy flags 1,016: proxy precision 99.2% per document, recall 100.0%, `results/census/vs_reconcile.json`).
 - In 7 of 54 bodies the 'answer' event date equals the submission date for ≥ 50% of affairs: the date exists in metadata but is not an answer date (Wallis 88.6%, Interlaken 53.8%, Kriens 66.2%, Liestal 100.0%, Dübendorf 59.3%, Appenzell Ausserrhoden 62.2%, Schaffhausen 99.7%).
 
 Cited evidence (not recomputed; `data/census/cited_evidence.json`): the S3-BILANZ atom inventory over 12 bodies left 45.9% of atoms without a schema account; five gaps recur across bodies and languages: person roles; comparison amounts; dates and laws of other polities; dates of other affairs; entry-into-force and deadline dates. Estimating the *size* of the missing schema with Chao2 failed both pre-registered checks (no saturation, ≈57.4 new accounts per body): a well-evidenced negative.

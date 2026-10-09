@@ -59,7 +59,19 @@ def replay(root: Path = CENSUS, committed: Path = funnel.OUT) -> tuple[list[str]
     return errs, time.time() - t0
 
 
-def main() -> int:
+def step(ctx: dict) -> dict:
+    """`make run` step 2 (gegenprobe.run contract)."""
+    errs, secs = replay(CENSUS)
+    s = json.loads((funnel.OUT / "summary.json").read_text())["national"]
+    return dict(status="FAIL" if errs else "PASS", errors=errs[:50],
+                summary=f"{len(COMPARED)} outputs recomputed from data/census, {len(errs)} differences; in scope {s['n']:,}, "
+                        f"written-answer {s['ev_answer']:,}, no answer text {s['gap']:,}, after agenda join "
+                        f"{s['gap_after_agenda_join']:,}")
+
+
+def main(ctx: dict | None = None) -> int | dict:
+    if isinstance(ctx, dict):
+        return step(ctx)
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", type=Path, default=CENSUS)
     a = ap.parse_args()

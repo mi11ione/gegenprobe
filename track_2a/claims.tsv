@@ -50,6 +50,11 @@ findings.type_unharmonised_share	17.1%	results/census/findings.json	findings.9.s
 findings.state_harmonised	278	results/census/findings.json	findings.10.count	int	make census	-
 findings.persons_contact_fields	6	results/census/findings.json	findings.11.count	int	make census	-
 question.same_day_bodies	7	results/census/question.json	n_same_day_bodies	int	make census	-
+census.vs_oral_canonical	1,008	results/census/vs_reconcile.json	canonical.value	int	python -m gegenprobe.census.reconcile_vs	docs/census.md
+census.vs_oral_proxy_only	8	results/census/vs_reconcile.json	only_census	int	python -m gegenprobe.census.reconcile_vs	-
+census.vs_proxy_precision	99.2%	results/census/vs_reconcile.json	doc_level.proxy_precision	pct1	python -m gegenprobe.census.reconcile_vs	docs/census.md
+census.vs_proxy_recall	100.0%	results/census/vs_reconcile.json	doc_level.proxy_recall	pct1	python -m gegenprobe.census.reconcile_vs	docs/census.md
+census.reextract_image_only	15	results/repair/ocr_probe.json	categories.image_only	int	python -m gegenprobe.repair.ocr probe 3	docs/census.md
 convert.f2_final_g64_plain_auroc	1.00	results/convert/spike_replay.json	f2.final|chat_plain.auroc	f2	python -m eval.replay_spikes	-
 convert.f2_final_g64_plain_loo	20/20	results/convert/spike_replay.json	f2.final|chat_plain.loo_correct/f2.final|chat_plain.n	frac	python -m eval.replay_spikes	-
 convert.f2_final_g64_plain_theta	-32.3	results/convert/spike_replay.json	f2.final|chat_plain.theta	f1	python -m eval.replay_spikes	-
@@ -83,7 +88,7 @@ repair.be_parentless	2,638	results/repair/be_placement.json	total.orphan_uid	int
 repair.be_absent	138	results/repair/be_placement.json	total.absent	int	python -m gegenprobe.repair.be placement	docs/repair.md
 repair.be40_verified	40/40	results/repair/be_verify40.json	verified_spike_rule/n	frac	python -m gegenprobe.repair.be verify40	docs/repair.md
 repair.be40_ci	[91.2, 100]	results/repair/be_verify40.json	ci_spike_rule	ci	python -m gegenprobe.repair.be verify40	docs/repair.md
-repair.be40_event_eq	39/39	results/repair/be_verify40.json	event_eq_rrb/with_answer_event	frac	python -m gegenprobe.repair.be verify40	docs/repair.md
+repair.be40_event_eq	39/39	results/repair/be_verify40.json	event_eq_rrb/with_answer_event	frac	python -m gegenprobe.repair.be verify40	docs/repair.md,docs/schema.md
 repair.be40_event_ci	[91, 100]	results/repair/be_verify40.json	ci_event_eq_rrb	ci	python -m gegenprobe.repair.be verify40	docs/repair.md
 repair.relink_sample_idhead	40/40	results/repair/be_relink_sample.json	identity_and_heading/n	frac	python -m gegenprobe.repair.be sample	docs/repair.md
 repair.relink_sample_idhead_ci	[91.2, 100]	results/repair/be_relink_sample.json	ci_identity_and_heading	ci	python -m gegenprobe.repair.be sample	docs/repair.md

@@ -1,0 +1,37 @@
+{
+ "snapshots": {
+  "census": "2026-10-06 (metadata scan)",
+  "repair": "2026-10-09 (docs_VS stream)"
+ },
+ "gap_affairs": 1409,
+ "census_proxy": 1016,
+ "repair_exact_all": 1008,
+ "repair_exact_any": 1008,
+ "both": 1008,
+ "only_census": 8,
+ "only_repair": 0,
+ "reasons": {
+  "length proxy and text rule disagree on the same doc": 8
+ },
+ "doc_level": {
+  "n_docs_in_both": 1570,
+  "proxy_and_stub": 1372,
+  "proxy_not_stub": 11,
+  "stub_not_proxy": 0,
+  "proxy_precision": 0.9920462762111352,
+  "proxy_precision_ci": [
+   98.6,
+   99.6
+  ],
+  "proxy_recall": 1.0,
+  "proxy_recall_ci": [
+   99.7,
+   100.0
+  ]
+ },
+ "canonical": {
+  "value": 1008,
+  "rule": "repair exact text rule (all _ANT docs are stubs)",
+  "cited_in": "README / report / form notes"
+ }
+}

@@ -221,6 +221,12 @@ NULL_REASON_LABELS = {
         "candidate values present but none is anchored to the field's role",
     ),
     "not_applicable": L("nicht anwendbar", "sans objet", "non applicabile", "the field does not apply to this affair type"),
+    "not_in_document": L(
+        "nicht in diesem Dokument",
+        "absent de ce document",
+        "assente da questo documento",
+        "this document was read and does not contain the value (document-level; says nothing about other documents)",
+    ),
 }
 LINK_STATUS_LABELS = {
     "attached": L("am Geschäft angehängt", "attaché à l'objet", "allegato all'oggetto", "attached to the affair"),

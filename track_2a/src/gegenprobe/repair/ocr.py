@@ -1,8 +1,9 @@
 """Image-only answer documents (scans): recover the text with Tesseract (deu+fra+ita), then check that it is an answer.
 
 The census found 2,366 gap affairs outside BE/CHE whose answer document is attached but has no text in OPD; a 30-document
-probe showed 29/30 are image-only PDFs (VS 13, TI 12, ...). VS `_ANT` scans are oral-answer stubs (see vs.py); the rest are
-real written answers. This module OCRs them and types the result:
+spike probe called 29/30 of them image-only PDFs; re-fetching the same 30 (results/repair/ocr_probe.json) shows 15 image-only
+scans, 13 VS `_ANT` oral-answer pointers that do have a text layer (see vs.py), 1 short BL text layer and 1 TG document OPD
+never extracted. The scans are real written answers. This module OCRs them and types the result:
   text_recovered   ≥ 200 characters of OCR text
   heading          an answer heading or the executive's letterhead (Consiglio di Stato / Regierungsrat / Conseil d'État ...)
   date_parsed      at least one full date (DE/FR/IT formats) in the first page

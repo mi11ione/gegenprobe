@@ -12,7 +12,8 @@ Answer-link status (new schema field `answer_link_status`), for in-scope affairs
   -- the rest only where a written answer is expected (ev_answer) --
   parentless  BE: the canton's answer document is in OPD with no affair/agenda/meeting (joinable by canton uid)
   oral        VS `_ANT` 87-char stub "réponse orale" (or: only oral answer events, no written answer expected)
-  image_only  an answer document is attached but OPD holds no usable text (29/30 sampled were image-only scans)
+  image_only  an answer document is attached but OPD holds no usable text (re-fetch of 30 sampled: 15 image-only scans,
+              13 VS oral pointers with a text layer, 2 other; results/repair/ocr_probe.json)
   absent      no answer document in OPD
   not_applicable  no answer event and no answer text
 
