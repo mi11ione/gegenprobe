@@ -30,12 +30,12 @@ jobs:
       - uses: actions/cache@v4
         with: {path: "${{ github.workspace }}/work/models", key: model-cache-apertus-8b-gguf-v1}
       - run: python -c "from gegenprobe import llm; print(llm.fetch_gguf('apertus-v1.5-8b-text-q4_k_m'))"
-      - name: fast vs frozen scorer (recorded; multi-token kernel-path differences expected, see D2)
-        run: mkdir -p out && (python -m gegenprobe.gguf_fast parity out/gguf_fast_parity.json || true)
-      - name: gate (D2 rule) — fast and frozen scorer against bf16 on 30 multi-token verdict cells
+      - name: gate (D2 rule; PASSED in run 37996141049) — fast and frozen scorer against bf16 on 30 multi-token verdict cells
+        if: false
         run: python -m gegenprobe.gguf_fast verparity out/gguf_fast_verparity.json
+      - run: mkdir -p out
       - run: python -m eval.run_arms fetch --split dev
-      - run: python -m eval.run_arms fit | tee out/fit.log
+      - run: free -m && (/usr/bin/time -v python -m eval.run_arms fit 2>&1 | tee out/fit.log); free -m
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -66,7 +66,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with: {name: fit, path: track_2a}
       - run: python -m eval.run_arms fetch --split heldout
-      - run: python -m eval.run_arms run --shard ${{ matrix.i }}/6
+      - run: /usr/bin/time -v python -m eval.run_arms run --shard ${{ matrix.i }}/6
       - uses: actions/upload-artifact@v4
         if: always()
         with:

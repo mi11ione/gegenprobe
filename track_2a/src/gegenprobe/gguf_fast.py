@@ -19,7 +19,7 @@ from .llm import GGUF, CacheMiss, ModelCache
 
 
 class GGUFFast(GGUF):
-    def __init__(self, *a, n_ctx: int = 8192, **kw):
+    def __init__(self, *a, n_ctx: int = 6144, **kw):
         super().__init__(*a, n_ctx=n_ctx, **kw)
 
     def _load(self):
