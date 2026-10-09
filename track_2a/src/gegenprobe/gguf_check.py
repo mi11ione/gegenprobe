@@ -71,6 +71,50 @@ def diag(argv: list[str]) -> int:
     return 0 if mx < 0.05 else 1
 
 
+IMPL = FIX.with_name("gguf_impl60.json")
+
+
+def impl(argv: list[str]) -> int:
+    """Implementation table on 60 conv cells with a bf16 reference (DPO bf16 stands in for final bf16; spikes/inversions F1):
+        impl-ids ids.txt | impl-mine mine.json | impl-compare mine.json <label>=<llscore_out.txt> ... out.json
+    Reports, for each implementation of the same Q4_K_M file, decision agreement and mean |delta log-odds| against bf16."""
+    fx = json.loads(IMPL.read_text())
+    if argv[0] == "impl-ids":
+        m = GGUF(cache_readonly=True)
+        m._load()
+        with open(argv[1], "w") as f:
+            for r in fx["rows"]:
+                head = m.render(r["text"] + fx["questions"][r["rung"]])
+                pre = m._tok(head)
+                f.write(" ".join(map(str, pre)) + "".join(" ; " + " ".join(map(str, m._tok(head + c)[len(pre):]))
+                                                          for c in fx["candidates"]) + "\n")
+        return 0
+    if argv[0] == "impl-mine":
+        m = GGUF(cache_readonly=True)
+        vals = []
+        for r in fx["rows"]:
+            a, b = m.score(r["text"] + fx["questions"][r["rung"]], "", fx["candidates"])
+            vals.append(a - b)
+        Path(argv[1]).write_text(json.dumps(vals))
+        return 0
+    impls = {"metal_q4_spike": [r["metal_q4"] for r in fx["rows"]], "llama_cpp_python": json.loads(Path(argv[1]).read_text())}
+    for spec in argv[2:-1]:
+        label, path = spec.split("=", 1)
+        impls[label] = [float(x.split("|")[0].split()[0]) - float(x.split("|")[0].split()[1])
+                        for x in Path(path).read_text().splitlines()]
+    ref = [r["bf16_dpo"] for r in fx["rows"]]
+    table = {}
+    for k, v in impls.items():
+        table[k] = dict(decisions_agree_bf16=sum((a > 0) == (b > 0) for a, b in zip(v, ref)), n=len(ref),
+                        mean_abs_delta_bf16=sum(abs(a - b) for a, b in zip(v, ref)) / len(ref))
+    pair = {f"{a}~{b}": sum(abs(x - y) for x, y in zip(impls[a], impls[b])) / len(ref) for a in impls for b in impls if a < b}
+    out = dict(table=table, pairwise_mean_abs_delta=pair, rows=[dict(key=f"{r['set']}:{r['key']}:{r['rung']}", bf16=r["bf16_dpo"],
+               **{k: v[i] for k, v in impls.items()}) for i, r in enumerate(fx["rows"])])
+    Path(argv[-1]).write_text(json.dumps(out, indent=1))
+    print(json.dumps(dict(table=table, pairwise=pair), indent=1))
+    return 0
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
-    sys.exit(diag(a) if a and a[0].startswith("diag") else main(a))
+    sys.exit(diag(a) if a and a[0].startswith("diag") else impl(a) if a and a[0].startswith("impl") else main(a))

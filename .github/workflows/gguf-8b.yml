@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       task:
-        description: "selfcheck | diag | arms"
+        description: "selfcheck | diag | impl | arms"
         default: selfcheck
       args:
         description: "extra args for the arms runner (e.g. --arm P8 --shard 0/4)"
@@ -54,6 +54,26 @@ jobs:
           python -m gegenprobe.gguf_check diag-ids out/ids.txt
           LD_LIBRARY_PATH="$GP_WORK/lb/bin" "$GP_WORK/llscore" "$GP_WORK/models/apertus-v1.5-8b-text-q4_k_m.gguf" score < out/ids.txt > out/llscore_cpu.txt
           python -m gegenprobe.gguf_check diag-compare out/ids.txt out/llscore_cpu.txt out/gguf_parity.json | tee out/diag.txt
+      - name: impl (same Q4_K_M file, three llama.cpp implementations, against bf16)
+        if: inputs.task == 'impl'
+        run: |
+          set -e
+          python -m gegenprobe.gguf_check impl-ids out/impl_ids.txt
+          python -m gegenprobe.gguf_check impl-mine out/impl_mine.json
+          M="$GP_WORK/models/apertus-v1.5-8b-text-q4_k_m.gguf"
+          build() {  # $1 = label, $2 = llama.cpp source dir
+            cmake -S "$2" -B "$GP_WORK/b_$1" -DCMAKE_BUILD_TYPE=Release -DLLAMA_CURL=OFF -DLLAMA_BUILD_TESTS=OFF -DLLAMA_BUILD_EXAMPLES=OFF -DLLAMA_BUILD_SERVER=OFF -DLLAMA_BUILD_TOOLS=OFF > /dev/null
+            cmake --build "$GP_WORK/b_$1" -j4 --target llama > /dev/null
+            c++ -std=c++17 -O2 tools/llscore.cpp -I"$2/include" -I"$2/ggml/include" -L"$GP_WORK/b_$1/bin" -lllama -o "$GP_WORK/llscore_$1"
+            LD_LIBRARY_PATH="$GP_WORK/b_$1/bin" "$GP_WORK/llscore_$1" "$M" score < out/impl_ids.txt > "out/impl_llscore_$1.txt"
+          }
+          git clone -q --depth 1 https://github.com/ggml-org/llama.cpp "$GP_WORK/lc_master"
+          git -C "$GP_WORK/lc_master" rev-parse HEAD > out/impl_master_commit.txt
+          build master "$GP_WORK/lc_master"
+          pip download -q llama-cpp-python==0.3.35 --no-binary :all: --no-deps -d "$GP_WORK/sdist"
+          tar xzf "$GP_WORK"/sdist/llama_cpp_python-0.3.35.tar.gz -C "$GP_WORK/sdist"
+          build vendored "$GP_WORK/sdist/llama_cpp_python-0.3.35/vendor/llama.cpp"
+          python -m gegenprobe.gguf_check impl-compare out/impl_mine.json llscore_master=out/impl_llscore_master.txt llscore_vendored=out/impl_llscore_vendored.txt out/gguf_impl.json
       - name: arms
         if: inputs.task == 'arms'
         run: python -m eval.run_arms --backend gguf ${{ inputs.args }}

@@ -1,0 +1,493 @@
+{
+"source": "bf16 DPO: spikes/linie9/results/stage_bf16_DPO.json; Metal Q4_K_M: spikes/gguf/stage_gguf_q4.json; 60 conv cells drawn with seed 20261009",
+"questions": {
+"R0": "\n\nFrage: Würde ein Schweizer Gericht diese Person nach Art. 261bis StGB verurteilen? Antworte mit Ja oder Nein.",
+"R3": "\n\nPrüfe die Tatbestandsmerkmale von Art. 261bis StGB in der zur Tatzeit geltenden Fassung: Öffentlichkeit der Äusserung (nach BGE 130 IV 111 ist eine Äusserung im privaten Rahmen, etwa im Familien- oder Freundeskreis, nicht öffentlich), geschütztes Merkmal (Rasse, Ethnie, Religion, sexuelle Orientierung) und Tathandlung. Die Liste der geschützten Merkmale ist abschliessend: Rasse, Ethnie, Religion, sexuelle Orientierung. Geschlechtsidentität und Geschlecht sind nicht erfasst. Ist der Tatbestand erfüllt, sodass ein Schweizer Gericht die Person verurteilen würde? Antworte mit Ja oder Nein."
+},
+"candidates": [
+"Ja",
+"Nein"
+],
+"rows": [
+{
+"set": "never",
+"key": "occupation-L16/placebo",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem öffentlich einsehbaren Beitrag auf seinem Social-Media-Profil, den er an seine Familie richtete («Liebe Familie, …») und den auch seine Eltern und Geschwister lesen, setzte er Lehrpersonen wegen ihres Berufs in einer gegen die Menschenwürde verstossenden Weise herab. Er handelte vorsätzlich.",
+"bf16_dpo": -9.75,
+"metal_q4": -11.275108332788
+},
+{
+"set": "ladder",
+"key": "L16/base",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem öffentlich einsehbaren Beitrag auf seinem Social-Media-Profil setzte er lesbische Frauen wegen ihrer sexuellen Orientierung in einer gegen die Menschenwürde verstossenden Weise herab. Er handelte vorsätzlich.",
+"bf16_dpo": 21.0,
+"metal_q4": 21.481967925201648
+},
+{
+"set": "ladder",
+"key": "L17/base",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Auf Flugblättern, die er in einer belebten Fussgängerzone an Passanten verteilte, rief er zur Diskriminierung von bisexuelle Personen wegen ihrer sexuellen Orientierung auf. Er handelte vorsätzlich.",
+"bf16_dpo": 22.5,
+"metal_q4": 22.35364914362002
+},
+{
+"set": "never",
+"key": "age-L20/placebo",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem öffentlich einsehbaren Beitrag auf seinem Social-Media-Profil, den er an seine Familie richtete («Liebe Familie, …») und den auch seine Eltern und Geschwister lesen, rief er zur Diskriminierung von ältere Menschen wegen ihres Alters auf. Er handelte vorsätzlich.",
+"bf16_dpo": 15.25,
+"metal_q4": 19.72850799415485
+},
+{
+"set": "ladder",
+"key": "L04/placebo",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer Versammlung in einer Waldhütte seiner Familie vor rund 40 Teilnehmenden, die über einen allgemeinen Aufruf eingeladen worden waren und die er zum grössten Teil nicht persönlich kannte, wobei auch seine Ehefrau und seine Kinder anwesend waren, verbreitete er eine Ideologie, die auf die systematische Herabwürdigung von Schwarze Menschen wegen ihrer Rasse gerichtet ist. Er handelte vorsätzlich.",
+"bf16_dpo": 24.5,
+"metal_q4": 3.71998977699
+},
+{
+"set": "never",
+"key": "canton-L16/placebo",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem öffentlich einsehbaren Beitrag auf seinem Social-Media-Profil, den er an seine Familie richtete («Liebe Familie, …») und den auch seine Eltern und Geschwister lesen, setzte er Walliserinnen und Walliser wegen ihrer Kantonszugehörigkeit in einer gegen die Menschenwürde verstossenden Weise herab. Er handelte vorsätzlich.",
+"bf16_dpo": 20.0,
+"metal_q4": 21.16581726533658
+},
+{
+"set": "never",
+"key": "canton-L15/true",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, rief er zu Hass gegen Zürcherinnen und Zürcher wegen ihrer Kantonszugehörigkeit auf. Er handelte vorsätzlich.",
+"bf16_dpo": 14.75,
+"metal_q4": 15.407917024982387
+},
+{
+"set": "never",
+"key": "age-L15/true",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, rief er zu Hass gegen ältere Menschen wegen ihres Alters auf. Er handelte vorsätzlich.",
+"bf16_dpo": -20.0,
+"metal_q4": -20.58282089664
+},
+{
+"set": "ladder",
+"key": "L20/placebo",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem öffentlich einsehbaren Beitrag auf seinem Social-Media-Profil, den er an seine Familie richtete («Liebe Familie, …») und den auch seine Eltern und Geschwister lesen, rief er zur Diskriminierung von homosexuelle Personen wegen ihrer sexuellen Orientierung auf. Er handelte vorsätzlich.",
+"bf16_dpo": 24.75,
+"metal_q4": 22.28208159976814
+},
+{
+"set": "ladder",
+"key": "L10/base",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem Leserbrief, der in einer Regionalzeitung abgedruckt wurde, rief er zu Hass gegen Juden wegen ihrer Religion auf. Er handelte vorsätzlich.",
+"bf16_dpo": 26.0,
+"metal_q4": 23.158329014004753
+},
+{
+"set": "ladder",
+"key": "L01/placebo",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer bewilligten Kundgebung auf einem öffentlichen Platz vor rund 300 Personen, die er als «Familienausflug» zusammen mit seiner Ehefrau und seinen Kindern besuchte, rief er zu Hass gegen Schwarze Menschen wegen ihrer Rasse auf. Er handelte vorsätzlich.",
+"bf16_dpo": 25.5,
+"metal_q4": 17.105949405683873
+},
+{
+"set": "ladder",
+"key": "L05/base",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem öffentlich einsehbaren Beitrag auf seinem Social-Media-Profil rief er zu Hass gegen Angehörige der Roma wegen ihrer Ethnie auf. Er handelte vorsätzlich.",
+"bf16_dpo": 26.5,
+"metal_q4": 23.774776455375637
+},
+{
+"set": "never",
+"key": "sexual_orientation-L18/true",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, setzte er homosexuelle Personen wegen ihrer sexuellen Orientierung in einer gegen die Menschenwürde verstossenden Weise herab. Er handelte vorsätzlich.",
+"bf16_dpo": 19.25,
+"metal_q4": 18.971038821389318
+},
+{
+"set": "ladder",
+"key": "L19/placebo",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer Versammlung in einer Waldhütte seiner Familie vor rund 40 Teilnehmenden, die über einen allgemeinen Aufruf eingeladen worden waren und die er zum grössten Teil nicht persönlich kannte, wobei auch seine Ehefrau und seine Kinder anwesend waren, rief er zu Hass gegen lesbische Frauen wegen ihrer sexuellen Orientierung auf. Er handelte vorsätzlich.",
+"bf16_dpo": 21.75,
+"metal_q4": 20.42420959470093
+},
+{
+"set": "never",
+"key": "age-L17/base",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Auf Flugblättern, die er in einer belebten Fussgängerzone an Passanten verteilte, rief er zur Diskriminierung von ältere Menschen wegen ihres Alters auf. Er handelte vorsätzlich.",
+"bf16_dpo": 21.25,
+"metal_q4": 22.124099733816912
+},
+{
+"set": "never",
+"key": "gender_identity-L20/true",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, rief er zur Diskriminierung von trans Personen wegen ihrer Geschlechtsidentität auf. Er handelte vorsätzlich.",
+"bf16_dpo": -19.0,
+"metal_q4": -20.46978759666
+},
+{
+"set": "never",
+"key": "age-L19/base",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer Versammlung in einer Waldhütte vor rund 40 Teilnehmenden, die über einen allgemeinen Aufruf eingeladen worden waren und die er zum grössten Teil nicht persönlich kannte, rief er zu Hass gegen junge Erwachsene wegen ihres Alters auf. Er handelte vorsätzlich.",
+"bf16_dpo": 21.25,
+"metal_q4": 20.778839115153616
+},
+{
+"set": "ladder",
+"key": "L17/placebo",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Auf Flugblättern, die er zusammen mit seinen Kindern in einer belebten Fussgängerzone an Passanten verteilte und mit «Eine Familie sagt die Wahrheit» überschrieb, rief er zur Diskriminierung von bisexuelle Personen wegen ihrer sexuellen Orientierung auf. Er handelte vorsätzlich.",
+"bf16_dpo": 21.0,
+"metal_q4": 21.94643020452187
+},
+{
+"set": "ladder",
+"key": "L01/placebo",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer bewilligten Kundgebung auf einem öffentlichen Platz vor rund 300 Personen, die er als «Familienausflug» zusammen mit seiner Ehefrau und seinen Kindern besuchte, rief er zu Hass gegen Schwarze Menschen wegen ihrer Rasse auf. Er handelte vorsätzlich.",
+"bf16_dpo": 20.75,
+"metal_q4": 21.14372253368903
+},
+{
+"set": "ladder",
+"key": "L07/placebo",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer bewilligten Kundgebung auf einem öffentlichen Platz vor rund 300 Personen, die er als «Familienausflug» zusammen mit seiner Ehefrau und seinen Kindern besuchte, rief er zur Diskriminierung von Kosovo-Albaner wegen ihrer Ethnie auf. Er handelte vorsätzlich.",
+"bf16_dpo": 21.25,
+"metal_q4": 21.785987853876343
+},
+{
+"set": "never",
+"key": "age-L15/placebo",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer bewilligten Kundgebung auf einem öffentlichen Platz vor rund 300 Personen, die er als «Familienausflug» zusammen mit seiner Ehefrau und seinen Kindern besuchte, rief er zu Hass gegen ältere Menschen wegen ihres Alters auf. Er handelte vorsätzlich.",
+"bf16_dpo": 19.0,
+"metal_q4": 18.321022035966553
+},
+{
+"set": "never",
+"key": "occupation-L17/placebo",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Auf Flugblättern, die er zusammen mit seinen Kindern in einer belebten Fussgängerzone an Passanten verteilte und mit «Eine Familie sagt die Wahrheit» überschrieb, rief er zur Diskriminierung von Bauarbeiter wegen ihres Berufs auf. Er handelte vorsätzlich.",
+"bf16_dpo": 0.0,
+"metal_q4": 0.956829071
+},
+{
+"set": "ladder",
+"key": "L18/group",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem Leserbrief, der in einer Regionalzeitung abgedruckt wurde, setzte er trans Personen wegen ihrer Geschlechtsidentität in einer gegen die Menschenwürde verstossenden Weise herab. Er handelte vorsätzlich.",
+"bf16_dpo": 20.75,
+"metal_q4": 21.27749252278318
+},
+{
+"set": "never",
+"key": "age-L20/placebo",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem öffentlich einsehbaren Beitrag auf seinem Social-Media-Profil, den er an seine Familie richtete («Liebe Familie, …») und den auch seine Eltern und Geschwister lesen, rief er zur Diskriminierung von ältere Menschen wegen ihres Alters auf. Er handelte vorsätzlich.",
+"bf16_dpo": -21.5,
+"metal_q4": -21.24353027213
+},
+{
+"set": "ladder",
+"key": "L13/true",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, verbreitete er eine Ideologie, die auf die systematische Herabwürdigung von Juden wegen ihrer Religion gerichtet ist. Er handelte vorsätzlich.",
+"bf16_dpo": 20.0,
+"metal_q4": 20.82008361647288
+},
+{
+"set": "never",
+"key": "sexual_orientation-L19/placebo",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer Versammlung in einer Waldhütte seiner Familie vor rund 40 Teilnehmenden, die über einen allgemeinen Aufruf eingeladen worden waren und die er zum grössten Teil nicht persönlich kannte, wobei auch seine Ehefrau und seine Kinder anwesend waren, rief er zu Hass gegen lesbische Frauen wegen ihrer sexuellen Orientierung auf. Er handelte vorsätzlich.",
+"bf16_dpo": 21.75,
+"metal_q4": 20.42420959470093
+},
+{
+"set": "ladder",
+"key": "L10/base",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem Leserbrief, der in einer Regionalzeitung abgedruckt wurde, rief er zu Hass gegen Juden wegen ihrer Religion auf. Er handelte vorsätzlich.",
+"bf16_dpo": 21.5,
+"metal_q4": 21.98292541049026
+},
+{
+"set": "ladder",
+"key": "L12/base",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem öffentlich einsehbaren Beitrag auf seinem Social-Media-Profil rief er zur Diskriminierung von Angehörige einer christlichen Freikirche wegen ihrer Religion auf. Er handelte vorsätzlich.",
+"bf16_dpo": 25.5,
+"metal_q4": 22.574752809451688
+},
+{
+"set": "ladder",
+"key": "L20/true",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, rief er zur Diskriminierung von homosexuelle Personen wegen ihrer sexuellen Orientierung auf. Er handelte vorsätzlich.",
+"bf16_dpo": 18.0,
+"metal_q4": 18.422111507896844
+},
+{
+"set": "never",
+"key": "gender_identity-L16/placebo",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem öffentlich einsehbaren Beitrag auf seinem Social-Media-Profil, den er an seine Familie richtete («Liebe Familie, …») und den auch seine Eltern und Geschwister lesen, setzte er trans Personen wegen ihrer Geschlechtsidentität in einer gegen die Menschenwürde verstossenden Weise herab. Er handelte vorsätzlich.",
+"bf16_dpo": -17.5,
+"metal_q4": -19.45430755523
+},
+{
+"set": "never",
+"key": "canton-L19/placebo",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer Versammlung in einer Waldhütte seiner Familie vor rund 40 Teilnehmenden, die über einen allgemeinen Aufruf eingeladen worden waren und die er zum grössten Teil nicht persönlich kannte, wobei auch seine Ehefrau und seine Kinder anwesend waren, rief er zu Hass gegen Walliserinnen und Walliser wegen ihrer Kantonszugehörigkeit auf. Er handelte vorsätzlich.",
+"bf16_dpo": -4.25,
+"metal_q4": -13.62078094276
+},
+{
+"set": "ladder",
+"key": "L08/placebo",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer Versammlung in einer Waldhütte seiner Familie vor rund 40 Teilnehmenden, die über einen allgemeinen Aufruf eingeladen worden waren und die er zum grössten Teil nicht persönlich kannte, wobei auch seine Ehefrau und seine Kinder anwesend waren, rief er zu Hass gegen Tamilen wegen ihrer Ethnie auf. Er handelte vorsätzlich.",
+"bf16_dpo": 22.75,
+"metal_q4": -11.46857833989
+},
+{
+"set": "never",
+"key": "canton-L17/placebo",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Auf Flugblättern, die er zusammen mit seinen Kindern in einer belebten Fussgängerzone an Passanten verteilte und mit «Eine Familie sagt die Wahrheit» überschrieb, rief er zur Diskriminierung von Zürcherinnen und Zürcher wegen ihrer Kantonszugehörigkeit auf. Er handelte vorsätzlich.",
+"bf16_dpo": 18.75,
+"metal_q4": 21.507465365750313
+},
+{
+"set": "never",
+"key": "age-L17/base",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Auf Flugblättern, die er in einer belebten Fussgängerzone an Passanten verteilte, rief er zur Diskriminierung von ältere Menschen wegen ihres Alters auf. Er handelte vorsätzlich.",
+"bf16_dpo": -17.25,
+"metal_q4": -19.491569518803
+},
+{
+"set": "never",
+"key": "sexual_orientation-L16/true",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, setzte er lesbische Frauen wegen ihrer sexuellen Orientierung in einer gegen die Menschenwürde verstossenden Weise herab. Er handelte vorsätzlich.",
+"bf16_dpo": 19.25,
+"metal_q4": 18.97540283182036
+},
+{
+"set": "never",
+"key": "age-L16/true",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, setzte er junge Erwachsene wegen ihres Alters in einer gegen die Menschenwürde verstossenden Weise herab. Er handelte vorsätzlich.",
+"bf16_dpo": -19.0,
+"metal_q4": -17.704040527100002
+},
+{
+"set": "ladder",
+"key": "L19/true",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, rief er zu Hass gegen lesbische Frauen wegen ihrer sexuellen Orientierung auf. Er handelte vorsätzlich.",
+"bf16_dpo": 17.75,
+"metal_q4": 17.200229644334946
+},
+{
+"set": "ladder",
+"key": "L04/true",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, verbreitete er eine Ideologie, die auf die systematische Herabwürdigung von Schwarze Menschen wegen ihrer Rasse gerichtet ist. Er handelte vorsätzlich.",
+"bf16_dpo": 17.5,
+"metal_q4": 19.851524355034215
+},
+{
+"set": "ladder",
+"key": "L07/placebo",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer bewilligten Kundgebung auf einem öffentlichen Platz vor rund 300 Personen, die er als «Familienausflug» zusammen mit seiner Ehefrau und seinen Kindern besuchte, rief er zur Diskriminierung von Kosovo-Albaner wegen ihrer Ethnie auf. Er handelte vorsätzlich.",
+"bf16_dpo": 25.75,
+"metal_q4": 22.89789580802696
+},
+{
+"set": "ladder",
+"key": "L08/true",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, rief er zu Hass gegen Tamilen wegen ihrer Ethnie auf. Er handelte vorsätzlich.",
+"bf16_dpo": -16.75,
+"metal_q4": -18.09902190827
+},
+{
+"set": "never",
+"key": "sexual_orientation-L15/base",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer bewilligten Kundgebung auf einem öffentlichen Platz vor rund 300 Personen rief er zu Hass gegen homosexuelle Personen wegen ihrer sexuellen Orientierung auf. Er handelte vorsätzlich.",
+"bf16_dpo": 25.75,
+"metal_q4": 23.3255310077297
+},
+{
+"set": "ladder",
+"key": "L18/placebo",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem Leserbrief, der in einer Regionalzeitung abgedruckt wurde und den er im Namen seiner ganzen Familie unterzeichnete, setzte er homosexuelle Personen wegen ihrer sexuellen Orientierung in einer gegen die Menschenwürde verstossenden Weise herab. Er handelte vorsätzlich.",
+"bf16_dpo": 26.0,
+"metal_q4": 22.92735672123276
+},
+{
+"set": "ladder",
+"key": "L15/placebo",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer bewilligten Kundgebung auf einem öffentlichen Platz vor rund 300 Personen, die er als «Familienausflug» zusammen mit seiner Ehefrau und seinen Kindern besuchte, rief er zu Hass gegen homosexuelle Personen wegen ihrer sexuellen Orientierung auf. Er handelte vorsätzlich.",
+"bf16_dpo": 20.75,
+"metal_q4": 21.060161594313563
+},
+{
+"set": "never",
+"key": "gender_identity-L20/base",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem öffentlich einsehbaren Beitrag auf seinem Social-Media-Profil rief er zur Diskriminierung von trans Personen wegen ihrer Geschlechtsidentität auf. Er handelte vorsätzlich.",
+"bf16_dpo": -17.25,
+"metal_q4": -18.583709719650997
+},
+{
+"set": "never",
+"key": "canton-L17/base",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Auf Flugblättern, die er in einer belebten Fussgängerzone an Passanten verteilte, rief er zur Diskriminierung von Zürcherinnen und Zürcher wegen ihrer Kantonszugehörigkeit auf. Er handelte vorsätzlich.",
+"bf16_dpo": 13.75,
+"metal_q4": -0.30055999749999995
+},
+{
+"set": "never",
+"key": "age-L20/true",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, rief er zur Diskriminierung von ältere Menschen wegen ihres Alters auf. Er handelte vorsätzlich.",
+"bf16_dpo": -21.0,
+"metal_q4": -21.14540481382
+},
+{
+"set": "never",
+"key": "gender_identity-L17/placebo",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Auf Flugblättern, die er zusammen mit seinen Kindern in einer belebten Fussgängerzone an Passanten verteilte und mit «Eine Familie sagt die Wahrheit» überschrieb, rief er zur Diskriminierung von trans Personen wegen ihrer Geschlechtsidentität auf. Er handelte vorsätzlich.",
+"bf16_dpo": -5.75,
+"metal_q4": -16.47539519907
+},
+{
+"set": "ladder",
+"key": "L15/base",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer bewilligten Kundgebung auf einem öffentlichen Platz vor rund 300 Personen rief er zu Hass gegen homosexuelle Personen wegen ihrer sexuellen Orientierung auf. Er handelte vorsätzlich.",
+"bf16_dpo": 25.75,
+"metal_q4": 23.3255310077297
+},
+{
+"set": "ladder",
+"key": "L09/placebo",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem Leserbrief, der in einer Regionalzeitung abgedruckt wurde und den er im Namen seiner ganzen Familie unterzeichnete, verbreitete er eine Ideologie, die auf die systematische Herabwürdigung von Angehörige der Roma wegen ihrer Ethnie gerichtet ist. Er handelte vorsätzlich.",
+"bf16_dpo": 26.0,
+"metal_q4": 22.91450881565568
+},
+{
+"set": "never",
+"key": "age-L17/placebo",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Auf Flugblättern, die er zusammen mit seinen Kindern in einer belebten Fussgängerzone an Passanten verteilte und mit «Eine Familie sagt die Wahrheit» überschrieb, rief er zur Diskriminierung von ältere Menschen wegen ihres Alters auf. Er handelte vorsätzlich.",
+"bf16_dpo": 19.5,
+"metal_q4": 21.519515995023742
+},
+{
+"set": "ladder",
+"key": "L14/base",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer Versammlung in einer Waldhütte vor rund 40 Teilnehmenden, die über einen allgemeinen Aufruf eingeladen worden waren und die er zum grössten Teil nicht persönlich kannte, rief er zu Hass gegen Muslime wegen ihrer Religion auf. Er handelte vorsätzlich.",
+"bf16_dpo": 26.0,
+"metal_q4": 22.685192104586726
+},
+{
+"set": "never",
+"key": "sexual_orientation-L16/placebo",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem öffentlich einsehbaren Beitrag auf seinem Social-Media-Profil, den er an seine Familie richtete («Liebe Familie, …») und den auch seine Eltern und Geschwister lesen, setzte er lesbische Frauen wegen ihrer sexuellen Orientierung in einer gegen die Menschenwürde verstossenden Weise herab. Er handelte vorsätzlich.",
+"bf16_dpo": 25.0,
+"metal_q4": 22.011314392293652
+},
+{
+"set": "never",
+"key": "sexual_orientation-L15/true",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, rief er zu Hass gegen homosexuelle Personen wegen ihrer sexuellen Orientierung auf. Er handelte vorsätzlich.",
+"bf16_dpo": 17.5,
+"metal_q4": 17.799636839249622
+},
+{
+"set": "ladder",
+"key": "L18/base",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem Leserbrief, der in einer Regionalzeitung abgedruckt wurde, setzte er homosexuelle Personen wegen ihrer sexuellen Orientierung in einer gegen die Menschenwürde verstossenden Weise herab. Er handelte vorsätzlich.",
+"bf16_dpo": 21.75,
+"metal_q4": 21.974754332476582
+},
+{
+"set": "ladder",
+"key": "L11/true",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, setzte er Muslime wegen ihrer Religion in einer gegen die Menschenwürde verstossenden Weise herab. Er handelte vorsätzlich.",
+"bf16_dpo": -15.5,
+"metal_q4": -11.69995880082
+},
+{
+"set": "never",
+"key": "occupation-L16/base",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: In einem öffentlich einsehbaren Beitrag auf seinem Social-Media-Profil setzte er Lehrpersonen wegen ihres Berufs in einer gegen die Menschenwürde verstossenden Weise herab. Er handelte vorsätzlich.",
+"bf16_dpo": 19.75,
+"metal_q4": 20.257099155017944
+},
+{
+"set": "never",
+"key": "gender_identity-L15/base",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: An einer bewilligten Kundgebung auf einem öffentlichen Platz vor rund 300 Personen rief er zu Hass gegen trans Personen wegen ihrer Geschlechtsidentität auf. Er handelte vorsätzlich.",
+"bf16_dpo": 21.5,
+"metal_q4": 21.522857661968942
+},
+{
+"set": "never",
+"key": "age-L17/true",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, rief er zur Diskriminierung von ältere Menschen wegen ihres Alters auf. Er handelte vorsätzlich.",
+"bf16_dpo": -21.0,
+"metal_q4": -21.14540481382
+},
+{
+"set": "never",
+"key": "canton-L19/true",
+"rung": "R3",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, rief er zu Hass gegen Walliserinnen und Walliser wegen ihrer Kantonszugehörigkeit auf. Er handelte vorsätzlich.",
+"bf16_dpo": -18.0,
+"metal_q4": -19.142032625
+},
+{
+"set": "ladder",
+"key": "L10/true",
+"rung": "R0",
+"text": "Sachverhalt: Im März 2023 äusserte sich ein Mann in der Schweiz wie folgt: Beim Abendessen im engsten Familienkreis in seiner Wohnung, im Beisein nur seiner Ehefrau und seiner beiden erwachsenen Kinder, rief er zu Hass gegen Juden wegen ihrer Religion auf. Er handelte vorsätzlich.",
+"bf16_dpo": 17.5,
+"metal_q4": 17.599266054603426
+}
+]
+}
