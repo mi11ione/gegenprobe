@@ -1,4 +1,4 @@
-"""technical_report.md -> TeamName_Report.pdf (A4, ~10.5 pt) without pandoc/LaTeX: python-markdown -> HTML with print CSS ->
+"""technical_report.md -> 444_Report.pdf (A4, ~10.5 pt) without pandoc/LaTeX: python-markdown -> HTML with print CSS ->
 headless Chrome/Chromium `--print-to-pdf`. Set CHROME=/path/to/chrome if it is not found automatically.
 
     python -m report.render [out.pdf]
@@ -43,7 +43,7 @@ def chrome() -> str | None:
 
 
 def main(argv: list[str]) -> int:
-    out = Path(argv[0]) if argv else ROOT / "TeamName_Report.pdf"
+    out = Path(argv[0]) if argv else ROOT / "444_Report.pdf"
     md = (ROOT / "technical_report.md").read_text(encoding="utf-8")
     md = re.sub(r"<!--.*?-->", "", md, flags=re.S)
     body = markdown.markdown(md, extensions=["tables", "sane_lists"])

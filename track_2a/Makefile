@@ -103,7 +103,7 @@ eval:  # no model: re-score every committed evaluation file, recompute H1-H4, ma
 	$(PY) -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b
 	$(PY) -m report.matrix_accuracy
 
-report:  # technical_report.md -> TeamName_Report.pdf (needs the [report] extra and Chrome/Chromium; CHROME=... to override)
+report:  # technical_report.md -> 444_Report.pdf (needs the [report] extra and Chrome/Chromium; CHROME=... to override)
 	$(PY) -m report.render
 
 # ---- figures (dev only; needs the [report] extra: matplotlib)
