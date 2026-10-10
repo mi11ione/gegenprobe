@@ -97,6 +97,7 @@ def warm(shard: str) -> None:
     import time
     os.environ["GP_WORKERS"] = "1"
     i, n = map(int, shard.split("/"))
+    _no_spikes()
     _reachable_only()
     docs = arms.load_split("dev")[i::n]
     be, t0 = backend(), time.time()
