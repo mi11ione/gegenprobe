@@ -199,6 +199,25 @@ tr.drawer td { background: var(--paper) !important; color: var(--ink) !important
 .fieldrow .f { font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
 .fieldrow .s { font-family: var(--mono); font-size: 12px; margin-top: 3px; }
 .st-metadata { } .st-pdf { color: var(--ink-2); } .st-no_source { color: var(--red); } .st-mixed { }
+.chip.muted { color: var(--ink-3); }
+a.btnlink { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; padding: 6px 9px; display: inline-block; }
+a.btnlink:hover { background: var(--ink); color: var(--paper); }
+.say { margin: 12px 0 0; max-width: 78ch; font-size: 15px; font-family: var(--display); line-height: 1.45; }
+.say .label { font-family: var(--mono); }
+.opd { margin-top: 10px; max-width: 86ch; font-size: 13px; }
+.opd b { font-family: var(--display); font-size: 14px; }
+.opd .small, .bern .small, .finding .small { font-family: var(--display); }
+.opd .small { margin-top: 4px; }
+.bern { margin-top: 14px; padding: 10px 12px; border: 1px solid var(--rule-strong); max-width: 92ch; }
+.bern .small { margin: 6px 0 0; }
+.parnotes { margin-top: 14px; }
+.parnotes p { margin: 0 0 8px; max-width: 86ch; }
+.findings { border-top: 1px solid var(--rule-strong); }
+.finding { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 4px 16px; padding: 10px 0; border-bottom: 1px solid var(--rule); align-items: start; }
+.finding .chip { justify-self: start; }
+.finding .ft { font-size: 14px; font-weight: 600; }
+.finding .small { margin-top: 3px; max-width: 80ch; }
+@media (max-width: 600px) { .finding { grid-template-columns: 1fr; } }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--mono); font-size: 11px; color: var(--ink-2); margin: 10px 0 14px; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .legend i { width: 14px; height: 10px; display: inline-block; }
@@ -211,7 +230,10 @@ tr.drawer td { background: var(--paper) !important; color: var(--ink) !important
 .board td.armname { font-family: var(--display); font-size: 14px; font-weight: 600; white-space: normal; min-width: 180px; }
 .board td.armname small { display: block; font-family: var(--mono); font-weight: 400; font-size: 11px; color: var(--ink-3); }
 .board tr.default td { border-top: 2px solid var(--rule-strong); }
-.hbar { display: flex; height: 14px; width: 100%; min-width: 220px; }
+.board tr.baseline td { color: var(--ink-3); border-top: 1px dashed var(--rule-strong); }
+.board tr.baseline td.armname { color: var(--ink-2); }
+.contested { margin: 12px 0 0; padding: 8px 10px; border: 1px dashed var(--rule-strong); font-size: 13px; color: var(--ink-2); max-width: 86ch; }
+.hbar { display: flex; height: 14px; width: 100%; min-width: 150px; }
 .hbar i { display: block; height: 100%; }
 .c-val { background: var(--ink); } .c-null { background: var(--ink-3); } .c-fn { background: repeating-linear-gradient(45deg, var(--ink-3) 0 2px, transparent 2px 5px); }
 .c-mis { background: var(--hl); } .c-fab { background: var(--red); }
@@ -300,15 +322,23 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
 <!-- 02 PARLIAMENTS -->
 <section class="view" id="v-parliaments" aria-labelledby="h-par" hidden>
   <div class="grid sec-head">
-    <div class="idx"><div class="label">02 · Census</div></div>
+    <div class="idx"><div class="label">02 · Census</div><div class="code muted" style="margin-top:10px" id="parSnap"></div></div>
     <div class="work">
       <h2 id="h-par">Where each parliament's answers are, and how to put the missing ones back</h2>
       <p id="parIntro"></p>
     </div>
   </div>
+  <div class="filters" id="parFilters"></div>
   <div class="legend" id="parLegend"></div>
   <div class="tablewrap"><table class="dense" id="parTable"></table></div>
-  <p class="small" style="margin-top:10px">Click a row for its schema-feasibility row (17 fields: where each value lives in that parliament). Sort by any column.</p>
+  <div class="grid parnotes">
+    <div class="idx"><div class="label">How to read it</div></div>
+    <div class="work"><p class="small" id="parDefs"></p><p class="small" id="parFoot"></p></div>
+  </div>
+  <div class="grid" style="margin-top:34px">
+    <div class="idx"><div class="label">Data-quality findings</div><p class="small" id="findNote"></p></div>
+    <div class="work"><div class="findings" id="findings"></div></div>
+  </div>
 </section>
 
 <!-- 03 EVALUATION -->
@@ -387,7 +417,7 @@ $('#themeBtn').addEventListener('click', () => {
   const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
   root.dataset.theme = dark ? 'light' : 'dark'; try { localStorage.setItem('gp-theme', root.dataset.theme); } catch (e) {}
 });
-$('#gen').textContent = 'Build ' + (D.generated || '').split(' ')[0];
+$('#gen').textContent = `Data ${D.parliaments.snapshot} · build ` + (D.generated || '').split(' ')[0];
 
 /* hero */
 const H = D.headline;
@@ -434,7 +464,11 @@ function keep(d) {
   if (F.outcome === 'answerless' && d.gold.v) return false;
   return true;
 }
-function oc(o) { const [t, c] = OUT[o] || [o, '']; return el('span', { class: 'o ' + c }, t); }
+function oc(o, d) {
+  // a printed date chosen on a document whose gold label says it carries no government answer is not a 'wrong date'
+  const [t, c] = (o === 'misattributed' && d && !d.gold.v) ? ['date, no answer', 'bad'] : (OUT[o] || [o, '']);
+  return el('span', { class: 'o ' + c }, t);
+}
 function renderList() {
   const rows = docs.filter(keep);
   const t = el('table', {}, el('thead', {}, el('tr', {}, ['Doc', 'Body', 'Gold', 'Default', 'Review'].map(h => el('th', {}, h)))));
@@ -442,11 +476,11 @@ function renderList() {
   for (const d of rows) {
     const tr = el('tr', { tabindex: '0', 'aria-selected': String(sel === d.id), onclick: () => pick(d.id), onkeydown: e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(d.id); } } },
       el('td', { class: 'num' }, d.id), el('td', {}, `${d.body} · ${d.lang}`), el('td', { class: 'num' }, dmy(d.gold.v) || '—'),
-      el('td', {}, oc(d.rules.o)), el('td', {}, d.review.needs_review ? el('span', { class: 'chip red' }, 'suggest') : el('span', { class: 'muted' }, '·')));
+      el('td', {}, oc(d.rules.o, d), d.contested ? el('span', { class: 'red', title: 'gold label contested: see the document' }, ' †') : null), el('td', {}, d.review.needs_review ? el('span', { class: 'chip red' }, 'suggest') : el('span', { class: 'muted' }, '·')));
     tb.append(tr);
   }
   t.append(tb);
-  const wrap = $('#docList'); wrap.replaceChildren(t, el('div', { class: 'label', style: 'padding:10px 8px' }, `${rows.length} of ${docs.length} documents`));
+  const wrap = $('#docList'); wrap.replaceChildren(t, el('div', { class: 'label', style: 'padding:10px 8px' }, `${rows.length} of ${docs.length} documents · † gold label contested · "date, no answer" = a printed date on a document that carries no government answer`));
   if (!rows.find(d => d.id === sel) && rows.length) {
     const show = sel == null ? rows.find(d => d.review.needs_review && d.pointer.o === 'correct') : null;
     pick((show || rows[0]).id, true);
@@ -484,8 +518,8 @@ function pick(id, quiet) {
   const specs = el('div', { class: 'specs' }, [['Cell', `${d.lang} · ${d.level}`], ['Type', d.dtype], ['Affair type', d.affair_type || '—'], ['Pages', `${d.pages} · ${fmt(d.chars)} ch`],
     ['Text from', d.image_only ? 'OCR (scan)' : 'PDF text layer'], ['Extractor', d.extractor], ['Gold by', (d.gold.by || '').replace('claude-agents:', 'agents ')], ['Answer in doc', d.gold.present]]
     .map(([k, v]) => el('div', {}, el('div', { class: 'label' }, k), el('div', { class: 'v' }, v))));
-  const val = (v, o, extra, why) => v ? el('div', {}, el('span', { class: 'val num' }, dmy(v)), ' ', o ? oc(o) : null, extra || null)
-    : el('div', {}, el('span', { class: 'nullv' }, 'null' + (why ? ' · ' + why : '')), ' ', o ? oc(o) : null, extra || null);
+  const val = (v, o, extra, why) => v ? el('div', {}, el('span', { class: 'val num' }, dmy(v)), ' ', o ? oc(o, d) : null, extra || null)
+    : el('div', {}, el('span', { class: 'nullv' }, 'null' + (why ? ' · ' + why : '')), ' ', o ? oc(o, d) : null, extra || null);
   const WHY = { be_empty_template: 'empty RRB template', oral_stub: 'answered orally', not_in_document: 'not in document', no_anchor: 'no answer anchor' };
   const goldWhy = d.gold.present === 'oral' ? 'answered orally' : d.gold.present === 'unclear' ? 'unreadable' : 'no government answer in this document';
   const rows = [
@@ -513,45 +547,62 @@ function pick(id, quiet) {
   const closed = el('div', {}, el('p', { class: 'rule-note' }, `The only answers Apertus can give: the ${p.n} date${p.n === 1 ? '' : 's'} printed in this document${p.n > p.cands.length ? ` (top ${p.cands.length} shown)` : ''}, or null. Share of probability over this closed set:`), ct,
     el('p', { class: 'rule-note', style: 'margin-top:16px' }, 'Null margin = log-probability of null minus that of all dates together. Above θ (fitted on development documents, frozen before the test) the answer is null.'),
     marginScale(p.margin, p.theta));
-  $('#docDetail').replaceChildren(part, el('div', { class: 'dtitle' }, d.name || `Document ${d.id}`), specs,
+  const contested = d.contested ? el('div', { class: 'contested' }, el('span', { class: 'chip', style: 'margin-right:8px' }, 'label contested'), d.contested) : null;
+  $('#docDetail').replaceChildren(part, el('div', { class: 'dtitle' }, d.name || `Document ${d.id}`), specs, contested,
     el('h3', { class: 'part' }, 'Answer date'), ans, el('h3', { class: 'part' }, 'Closed set'), closed);
   if (!quiet && matchMedia('(max-width: 1000px)').matches) $('#docDetail').scrollIntoView({ block: 'start', behavior: 'smooth' });
 }
 renderList();
 
 /* ---------------- 02 PARLIAMENTS ---------------- */
-let parDone = false, parSort = ['written', -1], openBody = null;
+let parDone = false, parSort = ['written', -1], openBody = null, period = 'since2015';
 const P = D.parliaments;
+const PER = () => r => r.periods[period];
+const c = r => r.periods[period];
+const LK = [['attached', 'k-att', 'attached to the intervention'], ['agenda', 'k-ag', 'filed under an agenda item'], ['parentless', 'k-par', 'in OPD without a parent (relinkable)'],
+  ['image_only', 'k-img', 'scan without text (OCR)'], ['oral', 'k-oral', 'answered orally'], ['absent', 'k-abs', 'not in OPD']];
+const SAME = new Set(P.same_day.map(b => b.body));
 const COLS = [
-  ['name', 'Parliament', r => el('span', {}, el('b', {}, r.key), ' ', el('span', { class: 'muted' }, r.name !== r.key ? r.name : '')), r => r.name],
-  ['written', 'Written ans.', r => fmt(r.written)],
-  ['share_now', 'With text', r => pct(r.share_now)],
-  ['gap', 'Missing', r => r.gap ? el('span', { class: 'red' }, fmt(r.gap)) : '0'],
-  ['agenda', 'Under agenda', r => fmt(r.link.agenda), r => r.link.agenda],
-  ['parentless', 'Parentless', r => fmt(r.link.parentless), r => r.link.parentless],
-  ['image', 'Scan only', r => fmt(r.link.image_only), r => r.link.image_only],
-  ['oral', 'Oral', r => fmt(r.link.oral), r => r.link.oral],
-  ['absent', 'Absent', r => fmt(r.link.absent), r => r.link.absent],
-  ['median_days', 'Median days', r => r.median_days == null ? '—' : fmt(r.median_days)],
-  ['mix', 'Where answers are', r => stack(r), r => r.link.attached / Math.max(1, total(r))],
+  ['name', 'Parliament', r => el('span', {}, el('b', {}, r.key), ' ', el('span', { class: 'muted' }, r.label)), r => r.label],
+  ['written', 'Written answers', r => fmt(c(r).written), r => c(r).written],
+  ['with_text', 'Text attached', r => c(r).written ? pct(c(r).with_text) : '—', r => c(r).with_text ?? -1],
+  ['missing', 'Missing', r => c(r).missing ? el('span', { class: 'red' }, fmt(c(r).missing)) : '0', r => c(r).missing],
+  ['agenda', 'Agenda', r => fmt(c(r).agenda), r => c(r).agenda],
+  ['parentless', 'No parent', r => fmt(c(r).parentless), r => c(r).parentless],
+  ['image_only', 'Scan', r => fmt(c(r).image_only), r => c(r).image_only],
+  ['oral', 'Oral', r => fmt(c(r).oral), r => c(r).oral],
+  ['absent', 'Not in OPD', r => fmt(c(r).absent), r => c(r).absent],
+  ['after_repair', 'After repair', r => c(r).written ? pct(c(r).after_repair) : '—', r => c(r).after_repair ?? -1],
+  ['median', 'Median days*', r => r.median.flag === 'same_day' ? el('span', { class: 'muted', title: 'answer event mostly equals submission' }, '—†') : r.median.days == null ? el('span', { class: 'muted' }, '—') : fmt(r.median.days), r => r.median.days ?? -1],
+  ['mix', 'Where the written answers are', r => stack(r), r => c(r).written ? c(r).attached / c(r).written : -1],
 ];
-const total = r => r.link.attached + r.link.agenda + r.link.parentless + r.link.image_only + r.link.oral + r.link.absent;
 function stack(r) {
-  const t = total(r); if (!t) return el('span', { class: 'muted' }, 'no answers in scope');
-  const parts = [['k-att', r.link.attached], ['k-ag', r.link.agenda], ['k-par', r.link.parentless], ['k-img', r.link.image_only], ['k-oral', r.link.oral], ['k-abs', r.link.absent]];
-  return el('div', { class: 'stack', title: parts.map(([k, v]) => v).join(' / ') }, parts.filter(([, v]) => v).map(([k, v]) => el('i', { class: k, style: `width:${(100 * v / t).toFixed(2)}%` })));
+  const x = c(r); if (!x.written) return el('span', { class: 'muted' }, 'none in this period');
+  return el('div', { class: 'stack', title: LK.map(([k, , t]) => `${t}: ${x[k]}`).join('\n') },
+    LK.filter(([k]) => x[k]).map(([k, cls]) => el('i', { class: cls, style: `width:${(100 * x[k] / x.written).toFixed(2)}%` })));
 }
 function renderPar() {
   parDone = true;
   const nat = P.national;
-  $('#parIntro').textContent = `${P.rows.length} parliaments. Of ${fmt(nat.ev_answer)} interventions whose events record a written government answer, ${fmt(nat.gap)} have no answer text. ` +
-    `The cause is typed for every one: filed under an agenda item, stored without a parent, scanned without text, answered orally, or absent from OPD.`;
-  $('#parLegend').replaceChildren(...[['k-att', 'attached'], ['k-ag', 'under an agenda item'], ['k-par', 'parentless (relinkable)'], ['k-img', 'scan only (OCR)'], ['k-oral', 'oral'], ['k-abs', 'absent']]
-    .map(([k, t]) => el('span', {}, el('i', { class: k }), t)));
+  $('#parSnap').textContent = `OPD exports of ${P.snapshot}`;
+  $('#parIntro').textContent = `${P.n_bodies} parliaments with affairs in scope (OpenParlData scrapes 90). Of ${fmt(nat.ev_answer)} interventions whose events record a written government answer, ${fmt(nat.gap)} (${pct(P.gap_share)}) have no answer text attached. ` +
+    `Every one of them has a typed cause: filed under an agenda item, stored without a parent, scanned without text, answered orally, or not in OPD at all.`;
+  const per = el('div', { class: 'fgroup' }, el('div', { class: 'label' }, 'Interventions submitted'),
+    el('div', { class: 'seg', role: 'group', 'aria-label': 'period' }, Object.entries(P.periods).map(([k, t]) => el('button', { type: 'button', 'aria-pressed': String(period === k),
+      onclick: e => { period = k; e.currentTarget.parentNode.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === e.currentTarget))); drawPar(); } }, t))));
+  const dl = el('div', { class: 'fgroup' }, el('div', { class: 'label' }, 'Export'), el('div', { class: 'seg' }, el('a', { class: 'btnlink', href: 'parliaments.csv', download: 'gegenprobe_parliaments.csv' }, 'CSV · all periods')));
+  $('#parFilters').replaceChildren(per, dl);
+  $('#parLegend').replaceChildren(...LK.map(([, k, t]) => el('span', {}, el('i', { class: k }), t)));
+  $('#parDefs').textContent = 'One denominator for every column: interventions whose events record a written government answer, in the chosen period (by the year in the affair number, else its begin date). ' +
+    'Each one is in exactly one place, so Text attached + Agenda + No parent + Scan + Oral + Not in OPD = Written answers. Missing = all but "attached". ' +
+    'After repair = attached + agenda join + Bern relink + Bern fetch from the canton (OCR candidates and oral answers are typed, not counted as text).';
+  $('#parFoot').textContent = `* Median days from submission to the first written-answer event in OPD, all years; that event is the government decision date in Bern (verified 39/39) and unverified elsewhere (it can be a publication date). ` +
+    `† ${P.same_day.length} parliaments record the "answer" on the submission date for most interventions (${P.same_day.map(b => b.name).join(', ')}): no answer time is shown for them. Intervention types differ between parliaments, so medians are not a ranking.`;
+  renderFindings();
   drawPar();
 }
 function drawPar() {
-  const [key, dir] = parSort; const col = COLS.find(c => c[0] === key);
+  const [key, dir] = parSort; const col = COLS.find(x => x[0] === key);
   const val = col[3] || (r => r[key]);
   const rows = [...P.rows].sort((a, b) => { const x = val(a), y = val(b); return (typeof x === 'string' ? x.localeCompare(y) : ((x ?? -1) - (y ?? -1))) * dir; });
   const head = el('tr', {}, COLS.map(([k, t]) => el('th', { 'aria-sort': k === key ? (dir < 0 ? 'descending' : 'ascending') : null, tabindex: '0', scope: 'col',
@@ -559,20 +610,41 @@ function drawPar() {
   const tb = el('tbody');
   for (const r of rows) {
     const tr = el('tr', { class: openBody === r.key ? 'open' : '', tabindex: '0', onclick: () => { openBody = openBody === r.key ? null : r.key; drawPar(); },
-      onkeydown: e => { if (e.key === 'Enter') e.currentTarget.click(); } }, COLS.map(c => el('td', {}, c[2](r))));
+      onkeydown: e => { if (e.key === 'Enter') e.currentTarget.click(); } }, COLS.map(x => el('td', {}, x[2](r))));
     tb.append(tr);
     if (openBody === r.key) tb.append(el('tr', { class: 'drawer' }, el('td', { colspan: COLS.length }, drawer(r))));
   }
   $('#parTable').replaceChildren(el('thead', {}, head), tb);
 }
 const STL = { metadata: 'in OPD metadata', mixed: 'metadata for part', pdf: 'only in the PDF', no_source: 'no source in OPD' };
+const STATUS = { confirmed_bug: 'confirmed bug', confirmed: 'confirmed', source_discrepancy: 'source discrepancy', explained: 'explained', by_design: 'by design', scope_pointer: 'scope pointer' };
+function findingsFor(key) { return P.findings.filter(f => (key === 'BE' && (/^be_/.test(f.id) || f.id === 'grparl_384_date')) || (key === 'CHE' && /^che_/.test(f.id)) || (key === 'VS' && f.id === 'lang_tag_VS') || (key === 'FR' && f.id === 'lang_tag_FR')); }
 function drawer(r) {
+  const x = c(r);
   const rep = Object.entries(r.repair || {}).map(([k, v]) => `${k.replace('_', ' ')} ${fmt(v)}`).join(' · ') || 'no repair action';
-  return el('div', {}, el('div', { class: 'partno' }, el('span', {}, el('b', {}, r.key), ' · ', r.name), el('span', {}, `${fmt(r.n)} affairs in scope`),
-      el('span', {}, `answer text now ${pct(r.share_now)} · after measured repairs ${pct(r.share_after)}`), el('span', {}, 'repair: ', el('b', {}, rep))),
-    el('div', { class: 'fieldrow', style: 'margin-top:12px' }, P.fields.map(f => { const c = r.fields[f.key];
-      return el('div', {}, el('div', { class: 'f' }, f.key.replace(/_/g, ' ')), el('div', { class: 's st-' + (c ? c.st : 'na') }, c ? STL[c.st] || c.st : 'not applicable'),
-        c ? el('div', { class: 'code muted' }, `meta ${pct(c.meta, 0)} · n ${fmt(c.n)}`) : null); })));
+  const kids = [el('div', { class: 'partno' }, el('span', {}, el('b', {}, r.key), ' · ', r.label), el('span', {}, `${fmt(x.written)} written answers · ${P.periods[period]}`),
+      el('span', {}, `text attached ${pct(x.with_text)} → after repair ${pct(x.after_repair)}`), el('span', {}, 'repair actions (all years): ', el('b', {}, rep))),
+    el('p', { class: 'say' }, el('span', { class: 'label' }, 'Safe to say · '), r.safe_say)];
+  for (const f of findingsFor(r.key)) kids.push(el('div', { class: 'opd' }, el('span', { class: 'chip' + (f.status === 'confirmed_bug' ? ' red' : '') }, STATUS[f.status] || 'no response yet'), ' ',
+    el('b', {}, f.statement), f.opd ? el('div', { class: 'small' }, f.opd, el('span', { class: 'muted code' }, ` — ${P.attribution}`)) : null));
+  if (r.key === 'BE') { const B = P.bern, pl = B.placement;
+    kids.push(el('div', { class: 'bern' }, el('div', { class: 'label' }, `By the canton's own list · ${fmt(B.canton_listed)} answers the canton publishes (a different denominator, same as fig. 3)`),
+      el('p', { class: 'small' }, `Attached to their intervention in OPD: ${fmt(pl.attached)} (${pct(pl.attached / B.canton_listed)}). Linkable within OPD: ${fmt(B.linkable)} (${pct(B.linkable / B.canton_listed)}) — ${fmt(pl.attached)} attached + ${fmt(pl.via_agenda)} under an agenda item + ${fmt(pl.parentless)} without a parent. Not in OPD: ${fmt(pl.absent)}. ` +
+        `The relink list holds ${fmt(B.relink_list.relink)} of the ${fmt(pl.parentless)} parentless answers; the other ${fmt(pl.parentless - B.relink_list.relink)} already have answer text elsewhere in OPD or no written-answer event.`)));
+  }
+  kids.push(el('div', { class: 'fieldrow', style: 'margin-top:12px' }, P.fields.map(f => { const cc = r.fields[f.key];
+    return el('div', {}, el('div', { class: 'f' }, f.key.replace(/_/g, ' ')), el('div', { class: 's st-' + (cc ? cc.st : 'na') }, cc ? STL[cc.st] || cc.st : 'not applicable'),
+      cc ? el('div', { class: 'code muted' }, `meta ${pct(cc.meta, 0)} · n ${fmt(cc.n)}`) : null); })));
+  return el('div', {}, ...kids);
+}
+function renderFindings() {
+  $('#findNote').textContent = `Recomputed from the exports. OPD's answer to each, where given: ${P.attribution}.`;
+  const order = ['confirmed_bug', 'confirmed', 'source_discrepancy', 'explained', 'by_design', 'scope_pointer', null];
+  const fs = [...P.findings].sort((a, b) => order.indexOf(a.status ?? null) - order.indexOf(b.status ?? null));
+  $('#findings').replaceChildren(...fs.map(f => el('div', { class: 'finding' },
+    el('span', { class: 'chip' + (f.status === 'confirmed_bug' ? ' red' : f.status ? '' : ' muted') }, STATUS[f.status] || 'no response yet'),
+    el('div', {}, el('div', { class: 'ft' }, f.statement), f.count != null ? el('div', { class: 'code muted' }, f.denominator ? `${fmt(f.count)} of ${fmt(f.denominator)}` : fmt(f.count)) : null,
+      f.opd ? el('div', { class: 'small' }, f.opd) : null))));
 }
 
 /* ---------------- 03 EVALUATION ---------------- */
@@ -589,19 +661,23 @@ function renderEval() {
     ['naive_plain', 'Free generation, plain', 'same weights; the naive converter'],
   ];
   const n = A.rules.n;
-  const t = el('table', { class: 'board' }, el('thead', {}, el('tr', {}, ['Arm', 'Exact', 'Right date', 'Right null', 'Missed', 'Wrong date', 'Invented', 'Date on doc without answer', ''].map(x => el('th', {}, x)))));
+  const BL = E.baselines;
+  const t = el('table', { class: 'board' }, el('thead', {}, el('tr', {}, ['Arm', 'Exact', 'Dates found', 'Right date', 'Right null', 'Missed', 'Wrong date', 'Invented', 'On docs w/o answer', ''].map(x => el('th', {}, x)))));
   const tb = el('tbody');
   for (const [k, name, sub, def] of ARMS) { const a = A[k]; if (!a) continue;
     const w = v => `${(100 * v / n).toFixed(2)}%`;
     tb.append(el('tr', { class: def ? 'default' : '' }, el('td', { class: 'armname' }, name, el('small', {}, sub)),
-      el('td', { class: 'num' }, el('b', {}, `${a.exact}/${n}`)), el('td', {}, a.correct), el('td', {}, a.correct_null), el('td', {}, a.false_null),
+      el('td', { class: 'num' }, el('b', {}, `${a.exact}/${n}`)), el('td', { class: 'num' }, `${BL.recall[k].correct}/${BL.recall[k].of}`), el('td', {}, a.correct), el('td', {}, a.correct_null), el('td', {}, a.false_null),
       el('td', {}, a.misattributed), el('td', { class: a.fabricated ? 'red' : '' }, a.fabricated), el('td', {}, `${a.invented_on_null}/${a.n_gold_null}`),
-      el('td', { style: 'width:30%' }, el('div', { class: 'hbar' }, el('i', { class: 'c-val', style: `width:${w(a.correct)}` }), el('i', { class: 'c-null', style: `width:${w(a.correct_null)}` }),
+      el('td', { style: 'width:22%' }, el('div', { class: 'hbar' }, el('i', { class: 'c-val', style: `width:${w(a.correct)}` }), el('i', { class: 'c-null', style: `width:${w(a.correct_null)}` }),
         el('i', { class: 'c-fn', style: `width:${w(a.false_null)}` }), el('i', { class: 'c-mis', style: `width:${w(a.misattributed)}` }), el('i', { class: 'c-fab', style: `width:${w(a.fabricated)}` })))));
   }
+  tb.append(el('tr', { class: 'baseline' }, el('td', { class: 'armname' }, 'Always null', el('small', {}, 'baseline: never write a date')),
+    el('td', { class: 'num' }, `${BL.always_null.exact}/${n}`), el('td', { class: 'num' }, `0/${A.rules.n_gold_value}`), el('td', {}, 0), el('td', {}, BL.always_null.exact), el('td', {}, A.rules.n_gold_value),
+    el('td', {}, 0), el('td', {}, 0), el('td', {}, `0/${A.rules.n_gold_null}`), el('td', {})));
   if (E.eight) tb.append(el('tr', {}, el('td', { class: 'armname' }, 'Apertus 8B (GGUF, CPU)', el('small', {}, 'exploratory arm')), el('td', {}, `${E.eight.cascade.strict.ALL.exact}/${E.eight.cascade.strict.ALL.n}`)));
   t.append(tb); $('#board').replaceChildren(t.firstChild, tb);
-  $('#boardNote').textContent = `Exact = right date or right null. "Invented" = a date printed nowhere in the document. n = ${n}: ${A.rules.n_gold_value} documents with an answer date, ${A.rules.n_gold_null} without.`;
+  $('#boardNote').textContent = `Exact = right date or right null; never writing a date already scores ${BL.always_null.exact}/${n} (${pct(BL.always_null.exact / n)}), so read "Dates found" next to it. "Invented" = a date printed nowhere in the document. n = ${n}: ${A.rules.n_gold_value} documents with an answer date, ${A.rules.n_gold_null} without. Apertus review suggestions: ${BL.suggestions.right} of ${BL.suggestions.of} right (${BL.suggestions.on_answerless} of the others are on documents without an answer).`;
   $('#boardLegend').replaceChildren(...[['c-val', 'right date'], ['c-null', 'right null'], ['c-fn', 'missed'], ['c-mis', 'wrong printed date'], ['c-fab', 'invented']].map(([k, x]) => el('span', {}, el('i', { class: k }), x)));
   const H1 = h.H1, H2 = h.H2, H3 = h.H3, H4 = h.H4;
   const card = (code, pass, title, text, fig) => el('div', {}, el('span', { class: 'stamp' + (pass === 'FAIL' ? ' red' : '') , style: pass === 'FAIL' ? 'color:var(--red)' : '' }, `${code} · ${pass}`),
@@ -663,7 +739,7 @@ function renderMethod() {
     <line x1="${pad + 2 * (bw + gap) + 14}" x2="${pad + 2 * (bw + gap) + bw - 14}" y1="124" y2="124" stroke="var(--red)" stroke-width="2"/></svg>`;
   $('#flow').innerHTML = svg;
   const tc = D.parliaments.tier_counts;
-  $('#tierNote').textContent = `${tc.feasible} feasible, ${tc.partial} partial, ${tc['fundamentally different']} fundamentally different, by criteria written down before computing. What differs between parliaments is where a value lives, not what it means.`;
+  $('#tierNote').textContent = `${tc.feasible} feasible, ${tc.partial} partial, ${tc['fundamentally different']} fundamentally different, over ${D.parliaments.n_bodies} parliaments, by the criteria in docs/census.md (written down before computing; not separately committed). Where a value lives differs most between parliaments; the vocabulary differs too.`;
   const ord = { feasible: 0, partial: 1, 'fundamentally different': 2 };
   const fs = [...D.parliaments.fields].sort((a, b) => ord[a.tier] - ord[b.tier] || a.key.localeCompare(b.key));
   $('#schema').replaceChildren(el('thead', {}, el('tr', {}, ['Field', 'Tier', 'Route', 'Bodies', 'In OPD metadata', 'Only in PDF', 'No source'].map(x => el('th', {}, x)))),

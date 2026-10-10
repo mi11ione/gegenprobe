@@ -1,6 +1,6 @@
 """Static evidence viewer.
 
-    python -m gegenprobe.viewer collect            results + cached texts + model cache -> site/data.json   [dev; committed]
+    python -m gegenprobe.viewer collect            results + cached texts + model cache -> site/data.json + site/parliaments.csv
     python -m gegenprobe.viewer build [--out DIR]   site/data.json + template -> DIR/index.html (default: site/)
     python -m gegenprobe.viewer build --full-text --out DIR   collect with full page texts into DIR only (never committed)
 
@@ -27,6 +27,9 @@ def render(data: dict, out: Path) -> Path:
     html = TEMPLATE.read_text(encoding="utf-8").replace("/*DATA*/", blob)
     p = out / "index.html"
     p.write_text(html, encoding="utf-8")
+    csv_src = SITE / "parliaments.csv"
+    if out.resolve() != SITE.resolve() and csv_src.exists():
+        (out / "parliaments.csv").write_bytes(csv_src.read_bytes())
     return p
 
 
@@ -48,7 +51,10 @@ def main(argv: list[str]) -> int:
         (SITE / "data.json").write_text(
             json.dumps(d, ensure_ascii=False, separators=(",", ":"), allow_nan=False), encoding="utf-8"
         )
-        print(SITE / "data.json", f"{(SITE / 'data.json').stat().st_size // 1024} KB")
+        from .data import write_csv
+
+        write_csv(d["parliaments"], SITE / "parliaments.csv")
+        print(SITE / "data.json", f"{(SITE / 'data.json').stat().st_size // 1024} KB", "+ parliaments.csv")
         return 0
     out = Path(a.out) if a.out else SITE
     d = collect(full_text=True) if a.full_text else json.loads((SITE / "data.json").read_text(encoding="utf-8"))

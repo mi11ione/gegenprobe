@@ -36,6 +36,18 @@ CELL = {
 }
 
 
+# Gold labels open to argument, shown as such in the reviewer view (the scores keep the frozen labels).
+CONTESTED = {
+    28271: "Government decision on its own business (a credit), not an answer to a member's affair; the two annotators split "
+    "and the tie-break said 'no answer'. A decision of the same kind (300277) is labelled 'answer' because OPD links it "
+    "to an affair.",
+    862297: "Government report on its own ordinance; it mentions an earlier answer but answers no affair here. The annotators "
+    "split; the tie-break said 'no answer'.",
+    300277: "Government decision on its own business (a flood-protection credit). Labelled 'answer' because OPD links it to an "
+    "affair; two similar decisions (28271, 862297) are labelled 'no answer'.",
+}
+
+
 class _Replay(llm._Remote):
     """Replay-only view of the committed model cache (no network, no gateway, no key)."""
 
@@ -253,6 +265,7 @@ def documents(full_text: bool = False) -> list[dict]:
                 o=_outcome(r["cascade"].get("value"), r["gold"], r["doc_dates"], r["lenient"]),
             ),
             naive=naive,
+            contested=CONTESTED.get(d["doc_id"]),
         )
         if full_text:
             rec["text"] = pages
@@ -268,9 +281,107 @@ def body_names() -> dict[str, str]:
     return names
 
 
+# One denominator for every per-body number: interventions whose events record a WRITTEN government answer (the census
+# funnel's ev_w). Each of them has exactly one answer-link status, so the parts below always sum to `written`.
+LINKS = ("attached", "agenda", "parentless", "image_only", "oral", "absent")
+PERIODS = {"all": (None, None), "since2015": (2015, None), "y2425": (2024, 2025)}
+PERIOD_LABEL = {"all": "all years", "since2015": "since 2015", "y2425": "2024–25"}
+
+
+def label_of(key: str, name: str, btype: str | None) -> tuple[str, str]:
+    """(display label, level): 'Bern (canton)' vs 'Bern (city)'; OPD's body names are German proper nouns, kept as they are."""
+    if key == "CHE":
+        return "Federal Assembly", "federal"
+    if key == "LIE":
+        return "Liechtenstein (Landtag)", "country"
+    level = {"canton": "canton", "city": "city", "municipality": "municipality"}.get(btype or "", btype or "")
+    return (f"{name} ({level})" if level else name), level
+
+
+def _in(y, period: str) -> bool:
+    lo, hi = PERIODS[period]
+    if lo is None:
+        return True
+    return y is not None and y >= lo and (hi is None or y <= hi)
+
+
+def _partition(per_affair: dict) -> dict:
+    """body -> period -> {written, attached, agenda, parentless, image_only, oral, absent} over written-answer affairs."""
+    out = collections.defaultdict(lambda: {p: dict(written=0, **{k: 0 for k in LINKS}) for p in PERIODS})
+    for x in per_affair.values():
+        if not x["ev_w"]:
+            continue
+        for p in PERIODS:
+            if _in(x["y"], p):
+                c = out[x["b"]][p]
+                c["written"] += 1
+                c[x["link"]] += 1
+    for b, per in out.items():
+        for p, c in per.items():
+            assert sum(c[k] for k in LINKS) == c["written"], (b, p, c)
+    return out
+
+
+def _snapshot() -> str:
+    m = json.loads((DATA / "census" / "meta.json").read_text())
+    days = sorted(
+        {v["mtime"][:10] for k, v in m["inputs"].items() if isinstance(v, dict) and "mtime" in v and k != "contributors"}
+    )
+    created = m["inputs"].get("index.json", {}).get("generated_at", "")[:10]
+    return created or (days[0] if days else "")
+
+
+def _pc(k: int, n: int) -> str:
+    v = 100 * k / n
+    return "under 1%" if 0 < v < 1 else f"{v:.0f}%"
+
+
+def safe_say(r: dict) -> str:
+    """One sentence a journalist can quote, with its caveat, generated from the row (never typed by hand)."""
+    a, n = r["periods"]["all"], r["periods"]["y2425"]
+    if a["written"] < 20:
+        return f"Too few written answers in OPD ({a['written']}) to say anything about this parliament."
+    miss = lambda c: c["written"] - c["attached"]  # noqa: E731
+    out = []
+    if n["written"] >= 20:
+        out.append(
+            f"In 2024–25, {miss(n):,} of {n['written']:,} written government answers ({_pc(miss(n), n['written'])}) have no "
+            f"answer text attached in OpenParlData"
+        )
+        if abs(miss(a) / a["written"] - miss(n) / n["written"]) > 0.15:
+            out.append(
+                f"over all years it is {100 * miss(a) / a['written']:.0f}%, so older interventions dominate the all-years figure"
+            )
+    else:
+        out.append(
+            f"Over all years, {miss(a):,} of {a['written']:,} written answers ({_pc(miss(a), a['written'])}) have no answer text "
+            f"attached in OpenParlData; 2024–25 has too few to compare"
+        )
+    m = max(1, miss(a))
+    if m < 20:
+        pass
+    elif a["parentless"] + a["agenda"] > 0.5 * m:
+        out.append(
+            "most of the missing answers are in OpenParlData but not linked to their intervention, an aggregator issue "
+            "that OPD has confirmed, not the parliament's"
+        )
+    elif a["oral"] > 0.3 * m:
+        out.append("many 'missing' answers were given orally, so they are not missing")
+    elif a["image_only"] > 0.3 * m:
+        out.append("most of the missing answers are scans without a text layer, which OCR recovers")
+    elif a["absent"] > 0.5 * m:
+        out.append("the missing answers are not in OpenParlData; whether the parliament publishes them elsewhere was not checked")
+    if r["median"]["flag"] == "same_day":
+        out.append("its 'answer' dates in OPD mostly equal submission dates, so answer times cannot be computed")
+    return "; ".join(out) + "."
+
+
 def parliaments() -> dict:
+    from ..census import funnel
+
     s = _j("census/summary.json")
     q = {b["body"]: b for b in _j("census/question.json")["bodies"]}
+    same_day = {b["body"] for b in _j("census/question.json")["same_day_bodies"]}
     rep = _j("repair/summary.json")["by_body"]
     m = _j("census/matrix.json")
     bodies_meta = {b["key"]: b for b in _tsv_gz("bodies")}
@@ -278,38 +389,62 @@ def parliaments() -> dict:
     cells = collections.defaultdict(dict)
     for c in m["cells"]:
         cells[c["body"]][c["field"]] = dict(st=c["status"], r=c["route"], meta=c["meta"], doc=c["doc"], n=c["n"])
+    _, per_affair = funnel.compute()
+    part = _partition(per_affair)
+    fetch = {b: rep.get(b, {}).get("fetch", 0) for b in rep}
     rows = []
-    empty = dict(n=0, ev_answer=0, any_answer_txt=0, gap=0, gap_after_agenda_join=0)
     for k in sorted(set(s["by_body"]) | set(cells)):
-        v = s["by_body"].get(k, empty)
         bm = bodies_meta.get(k, {})
+        label, level = label_of(k, names.get(k, k), bm.get("type"))
         qq = q.get(k, {})
+        periods = {}
+        for p in PERIODS:
+            c = dict(part[k][p]) if k in part else dict(written=0, **{x: 0 for x in LINKS})
+            c["missing"] = c["written"] - c["attached"]
+            c["with_text"] = c["attached"] / c["written"] if c["written"] else None
+            # repair routes that put text back: agenda join, BE parentless relink, BE fetch from the canton (its 49 absent
+            # answers are all on the canton's list); OCR candidates and oral retypes are typed, not counted as text
+            f = min(fetch.get(k, 0), c["absent"]) if p == "all" else (c["absent"] if k == "BE" else 0)
+            c["fetchable"] = f
+            c["after_repair"] = (c["attached"] + c["agenda"] + c["parentless"] + f) / c["written"] if c["written"] else None
+            periods[p] = c
+        flag = "same_day" if k in same_day else ("few" if qq.get("n_durations", 0) < 20 else None)
         rows.append(
             dict(
                 key=k,
                 name=names.get(k, k),
-                type=bm.get("type"),
+                label=label,
+                level=level,
                 canton=bm.get("canton") or (k if len(k) == 2 else ""),
                 lang=bm.get("lang"),
-                n=v["n"],
-                written=v["ev_answer"],
-                with_text=v["any_answer_txt"],
-                gap=v["gap"],
-                gap_after_agenda=v["gap_after_agenda_join"],
-                link={
-                    x: v.get(f"link_{x}", 0)
-                    for x in ("attached", "agenda", "parentless", "image_only", "oral", "absent", "not_applicable")
-                },
-                median_days=qq.get("median_days"),
-                same_day=qq.get("same_day_share"),
-                share_now=qq.get("text_share_now"),
-                share_after=qq.get("text_share_after_relink"),
+                n=s["by_body"].get(k, {}).get("n", 0),
+                periods=periods,
+                median=dict(
+                    days=None if flag else qq.get("median_days"),
+                    raw=qq.get("median_days"),
+                    q1=qq.get("q1_days"),
+                    q3=qq.get("q3_days"),
+                    n=qq.get("n_durations"),
+                    same_day_share=qq.get("same_day_share"),
+                    flag=flag,
+                ),
                 repair=rep.get(k, {}),
                 fields=cells.get(k, {}),
                 in_scope=k in s["by_body"],
             )
         )
-    rows.sort(key=lambda r: (-r["written"], -r["n"]))
+    for r in rows:
+        r["safe_say"] = safe_say(r)
+    rows.sort(key=lambda r: (-r["periods"]["all"]["written"], -r["n"]))
+    # Bern, by the canton's own list (a different denominator, shown only in Bern's detail panel; same numbers as fig. 3)
+    rc = _j("repair/be_reconcile.json")
+    bern = dict(
+        canton_listed=rc["source_answered"],
+        placement=rc["placement"],
+        linkable=rc["linkable_within_opd"],
+        parentless_breakdown=rc["parentless_breakdown"],
+        relink_list=rc["relink_list"],
+    )
     fields = [
         dict(
             key=k,
@@ -322,21 +457,70 @@ def parliaments() -> dict:
         )
         for k, f in m["fields"].items()
     ]
+    fj = _j("census/findings.json")
+    findings = [
+        dict(
+            id=f["id"],
+            statement=f["statement"],
+            count=f.get("count"),
+            denominator=f.get("denominator"),
+            share=f.get("share"),
+            definition=f.get("definition"),
+            status=(f.get("opd_response") or {}).get("status"),
+            opd=(f.get("opd_response") or {}).get("summary"),
+        )
+        for f in fj["findings"]
+    ]
+    nat = {
+        p: dict(written=sum(r["periods"][p]["written"] for r in rows), attached=sum(r["periods"][p]["attached"] for r in rows))
+        for p in PERIODS
+    }
     return dict(
         rows=rows,
         fields=fields,
         national=s["national"],
+        national_periods=nat,
         gap_share=s["national_gap_share"],
         decomposition=s["gap_prime_decomposition"],
         question=_j("census/question.json")["national"],
+        same_day=_j("census/question.json")["same_day_bodies"],
         tier_counts=m["tier_counts"],
         criteria=m["criteria"],
         repair=_j("repair/summary.json")["by_action"],
-        findings=[
-            dict(id=f["id"], statement=f["statement"], count=f.get("count"), share=f.get("share"))
-            for f in _j("census/findings.json")["findings"]
-        ],
+        findings=findings,
+        attribution=fj.get("opd_attribution"),
+        bern=bern,
+        snapshot=_snapshot(),
+        n_bodies=len(rows),
+        periods=PERIOD_LABEL,
     )
+
+
+def write_csv(par: dict, path) -> None:
+    """The Parliaments table as CSV (one row per body; columns per period), for journalists and OPD."""
+    cols = ["key", "label", "level", "canton"]
+    per_cols = [
+        "written",
+        "attached",
+        "agenda",
+        "parentless",
+        "image_only",
+        "oral",
+        "absent",
+        "missing",
+        "with_text",
+        "after_repair",
+    ]
+    head = cols + [f"{p}_{c}" for p in PERIODS for c in per_cols] + ["median_days", "median_flag", "safe_to_say"]
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(head)
+        for r in par["rows"]:
+            vals = [r[c] for c in cols]
+            for p in PERIODS:
+                c = r["periods"][p]
+                vals += [round(c[x], 4) if isinstance(c[x], float) else c[x] for x in per_cols]
+            w.writerow(vals + [r["median"]["days"], r["median"]["flag"] or "", r["safe_say"]])
 
 
 def _git(*args) -> str:
@@ -359,7 +543,19 @@ def evaluation() -> dict:
     lab_commit = _git("log", "-1", "--format=%h %cI", "--", "data/gold/heldout_labels.jsonl")
     lock_commit = _git("log", "--diff-filter=A", "-1", "--format=%h %cI", "--", "eval/prereg/LOCK")
     eight = RESULTS / "eval" / "heldout__gguf_apertus-v1.5-8b-text-q4_k_m.json"
+    rows = res["per_doc"]
+    n_null = sum(r["gold"] is None for r in rows)
+    sugg = [r for r in rows if r["cascade"].get("route") == "apertus" and r["cascade"].get("value")]
+    sugg_ok = sum(_outcome(r["cascade"]["value"], r["gold"], r["doc_dates"], r["lenient"]) == "correct" for r in sugg)
+    baselines = dict(
+        always_null=dict(exact=n_null, n=len(rows)),
+        recall={
+            a: dict(correct=v["strict"]["ALL"]["correct"], of=v["strict"]["ALL"]["n_gold_value"]) for a, v in res["arms"].items()
+        },
+        suggestions=dict(right=sugg_ok, of=len(sugg), on_answerless=sum(r["gold"] is None for r in sugg)),
+    )
     return dict(
+        baselines=baselines,
         theta=res["theta"],
         n=res["n_docs"],
         arms=arms,

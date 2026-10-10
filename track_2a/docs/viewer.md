@@ -27,3 +27,28 @@ contexts per document (`tests/test_viewer.py` asserts this); the original PDFs a
 Swiss grid (12 columns, flush left, one signal red) with a technical-manual idiom for data: monospace for every datum,
 part-number style identifiers, hairline rules. Light and dark themes follow the system setting (toggle in the header);
 works from 500 px up to wide screens; keyboard focusable; no motion beyond an optional smooth scroll.
+
+## Parliaments view: one denominator (v2)
+
+Every per-body number uses one population: interventions whose events record a **written** government answer (the census
+funnel's `ev_w`), in the chosen period (all years / since 2015 / 2024–25, by the year in the affair number, else the begin
+date). Each of them has exactly one answer-link status, so
+
+    attached + agenda + parentless + image_only + oral + absent = written     (asserted in tests/test_viewer.py)
+
+- **Text attached** = attached / written; **Missing** = written − attached (nationally 16,749, as in the README).
+- **After repair** = (attached + agenda join + Bern parentless relink + Bern fetch from the canton) / written. OCR candidates and
+  oral answers are typed, not counted as text.
+- **Median days** (all years) is hidden ("—†") for the 7 parliaments whose "answer" event mostly equals the submission date,
+  and for parliaments with fewer than 20 durations.
+- **Bern** also shows the canton's own list (3,532 answers; 229 attached, 3,394 linkable within OPD) in its detail panel, as a
+  separate, labelled denominator (the same numbers as fig. 3).
+- **Labels**: "Bern (canton)" vs "Bern (city)"; OPD's German body names are kept as proper nouns.
+- **Safe to say**: one generated sentence per parliament with its caveat (`viewer/data.py:safe_say`).
+- **Findings**: every data-quality finding with OPD's response status; attribution text comes from
+  `census/opd_status.py:ATTRIBUTION` (one switch).
+- **CSV**: `site/parliaments.csv`, written by `collect`, all three periods.
+
+The Documents view marks a printed date on a document whose gold label says it carries no answer as "date, no answer"
+(not "wrong date"), and flags the three contested gold labels (28271, 862297, 300277) with the reason. The Evaluation view
+adds the always-null baseline (90/154), dates found per arm (of 64) and the precision of Apertus review suggestions (9 of 16).
