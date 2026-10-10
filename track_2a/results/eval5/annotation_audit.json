@@ -1,0 +1,56 @@
+{
+ "note": "Blindness audit of the P3b annotator sessions: count of distinct paths each session's transcript mentions under the other annotator's folder, results/eval5 and the P3 gold. Transcripts are agent session logs (not committed).",
+ "sessions": [
+  {
+   "annotator": "A1",
+   "model": "Claude Opus",
+   "affairs": 18,
+   "other_annotator_paths": 0,
+   "results_paths": 0,
+   "p3_gold_paths": 0
+  },
+  {
+   "annotator": "A1",
+   "model": "Claude Opus",
+   "affairs": 18,
+   "other_annotator_paths": 0,
+   "results_paths": 0,
+   "p3_gold_paths": 0
+  },
+  {
+   "annotator": "A2",
+   "model": "Claude Sonnet",
+   "affairs": 18,
+   "other_annotator_paths": 0,
+   "results_paths": 0
+  },
+  {
+   "annotator": "A2",
+   "model": "Claude Sonnet",
+   "affairs": 18,
+   "other_annotator_paths": 0,
+   "results_paths": 0
+  },
+  {
+   "annotator": "A3",
+   "model": "Claude Opus",
+   "affairs": 1,
+   "scope": "1 disputed field (submitter), X/Y order seeded 20261018"
+  }
+ ],
+ "raw_field_differences_A1_vs_A2": {
+  "number": 0,
+  "affair_type": 0,
+  "submitter": 1,
+  "submitted": 0,
+  "answer_present": 0,
+  "answer_date": 0,
+  "role": 1,
+  "decision_number": 0,
+  "recommendation": 0,
+  "addressed_body": 0,
+  "co_signatories_set": 3,
+  "related_affairs_set": 2
+ },
+ "arms_run_before_labels": "M, R, C (no model) ran while annotators worked; annotators never saw predictions"
+}
