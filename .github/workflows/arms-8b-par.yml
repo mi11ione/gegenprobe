@@ -1,0 +1,112 @@
+name: arms-8b-par
+# Same pre-registered exploratory 8B arms as arms-8b, with the dev scoring spread over 6 runners first ("warm": the same calls
+# and cache keys as the fit), so the fit itself runs from cache hits inside the job time limit. Optionally seeds the cache from
+# an earlier arms-8b run (input resume_run). Results are merged and committed with `python -m eval.run_arms merge`.
+on:
+  workflow_dispatch:
+    inputs:
+      resume_run: {description: "earlier run id whose 'fit' artifact seeds the model cache (optional)", default: ""}
+permissions:
+  contents: read
+  actions: read
+defaults:
+  run:
+    working-directory: track_2a
+env:
+  GP_WORK: ${{ github.workspace }}/work
+  PYTHONPATH: src:.
+jobs:
+  warm:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix: {i: [0, 1, 2, 3, 4, 5]}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita
+      - run: |
+          pip install -r requirements.txt
+          pip install --only-binary=:all: --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu llama-cpp-python==0.3.35 \
+            || CMAKE_ARGS="-DGGML_NATIVE=ON" pip install llama-cpp-python==0.3.35
+      - uses: actions/cache@v4
+        with: {path: "${{ github.workspace }}/work/models", key: model-cache-apertus-8b-gguf-v1}
+      - run: python -c "from gegenprobe import llm; print(llm.fetch_gguf('apertus-v1.5-8b-text-q4_k_m'))"
+      - uses: actions/download-artifact@v4
+        if: inputs.resume_run != ''
+        continue-on-error: true
+        with: {name: fit, path: track_2a, run-id: "${{ inputs.resume_run }}", github-token: "${{ github.token }}"}
+      - run: python -m eval.run_arms fetch --split dev
+      - run: python -m eval.run_arms warm --shard ${{ matrix.i }}/6
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: warm-${{ matrix.i }}
+          path: track_2a/data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m/
+  fit:
+    needs: warm
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita
+      - run: |
+          pip install -r requirements.txt
+          pip install --only-binary=:all: --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu llama-cpp-python==0.3.35 \
+            || CMAKE_ARGS="-DGGML_NATIVE=ON" pip install llama-cpp-python==0.3.35
+      - uses: actions/cache@v4
+        with: {path: "${{ github.workspace }}/work/models", key: model-cache-apertus-8b-gguf-v1}
+      - run: python -c "from gegenprobe import llm; print(llm.fetch_gguf('apertus-v1.5-8b-text-q4_k_m'))"
+      - uses: actions/download-artifact@v4
+        with: {pattern: "warm-*", merge-multiple: true, path: track_2a/data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m}
+      - run: find data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m -name '*.json' | wc -l
+      - run: mkdir -p out
+      - run: python -m eval.run_arms fetch --split dev
+      - run: |
+          set -o pipefail
+          /usr/bin/time -v python -m eval.run_arms fit 2>&1 | tee out/fit.log
+          test -f data/convert/theta/gguf_apertus-v1.5-8b-text-q4_k_m.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fit
+          path: |
+            track_2a/out/
+            track_2a/data/convert/theta/gguf_apertus-v1.5-8b-text-q4_k_m.json
+            track_2a/data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m/
+            track_2a/results/eval/shards/
+  shard:
+    needs: fit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix: {i: [0, 1, 2, 3, 4, 5]}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita
+      - run: |
+          pip install -r requirements.txt
+          pip install --only-binary=:all: --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu llama-cpp-python==0.3.35 \
+            || CMAKE_ARGS="-DGGML_NATIVE=ON" pip install llama-cpp-python==0.3.35
+      - uses: actions/cache@v4
+        with: {path: "${{ github.workspace }}/work/models", key: model-cache-apertus-8b-gguf-v1}
+      - run: python -c "from gegenprobe import llm; print(llm.fetch_gguf('apertus-v1.5-8b-text-q4_k_m'))"
+      - uses: actions/download-artifact@v4
+        with: {name: fit, path: track_2a}
+      - run: python -m eval.run_arms fetch --split heldout
+      - run: /usr/bin/time -v python -m eval.run_arms run --shard ${{ matrix.i }}/6
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: shard-${{ matrix.i }}
+          path: |
+            track_2a/results/eval/shards/
+            track_2a/data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m/

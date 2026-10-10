@@ -2,6 +2,8 @@
 Drives the FROZEN eval.arms.fit / eval.arms.run with the speed-optimised GGUF scorer, without editing frozen files.
 
   fetch --split dev|heldout    fetch every document's PDF by URL, verified against its committed sha256
+  warm --shard i/n             score dev shard i of n into the model cache (same calls and cache keys as `fit`), so a
+                               parallel warm-up makes the later `fit` all cache hits (workflow arms-8b-par)
   fit                          fit θ for gguf:apertus-v1.5-8b-text-q4_k_m on dev (the 30 spike items are skipped: their texts
                                are not in the repository) -> data/convert/theta/gguf_apertus-v1.5-8b-text-q4_k_m.json
   run --shard i/n              held-out shard i of n, arms rules,pointer,cascade -> results/eval/shards/heldout__gguf__i_of_n.json
@@ -90,6 +92,19 @@ def fit() -> None:
     print(json.dumps(out["answer_date"], indent=1)[:1500])
 
 
+def warm(shard: str) -> None:
+    import os
+    import time
+    os.environ["GP_WORKERS"] = "1"
+    i, n = map(int, shard.split("/"))
+    _reachable_only()
+    docs = arms.load_split("dev")[i::n]
+    be, t0 = backend(), time.time()
+    for k, d in enumerate(docs, 1):
+        arms.pointer.answer_date(be, d["pages"], arms._lang(d), theta=0.0, variant="")  # exactly the call arms.fit makes
+        print(f"warm {i}/{n}: {k}/{len(docs)} {d['doc_id']} {time.time() - t0:.0f}s", flush=True)
+
+
 def run(shard: str) -> None:
     i, n = map(int, shard.split("/"))
     _reachable_only()
@@ -125,8 +140,10 @@ def merge() -> None:
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["fetch", "fit", "run", "merge"])
+    ap.add_argument("cmd", choices=["fetch", "warm", "fit", "run", "merge"])
     ap.add_argument("--split", default="heldout")
     ap.add_argument("--shard", default="0/1")
     a = ap.parse_args()
-    {"fetch": lambda: fetch(a.split), "fit": fit, "run": lambda: run(a.shard), "merge": merge}[a.cmd]()
+    cmds = {"fetch": lambda: fetch(a.split), "warm": lambda: warm(a.shard), "fit": fit, "run": lambda: run(a.shard),
+            "merge": merge}
+    cmds[a.cmd]()
