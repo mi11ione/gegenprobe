@@ -6,9 +6,12 @@
       with page + character span + the rule that decided, or a typed null; the full schema v0.1 record under `record`.
       In `review` mode the Apertus closed-set pointer adds a suggestion for what the rules left open, flagged
       needs_review; it is never written into the field. A document that cannot be fetched or read becomes a typed
-      failure row (robots_disallowed, http_error, timeout, network_error, not_a_pdf, sha_mismatch, file_not_found,
-      text_failed). Exit codes: 0 all ok; 2 a failure row (single file) or any failure row in a batch (unless
-      --allow-failures). Docs: docs/convert-your-own.md.
+      failure row (robots_disallowed, robots_unreachable, http_error, timeout, network_error, not_a_pdf, sha_mismatch,
+      file_not_found, text_failed, too_large, text_timeout). Exit codes: 0 all ok; 2 a failure row (single file) or any
+      failure row in a batch (unless --allow-failures), or a malformed --anchors file. A --body outside
+      data/convert/rules_coverage.json prints a warning and marks the row needs_review. --anchors FILE adds your own
+      per-body regex anchors after the frozen rules; --explain lists every rule/anchor tried and the cache path.
+      Docs: docs/convert-your-own.md.
   python -m gegenprobe run       the `make run` replay (same as python -m gegenprobe.run)
 """
 from __future__ import annotations
@@ -21,15 +24,25 @@ from .convert.batch import guess_lang  # noqa: F401  (re-exported: tests and old
 
 
 def _convert(a) -> int:
-    from .convert import batch
+    from .convert import batch, overlay
 
+    anchors = None
+    if a.anchors:
+        try:
+            anchors = overlay.load_anchors(a.anchors)
+        except overlay.AnchorError as e:
+            print(str(e), file=sys.stderr)
+            return 2
+    if a.verbose or (a.explain and a.batch):  # single-document --explain prints it in its own block
+        c = overlay.cache_info()
+        print(f"cache: {c['work']} ({c['note']})", file=sys.stderr)
     be, theta = (None, None)
     if a.mode == "review":
         be, theta = batch.resolve_review(a.backend, a.theta)
     if a.batch:
         inputs = batch.read_inputs(a.batch)
         counts = batch.run_batch(inputs, a.out, mode=a.mode, backend=be, theta=theta, retry_failed=a.retry_failed,
-                                 timeout=a.timeout, tries=a.tries)
+                                 timeout=a.timeout, tries=a.tries, anchors=anchors, explain=a.explain)
         summary = ", ".join(f"{k} {v}" for k, v in sorted(counts.items()))
         print(f"{len(inputs)} inputs: {summary or 'nothing to do'}" + (f" -> {a.out}" if a.out else ""), file=sys.stderr)
         if a.queue:
@@ -37,7 +50,7 @@ def _convert(a) -> int:
                 print("--queue needs --out (the queue is built from the rows file)", file=sys.stderr)
                 return 2
             n = batch.write_queue(a.out, a.queue)
-            print(f"review queue: {n} suggestions, strongest first -> {a.queue}", file=sys.stderr)
+            print(f"review queue: {n} rows needing review, Apertus suggestions strongest first -> {a.queue}", file=sys.stderr)
         if batch.has_failures(counts) and not a.allow_failures:
             print("some inputs failed (typed failure rows written); exit 2. Use --allow-failures to exit 0.", file=sys.stderr)
             return 2
@@ -46,12 +59,22 @@ def _convert(a) -> int:
         print("give a PDF path or URL, or --batch FILE", file=sys.stderr)
         return 2
     inp = dict(opd_doc_id=a.opd_doc_id, body=a.body, affair_number=a.affair_number, affair_type=a.affair_type, lang=a.lang)
-    row = batch.convert_one(a.source, inp, mode=a.mode, backend=be, theta=theta, timeout=a.timeout, tries=a.tries)
+    row = batch.convert_one(a.source, inp, mode=a.mode, backend=be, theta=theta, timeout=a.timeout, tries=a.tries,
+                            anchors=anchors, explain=a.explain)
+    if row["status"] == "ok" and overlay.coverage_warning(row["rules_coverage"]):
+        print(overlay.coverage_warning(row["rules_coverage"]), file=sys.stderr)
+    elif row["status"] == "ok" and not a.body:
+        print("note: no --body given, so rule coverage (data/convert/rules_coverage.json) was not checked", file=sys.stderr)
     if a.opd_text and row["status"] == "ok":
         from .convert import opdtext
         row["opd_text_alignment"] = opdtext.annotate(row, opdtext.load(a.opd_text))
     json.dump(row, sys.stdout, ensure_ascii=False, indent=1)
     print()
+    if a.explain and row["status"] == "ok":
+        print(overlay.render_explain(row["explain"]), file=sys.stderr)
+    if row["status"] == "ok" and row["needs_review"]:
+        for r in row["review_reasons"]:
+            print(f"needs review ({r['field']}): {r['reason']}", file=sys.stderr)
     if row["status"] != "ok":
         print(f"{row['status']}: {row['reason']}", file=sys.stderr)
         return 2
@@ -84,6 +107,11 @@ def main(argv: list[str] | None = None) -> int:
                    help="review mode: gguf (local Apertus 8B, CPU; default) | openai (LLM_BASE_URL/LLM_NAME/LLM_API_KEY) | "
                    "gateway:<model>:<tag>:<cap>")
     c.add_argument("--theta", type=float, help="review mode: override θ (not recommended: θ does not transfer across builds)")
+    c.add_argument("--anchors", metavar="JSON", help="your own per-body regex anchors for the answer date and recommendation "
+                   "phrases, tried only after the frozen rules return null (route user_anchor); docs/examples/anchors_SG.json")
+    c.add_argument("--explain", action="store_true", help="list every rule and anchor tried per field and why it did not "
+                   "decide, plus the cache path (stderr; batch rows get an 'explain' key)")
+    c.add_argument("-v", "--verbose", action="store_true", help="print the cache path (GP_WORK, default the repo's .work/)")
     c.add_argument("--timeout", type=int, default=60, help="seconds per HTTP request (default 60)")
     c.add_argument("--tries", type=int, default=2, help="HTTP attempts per document (default 2)")
     sub.add_parser("run", help="the make-run replay")

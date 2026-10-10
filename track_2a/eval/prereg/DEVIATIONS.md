@@ -72,3 +72,62 @@ decisions (mean |Δ| 2.66 nats), as close as or closer than the spike's Metal bu
   (68 gold-null vs 57 gold-value documents with candidates; `results/eval/baselines_dates.json` →
   `P1_H3_length_matched`, written by `eval/baselines.py`). H3 passes on every population (all 0.969; without OCR 0.972;
   length-matched 0.966).
+
+## D5 (10 Oct 2026, POST-HOC, found by the round-3 jury): the naive arms' date parser drops DD-MM-YYYY answers
+- **Defect in frozen code.** `eval/naive_baseline.py:to_iso` (lines 91-99, LOCK-hashed) accepts ISO dates and whatever
+  `lattice.dates` reads. `lattice.dates` does not read `DD-MM-YYYY` or `DD-<month>-YYYY`, so `to_iso` returns
+  `unparseable:…`, and `eval/arms.py:169` scores the answer as null. The prompts ask for `JJJJ-MM-TT` / `AAAA-MM-JJ` /
+  `AAAA-MM-GG`, and Apertus sometimes answered `19-02-2019` or `25-ottobre-2012` instead. Neither file is changed.
+- **Registered result, unchanged:** naive_plain 98/154 and naive_null 134/154 exact (`results/eval/heldout__…json`).
+- **Post hoc, re-parsed:** `eval/posthoc_r3.py naive` reads the full stored generations from the committed model cache
+  (no model call). It re-parses them with a parser that accepts every form that occurs (ISO, D.M.Y, D-M-Y, D/M/Y,
+  D[.] month Y, D-month-Y; DE/FR/IT month names) and re-scores them with the frozen `eval/score.py`. The corrected parser
+  returns the registered value on every answer the registered parser could read (94/94 plain, 58/58 null). Five answers
+  are still not dates: four say in words that the date is not available, and one gives only a month (`09.2001`). All five
+  stay null, as registered. Result: **naive_plain 103/154** (+7 correct; 2 answerless documents now carry a wrong printed
+  date; 1 miss becomes a wrong printed date) and **naive_null 133/154** (−1: answerless document 136633 now carries a
+  printed date; 868895 goes from missed to wrong printed date). Accepting DD-MM-YYYY alone gives 102/154 for
+  naive_plain. Dates printed nowhere in the document (fabricated) are unchanged after the re-parse: naive_plain 24,
+  naive_null 0. `results/eval/posthoc_r3_naive_reparsed.json`.
+- **Effect on conclusions:** on P1 the null-allowed naive arm stays below the cascade (133 vs 139; paired 7 vs 13 documents,
+  McNemar p = 0.26, `results/eval/posthoc_r3_paired.json`). It is now level with the pointer (133 vs 130; 10 vs 7, p = 0.63).
+
+## D6 (10 Oct 2026, POST-HOC, found by the round-3 jury): the H2 Branch-B consequence as registered and as carried out
+- **Registered** (PREREG H2): "otherwise **Branch B**: Apertus is kept only where it measurably adds null-safety, and the
+  report says so in those words."
+- **Result:** Branch B (cascade-only 5 vs rules-only 1 on FR+IT+OCR, p = 0.22). On null safety Apertus adds nothing.
+  It removes some. The cascade dates 7 of 90 answerless documents, the rules 2 (the other 5 are Apertus
+  values on the rules' residue). By construction the cascade never overrides a rule's value or a rule's null; it only
+  fills documents where the rules abstain. So Apertus cannot add null safety on any document: compared with the rules
+  alone (abstain → null), it can only add values. Read literally, the consequence keeps Apertus nowhere.
+- **What was done:** Apertus was dropped from the unattended path. The shipped default is `rules_only`
+  (`convert/modes.py`, `convert/batch.py`, `convert/demo.py`). Apertus stays as an **opt-in review mode**: on documents
+  where the rules abstain, its pointer value is attached as a suggestion with `needs_review`, and a person confirms it. The
+  registration names no such review use. It was chosen after the P1 result, and P2-H2 (registered later, in PREREG2)
+  tested it on unseen parliaments. The report described the outcome as "rules run unattended and Apertus's answers are
+  review suggestions", not in the registered words. This entry records the registered words and the departure: Apertus is
+  kept as a reviewer aid, not for null safety.
+
+## D7 (10 Oct 2026, POST-HOC, found by the round-3 jury): what the lock clock shows
+The LOCK commit precedes the commit that adds the labels in every set. `lock.py write` also refuses to write a LOCK
+while a label file exists in the working tree. Gaps between the LOCK commit and the label commit (committer dates,
+`git log`; SHAs in `docs/commit-map.md`): P1 6 min 0 s (912bda2 → 6eb4d3b), P2 2 min 28 s (5b044a2 → dbf387e), P3 3 min
+37 s (a0e4636 → 7750b6c), P4 4 min 3 s (a0e4636 → 8cf32f9). The annotation files (`data/gold*/annotations/A*.jsonl`)
+carry no timestamps. The clock therefore proves that the lock was **committed before the labels were committed**. It
+does not prove when annotation started. Agent annotation of a set takes minutes, so the gaps are consistent with
+annotating after the lock, but they do not prove it. The correct wording is "frozen before any label was committed".
+`results/eval/posthoc_r3_gold_oracle.json` → `lock_to_label_commit`.
+
+## D8 (10 Oct 2026, POST-HOC): tie-break audit and non-LLM checks of the gold
+- **Tie-breaks (verifies D4).** A3 chose A1's label in **36 of 41** tie-breaks and A2's in 5. 35 of the 41 differ only in
+  the recommendation (34 of them none vs not_applicable). In the 6 that differ in the answer date, A3 chose A1 in 4 and A2
+  in 2. In P2, where the X/Y order was randomised, A3 chose A1 in 3 of 7 and A2 in 4; all 7 differed only in the recommendation
+  (`results/eval/posthoc_r3_paired.json` → `tie_breaks`).
+- **Non-LLM checks** (`eval/posthoc_r3.py oracle` → `results/eval/posthoc_r3_gold_oracle.json`; none was used to set a label).
+  Of 64 P1 gold answer dates, 44 can be checked against a non-LLM source and 37 are confirmed exactly. Against
+  OPD written-answer events: 37 of 44 agree, 5 are 1-5 days apart (decision vs dispatch or publication), and 2 are further
+  apart. In 589850, OPD's event is the motion's deposit date, which is printed in the document; in 19243 the gold is the
+  OCR'd letter date and OPD has a date 13 days later. Against publisher titles that name the decision date (Ticino
+  "Risposta del CdS del …"): 20 of 20 agree. One BE title names an RRB date on a gold-null document (28271); this is a scope
+  call (an executive credit decision, not an answer to a member's affair), on which A1 and A2 disagreed. 20 P1 gold dates
+  have no non-LLM source.

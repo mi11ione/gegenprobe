@@ -12,11 +12,13 @@ Step `replay` (FAIL on any difference; no network, no model):
   locks       LOCK, LOCK2, LOCK3, LOCK4: every frozen file still has its registered sha256
 
 Step `rederive_apertus` (PASS / WARN / SKIP; FAIL only if a decision recomputed from a cache HIT disagrees):
-  For the P1 held-out and P2 documents whose PDF can be fetched and sha256-verified within GP_REDERIVE_APERTUS_BUDGET
-  seconds (default 120), extract the text, rebuild the exact frozen prompts (convert/pointer.py, convert/cascade.py) and
+  For the P1 held-out and P2 documents whose PDF can be fetched and sha256-verified within the time budget, extract
+  the text, rebuild the exact frozen prompts (convert/pointer.py, convert/cascade.py) and
   recompute the pointer and cascade decisions from the committed hash-keyed model cache (data/model_cache), cache-only:
   no request leaves the machine. A cache MISS means the prompt differs from the one the model saw, which happens when
   the local poppler/tesseract build extracts the text differently; misses are counted with both extractor versions.
+  Budget: GP_REDERIVE_APERTUS_BUDGET seconds (default 180) PER SET, so P2 is always attempted. Until round 3 the budget
+  was shared (120 s) and P1 used all of it: the CI make-run of fec4029 reached 0 of the 62 P2 documents.
 
     python -m eval.replay_all [replay|rederive_apertus]
 """
@@ -252,7 +254,8 @@ def _lang(d: dict) -> str:
 def rederive_apertus(budget_s: float | None = None) -> dict:
     from gegenprobe import llm, pdftext
     from gegenprobe.convert import cascade, pointer, rules
-    budget_s = float(os.environ.get("GP_REDERIVE_APERTUS_BUDGET", "120")) if budget_s is None else budget_s
+    # per set (P1, P2): a shared budget let P1 starve P2 (0/62 attempted in CI before round 3)
+    budget_s = float(os.environ.get("GP_REDERIVE_APERTUS_BUDGET", "180")) if budget_s is None else budget_s
     t0 = time.time()
     be = _offline_backend()
     sets = []
@@ -265,14 +268,14 @@ def rederive_apertus(budget_s: float | None = None) -> dict:
             sets.append((name, _jsonl(docs_f), {r["doc_id"]: r for r in res["per_doc"]}, res["theta"]))
     out = dict(sets={}, poppler=pdftext.poppler_version(), tesseract=pdftext.tesseract_version())
     has_ocr = shutil.which("tesseract") is not None
-    stop = False
     for name, docs, committed, theta in sets:
+        t_set, stop = time.time(), False
         s = collections.Counter()
         s["n"] = len(docs)
         miss_examples, mismatches = [], []
         docs = sorted(docs, key=lambda d: (d.get("image_only", False), d["doc_id"]))
         for d in docs:
-            if stop or time.time() - t0 > budget_s:
+            if stop or time.time() - t_set > budget_s:
                 stop = True
                 s["not_reached_budget"] += 1
                 continue
@@ -308,7 +311,8 @@ def rederive_apertus(budget_s: float | None = None) -> dict:
                 mismatches.append(dict(doc_id=d["doc_id"], pointer_committed=[want_p.get("value"), want_p.get("margin")],
                                        pointer_now=[p.value, p.margin], cascade_committed=want_c.get("value"),
                                        cascade_now=cas.get("value")))
-        out["sets"][name] = dict(s, mismatches=mismatches[:20], cache_miss_examples=miss_examples)
+        out["sets"][name] = dict(s, mismatches=mismatches[:20], cache_miss_examples=miss_examples,
+                                 secs=round(time.time() - t_set, 1), budget_s=budget_s)
     out["secs"] = round(time.time() - t0, 1)
     return out
 

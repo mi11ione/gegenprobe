@@ -4,10 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Gegenprobe · Evidence</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
+/* Fonts are self-hosted (site/fonts/, SIL OFL 1.1, sources and sha256 in fonts/SOURCES.txt): the page makes no third-party request. */
+@font-face { font-family: "Archivo"; font-style: normal; font-display: swap; font-weight: 100 900; font-stretch: 62% 125%; src: url("fonts/archivo-latin-ext-wdth-normal.woff2") format("woff2-variations"), url("fonts/archivo-latin-ext-wdth-normal.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Archivo"; font-style: normal; font-display: swap; font-weight: 100 900; font-stretch: 62% 125%; src: url("fonts/archivo-latin-wdth-normal.woff2") format("woff2-variations"), url("fonts/archivo-latin-wdth-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-display: swap; font-weight: 400; src: url("fonts/ibm-plex-mono-latin-ext-400-normal.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-display: swap; font-weight: 400; src: url("fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-display: swap; font-weight: 500; src: url("fonts/ibm-plex-mono-latin-ext-500-normal.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-display: swap; font-weight: 500; src: url("fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-display: swap; font-weight: 600; src: url("fonts/ibm-plex-mono-latin-ext-600-normal.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-display: swap; font-weight: 600; src: url("fonts/ibm-plex-mono-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 /* Layout: 12-column Swiss grid, flush-left; a narrow index column (cols 1–3) carries labels and codes, the work area
    (cols 4–12) carries data. Ink on paper, one signal red. Monospace for every datum, grotesk for statements. */
 :root {
@@ -328,6 +334,14 @@ table.mini td.w { white-space: normal; }
 .dlrow > :last-child { border-right: 0; }
 .dlrow a:hover, .dlrow button:hover { background: var(--ink); color: var(--paper); }
 .bernlink { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; }
+.cov { margin-left: 6px; font-size: 9.5px; padding: 3px 5px 2px; color: var(--red); }
+tr.open .cov { color: var(--paper); }
+.covstrip { border: 1px solid var(--rule-strong); border-left: 4px solid var(--red); padding: 10px 12px; margin: 0 0 14px; font-size: 13px; max-width: 100%; }
+.covstrip .label { display: block; margin-bottom: 4px; }
+.covstrip ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 2px 16px; font-family: var(--mono); font-size: 11.5px; }
+.covstrip li b { font-weight: 600; }
+td .iqr { color: var(--ink-3); font-size: 10.5px; margin-left: 4px; }
+tr.open td .iqr { color: var(--paper); }
 table.bn { border-collapse: collapse; width: 100%; font-size: 13px; }
 table.bn td { padding: 7px 12px 7px 0; border-bottom: 1px solid var(--rule); vertical-align: baseline; font-family: var(--display); }
 table.bn td.v { font-family: var(--mono); font-weight: 600; text-align: right; white-space: nowrap; width: 1%; font-variant-numeric: tabular-nums; }
@@ -435,6 +449,7 @@ kbd { font-family: var(--mono); font-size: 10.5px; border: 1px solid var(--rule-
     </div>
   </div>
   <div class="filters" id="parFilters"></div>
+  <div class="covstrip" id="parCoverage" role="note"></div>
   <div class="legend" id="parLegend"></div>
   <div class="tablewrap"><table class="dense" id="parTable"></table></div>
   <div class="grid parnotes">
@@ -865,12 +880,19 @@ addEventListener('keydown', e => {
 });
 
 /* ---------------- 01 PARLIAMENTS ---------------- */
-let parDone = false, parSort = ['written', -1], openBody = null, parQ = '';
+let parDone = false, parSort = ['written', -1], openBody = null, parQ = '', parLevel = 'all', parCov = 'all', parType = 'Interpellation';
 const P = D.parliaments;
 const PER = () => r => r.periods[period];
 const c = r => r.periods[period];
 const LK = [['attached', 'k-att', 'attached to the intervention'], ['agenda', 'k-ag', 'filed under an agenda item'], ['parentless', 'k-par', 'in OPD without a parent (relinkable)'],
-  ['image_only', 'k-img', 'scan without text (OCR)'], ['oral', 'k-oral', 'answered orally'], ['absent', 'k-abs', 'not in OPD']];
+  ['image_only', 'k-img', 'scan without text (OCR)'], ['oral', 'k-oral', 'answered orally in the sitting (question time)'], ['absent', 'k-abs', 'not in OPD']];
+const TYPES = P.types || ['Interpellation'];
+const TYPEL = { Interpellation: 'Interpellation', Question: 'Question', Motion: 'Motion', Postulate: 'Postulate', 'Question time': 'Question time' };
+const COV = { coverage_gap: ['coverage gap', 'OPD holds interventions for this parliament but records a written answer for fewer than 20 (and under 10%) of them: a gap in OPD’s coverage, not evidence about the parliament'],
+  no_affairs: ['no interventions', 'OPD holds only meeting documents for this parliament'], few: ['too few', 'fewer than 20 interventions in OPD'] };
+const LEVELS = [['all', 'All'], ['canton', 'Cantons'], ['local', 'Cities & communes']];
+const COVF = [['all', 'All'], ['measured', 'Measured'], ['coverage_gap', 'Coverage gaps']];
+const tm = r => ((r.times || {})[period] || {})[parType];
 const SAME = new Set(P.same_day.map(b => b.body));
 const TIER = { verified: ['verified', 'OPD answer date = decision date printed in the answer, checked document by document'],
   sitting_day: ['sitting day', 'most answer dates fall on one weekday: a government’s weekly sitting, i.e. a decision date'],
@@ -880,8 +902,9 @@ const TIER = { verified: ['verified', 'OPD answer date = decision date printed i
 const tierEl = r => { const t = r.trust && TIER[r.trust.tier]; if (!t) return el('span', { class: 'muted' }, '—');
   return el('span', { class: 'tier t-' + r.trust.tier, title: t[1] + (r.trust.modal_share != null ? ` (${pct(r.trust.modal_share, 0)} on ${r.trust.modal_weekday})` : '') }, t[0]); };
 const COLS = [
-  ['name', 'Parliament', r => el('span', {}, el('b', {}, r.key), ' ', el('span', { class: 'muted' }, r.label)), r => r.label],
-  ['written', 'Written answers', r => fmt(c(r).written), r => c(r).written],
+  ['name', 'Parliament', r => el('span', {}, el('b', {}, r.key), ' ', el('span', { class: 'muted' }, r.label),
+    COV[r.coverage] ? el('span', { class: 'chip cov', title: COV[r.coverage][1] }, COV[r.coverage][0]) : null), r => r.label],
+  ['written', 'Written answers', r => r.coverage === 'coverage_gap' && period === 'all' ? el('span', { title: COV.coverage_gap[1] }, fmt(c(r).written), el('span', { class: 'muted' }, ` of ${fmt(r.n)}`)) : fmt(c(r).written), r => c(r).written],
   ['with_text', 'Text attached', r => c(r).written ? pct(c(r).with_text) : '—', r => c(r).with_text ?? -1],
   ['missing', 'Missing', r => c(r).missing ? el('span', { class: 'red' }, fmt(c(r).missing)) : '0', r => c(r).missing],
   ['agenda', 'Agenda', r => fmt(c(r).agenda), r => c(r).agenda],
@@ -891,7 +914,7 @@ const COLS = [
   ['absent', 'Not in OPD', r => fmt(c(r).absent), r => c(r).absent],
   ['after_repair', 'Repaired', r => c(r).written ? pct(c(r).after_repair) : '—', r => c(r).after_repair ?? -1],
   ['after_ocr', '+ OCR', r => c(r).image_only ? el('span', { class: 'ocr', title: 'if the scans were read by OCR (probe: 15/15 recovered); typed, not yet done for the whole body' }, pct(c(r).after_ocr)) : el('span', { class: 'muted' }, '·'), r => c(r).image_only ? c(r).after_ocr : -1],
-  ['median', el('span', {}, 'Median days*', el('br'), el('span', { class: 'warn' }, 'not a ranking')), r => r.median.flag === 'same_day' ? el('span', { class: 'muted', title: 'answer event mostly equals submission' }, '—†') : r.median.days == null ? el('span', { class: 'muted' }, '—') : fmt(r.median.days), r => r.median.days ?? -1],
+  ['median', () => el('span', {}, `Days · ${TYPEL[parType] || parType}*`, el('br'), el('span', { class: 'warn' }, 'not a ranking')), r => r.median.flag === 'same_day' ? el('span', { class: 'muted', title: 'answer event mostly equals submission' }, '—†') : !tm(r) ? el('span', { class: 'muted', title: 'fewer than 10 dated answers of this type in this period' }, '—') : el('span', { title: `median ${tm(r).median} days, interquartile range ${tm(r).q1}–${tm(r).q3}, n ${tm(r).n}` }, fmt(tm(r).median), el('span', { class: 'iqr' }, `${fmt(Math.round(tm(r).q1))}–${fmt(Math.round(tm(r).q3))}`)), r => tm(r) && r.median.flag !== 'same_day' ? tm(r).median : -1],
   ['trust', 'Dates', r => tierEl(r), r => ['verified', 'sitting_day', 'mixed', 'diffuse', 'same_day', 'too_few'].indexOf(r.trust && r.trust.tier)],
   ['mix', 'Where they are', r => stack(r), r => c(r).written ? c(r).attached / c(r).written : -1],
 ];
@@ -912,12 +935,18 @@ function renderPar() {
   const dl = el('div', { class: 'fgroup' }, el('div', { class: 'label' }, 'Export'), el('div', { class: 'seg' },
     el('a', { class: 'btnlink', href: 'parliaments.csv', download: 'gegenprobe_parliaments.csv' }, 'Table · CSV'),
     el('a', { class: 'btnlink', href: RS.download, download: 'gegenprobe_interventions.tsv.gz', style: 'border-left:1px solid var(--rule-strong)' }, `All ${fmt(RS.rows)} interventions · TSV`)));
-  $('#parFilters').replaceChildren(periodSeg('Interventions submitted'), find, dl);
+  const segOf = (label, opts, get, set) => el('div', { class: 'fgroup' }, el('div', { class: 'label' }, label),
+    el('div', { class: 'seg', role: 'group', 'aria-label': label }, opts.map(([k, t]) => el('button', { type: 'button', 'aria-pressed': String(get() === k),
+      onclick: e => { set(k); e.currentTarget.parentNode.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === e.currentTarget))); drawPar(); } }, t))));
+  $('#parFilters').replaceChildren(periodSeg('Interventions submitted'),
+    segOf('Show', LEVELS, () => parLevel, k => { parLevel = k; }),
+    segOf('Coverage', COVF, () => parCov, k => { parCov = k; }),
+    segOf('Answer time · compare within one type', TYPES.map(t => [t, TYPEL[t] || t]), () => parType, k => { parType = k; }), find, dl);
   $('#parLegend').replaceChildren(...LK.map(([, k, t]) => el('span', {}, el('i', { class: k }), t)));
   $('#parDefs').textContent = 'One denominator for every column: interventions whose events record a written government answer, in the chosen period (by the year in the affair number, else its begin date). ' +
     'Each one is in exactly one place, so Text attached + Agenda + No parent + Scan + Oral + Not in OPD = Written answers. Missing = all but "attached". ' +
     'After repair = attached + agenda join + Bern relink + Bern fetch from the canton (oral answers are typed, not counted as text). + OCR adds the scans, shown only where there are any: it is a separate state because OCR was probed (15/15 recovered), not run on every scan.';
-  $('#parFoot').textContent = `* Median days from submission to the first written-answer event in OPD, all years. Not a ranking: parliaments use different intervention types and deadlines, and OPD's "answer" event is the government decision date in some bodies and a publication date in others. The Dates column says which: verified (Bern: ${fmt(RS.bern_verified && RS.bern_verified.date_equal)} of ${fmt(RS.bern_verified && RS.bern_verified.n)} relink answers carry the printed decision date), sitting day (≥ 80% of answer dates on one weekday), mixed, diffuse. ` +
+  $('#parFoot').textContent = `* Median days from submission to the first written-answer event in OPD, for one intervention type at a time (switch above; default interpellation) and the chosen period, with the interquartile range in grey; shown where at least 10 answers of that type are dated. Medians over mixed types are not shown: a motion "answer" and an interpellation answer are different things. Not a ranking: parliaments use different deadlines, and OPD's "answer" event is the government decision date in some bodies and a publication date in others. The Dates column says which: verified (Bern: ${fmt(RS.bern_verified && RS.bern_verified.date_equal)} of ${fmt(RS.bern_verified && RS.bern_verified.n)} relink answers carry the printed decision date), sitting day (≥ 80% of answer dates on one weekday), mixed, diffuse. ` +
     `† ${P.same_day.length} parliaments record the "answer" on the submission date for most interventions (${P.same_day.map(b => b.name).join(', ')}): no answer time is shown for them.`;
   renderFindings();
   renderBern();
@@ -928,10 +957,13 @@ function drawPar() {
   const [key, dir] = parSort; const col = COLS.find(x => x[0] === key);
   const val = col[3] || (r => r[key]);
   const q = parQ.trim().toLowerCase();
-  const rows = [...P.rows].filter(r => !q || `${r.key} ${r.label} ${r.canton || ''}`.toLowerCase().includes(q))
+  const lvlOk = r => parLevel === 'all' || (parLevel === 'canton' ? r.level === 'canton' : (r.level === 'city' || r.level === 'municipality'));
+  const covOk = r => parCov === 'all' || r.coverage === parCov;
+  drawCoverage(lvlOk);
+  const rows = [...P.rows].filter(r => lvlOk(r) && covOk(r) && (!q || `${r.key} ${r.label} ${r.canton || ''}`.toLowerCase().includes(q)))
     .sort((a, b) => { const x = val(a), y = val(b); return (typeof x === 'string' ? x.localeCompare(y) : ((x ?? -1) - (y ?? -1))) * dir; });
-  const head = el('tr', {}, COLS.map(([k, t]) => el('th', { 'aria-sort': k === key ? (dir < 0 ? 'descending' : 'ascending') : null, tabindex: '0', scope: 'col',
-    onclick: () => { parSort = [k, k === key ? -dir : (k === 'name' ? 1 : -1)]; drawPar(); }, onkeydown: e => { if (e.key === 'Enter') e.currentTarget.click(); } }, t)));
+  const head = el('tr', {}, COLS.map(([k, t0]) => { const t = typeof t0 === 'function' ? t0() : t0; return el('th', { 'aria-sort': k === key ? (dir < 0 ? 'descending' : 'ascending') : null, tabindex: '0', scope: 'col',
+    onclick: () => { parSort = [k, k === key ? -dir : (k === 'name' ? 1 : -1)]; drawPar(); }, onkeydown: e => { if (e.key === 'Enter') e.currentTarget.click(); } }, t); }));
   const tb = el('tbody');
   for (const r of rows) {
     const tr = el('tr', { class: openBody === r.key ? 'open' : '', tabindex: '0', 'aria-expanded': String(openBody === r.key), onclick: () => { openBody = openBody === r.key ? null : r.key; drawPar(); },
@@ -939,15 +971,25 @@ function drawPar() {
     tb.append(tr);
     if (openBody === r.key) tb.append(el('tr', { class: 'drawer' }, el('td', { colspan: COLS.length }, drawer(r))));
   }
-  if (!rows.length) tb.append(el('tr', {}, el('td', { colspan: COLS.length, class: 'muted' }, `No parliament matches "${parQ}".`)));
+  if (!rows.length) tb.append(el('tr', {}, el('td', { colspan: COLS.length, class: 'muted' }, parQ ? `No parliament matches "${parQ}".` : 'No parliament in this selection.')));
   $('#parTable').replaceChildren(el('thead', {}, head), tb);
+}
+function drawCoverage(lvlOk) {
+  const CV = P.coverage || { gaps: [] };
+  const g = CV.gaps.filter(lvlOk);
+  const box = $('#parCoverage');
+  if (!g.length) { box.hidden = true; return; }
+  box.hidden = false;
+  box.replaceChildren(el('span', { class: 'label' }, `Coverage gaps · ${g.length} parliaments where OPD records almost no written answers`),
+    el('p', { class: 'small', style: 'margin:0 0 6px;max-width:86ch' }, 'OPD holds their interventions but records a written government answer for fewer than 20 of them and for under 10% (all years), so their answer rate cannot be measured from OPD. That is a gap in the aggregator’s coverage, not evidence that these parliaments leave questions unanswered: ask OPD and the parliament.'),
+    el('ul', {}, g.map(x => el('li', {}, el('b', {}, x.key), ` ${x.label.replace(/ \((canton|city|municipality)\)$/, '')} · ${fmt(x.written)} of ${fmt(x.n)}`))));
 }
 const STL = { metadata: 'in OPD metadata', mixed: 'metadata for part', pdf: 'only in the PDF', no_source: 'no source in OPD' };
 const STATUS = { confirmed_bug: 'confirmed bug', confirmed: 'confirmed', source_discrepancy: 'source discrepancy', explained: 'explained', by_design: 'by design', scope_pointer: 'scope pointer' };
 function findingsFor(key) { return P.findings.filter(f => (key === 'BE' && (/^be_/.test(f.id) || f.id === 'grparl_384_date')) || (key === 'CHE' && /^che_/.test(f.id)) || (key === 'VS' && f.id === 'lang_tag_VS') || (key === 'FR' && f.id === 'lang_tag_FR')); }
 
 /* missing affairs per parliament: site/missing.json, fetched when the first row is opened */
-const CAUSE = { a: 'under an agenda item', p: 'in OPD without a parent', s: 'scan without text', o: 'answered orally', x: 'not in OPD' };
+const CAUSE = { a: 'under an agenda item', p: 'in OPD without a parent', s: 'scan without text', o: 'answered orally in the sitting', x: 'not in OPD' };
 let MISS = null, missErr = false;
 function loadMissing() {
   if (MISS || missErr) return Promise.resolve(MISS);
@@ -986,17 +1028,18 @@ function missingBlock(r) {
   return box;
 }
 function timesBlock(r) {
-  const bt = Object.entries((r.median && r.median.by_type) || {});
+  const bt = TYPES.map(k => [k, ((r.times || {})[period] || {})[k]]).filter(([, v]) => v);
   const t = r.trust && TIER[r.trust.tier];
   const alt = r.median.days_alt != null && r.median.days != null && r.median.days_alt !== r.median.days;
-  return el('div', {}, el('h5', {}, 'Answer time by intervention type · all years ', el('span', { class: 'warn' }, '· not a ranking')),
+  return el('div', {}, el('h5', {}, `Answer time by intervention type · ${P.periods[period]} `, el('span', { class: 'warn' }, '· not a ranking')),
     r.median.flag === 'same_day' ? el('p', { class: 'small', style: 'margin:0' }, 'OPD’s “answer” event mostly equals the submission date here, so no answer time is shown.') :
-    bt.length ? el('table', { class: 'mini' }, el('thead', {}, el('tr', {}, el('th', {}, 'Type'), el('th', { class: 'r' }, 'Median days'), el('th', { class: 'r' }, 'n'))),
-      el('tbody', {}, bt.map(([k, v]) => el('tr', {}, el('td', {}, k), el('td', { class: 'r' }, fmt(v.median)), el('td', { class: 'r muted' }, fmt(v.n)))))) :
-      el('p', { class: 'small', style: 'margin:0' }, 'Fewer than 10 dated answers per type.'),
+    bt.length ? el('table', { class: 'mini' }, el('thead', {}, el('tr', {}, el('th', {}, 'Type'), el('th', { class: 'r' }, 'Median days'), el('th', { class: 'r' }, 'IQR'), el('th', { class: 'r' }, 'n'))),
+      el('tbody', {}, bt.map(([k, v]) => el('tr', { style: k === parType ? 'font-weight:600' : '' }, el('td', {}, TYPEL[k] || k), el('td', { class: 'r' }, fmt(v.median)),
+        el('td', { class: 'r muted' }, `${fmt(Math.round(v.q1))}–${fmt(Math.round(v.q3))}`), el('td', { class: 'r muted' }, fmt(v.n)))))) :
+      el('p', { class: 'small', style: 'margin:0' }, 'Fewer than 10 dated answers per type in this period.'),
     el('p', { class: 'small', style: 'margin:8px 0 0' }, el('b', {}, 'Date trust: '), t ? `${t[0]}, ${t[1]}` : '—', r.trust && r.trust.modal_share != null ? ` (${pct(r.trust.modal_share, 0)} on ${r.trust.modal_weekday}).` : '.',
-      alt ? ` With the alternative rule (prefer events OPD harmonises as “answered”), the median is ${fmt(r.median.days_alt)} days instead of ${fmt(r.median.days)}.` : '',
-      ' Types, deadlines and what the event records differ between parliaments: compare a parliament with itself over time, not with others.'));
+      alt ? ` With the alternative rule (prefer events OPD harmonises as “answered”), the all-types median is ${fmt(r.median.days_alt)} days instead of ${fmt(r.median.days)}.` : '',
+      ' Compare within one type: what counts as the “answer” differs between motions, interpellations and questions. Types, deadlines and what the event records also differ between parliaments: compare a parliament with itself over time, not with others.'));
 }
 function drawer(r) {
   const x = c(r);

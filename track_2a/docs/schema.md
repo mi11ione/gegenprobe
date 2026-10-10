@@ -26,7 +26,9 @@ every value tied to the place in the source it came from.
    | `metadata` | taken from a structured OPD or canton record, named in `source` (e.g. `opd:events/84384`) | no |
    | `inferred` | a classification derived from a cited span (e.g. a government recommendation enum) | yes |
 
-3. **The deciding stage is recorded.** `route ∈ {metadata, rule, apertus, ocr+rule, ocr+apertus}`. Values and abstentions
+3. **The deciding stage is recorded.** `route ∈ {metadata, rule, apertus, ocr+rule, ocr+apertus, user_anchor}`
+   (`user_anchor`: a regex anchor supplied by the converter's user with `--anchors`, tried only after the frozen rules;
+   it needs a span like a rule value, and its `rule` is `user_anchor:<id>`). Values and abstentions
    decided by Apertus must carry `model_build`, `theta` and `margin`, i.e. the null margin of the closed-set forced choice
    in nats. A reviewer can therefore see how close the call was and for which build the threshold θ was fitted. The
    threshold does not transfer across builds (spikes/inversions F2).
@@ -54,6 +56,7 @@ every value tied to the place in the source it came from.
 | `present_unanchored` | candidate values are present, but none is anchored to the field's role | rule, apertus, ocr+* |
 | `not_applicable` | the field does not apply to this affair type | metadata, rule |
 | `not_in_document` | this document was read and does not contain the value (document-level; other documents of the affair may) | rule, apertus, ocr+* |
+| `no_rules_for_body` | the rules were never written for this parliament's layouts (`data/convert/rules_coverage.json`) and found nothing; says "unknown layout", not "ambiguous document" | rule, ocr+rule |
 
 A model abstention (`route: apertus`) must have `margin > theta`.
 

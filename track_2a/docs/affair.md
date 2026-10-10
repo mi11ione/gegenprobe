@@ -22,3 +22,10 @@ Commands: `python -m eval.gold3.run_p3 --backend none|gateway:…|gguf|fake` wri
 arm's values, the pointer suggestions (with model build, θ, margin, candidate count, prompt id) and the validated `Affair`
 instances. The evaluation design is `eval/prereg3/PREREG3_draft.md`; the annotation guide `eval/gold3/GUIDE.md`.
 θ for the new pointer fields is 0 (declared; no dev labels exist for them).
+
+**Metadata vs document values.** In every `Affair` instance, a value taken from OPD metadata has `route: metadata`,
+`basis: metadata`, a `source` naming the OPD record (e.g. `opd:events/…`) and no span. A value read from a document
+has `doc`, `page`, `char_start`, `char_end` and `quote`. The schema validators enforce this (`basis=metadata` ⇔
+`route=metadata`, `source` required; span routes require a span). `tests/test_overlay.py` checks it on the committed P3
+output: 134 metadata values, all without a span, and 35 document values, all with one. The affair type
+(`AffairTypeV`: harmonised type + source label) is a plain metadata object without `Valued` provenance.

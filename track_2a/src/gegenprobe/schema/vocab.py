@@ -227,6 +227,12 @@ NULL_REASON_LABELS = {
         "assente da questo documento",
         "this document was read and does not contain the value (document-level; says nothing about other documents)",
     ),
+    "no_rules_for_body": L(
+        "keine Regeln für dieses Parlament",
+        "pas de règles pour ce parlement",
+        "nessuna regola per questo parlamento",
+        "the rules were never written for this parliament's layouts and found nothing; route the document to review",
+    ),
 }
 LINK_STATUS_LABELS = {
     "attached": L("am Geschäft angehängt", "attaché à l'objet", "allegato all'oggetto", "attached to the affair"),

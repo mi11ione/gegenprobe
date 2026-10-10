@@ -42,6 +42,9 @@ with a diff against the previous night (`WORK/nightly/state.json`).
   catches a slow drift that never crosses the 2-point nightly threshold.
 - `exports_stale`: OPD's `index.json` is older than `GP_STALE_DAYS` (default 2) days, i.e. the export job did not run and
   tonight's numbers describe old data. Not raised in offline mode.
+- `outbox_corrupt` / `state_corrupt`: `work/nightly/outbox.json` or `state.json` could not be parsed (edited by hand, disk
+  error). The file is moved aside to `<name>.corrupt-<UTC timestamp>` and the night continues; after `state_corrupt` it runs
+  as a first night (no night-over-night diff; in network mode every docs/texts body is re-scanned).
 
 Every alert carries the body key and its name (e.g. `5586 Lausanne`).
 
@@ -57,8 +60,11 @@ configured, 1 send failed).
 
 Alerts are delivered **before** the night's state is committed: they go to `WORK/nightly/outbox.json`, are sent, and leave
 the outbox only when the send succeeded. If the webhook or mail server is down, the job exits 1, the outbox stays, and the
-next night sends the old alerts with the new ones (`undelivered_from_previous_nights` in `alerts.json`). Nothing is lost by
-a failed send.
+next night sends the old alerts with the new ones (`undelivered_from_previous_nights` in `alerts.json`). A failed send does
+not drop an alert. The outbox and `state.json` are written atomically (temporary file in the same directory, fsync,
+rename), so a crash or a full disk mid-write leaves the previous file, not a truncated one; a file that is corrupt anyway is
+quarantined and reported (`outbox_corrupt` / `state_corrupt`) instead of failing every following night. The outbox lives in
+`work/`: deleting `work/` deletes undelivered alerts with it (they are still in that night's `results/alerts.json`).
 
 ## Measured cost
 
@@ -66,13 +72,23 @@ Compute on cached inputs (`make nightly-offline`; steps 5–7, no network), on t
 running: 233.0 s wall, of which 215.8 s is the census extraction. A second run on the same inputs reports 0 new BE repair rows
 and 0 alerts, as it should.
 
+What the 96.8 s night below is, and is not (`python -m gegenprobe.monitor.nightly cost` → `results/monitor/night_cost.json`):
+it is an **incremental night with nothing to re-scan**, measured on a local copy of the 6 Oct exports with a previous night's
+state on the same copy, so no docs/texts file had changed size and no body was re-scanned. It is wall time on the
+development Mac, not CPU time. A **full re-scan** of all 116 docs/texts exports (6.2 GB) takes about 25 min of one core
+(cited: the 8 Oct metadata scan, `spikes/recovery/results.md` §6). Between the 6 and 9 Oct snapshots 68 of 116 files
+(80.6% of the bytes) changed size; re-scanning those adds about 20.2 min, so a night after three days of OPD changes is
+about 21.8 min even with the exports read in place (derived: 96.8 s + 80.6% × 25 min; scanning is parsing-bound, so time
+scales with bytes).
+
 Transfer depends on where the job runs.
 
 - **At OpenParlData** the exports are local files written by OPD's own export job, so there is no transfer; the job adds the
   compute above plus the two canton GETs (~23 MB). Measured with `GP_EXPORTS_DIR` pointing at a local copy of the 6 Oct
-  exports (`results/monitor/run_local_exports.json`): 96.8 s wall for the whole night (index read, canton tables, census
-  extraction, rates, repair join, ledger), no body rescanned, 0 bytes of export transfer, peak memory 2,077.6 MB. The one
-  alert it raised was `exports_stale`, correctly: the copied index was four days old.
+  exports (`results/monitor/run_local_exports.json`): 96.8 s wall for a night with no changed docs/texts file (index read,
+  canton tables, census extraction, rates, repair join, ledger), no body rescanned, 0 bytes of export transfer, peak memory
+  2,077.6 MB. The one alert it raised was `exports_stale`, correctly: the copied index was four days old. Nights on which
+  OPD changed documents add the re-scan of the changed files (about 20.2 min for the 6→9 Oct changes, above).
 - **Outside OPD** the exports have to be downloaded. They are full dumps regenerated every night, not deltas. Between the
   2026-10-06 and 2026-10-09 snapshots, 68/116 docs/texts files changed size (5.0 of 6.2 GB), so the per-body skip in
   step 3 saves little over three days. The single-file exports are 137 MB. Parsing a full docs scan is about 25 min of one
@@ -89,12 +105,31 @@ The `index_diff.json` numbers come from `python -m gegenprobe.monitor.nightly in
 | OCR of image-only answer scans (`repair.ocr`) | 1,350 affairs | 1,350 × 3 pages × 6.9 s per page ≈ 7.8 h on one core, once |
 | BE fetch rows | 49 PDFs | about 1 min |
 
+## Verified in CI
+
+- `nightly-smoke` (`.github/workflows/ci.yml`): builds the Docker image and runs `python -m gegenprobe.monitor.smoke` in
+  it with the unit's container flags (`--read-only`, `--tmpfs /tmp`, uid 10001, `--cap-drop ALL`, `no-new-privileges`)
+  and `--network none`: three offline nights on synthetic fixture exports (two parliaments, Bern's two canton tables).
+  Night 1 is quiet (exit 0, 40 relink + 10 fetch rows); before night 2 the outbox is truncated, which must give
+  `outbox_corrupt`, a quarantined file and exit 3; night 3 loses 20 Zürich answer documents, which must give
+  `linking_rate_drop` and `document_count_drop` (exit 3). Locally: `make nightly-smoke` (seconds); the same run is a
+  pytest test (`tests/test_monitor_smoke.py`).
+- `systemd-units`: `systemd-analyze verify` on the Docker variant and on the venv variant, each together with the timer
+  and the failure notifier, under the name `install.sh` gives it (`gegenprobe-nightly.service`). On the runner the venv's
+  interpreter `/opt/gegenprobe/.venv/bin/python` is a symlink to the runner's python3, so verify can resolve it. The step
+  fails on a non-zero exit and on any unknown-key/ignored/invalid warning that names one of the units.
+
+Neither runs a real night against OPD under systemd on a server; that has not been done.
+
 ## Install
 
 `make install-nightly` (Linux, systemd, Docker, root) installs `deploy/nightly/gegenprobe-nightly.{service,timer}` and
 `gegenprobe-nightly-failure.service`: one container run every day at 07:30 Europe/Zurich, after OPD's exports (dated
 ~04:45 UTC), from a versioned image tag (`gegenprobe:0.1.0`, set in the unit as `GP_IMAGE`). State and outputs live under
-`/var/lib/gegenprobe`, never in the image; the container runs as uid 10001 with a 4 GB / 2 CPU ceiling. Without systemd
+`/var/lib/gegenprobe`, never in the image; the container runs as uid 10001 with a 4 GB / 2 CPU ceiling, a read-only root
+filesystem and a private 1 GB `/tmp` (tmpfs). `docker rm -f gegenprobe-nightly` runs before (`ExecStartPre=-`) and after
+(`ExecStopPost=-`) every night, so a container left over from a night killed at `TimeoutStartSec` cannot block the next one
+with a name conflict. Without systemd
 or root it prints the commands instead and exits 0. Without Docker: `sh deploy/nightly/install.sh --venv` creates the
 `gegenprobe` system user and `/var/lib/gegenprobe` and installs `gegenprobe-nightly-venv.service`, which runs the same job
 from a read-only checkout and a hash-pinned venv (`pip install --require-hashes -r requirements.lock`) with

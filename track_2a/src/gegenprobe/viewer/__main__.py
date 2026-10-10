@@ -24,6 +24,7 @@ TEMPLATE = Path(__file__).with_name("template.html")
 # and the research dataset with its column dictionary (copied from results/census/)
 SHIPPED = ("parliaments.csv", "missing.json", "interventions.tsv.gz", "interventions_README.md")
 DATASET = ("interventions.tsv.gz", "interventions_README.md")
+FONTS = "fonts"
 
 
 def render(data: dict, out: Path) -> Path:
@@ -36,6 +37,12 @@ def render(data: dict, out: Path) -> Path:
         for f in SHIPPED:
             if (SITE / f).exists():
                 (out / f).write_bytes((SITE / f).read_bytes())
+        # self-hosted fonts (OFL); the page references fonts/*.woff2 and makes no third-party request
+        if (SITE / FONTS).is_dir():
+            (out / FONTS).mkdir(exist_ok=True)
+            for f in (SITE / FONTS).iterdir():
+                if f.is_file():
+                    (out / FONTS / f.name).write_bytes(f.read_bytes())
     return p
 
 

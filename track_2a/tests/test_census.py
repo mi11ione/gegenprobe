@@ -45,6 +45,24 @@ def test_is_answer_doc(name, cat, flags, want):
     assert defs.is_answer_doc(name, cat, flags) is want
 
 
+@pytest.mark.parametrize(
+    "type_h, type_raw, want",
+    [
+        ("Question time", "Anfrage", True),
+        ("Question", "Fragestunde", True),
+        ("Question", "Question orale", True),
+        ("Interpellation", "Interpellation orale", True),
+        ("Question", "Mündliche Anfrage", True),
+        ("Question", "Heure des questions", True),
+        ("Question", "Interrogazione orale", True),
+        ("Question", "Kleine Anfrage", False),
+        ("Interpellation", "Interpellation", False),
+    ],
+)
+def test_is_question_time(type_h, type_raw, want):
+    assert defs.is_question_time(type_h, type_raw) is want
+
+
 def test_text_status():
     assert defs.text_status(None) == "null"
     assert defs.text_status("  ") == "blank"
@@ -124,13 +142,17 @@ def mini(tmp_path):
             [6, "ZH", "Postulate", "Postulat", "2024/6", "2024-03-01", "", "", "", ""],  # absent
             [7, "ZH", "Postulate", "Postulat", "2024/7", "2024-03-01", "", "", "", ""],  # not applicable
             [8, "ZH", "Report", "Bericht", "2024/8", "2024-03-01", "", "", "", ""],  # out of scope
+            [9, "GR", "Question time", "Fragestunde", "2024-9", "2024-03-01", "", "", "", ""],  # question time: oral
+            [10, "CHE", "Question time", "Fragestunde. Frage", "24.9", "2024-03-01", "", "", "", ""],  # written: absent
+            [11, "VD", "Question", "Question orale", "24_1", "2024-03-01", "", "", "", ""],  # raw label: oral
         ],
     )
     _w(
         d,
         "events",
         ["affair", "date", "hid", "title", "actor"],
-        [[a, "2024-04-01", 6, "Beantwortet", ""] for a in (1, 2, 3, 4, 5, 6)] + [[7, "2024-01-01", 1, "Eingereicht", ""]],
+        [[a, "2024-04-01", 6, "Beantwortet", ""] for a in (1, 2, 3, 4, 5, 6, 9, 11)]
+        + [[7, "2024-01-01", 1, "Eingereicht", ""], [10, "2024-04-01", None, "Schriftliche Beantwortung der Frage", ""]],
     )
     _w(d, "agendas", ["id", "affair"], [[900, 2]])
     _w(
@@ -166,9 +188,15 @@ def test_funnel_mini(mini):
         5: "image_only",
         6: "absent",
         7: "not_applicable",
+        9: "oral",
+        10: "absent",
+        11: "oral",
     }
-    s = funnel.summarise(res, aff)["national"]
-    assert (s["n"], s["ev_answer"], s["gap"], s["gap_after_agenda_join"]) == (7, 6, 5, 4)
+    summ = funnel.summarise(res, aff)
+    s = summ["national"]
+    # question-time typing changes the cause only: the gap still counts all three
+    assert (s["n"], s["ev_answer"], s["gap"], s["gap_after_agenda_join"]) == (10, 9, 8, 7)
+    assert summ["gap_oral_split"]["question_time"] == 2 and summ["gap_oral_split"]["vs_stub"] == 1
     assert res["parentless_docs_by_body"] == {"BE": 1, "ZH": 3}
 
 

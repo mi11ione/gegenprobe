@@ -7,7 +7,7 @@ is out of scope for operations (see `docs/converter.md`).
 
 | option | when | cost |
 |---|---|---|
-| **Inside OPD**, next to the export job | recommended | no download: `GP_EXPORTS_DIR` points at OPD's export directory and every exports URL is read from there. A full night measured that way took 96.8 s wall (no body changed, so no rescan; peak memory 2,077.6 MB) plus two canton GETs (~23 MB) |
+| **Inside OPD**, next to the export job | recommended | no download: `GP_EXPORTS_DIR` points at OPD's export directory and every exports URL is read from there. A night measured that way took 96.8 s wall (incremental best case on a copied snapshot: no docs/texts file changed, so no rescan; peak memory 2,077.6 MB) plus two canton GETs (~23 MB). A night that re-scans changed files takes longer: about 21.8 min after the 6→9 Oct changes (20.2 min of re-scan, derived; `results/monitor/night_cost.json`) |
 | A Swiss or EU VPS (e.g. 4 vCPU / 8 GB RAM / 20 GB disk at a Swiss provider) | if OPD prefers to keep it outside | the exports are full nightly dumps (6.2 GB; 68 of 116 docs/texts files changed between 6 and 9 Oct), so a night is roughly 30–40 min, mostly download and parsing |
 
 It needs Linux, systemd, and either Docker (`deploy/nightly/gegenprobe-nightly.service`) or a Python 3.11 venv with poppler
@@ -23,6 +23,7 @@ no account anywhere.
 | processes | pdftotext / pdftoppm / tesseract children | Docker `--pids-limit 256`; venv `TasksMax=256` |
 | disk | state under 1 GB (single exports ~80 MB, scan metadata ~56 MB, canton tables ~26 MB, nightly state and ledger ~26 MB, PDF cache); the 6.2 GB docs exports are streamed, never stored. 20 GB leaves room for the one-off backlogs | `/var/lib/gegenprobe` |
 | wall time | `TimeoutStartSec=4h` per night | systemd |
+| filesystem | Docker: read-only root (`--read-only`), private `/tmp` tmpfs of 1 GB (pdftoppm/tesseract scratch), writes only to the two mounted directories | Docker unit |
 
 A night killed for memory exits 137; raise `GP_MEM` / `MemoryMax`. The image never runs as root (uid 10001, all
 capabilities dropped, `no-new-privileges`); the venv unit runs as the `gegenprobe` system user that `install.sh --venv`
@@ -44,8 +45,9 @@ their own lines, because Docker's `--env-file` keeps a trailing `# …` as part 
 | `GP_STALE_DAYS` | 2 | alert when OPD's `index.json` is older than this |
 | `GP_ALERT_*` | unset | routing, see Alerts |
 
-**robots.txt** is honoured on every host. A host whose robots.txt answers 404/410 is allowed; one whose robots.txt cannot be
-read (DNS, timeout, 5xx after one retry, 401/403) is treated as **disallowed for that night** (fail-closed). It is logged to
+**robots.txt** is honoured on every host, following RFC 9309 §2.3.1. A robots.txt that answers any 4xx (401, 403, 404, 410,
+…; except 429) means "no restrictions", as the RFC specifies. One that cannot be read (DNS, timeout, 5xx or 429 after one
+retry) makes the host **disallowed for that night** (fail-closed). It is logged to
 the journal and listed in `run.json` (`robots_unreadable`); the rows it affects get `fetch_error` and are re-checked the next
 night. `api.openparldata.ch/v1/` is refused outright (its robots.txt disallows it).
 
@@ -99,12 +101,15 @@ writes one dated file per check (`results/repair/acceptance_<live|file>_<YYYY-MM
 | `be_ogd_answers_collapsed` | Bern's answer-document count fell to 0 or by half | the canton's OGD endpoint; do not apply new rows that night |
 | `rate_trend_drop` | a body's rate fell by > 5 points over the last 7 nights (slow drift below the nightly threshold) | that body's scraper changes over the week |
 | `exports_stale` | OPD's `index.json` is older than `GP_STALE_DAYS` (2) days | OPD's export job; the night's numbers describe old data |
+| `outbox_corrupt` / `state_corrupt` | the outbox or the night-over-night state could not be parsed; moved to `work/nightly/<name>.corrupt-<UTC>` | read the quarantined file for undelivered alerts; after `state_corrupt` the next night re-scans everything once |
 | unit failed (exit 1) | the job crashed, or the alert channel failed | `journalctl -u gegenprobe-nightly`; the next night retries from scratch |
 
 **Delivery before state.** Alerts are written to `work/nightly/outbox.json`, sent, and removed from the outbox only when
 the send succeeded; only then is the night's state committed. A webhook or mail server that is down costs nothing: the
 alerts stay in the outbox, the unit exits 1, and the next night sends them again (listed as
-`undelivered_from_previous_nights` in `alerts.json`). Exit codes: 0 quiet night, `GP_ALERT_EXIT` (default 3) alerts,
+`undelivered_from_previous_nights` in `alerts.json`). The outbox and `state.json` are written atomically (tmp + fsync +
+rename). A corrupt outbox or state file is moved to `<name>.corrupt-<UTC>` and reported (`outbox_corrupt` /
+`state_corrupt`); the night continues. Deleting `work/` deletes undelivered alerts too. Exit codes: 0 quiet night, `GP_ALERT_EXIT` (default 3) alerts,
 1 job or delivery failure. `python -m gegenprobe.monitor.notify test` exits 0 when sent, 2 when no channel is configured,
 1 when sending failed.
 
@@ -116,6 +121,9 @@ alerts stay in the outbox, the unit exits 1, and the next night sends them again
   every body's linking rate.
 - **An export is late or partial.** `exports_stale` / `document_count_drop` / `body_gone`; the job never deletes anything
   in OPD, it only writes lists.
+- **A night killed at the 4 h timeout (or by an OOM of dockerd).** The Docker unit removes the named container before and
+  after every run (`ExecStartPre=-`/`ExecStopPost=-/usr/bin/docker rm -f gegenprobe-nightly`), so the next night does not
+  fail on a name conflict.
 - **A hostile or broken document.** Downloads are capped (`GP_MAX_PDF_MB`), every pdftotext / pdftoppm / tesseract call has
   a timeout, and each document a time budget; a hit becomes a typed failure on that row (`too_large`, `text_timeout`,
   `TimeBudgetExceeded`), never a hung night. Network-type failures are retried the next night; `too_large`, `not_a_pdf`,
@@ -133,6 +141,18 @@ To freeze them, pin each package (`apt-get install poppler-utils=<version> …`,
 `snapshot.debian.org` for a fixed date. Keep the built image (by digest) rather than rebuilding when exact repeatability
 matters.
 
+**poppler in the image (decision, 10 Oct 2026): stay on bookworm's 22.12.** The committed P1/P2 model cache was built on
+the development Mac (poppler 26.02.0). The image's poppler-utils `22.12.0-2+deb12u3` extracts some documents differently,
+so the prompt hash differs and `make run` counts a cache miss (24 of 154 P1 documents in CI run 38043355800); a miss is
+reported, never scored. A newer poppler does not remove this: no Debian release ships 26.02 (trixie 13 has
+`25.03.0-5+deb13u4`, forky/testing and sid have 26.07.0; checked on packages.debian.org, 10 Oct 2026), so a trixie base
+would trade one version gap for another, change tesseract and the whole system layer at once, and testing/sid packages
+cannot be pinned for long. We keep the digest-pinned bookworm base and the recorded versions
+(`/usr/local/share/gegenprobe-apt-versions.txt`). To reproduce the cache exactly, run `make run` outside Docker with poppler
+26.02.0. The Apertus re-derivation budget is per set (`GP_REDERIVE_APERTUS_BUDGET`, default 180 s each for P1 and P2;
+before round 3 a shared 120 s let P1 use all of it and CI reached 0 of 62 P2 documents); worst case 240 + 2 × 180 s of
+re-derivation on top of the replay steps.
+
 **OCR language data differs from the measured setup.** The OCR numbers in `docs/repair.md` were measured with Tesseract
 5.5.3 and the tessdata_fast models at commit `8741641` (sha256 per language in `repair/ocr.py`, `TESSDATA_SHA256`). The
 image uses Debian's Tesseract (bookworm ships 5.3) with the `tesseract-ocr-{deu,fra,ita}` packages, which need not be
@@ -142,10 +162,19 @@ they differ, OCR output can differ in detail. To run with the measured models, d
 put them in one directory and set `TESSDATA_PREFIX` to it (Docker: mount it and pass `-e TESSDATA_PREFIX=…`). The nightly
 job reads text layers first and uses OCR only for image-only scans of new rows.
 
+## Checked in CI
+
+`.github/workflows/ci.yml` job `systemd-units` runs `systemd-analyze verify` on both unit variants with the timer and the
+failure notifier; job `nightly-smoke` builds the image and runs three offline nights on fixture exports inside it with the
+unit's container flags and no network (`docs/nightly.md` "Verified in CI"). A real night under systemd on a server has not
+been run.
+
 ## Swiss / EU hosting
 
 The job processes only public parliamentary data and sends nothing anywhere unless an alert channel is configured by the
 operator. It runs on any Swiss or EU Linux host; nothing in it depends on a particular provider.
+The evidence viewer is static files only and makes no third-party request: its two fonts are served from `site/fonts/`
+(SIL OFL 1.1), not from Google Fonts.
 
 ## Supply chain
 

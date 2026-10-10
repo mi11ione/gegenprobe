@@ -67,10 +67,11 @@ def numbers() -> dict:
     other_rest = dec["other_doc_present_no_text"] - r["by_action"]["retype_oral"] - ocr_non_be
     che_rest = dec["CHE"] - cu["substantive"][0]
     gap = {
-        "needs_adapters": dec["other_no_answer_doc"],
+        "needs_adapters": dec["other_no_answer_doc"] - dec.get("other_no_answer_doc_question_time", 0),
         "be_relink": be["relink"],
         "ocr": ocr_non_be,
         "vs_oral": r["by_action"]["retype_oral"],
+        "question_time_oral": dec.get("other_no_answer_doc_question_time", 0),
         "agenda_join": s["agenda_rejoin_in_gap"],
         "che_formula_or_nothing": che_rest,
         "be_fetch": be["fetch"],
@@ -107,6 +108,7 @@ def fig1(n: dict) -> None:
         ("Image-only answer scans: OCR (deu+fra+ita)", g["ocr"], AQUA, "ocr"),
         ("VS: retype as oral answer (not missing)", g["vs_oral"], ORANGE, "oral"),
         ("Answer filed under an agenda item: in-corpus join", g["agenda_join"], BLUE, "det"),
+        ("Question time answered in the sitting: oral (not missing)", g["question_time_oral"], ORANGE, "oral"),
         ("CHE: Curia Vista has only a formula or nothing", g["che_formula_or_nothing"], GRAY_LIGHT, "none"),
         ("BE: fetch the answer from the canton", g["be_fetch"], BLUE, "det"),
         ("Other: answer document without text", g["other_doc_no_text_rest"], GRAY_LIGHT, "none"),

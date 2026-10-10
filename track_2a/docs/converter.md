@@ -103,8 +103,8 @@ rule, with its evidence), `fields` (a flat reviewer view: value or typed null, `
 char span, `quote` = the exact span text, `context` = the anchor phrase through the end of the date's line, ≤ 200
 characters), `needs_review`, `review_suggestion` (review mode only), and `record` (the validated schema v0.1
 `DocExtraction`; its values also carry `rule` and, for dates, `decision_number`). A document that cannot be fetched or
-read gives a typed failure row instead of a traceback: `robots_disallowed`, `http_error`, `timeout`, `network_error`,
-`not_a_pdf`, `sha_mismatch`, `file_not_found`, `text_failed`. Review mode refuses to run without a θ fitted for the exact
+read gives a typed failure row instead of a traceback: `robots_disallowed`, `robots_unreachable`, `http_error`, `timeout`,
+`network_error`, `not_a_pdf`, `sha_mismatch`, `file_not_found`, `text_failed`, `too_large`, `text_timeout`. Review mode refuses to run without a θ fitted for the exact
 build and lists the fitted builds. User guide, field glossary and null reasons in plain words: `docs/convert-your-own.md`.
 
 **Review aids (round 2).** Every answer-date field carries `candidates` (the closed set: every printed date with page,
@@ -116,10 +116,36 @@ recommendations carry `multiple_recommendations`; `--opd-text` adds `opd_text_sp
 queue sorted strongest first. Rule coverage for routing: `data/convert/rules_coverage.json`. All computed by
 `python -m gegenprobe.convert.precision` from committed result rows; no new labels, no model call.
 
+**Overlay after the frozen rules (round 3, `convert/overlay.py`).** The overlay is applied in `batch.convert_pages`
+after the cascade has decided. The locked modules are not touched, and the evaluation scripts call those modules
+directly, so no registered number changes. It does five things:
+
+- **Rule coverage per body.** A `--body` outside `rules_coverage.json` prints a warning on stderr. Open fields become
+  `null_reason: no_rules_for_body` (a new schema null reason, routes rule / ocr+rule) instead of `present_unanchored`.
+  Values found by a frozen rule are kept but flagged, and the row is `needs_review`.
+- **Recommendation qualifiers.** A partial qualifier after a frozen accept or reject match (`partiellement`, `en partie`,
+  `teilweise (erheblich)`, `partiell`, `parzialmente`, `in parte`) gives `partial`, with rule
+  `rec_<label>+qualifier_partial` and the quote extended to the qualifier. Conditional or modified-wording qualifiers
+  (`im Sinne der Erwägungen`, `mit geändertem Wortlaut`, `Nichteintreten`, `sous réserve`, …) keep the value and flag it.
+  Per-point recommendations are left to `multiple_recommendations`.
+- **Heading proximity.** When the rules return `heading_without_date`, a date printed within 80 characters after an
+  executive answer heading is moved to `candidates[0]` (`suggested_by_heading_proximity`) and the row is flagged. The
+  date may only be separated from the heading by the rest of the heading line and at most one line break, and the
+  heading must not name the instrument. The field is not filled.
+- **User anchors** (`--anchors FILE`, JSON, per body). These are tried only after a null from the frozen rules. Values get
+  `route: user_anchor` (a new schema route that requires a span) and `rule: user_anchor:<id>`. Example:
+  `docs/examples/anchors_SG.json`.
+- **`--explain`.** It replays the frozen rule order read-only and says per rule why it did not decide; it also prints the
+  cache path. On the 3,398 cached documents the replayed `fired` step equals the frozen result 3,398/3,398.
+
+robots.txt follows RFC 9309 (`net.py`): a 4xx means "no restrictions". A 5xx, a 429 or a network error fails closed,
+as the typed failure `robots_unreachable`. A real Disallow is `robots_disallowed`.
+
 ## Commands
 ```
 python -m gegenprobe convert <pdf|url> [--mode review --backend gguf]   # one document
 python -m gegenprobe convert --batch inputs.tsv --out results.jsonl       # many, resumable
+python -m gegenprobe convert answer.pdf --body SG --anchors docs/examples/anchors_SG.json --explain
 make convert                     # spike replay, dev rules, tests (no model)
 make gold-heldout gold-candidates
 make theta BACKEND=gateway:swiss-ai/apertus-v1.5-8b:2a-theta:1.0      # model run: fit θ on dev (the -8b name serves the 70B)

@@ -21,7 +21,7 @@ from pathlib import Path
 
 from .. import pdftext
 from ..paths import PDF_CACHE
-from . import cascade, modes, output, pointer, rules
+from . import cascade, modes, output, overlay, pointer, rules
 
 INPUT_KEYS = ("source", "opd_doc_id", "body", "affair_number", "affair_type", "lang")
 STOP = {
@@ -106,7 +106,8 @@ def resolve_review(spec: str, theta_override: float | None = None):
 
 # --------------------------------------------------------------------------------------------------- conversion
 def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: bool, inp: dict, mode: str = "rules_only",
-                  backend=None, theta: float | None = None, url: str | None = None) -> dict:
+                  backend=None, theta: float | None = None, url: str | None = None, anchors: dict | None = None,
+                  explain: bool = False) -> dict:
     from ..schema import schema_v0_1 as schema
 
     lang = inp.get("lang") or guess_lang("\n".join(pages))
@@ -117,6 +118,74 @@ def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: boo
     ad = modes.answer_date(doc, mode, backend, theta, use_metadata=False)
     suggestion = ad.pop("suggestion", None)
     rec["fields"]["answer_date"] = {k: v for k, v in ad.items() if k not in ("mode", "needs_review")}
+    # ---- unlocked overlay (convert/overlay.py): runs on the frozen result, never inside it
+    flags: dict[str, str] = {}  # field -> why a person must look at it
+    traces: dict[str, list] = {}
+    cov = overlay.coverage(inp.get("body"), anchors)
+    specs = overlay.anchors_for(anchors, inp.get("body"))
+    afile = (anchors or {}).get("file")
+    fa = rec["fields"]["answer_date"]
+    if explain:
+        traces["answer_date"] = overlay.trace_answer_date(pages, image_only)
+        traces["recommendation"] = overlay.trace_recommendation(pages, inp.get("affair_type"))
+    if fa.get("value") is None and fa.get("residue") and specs.get("answer_date"):
+        hit, tr = overlay.apply_date_anchors(pages, specs["answer_date"], afile)
+        traces.setdefault("answer_date", []).extend(tr)
+        if hit:
+            if hit.pop("needs_review"):
+                flags["answer_date"] = hit.pop("review_reason")
+            rec["fields"]["answer_date"] = fa = hit
+            if suggestion and suggestion.get("value") == hit["value"]:
+                suggestion = None  # Apertus agrees with the user's anchor: nothing to review
+            elif suggestion:
+                flags.setdefault("answer_date", "Apertus suggests a different date than your anchor")
+    heading = None
+    if fa.get("value") is None and fa.get("rule") == "heading_without_date":
+        heading = overlay.heading_date(pages)
+        if heading:
+            flags["answer_date"] = (f"answer heading '{heading['heading']}' is followed by the date {heading['quote']!r}, "
+                                    "but no frozen rule anchors this layout: check candidates[0] "
+                                    "(suggested_by_heading_proximity); the field is not filled")
+            traces.setdefault("answer_date", []).append(dict(
+                step="heading proximity", result=f"date {heading['value']} at p{heading['page']}"
+                f"[{heading['char_start']}:{heading['char_end']}] right after '{heading['heading']}' (not written)"))
+        else:
+            traces.setdefault("answer_date", []).append(dict(step="heading proximity",
+                                                             result="no date right after an answer heading"))
+    fr = rec["fields"].get("recommendation")
+    if fr is not None and fr.get("value") is not None and fr.get("route") in ("rule", "ocr+rule"):
+        q = overlay.qualify_recommendation(pages, fr)
+        if q:
+            t = pages[fr["page"] - 1]
+            fr.update(value=q["value"], char_end=q["char_end"], quote=re.sub(r"\s+", " ", t[fr["char_start"]:q["char_end"]]),
+                      qualifier=q["qualifier"], rule=fr["rule"] + ("+qualifier_partial" if q["value"] == "partial" else ""))
+            if q["needs_review"]:
+                flags["recommendation"] = q["reason"]
+        traces.setdefault("recommendation", []).append(dict(
+            step="qualifier", result=(f"'{q['qualifier']['text']}' -> {q['qualifier']['effect']}" if q else
+                                      "no qualifier (partiellement, teilweise, im Sinne der Erwägungen, ...) in the sentence")))
+    elif fr is not None and fr.get("value") is None and fr.get("null_reason") == "present_unanchored" and \
+            specs.get("recommendation"):
+        hit, tr = overlay.apply_rec_anchors(pages, specs["recommendation"], afile)
+        traces.setdefault("recommendation", []).extend(tr)
+        if hit:
+            if hit.pop("needs_review"):
+                flags["recommendation"] = hit.pop("review_reason")
+            rec["fields"]["recommendation"] = fr = hit
+    if cov["status"] in ("not_covered", "user_anchors"):
+        for name in ("answer_date", "recommendation"):
+            f = rec["fields"].get(name)
+            if f is None:
+                continue
+            if f.get("value") is None and f.get("null_reason") == "present_unanchored":
+                rec["fields"][name] = dict(f, null_reason="no_rules_for_body",
+                                           evidence=f"{f.get('rule')}; body {cov['body']} is not in rules_coverage.json")
+                flags.setdefault(name, f"no frozen rules for body {cov['body']} and none of them fired: "
+                                       "read the document or use review mode / --anchors")
+            elif f.get("value") is not None and f.get("route") in ("rule", "ocr+rule"):
+                q = f" (overlay qualifier '{f['qualifier']['text']}' -> {f['value']})" if f.get("qualifier") else ""
+                flags.setdefault(name, f"frozen rule {f.get('rule', '').split('+')[0]} fired{q} on body {cov['body']}, "
+                                       "whose layouts the rules were never written or measured on")
     role = output.doc_role(pages, rec["fields"]["answer_date"])
     record = schema.from_converter(rec, pages, dict(
         source="opd" if inp.get("opd_doc_id") else "other", url=url, language=lang, n_pages=len(pages),
@@ -132,13 +201,15 @@ def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: boo
               for name in ("answer_date", "recommendation", "related_affair") if rec["fields"].get(name) is not None}
     # the closed set a reviewer chooses from, with Apertus' probability shares in review mode
     shares = None
-    if mode == "review" and backend is not None and theta is not None and rec["fields"]["answer_date"].get("residue"):
+    if mode == "review" and backend is not None and theta is not None and ad.get("residue"):
         p = pointer.answer_date(backend, pages, lang, theta, anchors=rules.anchors(pages))
         shares = output.pointer_shares(p)
     ad_field = fields.get("answer_date")
     if ad_field is not None:
         chosen = ad_field.get("value") or (suggestion or {}).get("value")
         ad_field["candidates"] = output.date_candidates(pages, chosen, shares)
+        if heading:
+            _promote_heading_candidate(ad_field["candidates"], heading, pages)
         if shares is not None:
             ad_field["null_share"] = round(shares.get(None, 0.0), 4)
     if suggestion:
@@ -147,12 +218,36 @@ def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: boo
         rp = output.recommendation_phrases(pages)
         fields["recommendation"]["recommendation_phrases"] = rp["labels"]
         fields["recommendation"]["multiple_recommendations"] = rp["multiple"]
-    return dict(status="ok", input=inp, mode=mode, language=lang, doc_role=role, fields=fields,
-                needs_review=bool(suggestion), review_suggestion=suggestion, record=rd)
+    for name, why in flags.items():
+        if fields.get(name) is not None:
+            fields[name].update(needs_review=True, review_reason=why)
+    reasons = [dict(field=n, reason=w) for n, w in flags.items()]
+    if suggestion:
+        reasons.append(dict(field="answer_date", reason="Apertus suggests a value for what the rules left open"))
+    row = dict(status="ok", input=inp, mode=mode, language=lang, doc_role=role, fields=fields,
+               needs_review=bool(suggestion) or bool(flags), review_reasons=reasons, review_suggestion=suggestion,
+               rules_coverage=cov, record=rd)
+    if explain:
+        row["explain"] = dict(cache=overlay.cache_info(), rules_coverage=cov, **traces)
+    return row
+
+
+def _promote_heading_candidate(cands: list[dict], h: dict, pages: list[str]) -> None:
+    """Move the date printed right after the answer heading to the front, with the heading's occurrence as its span."""
+    ctx = output.anchor_context(pages, h["page"], h["char_start"], h["char_end"], before=100, limit=160)
+    for i, c in enumerate(cands):
+        if c["value"] == h["value"]:
+            c = cands.pop(i)
+            break
+    else:
+        c = dict(value=h["value"], occurrences=1)
+    c.update(page=h["page"], char_start=h["char_start"], char_end=h["char_end"], context=ctx,
+             suggested_by_heading_proximity=True, heading=h["heading"])
+    cands.insert(0, c)
 
 
 def convert_one(source: str, inp: dict | None = None, *, mode: str = "rules_only", backend=None, theta=None,
-                timeout: int = 60, tries: int = 2) -> dict:
+                timeout: int = 60, tries: int = 2, anchors: dict | None = None, explain: bool = False) -> dict:
     inp = {k: v for k, v in dict(source=source, **(inp or {})).items() if v not in (None, "")}
     try:
         sha, path = get_document(source, timeout=timeout, tries=tries)
@@ -166,7 +261,7 @@ def convert_one(source: str, inp: dict | None = None, *, mode: str = "rules_only
         return output.failure_row(kind, reason, inp)
     url = source if re.match(r"https?://", source) else None
     return convert_pages(t["pages"], sha=sha, extractor=t["extractor"], image_only=t["image_only"], inp=inp, mode=mode,
-                         backend=backend, theta=theta, url=url)
+                         backend=backend, theta=theta, url=url, anchors=anchors, explain=explain)
 
 
 # --------------------------------------------------------------------------------------------------- batch
@@ -193,7 +288,8 @@ def row_key(inp: dict) -> str:
 
 
 def run_batch(inputs: list[dict], out_path: str | None, *, mode: str = "rules_only", backend=None, theta=None,
-              retry_failed: bool = False, timeout: int = 60, tries: int = 2) -> dict:
+              retry_failed: bool = False, timeout: int = 60, tries: int = 2, anchors: dict | None = None,
+              explain: bool = False) -> dict:
     """Append one JSONL row per input; skip inputs already in out_path (failed ones too, unless retry_failed)."""
     done = {}
     if out_path and Path(out_path).exists():
@@ -202,6 +298,7 @@ def run_batch(inputs: list[dict], out_path: str | None, *, mode: str = "rules_on
                 r = json.loads(line)
                 done[row_key(r["input"])] = r["status"]
     counts: dict[str, int] = {}
+    warned: set = set()
     sink = open(out_path, "a", encoding="utf-8") if out_path else sys.stdout
     try:
         for inp in inputs:
@@ -210,7 +307,11 @@ def run_batch(inputs: list[dict], out_path: str | None, *, mode: str = "rules_on
                 counts["skipped (already done)"] = counts.get("skipped (already done)", 0) + 1
                 continue
             row = convert_one(inp["source"], {x: inp.get(x) for x in INPUT_KEYS if x != "source"}, mode=mode,
-                              backend=backend, theta=theta, timeout=timeout, tries=tries)
+                              backend=backend, theta=theta, timeout=timeout, tries=tries, anchors=anchors, explain=explain)
+            cov = row.get("rules_coverage")
+            if cov and cov.get("body") not in warned and overlay.coverage_warning(cov):
+                warned.add(cov.get("body"))
+                print(overlay.coverage_warning(cov), file=sys.stderr)
             sink.write(json.dumps(row, ensure_ascii=False) + "\n")
             sink.flush()
             counts[row["status"]] = counts.get(row["status"], 0) + 1
@@ -226,8 +327,10 @@ BAND_ORDER = {"strong": 0, "weak": 1}
 
 
 def write_queue(rows_path: str, queue_path: str) -> int:
-    """Review queue: every row that carries a suggestion, strongest first (band, then margin ascending), so a reviewer
-    starts with the suggestions most likely to be right (measured per band, results/convert/band_precision.json)."""
+    """Review queue: every row that needs review (an Apertus suggestion, or a flag from the overlay: uncovered body,
+    qualified recommendation, date next to a heading, ...), suggestions strongest first (band, then margin ascending), so
+    a reviewer starts with the suggestions most likely to be right (results/convert/band_precision.json); flagged rows
+    without a suggestion follow."""
     rows = [json.loads(x) for x in open(rows_path, encoding="utf-8") if x.strip()]
     q = [r for r in rows if r.get("status") == "ok" and r.get("needs_review")]
 

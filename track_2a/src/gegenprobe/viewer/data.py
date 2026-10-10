@@ -338,13 +338,39 @@ def _pc(k: int, n: int) -> str:
     return "under 1%" if 0 < v < 1 else f"{v:.0f}%"
 
 
+COVERAGE_MIN = 20  # written-answer events needed before a body's answer numbers mean anything (the same 20 as elsewhere)
+COVERAGE_SHARE = 0.1  # ... and below this share of the body's in-scope interventions, a coverage gap rather than a small body
+
+
+def coverage_of(n_in_scope: int, written: int) -> str:
+    """measured: >= 20 written-answer events (all years). coverage_gap: OPD holds >= 20 in-scope interventions but records a
+    written government answer for fewer than 20 of them and for under 10% of them, so the answer question cannot be asked of
+    OPD for this body (a gap in the aggregator's coverage of answer events, not evidence about the parliament). few: the
+    rest with fewer than 20 written answers.
+    no_affairs: no in-scope interventions (the body publishes meeting documents only)."""
+    if written >= COVERAGE_MIN:
+        return "measured"
+    if n_in_scope == 0:
+        return "no_affairs"
+    return "coverage_gap" if n_in_scope >= COVERAGE_MIN and written < COVERAGE_SHARE * n_in_scope else "few"
+
+
 def safe_say(r: dict) -> str:
     """One sentence a journalist can quote, with its caveat, generated from the row (never typed by hand)."""
     a, n = r["periods"]["all"], r["periods"]["y2425"]
-    if a["written"] < 20:
+    cov = r.get("coverage") or coverage_of(r["n"], a["written"])
+    if cov == "no_affairs":
+        return ("OpenParlData holds no interventions of the census types for this parliament (only meeting documents), so "
+                "nothing can be said about its answers from OPD.")
+    if cov == "coverage_gap":
+        return (f"OpenParlData holds {r['n']:,} interventions for this parliament but records a written government answer for "
+                f"{'none' if a['written'] == 0 else a['written']} of them: a gap in OPD's coverage of answers, not evidence that "
+                "the parliament leaves questions unanswered; ask OPD and the parliament before writing about it.")
+    if cov == "few":
         return f"Too few written answers in OPD ({a['written']}) to say anything about this parliament."
     miss = lambda c: c["written"] - c["attached"]  # noqa: E731
     out = []
+    pick = n if n["written"] >= 20 else a
     if n["written"] >= 20:
         out.append(
             f"In 2024–25, {miss(n):,} of {n['written']:,} written government answers ({_pc(miss(n), n['written'])}) have no "
@@ -359,20 +385,35 @@ def safe_say(r: dict) -> str:
             f"Over all years, {miss(a):,} of {a['written']:,} written answers ({_pc(miss(a), a['written'])}) have no answer text "
             f"attached in OpenParlData; 2024–25 has too few to compare"
         )
-    m = max(1, miss(a))
+    # oral answers (question time, VS oral-answer stubs) first, in the period quoted: they are not missing
+    mp = miss(pick)
+    oral_said = False
+    if mp >= 5 and pick["oral"] >= 0.3 * mp:
+        oral_said = True
+        what = "an oral-answer note filed in place of a text" if r["key"] == "VS" else "question time"
+        rest, base = mp - pick["oral"], pick["written"] - pick["oral"]
+        lead = "all of these" if pick["oral"] == mp else f"{pick['oral']:,} of these {mp:,}"
+        out.append(
+            f"{lead} were answered orally in the sitting ({what}), so they are not missing"
+            + (": every answer given in writing has its text attached" if rest == 0 else
+               f"; of the {base:,} answers given in writing, {rest:,} ({_pc(rest, base)}) lack text")
+        )
+    m = max(1, miss(a) - (a["oral"] if oral_said else 0))
+    the = "the other" if oral_said else "the"
     if m < 20:
         pass
     elif a["parentless"] + a["agenda"] > 0.5 * m:
         out.append(
-            "most of the missing answers are in OpenParlData but not linked to their intervention, an aggregator issue "
+            f"most of {the} missing answers are in OpenParlData but not linked to their intervention, an aggregator issue "
             "that OPD has confirmed, not the parliament's"
         )
-    elif a["oral"] > 0.3 * m:
+    elif a["oral"] > 0.3 * m and not oral_said:
         out.append("many 'missing' answers were given orally, so they are not missing")
     elif a["image_only"] > 0.3 * m:
-        out.append("most of the missing answers are scans without a text layer, which OCR recovers")
+        out.append(f"most of {the} missing answers are scans without a text layer, which OCR recovers")
     elif a["absent"] > 0.5 * m:
-        out.append("the missing answers are not in OpenParlData; whether the parliament publishes them elsewhere was not checked")
+        out.append(f"{the} missing answers are not in OpenParlData; whether the parliament publishes them elsewhere was not "
+                   "checked")
     if r["median"]["flag"] == "same_day":
         out.append("its 'answer' dates in OPD mostly equal submission dates, so answer times cannot be computed")
     return "; ".join(out) + "."
@@ -438,7 +479,9 @@ def parliaments() -> dict:
     extras = research_extras()
     for r in rows:
         ex = extras["bodies"].get(r["key"], {})
-        r["median"]["by_type"] = ex.get("by_type", {})
+        r["coverage"] = coverage_of(r["n"], r["periods"]["all"]["written"])
+        # answer times within one intervention type, per period (census rule; n >= 10; IQR); hidden for same-day bodies
+        r["times"] = {} if r["median"]["flag"] == "same_day" else ex.get("times", {})
         r["median"]["days_alt"] = ex.get("median_alt")
         r["trust"] = extras["trust"].get(r["key"], {})
         for c in r["periods"].values():
@@ -505,11 +548,22 @@ def parliaments() -> dict:
         n_bodies=len(rows),
         periods=PERIOD_LABEL,
         bern_numbers=bern_numbers(rows),
+        coverage=dict(
+            definition="coverage gap: OPD holds >= 20 in-scope interventions for the body but records a written "
+            "government answer for fewer than 20 of them and for under 10% of them (all years); no_affairs: no in-scope "
+            "interventions; few: the rest with fewer than 20 written answers",
+            gaps=[dict(key=r["key"], label=r["label"], level=r["level"], n=r["n"], written=r["periods"]["all"]["written"])
+                  for r in sorted(rows, key=lambda r: -r["n"]) if r["coverage"] == "coverage_gap"],
+            counts=dict(collections.Counter(r["coverage"] for r in rows)),
+        ),
+        types=list(TYPE_ORDER),
         missing={k: v["missing"] for k, v in extras["bodies"].items()},  # split off into site/missing.json by `collect`
         research=extras["meta"],
     )
 
 
+TIMES_MIN = 10  # durations needed for a per-type median
+TYPE_ORDER = ("Interpellation", "Question", "Motion", "Postulate", "Question time")  # the site's type selector
 LINK_CODE = {"agenda": "a", "parentless": "p", "image_only": "s", "oral": "o", "absent": "x"}
 
 
@@ -531,15 +585,22 @@ def research_extras() -> dict:
             b["missing"].append([r["number"], int(r["affair_id"]), LINK_CODE.get(r["link_status"], "x"),
                                  int(r["year"]) if r["year"] else None, r["source_url"]])
         if r["days_to_answer"] != "":
-            b["days"][r["type"]].append(int(r["days_to_answer"]))
+            y = int(r["year"]) if r["year"] else None
+            for per in PERIODS:
+                if _in(y, per):
+                    b["days"][(per, r["type"])].append(int(r["days_to_answer"]))
     out = {}
     for k, b in bodies.items():
-        by_type = {t: dict(median=statistics.median(v), n=len(v)) for t, v in sorted(b["days"].items()) if len(v) >= 10}
+        times: dict = {}
+        for (per, t), v in sorted(b["days"].items()):
+            if len(v) >= TIMES_MIN:
+                q = statistics.quantiles(v, n=4)
+                times.setdefault(per, {})[t] = dict(median=statistics.median(v), q1=q[0], q3=q[2], n=len(v))
         b["missing"].sort(key=lambda m: (-(m[3] or 0), m[0]))
         pre = os.path.commonprefix([m[4] for m in b["missing"] if m[4]]) if b["missing"] else ""
         for m in b["missing"]:
             m[4] = m[4][len(pre):] if m[4] else None
-        out[k] = dict(missing=dict(prefix=pre, rows=b["missing"]), by_type=by_type,
+        out[k] = dict(missing=dict(prefix=pre, rows=b["missing"]), times=times,
                       median_alt=trust["bodies"].get(k, {}).get("median_days_alt"))
     alt = json.loads((RESULTS / "census" / "answer_rule_alt.json").read_text())
     meta = dict(rows=alt["rows"], rows_changed_alt=alt["rows_changed"], tier_counts=trust["tier_counts"],
@@ -598,7 +659,8 @@ def write_csv(par: dict, path) -> None:
         "with_text",
         "after_repair",
     ]
-    head = cols + [f"{p}_{c}" for p in PERIODS for c in per_cols] + ["median_days", "median_flag", "safe_to_say"]
+    head = (cols + [f"{p}_{c}" for p in PERIODS for c in per_cols] + ["median_days", "median_flag", "safe_to_say", "coverage"]
+            + [f"{p}_median_days_interpellation" for p in PERIODS])
     with open(path, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(head)
@@ -607,7 +669,8 @@ def write_csv(par: dict, path) -> None:
             for p in PERIODS:
                 c = r["periods"][p]
                 vals += [round(c[x], 4) if isinstance(c[x], float) else c[x] for x in per_cols]
-            w.writerow(vals + [r["median"]["days"], r["median"]["flag"] or "", r["safe_say"]])
+            ti = [r["times"].get(p, {}).get("Interpellation", {}).get("median", "") for p in PERIODS]
+            w.writerow(vals + [r["median"]["days"], r["median"]["flag"] or "", r["safe_say"], r["coverage"]] + ti)
 
 
 def _git(*args) -> str:

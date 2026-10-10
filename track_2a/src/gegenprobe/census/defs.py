@@ -90,6 +90,24 @@ MIN_TEXT_CHARS = 50
 # Shorter `_ANT` texts (5-48 chars) are page furniture of failed extractions, not stubs, and stay `image_only`.
 VS_ORAL_STUB_LEN = (80, 95)
 
+# Question time (cause typing only; does not change the gap count). An intervention filed as question time is answered by
+# the government in the sitting; the answer is in the session minutes, not in a separate answer document. Such an affair in
+# the gap with no answer document anywhere in OPD is typed `oral`, like the VS stubs, unless one of its answer events says
+# the answer was given in writing (federal 'Schriftliche Beantwortung der Frage'). Matched on OPD's harmonised type or on
+# the parliament's own type label (Fragestunde / heure des questions / ora delle domande / question orale / mündliche Anfrage).
+QUESTION_TIME_TYPE = "Question time"
+QUESTION_TIME_RAW = re.compile(
+    r"fragestunde|heure des questions|ora delle domande|question time|questions? orales?|interpellations? orales?|"
+    r"domand[ae] oral[ei]|interrogazion[ei] oral[ei]|m[üu]ndliche (anfrage|frage|interpellation)",
+    re.I,
+)
+WRITTEN_EXPLICIT = re.compile(r"schriftlich|par [ée]crit|per iscritto", re.I)
+
+
+def is_question_time(type_h: str | None, type_raw: str | None) -> bool:
+    return type_h == QUESTION_TIME_TYPE or bool(QUESTION_TIME_RAW.search(type_raw or ""))
+
+
 # BE canton document uid inside OPD doc URLs (…/<32 hex>-332/… or …-332.pdf)
 BE_UID = re.compile(r"/([0-9a-f]{32})-\d+(?:/|\.pdf)")
 BE_ANSWER_NAME = re.compile(r"RRB|antwort|r[ée]ponse|ACE", re.I)

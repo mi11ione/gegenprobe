@@ -146,3 +146,32 @@ def test_workbench_queue_and_p2_profile():
     for s in ("Not in OpenParlData ≠ not published by the parliament", "demo on held-out documents", 'id="bern-numbers"',
               "not a ranking"):
         assert s in html, s
+
+
+# ---- round 3: self-hosted fonts, coverage gaps, answer times within one type, oral question time in "safe to say"
+def test_fonts_self_hosted(tmp_path):
+    from gegenprobe.viewer.__main__ import TEMPLATE
+
+    html = TEMPLATE.read_text(encoding="utf-8")
+    assert "fonts.googleapis" not in html and "fonts.gstatic" not in html
+    urls = set(re.findall(r'url\("(fonts/[^"]+)"\)', html))
+    assert urls and all((SITE / u).exists() for u in urls), urls
+    assert all((SITE / "fonts" / f).exists() for f in ("OFL-Archivo.txt", "OFL-IBM-Plex-Mono.txt", "SOURCES.txt"))
+    render(json.loads((SITE / "data.json").read_text(encoding="utf-8")), tmp_path)
+    assert all((tmp_path / u).exists() for u in urls), "build --out DIR ships the fonts next to index.html"
+
+
+def test_coverage_gaps_and_times_within_type():
+    p = json.loads((SITE / "data.json").read_text(encoding="utf-8"))["parliaments"]
+    rows = {r["key"]: r for r in p["rows"]}
+    for k in ("SZ", "UR", "GL", "AI", "GE"):
+        assert rows[k]["coverage"] == "coverage_gap", k
+        assert "coverage" in rows[k]["safe_say"], k
+    assert {g["key"] for g in p["coverage"]["gaps"]} >= {"SZ", "UR", "GL", "AI", "GE"}
+    assert all(r["coverage"] == "measured" for r in rows.values() if r["periods"]["all"]["written"] >= 20)
+    assert p["types"][0] == "Interpellation"
+    be = rows["BE"]["times"]["all"]["Interpellation"]
+    assert be["n"] >= 10 and be["q1"] <= be["median"] <= be["q3"]
+    assert rows["VS"]["times"] == {}, "same-day bodies show no answer time"
+    gr = rows["GR"]
+    assert gr["periods"]["y2425"]["oral"] == 62 and "orally in the sitting (question time)" in gr["safe_say"]

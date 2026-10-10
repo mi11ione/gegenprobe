@@ -11,7 +11,7 @@ census.bodies_with_affairs	89	results/census/matrix.json	n_bodies	int	make censu
 census.bodies_in_scope	86	results/census/summary.json	n_bodies_in_scope	int	make census	-
 census.link_parentless_be	2,459	results/census/summary.json	link_status.parentless	int	make census	-
 census.link_image_only	1,352	results/census/summary.json	link_status.image_only	int	make census	-
-census.link_absent	11,330	results/census/summary.json	link_status.absent	int	make census	-
+census.link_absent	10,924	results/census/summary.json	link_status.absent	int	make census	-
 census.vs_oral_stubs	1,016	results/census/summary.json	gap_prime_decomposition.other_vs_oral_stub	int	make census	-
 census.other_no_answer_doc	11,206	results/census/summary.json	gap_prime_decomposition.other_no_answer_doc	int	make census	README.md,technical_report.md,docs/form_notes.md
 census.other_doc_no_text	2,366	results/census/summary.json	gap_prime_decomposition.other_doc_present_no_text	int	make census	-
@@ -33,7 +33,7 @@ matrix.gov_rec_pdf_bodies	56	results/census/matrix.json	fields.government_recomm
 matrix.related_affairs_pdf_bodies	76	results/census/matrix.json	fields.related_affairs.status_counts.pdf	int	make census	-
 matrix.type_meta_bodies	61	results/census/matrix.json	fields.type.status_counts.metadata	int	make census	-
 matrix.qa_pairing_meta_pooled	82.3%	results/census/matrix.json	fields.qa_pairing.pooled_meta	pct1	make census	-
-matrix.question_time_oral_share	20.7%	results/census/matrix.json	concept_split.answer_modality_by_type.Question time.oral_share	pct1	make census	technical_report.md,README.md
+matrix.question_time_oral_share	23.6%	results/census/matrix.json	concept_split.answer_modality_by_type.Question time.oral_share	pct1	make census	technical_report.md,README.md
 question.median_days	68	results/census/question.json	national.median_days	int	make census	technical_report.md
 question.text_share_now	82.3%	results/census/question.json	national.text_share_now	pct1	make census	technical_report.md
 question.text_share_after_relink	85.0%	results/census/question.json	national.text_share_after_relink	pct1	make census	technical_report.md

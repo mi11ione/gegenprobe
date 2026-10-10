@@ -1,0 +1,32 @@
+{
+ "measured_night": {
+  "source": "results/monitor/run_local_exports.json",
+  "mode": "local-exports",
+  "wall_s": 96.8,
+  "extract_s": 72.0,
+  "rescanned_bodies": 0,
+  "transfer_bytes": 0,
+  "peak_rss_mb": 2077.6,
+  "covered": "GP_EXPORTS_DIR on a local copy of the 2026-10-06 exports, state from a previous night on the same copy: index read, canton tables (2 GETs), census extraction, rates, BE repair join, ledger. No docs/texts file had changed size, so no body was re-scanned: the incremental best case, wall time, not CPU time"
+ },
+ "full_rescan": {
+  "cpu_min": 25.0,
+  "files": 116,
+  "bytes": 6195586911,
+  "verified": "cited",
+  "source": "spikes/recovery/results.md \u00a76 (8 Oct 2026 scan, Python 3.9, one core, parsing-bound); python -m gegenprobe.census.scan"
+ },
+ "changed_6_to_9_oct": {
+  "source": "results/monitor/index_diff.json",
+  "files": 68,
+  "of_files": 116,
+  "bytes": 4996456424,
+  "share_bytes": 0.8064540931754189
+ },
+ "estimate_night_with_those_changes": {
+  "rescan_min": 20.2,
+  "night_min": 21.8,
+  "verified": "derived",
+  "definition": "measured night + full-rescan CPU minutes x share of docs/texts bytes that changed (parsing-bound, so time scales with bytes); a night after three days of OPD changes, read in place (no download)"
+ }
+}

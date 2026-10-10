@@ -29,6 +29,11 @@ Untrusted input is bounded: a PDF above `GP_MAX_PDF_MB` (default 50) is refused 
 pdftotext / pdftoppm / tesseract call has a timeout (`GP_SUBPROCESS_TIMEOUT`, default 300 s); both end as a typed failure
 row (`too_large`, `text_timeout`), not a hung batch. Requests carry the User-Agent `GP_USER_AGENT` (set your own).
 
+**Where files go.** Fetched PDFs and extracted texts are cached under `GP_WORK`. If `GP_WORK` is unset, the cache is
+the repository's own `.work/` directory (`track_2a/.work/pdf/<sha256>.pdf`, `track_2a/.work/text/<sha256>.<extractor>.json`),
+also when you run the tool from somewhere else. Set `GP_WORK=/path/to/cache` to keep it elsewhere. `--verbose` (or
+`--explain`) prints the cache path in use. Local PDFs are copied into the cache too, keyed by their sha256.
+
 ## One document
 
 ```bash
@@ -39,7 +44,13 @@ python -m gegenprobe convert ./answer.pdf --lang fr --affair-type Motion
 
 The command prints one JSON row and exits 0; if the document cannot be fetched or read it prints a failure row, a one-line
 reason on stderr, and exits 2. Fetching is polite: one fixed User-Agent, at least 1.2 s between requests to the same host,
-robots.txt honoured (a host that forbids the path is never fetched), and `--timeout` / `--tries` (default 60 s, 2 tries).
+robots.txt honoured, and `--timeout` / `--tries` (default 60 s, 2 tries). robots.txt follows RFC 9309: a path the host's
+rules disallow is never fetched (`robots_disallowed`). A robots.txt that answers a 4xx (403, 404, …) means "no
+restrictions". One that cannot be read (5xx, 429, DNS, timeout) blocks the host for the run (`robots_unreachable`,
+fail-closed).
+
+Always pass `--body` (the OPD body key). A parliament outside `data/convert/rules_coverage.json` triggers a warning on
+stderr, and the row is marked `needs_review` (see "Parliaments without rules").
 
 ## Many documents
 
@@ -55,7 +66,8 @@ the failed ones again.
 
 Exit codes: `0` when every input converted, `2` when at least one input became a failure row (so a CI job or a cron
 wrapper can notice), unless `--allow-failures` is given. `--queue review.jsonl` additionally writes only the rows that
-carry a review suggestion, strongest band first (see "Review aids" below).
+need review: Apertus suggestions first, strongest band first, then the flagged rows (see "Review aids" below). A body
+outside `rules_coverage.json` is warned about once per batch on stderr. `--anchors` and `--explain` work in batches too.
 
 ## Review aids (what a reviewer sees next to every value)
 
@@ -77,8 +89,86 @@ carry a review suggestion, strongest band first (see "Review aids" below).
   anchor context is matched first, then the quote inside it; a match must be unique (`ambiguous` / `not_found`
   otherwise). On 30 held-out documents of Collombey-Muraz, Lausanne and Lugano every converter value aligned uniquely
   (7/7; `results/convert/opdtext_alignment.json`).
+- **`qualifier`** on the recommendation: a recommendation rule matched "accept" or "reject", but a qualifier follows
+  in the same sentence. An unambiguous partial qualifier (`partiellement`, `en partie`, `teilweise`,
+  `teilweise erheblich`, `partiell`, `parzialmente`, `in parte`) turns the value into `partial`. Example (Fribourg):
+  "invite donc le Grand Conseil à accepter partiellement la motion" gives `partial`, rule
+  `rec_accept+qualifier_partial`. Other qualifiers keep the value and set `needs_review` with a reason:
+  `im Sinne der Erwägungen`, `dans le sens des considérants`, `mit geändertem Wortlaut`, `Nichteintreten`,
+  `sous réserve`, `unter Vorbehalt`. In both cases the quote span is extended to include the qualifier.
+- **`suggested_by_heading_proximity`** on the first answer-date candidate. Sometimes the rules find an answer heading but
+  no anchored date (`evidence: heading_without_date`), while a date is printed right after the heading, e.g.
+  "Antwort der Regierung vom 1. September 2026" or "Réponse du Conseil d'Etat : 06.05.2025". That date is then moved
+  to the front of `candidates`, with its span, and the row is marked `needs_review`. The field itself stays null: no
+  frozen rule vouches for the layout. Headings that name the instrument ("Réponse à l'interpellation du …") are
+  skipped, because the date that follows is the instrument's own.
+- **`needs_review` and `review_reasons`**: the row needs a person when it carries an Apertus suggestion, when a field has
+  `needs_review: true` (each with its `review_reason`), or when the parliament has no rules. `review_reasons` lists
+  one `{field, reason}` per flag; the CLI also prints them on stderr. `--queue` collects these rows.
 - **Which parliaments have rules:** `data/convert/rules_coverage.json` lists the parliaments whose layouts the rules
-  were written on. Route documents of any other parliament to review mode.
+  were written on. Every row says `rules_coverage.status`: `covered`, `not_covered`, `user_anchors` (not covered, but
+  your `--anchors` file has entries for it) or `unknown` (no `--body` given).
+
+## Parliaments without rules
+
+The frozen rules were written on the parliaments in `data/convert/rules_coverage.json` (BE, BS, GE, JU, LU, TI, VS, ZH
+and seven communes). For any other `--body`:
+
+- the CLI prints a warning on stderr;
+- a field the rules left open gets `null_reason: no_rules_for_body` instead of `present_unanchored`. "No rule knows this
+  layout" is not the same statement as "the document is ambiguous";
+- a value a frozen rule did find is kept, but flagged `needs_review` (the rule was never measured on that layout);
+- the row is `needs_review: true`, so `--queue` picks it up.
+
+Three ways forward: read the `candidates` (the right date is usually among them, with context), run `--mode review`, or
+write your own anchors.
+
+## Your own anchors (`--anchors FILE`)
+
+```bash
+python -m gegenprobe convert answer.pdf --body SG --anchors docs/examples/anchors_SG.json
+```
+
+An anchor file holds regular expressions per OPD body key (JSON; `"*"` applies to every body). They are tried only after
+the frozen rules returned null: they can fill a gap, but they never override a rule. `docs/examples/anchors_SG.json`
+(Kantonsrat St. Gallen) shows the format:
+
+```json
+{"bodies": {"SG": {
+  "answer_date": [
+    {"id": "sg_antwort_der_regierung_vom", "pattern": "^\\s*Antwort der Regierung vom {DATE}"},
+    {"id": "sg_antrag_der_regierung_vom", "pattern": "^\\s*Antrag der Regierung vom {DATE}"}],
+  "recommendation": [
+    {"id": "sg_antrag_nichteintreten", "label": "reject",
+     "pattern": "Antrag der Regierung vom {DATE}\\s+(?P<phrase>Nichteintreten)\\b"}]}}}
+```
+
+- `{DATE}` expands to the rules' own date expression (numeric and DE/FR/IT month names), with a named group `date`. You
+  can also write your own `(?P<date>…)`.
+- Patterns are case-insensitive and multi-line. A literal space matches any whitespace, line breaks included, as in the
+  frozen rules.
+- An answer-date anchor may set `"role": "decision"` or `"dispatch"`; without one the role is `answered`.
+- A recommendation anchor needs a `label` (`accept`, `reject`, `convert`, `partial`, `accept_and_write_off`).
+  `(?P<phrase>…)` marks the span to cite; without it, the whole match is cited.
+
+A value found this way carries `route: user_anchor`, `rule_id: user_anchor:<id>`, the page, the span and the quote, in
+the flat row and in the schema record. It has `needs_review: false` only when the anchor has a date group that parses.
+An anchor without a date group takes the first date within 80 characters after it, and that value is flagged. If
+recommendation anchors with different labels all match, the value is flagged too. A malformed file (bad JSON, bad regex,
+unknown label) exits 2 with the problem named. The anchors are yours: we have not measured them.
+
+## `--explain`
+
+```bash
+python -m gegenprobe convert answer.pdf --body SG --anchors docs/examples/anchors_SG.json --explain
+```
+
+`--explain` prints the cache path, the body's rule coverage, and, per field, every frozen rule in the order the
+converter tries them, each with why it did not decide ("no match", "2 match(es), 2 on footer/edit lines", "no executive
+answer heading in the first 2500 characters, so the dispatch rules … were not tried"). These are followed by the
+qualifier check, your anchors and the heading-proximity check. The trace replays the frozen rules read-only: on 3,398
+cached documents the step it marks `fired` was the rule the converter returned every time. In a batch, each row
+carries the same trace under `explain`.
 
 ## Where to get document URLs
 
@@ -101,7 +191,8 @@ OpenParlData publishes every document with its source URL in the `docs_*` export
                    "quote": "28. August 2024",
                    "context": "…Dringlichkeit gewährt: Nein RRB-Nr.: Direktion: Klassifizierung: 879/2024 vom 28. August 2024"},
    "recommendation": {"value": null, "route": "rule", "null_reason": "present_unanchored", "evidence": "no_anchor"}},
- "needs_review": false, "review_suggestion": null,
+ "needs_review": false, "review_reasons": [], "review_suggestion": null,
+ "rules_coverage": {"body": "BE", "status": "covered", "note": "the frozen rules were written on documents of this parliament"},
  "record": { "…": "the full schema v0.1 DocExtraction" }}
 ```
 
@@ -111,9 +202,10 @@ and the values in the next, so the anchor "RRB-Nr.:" sits a few labels before "8
 | key | meaning |
 |---|---|
 | `fields.<name>.value` | the value, or `null` (then `null_reason` and `evidence` say why) |
-| `route` | `rule` (frozen deterministic rule), `ocr+rule` (the same, on OCR text of a scan), `apertus` / `ocr+apertus` (only in a review suggestion) |
+| `route` | `rule` (frozen deterministic rule), `ocr+rule` (the same, on OCR text of a scan), `user_anchor` (your `--anchors`), `apertus` / `ocr+apertus` (only in a review suggestion) |
 | `role` | for dates: `answer_decided` (the executive decided its answer that day: RRB, ACE, RG n., séance du …) or `answer_dispatched` (letter / place-date line) |
-| `rule_id` | which rule decided; `docs/converter.md` lists them |
+| `rule_id` | which rule decided; `docs/converter.md` lists them. `rec_accept+qualifier_partial`: the frozen rule plus a partial qualifier; `user_anchor:<id>`: your anchor |
+| `needs_review`, `review_reason` | on a field: a person must look at it, and why (qualified recommendation, unmeasured layout, date next to a heading, anchor without date group) |
 | `decision_number` | the executive's decision number printed with the date, when the rule captured it |
 | `page`, `char_start`, `char_end`, `quote` | where the value is printed: `quote` is exactly the text at that span of the extracted page |
 | `context` | the text around it (the anchor phrase through the end of the line, ≤ 200 characters) so a reviewer sees *why* |
@@ -128,6 +220,7 @@ extractor and its version are in `record.doc.extractor`). They do not index Open
 | `null_reason` | in plain words |
 |---|---|
 | `present_unanchored` | the document prints dates (or recommendation-like words), but none sits next to an anchor that marks it as the government's answer (or recommendation). The rules leave it open rather than guess; review mode may suggest one |
+| `no_rules_for_body` | the same situation, but on a parliament the rules were never written for (`--body` not in `rules_coverage.json`): the layout is unknown to the rules, which says nothing about the document. The row needs review |
 | `not_in_document` | the document was read and does not contain the value, e.g. a member's text with an empty "RRB-Nr.: … vom" answer template. Says nothing about other documents |
 | `not_applicable` | the field does not apply, e.g. no recommendation on an interpellation or question |
 | `oral` | the document says the answer was given orally |
@@ -137,9 +230,11 @@ extractor and its version are in `record.doc.extractor`). They do not index Open
 
 ### Failure rows
 
-`{"status": <kind>, "reason": "...", "input": {...}}` with kind `robots_disallowed` (the host's robots.txt forbids the
-path; we never fetch it), `http_error`, `timeout`, `network_error`, `not_a_pdf` (the URL returns an HTML page: a document
-viewer or a dead-link landing page), `sha_mismatch`, `file_not_found` or `text_failed`.
+`{"status": <kind>, "reason": "...", "input": {...}}` with kind `robots_disallowed` (the host's robots.txt disallows the
+path for our User-Agent; we never fetch it), `robots_unreachable` (the host's robots.txt answered 5xx/429 or could not be
+reached, so nothing is fetched from that host in this run; RFC 9309 §2.3.1.4), `http_error`, `timeout`, `network_error`,
+`not_a_pdf` (the URL returns an HTML page: a document viewer or a dead-link landing page), `sha_mismatch`,
+`file_not_found`, `text_failed`, `too_large` or `text_timeout`.
 
 ## Review mode (optional, uses Apertus)
 
@@ -167,4 +262,4 @@ with `needs_review: true`, for a person to accept or reject. It needs a threshol
 - Two fields are extracted from text (answer date, government recommendation). Type, submitters, dates of other steps and
   procedural state come from OpenParlData's metadata (`docs/census.md`), not from the PDF.
 - The rules were written for the anchors of the parliaments in `docs/converter.md`; on other layouts they leave the field
-  open (`present_unanchored`) rather than guess.
+  open (`no_rules_for_body` when you pass `--body`) rather than guess. Add your own anchors with `--anchors`.

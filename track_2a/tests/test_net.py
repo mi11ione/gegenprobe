@@ -27,6 +27,7 @@ from gegenprobe import net  # noqa: E402
 def fresh_net(monkeypatch):
     monkeypatch.setattr(net, "_robots", {})
     monkeypatch.setattr(net, "_robots_note", {})
+    monkeypatch.setattr(net, "_robots_lenient", {})
     monkeypatch.setattr(net, "_wait", lambda host: None)
     monkeypatch.setattr(net.time, "sleep", lambda s: None)
     return net
@@ -55,16 +56,29 @@ def test_local_exports_are_read_without_network(monkeypatch, tmp_path, fresh_net
     assert list(net.stream_ndjson_gz(net.EXPORTS_PREFIX + "docs/docs_XX.ndjson.gz")) == ['{"id": 1}\n', '{"id": 2}\n']
 
 
-@pytest.mark.parametrize("failure", [urllib.error.URLError("dns"), TimeoutError(), _http_error(503), _http_error(403)])
+@pytest.mark.parametrize("failure", [urllib.error.URLError("dns"), TimeoutError(), _http_error(503), _http_error(429)])
 def test_robots_unreadable_fails_closed(monkeypatch, fresh_net, failure):
+    # RFC 9309 2.3.1.4 "unreachable" (5xx, network; 429 = back off): complete disallow, typed robots_unreachable
     def boom(*a, **k):
         raise failure
 
     monkeypatch.setattr(net.urllib.request, "urlopen", boom)
     assert not net.allowed("https://x.example/doc.pdf")
     assert "https://x.example" in net.robots_report()
-    with pytest.raises(net.Disallowed, match="fail-closed"):
+    with pytest.raises(net.Disallowed, match="fail-closed") as e:
         net.open_url("https://x.example/doc.pdf")
+    assert e.value.kind == "robots_unreachable"
+
+
+@pytest.mark.parametrize("code", [400, 401, 403, 404, 410, 451])
+def test_robots_4xx_means_no_restrictions(monkeypatch, fresh_net, code):
+    # RFC 9309 2.3.1.3 "unavailable": any 4xx on robots.txt (Fribourg's api.fr.ch answers 403) -> every path allowed
+    def missing(*a, **k):
+        raise _http_error(code)
+
+    monkeypatch.setattr(net.urllib.request, "urlopen", missing)
+    assert net.allowed("https://x.example/doc.pdf") and net.robots_report() == {}
+    assert ("https://x.example" in net.robots_lenient()) == (code not in (404, 410))
 
 
 def test_robots_404_means_allowed(monkeypatch, fresh_net):
@@ -94,6 +108,9 @@ def test_robots_transient_5xx_is_retried_once(monkeypatch, fresh_net):
     monkeypatch.setattr(net.urllib.request, "urlopen", flaky)
     assert net.allowed("https://x.example/public/a.pdf") and not net.allowed("https://x.example/private/a.pdf")
     assert len(calls) == 2
+    with pytest.raises(net.Disallowed, match="disallows this path") as e:  # a real Disallow: typed robots_disallowed
+        net.open_url("https://x.example/private/a.pdf")
+    assert e.value.kind == "robots_disallowed" and net.robots_report() == {}
 
 
 def test_api_v1_is_refused():

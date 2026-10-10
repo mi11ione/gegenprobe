@@ -73,6 +73,10 @@ def test_review_mode_attaches_a_flagged_suggestion_and_never_writes_the_field():
 
 @pytest.mark.parametrize("exc,kind", [
     (net.Disallowed("https://x.ch/a.pdf"), "robots_disallowed"),
+    (net.Disallowed("https://x.ch/a.pdf (robots.txt unreachable (HTTP 503), fail-closed)", kind="robots_unreachable"),
+     "robots_unreachable"),
+    (pdftext.FetchError("too_large", "more than 50 MB"), "too_large"),
+    (pdftext.FetchError("text_timeout", "pdftotext exceeded 300 s"), "text_timeout"),
     (urllib.error.HTTPError("https://x.ch/a.pdf", 404, "Not Found", {}, None), "http_error"),
     (urllib.error.URLError(TimeoutError("timed out")), "timeout"),
     (urllib.error.URLError("Name or service not known"), "network_error"),

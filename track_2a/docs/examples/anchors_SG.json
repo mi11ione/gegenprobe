@@ -1,0 +1,16 @@
+{
+ "note": "User anchors for the Kantonsrat St. Gallen (OPD body SG), whose layouts the frozen rules were never written on. Tried only after the frozen rules return null; values carry route user_anchor. {DATE} is the frozen rules' date expression with a named group 'date'; a literal space matches any whitespace (line breaks included). Patterns are case-insensitive. In a recommendation pattern, (?P<phrase>...) marks the span to cite.",
+ "bodies": {
+  "SG": {
+   "answer_date": [
+    {"id": "sg_antwort_der_regierung_vom", "pattern": "^\\s*Antwort der Regierung vom {DATE}"},
+    {"id": "sg_antrag_der_regierung_vom", "pattern": "^\\s*Antrag der Regierung vom {DATE}"}
+   ],
+   "recommendation": [
+    {"id": "sg_antrag_nichteintreten", "label": "reject", "pattern": "Antrag der Regierung vom {DATE}\\s+(?P<phrase>Nichteintreten)\\b"},
+    {"id": "sg_antrag_gutheissung_geaendert", "label": "partial", "pattern": "Antrag der Regierung vom {DATE}\\s+(?P<phrase>Gutheissung mit ge(?:ä|ae)ndertem Wortlaut)"},
+    {"id": "sg_antrag_gutheissung", "label": "accept", "pattern": "Antrag der Regierung vom {DATE}\\s+(?P<phrase>Gutheissung)\\s*\\."}
+   ]
+  }
+ }
+}

@@ -21,10 +21,13 @@ One night =
        exports_stale         index.json older than GP_STALE_DAYS (default 2) days: OPD's export job may have stopped
        rate_trend_drop       a body's rate fell by more than TREND_PP points over the last TREND_NIGHTS nights (a slow
                              decline that never trips the night-over-night threshold)
-  8. delivery (monitor.notify): alerts go to an outbox (WORK/nightly/outbox.json) first, then to the configured webhook /
-     SMTP; the outbox is cleared only after a successful send, so an outage never loses an alert (it is re-sent with the
-     next night's alerts). State is written after the send attempt. Exit code GP_ALERT_EXIT (default 3) when alerts fired,
-     1 on error or when sending failed.
+       outbox_corrupt        WORK/nightly/outbox.json (state_corrupt: state.json) could not be parsed; the file is
+       state_corrupt         moved to <name>.corrupt-<UTC timestamp> and the night continues (after state_corrupt: as a
+                             first night)
+  8. delivery (monitor.notify): alerts go to an outbox (WORK/nightly/outbox.json, written atomically) first, then to the
+     configured webhook / SMTP; the outbox is cleared only after a successful send, so an outage does not drop an alert (it
+     is re-sent with the next night's alerts). State is written (atomically) after the send attempt. Exit code
+     GP_ALERT_EXIT (default 3) when alerts fired, 1 on error or when sending failed.
 Outputs (GP_MONITOR_OUT, default results/monitor): rates.json, alerts.json, run.json; repair_BE_new.tsv (tonight's new rows)
 and repair_BE_ledger.tsv (every row ever proposed: first_seen, last_seen, status pending | review | resolved | dropped).
 
@@ -39,6 +42,9 @@ usage:
   python -m gegenprobe.monitor.nightly run        full night (network)
   python -m gegenprobe.monitor.nightly offline    steps 5-7 on the current caches (no network); measures compute time
   python -m gegenprobe.monitor.nightly index      step 1 only: what changed since the cached snapshot (one request)
+  python -m gegenprobe.monitor.nightly cost       results/monitor/night_cost.json: what the measured 96.8 s night covered,
+                                                  the cited full docs/texts rescan time and the changed-files estimate
+                                                  (no network; reads run_local_exports.json and index_diff.json)
 """
 
 from __future__ import annotations
@@ -323,10 +329,10 @@ def _peak_rss_mb() -> float:
 
 def deliver(outbox: Path, to_send: list[dict], run: dict) -> None:
     """Persist the alerts in the outbox, send them, and clear the outbox only when the send succeeded; a failed send
-    leaves them for the next night (alerts are never lost by committing state first)."""
-    from .notify import send
+    leaves them for the next night (a failed send never drops them; state is committed only after the attempt)."""
+    from .notify import send, write_outbox
 
-    outbox.write_text(json.dumps(to_send, indent=1))
+    write_outbox(outbox, to_send)  # atomic: tmp in the same directory + fsync + rename
     try:
         run["notified"] = send(to_send, run)
         outbox.unlink()
@@ -334,6 +340,31 @@ def deliver(outbox: Path, to_send: list[dict], run: dict) -> None:
     except Exception as e:  # the outbox stays; tomorrow's night re-sends it
         run["notified"] = []
         run["notify_error"] = f"{type(e).__name__}: {str(e)[:200]}"
+
+
+def _be_ogd_dir() -> Path:
+    from ..repair import be
+
+    return be.OGD_DIR
+
+
+def read_state(path: Path) -> tuple[dict, list[dict]]:
+    """Last night's state; an unreadable state file is quarantined (state.json.corrupt-<UTC>) and reported as an alert.
+    The night then runs as a first night: no night-over-night diff, every docs/texts body re-scanned in network mode."""
+    if not path.exists():
+        return {}, []
+    try:
+        st = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(st, dict):
+            raise ValueError(f"expected a JSON object, got {type(st).__name__}")
+        return st, []
+    except (ValueError, UnicodeDecodeError) as e:
+        stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        bad = path.with_name(f"{path.name}.corrupt-{stamp}")
+        os.replace(path, bad)
+        print(f"state {path} unreadable ({type(e).__name__}); moved to {bad}", file=sys.stderr)
+        return {}, [dict(body="_state", name="nightly state", kind="state_corrupt", quarantined=str(bad),
+                         error=f"{type(e).__name__}: {str(e)[:160]}")]
 
 
 def _download(entity: str, url: str, dest: Path) -> int:
@@ -352,7 +383,7 @@ def night(offline: bool) -> dict:
     t = {}
     t0 = time.time()
     NIGHT.mkdir(parents=True, exist_ok=True)
-    state = json.loads(STATE.read_text()) if STATE.exists() else {}
+    state, state_alerts = read_state(STATE)
     local = os.environ.get("GP_EXPORTS_DIR")
     if offline:
         opd, meta = OPD_RAW, DOCS_META
@@ -397,7 +428,8 @@ def night(offline: bool) -> dict:
     subprocess.run(
         [sys.executable, "-m", "gegenprobe.census.extract", "--out", str(census_out)],
         check=True,
-        env=_env(GP_OPD_RAW=opd, GP_DOCS_META=meta),
+        # the canton tables this night fetched (WORK/be_ogd), not census.extract's development default
+        env=_env(GP_OPD_RAW=opd, GP_DOCS_META=meta, GP_BE_OGD=os.environ.get("GP_BE_OGD") or _be_ogd_dir()),
         stdout=subprocess.DEVNULL,
     )
     t["extract_s"] = round(time.time() - t1, 1)
@@ -437,7 +469,10 @@ def night(offline: bool) -> dict:
     write_ledger(ledger_path, ledger)
     (OUT / "rates.json").write_text(json.dumps(rates, indent=1, sort_keys=True))
     # delivery: outbox first, send, clear only on success
-    pending = json.loads(OUTBOX.read_text()) if OUTBOX.exists() else []
+    from .notify import read_outbox
+
+    pending, box_alerts = read_outbox(OUTBOX)  # a corrupt outbox is quarantined and reported, not fatal
+    al = state_alerts + box_alerts + al
     to_send = pending + [dict(a, night=today) for a in al]
     (OUT / "alerts.json").write_text(json.dumps(dict(
         threshold_pp=DROP_PP, min_affairs=MIN_AFFAIRS, doc_drop=DOC_DROP, trend_pp=TREND_PP, trend_nights=TREND_NIGHTS,
@@ -465,16 +500,58 @@ def night(offline: bool) -> dict:
     state["rates"] = rates
     state["history"] = (history + [dict(ts=round(time.time()), rates={b: r["rate"] for b, r in rates.items()
                                                                        if not b.startswith("_")})])[-(TREND_NIGHTS + 1):]
-    tmp = STATE.with_suffix(".tmp")
-    tmp.write_text(json.dumps(state))
-    tmp.replace(STATE)
+    from .notify import write_json_atomic
+
+    write_json_atomic(STATE, state)
     (OUT / "run.json").write_text(json.dumps(run, indent=1))
     run["_alerts"] = to_send
     return run
 
 
+FULL_SCAN_CPU_MIN = 25.0  # cited: spikes/recovery/results.md §6, metadata scan of all 116 docs_/texts_ exports (6.2 GB)
+
+
+def night_cost(out: Path = RESULTS / "monitor") -> dict:
+    """What the measured local-exports night covered, and what a night with changed docs/texts files adds (derived)."""
+    run = json.loads((out / "run_local_exports.json").read_text())
+    d = json.loads((out / "index_diff.json").read_text())["census_inputs"]
+    t = run["timings"]
+    share = d["docs_texts_changed_bytes"] / d["docs_texts_bytes"]
+    rescan_s = share * FULL_SCAN_CPU_MIN * 60
+    r = dict(
+        measured_night=dict(
+            source="results/monitor/run_local_exports.json", mode=run["mode"], wall_s=t["total_s"], extract_s=t["extract_s"],
+            rescanned_bodies=len(t.get("rescanned_bodies", [])), transfer_bytes=run["transfer_bytes"],
+            peak_rss_mb=run["peak_rss_mb"],
+            covered="GP_EXPORTS_DIR on a local copy of the 2026-10-06 exports, state from a previous night on the same copy: "
+                    "index read, canton tables (2 GETs), census extraction, rates, BE repair join, ledger. No docs/texts "
+                    "file had changed size, so no body was re-scanned: the incremental best case, wall time, not CPU time",
+        ),
+        full_rescan=dict(
+            cpu_min=FULL_SCAN_CPU_MIN, files=d["docs_texts_files"], bytes=d["docs_texts_bytes"], verified="cited",
+            source="spikes/recovery/results.md §6 (8 Oct 2026 scan, Python 3.9, one core, parsing-bound); "
+                   "python -m gegenprobe.census.scan",
+        ),
+        changed_6_to_9_oct=dict(
+            source="results/monitor/index_diff.json", files=d["docs_texts_changed"], of_files=d["docs_texts_files"],
+            bytes=d["docs_texts_changed_bytes"], share_bytes=share,
+        ),
+        estimate_night_with_those_changes=dict(
+            rescan_min=round(rescan_s / 60, 1), night_min=round((t["total_s"] + rescan_s) / 60, 1), verified="derived",
+            definition="measured night + full-rescan CPU minutes x share of docs/texts bytes that changed (parsing-bound, "
+                       "so time scales with bytes); a night after three days of OPD changes, read in place (no download)",
+        ),
+    )
+    (out / "night_cost.json").write_text(json.dumps(r, indent=1))
+    return r
+
+
 def main(argv: list[str]) -> int:
     cmd = argv[0] if argv else "offline"
+    if cmd == "cost":
+        r = night_cost()
+        print(json.dumps({k: {kk: vv for kk, vv in v.items() if not isinstance(vv, str)} for k, v in r.items()}, indent=1))
+        return 0
     if cmd == "index":
         new = json.loads(net.get(INDEX))
         old = json.loads((OPD_RAW / "index.json").read_text())

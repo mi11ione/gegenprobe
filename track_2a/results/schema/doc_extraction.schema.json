@@ -44,7 +44,8 @@
       "rule",
       "apertus",
       "ocr+rule",
-      "ocr+apertus"
+      "ocr+apertus",
+      "user_anchor"
      ],
      "title": "Route",
      "type": "string"
@@ -203,7 +204,7 @@
       }
      ],
      "default": null,
-     "description": "id of the deterministic rule that produced the value (route rule / ocr+rule)",
+     "description": "id of the deterministic rule that produced the value (route rule / ocr+rule; user_anchor:<id> for route user_anchor)",
      "title": "Rule"
     },
     "decision_number": {
@@ -530,7 +531,8 @@
       "rule",
       "apertus",
       "ocr+rule",
-      "ocr+apertus"
+      "ocr+apertus",
+      "user_anchor"
      ],
      "title": "Route",
      "type": "string"
@@ -689,7 +691,7 @@
       }
      ],
      "default": null,
-     "description": "id of the deterministic rule that produced the value (route rule / ocr+rule)",
+     "description": "id of the deterministic rule that produced the value (route rule / ocr+rule; user_anchor:<id> for route user_anchor)",
      "title": "Rule"
     }
    },
@@ -743,7 +745,8 @@
       "rule",
       "apertus",
       "ocr+rule",
-      "ocr+apertus"
+      "ocr+apertus",
+      "user_anchor"
      ],
      "title": "Route",
      "type": "string"
@@ -902,7 +905,7 @@
       }
      ],
      "default": null,
-     "description": "id of the deterministic rule that produced the value (route rule / ocr+rule)",
+     "description": "id of the deterministic rule that produced the value (route rule / ocr+rule; user_anchor:<id> for route user_anchor)",
      "title": "Rule"
     }
    },
@@ -933,7 +936,8 @@
       "oral",
       "present_unanchored",
       "not_applicable",
-      "not_in_document"
+      "not_in_document",
+      "no_rules_for_body"
      ],
      "title": "Null Reason",
      "type": "string"
@@ -956,7 +960,8 @@
       "rule",
       "apertus",
       "ocr+rule",
-      "ocr+apertus"
+      "ocr+apertus",
+      "user_anchor"
      ],
      "title": "Route",
      "type": "string"

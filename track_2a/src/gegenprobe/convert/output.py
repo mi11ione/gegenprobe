@@ -5,11 +5,14 @@ Every row has the same top level:
   {"status": "ok" | <failure kind>, "input": {...what was asked...}, "mode", "language",
    "doc_role": {"value": "answer" | "question" | "other", "basis": "..."},
    "fields": {"answer_date": {...}, "recommendation": {...}},      # flat, reviewer-friendly view of the record
-   "needs_review": bool, "review_suggestion": {...} | null,
+   "needs_review": bool, "review_reasons": [{"field", "reason"}], "review_suggestion": {...} | null,
+   "rules_coverage": {"body", "status": covered | not_covered | user_anchors | unknown, "note"},
    "record": <schema v0.1 DocExtraction>}                           # the validated object, unchanged
 
 Failure rows carry {"status": kind, "reason": "...", "input": {...}} and nothing else. Kinds:
-  robots_disallowed  the host's robots.txt forbids fetching this URL (we never fetch it)
+  robots_disallowed  the host's robots.txt disallows this path for our User-Agent (we never fetch it)
+  robots_unreachable the host's robots.txt could not be read (5xx, 429, DNS, timeout): fail-closed per RFC 9309
+                     §2.3.1.4; a 4xx on robots.txt (403, 404, ...) means "no restrictions" (§2.3.1.3) and is fetched
   http_error         the server answered with an HTTP error (404, 403, 500, ...)
   timeout            no answer in time (after the polite retries)
   network_error      DNS / connection failure
@@ -17,6 +20,8 @@ Failure rows carry {"status": kind, "reason": "...", "input": {...}} and nothing
   sha_mismatch       the document changed at the source (expected sha256 given)
   file_not_found     a local path that does not exist
   text_failed        the PDF could not be read and OCR produced no text
+  too_large          the PDF is above GP_MAX_PDF_MB (default 50) and was not read
+  text_timeout       pdftotext / tesseract exceeded GP_SUBPROCESS_TIMEOUT
 """
 from __future__ import annotations
 
@@ -28,14 +33,17 @@ import urllib.error
 from .. import net, pdftext
 from . import lattice, pointer, precision, rules
 
-FAILURE_KINDS = ("robots_disallowed", "http_error", "timeout", "network_error", "not_a_pdf", "sha_mismatch",
-                 "file_not_found", "text_failed")
+FAILURE_KINDS = ("robots_disallowed", "robots_unreachable", "http_error", "timeout", "network_error", "not_a_pdf",
+                 "sha_mismatch", "file_not_found", "text_failed", "too_large", "text_timeout")
 
 
 def classify(exc: BaseException) -> tuple[str, str]:
     """Map an exception raised while getting a document to (kind, one-line reason)."""
     if isinstance(exc, net.Disallowed):
-        return "robots_disallowed", f"robots.txt of the host forbids {exc}"
+        if getattr(exc, "kind", None) == "robots_unreachable":
+            return "robots_unreachable", (f"robots.txt of the host could not be read, so nothing is fetched from it "
+                                          f"(fail-closed, RFC 9309 2.3.1.4): {exc}")
+        return "robots_disallowed", f"robots.txt of the host disallows this path for our User-Agent: {exc}"
     if isinstance(exc, pdftext.FetchError):
         return exc.kind, exc.detail
     if isinstance(exc, urllib.error.HTTPError):
@@ -76,6 +84,8 @@ def doc_role(pages: list[str], answer_rec: dict) -> dict:
     head = full[: rules.HEAD_CHARS]
     if answer_rec.get("value") and answer_rec.get("route") in ("rule", "metadata"):
         return dict(value="answer", basis=f"executive answer/decision date found by rule {answer_rec.get('rule')}")
+    if answer_rec.get("value") and answer_rec.get("route") == "user_anchor":
+        return dict(value="answer", basis=f"executive answer/decision date found by your anchor {answer_rec.get('rule')}")
     h = rules.ANSWER_HEADING.search(head)
     if h:
         return dict(value="answer", basis=f"answer heading '{h.group(0).strip()[:60]}'")
@@ -108,7 +118,7 @@ def flat_field(rec_field: dict | None, record_field: dict | None, pages: list[st
         p, s, e = rec_field["page"], rec_field["char_start"], rec_field["char_end"]
         out.update(page=p, char_start=s, char_end=e, quote=pages[p - 1][s:e] if pages else rec_field.get("quote"),
                    context=anchor_context(pages, p, s, e) if pages else rec_field.get("quote"))
-    for k in ("margin", "theta", "model_build"):
+    for k in ("margin", "theta", "model_build", "anchor_file", "anchor_pattern", "qualifier"):
         if rec_field.get(k) is not None:
             out[k] = rec_field[k]
     return out

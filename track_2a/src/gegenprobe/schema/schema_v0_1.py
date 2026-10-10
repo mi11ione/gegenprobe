@@ -9,7 +9,8 @@ Design rules
         normalised  the span is verbatim, the value is its normal form (e.g. "28. August 2024" -> 2024-08-28)
         metadata    taken from a structured OPD/canton field (`source` names the record)
         inferred    a classification derived from a cited span (e.g. a government recommendation enum)
-  * `route` records which stage of the converter decided: metadata | rule | apertus | ocr+rule | ocr+apertus.
+  * `route` records which stage of the converter decided: metadata | rule | apertus | ocr+rule | ocr+apertus |
+    user_anchor (a regex anchor the converter's user supplied with --anchors; tried only after the frozen rules).
     Apertus-decided values and abstentions carry model_build, theta and margin, so a reviewer can see how close the call was.
   * Document content (tables, annexes, images, stamps) is referenced by page range, not re-extracted.
 
@@ -26,12 +27,14 @@ from pydantic import BaseModel, ConfigDict, Discriminator, Field, model_validato
 SCHEMA_VERSION = "0.1.0"
 
 # ----------------------------------------------------------------------------------------------- controlled vocabularies
-Route = Literal["metadata", "rule", "apertus", "ocr+rule", "ocr+apertus"]
+Route = Literal["metadata", "rule", "apertus", "ocr+rule", "ocr+apertus", "user_anchor"]
+# user_anchor: a regex anchor supplied by the user of the converter (--anchors FILE), tried only after the frozen rules
+# returned null; it carries page + span like a rule value but was not written or measured by us
 MODEL_ROUTES = ("apertus", "ocr+apertus")
-SPAN_ROUTES = ("rule", "apertus", "ocr+rule", "ocr+apertus")
+SPAN_ROUTES = ("rule", "apertus", "ocr+rule", "ocr+apertus", "user_anchor")
 Basis = Literal["extracted", "normalised", "metadata", "inferred"]
 NullReason = Literal["not_in_corpus", "unlinked", "text_failed", "image_only", "oral", "present_unanchored", "not_applicable",
-                     "not_in_document"]
+                     "not_in_document", "no_rules_for_body"]
 # which routes may produce which null reason (a model can only abstain on a document it read)
 NULL_ROUTES: dict[str, tuple[str, ...]] = {
     "not_in_corpus": ("metadata", "rule", "apertus", "ocr+rule", "ocr+apertus"),
@@ -44,6 +47,9 @@ NULL_ROUTES: dict[str, tuple[str, ...]] = {
     # document-level: this document was read (by rules or the model) and the value is not in it. Affair-level absence needs
     # the census/repair join and is not_in_corpus / unlinked instead.
     "not_in_document": ("rule", "apertus", "ocr+rule", "ocr+apertus"),
+    # the document is from a parliament whose layouts the frozen rules were never written on (data/convert/rules_coverage.json)
+    # and the rules found nothing: says "unknown layout", not "the document is ambiguous" (present_unanchored)
+    "no_rules_for_body": ("rule", "ocr+rule"),
 }
 AnswerLinkStatus = Literal["attached", "agenda", "parentless", "absent", "image_only", "oral", "not_applicable"]
 AffairType = Literal[
@@ -101,7 +107,8 @@ class Valued(BaseModel, Generic[T]):
     theta: float | None = None
     margin: float | None = Field(None, description="null margin of the forced choice (nats); value kept iff margin <= theta")
     candidates: int | None = Field(None, ge=0, description="size of the closed candidate set the model chose from")
-    rule: str | None = Field(None, description="id of the deterministic rule that produced the value (route rule / ocr+rule)")
+    rule: str | None = Field(None, description="id of the deterministic rule that produced the value (route rule / ocr+rule; "
+                             "user_anchor:<id> for route user_anchor)")
 
     @model_validator(mode="after")
     def _consistent(self):
@@ -430,7 +437,7 @@ def from_converter(rec: dict, pages: list[str] | None = None, doc: dict | None =
         if rt in MODEL_ROUTES:
             builds.add(f.get("model_build"))
         if f.get("value") is None:
-            ev = f.get("rule") or "model abstention"
+            ev = f.get("evidence") or f.get("rule") or "model abstention"
             if rt in MODEL_ROUTES:
                 ev = f"closed-set pointer abstained: margin {f.get('margin'):.2f} > theta {f.get('theta'):.2f}"
             return TypedNull(null_reason=f["null_reason"], route=rt, evidence=ev, doc=doc_id, **model)
@@ -438,7 +445,7 @@ def from_converter(rec: dict, pages: list[str] | None = None, doc: dict | None =
         if f.get("page") is not None:
             span = dict(page=f["page"], char_start=f["char_start"], char_end=f["char_end"], context=f.get("quote"))
             span["quote"] = pages[f["page"] - 1][f["char_start"]:f["char_end"]] if pages else f.get("quote")
-        if rt in ("rule", "ocr+rule") and f.get("rule"):
+        if rt in ("rule", "ocr+rule", "user_anchor") and f.get("rule"):
             span["rule"] = f["rule"]
         if kind == "date":
             if rt == "metadata":

@@ -35,6 +35,51 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with: {name: make-run, path: "track_2a/make_run.log\ntrack_2a/out/run_report.json"}
+  systemd-units:
+    # the deploy units as systemd itself parses them (unknown keys, bad paths, missing executables, broken dependencies)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: systemd-analyze verify (Docker variant and venv variant, each with its timer and failure notifier)
+        run: |
+          set -u
+          systemd-analyze --version | head -1
+          # the venv unit's interpreter lives in /opt on a real host; stand in the runner's python3 so verify can resolve it
+          sudo install -d /opt/gegenprobe/.venv/bin
+          sudo ln -sf "$(command -v python3)" /opt/gegenprobe/.venv/bin/python
+          rc=0
+          for variant in docker venv; do
+            d=$(mktemp -d)
+            cp deploy/nightly/gegenprobe-nightly-failure.service deploy/nightly/gegenprobe-nightly.timer "$d/"
+            # install.sh installs either unit under the same name, gegenprobe-nightly.service (the timer activates it)
+            if [ "$variant" = docker ]; then src=deploy/nightly/gegenprobe-nightly.service; else src=deploy/nightly/gegenprobe-nightly-venv.service; fi
+            cp "$src" "$d/gegenprobe-nightly.service"
+            r=0  # the step shell runs with -e: capture the exit code instead of aborting on the first variant
+            out=$(SYSTEMD_UNIT_PATH="$d:" systemd-analyze verify --man=no "$d"/gegenprobe-nightly.service \
+                  "$d"/gegenprobe-nightly-failure.service "$d"/gegenprobe-nightly.timer 2>&1) || r=$?
+            echo "== $variant (exit $r)"; echo "$out"
+            # exit code, plus any warning that names one of our units (systemd only warns on unknown keys)
+            if [ $r -ne 0 ] || echo "$out" | grep -E "gegenprobe-nightly" | grep -qiE "unknown (key|section|lvalue)|ignoring|invalid|not executable|failed to"; then rc=1; fi
+          done
+          exit $rc
+  nightly-smoke:
+    # the nightly job inside the built image, with the unit's container flags (read-only root, tmpfs /tmp, uid 10001,
+    # no capabilities) and no network: three offline nights on fixture exports (gegenprobe.monitor.smoke)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t gegenprobe:smoke .
+      - name: three offline nights (quiet night, corrupt outbox, rate drop) in a read-only container
+        run: |
+          w=$(mktemp -d); chmod 0777 "$w"
+          docker run --rm --name gegenprobe-nightly-smoke --network none \
+            --read-only --tmpfs /tmp:rw,nosuid,nodev,size=1g \
+            --user 10001:0 --cap-drop ALL --security-opt no-new-privileges --memory 1g --pids-limit 256 \
+            -e GP_WORK=/var/gegenprobe/work -e GP_MONITOR_OUT=/var/gegenprobe/results \
+            -v "$w:/var/gegenprobe/work" \
+            gegenprobe:smoke python -m gegenprobe.monitor.smoke /var/gegenprobe/work/smoke
+          cat "$w/smoke/results/run.json"
   secrets:
     runs-on: ubuntu-24.04
     steps:

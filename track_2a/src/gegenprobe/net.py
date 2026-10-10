@@ -12,9 +12,13 @@ Operator settings (environment):
                      docs/docs_<body>.ndjson.gz, ...). When set, every exports URL is read from that directory instead of
                      the network: the setup for running next to OPD's own export job, with no transfer.
 
-robots.txt policy: a host whose robots.txt answers 404/410 is allowed (standard); 401/403, any 5xx, or a robots.txt that
-cannot be fetched (DNS, timeout, connection error) make the host DISALLOWED for the rest of the run (fail-closed), logged
-to stderr and listed by robots_report().
+robots.txt policy (RFC 9309 section 2.3.1):
+  2xx                parsed; a path its rules disallow for our User-Agent raises Disallowed(kind="robots_disallowed")
+  4xx "unavailable"  (400-499 except 429: 401, 403, 404, 410, ...) no restrictions: every path may be fetched (2.3.1.3).
+                     Logged once to stderr and listed by robots_lenient()
+  5xx / 429 / DNS / timeout / connection error  "unreachable": retried once, then the host is DISALLOWED for the rest of
+                     the run (fail-closed, 2.3.1.4), raising Disallowed(kind="robots_unreachable"); logged to stderr and
+                     listed by robots_report(). 429 is treated as unreachable, not as "unavailable": it asks us to back off.
 """
 from __future__ import annotations
 
@@ -36,12 +40,18 @@ EXPORTS_PREFIX = "https://files.openparldata.ch/exports/"
 _last: dict[str, float] = {}
 _robots: dict[str, urllib.robotparser.RobotFileParser | None] = {}
 _robots_note: dict[str, str] = {}
+_robots_lenient: dict[str, str] = {}
 _lock = threading.Lock()
 FORBIDDEN = ("https://api.openparldata.ch/v1/",)
 
 
 class Disallowed(RuntimeError):
-    pass
+    """Not fetched because of robots.txt. kind: robots_disallowed (the rules disallow the path) | robots_unreachable
+    (robots.txt could not be read: 5xx, 429, network; fail-closed)."""
+
+    def __init__(self, msg: str = "", kind: str = "robots_disallowed"):
+        super().__init__(msg)
+        self.kind = kind
 
 
 class TooLarge(ValueError):
@@ -93,13 +103,17 @@ def allowed(url: str) -> bool:
                     rp.parse(r.read().decode("utf-8", "replace").splitlines())
                 break
             except urllib.error.HTTPError as e:
-                if e.code in (404, 410):  # no robots.txt -> everything allowed
+                if 400 <= e.code < 500 and e.code != 429:  # RFC 9309 2.3.1.3 "unavailable": no restrictions
                     rp = None
-                elif e.code >= 500 and attempt == 0:
+                    if e.code not in (404, 410):
+                        _robots_lenient[base] = f"HTTP {e.code}"
+                        print(f"[net] robots.txt of {base}: HTTP {e.code}; treated as no restrictions (RFC 9309 2.3.1.3)",
+                              file=sys.stderr)
+                elif attempt == 0:  # 5xx or 429: retry once
                     time.sleep(5)
                     continue
-                else:  # 401/403 (robots.txt itself forbidden) or a persistent 5xx
-                    rp = _disallow_all(f"HTTP {e.code}", base)
+                else:  # a persistent 5xx / 429: "unreachable", fail closed (RFC 9309 2.3.1.4)
+                    rp = _disallow_all(f"unreachable (HTTP {e.code})", base)
                 break
             except Exception as e:  # DNS, timeout, connection refused: fail closed
                 if attempt == 0:
@@ -114,6 +128,11 @@ def allowed(url: str) -> bool:
 def robots_report() -> dict[str, str]:
     """Hosts treated as disallowed in this run because their robots.txt could not be read (host -> reason)."""
     return dict(_robots_note)
+
+
+def robots_lenient() -> dict[str, str]:
+    """Hosts whose robots.txt answered a 4xx other than 404/410 (e.g. 403) and were treated as unrestricted (RFC 9309)."""
+    return dict(_robots_lenient)
 
 
 def quote_url(url: str) -> str:
@@ -132,7 +151,9 @@ def open_url(url: str, data: bytes | None = None, headers: dict | None = None, t
     url = quote_url(url)
     if not allowed(url):
         note = _robots_note.get("{0.scheme}://{0.netloc}".format(urllib.parse.urlsplit(url)))
-        raise Disallowed(f"{url} (robots.txt {note}, fail-closed)" if note else url)
+        if note:
+            raise Disallowed(f"{url} (robots.txt {note}, fail-closed)", kind="robots_unreachable")
+        raise Disallowed(f"{url} (robots.txt disallows this path for User-Agent {UA!r})", kind="robots_disallowed")
     host = urllib.parse.urlsplit(url).netloc
     h = {"User-Agent": UA, **(headers or {})}
     for i in range(tries):

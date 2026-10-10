@@ -15,7 +15,8 @@ steps that need the network or a model endpoint and cannot reach them; the repla
   8 rederive_apertus  P1 + P2 pointer and cascade decisions recomputed from the committed model cache, cache-only
               (no request leaves the machine); FAIL only if a cache hit gives a different decision
   9 claims    every number in README / report recomputed from results files (token-bounded; short values need context)
-Re-derivation budgets (seconds): GP_REDERIVE_BUDGET (rules, default 240) + GP_REDERIVE_APERTUS_BUDGET (default 120).
+Re-derivation budgets (seconds): GP_REDERIVE_BUDGET (rules, default 240) + GP_REDERIVE_APERTUS_BUDGET (default 180, per set:
+P1 and P2 each get it, so P2 is always attempted; worst case 240 + 2 x 180 s).
 """
 from __future__ import annotations
 
@@ -41,7 +42,7 @@ STEPS = [
     ("claims", "gegenprobe.claims_step", "main"),
 ]
 os.environ.setdefault("GP_REDERIVE_BUDGET", "240")
-os.environ.setdefault("GP_REDERIVE_APERTUS_BUDGET", "120")
+os.environ.setdefault("GP_REDERIVE_APERTUS_BUDGET", "180")  # per set (P1, P2)
 
 
 def online(host: str = "files.openparldata.ch", port: int = 443, timeout: float = 5) -> bool:

@@ -355,7 +355,9 @@ def compute(root: Path = CENSUS, F: dict | None = None) -> dict:
         answer_modality_by_type=modality,
         question_time_bodies=len(qt_bodies),
         question_time_bodies_mostly_oral=sum(o / n >= 0.5 for n, o in qt_bodies.values() if n),
-        vs_oral_stub_affairs=sum(f["b"] == "VS" and f["link"] == "oral" and f["ev_w"] for f in F.values()),
+        vs_oral_stub_affairs=sum(
+            f["b"] == "VS" and f["link"] == "oral" and f["ev_w"] and f["vs_stub"] for f in F.values()
+        ),
     )
     tiers = collections.Counter(f["tier"] for f in fields.values())
     tiers = {t: tiers.get(t, 0) for t in ("feasible", "partial", "fundamentally different", "n/a")}

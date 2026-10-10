@@ -38,7 +38,9 @@ In scope: affairs whose OPD harmonised type is Interpellation, Motion, Postulate
 - **gap** = `ev_answer` ∧ no answer text; **gap′** = gap after re-attaching answer documents filed under an agenda item
   (`agendas.item_affair_id`).
 - The gap counts what OPD holds, not what the parliaments publish: it includes the 1,008 Valais answers given orally and
-  filed as an `_ANT` stub document (§4), which the repair list retypes as oral rather than searching for a text.
+  filed as an `_ANT` stub document (§4), which the repair list retypes as oral rather than searching for a text, and 406
+  question-time answers (Graubünden's Fragestunde 367 of them) that were given in the sitting and have no answer document.
+  Both are typed `oral` (§2); typing changes the cause, not the gap count.
 
 ## 2. Answer-link status (new schema field `answer_link_status`)
 
@@ -50,7 +52,7 @@ Assigned to every in-scope affair, first match wins:
 | `agenda` | usable answer document filed under an agenda item that points to the affair | relink via `agendas.item_affair_id` |
 | — the rest only where a written answer is expected (`ev_answer`) — | | |
 | `parentless` | BE: the canton OGD lists an answer whose canton document uid sits in OPD with no affair, agenda or meeting | relink by canton uid |
-| `oral` | VS `_ANT` document whose OPD text is the 80–95-char stub "cf. réponse orale du Conseil d'Etat"; or only oral answer events | retype; no document expected |
+| `oral` | VS `_ANT` document whose OPD text is the 80–95-char stub "cf. réponse orale du Conseil d'Etat"; or question time (OPD type `Question time`, or the parliament's own label Fragestunde / heure des questions / question orale / mündliche Anfrage; `census/defs.is_question_time`) with no answer document anywhere in OPD and no answer event saying the answer was written (tested after `image_only`, so a question-time scan stays `image_only`); or only oral answer events | retype; the answer was given in the sitting and is in the session minutes, no answer document expected |
 | `image_only` | an answer document is attached but OPD holds no usable text (a re-fetch of 30 sampled documents found 15 image-only scans, 13 VS oral-answer pointers with a text layer and 2 others, `results/repair/ocr_probe.json`) | OCR deu+fra+ita |
 | `absent` | no answer document in OPD | body-specific source adapter (BE: canton fetch) |
 | `not_applicable` | no answer event and no answer text | — |
@@ -102,7 +104,9 @@ meeting documents). The README's schema section gives the table.
 
 **Reproduction.** The ported funnel reproduces the 8 Oct spike cell for cell: 5,444 body × type × year cells, 0 differing values, document-status table identical: True.
 
-**Answer-link status** (all in-scope affairs): `absent` 11,330, `agenda` 932, `attached` 116,466, `image_only` 1,352, `not_applicable` 61,013, `oral` 5,042, `parentless` 2,459. Of gap′: BE 2,510 (canton lists an answer for 2,508; 2,459 relinkable parentless documents), CHE 75, other bodies with an answer document but no text 2,366 (of which VS oral stubs 1,016 by the length proxy; 1,008 by the exact text rule that the repair list uses, `results/census/vs_reconcile.json`), other bodies with no answer document 11,206.
+**Answer-link status** (all in-scope affairs): `absent` 10,924, `agenda` 932, `attached` 116,466, `image_only` 1,352, `not_applicable` 61,013, `oral` 5,448, `parentless` 2,459. Of gap′: BE 2,510 (canton lists an answer for 2,508; 2,459 relinkable parentless documents), CHE 75, other bodies with an answer document but no text 2,366 (of which VS oral stubs 1,016 by the length proxy; 1,008 by the exact text rule that the repair list uses, `results/census/vs_reconcile.json`), other bodies with no answer document 11,206 (of which 406 question-time answers typed `oral`: the answer was given in the sitting; 10,800 written answers that need the parliament's own site).
+
+**Typed causes of the gap** (written answer recorded, no answer text; one cause per affair): `absent` 10,924, `agenda` 592, `image_only` 1,352, `oral` 1,422, `parentless` 2,459. `oral` = 1,016 VS stubs (length proxy) + 406 question-time answers with no answer document (Graubünden 367, Pratteln 24, Monthey 6, Basel-Landschaft 5, Thun 3, Wallis 1). Their written-answer event is OPD's harmonised 'Beantwortet'; the answer itself is in the session minutes.
 
 ### Field-tier table
 
@@ -145,7 +149,7 @@ Status counts are over eligible bodies (≥ 20 applicable affairs). `meta`/`doc`
 - Motion: 42 of 23,921 answered affairs have only an oral answer (0.2%).
 - Postulate: 250 of 20,528 answered affairs have only an oral answer (1.2%).
 - Question: 1,196 of 38,824 answered affairs have only an oral answer (3.1%).
-- Question time: 2,914 of 14,087 answered affairs have only an oral answer (20.7%).
+- Question time: 3,320 of 14,087 answered affairs have only an oral answer (23.6%).
 - VS files 1,008 oral answers as an `_ANT` stub document, not as an oral event (exact text rule; the census length proxy flags 1,016: proxy precision 99.2% per document, recall 100.0%, `results/census/vs_reconcile.json`).
 - In 7 of 54 bodies the 'answer' event date equals the submission date for ≥ 50% of affairs: the date exists in metadata but is not an answer date (Wallis 88.6%, Interlaken 53.8%, Kriens 66.2%, Liestal 100.0%, Dübendorf 59.3%, Appenzell Ausserrhoden 62.2%, Schaffhausen 99.7%).
 

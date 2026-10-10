@@ -11,7 +11,9 @@ Answer-link status (new schema field `answer_link_status`), for in-scope affairs
   attached    answer text in OPD on the affair (document or texts export)      agenda   answer document under an agenda item
   -- the rest only where a written answer is expected (ev_answer) --
   parentless  BE: the canton's answer document is in OPD with no affair/agenda/meeting (joinable by canton uid)
-  oral        VS `_ANT` 87-char stub "réponse orale" (or: only oral answer events, no written answer expected)
+  oral        VS `_ANT` 87-char stub "réponse orale"; or question time (Fragestunde, heure des questions, question orale)
+              with no answer document anywhere in OPD and no event saying the answer was written (defs.is_question_time;
+              the answer is in the session minutes); or only oral answer events, no written answer expected
   image_only  an answer document is attached but OPD holds no usable text (re-fetch of 30 sampled: 15 image-only scans,
               13 VS oral pointers with a text layer, 2 other; results/repair/ocr_probe.json)
   absent      no answer document in OPD
@@ -69,7 +71,9 @@ def scope_affairs(root: Path = CENSUS) -> dict[int, dict]:
             num=a["number"],
             ext=a["ext"],
             begin=a["begin"],
+            qt=defs.is_question_time(a["type_h"], a["type_raw"]),
             ev_w=False,
+            ev_w_explicit=False,
             ev_oral=False,
             dA=False,
             dAt=False,
@@ -96,6 +100,7 @@ def compute(root: Path = CENSUS) -> tuple[dict, dict]:
             x["ev_oral"] = True
         elif k == "written":
             x["ev_w"] = True
+            x["ev_w_explicit"] |= bool(defs.WRITTEN_EXPLICIT.search(e["title"]))
             if e["date"] and (x["ans_date"] is None or e["date"] < x["ans_date"]):
                 x["ans_date"] = e["date"]
         if hid in (1, 56, 67) and e["date"] and (x["sub_date"] is None or e["date"] < x["sub_date"]):
@@ -165,6 +170,8 @@ def compute(root: Path = CENSUS) -> tuple[dict, dict]:
             s = "oral"
         elif x["dA"] or x["gA"]:
             s = "image_only"
+        elif x["qt"] and not x["ev_w_explicit"]:
+            s = "oral"
         else:
             s = "absent"
         x["link"] = s
@@ -264,6 +271,18 @@ def summarise(res: dict, aff: dict) -> dict:
         other_doc_present_no_text=sum(x["b"] not in ("BE", "CHE") and (x["dA"] or x["gA"]) for x in g),
         other_vs_oral_stub=sum(x["b"] == "VS" and x["vs_stub"] for x in g),
         other_no_answer_doc=sum(x["b"] not in ("BE", "CHE") and not (x["dA"] or x["gA"]) for x in g),
+        other_no_answer_doc_question_time=sum(
+            x["b"] not in ("BE", "CHE") and not (x["dA"] or x["gA"]) and x["link"] == "oral" for x in g
+        ),
+    )
+    # typed causes of the gap (written answer recorded, no answer text attached): one cause per affair
+    gap = [x for x in aff.values() if x["ev_w"] and not (x["dAt"] or x["tA"])]
+    out["gap_causes"] = {s: sum(x["link"] == s for x in gap) for s in LINK_STATUSES if s not in ("attached", "not_applicable")}
+    oral_gap = [x for x in gap if x["link"] == "oral"]
+    out["gap_oral_split"] = dict(
+        vs_stub=sum(x["vs_stub"] for x in oral_gap),
+        question_time=sum(not x["vs_stub"] for x in oral_gap),
+        question_time_by_body=dict(collections.Counter(x["b"] for x in oral_gap if not x["vs_stub"]).most_common()),
     )
     return out
 

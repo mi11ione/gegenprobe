@@ -1,0 +1,425 @@
+{
+ "label": "POST-HOC (not pre-registered): round-3 jury follow-up, 10 Oct 2026",
+ "scope": "Every gold label in P1-P4 was set by Claude agents (A1 Opus, A2 Sonnet, A3 Opus on disagreements); no human labelled or adjudicated. These are the non-LLM sources in the repository that can confirm or contradict a label. None of them was used to set a label.",
+ "splits": {
+  "P1": {
+   "n_documents": 154,
+   "gold_value_documents": 64,
+   "answer_date_vs_opd_written_answer_event": {
+    "checked": 44,
+    "agree": 37,
+    "disagree_within_7_days": 5,
+    "disagree_more_than_7_days": 2,
+    "no_oracle": 20,
+    "disagreements": [
+     {
+      "id": 19243,
+      "gold": "2023-04-06",
+      "oracle": [
+       "2023-04-19"
+      ],
+      "nearest_offset_days": 13,
+      "gold_quote": "Lausanne, le 6 avrfl 2023"
+     },
+     {
+      "id": 136571,
+      "gold": "2025-02-27",
+      "oracle": [
+       "2025-03-03"
+      ],
+      "nearest_offset_days": 4,
+      "gold_quote": "Ainsi adopté en séance de Municipalité, à Lausanne, le 27février2025."
+     },
+     {
+      "id": 257924,
+      "gold": "2019-12-03",
+      "oracle": [
+       "2019-12-04"
+      ],
+      "nearest_offset_days": 1,
+      "gold_quote": "Regierungsratsbeschluss vom 3. Dezember 2019"
+     },
+     {
+      "id": 319823,
+      "gold": "2021-05-25",
+      "oracle": [
+       "2021-05-27"
+      ],
+      "nearest_offset_days": 2,
+      "gold_quote": "Berne, le 25 mai 2021"
+     },
+     {
+      "id": 347213,
+      "gold": "2023-11-16",
+      "oracle": [
+       "2021-10-12",
+       "2023-11-21"
+      ],
+      "nearest_offset_days": 5,
+      "gold_quote": "Lausanne, le 16 novembre 2023"
+     },
+     {
+      "id": 361514,
+      "gold": "2010-03-02",
+      "oracle": [
+       "2010-03-03"
+      ],
+      "nearest_offset_days": 1,
+      "gold_quote": "Regierungsratsbeschluss\nvom 2. März 2010"
+     },
+     {
+      "id": 589850,
+      "gold": "2025-04-16",
+      "oracle": [
+       "2023-12-15"
+      ],
+      "nearest_offset_days": -488,
+      "gold_quote": "Sion, le 16 avril 2025"
+     }
+    ]
+   },
+   "answer_date_vs_publisher_title_date": {
+    "checked": 20,
+    "agree": 20,
+    "disagree_within_7_days": 0,
+    "disagree_more_than_7_days": 0,
+    "no_oracle": 44,
+    "disagreements": []
+   },
+   "title_date_on_gold_null_documents": [
+    {
+     "doc_id": 28271,
+     "body": "BE",
+     "title": "RRB: RRB-29.06.2022-de (PDF)",
+     "title_date": "2022-06-29",
+     "answer_present": "no",
+     "dtype": "answer"
+    }
+   ],
+   "gold_value_documents_with_any_non_llm_date": [
+    44,
+    64
+   ],
+   "gold_value_documents_confirmed_exactly_by_a_non_llm_source": [
+    37,
+    64
+   ],
+   "decision_number_vs_publisher_title": {
+    "checked": 0,
+    "agree": 0,
+    "disagreements": []
+   },
+   "answer_not_before_opd_submission": {
+    "checked": 60,
+    "holds": 57,
+    "no_submission_event": 4,
+    "violations": [
+     {
+      "doc_id": 249052,
+      "gold": "2010-02-18",
+      "opd_submitted": [
+       "2011-06-06"
+      ]
+     },
+     {
+      "doc_id": 300277,
+      "gold": "2010-08-25",
+      "opd_submitted": [
+       "2010-11-22"
+      ]
+     },
+     {
+      "doc_id": 886123,
+      "gold": "2016-12-20",
+      "opd_submitted": [
+       "2018-09-14"
+      ]
+     }
+    ]
+   },
+   "opd_doc_type_vs_gold_class": {
+    "answer|date": 57,
+    "answer|null": 3,
+    "intervention|date": 1,
+    "intervention|null": 69,
+    "report|date": 6,
+    "report|null": 18
+   }
+  },
+  "P2": {
+   "n_documents": 62,
+   "gold_value_documents": 29,
+   "answer_date_vs_opd_written_answer_event": {
+    "checked": 6,
+    "agree": 6,
+    "disagree_within_7_days": 0,
+    "disagree_more_than_7_days": 0,
+    "no_oracle": 23,
+    "disagreements": []
+   },
+   "answer_date_vs_publisher_title_date": {
+    "checked": 0,
+    "agree": 0,
+    "disagree_within_7_days": 0,
+    "disagree_more_than_7_days": 0,
+    "no_oracle": 29,
+    "disagreements": []
+   },
+   "title_date_on_gold_null_documents": [],
+   "gold_value_documents_with_any_non_llm_date": [
+    6,
+    29
+   ],
+   "gold_value_documents_confirmed_exactly_by_a_non_llm_source": [
+    6,
+    29
+   ],
+   "decision_number_vs_publisher_title": {
+    "checked": 6,
+    "agree": 6,
+    "disagreements": []
+   },
+   "answer_not_before_opd_submission": {
+    "checked": 17,
+    "holds": 14,
+    "no_submission_event": 12,
+    "violations": [
+     {
+      "doc_id": 26192,
+      "gold": "2012-10-16",
+      "opd_submitted": [
+       "2012-10-24"
+      ]
+     },
+     {
+      "doc_id": 431985,
+      "gold": "2012-04-03",
+      "opd_submitted": [
+       "2012-05-30"
+      ]
+     },
+     {
+      "doc_id": 895511,
+      "gold": "2017-01-30",
+      "opd_submitted": [
+       "2023-05-09"
+      ]
+     }
+    ]
+   },
+   "opd_doc_type_vs_gold_class": {
+    "answer|date": 24,
+    "answer|null": 7,
+    "intervention|date": 5,
+    "intervention|null": 26
+   }
+  },
+  "P3": {
+   "n_affairs": 29,
+   "gold_answer_dates": 27,
+   "gold_submitted_dates": 21,
+   "answer_date_vs_opd_written_answer_event": {
+    "checked": 21,
+    "agree": 18,
+    "disagree_within_7_days": 3,
+    "disagree_more_than_7_days": 0,
+    "no_oracle": 6,
+    "disagreements": [
+     {
+      "id": 568,
+      "gold": "2010-08-31",
+      "oracle": [
+       "2010-09-01"
+      ],
+      "nearest_offset_days": 1,
+      "gold_quote": "vom 31. August 2010"
+     },
+     {
+      "id": 46346,
+      "gold": "2023-09-05",
+      "oracle": [
+       "2023-09-06"
+      ],
+      "nearest_offset_days": 1,
+      "gold_quote": "Regierungsratsbeschluss vom 5. September 2023"
+     },
+     {
+      "id": 121857,
+      "gold": "2016-11-29",
+      "oracle": [
+       "2016-11-30"
+      ],
+      "nearest_offset_days": 1,
+      "gold_quote": "Regierungsratsbeschluss vom 29. November 2016"
+     }
+    ]
+   },
+   "answer_date_vs_publisher_title_date": {
+    "checked": 6,
+    "agree": 6,
+    "disagree_within_7_days": 0,
+    "disagree_more_than_7_days": 0,
+    "no_oracle": 21,
+    "disagreements": []
+   },
+   "submitted_vs_opd_submission_event": {
+    "checked": 21,
+    "agree": 15,
+    "disagree_within_7_days": 4,
+    "disagree_more_than_7_days": 2,
+    "no_oracle": 0,
+    "disagreements": [
+     {
+      "id": 167415,
+      "gold": "2010-03-18",
+      "oracle": [
+       "2010-03-23"
+      ],
+      "nearest_offset_days": 5,
+      "gold_quote": "Stans, 18. März 2010"
+     },
+     {
+      "id": 167741,
+      "gold": "2022-05-20",
+      "oracle": [
+       "2022-05-19"
+      ],
+      "nearest_offset_days": -1,
+      "gold_quote": "Samen, den 20. Mai 2022"
+     },
+     {
+      "id": 203870,
+      "gold": "2016-04-29",
+      "oracle": [
+       "2016-05-02"
+      ],
+      "nearest_offset_days": 3,
+      "gold_quote": "6370 Oberdorf, 29. April 2016"
+     },
+     {
+      "id": 328691,
+      "gold": "2024-02-27",
+      "oracle": [
+       "2024-03-12"
+      ],
+      "nearest_offset_days": 14,
+      "gold_quote": "Vernier, le 27 février 2024"
+     },
+     {
+      "id": 328935,
+      "gold": "2024-05-12",
+      "oracle": [
+       "2024-05-14"
+      ],
+      "nearest_offset_days": 2,
+      "gold_quote": "Vernier, le 12 mai 2024"
+     },
+     {
+      "id": 328952,
+      "gold": "2022-08-28",
+      "oracle": [
+       "2022-09-06"
+      ],
+      "nearest_offset_days": 9,
+      "gold_quote": "Vernier, le 28 août 2022"
+     }
+    ]
+   },
+   "submitted_vs_bern_ogd": {
+    "checked": 3,
+    "agree": 3,
+    "disagree_within_7_days": 0,
+    "disagree_more_than_7_days": 0,
+    "no_oracle": 0,
+    "disagreements": []
+   },
+   "caveat": "P3 arm C reads OPD metadata, so OPD agreement here is also what arm C would return; it is a check of the gold, not of the extractor."
+  }
+ },
+ "lock_to_label_commit": {
+  "P1": {
+   "lock_commit": "912bda2 2026-10-09T21:38:02+02:00",
+   "label_commit": "6eb4d3b 2026-10-09T21:44:02+02:00",
+   "gap_seconds": 360,
+   "gap_str": "6 min 0 s"
+  },
+  "P2": {
+   "lock_commit": "5b044a2 2026-10-10T09:47:55+02:00",
+   "label_commit": "dbf387e 2026-10-10T09:50:23+02:00",
+   "gap_seconds": 148,
+   "gap_str": "2 min 28 s"
+  },
+  "P3": {
+   "lock_commit": "a0e4636 2026-10-10T10:41:04+02:00",
+   "label_commit": "7750b6c 2026-10-10T10:44:41+02:00",
+   "gap_seconds": 217,
+   "gap_str": "3 min 37 s"
+  },
+  "P4": {
+   "lock_commit": "a0e4636 2026-10-10T10:41:04+02:00",
+   "label_commit": "8cf32f9 2026-10-10T10:45:07+02:00",
+   "gap_seconds": 243,
+   "gap_str": "4 min 3 s"
+  },
+  "annotation_fields": [
+   "addressed_body",
+   "addressed_body_quote",
+   "affair_id",
+   "affair_type",
+   "affair_type_quote",
+   "answer_date",
+   "answer_date_doc",
+   "answer_date_lenient",
+   "answer_date_page",
+   "answer_date_quote",
+   "answer_present",
+   "co_signatories",
+   "decision_number",
+   "doc_id",
+   "notes",
+   "number",
+   "number_doc",
+   "number_page",
+   "number_quote",
+   "recommendation",
+   "recommendation_quote",
+   "related_affairs",
+   "role",
+   "submitted",
+   "submitted_doc",
+   "submitted_lenient",
+   "submitted_page",
+   "submitted_quote",
+   "submitter",
+   "submitter_doc",
+   "submitter_page",
+   "submitter_quote"
+  ],
+  "annotation_files_have_time_fields": false,
+  "what_the_clock_shows": "the LOCK commit precedes the commit that adds the labels; lock.py also refuses to write a LOCK while a label file exists in the working tree. It does not show when annotation started: annotation files carry no timestamps."
+ },
+ "summary": {
+  "P1_opd_event": [
+   37,
+   44
+  ],
+  "P2_opd_event": [
+   6,
+   6
+  ],
+  "P1_title_date": [
+   20,
+   20
+  ],
+  "covered_any": {
+   "P1": [
+    44,
+    64
+   ],
+   "P2": [
+    6,
+    29
+   ]
+  }
+ }
+}

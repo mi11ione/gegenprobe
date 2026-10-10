@@ -1,0 +1,808 @@
+{
+ "label": "POST-HOC (not pre-registered): round-3 jury follow-up, 10 Oct 2026",
+ "defect": "eval/naive_baseline.py:to_iso (lines 91-99) accepts ISO or what lattice.dates parses; lattice does not read DD-MM-YYYY or DD-<month>-YYYY, so to_iso returns 'unparseable:…' and eval/arms.py:169 scores the answer as null. The prompts ask for JJJJ-MM-TT / AAAA-MM-JJ / AAAA-MM-GG; Apertus sometimes answered DD-MM-YYYY instead.",
+ "parser": "eval/posthoc_r3.py:to_iso_fixed",
+ "scorer": "eval/score.py:summarise (frozen, strict and lenient)",
+ "splits": {
+  "P1": {
+   "n": 154,
+   "naive_plain": {
+    "registered": {
+     "n": 154,
+     "exact": 98,
+     "correct": 47,
+     "correct_null": 51,
+     "false_null": 9,
+     "misattributed": 23,
+     "fabricated": 24,
+     "invented": 47,
+     "invented_on_null": 39,
+     "n_gold_null": 90,
+     "n_gold_value": 64,
+     "exact_ci": [
+      0.5579247120689479,
+      0.7081648359336066
+     ]
+    },
+    "reparsed": {
+     "n": 154,
+     "exact": 103,
+     "correct": 54,
+     "correct_null": 49,
+     "false_null": 1,
+     "misattributed": 26,
+     "fabricated": 24,
+     "invented": 50,
+     "invented_on_null": 41,
+     "n_gold_null": 90,
+     "n_gold_value": 64,
+     "exact_ci": [
+      0.5911848538845942,
+      0.7382593484042826
+     ]
+    },
+    "reparsed_lenient": {
+     "n": 154,
+     "exact": 107,
+     "correct": 58,
+     "correct_null": 49,
+     "false_null": 1,
+     "misattributed": 22,
+     "fabricated": 24,
+     "invented": 46,
+     "invented_on_null": 41,
+     "n_gold_null": 90,
+     "n_gold_value": 64,
+     "exact_ci": [
+      0.6180678263992594,
+      0.7620600993186755
+     ]
+    },
+    "registered_exact": [
+     98,
+     154
+    ],
+    "reparsed_exact": [
+     103,
+     154
+    ],
+    "registered_exact_ci_pct": [
+     55.8,
+     70.8
+    ],
+    "reparsed_exact_ci_pct": [
+     59.1,
+     73.8
+    ],
+    "reparsed_per_cell": {
+     "de_canton": [
+      10,
+      22
+     ],
+     "de_commune": [
+      12,
+      22
+     ],
+     "fr_canton": [
+      14,
+      22
+     ],
+     "fr_commune": [
+      15,
+      22
+     ],
+     "it_canton": [
+      15,
+      22
+     ],
+     "it_commune": [
+      17,
+      22
+     ],
+     "ocr_ti": [
+      20,
+      22
+     ]
+    },
+    "changed_documents": [
+     {
+      "doc_id": 136633,
+      "cell": "fr_commune",
+      "raw": "19-02-2019",
+      "how": "d_m_y_numeric",
+      "gold": null,
+      "registered": "correct_null",
+      "reparsed": "misattributed"
+     },
+     {
+      "doc_id": 143533,
+      "cell": "fr_canton",
+      "raw": "26-10-2016",
+      "how": "d_m_y_numeric",
+      "gold": "2016-10-26",
+      "registered": "false_null",
+      "reparsed": "correct"
+     },
+     {
+      "doc_id": 161897,
+      "cell": "fr_canton",
+      "raw": "30-03-2022",
+      "how": "d_m_y_numeric",
+      "gold": null,
+      "registered": "correct_null",
+      "reparsed": "misattributed"
+     },
+     {
+      "doc_id": 198158,
+      "cell": "fr_canton",
+      "raw": "28-01-2015",
+      "how": "d_m_y_numeric",
+      "gold": "2015-01-28",
+      "registered": "false_null",
+      "reparsed": "correct"
+     },
+     {
+      "doc_id": 325804,
+      "cell": "it_canton",
+      "raw": "22-02-2022",
+      "how": "d_m_y_numeric",
+      "gold": "2022-02-22",
+      "registered": "false_null",
+      "reparsed": "correct"
+     },
+     {
+      "doc_id": 868895,
+      "cell": "fr_commune",
+      "raw": "15-01-2019",
+      "how": "d_m_y_numeric",
+      "gold": "2018-12-17",
+      "registered": "false_null",
+      "reparsed": "misattributed"
+     },
+     {
+      "doc_id": 868898,
+      "cell": "fr_commune",
+      "raw": "15-05-2019",
+      "how": "d_m_y_numeric",
+      "gold": "2019-05-15",
+      "registered": "false_null",
+      "reparsed": "correct"
+     },
+     {
+      "doc_id": 868901,
+      "cell": "fr_commune",
+      "raw": "12-06-2019",
+      "how": "d_m_y_numeric",
+      "gold": "2019-06-12",
+      "registered": "false_null",
+      "reparsed": "correct"
+     },
+     {
+      "doc_id": 868958,
+      "cell": "fr_commune",
+      "raw": "10-05-2023",
+      "how": "d_m_y_numeric",
+      "gold": "2023-05-10",
+      "registered": "false_null",
+      "reparsed": "correct"
+     },
+     {
+      "doc_id": 885400,
+      "cell": "it_commune",
+      "raw": "25-ottobre-2012",
+      "how": "d_month_y",
+      "gold": "2012-10-25",
+      "registered": "false_null",
+      "reparsed": "correct"
+     }
+    ],
+    "n_changed": 10,
+    "parser_agrees_on_registered_values": [
+     94,
+     94
+    ],
+    "not_read_as_a_date": [
+     {
+      "doc_id": 325101,
+      "raw": "Non disponibile nel documento fornito",
+      "how": "verbal_null"
+     },
+     {
+      "doc_id": 437131,
+      "raw": "09.2001",
+      "how": "not_a_day_date"
+     },
+     {
+      "doc_id": 868973,
+      "raw": "Insuffisamment d'informations dans le document fourni pour déterminer la date de réponse",
+      "how": "verbal_null"
+     },
+     {
+      "doc_id": 883985,
+      "raw": "Non disponibile",
+      "how": "verbal_null"
+     },
+     {
+      "doc_id": 901091,
+      "raw": "Nicht verfügbar",
+      "how": "verbal_null"
+     }
+    ],
+    "fabricated_after_reparse": [
+     {
+      "doc_id": 7816,
+      "cell": "de_commune",
+      "pred": "2025-06-25",
+      "gold": null
+     },
+     {
+      "doc_id": 8171,
+      "cell": "de_commune",
+      "pred": "2023-09-28",
+      "gold": null
+     },
+     {
+      "doc_id": 23193,
+      "cell": "fr_canton",
+      "pred": "2023-03-22",
+      "gold": null
+     },
+     {
+      "doc_id": 64296,
+      "cell": "de_commune",
+      "pred": "2021-05-26",
+      "gold": null
+     },
+     {
+      "doc_id": 67214,
+      "cell": "de_commune",
+      "pred": "2024-03-20",
+      "gold": null
+     },
+     {
+      "doc_id": 101282,
+      "cell": "ocr_ti",
+      "pred": "2019-03-13",
+      "gold": null
+     },
+     {
+      "doc_id": 109883,
+      "cell": "ocr_ti",
+      "pred": "2020-03-18",
+      "gold": null
+     },
+     {
+      "doc_id": 110065,
+      "cell": "it_canton",
+      "pred": "2023-05-25",
+      "gold": null
+     },
+     {
+      "doc_id": 110142,
+      "cell": "it_canton",
+      "pred": "2016-11-24",
+      "gold": null
+     },
+     {
+      "doc_id": 122203,
+      "cell": "fr_canton",
+      "pred": "2020-02-13",
+      "gold": "2020-01-15"
+     },
+     {
+      "doc_id": 204725,
+      "cell": "de_canton",
+      "pred": "2010-03-26",
+      "gold": null
+     },
+     {
+      "doc_id": 249052,
+      "cell": "fr_canton",
+      "pred": "2011-03-23",
+      "gold": "2010-02-18"
+     },
+     {
+      "doc_id": 274069,
+      "cell": "it_canton",
+      "pred": "2019-03-19",
+      "gold": null
+     },
+     {
+      "doc_id": 274108,
+      "cell": "it_canton",
+      "pred": "2022-03-23",
+      "gold": null
+     },
+     {
+      "doc_id": 296879,
+      "cell": "fr_commune",
+      "pred": "2024-03-19",
+      "gold": null
+     },
+     {
+      "doc_id": 300644,
+      "cell": "de_canton",
+      "pred": "2022-12-14",
+      "gold": null
+     },
+     {
+      "doc_id": 332134,
+      "cell": "de_commune",
+      "pred": "2018-03-20",
+      "gold": null
+     },
+     {
+      "doc_id": 381865,
+      "cell": "de_commune",
+      "pred": "2010-03-17",
+      "gold": null
+     },
+     {
+      "doc_id": 400968,
+      "cell": "fr_canton",
+      "pred": "2021-12-01",
+      "gold": null
+     },
+     {
+      "doc_id": 407829,
+      "cell": "de_canton",
+      "pred": "2018-03-22",
+      "gold": null
+     },
+     {
+      "doc_id": 435098,
+      "cell": "fr_canton",
+      "pred": "2012-11-29",
+      "gold": null
+     },
+     {
+      "doc_id": 601680,
+      "cell": "de_canton",
+      "pred": "1994-12-14",
+      "gold": null
+     },
+     {
+      "doc_id": 883901,
+      "cell": "it_commune",
+      "pred": "2016-06-23",
+      "gold": null
+     },
+     {
+      "doc_id": 884735,
+      "cell": "it_commune",
+      "pred": "2021-10-27",
+      "gold": null
+     }
+    ],
+    "n_fabricated_after_reparse": 24
+   },
+   "naive_null": {
+    "registered": {
+     "n": 154,
+     "exact": 134,
+     "correct": 47,
+     "correct_null": 87,
+     "false_null": 9,
+     "misattributed": 11,
+     "fabricated": 0,
+     "invented": 11,
+     "invented_on_null": 3,
+     "n_gold_null": 90,
+     "n_gold_value": 64,
+     "exact_ci": [
+      0.8079099214201346,
+      0.9143331374439416
+     ]
+    },
+    "reparsed": {
+     "n": 154,
+     "exact": 133,
+     "correct": 47,
+     "correct_null": 86,
+     "false_null": 8,
+     "misattributed": 13,
+     "fabricated": 0,
+     "invented": 13,
+     "invented_on_null": 4,
+     "n_gold_null": 90,
+     "n_gold_value": 64,
+     "exact_ci": [
+      0.8005217292555206,
+      0.9090503987512913
+     ]
+    },
+    "reparsed_lenient": {
+     "n": 154,
+     "exact": 139,
+     "correct": 53,
+     "correct_null": 86,
+     "false_null": 8,
+     "misattributed": 7,
+     "fabricated": 0,
+     "invented": 7,
+     "invented_on_null": 4,
+     "n_gold_null": 90,
+     "n_gold_value": 64,
+     "exact_ci": [
+      0.8455154205321458,
+      0.940082292618253
+     ]
+    },
+    "registered_exact": [
+     134,
+     154
+    ],
+    "reparsed_exact": [
+     133,
+     154
+    ],
+    "registered_exact_ci_pct": [
+     80.8,
+     91.4
+    ],
+    "reparsed_exact_ci_pct": [
+     80.1,
+     90.9
+    ],
+    "reparsed_per_cell": {
+     "de_canton": [
+      18,
+      22
+     ],
+     "de_commune": [
+      20,
+      22
+     ],
+     "fr_canton": [
+      18,
+      22
+     ],
+     "fr_commune": [
+      20,
+      22
+     ],
+     "it_canton": [
+      19,
+      22
+     ],
+     "it_commune": [
+      17,
+      22
+     ],
+     "ocr_ti": [
+      21,
+      22
+     ]
+    },
+    "changed_documents": [
+     {
+      "doc_id": 136633,
+      "cell": "fr_commune",
+      "raw": "19-02-2019",
+      "how": "d_m_y_numeric",
+      "gold": null,
+      "registered": "correct_null",
+      "reparsed": "misattributed"
+     },
+     {
+      "doc_id": 868895,
+      "cell": "fr_commune",
+      "raw": "15-janvier-2019",
+      "how": "d_month_y",
+      "gold": "2018-12-17",
+      "registered": "false_null",
+      "reparsed": "misattributed"
+     }
+    ],
+    "n_changed": 2,
+    "parser_agrees_on_registered_values": [
+     58,
+     58
+    ],
+    "not_read_as_a_date": [],
+    "fabricated_after_reparse": [],
+    "n_fabricated_after_reparse": 0
+   }
+  },
+  "P2": {
+   "n": 62,
+   "naive_plain": {
+    "registered": {
+     "n": 62,
+     "exact": 45,
+     "correct": 21,
+     "correct_null": 24,
+     "false_null": 5,
+     "misattributed": 8,
+     "fabricated": 4,
+     "invented": 12,
+     "invented_on_null": 9,
+     "n_gold_null": 33,
+     "n_gold_value": 29,
+     "exact_ci": [
+      0.6040722415667276,
+      0.8211908140090788
+     ]
+    },
+    "reparsed": {
+     "n": 62,
+     "exact": 49,
+     "correct": 25,
+     "correct_null": 24,
+     "false_null": 0,
+     "misattributed": 9,
+     "fabricated": 4,
+     "invented": 13,
+     "invented_on_null": 9,
+     "n_gold_null": 33,
+     "n_gold_value": 29,
+     "exact_ci": [
+      0.6736054886034556,
+      0.8731612971368666
+     ]
+    },
+    "reparsed_lenient": {
+     "n": 62,
+     "exact": 51,
+     "correct": 27,
+     "correct_null": 24,
+     "false_null": 0,
+     "misattributed": 7,
+     "fabricated": 4,
+     "invented": 11,
+     "invented_on_null": 9,
+     "n_gold_null": 33,
+     "n_gold_value": 29,
+     "exact_ci": [
+      0.7095819851661977,
+      0.8979366656563825
+     ]
+    },
+    "registered_exact": [
+     45,
+     62
+    ],
+    "reparsed_exact": [
+     49,
+     62
+    ],
+    "registered_exact_ci_pct": [
+     60.4,
+     82.1
+    ],
+    "reparsed_exact_ci_pct": [
+     67.4,
+     87.3
+    ],
+    "reparsed_per_cell": {
+     "de_canton": [
+      20,
+      23
+     ],
+     "de_commune": [
+      7,
+      10
+     ],
+     "fr_canton": [
+      8,
+      8
+     ],
+     "fr_commune": [
+      8,
+      15
+     ],
+     "it_commune": [
+      6,
+      6
+     ]
+    },
+    "changed_documents": [
+     {
+      "doc_id": 52151,
+      "cell": "fr_canton",
+      "raw": "01-11-2023",
+      "how": "d_m_y_numeric",
+      "gold": "2023-11-01",
+      "registered": "false_null",
+      "reparsed": "correct"
+     },
+     {
+      "doc_id": 111648,
+      "cell": "fr_canton",
+      "raw": "10-03-2021",
+      "how": "d_m_y_numeric",
+      "gold": "2021-03-10",
+      "registered": "false_null",
+      "reparsed": "correct"
+     },
+     {
+      "doc_id": 111796,
+      "cell": "fr_canton",
+      "raw": "01-11-2023",
+      "how": "d_m_y_numeric",
+      "gold": "2023-11-01",
+      "registered": "false_null",
+      "reparsed": "correct"
+     },
+     {
+      "doc_id": 167939,
+      "cell": "fr_canton",
+      "raw": "30-11-2022",
+      "how": "d_m_y_numeric",
+      "gold": "2022-11-30",
+      "registered": "false_null",
+      "reparsed": "correct"
+     },
+     {
+      "doc_id": 895511,
+      "cell": "fr_commune",
+      "raw": "25-01-2017",
+      "how": "d_m_y_numeric",
+      "gold": "2017-01-30",
+      "registered": "false_null",
+      "reparsed": "misattributed"
+     }
+    ],
+    "n_changed": 5,
+    "parser_agrees_on_registered_values": [
+     33,
+     33
+    ],
+    "not_read_as_a_date": [],
+    "fabricated_after_reparse": [
+     {
+      "doc_id": 62545,
+      "cell": "de_commune",
+      "pred": "2018-09-18",
+      "gold": null
+     },
+     {
+      "doc_id": 279568,
+      "cell": "de_commune",
+      "pred": "2020-06-24",
+      "gold": null
+     },
+     {
+      "doc_id": 868257,
+      "cell": "fr_commune",
+      "pred": "2025-10-07",
+      "gold": null
+     },
+     {
+      "doc_id": 869606,
+      "cell": "fr_commune",
+      "pred": "2018-10-16",
+      "gold": null
+     }
+    ],
+    "n_fabricated_after_reparse": 4
+   },
+   "naive_null": {
+    "registered": {
+     "n": 62,
+     "exact": 52,
+     "correct": 22,
+     "correct_null": 30,
+     "false_null": 2,
+     "misattributed": 7,
+     "fabricated": 1,
+     "invented": 8,
+     "invented_on_null": 3,
+     "n_gold_null": 33,
+     "n_gold_value": 29,
+     "exact_ci": [
+      0.7279343069043936,
+      0.9099602764593157
+     ]
+    },
+    "reparsed": {
+     "n": 62,
+     "exact": 54,
+     "correct": 24,
+     "correct_null": 30,
+     "false_null": 0,
+     "misattributed": 7,
+     "fabricated": 1,
+     "invented": 8,
+     "invented_on_null": 3,
+     "n_gold_null": 33,
+     "n_gold_value": 29,
+     "exact_ci": [
+      0.7655044310309549,
+      0.9331420174150125
+     ]
+    },
+    "reparsed_lenient": {
+     "n": 62,
+     "exact": 57,
+     "correct": 27,
+     "correct_null": 30,
+     "false_null": 0,
+     "misattributed": 4,
+     "fabricated": 1,
+     "invented": 5,
+     "invented_on_null": 3,
+     "n_gold_null": 33,
+     "n_gold_value": 29,
+     "exact_ci": [
+      0.824712077925188,
+      0.9650621681441662
+     ]
+    },
+    "registered_exact": [
+     52,
+     62
+    ],
+    "reparsed_exact": [
+     54,
+     62
+    ],
+    "registered_exact_ci_pct": [
+     72.8,
+     91.0
+    ],
+    "reparsed_exact_ci_pct": [
+     76.6,
+     93.3
+    ],
+    "reparsed_per_cell": {
+     "de_canton": [
+      19,
+      23
+     ],
+     "de_commune": [
+      10,
+      10
+     ],
+     "fr_canton": [
+      8,
+      8
+     ],
+     "fr_commune": [
+      11,
+      15
+     ],
+     "it_commune": [
+      6,
+      6
+     ]
+    },
+    "changed_documents": [
+     {
+      "doc_id": 52151,
+      "cell": "fr_canton",
+      "raw": "01-11-2023",
+      "how": "d_m_y_numeric",
+      "gold": "2023-11-01",
+      "registered": "false_null",
+      "reparsed": "correct"
+     },
+     {
+      "doc_id": 111796,
+      "cell": "fr_canton",
+      "raw": "01-11-2023",
+      "how": "d_m_y_numeric",
+      "gold": "2023-11-01",
+      "registered": "false_null",
+      "reparsed": "correct"
+     }
+    ],
+    "n_changed": 2,
+    "parser_agrees_on_registered_values": [
+     30,
+     30
+    ],
+    "not_read_as_a_date": [],
+    "fabricated_after_reparse": [
+     {
+      "doc_id": 869606,
+      "cell": "fr_commune",
+      "pred": "2018-10-16",
+      "gold": null
+     }
+    ],
+    "n_fabricated_after_reparse": 1
+   }
+  }
+ }
+}

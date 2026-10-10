@@ -24,7 +24,7 @@ only for Bern are they verified against the decision date printed in the answer 
 | `answer_date_alt` / `answer_hid_alt` | alternative rule: the earliest event harmonised as 'Beantwortet' (id 6) if there is one, else the census rule. Changes 753 rows; fixes Schaffhausen, where an event harmonised 'Eingereicht' carries the answer title on the submission date (median 0 → 71 days) (`results/census/answer_rule_alt.json`) |
 | `n_answer_events` / `answer_spread_days` | number of written-answer events, and days between the first and last |
 | `days_to_answer` / `days_to_answer_alt` | submitted → answer date (rule / alternative rule); blank if a date is missing, negative or > 10 years |
-| `link_status` | where the answer text is: `attached` · `agenda` (filed under an agenda item) · `parentless` (in OPD without a parent; Bern) · `image_only` (scan without text) · `oral` · `absent` (not in OPD) |
+| `link_status` | where the answer text is: `attached` · `agenda` (filed under an agenda item) · `parentless` (in OPD without a parent; Bern) · `image_only` (scan without text) · `oral` (answered in the sitting: question time / Fragestunde with no answer document, or a Valais "réponse orale" stub) · `absent` (not in OPD) |
 | `oral_event` | 1 if an event also records an oral answer |
 | `same_day_body` | 1 if the body's 'answer' events mostly fall on the submission date (census flag, 7 bodies) |
 | `date_trust` | per body: `verified` (Bern) · `sitting_day` (≥ 80 % of answer dates on one weekday, a government's weekly sitting) · `mixed` (50–80 %) · `diffuse` (< 50 %) · `same_day` · `too_few` (< 20 dated) — `results/census/date_trust.json` |

@@ -1,0 +1,5 @@
+id	shown	file	path	fmt	command	where	context
+r3w3.night_rescan_changed_min	20.2	results/monitor/night_cost.json	estimate_night_with_those_changes.rescan_min	f1	python -m gegenprobe.monitor.nightly cost	docs/nightly.md,docs/runbook.md	
+r3w3.night_with_changes_min	21.8	results/monitor/night_cost.json	estimate_night_with_those_changes.night_min	f1	python -m gegenprobe.monitor.nightly cost	docs/nightly.md,docs/runbook.md	
+r3w3.night_changed_bytes_share	80.6%	results/monitor/night_cost.json	changed_6_to_9_oct.share_bytes	pct1	python -m gegenprobe.monitor.nightly cost	docs/nightly.md	
+r3w3.full_rescan_cpu_min	25	results/monitor/night_cost.json	full_rescan.cpu_min	int	python -m gegenprobe.monitor.nightly cost (cited: spikes/recovery/results.md §6)	docs/nightly.md	{"docs/nightly.md": "of one core"}

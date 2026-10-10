@@ -21,7 +21,13 @@ EnvironmentFile=-/etc/gegenprobe/alerts.env
 # The image runs as uid 10001 (never root); the host directories belong to that uid.
 ExecStartPre=/usr/bin/install -d -o 10001 -g 0 -m 0750 ${GP_HOME}/work ${GP_HOME}/results
 ExecStartPre=/usr/bin/touch /etc/gegenprobe/alerts.env
+# A container left behind by a killed night (SIGKILL at TimeoutStartSec, OOM of dockerd, host crash) would block the name
+# tomorrow; remove it before the run and after every run ("-": a missing container is not an error).
+ExecStartPre=-/usr/bin/docker rm -f gegenprobe-nightly
+# Read-only root filesystem: the job writes only to the two mounted host directories and to a private /tmp (tmpfs;
+# pdftoppm/tesseract scratch files; HOME=/tmp in the image).
 ExecStart=/usr/bin/docker run --rm --name gegenprobe-nightly \
+  --read-only --tmpfs /tmp:rw,nosuid,nodev,size=1g \
   --user 10001:0 --cap-drop ALL --security-opt no-new-privileges \
   --memory ${GP_MEM} --memory-swap ${GP_MEM} --cpus ${GP_CPUS} --pids-limit 256 \
   --env-file /etc/gegenprobe/alerts.env \
@@ -29,5 +35,8 @@ ExecStart=/usr/bin/docker run --rm --name gegenprobe-nightly \
   -v ${GP_HOME}/work:/var/gegenprobe/work \
   -v ${GP_HOME}/results:/var/gegenprobe/results \
   ${GP_IMAGE} python -m gegenprobe.monitor.nightly run
+ExecStopPost=-/usr/bin/docker rm -f gegenprobe-nightly
 TimeoutStartSec=4h
+# systemd stops the docker client; `docker rm -f` above (ExecStopPost) stops the container itself
+TimeoutStopSec=60
 Nice=10

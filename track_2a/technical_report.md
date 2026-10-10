@@ -45,7 +45,7 @@ OPD bulk exports (affairs, events, agendas, docs, texts, contributors; snapshot 
 |---|---|---|
 | shared | submission date, submitter, co-signatories, addressed body, recommendation, decision and dispatch dates, Q/A pairing, related affairs, language, usable text, link status | one meaning; only where the value lives differs |
 | shared with a role split | **answer date**, procedural history, type, procedural state, decision outcome | in 7 of 54 bodies the "answer" event is mostly the submission date; OPD's event equals the printed date for 37 held-out documents and differs for 7; 35 event labels carry different date roles; 42 of 1,038 type labels map to different harmonised types ("Antrag" alone to 7); 32 state, 3 outcome labels ambiguous |
-| body-specific | oral answers, executive-own business, minutes-only councils | 20.7% of question time is oral; 16 bodies publish only meeting documents, 8 without any affair → `virtual` affairs (P4) |
+| body-specific | oral answers, executive-own business, minutes-only councils | 23.6% of question time is oral; 16 bodies publish only meeting documents, 8 without any affair → `virtual` affairs (P4) |
 
 29.1% of events have no harmonised id. Where OPD metadata carries a field it mostly agrees with print (P3: type 17/18, submitter 23/28, submission date 15/21; affair numbers 21/29, format differences). Five schema gaps recur across 12 bodies; Chao2 could not estimate the missing schema's size (≈ 57.4 new accounts per body, no saturation). **Cross-parliamentary question:** across 54 parliaments, 82.3% of written answers have their text in OPD (85.0% after the measured repairs); the median government answers in 68 days (69 without the 7 same-day bodies; Question time 5).
 

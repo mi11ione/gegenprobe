@@ -1,6 +1,6 @@
 # Gegenprobe (Track 2A, OpenParlData). Judges: `make run` (Docker, CPU, clean checkout).
 # Development targets run on the host with .venv (python 3.11); every target is re-runnable and writes under results/.
-.PHONY: site deploy-site figures run test lint claims census census-scan census-replay census-hash repair repair-network nightly-offline nightly-notify-test convert eval report install-nightly docker-build
+.PHONY: site deploy-site figures run test lint claims census census-scan census-replay census-hash repair repair-network nightly-offline nightly-smoke nightly-notify-test convert eval report install-nightly docker-build
 
 PY ?= .venv/bin/python
 IMAGE ?= gegenprobe:latest
@@ -72,6 +72,9 @@ repair-network:   # one-off measurements that fetch documents (polite: >= 1.2 s 
 
 nightly-offline:
 	$(PY) -m gegenprobe.monitor.nightly offline; rc=$$?; [ $$rc -eq 0 ] || [ $$rc -eq 3 ]   # 3 = alerts fired
+
+nightly-smoke:   # three offline nights on synthetic fixture exports (seconds; CI runs it inside the read-only image too)
+	$(PY) -m gegenprobe.monitor.smoke
 
 nightly-notify-test:   # sends one test message through the channels configured in the environment (GP_ALERT_*)
 	$(PY) -m gegenprobe.monitor.notify test

@@ -26,3 +26,17 @@ The locked PREREG3.md title still says "(DRAFT)"; its status line says "FROZEN (
 written after the run (commit 1369d60) and applies the registered H1–H4 definitions to the frozen results file.
 `eval/gold3/run_p3.py` printed a KeyError after writing its results file (set-valued fields have no `correct` count);
 the results file is complete and unaffected.
+
+## D3-5 No separate P3 development set: P3 is exploratory (10 Oct 2026, POST-HOC, found by the round-3 jury)
+The whole-affair extractor (`src/gegenprobe/affair/extract.py`, 533 lines; `build.py`, `meta.py`), its 12 new prompts
+(`src/prompts/*/affair_*.txt`), the scorer, the annotation tooling and the 29-affair sample (`data/gold3/p3_affairs.jsonl`,
+`eval/gold3/sample.py`, OPD metadata) were all added in **one commit**, a0e4636 (orig. 922218d, LOCK3). No P3 development
+set exists, and no commit shows the extractor before the sample was drawn. The repository therefore cannot show that the
+extractor and prompts were not shaped on the 29 sampled affairs. The labels are clean (LOCK3 precedes them by 3 min 37 s).
+The only component with a separate dev fit is the answer date, which uses the frozen P1 cascade and θ. **Consequence:** P3 is a
+feasibility study, not a held-out evaluation in the strict sense, and its numbers should be described that way. A
+held-out P3 needs fresh affairs drawn after a new lock with the extractor unchanged. Non-LLM check of the P3 gold
+(`results/eval/posthoc_r3_gold_oracle.json`): answer dates vs OPD written-answer events 18/21 agree (3 differ by one day,
+decision vs publication); vs publisher titles 6/6; submission dates vs OPD submission events 15/21 (4 within a week, 2 by
+9 and 14 days: Vernier letter dates vs OPD deposit dates); vs Bern OGD 3/3. Arm C reads OPD metadata, so this checks the
+gold, not the extractor.

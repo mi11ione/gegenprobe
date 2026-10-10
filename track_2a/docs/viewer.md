@@ -1,6 +1,6 @@
 # Evidence viewer
 
-A static page (`site/index.html`, no server, no external scripts) that shows the evidence a reviewer or juror needs:
+A static page (`site/index.html`, no server, no external scripts, no third-party requests: fonts are self-hosted) that shows the evidence a reviewer or juror needs:
 
 | View | What it shows | Source files |
 |---|---|---|
@@ -84,3 +84,27 @@ adds the always-null baseline (90/154), dates found per arm (of 64) and the prec
 - **P2 error profile in words** per arm, and a data-driven line on why rules + Apertus (51) trails the pointer alone (53):
   on 2 documents a rule fired with a wrong date, so Apertus was never asked; no document goes the other way
   (`p2.cascade_vs_pointer`, computed from the per-document rows).
+
+## v4 (round 3): newsroom fixes, self-hosted fonts
+
+- **No third-party requests.** Archivo (variable, wght 100–900, wdth 62–125) and IBM Plex Mono (400/500/600), latin and
+  latin-ext woff2 subsets, are served from `site/fonts/` with their SIL OFL 1.1 licence texts; sources (exact
+  `@fontsource` versions on cdn.jsdelivr.net) and sha256 in `site/fonts/SOURCES.txt`. `build --out DIR` copies the
+  fonts next to `index.html`. `tests/test_viewer.py::test_fonts_self_hosted` fails if the template references
+  fonts.googleapis.com or fonts.gstatic.com again.
+- **Oral question time is not "missing".** Question-time answers (Fragestunde, heure des questions, question orale) with
+  no answer document in OPD are typed `oral` by the census (406; Graubünden 367 of them, `docs/census.md` §2, §4), like
+  the Valais oral stubs. "Safe to say" leads with them where they make up at least 30% of the missing answers in the
+  period it quotes, and states the rate over answers given in writing (Graubünden 2024–25: all 62 missing are question
+  time; every written answer has its text).
+- **Answer time within one type.** The table column and the drawer show the median days to the first written-answer
+  event for one intervention type at a time (selector above the table; default interpellation), in the chosen period,
+  with the interquartile range; n ≥ 10 per type and period; hidden for same-day bodies. No mixed-type median is shown.
+  The CSV adds `*_median_days_interpellation` per period.
+- **Coverage gaps are a status.** A parliament for which OPD holds ≥ 20 in-scope interventions but records a written
+  government answer for fewer than 20 of them and for under 10% (all years) is a `coverage gap` (31: among the cantons
+  SZ, UR, GL, AI, NW, GE): a chip in the table, a strip above it, a "Coverage" filter, a generated "safe to say" ("a gap
+  in OPD's coverage of answers, not evidence that the parliament leaves questions unanswered") and a `coverage` column
+  in the CSV. `no_affairs` (meeting documents only) and `few` are the other non-measured states.
+- **Cantons only.** A "Show" filter: all · cantons · cities & communes.
+
