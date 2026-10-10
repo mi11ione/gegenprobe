@@ -1,0 +1,44 @@
+{
+ "split": "p5dev",
+ "n": 38,
+ "agreement": {
+  "n_questions": {
+   "raw": 38,
+   "n": 38,
+   "kappa": 1.0
+  },
+  "answer_style": {
+   "raw": 37,
+   "n": 38,
+   "kappa": 0.9289719626168225
+  },
+  "recommendation": {
+   "raw": 38,
+   "n": 38,
+   "kappa": 1.0
+  },
+  "submitter": {
+   "raw": 35,
+   "n": 38,
+   "kappa": 0.9187455452601568
+  },
+  "questions": {
+   "raw": 38,
+   "n": 38,
+   "rule": "IoU >= 0.5 per span (agree_fields)"
+  },
+  "answers": {
+   "raw": 36,
+   "n": 38,
+   "rule": "IoU >= 0.5 per span (agree_fields)"
+  },
+  "reasoning": {
+   "raw": 37,
+   "n": 38,
+   "rule": "IoU >= 0.5 per span (agree_fields)"
+  }
+ },
+ "tie_broken_affairs": 5,
+ "tie_broken_fields": 6,
+ "a3_order_randomised": true
+}
