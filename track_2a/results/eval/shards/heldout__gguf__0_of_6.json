@@ -1,0 +1,2211 @@
+{
+ "split": "heldout",
+ "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+ "theta": 16.726888806932546,
+ "n_docs": 26,
+ "served_fingerprints": [],
+ "arms": {
+  "rules": {
+   "strict": {
+    "ALL": {
+     "n": 26,
+     "correct": 8,
+     "correct_null": 15,
+     "false_null": 1,
+     "misattributed": 2,
+     "fabricated": 0,
+     "exact": 23,
+     "exact_rate": 0.8846153846153846,
+     "exact_ci": [
+      0.7102370691310166,
+      0.959968281788505
+     ],
+     "invented": 2,
+     "invented_ci": [
+      0.02135463918337556,
+      0.24141947480515052
+     ],
+     "n_gold_null": 16,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.01111905730833121,
+      0.2832926836802987
+     ],
+     "n_gold_value": 10,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "de_canton": {
+     "n": 4,
+     "correct": 0,
+     "correct_null": 2,
+     "false_null": 1,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 2,
+     "exact_rate": 0.5,
+     "exact_ci": [
+      0.15003570882017148,
+      0.8499642911798285
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.045586062644636216,
+      0.6993639475573634
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "n_gold_value": 1,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "de_commune": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 3,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.43849391955098227,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "n_gold_value": 1,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "fr_canton": {
+     "n": 2,
+     "correct": 1,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 2,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "n_gold_value": 1,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "fr_commune": {
+     "n": 4,
+     "correct": 0,
+     "correct_null": 3,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 3,
+     "exact_rate": 0.75,
+     "exact_ci": [
+      0.3006360524426366,
+      0.9544139373553637
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.045586062644636216,
+      0.6993639475573634
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_value": 1,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "it_canton": {
+     "n": 7,
+     "correct": 4,
+     "correct_null": 3,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 7,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6456611570247934,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.35433884297520657
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_value": 4,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "it_commune": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 3,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.43849391955098227,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "n_gold_value": 1,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "ocr_ti": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 3,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.43849391955098227,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "n_gold_value": 1,
+     "model_decided": 0,
+     "model_share": 0.0
+    }
+   },
+   "lenient": {
+    "ALL": {
+     "n": 26,
+     "correct": 9,
+     "correct_null": 15,
+     "false_null": 1,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 24,
+     "exact_rate": 0.9230769230769231,
+     "exact_ci": [
+      0.7585805251948495,
+      0.9786453608166245
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.0068218089769898765,
+      0.18893176991958405
+     ],
+     "n_gold_null": 16,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.01111905730833121,
+      0.2832926836802987
+     ],
+     "n_gold_value": 10,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "de_canton": {
+     "n": 4,
+     "correct": 0,
+     "correct_null": 2,
+     "false_null": 1,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 2,
+     "exact_rate": 0.5,
+     "exact_ci": [
+      0.15003570882017148,
+      0.8499642911798285
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.045586062644636216,
+      0.6993639475573634
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "n_gold_value": 1,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "de_commune": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 3,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.43849391955098227,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "n_gold_value": 1,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "fr_canton": {
+     "n": 2,
+     "correct": 1,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 2,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "n_gold_value": 1,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "fr_commune": {
+     "n": 4,
+     "correct": 1,
+     "correct_null": 3,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 4,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.5100999795960008,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.48990002040399916
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_value": 1,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "it_canton": {
+     "n": 7,
+     "correct": 4,
+     "correct_null": 3,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 7,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6456611570247934,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.35433884297520657
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_value": 4,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "it_commune": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 3,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.43849391955098227,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "n_gold_value": 1,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "ocr_ti": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 3,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.43849391955098227,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "n_gold_value": 1,
+     "model_decided": 0,
+     "model_share": 0.0
+    }
+   }
+  },
+  "pointer": {
+   "strict": {
+    "ALL": {
+     "n": 26,
+     "correct": 9,
+     "correct_null": 9,
+     "false_null": 0,
+     "misattributed": 8,
+     "fabricated": 0,
+     "exact": 18,
+     "exact_rate": 0.6923076923076923,
+     "exact_ci": [
+      0.5001138848576876,
+      0.8349887906020732
+     ],
+     "invented": 8,
+     "invented_ci": [
+      0.16501120939792674,
+      0.49988611514231246
+     ],
+     "n_gold_null": 16,
+     "invented_on_null": 7,
+     "invented_on_null_ci": [
+      0.2309836333518552,
+      0.6682180439322347
+     ],
+     "n_gold_value": 10,
+     "model_decided": 26,
+     "model_share": 1.0
+    },
+    "de_canton": {
+     "n": 4,
+     "correct": 1,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 2,
+     "fabricated": 0,
+     "exact": 2,
+     "exact_rate": 0.5,
+     "exact_ci": [
+      0.15003570882017148,
+      0.8499642911798285
+     ],
+     "invented": 2,
+     "invented_ci": [
+      0.15003570882017148,
+      0.8499642911798285
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 2,
+     "invented_on_null_ci": [
+      0.2076549551264879,
+      0.9385096847238394
+     ],
+     "n_gold_value": 1,
+     "model_decided": 4,
+     "model_share": 1.0
+    },
+    "de_commune": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 2,
+     "exact_rate": 0.6666666666666666,
+     "exact_ci": [
+      0.2076549551264879,
+      0.9385096847238394
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "n_gold_value": 1,
+     "model_decided": 3,
+     "model_share": 1.0
+    },
+    "fr_canton": {
+     "n": 2,
+     "correct": 1,
+     "correct_null": 0,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 1,
+     "exact_rate": 0.5,
+     "exact_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "n_gold_value": 1,
+     "model_decided": 2,
+     "model_share": 1.0
+    },
+    "fr_commune": {
+     "n": 4,
+     "correct": 0,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 2,
+     "fabricated": 0,
+     "exact": 2,
+     "exact_rate": 0.5,
+     "exact_ci": [
+      0.15003570882017148,
+      0.8499642911798285
+     ],
+     "invented": 2,
+     "invented_ci": [
+      0.15003570882017148,
+      0.8499642911798285
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "n_gold_value": 1,
+     "model_decided": 4,
+     "model_share": 1.0
+    },
+    "it_canton": {
+     "n": 7,
+     "correct": 4,
+     "correct_null": 3,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 7,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6456611570247934,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.35433884297520657
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_value": 4,
+     "model_decided": 7,
+     "model_share": 1.0
+    },
+    "it_commune": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 3,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.43849391955098227,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "n_gold_value": 1,
+     "model_decided": 3,
+     "model_share": 1.0
+    },
+    "ocr_ti": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 0,
+     "false_null": 0,
+     "misattributed": 2,
+     "fabricated": 0,
+     "exact": 1,
+     "exact_rate": 0.3333333333333333,
+     "exact_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "invented": 2,
+     "invented_ci": [
+      0.2076549551264879,
+      0.9385096847238394
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 2,
+     "invented_on_null_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "n_gold_value": 1,
+     "model_decided": 3,
+     "model_share": 1.0
+    }
+   },
+   "lenient": {
+    "ALL": {
+     "n": 26,
+     "correct": 10,
+     "correct_null": 9,
+     "false_null": 0,
+     "misattributed": 7,
+     "fabricated": 0,
+     "exact": 19,
+     "exact_rate": 0.7307692307692307,
+     "exact_ci": [
+      0.5391659658023868,
+      0.8629572447493261
+     ],
+     "invented": 7,
+     "invented_ci": [
+      0.13704275525067386,
+      0.46083403419761304
+     ],
+     "n_gold_null": 16,
+     "invented_on_null": 7,
+     "invented_on_null_ci": [
+      0.2309836333518552,
+      0.6682180439322347
+     ],
+     "n_gold_value": 10,
+     "model_decided": 26,
+     "model_share": 1.0
+    },
+    "de_canton": {
+     "n": 4,
+     "correct": 1,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 2,
+     "fabricated": 0,
+     "exact": 2,
+     "exact_rate": 0.5,
+     "exact_ci": [
+      0.15003570882017148,
+      0.8499642911798285
+     ],
+     "invented": 2,
+     "invented_ci": [
+      0.15003570882017148,
+      0.8499642911798285
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 2,
+     "invented_on_null_ci": [
+      0.2076549551264879,
+      0.9385096847238394
+     ],
+     "n_gold_value": 1,
+     "model_decided": 4,
+     "model_share": 1.0
+    },
+    "de_commune": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 2,
+     "exact_rate": 0.6666666666666666,
+     "exact_ci": [
+      0.2076549551264879,
+      0.9385096847238394
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "n_gold_value": 1,
+     "model_decided": 3,
+     "model_share": 1.0
+    },
+    "fr_canton": {
+     "n": 2,
+     "correct": 1,
+     "correct_null": 0,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 1,
+     "exact_rate": 0.5,
+     "exact_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "n_gold_value": 1,
+     "model_decided": 2,
+     "model_share": 1.0
+    },
+    "fr_commune": {
+     "n": 4,
+     "correct": 1,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 3,
+     "exact_rate": 0.75,
+     "exact_ci": [
+      0.3006360524426366,
+      0.9544139373553637
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.045586062644636216,
+      0.6993639475573634
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "n_gold_value": 1,
+     "model_decided": 4,
+     "model_share": 1.0
+    },
+    "it_canton": {
+     "n": 7,
+     "correct": 4,
+     "correct_null": 3,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 7,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6456611570247934,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.35433884297520657
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_value": 4,
+     "model_decided": 7,
+     "model_share": 1.0
+    },
+    "it_commune": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 3,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.43849391955098227,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "n_gold_value": 1,
+     "model_decided": 3,
+     "model_share": 1.0
+    },
+    "ocr_ti": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 0,
+     "false_null": 0,
+     "misattributed": 2,
+     "fabricated": 0,
+     "exact": 1,
+     "exact_rate": 0.3333333333333333,
+     "exact_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "invented": 2,
+     "invented_ci": [
+      0.2076549551264879,
+      0.9385096847238394
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 2,
+     "invented_on_null_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "n_gold_value": 1,
+     "model_decided": 3,
+     "model_share": 1.0
+    }
+   }
+  },
+  "cascade": {
+   "strict": {
+    "ALL": {
+     "n": 26,
+     "correct": 9,
+     "correct_null": 10,
+     "false_null": 0,
+     "misattributed": 7,
+     "fabricated": 0,
+     "exact": 19,
+     "exact_rate": 0.7307692307692307,
+     "exact_ci": [
+      0.5391659658023868,
+      0.8629572447493261
+     ],
+     "invented": 7,
+     "invented_ci": [
+      0.13704275525067386,
+      0.46083403419761304
+     ],
+     "n_gold_null": 16,
+     "invented_on_null": 6,
+     "invented_on_null_ci": [
+      0.18480982554752806,
+      0.613593529020652
+     ],
+     "n_gold_value": 10,
+     "model_decided": 15,
+     "model_share": 0.5769230769230769
+    },
+    "de_canton": {
+     "n": 4,
+     "correct": 1,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 3,
+     "exact_rate": 0.75,
+     "exact_ci": [
+      0.3006360524426366,
+      0.9544139373553637
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.045586062644636216,
+      0.6993639475573634
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "n_gold_value": 1,
+     "model_decided": 2,
+     "model_share": 0.5
+    },
+    "de_commune": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 2,
+     "exact_rate": 0.6666666666666666,
+     "exact_ci": [
+      0.2076549551264879,
+      0.9385096847238394
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "n_gold_value": 1,
+     "model_decided": 2,
+     "model_share": 0.6666666666666666
+    },
+    "fr_canton": {
+     "n": 2,
+     "correct": 1,
+     "correct_null": 0,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 1,
+     "exact_rate": 0.5,
+     "exact_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "n_gold_value": 1,
+     "model_decided": 1,
+     "model_share": 0.5
+    },
+    "fr_commune": {
+     "n": 4,
+     "correct": 0,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 2,
+     "fabricated": 0,
+     "exact": 2,
+     "exact_rate": 0.5,
+     "exact_ci": [
+      0.15003570882017148,
+      0.8499642911798285
+     ],
+     "invented": 2,
+     "invented_ci": [
+      0.15003570882017148,
+      0.8499642911798285
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "n_gold_value": 1,
+     "model_decided": 3,
+     "model_share": 0.75
+    },
+    "it_canton": {
+     "n": 7,
+     "correct": 4,
+     "correct_null": 3,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 7,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6456611570247934,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.35433884297520657
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_value": 4,
+     "model_decided": 3,
+     "model_share": 0.42857142857142855
+    },
+    "it_commune": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 3,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.43849391955098227,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "n_gold_value": 1,
+     "model_decided": 2,
+     "model_share": 0.6666666666666666
+    },
+    "ocr_ti": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 0,
+     "false_null": 0,
+     "misattributed": 2,
+     "fabricated": 0,
+     "exact": 1,
+     "exact_rate": 0.3333333333333333,
+     "exact_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "invented": 2,
+     "invented_ci": [
+      0.2076549551264879,
+      0.9385096847238394
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 2,
+     "invented_on_null_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "n_gold_value": 1,
+     "model_decided": 2,
+     "model_share": 0.6666666666666666
+    }
+   },
+   "lenient": {
+    "ALL": {
+     "n": 26,
+     "correct": 10,
+     "correct_null": 10,
+     "false_null": 0,
+     "misattributed": 6,
+     "fabricated": 0,
+     "exact": 20,
+     "exact_rate": 0.7692307692307693,
+     "exact_ci": [
+      0.5794807424804321,
+      0.8896630031632332
+     ],
+     "invented": 6,
+     "invented_ci": [
+      0.11033699683676687,
+      0.42051925751956787
+     ],
+     "n_gold_null": 16,
+     "invented_on_null": 6,
+     "invented_on_null_ci": [
+      0.18480982554752806,
+      0.613593529020652
+     ],
+     "n_gold_value": 10,
+     "model_decided": 15,
+     "model_share": 0.5769230769230769
+    },
+    "de_canton": {
+     "n": 4,
+     "correct": 1,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 3,
+     "exact_rate": 0.75,
+     "exact_ci": [
+      0.3006360524426366,
+      0.9544139373553637
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.045586062644636216,
+      0.6993639475573634
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "n_gold_value": 1,
+     "model_decided": 2,
+     "model_share": 0.5
+    },
+    "de_commune": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 2,
+     "exact_rate": 0.6666666666666666,
+     "exact_ci": [
+      0.2076549551264879,
+      0.9385096847238394
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "n_gold_value": 1,
+     "model_decided": 2,
+     "model_share": 0.6666666666666666
+    },
+    "fr_canton": {
+     "n": 2,
+     "correct": 1,
+     "correct_null": 0,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 1,
+     "exact_rate": 0.5,
+     "exact_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "n_gold_value": 1,
+     "model_decided": 1,
+     "model_share": 0.5
+    },
+    "fr_commune": {
+     "n": 4,
+     "correct": 1,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 3,
+     "exact_rate": 0.75,
+     "exact_ci": [
+      0.3006360524426366,
+      0.9544139373553637
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.045586062644636216,
+      0.6993639475573634
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 1,
+     "invented_on_null_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "n_gold_value": 1,
+     "model_decided": 3,
+     "model_share": 0.75
+    },
+    "it_canton": {
+     "n": 7,
+     "correct": 4,
+     "correct_null": 3,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 7,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6456611570247934,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.35433884297520657
+     ],
+     "n_gold_null": 3,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_value": 4,
+     "model_decided": 3,
+     "model_share": 0.42857142857142855
+    },
+    "it_commune": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 2,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 3,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.43849391955098227,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.5615060804490177
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "n_gold_value": 1,
+     "model_decided": 2,
+     "model_share": 0.6666666666666666
+    },
+    "ocr_ti": {
+     "n": 3,
+     "correct": 1,
+     "correct_null": 0,
+     "false_null": 0,
+     "misattributed": 2,
+     "fabricated": 0,
+     "exact": 1,
+     "exact_rate": 0.3333333333333333,
+     "exact_ci": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "invented": 2,
+     "invented_ci": [
+      0.2076549551264879,
+      0.9385096847238394
+     ],
+     "n_gold_null": 2,
+     "invented_on_null": 2,
+     "invented_on_null_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "n_gold_value": 1,
+     "model_decided": 2,
+     "model_share": 0.6666666666666666
+    }
+   }
+  }
+ },
+ "recommendation": {},
+ "per_doc": [
+  {
+   "doc_id": 7088,
+   "cell": "de_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2014-12-17",
+    "2014-08-27",
+    "2014-12-24",
+    "2015-01-23"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2014-12-17",
+    "margin": 5.494394135907328,
+    "n_cands": 4,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2014-12-17",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": 5.494394135907328,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 28271,
+   "cell": "de_canton",
+   "gold": null,
+   "lenient": [
+    "2022-06-29"
+   ],
+   "doc_dates": [
+    "2022-06-29",
+    "1985-06-09",
+    "1998-06-10",
+    "2002-03-26",
+    "2003-12-03",
+    "2019-06-12",
+    "2022-05-09",
+    "2022-05-09"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2022-06-29",
+    "rule": "datum_rr_sitzung",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2022-06-29",
+    "margin": 6.759350747252725,
+    "n_cands": 7,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2022-06-29",
+    "route": "rule",
+    "null_reason": null,
+    "margin": null,
+    "rule": "datum_rr_sitzung"
+   }
+  },
+  {
+   "doc_id": 64296,
+   "cell": "de_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2020-12-07",
+    "2000-10-03",
+    "2020-11-26"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 27.70449745743821,
+    "n_cands": 3,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 27.70449745743821,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 109883,
+   "cell": "ocr_ti",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2019-11-04",
+    "2019-09-11",
+    "2019-10-11"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2019-11-04",
+    "margin": 15.73641619048647,
+    "n_cands": 3,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2019-11-04",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": 15.73641619048647,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 110453,
+   "cell": "it_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2023-03-13"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 49.22737575420207,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 49.22737575420207,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 122203,
+   "cell": "fr_canton",
+   "gold": "2020-01-15",
+   "lenient": [],
+   "doc_dates": [
+    "2020-01-15",
+    "2019-12-13"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2020-01-15",
+    "rule": "date_de_depot_head",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2020-01-15",
+    "margin": 8.58819488878342,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2020-01-15",
+    "route": "rule",
+    "null_reason": null,
+    "margin": null,
+    "rule": "date_de_depot_head"
+   }
+  },
+  {
+   "doc_id": 161897,
+   "cell": "fr_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2022-03-30",
+    "2022-03-31"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2022-03-31",
+    "margin": 15.96065170823666,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2022-03-31",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": 15.96065170823666,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 166938,
+   "cell": "it_canton",
+   "gold": "2020-09-23",
+   "lenient": [],
+   "doc_dates": [
+    "2020-09-23",
+    "2020-09-10",
+    "2020-09-10",
+    "2020-09-23",
+    "2020-09-12",
+    "2020-09-23"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2020-09-23",
+    "rule": "ti_header_date_head",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2020-09-23",
+    "margin": 9.8773625763193,
+    "n_cands": 3,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2020-09-23",
+    "route": "rule",
+    "null_reason": null,
+    "margin": null,
+    "rule": "ti_header_date_head"
+   }
+  },
+  {
+   "doc_id": 190434,
+   "cell": "it_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-12-16",
+    "2023-02-26"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 41.78435933066014,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 41.78435933066014,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 217273,
+   "cell": "ocr_ti",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2019-11-04",
+    "2018-10-29",
+    "2017-11-06",
+    "2018-03-12"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2019-11-04",
+    "margin": 10.484916129258561,
+    "n_cands": 4,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2019-11-04",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": 10.484916129258561,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 245045,
+   "cell": "fr_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-06-02",
+    "2024-06-02"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 38.23563633817921,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 38.23563633817921,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 267753,
+   "cell": "it_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-01-20"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 22.72618669454176,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 22.72618669454176,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 278499,
+   "cell": "de_commune",
+   "gold": "2004-12-01",
+   "lenient": [],
+   "doc_dates": [
+    "2004-12-01",
+    "2004-06-07",
+    "2004-06-23",
+    "2004-09-06",
+    "2004-09-27",
+    "2004-06-23"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2004-12-01",
+    "rule": "place_date_head",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2004-12-01",
+    "margin": 2.1918126308186245,
+    "n_cands": 5,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2004-12-01",
+    "route": "rule",
+    "null_reason": null,
+    "margin": null,
+    "rule": "place_date_head"
+   }
+  },
+  {
+   "doc_id": 325804,
+   "cell": "it_canton",
+   "gold": "2022-02-22",
+   "lenient": [],
+   "doc_dates": [
+    "2022-02-22",
+    "2022-01-04",
+    "2021-12-06",
+    "2021-11-28",
+    "2022-01-11",
+    "2021-11-29",
+    "2021-12-06",
+    "2021-11-29",
+    "2021-12-22"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2022-02-22",
+    "rule": "it_risposta_del",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2022-02-22",
+    "margin": 14.783909918953064,
+    "n_cands": 7,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2022-02-22",
+    "route": "rule",
+    "null_reason": null,
+    "margin": null,
+    "rule": "it_risposta_del"
+   }
+  },
+  {
+   "doc_id": 375503,
+   "cell": "ocr_ti",
+   "gold": "2017-06-27",
+   "lenient": [],
+   "doc_dates": [
+    "2017-06-27",
+    "2017-02-27"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2017-06-27",
+    "rule": "ti_header_date_head",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2017-06-27",
+    "margin": 4.97336935817756,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2017-06-27",
+    "route": "rule",
+    "null_reason": null,
+    "margin": null,
+    "rule": "ti_header_date_head"
+   }
+  },
+  {
+   "doc_id": 401713,
+   "cell": "de_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2018-09-03",
+    "2018-09-06",
+    "2018-04-01",
+    "2018-09-26",
+    "2018-08-30",
+    "2018-08-30",
+    "2018-09-26"
+   ],
+   "rules": {
+    "status": "null",
+    "value": null,
+    "rule": "be_empty_template",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2018-09-06",
+    "margin": 9.814026386568543,
+    "n_cands": 5,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "rule",
+    "null_reason": "not_in_document",
+    "margin": null,
+    "rule": "be_empty_template"
+   }
+  },
+  {
+   "doc_id": 424975,
+   "cell": "it_canton",
+   "gold": "2020-09-23",
+   "lenient": [],
+   "doc_dates": [
+    "2020-09-23",
+    "2020-08-28",
+    "2020-08-28",
+    "2020-08-25",
+    "2020-09-23",
+    "2020-08-05",
+    "2020-06-19",
+    "2020-09-23"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2020-09-23",
+    "rule": "ti_header_date_head",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2020-09-23",
+    "margin": 14.398486041490372,
+    "n_cands": 5,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2020-09-23",
+    "route": "rule",
+    "null_reason": null,
+    "margin": null,
+    "rule": "ti_header_date_head"
+   }
+  },
+  {
+   "doc_id": 512993,
+   "cell": "de_canton",
+   "gold": "2017-12-19",
+   "lenient": [],
+   "doc_dates": [
+    "2017-12-19",
+    "2017-09-11"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2017-12-19",
+    "margin": 4.004520423032233,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2017-12-19",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": 4.004520423032233,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 543459,
+   "cell": "it_canton",
+   "gold": "2025-08-27",
+   "lenient": [],
+   "doc_dates": [
+    "2025-08-27",
+    "2025-05-19",
+    "2024-08-07",
+    "2021-05-31",
+    "2025-08-27",
+    "2025-08-27"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2025-08-27",
+    "rule": "it_rg",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2025-08-27",
+    "margin": 6.378126935973903,
+    "n_cands": 4,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2025-08-27",
+    "route": "rule",
+    "null_reason": null,
+    "margin": null,
+    "rule": "it_rg"
+   }
+  },
+  {
+   "doc_id": 575933,
+   "cell": "it_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-09-23",
+    "2025-09-23"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 34.4366535208358,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 34.4366535208358,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 601680,
+   "cell": "de_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "1994-06-06"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 22.950042278891196,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 22.950042278891196,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 671937,
+   "cell": "fr_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2026-01-13",
+    "2026-01-13",
+    "2025-07-03",
+    "2026-01-13",
+    "2026-01-13",
+    "2026-01-13",
+    "2025-11-06",
+    "2026-01-13",
+    "2025-09-25",
+    "2026-01-13"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2026-01-13",
+    "margin": 13.441284176690743,
+    "n_cands": 4,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2026-01-13",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": 13.441284176690743,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 868895,
+   "cell": "fr_commune",
+   "gold": "2018-12-17",
+   "lenient": [
+    "2018-12-17",
+    "2019-01-15"
+   ],
+   "doc_dates": [
+    "2019-01-15",
+    "2018-02-16",
+    "2018-03-26",
+    "2018-02-16",
+    "2018-12-17"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2019-01-15",
+    "rule": "place_date_head",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2019-01-15",
+    "margin": 15.124058874341046,
+    "n_cands": 4,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2019-01-15",
+    "route": "rule",
+    "null_reason": null,
+    "margin": null,
+    "rule": "place_date_head"
+   }
+  },
+  {
+   "doc_id": 883901,
+   "cell": "it_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "1997-05-13",
+    "2016-04-28",
+    "2013-08-19",
+    "1932-08-01"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 38.802765727429694,
+    "n_cands": 4,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 38.802765727429694,
+    "rule": "no_anchor"
+   }
+  },
+  {
+   "doc_id": 885140,
+   "cell": "it_commune",
+   "gold": "2025-01-24",
+   "lenient": [],
+   "doc_dates": [
+    "2025-01-24",
+    "2024-10-29",
+    "2011-03-16"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2025-01-24",
+    "rule": "date_line_above_heading_head",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2025-01-24",
+    "margin": 10.736192420417865,
+    "n_cands": 3,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2025-01-24",
+    "route": "rule",
+    "null_reason": null,
+    "margin": null,
+    "rule": "date_line_above_heading_head"
+   }
+  },
+  {
+   "doc_id": 896897,
+   "cell": "fr_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2026-06-09"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 30.505043877396318,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 30.505043877396318,
+    "rule": "no_anchor"
+   }
+  }
+ ]
+}

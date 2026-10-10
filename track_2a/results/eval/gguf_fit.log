@@ -1,0 +1,145 @@
+{
+ "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+ "prompt_id": "answer_date",
+ "theta": 16.726888806932546,
+ "acc_in_sample": 0.8865979381443299,
+ "auroc": 0.9013157894736842,
+ "gap": -11.91768430908905,
+ "loo": {
+  "acc": 0.8556701030927835,
+  "correct": 83,
+  "n": 97,
+  "abstain_correct": 45,
+  "n_pos": 57,
+  "answer_correct": 38,
+  "n_neg": 40,
+  "wilson95": [
+   0.7722041904209146,
+   0.9120372337532355
+  ]
+ },
+ "n_pos": 57,
+ "n_neg": 40,
+ "fitted_on": [
+  350899,
+  599034,
+  96334,
+  513092,
+  248912,
+  600129,
+  412502,
+  517948,
+  28082,
+  472207,
+  286048,
+  329669,
+  122377,
+  280415,
+  332118,
+  229052,
+  278586,
+  381814,
+  4598,
+  622152,
+  436871,
+  538828,
+  525480,
+  585856,
+  436172,
+  352736,
+  419511,
+  427005,
+  443155,
+  196043,
+  556000,
+  869016,
+  19598,
+  869024,
+  19238,
+  868872,
+  246008,
+  19663,
+  297057,
+  21941,
+  166615,
+  375990,
+  876792,
+  424973,
+  110047,
+  220830,
+  375225,
+  375932,
+  166404,
+  50899,
+  346038,
+  883815,
+  135220,
+  884786,
+  295567,
+  884496,
+  243626,
+  884537,
+  243782,
+  296039,
+  424652,
+  325462,
+  375440,
+  424715,
+  325384,
+  382066,
+  4132,
+  622057,
+  530606,
+  140581,
+  45084,
+  638401,
+  646521,
+  143820,
+  638736,
+  588458,
+  213042,
+  300226,
+  19528,
+  868991,
+  869031,
+  397640,
+  868806,
+  138378,
+  296673,
+  245154,
+  299330,
+  557561,
+  110091,
+  105281,
+  110111,
+  166761,
+  677313,
+  531046,
+  273843,
+  109783,
+  109769
+ ]
+}
+	Command being timed: "python -m eval.run_arms fit"
+	User time (seconds): 71836.13
+	System time (seconds): 11.98
+	Percent of CPU this job got: 389%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 5:07:29
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9289148
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 31
+	Minor (reclaiming a frame) page faults: 632766
+	Voluntary context switches: 9042
+	Involuntary context switches: 11189463
+	Swaps: 0
+	File system inputs: 6032
+	File system outputs: 9560
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
