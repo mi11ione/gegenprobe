@@ -1,0 +1,6 @@
+{"questions": [{"n": 1, "start": "<first 8 words of question 1 in DOCUMENT 1>", "end": "<last 8 words of question 1>"}, ...],
+ "answers": [{"n": 1, "start": "<first 8 words of the government's answer to question 1 in DOCUMENT 2>" or null, "end": "<last 8 words of that answer>" or null}, ...],
+ "submitter": "<name of the person who submitted it>" or null,
+ "co_signatories": ["<name>", ...],
+ "recommendation": "accept" | "reject" | "partial" | "convert" | "none" | "not_applicable",
+ "reasoning": {"start": "<first 8 words of the government's substantive reply>", "end": "<last 8 words of it>"} or null}

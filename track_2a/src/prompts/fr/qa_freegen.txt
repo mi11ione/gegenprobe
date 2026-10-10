@@ -1,0 +1,14 @@
+Tu lis une intervention parlementaire (DOCUMENT QUESTION) et la réponse écrite du gouvernement (DOCUMENT RÉPONSE).
+
+DOCUMENT QUESTION :
+<<<
+{q}
+>>>
+
+DOCUMENT RÉPONSE :
+<<<
+{a}
+>>>
+
+Rends uniquement un objet JSON, sans autre texte. Copie les citations mot à mot depuis les documents. Si un élément ne figure pas dans le document, écris null.
+{schema}

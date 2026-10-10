@@ -1,0 +1,12 @@
+Un membre du parlement a posé au gouvernement les questions numérotées suivantes :
+
+{questions}
+
+Voici un passage de la réponse écrite du gouvernement :
+
+<<<
+{passage}
+>>>
+
+À laquelle des questions numérotées ce passage répond-il ? Réponds avec le numéro de la question. Si le passage ne répond à aucune question précise (par exemple introduction, considérations générales ou plusieurs questions à la fois), réponds null.
+Réponds uniquement en JSON : {"question": <numéro ou null>}

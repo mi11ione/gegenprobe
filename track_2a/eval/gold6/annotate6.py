@@ -277,7 +277,8 @@ def agree_fields(r1: dict, r2: dict) -> list[str]:
     for f in ("submitter", "recommendation"):
         if k1[f] != k2[f]:
             out.append(f)
-    if (r1["reasoning"] is None) != (r2["reasoning"] is None) or (r1["reasoning"] and iou(r1["reasoning"], r2["reasoning"]) < 0.5):
+    rs1, rs2 = r1["reasoning"], r2["reasoning"]
+    if (rs1 is None) != (rs2 is None) or (rs1 and iou(rs1, rs2) < 0.5):
         out.append("reasoning")
     return out
 
