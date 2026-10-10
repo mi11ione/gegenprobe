@@ -290,13 +290,30 @@ PERIODS = {"all": (None, None), "since2015": (2015, None), "y2425": (2024, 2025)
 PERIOD_LABEL = {"all": "all years", "since2015": "since 2015", "y2425": "2024–25"}
 
 
+# Canton names on this English page: the canton's official name in the language of its majority (OPD labels every canton
+# in German: 'Tessin', 'Genf', 'Waadt' ...). Cities and communes keep OPD's name, which is already the local one (Lugano,
+# Neuchâtel, Genève). OPD's German name stays searchable (row 'alt').
+CANTON_NAME = {
+    "ZH": "Zürich", "BE": "Bern", "LU": "Luzern", "UR": "Uri", "SZ": "Schwyz", "OW": "Obwalden", "NW": "Nidwalden",
+    "GL": "Glarus", "ZG": "Zug", "FR": "Fribourg", "SO": "Solothurn", "BS": "Basel-Stadt", "BL": "Basel-Landschaft",
+    "SH": "Schaffhausen", "AR": "Appenzell Ausserrhoden", "AI": "Appenzell Innerrhoden", "SG": "St. Gallen",
+    "GR": "Graubünden", "AG": "Aargau", "TG": "Thurgau", "TI": "Ticino", "VD": "Vaud", "VS": "Valais", "NE": "Neuchâtel",
+    "GE": "Genève", "JU": "Jura",
+}
+CANTON_RULE = ("Cantons are named by their official name in the language of the majority of their population (Ticino, "
+               "Vaud, Genève, Valais, Fribourg; Graubünden, Bern, Luzern); cities and communes by OPD's name, which is the "
+               "local one. OPD's German names (Tessin, Waadt, Genf, Wallis, Freiburg) still find the row.")
+
+
 def label_of(key: str, name: str, btype: str | None) -> tuple[str, str]:
-    """(display label, level): 'Bern (canton)' vs 'Bern (city)'; OPD's body names are German proper nouns, kept as they are."""
+    """(display label, level): 'Bern (canton)' vs 'Bern (city)'; cantons by CANTON_NAME, other bodies by OPD's name."""
     if key == "CHE":
         return "Federal Assembly", "federal"
     if key == "LIE":
         return "Liechtenstein (Landtag)", "country"
     level = {"canton": "canton", "city": "city", "municipality": "municipality"}.get(btype or "", btype or "")
+    if level == "canton":
+        name = CANTON_NAME.get(key, name)
     return (f"{name} ({level})" if level else name), level
 
 
@@ -371,6 +388,8 @@ def safe_say(r: dict) -> str:
     miss = lambda c: c["written"] - c["attached"]  # noqa: E731
     out = []
     pick = n if n["written"] >= 20 else a
+    yrs = r.get("years")
+    allw = f"over all years OPD holds ({yrs[0]}–{yrs[1]})" if yrs else "over all years"
     if n["written"] >= 20:
         out.append(
             f"In 2024–25, {miss(n):,} of {n['written']:,} written government answers ({_pc(miss(n), n['written'])}) have no "
@@ -378,11 +397,12 @@ def safe_say(r: dict) -> str:
         )
         if abs(miss(a) / a["written"] - miss(n) / n["written"]) > 0.15:
             out.append(
-                f"over all years it is {100 * miss(a) / a['written']:.0f}%, so older interventions dominate the all-years figure"
+                f"{allw} it is {100 * miss(a) / a['written']:.0f}%, so older interventions dominate the all-years figure"
             )
     else:
         out.append(
-            f"Over all years, {miss(a):,} of {a['written']:,} written answers ({_pc(miss(a), a['written'])}) have no answer text "
+            f"{allw[0].upper() + allw[1:]}, {miss(a):,} of {a['written']:,} written answers ({_pc(miss(a), a['written'])}) "
+            "have no answer text "
             f"attached in OpenParlData; 2024–25 has too few to compare"
         )
     # oral answers (question time, VS oral-answer stubs) first, in the period quoted: they are not missing
@@ -410,7 +430,9 @@ def safe_say(r: dict) -> str:
     elif a["oral"] > 0.3 * m and not oral_said:
         out.append("many 'missing' answers were given orally, so they are not missing")
     elif a["image_only"] > 0.3 * m:
-        out.append(f"most of {the} missing answers are scans without a text layer, which OCR recovers")
+        out.append(f"most of {the} missing answers are documents whose copy in OPD has no text: OCR would recover them "
+                   "(not yet run on all of them), and where the parliament publishes a text PDF or a Word file, OPD can "
+                   "re-take that instead")
     elif a["absent"] > 0.5 * m:
         out.append(f"{the} missing answers are not in OpenParlData; whether the parliament publishes them elsewhere was not "
                    "checked")
@@ -457,6 +479,7 @@ def parliaments() -> dict:
                 key=k,
                 name=names.get(k, k),
                 label=label,
+                alt=names.get(k, k) if not label.startswith(names.get(k, k) + " (") else None,
                 level=level,
                 canton=bm.get("canton") or (k if len(k) == 2 else ""),
                 lang=bm.get("lang"),
@@ -484,6 +507,8 @@ def parliaments() -> dict:
         r["times"] = {} if r["median"]["flag"] == "same_day" else ex.get("times", {})
         r["median"]["days_alt"] = ex.get("median_alt")
         r["trust"] = extras["trust"].get(r["key"], {})
+        r["years"] = ex.get("years")  # [first, last] year of the body's written-answer interventions in OPD
+        r["main_type"] = ex.get("main_type", {}) if r["median"]["flag"] != "same_day" else {}
         for c in r["periods"].values():
             c["after_ocr"] = ((c["attached"] + c["agenda"] + c["parentless"] + c["fetchable"] + c["image_only"]) / c["written"]
                               if c["written"] else None)
@@ -537,7 +562,10 @@ def parliaments() -> dict:
         gap_share=s["national_gap_share"],
         decomposition=s["gap_prime_decomposition"],
         question=_j("census/question.json")["national"],
-        same_day=_j("census/question.json")["same_day_bodies"],
+        same_day=[dict(b, label=next((r["label"] for r in rows if r["key"] == b["body"]), b["name"]))
+                  for b in _j("census/question.json")["same_day_bodies"]],
+        canton_rule=CANTON_RULE,
+        source_formats=_source_formats(),
         tier_counts=m["tier_counts"],
         criteria=m["criteria"],
         repair=_j("repair/summary.json")["by_action"],
@@ -578,9 +606,11 @@ def research_extras() -> dict:
     trust = json.loads((RESULTS / "census" / "date_trust.json").read_text())
     if not p.exists():
         return dict(bodies={}, trust={}, meta=None)
-    bodies: dict = collections.defaultdict(lambda: dict(missing=[], days=collections.defaultdict(list)))
+    bodies: dict = collections.defaultdict(lambda: dict(missing=[], days=collections.defaultdict(list), years=[]))
     for r in iv.load(p):
         b = bodies[r["body"]]
+        if r["year"]:
+            b["years"].append(int(r["year"]))
         if r["link_status"] != "attached":
             b["missing"].append([r["number"], int(r["affair_id"]), LINK_CODE.get(r["link_status"], "x"),
                                  int(r["year"]) if r["year"] else None, r["source_url"]])
@@ -597,18 +627,49 @@ def research_extras() -> dict:
                 q = statistics.quantiles(v, n=4)
                 times.setdefault(per, {})[t] = dict(median=statistics.median(v), q1=q[0], q3=q[2], n=len(v))
         b["missing"].sort(key=lambda m: (-(m[3] or 0), m[0]))
+        # a source url shared by several affairs is the parliament's list page, not the affair's own page (Lugano: every
+        # affair points at one 'Mozioni' page); flagged per row as a 6th element (1 = list page)
+        shared = collections.Counter(m[4] for m in b["missing"] if m[4])
+        for m in b["missing"]:
+            m.append(1 if m[4] and shared[m[4]] > 1 else 0)
         pre = os.path.commonprefix([m[4] for m in b["missing"] if m[4]]) if b["missing"] else ""
         for m in b["missing"]:
             m[4] = m[4][len(pre):] if m[4] else None
-        out[k] = dict(missing=dict(prefix=pre, rows=b["missing"]), times=times,
+        # the intervention type with the most dated answers, per period (the answer-time default for this parliament)
+        main = {per: max(ts, key=lambda t: (ts[t]["n"], t == "Interpellation")) for per, ts in times.items() if ts}
+        out[k] = dict(missing=dict(prefix=pre, rows=b["missing"]), times=times, main_type=main,
+                      years=[min(b["years"]), max(b["years"])] if b["years"] else None,
                       median_alt=trust["bodies"].get(k, {}).get("median_days_alt"))
     alt = json.loads((RESULTS / "census" / "answer_rule_alt.json").read_text())
     meta = dict(rows=alt["rows"], rows_changed_alt=alt["rows_changed"], tier_counts=trust["tier_counts"],
                 interventions_by_tier=trust["interventions_by_tier"], bern_verified=trust["bern_verified"],
+                title_verified=trust.get("title_verified", {}), title_oracle=_title_oracle(),
                 schaffhausen=alt["bodies"].get("SH"), download="interventions.tsv.gz", readme="interventions_README.md",
                 opd_url="https://openparldata.ch/item/affairs/{id}")
-    return dict(bodies=out, trust={k: dict(tier=v["tier"], modal_weekday=v["modal_weekday"], modal_share=v["modal_share"])
+    return dict(bodies=out, trust={k: dict(tier=v["tier"], modal_weekday=v["modal_weekday"], modal_share=v["modal_share"],
+                                           by=v.get("verified_by"), title_dated=v.get("title_dated"),
+                                           title_equal=v.get("title_equal"), dated=v.get("dated"))
                                    for k, v in trust["bodies"].items()}, meta=meta)
+
+
+def _source_formats() -> dict:
+    """Spot check of the answer files a parliament publishes vs OPD's copies (census/source_formats.py; network, committed)."""
+    p = RESULTS / "census" / "source_formats_ti.json"
+    if not p.exists():
+        return {}
+    j = json.loads(p.read_text())
+    return {"TI": [dict(atto=a["atto"], page=a["page"], affair=a["affair"], checked=j["checked"],
+                        files=[f["filename"] for f in a["source_answer_files"]], opd_copies=a["opd_answer_copies"],
+                        opd_with_text=a["opd_answer_copies_with_text"]) for a in j["attos"]]}
+
+
+def _title_oracle() -> dict | None:
+    """P1 held-out gold answer dates vs the publisher's answer title (post hoc, non-LLM; all 20 are Ticino documents)."""
+    p = RESULTS / "eval" / "posthoc_r3_gold_oracle.json"
+    if not p.exists():
+        return None
+    t = json.loads(p.read_text())["splits"]["P1"]["answer_date_vs_publisher_title_date"]
+    return dict(agree=t["agree"], checked=t["checked"])
 
 
 def bern_numbers(rows: list[dict]) -> list[dict]:
@@ -660,7 +721,8 @@ def write_csv(par: dict, path) -> None:
         "after_repair",
     ]
     head = (cols + [f"{p}_{c}" for p in PERIODS for c in per_cols] + ["median_days", "median_flag", "safe_to_say", "coverage"]
-            + [f"{p}_median_days_interpellation" for p in PERIODS])
+            + [f"{p}_median_days_interpellation" for p in PERIODS]
+            + ["first_year", "last_year", "all_main_type", "all_median_days_main_type", "date_trust", "date_verified_by"])
     with open(path, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(head)
@@ -670,7 +732,10 @@ def write_csv(par: dict, path) -> None:
                 c = r["periods"][p]
                 vals += [round(c[x], 4) if isinstance(c[x], float) else c[x] for x in per_cols]
             ti = [r["times"].get(p, {}).get("Interpellation", {}).get("median", "") for p in PERIODS]
-            w.writerow(vals + [r["median"]["days"], r["median"]["flag"] or "", r["safe_say"], r["coverage"]] + ti)
+            yrs, mt = r.get("years") or ["", ""], (r.get("main_type") or {}).get("all", "")
+            w.writerow(vals + [r["median"]["days"], r["median"]["flag"] or "", r["safe_say"], r["coverage"]] + ti
+                       + [yrs[0], yrs[1], mt, r["times"].get("all", {}).get(mt, {}).get("median", "") if mt else "",
+                          (r.get("trust") or {}).get("tier", ""), (r.get("trust") or {}).get("by") or ""])
 
 
 def _git(*args) -> str:
@@ -828,6 +893,59 @@ def p3() -> dict | None:
                 labels_commit=_git("log", "--diff-filter=A", "-1", "--format=%h %cI", "--", "data/gold3/p3_labels.jsonl"))
 
 
+def p3b() -> dict | None:
+    """The held-out replication of P3 (P3b, results/eval5; PREREG5): same extractor, fresh affairs from 9 other parliaments."""
+    build = "publicai_swiss-ai_apertus-v1.5-8b"
+    rp, hp = RESULTS / "eval5" / f"p3b__{build}.json", RESULTS / "eval5" / f"hypotheses_p3b__{build}.json"
+    if not (rp.exists() and hp.exists()):
+        return None
+    res, hyp = json.loads(rp.read_text()), json.loads(hp.read_text())
+    agr, audit = _j("eval5/gold5_agreement.json"), _j("eval5/annotation_audit.json")
+    aff = [json.loads(x) for x in open(DATA / "gold5" / "p3b_affairs.jsonl")]
+    gold = {g["affair_id"]: g for g in map(json.loads, open(DATA / "gold5" / "p3b_labels.jsonl"))}
+    names = body_names()
+    meta = {b["key"]: b for b in _tsv_gz("bodies")}
+    bodies: dict = {}
+    for a in aff:
+        label, _ = label_of(a["body"], names.get(a["body"], a["body"]), meta.get(a["body"], {}).get("type"))
+        b = bodies.setdefault(a["body"], dict(key=a["body"], name=label, n=0, seen=a["seen_by_rules"], lang=a["lang"]))
+        b["n"] += 1
+    fields = []
+    for key, name in P3_FIELDS:
+        sc, h = res["scores"]["fields"][key], hyp["H1"][key]
+        cb = hyp["constant_baseline"]["fields"].get(key, {})
+        rep = hyp["replication"]["S2"]["fields"].get(key, {})
+        fields.append(dict(key=key, name=name, tier=h["tier"], ci=h["ci"],
+                           arms={a: [v.get("correct", 0), v["n"]] for a, v in sc.items() if v.get("n")},
+                           constant=cb.get("constant_correct"), p3=rep.get("p3"), p3_ci=rep.get("p3_ci"),
+                           vs_p3=rep.get("vs_p3_ci")))
+    # where the default lost a date OPD had right: a rule's printed date replaced the metadata value (data-driven)
+    def ok(v, g):
+        return v is not None and (v == g["answer_date"] or v in (g.get("answer_date_lenient") or []))
+    body_of = {a["affair_id"]: a["body"] for a in aff}
+    lost = [dict(affair=x["affair_id"], body=body_of[x["affair_id"]]) for x in res["per_affair"]
+            if (g := gold.get(x["affair_id"])) and g["answer_date"]
+            and ok(x["arms"]["M"]["answer_date"], g) and not ok(x["arms"]["C"]["answer_date"], g)]
+    pre = (ROOT / "eval" / "prereg5" / "PREREG5.md").read_text()
+    target = re.search(r"Target \*\*(\d+) affairs\*\*", pre)
+    r = hyp["replication"]
+    return dict(n=hyp["n"], target=int(target.group(1)) if target else None, n_pdfs=sum(len(a["docs"]) for a in aff),
+                fields=fields, verdict=r["verdict"], s1=r["S1"], s2=dict(status=r["S2"]["status"], eligible=r["S2"]["eligible"],
+                below=r["S2"]["below"]),
+                h3=hyp["H3_primary"], h3_secondary=dict(recall=hyp["H3_secondary_as_PREREG3"]["recall"],
+                                                       precision=hyp["H3_secondary_as_PREREG3"]["precision"]),
+                answer_date_lost=dict(n=len(lost), bodies=dict(collections.Counter(x["body"] for x in lost))),
+                sets={k: dict(precision=v["C"]["precision"], recall=v["C"]["recall"]) for k, v in hyp["sets"].items()},
+                agreement=dict(n=agr["n"], min_raw=min(v["raw"] for v in agr["agreement"].values()),
+                               tie_broken=agr["tie_broken_fields"]),
+                audit=dict(sessions=len([x for x in audit["sessions"] if x["annotator"] in ("A1", "A2")]),
+                           cross_paths=sum(x.get("other_annotator_paths", 0) + x.get("results_paths", 0)
+                                           + x.get("p3_gold_paths", 0) for x in audit["sessions"])),
+                bodies=sorted(bodies.values(), key=lambda b: (not b["seen"], b["name"])),
+                lock_commit=_git("log", "--diff-filter=A", "-1", "--format=%h %cI", "--", "eval/prereg5/LOCK5"),
+                labels_commit=_git("log", "--diff-filter=A", "-1", "--format=%h %cI", "--", "data/gold5/p3b_labels.jsonl"))
+
+
 def p4() -> dict | None:
     """Virtual affairs (P4, results/eval4): agenda items of held-out Bulle sittings derived as affairs, with the gold."""
     build = "publicai_swiss-ai_apertus-v1.5-8b"
@@ -857,6 +975,86 @@ def p4() -> dict | None:
                 agreement=_j("eval4/gold4_agreement.json"),
                 lock_commit=_git("log", "--diff-filter=A", "-1", "--format=%h %cI", "--", "eval/prereg4/LOCK4"),
                 labels_commit=_git("log", "--diff-filter=A", "-1", "--format=%h %cI", "--", "data/gold4/p4_heldout_labels.jsonl"))
+
+
+# The meaning class of each of the 17 schema fields (README "Is a common schema feasible?"; class definitions in
+# data/schema/field_verdict_classes.json; evidence from results/census/comparability.json and matrix.json).
+FIELD_CLASS = {
+    "date_submission": "shared", "submitter": "shared", "co_signatories": "shared", "addressed_body": "shared",
+    "government_recommendation": "shared", "date_decision": "shared", "date_dispatch": "shared", "qa_pairing": "shared",
+    "related_affairs": "shared", "language": "shared", "documents_usable_text": "shared", "answer_link_status": "shared",
+    "date_answer": "shared_with_role_split", "procedural_history": "shared_with_role_split", "type": "shared_with_role_split",
+    "procedural_state": "shared_with_role_split", "decision_outcome": "shared_with_role_split",
+}
+FIELD_NAME = {
+    "date_submission": "submission date", "submitter": "submitter", "co_signatories": "co-signatories",
+    "addressed_body": "addressed body", "government_recommendation": "government recommendation",
+    "date_decision": "decision date", "date_dispatch": "dispatch date", "qa_pairing": "question ↔ answer pairing",
+    "related_affairs": "related affairs", "language": "language", "documents_usable_text": "usable text",
+    "answer_link_status": "answer-link status", "date_answer": "answer date", "procedural_history": "procedural history",
+    "type": "type", "procedural_state": "procedural state", "decision_outcome": "decision outcome",
+}
+SAMPLE_AFFAIR = 301273  # P3b, Basel-Landschaft: a rule value with page + span, metadata values, typed nulls with reasons
+
+
+def schema_view() -> dict:
+    """Near the top of the site: one real converter record (P3b run, results/eval5) and the 17 fields with their class."""
+    m, cmp_ = _j("census/matrix.json"), _j("census/comparability.json")
+    classes = {c["key"]: c for c in json.loads((DATA / "schema" / "field_verdict_classes.json").read_text())}
+    q = _j("census/question.json")
+    va = _j("census/virtual_affairs.json")
+    qt = m["concept_split"]["answer_modality_by_type"]["Question time"]
+    ev = {  # evidence per field in the role-split class (raw labels mapped to more than one harmonised concept)
+        "date_answer": f"‘answer date’ is three dates (decided, dispatched, registered); in {len(q['same_day_bodies'])} "
+                       "parliaments OPD’s ‘answer’ event mostly equals the submission date",
+        "procedural_history": f"{cmp_['dates_with_roles']['ambiguous_labels']} event labels carry different date roles; "
+                              f"{100 * cmp_['dates_with_roles']['unharmonised_share']:.1f}% of events have no harmonised id",
+        "type": f"{cmp_['type']['ambiguous_labels']} of {cmp_['type']['raw_labels']:,} raw type labels map to different "
+                "harmonised types" + "".join(f" (‘Antrag’ alone to {len(e['concepts'])})"
+                                             for e in cmp_["type"]["ambiguous_examples"] if e["label"] == "antrag"),
+        "procedural_state": f"{cmp_['procedural_state']['ambiguous_labels']} state labels are ambiguous",
+        "decision_outcome": f"{cmp_['decision_outcome']['ambiguous_labels']} outcome labels are ambiguous",
+        "government_recommendation": f"{cmp_['government_recommendation']['ambiguous_labels']} ambiguous labels",
+    }
+    fields = []
+    for k, f in m["fields"].items():
+        sc = f["status_counts"]
+        fields.append(dict(key=k, name=FIELD_NAME.get(k, k.replace("_", " ")), cls=FIELD_CLASS[k], tier=f["tier"],
+                           route=f["extraction_route"], eligible=f["eligible_bodies"], metadata=sc["metadata"],
+                           mixed=sc["mixed"], pdf=sc["pdf"], no_source=sc["no_source"], evidence=ev.get(k, "")))
+    order = {"shared": 0, "shared_with_role_split": 1}
+    fields.sort(key=lambda f: (order[f["cls"]], -f["metadata"], f["key"]))
+    body_specific = [
+        dict(name="oral answers in question time",
+             evidence=f"{100 * qt['oral_share']:.1f}% of question-time answers are oral ({qt['oral']:,} of "
+                      f"{qt['with_answer']:,}); typed ‘oral’, never ‘missing’"),
+        dict(name="councils that publish only meeting documents",
+             evidence=f"{va['n_bodies']} bodies, {va['n_bodies_no_affairs']} of them with no affair at all: affairs derived "
+                      "from agenda and minutes are marked ‘virtual’ with ‘derived_from’ (test P4)"),
+        dict(name="executive business that answers no member’s affair",
+             evidence="government credits, reports and ordinances filed as affairs in some parliaments; kept in the "
+                      "parliament’s own vocabulary"),
+    ]
+    res = _j("eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json")
+    x = next(a for a in res["per_affair"] if a["affair_id"] == SAMPLE_AFFAIR)
+    rec = x["affair"]
+    ad = rec["qa"][0]["answer_date"]
+    assert ad["kind"] == "value" and ad.get("page") and ad.get("char_start") is not None, "sample must carry a span"
+    assert rec["government_recommendation"]["kind"] == "null", "sample must carry a typed null"
+    gold = next(g for g in map(json.loads, open(DATA / "gold5" / "p3b_labels.jsonl")) if g["affair_id"] == SAMPLE_AFFAIR)
+    names = body_names()
+    meta = {b["key"]: b for b in _tsv_gz("bodies")}
+    bk = rec["ref"]["body_key"]
+    label, _ = label_of(bk, names.get(bk, ""), meta.get(bk, {}).get("type"))
+    return dict(
+        fields=fields, body_specific=body_specific, tier_counts=m["tier_counts"], n_bodies=m["n_bodies"],
+        classes={k: dict(label=v["labels"]["en"], definition=v["definition"]) for k, v in classes.items()},
+        counts=dict(collections.Counter(FIELD_CLASS[k] for k in m["fields"])),
+        sample=dict(record=rec, suggestions=x.get("suggestions", {}), body_label=label, test="P3b",
+                    source="results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json",
+                    gold_answer_date=gold["answer_date"], gold_quote=gold.get("answer_date_quote"),
+                    gold_page=gold.get("answer_date_page")),
+    )
 
 
 def method() -> dict:
@@ -906,6 +1104,7 @@ def collect(full_text: bool = False) -> dict:
     par, ev = parliaments(), evaluation()
     ev["p2"] = p2()
     ev["p3"] = p3()
+    ev["p3b"] = p3b()
     ev["p4"] = p4()
     return _finite(
         dict(
@@ -915,5 +1114,6 @@ def collect(full_text: bool = False) -> dict:
             parliaments=par,
             evaluation=ev,
             method=method(),
+            schema=schema_view(),
         )
     )

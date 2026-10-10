@@ -40,8 +40,16 @@ Linking rate (per body) = affairs with a written-answer event whose answer text 
 
 usage:
   python -m gegenprobe.monitor.nightly run        full night (network)
-  python -m gegenprobe.monitor.nightly offline    steps 5-7 on the current caches (no network); measures compute time
-  python -m gegenprobe.monitor.nightly index      step 1 only: what changed since the cached snapshot (one request)
+  python -m gegenprobe.monitor.nightly offline    steps 5-7 on the current caches (no network); measures compute time.
+                                                  Inputs, first complete set wins: GP_OPD_RAW + GP_DOCS_META (default
+                                                  WORK/opd, WORK/docs_meta), GP_EXPORTS_DIR + WORK/nightly/docs_meta, the
+                                                  last network night's WORK/nightly/opd + WORK/nightly/docs_meta
+  python -m gegenprobe.monitor.nightly index      step 1 only: what changed since the cached snapshot (one request; the
+                                                  old index is GP_OPD_RAW/index.json, else the last night's state.json)
+Exit codes: 0 quiet night, GP_ALERT_EXIT (default 3) alerts, 1 job or delivery failure, 2 nothing to work on yet (empty
+cache: the message names the command to run first).
+User-Agent: GP_USER_AGENT (net.py; default hackapertus-research/0.1). An operator sets its own product token and a contact
+(URL or mail); a network night without a contact in the User-Agent says so on stderr and in run.json (`user_agent`).
   python -m gegenprobe.monitor.nightly cost       results/monitor/night_cost.json: what the measured 96.8 s night covered,
                                                   the cited full docs/texts rescan time and the changed-files estimate
                                                   (no network; reads run_local_exports.json and index_diff.json)
@@ -54,6 +62,7 @@ import csv
 import datetime as dt
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -67,7 +76,9 @@ NIGHT = WORK / "nightly"
 STATE = NIGHT / "state.json"
 OUTBOX = NIGHT / "outbox.json"
 OUT = Path(os.environ.get("GP_MONITOR_OUT", RESULTS / "monitor"))
-SINGLE = ("affairs", "events", "agendas", "bodies")
+SINGLE = ("affairs", "events", "agendas", "bodies")  # the census inputs counted in index_diff.json (single_exports_bytes)
+# what a network night downloads: census.extract also reads contributors (per-affair counts, no names)
+NIGHT_SINGLE = SINGLE + ("contributors",)
 DROP_PP = 2.0  # alert threshold: linking-rate drop in percentage points, night over night
 MIN_AFFAIRS = 50  # only bodies with at least this many written-answer affairs are rated
 DOC_DROP = 0.10  # alert when a body's OPD document count falls by more than 10 % (a scraper losing documents)
@@ -217,15 +228,16 @@ def ogd_alerts(prev: dict | None, cur: dict) -> list[dict]:
     return out
 
 
-def verify_new(rows_: list[dict]) -> None:
+def verify_new(rows_: list[dict], events_path: Path | None = None) -> None:
     """Triple-check new relink/fetch rows before they are emitted (network mode). The canton's OGD PDF of the same document
-    uid is checked (the census tables keep no document URLs)."""
+    uid is checked (the census tables keep no document URLs). OPD's answer events come from events_path, the events
+    export of the night being checked (default: GP_OPD_RAW, the development cache)."""
     from .. import pdftext
     from ..repair import be
 
     _, geschaeft = be.load_ogd()
     vnr = {g["geschaeft_nr"]: g.get("geschaeft_vorstoss_nummer") for g in geschaeft.values()}
-    ev = be.answer_events({r["affair_id"] for r in rows_}) if rows_ else {}
+    ev = be.answer_events({r["affair_id"] for r in rows_}, events_path) if rows_ else {}
     for r in rows_:
         r["proposed_action"] = r.get("proposed_action") or r["action"]
         try:
@@ -367,6 +379,62 @@ def read_state(path: Path) -> tuple[dict, list[dict]]:
                          error=f"{type(e).__name__}: {str(e)[:160]}")]
 
 
+class NotReady(RuntimeError):
+    """Nothing to work on yet (empty cache); the message says what to run first. Exit code 2, no traceback."""
+
+
+FIRST_NIGHT = ("run a network night first: python -m gegenprobe.monitor.nightly run (downloads the single exports, "
+               "~200 MB, streams the docs/texts exports and checks every BE row once; the first night takes about "
+               "1.5 h, see docs/nightly.md)")
+
+
+def _missing_inputs(opd: Path, meta: Path) -> list[str]:
+    need = [opd / f"{name}.ndjson.gz" for name in NIGHT_SINGLE]
+    miss = [str(p) for p in need if not p.exists()]
+    if not list(meta.glob("part*/docs_meta.jsonl.gz")):
+        miss.append(str(meta / "part*" / "docs_meta.jsonl.gz"))
+    return miss
+
+
+def offline_inputs() -> tuple[Path, Path]:
+    """(exports dir, scan-metadata dir) for an offline night: the first complete candidate (see usage)."""
+    cands = [(OPD_RAW, DOCS_META)]
+    if os.environ.get("GP_EXPORTS_DIR"):
+        cands.append((Path(os.environ["GP_EXPORTS_DIR"]), NIGHT / "docs_meta"))
+    cands.append((NIGHT / "opd", NIGHT / "docs_meta"))
+    report = []
+    for opd, meta in cands:
+        miss = _missing_inputs(opd, meta)
+        if not miss:
+            return opd, meta
+        report.append(f"  {opd} + {meta}: missing {', '.join(Path(m).name for m in miss)}")
+    raise NotReady("nightly offline: no cached OPD exports to compute on. Looked in:\n" + "\n".join(report) + "\n"
+                   f"Either {FIRST_NIGHT},\nor point GP_OPD_RAW (affairs, events, agendas, bodies, contributors "
+                   ".ndjson.gz) and GP_DOCS_META (census.scan output, part*/docs_meta.jsonl.gz) at existing copies.")
+
+
+def _check_ogd(ogd: Path) -> None:
+    miss = [n for n in ("dokument.csv", "geschaeft.csv") if not (ogd / n).exists()]
+    if miss:
+        raise NotReady(f"nightly offline: the canton of Bern's OGD tables are not cached ({ogd}: missing {', '.join(miss)}).\n"
+                       "Fetch them first (two GETs, ~23 MB): python -m gegenprobe.repair.be fetch-ogd")
+
+
+def user_agent() -> dict:
+    """The User-Agent every request carries, and whether it names a contact (URL or mail)."""
+    ua = net.UA
+    return dict(value=ua, has_contact=bool(re.search(r"https?://|mailto:|@", ua)),
+                source="GP_USER_AGENT" if os.environ.get("GP_USER_AGENT") else "default")
+
+
+def ua_note(ua: dict) -> str | None:
+    if ua["has_contact"]:
+        return None
+    return (f"note: requests carry the User-Agent '{ua['value']}', which names no contact. Set GP_USER_AGENT to your own "
+            "product token and a contact URL or mail (e.g. GP_USER_AGENT=opd-gegenprobe/0.1 (+https://example.org/contact) "
+            "in /etc/gegenprobe/alerts.env), so the hosts we fetch from can reach you.")
+
+
 def _download(entity: str, url: str, dest: Path) -> int:
     with net.open_url(url, timeout=900) as r:
         tmp = dest.with_suffix(".part")
@@ -385,9 +453,13 @@ def night(offline: bool) -> dict:
     NIGHT.mkdir(parents=True, exist_ok=True)
     state, state_alerts = read_state(STATE)
     local = os.environ.get("GP_EXPORTS_DIR")
+    ua = user_agent()
     if offline:
-        opd, meta = OPD_RAW, DOCS_META
+        opd, meta = offline_inputs()
+        _check_ogd(Path(os.environ.get("GP_BE_OGD") or _be_ogd_dir()))
     else:
+        if ua_note(ua):
+            print(ua_note(ua), file=sys.stderr, flush=True)
         opd = Path(local) if local else NIGHT / "opd"
         meta = Path(os.environ["GP_DOCS_META"]) if os.environ.get("GP_DOCS_META") else NIGHT / "docs_meta"
     transfer, idx = 0, None
@@ -399,7 +471,7 @@ def night(offline: bool) -> dict:
         diff = index_diff(prev_idx, idx) if prev_idx else None
         if not local:  # single exports are read in place from GP_EXPORTS_DIR
             for e in idx["files"]:
-                if e["entity"] in SINGLE and (not prev_idx or e["entity"] in diff["changed"]
+                if e["entity"] in NIGHT_SINGLE and (not prev_idx or e["entity"] in diff["changed"]
                                               or not (opd / e["filename"]).exists()):
                     transfer += _download(e["entity"], e["url"], opd / e["filename"])
         changed_bodies = set()
@@ -447,7 +519,7 @@ def night(offline: bool) -> dict:
     # rows whose check failed for a transient fetch reason (network, timeout, 5xx, unreadable robots.txt) are checked again
     retry = [r for r, k in zip(rep, keys) if k in prev_keys and transient(ledger.get(k, {}).get("check_summary", ""))]
     if not offline:
-        verify_new(new + retry)
+        verify_new(new + retry, opd / "events.ndjson.gz")
     names = body_names(census_out)
     prev_rates = state.get("rates", {})
     al = alerts(prev_rates, rates, names) if prev_rates else []
@@ -490,6 +562,7 @@ def night(offline: bool) -> dict:
         be_repair_retried=len(retry),
         ledger=dict(collections.Counter(r["status"] for r in ledger.values())),
         robots_unreadable=net.robots_report(),
+        user_agent=ua,
         peak_rss_mb=_peak_rss_mb(),
         ts=round(time.time()),
     )
@@ -553,8 +626,17 @@ def main(argv: list[str]) -> int:
         print(json.dumps({k: {kk: vv for kk, vv in v.items() if not isinstance(vv, str)} for k, v in r.items()}, indent=1))
         return 0
     if cmd == "index":
+        if (OPD_RAW / "index.json").exists():
+            old = json.loads((OPD_RAW / "index.json").read_text())
+        else:
+            st, _ = read_state(STATE)
+            old = st.get("index")
+            if not old:
+                print(f"nightly index: no cached snapshot to compare with ({OPD_RAW / 'index.json'} is missing and "
+                      f"{STATE} holds no index).\nEither {FIRST_NIGHT},\nor point GP_OPD_RAW at a directory with the "
+                      "index.json of an earlier snapshot.", file=sys.stderr)
+                return 2
         new = json.loads(net.get(INDEX))
-        old = json.loads((OPD_RAW / "index.json").read_text())
         d = index_diff(old, new)
         d.update(old_generated=old["generated_at"], new_generated=new["generated_at"])
         sizes = {f["filename"].removesuffix(".ndjson.gz"): f["size"] for e in new["files"] for f in e.get("files", [])}
@@ -575,7 +657,11 @@ def main(argv: list[str]) -> int:
     if cmd in ("run", "offline"):
         from .notify import exit_code
 
-        run = night(offline=cmd == "offline")
+        try:
+            run = night(offline=cmd == "offline")
+        except NotReady as e:
+            print(str(e), file=sys.stderr)
+            return 2
         al = run.pop("_alerts")
         print(run)
         if run.get("notify_error"):

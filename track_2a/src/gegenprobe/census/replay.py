@@ -81,7 +81,10 @@ def main(ctx: dict | None = None) -> int | dict:
     s = json.loads((funnel.OUT / "summary.json").read_text())["national"]
     print(
         f"census replay: {len(COMPARED)} outputs, {len(errs)} differences, {secs:.0f} s; "
-        f"in scope {s['n']:,}, written-answer {s['ev_answer']:,}, gap {s['gap']:,}, gap' {s['gap_after_agenda_join']:,}"
+        f"in scope {s['n']:,}, written-answer {s['ev_answer']:,}, gap {s['gap']:,}, gap' {s['gap_after_agenda_join']:,}\n"
+        "  gap  = written-answer affairs whose answer text is not reachable in OPD (no attached document, no texts row)\n"
+        "  gap' = the gap after the in-corpus agenda join: affairs still without answer text when documents filed under "
+        "the affair's agenda items count too (census/funnel.py, docs/census.md)"
     )
     return 1 if errs else 0
 

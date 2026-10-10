@@ -1,11 +1,21 @@
 # Runs when gegenprobe-nightly.service fails (error, or alerts with GP_ALERT_EXIT != 0).
-# Posts one line to the webhook if configured; always leaves a journal entry.
+# One alert per event: on a night with alerts (exit status == GP_ALERT_EXIT, default 3) the job has already delivered them
+# through its own channels (it exits 1, not GP_ALERT_EXIT, when that delivery fails), so this unit only writes a journal
+# line and does not post to the webhook again. On every other failure (exit 1 = job or delivery failure, 2 = empty cache,
+# a crash, a timeout, an OOM kill) it posts one line to the webhook, if configured. systemd >= 251 passes the failed unit's
+# result to OnFailure= units as MONITOR_SERVICE_RESULT / MONITOR_EXIT_STATUS; on an older systemd both are empty and the
+# unit posts on every failure. Quoting: systemd turns "$$" into "$" and C-unescapes inside quotes ("\\\"" -> "\"" for the
+# shell, which keeps the JSON quotes). Before round 4 the JSON used "\"" here, which systemd unescaped to a bare quote: the
+# shell then failed with a syntax error and the webhook post never left (tests/test_ops_r4.py replays systemd's unquoting).
 [Unit]
 Description=Gegenprobe nightly: failure / alert notifier
 
 [Service]
 Type=oneshot
 EnvironmentFile=-/etc/gegenprobe/alerts.env
-ExecStart=/bin/sh -c 'echo "gegenprobe-nightly failed or raised alerts; see journalctl -u gegenprobe-nightly and /var/lib/gegenprobe/results/alerts.json"; \
-  if [ -n "$GP_ALERT_WEBHOOK" ]; then /usr/bin/curl -fsS -m 30 -X POST -H "Content-Type: application/json" \
-  -d "{\"text\": \"gegenprobe-nightly on $(hostname): failed or raised alerts (journalctl -u gegenprobe-nightly)\"}" "$GP_ALERT_WEBHOOK"; fi'
+ExecStart=/bin/sh -c 'status="$${MONITOR_EXIT_STATUS:-}"; result="$${MONITOR_SERVICE_RESULT:-unknown}"; \
+  if [ -n "$$status" ] && [ "$$status" = "$${GP_ALERT_EXIT:-3}" ]; then \
+    echo "gegenprobe-nightly raised alerts (exit $$status); the job delivered them itself; see /var/lib/gegenprobe/results/alerts.json"; exit 0; fi; \
+  echo "gegenprobe-nightly failed (result $$result, exit $${status:-?}); see journalctl -u gegenprobe-nightly and /var/lib/gegenprobe/results/run.json"; \
+  if [ -n "$${GP_ALERT_WEBHOOK:-}" ]; then /usr/bin/curl -fsS -m 30 -X POST -H "Content-Type: application/json" \
+  -d "{\\\"text\\\": \\\"gegenprobe-nightly on $$(hostname): failed (result $$result, exit $${status:-?}); journalctl -u gegenprobe-nightly\\\"}" "$$GP_ALERT_WEBHOOK"; fi'

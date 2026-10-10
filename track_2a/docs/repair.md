@@ -42,7 +42,9 @@ parentless again. Apply the list as a protected override, or after the fix. Eith
 test of the fix**: `python -m gegenprobe.repair.acceptance` (local snapshot) or `--fetch` (today's `docs_BE` export) counts
 how many of the 2,459 relink documents are attached to the affair the list names. In the 6 Oct 2026 snapshot all 2,459 are
 still parentless; after the fix all 2,459 should be attached. The command exits 0 only then (1 otherwise, so a deployment
-pipeline can gate on it) and keeps one dated result per check (`acceptance_<live|file>_<YYYY-MM-DD>.json`); the nightly
+pipeline can gate on it) and keeps one dated result per check (`acceptance_<live|file>_<YYYY-MM-DD>.json`, in
+`results/repair/` or in `--out DIR`, e.g. `--out /var/lib/gegenprobe/results` on a host whose checkout is read-only; the
+directory is checked for writability before the export is streamed, exit 2 if it is not writable); the nightly
 job's ledger (`repair_BE_ledger.tsv`, see `docs/nightly.md`) marks each row `resolved` once OPD has the answer.
 
 ## BE: the answers are in OPD, just not attached
@@ -94,6 +96,31 @@ event, given as columns OPD can join on (`evidence_event_id`, `evidence_event_da
 event id, the other 72 affairs have no events at all). 554 rows are `set_begin_date`; 173 are `review`: no Eingereicht event,
 or a proposed date two or more years after the year in the affair number (9 rows, e.g. 2007.RRGR.2254 → 2011-03-28,
 plausible for a re-submitted affair but checked before applying).
+
+Three columns say three different things. `opd_group` is OPD's grouping, the one the README counts: `load_2024_10_28`
+(557) or `later_load` (170). `group` is how the row was found: `load_2024_10_28`, `begin_matches_no_event` (98: the
+begin_date equals none of the affair's own event dates) or `no_events` (72: the affair has no events, so nothing can be
+proposed). `action` is what to do: `set_begin_date` (554) or `review` (173).
+
+## Applying the Bern lists: `repair.apply_be`
+
+`python -m gegenprobe.repair.apply_be --docs-export docs_BE.ndjson.gz --out DIR` (or `--fetch` for today's export) turns
+`repair_BE_relink.tsv` and `repair_BE_begin_date.tsv` into an apply plan: `apply_BE_relink_plan.csv` (per document the
+before-state read from the export, i.e. `parent_type`, `affair_id`, `agenda_id`, `meeting_id`, `hash`, `url_oparl`, and
+the after-state), `apply_BE_begin_date_plan.csv` (before = the list's value, or the current one with
+`--affairs-export affairs.ndjson.gz`), `apply_BE_plan.sql.txt` (guarded `UPDATE` statements as text: each one changes a
+row only if it is still in its before-state) and `apply_BE_plan.json`. Without `--out` it prints the summary and writes
+nothing. It never connects to OPD.
+
+**Re-parenting changes OPD's document identifier.** OPD's `hash` is sha256(body_key + parent_type + url). In the
+10 Oct 2026 `docs_BE` export every one of the 49,810 rows follows that rule, and all 2,421 verified relink documents are
+stored with `parent_type = agenda` (and no agenda, affair or meeting id). Moving one to its affair therefore changes the
+rule's input: the new identifier is sha256("BE" + "affair" + url), and the public file URL
+`files.openparldata.ch/doc/BE/<hash>` changes with it. None of the 2,421 new identifiers collides with an existing one.
+`--hash recompute` (default) writes the new value, consistent with what OPD's loader computes for an affair document;
+`--hash keep` keeps the old identifier (stable URL, but it no longer follows the rule). Which one to use is OPD's decision.
+The plan for the 10 Oct export is in `results/repair/apply_be/` (made from a projection of `docs_BE` that keeps the
+metadata fields and drops the text): 2,421 `apply`, 554 begin_date `apply`, 173 begin_date `review`.
 
 ## CHE: placeholders and federal answers
 

@@ -1,0 +1,21 @@
+id	shown	file	path	fmt	command	where	context
+r4c.ti_title_equal	2,379	results/census/date_trust.json	title_verified.TI.title_equal	int	python -m gegenprobe.census.interventions	docs/viewer.md,results/census/interventions_README.md	
+r4c.ti_title_dated	2,379	results/census/date_trust.json	title_verified.TI.title_dated	int	python -m gegenprobe.census.interventions	docs/viewer.md,results/census/interventions_README.md	
+r4c.ti_dated	2,386	results/census/date_trust.json	title_verified.TI.dated	int	python -m gegenprobe.census.interventions	docs/viewer.md	
+r4c.ti_wednesday	73%	results/census/date_trust.json	bodies.TI.modal_share	pct0	python -m gegenprobe.census.interventions	docs/viewer.md	{"docs/viewer.md": "Wednesday"}
+r4c.tier_verified	2	results/census/date_trust.json	tier_counts.verified	int	python -m gegenprobe.census.interventions	docs/viewer.md	{"docs/viewer.md": "Tier counts: verified"}
+r4c.tier_mixed	14	results/census/date_trust.json	tier_counts.mixed	int	python -m gegenprobe.census.interventions	docs/viewer.md	{"docs/viewer.md": "mixed"}
+r4c.ti_first_year	2016	site/parliaments.csv	row:key=TI;col:first_year	str	make site	docs/viewer.md	
+r4c.ti_no_text	775	site/parliaments.csv	row:key=TI;col:all_image_only	int	make site	-	
+r4c.ti_missing	776	site/parliaments.csv	row:key=TI;col:all_missing	int	make site	-	
+r4c.ti_question_median	76	site/parliaments.csv	row:key=TI;col:all_median_days_main_type	int	make site	docs/viewer.md	{"docs/viewer.md": "Ticino: questions"}
+r4c.lugano_list_page	201	site/parliaments.csv	row:key=5192;col:all_missing	int	make site	docs/viewer.md	{"docs/viewer.md": "Lugano"}
+r4c.p3b_answer_lost	3	site/data.json	evaluation.p3b.answer_date_lost.n	int	make site	docs/viewer.md	{"docs/viewer.md": "Luzern affairs"}
+r4c.schema_shared	12	site/data.json	schema.counts.shared	int	make site	docs/viewer.md	{"docs/viewer.md": "12 shared"}
+r4c.schema_role_split	5	site/data.json	schema.counts.shared_with_role_split	int	make site	docs/viewer.md	{"docs/viewer.md": "with a role split"}
+r4c.sample_char_start	177	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	per_affair.21.affair.qa.0.answer_date.char_start	int	python -m eval.gold5.run_p3b	docs/viewer.md	{"docs/viewer.md": "characters"}
+r4c.sample_char_end	194	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	per_affair.21.affair.qa.0.answer_date.char_end	int	python -m eval.gold5.run_p3b	docs/viewer.md	{"docs/viewer.md": "characters"}
+r4c.sample_affair	301273	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	per_affair.21.affair_id	str	python -m eval.gold5.run_p3b	docs/viewer.md	
+r4c.ti_word_file	r100.19.doc	results/census/source_formats_ti.json	attos.0.source_answer_files.0.filename	str	python -m gegenprobe.census.source_formats	docs/viewer.md	
+r4c.70b_cascade_on_null	7	results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json	arms.cascade.strict.ALL.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	docs/viewer.md	{"docs/viewer.md": "70B:"}
+r4c.8b_cascade_on_null	25	results/eval/gguf_8b_analysis.json	arms.cascade.dates_on_answerless	int	python -m eval.gguf_8b_analysis fetch-ci; python -m eval.gguf_8b_analysis	docs/viewer.md	{"docs/viewer.md": "answerless"}

@@ -123,9 +123,19 @@ def opd_be_affairs(ids: set[int] | None = None) -> dict[int, dict]:
     return {a["id"]: a for a in iter_ndjson("affairs") if a["body_key"] == "BE" and (ids is None or a["id"] in ids)}
 
 
-def answer_events(affair_ids: set[int]) -> dict[int, list[str]]:
+def answer_events(affair_ids: set[int], events_path: Path | None = None) -> dict[int, list[str]]:
+    """OPD answer-event dates per affair, from GP_OPD_RAW/events.ndjson.gz or from events_path (the nightly job passes
+    the events export of the night it is checking)."""
     ev = collections.defaultdict(set)
-    for e in iter_ndjson("events"):
+    if events_path is not None:
+        def _events():
+            with gzip.open(events_path, "rt", encoding="utf-8") as f:
+                for line in f:
+                    yield json.loads(line)
+        it = _events()
+    else:
+        it = iter_ndjson("events")
+    for e in it:
         if e.get("affair_id") in affair_ids and (
             e.get("title_harmonized_id") in (6, 76) or ANSWER_EVENT.search(e.get("title_de") or "")
         ):

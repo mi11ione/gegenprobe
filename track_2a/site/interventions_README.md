@@ -7,8 +7,11 @@ Licence: CDLA-Permissive-2.0 (see `data/LICENSE`); derived from OpenParlData.ch,
 themselves publish.
 
 **Read this first.** "Not in OpenParlData" is not "not published by the parliament". Answer dates are OPD event dates;
-only for Bern are they verified against the decision date printed in the answer (2,421 of 2,459 relink rows,
-`results/repair/be_verify_all.json`). Elsewhere use `date_trust` before comparing bodies.
+they are verified as the government's decision date in two parliaments: Bern, against the decision date printed in the
+answer (2,421 of 2,459 relink rows, `results/repair/be_verify_all.json`), and Ticino, against the publisher's answer title
+"Risposta del CdS del …" (2,379 of 2,379 dated answers that carry such a title; on 20 held-out answers the title date is
+the date printed in the answer, `results/eval/posthoc_r3_gold_oracle.json`). Elsewhere use `date_trust` before comparing
+bodies.
 
 | column | meaning |
 |---|---|
@@ -27,6 +30,6 @@ only for Bern are they verified against the decision date printed in the answer 
 | `link_status` | where the answer text is: `attached` · `agenda` (filed under an agenda item) · `parentless` (in OPD without a parent; Bern) · `image_only` (scan without text) · `oral` (answered in the sitting: question time / Fragestunde with no answer document, or a Valais "réponse orale" stub) · `absent` (not in OPD) |
 | `oral_event` | 1 if an event also records an oral answer |
 | `same_day_body` | 1 if the body's 'answer' events mostly fall on the submission date (census flag, 7 bodies) |
-| `date_trust` | per body: `verified` (Bern) · `sitting_day` (≥ 80 % of answer dates on one weekday, a government's weekly sitting) · `mixed` (50–80 %) · `diffuse` (< 50 %) · `same_day` · `too_few` (< 20 dated) — `results/census/date_trust.json` |
+| `date_trust` | per body: `verified` (Bern: printed decision date; Ticino: publisher's answer title; `verified_by` in date_trust.json) · `sitting_day` (≥ 80 % of answer dates on one weekday, a government's weekly sitting) · `mixed` (50–80 %) · `diffuse` (< 50 %) · `same_day` · `too_few` (< 20 dated) — `results/census/date_trust.json` |
 | `opd_url` | the affair's page on openparldata.ch |
 | `source_url` | the parliament's own page for the affair, from OPD's `url_external_*`, filled for rows whose answer text is not attached (16,745 of 16,749) |

@@ -19,7 +19,8 @@ def test_read_inputs_tsv_csv_txt(tmp_path):
     (tmp_path / "b.csv").write_text("path,lang\n/tmp/y.pdf,fr\n")
     (tmp_path / "c.txt").write_text("# comment\nhttps://x.ch/2.pdf\n\n")
     a = batch.read_inputs(str(tmp_path / "a.tsv"))
-    assert a == [{"opd_doc_id": "11", "body": "BE", "affair_number": "", "affair_type": "", "lang": "", "source": "https://x.ch/1.pdf"}]
+    assert a == [{"opd_doc_id": "11", "body": "BE", "affair_number": "", "affair_type": "", "lang": "", "doc_category": "",
+                  "source": "https://x.ch/1.pdf"}]
     assert batch.read_inputs(str(tmp_path / "b.csv"))[0]["lang"] == "fr"
     assert batch.read_inputs(str(tmp_path / "c.txt")) == [{"source": "https://x.ch/2.pdf"}]
 

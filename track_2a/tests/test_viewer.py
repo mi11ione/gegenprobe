@@ -175,3 +175,30 @@ def test_coverage_gaps_and_times_within_type():
     assert rows["VS"]["times"] == {}, "same-day bodies show no answer time"
     gr = rows["GR"]
     assert gr["periods"]["y2425"]["oral"] == 62 and "orally in the sitting (question time)" in gr["safe_say"]
+
+
+# ---- round 4: five tests incl. P3b, schema record near the top, canton names, Ticino date trust, list-page links
+def test_r4_p3b_schema_and_cantons():
+    d = json.loads((SITE / "data.json").read_text(encoding="utf-8"))
+    p3b = d["evaluation"]["p3b"]
+    assert p3b["verdict"] == "replicated" and p3b["n"] == 36
+    f = {x["key"]: x for x in p3b["fields"]}
+    assert f["answer_date"]["arms"]["C"] == [20, 35] and f["answer_date"]["arms"]["CA"] == [31, 35]
+    assert f["affair_type"]["arms"]["C"] == [35, 36] and f["affair_type"]["tier"] == "extractable unattended"
+    sv = d["schema"]
+    assert len(sv["fields"]) == 17 and {x["cls"] for x in sv["fields"]} == {"shared", "shared_with_role_split"}
+    assert len(sv["body_specific"]) == 3
+    qa = sv["sample"]["record"]["qa"][0]["answer_date"]
+    assert qa["page"] and qa["char_end"] > qa["char_start"] and qa["quote"]
+    assert sv["sample"]["record"]["government_recommendation"]["null_reason"]
+    rows = {r["key"]: r for r in d["parliaments"]["rows"]}
+    assert rows["TI"]["label"] == "Ticino (canton)" and rows["TI"]["alt"] == "Tessin"
+    assert rows["VS"]["label"] == "Valais (canton)" and rows["GE"]["label"] == "Genève (canton)"
+    assert rows["TI"]["trust"]["tier"] == "verified" and rows["TI"]["trust"]["by"] == "title"
+    assert rows["TI"]["years"][0] == 2016 and "OCR recovers" not in rows["TI"]["safe_say"]
+    m = json.loads((SITE / "missing.json").read_text(encoding="utf-8"))
+    assert all(x[5] == 1 for x in m["5192"]["rows"]), "Lugano's affairs point at one list page"
+    html = (SITE / "index.html").read_text(encoding="utf-8")
+    assert "Five pre-registered tests" in html and "Four pre-registered" not in html
+    for s in ("Tessin (canton)", "newsroom", "which OCR recovers"):
+        assert s not in html, s

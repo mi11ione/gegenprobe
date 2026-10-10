@@ -11,6 +11,9 @@
       failure row in a batch (unless --allow-failures), or a malformed --anchors file. A --body outside
       data/convert/rules_coverage.json prints a warning and marks the row needs_review. --anchors FILE adds your own
       per-body regex anchors after the frozen rules; --explain lists every rule/anchor tried and the cache path.
+      --affair-type accepts the vocabulary keys, their DE/FR/IT/EN labels and OPD's harmonised names (an unknown value
+      is an error, exit 2); --queue-nulls sends a rules-only null answer date on an answer document (doc_role answer, or
+      --doc-category / batch column doc_category says answer) to review with its candidates.
       Docs: docs/convert-your-own.md.
   python -m gegenprobe run       the `make run` replay (same as python -m gegenprobe.run)
 """
@@ -20,6 +23,7 @@ import argparse
 import json
 import sys
 
+from .convert import affair_types
 from .convert.batch import guess_lang  # noqa: F401  (re-exported: tests and older callers import it from here)
 
 
@@ -40,9 +44,15 @@ def _convert(a) -> int:
     if a.mode == "review":
         be, theta = batch.resolve_review(a.backend, a.theta)
     if a.batch:
-        inputs = batch.read_inputs(a.batch)
+        from .convert.affair_types import UnknownAffairType
+        try:
+            inputs = batch.read_inputs(a.batch)
+        except UnknownAffairType as e:
+            print(str(e), file=sys.stderr)
+            return 2
         counts = batch.run_batch(inputs, a.out, mode=a.mode, backend=be, theta=theta, retry_failed=a.retry_failed,
-                                 timeout=a.timeout, tries=a.tries, anchors=anchors, explain=a.explain)
+                                 timeout=a.timeout, tries=a.tries, anchors=anchors, explain=a.explain,
+                                 queue_nulls=a.queue_nulls)
         summary = ", ".join(f"{k} {v}" for k, v in sorted(counts.items()))
         print(f"{len(inputs)} inputs: {summary or 'nothing to do'}" + (f" -> {a.out}" if a.out else ""), file=sys.stderr)
         if a.queue:
@@ -51,6 +61,9 @@ def _convert(a) -> int:
                 return 2
             n = batch.write_queue(a.out, a.queue)
             print(f"review queue: {n} rows needing review, Apertus suggestions strongest first -> {a.queue}", file=sys.stderr)
+        elif a.queue_nulls:
+            print("note: --queue-nulls flags rows needs_review; add --queue FILE to write them to a review queue",
+                  file=sys.stderr)
         if batch.has_failures(counts) and not a.allow_failures:
             print("some inputs failed (typed failure rows written); exit 2. Use --allow-failures to exit 0.", file=sys.stderr)
             return 2
@@ -58,9 +71,10 @@ def _convert(a) -> int:
     if not a.source:
         print("give a PDF path or URL, or --batch FILE", file=sys.stderr)
         return 2
-    inp = dict(opd_doc_id=a.opd_doc_id, body=a.body, affair_number=a.affair_number, affair_type=a.affair_type, lang=a.lang)
+    inp = dict(opd_doc_id=a.opd_doc_id, body=a.body, affair_number=a.affair_number, affair_type=a.affair_type, lang=a.lang,
+               doc_category=a.doc_category)
     row = batch.convert_one(a.source, inp, mode=a.mode, backend=be, theta=theta, timeout=a.timeout, tries=a.tries,
-                            anchors=anchors, explain=a.explain)
+                            anchors=anchors, explain=a.explain, queue_nulls=a.queue_nulls)
     if row["status"] == "ok" and overlay.coverage_warning(row["rules_coverage"]):
         print(overlay.coverage_warning(row["rules_coverage"]), file=sys.stderr)
     elif row["status"] == "ok" and not a.body:
@@ -88,18 +102,27 @@ def main(argv: list[str] | None = None) -> int:
                        description="Convert parliamentary PDFs. See docs/convert-your-own.md.")
     c.add_argument("source", nargs="?", help="PDF path or URL (omit with --batch)")
     c.add_argument("--batch", metavar="FILE", help=".tsv/.csv with a url|path|source column (optional opd_doc_id, body, "
-                   "affair_number, affair_type, lang) or .txt with one URL/path per line")
+                   "affair_number, affair_type, lang, doc_category) or .txt with one URL/path per line")
     c.add_argument("--out", metavar="JSONL", help="batch: append rows here; inputs already in the file are skipped")
     c.add_argument("--retry-failed", action="store_true", help="batch: retry inputs whose earlier row is a failure")
     c.add_argument("--allow-failures", action="store_true",
                    help="batch: exit 0 even if some inputs became failure rows (default: exit 2 so CI can gate on it)")
     c.add_argument("--queue", metavar="JSONL", help="batch: also write the rows with review suggestions, strongest band first")
+    c.add_argument("--queue-nulls", action="store_true",
+                   help="flag a rules-only null answer date on an answer document (doc_role answer, or --doc-category / "
+                   "batch column doc_category says answer, e.g. OPD category_harmonized response_text) needs_review, so "
+                   "it goes to the review queue with its candidates")
+    c.add_argument("--doc-category", help="OPD document category of this document (category_harmonized, e.g. "
+                   "response_text, or the category label, e.g. Réponse); used by --queue-nulls")
     c.add_argument("--opd-text", metavar="FILE", help="OPD's stored text of this document (plain text, or a docs-export "
                    "JSON row with a 'text' field): every value also gets opd_text_span, offsets into that text")
     c.add_argument("--mode", choices=["rules_only", "review"], default="rules_only",
                    help="rules_only (default, no model) | review (adds Apertus suggestions, needs a fitted θ)")
     c.add_argument("--lang", choices=["de", "fr", "it"], help="document language (guessed if omitted)")
-    c.add_argument("--affair-type", help="OPD harmonised type, e.g. Motion, Interpellation (recommendation n/a for some)")
+    c.add_argument("--affair-type", type=affair_types.arg_type, metavar="TYPE",
+                   help="affair type: a vocabulary key (" + ", ".join(affair_types.KEYS) + "), one of their DE/FR/IT/EN "
+                   "labels, or OPD's harmonised name (Interpellation, Question, Question time, ...); case-insensitive. "
+                   "Interpellation / Question / Question time make the recommendation not_applicable. Unknown: error")
     c.add_argument("--opd-doc-id", help="OPD document id: the record's doc_id becomes opd:<id>")
     c.add_argument("--body", help="OPD body key, e.g. BE, ZH, 261 (passed through)")
     c.add_argument("--affair-number", help="affair number as printed, e.g. 2024.RRGR.91 (passed through)")

@@ -21,7 +21,20 @@ with a diff against the previous night (`WORK/nightly/state.json`).
    `first_seen`, `last_seen` and a status (`pending`, `review`, `unchecked`, `resolved` = OPD has the answer now,
    `dropped` = left the list unanswered). The nightly TSV says what is new; the ledger says what is still open.
 8. `results/monitor/alerts.json`, then delivery (below), then the night's state. Exit code: 0 = quiet night,
-   `GP_ALERT_EXIT` (default 3) = alerts, 1 = the job itself or the alert delivery failed.
+   `GP_ALERT_EXIT` (default 3) = alerts, 1 = the job itself or the alert delivery failed, 2 = nothing to work on yet.
+
+**Empty cache.** `nightly offline` computes steps 5–7 on cached inputs. It uses the first complete set of inputs:
+`GP_OPD_RAW` + `GP_DOCS_META` (default `work/opd`, `work/docs_meta`), then `GP_EXPORTS_DIR` + `work/nightly/docs_meta`,
+then the last network night's `work/nightly/opd` + `work/nightly/docs_meta`. It also needs the canton tables in
+`work/be_ogd`. `nightly index` compares with `GP_OPD_RAW/index.json`, or else with the index stored in the last night's
+`state.json`. If none of these exists, both commands print what is missing and the command to run first (a network night,
+`python -m gegenprobe.monitor.nightly run`, or `python -m gegenprobe.repair.be fetch-ogd` for the canton tables) and
+exit 2, without a traceback.
+
+**User-Agent.** Every request carries `GP_USER_AGENT` (default `hackapertus-research/0.1`). Set it to your own product
+token and a contact (URL or mail), e.g. `GP_USER_AGENT=opd-gegenprobe/0.1 (+https://openparldata.ch)` in
+`/etc/gegenprobe/alerts.env`. The default names no contact, so a network night with it prints a note on stderr, and every
+`run.json` records `user_agent` (`value`, `has_contact`, `source`). No personal data is hard-coded.
 
 **Linking rate** of a body = affairs with a written-answer event whose answer text is reachable in OPD (attached document,
 `texts` row, or agenda item) ÷ affairs with a written-answer event. Same definitions as the census (`docs/census.md`).
@@ -58,6 +71,16 @@ Nothing leaves the machine unless configured (`/etc/gegenprobe/alerts.env`, temp
 `python -m gegenprobe.monitor.notify test` sends a test message through every configured channel (exit 0 sent, 2 no channel
 configured, 1 send failed).
 
+**One alert per event.** The job sends its alerts itself. The systemd failure notifier (`gegenprobe-nightly-failure.service`,
+`OnFailure=`) fires on every non-zero exit, including `GP_ALERT_EXIT`; on that exit it only writes a journal line, because
+the job exits `GP_ALERT_EXIT` only after its own delivery succeeded (a failed delivery exits 1). It posts to
+`GP_ALERT_WEBHOOK` only when the night failed: exit 1 or 2, a crash, a timeout, an OOM kill. It reads the failed unit's
+exit status from `MONITOR_EXIT_STATUS`, which systemd ≥ 251 passes to `OnFailure=` units (Debian 12: 252, Ubuntu 24.04:
+255); an older systemd passes nothing, and the notifier then posts on every failure. Before round 4 it posted on every
+night with alerts, on top of the job's own message. Its JSON body was also quoted so that systemd's own unescaping
+turned it into a shell syntax error, so that post never went out. The CI job `systemd-units` now runs the notifier under
+real systemd and checks for exactly one valid post.
+
 Alerts are delivered **before** the night's state is committed: they go to `WORK/nightly/outbox.json`, are sent, and leave
 the outbox only when the send succeeded. If the webhook or mail server is down, the job exits 1, the outbox stays, and the
 next night sends the old alerts with the new ones (`undelivered_from_previous_nights` in `alerts.json`). A failed send does
@@ -67,6 +90,14 @@ quarantined and reported (`outbox_corrupt` / `state_corrupt`) instead of failing
 `work/`: deleting `work/` deletes undelivered alerts with it (they are still in that night's `results/alerts.json`).
 
 ## Measured cost
+
+**The first night is the longest.** With no previous state, every docs/texts export is re-scanned (about 25 min of one
+core, cited below) and every row of the BE list is new, so each one is triple-checked once: fetch the PDF, extract the
+text, check. The same check over the same rows (`repair.verify_all`, 10 Oct 2026, development Mac) took 3,054 s for 2,500
+rows, about 1.2 s per row, bounded by the 1.2 s per-host request gap. That gives about 51 min for the 2,508 rows. A first
+night is therefore roughly 1.3 h at OPD with `GP_EXPORTS_DIR` (25 min rescan + ~4 min extraction + ~51 min checks), and
+about 1.5 h on an external host, which also downloads the exports (estimates from those measurements, not a measured
+night). Both fit the unit's `TimeoutStartSec=4h`. After the first night only new rows are checked.
 
 Compute on cached inputs (`make nightly-offline`; steps 5–7, no network), on the development Mac while other jobs were
 running: 233.0 s wall, of which 215.8 s is the census extraction. A second run on the same inputs reports 0 new BE repair rows
@@ -119,7 +150,21 @@ The `index_diff.json` numbers come from `python -m gegenprobe.monitor.nightly in
   interpreter `/opt/gegenprobe/.venv/bin/python` is a symlink to the runner's python3, so verify can resolve it. The step
   fails on a non-zero exit and on any unknown-key/ignored/invalid warning that names one of the units.
 
-Neither runs a real night against OPD under systemd on a server; that has not been done.
+- `systemd-units`, second step: the failure notifier under real systemd, behind two stand-in units (exit 3 = alerts, exit
+  1 = failure) and a local webhook. It must post exactly once, for the failure, with valid JSON.
+- `tests/test_nightly_network.py` (pytest, every CI run): a **first network-mode night end to end** on a local mirror of
+  the exports built from the smoke fixture. Index read, a `census.scan` subprocess per body, `census.extract`, rates, the
+  BE join, the per-row check of all 50 new rows (the PDF fetch fails on purpose, with a typed network error), ledger and
+  state. It runs in both modes: the exports read in place (`GP_EXPORTS_DIR`) and the single exports downloaded (the job
+  outside OPD). It found two bugs that would have stopped the first real night outside OPD, both fixed in round 4:
+  `census.extract` needs `contributors.ndjson.gz`, which the job did not download (it now downloads the five single
+  exports the extraction reads, about 198 MB instead of 137 MB). And the per-row check read OPD's answer events from
+  `GP_OPD_RAW` instead of the night's own events export.
+
+None of these is a real night against OPD under systemd on a server. `.github/workflows/nightly-real.yml` runs one on a
+GitHub-hosted Ubuntu runner: manual only, `install.sh --venv`, `systemctl start`, User-Agent
+`hackapertus-research/0.1 (+https://github.com/mi11ione/gegenprobe)`. It uploads `run.json`, `alerts.json`, the ledger,
+the journal and the wall time (`night.json`). Until a run of it is committed, no real night has run.
 
 ## Install
 

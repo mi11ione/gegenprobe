@@ -20,7 +20,7 @@ import json
 import re
 
 from ..paths import PDF_CACHE, RESULTS, TEXT_CACHE
-from .schema_v0_1 import SCHEMA_VERSION, Affair, DocExtraction
+from .schema_v0_1 import SCHEMA_VERSION, Affair
 
 OUT = RESULTS / "schema"
 BE91_SHA = "aee311edbe3633cbc60d581aa17b6a4f368d8ec31eeae3dbe16c44e6e05bce32"   # canton OGD 0778ef86…-332.pdf (201,704 B)
@@ -178,9 +178,9 @@ def che_14089(pages) -> dict:
 
 def build() -> dict:
     (OUT / "samples").mkdir(parents=True, exist_ok=True)
-    (OUT / "affair.schema.json").write_text(json.dumps(Affair.model_json_schema(), ensure_ascii=False, indent=1) + "\n")
-    (OUT / "doc_extraction.schema.json").write_text(
-        json.dumps(DocExtraction.model_json_schema(), ensure_ascii=False, indent=1) + "\n")
+    from .public import write_json_schemas  # identified schemas: $schema, $id, version (schema/public.py)
+
+    write_json_schemas(OUT)
     p91, pche = _pages(BE91_SHA), _pages(CHE_SHA)
     built = {}
     if p91 is not None:

@@ -388,6 +388,30 @@ kbd { font-family: var(--mono); font-size: 10.5px; border: 1px solid var(--rule-
 .wbstat { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; margin-bottom: 12px; font-family: var(--mono); font-size: 12px; }
 .demo { background: var(--hl); color: #101010; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; padding: 4px 7px 3px; font-weight: 600; }
 
+/* schema: one record + 17 fields (near the top) */
+.schemasec { padding-block: 30px 34px; border-bottom: 1px solid var(--rule); row-gap: 18px; }
+table.rec { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.rec td, table.rec th { padding: 7px 10px 7px 0; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+table.rec th { font-weight: 500; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); border-bottom: 1px solid var(--rule-strong); }
+table.rec td.f { font-family: var(--mono); font-size: 11.5px; white-space: nowrap; }
+table.rec td.v { font-family: var(--mono); font-weight: 600; overflow-wrap: anywhere; }
+table.rec td.p { font-family: var(--mono); font-size: 11.5px; color: var(--ink-2); overflow-wrap: anywhere; }
+table.rec tr.span td { background: var(--red-wash); }
+table.rec tr.sugg td { color: var(--ink-3); }
+table.rec mark { background: var(--hl); color: #101010; padding: 1px 2px; }
+@media (max-width: 700px) { table.rec td { display: block; padding-right: 0; border-bottom: 0; } table.rec tr { display: block; border-bottom: 1px solid var(--rule); padding: 6px 0; } table.rec thead { display: none; } }
+details.json { margin-top: 10px; }
+details.json summary { cursor: pointer; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+details.json pre { font-family: var(--mono); font-size: 11px; line-height: 1.5; background: var(--paper-2); padding: 12px 14px; overflow: auto; max-height: 420px; margin: 8px 0 0; }
+.cls { font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+.cls.c-shared { font-weight: 600; } .cls.c-shared_with_role_split { color: var(--ink); text-decoration: underline; text-decoration-color: var(--hl); text-decoration-thickness: 3px; text-underline-offset: 3px; } .cls.c-body_specific { color: var(--red); }
+table.schema td.ev { font-size: 12px; color: var(--ink-2); white-space: normal; min-width: 220px; }
+table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
+.warnline { font-family: var(--mono); font-size: 11.5px; color: var(--ink); border-left: 3px solid var(--red); padding: 6px 10px; margin: 0 0 12px; max-width: 100%; }
+.warnline b { color: var(--red); font-weight: 600; }
+.verdictbox { border: 2px solid var(--rule-strong); padding: 12px 14px; margin: 0 0 14px; }
+.verdictbox .stamp { margin-right: 10px; }
+
 /* evaluation: error profile in words */
 .profile { margin: 14px 0 0; border-top: 1px solid var(--rule-strong); }
 .profile > div { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 4px 16px; padding: 8px 0; border-bottom: 1px solid var(--rule); font-size: 13.5px; }
@@ -431,10 +455,21 @@ kbd { font-family: var(--mono); font-size: 10.5px; border: 1px solid var(--rule-
 </section>
 
 <section class="grid howto" aria-label="Where to look">
-  <div class="idx"><div class="label">Where to look</div><p class="small" style="margin:8px 0 0;max-width:30ch">Three steps for a newsroom; six terms the rest of the page uses.</p></div>
+  <div class="idx"><div class="label">For OPD's data team</div><p class="small" style="margin:8px 0 0;max-width:32ch" id="howtoNote"></p></div>
   <div class="work">
     <div class="steps" id="steps"></div>
     <dl class="gloss" id="gloss" style="margin-top:18px"></dl>
+  </div>
+</section>
+
+<section class="grid schemasec" id="schema-top" aria-labelledby="h-schema">
+  <div class="idx"><div class="label">Schema v0.1 · what the converter writes</div><p class="small" style="margin:8px 0 0;max-width:32ch" id="schemaNote"></p></div>
+  <div class="work">
+    <h2 id="h-schema" style="margin:0 0 6px;font-size:clamp(22px,2.4vw,30px);letter-spacing:-.015em;line-height:1.1">One affair, as the converter writes it: every value with its source, every gap with its reason</h2>
+    <div id="sampleRec"></div>
+    <h3 class="part" style="margin-top:30px">17 fields · does each mean the same thing in every parliament?</h3>
+    <p class="small" id="schemaClassNote" style="margin:0 0 10px;max-width:86ch"></p>
+    <div style="overflow-x:auto"><table class="schema" id="schemaTop"></table></div>
   </div>
 </section>
 
@@ -503,7 +538,7 @@ kbd { font-family: var(--mono); font-size: 10.5px; border: 1px solid var(--rule-
   <div class="grid sec-head">
     <div class="idx"><div class="label">03 · Pre-registered</div></div>
     <div class="work">
-      <h2 id="h-eval">Four pre-registered tests, frozen before the labels existed</h2>
+      <h2 id="h-eval">Five pre-registered tests, frozen before the labels existed</h2>
       <p id="evalIntro"></p>
     </div>
   </div>
@@ -534,6 +569,13 @@ kbd { font-family: var(--mono); font-size: 10.5px; border: 1px solid var(--rule-
       <div style="overflow-x:auto"><table class="board p3" id="p3board"></table></div>
       <p class="small" id="p3bodies" style="margin:10px 0 0;max-width:80ch"></p>
       <div class="hyp" id="p3hyp" style="margin-top:18px"></div></div>
+  </div>
+  <div class="grid" style="margin-top:46px" id="p3b">
+    <div class="idx"><div class="label">P3b · held-out replication of P3</div><p class="small" id="p3bNote"></p></div>
+    <div class="work"><div class="verdictbox" id="p3bVerdict"></div><p id="p3bIntro" style="margin:0 0 14px;max-width:70ch"></p>
+      <div style="overflow-x:auto"><table class="board p3" id="p3bboard"></table></div>
+      <p class="small" id="p3bbodies" style="margin:10px 0 0;max-width:80ch"></p>
+      <div class="hyp" id="p3bhyp" style="margin-top:18px"></div></div>
   </div>
   <div class="grid" style="margin-top:46px">
     <div class="idx"><div class="label">P4 · virtual affairs from minutes</div><p class="small" id="p4Note"></p></div>
@@ -638,10 +680,11 @@ $('#facts').append(...facts.map(([v, t]) => el('div', { class: 'fact' }, el('div
 /* where to look (3 steps) + glossary */
 const RS = D.parliaments.research || {};
 const STEPS = [
-  ['Find the parliament', 'Type its name above the table, or sort by Missing. The period switch changes every number on the page at once. “Dates” says how far each parliament’s answer dates can be trusted.', '#parliaments'],
-  ['Open its row', 'What is safe to say, where each missing answer sits, answer times by type, and every affair without text, linked to OPD and to the parliament’s own page.', '#parliaments'],
-  ['Take the data', `A CSV per parliament from its row, the table as CSV, or all ${fmt(RS.rows)} interventions as one file with a column dictionary (CDLA-Permissive-2.0).`, '#dataset'],
+  ['Apply the Bern lists', `${fmt(H.relink)} answers are already in OPD without a parent: relink them by the canton’s own document id. ${fmt(H.fetch)} more to fetch from the canton. Both lists are keyed on OPD ids (results/repair/, docs/repair.md).`, '#bern-numbers'],
+  ['Fix the rest by cause', 'Open a parliament’s row: every affair without answer text, with its cause and the fix it needs (agenda join, relink, re-take a text version, OCR, fetch from the parliament), linked to OPD and to the parliament’s own page, as CSV.', '#parliaments'],
+  ['Take the data', `All ${fmt(RS.rows)} interventions as one file with a column dictionary (CDLA-Permissive-2.0), the table as CSV, and the converter’s output format (schema v0.1, below).`, '#dataset'],
 ];
+$('#howtoNote').textContent = 'What to fix and which lists to apply, in three steps; six terms the rest of the page uses. Journalists: each parliament’s row has a “safe to say” sentence with its caveat. Not in OPD ≠ not published by the parliament.';
 $('#steps').append(...STEPS.map(([w, t, h], i) => el('div', {}, el('div', { class: 'n' }, String(i + 1)), el('div', { class: 'w' }, el('a', { href: h }, w)), el('p', {}, t))));
 const GLOSS = [
   ['OPD', 'OpenParlData.ch, the aggregator that collects affairs, events and documents from Swiss parliaments. Every count here is about its copy.'],
@@ -649,9 +692,58 @@ const GLOSS = [
   ['Closed set', 'The only answers Apertus may give for a document: one of the dates printed in it, or null. A date that is not printed cannot be chosen.'],
   ['Pointer', 'Apertus used as a selector over the closed set: it points at a printed date, with page and characters, instead of writing one.'],
   ['θ · margin band', 'Null margin: how much more likely “no answer date” is than all printed dates together, in nats. Above θ the value is null; near θ a reviewer looks.'],
-  ['P1–P4', 'Four tests frozen by hash before any label existed: P1 known layouts, P2 15 unseen parliaments, P3 whole affairs field by field, P4 affairs from minutes.'],
+  ['P1–P4 · P3b', 'Five tests frozen by hash before any label existed: P1 known layouts, P2 15 unseen parliaments, P3 whole affairs field by field, P3b its replication on fresh affairs from 9 other parliaments, P4 affairs from minutes.'],
 ];
 $('#gloss').append(...GLOSS.map(([t, d]) => el('div', {}, el('dt', {}, t), el('dd', {}, d))));
+/* schema v0.1: one real converter record + the 17 fields with their class (always visible, under the steps) */
+const SV = D.schema;
+const CLS = { shared: 'shared', shared_with_role_split: 'shared · role split', body_specific: 'body-specific' };
+function renderSchemaTop() {
+  if (!SV) return;
+  const S = SV.sample, R = S.record, qa = (R.qa || [])[0] || {};
+  const prov = v => v.kind === 'null' ? `${v.route}${v.evidence ? ' · evidence: ' + v.evidence : ''}` :
+    v.page ? null : `${v.basis === v.route ? v.basis : v.basis + ' · ' + v.route}${v.source ? ' · ' + v.source : ''}`;
+  const val = v => v.kind === 'null' ? el('span', { class: 'nullv' }, `null · ${v.null_reason}`) : el('span', {}, String(v.value));
+  const spanEl = v => el('span', {}, `${v.basis} · ${v.route}${v.rule ? ' (' + v.rule + ')' : ''} · ${v.doc} · p. ${v.page} · chars ${fmt(v.char_start)}–${fmt(v.char_end)} · `, el('mark', {}, v.quote));
+  const actor = (R.actors || []).find(a => a.role === 'submitter');
+  const date = role => ((R.dates || []).find(d => d.role === role) || {}).date;
+  const rows = [
+    ['ref', `${R.ref.body_key} · ${R.ref.number} · OPD ${R.ref.opd_id}`, 'identifier', null],
+    ['type', `${R.type.harmonised} (source label “${R.type.source_label}”)`, 'metadata · OPD type', null],
+    actor ? ['actors[submitter]', actor.name.value, prov(actor.name), null] : null,
+    date('submitted') ? ['dates[submitted]', date('submitted').value, prov(date('submitted')), null] : null,
+    date('answered') ? ['dates[answered]', date('answered').value, prov(date('answered')) + ' · OPD’s answer event', null] : null,
+    qa.answer_date ? ['qa[0].answer_date', val(qa.answer_date), qa.answer_date.page ? spanEl(qa.answer_date) : prov(qa.answer_date), 'span'] : null,
+    ['government_recommendation', val(R.government_recommendation), prov(R.government_recommendation) + ' (an interpellation carries no recommendation)', null],
+    ['decision', val(R.decision), prov(R.decision), null],
+    qa.answering_body ? ['qa[0].answering_body', val(qa.answering_body), prov(qa.answering_body), null] : null,
+    ['answer_link_status', R.answer_link_status, 'census: the answer document is attached to the affair in OPD', null],
+    ...Object.entries(S.suggestions || {}).map(([k, v]) => [`suggestion: ${k}`, String(v.value), `Apertus ${v.basis} · margin ${v.margin.toFixed(1)} over ${v.candidates} choices · offered to a reviewer, not written into the record; a document-level choice, so it has no character span`, 'sugg']),
+  ].filter(Boolean);
+  const tb = el('table', { class: 'rec' }, el('thead', {}, el('tr', {}, el('th', {}, 'Field'), el('th', {}, 'Value'), el('th', {}, 'Where it comes from'))),
+    el('tbody', {}, rows.map(([f, v, p, cls]) => el('tr', { class: cls || '' }, el('td', { class: 'f' }, f), el('td', { class: 'v' }, v), el('td', { class: 'p' }, p || '')))));
+  const ok = qa.answer_date && qa.answer_date.value === S.gold_answer_date;
+  $('#sampleRec').replaceChildren(
+    el('div', { class: 'partno' }, el('span', {}, el('b', {}, R.ref.body_key), ` · ${S.body_label}`), el('span', {}, 'AFFAIR ', el('b', {}, R.ref.opd_id)),
+      el('span', {}, `“${(R.title && (R.title.de || R.title.fr || R.title.it)) || ''}”`), el('span', {}, `test ${S.test} · ${R.extraction.converter_version}`)),
+    el('p', { class: 'small', style: 'margin:10px 0 8px;max-width:86ch' }, `A real record from the held-out ${S.test} run (${S.source}), not a hand-made example. A value is either OPD metadata with the OPD record it came from, or text from a document with page, character span and quote (highlighted); an empty field is a typed null with its reason. The answer date the rules read on page ${qa.answer_date ? qa.answer_date.page : '—'} ${ok ? 'agrees with' : 'differs from'} the blind annotators’ label (${dmy(S.gold_answer_date) || 'null'}).`),
+    tb,
+    el('details', { class: 'json' }, el('summary', {}, 'The whole record · JSON (schema v0.1)'), el('pre', {}, JSON.stringify(R, null, 1))));
+  const n = SV.counts, tc = SV.tier_counts;
+  $('#schemaNote').textContent = `Schema v0.1: dates with roles, typed nulls, spans. The converter fills it from OPD metadata first, then frozen rules; Apertus only suggests, for a reviewer.`;
+  $('#schemaClassNote').textContent = `Class: does the field mean the same thing everywhere? ${n.shared || 0} fields are shared; ${n.shared_with_role_split || 0} are shared with a role split (one source label covers several roles that must be kept apart); three concepts are body-specific. ` +
+    `Where the value lives is a separate question, counted over the parliaments where the field applies: in OPD metadata, partly, only in the PDF, or not in OPD’s data (tiers: ${tc.feasible} feasible, ${tc.partial} partial, ${tc['fundamentally different']} fundamentally different, docs/census.md §3). Classes: data/schema/field_verdict_classes.json.`;
+  const head = el('thead', {}, el('tr', {}, ['Field', 'Class', 'Tier', 'Metadata', 'Partly', 'Only in PDF', 'Not in OPD’s data', 'Evidence'].map(x => el('th', {}, x))));
+  const tb2 = el('tbody', {}, SV.fields.map((f, i) => el('tr', { class: i && SV.fields[i - 1].cls !== f.cls ? 'grp' : '' }, el('td', { class: 'code' }, f.name),
+      el('td', {}, el('span', { class: 'cls c-' + f.cls, title: SV.classes[f.cls].definition }, CLS[f.cls])), el('td', { class: 'code' }, f.tier),
+      el('td', { class: 'code num' }, f.metadata), el('td', { class: 'code num' }, f.mixed), el('td', { class: 'code num' }, f.pdf),
+      el('td', { class: 'code num' + (f.no_source ? ' red' : '') }, f.no_source), el('td', { class: 'ev' }, f.evidence || (f.key === 'co_signatories' ? 'parliaments often print them on the member’s text or list them on their own pages' : '')))),
+    SV.body_specific.map((b, i) => el('tr', { class: i === 0 ? 'grp' : '' }, el('td', { class: 'code' }, b.name),
+      el('td', {}, el('span', { class: 'cls c-body_specific', title: SV.classes.body_specific.definition }, CLS.body_specific)), el('td', { class: 'code muted', colspan: 5 }, 'a concept, not a field'),
+      el('td', { class: 'ev' }, b.evidence))));
+  $('#schemaTop').replaceChildren(head, tb2);
+}
+renderSchemaTop();
 
 /* tabs (bare #anchors) */
 const views = ['parliaments', 'documents', 'evaluation', 'method'];
@@ -880,27 +972,36 @@ addEventListener('keydown', e => {
 });
 
 /* ---------------- 01 PARLIAMENTS ---------------- */
-let parDone = false, parSort = ['written', -1], openBody = null, parQ = '', parLevel = 'all', parCov = 'all', parType = 'Interpellation';
+let parDone = false, parSort = ['written', -1], openBody = null, parQ = '', parLevel = 'all', parCov = 'all', parType = 'main';
 const P = D.parliaments;
 const PER = () => r => r.periods[period];
 const c = r => r.periods[period];
 const LK = [['attached', 'k-att', 'attached to the intervention'], ['agenda', 'k-ag', 'filed under an agenda item'], ['parentless', 'k-par', 'in OPD without a parent (relinkable)'],
-  ['image_only', 'k-img', 'scan without text (OCR)'], ['oral', 'k-oral', 'answered orally in the sitting (question time)'], ['absent', 'k-abs', 'not in OPD']];
+  ['image_only', 'k-img', 'OPD’s copy has no text (OCR or a text version)'], ['oral', 'k-oral', 'answered orally in the sitting (question time)'], ['absent', 'k-abs', 'not in OPD']];
 const TYPES = P.types || ['Interpellation'];
-const TYPEL = { Interpellation: 'Interpellation', Question: 'Question', Motion: 'Motion', Postulate: 'Postulate', 'Question time': 'Question time' };
+const TYPEL = { main: 'Most answers', Interpellation: 'Interpellation', Question: 'Question', Motion: 'Motion', Postulate: 'Postulate', 'Question time': 'Question time' };
+const TYPEA = { Interpellation: 'interp.', Question: 'question', Motion: 'motion', Postulate: 'postulate', 'Question time': 'q. time' };
+const mainType = r => (r.main_type || {})[period];
+const typeOf = r => parType === 'main' ? mainType(r) : parType;
+const yrs = r => r.years ? `${r.years[0]}–${r.years[1]}` : '';
 const COV = { coverage_gap: ['coverage gap', 'OPD holds interventions for this parliament but records a written answer for fewer than 20 (and under 10%) of them: a gap in OPD’s coverage, not evidence about the parliament'],
   no_affairs: ['no interventions', 'OPD holds only meeting documents for this parliament'], few: ['too few', 'fewer than 20 interventions in OPD'] };
 const LEVELS = [['all', 'All'], ['canton', 'Cantons'], ['local', 'Cities & communes']];
 const COVF = [['all', 'All'], ['measured', 'Measured'], ['coverage_gap', 'Coverage gaps']];
-const tm = r => ((r.times || {})[period] || {})[parType];
+const tm = r => ((r.times || {})[period] || {})[typeOf(r)];
 const SAME = new Set(P.same_day.map(b => b.body));
-const TIER = { verified: ['verified', 'OPD answer date = decision date printed in the answer, checked document by document'],
+const TV = RS.title_verified || {}, TO = RS.title_oracle;
+const TIER = { verified: ['verified', 'OPD’s answer date is the government’s decision date'],
   sitting_day: ['sitting day', 'most answer dates fall on one weekday: a government’s weekly sitting, i.e. a decision date'],
   mixed: ['mixed', 'answer dates partly on one weekday: a mix of decision and publication dates'],
   diffuse: ['diffuse', 'answer dates spread over the week: likely publication or registration dates'],
   same_day: ['same day', 'the “answer” event mostly equals the submission date: no answer time'], too_few: ['too few', 'fewer than 20 dated answers'] };
+const tierWhy = r => { const t = r.trust || {};
+  if (t.tier !== 'verified') return (TIER[t.tier] || ['', ''])[1];
+  if (t.by === 'title') return `OPD’s answer date equals the decision date in the publisher’s answer title (“Risposta del CdS del …”) for ${fmt(t.title_equal)} of ${fmt(t.title_dated)} dated answers that carry one` + (TO ? `; on ${TO.agree} of ${TO.checked} held-out answers that title date is the date printed in the answer` : '');
+  return RS.bern_verified ? `OPD’s answer date equals the decision date printed in the answer (RRB), checked document by document: ${fmt(RS.bern_verified.date_equal)} of ${fmt(RS.bern_verified.n)} relink answers` : TIER.verified[1]; };
 const tierEl = r => { const t = r.trust && TIER[r.trust.tier]; if (!t) return el('span', { class: 'muted' }, '—');
-  return el('span', { class: 'tier t-' + r.trust.tier, title: t[1] + (r.trust.modal_share != null ? ` (${pct(r.trust.modal_share, 0)} on ${r.trust.modal_weekday})` : '') }, t[0]); };
+  return el('span', { class: 'tier t-' + r.trust.tier, title: tierWhy(r) + (r.trust.modal_share != null ? ` (${pct(r.trust.modal_share, 0)} on ${r.trust.modal_weekday})` : '') }, t[0] + (r.trust.by === 'title' ? ' · title' : '')); };
 const COLS = [
   ['name', 'Parliament', r => el('span', {}, el('b', {}, r.key), ' ', el('span', { class: 'muted' }, r.label),
     COV[r.coverage] ? el('span', { class: 'chip cov', title: COV[r.coverage][1] }, COV[r.coverage][0]) : null), r => r.label],
@@ -909,12 +1010,12 @@ const COLS = [
   ['missing', 'Missing', r => c(r).missing ? el('span', { class: 'red' }, fmt(c(r).missing)) : '0', r => c(r).missing],
   ['agenda', 'Agenda', r => fmt(c(r).agenda), r => c(r).agenda],
   ['parentless', 'No parent', r => fmt(c(r).parentless), r => c(r).parentless],
-  ['image_only', 'Scan', r => fmt(c(r).image_only), r => c(r).image_only],
+  ['image_only', () => el('span', { title: 'an answer document is attached, but OPD’s copy has no text: no text layer, or OPD’s extraction failed' }, 'No text'), r => fmt(c(r).image_only), r => c(r).image_only],
   ['oral', 'Oral', r => fmt(c(r).oral), r => c(r).oral],
   ['absent', 'Not in OPD', r => fmt(c(r).absent), r => c(r).absent],
   ['after_repair', 'Repaired', r => c(r).written ? pct(c(r).after_repair) : '—', r => c(r).after_repair ?? -1],
-  ['after_ocr', '+ OCR', r => c(r).image_only ? el('span', { class: 'ocr', title: 'if the scans were read by OCR (probe: 15/15 recovered); typed, not yet done for the whole body' }, pct(c(r).after_ocr)) : el('span', { class: 'muted' }, '·'), r => c(r).image_only ? c(r).after_ocr : -1],
-  ['median', () => el('span', {}, `Days · ${TYPEL[parType] || parType}*`, el('br'), el('span', { class: 'warn' }, 'not a ranking')), r => r.median.flag === 'same_day' ? el('span', { class: 'muted', title: 'answer event mostly equals submission' }, '—†') : !tm(r) ? el('span', { class: 'muted', title: 'fewer than 10 dated answers of this type in this period' }, '—') : el('span', { title: `median ${tm(r).median} days, interquartile range ${tm(r).q1}–${tm(r).q3}, n ${tm(r).n}` }, fmt(tm(r).median), el('span', { class: 'iqr' }, `${fmt(Math.round(tm(r).q1))}–${fmt(Math.round(tm(r).q3))}`)), r => tm(r) && r.median.flag !== 'same_day' ? tm(r).median : -1],
+  ['after_ocr', '+ OCR', r => c(r).image_only ? el('span', { class: 'ocr', title: 'if the answers without text were read by OCR (probe: 15/15 recovered) or re-taken as a text version; not yet done' }, pct(c(r).after_ocr)) : el('span', { class: 'muted' }, '·'), r => c(r).image_only ? c(r).after_ocr : -1],
+  ['median', () => el('span', {}, `Days · ${TYPEL[parType] || parType}*`, el('br'), el('span', { class: 'warn' }, 'not a ranking')), r => r.median.flag === 'same_day' ? el('span', { class: 'muted', title: 'answer event mostly equals submission' }, '—†') : !tm(r) ? el('span', { class: 'muted', title: 'fewer than 10 dated answers of this type in this period' }, '—') : el('span', { title: `${typeOf(r)}: median ${tm(r).median} days, interquartile range ${tm(r).q1}–${tm(r).q3}, n ${tm(r).n}` }, fmt(tm(r).median), parType === 'main' ? el('span', { class: 'iqr' }, TYPEA[typeOf(r)] || typeOf(r)) : null, el('span', { class: 'iqr' }, `${fmt(Math.round(tm(r).q1))}–${fmt(Math.round(tm(r).q3))}`)), r => tm(r) && r.median.flag !== 'same_day' ? tm(r).median : -1],
   ['trust', 'Dates', r => tierEl(r), r => ['verified', 'sitting_day', 'mixed', 'diffuse', 'same_day', 'too_few'].indexOf(r.trust && r.trust.tier)],
   ['mix', 'Where they are', r => stack(r), r => c(r).written ? c(r).attached / c(r).written : -1],
 ];
@@ -928,7 +1029,7 @@ function renderPar() {
   const nat = P.national;
   $('#parSnap').textContent = `OPD exports of ${P.snapshot}`;
   $('#parIntro').textContent = `${P.n_bodies} parliaments with affairs in scope (OpenParlData scrapes 90). Of ${fmt(nat.ev_answer)} interventions whose events record a written government answer (all years), ${fmt(nat.gap)} (${pct(P.gap_share)}) have no answer text attached. ` +
-    `Every one of them has a typed cause: filed under an agenda item, stored without a parent, scanned without text, answered orally, or not in OPD at all. Open a row for its list of affairs.`;
+    `Every one of them has a typed cause, and each cause has its fix: filed under an agenda item (join), stored without a parent (relink), attached but OPD’s copy has no text (re-take a text version, or OCR), answered orally (not missing), or not in OPD at all (fetch from the parliament). Open a row for its list of affairs.`;
   const find = el('div', { class: 'fgroup' }, el('div', { class: 'label' }, 'Find a parliament'),
     el('input', { class: 'find', type: 'search', placeholder: 'name, canton or BFS no.', 'aria-label': 'Find a parliament', value: parQ,
       oninput: e => { parQ = e.currentTarget.value; drawPar(); } }));
@@ -941,13 +1042,17 @@ function renderPar() {
   $('#parFilters').replaceChildren(periodSeg('Interventions submitted'),
     segOf('Show', LEVELS, () => parLevel, k => { parLevel = k; }),
     segOf('Coverage', COVF, () => parCov, k => { parCov = k; }),
-    segOf('Answer time · compare within one type', TYPES.map(t => [t, TYPEL[t] || t]), () => parType, k => { parType = k; }), find, dl);
+    segOf('Answer time · one type per parliament', ['main', ...TYPES].map(t => [t, TYPEL[t] || t]), () => parType, k => { parType = k; }), find, dl);
+  const warn = el('div', { class: 'warnline', role: 'note' }, el('b', {}, 'Answer times are not a league table. '), 'Procedures differ between parliaments: an interpellation in one canton is not the same procedure as an interpellation in another, and deadlines differ. By default each parliament shows its own most-answered type (named in grey); compare a parliament with itself over time.');
+  $('#parFilters').after(warn);
   $('#parLegend').replaceChildren(...LK.map(([, k, t]) => el('span', {}, el('i', { class: k }), t)));
   $('#parDefs').textContent = 'One denominator for every column: interventions whose events record a written government answer, in the chosen period (by the year in the affair number, else its begin date). ' +
     'Each one is in exactly one place, so Text attached + Agenda + No parent + Scan + Oral + Not in OPD = Written answers. Missing = all but "attached". ' +
-    'After repair = attached + agenda join + Bern relink + Bern fetch from the canton (oral answers are typed, not counted as text). + OCR adds the scans, shown only where there are any: it is a separate state because OCR was probed (15/15 recovered), not run on every scan.';
-  $('#parFoot').textContent = `* Median days from submission to the first written-answer event in OPD, for one intervention type at a time (switch above; default interpellation) and the chosen period, with the interquartile range in grey; shown where at least 10 answers of that type are dated. Medians over mixed types are not shown: a motion "answer" and an interpellation answer are different things. Not a ranking: parliaments use different deadlines, and OPD's "answer" event is the government decision date in some bodies and a publication date in others. The Dates column says which: verified (Bern: ${fmt(RS.bern_verified && RS.bern_verified.date_equal)} of ${fmt(RS.bern_verified && RS.bern_verified.n)} relink answers carry the printed decision date), sitting day (≥ 80% of answer dates on one weekday), mixed, diffuse. ` +
-    `† ${P.same_day.length} parliaments record the "answer" on the submission date for most interventions (${P.same_day.map(b => b.name).join(', ')}): no answer time is shown for them.`;
+    'After repair = attached + agenda join + Bern relink + Bern fetch from the canton (oral answers are typed, not counted as text). No text = an answer document is attached but OPD’s copy has no text (no text layer, or OPD’s extraction failed). + OCR adds those, shown only where there are any: a separate state, because OCR was probed (15/15 recovered), not run on all of them; where the parliament publishes a text PDF or a Word file, re-taking it is cheaper. ' +
+    `“All years” means all years OPD holds for that parliament (its row says from when). ${P.canton_rule || ''}`;
+  const tv = Object.entries(TV).map(([k, v]) => `${k === 'TI' ? 'Ticino' : k}: ${fmt(v.title_equal)} of ${fmt(v.title_dated)} answers carry the same date in the publisher’s answer title` + (TO && k === 'TI' ? `, and that title date is the printed date on ${TO.agree}/${TO.checked} held-out answers` : '')).join('; ');
+  $('#parFoot').textContent = `* Median days from submission to the first written-answer event in OPD, for one intervention type per parliament (default: the type with the most dated answers there, named in grey; or pick one type for all) in the chosen period, with the interquartile range in grey; shown where at least 10 answers of that type are dated. Medians over mixed types are not shown: a motion "answer" and an interpellation answer are different things. Not a ranking: procedures and deadlines differ between parliaments, and OPD's "answer" event is the government decision date in some bodies and a publication date in others. The Dates column says which: verified (Bern: ${fmt(RS.bern_verified && RS.bern_verified.date_equal)} of ${fmt(RS.bern_verified && RS.bern_verified.n)} relink answers carry the printed decision date${tv ? '; ' + tv : ''}), sitting day (≥ 80% of answer dates on one weekday), mixed, diffuse. ` +
+    `† ${P.same_day.length} parliaments record the "answer" on the submission date for most interventions (${P.same_day.map(b => (b.label || b.name).replace(/ \((canton|city|municipality)\)$/, '')).join(', ')}): no answer time is shown for them.`;
   renderFindings();
   renderBern();
   renderDataset();
@@ -960,7 +1065,7 @@ function drawPar() {
   const lvlOk = r => parLevel === 'all' || (parLevel === 'canton' ? r.level === 'canton' : (r.level === 'city' || r.level === 'municipality'));
   const covOk = r => parCov === 'all' || r.coverage === parCov;
   drawCoverage(lvlOk);
-  const rows = [...P.rows].filter(r => lvlOk(r) && covOk(r) && (!q || `${r.key} ${r.label} ${r.canton || ''}`.toLowerCase().includes(q)))
+  const rows = [...P.rows].filter(r => lvlOk(r) && covOk(r) && (!q || `${r.key} ${r.label} ${r.alt || ''} ${r.canton || ''}`.toLowerCase().includes(q)))
     .sort((a, b) => { const x = val(a), y = val(b); return (typeof x === 'string' ? x.localeCompare(y) : ((x ?? -1) - (y ?? -1))) * dir; });
   const head = el('tr', {}, COLS.map(([k, t0]) => { const t = typeof t0 === 'function' ? t0() : t0; return el('th', { 'aria-sort': k === key ? (dir < 0 ? 'descending' : 'ascending') : null, tabindex: '0', scope: 'col',
     onclick: () => { parSort = [k, k === key ? -dir : (k === 'name' ? 1 : -1)]; drawPar(); }, onkeydown: e => { if (e.key === 'Enter') e.currentTarget.click(); } }, t); }));
@@ -984,12 +1089,12 @@ function drawCoverage(lvlOk) {
     el('p', { class: 'small', style: 'margin:0 0 6px;max-width:86ch' }, 'OPD holds their interventions but records a written government answer for fewer than 20 of them and for under 10% (all years), so their answer rate cannot be measured from OPD. That is a gap in the aggregator’s coverage, not evidence that these parliaments leave questions unanswered: ask OPD and the parliament.'),
     el('ul', {}, g.map(x => el('li', {}, el('b', {}, x.key), ` ${x.label.replace(/ \((canton|city|municipality)\)$/, '')} · ${fmt(x.written)} of ${fmt(x.n)}`))));
 }
-const STL = { metadata: 'in OPD metadata', mixed: 'metadata for part', pdf: 'only in the PDF', no_source: 'no source in OPD' };
+const STL = { metadata: 'in OPD metadata', mixed: 'metadata for part', pdf: 'only in the PDF', no_source: 'not in OPD’s data' };
 const STATUS = { confirmed_bug: 'confirmed bug', confirmed: 'confirmed', source_discrepancy: 'source discrepancy', explained: 'explained', by_design: 'by design', scope_pointer: 'scope pointer' };
 function findingsFor(key) { return P.findings.filter(f => (key === 'BE' && (/^be_/.test(f.id) || f.id === 'grparl_384_date')) || (key === 'CHE' && /^che_/.test(f.id)) || (key === 'VS' && f.id === 'lang_tag_VS') || (key === 'FR' && f.id === 'lang_tag_FR')); }
 
 /* missing affairs per parliament: site/missing.json, fetched when the first row is opened */
-const CAUSE = { a: 'under an agenda item', p: 'in OPD without a parent', s: 'scan without text', o: 'answered orally in the sitting', x: 'not in OPD' };
+const CAUSE = { a: 'under an agenda item', p: 'in OPD without a parent', s: 'OPD’s copy has no text', o: 'answered orally in the sitting', x: 'not in OPD' };
 let MISS = null, missErr = false;
 function loadMissing() {
   if (MISS || missErr) return Promise.resolve(MISS);
@@ -1014,13 +1119,13 @@ function missingBlock(r) {
     const draw = () => tbl.replaceChildren(el('thead', {}, el('tr', {}, ['Affair', 'Year', 'Where the answer is', 'OPD', 'Parliament'].map((h, i) => el('th', { class: i === 1 ? 'r' : '' }, h)))),
       el('tbody', {}, rows.slice(0, lim).map(x => el('tr', {}, el('td', {}, x[0] || `id ${x[1]}`), el('td', { class: 'r' }, x[3] ?? '—'), el('td', { class: 'w' }, CAUSE[x[2]]),
         el('td', {}, el('a', { href: opdUrl(x[1]), target: '_blank', rel: 'noopener' }, 'OPD ↗')),
-        el('td', {}, src(x) ? el('a', { href: src(x), target: '_blank', rel: 'noopener' }, 'source ↗') : el('span', { class: 'muted' }, '—'))))));
+        el('td', {}, src(x) ? el('a', { href: src(x), target: '_blank', rel: 'noopener', title: x[5] ? 'OPD links this affair only to the parliament’s list page, not to the affair’s own page' : 'the parliament’s own page for this affair' }, x[5] ? 'list page ↗' : 'source ↗') : el('span', { class: 'muted' }, '—'))))));
     draw();
     const more = rows.length > lim ? el('button', { type: 'button', onclick: e => { lim = rows.length; draw(); e.currentTarget.remove(); } }, `Show all ${fmt(rows.length)}`) : null;
-    const csv = () => downloadBlob(`gegenprobe_missing_${r.key}_${period}.csv`, ['body,affair_id,number,year,where,opd_url,source_url']
-      .concat(rows.map(x => [r.key, x[1], `"${String(x[0]).replace(/"/g, '""')}"`, x[3] ?? '', CAUSE[x[2]], opdUrl(x[1]), src(x)].join(','))).join('\n') + '\n', 'text/csv');
+    const csv = () => downloadBlob(`gegenprobe_missing_${r.key}_${period}.csv`, ['body,affair_id,number,year,where,opd_url,source_url,source_is_list_page']
+      .concat(rows.map(x => [r.key, x[1], `"${String(x[0]).replace(/"/g, '""')}"`, x[3] ?? '', `"${CAUSE[x[2]]}"`, opdUrl(x[1]), src(x), x[5] ? 1 : 0].join(','))).join('\n') + '\n', 'text/csv');
     box.replaceChildren(el('h5', {}, `${fmt(rows.length)} affairs without attached answer text · ${P.periods[period]}`),
-      el('p', { class: 'small', style: 'margin:0' }, 'Newest first. Not in OpenParlData ≠ not published: “source ↗” is the parliament’s own page for the affair.'),
+      el('p', { class: 'small', style: 'margin:0' }, 'Newest first. Not in OpenParlData ≠ not published: “source ↗” is the parliament’s own page for the affair' + (rows.some(x => x[5]) ? '; “list page ↗” means OPD links the affair only to a list page of the parliament’s site, not to the affair itself.' : '.')),
       el('div', { class: 'dlrow' }, el('button', { type: 'button', onclick: csv }, `CSV · ${r.key} · ${fmt(rows.length)} rows`), more,
         el('a', { href: RS.download, download: 'gegenprobe_interventions.tsv.gz' }, 'All parliaments · TSV'), el('a', { href: RS.readme, target: '_blank' }, 'Columns')),
       rows.length ? el('div', { class: 'misswrap' }, tbl) : el('p', { class: 'small' }, 'None in this period.'));
@@ -1034,21 +1139,23 @@ function timesBlock(r) {
   return el('div', {}, el('h5', {}, `Answer time by intervention type · ${P.periods[period]} `, el('span', { class: 'warn' }, '· not a ranking')),
     r.median.flag === 'same_day' ? el('p', { class: 'small', style: 'margin:0' }, 'OPD’s “answer” event mostly equals the submission date here, so no answer time is shown.') :
     bt.length ? el('table', { class: 'mini' }, el('thead', {}, el('tr', {}, el('th', {}, 'Type'), el('th', { class: 'r' }, 'Median days'), el('th', { class: 'r' }, 'IQR'), el('th', { class: 'r' }, 'n'))),
-      el('tbody', {}, bt.map(([k, v]) => el('tr', { style: k === parType ? 'font-weight:600' : '' }, el('td', {}, TYPEL[k] || k), el('td', { class: 'r' }, fmt(v.median)),
+      el('tbody', {}, bt.map(([k, v]) => el('tr', { style: k === typeOf(r) ? 'font-weight:600' : '' }, el('td', {}, (TYPEL[k] || k) + (k === mainType(r) ? ' · most answers' : '')), el('td', { class: 'r' }, fmt(v.median)),
         el('td', { class: 'r muted' }, `${fmt(Math.round(v.q1))}–${fmt(Math.round(v.q3))}`), el('td', { class: 'r muted' }, fmt(v.n)))))) :
       el('p', { class: 'small', style: 'margin:0' }, 'Fewer than 10 dated answers per type in this period.'),
-    el('p', { class: 'small', style: 'margin:8px 0 0' }, el('b', {}, 'Date trust: '), t ? `${t[0]}, ${t[1]}` : '—', r.trust && r.trust.modal_share != null ? ` (${pct(r.trust.modal_share, 0)} on ${r.trust.modal_weekday}).` : '.',
+    el('p', { class: 'small', style: 'margin:8px 0 0' }, el('b', {}, 'Date trust: '), t ? `${t[0]}, ${tierWhy(r)}` : '—', r.trust && r.trust.modal_share != null ? ` (${pct(r.trust.modal_share, 0)} of answer dates on a ${r.trust.modal_weekday}).` : '.',
       alt ? ` With the alternative rule (prefer events OPD harmonises as “answered”), the all-types median is ${fmt(r.median.days_alt)} days instead of ${fmt(r.median.days)}.` : '',
-      ' Compare within one type: what counts as the “answer” differs between motions, interpellations and questions. Types, deadlines and what the event records also differ between parliaments: compare a parliament with itself over time, not with others.'));
+      ' Compare within one type: what counts as the “answer” differs between motions, interpellations and questions. Procedures, deadlines and what the event records also differ between parliaments (an interpellation here is not the same procedure as an interpellation elsewhere): compare a parliament with itself over time, not with others.'));
 }
 function drawer(r) {
   const x = c(r);
   const rep = Object.entries(r.repair || {}).map(([k, v]) => `${k.replace('_', ' ')} ${fmt(v)}`).join(' · ') || 'no repair action';
-  const kids = [el('div', { class: 'partno' }, el('span', {}, el('b', {}, r.key), ' · ', r.label), el('span', {}, `${fmt(x.written)} written answers · ${P.periods[period]}`),
+  const kids = [el('div', { class: 'partno' }, el('span', {}, el('b', {}, r.key), ' · ', r.label, r.alt ? el('span', { class: 'muted' }, ` (OPD: ${r.alt})`) : null), el('span', {}, `${fmt(x.written)} written answers · ${P.periods[period]}${period === 'all' && r.years ? ` in OPD (${yrs(r)})` : ''}`),
       el('span', {}, `text attached ${pct(x.with_text)} → after repair ${pct(x.after_repair)}`, x.image_only ? el('span', { class: 'ocr' }, ` → after OCR ${pct(x.after_ocr)}`) : null),
       el('span', {}, 'repair actions (all years): ', el('b', {}, rep)), r.key === 'BE' ? el('a', { class: 'bernlink', href: '#bern-numbers' }, 'all Bern numbers, with denominators ↓') : null),
     el('p', { class: 'say' }, el('span', { class: 'label' }, `Safe to say · ${r.safe_say_period} · `), r.safe_say)];
-  if (x.image_only >= 20) kids.push(el('p', { class: 'small', style: 'margin:6px 0 0;max-width:86ch' }, `After OCR is its own state: ${fmt(x.image_only)} answers are scans without a text layer. Read by OCR they would bring this parliament to ${pct(x.after_ocr)}; the German+French+Italian OCR probe recovered 15 of 15, but the scans have not all been run.`));
+  if (x.image_only >= 20) { const sf = (P.source_formats || {})[r.key] || [];
+    kids.push(el('p', { class: 'small', style: 'margin:6px 0 0;max-width:86ch' }, `After OCR is its own state: ${fmt(x.image_only)} answers are attached in OPD, but OPD’s copy has no text (no text layer, or OPD’s extraction failed). Read by OCR they would bring this parliament to ${pct(x.after_ocr)}; the German+French+Italian OCR probe recovered 15 of 15, but OCR has not been run on all of them. Cheaper where it exists: re-take the text version the parliament publishes (a text PDF or a Word file).`,
+      ...sf.map(f => el('span', {}, ` Spot check (${f.checked}, not a count): for `, el('a', { href: f.page, target: '_blank', rel: 'noopener' }, `atto ${f.atto} ↗`), ` the parliament publishes the answer as ${f.files.join(' and ')}; OPD holds ${f.opd_copies} cop${f.opd_copies === 1 ? 'y' : 'ies'} of it, ${f.opd_with_text ? 'with' : 'without'} text.`)))); }
   for (const f of findingsFor(r.key)) kids.push(el('div', { class: 'opd' }, el('span', { class: 'chip' + (f.status === 'confirmed_bug' ? ' red' : '') }, STATUS[f.status] || 'no response yet'), ' ',
     el('b', {}, f.statement), f.opd ? el('div', { class: 'small' }, f.opd, el('span', { class: 'muted code' }, ` — ${P.attribution}`)) : null));
   if (r.key === 'BE') { const B = P.bern, pl = B.placement;
@@ -1063,7 +1170,8 @@ function drawer(r) {
   kids.push(el('div', { class: 'dgrid' }, timesBlock(r), x.missing ? missingBlock(r) : el('div', {}, el('h5', {}, 'Affairs without attached answer text'), el('p', { class: 'small', style: 'margin:0' }, `None ${PERW[period]}.`))));
   kids.push(el('div', { class: 'fieldrow', style: 'margin-top:16px' }, P.fields.map(f => { const cc = r.fields[f.key];
     return el('div', {}, el('div', { class: 'f' }, f.key.replace(/_/g, ' ')), el('div', { class: 's st-' + (cc ? cc.st : 'na') }, cc ? STL[cc.st] || cc.st : 'not applicable'),
-      cc ? el('div', { class: 'code muted' }, `meta ${pct(cc.meta, 0)} · n ${fmt(cc.n)}`) : null); })));
+      cc ? el('div', { class: 'code muted' }, `meta ${pct(cc.meta, 0)} · n ${fmt(cc.n)}`) : null,
+      cc && cc.st === 'no_source' && f.key === 'co_signatories' ? el('div', { class: 'small' }, 'the parliament may list them on its own page') : null); })));
   return el('div', {}, ...kids);
 }
 function renderBern() {
@@ -1098,7 +1206,7 @@ let evalDone = false;
 function renderEval() {
   evalDone = true;
   const E = D.evaluation, A = E.arms, h = E.hypotheses;
-  $('#evalIntro').textContent = `P1: ${E.n} held-out documents from the parliaments the rules were written for; P2: documents from parliaments they never saw; P3: whole affairs, field by field; P4: affairs derived from a commune's meeting minutes. All drawn and fetched before any label existed; labels made blind by two annotators; rules, prompts and θ = ${E.theta.toFixed(2)} frozen by hash in ${E.lock.files} files. Apertus runs as the 70B weights served by Public AI (the response model was checked on every call); the real 8B ran on CPU as an exploratory arm.`;
+  $('#evalIntro').textContent = `P1: ${E.n} held-out documents from the parliaments the rules were written for; P2: documents from parliaments they never saw; P3: whole affairs, field by field; P3b: the same extractor, unchanged, on fresh affairs from ${E.p3b ? E.p3b.bodies.length : 9} other parliaments (a held-out replication of P3); P4: affairs derived from a commune's meeting minutes. All drawn and fetched before any label existed; labels made blind by two annotators; rules, prompts and θ = ${E.theta.toFixed(2)} frozen by hash in ${E.lock.files} files. Apertus runs as the 70B weights served by Public AI (the response model was checked on every call); the real 8B ran on CPU as an exploratory arm.`;
   const ARMS = [
     ['rules', 'Rules only', 'default · no model', true],
     ['cascade', 'Rules + Apertus suggestions', 'if every suggestion were accepted'],
@@ -1130,7 +1238,7 @@ function renderEval() {
         el('i', { class: 'c-fn', style: `width:${w(a.false_null)}` }), el('i', { class: 'c-mis', style: `width:${w(a.misattributed)}` }), el('i', { class: 'c-fab', style: `width:${w(a.fabricated)}` })))));
   }
   t.append(tb); $('#board').replaceChildren(t.firstChild, tb);
-  $('#boardNote').textContent = `Exact = right date or right null; never writing a date already scores ${BL.always_null.exact}/${n} (${pct(BL.always_null.exact / n)}), so read "Dates found" next to it. "Invented" = a date printed nowhere in the document. n = ${n}: ${A.rules.n_gold_value} documents with an answer date, ${A.rules.n_gold_null} without. Apertus review suggestions: ${BL.suggestions.right} of ${BL.suggestions.of} right (${BL.suggestions.on_answerless} of the others are on documents without an answer).` + (E.eight ? ` The 8B rows are the real Apertus v1.5 8B (4-bit GGUF, llama.cpp) on a ${E.eight.vcpus}-vCPU machine with its own θ = ${E.eight.theta.toFixed(2)}: it invents no date, but it dates more answerless documents than the 70B (rules + suggestions ${E.eight.mcnemar_cascade.a_correct} vs ${E.eight.mcnemar_cascade.b_correct}, McNemar p = ${E.eight.mcnemar_cascade.p_str}), at about ${Math.round(E.eight.wall_s_per_doc)} s per document (${Math.round(E.eight.cpu_s_per_doc)} CPU-seconds, ${E.eight.max_rss_gb.toFixed(1)} GB memory). Rules only is unchanged.` : '');
+  $('#boardNote').textContent = `Exact = right date or right null; never writing a date already scores ${BL.always_null.exact}/${n} (${pct(BL.always_null.exact / n)}), so read "Dates found" next to it. "Invented" = a date printed nowhere in the document. n = ${n}: ${A.rules.n_gold_value} documents with an answer date, ${A.rules.n_gold_null} without. Apertus review suggestions: ${BL.suggestions.right} of ${BL.suggestions.of} right (${BL.suggestions.on_answerless} of the others are on documents without an answer).` + (E.eight ? ` The 8B rows are the real Apertus v1.5 8B (4-bit GGUF, llama.cpp) on a ${E.eight.vcpus}-vCPU machine with its own θ = ${E.eight.theta.toFixed(2)}: it picks no date that is not printed in the document, but it writes a date on ${E.eight.arms.cascade.invented_on_null} of ${E.eight.arms.cascade.n_gold_null} documents that carry no answer (70B: ${A.cascade.invented_on_null}), and it is right less often than the 70B (rules + suggestions ${E.eight.mcnemar_cascade.a_correct} vs ${E.eight.mcnemar_cascade.b_correct}, McNemar p = ${E.eight.mcnemar_cascade.p_str}; pointer alone ${E.eight.arms.pointer.exact} vs ${A.pointer.exact}), at about ${Math.round(E.eight.wall_s_per_doc)} s per document (${Math.round(E.eight.cpu_s_per_doc)} CPU-seconds, ${E.eight.max_rss_gb.toFixed(1)} GB memory). Rules only is unchanged.` : '');
   $('#boardLegend').replaceChildren(...[['c-val', 'right date'], ['c-null', 'right null'], ['c-fn', 'missed'], ['c-mis', 'wrong printed date'], ['c-fab', 'invented']].map(([k, x]) => el('span', {}, el('i', { class: k }), x)));
   const H1 = h.H1, H2 = h.H2, H3 = h.H3, H4 = h.H4;
   const card = (code, pass, title, text, fig) => el('div', {}, el('span', { class: 'stamp' + (pass === 'FAIL' ? ' red' : '') , style: pass === 'FAIL' ? 'color:var(--red)' : '' }, `${code} · ${pass}`),
@@ -1175,6 +1283,7 @@ function renderEval() {
     el('p', { class: 'small', style: 'margin:8px 0 0;max-width:70ch' }, `The θ fitted on development documents was too permissive on the test set. Near θ = 0 the cascade would reach ${best.exact}, which is a hypothesis for the next registration, not a result. Scanned Ticino answers read with the Italian prompt instead of the frozen German one: pointer alone ${E.ocr_it.pointer_de_frozen.exact} → ${E.ocr_it.pointer_it.exact} of 22.`));
   renderP2();
   renderP3();
+  renderP3b();
   renderP4();
 }
 
@@ -1250,6 +1359,39 @@ function renderP3() {
         return `right ${h3.recall[0]}/${h3.recall[1]} of the open fields with a value · ${h3.precision[0]}/${h3.precision[1]} suggestions right · without addressed body (withdrawn: every gold value is "executive") ${s('recall', 0)}/${s('recall', 1)} and ${s('precision', 0)}/${s('precision', 1)}`; })()));
 }
 
+function renderP3b() {
+  const Q = D.evaluation.p3b; if (!Q) { $('#p3b').hidden = true; return; }
+  const F = Object.fromEntries(Q.fields.map(f => [f.key, f])), ad = F.answer_date, ty = F.affair_type, h3 = Q.h3, rd = h3.per_field.answer_date;
+  const VERD = { replicated: 'REPLICATED', 'partially replicated': 'PARTIALLY', 'not replicated': 'NOT REPLICATED' };
+  $('#p3bVerdict').replaceChildren(el('span', { class: 'stamp', style: Q.verdict === 'replicated' ? '' : 'color:var(--red)' }, `P3b · ${VERD[Q.verdict] || Q.verdict}`),
+    el('b', {}, 'Verdict by the registered criteria: '), `S1 (Apertus recall on the residue, lower bound ≥ 0.50) ${Q.s1.status}: ${Q.s1.recall[0]}/${Q.s1.recall[1]}. S2 (per-field accuracy within P3’s 95% interval; at most one field below) ${Q.s2.status}: ${Q.s2.below} of ${Q.s2.eligible} fields below${Q.s2.below ? ': ' + Q.fields.filter(f => f.vs_p3 === 'below').map(f => f.name).join(', ') : ''}.`);
+  $('#p3bIntro').textContent = `${Q.n} affairs (${Q.n_pdfs} PDFs) from ${Q.bodies.length} parliaments not in P3, drawn after the lock (target ${Q.target}; Locarno and its reserve yielded no usable affair, DEVIATIONS5 D5-1). Same extractor, prompts, θ and hypotheses as P3, unchanged. ` +
+    `Answer date: the default gets ${ad.arms.C[0]}/${ad.arms.C[1]}; with Apertus suggestions accepted ${ad.arms.CA[0]}/${ad.arms.CA[1]}, and on the affairs the default leaves open Apertus finds ${rd.recall[0]}/${rd.recall[1]}. Type ${ty.arms.C[0]}/${ty.arms.C[1]}, the one field that reaches the unattended tier.`;
+  $('#p3bNote').textContent = `Gold: two blind annotators (Claude Opus, Sonnet), agreement ≥ ${Q.agreement.min_raw}/${Q.agreement.n} on every field, ${Q.agreement.tie_broken} field tie-broken; the annotator sessions never opened the other annotator’s files, the results or the P3 gold (${Q.audit.sessions} sessions, ${Q.audit.cross_paths} such paths). Constant baseline (most frequent gold value) pre-registered.`;
+  const ARMS = [['M', 'Metadata'], ['R', 'Rules'], ['C', 'Default'], ['CA', '+ Apertus']];
+  const head = el('thead', {}, el('tr', {}, ['Field', ...ARMS.map(a => a[1]), 'Constant', 'P3 (default)', 'vs P3', 'Tier (registered)'].map(x => el('th', {}, x))));
+  const tb = el('tbody', {}, Q.fields.map(f => el('tr', {}, el('td', { class: 'armname' }, f.name),
+    ...ARMS.map(([k]) => { const v = f.arms[k]; const up = k === 'CA' && v && f.arms.C && v[0] > f.arms.C[0];
+      return el('td', { class: 'num' + (up ? ' up' : '') }, v ? (k === 'C' ? el('b', {}, `${v[0]}/${v[1]}`) : `${v[0]}/${v[1]}`) : '—'); }),
+    el('td', { class: 'num muted' }, f.constant ? `${f.constant[0]}/${f.constant[1]}` : '—'), el('td', { class: 'num muted' }, f.p3 ? `${f.p3[0]}/${f.p3[1]}` : '—'),
+    el('td', { class: 'code' + (f.vs_p3 === 'below' ? ' red' : '') }, f.vs_p3 || '—'),
+    el('td', {}, el('span', { class: 'chip' + (f.tier === 'extractable unattended' ? ' solid' : '') }, f.tier), el('span', { class: 'code muted' }, ` ${Math.round(100 * f.ci[0])}–${Math.round(100 * f.ci[1])}%`)))));
+  $('#p3bboard').replaceChildren(head, tb);
+  const lost = Q.answer_date_lost;
+  const ab = F.addressed_body;
+  $('#p3bbodies').textContent = 'Parliaments: ' + Q.bodies.map(b => `${b.name} (${b.n}${b.seen ? '' : ', no rules'})`).join(' · ') + '. Underlined: where Apertus suggestions find more than the default.' +
+    (ab && ab.constant && ab.constant[0] === ab.constant[1] ? ` Addressed body: every gold value is the executive, so the constant scores ${ab.constant[0]}/${ab.constant[1]}; it is a descriptive row, outside the primary H3 (as registered after P3, D3-3).` : '') +
+    (lost.n ? ` Why the answer date is the field below P3: on ${lost.n} affairs (${Object.entries(lost.bodies).map(([k, n]) => `${(Q.bodies.find(b => b.key === k) || { name: k }).name.replace(/ \((canton|city)\)$/, '')} ${n}`).join(', ')}) a frozen rule replaced OPD’s correct answer date with another printed date.` : '');
+  const card = (code, pass, title, text, fig) => el('div', {}, el('span', { class: 'stamp', style: pass === 'GATED' || pass === 'FAIL' ? 'color:var(--red)' : '' }, `${code} · ${pass}`),
+    el('h4', {}, title), el('p', {}, text), el('div', { class: 'fig' }, fig));
+  const unatt = Q.fields.filter(f => f.tier === 'extractable unattended').map(f => f.name);
+  $('#p3bhyp').replaceChildren(
+    card('P3b-H1', unatt.length ? unatt.length + ' FIELD' : 'NONE', 'Can any field run unattended?', `${unatt.length ? unatt.join(', ') + ' does' : 'None does'}: lower bound ≥ 0.80. The others stay partial or not yet.`,
+      Q.fields.map(f => `${f.name} ${f.arms.C ? f.arms.C[0] + '/' + f.arms.C[1] : '—'}`).join(' · ')),
+    card('P3b-H3', h3.recall_holds && h3.precision_holds ? 'PASS' : 'GATED', 'Apertus on the fields the default leaves open', `Recall holds again; precision is below the 0.70 bar, so as in P3 the registered consequence is suggestions with a reviewer gate. Answer date: ${rd.precision[0]} of ${rd.precision[1]} suggestions right.`,
+      `primary (without addressed body) recall ${h3.recall[0]}/${h3.recall[1]} · precision ${h3.precision[0]}/${h3.precision[1]} · as in P3 (with addressed body) ${Q.h3_secondary.recall[0]}/${Q.h3_secondary.recall[1]} and ${Q.h3_secondary.precision[0]}/${Q.h3_secondary.precision[1]}`));
+}
+
 function renderP4() {
   const V = D.evaluation.p4; if (!V) return;
   const r = V.arms.rules_only, v = V.arms.review, H = V.hyp;
@@ -1297,11 +1439,12 @@ function renderMethod() {
     <line x1="${pad + 2 * (bw + gap) + 14}" x2="${pad + 2 * (bw + gap) + bw - 14}" y1="124" y2="124" stroke="var(--red)" stroke-width="2"/></svg>`;
   $('#flow').innerHTML = svg;
   const tc = D.parliaments.tier_counts;
-  $('#tierNote').textContent = `${tc.feasible} feasible, ${tc.partial} partial, ${tc['fundamentally different']} fundamentally different, over ${D.parliaments.n_bodies} parliaments, by the criteria in docs/census.md (written down before computing; not separately committed). Where a value lives differs most between parliaments; the vocabulary differs too.`;
+  $('#tierNote').textContent = `${tc.feasible} feasible, ${tc.partial} partial, ${tc['fundamentally different']} fundamentally different, over ${D.parliaments.n_bodies} parliaments, by the criteria in docs/census.md (written down before computing; not separately committed). Where a value lives differs most between parliaments; the vocabulary differs too. Class (whether a field means the same thing everywhere): see the schema table under the steps at the top.`;
   const ord = { feasible: 0, partial: 1, 'fundamentally different': 2 };
   const fs = [...D.parliaments.fields].sort((a, b) => ord[a.tier] - ord[b.tier] || a.key.localeCompare(b.key));
-  $('#schema').replaceChildren(el('thead', {}, el('tr', {}, ['Field', 'Tier', 'Route', 'Bodies', 'In OPD metadata', 'Only in PDF', 'No source'].map(x => el('th', {}, x)))),
-    el('tbody', {}, fs.map(f => el('tr', {}, el('td', { class: 'code' }, f.key.replace(/_/g, ' ')), el('td', {}, el('span', { class: 'chip' + (f.tier === 'feasible' ? ' solid' : '') }, f.tier)),
+  const clsOf = Object.fromEntries(((D.schema || {}).fields || []).map(f => [f.key, f.cls]));
+  $('#schema').replaceChildren(el('thead', {}, el('tr', {}, ['Field', 'Class', 'Tier', 'Route', 'Bodies', 'In OPD metadata', 'Only in PDF', 'Not in OPD’s data'].map(x => el('th', {}, x)))),
+    el('tbody', {}, fs.map(f => el('tr', {}, el('td', { class: 'code' }, f.key.replace(/_/g, ' ')), el('td', {}, clsOf[f.key] ? el('span', { class: 'cls c-' + clsOf[f.key] }, CLS[clsOf[f.key]]) : '—'), el('td', {}, el('span', { class: 'chip' + (f.tier === 'feasible' ? ' solid' : '') }, f.tier)),
       el('td', { class: 'code' }, f.route), el('td', { class: 'code num' }, f.eligible), el('td', { class: 'code num' }, f.counts.metadata), el('td', { class: 'code num' }, f.counts.pdf),
       el('td', { class: 'code num' + (f.counts.no_source ? ' red' : '') }, f.counts.no_source)))));
 }

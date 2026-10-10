@@ -3,7 +3,13 @@
   convert_pages(...)   the conversion proper, on page texts already extracted (used by the CLI and by tests)
   convert_one(...)     get the document (URL or path), extract text, convert; any failure becomes a typed row
   run_batch(...)       many inputs from a .tsv/.csv (header with url|path|source, optional opd_doc_id, body,
-                       affair_number, affair_type, lang) or a .txt (one URL or path per line); JSONL out, resumable
+                       affair_number, affair_type, lang, doc_category) or a .txt (one URL or path per line); JSONL out,
+                       resumable. affair_type is normalised to OPD's harmonised name (convert/affair_types.py); an
+                       unknown value is an error (UnknownAffairType), never silently ignored
+  queue_nulls          (convert_pages / convert_one / run_batch) a rules-only null answer date on a document that is
+                       an answer (doc_role `answer`, or OPD's category says answer: category_harmonized `response_text`,
+                       or a category label the census counts as an answer document) is flagged needs_review, so it
+                       reaches the review queue with its candidates instead of staying an unattended null
   resolve_review(...)  the backend and the per-build θ for review mode, with a clear message when none is fitted
 
 The frozen converter (cascade, rules, pointer) is used unchanged; this module only wraps it.
@@ -23,7 +29,7 @@ from .. import pdftext
 from ..paths import PDF_CACHE
 from . import cascade, modes, output, overlay, pointer, rules
 
-INPUT_KEYS = ("source", "opd_doc_id", "body", "affair_number", "affair_type", "lang")
+INPUT_KEYS = ("source", "opd_doc_id", "body", "affair_number", "affair_type", "lang", "doc_category")
 STOP = {
     "de": r"\b(der|die|das|und|nicht|Regierungsrat|wird|werden|vom)\b",
     "fr": r"\b(le|la|les|et|des|du|Conseil|est|pour)\b",
@@ -105,9 +111,21 @@ def resolve_review(spec: str, theta_override: float | None = None):
 
 
 # --------------------------------------------------------------------------------------------------- conversion
+def answer_doc_evidence(role: dict, inp: dict) -> str | None:
+    """Why this document counts as an answer for --queue-nulls: the converter's own doc_role, or OPD's category."""
+    from ..census import defs
+
+    if role.get("value") == "answer":
+        return f"doc_role answer: {role.get('basis')}"
+    cat = (inp.get("doc_category") or "").strip()
+    if cat and (cat == "response_text" or defs.ANS_DOC.search(cat)):
+        return f"OPD document category '{cat}'"
+    return None
+
+
 def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: bool, inp: dict, mode: str = "rules_only",
                   backend=None, theta: float | None = None, url: str | None = None, anchors: dict | None = None,
-                  explain: bool = False) -> dict:
+                  explain: bool = False, queue_nulls: bool = False) -> dict:
     from ..schema import schema_v0_1 as schema
 
     lang = inp.get("lang") or guess_lang("\n".join(pages))
@@ -187,6 +205,11 @@ def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: boo
                 flags.setdefault(name, f"frozen rule {f.get('rule', '').split('+')[0]} fired{q} on body {cov['body']}, "
                                        "whose layouts the rules were never written or measured on")
     role = output.doc_role(pages, rec["fields"]["answer_date"])
+    if queue_nulls and not suggestion and "answer_date" not in flags and rec["fields"]["answer_date"].get("value") is None:
+        why = answer_doc_evidence(role, inp)
+        if why:
+            flags["answer_date"] = (f"rules-only null on an answer document ({why}): pick the answer date from candidates "
+                                    "or confirm the null (--queue-nulls)")
     record = schema.from_converter(rec, pages, dict(
         source="opd" if inp.get("opd_doc_id") else "other", url=url, language=lang, n_pages=len(pages),
         image_only=image_only, role=ROLE_TO_DOCROLE[role["value"]]))
@@ -247,7 +270,8 @@ def _promote_heading_candidate(cands: list[dict], h: dict, pages: list[str]) -> 
 
 
 def convert_one(source: str, inp: dict | None = None, *, mode: str = "rules_only", backend=None, theta=None,
-                timeout: int = 60, tries: int = 2, anchors: dict | None = None, explain: bool = False) -> dict:
+                timeout: int = 60, tries: int = 2, anchors: dict | None = None, explain: bool = False,
+                queue_nulls: bool = False) -> dict:
     inp = {k: v for k, v in dict(source=source, **(inp or {})).items() if v not in (None, "")}
     try:
         sha, path = get_document(source, timeout=timeout, tries=tries)
@@ -261,20 +285,30 @@ def convert_one(source: str, inp: dict | None = None, *, mode: str = "rules_only
         return output.failure_row(kind, reason, inp)
     url = source if re.match(r"https?://", source) else None
     return convert_pages(t["pages"], sha=sha, extractor=t["extractor"], image_only=t["image_only"], inp=inp, mode=mode,
-                         backend=backend, theta=theta, url=url, anchors=anchors, explain=explain)
+                         backend=backend, theta=theta, url=url, anchors=anchors, explain=explain, queue_nulls=queue_nulls)
 
 
 # --------------------------------------------------------------------------------------------------- batch
 def read_inputs(path: str) -> list[dict]:
+    """Raises affair_types.UnknownAffairType (with the line number) for an affair_type outside the vocabulary."""
+    from .affair_types import UnknownAffairType, normalize
+
     p = Path(path)
     rows = []
     if p.suffix.lower() in (".tsv", ".csv"):
         with open(p, newline="", encoding="utf-8") as f:
-            for r in csv.DictReader(f, delimiter="\t" if p.suffix.lower() == ".tsv" else ","):
+            for line_no, r in enumerate(csv.DictReader(f, delimiter="\t" if p.suffix.lower() == ".tsv" else ","), start=2):
                 src = (r.get("url") or r.get("path") or r.get("source") or "").strip()
                 if not src:
                     continue
-                rows.append({k: (r.get(k) or "").strip() for k in INPUT_KEYS if k != "source"} | {"source": src})
+                row = {k: (r.get(k) or "").strip() for k in INPUT_KEYS if k != "source"} | {"source": src}
+                if not row["doc_category"]:  # OPD docs-export column names work too
+                    row["doc_category"] = (r.get("category_harmonized") or r.get("category") or "").strip()
+                try:
+                    row["affair_type"] = normalize(row["affair_type"]) or ""
+                except UnknownAffairType as e:
+                    raise UnknownAffairType(f"{path}, line {line_no}: {e}") from None
+                rows.append(row)
     else:
         for line in p.read_text(encoding="utf-8").splitlines():
             line = line.strip()
@@ -289,7 +323,7 @@ def row_key(inp: dict) -> str:
 
 def run_batch(inputs: list[dict], out_path: str | None, *, mode: str = "rules_only", backend=None, theta=None,
               retry_failed: bool = False, timeout: int = 60, tries: int = 2, anchors: dict | None = None,
-              explain: bool = False) -> dict:
+              explain: bool = False, queue_nulls: bool = False) -> dict:
     """Append one JSONL row per input; skip inputs already in out_path (failed ones too, unless retry_failed)."""
     done = {}
     if out_path and Path(out_path).exists():
@@ -307,7 +341,8 @@ def run_batch(inputs: list[dict], out_path: str | None, *, mode: str = "rules_on
                 counts["skipped (already done)"] = counts.get("skipped (already done)", 0) + 1
                 continue
             row = convert_one(inp["source"], {x: inp.get(x) for x in INPUT_KEYS if x != "source"}, mode=mode,
-                              backend=backend, theta=theta, timeout=timeout, tries=tries, anchors=anchors, explain=explain)
+                              backend=backend, theta=theta, timeout=timeout, tries=tries, anchors=anchors, explain=explain,
+                              queue_nulls=queue_nulls)
             cov = row.get("rules_coverage")
             if cov and cov.get("body") not in warned and overlay.coverage_warning(cov):
                 warned.add(cov.get("body"))

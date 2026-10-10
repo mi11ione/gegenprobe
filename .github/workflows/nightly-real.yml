@@ -1,0 +1,83 @@
+name: nightly-real
+# One real network night of the nightly job, installed as docs/nightly.md documents it (venv variant: checkout in
+# /opt/gegenprobe/track_2a, hash-pinned venv in /opt/gegenprobe/.venv, `install.sh --venv`) and run under systemd on a
+# GitHub-hosted Ubuntu runner. Manual only (no schedule): `gh workflow run nightly-real.yml`.
+# Network, all GET, all through gegenprobe.net (robots.txt honoured, >= 1.2 s between requests to the same host, User-Agent
+# with a contact URL, set below): files.openparldata.ch/exports (index.json, the five single exports the census reads,
+# every docs_/texts_ export streamed once, since it is a first night), the canton of Bern's two OGD tables, and the PDF of
+# every BE relink/fetch row (first night: every row is new and checked once; about 51 min at 1.2 s per request).
+# Uploads: run.json, alerts.json, rates.json, the ledger and tonight's rows, the unit's journal (full + excerpt), the
+# unit's own accounting (systemctl show) and night.json with the wall time.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+defaults:
+  run:
+    working-directory: track_2a
+jobs:
+  night:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    env:
+      UA: "hackapertus-research/0.1 (+https://github.com/mi11ione/gegenprobe)"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with: {python-version: "3.11"}
+      - name: system packages of the venv unit (poppler, tesseract deu/fra/ita)
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita
+      - name: checkout in /opt/gegenprobe/track_2a (read-only for the job), venv in /opt/gegenprobe/.venv (--require-hashes)
+        run: |
+          set -eu
+          sudo install -d -m 0755 /opt/gegenprobe
+          sudo cp -a "$GITHUB_WORKSPACE/track_2a" /opt/gegenprobe/track_2a
+          sudo "$(command -v python)" -m venv /opt/gegenprobe/.venv
+          sudo /opt/gegenprobe/.venv/bin/pip install -q --require-hashes -r /opt/gegenprobe/track_2a/requirements.lock
+          sudo chown -R root:root /opt/gegenprobe && sudo chmod -R a+rX,go-w /opt/gegenprobe
+          /opt/gegenprobe/.venv/bin/python --version
+      - name: install the unit as documented (install.sh --venv) and set a User-Agent with a contact
+        run: |
+          set -eu
+          sudo sh /opt/gegenprobe/track_2a/deploy/nightly/install.sh --venv
+          # the timer stays installed but must not start a second night while this one runs
+          sudo systemctl stop gegenprobe-nightly.timer
+          printf 'GP_USER_AGENT=%s\n' "$UA" | sudo tee -a /etc/gegenprobe/alerts.env
+          sudo systemctl cat gegenprobe-nightly.service
+      - name: one night under systemd (systemctl start blocks until the oneshot unit exits)
+        run: |
+          set -u
+          nproc; free -m; df -h /var/lib
+          t0=$(date -u +%s); started=$(date -u +%FT%TZ)
+          rc=0; sudo systemctl start gegenprobe-nightly.service || rc=$?   # non-zero when the night exits 1, 2 or 3
+          t1=$(date -u +%s); ended=$(date -u +%FT%TZ)
+          mkdir -p "$GITHUB_WORKSPACE/night"
+          systemctl show gegenprobe-nightly.service -p Result -p ExecMainStatus -p ExecMainStartTimestamp \
+            -p ExecMainExitTimestamp -p CPUUsageNSec -p MemoryPeak -p IOReadBytes -p IOWriteBytes \
+            | tee "$GITHUB_WORKSPACE/night/systemctl_show.txt"
+          status=$(systemctl show gegenprobe-nightly.service -p ExecMainStatus --value)
+          result=$(systemctl show gegenprobe-nightly.service -p Result --value)
+          printf '{"started": "%s", "ended": "%s", "wall_s": %d, "systemctl_start_rc": %d, "result": "%s", "exit_status": "%s", "user_agent": "%s", "runner": "%s, %s vCPU"}\n' \
+            "$started" "$ended" $((t1 - t0)) "$rc" "$result" "$status" "$UA" "${ImageOS:-ubuntu}" "$(nproc)" \
+            | tee "$GITHUB_WORKSPACE/night/night.json"
+          echo "wall time: $((t1 - t0)) s; result $result; exit status $status"
+      - name: collect outputs and the journal
+        if: always()
+        run: |
+          set -u
+          d="$GITHUB_WORKSPACE/night"; mkdir -p "$d"
+          sudo cp -r /var/lib/gegenprobe/results "$d/results" || true
+          sudo du -sh /var/lib/gegenprobe/work /var/lib/gegenprobe/work/* > "$d/work_du.txt" 2>&1 || true
+          sudo journalctl -u gegenprobe-nightly.service -u gegenprobe-nightly-failure.service --no-pager -o short-iso \
+            > "$d/journal.txt" || true
+          { head -n 60 "$d/journal.txt"; echo "[...]"; tail -n 120 "$d/journal.txt"; } > "$d/journal_excerpt.txt"
+          sudo chown -R "$(id -u):$(id -g)" "$d"
+          ls -la "$d" "$d/results" || true
+          cat "$d/results/run.json" || true
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with: {name: nightly-real, path: night/}
+      - name: the night must end quiet (0) or with alerts (3, GP_ALERT_EXIT)
+        run: |
+          s=$(systemctl show gegenprobe-nightly.service -p ExecMainStatus --value)
+          test "$s" = 0 || test "$s" = 3

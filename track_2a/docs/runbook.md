@@ -22,12 +22,16 @@ no account anywhere.
 | CPU | one core most of the run; ceiling **2 cores** | Docker: `--cpus 2` (`GP_CPUS`); venv: `CPUQuota=200%`; both `Nice=10` |
 | processes | pdftotext / pdftoppm / tesseract children | Docker `--pids-limit 256`; venv `TasksMax=256` |
 | disk | state under 1 GB (single exports ~80 MB, scan metadata ~56 MB, canton tables ~26 MB, nightly state and ledger ~26 MB, PDF cache); the 6.2 GB docs exports are streamed, never stored. 20 GB leaves room for the one-off backlogs | `/var/lib/gegenprobe` |
-| wall time | `TimeoutStartSec=4h` per night | systemd |
+| wall time | `TimeoutStartSec=4h` per night; the first night re-scans every export and checks all ~2,508 BE rows once (~51 min at 1.2 s per request): roughly 1.3 h at OPD, 1.5 h outside (estimate, `docs/nightly.md`) | systemd |
 | filesystem | Docker: read-only root (`--read-only`), private `/tmp` tmpfs of 1 GB (pdftoppm/tesseract scratch), writes only to the two mounted directories | Docker unit |
 
 A night killed for memory exits 137; raise `GP_MEM` / `MemoryMax`. The image never runs as root (uid 10001, all
 capabilities dropped, `no-new-privileges`); the venv unit runs as the `gegenprobe` system user that `install.sh --venv`
-creates, with the checkout read-only (`ProtectSystem=strict`) and writes confined to `/var/lib/gegenprobe`.
+creates, with the checkout read-only (`ProtectSystem=strict`) and writes confined to `/var/lib/gegenprobe`. `make run`
+uses the same container flags: the caller's uid, or 10001 when the caller is root (uid 0 is never passed to the
+container; `out/` and `.work/make-run` are handed to 10001 first), `--read-only`, a 2 GB tmpfs `/tmp`, `--cap-drop ALL`,
+`--security-opt no-new-privileges`, and two writable mounts: `out/` and `.work/make-run` (`GP_WORK`: caches and the
+optional GGUF weights, kept between runs; delete it for a cold run).
 
 ## Operator settings
 
@@ -36,7 +40,7 @@ their own lines, because Docker's `--env-file` keeps a trailing `# …` as part 
 
 | setting | default | what it does |
 |---|---|---|
-| `GP_USER_AGENT` | `hackapertus-research/0.1` | User-Agent of every request. **OPD should set its own** (product token and a contact URL), so cantons see who is fetching |
+| `GP_USER_AGENT` | `hackapertus-research/0.1` | User-Agent of every request. **Set it**: your own product token and a contact URL or mail, e.g. `opd-gegenprobe/0.1 (+https://openparldata.ch)`, so the hosts we fetch from can reach you. The default names no contact; a network night then prints a note on stderr and records `user_agent.has_contact: false` in `run.json` |
 | `GP_EXPORTS_DIR` | unset | read `files.openparldata.ch/exports/…` from this local directory (same layout: `index.json`, `affairs.ndjson.gz`, `docs/docs_<body>.ndjson.gz`, …); no export transfer |
 | `GP_MAX_PDF_MB` | 50 | a document larger than this is refused before it is read (typed `too_large`, row goes to `review`) |
 | `GP_MAX_DOWNLOAD_MB` | 100 | the same for other in-memory downloads (the canton tables are ~20 MB) |
@@ -88,7 +92,15 @@ Curia Vista probe on `ws.parlament.ch`), the evaluation (Public AI, CI runners) 
 with `GP_EXPORTS_DIR` set, `--fetch` reads the local file) counts how many of the 2,459 relink documents are attached to the
 affair the list names. 6 Oct 2026 snapshot: none; all 2,459 are still parentless.
 After the fix it should be 2,459 of 2,459. It exits 0 when that holds and 1 otherwise, so it can gate a deployment, and
-writes one dated file per check (`results/repair/acceptance_<live|file>_<YYYY-MM-DD>.json`).
+writes one dated file per check (`results/repair/acceptance_<live|file>_<YYYY-MM-DD>.json`). Under the venv unit the
+checkout is read-only: add `--out /var/lib/gegenprobe/results` (checked before the 470 MB export is streamed; exit 2 if
+the directory is not writable).
+
+**Applying the BE lists:** `python -m gegenprobe.repair.apply_be --fetch --out DIR` (or `--docs-export
+docs_BE.ndjson.gz`) writes the apply plan: per relink the document's current parent, `hash` and file URL and the values
+after the relink, per begin_date row the before and after value, and guarded `UPDATE` statements as text. It changes
+nothing anywhere. Re-parenting changes OPD's document identifier (`hash` = sha256(body_key + parent_type + url)) and so
+the document's `files.openparldata.ch/doc` URL; `--hash keep` plans the relink without that change (`docs/repair.md`).
 
 ## Alerts
 
@@ -103,6 +115,7 @@ writes one dated file per check (`results/repair/acceptance_<live|file>_<YYYY-MM
 | `exports_stale` | OPD's `index.json` is older than `GP_STALE_DAYS` (2) days | OPD's export job; the night's numbers describe old data |
 | `outbox_corrupt` / `state_corrupt` | the outbox or the night-over-night state could not be parsed; moved to `work/nightly/<name>.corrupt-<UTC>` | read the quarantined file for undelivered alerts; after `state_corrupt` the next night re-scans everything once |
 | unit failed (exit 1) | the job crashed, or the alert channel failed | `journalctl -u gegenprobe-nightly`; the next night retries from scratch |
+| unit failed (exit 2) | nothing to work on yet (an `offline` / `index` run on an empty cache) | run the command the message names (a network night first) |
 
 **Delivery before state.** Alerts are written to `work/nightly/outbox.json`, sent, and removed from the outbox only when
 the send succeeded; only then is the night's state committed. A webhook or mail server that is down costs nothing: the
@@ -110,7 +123,11 @@ alerts stay in the outbox, the unit exits 1, and the next night sends them again
 `undelivered_from_previous_nights` in `alerts.json`). The outbox and `state.json` are written atomically (tmp + fsync +
 rename). A corrupt outbox or state file is moved to `<name>.corrupt-<UTC>` and reported (`outbox_corrupt` /
 `state_corrupt`); the night continues. Deleting `work/` deletes undelivered alerts too. Exit codes: 0 quiet night, `GP_ALERT_EXIT` (default 3) alerts,
-1 job or delivery failure. `python -m gegenprobe.monitor.notify test` exits 0 when sent, 2 when no channel is configured,
+1 job or delivery failure, 2 nothing to work on yet (`nightly offline` / `nightly index` on an empty cache: the message
+names the command to run first). **One alert per event:** the job delivers its alerts itself; the failure notifier
+(`OnFailure=`) posts to the webhook only when the night failed (exit 1, 2, a crash, a timeout, an OOM kill), not on a
+night that exited `GP_ALERT_EXIT` after delivering (it reads `MONITOR_EXIT_STATUS`, systemd ≥ 251; older systemd posts on
+every failure). `python -m gegenprobe.monitor.notify test` exits 0 when sent, 2 when no channel is configured,
 1 when sending failed.
 
 ## Failure modes
@@ -165,9 +182,13 @@ job reads text layers first and uses OCR only for image-only scans of new rows.
 ## Checked in CI
 
 `.github/workflows/ci.yml` job `systemd-units` runs `systemd-analyze verify` on both unit variants with the timer and the
-failure notifier; job `nightly-smoke` builds the image and runs three offline nights on fixture exports inside it with the
-unit's container flags and no network (`docs/nightly.md` "Verified in CI"). A real night under systemd on a server has not
-been run.
+failure notifier, then starts the failure notifier under real systemd behind two stand-in units (one exits 3, one exits 1)
+and checks that exactly one webhook post with valid JSON arrives; job `nightly-smoke` builds the image and runs three
+offline nights on fixture exports inside it with the unit's container flags and no network (`docs/nightly.md` "Verified
+in CI"). `.github/workflows/nightly-real.yml` (manual: `gh workflow run nightly-real.yml`) installs the venv variant with
+`install.sh --venv` on a GitHub-hosted Ubuntu runner and runs one real network night under systemd, with a contact
+User-Agent; it uploads `run.json`, the journal and the wall time. Until a run of it is committed, no real night has run
+under systemd.
 
 ## Swiss / EU hosting
 
@@ -179,7 +200,12 @@ The evidence viewer is static files only and makes no third-party request: its t
 ## Supply chain
 
 Base image `python:3.11.14-slim-bookworm` pinned by digest (`Dockerfile`); Python dependencies installed with
-`--require-hashes` from `requirements.lock`. The optional 8B path pins the llama-cpp-python 0.3.35 CPU wheels by sha256
+`--require-hashes` from `requirements.lock`. CI: every GitHub Action is pinned to a full commit SHA (version in a comment),
+the gitleaks binary is checked against the sha256 from its release's checksum file before it runs, and the test job
+installs `requirements.lock` + `requirements-dev.lock` (ruff) with `--require-hashes`. The 8B workflows install
+`requirements.lock` with `--require-hashes` too; their llama-cpp-python step (CPU wheel index, with a source build as
+fallback) is not hash-pinned, because a source build has no fixed file hash: the hash-pinned path for that wheel is
+`requirements-gguf.lock` (`docker build --build-arg GGUF=1`). The optional 8B path pins the llama-cpp-python 0.3.35 CPU wheels by sha256
 (`requirements-gguf.lock`) and the model file by sha256 (`llm.GGUF_PINS`). The model is a community Q4_K_M quant
 (`Colby/apertus-v1.5-8b-text-Q4_K_M-GGUF`, Apache-2.0) of a text-only export (`andreasmartin/apertus-v1.5-8b-text`,
 Apache-2.0) of `swiss-ai/Apertus-v1.5-8B` (Apache-2.0). An operator who wants the whole chain under its control can

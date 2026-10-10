@@ -8,6 +8,10 @@ for older affairs (mostly 2010-2013) plus about 170 BE affairs from later loads,
   begin_matches_no_event  begin_date equals none of the affair's own event dates (other load timestamps; several are Sundays)
   no_events            the affair has no events at all, so begin_date cannot be checked (flagged, no proposal)
 
+`group` is how a row was found; `opd_group` is the grouping OPD described and the README counts: `load_2024_10_28` (557)
+and `later_load` (170 = begin_matches_no_event + no_events; none of them carries the 2024-10-28 timestamp). `action` is
+what to do: `set_begin_date` (554) or `review` (173).
+
 Proposal: begin_date := the 'Eingereicht' event date when the affair has one (action `set_begin_date`); otherwise the row is
 `review` with the earliest own event date as a hint. Nothing is proposed without evidence from OPD's own events.
 A proposal two or more years after the year in the affair number (e.g. 2007.RRGR.2254 -> 2011) is plausible for a
@@ -28,7 +32,7 @@ from pathlib import Path
 from ..census.tables import i, rows
 from ..paths import RESULTS
 
-COLUMNS = ["body", "affair_id", "affair_number", "action", "group", "current_begin_date", "proposed_begin_date",
+COLUMNS = ["body", "affair_id", "affair_number", "action", "group", "opd_group", "current_begin_date", "proposed_begin_date",
            "evidence_event_id", "evidence_event_date", "evidence_event_title", "snapshot", "note"]
 REVIEW_YEARS = 2  # proposals this many years after the number's year go to review
 
@@ -95,8 +99,9 @@ def build() -> dict:
         if wd in ("Sat", "Sun"):
             notes.append(f"current begin_date is a {wd}")
         eid = (eids.get((aid, ev_date, ev_title)) or eids.get((aid, ev_date, None))) if ev_date else None
+        opd_group = "load_2024_10_28" if group == "load_2024_10_28" else "later_load"
         out.append(dict(body="BE", affair_id=i(aid), affair_number=a["number"], action=action, group=group,
-                        current_begin_date=b, proposed_begin_date=prop, evidence_event_id=eid or "",
+                        opd_group=opd_group, current_begin_date=b, proposed_begin_date=prop, evidence_event_id=eid or "",
                         evidence_event_date=ev_date, evidence_event_title=ev_title, snapshot=snap, note="; ".join(notes)))
     years = collections.Counter(r["affair_number"][:4] for r in out if r["group"] == "load_2024_10_28")
     summary = dict(
@@ -105,6 +110,7 @@ def build() -> dict:
         by_group=dict(collections.Counter(r["group"] for r in out)),
         by_action=dict(collections.Counter(r["action"] for r in out)),
         later_loads=sum(r["group"] != "load_2024_10_28" for r in out),
+        by_opd_group=dict(collections.Counter(r["opd_group"] for r in out)),
         load_2024_10_28_number_years=dict(sorted(years.items())),
         on_weekend=sum("current begin_date is a" in r["note"] for r in out),
         review_years_after_number=sum("years after the number" in r["note"] for r in out),

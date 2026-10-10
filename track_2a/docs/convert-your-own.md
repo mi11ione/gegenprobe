@@ -52,6 +52,17 @@ fail-closed).
 Always pass `--body` (the OPD body key). A parliament outside `data/convert/rules_coverage.json` triggers a warning on
 stderr, and the row is marked `needs_review` (see "Parliaments without rules").
 
+**`--affair-type`** accepts, case-insensitively: the vocabulary keys of `data/schema/affair_types.json` (`motion`,
+`postulate`, `interpellation`, `question`, `question_time`, `parliamentary_initiative`, `cantonal_initiative`,
+`popular_initiative`, `government_affair`, `petition`, `consultation`, `election`, `amendment`, `naturalisation`,
+`report`, `information_document`, `approval_decision`, `budget`, `miscellaneous`, `unknown`), their German, French,
+Italian and English labels (`Interpellanza`, `Anfrage`, `Written question`, `Heure des questions`, …), OPD's harmonised
+English names (`Interpellation`, `Question`, `Question time`, `Government affairs`, …) and a few common OPD type names
+(`Question écrite`, `Schriftliche Anfrage`, `Kleine Anfrage`, `Einfache Anfrage`, `Dringliche Interpellation`,
+`Fragestunde. Frage`, `Anzug`, `Vorlage`). Every value is normalised to OPD's harmonised name before the rules see it, so
+`--affair-type "Question écrite"` gives recommendation `not_applicable`, like `Question`. Anything else is an error
+(exit 2, with the list), never silently ignored; in a batch the error names the line.
+
 ## Many documents
 
 ```bash
@@ -59,7 +70,8 @@ python -m gegenprobe convert --batch inputs.tsv --out results.jsonl
 ```
 
 `inputs.tsv` (or `.csv`) needs a header with a `url`, `path` or `source` column; optional columns `opd_doc_id`, `body`,
-`affair_number`, `affair_type`, `lang` are passed through. A `.txt` file with one URL or path per line also works. Each
+`affair_number`, `affair_type` (checked and normalised as above), `lang`, `doc_category` (OPD's document category; the
+docs-export column names `category_harmonized` / `category` work too) are passed through. A `.txt` file with one URL or path per line also works. Each
 input gives one JSONL line, failures included, and a summary goes to stderr. Run the same command again to resume: inputs
 already in `results.jsonl` are skipped (keyed by `opd_doc_id` when given, else by URL/path); add `--retry-failed` to try
 the failed ones again.
@@ -68,6 +80,16 @@ Exit codes: `0` when every input converted, `2` when at least one input became a
 wrapper can notice), unless `--allow-failures` is given. `--queue review.jsonl` additionally writes only the rows that
 need review: Apertus suggestions first, strongest band first, then the flagged rows (see "Review aids" below). A body
 outside `rules_coverage.json` is warned about once per batch on stderr. `--anchors` and `--explain` work in batches too.
+
+**`--queue-nulls`** (single document or batch): by default a rules-only null answer date is an unattended typed null and
+does not reach the queue. With `--queue-nulls`, a null answer date on a document that is an answer is flagged
+`needs_review` (reason "rules-only null on an answer document …"), so `--queue` picks it up with its `candidates` (the
+printed dates, most likely first). A document counts as an answer when the converter's `doc_role` is `answer`, or when
+OPD's category says so: `--doc-category` / the `doc_category` column is `response_text` (OPD's `category_harmonized`) or
+a label the census counts as an answer document (`Réponse`, `Antwort …`, `Risposta …`, …; `census/defs.py` `ANS_DOC`).
+Example: an answer letter that starts "Collombey-Muraz, le 15 juillet 2019" has no answer heading, so `doc_role` is
+`other` and the rules leave the date null; with `--queue-nulls --doc-category response_text` it goes to review with
+2019-07-15 first in `candidates`.
 
 ## Review aids (what a reviewer sees next to every value)
 

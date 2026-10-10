@@ -24,8 +24,10 @@ RUN pip install --require-hashes -r requirements.lock \
     && if [ "$GGUF" = "1" ]; then pip install --require-hashes --no-deps -r requirements-gguf.lock; fi
 
 COPY . .
-# Never runs as root: the default user is the unprivileged `gp` (uid 10001); `make run` overrides it with the caller's uid
-# (--user) so results in ./out stay owned by the judge, and the nightly unit runs it as 10001 on /var/lib/gegenprobe.
+# Never runs as root: the default user is the unprivileged `gp` (uid 10001). `make run` passes the caller's uid (--user) so
+# results in ./out stay owned by the judge, and 10001 when the caller is root (uid 0 is never passed); it also runs the
+# container with --read-only, a tmpfs /tmp, --cap-drop ALL and no-new-privileges. The nightly unit runs it as 10001 on
+# /var/lib/gegenprobe with the same flags.
 RUN useradd --system --uid 10001 --gid 0 --home-dir /tmp --no-create-home --shell /usr/sbin/nologin gp \
     && mkdir -p /app/out && chown 10001:0 /app/out && chmod 0775 /app/out
 USER 10001:0

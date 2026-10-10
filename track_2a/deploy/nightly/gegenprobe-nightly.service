@@ -5,7 +5,8 @@ Description=Gegenprobe nightly: OpenParlData answer-linking monitor and repair l
 Wants=network-online.target
 After=network-online.target docker.service
 Requires=docker.service
-# A failed run (exit 1) and a night with alerts (exit 3, GP_ALERT_EXIT) both trigger the failure notifier.
+# A failed run (exit 1, 2) and a night with alerts (exit 3, GP_ALERT_EXIT) both trigger the failure notifier; it posts to
+# the webhook only for failures (the job has already delivered the alerts), so each event arrives once.
 OnFailure=gegenprobe-nightly-failure.service
 
 [Service]

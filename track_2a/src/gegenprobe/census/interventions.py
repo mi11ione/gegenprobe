@@ -21,6 +21,7 @@ import datetime as dt
 import gzip
 import io
 import json
+import re
 import statistics
 from pathlib import Path
 
@@ -35,6 +36,31 @@ COLS = ["body", "affair_id", "number", "type", "type_raw", "year", "submitted", 
         "answer_date", "answer_hid", "answer_date_alt", "answer_hid_alt", "n_answer_events", "answer_spread_days",
         "days_to_answer", "days_to_answer_alt", "link_status", "oral_event", "same_day_body", "date_trust",
         "opd_url", "source_url"]
+
+
+# Publisher titles that name the government's decision date of an answer document (the same two patterns as the post-hoc
+# gold oracle, eval/posthoc_r3.py): Ticino 'Risposta del CdS del dd.mm.yyyy', Bern 'RRB-dd.mm.yyyy'.
+TITLE_DATE = (re.compile(r"Risposta del CdS del (\d{2})\.(\d{2})\.(\d{4})"), re.compile(r"\bRRB-(\d{2})\.(\d{2})\.(\d{4})"))
+# 'verified' by title: at least this share of a body's dated answers carry a title date, and at least this share of those
+# equal OPD's answer date (Bern is verified by the printed date, document by document: results/repair/be_verify_all.json)
+TITLE_COVER, TITLE_AGREE = 0.9, 0.99
+
+
+def _title_dates(written: set[int]) -> dict[int, set[str]]:
+    """affair -> the decision dates its documents' publisher titles name (data/census/docs.tsv.gz `name`)."""
+    out: dict[int, set[str]] = collections.defaultdict(set)
+    for d in rows("docs"):
+        a = i(d["affair"])
+        if a is None or a not in written:
+            continue
+        for rx in TITLE_DATE:
+            m = rx.search(d["name"] or "")
+            if m:
+                try:
+                    out[a].add(dt.date(int(m.group(3)), int(m.group(2)), int(m.group(1))).isoformat())
+                except ValueError:
+                    pass
+    return out
 
 
 def _days(a: str | None, b: str | None) -> int | None:
@@ -74,7 +100,9 @@ def build() -> dict:
     missing = {a for a, x in written.items() if x["link"] != "attached"}
     types, urls = _raw_types_and_urls(missing)
 
-    out_rows, per_body = [], collections.defaultdict(lambda: dict(d=[], d_alt=[], wd=collections.Counter(), n=0))
+    titles = _title_dates(set(written))
+    out_rows, per_body = [], collections.defaultdict(lambda: dict(d=[], d_alt=[], wd=collections.Counter(), n=0, title_n=0,
+                                                                  title_eq=0))
     changed = collections.Counter()
     for a, x in sorted(written.items()):
         es = sorted(ev.get(a, []))
@@ -100,6 +128,9 @@ def build() -> dict:
             pb["d_alt"].append(d2)
         if ans:
             pb["wd"][dt.date.fromisoformat(ans[:10]).weekday()] += 1
+            if titles.get(a):
+                pb["title_n"] += 1
+                pb["title_eq"] += (ans or "")[:10] in titles[a]
         out_rows.append(dict(
             body=x["b"], affair_id=a, number=x["num"] or "", type=x["t"], type_raw=types.get(a, ""), year=x["y"] or "",
             submitted=(sub or "")[:10], submitted_source=src, be_load_date=int(be_load), answer_date=(ans or "")[:10],
@@ -109,7 +140,8 @@ def build() -> dict:
             oral_event=int(x["ev_oral"]), same_day_body=int(x["b"] in same_day), date_trust="",
             opd_url=OPD_AFFAIR_URL.format(id=a), source_url=urls.get(a, "") if a in missing else ""))
 
-    # date trust per body: verified (Bern), same-day artefact, or concentration of answer dates on one weekday
+    # date trust per body: verified (Bern by printed date; others by publisher title), same-day artefact, or concentration of
+    # answer dates on one weekday
     vb = json.loads((RESULTS / "repair" / "be_verify_all.json").read_text())
     trust = {}
     names = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -117,20 +149,24 @@ def build() -> dict:
         tot = sum(pb["wd"].values())
         mw, mc = (pb["wd"].most_common(1)[0] if tot else (None, 0))
         share = mc / tot if tot else None
+        by_title = (tot >= 20 and pb["title_n"] >= TITLE_COVER * tot and pb["title_eq"] >= TITLE_AGREE * pb["title_n"])
         if b == "BE":
-            tier = "verified"
+            tier, basis = "verified", "printed"
         elif b in same_day:
-            tier = "same_day"
+            tier, basis = "same_day", None
         elif tot < 20:
-            tier = "too_few"
+            tier, basis = "too_few", None
+        elif by_title:
+            tier, basis = "verified", "title"
         elif share >= 0.8:
-            tier = "sitting_day"
+            tier, basis = "sitting_day", None
         elif share >= 0.5:
-            tier = "mixed"
+            tier, basis = "mixed", None
         else:
-            tier = "diffuse"
+            tier, basis = "diffuse", None
         trust[b] = dict(n=pb["n"], dated=tot, modal_weekday=names[mw] if mw is not None else None,
-                        modal_share=round(share, 4) if share is not None else None, tier=tier,
+                        modal_share=round(share, 4) if share is not None else None, tier=tier, verified_by=basis,
+                        title_dated=pb["title_n"], title_equal=pb["title_eq"],
                         median_days=statistics.median(pb["d"]) if pb["d"] else None,
                         median_days_alt=statistics.median(pb["d_alt"]) if pb["d_alt"] else None,
                         n_durations=len(pb["d"]), n_durations_alt=len(pb["d_alt"]), rows_changed_by_alt=changed[b])
@@ -151,10 +187,16 @@ def build() -> dict:
     dt_out = dict(
         definition="Per body: share of answer dates (census rule) falling on the most common weekday; >= 0.8 'sitting_day' "
                    "(a government's weekly sitting), 0.5-0.8 'mixed', < 0.5 'diffuse'; 'same_day' = the census flag (answer "
-                   "event mostly on the submission date); 'verified' = Bern, where OPD's answer event equals the RRB "
-                   "decision date printed in the answer for the verified relink rows; 'too_few' < 20 dated answers.",
+                   "event mostly on the submission date); 'verified' = OPD's answer date is the government's decision "
+                   "date: Bern by the RRB date printed in the answer (verified relink rows, verified_by 'printed'), or a "
+                   "body where >= 90% of dated answers carry a publisher title naming the decision date ('Risposta del CdS "
+                   "del dd.mm.yyyy', 'RRB-dd.mm.yyyy') and >= 99% of those equal OPD's answer date (verified_by 'title'; "
+                   "title date = date printed in the answer on 20/20 P1 held-out documents, "
+                   "results/eval/posthoc_r3_gold_oracle.json); 'too_few' < 20 dated answers.",
         bern_verified=dict(date_equal=vb["by_action"]["relink"]["v2"]["date_eq_event"], n=vb["by_action"]["relink"]["v2"]["n"],
                            date_equal_v1_registered=vb["by_action"]["relink"]["v1_registered"]["date_eq_event"]),
+        title_verified={b: dict(dated=t["dated"], title_dated=t["title_dated"], title_equal=t["title_equal"])
+                        for b, t in sorted(trust.items()) if t["verified_by"] == "title"},
         tier_counts=dict(tiers), interventions_by_tier=dict(rows_by_tier), bodies=trust)
     (OUT / "date_trust.json").write_text(json.dumps(dt_out, indent=1, ensure_ascii=False))
     alt = dict(

@@ -7,12 +7,22 @@ IMAGE ?= gegenprobe:latest
 export PYTHONPATH := src:.
 
 # ---------------------------------------------------------------- judges' entry point (Docker)
+# Container hardening: never uid 0 (a root caller runs as the image's unprivileged uid 10001, which then owns out/ and
+# .work/make-run), read-only root filesystem, private /tmp (tmpfs), all capabilities dropped, no privilege escalation.
+# Writable: out/ (RUN_OUT: results, evidence viewer), .work/make-run (GP_WORK: PDF/text caches, GGUF weights; kept between runs,
+# delete it for a cold run) and /tmp.
 GGUF ?= 0
+RUN_WORK ?= $(CURDIR)/.work/make-run
+RUN_OUT ?= $(CURDIR)/out
 run: docker-build
-	mkdir -p out
-	docker run --rm --user "$$(id -u):$$(id -g)" \
-	  -e LLM_NAME -e LLM_BASE_URL -e LLM_API_KEY -e GP_GGUF=$(GGUF) -e GP_LIVE \
-	  -v "$(CURDIR)/out:/app/out" $(IMAGE)
+	mkdir -p "$(RUN_OUT)" "$(RUN_WORK)"
+	@if [ "$$(id -u)" = 0 ]; then chown -R 10001:0 "$(RUN_OUT)" "$(RUN_WORK)"; fi
+	u=$$(id -u); g=$$(id -g); if [ "$$u" = 0 ]; then u=10001; g=0; fi; \
+	docker run --rm --user "$$u:$$g" \
+	  --read-only --tmpfs /tmp:rw,nosuid,nodev,size=2g \
+	  --cap-drop ALL --security-opt no-new-privileges \
+	  -e LLM_NAME -e LLM_BASE_URL -e LLM_API_KEY -e GP_GGUF=$(GGUF) -e GP_LIVE -e GP_WORK=/var/gegenprobe/work \
+	  -v "$(RUN_WORK):/var/gegenprobe/work" -v "$(RUN_OUT):/app/out" $(IMAGE)
 
 docker-build:
 	docker build --build-arg GGUF=$(GGUF) -t $(IMAGE) .

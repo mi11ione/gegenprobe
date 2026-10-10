@@ -1,0 +1,54 @@
+{
+ "dry_run": true,
+ "inputs": {
+  "relink": "results/repair/repair_BE_relink.tsv",
+  "begin_date": "results/repair/repair_BE_begin_date.tsv",
+  "docs_export": "docs_BE_slim_2026-10-10.jsonl.gz",
+  "affairs_export": null,
+  "hash_mode": "recompute"
+ },
+ "export_identifier_rule": {
+  "rows": 49810,
+  "follow_rule": 49810,
+  "by_parent_type": {
+   "affair": {
+    "rows": 12203,
+    "follow_rule": 12203
+   },
+   "agenda": {
+    "rows": 37090,
+    "follow_rule": 37090
+   },
+   "news": {
+    "rows": 82,
+    "follow_rule": 82
+   },
+   "session": {
+    "rows": 435,
+    "follow_rule": 435
+   }
+  },
+  "rule": "hash == sha256(body_key + parent_type + url)"
+ },
+ "relink": {
+  "rows": 2421,
+  "by_status": {
+   "apply": 2421
+  },
+  "before_parent_type": {
+   "agenda": 2421
+  },
+  "hash_rule_holds": 2421,
+  "checked": 2421,
+  "identifier_changes": 2421
+ },
+ "begin_date": {
+  "rows": 727,
+  "by_status": {
+   "review": 173,
+   "apply": 554
+  }
+ },
+ "statements": 2975,
+ "identifier_note": "OPD's hash is sha256(body_key + parent_type + url); the relink documents carry parent_type 'agenda', so moving them to an affair changes the hash and the files.openparldata.ch/doc URL unless OPD keeps the old identifier (--hash keep)"
+}

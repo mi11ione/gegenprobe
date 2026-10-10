@@ -6,7 +6,14 @@ legislative XML (Akoma Ntoso). It plays the role JATS plays for journal articles
 every value tied to the place in the source it came from.
 
 - Code: `src/gegenprobe/schema/schema_v0_1.py` (Pydantic v2; this is the single source of truth)
-- JSON Schema for OPD's Pydantic-based extraction workbench: `results/schema/affair.schema.json`
+- Public import for integrators: `from gegenprobe.schema.public import Affair, DocExtraction, Document, TypedNull, …`
+  (every model and vocabulary type, plus `validate_affair`, `validate_doc_extraction`, `json_schema`;
+  `src/gegenprobe/schema/public.py`). `gegenprobe.schema` itself keeps its original, shorter export list.
+- JSON Schema for OPD's Pydantic-based extraction workbench: `results/schema/affair.schema.json` and
+  `results/schema/doc_extraction.schema.json` (`python -m gegenprobe.schema.public`). Each file starts with `$schema`
+  (draft 2020-12), a stable `$id`
+  (`https://raw.githubusercontent.com/mi11ione/gegenprobe/main/track_2a/results/schema/<name>.schema.json`) and
+  `version` (`0.1.0`, = `SCHEMA_VERSION`); the rest is exactly Pydantic's `model_json_schema()`.
 - Vocabularies with DE/FR/IT/EN labels, OPD harmonised ids and corpus counts: `data/schema/*.json`
   (`python -m gegenprobe.schema.vocab`)
 - Samples: `results/schema/samples/*.json` (`python -m gegenprobe.schema.samples`)

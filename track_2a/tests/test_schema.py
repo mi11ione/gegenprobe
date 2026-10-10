@@ -24,7 +24,9 @@ def test_samples_exist_and_validate():
 
 def test_json_schema_export_matches_model():
     exported = json.loads((RESULTS / "schema" / "affair.schema.json").read_text())
-    assert exported == json.loads(json.dumps(Affair.model_json_schema()))
+    from gegenprobe.schema.public import SCHEMA_IDS, SCHEMA_VERSION
+    meta = {"$schema": "https://json-schema.org/draft/2020-12/schema", "$id": SCHEMA_IDS["affair"], "version": SCHEMA_VERSION}
+    assert exported == meta | json.loads(json.dumps(Affair.model_json_schema()))
 
 
 def test_vocab_files_match_literals():

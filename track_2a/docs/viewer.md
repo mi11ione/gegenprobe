@@ -6,7 +6,7 @@ A static page (`site/index.html`, no server, no external scripts, no third-party
 |---|---|---|
 | 01 Parliaments (opens first) | per parliament: written answers, share with text, missing answers by typed cause, median days to answer, repair actions; date trust; per body the list of affairs without attached text (OPD + source links, CSV); answer times by type; Bern reconciliation; research dataset download | `results/census/{summary,question,matrix}.json`, `results/repair/{summary,be_reconcile,be_verify_all}.json`, `results/census/{interventions.tsv.gz,date_trust.json,answer_rule_alt.json}` |
 | 02 Documents | browse: the 154 held-out documents: gold label, default converter (rules only), Apertus review suggestion, naive free generation; every value with page, character span and a highlighted excerpt; typed nulls as states; the closed set of printed dates Apertus could choose from, with its probability share; the null margin against θ ; **workbench**: the 93 documents the rules leave open as a keyboard review queue (demo, gold shown after each decision) | `data/gold/heldout_*.jsonl`, `results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json`, cached texts and the committed model cache (replayed, no calls) |
-| 03 Evaluation | pre-registered scoreboard, H1–H4 as computed, order of events from git, gold-label agreement, post-hoc θ curve (labelled) | `results/eval/*`, `eval/prereg/{LOCK,DEVIATIONS.md}` |
+| 03 Evaluation | five pre-registered tests (P1, P2, P3, P3b, P4): scoreboards, hypotheses as computed, order of events from git, gold-label agreement, post-hoc θ curve (labelled) | `results/eval*/*`, `eval/prereg*/{LOCK*,DEVIATIONS*.md}` |
 | 04 Method | pipeline and schema v0.1 fields with feasibility tiers | `results/census/matrix.json` |
 
 ## Commands
@@ -56,8 +56,8 @@ adds the always-null baseline (90/154), dates found per arm (of 64) and the prec
 ## v3: census first, research dataset, workbench
 
 - **Opens on Parliaments.** A persistent banner in the header: *Not in OpenParlData ≠ not published by the parliament.*
-  Under the hero, a 3-step "where to look" strip and a 6-term glossary (OPD, typed null, closed set, pointer,
-  θ · margin band, P1–P4).
+  Under the hero, a 3-step strip (v5: addressed to OPD's data team) and a 6-term glossary (OPD, typed null, closed set,
+  pointer, θ · margin band, P1–P4 · P3b).
 - **One period for the whole page.** The switch (all years / since 2015 / 2024–25) sits in the hero and above the table
   and drives both; the headline is `headline.periods[period]`, the sum of the table rows (asserted). Default: all years
   (16,749 of 91,268). Each "safe to say" line is labelled with the period(s) it uses.
@@ -67,9 +67,9 @@ adds the always-null baseline (90/154), dates found per arm (of 64) and the prec
   parliament (made in the browser). Over `file://` the list is not fetched and the panel points to the dataset.
 - **Answer times** by intervention type per body (n ≥ 10), with "not a ranking" next to the column and in the panel;
   **Dates** (date trust) per body from `results/census/date_trust.json`: verified (Bern) · sitting day (≥ 80 % of answer
-  dates on one weekday) · mixed · diffuse · same day · too few.
-- **+ OCR** is its own state, shown only where a body has scans without text (Ticino 67.5 % → 100.0 %, all years); OCR was
-  probed (15/15), not run on every scan.
+  dates on one weekday) · mixed · diffuse · same day · too few (v5: Ticino is verified too, by the publisher's answer title).
+- **+ OCR** is its own state, shown only where a body has answers whose copy in OPD has no text (Ticino 67.5 % → 100.0 %,
+  all years); OCR was probed (15/15), not run on all of them (v5 wording: "would recover").
 - **Bern, every number in one place** (`#bern-numbers`): the canton's list (3,532; 229 attached; 3,303 not attached; 527
   agenda; 2,638 parentless; 138 absent; 3,394 linkable), the relink list (2,459 + 155 already answered + 24 without an
   answer event; 49 to fetch), the OPD-event denominators per period (3,409 / 3,114 / 593), and the verified dates
@@ -108,3 +108,57 @@ adds the always-null baseline (90/154), dates found per arm (of 64) and the prec
   in the CSV. `no_affairs` (meeting documents only) and `few` are the other non-measured states.
 - **Cantons only.** A "Show" filter: all · cantons · cities & communes.
 
+
+## v5 (round 4): OPD's data team first, five tests, schema record near the top, Ticino
+
+- **Audience.** The strip under the hero is addressed to OPD's data team: (1) apply the Bern lists (2,459 relinks + 49
+  fetches, keyed on OPD ids), (2) fix the rest by cause, per parliament, (3) take the data. Journalists are pointed to
+  each row's "safe to say" sentence. No newsroom framing.
+- **Schema v0.1 near the top** (`#schema-top`, always visible; `viewer/data.py:schema_view`): one real converter record,
+  not a hand-made sample: P3b affair 301273 (Basel-Landschaft, interpellation 2013/436) from
+  `results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json`. Metadata values carry their OPD record
+  (`opd:events/…`); the answer date read from the answer carries page 2, characters 177–194 and the quote
+  "18. November 2014" (it agrees with the blind gold label); empty fields are typed nulls with their reason
+  (`government_recommendation: not_applicable`, `decision: not_in_corpus`); the Apertus suggestion for the addressed body
+  is shown apart, as a review suggestion without a span (document-level choice). The whole record is in a `<details>`.
+  Below it, the 17 fields with their meaning class (12 shared, 5 shared with a role split; the field-to-class map is the
+  README table, `viewer/data.py:FIELD_CLASS`; definitions `data/schema/field_verdict_classes.json`), the tier, where the
+  value lives (metadata · partly · only in the PDF · not in OPD's data, counted over the parliaments where the field
+  applies) and the evidence (`results/census/comparability.json`), then the three body-specific concepts (oral answers in
+  question time, councils that publish only meeting documents, executive business answering no member's affair).
+- **Five tests everywhere.** Evaluation heading, intro and glossary name P1, P2, P3, P3b, P4. New P3b section
+  (`viewer/data.py:p3b`, from `results/eval5/{hypotheses_p3b__…,p3b__…,gold5_agreement,annotation_audit}.json`): the
+  verdict by the registered criteria (replicated: S1 14/16, S2 one of five fields below, the answer date), the per-field
+  board (metadata · rules · default · + Apertus · constant · P3 · within/below/above P3's CI · registered tier), why the
+  answer date is below P3 (data-driven: on 3 Luzern affairs a frozen rule replaced OPD's correct answer date with another
+  printed date), H1 (type 35/36 is the one field that reaches the unattended tier) and H3 (recall 14/16 holds, precision
+  14/20 below the bar: reviewer gate; answer-date suggestions 11/11). The 8B note no longer says "invents no date": it
+  picks no unprinted date but dates 25 of 90 answerless documents (70B: 7).
+- **Canton names.** Cantons by their official name in the language of their majority (Ticino, Vaud, Genève, Valais,
+  Fribourg; Graubünden, Bern, Luzern); cities and communes by OPD's name, which is already the local one. OPD's German
+  name stays searchable and is shown in the drawer ("OPD: Tessin"). `viewer/data.py:CANTON_NAME`, also used for the
+  P2/P3/P3b body lists.
+- **No text, not "scan".** The `image_only` state is labelled "OPD's copy has no text" (an answer document is attached,
+  but OPD's copy has no text layer or OPD's extraction failed); "safe to say" says OCR *would* recover them and that
+  re-taking a text version the parliament publishes is cheaper. Spot check, not a count
+  (`python -m gegenprobe.census.source_formats` → `results/census/source_formats_ti.json`, 3 requests on 10 Oct 2026):
+  Ticino publishes the answer to interrogazione 100.19 as `r100.19.doc` and `r100.19.pdf`; OPD holds one copy, without
+  text.
+- **"All years" = the years OPD holds.** Each row carries the first and last year of its written-answer interventions
+  (`years`; CSV `first_year`, `last_year`): Ticino 2016–2026. "Safe to say" reads "over all years OPD holds (2016–2026)".
+- **Not in OPD's data.** The field status `no_source` reads "not in OPD's data"; for co-signatories the drawer adds "the
+  parliament may list them on its own page".
+- **List pages.** A source URL that OPD gives for more than one affair of a parliament is that parliament's list page,
+  not the affair's page: the row is flagged (6th element in `missing.json`, CSV column `source_is_list_page`) and the link
+  reads "list page ↗" (Lugano: all 201 affairs point at one "Mozioni" page).
+- **Answer times.** A warning above the table ("not a league table": procedures differ between parliaments). The default
+  type is each parliament's own most-answered type, named next to the median ("Most answers"; Ticino: questions, 76
+  days, all years); one type for all is still selectable. CSV: `all_main_type`, `all_median_days_main_type`.
+- **Ticino's dates are verified.** `census/interventions.py` adds a publisher-title check to the date-trust tiers: a
+  body is `verified` (`verified_by: title`) when at least 90% of its dated answers carry a publisher title naming the
+  decision date ("Risposta del CdS del dd.mm.yyyy", "RRB-dd.mm.yyyy") and at least 99% of those equal OPD's answer date.
+  Ticino: 2,379 of its 2,386 dated answers carry such a title and all 2,379 equal OPD's answer date (73% of the dates fall
+  on a Wednesday, a weekly-sitting pattern; below the 80% sitting-day bar, hence "mixed" before); on 20 of 20 P1 held-out
+  Ticino answers the title date is the date printed in the answer
+  (`results/eval/posthoc_r3_gold_oracle.json`). Bern stays `verified_by: printed`. Tier counts: verified 2, mixed 14. Only
+  the `date_trust` column of the 2,386 Ticino rows of `interventions.tsv.gz` changed.
