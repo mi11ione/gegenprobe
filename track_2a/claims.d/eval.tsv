@@ -48,17 +48,17 @@ eval.h1.max_cell	4	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.js
 eval.h2.n	110	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.primary_fr_it_ocr.n	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
 eval.h2.cascade_only	5	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.primary_fr_it_ocr.cascade_only	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
 eval.h2.rules_only	1	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.primary_fr_it_ocr.rules_only	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
-eval.h2.p	0.22	results/report/eval_numbers.json	h2_p_primary_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md
-eval.h2.pooled_cascade_only	9	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.secondary_pooled_all.cascade_only	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
-eval.h2.pooled_rules_only	5	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.secondary_pooled_all.rules_only	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
-eval.h2.p_pooled	0.42	results/report/eval_numbers.json	h2_p_pooled_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
+eval.h2.p	0.22	results/report/eval_numbers.json	h2_p_primary_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
+eval.h2.pooled_cascade_only	9	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.secondary_pooled_all.cascade_only	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	-
+eval.h2.pooled_rules_only	5	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.secondary_pooled_all.rules_only	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	-
+eval.h2.p_pooled	0.42	results/report/eval_numbers.json	h2_p_pooled_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	-
 eval.h2.branch	B	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.branch	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
 eval.h3.auroc	0.969	results/report/eval_numbers.json	auroc_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md
 eval.h4.wrong	3	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H4.wrong	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md
 eval.h4.n	8	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H4.apertus_decided_fr_it_values	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md
 eval.share.apertus_values	16/67	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	model_share.apertus/model_share.values	frac	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	-
 eval.share.decisions	93	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	model_share.apertus_decisions_incl_nulls	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	-
-eval.posthoc.best	143	results/report/eval_numbers.json	posthoc.best_exact	int	python -m eval.posthoc curve|ocr_it ; python -m report.eval_numbers	technical_report.md
+eval.posthoc.best	143	results/report/eval_numbers.json	posthoc.best_exact	int	python -m eval.posthoc curve|ocr_it ; python -m report.eval_numbers	-
 eval.posthoc.lo	142	results/report/eval_numbers.json	posthoc.theta0_25_exact.0	int	python -m eval.posthoc curve|ocr_it ; python -m report.eval_numbers	-
 eval.posthoc.on_null	3	results/report/eval_numbers.json	posthoc.theta0_25_on_null	int	python -m eval.posthoc curve|ocr_it ; python -m report.eval_numbers	-
 eval.posthoc.ocr_de	17/22	results/report/eval_numbers.json	posthoc.ocr_pointer_de/posthoc.ocr_n	frac	python -m eval.posthoc curve|ocr_it ; python -m report.eval_numbers	-

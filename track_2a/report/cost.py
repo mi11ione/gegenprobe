@@ -112,6 +112,7 @@ def end_to_end() -> dict:
                                 "scans) and the frozen rules on one laptop core",
         review_70b_calls_per_residue_doc=cost["calls_per_residue_doc_mean"],
         review_70b_billed_prompt_tokens_per_residue_doc=cost["billed_prompt_tokens_per_residue_doc_mean"],
+        review_70b_usd_per_1000_residue_docs=1000 * cost["billed_prompt_tokens_per_residue_doc_mean"] * PRICE_IN / 1e6,
         review_8b_s_per_residue_doc=None,
         review_8b_status="pending: the real 8B (GGUF Q4_K_M, CPU) arms run on CI (workflow arms-8b); no timing committed yet",
         corpus_documents=cost["corpus_documents"],
