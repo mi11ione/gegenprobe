@@ -1,0 +1,666 @@
+{
+ "label": "POST HOC (round 5, 10 Oct 2026): P2 table with Wilson 95% CIs per arm (percent) and the ungated latest-printed-date baseline; strict scoring (eval/score.py outcome), θ = 10.40, recomputed from the per-document files.",
+ "sources": [
+  "results/eval2/p2__publicai_swiss-ai_apertus-v1.5-8b.json",
+  "results/eval2/p2__gguf_apertus-v1.5-8b-text-q4_k_m.json",
+  "data/gold2/p2_docs.jsonl"
+ ],
+ "all_62_70b": {
+  "rules": {
+   "exact": [
+    35,
+    62
+   ],
+   "exact_ci_pct": [
+    44.1,
+    68.1
+   ],
+   "dates_found": [
+    2,
+    29
+   ],
+   "dates_found_ci_pct": [
+    1.9,
+    22.0
+   ],
+   "wrong_printed_date": 2,
+   "fabricated": 0,
+   "missed": 25,
+   "values_on_answerless": [
+    0,
+    33
+   ],
+   "values_on_answerless_ci_pct": [
+    0.0,
+    10.4
+   ]
+  },
+  "pointer": {
+   "exact": [
+    53,
+    62
+   ],
+   "exact_ci_pct": [
+    74.7,
+    92.2
+   ],
+   "dates_found": [
+    24,
+    29
+   ],
+   "dates_found_ci_pct": [
+    65.5,
+    92.4
+   ],
+   "wrong_printed_date": 8,
+   "fabricated": 0,
+   "missed": 1,
+   "values_on_answerless": [
+    4,
+    33
+   ],
+   "values_on_answerless_ci_pct": [
+    4.8,
+    27.3
+   ]
+  },
+  "cascade": {
+   "exact": [
+    51,
+    62
+   ],
+   "exact_ci_pct": [
+    71.0,
+    89.8
+   ],
+   "dates_found": [
+    22,
+    29
+   ],
+   "dates_found_ci_pct": [
+    57.9,
+    87.8
+   ],
+   "wrong_printed_date": 10,
+   "fabricated": 0,
+   "missed": 1,
+   "values_on_answerless": [
+    4,
+    33
+   ],
+   "values_on_answerless_ci_pct": [
+    4.8,
+    27.3
+   ]
+  },
+  "naive_plain": {
+   "exact": [
+    45,
+    62
+   ],
+   "exact_ci_pct": [
+    60.4,
+    82.1
+   ],
+   "dates_found": [
+    21,
+    29
+   ],
+   "dates_found_ci_pct": [
+    54.3,
+    85.3
+   ],
+   "wrong_printed_date": 8,
+   "fabricated": 4,
+   "missed": 5,
+   "values_on_answerless": [
+    9,
+    33
+   ],
+   "values_on_answerless_ci_pct": [
+    15.1,
+    44.2
+   ]
+  },
+  "naive_null": {
+   "exact": [
+    52,
+    62
+   ],
+   "exact_ci_pct": [
+    72.8,
+    91.0
+   ],
+   "dates_found": [
+    22,
+    29
+   ],
+   "dates_found_ci_pct": [
+    57.9,
+    87.8
+   ],
+   "wrong_printed_date": 7,
+   "fabricated": 1,
+   "missed": 2,
+   "values_on_answerless": [
+    3,
+    33
+   ],
+   "values_on_answerless_ci_pct": [
+    3.1,
+    23.6
+   ]
+  },
+  "latest_printed_date": {
+   "exact": [
+    24,
+    62
+   ],
+   "exact_ci_pct": [
+    27.6,
+    51.2
+   ],
+   "dates_found": [
+    22,
+    29
+   ],
+   "dates_found_ci_pct": [
+    57.9,
+    87.8
+   ],
+   "wrong_printed_date": 38,
+   "fabricated": 0,
+   "missed": 0,
+   "values_on_answerless": [
+    31,
+    33
+   ],
+   "values_on_answerless_ci_pct": [
+    80.4,
+    98.3
+   ]
+  },
+  "latest_date_gated_by_doc_type": {
+   "exact": [
+    44,
+    62
+   ],
+   "exact_ci_pct": [
+    58.7,
+    80.8
+   ],
+   "dates_found": [
+    18,
+    29
+   ],
+   "dates_found_ci_pct": [
+    44.0,
+    77.3
+   ],
+   "wrong_printed_date": 13,
+   "fabricated": 0,
+   "missed": 5,
+   "values_on_answerless": [
+    7,
+    33
+   ],
+   "values_on_answerless_ci_pct": [
+    10.7,
+    37.8
+   ]
+  },
+  "latest_date_on_answer_docs_only": {
+   "exact": [
+    44,
+    62
+   ],
+   "exact_ci_pct": [
+    58.7,
+    80.8
+   ],
+   "dates_found": [
+    18,
+    29
+   ],
+   "dates_found_ci_pct": [
+    44.0,
+    77.3
+   ],
+   "wrong_printed_date": 13,
+   "fabricated": 0,
+   "missed": 5,
+   "values_on_answerless": [
+    7,
+    33
+   ],
+   "values_on_answerless_ci_pct": [
+    10.7,
+    37.8
+   ]
+  },
+  "always_null": {
+   "exact": [
+    33,
+    62
+   ],
+   "exact_ci_pct": [
+    41.0,
+    65.1
+   ],
+   "dates_found": [
+    0,
+    29
+   ],
+   "dates_found_ci_pct": [
+    0.0,
+    11.7
+   ],
+   "wrong_printed_date": 0,
+   "fabricated": 0,
+   "missed": 29,
+   "values_on_answerless": [
+    0,
+    33
+   ],
+   "values_on_answerless_ci_pct": [
+    0.0,
+    10.4
+   ]
+  }
+ },
+ "reachable_52_70b": {
+  "rules": {
+   "exact": [
+    33,
+    52
+   ],
+   "exact_ci_pct": [
+    49.9,
+    75.2
+   ],
+   "dates_found": [
+    2,
+    21
+   ],
+   "dates_found_ci_pct": [
+    2.7,
+    28.9
+   ],
+   "wrong_printed_date": 2,
+   "fabricated": 0,
+   "missed": 17,
+   "values_on_answerless": [
+    0,
+    31
+   ],
+   "values_on_answerless_ci_pct": [
+    0.0,
+    11.0
+   ]
+  },
+  "pointer": {
+   "exact": [
+    43,
+    52
+   ],
+   "exact_ci_pct": [
+    70.3,
+    90.6
+   ],
+   "dates_found": [
+    16,
+    21
+   ],
+   "dates_found_ci_pct": [
+    54.9,
+    89.4
+   ],
+   "wrong_printed_date": 8,
+   "fabricated": 0,
+   "missed": 1,
+   "values_on_answerless": [
+    4,
+    31
+   ],
+   "values_on_answerless_ci_pct": [
+    5.1,
+    28.9
+   ]
+  },
+  "cascade": {
+   "exact": [
+    41,
+    52
+   ],
+   "exact_ci_pct": [
+    66.0,
+    87.8
+   ],
+   "dates_found": [
+    14,
+    21
+   ],
+   "dates_found_ci_pct": [
+    45.4,
+    82.8
+   ],
+   "wrong_printed_date": 10,
+   "fabricated": 0,
+   "missed": 1,
+   "values_on_answerless": [
+    4,
+    31
+   ],
+   "values_on_answerless_ci_pct": [
+    5.1,
+    28.9
+   ]
+  },
+  "naive_plain": {
+   "exact": [
+    40,
+    52
+   ],
+   "exact_ci_pct": [
+    63.9,
+    86.3
+   ],
+   "dates_found": [
+    17,
+    21
+   ],
+   "dates_found_ci_pct": [
+    60.0,
+    92.3
+   ],
+   "wrong_printed_date": 8,
+   "fabricated": 3,
+   "missed": 1,
+   "values_on_answerless": [
+    8,
+    31
+   ],
+   "values_on_answerless_ci_pct": [
+    13.7,
+    43.2
+   ]
+  },
+  "naive_null": {
+   "exact": [
+    44,
+    52
+   ],
+   "exact_ci_pct": [
+    72.5,
+    92.0
+   ],
+   "dates_found": [
+    16,
+    21
+   ],
+   "dates_found_ci_pct": [
+    54.9,
+    89.4
+   ],
+   "wrong_printed_date": 7,
+   "fabricated": 1,
+   "missed": 0,
+   "values_on_answerless": [
+    3,
+    31
+   ],
+   "values_on_answerless_ci_pct": [
+    3.3,
+    24.9
+   ]
+  },
+  "latest_printed_date": {
+   "exact": [
+    16,
+    52
+   ],
+   "exact_ci_pct": [
+    19.9,
+    44.3
+   ],
+   "dates_found": [
+    14,
+    21
+   ],
+   "dates_found_ci_pct": [
+    45.4,
+    82.8
+   ],
+   "wrong_printed_date": 36,
+   "fabricated": 0,
+   "missed": 0,
+   "values_on_answerless": [
+    29,
+    31
+   ],
+   "values_on_answerless_ci_pct": [
+    79.3,
+    98.2
+   ]
+  },
+  "latest_date_gated_by_doc_type": {
+   "exact": [
+    35,
+    52
+   ],
+   "exact_ci_pct": [
+    53.8,
+    78.5
+   ],
+   "dates_found": [
+    10,
+    21
+   ],
+   "dates_found_ci_pct": [
+    28.3,
+    67.6
+   ],
+   "wrong_printed_date": 12,
+   "fabricated": 0,
+   "missed": 5,
+   "values_on_answerless": [
+    6,
+    31
+   ],
+   "values_on_answerless_ci_pct": [
+    9.2,
+    36.3
+   ]
+  },
+  "latest_date_on_answer_docs_only": {
+   "exact": [
+    35,
+    52
+   ],
+   "exact_ci_pct": [
+    53.8,
+    78.5
+   ],
+   "dates_found": [
+    10,
+    21
+   ],
+   "dates_found_ci_pct": [
+    28.3,
+    67.6
+   ],
+   "wrong_printed_date": 12,
+   "fabricated": 0,
+   "missed": 5,
+   "values_on_answerless": [
+    6,
+    31
+   ],
+   "values_on_answerless_ci_pct": [
+    9.2,
+    36.3
+   ]
+  },
+  "always_null": {
+   "exact": [
+    31,
+    52
+   ],
+   "exact_ci_pct": [
+    46.1,
+    71.8
+   ],
+   "dates_found": [
+    0,
+    21
+   ],
+   "dates_found_ci_pct": [
+    0.0,
+    15.5
+   ],
+   "wrong_printed_date": 0,
+   "fabricated": 0,
+   "missed": 21,
+   "values_on_answerless": [
+    0,
+    31
+   ],
+   "values_on_answerless_ci_pct": [
+    0.0,
+    11.0
+   ]
+  }
+ },
+ "reachable_52_8b": {
+  "rules": {
+   "exact": [
+    33,
+    52
+   ],
+   "exact_ci_pct": [
+    49.9,
+    75.2
+   ],
+   "dates_found": [
+    2,
+    21
+   ],
+   "dates_found_ci_pct": [
+    2.7,
+    28.9
+   ],
+   "wrong_printed_date": 2,
+   "fabricated": 0,
+   "missed": 17,
+   "values_on_answerless": [
+    0,
+    31
+   ],
+   "values_on_answerless_ci_pct": [
+    0.0,
+    11.0
+   ]
+  },
+  "pointer": {
+   "exact": [
+    35,
+    52
+   ],
+   "exact_ci_pct": [
+    53.8,
+    78.5
+   ],
+   "dates_found": [
+    15,
+    21
+   ],
+   "dates_found_ci_pct": [
+    50.0,
+    86.2
+   ],
+   "wrong_printed_date": 15,
+   "fabricated": 0,
+   "missed": 2,
+   "values_on_answerless": [
+    11,
+    31
+   ],
+   "values_on_answerless_ci_pct": [
+    21.1,
+    53.1
+   ]
+  },
+  "cascade": {
+   "exact": [
+    33,
+    52
+   ],
+   "exact_ci_pct": [
+    49.9,
+    75.2
+   ],
+   "dates_found": [
+    13,
+    21
+   ],
+   "dates_found_ci_pct": [
+    40.9,
+    79.2
+   ],
+   "wrong_printed_date": 17,
+   "fabricated": 0,
+   "missed": 2,
+   "values_on_answerless": [
+    11,
+    31
+   ],
+   "values_on_answerless_ci_pct": [
+    21.1,
+    53.1
+   ]
+  }
+ },
+ "comparisons": {
+  "70b_pointer_vs_latest_printed_date_answered_29": {
+   "n": 29,
+   "a_only": 3,
+   "b_only": 1,
+   "p": 0.625
+  },
+  "70b_pointer_vs_latest_printed_date_all_62": {
+   "n": 62,
+   "a_only": 30,
+   "b_only": 1,
+   "p": 2.9802322387695312e-08
+  },
+  "70b_pointer_vs_latest_gated_all_62": {
+   "n": 62,
+   "a_only": 10,
+   "b_only": 1,
+   "p": 0.01171875
+  },
+  "70b_pointer_vs_latest_gated_answerless_33": {
+   "n": 33,
+   "a_only": 3,
+   "b_only": 0,
+   "p": 0.25
+  },
+  "8b_pointer_vs_latest_printed_date_answered_21": {
+   "n": 21,
+   "a_only": 4,
+   "b_only": 3,
+   "p": 1.0
+  },
+  "70b_pointer_vs_latest_printed_date_answered_21": {
+   "n": 21,
+   "a_only": 3,
+   "b_only": 1,
+   "p": 0.625
+  }
+ },
+ "baseline_definitions": {
+  "latest_printed_date": "max of the dates the lattice finds anywhere in the document (no gate)",
+  "latest_date_gated_by_doc_type": "the same, null where OPD types the document as a member's text (intervention)",
+  "latest_date_on_answer_docs_only": "the same, only where OPD types the document as an answer"
+ }
+}

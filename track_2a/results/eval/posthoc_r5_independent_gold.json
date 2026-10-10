@@ -1,0 +1,1755 @@
+{
+ "label": "POST HOC (round 5, 10 Oct 2026; not pre-registered): independent non-Anthropic annotator (Qwen-SEA-LION-v4-32B-IT)",
+ "model": "aisingapore/Qwen-SEA-LION-v4-32B-IT",
+ "gateway_tag": "2a-qwen-audit",
+ "method": "Blind single-pass annotation (temperature 0) with the A1-A3 guide cut to answer presence and date; packet text identical to the Claude annotators'; a Qwen date counts only if answer_present = yes, its quote occurs verbatim (whitespace-normalised) in the document; otherwise it is treated as null and listed as unverified (primary reading). The *_all_qwen_dates blocks keep unverified dates too. No adjudication.",
+ "p1": {
+  "n": 154,
+  "fingerprints": {
+   "None": 154
+  },
+  "served_models": [
+   "aisingapore/Qwen-SEA-LION-v4-32B-IT"
+  ],
+  "truncated": 0,
+  "usd": 0.1008,
+  "agreement": {
+   "overall": {
+    "n": 154,
+    "answer_present_4way": {
+     "raw": 145,
+     "kappa": 0.8821
+    },
+    "answer_present_binary": {
+     "raw": 146,
+     "kappa": 0.8945,
+     "gold_yes": 64,
+     "qwen_yes": 70
+    },
+    "answer_date_exact": {
+     "raw": 134,
+     "kappa": 0.7974
+    },
+    "answer_date_lenient": {
+     "raw": 140
+    },
+    "dates_where_both_give_one": {
+     "n": 54,
+     "exact": 50,
+     "lenient": 54
+    }
+   },
+   "per_cell": {
+    "de_canton": {
+     "n": 22,
+     "answer_present_4way": {
+      "raw": 20,
+      "kappa": 0.8182
+     },
+     "answer_present_binary": {
+      "raw": 20,
+      "kappa": 0.8182,
+      "gold_yes": 9,
+      "qwen_yes": 11
+     },
+     "answer_date_exact": {
+      "raw": 18,
+      "kappa": 0.7143
+     },
+     "answer_date_lenient": {
+      "raw": 20
+     },
+     "dates_where_both_give_one": {
+      "n": 7,
+      "exact": 7,
+      "lenient": 7
+     }
+    },
+    "de_commune": {
+     "n": 22,
+     "answer_present_4way": {
+      "raw": 20,
+      "kappa": 0.8136
+     },
+     "answer_present_binary": {
+      "raw": 20,
+      "kappa": 0.8136,
+      "gold_yes": 8,
+      "qwen_yes": 10
+     },
+     "answer_date_exact": {
+      "raw": 20,
+      "kappa": 0.8571
+     },
+     "answer_date_lenient": {
+      "raw": 20
+     },
+     "dates_where_both_give_one": {
+      "n": 8,
+      "exact": 8,
+      "lenient": 8
+     }
+    },
+    "fr_canton": {
+     "n": 22,
+     "answer_present_4way": {
+      "raw": 22,
+      "kappa": 1.0
+     },
+     "answer_present_binary": {
+      "raw": 22,
+      "kappa": 1.0,
+      "gold_yes": 9,
+      "qwen_yes": 9
+     },
+     "answer_date_exact": {
+      "raw": 17,
+      "kappa": 0.5528
+     },
+     "answer_date_lenient": {
+      "raw": 17
+     },
+     "dates_where_both_give_one": {
+      "n": 4,
+      "exact": 4,
+      "lenient": 4
+     }
+    },
+    "fr_commune": {
+     "n": 22,
+     "answer_present_4way": {
+      "raw": 20,
+      "kappa": 0.8189
+     },
+     "answer_present_binary": {
+      "raw": 21,
+      "kappa": 0.9043,
+      "gold_yes": 8,
+      "qwen_yes": 9
+     },
+     "answer_date_exact": {
+      "raw": 20,
+      "kappa": 0.8508
+     },
+     "answer_date_lenient": {
+      "raw": 21
+     },
+     "dates_where_both_give_one": {
+      "n": 8,
+      "exact": 7,
+      "lenient": 8
+     }
+    },
+    "it_canton": {
+     "n": 22,
+     "answer_present_4way": {
+      "raw": 20,
+      "kappa": 0.812
+     },
+     "answer_present_binary": {
+      "raw": 20,
+      "kappa": 0.812,
+      "gold_yes": 9,
+      "qwen_yes": 9
+     },
+     "answer_date_exact": {
+      "raw": 20,
+      "kappa": 0.8434
+     },
+     "answer_date_lenient": {
+      "raw": 20
+     },
+     "dates_where_both_give_one": {
+      "n": 7,
+      "exact": 7,
+      "lenient": 7
+     }
+    },
+    "it_commune": {
+     "n": 22,
+     "answer_present_4way": {
+      "raw": 21,
+      "kappa": 0.9076
+     },
+     "answer_present_binary": {
+      "raw": 21,
+      "kappa": 0.9076,
+      "gold_yes": 9,
+      "qwen_yes": 10
+     },
+     "answer_date_exact": {
+      "raw": 18,
+      "kappa": 0.7267
+     },
+     "answer_date_lenient": {
+      "raw": 21
+     },
+     "dates_where_both_give_one": {
+      "n": 9,
+      "exact": 6,
+      "lenient": 9
+     }
+    },
+    "ocr_ti": {
+     "n": 22,
+     "answer_present_4way": {
+      "raw": 22,
+      "kappa": 1.0
+     },
+     "answer_present_binary": {
+      "raw": 22,
+      "kappa": 1.0,
+      "gold_yes": 12,
+      "qwen_yes": 12
+     },
+     "answer_date_exact": {
+      "raw": 21,
+      "kappa": 0.9394
+     },
+     "answer_date_lenient": {
+      "raw": 21
+     },
+     "dates_where_both_give_one": {
+      "n": 11,
+      "exact": 11,
+      "lenient": 11
+     }
+    }
+   },
+   "qwen_unverified_dates": [
+    84364,
+    143533,
+    198158,
+    300277,
+    424975
+   ],
+   "qwen_unparseable": [],
+   "disagreements": [
+    {
+     "doc_id": 7088,
+     "kind": "presence",
+     "cell": "de_commune",
+     "body": "261",
+     "dtype": "report",
+     "gold_present": "no",
+     "qwen_present": "yes",
+     "gold_date": null,
+     "gold_lenient": [],
+     "qwen_date": "2014-12-17",
+     "qwen_date_used": "2014-12-17",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A3",
+     "gold_quote": null,
+     "qwen_quote": "37. Ratssitzung vom 17. Dezember 2014",
+     "opd_written_answer_dates": [
+      "2014-08-27",
+      "2014-12-09"
+     ]
+    },
+    {
+     "doc_id": 18431,
+     "kind": "date",
+     "cell": "it_commune",
+     "body": "5192",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2024-10-10",
+     "gold_lenient": [
+      "2024-10-11"
+     ],
+     "qwen_date": "2024-10-11",
+     "qwen_date_used": "2024-10-11",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": true,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": "Risoluzione municipale\ndel 10 ottobre 2024",
+     "qwen_quote": "Lugano, 11 ottobre 2024",
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 28271,
+     "kind": "presence",
+     "cell": "de_canton",
+     "body": "BE",
+     "dtype": "answer",
+     "gold_present": "no",
+     "qwen_present": "yes",
+     "gold_date": null,
+     "gold_lenient": [
+      "2022-06-29"
+     ],
+     "qwen_date": "2022-06-29",
+     "qwen_date_used": "2022-06-29",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": true,
+     "gold_labeller": "claude-agents:A3",
+     "gold_quote": null,
+     "qwen_quote": "29. Juni 2022",
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 68367,
+     "kind": "presence",
+     "cell": "de_commune",
+     "body": "261",
+     "dtype": "report",
+     "gold_present": "no",
+     "qwen_present": "yes",
+     "gold_date": null,
+     "gold_lenient": [],
+     "qwen_date": "2023-11-08",
+     "qwen_date_used": "2023-11-08",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": null,
+     "qwen_quote": "66. Ratssitzung vom 8. November 2023",
+     "opd_written_answer_dates": [
+      "2023-05-31",
+      "2023-10-26"
+     ]
+    },
+    {
+     "doc_id": 78962,
+     "kind": "date",
+     "cell": "it_commune",
+     "body": "5192",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2023-10-05",
+     "gold_lenient": [
+      "2023-10-06"
+     ],
+     "qwen_date": "2023-10-06",
+     "qwen_date_used": "2023-10-06",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": true,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": "Risoluzione municipale del 5 ottobre 2023",
+     "qwen_quote": "Lugano, 6 ottobre 2023",
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 84364,
+     "kind": "date",
+     "cell": "de_canton",
+     "body": "BE",
+     "dtype": "report",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2014-03-17",
+     "gold_lenient": [],
+     "qwen_date": "2014-03-17",
+     "qwen_date_used": null,
+     "qwen_verified": false,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": "92/2014 vom 17. März 2014",
+     "qwen_quote": "RRB-Nr.: 92/2014 vom 17. März 2014",
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 122203,
+     "kind": "date",
+     "cell": "fr_canton",
+     "body": "GE",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2020-01-15",
+     "gold_lenient": [],
+     "qwen_date": null,
+     "qwen_date_used": null,
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": "Date de dépôt : 15 janvier 2020",
+     "qwen_quote": null,
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 135478,
+     "kind": "date",
+     "cell": "it_commune",
+     "body": "5192",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2015-01-15",
+     "gold_lenient": [
+      "2015-01-21"
+     ],
+     "qwen_date": "2015-01-21",
+     "qwen_date_used": "2015-01-21",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": true,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": "ris. mun.: 15/01/2015",
+     "qwen_quote": "Lugano, 21 gennaio 2015/trs",
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 143533,
+     "kind": "date",
+     "cell": "fr_canton",
+     "body": "BE",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2016-10-26",
+     "gold_lenient": [],
+     "qwen_date": "2016-10-26",
+     "qwen_date_used": null,
+     "qwen_verified": false,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": "du 26 octobre 2016",
+     "qwen_quote": "N° d’ACE: 1168/2016 du 26 octobre 2016",
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 166793,
+     "kind": "date",
+     "cell": "ocr_ti",
+     "body": "TI",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2016-12-21",
+     "gold_lenient": [],
+     "qwen_date": null,
+     "qwen_date_used": null,
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": "5682 mm 1 21 dicembre 2016 / 159.16",
+     "qwen_quote": null,
+     "opd_written_answer_dates": [
+      "2016-12-21"
+     ]
+    },
+    {
+     "doc_id": 190629,
+     "kind": "presence",
+     "cell": "it_commune",
+     "body": "5192",
+     "dtype": "report",
+     "gold_present": "no",
+     "qwen_present": "yes",
+     "gold_date": null,
+     "gold_lenient": [],
+     "qwen_date": "2010-06-15",
+     "qwen_date_used": "2010-06-15",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A3",
+     "gold_quote": null,
+     "qwen_quote": "Con lettera del 15 giugno 2010 l'Esecutivo cantonale confermava",
+     "opd_written_answer_dates": [
+      "2011-04-20"
+     ]
+    },
+    {
+     "doc_id": 198158,
+     "kind": "date",
+     "cell": "fr_canton",
+     "body": "BE",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2015-01-28",
+     "gold_lenient": [],
+     "qwen_date": "2015-01-28",
+     "qwen_date_used": null,
+     "qwen_verified": false,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": "du 28 janvier 2015",
+     "qwen_quote": "N° d'ACE: 90/2015 du 28 janvier 2015",
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 273540,
+     "kind": "presence",
+     "cell": "it_canton",
+     "body": "TI",
+     "dtype": "report",
+     "gold_present": "yes",
+     "qwen_present": "no",
+     "gold_date": "2023-12-20",
+     "gold_lenient": [],
+     "qwen_date": null,
+     "qwen_date_used": null,
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A3",
+     "gold_quote": "(v. messaggio 20 dicembre 2023 n. 8381)",
+     "qwen_quote": null,
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 274069,
+     "kind": "presence",
+     "cell": "it_canton",
+     "body": "TI",
+     "dtype": "intervention",
+     "gold_present": "no",
+     "qwen_present": "yes",
+     "gold_date": null,
+     "gold_lenient": [],
+     "qwen_date": null,
+     "qwen_date_used": null,
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A3",
+     "gold_quote": null,
+     "qwen_quote": null,
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 300277,
+     "kind": "date",
+     "cell": "de_canton",
+     "body": "BE",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2010-08-25",
+     "gold_lenient": [],
+     "qwen_date": "2010-08-25",
+     "qwen_date_used": null,
+     "qwen_verified": false,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A3",
+     "gold_quote": "25. August 2010",
+     "qwen_quote": "Auszug aus dem Protokoll des Regierungsrates 25. August 2010",
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 424975,
+     "kind": "date",
+     "cell": "it_canton",
+     "body": "TI",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2020-09-23",
+     "gold_lenient": [],
+     "qwen_date": "2020-09-23",
+     "qwen_date_used": null,
+     "qwen_verified": false,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": "23 settembre 2020",
+     "qwen_quote": "Bellinzona\n23 settembre 2020",
+     "opd_written_answer_dates": [
+      "2020-09-23"
+     ]
+    },
+    {
+     "doc_id": 437131,
+     "kind": "date",
+     "cell": "fr_canton",
+     "body": "GE",
+     "dtype": "report",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2001-09-17",
+     "gold_lenient": [],
+     "qwen_date": null,
+     "qwen_date_used": null,
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A3",
+     "gold_quote": "Date de dépôt: 17 septembre 2001",
+     "qwen_quote": null,
+     "opd_written_answer_dates": [
+      "2001-09-17"
+     ]
+    },
+    {
+     "doc_id": 646517,
+     "kind": "date",
+     "cell": "fr_canton",
+     "body": "GE",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2025-11-19",
+     "gold_lenient": [],
+     "qwen_date": null,
+     "qwen_date_used": null,
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": "Date de dépôt : 19 novembre 2025",
+     "qwen_quote": null,
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 671937,
+     "kind": "presence",
+     "cell": "fr_commune",
+     "body": "5586",
+     "dtype": "report",
+     "gold_present": "no",
+     "qwen_present": "yes",
+     "gold_date": null,
+     "gold_lenient": [],
+     "qwen_date": "2026-01-13",
+     "qwen_date_used": "2026-01-13",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A3",
+     "gold_quote": null,
+     "qwen_quote": "Ainsi délibéré en séance du Conseil communal de Lausanne le mardi treize janvier deux mille vingt-six.",
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 862297,
+     "kind": "presence",
+     "cell": "de_canton",
+     "body": "BE",
+     "dtype": "report",
+     "gold_present": "no",
+     "qwen_present": "yes",
+     "gold_date": null,
+     "gold_lenient": [
+      "2026-04-29"
+     ],
+     "qwen_date": "2026-04-29",
+     "qwen_date_used": "2026-04-29",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": true,
+     "gold_labeller": "claude-agents:A3",
+     "gold_quote": null,
+     "qwen_quote": "29. April 2026",
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 868895,
+     "kind": "date",
+     "cell": "fr_commune",
+     "body": "6152",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2018-12-17",
+     "gold_lenient": [
+      "2018-12-17",
+      "2019-01-15"
+     ],
+     "qwen_date": "2019-01-15",
+     "qwen_date_used": "2019-01-15",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": true,
+     "gold_labeller": "claude-agents:A3",
+     "gold_quote": "en séance du 17 décembre 2018, le Conseil municipal s’est",
+     "qwen_quote": "Collombey-Muraz, le 15 janvier 2019",
+     "opd_written_answer_dates": []
+    }
+   ]
+  },
+  "sensitivity": {
+   "committed_gold": {
+    "n": 154,
+    "H1_cascade_values_on_null": [
+     7,
+     90
+    ],
+    "H1_upper": 0.15194030595835836,
+    "H1_pass_pooled": false,
+    "H1_max_per_cell": 4,
+    "H1_pass_per_cell": false,
+    "rules_exact": [
+     135,
+     154
+    ],
+    "pointer_exact": [
+     130,
+     154
+    ],
+    "cascade_exact": [
+     139,
+     154
+    ]
+   },
+   "a_subset_where_qwen_agrees": {
+    "n": 134,
+    "H1_cascade_values_on_null": [
+     2,
+     84
+    ],
+    "H1_upper": 0.0827160112132854,
+    "H1_pass_pooled": true,
+    "H1_max_per_cell": 2,
+    "H1_pass_per_cell": false,
+    "rules_exact": [
+     123,
+     134
+    ],
+    "pointer_exact": [
+     121,
+     134
+    ],
+    "cascade_exact": [
+     127,
+     134
+    ]
+   },
+   "b_gold_replaced_by_qwen_where_they_differ": {
+    "n": 154,
+    "H1_cascade_values_on_null": [
+     11,
+     94
+    ],
+    "H1_upper": 0.1975037518897268,
+    "H1_pass_pooled": false,
+    "H1_max_per_cell": 4,
+    "H1_pass_per_cell": false,
+    "rules_exact": [
+     129,
+     154
+    ],
+    "pointer_exact": [
+     127,
+     154
+    ],
+    "cascade_exact": [
+     133,
+     154
+    ]
+   }
+  },
+  "agreement_all_qwen_dates": {
+   "n": 154,
+   "answer_present_4way": {
+    "raw": 145,
+    "kappa": 0.8821
+   },
+   "answer_present_binary": {
+    "raw": 146,
+    "kappa": 0.8945,
+    "gold_yes": 64,
+    "qwen_yes": 70
+   },
+   "answer_date_exact": {
+    "raw": 139,
+    "kappa": 0.8524
+   },
+   "answer_date_lenient": {
+    "raw": 145
+   },
+   "dates_where_both_give_one": {
+    "n": 59,
+    "exact": 55,
+    "lenient": 59
+   }
+  },
+  "sensitivity_all_qwen_dates": {
+   "committed_gold": {
+    "n": 154,
+    "H1_cascade_values_on_null": [
+     7,
+     90
+    ],
+    "H1_upper": 0.15194030595835836,
+    "H1_pass_pooled": false,
+    "H1_max_per_cell": 4,
+    "H1_pass_per_cell": false,
+    "rules_exact": [
+     135,
+     154
+    ],
+    "pointer_exact": [
+     130,
+     154
+    ],
+    "cascade_exact": [
+     139,
+     154
+    ]
+   },
+   "a_subset_where_qwen_agrees": {
+    "n": 139,
+    "H1_cascade_values_on_null": [
+     2,
+     84
+    ],
+    "H1_upper": 0.0827160112132854,
+    "H1_pass_pooled": true,
+    "H1_max_per_cell": 2,
+    "H1_pass_per_cell": false,
+    "rules_exact": [
+     127,
+     139
+    ],
+    "pointer_exact": [
+     126,
+     139
+    ],
+    "cascade_exact": [
+     132,
+     139
+    ]
+   },
+   "b_gold_replaced_by_qwen_where_they_differ": {
+    "n": 154,
+    "H1_cascade_values_on_null": [
+     6,
+     89
+    ],
+    "H1_upper": 0.139369447982017,
+    "H1_pass_pooled": false,
+    "H1_max_per_cell": 2,
+    "H1_pass_per_cell": false,
+    "rules_exact": [
+     132,
+     154
+    ],
+    "pointer_exact": [
+     132,
+     154
+    ],
+    "cascade_exact": [
+     138,
+     154
+    ]
+   }
+  }
+ },
+ "p2": {
+  "n": 62,
+  "fingerprints": {
+   "None": 62
+  },
+  "served_models": [
+   "aisingapore/Qwen-SEA-LION-v4-32B-IT"
+  ],
+  "truncated": 0,
+  "usd": 0.0388,
+  "agreement": {
+   "overall": {
+    "n": 62,
+    "answer_present_4way": {
+     "raw": 60,
+     "kappa": 0.9338
+    },
+    "answer_present_binary": {
+     "raw": 60,
+     "kappa": 0.9338,
+     "gold_yes": 37,
+     "qwen_yes": 35
+    },
+    "answer_date_exact": {
+     "raw": 56,
+     "kappa": 0.8669
+    },
+    "answer_date_lenient": {
+     "raw": 56
+    },
+    "dates_where_both_give_one": {
+     "n": 29,
+     "exact": 25,
+     "lenient": 25
+    }
+   },
+   "per_body": {
+    "1061": {
+     "n": 4,
+     "answer_present_4way": {
+      "raw": 4,
+      "kappa": 1.0
+     },
+     "answer_present_binary": {
+      "raw": 4,
+      "kappa": 1.0,
+      "gold_yes": 0,
+      "qwen_yes": 0
+     },
+     "answer_date_exact": {
+      "raw": 4,
+      "kappa": 1.0
+     },
+     "answer_date_lenient": {
+      "raw": 4
+     },
+     "dates_where_both_give_one": {
+      "n": 0,
+      "exact": 0,
+      "lenient": 0
+     }
+    },
+    "2196": {
+     "n": 3,
+     "answer_present_4way": {
+      "raw": 3,
+      "kappa": 1.0
+     },
+     "answer_present_binary": {
+      "raw": 3,
+      "kappa": 1.0,
+      "gold_yes": 3,
+      "qwen_yes": 3
+     },
+     "answer_date_exact": {
+      "raw": 2,
+      "kappa": 0.0
+     },
+     "answer_date_lenient": {
+      "raw": 2
+     },
+     "dates_where_both_give_one": {
+      "n": 0,
+      "exact": 0,
+      "lenient": 0
+     }
+    },
+    "247": {
+     "n": 3,
+     "answer_present_4way": {
+      "raw": 3,
+      "kappa": 1.0
+     },
+     "answer_present_binary": {
+      "raw": 3,
+      "kappa": 1.0,
+      "gold_yes": 2,
+      "qwen_yes": 2
+     },
+     "answer_date_exact": {
+      "raw": 2,
+      "kappa": 0.5
+     },
+     "answer_date_lenient": {
+      "raw": 2
+     },
+     "dates_where_both_give_one": {
+      "n": 1,
+      "exact": 1,
+      "lenient": 1
+     }
+    },
+    "5002": {
+     "n": 6,
+     "answer_present_4way": {
+      "raw": 5,
+      "kappa": 0.0
+     },
+     "answer_present_binary": {
+      "raw": 5,
+      "kappa": 0.0,
+      "gold_yes": 6,
+      "qwen_yes": 5
+     },
+     "answer_date_exact": {
+      "raw": 6,
+      "kappa": 1.0
+     },
+     "answer_date_lenient": {
+      "raw": 6
+     },
+     "dates_where_both_give_one": {
+      "n": 5,
+      "exact": 5,
+      "lenient": 5
+     }
+    },
+    "62": {
+     "n": 3,
+     "answer_present_4way": {
+      "raw": 3,
+      "kappa": 1.0
+     },
+     "answer_present_binary": {
+      "raw": 3,
+      "kappa": 1.0,
+      "gold_yes": 0,
+      "qwen_yes": 0
+     },
+     "answer_date_exact": {
+      "raw": 3,
+      "kappa": 1.0
+     },
+     "answer_date_lenient": {
+      "raw": 3
+     },
+     "dates_where_both_give_one": {
+      "n": 0,
+      "exact": 0,
+      "lenient": 0
+     }
+    },
+    "6266": {
+     "n": 6,
+     "answer_present_4way": {
+      "raw": 5,
+      "kappa": 0.6667
+     },
+     "answer_present_binary": {
+      "raw": 5,
+      "kappa": 0.6667,
+      "gold_yes": 3,
+      "qwen_yes": 2
+     },
+     "answer_date_exact": {
+      "raw": 6,
+      "kappa": 1.0
+     },
+     "answer_date_lenient": {
+      "raw": 6
+     },
+     "dates_where_both_give_one": {
+      "n": 0,
+      "exact": 0,
+      "lenient": 0
+     }
+    },
+    "6421": {
+     "n": 3,
+     "answer_present_4way": {
+      "raw": 3,
+      "kappa": 1.0
+     },
+     "answer_present_binary": {
+      "raw": 3,
+      "kappa": 1.0,
+      "gold_yes": 0,
+      "qwen_yes": 0
+     },
+     "answer_date_exact": {
+      "raw": 3,
+      "kappa": 1.0
+     },
+     "answer_date_lenient": {
+      "raw": 3
+     },
+     "dates_where_both_give_one": {
+      "n": 0,
+      "exact": 0,
+      "lenient": 0
+     }
+    },
+    "6643": {
+     "n": 3,
+     "answer_present_4way": {
+      "raw": 3,
+      "kappa": 1.0
+     },
+     "answer_present_binary": {
+      "raw": 3,
+      "kappa": 1.0,
+      "gold_yes": 3,
+      "qwen_yes": 3
+     },
+     "answer_date_exact": {
+      "raw": 2,
+      "kappa": 0.5714
+     },
+     "answer_date_lenient": {
+      "raw": 2
+     },
+     "dates_where_both_give_one": {
+      "n": 3,
+      "exact": 2,
+      "lenient": 2
+     }
+    },
+    "AR": {
+     "n": 3,
+     "answer_present_4way": {
+      "raw": 3,
+      "kappa": 1.0
+     },
+     "answer_present_binary": {
+      "raw": 3,
+      "kappa": 1.0,
+      "gold_yes": 0,
+      "qwen_yes": 0
+     },
+     "answer_date_exact": {
+      "raw": 3,
+      "kappa": 1.0
+     },
+     "answer_date_lenient": {
+      "raw": 3
+     },
+     "dates_where_both_give_one": {
+      "n": 0,
+      "exact": 0,
+      "lenient": 0
+     }
+    },
+    "GL": {
+     "n": 3,
+     "answer_present_4way": {
+      "raw": 3,
+      "kappa": 1.0
+     },
+     "answer_present_binary": {
+      "raw": 3,
+      "kappa": 1.0,
+      "gold_yes": 0,
+      "qwen_yes": 0
+     },
+     "answer_date_exact": {
+      "raw": 3,
+      "kappa": 1.0
+     },
+     "answer_date_lenient": {
+      "raw": 3
+     },
+     "dates_where_both_give_one": {
+      "n": 0,
+      "exact": 0,
+      "lenient": 0
+     }
+    },
+    "NW": {
+     "n": 8,
+     "answer_present_4way": {
+      "raw": 8,
+      "kappa": 1.0
+     },
+     "answer_present_binary": {
+      "raw": 8,
+      "kappa": 1.0,
+      "gold_yes": 6,
+      "qwen_yes": 6
+     },
+     "answer_date_exact": {
+      "raw": 6,
+      "kappa": 0.7143
+     },
+     "answer_date_lenient": {
+      "raw": 6
+     },
+     "dates_where_both_give_one": {
+      "n": 6,
+      "exact": 4,
+      "lenient": 4
+     }
+    },
+    "OW": {
+     "n": 4,
+     "answer_present_4way": {
+      "raw": 4,
+      "kappa": 1.0
+     },
+     "answer_present_binary": {
+      "raw": 4,
+      "kappa": 1.0,
+      "gold_yes": 4,
+      "qwen_yes": 4
+     },
+     "answer_date_exact": {
+      "raw": 3,
+      "kappa": 0.6923
+     },
+     "answer_date_lenient": {
+      "raw": 3
+     },
+     "dates_where_both_give_one": {
+      "n": 4,
+      "exact": 3,
+      "lenient": 3
+     }
+    },
+    "SH": {
+     "n": 3,
+     "answer_present_4way": {
+      "raw": 3,
+      "kappa": 1.0
+     },
+     "answer_present_binary": {
+      "raw": 3,
+      "kappa": 1.0,
+      "gold_yes": 0,
+      "qwen_yes": 0
+     },
+     "answer_date_exact": {
+      "raw": 3,
+      "kappa": 1.0
+     },
+     "answer_date_lenient": {
+      "raw": 3
+     },
+     "dates_where_both_give_one": {
+      "n": 0,
+      "exact": 0,
+      "lenient": 0
+     }
+    },
+    "SZ": {
+     "n": 2,
+     "answer_present_4way": {
+      "raw": 2,
+      "kappa": 1.0
+     },
+     "answer_present_binary": {
+      "raw": 2,
+      "kappa": 1.0,
+      "gold_yes": 2,
+      "qwen_yes": 2
+     },
+     "answer_date_exact": {
+      "raw": 2,
+      "kappa": 1.0
+     },
+     "answer_date_lenient": {
+      "raw": 2
+     },
+     "dates_where_both_give_one": {
+      "n": 2,
+      "exact": 2,
+      "lenient": 2
+     }
+    },
+    "VD": {
+     "n": 8,
+     "answer_present_4way": {
+      "raw": 8,
+      "kappa": 1.0
+     },
+     "answer_present_binary": {
+      "raw": 8,
+      "kappa": 1.0,
+      "gold_yes": 8,
+      "qwen_yes": 8
+     },
+     "answer_date_exact": {
+      "raw": 8,
+      "kappa": 1.0
+     },
+     "answer_date_lenient": {
+      "raw": 8
+     },
+     "dates_where_both_give_one": {
+      "n": 8,
+      "exact": 8,
+      "lenient": 8
+     }
+    }
+   },
+   "qwen_unverified_dates": [],
+   "qwen_unparseable": [],
+   "disagreements": [
+    {
+     "doc_id": 121366,
+     "kind": "date",
+     "cell": "de_commune",
+     "body": "247",
+     "dtype": "intervention",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": null,
+     "gold_lenient": [],
+     "qwen_date": "2002-01-10",
+     "qwen_date_used": "2002-01-10",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A3",
+     "gold_quote": null,
+     "qwen_quote": "mit Verfügung vom 10. Januar 2002",
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 243169,
+     "kind": "presence",
+     "cell": "it_commune",
+     "body": "5002",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "no",
+     "gold_date": null,
+     "gold_lenient": [],
+     "qwen_date": null,
+     "qwen_date_used": null,
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": null,
+     "qwen_quote": null,
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 431569,
+     "kind": "date",
+     "cell": "de_canton",
+     "body": "OW",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2013-05-06",
+     "gold_lenient": [
+      "2013-05-08"
+     ],
+     "qwen_date": "2013-04-22",
+     "qwen_date_used": "2013-04-22",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": "6. Mai 2013",
+     "qwen_quote": "Der Regierungsrat hat mit Beschluss vom 22. April 2013 die angepassten Richtlinien über das Bauen ausserhalb der Bauzonen erlassen",
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 460472,
+     "kind": "date",
+     "cell": "de_canton",
+     "body": "NW",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2013-07-09",
+     "gold_lenient": [],
+     "qwen_date": "2013-02-19",
+     "qwen_date_used": "2013-02-19",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A3",
+     "gold_quote": "Stans, 9. Juli 2013",
+     "qwen_quote": "Der Regierungsrat hat mit dem Regierungsratsbeschluss Nr. 90 vom 19. Februar 2013 den Entwurf des Personalgesetzes (NG 165.1) in die Vernehmlassung geschickt.",
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 460874,
+     "kind": "date",
+     "cell": "de_canton",
+     "body": "NW",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2013-10-22",
+     "gold_lenient": [],
+     "qwen_date": "2013-10-23",
+     "qwen_date_used": "2013-10-23",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": "Stans, 22. Oktober 2013",
+     "qwen_quote": "Der Regierungsrat nimmt zu den Fragen an der Landratssitzung vom 23. Oktober 2013 wie folgt Stellung:",
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 868121,
+     "kind": "presence",
+     "cell": "fr_commune",
+     "body": "6266",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "no",
+     "gold_date": null,
+     "gold_lenient": [],
+     "qwen_date": null,
+     "qwen_date_used": null,
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": null,
+     "qwen_quote": null,
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 869638,
+     "kind": "date",
+     "cell": "fr_commune",
+     "body": "2196",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": null,
+     "gold_lenient": [],
+     "qwen_date": "2022-04-05",
+     "qwen_date_used": "2022-04-05",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A1=A2",
+     "gold_quote": null,
+     "qwen_quote": "En séance du 5 avril 2022, le Conseil général transmettait au Conseil communal le postulat n° 46",
+     "opd_written_answer_dates": []
+    },
+    {
+     "doc_id": 895511,
+     "kind": "date",
+     "cell": "fr_commune",
+     "body": "6643",
+     "dtype": "answer",
+     "gold_present": "yes",
+     "qwen_present": "yes",
+     "gold_date": "2017-01-30",
+     "gold_lenient": [],
+     "qwen_date": "2017-01-25",
+     "qwen_date_used": "2017-01-25",
+     "qwen_verified": true,
+     "qwen_in_gold_lenient": false,
+     "gold_labeller": "claude-agents:A3",
+     "gold_quote": "Vernier, le 30 janvier 2017",
+     "qwen_quote": "a répondu en date du 25 janvier 2017",
+     "opd_written_answer_dates": [
+      "2016-11-09",
+      "2017-01-30",
+      "2023-05-08"
+     ]
+    }
+   ]
+  },
+  "sensitivity": {
+   "committed_gold": {
+    "n": 62,
+    "n_gold_value": 29,
+    "H2_pointer_only": 22,
+    "H2_rules_only": 0,
+    "H2_p": 4.76837158203125e-07,
+    "pointer_exact": [
+     53,
+     62
+    ],
+    "rules_exact": [
+     35,
+     62
+    ],
+    "cascade_exact": [
+     51,
+     62
+    ],
+    "H3_cascade_values_on_null": [
+     4,
+     33
+    ]
+   },
+   "a_subset_where_qwen_agrees": {
+    "n": 56,
+    "n_gold_value": 25,
+    "H2_pointer_only": 21,
+    "H2_rules_only": 0,
+    "H2_p": 9.5367431640625e-07,
+    "pointer_exact": [
+     51,
+     56
+    ],
+    "rules_exact": [
+     33,
+     56
+    ],
+    "cascade_exact": [
+     50,
+     56
+    ],
+    "H3_cascade_values_on_null": [
+     3,
+     31
+    ]
+   },
+   "b_gold_replaced_by_qwen_where_they_differ": {
+    "n": 62,
+    "n_gold_value": 31,
+    "H2_pointer_only": 23,
+    "H2_rules_only": 1,
+    "H2_p": 2.9802322387695312e-06,
+    "pointer_exact": [
+     53,
+     62
+    ],
+    "rules_exact": [
+     34,
+     62
+    ],
+    "cascade_exact": [
+     53,
+     62
+    ],
+    "H3_cascade_values_on_null": [
+     3,
+     31
+    ]
+   }
+  },
+  "agreement_all_qwen_dates": {
+   "n": 62,
+   "answer_present_4way": {
+    "raw": 60,
+    "kappa": 0.9338
+   },
+   "answer_present_binary": {
+    "raw": 60,
+    "kappa": 0.9338,
+    "gold_yes": 37,
+    "qwen_yes": 35
+   },
+   "answer_date_exact": {
+    "raw": 56,
+    "kappa": 0.8669
+   },
+   "answer_date_lenient": {
+    "raw": 56
+   },
+   "dates_where_both_give_one": {
+    "n": 29,
+    "exact": 25,
+    "lenient": 25
+   }
+  },
+  "sensitivity_all_qwen_dates": {
+   "committed_gold": {
+    "n": 62,
+    "n_gold_value": 29,
+    "H2_pointer_only": 22,
+    "H2_rules_only": 0,
+    "H2_p": 4.76837158203125e-07,
+    "pointer_exact": [
+     53,
+     62
+    ],
+    "rules_exact": [
+     35,
+     62
+    ],
+    "cascade_exact": [
+     51,
+     62
+    ],
+    "H3_cascade_values_on_null": [
+     4,
+     33
+    ]
+   },
+   "a_subset_where_qwen_agrees": {
+    "n": 56,
+    "n_gold_value": 25,
+    "H2_pointer_only": 21,
+    "H2_rules_only": 0,
+    "H2_p": 9.5367431640625e-07,
+    "pointer_exact": [
+     51,
+     56
+    ],
+    "rules_exact": [
+     33,
+     56
+    ],
+    "cascade_exact": [
+     50,
+     56
+    ],
+    "H3_cascade_values_on_null": [
+     3,
+     31
+    ]
+   },
+   "b_gold_replaced_by_qwen_where_they_differ": {
+    "n": 62,
+    "n_gold_value": 31,
+    "H2_pointer_only": 23,
+    "H2_rules_only": 1,
+    "H2_p": 2.9802322387695312e-06,
+    "pointer_exact": [
+     53,
+     62
+    ],
+    "rules_exact": [
+     34,
+     62
+    ],
+    "cascade_exact": [
+     53,
+     62
+    ],
+    "H3_cascade_values_on_null": [
+     3,
+     31
+    ]
+   }
+  }
+ },
+ "usd_total": 0.1396,
+ "n_calls": 216,
+ "p1_h1_j2_recompute": {
+  "note": "POST HOC (round 5, J2). Same H1 definition as eval/hypotheses.py: cascade values on documents whose gold answer date is null, pooled, Wilson 95% upper bound <= 10% to pass.",
+  "committed_gold": {
+   "k": 7,
+   "n": 90,
+   "upper": 0.15194030595835836,
+   "pass_pooled": false,
+   "doc_ids": [
+    7088,
+    28271,
+    68367,
+    622143,
+    660479,
+    671937,
+    862297
+   ]
+  },
+  "a2_sonnet_labels": {
+   "k": 5,
+   "n": 88,
+   "upper": 0.1262009935427788,
+   "pass_pooled": false,
+   "doc_ids": [
+    7088,
+    68367,
+    622143,
+    660479,
+    671937
+   ]
+  },
+  "a1_opus_labels": {
+   "k": 9,
+   "n": 92,
+   "upper": 0.17556952517254015,
+   "pass_pooled": false,
+   "doc_ids": [
+    7088,
+    28271,
+    68367,
+    166845,
+    273540,
+    622143,
+    660479,
+    671937,
+    862297
+   ]
+  },
+  "qwen_labels": {
+   "k": 11,
+   "n": 94,
+   "upper": 0.1975037518897268,
+   "pass_pooled": false,
+   "doc_ids": [
+    84364,
+    122203,
+    143533,
+    166793,
+    198158,
+    273540,
+    300277,
+    424975,
+    622143,
+    646517,
+    660479
+   ]
+  },
+  "qwen_labels_all_dates": {
+   "k": 6,
+   "n": 89,
+   "upper": 0.139369447982017,
+   "pass_pooled": false,
+   "doc_ids": [
+    122203,
+    166793,
+    273540,
+    622143,
+    646517,
+    660479
+   ]
+  },
+  "committed_gold_without_reports": {
+   "k": 1,
+   "n": 72,
+   "upper": 0.07456780284286987,
+   "pass_pooled": true,
+   "doc_ids": [
+    28271
+   ]
+  },
+  "a2_sonnet_without_reports": {
+   "k": 0,
+   "n": 71,
+   "upper": 0.05132974174790491,
+   "pass_pooled": true,
+   "doc_ids": []
+  },
+  "qwen_without_reports": {
+   "k": 7,
+   "n": 78,
+   "upper": 0.1738491559103026,
+   "pass_pooled": false,
+   "doc_ids": [
+    122203,
+    143533,
+    166793,
+    198158,
+    300277,
+    424975,
+    646517
+   ]
+  },
+  "n_reports": 24,
+  "the_7_committed": [
+   {
+    "doc_id": 7088,
+    "dtype": "report",
+    "gold_labeller": "claude-agents:A3",
+    "a1_date": null,
+    "a2_date": null,
+    "cascade_value": "2014-12-17",
+    "qwen_present": "yes",
+    "qwen_date": "2014-12-17"
+   },
+   {
+    "doc_id": 28271,
+    "dtype": "answer",
+    "gold_labeller": "claude-agents:A3",
+    "a1_date": null,
+    "a2_date": "2022-06-29",
+    "cascade_value": "2022-06-29",
+    "qwen_present": "yes",
+    "qwen_date": "2022-06-29"
+   },
+   {
+    "doc_id": 68367,
+    "dtype": "report",
+    "gold_labeller": "claude-agents:A1=A2",
+    "a1_date": null,
+    "a2_date": null,
+    "cascade_value": "2023-11-15",
+    "qwen_present": "yes",
+    "qwen_date": "2023-11-08"
+   },
+   {
+    "doc_id": 622143,
+    "dtype": "report",
+    "gold_labeller": "claude-agents:A1=A2",
+    "a1_date": null,
+    "a2_date": null,
+    "cascade_value": "2011-03-03",
+    "qwen_present": "no",
+    "qwen_date": null
+   },
+   {
+    "doc_id": 660479,
+    "dtype": "report",
+    "gold_labeller": "claude-agents:A3",
+    "a1_date": null,
+    "a2_date": null,
+    "cascade_value": "2001-06-12",
+    "qwen_present": "no",
+    "qwen_date": null
+   },
+   {
+    "doc_id": 671937,
+    "dtype": "report",
+    "gold_labeller": "claude-agents:A3",
+    "a1_date": null,
+    "a2_date": null,
+    "cascade_value": "2026-01-13",
+    "qwen_present": "yes",
+    "qwen_date": "2026-01-13"
+   },
+   {
+    "doc_id": 862297,
+    "dtype": "report",
+    "gold_labeller": "claude-agents:A3",
+    "a1_date": null,
+    "a2_date": "2026-04-29",
+    "cascade_value": "2026-04-29",
+    "qwen_present": "yes",
+    "qwen_date": "2026-04-29"
+   }
+  ]
+ }
+}

@@ -79,3 +79,24 @@ the date for only 17 of its 32 values. A quote check would pass 3 of its 8 wrong
   the 29 answer dates remain. On the 52: rules 33, pointer 35, cascade 33 exact; the pointer finds 15 of 21 answer dates, dates 11 of 31
   answerless documents and returns no unprinted date. P2-H2 on the 8B rows (registered script, unchanged): 13 vs 0,
   p = 2.4 × 10⁻⁴. The 70B on the same 52: pointer 43, cascade 41 (8B vs 70B: 2 vs 10 documents, p = 0.039 for both).
+
+## D2-7 (10 Oct 2026, POST-HOC, round-5 jury): other-vendor annotator on P2; P2 table with CIs and the ungated baseline
+- **Annotator from another vendor.** Same procedure as `eval/prereg/DEVIATIONS.md` D14 (Qwen-SEA-LION-v4-32B-IT, blind,
+  through the gateway).
+  - Agreement with the gold: answer present 60/62 (κ 0.93); exact answer date 56/62 (κ 0.87); 25/29 where both give a
+    date.
+  - P2-H2: 22 vs 0 committed. On the 56 documents where Qwen agrees with the gold: 21 vs 0. With Qwen's labels where
+    they differ: 23 vs 1.
+  - Pointer exact: 53/62 committed; 51/56 on the agreed documents; 53/62 with Qwen's labels.
+  - `results/eval/posthoc_r5_independent_gold.json`.
+- **Table with CIs** (`python -m eval.posthoc_r5 p2table` → `results/eval2/posthoc_r5_p2_table.json`; Wilson 95%,
+  strict). On all 62 documents, answer dates found:
+  - rules 2/29 [1.9, 22];
+  - pointer 24/29 [65.5, 92.4];
+  - cascade 22/29 [57.9, 87.8];
+  - **latest printed date, ungated: 22/29 [57.9, 87.8]**. This baseline also dates 31/33 answerless documents and
+    is exact on 24/62.
+  - On the 29 answered documents, pointer vs. that baseline is 3 vs 1 (p = 0.63). On the 52 documents the 8B reached,
+    the baseline finds 14/21 (8B pointer 15/21, 70B pointer 16/21; 8B vs. baseline 4 vs 3).
+  - Apertus does not find many more dates than the latest printed date. Its edge is finding them **and** abstaining: on
+    all 62 it beats the type-gated latest date 10 vs 1 (D2-5). That contrast was chosen after the results.
