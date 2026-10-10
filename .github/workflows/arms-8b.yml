@@ -35,7 +35,11 @@ jobs:
         run: python -m gegenprobe.gguf_fast verparity out/gguf_fast_verparity.json
       - run: mkdir -p out
       - run: python -m eval.run_arms fetch --split dev
-      - run: free -m && (/usr/bin/time -v python -m eval.run_arms fit 2>&1 | tee out/fit.log); free -m
+      - run: |
+          set -o pipefail
+          free -m
+          /usr/bin/time -v python -m eval.run_arms fit 2>&1 | tee out/fit.log
+          test -f data/convert/theta/gguf_apertus-v1.5-8b-text-q4_k_m.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -44,6 +48,7 @@ jobs:
             track_2a/out/
             track_2a/data/convert/theta/gguf_apertus-v1.5-8b-text-q4_k_m.json
             track_2a/data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m/
+            track_2a/results/eval/shards/
   shard:
     needs: fit
     runs-on: ubuntu-24.04

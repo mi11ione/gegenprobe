@@ -32,12 +32,48 @@ def _no_spikes() -> None:
 
 
 def fetch(split: str) -> None:
+    """Fetch every PDF, verified against its committed sha256. Short timeout and 2 tries: some hosts never answer CI IPs."""
+    from gegenprobe import net
+    from gegenprobe.paths import PDF_CACHE
+    PDF_CACHE.mkdir(parents=True, exist_ok=True)
     for line in open(DATA / "gold" / f"{split}_docs.jsonl"):
         d = json.loads(line)
+        p = PDF_CACHE / f"{d['sha256']}.pdf"
+        if p.exists():
+            continue
         try:
-            pdftext.fetch_pdf(d["url"], expect_sha256=d["sha256"])
+            with net.open_url(d["url"], timeout=30, tries=2) as r:
+                b = r.read()
+            if pdftext.sha256_bytes(b) != d["sha256"]:
+                raise ValueError("sha256 changed at source")
+            p.write_bytes(b)
         except Exception as e:  # a changed or vanished source is reported, never silently replaced
             print("FETCH-FAIL", d["doc_id"], type(e).__name__, str(e)[:120], flush=True)
+
+
+def _reachable_only() -> None:
+    """Some cantonal/communal PDF hosts time out from CI runner IPs. Documents whose PDF could not be fetched are skipped
+    (listed in results/eval/shards/unreachable_<split>.json) by running the frozen loader on a label file restricted to
+    reachable documents, instead of letting the loader crash on the first missing PDF."""
+    from gegenprobe.paths import PDF_CACHE
+    orig = arms.load_split
+
+    def load(split):
+        docs = {d["doc_id"]: d for d in map(json.loads, open(DATA / "gold" / f"{split}_docs.jsonl"))}
+        miss = sorted(i for i, d in docs.items() if not (PDF_CACHE / f"{d['sha256']}.pdf").exists())
+        SHARDS.mkdir(parents=True, exist_ok=True)
+        (SHARDS / f"unreachable_{split}.json").write_text(json.dumps(miss))
+        tmp = Path(tempfile.mkdtemp())
+        (tmp / "gold").mkdir()
+        (tmp / "gold" / f"{split}_docs.jsonl").write_text((DATA / "gold" / f"{split}_docs.jsonl").read_text())
+        labels = [x for x in open(DATA / "gold" / f"{split}_labels.jsonl") if json.loads(x)["doc_id"] in set(docs) - set(miss)]
+        (tmp / "gold" / f"{split}_labels.jsonl").write_text("".join(labels))
+        arms.DATA = tmp
+        try:
+            return orig(split)
+        finally:
+            arms.DATA = DATA
+    arms.load_split = load
 
 
 def backend():
@@ -47,12 +83,14 @@ def backend():
 
 def fit() -> None:
     _no_spikes()
+    _reachable_only()
     out = arms.fit(backend())
     print(json.dumps(out["answer_date"], indent=1)[:1500])
 
 
 def run(shard: str) -> None:
     i, n = map(int, shard.split("/"))
+    _reachable_only()
     orig = arms.load_split
     arms.load_split = lambda split: orig(split)[i::n]
     be = backend()

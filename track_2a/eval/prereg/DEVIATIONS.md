@@ -38,3 +38,7 @@ decisions (mean |Δ| 2.66 nats), as close as or closer than the spike's Metal bu
   (`gguf_fast verparity`, fixture `tests/fixtures/gguf_ver30.json`, seed 20261010). Rule fixed now: the fast scorer is
   used iff its decision agreement with bf16 ≥ frozen − 1 and its mean |Δ| vs bf16 ≤ frozen + 0.5 nats; otherwise the 8B
   arms are reported as not run.
+- D3 addendum (2026-10-10): GitHub Actions minutes for the then-private repository ran out and its 2-vCPU/8 GB runners
+  were killed by memory pressure; the repository was made public (4 vCPU/16 GB runners). Some cantonal/communal PDF hosts
+  do not answer CI runner IPs; such documents are skipped in the 8B arms and listed in
+  `results/eval/shards/unreachable_{dev,heldout}.json`, so the 8B arms are evaluated on the reachable subset (n reported).
