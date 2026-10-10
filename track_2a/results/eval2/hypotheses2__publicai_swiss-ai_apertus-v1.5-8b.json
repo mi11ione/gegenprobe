@@ -1,0 +1,713 @@
+{
+ "build": "publicai_swiss-ai_apertus-v1.5-8b",
+ "theta_primary": 10.395354058425431,
+ "n": 62,
+ "subsets": {
+  "all": {
+   "theta_10_40": {
+    "n": 62,
+    "n_gold_value": 29,
+    "n_gold_null": 33,
+    "always_null_exact": [
+     33,
+     62
+    ],
+    "arms": {
+     "rules": {
+      "exact": [
+       35,
+       62
+      ],
+      "exact_ci": [
+       0.4409276740746583,
+       0.6805760560898577
+      ],
+      "value_recall": [
+       2,
+       29
+      ],
+      "value_recall_ci": [
+       0.019120864097994433,
+       0.21964947595851925
+      ],
+      "values_on_gold_null": [
+       0,
+       33
+      ],
+      "values_on_gold_null_ci": [
+       0.0,
+       0.10427343003561192
+      ]
+     },
+     "pointer": {
+      "exact": [
+       53,
+       62
+      ],
+      "exact_ci": [
+       0.7465637464683084,
+       0.92170676943653
+      ],
+      "value_recall": [
+       24,
+       29
+      ],
+      "value_recall_ci": [
+       0.6545119942718488,
+       0.9240225472852007
+      ],
+      "values_on_gold_null": [
+       4,
+       33
+      ],
+      "values_on_gold_null_ci": [
+       0.04816083267584231,
+       0.2732584325026516
+      ]
+     },
+     "cascade": {
+      "exact": [
+       51,
+       62
+      ],
+      "exact_ci": [
+       0.7095819851661977,
+       0.8979366656563825
+      ],
+      "value_recall": [
+       22,
+       29
+      ],
+      "value_recall_ci": [
+       0.578920477816713,
+       0.8778173181493787
+      ],
+      "values_on_gold_null": [
+       4,
+       33
+      ],
+      "values_on_gold_null_ci": [
+       0.04816083267584231,
+       0.2732584325026516
+      ]
+     },
+     "naive_plain": {
+      "exact": [
+       45,
+       62
+      ],
+      "exact_ci": [
+       0.6040722415667276,
+       0.8211908140090788
+      ],
+      "value_recall": [
+       21,
+       29
+      ],
+      "value_recall_ci": [
+       0.5428252365556403,
+       0.8530141866149725
+      ],
+      "values_on_gold_null": [
+       9,
+       33
+      ],
+      "values_on_gold_null_ci": [
+       0.15067272656322814,
+       0.44217883254386814
+      ]
+     },
+     "naive_null": {
+      "exact": [
+       52,
+       62
+      ],
+      "exact_ci": [
+       0.7279343069043936,
+       0.9099602764593157
+      ],
+      "value_recall": [
+       22,
+       29
+      ],
+      "value_recall_ci": [
+       0.578920477816713,
+       0.8778173181493787
+      ],
+      "values_on_gold_null": [
+       3,
+       33
+      ],
+      "values_on_gold_null_ci": [
+       0.03140337104926305,
+       0.23572943534351032
+      ]
+     }
+    },
+    "apertus_decided_values": {
+     "n": 28,
+     "correct": 20
+    },
+    "H2_pointer_vs_rules": {
+     "pointer_only": 22,
+     "rules_only": 0,
+     "p": 4.76837158203125e-07,
+     "holds": true
+    },
+    "cascade_vs_rules_on_values": {
+     "cascade_only": 20,
+     "rules_only": 0,
+     "p": 1.9073486328125e-06
+    },
+    "H3_cascade_values_on_null": {
+     "k": 4,
+     "n": 33,
+     "ci": [
+      0.04816083267584231,
+      0.2732584325026516
+     ],
+     "holds": false
+    }
+   },
+   "theta_0": {
+    "n": 62,
+    "n_gold_value": 29,
+    "n_gold_null": 33,
+    "always_null_exact": [
+     33,
+     62
+    ],
+    "arms": {
+     "rules": {
+      "exact": [
+       35,
+       62
+      ],
+      "exact_ci": [
+       0.4409276740746583,
+       0.6805760560898577
+      ],
+      "value_recall": [
+       2,
+       29
+      ],
+      "value_recall_ci": [
+       0.019120864097994433,
+       0.21964947595851925
+      ],
+      "values_on_gold_null": [
+       0,
+       33
+      ],
+      "values_on_gold_null_ci": [
+       0.0,
+       0.10427343003561192
+      ]
+     },
+     "pointer": {
+      "exact": [
+       54,
+       62
+      ],
+      "exact_ci": [
+       0.7655044310309549,
+       0.9331420174150125
+      ],
+      "value_recall": [
+       24,
+       29
+      ],
+      "value_recall_ci": [
+       0.6545119942718488,
+       0.9240225472852007
+      ],
+      "values_on_gold_null": [
+       3,
+       33
+      ],
+      "values_on_gold_null_ci": [
+       0.03140337104926305,
+       0.23572943534351032
+      ]
+     },
+     "cascade": {
+      "exact": [
+       52,
+       62
+      ],
+      "exact_ci": [
+       0.7279343069043936,
+       0.9099602764593157
+      ],
+      "value_recall": [
+       22,
+       29
+      ],
+      "value_recall_ci": [
+       0.578920477816713,
+       0.8778173181493787
+      ],
+      "values_on_gold_null": [
+       3,
+       33
+      ],
+      "values_on_gold_null_ci": [
+       0.03140337104926305,
+       0.23572943534351032
+      ]
+     },
+     "naive_plain": {
+      "exact": [
+       45,
+       62
+      ],
+      "exact_ci": [
+       0.6040722415667276,
+       0.8211908140090788
+      ],
+      "value_recall": [
+       21,
+       29
+      ],
+      "value_recall_ci": [
+       0.5428252365556403,
+       0.8530141866149725
+      ],
+      "values_on_gold_null": [
+       9,
+       33
+      ],
+      "values_on_gold_null_ci": [
+       0.15067272656322814,
+       0.44217883254386814
+      ]
+     },
+     "naive_null": {
+      "exact": [
+       52,
+       62
+      ],
+      "exact_ci": [
+       0.7279343069043936,
+       0.9099602764593157
+      ],
+      "value_recall": [
+       22,
+       29
+      ],
+      "value_recall_ci": [
+       0.578920477816713,
+       0.8778173181493787
+      ],
+      "values_on_gold_null": [
+       3,
+       33
+      ],
+      "values_on_gold_null_ci": [
+       0.03140337104926305,
+       0.23572943534351032
+      ]
+     }
+    },
+    "apertus_decided_values": {
+     "n": 27,
+     "correct": 20
+    },
+    "H2_pointer_vs_rules": {
+     "pointer_only": 22,
+     "rules_only": 0,
+     "p": 4.76837158203125e-07,
+     "holds": true
+    },
+    "cascade_vs_rules_on_values": {
+     "cascade_only": 20,
+     "rules_only": 0,
+     "p": 1.9073486328125e-06
+    },
+    "H3_cascade_values_on_null": {
+     "k": 3,
+     "n": 33,
+     "ci": [
+      0.03140337104926305,
+      0.23572943534351032
+     ],
+     "holds": false
+    }
+   },
+   "H1_rules_value_recall": {
+    "p1": [
+     47,
+     64
+    ],
+    "p2": [
+     2,
+     29
+    ],
+    "diff_ci": [
+     0.47327478841979953,
+     0.7706275873640143
+    ],
+    "confirmed_drop": true
+   },
+   "H4_auroc": {
+    "auroc": 0.9833147942157954,
+    "n_null": 31,
+    "n_value": 29,
+    "holds": true
+   }
+  },
+  "without_bellinzona": {
+   "theta_10_40": {
+    "n": 56,
+    "n_gold_value": 24,
+    "n_gold_null": 32,
+    "always_null_exact": [
+     32,
+     56
+    ],
+    "arms": {
+     "rules": {
+      "exact": [
+       34,
+       56
+      ],
+      "exact_ci": [
+       0.476331653784818,
+       0.7241977438248716
+      ],
+      "value_recall": [
+       2,
+       24
+      ],
+      "value_recall_ci": [
+       0.023158327842973503,
+       0.258492152014506
+      ],
+      "values_on_gold_null": [
+       0,
+       32
+      ],
+      "values_on_gold_null_ci": [
+       0.0,
+       0.1071827150573635
+      ]
+     },
+     "pointer": {
+      "exact": [
+       47,
+       56
+      ],
+      "exact_ci": [
+       0.7219354555032431,
+       0.9130743035941074
+      ],
+      "value_recall": [
+       19,
+       24
+      ],
+      "value_recall_ci": [
+       0.5952915551476452,
+       0.9075531089521192
+      ],
+      "values_on_gold_null": [
+       4,
+       32
+      ],
+      "values_on_gold_null_ci": [
+       0.04970053844474301,
+       0.2806864978482796
+      ]
+     },
+     "cascade": {
+      "exact": [
+       45,
+       56
+      ],
+      "exact_ci": [
+       0.6815514267252283,
+       0.8866151998355589
+      ],
+      "value_recall": [
+       17,
+       24
+      ],
+      "value_recall_ci": [
+       0.508319363412903,
+       0.8508553966583573
+      ],
+      "values_on_gold_null": [
+       4,
+       32
+      ],
+      "values_on_gold_null_ci": [
+       0.04970053844474301,
+       0.2806864978482796
+      ]
+     },
+     "naive_plain": {
+      "exact": [
+       39,
+       56
+      ],
+      "exact_ci": [
+       0.5666388751588567,
+       0.8009983537922407
+      ],
+      "value_recall": [
+       16,
+       24
+      ],
+      "value_recall_ci": [
+       0.4670595949408046,
+       0.8202802131162036
+      ],
+      "values_on_gold_null": [
+       9,
+       32
+      ],
+      "values_on_gold_null_ci": [
+       0.15564406845647866,
+       0.4537483693811179
+      ]
+     },
+     "naive_null": {
+      "exact": [
+       46,
+       56
+      ],
+      "exact_ci": [
+       0.7015856902425105,
+       0.9000025025865582
+      ],
+      "value_recall": [
+       17,
+       24
+      ],
+      "value_recall_ci": [
+       0.508319363412903,
+       0.8508553966583573
+      ],
+      "values_on_gold_null": [
+       3,
+       32
+      ],
+      "values_on_gold_null_ci": [
+       0.032400962626319516,
+       0.24218499335778831
+      ]
+     }
+    },
+    "apertus_decided_values": {
+     "n": 23,
+     "correct": 15
+    },
+    "H2_pointer_vs_rules": {
+     "pointer_only": 17,
+     "rules_only": 0,
+     "p": 1.52587890625e-05,
+     "holds": true
+    },
+    "cascade_vs_rules_on_values": {
+     "cascade_only": 15,
+     "rules_only": 0,
+     "p": 6.103515625e-05
+    },
+    "H3_cascade_values_on_null": {
+     "k": 4,
+     "n": 32,
+     "ci": [
+      0.04970053844474301,
+      0.2806864978482796
+     ],
+     "holds": false
+    }
+   },
+   "theta_0": {
+    "n": 56,
+    "n_gold_value": 24,
+    "n_gold_null": 32,
+    "always_null_exact": [
+     32,
+     56
+    ],
+    "arms": {
+     "rules": {
+      "exact": [
+       34,
+       56
+      ],
+      "exact_ci": [
+       0.476331653784818,
+       0.7241977438248716
+      ],
+      "value_recall": [
+       2,
+       24
+      ],
+      "value_recall_ci": [
+       0.023158327842973503,
+       0.258492152014506
+      ],
+      "values_on_gold_null": [
+       0,
+       32
+      ],
+      "values_on_gold_null_ci": [
+       0.0,
+       0.1071827150573635
+      ]
+     },
+     "pointer": {
+      "exact": [
+       48,
+       56
+      ],
+      "exact_ci": [
+       0.7426383257914846,
+       0.9257929995741472
+      ],
+      "value_recall": [
+       19,
+       24
+      ],
+      "value_recall_ci": [
+       0.5952915551476452,
+       0.9075531089521192
+      ],
+      "values_on_gold_null": [
+       3,
+       32
+      ],
+      "values_on_gold_null_ci": [
+       0.032400962626319516,
+       0.24218499335778831
+      ]
+     },
+     "cascade": {
+      "exact": [
+       46,
+       56
+      ],
+      "exact_ci": [
+       0.7015856902425105,
+       0.9000025025865582
+      ],
+      "value_recall": [
+       17,
+       24
+      ],
+      "value_recall_ci": [
+       0.508319363412903,
+       0.8508553966583573
+      ],
+      "values_on_gold_null": [
+       3,
+       32
+      ],
+      "values_on_gold_null_ci": [
+       0.032400962626319516,
+       0.24218499335778831
+      ]
+     },
+     "naive_plain": {
+      "exact": [
+       39,
+       56
+      ],
+      "exact_ci": [
+       0.5666388751588567,
+       0.8009983537922407
+      ],
+      "value_recall": [
+       16,
+       24
+      ],
+      "value_recall_ci": [
+       0.4670595949408046,
+       0.8202802131162036
+      ],
+      "values_on_gold_null": [
+       9,
+       32
+      ],
+      "values_on_gold_null_ci": [
+       0.15564406845647866,
+       0.4537483693811179
+      ]
+     },
+     "naive_null": {
+      "exact": [
+       46,
+       56
+      ],
+      "exact_ci": [
+       0.7015856902425105,
+       0.9000025025865582
+      ],
+      "value_recall": [
+       17,
+       24
+      ],
+      "value_recall_ci": [
+       0.508319363412903,
+       0.8508553966583573
+      ],
+      "values_on_gold_null": [
+       3,
+       32
+      ],
+      "values_on_gold_null_ci": [
+       0.032400962626319516,
+       0.24218499335778831
+      ]
+     }
+    },
+    "apertus_decided_values": {
+     "n": 22,
+     "correct": 15
+    },
+    "H2_pointer_vs_rules": {
+     "pointer_only": 17,
+     "rules_only": 0,
+     "p": 1.52587890625e-05,
+     "holds": true
+    },
+    "cascade_vs_rules_on_values": {
+     "cascade_only": 15,
+     "rules_only": 0,
+     "p": 6.103515625e-05
+    },
+    "H3_cascade_values_on_null": {
+     "k": 3,
+     "n": 32,
+     "ci": [
+      0.032400962626319516,
+      0.24218499335778831
+     ],
+     "holds": false
+    }
+   },
+   "H1_rules_value_recall": {
+    "p1": [
+     47,
+     64
+    ],
+    "p2": [
+     2,
+     24
+    ],
+    "diff_ci": [
+     0.43916741831215933,
+     0.761528730957162
+    ],
+    "confirmed_drop": true
+   },
+   "H4_auroc": {
+    "auroc": 0.9791666666666666,
+    "n_null": 30,
+    "n_value": 24,
+    "holds": true
+   }
+  }
+ }
+}

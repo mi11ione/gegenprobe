@@ -1,0 +1,4401 @@
+{
+ "split": "p2",
+ "build": "publicai:swiss-ai/apertus-v1.5-8b",
+ "theta": 10.395354058425431,
+ "n_docs": 62,
+ "served_fingerprints": [],
+ "arms": {
+  "rules": {
+   "strict": {
+    "ALL": {
+     "n": 62,
+     "correct": 2,
+     "correct_null": 33,
+     "false_null": 25,
+     "misattributed": 2,
+     "fabricated": 0,
+     "exact": 35,
+     "exact_rate": 0.5645161290322581,
+     "exact_ci": [
+      0.4409276740746583,
+      0.6805760560898577
+     ],
+     "invented": 2,
+     "invented_ci": [
+      0.008891184997076397,
+      0.11020677131018222
+     ],
+     "n_gold_null": 33,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.10427343003561192
+     ],
+     "n_gold_value": 29,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "de_canton": {
+     "n": 23,
+     "correct": 0,
+     "correct_null": 11,
+     "false_null": 10,
+     "misattributed": 2,
+     "fabricated": 0,
+     "exact": 11,
+     "exact_rate": 0.4782608695652174,
+     "exact_ci": [
+      0.2923686953994572,
+      0.6703757013578151
+     ],
+     "invented": 2,
+     "invented_ci": [
+      0.02417949540723341,
+      0.2679640429809402
+     ],
+     "n_gold_null": 11,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      2.7755575615628914e-17,
+      0.2588400172488141
+     ],
+     "n_gold_value": 12,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "de_commune": {
+     "n": 10,
+     "correct": 0,
+     "correct_null": 9,
+     "false_null": 1,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 9,
+     "exact_rate": 0.9,
+     "exact_ci": [
+      0.5958436145024278,
+      0.9821242504842788
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.2775401687666166
+     ],
+     "n_gold_null": 9,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2991527535509594
+     ],
+     "n_gold_value": 1,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "fr_canton": {
+     "n": 8,
+     "correct": 0,
+     "correct_null": 0,
+     "false_null": 8,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 0,
+     "exact_rate": 0.0,
+     "exact_ci": [
+      0.0,
+      0.3244156195108769
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3244156195108769
+     ],
+     "n_gold_null": 0,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      1.0
+     ],
+     "n_gold_value": 8,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "fr_commune": {
+     "n": 15,
+     "correct": 2,
+     "correct_null": 12,
+     "false_null": 1,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 14,
+     "exact_rate": 0.9333333333333333,
+     "exact_ci": [
+      0.7018292244757601,
+      0.9881334113938051
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.20388926630434784
+     ],
+     "n_gold_null": 12,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2425007574992425
+     ],
+     "n_gold_value": 3,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "it_commune": {
+     "n": 6,
+     "correct": 0,
+     "correct_null": 1,
+     "false_null": 5,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 1,
+     "exact_rate": 0.16666666666666666,
+     "exact_ci": [
+      0.03005258587173032,
+      0.563509436563646
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3903430336530645
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "n_gold_value": 5,
+     "model_decided": 0,
+     "model_share": 0.0
+    }
+   },
+   "lenient": {
+    "ALL": {
+     "n": 62,
+     "correct": 2,
+     "correct_null": 33,
+     "false_null": 25,
+     "misattributed": 2,
+     "fabricated": 0,
+     "exact": 35,
+     "exact_rate": 0.5645161290322581,
+     "exact_ci": [
+      0.4409276740746583,
+      0.6805760560898577
+     ],
+     "invented": 2,
+     "invented_ci": [
+      0.008891184997076397,
+      0.11020677131018222
+     ],
+     "n_gold_null": 33,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.10427343003561192
+     ],
+     "n_gold_value": 29,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "de_canton": {
+     "n": 23,
+     "correct": 0,
+     "correct_null": 11,
+     "false_null": 10,
+     "misattributed": 2,
+     "fabricated": 0,
+     "exact": 11,
+     "exact_rate": 0.4782608695652174,
+     "exact_ci": [
+      0.2923686953994572,
+      0.6703757013578151
+     ],
+     "invented": 2,
+     "invented_ci": [
+      0.02417949540723341,
+      0.2679640429809402
+     ],
+     "n_gold_null": 11,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      2.7755575615628914e-17,
+      0.2588400172488141
+     ],
+     "n_gold_value": 12,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "de_commune": {
+     "n": 10,
+     "correct": 0,
+     "correct_null": 9,
+     "false_null": 1,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 9,
+     "exact_rate": 0.9,
+     "exact_ci": [
+      0.5958436145024278,
+      0.9821242504842788
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.2775401687666166
+     ],
+     "n_gold_null": 9,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2991527535509594
+     ],
+     "n_gold_value": 1,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "fr_canton": {
+     "n": 8,
+     "correct": 0,
+     "correct_null": 0,
+     "false_null": 8,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 0,
+     "exact_rate": 0.0,
+     "exact_ci": [
+      0.0,
+      0.3244156195108769
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3244156195108769
+     ],
+     "n_gold_null": 0,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      1.0
+     ],
+     "n_gold_value": 8,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "fr_commune": {
+     "n": 15,
+     "correct": 2,
+     "correct_null": 12,
+     "false_null": 1,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 14,
+     "exact_rate": 0.9333333333333333,
+     "exact_ci": [
+      0.7018292244757601,
+      0.9881334113938051
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.20388926630434784
+     ],
+     "n_gold_null": 12,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2425007574992425
+     ],
+     "n_gold_value": 3,
+     "model_decided": 0,
+     "model_share": 0.0
+    },
+    "it_commune": {
+     "n": 6,
+     "correct": 0,
+     "correct_null": 1,
+     "false_null": 5,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 1,
+     "exact_rate": 0.16666666666666666,
+     "exact_ci": [
+      0.03005258587173032,
+      0.563509436563646
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3903430336530645
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "n_gold_value": 5,
+     "model_decided": 0,
+     "model_share": 0.0
+    }
+   }
+  },
+  "pointer": {
+   "strict": {
+    "ALL": {
+     "n": 62,
+     "correct": 24,
+     "correct_null": 29,
+     "false_null": 1,
+     "misattributed": 8,
+     "fabricated": 0,
+     "exact": 53,
+     "exact_rate": 0.8548387096774194,
+     "exact_ci": [
+      0.7465637464683084,
+      0.92170676943653
+     ],
+     "invented": 8,
+     "invented_ci": [
+      0.06685798258498754,
+      0.23449556896904517
+     ],
+     "n_gold_null": 33,
+     "invented_on_null": 4,
+     "invented_on_null_ci": [
+      0.04816083267584231,
+      0.2732584325026516
+     ],
+     "n_gold_value": 29,
+     "model_decided": 62,
+     "model_share": 1.0
+    },
+    "de_canton": {
+     "n": 23,
+     "correct": 8,
+     "correct_null": 11,
+     "false_null": 0,
+     "misattributed": 4,
+     "fabricated": 0,
+     "exact": 19,
+     "exact_rate": 0.8260869565217391,
+     "exact_ci": [
+      0.6286194521470433,
+      0.9302145964938723
+     ],
+     "invented": 4,
+     "invented_ci": [
+      0.06978540350612772,
+      0.37138054785295666
+     ],
+     "n_gold_null": 11,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      2.7755575615628914e-17,
+      0.2588400172488141
+     ],
+     "n_gold_value": 12,
+     "model_decided": 23,
+     "model_share": 1.0
+    },
+    "de_commune": {
+     "n": 10,
+     "correct": 1,
+     "correct_null": 9,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 10,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.7224598312333834,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.2775401687666166
+     ],
+     "n_gold_null": 9,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2991527535509594
+     ],
+     "n_gold_value": 1,
+     "model_decided": 10,
+     "model_share": 1.0
+    },
+    "fr_canton": {
+     "n": 8,
+     "correct": 8,
+     "correct_null": 0,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 8,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6755843804891231,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3244156195108769
+     ],
+     "n_gold_null": 0,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      1.0
+     ],
+     "n_gold_value": 8,
+     "model_decided": 8,
+     "model_share": 1.0
+    },
+    "fr_commune": {
+     "n": 15,
+     "correct": 2,
+     "correct_null": 8,
+     "false_null": 1,
+     "misattributed": 4,
+     "fabricated": 0,
+     "exact": 10,
+     "exact_rate": 0.6666666666666666,
+     "exact_ci": [
+      0.41713125151212976,
+      0.8482389930530876
+     ],
+     "invented": 4,
+     "invented_ci": [
+      0.1089727610318281,
+      0.5195088965768675
+     ],
+     "n_gold_null": 12,
+     "invented_on_null": 4,
+     "invented_on_null_ci": [
+      0.13811783989736134,
+      0.609382412602386
+     ],
+     "n_gold_value": 3,
+     "model_decided": 15,
+     "model_share": 1.0
+    },
+    "it_commune": {
+     "n": 6,
+     "correct": 5,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 6,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6096569663469354,
+      0.9999999999999999
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3903430336530645
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "n_gold_value": 5,
+     "model_decided": 6,
+     "model_share": 1.0
+    }
+   },
+   "lenient": {
+    "ALL": {
+     "n": 62,
+     "correct": 27,
+     "correct_null": 29,
+     "false_null": 1,
+     "misattributed": 5,
+     "fabricated": 0,
+     "exact": 56,
+     "exact_rate": 0.9032258064516129,
+     "exact_ci": [
+      0.8045095713255586,
+      0.9548887422026668
+     ],
+     "invented": 5,
+     "invented_ci": [
+      0.034937831855833754,
+      0.17528792207481192
+     ],
+     "n_gold_null": 33,
+     "invented_on_null": 4,
+     "invented_on_null_ci": [
+      0.04816083267584231,
+      0.2732584325026516
+     ],
+     "n_gold_value": 29,
+     "model_decided": 62,
+     "model_share": 1.0
+    },
+    "de_canton": {
+     "n": 23,
+     "correct": 11,
+     "correct_null": 11,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 22,
+     "exact_rate": 0.9565217391304348,
+     "exact_ci": [
+      0.7900841350594088,
+      0.9922835330378734
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.0077164669621267445,
+      0.20991586494059142
+     ],
+     "n_gold_null": 11,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      2.7755575615628914e-17,
+      0.2588400172488141
+     ],
+     "n_gold_value": 12,
+     "model_decided": 23,
+     "model_share": 1.0
+    },
+    "de_commune": {
+     "n": 10,
+     "correct": 1,
+     "correct_null": 9,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 10,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.7224598312333834,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.2775401687666166
+     ],
+     "n_gold_null": 9,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2991527535509594
+     ],
+     "n_gold_value": 1,
+     "model_decided": 10,
+     "model_share": 1.0
+    },
+    "fr_canton": {
+     "n": 8,
+     "correct": 8,
+     "correct_null": 0,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 8,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6755843804891231,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3244156195108769
+     ],
+     "n_gold_null": 0,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      1.0
+     ],
+     "n_gold_value": 8,
+     "model_decided": 8,
+     "model_share": 1.0
+    },
+    "fr_commune": {
+     "n": 15,
+     "correct": 2,
+     "correct_null": 8,
+     "false_null": 1,
+     "misattributed": 4,
+     "fabricated": 0,
+     "exact": 10,
+     "exact_rate": 0.6666666666666666,
+     "exact_ci": [
+      0.41713125151212976,
+      0.8482389930530876
+     ],
+     "invented": 4,
+     "invented_ci": [
+      0.1089727610318281,
+      0.5195088965768675
+     ],
+     "n_gold_null": 12,
+     "invented_on_null": 4,
+     "invented_on_null_ci": [
+      0.13811783989736134,
+      0.609382412602386
+     ],
+     "n_gold_value": 3,
+     "model_decided": 15,
+     "model_share": 1.0
+    },
+    "it_commune": {
+     "n": 6,
+     "correct": 5,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 6,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6096569663469354,
+      0.9999999999999999
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3903430336530645
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "n_gold_value": 5,
+     "model_decided": 6,
+     "model_share": 1.0
+    }
+   }
+  },
+  "cascade": {
+   "strict": {
+    "ALL": {
+     "n": 62,
+     "correct": 22,
+     "correct_null": 29,
+     "false_null": 1,
+     "misattributed": 10,
+     "fabricated": 0,
+     "exact": 51,
+     "exact_rate": 0.8225806451612904,
+     "exact_ci": [
+      0.7095819851661977,
+      0.8979366656563825
+     ],
+     "invented": 10,
+     "invented_ci": [
+      0.09003972354068436,
+      0.2720656930956064
+     ],
+     "n_gold_null": 33,
+     "invented_on_null": 4,
+     "invented_on_null_ci": [
+      0.04816083267584231,
+      0.2732584325026516
+     ],
+     "n_gold_value": 29,
+     "model_decided": 56,
+     "model_share": 0.9032258064516129
+    },
+    "de_canton": {
+     "n": 23,
+     "correct": 6,
+     "correct_null": 11,
+     "false_null": 0,
+     "misattributed": 6,
+     "fabricated": 0,
+     "exact": 17,
+     "exact_rate": 0.7391304347826086,
+     "exact_ci": [
+      0.5352960945624944,
+      0.8745155411075104
+     ],
+     "invented": 6,
+     "invented_ci": [
+      0.1254844588924897,
+      0.4647039054375056
+     ],
+     "n_gold_null": 11,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      2.7755575615628914e-17,
+      0.2588400172488141
+     ],
+     "n_gold_value": 12,
+     "model_decided": 20,
+     "model_share": 0.8695652173913043
+    },
+    "de_commune": {
+     "n": 10,
+     "correct": 1,
+     "correct_null": 9,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 10,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.7224598312333834,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.2775401687666166
+     ],
+     "n_gold_null": 9,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2991527535509594
+     ],
+     "n_gold_value": 1,
+     "model_decided": 10,
+     "model_share": 1.0
+    },
+    "fr_canton": {
+     "n": 8,
+     "correct": 8,
+     "correct_null": 0,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 8,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6755843804891231,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3244156195108769
+     ],
+     "n_gold_null": 0,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      1.0
+     ],
+     "n_gold_value": 8,
+     "model_decided": 8,
+     "model_share": 1.0
+    },
+    "fr_commune": {
+     "n": 15,
+     "correct": 2,
+     "correct_null": 8,
+     "false_null": 1,
+     "misattributed": 4,
+     "fabricated": 0,
+     "exact": 10,
+     "exact_rate": 0.6666666666666666,
+     "exact_ci": [
+      0.41713125151212976,
+      0.8482389930530876
+     ],
+     "invented": 4,
+     "invented_ci": [
+      0.1089727610318281,
+      0.5195088965768675
+     ],
+     "n_gold_null": 12,
+     "invented_on_null": 4,
+     "invented_on_null_ci": [
+      0.13811783989736134,
+      0.609382412602386
+     ],
+     "n_gold_value": 3,
+     "model_decided": 12,
+     "model_share": 0.8
+    },
+    "it_commune": {
+     "n": 6,
+     "correct": 5,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 6,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6096569663469354,
+      0.9999999999999999
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3903430336530645
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "n_gold_value": 5,
+     "model_decided": 6,
+     "model_share": 1.0
+    }
+   },
+   "lenient": {
+    "ALL": {
+     "n": 62,
+     "correct": 25,
+     "correct_null": 29,
+     "false_null": 1,
+     "misattributed": 7,
+     "fabricated": 0,
+     "exact": 54,
+     "exact_rate": 0.8709677419354839,
+     "exact_ci": [
+      0.7655044310309549,
+      0.9331420174150125
+     ],
+     "invented": 7,
+     "invented_ci": [
+      0.05577792691334926,
+      0.21519969209955447
+     ],
+     "n_gold_null": 33,
+     "invented_on_null": 4,
+     "invented_on_null_ci": [
+      0.04816083267584231,
+      0.2732584325026516
+     ],
+     "n_gold_value": 29,
+     "model_decided": 56,
+     "model_share": 0.9032258064516129
+    },
+    "de_canton": {
+     "n": 23,
+     "correct": 9,
+     "correct_null": 11,
+     "false_null": 0,
+     "misattributed": 3,
+     "fabricated": 0,
+     "exact": 20,
+     "exact_rate": 0.8695652173913043,
+     "exact_ci": [
+      0.678721020269818,
+      0.954624234856553
+     ],
+     "invented": 3,
+     "invented_ci": [
+      0.04537576514344702,
+      0.32127897973018194
+     ],
+     "n_gold_null": 11,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      2.7755575615628914e-17,
+      0.2588400172488141
+     ],
+     "n_gold_value": 12,
+     "model_decided": 20,
+     "model_share": 0.8695652173913043
+    },
+    "de_commune": {
+     "n": 10,
+     "correct": 1,
+     "correct_null": 9,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 10,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.7224598312333834,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.2775401687666166
+     ],
+     "n_gold_null": 9,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2991527535509594
+     ],
+     "n_gold_value": 1,
+     "model_decided": 10,
+     "model_share": 1.0
+    },
+    "fr_canton": {
+     "n": 8,
+     "correct": 8,
+     "correct_null": 0,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 8,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6755843804891231,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3244156195108769
+     ],
+     "n_gold_null": 0,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      1.0
+     ],
+     "n_gold_value": 8,
+     "model_decided": 8,
+     "model_share": 1.0
+    },
+    "fr_commune": {
+     "n": 15,
+     "correct": 2,
+     "correct_null": 8,
+     "false_null": 1,
+     "misattributed": 4,
+     "fabricated": 0,
+     "exact": 10,
+     "exact_rate": 0.6666666666666666,
+     "exact_ci": [
+      0.41713125151212976,
+      0.8482389930530876
+     ],
+     "invented": 4,
+     "invented_ci": [
+      0.1089727610318281,
+      0.5195088965768675
+     ],
+     "n_gold_null": 12,
+     "invented_on_null": 4,
+     "invented_on_null_ci": [
+      0.13811783989736134,
+      0.609382412602386
+     ],
+     "n_gold_value": 3,
+     "model_decided": 12,
+     "model_share": 0.8
+    },
+    "it_commune": {
+     "n": 6,
+     "correct": 5,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 6,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6096569663469354,
+      0.9999999999999999
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3903430336530645
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "n_gold_value": 5,
+     "model_decided": 6,
+     "model_share": 1.0
+    }
+   }
+  },
+  "naive_plain": {
+   "strict": {
+    "ALL": {
+     "n": 62,
+     "correct": 21,
+     "correct_null": 24,
+     "false_null": 5,
+     "misattributed": 8,
+     "fabricated": 4,
+     "exact": 45,
+     "exact_rate": 0.7258064516129032,
+     "exact_ci": [
+      0.6040722415667276,
+      0.8211908140090788
+     ],
+     "invented": 12,
+     "invented_ci": [
+      0.11433696420146605,
+      0.3085203175170827
+     ],
+     "n_gold_null": 33,
+     "invented_on_null": 9,
+     "invented_on_null_ci": [
+      0.15067272656322814,
+      0.44217883254386814
+     ],
+     "n_gold_value": 29,
+     "model_decided": 62,
+     "model_share": 1.0
+    },
+    "de_canton": {
+     "n": 23,
+     "correct": 9,
+     "correct_null": 11,
+     "false_null": 0,
+     "misattributed": 3,
+     "fabricated": 0,
+     "exact": 20,
+     "exact_rate": 0.8695652173913043,
+     "exact_ci": [
+      0.678721020269818,
+      0.954624234856553
+     ],
+     "invented": 3,
+     "invented_ci": [
+      0.04537576514344702,
+      0.32127897973018194
+     ],
+     "n_gold_null": 11,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      2.7755575615628914e-17,
+      0.2588400172488141
+     ],
+     "n_gold_value": 12,
+     "model_decided": 23,
+     "model_share": 1.0
+    },
+    "de_commune": {
+     "n": 10,
+     "correct": 1,
+     "correct_null": 6,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 2,
+     "exact": 7,
+     "exact_rate": 0.7,
+     "exact_ci": [
+      0.39677321997956516,
+      0.892210712513788
+     ],
+     "invented": 3,
+     "invented_ci": [
+      0.10778928748621183,
+      0.6032267800204347
+     ],
+     "n_gold_null": 9,
+     "invented_on_null": 3,
+     "invented_on_null_ci": [
+      0.12058159868274293,
+      0.6458026525009102
+     ],
+     "n_gold_value": 1,
+     "model_decided": 10,
+     "model_share": 1.0
+    },
+    "fr_canton": {
+     "n": 8,
+     "correct": 4,
+     "correct_null": 0,
+     "false_null": 4,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 4,
+     "exact_rate": 0.5,
+     "exact_ci": [
+      0.21521252682444186,
+      0.7847874731755582
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3244156195108769
+     ],
+     "n_gold_null": 0,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      1.0
+     ],
+     "n_gold_value": 8,
+     "model_decided": 8,
+     "model_share": 1.0
+    },
+    "fr_commune": {
+     "n": 15,
+     "correct": 2,
+     "correct_null": 6,
+     "false_null": 1,
+     "misattributed": 4,
+     "fabricated": 2,
+     "exact": 8,
+     "exact_rate": 0.5333333333333333,
+     "exact_ci": [
+      0.3011663015105079,
+      0.7519077474025355
+     ],
+     "invented": 6,
+     "invented_ci": [
+      0.19824228082594664,
+      0.642535572434923
+     ],
+     "n_gold_null": 12,
+     "invented_on_null": 6,
+     "invented_on_null_ci": [
+      0.2537781703934222,
+      0.7462218296065778
+     ],
+     "n_gold_value": 3,
+     "model_decided": 15,
+     "model_share": 1.0
+    },
+    "it_commune": {
+     "n": 6,
+     "correct": 5,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 6,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6096569663469354,
+      0.9999999999999999
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3903430336530645
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "n_gold_value": 5,
+     "model_decided": 6,
+     "model_share": 1.0
+    }
+   },
+   "lenient": {
+    "ALL": {
+     "n": 62,
+     "correct": 23,
+     "correct_null": 24,
+     "false_null": 5,
+     "misattributed": 6,
+     "fabricated": 4,
+     "exact": 47,
+     "exact_rate": 0.7580645161290323,
+     "exact_ci": [
+      0.6384725574675495,
+      0.8475423631905147
+     ],
+     "invented": 10,
+     "invented_ci": [
+      0.09003972354068436,
+      0.2720656930956064
+     ],
+     "n_gold_null": 33,
+     "invented_on_null": 9,
+     "invented_on_null_ci": [
+      0.15067272656322814,
+      0.44217883254386814
+     ],
+     "n_gold_value": 29,
+     "model_decided": 62,
+     "model_share": 1.0
+    },
+    "de_canton": {
+     "n": 23,
+     "correct": 11,
+     "correct_null": 11,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 22,
+     "exact_rate": 0.9565217391304348,
+     "exact_ci": [
+      0.7900841350594088,
+      0.9922835330378734
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.0077164669621267445,
+      0.20991586494059142
+     ],
+     "n_gold_null": 11,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      2.7755575615628914e-17,
+      0.2588400172488141
+     ],
+     "n_gold_value": 12,
+     "model_decided": 23,
+     "model_share": 1.0
+    },
+    "de_commune": {
+     "n": 10,
+     "correct": 1,
+     "correct_null": 6,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 2,
+     "exact": 7,
+     "exact_rate": 0.7,
+     "exact_ci": [
+      0.39677321997956516,
+      0.892210712513788
+     ],
+     "invented": 3,
+     "invented_ci": [
+      0.10778928748621183,
+      0.6032267800204347
+     ],
+     "n_gold_null": 9,
+     "invented_on_null": 3,
+     "invented_on_null_ci": [
+      0.12058159868274293,
+      0.6458026525009102
+     ],
+     "n_gold_value": 1,
+     "model_decided": 10,
+     "model_share": 1.0
+    },
+    "fr_canton": {
+     "n": 8,
+     "correct": 4,
+     "correct_null": 0,
+     "false_null": 4,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 4,
+     "exact_rate": 0.5,
+     "exact_ci": [
+      0.21521252682444186,
+      0.7847874731755582
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3244156195108769
+     ],
+     "n_gold_null": 0,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      1.0
+     ],
+     "n_gold_value": 8,
+     "model_decided": 8,
+     "model_share": 1.0
+    },
+    "fr_commune": {
+     "n": 15,
+     "correct": 2,
+     "correct_null": 6,
+     "false_null": 1,
+     "misattributed": 4,
+     "fabricated": 2,
+     "exact": 8,
+     "exact_rate": 0.5333333333333333,
+     "exact_ci": [
+      0.3011663015105079,
+      0.7519077474025355
+     ],
+     "invented": 6,
+     "invented_ci": [
+      0.19824228082594664,
+      0.642535572434923
+     ],
+     "n_gold_null": 12,
+     "invented_on_null": 6,
+     "invented_on_null_ci": [
+      0.2537781703934222,
+      0.7462218296065778
+     ],
+     "n_gold_value": 3,
+     "model_decided": 15,
+     "model_share": 1.0
+    },
+    "it_commune": {
+     "n": 6,
+     "correct": 5,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 6,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6096569663469354,
+      0.9999999999999999
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3903430336530645
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "n_gold_value": 5,
+     "model_decided": 6,
+     "model_share": 1.0
+    }
+   }
+  },
+  "naive_null": {
+   "strict": {
+    "ALL": {
+     "n": 62,
+     "correct": 22,
+     "correct_null": 30,
+     "false_null": 2,
+     "misattributed": 7,
+     "fabricated": 1,
+     "exact": 52,
+     "exact_rate": 0.8387096774193549,
+     "exact_ci": [
+      0.7279343069043936,
+      0.9099602764593157
+     ],
+     "invented": 8,
+     "invented_ci": [
+      0.06685798258498754,
+      0.23449556896904517
+     ],
+     "n_gold_null": 33,
+     "invented_on_null": 3,
+     "invented_on_null_ci": [
+      0.03140337104926305,
+      0.23572943534351032
+     ],
+     "n_gold_value": 29,
+     "model_decided": 62,
+     "model_share": 1.0
+    },
+    "de_canton": {
+     "n": 23,
+     "correct": 8,
+     "correct_null": 11,
+     "false_null": 0,
+     "misattributed": 4,
+     "fabricated": 0,
+     "exact": 19,
+     "exact_rate": 0.8260869565217391,
+     "exact_ci": [
+      0.6286194521470433,
+      0.9302145964938723
+     ],
+     "invented": 4,
+     "invented_ci": [
+      0.06978540350612772,
+      0.37138054785295666
+     ],
+     "n_gold_null": 11,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      2.7755575615628914e-17,
+      0.2588400172488141
+     ],
+     "n_gold_value": 12,
+     "model_decided": 23,
+     "model_share": 1.0
+    },
+    "de_commune": {
+     "n": 10,
+     "correct": 1,
+     "correct_null": 9,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 10,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.7224598312333834,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.2775401687666166
+     ],
+     "n_gold_null": 9,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2991527535509594
+     ],
+     "n_gold_value": 1,
+     "model_decided": 10,
+     "model_share": 1.0
+    },
+    "fr_canton": {
+     "n": 8,
+     "correct": 6,
+     "correct_null": 0,
+     "false_null": 2,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 6,
+     "exact_rate": 0.75,
+     "exact_ci": [
+      0.40926987910258916,
+      0.9285223111419724
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3244156195108769
+     ],
+     "n_gold_null": 0,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      1.0
+     ],
+     "n_gold_value": 8,
+     "model_decided": 8,
+     "model_share": 1.0
+    },
+    "fr_commune": {
+     "n": 15,
+     "correct": 2,
+     "correct_null": 9,
+     "false_null": 0,
+     "misattributed": 3,
+     "fabricated": 1,
+     "exact": 11,
+     "exact_rate": 0.7333333333333333,
+     "exact_ci": [
+      0.4804911034231324,
+      0.8910272389681718
+     ],
+     "invented": 4,
+     "invented_ci": [
+      0.1089727610318281,
+      0.5195088965768675
+     ],
+     "n_gold_null": 12,
+     "invented_on_null": 3,
+     "invented_on_null_ci": [
+      0.08894003962896138,
+      0.53231033912066
+     ],
+     "n_gold_value": 3,
+     "model_decided": 15,
+     "model_share": 1.0
+    },
+    "it_commune": {
+     "n": 6,
+     "correct": 5,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 6,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6096569663469354,
+      0.9999999999999999
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3903430336530645
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "n_gold_value": 5,
+     "model_decided": 6,
+     "model_share": 1.0
+    }
+   },
+   "lenient": {
+    "ALL": {
+     "n": 62,
+     "correct": 25,
+     "correct_null": 30,
+     "false_null": 2,
+     "misattributed": 4,
+     "fabricated": 1,
+     "exact": 55,
+     "exact_rate": 0.8870967741935484,
+     "exact_ci": [
+      0.7848003079004455,
+      0.9442220730866508
+     ],
+     "invented": 5,
+     "invented_ci": [
+      0.034937831855833754,
+      0.17528792207481192
+     ],
+     "n_gold_null": 33,
+     "invented_on_null": 3,
+     "invented_on_null_ci": [
+      0.03140337104926305,
+      0.23572943534351032
+     ],
+     "n_gold_value": 29,
+     "model_decided": 62,
+     "model_share": 1.0
+    },
+    "de_canton": {
+     "n": 23,
+     "correct": 11,
+     "correct_null": 11,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0,
+     "exact": 22,
+     "exact_rate": 0.9565217391304348,
+     "exact_ci": [
+      0.7900841350594088,
+      0.9922835330378734
+     ],
+     "invented": 1,
+     "invented_ci": [
+      0.0077164669621267445,
+      0.20991586494059142
+     ],
+     "n_gold_null": 11,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      2.7755575615628914e-17,
+      0.2588400172488141
+     ],
+     "n_gold_value": 12,
+     "model_decided": 23,
+     "model_share": 1.0
+    },
+    "de_commune": {
+     "n": 10,
+     "correct": 1,
+     "correct_null": 9,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 10,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.7224598312333834,
+      1.0
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.2775401687666166
+     ],
+     "n_gold_null": 9,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.2991527535509594
+     ],
+     "n_gold_value": 1,
+     "model_decided": 10,
+     "model_share": 1.0
+    },
+    "fr_canton": {
+     "n": 8,
+     "correct": 6,
+     "correct_null": 0,
+     "false_null": 2,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 6,
+     "exact_rate": 0.75,
+     "exact_ci": [
+      0.40926987910258916,
+      0.9285223111419724
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3244156195108769
+     ],
+     "n_gold_null": 0,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      1.0
+     ],
+     "n_gold_value": 8,
+     "model_decided": 8,
+     "model_share": 1.0
+    },
+    "fr_commune": {
+     "n": 15,
+     "correct": 2,
+     "correct_null": 9,
+     "false_null": 0,
+     "misattributed": 3,
+     "fabricated": 1,
+     "exact": 11,
+     "exact_rate": 0.7333333333333333,
+     "exact_ci": [
+      0.4804911034231324,
+      0.8910272389681718
+     ],
+     "invented": 4,
+     "invented_ci": [
+      0.1089727610318281,
+      0.5195088965768675
+     ],
+     "n_gold_null": 12,
+     "invented_on_null": 3,
+     "invented_on_null_ci": [
+      0.08894003962896138,
+      0.53231033912066
+     ],
+     "n_gold_value": 3,
+     "model_decided": 15,
+     "model_share": 1.0
+    },
+    "it_commune": {
+     "n": 6,
+     "correct": 5,
+     "correct_null": 1,
+     "false_null": 0,
+     "misattributed": 0,
+     "fabricated": 0,
+     "exact": 6,
+     "exact_rate": 1.0,
+     "exact_ci": [
+      0.6096569663469354,
+      0.9999999999999999
+     ],
+     "invented": 0,
+     "invented_ci": [
+      0.0,
+      0.3903430336530645
+     ],
+     "n_gold_null": 1,
+     "invented_on_null": 0,
+     "invented_on_null_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "n_gold_value": 5,
+     "model_decided": 6,
+     "model_share": 1.0
+    }
+   }
+  }
+ },
+ "recommendation": {},
+ "per_doc": [
+  {
+   "doc_id": 26192,
+   "cell": "de_canton",
+   "gold": "2012-10-16",
+   "lenient": [],
+   "doc_dates": [
+    "2012-10-16",
+    "2012-09-10",
+    "2012-10-16"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2012-10-16",
+    "margin": -17.499874718695885,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2012-10-16",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -17.499874718695885,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2012-10-16",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2012-10-16\",\n  \"beschluss_nr\": \"119\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat des Kantons Obwalden beantwortet die Interpellation zur Einsatzbereitschaft der Kantonspolizei Obwalden. Er erklärt, dass die Einsatzplanung auf mehreren Patrouillen basiert und Notfälle nach Lagebeurteilung priorisiert werden. Die Polizei rückt bei jeder Notfallmeldung unverzüglich aus; Bag",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2012-10-16",
+    "receipt_ok": true,
+    "gen": "{\n  \"antwort_datum\": \"2012-10-16\",\n  \"beschluss_nr\": \"119\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat beantwortet die Interpellation zur Einsatzbereitschaft der Kantonspolizei Obwalden. Er erklärt, dass die Einsatzplanung auf mehreren Patrouillen basiert und Notfälle nach Lagebeurteilung priorisiert werden. Die Polizei rückt bei jeder Notfallmeldung unverzüglich aus. Bei häuslicher Gewalt st",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 47288,
+   "cell": "de_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2022-04-11",
+    "2022-04-04",
+    "2022-04-04"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 65.55504828658667,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 65.55504828658667,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Im bereitgestellten Dokument befindet sich lediglich der Vorstoss (Postulat) selbst, jedoch keine Antwort der Regierung (Exekutive) oder ein Beschluss des Kantonsrats. Das Dokument endet mit den Unterschriften der unterstützenden Ratsmitglieder und enthält keine Informationen darüber, wann oder wie die Regierung geant",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 52086,
+   "cell": "fr_canton",
+   "gold": "2022-06-22",
+   "lenient": [],
+   "doc_dates": [
+    "2020-01-01",
+    "2022-06-22"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2022-06-22",
+    "margin": -22.37500000000114,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2022-06-22",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -22.37500000000114,
+    "rule": "heading_without_date"
+   },
+   "naive_plain": {
+    "date": "2022-06-22",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2022-06-22\",\n  \"beschluss_nr\": \"22_REP_112\",\n  \"antwort_zusammenfassung\": \"Le Conseil d'État a répondu le 22 juin 2022 par la décision n° 22_REP_112. Il a rappelé qu'il n'existe pas de « forfaits fiscaux » mais des allégements d'impôts temporaires accordés selon la loi sur les impôts (articles 17 et 91 LI), basés sur des plans d'affaires détaillés et des préavis. Il a précisé",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2022-06-22",
+    "receipt_ok": true,
+    "gen": "{\n  \"antwort_datum\": \"2022-06-22\",\n  \"beschluss_nr\": \"22_REP_112\",\n  \"antwort_zusammenfassung\": \"Le Conseil d'Etat rappelle qu'il n'existe pas de « forfaits fiscaux » mais des allégements d'impôts temporaires accordés selon les articles 17 et 91 LI, basés sur des plans d'affaires détaillés et des préavis. Il ne négocie rien mais rend sa décision en fonction des critères. Il insiste sur le respect ",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 52140,
+   "cell": "fr_canton",
+   "gold": "2023-06-21",
+   "lenient": [],
+   "doc_dates": [
+    "2013-10-23",
+    "1998-04-29",
+    "2023-06-21"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2023-06-21",
+    "margin": -20.999993443510448,
+    "n_cands": 3,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2023-06-21",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -20.999993443510448,
+    "rule": "heading_without_date"
+   },
+   "naive_plain": {
+    "date": "2023-06-21",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2023-06-21\",\n  \"beschluss_nr\": \"23_REP_7\",\n  \"antwort_zusammenfassung\": \"Le Conseil d'État a répondu que les contributions d'estivage n'ont pas été refusées pour non-atteinte du quota de jours, mais a reconnu l'impact de la sécheresse et des attaques de loups. Il a déployé un dispositif d'approvisionnement en eau gratuit, utilisé la clause de force majeure pour les contributi",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2023-06-21",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2023-06-21\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le Conseil d'État a indiqué que les contributions d'estivage n'ont pas été refusées pour non-atteinte du nombre de jours, mais a déployé un dispositif d'approvisionnement en eau gratuit et utilisé la clause de force majeure pour éviter la réduction des contributions d'estivage. Il a également souligné que la c",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 52151,
+   "cell": "fr_canton",
+   "gold": "2023-11-01",
+   "lenient": [],
+   "doc_dates": [
+    "2023-01-31",
+    "2011-06-07",
+    "2023-11-01"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2023-11-01",
+    "margin": -20.249997735513993,
+    "n_cands": 3,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2023-11-01",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -20.249997735513993,
+    "rule": "heading_without_date"
+   },
+   "naive_plain": {
+    "date": "unparseable:01-11-2023",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"01-11-2023\",\n  \"beschluss_nr\": \"23_REP_31\",\n  \"antwort_zusammenfassung\": \"Le Conseil d'État a répondu le 1er novembre 2023 en confirmant que le tract distribué violait la neutralité politique exigée par la loi, tout en expliquant qu'aucune sanction individuelle n'avait pu être prise en raison de l'anonymat des signataires et du contexte sensible. Il a assuré qu'aucun autre tr",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "unparseable:01-11-2023",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"01-11-2023\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le Conseil d'Etat confirme que le tract distribué était en porte-à-faux avec le cadre légal concernant la neutralité politique en milieu scolaire, mais indique qu'aucune sanction n'a été prise car le tract était signé par un collectif anonyme, rendant impossible l'identification des auteurs. Le gouvernement pr",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 52368,
+   "cell": "fr_canton",
+   "gold": "2022-09-28",
+   "lenient": [],
+   "doc_dates": [
+    "2022-05-30",
+    "2022-09-08",
+    "2022-09-28"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2022-09-28",
+    "margin": -20.62500000059972,
+    "n_cands": 3,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2022-09-28",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -20.62500000059972,
+    "rule": "heading_without_date"
+   },
+   "naive_plain": {
+    "date": "2022-09-28",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2022-09-28\",\n  \"beschluss_nr\": \"22_REP_154\",\n  \"antwort_zusammenfassung\": \"Le Conseil d'État a répondu le 28 septembre 2022 que l'épidémie de variole du singe dans le canton de Vaud comptait 77 cas au 8 septembre 2022, avec une tendance à la stabilisation et à la diminution. Il a expliqué que le retard de la Confédération dans la mise à disposition du vaccin était dû à des né",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2022-09-28",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2022-09-28\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le Conseil d'État indique que le premier cas dans le canton de Vaud a été diagnostiqué le 30 mai 2022 et que 77 cas étaient recensés au 8 septembre 2022. Il explique que la situation est sous contrôle mais que des mesures préventives, notamment la vaccination, restent cruciales. Le canton travaille avec les co",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 52653,
+   "cell": "fr_canton",
+   "gold": "2024-02-07",
+   "lenient": [],
+   "doc_dates": [
+    "2024-02-07"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2024-02-07",
+    "margin": -19.249876625995967,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2024-02-07",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -19.249876625995967,
+    "rule": "heading_without_date"
+   },
+   "naive_plain": {
+    "date": "2024-02-07",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2024-02-07\",\n  \"beschluss_nr\": \"24_REP_6\",\n  \"antwort_zusammenfassung\": \"Le Conseil d'Etat a répondu que les 464 millions de revenus ambulatoires budgétés pour 2024 se répartissent comme suit : TARMED (58%, 270 millions CHF), laboratoires (12%, 54 millions CHF), matériel et médicaments (23%, 104 millions CHF), dialyse (2%, 7 millions CHF), dentaire (1%, 5 millions CHF) et aut",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2024-02-07",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2024-02-07\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le Conseil d'Etat a répondu que les revenus ambulatoires budgétés pour 2024 s'élèvent à 464 millions de CHF, ventilés comme suit : TARMED (58%, 270 mio CHF), Laboratoires (12%, 54 mio CHF), Matériel et médicaments (23%, 104 mio CHF), Dialyse (2%, 7 mio CHF), Dentaire (1%, 5 mio CHF) et Autres (5%, 24 mio CHF).",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 62545,
+   "cell": "de_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2018-02-23",
+    "2016-01-14",
+    "2017-09-18"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 55.21910499056417,
+    "n_cands": 3,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 55.21910499056417,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2018-09-18",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2018-09-18\",\n  \"beschluss_nr\": \"Antwort auf das Dringliche Postulat 134\",\n  \"antwort_zusammenfassung\": \"Der Stadtrat Luzern verneint die Einführung einer städtischen Prämienverbilligung, da dies nicht sinnvoll sei. Er weist jedoch auf bestehende städtische Unterstützungsreglemente (AHIZ und FAZ) hin und erklärt, dass er in Zusammenarbeit mit der Sozialkommission Lösungen zur ",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}\n\nBegründung: Das Dokument enthält lediglich die Motion selbst (inklusive Begründung und Forderungen an den Stadtrat). Es beinhaltet keine Antwort der Regierung (Exekutive), keinen Beschluss und kein Antwortdatum. Es ist ein Vorstoss, der noch nicht behandelt wurde.",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 64053,
+   "cell": "fr_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2023-04-04"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2023-04-04",
+    "margin": -9.249837768702491,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2023-04-04",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -9.249837768702491,
+    "rule": "heading_without_date"
+   },
+   "naive_plain": {
+    "date": "2023-04-04",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2023-04-04\",\n  \"beschluss_nr\": \"non spécifié dans le document\",\n  \"antwort_zusammenfassung\": \"Le Conseil communal indique que le pilier public reste une obligation légale mais que son importance a diminué face aux outils numériques. Il prévoit d'améliorer l'accessibilité de l'information en ajoutant une page dédiée « Pilier public » sur le site Internet de la Ville de Fribour",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2023-04-04",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2023-04-04\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le Conseil communal indique que le pilier public reste une obligation légale mais que son importance a diminué face aux outils numériques. Il annonce des améliorations du site Internet, notamment l'ajout d'une page dédiée au pilier public, la mise en ligne détaillée des mises à l'enquête et l'affichage d'actua",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 102901,
+   "cell": "de_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2023-04-25"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 64.47045560890956,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 64.47045560890956,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Das Dokument enthält die Motion selbst, jedoch keine Antwort der Regierung (Exekutive) oder einen Beschluss. Es fehlen jegliche Informationen darüber, wann und wie die Regierung auf diesen Vorstoss reagiert hat.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 102903,
+   "cell": "de_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": Infinity,
+    "n_cands": 0,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "rule",
+    "null_reason": "not_in_document",
+    "margin": null,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Das Dokument enthält die Motion selbst, jedoch keine Antwort der Regierung (Exekutive) oder einen Beschluss. Es fehlen jegliche Informationen darüber, wann und wie die Regierung auf diesen Vorstoss reagiert hat.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 111648,
+   "cell": "fr_canton",
+   "gold": "2021-03-10",
+   "lenient": [],
+   "doc_dates": [
+    "2020-03-15",
+    "2020-06-30",
+    "2020-06-30",
+    "2020-09-30",
+    "2020-06-04",
+    "2020-05-31",
+    "2020-09-30",
+    "2020-09-22",
+    "2020-10-31",
+    "2021-01-01",
+    "2020-01-01",
+    "2021-03-10"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2021-03-10",
+    "margin": -21.12500056927501,
+    "n_cands": 10,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2021-03-10",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -21.12500056927501,
+    "rule": "heading_without_date"
+   },
+   "naive_plain": {
+    "date": "unparseable:10-03-2021",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"10-03-2021\",\n  \"beschluss_nr\": \"21_QUE_4\",\n  \"antwort_zusammenfassung\": \"Le Conseil d'Etat a répondu qu'il n'y avait pas lieu de renoncer à l'émolument de 50 CHF pour retard de déclaration fiscale, car des délais de tolérance et des prolongations gratuites avaient été offerts aux contribuables, et que le nombre de déclarations déposées avait progressé malgré la pandémie. Il a",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2021-03-10",
+    "receipt_ok": true,
+    "gen": "{\n  \"antwort_datum\": \"2021-03-10\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le Conseil d'Etat estime qu'il n'y a pas lieu de renoncer à l'émolument de 50.- facturé pour retard, car des délais ont été prolongés gratuitement, une campagne d'information a été menée et le nombre de déclarations déposées a progressé malgré la pandémie. Il rappelle également que les contribuables peuvent de",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 111796,
+   "cell": "fr_canton",
+   "gold": "2023-11-01",
+   "lenient": [],
+   "doc_dates": [
+    "2023-11-01"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2023-11-01",
+    "margin": -18.749995231639787,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2023-11-01",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -18.749995231639787,
+    "rule": "heading_without_date"
+   },
+   "naive_plain": {
+    "date": "unparseable:01-11-2023",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"01-11-2023\",\n  \"beschluss_nr\": \"23_REP_206\",\n  \"antwort_zusammenfassung\": \"Le Conseil d'Etat confirme que le frelon asiatique est une espèce exotique envahissante et que la Confédération alloue une enveloppe financière limitée de CHF 16'000.- pour la lutte via la convention-programme. Le canton finance actuellement les actions de lutte de manière transitoire via le Fonds cant",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "unparseable:01-11-2023",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"01-11-2023\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le Conseil d'Etat confirme que le frelon asiatique est une espèce exotique envahissante et impacte la biodiversité, l'économie agricole et la santé publique. Il indique que la Confédération alloue une enveloppe de CHF 16'000.- pour la lutte, largement dépensée, et que la DGE finance transitoirement les actions",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 121366,
+   "cell": "de_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2000-11-27",
+    "2001-01-29",
+    "2001-08-31",
+    "2001-12-18",
+    "2002-01-10"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 18.969494710570764,
+    "n_cands": 5,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 18.969494710570764,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2002-01-10",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2002-01-10\",\n  \"beschluss_nr\": \"Verfügung vom 10. Januar 2002\",\n  \"antwort_zusammenfassung\": \"Der Stadtrat beantragt die Abschreibung des Postulates, da die Ludothek bereits finanziell unterstützt wird (jährlicher Beitrag von Fr. 15'000.-- für die Jahre 2002-2004) und eine Gleichstellung mit der städtisch geführten Bibliothek aufgrund der Entstehungsgeschichte und der private",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Der Stadtrat beantragt die Abschreibung des Postulates, da die Ludothek bereits finanziell unterstützt wird (jährlicher Beitrag von Fr. 15'000.-- für die Jahre 2002-2004) und eine Gleichstellung mit der städtisch geführten Bibliothek abgelehnt wird.\",\n  \"beleg\": \"Dem Gemeinderat ist im Sinne von Art. 79 Abs. 2 seiner ",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 167939,
+   "cell": "fr_canton",
+   "gold": "2022-11-30",
+   "lenient": [],
+   "doc_dates": [
+    "2022-11-30"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2022-11-30",
+    "margin": -17.124983072424584,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2022-11-30",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -17.124983072424584,
+    "rule": "heading_without_date"
+   },
+   "naive_plain": {
+    "date": "unparseable:30-11-2022",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"30-11-2022\",\n  \"beschluss_nr\": \"22_REP_161\",\n  \"antwort_zusammenfassung\": \"Le Conseil d'Etat indique que l'inventaire des ressources énergétiques cantonales a déjà été réalisé dans le cadre de la Conception cantonale de l'énergie (CoCEn) et que les ressources renouvelables disponibles (environ 12'000 GWh/an) suffisent à couvrir les besoins futurs. Il précise que la priorisati",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2022-11-30",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2022-11-30\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le Conseil d'Etat indique que l'inventaire des ressources énergétiques cantonales a déjà été réalisé dans le cadre de la Conception cantonale de l'énergie (CoCEn) et qu'il dispose d'une vision claire des ressources renouvelables disponibles. Il précise que les ressources non renouvelables n'ont pas été étudiée",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 229627,
+   "cell": "de_commune",
+   "gold": "2003-09-29",
+   "lenient": [],
+   "doc_dates": [
+    "2003-09-29",
+    "1999-08-30",
+    "2001-10-22",
+    "2002-08-26",
+    "2001-11-01",
+    "2002-08-05",
+    "2001-11-01",
+    "2003-09-29",
+    "2003-09-29"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2003-09-29",
+    "margin": -4.263026694008801,
+    "n_cands": 6,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2003-09-29",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -4.263026694008801,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2003-09-29",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2003-09-29\",\n  \"beschluss_nr\": \"215\",\n  \"antwort_zusammenfassung\": \"Der Stadtrat beantragt die Abschreibung des Postulates, da die Schalteröffnungszeiten der Stadtverwaltung Schlieren erweitert wurden (Montag bis Donnerstag 08:30–12:00 und 13:30–16:00 Uhr, Freitag 08:30–15:00 Uhr), was sowohl von der Bevölkerung als auch vom Personal gut aufgenommen wurde. Zudem wurden Arbeit",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2003-09-29",
+    "receipt_ok": true,
+    "gen": "{\n  \"antwort_datum\": \"2003-09-29\",\n  \"beschluss_nr\": \"215\",\n  \"antwort_zusammenfassung\": \"Der Stadtrat beantragt die Abschreibung des Postulates, da die Schalteröffnungszeiten erweitert und an die Bedürfnisse der Bevölkerung angepasst wurden. Die neuen Öffnungszeiten wurden gut aufgenommen und haben sich bewährt. Zudem wurden Arbeits- und Blockzeiten für das Personal angepasst.\",\n  \"beleg\": \"AUSZU",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 243169,
+   "cell": "it_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2019-04-29"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 83.21281630253185,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 83.21281630253185,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Il documento fornito è un'interpellanza presentata al Consiglio comunale di Bellinzona (o all'organo competente locale) e non contiene la risposta del governo (esecutivo). Il testo riporta le domande poste al Municipio e le relative risposte preliminari, ma non include alcuna decisione o risposta formale da parte dell",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 265887,
+   "cell": "de_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2008-05-04",
+    "2008-08-11"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 65.78348244582887,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 65.78348244582887,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Im bereitgestellten Dokument befindet sich lediglich die Motion selbst (der Vorstoss der Legislative), nicht jedoch die Antwort der Regierung (Exekutive) oder ein entsprechender Beschluss. Daher kann kein Datum, keine Beschlussnummer und keine Zusammenfassung der Antwort bereitgestellt werden.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 279568,
+   "cell": "de_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2020-01-22",
+    "2020-01-06",
+    "2019-04-09"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 66.85854105289653,
+    "n_cands": 3,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 66.85854105289653,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2020-06-24",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2020-06-24\",\n  \"beschluss_nr\": \"GRSTR/2020/06/24\",\n  \"antwort_zusammenfassung\": \"Der Stadtrat Luzern hat die Interpellation 378 am 24. Juni 2020 beantwortet. Er bestätigte die Kenntnis der genannten Vorfälle und erklärte, dass diese im Rahmen der Präventionsmassnahmen berücksichtigt werden. Die involvierten Stellen (Sicherheitsmanagement, Sozialdienste, Jugendfachstelle) sind",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}\n\n**Begründung:**\nDas bereitgestellte Dokument enthält lediglich die Interpellation (die Anfrage) selbst, datiert vom 22. Januar 2020. Es beinhaltet die Fragen der SVP-Fraktion an den Stadtrat Luzern, jedoch keine Antwort der Regierung, keinen Beschluss und keine Zusammenfassung der Antwort. Da k",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 281593,
+   "cell": "de_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-10-20"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 61.473538032717194,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 61.473538032717194,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Das Dokument enthält den parlamentarischen Vorstoss selbst (Postulat Amphibien) vom 20. Oktober 2024, jedoch keine Antwort der Regierung (Exekutive) oder einen Beschluss. Die Beantwortung durch die Exekutive ist in diesem bereitgestellten Dokument nicht enthalten.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 345564,
+   "cell": "it_commune",
+   "gold": "2020-03-05",
+   "lenient": [],
+   "doc_dates": [
+    "2020-03-05"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2020-03-05",
+    "margin": -12.243249020182702,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2020-03-05",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -12.243249020182702,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2020-03-05",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2020-03-05\",\n  \"beschluss_nr\": \"42/2019\",\n  \"antwort_zusammenfassung\": \"Il Municipio ha risposto all'interrogazione 42/2019 fornendo le perizie richieste e spiegando che i cedri erano affetti da un fungo patogeno e rappresentavano un rischio per la sicurezza pubblica. Ha inoltre chiarito che la strategia per le alberature urbane prevede un'accresciuta attenzione nella gestion",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2020-03-05",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2020-03-05\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Il Municipio ha risposto all'interrogazione 42/2019 fornendo le seguenti indicazioni: ha confermato che due perizie distinte attestano la malattia dei cedri indicati; ha spiegato che il progetto del comparto non prevedeva la necessità di tagliare le alberature esistenti, ma che la nuova pavimentazione avrebbe ",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 380394,
+   "cell": "de_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-06-26",
+    "2024-03-21"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 62.56178188946724,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 62.56178188946724,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Das Dokument enthält das Postulat selbst (datiert vom 26. Juni 2024) und keine Antwort der Regierung (Exekutive) mit Datum und Beschlussnummer. Es liegt lediglich der parlamentarische Vorstoss vor.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 395802,
+   "cell": "it_commune",
+   "gold": "2023-09-27",
+   "lenient": [],
+   "doc_dates": [
+    "2023-09-27",
+    "2023-06-13"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2023-09-27",
+    "margin": -20.874903683536107,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2023-09-27",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -20.874903683536107,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2023-09-27",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2023-09-27\",\n  \"beschluss_nr\": \"57/2023\",\n  \"antwort_zusammenfassung\": \"Il Municipio conferma l'importanza dell'autosilo Piazza del Sole per la mobilità e il sostegno ai commerci del centro storico, sottolineando il ruolo di co-realizzazione con realtà economiche solide. Riguardo alla necessità di risanamento, la Città, rappresentata nel CdA, è informata e conferma che la str",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2023-09-27",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2023-09-27\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Il Municipio conferma l'importanza dell'autosilo Piazza del Sole per la mobilità e la vita commerciale del centro storico. Afferma che la struttura è sana e mantenuta idonea all'uso, con interventi di manutenzione regolari (inclusa la sostituzione dei lift nel 2022 e degli impianti di accesso in corso). Non vi",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 431363,
+   "cell": "de_canton",
+   "gold": "2013-04-30",
+   "lenient": [
+    "2013-05-07"
+   ],
+   "doc_dates": [
+    "2013-04-30",
+    "2013-03-14",
+    "2013-05-07"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2013-05-07",
+    "margin": -6.362988933411987,
+    "n_cands": 3,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2013-05-07",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -6.362988933411987,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2013-04-30",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2013-04-30\",\n  \"beschluss_nr\": \"472\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat beantragt dem Kantonsrat, die Motion in ein Postulat umzuwandeln, um zunächst vertiefte Abklärungen zu treffen, da die vorgeschlagene Regelung das Problem der Unabhängigkeit möglicherweise nicht ausreichend löst und zu einer Ungleichbehandlung führen könnte. Er schlägt vor, dem Kantonsrat ei",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2013-05-07",
+    "receipt_ok": true,
+    "gen": "{\n  \"antwort_datum\": \"2013-05-07\",\n  \"beschluss_nr\": \"472\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat beantragt dem Kantonsrat, die Motion in ein Postulat umzuwandeln und dieses zu überweisen, um die Thematik der Besetzung der Rechtspflegekommission eingehender zu prüfen und offene Fragen zu klären.\",\n  \"beleg\": \"Versand: 7. Mai 2013\"\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 431569,
+   "cell": "de_canton",
+   "gold": "2013-05-06",
+   "lenient": [
+    "2013-05-08"
+   ],
+   "doc_dates": [
+    "2013-05-06",
+    "2013-04-25",
+    "2013-04-22",
+    "2012-11-01",
+    "1979-06-22",
+    "2000-06-28",
+    "2012-11-01",
+    "2013-04-22",
+    "2013-04-01",
+    "2013-01-15",
+    "2013-06-25",
+    "2012-11-01",
+    "2012-11-01",
+    "2013-05-08"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2013-05-08",
+    "margin": -12.962508552059296,
+    "n_cands": 10,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2013-05-08",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -12.962508552059296,
+    "rule": "heading_without_date"
+   },
+   "naive_plain": {
+    "date": "2013-05-08",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2013-05-08\",\n  \"beschluss_nr\": \"483\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat des Kantons Obwalden beantwortet die Interpellation Nr. 54.13.04 zum Bauen ausserhalb der Bauzone. Er informiert, dass die angepassten Richtlinien am 22. April 2013 beschlossen und rückwirkend auf den 1. April 2013 in Kraft gesetzt wurden. Die Verschärfung der kantonalen Vorgaben wird als no",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2013-05-08",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2013-05-08\",\n  \"beschluss_nr\": \"483\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat beantwortet die Interpellation Nr. 54.13.04 zum Bauen ausserhalb der Bauzone. Er hat die Richtlinien am 22. April 2013 erlassen und rückwirkend auf den 1. April 2013 in Kraft gesetzt. Die Anpassungen erfolgten aufgrund der per 1. November 2012 in Kraft getretenen Bundesbestimmungen. Die Regi",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 431985,
+   "cell": "de_canton",
+   "gold": "2012-04-03",
+   "lenient": [
+    "2012-04-18"
+   ],
+   "doc_dates": [
+    "2012-04-03",
+    "2012-01-26",
+    "2010-03-11",
+    "2011-12-01",
+    "2008-01-01",
+    "2012-04-18"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2012-04-18",
+    "margin": -6.839808647548249,
+    "n_cands": 6,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2012-04-18",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -6.839808647548249,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2012-04-18",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2012-04-18\",\n  \"beschluss_nr\": \"457\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat beantragt dem Kantonsrat die Ablehnung der Motion, da keine Rechtsgrundlage für die Ausrichtung eines zusätzlichen Kantonsbeitrages von einer Million Franken besteht, das Budget 2012 keinen entsprechenden Beitrag vorsieht und der Aufwand bis zur möglichen Umklassierung der Panoramastrasse ob",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2012-04-18",
+    "receipt_ok": true,
+    "gen": "{\n  \"antwort_datum\": \"2012-04-18\",\n  \"beschluss_nr\": \"457\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat beantragt dem Kantonsrat die Ablehnung der Motion.\",\n  \"beleg\": \"Versand: 18. April 2012\"\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 451305,
+   "cell": "de_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2019-02-26",
+    "2019-02-25"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 62.69547144599375,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 62.69547144599375,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Das Dokument ist ein Postulat, das an die Regierung des Kantons Appenzell Ausserrhoden gerichtet ist und einen Bericht zu den Folgen und Ursachen des Klimawandels sowie zu möglichen Massnahmen fordert. Es enthält keine Antwort der Regierung, keinen Beschluss und keine Zusammenfassung einer Antwort, da es sich um den u",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 457795,
+   "cell": "de_canton",
+   "gold": "2015-02-24",
+   "lenient": [],
+   "doc_dates": [
+    "2015-02-24",
+    "2015-01-22",
+    "2015-01-20",
+    "1998-09-16",
+    "2015-03-22",
+    "2015-02-24",
+    "2003-11-19"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2015-02-24",
+    "margin": -19.60175752462256,
+    "n_cands": 6,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2015-02-24",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -19.60175752462256,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2015-02-24",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2015-02-24\",\n  \"beschluss_nr\": \"2015.NWLR.8\",\n  \"antwort_zusammenfassung\": \"Die Regierung hat die Fragen zur Brückenangebotsverordnung beantwortet, indem sie erklärte, dass die Formulierungsänderungen in Art. 4 und 5 der Vollzugsverordnung der Planungsflexibilität dienen, um mehr Jugendliche in Betriebspraktika integrieren zu können. Ein Abbau des Unterrichts sei nicht vorges",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2015-02-24",
+    "receipt_ok": true,
+    "gen": "{\n  \"antwort_datum\": \"2015-02-24\",\n  \"beschluss_nr\": \"2015.NWLR.8\",\n  \"antwort_zusammenfassung\": \"Die starre Regelung mit zwei Tagen Unterricht je Woche und drei Tagen Betriebspraktikum wurde durch eine offene Formulierung ersetzt, um eine Flexibilisierung der Unterrichtsmodelle zu ermöglichen. Ein Abbau des Unterrichts ist nicht vorgesehen. Ebenso wurde die Formulierung im integrativen Brückenang",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 458049,
+   "cell": "de_canton",
+   "gold": "2017-01-24",
+   "lenient": [],
+   "doc_dates": [
+    "2017-01-24",
+    "2016-11-28",
+    "2017-01-24",
+    "2017-01-24"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2017-01-24",
+    "margin": -19.93803148344983,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2017-01-24",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -19.93803148344983,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2017-01-24",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2017-01-24\",\n  \"beschluss_nr\": \"34\",\n  \"antwort_zusammenfassung\": \"Die Regierung des Kantons Nidwalden beantwortet die Kleine Anfrage von Landrat Walter Odermatt zur Sicherheit und Kontrollen der Kantonspolizei Nidwalden. Sie erklärt, dass Personenkontrollen nach Örtlichkeiten, Verdachtslagen und Ereignissen (z. B. Meldungen, Veranstaltungen) erfolgen und stets verhältnismäss",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2017-01-24",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2017-01-24\",\n  \"beschluss_nr\": \"34\",\n  \"antwort_zusammenfassung\": \"Die Regierung Nidwalden beantwortet die Kleine Anfrage von Landrat Walter Odermatt zur Sicherheit und Kontrollen der Kantonspolizei Nidwalden. Sie erklärt, dass Personenkontrollen nach konkreten Anhaltspunkten, Verdachtslagen oder an Hot Spots erfolgen und stets verhältnismässig sein müssen. Fahrzeugkontrollen",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 459724,
+   "cell": "de_canton",
+   "gold": "2022-06-28",
+   "lenient": [],
+   "doc_dates": [
+    "2022-06-28",
+    "2022-05-23",
+    "2009-12-19",
+    "2009-12-19",
+    "2022-01-01",
+    "2022-06-28",
+    "2021-11-24",
+    "2022-03-30",
+    "2015-12-17",
+    "2016-02-16",
+    "2022-06-28"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2016-02-16",
+    "rule": "rrb_vom",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2022-06-28",
+    "margin": -15.374876628402305,
+    "n_cands": 8,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2016-02-16",
+    "route": "rule",
+    "null_reason": null,
+    "margin": null,
+    "rule": "rrb_vom"
+   },
+   "naive_plain": {
+    "date": "2022-06-28",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2022-06-28\",\n  \"beschluss_nr\": \"386\",\n  \"antwort_zusammenfassung\": \"Die Regierung beantwortet die Kleine Anfrage und teilt mit, dass bisher keine ESG-Kennzahlen systematisch erhoben werden. Es wird auf das laufende Postulat zur Einführung einer Nachhaltigkeitsbeurteilung verwiesen, welches die Grundlage für die zukünftige Erhebung und Ausrichtung von Nachhaltigkeitsindikatore",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2022-06-28",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2022-06-28\",\n  \"beschluss_nr\": \"386\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat beantwortet die Kleine Anfrage und beantragt dem Landrat, von der Beantwortung Kenntnis zu nehmen. Er führt aus, dass bisher keine ESG-Kennzahlen systematisch erhoben werden, da die Zuständigkeit noch nicht geregelt ist und Ressourcen fehlen. Ein Bericht zum Postulat zur Einführung der Nachh",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 459740,
+   "cell": "de_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2022-08-11"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 64.65819711906622,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 64.65819711906622,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Das Dokument ist ein Postulat des Landrates Nidwalden an den Regierungsrat und enthält keine Antwort der Regierung. Es beschreibt die Bedenken bezüglich Strommangellage und Blackout sowie die Forderungen nach einem Konzept zur Vorbereitung der Bevölkerung und kritisiert die aktuelle Energiepolitik. Eine Antwort der Ex",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 460187,
+   "cell": "de_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-04-23",
+    "2027-01-01",
+    "2025-04-23"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 55.3011962364307,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 55.3011962364307,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Das Dokument enthält die Motion selbst, jedoch keine Antwort der Regierung (Exekutive) oder einen Beschluss. Es ist lediglich der Vorstoss eines Landrates an den Landrat (Legislative) dokumentiert.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 460472,
+   "cell": "de_canton",
+   "gold": "2013-07-09",
+   "lenient": [],
+   "doc_dates": [
+    "2013-07-09",
+    "2012-04-25",
+    "2012-05-30",
+    "2013-02-19",
+    "2013-07-07",
+    "2014-01-01",
+    "2012-01-09"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2013-02-19",
+    "rule": "rrb_vom",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2013-07-09",
+    "margin": -2.426054764074678,
+    "n_cands": 7,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2013-02-19",
+    "route": "rule",
+    "null_reason": null,
+    "margin": null,
+    "rule": "rrb_vom"
+   },
+   "naive_plain": {
+    "date": "2013-07-09",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2013-07-09\",\n  \"beschluss_nr\": \"Nr. 487\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat des Kantons Nidwalden beantragt dem Landrat, auf die Teilrevision des Personalgesetzes einzutreten und diese zu beschliessen. Die Revision umfasst die Verbindlichkeit von Lohnanpassungen für Gemeindeschulen, Erleichterungen bei der Stellenausschreibung (inkl. Internet-Ausschreibung), den",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2013-07-09",
+    "receipt_ok": true,
+    "gen": "{\n  \"antwort_datum\": \"2013-07-09\",\n  \"beschluss_nr\": \"90\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat beantragt dem Landrat, auf die Vorlage einzutreten und der Teilrevision des Personalgesetzes zuzustimmen. Die Revision umfasst die Verbindlichkeit von Lohnanpassungen für Gemeindeschulen, Änderungen bei der Ausschreibungspraxis für Stellen, die Streichung der Bewährungsfrist im ersten Anstell",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 460874,
+   "cell": "de_canton",
+   "gold": "2013-10-22",
+   "lenient": [],
+   "doc_dates": [
+    "2013-10-22",
+    "2013-10-10",
+    "2013-10-23"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2013-10-23",
+    "margin": -12.496251806966331,
+    "n_cands": 3,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2013-10-23",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -12.496251806966331,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2013-10-23",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2013-10-23\",\n  \"beschluss_nr\": \"NWLR.138\",\n  \"antwort_zusammenfassung\": \"Die Regierung Nidwalden beantwortete das Auskunftsbegehren von Landrat Toni Niederberger an der Landratssitzung vom 23. Oktober 2013. Sie gab Auskunft zu den Kosten für den Strafvollzug inklusive Therapien (CHF 588'000.– p.a. für den Hochsicherheitstrakt und CHF 264'000.– p.a. für die Massnahmenstation) ",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2013-10-23",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2013-10-23\",\n  \"beschluss_nr\": \"NWLR.138\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat beantwortete das Auskunftsbegehren mündlich an der Landratssitzung vom 23. Oktober 2013. Er gab Auskunft zu den Kosten für den Strafvollzug inklusive Therapien (CHF 588'000.00 p.a. für den ersten Fall und CHF 264'000.00 p.a. für den zweiten Fall) und erklärte, dass die Wirkungsanalyse a",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 461027,
+   "cell": "de_canton",
+   "gold": "2012-09-18",
+   "lenient": [],
+   "doc_dates": [
+    "2012-09-18",
+    "2012-04-03",
+    "2012-04-03",
+    "2012-05-03",
+    "2012-06-25",
+    "2012-09-18",
+    "2012-08-24",
+    "2012-04-03",
+    "2012-04-03",
+    "2012-06-25"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2012-09-18",
+    "margin": -10.250012955757889,
+    "n_cands": 5,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2012-09-18",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -10.250012955757889,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2012-09-18",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2012-09-18\",\n  \"beschluss_nr\": \"677\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat beantragt dem Landrat, die Motion der Aufsichtskommission abzulehnen, nachdem er zuvor die Totalrevision des EWN-Gesetzes verabschiedet hat, um die Organisation und Aufsicht der selbständigen Anstalten im konkreten Fall zu regeln, anstatt ein umfassendes Rahmengesetz zu schaffen.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2012-09-18",
+    "receipt_ok": true,
+    "gen": "{\n  \"antwort_datum\": \"2012-09-18\",\n  \"beschluss_nr\": \"677\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat beantragt dem Landrat, die Motion der Aufsichtskommission abzulehnen.\",\n  \"beleg\": \"Stans, 18. September 2012\"\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 534977,
+   "cell": "de_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-06-16"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 65.38635182416488,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 65.38635182416488,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Das Dokument enthält lediglich den parlamentarischen Vorstoss (Postulat) vom 16. Juni 2025 und die Unterschriften der Unterstützer. Eine Antwort der Regierung (Exekutive) mit Datum und Beschlussnummer ist in diesem Dokument nicht enthalten.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 558899,
+   "cell": "de_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-04-22",
+    "2025-02-21"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 64.54110741333824,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 64.54110741333824,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Das Dokument enthält die Interpellation selbst und enthält keine Antwort der Regierung (Exekutive). Es ist lediglich der Vorstoss der SP/JUSO-Fraktion an den Grossen Stadtrat der Stadt Luzern, der um Beantwortung der aufgelisteten Fragen bittet.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 560636,
+   "cell": "de_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-09-08",
+    "2025-03-11",
+    "2025-05-06"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 60.91869747927312,
+    "n_cands": 3,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 60.91869747927312,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Das Dokument ist ein parlamentarischer Vorstoss (Postulat) und enthält keine Antwort der Regierung. Es fordert den Regierungsrat auf, eine Prüfung und Berichterstattung vorzunehmen, die Antwort liegt zum Zeitpunkt der Dokumenterstellung noch nicht vor.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 619475,
+   "cell": "de_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2023-09-15",
+    "2023-09-15",
+    "2023-09-07"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 69.3606998221492,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 69.3606998221492,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Das Dokument enthält die Interpellation selbst und keine Antwort der Regierung oder des Gemeinderats. Es ist lediglich der Vorstoss eines Ratsmitglieds (Max Töpfer) an den Stadtrat Kloten, der Fragen zu einem 65plus-Ausflug stellt, bei dem die Flughafen Zürich AG über Pistenverlängerungen informierte. Eine Antwort der",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 619575,
+   "cell": "de_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-04-10",
+    "2016-11-01"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 67.70369983838347,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 67.70369983838347,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Das Dokument enthält den parlamentarischen Vorstoss selbst, jedoch keine Antwort der Regierung (Exekutive) oder einen Beschluss. Es fehlen jegliche Informationen darüber, wann und wie der Stadtrat Kloten auf diesen Vorstoss reagiert hat.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 641750,
+   "cell": "it_commune",
+   "gold": "2021-07-02",
+   "lenient": [],
+   "doc_dates": [
+    "2021-07-02"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2021-07-02",
+    "margin": -19.49995350941083,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2021-07-02",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -19.49995350941083,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2021-07-02",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2021-07-02\",\n  \"beschluss_nr\": \"Nessun numero di decisione specificato nel documento\",\n  \"antwort_zusammenfassung\": \"Il Municipio di Bellinzona ha risposto all'interpellanza dei Verdi confermando che lo stand di tiro di Gnosca è regolarmente autorizzato e rispetta i limiti di rumore, con un leggero superamento mitigato da provvedimenti gestionali (riduzione giorni e colpi). H",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2021-07-02",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2021-07-02\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Il Municipio di Bellinzona ha risposto all'interpellanza dei Verdi confermando che lo stand di tiro di Gnosca dispone di regolare autorizzazione d'esercizio e che la perizia fonica commissionata nel 2018 ha dato risultati rassicuranti, con un leggero superamento del limite di rumore risolto tramite riduzione d",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 642566,
+   "cell": "it_commune",
+   "gold": "2021-07-07",
+   "lenient": [],
+   "doc_dates": [
+    "2021-07-07",
+    "2021-03-28",
+    "2021-05-18"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2021-07-07",
+    "margin": -21.37494178187835,
+    "n_cands": 3,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2021-07-07",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -21.37494178187835,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2021-07-07",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2021-07-07\",\n  \"beschluss_nr\": \"3/2021\",\n  \"antwort_zusammenfassung\": \"Il Municipio e l'Azienda Multiservizi Bellinzona (AMB) hanno risposto negativamente all'interrogazione, indicando che, al momento e sulla base delle informazioni attuali, la realizzazione di un impianto fotovoltaico lungo la specifica tratta autostradale dell'A2 non è tecnicamente ed economicamente sosteni",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2021-07-07",
+    "receipt_ok": true,
+    "gen": "{\n  \"antwort_datum\": \"2021-07-07\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Il Municipio e l'AMB non ritengono tecnicamente ed economicamente sostenibile realizzare un impianto fotovoltaico sulla tratta autostradale specifica lungo l'A2 a causa di criticità tecniche e opposizione del CCFT. Tuttavia, rimangono convinti della fattibilità su altre tratte e hanno individuato una soluzione",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 644304,
+   "cell": "it_commune",
+   "gold": "2019-09-24",
+   "lenient": [],
+   "doc_dates": [
+    "2019-09-24",
+    "2019-09-23"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2019-09-24",
+    "margin": -19.999902027354434,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2019-09-24",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -19.999902027354434,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2019-09-24",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"24 settembre 2019\",\n  \"beschluss_nr\": \"Nessun numero di decisione specificato nel documento\",\n  \"antwort_zusammenfassung\": \"Il Municipio ha risposto all'interpellanza dei Verdi spiegando che i vasi di arredo urbano sono stati spostati per essere riutilizzati in un'altra zona del comune, non abbattuti, e che i lavori di rifacimento della bordura lungo via Murate inizieranno so",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2019-09-24",
+    "receipt_ok": true,
+    "gen": "{\n  \"antwort_datum\": \"2019-09-24\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Il Municipio ha risposto alle domande dell'interpellanza trasformata in interrogazione, spiegando che i vasi di arredo urbano sono stati spostati per essere reimpiegati in un'altra zona del Comune, non abbattuti; che non si tratta di un taglio di alberi ma di un intervento di messa in sicurezza su pini maritti",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 675276,
+   "cell": "de_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2026-01-19",
+    "2025-12-18"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 60.04191937812709,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 60.04191937812709,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Das Dokument enthält die Interpellation selbst, jedoch keine Antwort der Regierung (Exekutive). Es ist ein parlamentarischer Vorstoss an den Gemeinderat Kloten, der noch ausstehend ist.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 693213,
+   "cell": "de_canton",
+   "gold": "2015-10-27",
+   "lenient": [],
+   "doc_dates": [
+    "2015-10-27",
+    "2015-06-24",
+    "1979-10-23",
+    "1978-11-08",
+    "1979-10-25"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2015-10-27",
+    "margin": -10.42110874198659,
+    "n_cands": 5,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2015-10-27",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -10.42110874198659,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2015-10-27",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2015-10-27\",\n  \"beschluss_nr\": \"1008/2015\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat des Kantons Schwyz erklärt das Postulat P 7/15 als erheblich und beantragt dem Kantonsrat, die Leistungsbeschränkung für Bootsmotoren auf den Schwyzer Seen von 6 PS auf 6 kW anzuheben. Er begründet dies damit, dass handelsübliche Motoren kaum noch mit 6 PS erhältlich sind, die Leistung",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2015-10-27",
+    "receipt_ok": true,
+    "gen": "{\n  \"antwort_datum\": \"2015-10-27\",\n  \"beschluss_nr\": \"1008/2015\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat erklärt das Postulat P 7/15 als erheblich, da mit der Anhebung der zulässigen Motorleistung von 6 PS auf 6 kW keine wesentlichen Nachteile für die Fauna und Flora verbunden sind. Zudem sind Kontrollen von nicht leistungsreduzierten Motoren weniger aufwendig und es können im besten Fall",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 862355,
+   "cell": "de_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2021-03-29",
+    "2020-12-15",
+    "2020-06-04",
+    "2020-11-25",
+    "2020-06-04"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 52.89788973644675,
+    "n_cands": 4,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 52.89788973644675,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Im vorliegenden Dokument wird die Motion der Kommission Bau und Volkswirtschaft vom 15. Dezember 2020 eingereicht, jedoch keine Antwort der Regierung (Exekutive) mit Datum und Beschlussnummer enthalten. Es handelt sich lediglich um die Einreichung des Vorstosses.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 863183,
+   "cell": "de_canton",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2026-05-04"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 66.75556226794754,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 66.75556226794754,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Im bereitgestellten Dokument befindet sich lediglich der parlamentarische Vorstoss (Postulat) von Raphael Kräuchi (GLP) an den Kantonsrat Schaffhausen vom 04. Mai 2026. Eine Antwort der Regierung (Exekutive) oder ein Beschluss sind in diesem Dokument nicht enthalten.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 867952,
+   "cell": "fr_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2021-04-20"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 75.63790774091916,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 75.63790774091916,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le document fourni est un postulat déposé par Mireille Hofmann Jacquod (les Verts) le 20 avril 2021 au Conseil général de Sion, demandant la mise en place d'un projet pilote d'horaire continu dans l'un des collèges d'orientation (CO) de la ville, notamment au Vieux-Moulin. Aucune réponse du gouvernement (exécutif) ni ",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 868121,
+   "cell": "fr_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2022-02-22"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 29.72303561846956,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 29.72303561846956,
+    "rule": "heading_without_date"
+   },
+   "naive_plain": {
+    "date": "2022-02-22",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2022-02-22\",\n  \"beschluss_nr\": \"non spécifié dans le document\",\n  \"antwort_zusammenfassung\": \"Le conseil municipal propose de donner suite au postulat en procédant à un inventaire et une étude documentaire sur un label 'Cafés et restaurants historiques' à Sion, en réalisant une publication de référence et en prévoyant un budget pour ces actions, en collaboration avec des expe",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 868140,
+   "cell": "fr_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-04-14"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 72.0646224530378,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 72.0646224530378,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le document fourni est un postulat déposé le 14.04.2024 par Jean-Paul Mabillard au Conseil général de Sion. Il ne contient pas de réponse de l'exécutif (Conseil municipal), ni de date de réponse, ni de numéro de décision. Il s'agit uniquement de la demande initiale.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 868257,
+   "cell": "fr_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-09-05"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 28.32287143625819,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 28.32287143625819,
+    "rule": "heading_without_date"
+   },
+   "naive_plain": {
+    "date": "2025-10-07",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2025-10-07\",\n  \"beschluss_nr\": \"Réponse à l'interpellation du 5.9.2025\",\n  \"antwort_zusammenfassung\": \"Le gouvernement communal de Sion a répondu à l'interpellation en confirmant son choix de ne pas financer la construction d'un nouveau stade, mais de mettre à disposition les terrains nécessaires via des droits de superficie. Il a détaillé les coûts comparatifs entre rénovati",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 868280,
+   "cell": "fr_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-12-16",
+    "2024-01-24"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2025-12-16",
+    "margin": 10.112632326695858,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2025-12-16",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": 10.112632326695858,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2025-12-16",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2025-12-16\",\n  \"beschluss_nr\": \"Non spécifié dans le document\",\n  \"antwort_zusammenfassung\": \"Le projet de réaménagement de la route T9 est en phase de demandes d'autorisations, avec plusieurs oppositions en cours de traitement. Le début des travaux est prévu fin 2027 et la fin du projet en 2030, sous réserve de l'issue des procédures. La Ville de Sion confirme sa participati",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le projet de réaménagement de la route T9 est en phase de demandes d'autorisations, avec plusieurs oppositions en cours de traitement. Le calendrier prévisionnel prévoit un début des travaux fin 2027 et une fin du projet en 2030, sous réserve de l'issue des procédures. La Ville de Sion confirme sa disposition à engage",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 868323,
+   "cell": "fr_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": Infinity,
+    "n_cands": 0,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "rule",
+    "null_reason": "not_in_document",
+    "margin": null,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le document fourni ne contient pas la réponse du gouvernement (exécutif) à ce postulat. Il ne s'agit que du texte de l'intervention parlementaire déposée par les signataires.\"\n}",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": null\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 869606,
+   "cell": "fr_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2017-10-31",
+    "2018-02-22"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2017-10-31",
+    "margin": -10.56496422240003,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2017-10-31",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -10.56496422240003,
+    "rule": "heading_without_date"
+   },
+   "naive_plain": {
+    "date": "2018-10-16",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2018-10-16\",\n  \"beschluss_nr\": \"CG(2016-2021)_RfinCC181016_Post48DucommunVonlanthenGrandjean171031_Espacejeuxeau\",\n  \"antwort_zusammenfassung\": \"Le Conseil communal répond favorablement en valorisant les fontaines et points d'eau existants, notamment en remplaçant la fontaine Jo Siffert par une nouvelle à la Gare, et en étudiant des aménagements de type fontaine de la Place F",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2018-10-16",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2018-10-16\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le Conseil communal répond favorablement aux postulants en valorisant les fontaines et points d'eau existants, notamment en prévoyant l'installation d'une nouvelle fontaine aux Grand-Places et d'aménagements de type fontaine de la Place Fédérale à Berne. Des équipements de jeux d'eau ludiques seront installés ",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 869638,
+   "cell": "fr_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2022-04-05"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2022-04-05",
+    "margin": -0.9766952358380934,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2022-04-05",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -0.9766952358380934,
+    "rule": "heading_without_date"
+   },
+   "naive_plain": {
+    "date": "2022-04-05",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2022-04-05\",\n  \"beschluss_nr\": \"Rapport final du Conseil communal au sujet du postulat n° 46 (2021-2026)\",\n  \"antwort_zusammenfassung\": \"Le Conseil communal estime que modifier la voie de bus sur le boulevard de Pérolles permettrait d'améliorer la circulation des transports publics, mais qu'il est nécessaire d'analyser une amélioration globale de la mobilité pour tous les usa",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2022-04-05",
+    "receipt_ok": true,
+    "gen": "{\n  \"antwort_datum\": \"2022-04-05\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le Conseil communal estime que modifier la voie de bus permettrait d'améliorer la circulation des transports publics, mais qu'il est nécessaire d'analyser une amélioration globale de la mobilité pour tous les usagers (piétons, bus, voitures et vélos). Le Service de la police locale et de la mobilité examinera ",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 874506,
+   "cell": "fr_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2024-12-16",
+    "2025-01-28"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 70.68630929015349,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 70.68630929015349,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le document fourni est une interpellation déposée le 16 décembre 2024 par le groupe PLR au Conseil général de La Chaux-de-Fonds. Il ne contient aucune information concernant la date de réponse de l'exécutif, ni le numéro de décision, ni le contenu de la réponse. Ces éléments ne sont pas présents dans le texte fourni.\"",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": \"Le document fourni ne contient aucune information concernant la date de réponse de l'exécutif, le numéro de décision ou le contenu de la réponse. Les champs relatifs à la date de traitement par le Conseil général et à la réponse sont vides.\"\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 874549,
+   "cell": "fr_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-02-12",
+    "2025-02-20"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 67.73140688025981,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 67.73140688025981,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le document fourni est une intervention parlementaire (amendement/motion) déposée le 12.02.2025 par le Groupe PLR au Conseil général de La Chaux-de-Fonds. Il ne contient aucune information concernant la réponse de l'exécutif, ni la date de réponse, ni le numéro de décision. Le champ 'Décision' est laissé vide dans le ",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": \"Le champ 'Traité par le Conseil général le' est présent mais la date est indiquée comme '20.02.2025' (date de traitement prévue), et le champ 'Décision' est laissé vide dans le document fourni.\"\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 874585,
+   "cell": "fr_commune",
+   "gold": null,
+   "lenient": [],
+   "doc_dates": [
+    "2025-02-12",
+    "2025-02-20"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 67.73140688025981,
+    "n_cands": 2,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 67.73140688025981,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le document fourni est une intervention parlementaire (amendement/motion) déposée le 12.02.2025 par le Groupe PLR au Conseil général de La Chaux-de-Fonds. Il ne contient aucune information concernant la réponse de l'exécutif, ni la date de réponse, ni le numéro de décision. Le champ 'Décision' est laissé vide dans le ",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": null,
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": null,\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": null,\n  \"beleg\": \"Le champ 'Traité par le Conseil général le' est présent mais la date est indiquée comme '20.02.2025' (date de traitement prévue), et le champ 'Décision' est laissé vide dans le document fourni.\"\n}",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 877681,
+   "cell": "de_canton",
+   "gold": "2026-05-12",
+   "lenient": [],
+   "doc_dates": [
+    "2026-05-12",
+    "2023-11-22",
+    "2024-05-22",
+    "2005-10-19",
+    "2006-02-01",
+    "2026-05-12",
+    "2019-04-17",
+    "2026-05-12"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2026-05-12",
+    "margin": -15.249664367386739,
+    "n_cands": 6,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2026-05-12",
+    "route": "apertus",
+    "null_reason": null,
+    "margin": -15.249664367386739,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "2026-05-12",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2026-05-12\",\n  \"beschluss_nr\": \"RRB Nr. 327/2026\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat des Kantons Schwyz beantragt dem Kantonsrat, vom Bericht Kenntnis zu nehmen und schreibt die in ein Postulat umgewandelte Motion M 17/23 als erledigt ab. Er erkennt die Notwendigkeit einer gezielten Förderung leistungsstarker Schüler in der 3. Klasse der Sekundarstufe I an, sieh",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2026-05-12",
+    "receipt_ok": true,
+    "gen": "{\n  \"antwort_datum\": \"2026-05-12\",\n  \"beschluss_nr\": \"327/2026\",\n  \"antwort_zusammenfassung\": \"Der Regierungsrat des Kantons Schwyz erkennt das Anliegen der Motionäre an, die Anschlussfähigkeit der Volksschule an anspruchsvollere Bildungswege zu stärken. Er sieht jedoch aufgrund der neuen Ausgangslage nach der Teilrevision des Volksschulgesetzes und des neuen Projekts «STARTKLAR.» von einer unmitt",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 879872,
+   "cell": "fr_commune",
+   "gold": "2022-12-12",
+   "lenient": [],
+   "doc_dates": [
+    "2022-12-12"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2022-12-12",
+    "rule": "place_date_tail",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2022-12-12",
+    "margin": -22.125,
+    "n_cands": 1,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2022-12-12",
+    "route": "rule",
+    "null_reason": null,
+    "margin": null,
+    "rule": "place_date_tail"
+   },
+   "naive_plain": {
+    "date": "2022-12-12",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2022-12-12\",\n  \"beschluss_nr\": \"RÉPONSE – QE 201 A – 22.12\",\n  \"antwort_zusammenfassung\": \"Le Conseil administratif de la Ville de Vernier confirme son intérêt pour la végétalisation des toitures et façades, la privilégiant dans toutes les nouvelles constructions et rénovations. Il explique que cette mesure contribue aux objectifs énergétiques de la Cité de l'Energie Gold et ",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2022-12-12",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2022-12-12\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le Conseil administratif de la Ville de Vernier confirme son intérêt pour la végétalisation des toitures et façades, la considérant comme un moyen efficace d'atteindre ses objectifs énergétiques et de protéger le climat. Il privilégie cette stratégie dans toutes les nouvelles constructions et rénovations, en é",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 895511,
+   "cell": "fr_commune",
+   "gold": "2017-01-30",
+   "lenient": [],
+   "doc_dates": [
+    "2016-12-22",
+    "2017-01-25",
+    "2017-01-30"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": null,
+    "margin": 20.88241275006812,
+    "n_cands": 3,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": null,
+    "route": "apertus",
+    "null_reason": "not_in_document",
+    "margin": 20.88241275006812,
+    "rule": "no_anchor"
+   },
+   "naive_plain": {
+    "date": "unparseable:25-01-2017",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"25-01-2017\",\n  \"beschluss_nr\": \"non spécifié dans le document\",\n  \"antwort_zusammenfassung\": \"Le Conseiller d'Etat Pierre MAUDET a répondu en indiquant qu'il restait dans l'attente de nouvelles suite à sa proposition d'interpeller la Commandante de la Police afin qu'elle étudie l'opportunité de visiter les installations de Pétrostock et propose son expertise en matière de séc",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2017-01-25",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"25.01.2017\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le Conseiller d'Etat Pierre MAUDET a répondu à la résolution en indiquant qu'il restait dans l'attente de nouvelles suite à sa proposition d'interpeller Madame la Commandante de la Police afin qu'elle étudie l'opportunité de visiter les installations de Pétrostock et propose son expertise en matière de sécurit",
+    "route": "apertus"
+   }
+  },
+  {
+   "doc_id": 921934,
+   "cell": "fr_commune",
+   "gold": "2022-10-03",
+   "lenient": [],
+   "doc_dates": [
+    "2022-06-15",
+    "2022-10-28",
+    "2022-09-05",
+    "2022-10-03"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2022-10-03",
+    "rule": "place_date_tail",
+    "route": "rule"
+   },
+   "pointer": {
+    "value": "2022-10-03",
+    "margin": -21.624964237876462,
+    "n_cands": 4,
+    "truncated": false,
+    "route": "apertus"
+   },
+   "cascade": {
+    "value": "2022-10-03",
+    "route": "rule",
+    "null_reason": null,
+    "margin": null,
+    "rule": "place_date_tail"
+   },
+   "naive_plain": {
+    "date": "2022-10-03",
+    "receipt_ok": false,
+    "gen": "{\n  \"antwort_datum\": \"2022-10-03\",\n  \"beschluss_nr\": \"RÉPONSE – QE 200 A – 22.10\",\n  \"antwort_zusammenfassung\": \"Le Conseil administratif de Vernier reconnaît la nécessité d'agir face à l'urgence climatique et énergétique, mais souligne les limites de son pouvoir contraignant sur les entreprises. Il répond qu'il ne peut pas imposer de règles obligatoires, mais qu'il utilise des leviers de sensibil",
+    "route": "apertus"
+   },
+   "naive_null": {
+    "date": "2022-10-03",
+    "receipt_ok": true,
+    "gen": "{\n  \"antwort_datum\": \"2022-10-03\",\n  \"beschluss_nr\": null,\n  \"antwort_zusammenfassung\": \"Le Conseil administratif de Vernier confirme la nécessité d'agir face à l'urgence climatique et environnementale, mais souligne les limites de son pouvoir contraignant sur les entreprises. Il indique que sa stratégie repose sur la sensibilisation et la mobilisation des acteurs locaux, ainsi que sur le relais d",
+    "route": "apertus"
+   }
+  }
+ ]
+}
