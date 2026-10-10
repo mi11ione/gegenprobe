@@ -1,0 +1,99 @@
+name: arms-8b-p6
+# EXPLORATORY (PREREG7, added after LOCK7): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU, fast scorer that cleared
+# the D2 gate) on P6. Job `fit`: v2's presence θ for this build on P1 dev (calibrate.fit_theta, spikes skipped) ->
+# data/p6/v2_theta_gguf.json. Job `shard`: six P6 shards, arms rules, v1 (committed 8B θ), cascade_v1, v2 (8B θ), cascade_v2,
+# free_guided, free_null (eval/p6/run_8b.py). Job `merge`: one results file (+ hypotheses7 if P6 labels are committed).
+# Commit the artifact `p6-8b` (results + θ + model cache) after review.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+defaults:
+  run:
+    working-directory: track_2a
+env:
+  GP_WORK: ${{ github.workspace }}/work
+  PYTHONPATH: src:.
+jobs:
+  fit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with: {python-version: "3.11"}
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita
+      - run: |
+          pip install --require-hashes -r requirements.lock   # same pins as requirements.txt, sha256-verified
+          pip install --only-binary=:all: --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu llama-cpp-python==0.3.35 \
+            || CMAKE_ARGS="-DGGML_NATIVE=ON" pip install llama-cpp-python==0.3.35
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with: {path: "${{ github.workspace }}/work/models", key: model-cache-apertus-8b-gguf-v1}
+      - run: python -c "from gegenprobe import llm; print(llm.fetch_gguf('apertus-v1.5-8b-text-q4_k_m'))"   # sha256-verified
+      - run: mkdir -p out && python -m eval.prereg7.lock7 check
+      - run: python -m eval.p6.run_8b fetch
+      - run: |
+          set -o pipefail
+          /usr/bin/time -v python -m eval.p6.run_8b fit 2>&1 | tee out/fit_p6.log
+          test -f data/p6/v2_theta_gguf.json
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: p6-fit
+          path: |
+            track_2a/out/
+            track_2a/data/p6/v2_theta_gguf.json
+            track_2a/data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m/
+  shard:
+    needs: fit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix: {i: [0, 1, 2, 3, 4, 5]}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with: {python-version: "3.11"}
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita
+      - run: |
+          pip install --require-hashes -r requirements.lock
+          pip install --only-binary=:all: --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu llama-cpp-python==0.3.35 \
+            || CMAKE_ARGS="-DGGML_NATIVE=ON" pip install llama-cpp-python==0.3.35
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with: {path: "${{ github.workspace }}/work/models", key: model-cache-apertus-8b-gguf-v1}
+      - run: python -c "from gegenprobe import llm; print(llm.fetch_gguf('apertus-v1.5-8b-text-q4_k_m'))"
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with: {name: p6-fit, path: track_2a}
+      - run: python -m eval.p6.run_8b fetch
+      - run: /usr/bin/time -v python -m eval.p6.run_8b run --shard ${{ matrix.i }}/6
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: p6-shard-${{ matrix.i }}
+          path: |
+            track_2a/results/p6/shards/
+            track_2a/data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m/
+  merge:
+    needs: shard
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with: {python-version: "3.11"}
+      - run: pip install --require-hashes -r requirements.lock
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with: {pattern: "p6-*", merge-multiple: true, path: track_2a}
+      - run: python -m eval.p6.run_8b merge
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: p6-8b
+          path: |
+            track_2a/results/p6/p6__gguf_apertus-v1.5-8b-text-q4_k_m.json
+            track_2a/results/p6/hypotheses7__gguf_apertus-v1.5-8b-text-q4_k_m.json
+            track_2a/results/p6/shards/
+            track_2a/data/p6/v2_theta_gguf.json
+            track_2a/data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m/

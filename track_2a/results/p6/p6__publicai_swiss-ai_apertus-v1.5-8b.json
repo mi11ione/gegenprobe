@@ -1,0 +1,4493 @@
+{
+ "split": "p6",
+ "build": "publicai:swiss-ai/apertus-v1.5-8b",
+ "theta_v1": 10.395354058425431,
+ "v2_config": {
+  "name": "v2",
+  "candidate": "C_presence_theta_dev+generate_then_point",
+  "gate": "presence",
+  "theta_presence": -5.887991393334232,
+  "pick": "gen_then_role",
+  "gen_max_tokens": 60,
+  "budget_chars": 12000,
+  "build": "publicai:swiss-ai/apertus-v1.5-8b",
+  "theta_fitted_on": "P1 dev, 127 documents (calibrate.fit_theta on presence margins)",
+  "selected_by": "eval/p6/DEV2_SELECTION.md -> results/p6/dev2_selection.json",
+  "prompt_ids": {
+   "answer_present/de": "de/answer_present.txt@bb923a8b8a15",
+   "answer_present/fr": "fr/answer_present.txt@f0475779e036",
+   "answer_present/it": "it/answer_present.txt@e84f728eff94",
+   "answer_decision_mcq/de": "de/answer_decision_mcq.txt@07cc38c5d1b3",
+   "answer_decision_mcq/fr": "fr/answer_decision_mcq.txt@7b0f33b19851",
+   "answer_decision_mcq/it": "it/answer_decision_mcq.txt@d4ce969a8737",
+   "answer_dispatch_mcq/de": "de/answer_dispatch_mcq.txt@9ab7e2c3bbc4",
+   "answer_dispatch_mcq/fr": "fr/answer_dispatch_mcq.txt@0610ed9477db",
+   "answer_dispatch_mcq/it": "it/answer_dispatch_mcq.txt@66f313d362db",
+   "answer_date_mcq/de": "de/answer_date_mcq.txt@dd5e18aeb5f4",
+   "answer_date_mcq/fr": "fr/answer_date_mcq.txt@9bbd898b2114",
+   "answer_date_mcq/it": "it/answer_date_mcq.txt@fda566027bfc",
+   "naive_guided/de": "de/naive_guided.txt@ff342982ecff",
+   "naive_guided/fr": "fr/naive_guided.txt@46bd6b28327e",
+   "naive_guided/it": "it/naive_guided.txt@a55c6f4e7223"
+  }
+ },
+ "n_docs": 68,
+ "served_fingerprints": [
+  "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840"
+ ],
+ "per_doc": [
+  {
+   "doc_id": 276469,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "1976-10-21",
+    "1982-10-28",
+    "1982-12-16",
+    "1985-04-02",
+    "1986-01-30",
+    "1987-01-01",
+    "1994-09-01",
+    "1995-01-01",
+    "2006-03-24",
+    "2009-01-01",
+    "2017-05-05",
+    "2017-05-30"
+   ],
+   "n_visible_dates": 12,
+   "rules": {
+    "status": "value",
+    "value": "2017-05-30",
+    "rule": "rrb_vom"
+   },
+   "latest_printed_date": {
+    "value": "2017-05-30"
+   },
+   "latest_on_answer_typed": {
+    "value": "2017-05-30"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2017-05-30",
+    "margin": -15.122524383361593,
+    "n_cands": 12
+   },
+   "cascade_v1": {
+    "value": "2017-05-30",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2017-05-30",
+    "stage": "generation",
+    "presence_margin": -17.261285424232653,
+    "calls": 3,
+    "span": {
+     "page": 3,
+     "char_start": 1712,
+     "char_end": 1724
+    }
+   },
+   "cascade_v2": {
+    "value": "2017-05-30",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2017-05-30",
+    "how": "iso",
+    "registered_parser": "2017-05-30",
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2017-05-30",
+    "how": "iso",
+    "registered_parser": "2017-05-30",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2017-05-30",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 428570,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2023-02-03",
+    "2023-03-02",
+    "2023-04-04"
+   ],
+   "n_visible_dates": 3,
+   "rules": {
+    "status": "value",
+    "value": "2023-04-04",
+    "rule": "place_date_tail"
+   },
+   "latest_printed_date": {
+    "value": "2023-04-04"
+   },
+   "latest_on_answer_typed": {
+    "value": "2023-04-04"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2023-04-04",
+    "margin": -15.374738727376492,
+    "n_cands": 3
+   },
+   "cascade_v1": {
+    "value": "2023-04-04",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2023-04-04",
+    "stage": "generation",
+    "presence_margin": -19.98909556865749,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 240,
+     "char_end": 253
+    }
+   },
+   "cascade_v2": {
+    "value": "2023-04-04",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2023-04-04",
+    "how": "iso",
+    "registered_parser": "2023-04-04",
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2023-04-04",
+    "how": "iso",
+    "registered_parser": "2023-04-04",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2023-04-04",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 170631,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2022-03-21",
+    "2022-04-12"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "value",
+    "value": "2022-04-12",
+    "rule": "rrb_vom"
+   },
+   "latest_printed_date": {
+    "value": "2022-04-12"
+   },
+   "latest_on_answer_typed": {
+    "value": "2022-04-12"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2022-04-12",
+    "margin": -15.123829811345871,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": "2022-04-12",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2022-04-12",
+    "stage": "generation",
+    "presence_margin": -16.69410574436347,
+    "calls": 3,
+    "span": {
+     "page": 2,
+     "char_start": 1569,
+     "char_end": 1583
+    }
+   },
+   "cascade_v2": {
+    "value": "2022-04-12",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2022-04-12",
+    "how": "iso",
+    "registered_parser": "2022-04-12",
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2022-04-12",
+    "how": "iso",
+    "registered_parser": "2022-04-12",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2022-04-12",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 379358,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2011-09-13",
+    "2017-03-07",
+    "2017-03-30",
+    "2017-07-11"
+   ],
+   "n_visible_dates": 4,
+   "rules": {
+    "status": "value",
+    "value": "2017-07-11",
+    "rule": "place_date_tail"
+   },
+   "latest_printed_date": {
+    "value": "2017-07-11"
+   },
+   "latest_on_answer_typed": {
+    "value": "2017-07-11"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2017-07-11",
+    "margin": -15.249925145494487,
+    "n_cands": 4
+   },
+   "cascade_v1": {
+    "value": "2017-07-11",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2017-07-11",
+    "stage": "generation",
+    "presence_margin": -17.85769736766872,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 163,
+     "char_end": 176
+    }
+   },
+   "cascade_v2": {
+    "value": "2017-07-11",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2017-07-11",
+    "how": "iso",
+    "registered_parser": "2017-07-11",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2017-07-11",
+    "how": "iso",
+    "registered_parser": "2017-07-11",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2017-07-11",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 329356,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2019-11-05"
+   ],
+   "n_visible_dates": 1,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2019-11-05"
+   },
+   "latest_on_answer_typed": {
+    "value": "2019-11-05"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 13.563296069390844,
+    "n_cands": 1
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 15.17982554455375,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2019-11-05",
+    "how": "iso",
+    "registered_parser": "2019-11-05",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 377704,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2016-07-15",
+    "2016-08-25",
+    "2017-01-31"
+   ],
+   "n_visible_dates": 3,
+   "rules": {
+    "status": "value",
+    "value": "2017-01-31",
+    "rule": "place_date_tail"
+   },
+   "latest_printed_date": {
+    "value": "2017-01-31"
+   },
+   "latest_on_answer_typed": {
+    "value": "2017-01-31"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2017-01-31",
+    "margin": -14.61083561462226,
+    "n_cands": 3
+   },
+   "cascade_v1": {
+    "value": "2017-01-31",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2017-01-31",
+    "stage": "generation",
+    "presence_margin": -22.007263183593864,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 232,
+     "char_end": 247
+    }
+   },
+   "cascade_v2": {
+    "value": "2017-01-31",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2017-01-31",
+    "how": "iso",
+    "registered_parser": "2017-01-31",
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2017-01-31",
+    "how": "iso",
+    "registered_parser": "2017-01-31",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2017-01-31",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 379118,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "1907-12-10",
+    "1946-06-03",
+    "2011-09-23",
+    "2015-04-01",
+    "2017-12-08",
+    "2019-05-08",
+    "2020-02-03",
+    "2020-05-11",
+    "2020-06-09"
+   ],
+   "n_visible_dates": 9,
+   "rules": {
+    "status": "value",
+    "value": "2020-06-09",
+    "rule": "rrb_vom"
+   },
+   "latest_printed_date": {
+    "value": "2020-06-09"
+   },
+   "latest_on_answer_typed": {
+    "value": "2020-06-09"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2020-06-09",
+    "margin": -15.873829811364487,
+    "n_cands": 9
+   },
+   "cascade_v1": {
+    "value": "2020-06-09",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2020-06-09",
+    "stage": "generation",
+    "presence_margin": -16.24130988121044,
+    "calls": 3,
+    "span": {
+     "page": 4,
+     "char_start": 640,
+     "char_end": 652
+    }
+   },
+   "cascade_v2": {
+    "value": "2020-06-09",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2020-06-09",
+    "how": "iso",
+    "registered_parser": "2020-06-09",
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2020-06-09",
+    "how": "iso",
+    "registered_parser": "2020-06-09",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2020-06-09",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 277799,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2015-10-18",
+    "2015-12-08",
+    "2016-01-17"
+   ],
+   "n_visible_dates": 3,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2016-01-17"
+   },
+   "latest_on_answer_typed": {
+    "value": "2016-01-17"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2015-12-08",
+    "margin": -0.2413856759958044,
+    "n_cands": 3
+   },
+   "cascade_v1": {
+    "value": "2015-12-08",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": -1.3881129047440481,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2015-12-08",
+    "how": "iso",
+    "registered_parser": "2015-12-08",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2015-12-08",
+    "how": "iso",
+    "registered_parser": "2015-12-08",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2015-12-08",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 378957,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2020-11-30"
+   ],
+   "n_visible_dates": 1,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2020-11-30"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 57.20211759025497,
+    "n_cands": 1
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 29.974475383758545,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2021-03-10",
+    "how": "iso",
+    "registered_parser": "2021-03-10",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 223224,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2016-05-02",
+    "2016-10-26"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2016-10-26"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 61.37116447349713,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 31.970544815063477,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2017-03-23",
+    "how": "iso",
+    "registered_parser": "2017-03-23",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 328381,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2024-04-16"
+   ],
+   "n_visible_dates": 1,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2024-04-16"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 60.647832794709444,
+    "n_cands": 1
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 32.59411907196045,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 654092,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2025-11-26"
+   ],
+   "n_visible_dates": 1,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2025-11-26"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 65.83868736621162,
+    "n_cands": 1
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 32.23565912246704,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 170950,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2021-03-09"
+   ],
+   "n_visible_dates": 1,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2021-03-09"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 63.62906136769299,
+    "n_cands": 1
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 35.67429828643799,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 56618,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2024-03-04"
+   ],
+   "n_visible_dates": 1,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2024-03-04"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 58.49758749972966,
+    "n_cands": 1
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 33.59954595565796,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2024-09-12",
+    "how": "iso",
+    "registered_parser": "2024-09-12",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 114411,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2022-04-19"
+   ],
+   "n_visible_dates": 1,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2022-04-19"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 65.89205448921345,
+    "n_cands": 1
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 32.735042095184326,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 921247,
+   "body": "1711",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "1988-06-07",
+    "1998-02-10",
+    "2019-05-14",
+    "2019-06-01",
+    "2026-07-13",
+    "2026-07-14",
+    "2026-09-01"
+   ],
+   "n_visible_dates": 7,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2026-09-01"
+   },
+   "latest_on_answer_typed": {
+    "value": "2026-09-01"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2026-09-01",
+    "margin": 1.5181513589003686,
+    "n_cands": 7
+   },
+   "cascade_v1": {
+    "value": "2026-09-01",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2026-09-01",
+    "stage": "generation",
+    "presence_margin": -15.165068507198612,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 83,
+     "char_end": 100
+    }
+   },
+   "cascade_v2": {
+    "value": "2026-09-01",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2026-09-01",
+    "how": "iso",
+    "registered_parser": "2026-09-01",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2026-09-01",
+    "how": "iso",
+    "registered_parser": "2026-09-01",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2026-09-01",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 919318,
+   "body": "1711",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2024-08-29",
+    "2024-12-10",
+    "2024-12-17",
+    "2025-05-06",
+    "2026-02-24",
+    "2026-04-27",
+    "2026-08-25",
+    "2027-12-31"
+   ],
+   "n_visible_dates": 8,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2027-12-31"
+   },
+   "latest_on_answer_typed": {
+    "value": "2027-12-31"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2026-08-25",
+    "margin": 9.261524246633364,
+    "n_cands": 8
+   },
+   "cascade_v1": {
+    "value": "2026-08-25",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2026-08-25",
+    "stage": "generation",
+    "presence_margin": -12.494309306156538,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 83,
+     "char_end": 98
+    }
+   },
+   "cascade_v2": {
+    "value": "2026-08-25",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2026-08-25",
+    "how": "iso",
+    "registered_parser": "2026-08-25",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2026-08-25",
+    "how": "iso",
+    "registered_parser": "2026-08-25",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2026-08-25",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 864233,
+   "body": "1711",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2024-08-23",
+    "2024-09-03"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2024-09-03"
+   },
+   "latest_on_answer_typed": {
+    "value": "2024-09-03"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 13.999034140424357,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2024-09-03",
+    "stage": "generation",
+    "presence_margin": -10.811431348355654,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 83,
+     "char_end": 100
+    }
+   },
+   "cascade_v2": {
+    "value": "2024-09-03",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2024-09-03",
+    "how": "iso",
+    "registered_parser": "2024-09-03",
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2024-09-03",
+    "how": "iso",
+    "registered_parser": "2024-09-03",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2024-09-03",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 864968,
+   "body": "1711",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2024-03-26",
+    "2025-05-08",
+    "2025-05-16",
+    "2025-06-18",
+    "2025-06-24"
+   ],
+   "n_visible_dates": 5,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2025-06-24"
+   },
+   "latest_on_answer_typed": {
+    "value": "2025-06-24"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 13.853839980863459,
+    "n_cands": 5
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2025-06-24",
+    "stage": "generation",
+    "presence_margin": -7.333016991628028,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 83,
+     "char_end": 96
+    }
+   },
+   "cascade_v2": {
+    "value": "2025-06-24",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2025-06-24",
+    "how": "iso",
+    "registered_parser": "2025-06-24",
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2025-06-24",
+    "how": "iso",
+    "registered_parser": "2025-06-24",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2025-06-24",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 864816,
+   "body": "1711",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "1982-12-16",
+    "2024-01-01",
+    "2024-06-27",
+    "2024-10-18",
+    "2025-01-31",
+    "2025-02-18",
+    "2025-04-01"
+   ],
+   "n_visible_dates": 7,
+   "rules": {
+    "status": "value",
+    "value": "2025-04-01",
+    "rule": "place_date_tail"
+   },
+   "latest_printed_date": {
+    "value": "2025-04-01"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2025-04-01",
+    "margin": -14.498071386753125,
+    "n_cands": 7
+   },
+   "cascade_v1": {
+    "value": "2025-04-01",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2025-04-01",
+    "stage": "generation",
+    "presence_margin": -17.168079495431584,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 295,
+     "char_end": 308
+    }
+   },
+   "cascade_v2": {
+    "value": "2025-04-01",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2025-04-01",
+    "how": "iso",
+    "registered_parser": "2025-04-01",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2025-04-01",
+    "how": "iso",
+    "registered_parser": "2025-04-01",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2025-04-01",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 865173,
+   "body": "1711",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2021-10-06",
+    "2021-10-13"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2021-10-13"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 64.09976789219563,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 18.995875954628048,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 863646,
+   "body": "1711",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2025-08-17"
+   ],
+   "n_visible_dates": 1,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2025-08-17"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 59.61462623324118,
+    "n_cands": 1
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 18.232246637344588,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 869747,
+   "body": "1711",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2024-01-21",
+    "2024-01-22",
+    "2024-02-20"
+   ],
+   "n_visible_dates": 3,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2024-02-20"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 56.755163701147296,
+    "n_cands": 3
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 32.5312020778656,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 895936,
+   "body": "3427",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2026-03-31",
+    "2026-04-20",
+    "2026-06-16"
+   ],
+   "n_visible_dates": 3,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2026-06-16"
+   },
+   "latest_on_answer_typed": {
+    "value": "2026-06-16"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2026-06-16",
+    "margin": 9.764169425902175,
+    "n_cands": 3
+   },
+   "cascade_v1": {
+    "value": "2026-06-16",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2026-06-16",
+    "stage": "generation",
+    "presence_margin": -12.65296423435666,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 96,
+     "char_end": 109
+    }
+   },
+   "cascade_v2": {
+    "value": "2026-06-16",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2026-06-16",
+    "how": "iso",
+    "registered_parser": "2026-06-16",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2026-06-16",
+    "how": "iso",
+    "registered_parser": "2026-06-16",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2026-06-16",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 654476,
+   "body": "3427",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2015-11-05",
+    "2018-08-01",
+    "2020-09-24",
+    "2020-10-21",
+    "2020-10-28"
+   ],
+   "n_visible_dates": 5,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2020-10-28"
+   },
+   "latest_on_answer_typed": {
+    "value": "2020-10-28"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2020-10-21",
+    "margin": -1.8470644834574301,
+    "n_cands": 5
+   },
+   "cascade_v1": {
+    "value": "2020-10-21",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2020-10-28",
+    "stage": "generation",
+    "presence_margin": -14.575285077095373,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 133,
+     "char_end": 149
+    }
+   },
+   "cascade_v2": {
+    "value": "2020-10-28",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2020-10-28",
+    "how": "iso",
+    "registered_parser": "2020-10-28",
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2020-10-28",
+    "how": "iso",
+    "registered_parser": "2020-10-28",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2020-10-28",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 654614,
+   "body": "3427",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2012-04-26",
+    "2012-06-20"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2012-06-20"
+   },
+   "latest_on_answer_typed": {
+    "value": "2012-06-20"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2012-06-20",
+    "margin": -0.8631142937979064,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": "2012-06-20",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2012-06-20",
+    "stage": "generation",
+    "presence_margin": -13.61198365688341,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 126,
+     "char_end": 139
+    }
+   },
+   "cascade_v2": {
+    "value": "2012-06-20",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2012-06-20",
+    "how": "iso",
+    "registered_parser": "2012-06-20",
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2012-06-20",
+    "how": "iso",
+    "registered_parser": "2012-06-20",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2012-06-20",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 611909,
+   "body": "3427",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2017-07-07",
+    "2017-11-08",
+    "2018-02-01",
+    "2018-11-13",
+    "2018-12-12",
+    "2019-01-01",
+    "2019-01-23"
+   ],
+   "n_visible_dates": 7,
+   "rules": {
+    "status": "value",
+    "value": "2017-11-08",
+    "rule": "rrb_vom"
+   },
+   "latest_printed_date": {
+    "value": "2019-01-23"
+   },
+   "latest_on_answer_typed": {
+    "value": "2019-01-23"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2019-01-23",
+    "margin": -5.4767735348234545,
+    "n_cands": 7
+   },
+   "cascade_v1": {
+    "value": "2017-11-08",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2019-01-23",
+    "stage": "generation",
+    "presence_margin": -14.421836614609788,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 96,
+     "char_end": 111
+    }
+   },
+   "cascade_v2": {
+    "value": "2017-11-08",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2019-01-23",
+    "how": "iso",
+    "registered_parser": "2019-01-23",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2019-01-23",
+    "how": "d_month_y",
+    "registered_parser": "2019-01-23",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2019-01-23",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 611674,
+   "body": "3427",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2021-06-23",
+    "2022-05-19",
+    "2023-10-02",
+    "2024-12-13",
+    "2025-02-04"
+   ],
+   "n_visible_dates": 5,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2025-02-04"
+   },
+   "latest_on_answer_typed": {
+    "value": "2025-02-04"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2025-02-04",
+    "margin": 3.828716370296501,
+    "n_cands": 5
+   },
+   "cascade_v1": {
+    "value": "2025-02-04",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2025-02-04",
+    "stage": "generation",
+    "presence_margin": -15.326781034469718,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 96,
+     "char_end": 111
+    }
+   },
+   "cascade_v2": {
+    "value": "2025-02-04",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2025-02-04",
+    "how": "iso",
+    "registered_parser": "2025-02-04",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2025-02-04",
+    "how": "iso",
+    "registered_parser": "2025-02-04",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2025-02-04",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 612278,
+   "body": "3427",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2020-06-22"
+   ],
+   "n_visible_dates": 1,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2020-06-22"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 64.03065188997053,
+    "n_cands": 1
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 35.48879528045654,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2020-10-27",
+    "how": "iso",
+    "registered_parser": "2020-10-27",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 611934,
+   "body": "3427",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2018-04-05",
+    "2019-04-04"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2019-04-04"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 55.64334897247865,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 25.744986057281494,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 612248,
+   "body": "3427",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2025-09-09",
+    "2025-09-15"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2025-09-15"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 60.05475891123155,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 28.483008861541748,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 926613,
+   "body": "3427",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2026-09-22",
+    "2026-09-28"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2026-09-28"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 66.2164467697925,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 31.936226844787598,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 874347,
+   "body": "306",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2015-10-05",
+    "2017-04-29",
+    "2017-09-11",
+    "2017-11-06"
+   ],
+   "n_visible_dates": 4,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2017-11-06"
+   },
+   "latest_on_answer_typed": {
+    "value": "2017-11-06"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2017-11-06",
+    "margin": 9.4811545324366,
+    "n_cands": 4
+   },
+   "cascade_v1": {
+    "value": "2017-11-06",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2017-11-06",
+    "stage": "generation",
+    "presence_margin": -14.766208529476899,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 120,
+     "char_end": 130
+    }
+   },
+   "cascade_v2": {
+    "value": "2017-11-06",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2017-11-06",
+    "how": "iso",
+    "registered_parser": "2017-11-06",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2017-11-06",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 872843,
+   "body": "306",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2017-09-17",
+    "2018-12-10"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2018-12-10"
+   },
+   "latest_on_answer_typed": {
+    "value": "2018-12-10"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2018-12-10",
+    "margin": 1.750003356827122,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": "2018-12-10",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2018-12-10",
+    "stage": "generation",
+    "presence_margin": -8.179940462169725,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 188,
+     "char_end": 198
+    }
+   },
+   "cascade_v2": {
+    "value": "2018-12-10",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2018-12-10",
+    "how": "iso",
+    "registered_parser": "2018-12-10",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2018-12-10",
+    "how": "iso",
+    "registered_parser": "2018-12-10",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2018-12-10",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 871698,
+   "body": "306",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2011-11-07",
+    "2013-03-01",
+    "2016-06-01",
+    "2022-05-01",
+    "2023-09-18",
+    "2024-03-01",
+    "2024-06-24",
+    "2025-09-15",
+    "2026-03-02",
+    "2026-06-01"
+   ],
+   "n_visible_dates": 10,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2026-06-01"
+   },
+   "latest_on_answer_typed": {
+    "value": "2026-06-01"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2026-03-02",
+    "margin": -11.000356436589591,
+    "n_cands": 10
+   },
+   "cascade_v1": {
+    "value": "2026-03-02",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2026-03-02",
+    "stage": "generation",
+    "presence_margin": -6.459847927366354,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 102,
+     "char_end": 112
+    }
+   },
+   "cascade_v2": {
+    "value": "2026-03-02",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2026-03-02",
+    "how": "d_m_y_numeric",
+    "registered_parser": "2026-03-02",
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2026-03-02",
+    "how": "d_m_y_numeric",
+    "registered_parser": "2026-03-02",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2026-03-02",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 873144,
+   "body": "306",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2017-12-29",
+    "2018-03-12",
+    "2018-11-05"
+   ],
+   "n_visible_dates": 3,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date"
+   },
+   "latest_printed_date": {
+    "value": "2018-11-05"
+   },
+   "latest_on_answer_typed": {
+    "value": "2018-11-05"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2018-11-05",
+    "margin": 6.749917485348741,
+    "n_cands": 3
+   },
+   "cascade_v1": {
+    "value": "2018-11-05",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": -5.3568140269298965,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2018-11-05",
+    "how": "iso",
+    "registered_parser": "2018-11-05",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 872284,
+   "body": "306",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2021-01-08",
+    "2021-02-22",
+    "2021-09-13",
+    "2021-12-13"
+   ],
+   "n_visible_dates": 4,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2021-12-13"
+   },
+   "latest_on_answer_typed": {
+    "value": "2021-12-13"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2021-12-13",
+    "margin": -9.250062664643718,
+    "n_cands": 4
+   },
+   "cascade_v1": {
+    "value": "2021-12-13",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2021-12-13",
+    "stage": "generation",
+    "presence_margin": -10.826771974576332,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 180,
+     "char_end": 190
+    }
+   },
+   "cascade_v2": {
+    "value": "2021-12-13",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2021-12-13",
+    "how": "iso",
+    "registered_parser": "2021-12-13",
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2021-12-13",
+    "how": "iso",
+    "registered_parser": "2021-12-13",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2021-12-13",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 872831,
+   "body": "306",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2020-09-14"
+   ],
+   "n_visible_dates": 1,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2020-09-14"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 58.25032353075216,
+    "n_cands": 1
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 7.759817950427532,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "verbal_null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 873313,
+   "body": "306",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2019-11-04",
+    "2019-12-09"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2019-12-09"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 28.757164541106743,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": -0.4378448848146945,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2019-12-09",
+    "how": "d_m_y_numeric",
+    "registered_parser": "2019-12-09",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 873037,
+   "body": "306",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2016-09-12",
+    "2016-09-13"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2016-09-13"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 45.749797027106126,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": -1.7777648429619148,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "verbal_null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 389669,
+   "body": "2937",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2022-09-15",
+    "2022-10-30",
+    "2023-03-09"
+   ],
+   "n_visible_dates": 3,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date"
+   },
+   "latest_printed_date": {
+    "value": "2023-03-09"
+   },
+   "latest_on_answer_typed": {
+    "value": "2023-03-09"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2023-03-09",
+    "margin": -0.11988497858645175,
+    "n_cands": 3
+   },
+   "cascade_v1": {
+    "value": "2023-03-09",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2022-10-30",
+    "stage": "decision",
+    "presence_margin": -16.010104894638744,
+    "calls": 7,
+    "span": {
+     "page": 2,
+     "char_start": 551,
+     "char_end": 567
+    }
+   },
+   "cascade_v2": {
+    "value": "2022-10-30",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "not_a_day_date",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "not_a_day_date",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 288892,
+   "body": "2937",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2018-09-23",
+    "2020-02-19",
+    "2020-07-02",
+    "2021-02-03",
+    "2021-04-06"
+   ],
+   "n_visible_dates": 5,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2021-04-06"
+   },
+   "latest_on_answer_typed": {
+    "value": "2021-04-06"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2021-04-06",
+    "margin": -6.186746040592055,
+    "n_cands": 5
+   },
+   "cascade_v1": {
+    "value": "2021-04-06",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2021-04-06",
+    "stage": "generation",
+    "presence_margin": -14.881727933883838,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 81,
+     "char_end": 94
+    }
+   },
+   "cascade_v2": {
+    "value": "2021-04-06",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2021-04-06",
+    "how": "iso",
+    "registered_parser": "2021-04-06",
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2021-04-06",
+    "how": "iso",
+    "registered_parser": "2021-04-06",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2021-04-06",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 128559,
+   "body": "2937",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2015-10-27",
+    "2015-11-10"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "value",
+    "value": "2015-11-10",
+    "rule": "place_date_head"
+   },
+   "latest_printed_date": {
+    "value": "2015-11-10"
+   },
+   "latest_on_answer_typed": {
+    "value": "2015-11-10"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2015-11-10",
+    "margin": -11.798562869744767,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": "2015-11-10",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2015-11-10",
+    "stage": "generation",
+    "presence_margin": -14.751937270157214,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 233,
+     "char_end": 250
+    }
+   },
+   "cascade_v2": {
+    "value": "2015-11-10",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2015-11-10",
+    "how": "iso",
+    "registered_parser": "2015-11-10",
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2015-11-10",
+    "how": "iso",
+    "registered_parser": "2015-11-10",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2015-11-10",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 236759,
+   "body": "2937",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2014-03-19",
+    "2014-03-22",
+    "2014-03-25",
+    "2014-04-15",
+    "2015-01-01"
+   ],
+   "n_visible_dates": 5,
+   "rules": {
+    "status": "value",
+    "value": "2014-04-15",
+    "rule": "place_date_head"
+   },
+   "latest_printed_date": {
+    "value": "2015-01-01"
+   },
+   "latest_on_answer_typed": {
+    "value": "2015-01-01"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2014-04-15",
+    "margin": -7.999978849077067,
+    "n_cands": 5
+   },
+   "cascade_v1": {
+    "value": "2014-04-15",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2014-04-15",
+    "stage": "generation",
+    "presence_margin": -13.0434997081802,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 162,
+     "char_end": 176
+    }
+   },
+   "cascade_v2": {
+    "value": "2014-04-15",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2014-04-15",
+    "how": "iso",
+    "registered_parser": "2014-04-15",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2014-04-15",
+    "how": "iso",
+    "registered_parser": "2014-04-15",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2014-04-15",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 128565,
+   "body": "2937",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2003-06-29",
+    "2005-10-26",
+    "2013-10-22",
+    "2016-04-13",
+    "2016-05-01",
+    "2016-12-06",
+    "2016-12-22",
+    "2016-12-29",
+    "2017-01-10"
+   ],
+   "n_visible_dates": 9,
+   "rules": {
+    "status": "value",
+    "value": "2017-01-10",
+    "rule": "place_date_head"
+   },
+   "latest_printed_date": {
+    "value": "2017-01-10"
+   },
+   "latest_on_answer_typed": {
+    "value": "2017-01-10"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2017-01-10",
+    "margin": -11.589776596059107,
+    "n_cands": 9
+   },
+   "cascade_v1": {
+    "value": "2017-01-10",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2017-01-10",
+    "stage": "generation",
+    "presence_margin": -13.879990220065679,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 165,
+     "char_end": 180
+    }
+   },
+   "cascade_v2": {
+    "value": "2017-01-10",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2017-01-10",
+    "how": "iso",
+    "registered_parser": "2017-01-10",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2017-01-10",
+    "how": "iso",
+    "registered_parser": "2017-01-10",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2017-01-10",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 71928,
+   "body": "2937",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2021-08-12"
+   ],
+   "n_visible_dates": 1,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2021-08-12"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 66.011386781086,
+    "n_cands": 1
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 34.79283142089844,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 288887,
+   "body": "2937",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2023-04-17",
+    "2023-04-18"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2023-04-18"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 67.07847118568269,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 35.9917049407959,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 183707,
+   "body": "2937",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2018-09-06"
+   ],
+   "n_visible_dates": 1,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2018-09-06"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 67.13730543261443,
+    "n_cands": 1
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 34.743874073028564,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 71936,
+   "body": "2937",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2015-10-22",
+    "2015-10-23"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2015-10-23"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 70.49064649203716,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 36.49020767211914,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 878543,
+   "body": "581",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "1999-10-19",
+    "2019-08-27",
+    "2019-12-10",
+    "2020-10-28",
+    "2020-12-10"
+   ],
+   "n_visible_dates": 5,
+   "rules": {
+    "status": "value",
+    "value": "2020-10-28",
+    "rule": "place_date_head"
+   },
+   "latest_printed_date": {
+    "value": "2020-12-10"
+   },
+   "latest_on_answer_typed": {
+    "value": "2020-12-10"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2020-10-28",
+    "margin": 7.000490985561335,
+    "n_cands": 5
+   },
+   "cascade_v1": {
+    "value": "2020-10-28",
+    "route": "rule"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": -3.33286619284263,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": "2020-10-28",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2020-10-28",
+    "how": "iso",
+    "registered_parser": "2020-10-28",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2020-10-28",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 878529,
+   "body": "581",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "1998-03-16",
+    "1999-10-19",
+    "2020-10-20",
+    "2021-02-19",
+    "2021-03-31",
+    "2021-04-20"
+   ],
+   "n_visible_dates": 6,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2021-04-20"
+   },
+   "latest_on_answer_typed": {
+    "value": "2021-04-20"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2021-03-31",
+    "margin": -1.7484974575910073,
+    "n_cands": 6
+   },
+   "cascade_v1": {
+    "value": "2021-03-31",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2021-03-31",
+    "stage": "generation",
+    "presence_margin": -13.431346654894696,
+    "calls": 3,
+    "span": {
+     "page": 2,
+     "char_start": 1309,
+     "char_end": 1322
+    }
+   },
+   "cascade_v2": {
+    "value": "2021-03-31",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2021-03-31",
+    "how": "iso",
+    "registered_parser": "2021-03-31",
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2021-03-31",
+    "how": "iso",
+    "registered_parser": "2021-03-31",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2021-03-31",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 878596,
+   "body": "581",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "1999-10-19",
+    "2019-05-27",
+    "2019-06-25",
+    "2019-09-04",
+    "2019-12-25"
+   ],
+   "n_visible_dates": 5,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2019-12-25"
+   },
+   "latest_on_answer_typed": {
+    "value": "2019-12-25"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 47.885392998492954,
+    "n_cands": 5
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 10.59892375022173,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 878407,
+   "body": "581",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "1999-10-19",
+    "2023-08-22",
+    "2023-10-17",
+    "2024-03-06",
+    "2024-04-17"
+   ],
+   "n_visible_dates": 5,
+   "rules": {
+    "status": "value",
+    "value": "2024-03-06",
+    "rule": "place_date_tail"
+   },
+   "latest_printed_date": {
+    "value": "2024-04-17"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2024-03-06",
+    "margin": -2.7500053339491295,
+    "n_cands": 5
+   },
+   "cascade_v1": {
+    "value": "2024-03-06",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2024-03-06",
+    "stage": "generation",
+    "presence_margin": -13.513870477709133,
+    "calls": 3,
+    "span": {
+     "page": 2,
+     "char_start": 1480,
+     "char_end": 1492
+    }
+   },
+   "cascade_v2": {
+    "value": "2024-03-06",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2024-03-06",
+    "how": "iso",
+    "registered_parser": "2024-03-06",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2024-03-06",
+    "how": "iso",
+    "registered_parser": "2024-03-06",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2024-03-06",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 878393,
+   "body": "581",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "1999-10-19",
+    "2023-05-09",
+    "2023-06-27",
+    "2024-03-19",
+    "2024-08-14"
+   ],
+   "n_visible_dates": 5,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2024-08-14"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 16.436081931016943,
+    "n_cands": 5
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": -1.2348342007608153,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2024-08-14",
+    "how": "iso",
+    "registered_parser": "2024-08-14",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2024-08-14",
+    "how": "iso",
+    "registered_parser": "2024-08-14",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2024-08-14",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 878786,
+   "body": "581",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "1999-10-19",
+    "2016-08-16",
+    "2016-10-18",
+    "2016-12-07",
+    "2017-04-18"
+   ],
+   "n_visible_dates": 5,
+   "rules": {
+    "status": "value",
+    "value": "2016-12-07",
+    "rule": "place_date_head"
+   },
+   "latest_printed_date": {
+    "value": "2017-04-18"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2016-12-07",
+    "margin": 0.0067147426099118945,
+    "n_cands": 5
+   },
+   "cascade_v1": {
+    "value": "2016-12-07",
+    "route": "rule"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": -4.080451848312805,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": "2016-12-07",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2016-12-07",
+    "how": "iso",
+    "registered_parser": "2016-12-07",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2016-12-07",
+    "how": "iso",
+    "registered_parser": "2016-12-07",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 880686,
+   "body": "6023",
+   "cell": "fr_commune",
+   "dtype": "answer",
+   "lang": "fr",
+   "doc_dates": [
+    "2021-10-12",
+    "2022-05-25"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "value",
+    "value": "2022-05-25",
+    "rule": "fr_adopte_seance"
+   },
+   "latest_printed_date": {
+    "value": "2022-05-25"
+   },
+   "latest_on_answer_typed": {
+    "value": "2022-05-25"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2022-05-25",
+    "margin": -19.625000000000004,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": "2022-05-25",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2022-05-25",
+    "stage": "generation",
+    "presence_margin": -14.237905421847245,
+    "calls": 3,
+    "span": {
+     "page": 2,
+     "char_start": 1376,
+     "char_end": 1386
+    }
+   },
+   "cascade_v2": {
+    "value": "2022-05-25",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2022-05-25",
+    "how": "iso",
+    "registered_parser": "2022-05-25",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2022-05-25",
+    "how": "iso",
+    "registered_parser": "2022-05-25",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2022-05-25",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 880684,
+   "body": "6023",
+   "cell": "fr_commune",
+   "dtype": "answer",
+   "lang": "fr",
+   "doc_dates": [
+    "2021-06-08",
+    "2022-05-25"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "value",
+    "value": "2022-05-25",
+    "rule": "fr_adopte_seance"
+   },
+   "latest_printed_date": {
+    "value": "2022-05-25"
+   },
+   "latest_on_answer_typed": {
+    "value": "2022-05-25"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2022-05-25",
+    "margin": -15.250000097230618,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": "2022-05-25",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2022-05-25",
+    "stage": "generation",
+    "presence_margin": -12.164467303693527,
+    "calls": 3,
+    "span": {
+     "page": 3,
+     "char_start": 240,
+     "char_end": 250
+    }
+   },
+   "cascade_v2": {
+    "value": "2022-05-25",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2022-05-25",
+    "how": "iso",
+    "registered_parser": "2022-05-25",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2022-05-25",
+    "how": "iso",
+    "registered_parser": "2022-05-25",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2022-05-25",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 880683,
+   "body": "6023",
+   "cell": "fr_commune",
+   "dtype": "answer",
+   "lang": "fr",
+   "doc_dates": [
+    "2014-10-21",
+    "2015-12-15",
+    "2021-11-02",
+    "2022-09-01"
+   ],
+   "n_visible_dates": 4,
+   "rules": {
+    "status": "value",
+    "value": "2022-09-01",
+    "rule": "fr_adopte_seance"
+   },
+   "latest_printed_date": {
+    "value": "2022-09-01"
+   },
+   "latest_on_answer_typed": {
+    "value": "2022-09-01"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2022-09-01",
+    "margin": -20.500159780028845,
+    "n_cands": 4
+   },
+   "cascade_v1": {
+    "value": "2022-09-01",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2022-09-01",
+    "stage": "generation",
+    "presence_margin": -13.892808720673202,
+    "calls": 3,
+    "span": {
+     "page": 3,
+     "char_start": 217,
+     "char_end": 235
+    }
+   },
+   "cascade_v2": {
+    "value": "2022-09-01",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2022-09-01",
+    "how": "d_m_y_numeric",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2022-09-01",
+    "how": "d_m_y_numeric",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2022-09-01",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 880682,
+   "body": "6023",
+   "cell": "fr_commune",
+   "dtype": "answer",
+   "lang": "fr",
+   "doc_dates": [
+    "2021-12-14",
+    "2022-07-26",
+    "2022-09-01"
+   ],
+   "n_visible_dates": 3,
+   "rules": {
+    "status": "value",
+    "value": "2022-09-01",
+    "rule": "fr_adopte_seance"
+   },
+   "latest_printed_date": {
+    "value": "2022-09-01"
+   },
+   "latest_on_answer_typed": {
+    "value": "2022-09-01"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2022-09-01",
+    "margin": -21.249999761761785,
+    "n_cands": 3
+   },
+   "cascade_v1": {
+    "value": "2022-09-01",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2022-09-01",
+    "stage": "generation",
+    "presence_margin": -13.241516664129449,
+    "calls": 3,
+    "span": {
+     "page": 2,
+     "char_start": 3353,
+     "char_end": 3371
+    }
+   },
+   "cascade_v2": {
+    "value": "2022-09-01",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2022-09-01",
+    "how": "d_m_y_numeric",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2022-09-01",
+    "how": "d_m_y_numeric",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2022-09-01",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 925092,
+   "body": "6023",
+   "cell": "fr_commune",
+   "dtype": "intervention",
+   "lang": "fr",
+   "doc_dates": [
+    "2026-05-18"
+   ],
+   "n_visible_dates": 1,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2026-05-18"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 67.29670478101525,
+    "n_cands": 1
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 28.625561475754374,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 880665,
+   "body": "6023",
+   "cell": "fr_commune",
+   "dtype": "intervention",
+   "lang": "fr",
+   "doc_dates": [],
+   "n_visible_dates": 0,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": null
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": Infinity,
+    "n_cands": 0
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "rule"
+   },
+   "v2": {
+    "value": null,
+    "stage": "no_dates",
+    "presence_margin": Infinity,
+    "calls": 0,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "rule"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": "2023-03-22",
+    "how": "iso",
+    "registered_parser": "2023-03-22",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 880648,
+   "body": "6023",
+   "cell": "fr_commune",
+   "dtype": "intervention",
+   "lang": "fr",
+   "doc_dates": [
+    "2023-01-12",
+    "2023-01-30"
+   ],
+   "n_visible_dates": 2,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2023-01-30"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 75.05357378283841,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 30.499890446663244,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 880630,
+   "body": "6023",
+   "cell": "fr_commune",
+   "dtype": "intervention",
+   "lang": "fr",
+   "doc_dates": [
+    "2024-08-25"
+   ],
+   "n_visible_dates": 1,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2024-08-25"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 69.85066070635804,
+    "n_cands": 1
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 28.625444054603634,
+    "calls": 2,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 671448,
+   "body": "6458",
+   "cell": "fr_commune",
+   "dtype": "answer",
+   "lang": "fr",
+   "doc_dates": [
+    "2024-11-05",
+    "2025-06-17",
+    "2025-06-20",
+    "2025-11-11",
+    "2025-11-17",
+    "2025-11-28",
+    "2025-12-22"
+   ],
+   "n_visible_dates": 7,
+   "rules": {
+    "status": "value",
+    "value": "2025-12-22",
+    "rule": "place_date_tail"
+   },
+   "latest_printed_date": {
+    "value": "2025-12-22"
+   },
+   "latest_on_answer_typed": {
+    "value": "2025-12-22"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2025-12-22",
+    "margin": -23.124999097701284,
+    "n_cands": 7
+   },
+   "cascade_v1": {
+    "value": "2025-12-22",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2025-12-22",
+    "stage": "generation",
+    "presence_margin": -15.800929332035594,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 139,
+     "char_end": 155
+    }
+   },
+   "cascade_v2": {
+    "value": "2025-12-22",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2025-12-22",
+    "how": "iso",
+    "registered_parser": "2025-12-22",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2025-12-22",
+    "how": "iso",
+    "registered_parser": "2025-12-22",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2025-12-22",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 907094,
+   "body": "6458",
+   "cell": "fr_commune",
+   "dtype": "answer",
+   "lang": "fr",
+   "doc_dates": [],
+   "n_visible_dates": 0,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": null
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": Infinity,
+    "n_cands": 0
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "rule"
+   },
+   "v2": {
+    "value": null,
+    "stage": "no_dates",
+    "presence_margin": Infinity,
+    "calls": 0,
+    "span": null
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "rule"
+   },
+   "free_null": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_plain": {
+    "value": null,
+    "how": "null",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   }
+  },
+  {
+   "doc_id": 671447,
+   "body": "6458",
+   "cell": "fr_commune",
+   "dtype": "answer",
+   "lang": "fr",
+   "doc_dates": [
+    "2024-04-21",
+    "2025-01-28",
+    "2025-01-31",
+    "2025-04-30",
+    "2025-09-17",
+    "2025-09-24",
+    "2025-10-24",
+    "2025-10-27",
+    "2025-12-22"
+   ],
+   "n_visible_dates": 9,
+   "rules": {
+    "status": "value",
+    "value": "2025-12-22",
+    "rule": "place_date_tail"
+   },
+   "latest_printed_date": {
+    "value": "2025-12-22"
+   },
+   "latest_on_answer_typed": {
+    "value": "2025-12-22"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2025-12-22",
+    "margin": -22.874962221533558,
+    "n_cands": 9
+   },
+   "cascade_v1": {
+    "value": "2025-12-22",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2025-12-22",
+    "stage": "generation",
+    "presence_margin": -11.63093536478118,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 192,
+     "char_end": 208
+    }
+   },
+   "cascade_v2": {
+    "value": "2025-12-22",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2025-12-22",
+    "how": "iso",
+    "registered_parser": "2025-12-22",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2025-12-22",
+    "how": "d_m_y_numeric",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2025-12-22",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 136842,
+   "body": "6458",
+   "cell": "fr_commune",
+   "dtype": "answer",
+   "lang": "fr",
+   "doc_dates": [
+    "2012-03-21",
+    "2022-03-08",
+    "2022-05-09"
+   ],
+   "n_visible_dates": 3,
+   "rules": {
+    "status": "value",
+    "value": "2022-05-09",
+    "rule": "place_date_tail"
+   },
+   "latest_printed_date": {
+    "value": "2022-05-09"
+   },
+   "latest_on_answer_typed": {
+    "value": "2022-05-09"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2022-05-09",
+    "margin": -18.749925139420892,
+    "n_cands": 3
+   },
+   "cascade_v1": {
+    "value": "2022-05-09",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2022-05-09",
+    "stage": "generation",
+    "presence_margin": -15.663696321484167,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 159,
+     "char_end": 169
+    }
+   },
+   "cascade_v2": {
+    "value": "2022-05-09",
+    "route": "rule"
+   },
+   "free_null": {
+    "value": "2022-05-09",
+    "how": "iso",
+    "registered_parser": "2022-05-09",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2022-05-09",
+    "how": "d_m_y_numeric",
+    "registered_parser": null,
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2022-05-09",
+    "printed": true
+   }
+  },
+  {
+   "doc_id": 19947,
+   "body": "6458",
+   "cell": "fr_commune",
+   "dtype": "answer",
+   "lang": "fr",
+   "doc_dates": [
+    "2024-02-14",
+    "2024-04-25",
+    "2024-06-24"
+   ],
+   "n_visible_dates": 3,
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "heading_without_date"
+   },
+   "latest_printed_date": {
+    "value": "2024-06-24"
+   },
+   "latest_on_answer_typed": {
+    "value": "2024-06-24"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2024-06-24",
+    "margin": -21.250000000374413,
+    "n_cands": 3
+   },
+   "cascade_v1": {
+    "value": "2024-06-24",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2024-06-24",
+    "stage": "generation",
+    "presence_margin": -15.914863010024419,
+    "calls": 3,
+    "span": {
+     "page": 1,
+     "char_start": 168,
+     "char_end": 180
+    }
+   },
+   "cascade_v2": {
+    "value": "2024-06-24",
+    "route": "apertus"
+   },
+   "free_null": {
+    "value": "2024-06-24",
+    "how": "iso",
+    "registered_parser": "2024-06-24",
+    "receipt_ok": true
+   },
+   "free_plain": {
+    "value": "2024-06-24",
+    "how": "iso",
+    "registered_parser": "2024-06-24",
+    "receipt_ok": false
+   },
+   "free_guided": {
+    "value": "2024-06-24",
+    "printed": true
+   }
+  }
+ ]
+}
