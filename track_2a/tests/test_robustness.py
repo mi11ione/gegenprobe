@@ -24,6 +24,8 @@ def test_mcnemar_and_mde():
 
 
 def test_raw_annotations_reproduce_committed_agreement(tmp_path, monkeypatch):
+    import shutil
+    shutil.copy(rb.OUT / "gold_agreement.json", tmp_path)  # agreement() reads it from OUT
     monkeypatch.setattr(rb, "OUT", tmp_path)  # write the recomputed agreement to a temp dir, not into results/
     a = rb.agreement()
     assert a["reproduces_gold_agreement_json"]
