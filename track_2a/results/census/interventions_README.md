@@ -33,3 +33,36 @@ bodies.
 | `date_trust` | per body: `verified` (Bern: printed decision date; Ticino: publisher's answer title; `verified_by` in date_trust.json) · `sitting_day` (≥ 80 % of answer dates on one weekday, a government's weekly sitting) · `mixed` (50–80 %) · `diffuse` (< 50 %) · `same_day` · `too_few` (< 20 dated) — `results/census/date_trust.json` |
 | `opd_url` | the affair's page on openparldata.ch |
 | `source_url` | the parliament's own page for the affair, from OPD's `url_external_*`, filled for rows whose answer text is not attached (16,745 of 16,749) |
+
+# parliaments.csv — the Parliaments table, one row per body
+
+Built by `make site` (`python -m gegenprobe.viewer collect`, `viewer/data.py:write_csv`) from the census results and this
+dataset. Column groups `all_*`, `since2015_*`, `y2425_*` repeat per period (by the year in the affair number, else its
+`begin_date`). One denominator: `written` = interventions whose events record a written government answer.
+
+| column (per period) | meaning |
+|---|---|
+| `written` | interventions with a written-answer event (the census denominator) |
+| `attached` · `agenda` · `parentless` · `image_only` · `oral` · `absent` | where the answer is (the `link_status` values above); they sum to `written` |
+| `no_answer_text` | `written − attached`: no answer text attached in OPD (the census gap; 16,749 over all years). **Includes `oral`** |
+| `oral` | answered orally in the sitting (question time; Valais `_ANT` oral-answer stubs): no written text is expected, so **not missing** |
+| `in_writing` | `written − oral`: the answers given in writing |
+| `written_missing` | `no_answer_text − oral` = `agenda + parentless + image_only + absent`: written answers without attached text. Use this, over `in_writing`, when you write about *missing* answers |
+| `written_missing_share` | `written_missing / in_writing` |
+| `with_text` · `after_repair` | `attached / written`; the same after the measured repairs (agenda join, Bern relink and fetch) |
+
+| column | meaning |
+|---|---|
+| `median_days_all_types` | median days to answer over **all intervention types pooled** (census rule; blank for same-day bodies and < 20 dated answers). **Caution:** it mixes motions, postulates, interpellations, questions and question time, whose "answer" is a different act (Neuchâtel: 25 days pooled, 70 for interpellations since 2015). Quote a per-type median instead |
+| `{period}_median_days_{type}` · `{period}_n_{type}` | median days and number of dated answers for one type (`interpellation`, `question`, `motion`, `postulate`, `question_time`), shown where n ≥ 10; blank for same-day bodies |
+| `median_flag` | `same_day` (OPD's "answer" date mostly equals the submission date: no answer time) · `few` (< 20 dated answers) |
+| `safe_to_say` | one generated sentence with its caveat; it uses `written_missing` over `in_writing` and names oral answers separately |
+| `coverage` | `measured` · `coverage_gap` (OPD holds ≥ 20 interventions but records a written answer for < 20 and < 10 % of them: a gap in OPD, not evidence about the parliament) · `few` · `no_affairs` |
+| `first_year` · `last_year` | years of the body's written-answer interventions in OPD |
+| `all_main_type` · `all_median_days_main_type` | the type with the most dated answers, and its median |
+| `date_trust` · `date_verified_by` | the body's date-trust tier (see `date_trust` above) and, for `verified`, how (`printed`, `title`) |
+
+Valais oral counts, one definition each: **1,017** interventions typed `oral` (this table, `link_status`) = 1,016 `_ANT`
+stubs found by the census length proxy + 1 question-time answer; **1,016** = the stubs alone (`results/census/summary.json`
+`gap_oral_split.vs_stub`); **1,008** = the stubs the repair's exact text rule confirms (the `retype_oral` list for OPD;
+`results/census/vs_reconcile.json`).

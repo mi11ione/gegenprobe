@@ -8,9 +8,11 @@
       needs_review; it is never written into the field. A document that cannot be fetched or read becomes a typed
       failure row (robots_disallowed, robots_unreachable, http_error, timeout, network_error, not_a_pdf, sha_mismatch,
       file_not_found, text_failed, too_large, text_timeout). Exit codes: 0 all ok; 2 a failure row (single file) or any
-      failure row in a batch (unless --allow-failures), or a malformed --anchors file. A --body outside
-      data/convert/rules_coverage.json prints a warning and marks the row needs_review. --anchors FILE adds your own
-      per-body regex anchors after the frozen rules; --explain lists every rule/anchor tried and the cache path.
+      failure row in a batch (unless --allow-failures), or a malformed --anchors file; 3 review mode refused because the
+      served model or fingerprint is not the build θ was fitted on (--allow-build-mismatch overrides, marking
+      suggestions). A --body outside data/convert/rules_coverage.json prints a warning and marks the row needs_review.
+      --anchors FILE adds your own per-body regex anchors after the frozen rules (--anchors-review keeps their values
+      flagged); --explain lists every rule/anchor tried and the cache path.
       --affair-type accepts the vocabulary keys, their DE/FR/IT/EN labels and OPD's harmonised names (an unknown value
       is an error, exit 2); --queue-nulls sends a rules-only null answer date on an answer document (doc_role answer, or
       --doc-category / batch column doc_category says answer) to review with its candidates.
@@ -42,7 +44,7 @@ def _convert(a) -> int:
         print(f"cache: {c['work']} ({c['note']})", file=sys.stderr)
     be, theta = (None, None)
     if a.mode == "review":
-        be, theta = batch.resolve_review(a.backend, a.theta)
+        be, theta = batch.resolve_review(a.backend, a.theta, allow_build_mismatch=a.allow_build_mismatch)
     if a.batch:
         from .convert.affair_types import UnknownAffairType
         try:
@@ -52,7 +54,7 @@ def _convert(a) -> int:
             return 2
         counts = batch.run_batch(inputs, a.out, mode=a.mode, backend=be, theta=theta, retry_failed=a.retry_failed,
                                  timeout=a.timeout, tries=a.tries, anchors=anchors, explain=a.explain,
-                                 queue_nulls=a.queue_nulls)
+                                 queue_nulls=a.queue_nulls, anchors_review=a.anchors_review)
         summary = ", ".join(f"{k} {v}" for k, v in sorted(counts.items()))
         print(f"{len(inputs)} inputs: {summary or 'nothing to do'}" + (f" -> {a.out}" if a.out else ""), file=sys.stderr)
         if a.queue:
@@ -74,7 +76,7 @@ def _convert(a) -> int:
     inp = dict(opd_doc_id=a.opd_doc_id, body=a.body, affair_number=a.affair_number, affair_type=a.affair_type, lang=a.lang,
                doc_category=a.doc_category)
     row = batch.convert_one(a.source, inp, mode=a.mode, backend=be, theta=theta, timeout=a.timeout, tries=a.tries,
-                            anchors=anchors, explain=a.explain, queue_nulls=a.queue_nulls)
+                            anchors=anchors, explain=a.explain, queue_nulls=a.queue_nulls, anchors_review=a.anchors_review)
     if row["status"] == "ok" and overlay.coverage_warning(row["rules_coverage"]):
         print(overlay.coverage_warning(row["rules_coverage"]), file=sys.stderr)
     elif row["status"] == "ok" and not a.body:
@@ -130,8 +132,13 @@ def main(argv: list[str] | None = None) -> int:
                    help="review mode: gguf (local Apertus 8B, CPU; default) | openai (LLM_BASE_URL/LLM_NAME/LLM_API_KEY) | "
                    "gateway:<model>:<tag>:<cap>")
     c.add_argument("--theta", type=float, help="review mode: override θ (not recommended: θ does not transfer across builds)")
+    c.add_argument("--allow-build-mismatch", action="store_true",
+                   help="review mode: attach suggestions even when the served model/fingerprint is not the build θ was "
+                   "fitted on (default: stop with exit 3); each suggestion is then marked build_mismatch")
     c.add_argument("--anchors", metavar="JSON", help="your own per-body regex anchors for the answer date and recommendation "
                    "phrases, tried only after the frozen rules return null (route user_anchor); docs/examples/anchors_SG.json")
+    c.add_argument("--anchors-review", action="store_true", help="values from your --anchors keep needs_review true "
+                   "(for anchors you have not measured yet; default: a user-anchor value is not flagged, route user_anchor)")
     c.add_argument("--explain", action="store_true", help="list every rule and anchor tried per field and why it did not "
                    "decide, plus the cache path (stderr; batch rows get an 'explain' key)")
     c.add_argument("-v", "--verbose", action="store_true", help="print the cache path (GP_WORK, default the repo's .work/)")
@@ -140,7 +147,12 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("run", help="the make-run replay")
     a = ap.parse_args(argv)
     if a.cmd == "convert":
-        return _convert(a)
+        from .convert.build_guard import BuildMismatch
+        try:
+            return _convert(a)
+        except BuildMismatch as e:  # review mode: the served model is not the build θ was fitted on
+            print(str(e), file=sys.stderr)
+            return 3
     from .run import main as run_main
     return run_main()
 

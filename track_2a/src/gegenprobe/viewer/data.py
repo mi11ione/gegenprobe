@@ -20,6 +20,7 @@ import statistics
 import subprocess
 
 from .. import llm, pdftext
+from ..census.presentation import CANTON_NAME, CANTON_RULE
 from ..convert import lattice, pointer, rules
 from ..paths import DATA, ROOT
 
@@ -279,7 +280,7 @@ def documents(full_text: bool = False) -> list[dict]:
 def body_names() -> dict[str, str]:
     names = {b["key"]: b["name"] for b in _tsv_gz("bodies")}
     for b in _j("census/question.json")["bodies"]:
-        names[b["body"]] = b["name"]
+        names[b["body"]] = b.get("opd_name") or b["name"]  # OPD's name (question.json `name` follows the site's rule)
     return names
 
 
@@ -292,17 +293,8 @@ PERIOD_LABEL = {"all": "all years", "since2015": "since 2015", "y2425": "2024–
 
 # Canton names on this English page: the canton's official name in the language of its majority (OPD labels every canton
 # in German: 'Tessin', 'Genf', 'Waadt' ...). Cities and communes keep OPD's name, which is already the local one (Lugano,
-# Neuchâtel, Genève). OPD's German name stays searchable (row 'alt').
-CANTON_NAME = {
-    "ZH": "Zürich", "BE": "Bern", "LU": "Luzern", "UR": "Uri", "SZ": "Schwyz", "OW": "Obwalden", "NW": "Nidwalden",
-    "GL": "Glarus", "ZG": "Zug", "FR": "Fribourg", "SO": "Solothurn", "BS": "Basel-Stadt", "BL": "Basel-Landschaft",
-    "SH": "Schaffhausen", "AR": "Appenzell Ausserrhoden", "AI": "Appenzell Innerrhoden", "SG": "St. Gallen",
-    "GR": "Graubünden", "AG": "Aargau", "TG": "Thurgau", "TI": "Ticino", "VD": "Vaud", "VS": "Valais", "NE": "Neuchâtel",
-    "GE": "Genève", "JU": "Jura",
-}
-CANTON_RULE = ("Cantons are named by their official name in the language of the majority of their population (Ticino, "
-               "Vaud, Genève, Valais, Fribourg; Graubünden, Bern, Luzern); cities and communes by OPD's name, which is the "
-               "local one. OPD's German names (Tessin, Waadt, Genf, Wallis, Freiburg) still find the row.")
+# Neuchâtel, Genève). OPD's German name stays searchable (row 'alt'). One rule for the site, question.json and docs/census.md:
+# CANTON_NAME / CANTON_RULE live in census/presentation.py.
 
 
 def label_of(key: str, name: str, btype: str | None) -> tuple[str, str]:
@@ -385,57 +377,49 @@ def safe_say(r: dict) -> str:
                 "the parliament leaves questions unanswered; ask OPD and the parliament before writing about it.")
     if cov == "few":
         return f"Too few written answers in OPD ({a['written']}) to say anything about this parliament."
-    miss = lambda c: c["written"] - c["attached"]  # noqa: E731
+    # Every share here is over the answers given in WRITING: interventions OPD records with a written-answer event, minus
+    # those answered orally in the sitting (question time, Valais oral-answer stubs), for which no text is expected.
     out = []
     pick = n if n["written"] >= 20 else a
     yrs = r.get("years")
     allw = f"over all years OPD holds ({yrs[0]}–{yrs[1]})" if yrs else "over all years"
+    what = "an oral-answer note filed in place of a text" if r["key"] == "VS" else "question time"
+
+    def lead(c: dict, when: str) -> str:
+        wm, iw = c["written_missing"], c["in_writing"]
+        if not c["oral"]:
+            return (f"{when}, {wm:,} of {iw:,} written government answers ({_pc(wm, iw)}) have no answer text attached in "
+                    "OpenParlData")
+        return (f"{when}, OPD records {c['written']:,} interventions with a government answer; {c['oral']:,} of them were "
+                f"answered orally in the sitting ({what}), so no written text is expected and they are not missing; "
+                + ("every answer given in writing has its text attached" if wm == 0 else
+                   f"of the {iw:,} answered in writing, {wm:,} ({_pc(wm, iw)}) have no answer text attached in OpenParlData"))
+
+    share = lambda c: c["written_missing"] / c["in_writing"] if c["in_writing"] else 0.0  # noqa: E731
     if n["written"] >= 20:
-        out.append(
-            f"In 2024–25, {miss(n):,} of {n['written']:,} written government answers ({_pc(miss(n), n['written'])}) have no "
-            f"answer text attached in OpenParlData"
-        )
-        if abs(miss(a) / a["written"] - miss(n) / n["written"]) > 0.15:
-            out.append(
-                f"{allw} it is {100 * miss(a) / a['written']:.0f}%, so older interventions dominate the all-years figure"
-            )
+        out.append(lead(n, "In 2024–25"))
+        if a["in_writing"] and abs(share(a) - share(n)) > 0.15:
+            out.append(f"{allw} it is {100 * share(a):.0f}% of written answers, so older interventions dominate the "
+                       "all-years figure")
     else:
-        out.append(
-            f"{allw[0].upper() + allw[1:]}, {miss(a):,} of {a['written']:,} written answers ({_pc(miss(a), a['written'])}) "
-            "have no answer text "
-            f"attached in OpenParlData; 2024–25 has too few to compare"
-        )
-    # oral answers (question time, VS oral-answer stubs) first, in the period quoted: they are not missing
-    mp = miss(pick)
-    oral_said = False
-    if mp >= 5 and pick["oral"] >= 0.3 * mp:
-        oral_said = True
-        what = "an oral-answer note filed in place of a text" if r["key"] == "VS" else "question time"
-        rest, base = mp - pick["oral"], pick["written"] - pick["oral"]
-        lead = "all of these" if pick["oral"] == mp else f"{pick['oral']:,} of these {mp:,}"
-        out.append(
-            f"{lead} were answered orally in the sitting ({what}), so they are not missing"
-            + (": every answer given in writing has its text attached" if rest == 0 else
-               f"; of the {base:,} answers given in writing, {rest:,} ({_pc(rest, base)}) lack text")
-        )
-    m = max(1, miss(a) - (a["oral"] if oral_said else 0))
-    the = "the other" if oral_said else "the"
+        out.append(lead(a, allw[0].upper() + allw[1:]) + "; 2024–25 has too few to compare")
+    if pick is n and not n["oral"] and a["oral"] >= 20:
+        out.append(f"{allw}, {a['oral']:,} answers were given orally in the sitting and are not counted as missing")
+    m = max(1, a["written_missing"])
     if m < 20:
         pass
     elif a["parentless"] + a["agenda"] > 0.5 * m:
         out.append(
-            f"most of {the} missing answers are in OpenParlData but not linked to their intervention, an aggregator issue "
-            "that OPD has confirmed, not the parliament's"
+            "most of the missing written answers are in OpenParlData but not linked to their intervention, an aggregator "
+            "issue that OPD has confirmed, not the parliament's"
         )
-    elif a["oral"] > 0.3 * m and not oral_said:
-        out.append("many 'missing' answers were given orally, so they are not missing")
     elif a["image_only"] > 0.3 * m:
-        out.append(f"most of {the} missing answers are documents whose copy in OPD has no text: OCR would recover them "
+        out.append("most of the missing written answers are documents whose copy in OPD has no text: OCR would recover them "
                    "(not yet run on all of them), and where the parliament publishes a text PDF or a Word file, OPD can "
                    "re-take that instead")
     elif a["absent"] > 0.5 * m:
-        out.append(f"{the} missing answers are not in OpenParlData; whether the parliament publishes them elsewhere was not "
-                   "checked")
+        out.append("the missing written answers are not in OpenParlData; whether the parliament publishes them elsewhere was "
+                   "not checked")
     if r["median"]["flag"] == "same_day":
         out.append("its 'answer' dates in OPD mostly equal submission dates, so answer times cannot be computed")
     return "; ".join(out) + "."
@@ -465,7 +449,12 @@ def parliaments() -> dict:
         periods = {}
         for p in PERIODS:
             c = dict(part[k][p]) if k in part else dict(written=0, **{x: 0 for x in LINKS})
+            # 'missing' = no answer text attached (the census gap; includes oral answers, for which no text is expected);
+            # written_missing = the gap minus oral answers, over the answers given in writing (in_writing)
             c["missing"] = c["written"] - c["attached"]
+            c["written_missing"] = c["missing"] - c["oral"]
+            c["in_writing"] = c["written"] - c["oral"]
+            c["written_missing_share"] = c["written_missing"] / c["in_writing"] if c["in_writing"] else None
             c["with_text"] = c["attached"] / c["written"] if c["written"] else None
             # repair routes that put text back: agenda join, BE parentless relink, BE fetch from the canton (its 49 absent
             # answers are all on the canton's list); OCR candidates and oral retypes are typed, not counted as text
@@ -551,9 +540,14 @@ def parliaments() -> dict:
         for f in fj["findings"]
     ]
     nat = {
-        p: dict(written=sum(r["periods"][p]["written"] for r in rows), attached=sum(r["periods"][p]["attached"] for r in rows))
+        p: dict(written=sum(r["periods"][p]["written"] for r in rows), attached=sum(r["periods"][p]["attached"] for r in rows),
+                oral=sum(r["periods"][p]["oral"] for r in rows))
         for p in PERIODS
     }
+    oral = oral_reconcile(s, rows)
+    for r in rows:
+        if r["key"] == "VS":
+            r["oral_note"] = oral["vs_sentence"]
     return dict(
         rows=rows,
         fields=fields,
@@ -561,6 +555,7 @@ def parliaments() -> dict:
         national_periods=nat,
         gap_share=s["national_gap_share"],
         decomposition=s["gap_prime_decomposition"],
+        oral_reconcile=oral,
         question=_j("census/question.json")["national"],
         same_day=[dict(b, label=next((r["label"] for r in rows if r["key"] == b["body"]), b["name"]))
                   for b in _j("census/question.json")["same_day_bodies"]],
@@ -588,6 +583,33 @@ def parliaments() -> dict:
         missing={k: v["missing"] for k, v in extras["bodies"].items()},  # split off into site/missing.json by `collect`
         research=extras["meta"],
     )
+
+
+def oral_reconcile(s: dict, rows: list[dict]) -> dict:
+    """The oral counts inside 'no answer text', each with its definition (U2: Valais 1,008 / 1,016 / 1,017).
+    typed_oral (table, dataset): link_status 'oral' = VS '_ANT' stubs by the census length proxy + question-time answers
+    with no answer document; vs_stub_proxy: the stubs alone (summary.json gap_oral_split.vs_stub); vs_stub_exact: the stubs
+    the repair's exact text rule confirms (the retype_oral list; results/census/vs_reconcile.json)."""
+    vr = _j("census/vs_reconcile.json")
+    sp = s["gap_oral_split"]
+    vs = next((r for r in rows if r["key"] == "VS"), None)
+    vs_typed = vs["periods"]["all"]["oral"] if vs else 0
+    vs_qt = sp["question_time_by_body"].get("VS", 0)
+    assert vs_typed == sp["vs_stub"] + vs_qt, (vs_typed, sp)
+    out = dict(
+        typed_oral=sp["vs_stub"] + sp["question_time"], vs_stub_proxy=sp["vs_stub"], question_time=sp["question_time"],
+        question_time_by_body=sp["question_time_by_body"], vs_typed_oral=vs_typed, vs_question_time=vs_qt,
+        vs_stub_exact=vr["canonical"]["value"], vs_proxy_only=vr["only_census"],
+        definition="answered orally in the sitting, so no written text is expected: Valais files an '_ANT' oral-answer stub "
+                   "in place of a text, and question-time answers (Fragestunde, heure des questions) are in the session "
+                   "minutes; counted inside 'no answer text' (the census gap) but not as written answers missing",
+    )
+    out["vs_sentence"] = (
+        f"Valais, all years: {vs_typed:,} interventions are typed oral here and in the dataset: {sp['vs_stub']:,} '_ANT' "
+        f"oral-answer stubs found by the census length proxy + {vs_qt} question-time answer; the repair's exact text rule "
+        f"confirms {vr['canonical']['value']:,} of the {sp['vs_stub']:,} stubs (the retype list OPD gets; the other "
+        f"{vr['only_census']} are documents where proxy and rule disagree, results/census/vs_reconcile.json).")
+    return out
 
 
 TIMES_MIN = 10  # durations needed for a per-type median
@@ -708,20 +730,27 @@ def bern_numbers(rows: list[dict]) -> list[dict]:
 def write_csv(par: dict, path) -> None:
     """The Parliaments table as CSV (one row per body; columns per period), for journalists and OPD."""
     cols = ["key", "label", "level", "canton"]
+    # (key in the row's period dict, CSV column suffix). no_answer_text = the census gap (written - attached, includes oral
+    # answers); written_missing = no_answer_text - oral, over in_writing = written - oral (columns: interventions_README.md)
     per_cols = [
-        "written",
-        "attached",
-        "agenda",
-        "parentless",
-        "image_only",
-        "oral",
-        "absent",
-        "missing",
-        "with_text",
-        "after_repair",
+        ("written", "written"),
+        ("attached", "attached"),
+        ("agenda", "agenda"),
+        ("parentless", "parentless"),
+        ("image_only", "image_only"),
+        ("oral", "oral"),
+        ("absent", "absent"),
+        ("missing", "no_answer_text"),
+        ("in_writing", "in_writing"),
+        ("written_missing", "written_missing"),
+        ("written_missing_share", "written_missing_share"),
+        ("with_text", "with_text"),
+        ("after_repair", "after_repair"),
     ]
-    head = (cols + [f"{p}_{c}" for p in PERIODS for c in per_cols] + ["median_days", "median_flag", "safe_to_say", "coverage"]
-            + [f"{p}_median_days_interpellation" for p in PERIODS]
+    slug = {t: t.lower().replace(" ", "_") for t in TYPE_ORDER}
+    head = (cols + [f"{p}_{h}" for p in PERIODS for _, h in per_cols]
+            + ["median_days_all_types", "median_flag", "safe_to_say", "coverage"]
+            + [f"{p}_{x}_{slug[t]}" for p in PERIODS for t in TYPE_ORDER for x in ("median_days", "n")]
             + ["first_year", "last_year", "all_main_type", "all_median_days_main_type", "date_trust", "date_verified_by"])
     with open(path, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
@@ -730,8 +759,10 @@ def write_csv(par: dict, path) -> None:
             vals = [r[c] for c in cols]
             for p in PERIODS:
                 c = r["periods"][p]
-                vals += [round(c[x], 4) if isinstance(c[x], float) else c[x] for x in per_cols]
-            ti = [r["times"].get(p, {}).get("Interpellation", {}).get("median", "") for p in PERIODS]
+                vals += [round(c[x], 4) if isinstance(c[x], float) else c[x] for x, _ in per_cols]
+            # per-type medians (n >= TIMES_MIN; blank otherwise and for same-day bodies, whose 'answer' date is no answer date)
+            tt = [(r["times"].get(p, {}).get(t) or {}) for p in PERIODS for t in TYPE_ORDER]
+            ti = [v for x in tt for v in (x.get("median", ""), x.get("n", ""))]
             yrs, mt = r.get("years") or ["", ""], (r.get("main_type") or {}).get("all", "")
             w.writerow(vals + [r["median"]["days"], r["median"]["flag"] or "", r["safe_say"], r["coverage"]] + ti
                        + [yrs[0], yrs[1], mt, r["times"].get("all", {}).get(mt, {}).get("median", "") if mt else "",
@@ -1014,14 +1045,22 @@ def schema_view() -> dict:
                                              for e in cmp_["type"]["ambiguous_examples"] if e["label"] == "antrag"),
         "procedural_state": f"{cmp_['procedural_state']['ambiguous_labels']} state labels are ambiguous",
         "decision_outcome": f"{cmp_['decision_outcome']['ambiguous_labels']} outcome labels are ambiguous",
-        "government_recommendation": f"{cmp_['government_recommendation']['ambiguous_labels']} ambiguous labels",
+        "government_recommendation": f"{cmp_['government_recommendation']['ambiguous_labels']} of "
+                                     f"{cmp_['government_recommendation']['raw_labels']:,} raw labels map to different "
+                                     "harmonised recommendations",
     }
+    # whether the field's MEANING was tested across parliaments (data/schema/field_verdict_classes.json `fields`): measured
+    # = a statistic in results/census/comparability.json; otherwise shared by definition, untested (J1, round 5)
+    tested = {x["key"]: x for c in classes.values() for x in c.get("fields", [])}
+    assert set(tested) == set(FIELD_CLASS) and all(FIELD_CLASS[k] == c["key"] for c in classes.values()
+                                                   for k in (x["key"] for x in c.get("fields", []))), "classes out of sync"
     fields = []
     for k, f in m["fields"].items():
         sc = f["status_counts"]
         fields.append(dict(key=k, name=FIELD_NAME.get(k, k.replace("_", " ")), cls=FIELD_CLASS[k], tier=f["tier"],
                            route=f["extraction_route"], eligible=f["eligible_bodies"], metadata=sc["metadata"],
-                           mixed=sc["mixed"], pdf=sc["pdf"], no_source=sc["no_source"], evidence=ev.get(k, "")))
+                           mixed=sc["mixed"], pdf=sc["pdf"], no_source=sc["no_source"], evidence=ev.get(k, ""),
+                           tested=tested[k]["meaning_tested"], tested_in=tested[k]["evidence"]))
     order = {"shared": 0, "shared_with_role_split": 1}
     fields.sort(key=lambda f: (order[f["cls"]], -f["metadata"], f["key"]))
     body_specific = [
@@ -1037,7 +1076,10 @@ def schema_view() -> dict:
     ]
     res = _j("eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json")
     x = next(a for a in res["per_affair"] if a["affair_id"] == SAMPLE_AFFAIR)
-    rec = x["affair"]
+    from ..affair_post import finalize  # product post-processing: no false typed null in the showcase (J1, round 5)
+
+    post = finalize(x["affair"])
+    rec = post["affair"]
     ad = rec["qa"][0]["answer_date"]
     assert ad["kind"] == "value" and ad.get("page") and ad.get("char_start") is not None, "sample must carry a span"
     assert rec["government_recommendation"]["kind"] == "null", "sample must carry a typed null"
@@ -1050,7 +1092,10 @@ def schema_view() -> dict:
         fields=fields, body_specific=body_specific, tier_counts=m["tier_counts"], n_bodies=m["n_bodies"],
         classes={k: dict(label=v["labels"]["en"], definition=v["definition"]) for k, v in classes.items()},
         counts=dict(collections.Counter(FIELD_CLASS[k] for k in m["fields"])),
+        tested_counts={c: dict(collections.Counter(f["tested"] for f in fields if f["cls"] == c))
+                       for c in ("shared", "shared_with_role_split")},
         sample=dict(record=rec, suggestions=x.get("suggestions", {}), body_label=label, test="P3b",
+                    omitted=post["omitted"], changes=post["changes"],
                     source="results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json",
                     gold_answer_date=gold["answer_date"], gold_quote=gold.get("answer_date_quote"),
                     gold_page=gold.get("answer_date_page")),
@@ -1085,7 +1130,9 @@ def headline(par: dict, ev: dict) -> dict:
         naive_fab=ev["arms"]["naive_plain"]["fabricated"],
         p2=(dict(pointer=ev["p2"]["recall"]["pointer"], rules=ev["p2"]["recall"]["rules"], bodies=len(ev["p2"]["bodies"]),
                  p=ev["p2"]["h2"]["p"]) if ev.get("p2") else None),
-        periods={k: dict(written=v["written"], missing=v["written"] - v["attached"]) for k, v in par["national_periods"].items()},
+        periods={k: dict(written=v["written"], missing=v["written"] - v["attached"], oral=v["oral"],
+                         written_missing=v["written"] - v["attached"] - v["oral"], in_writing=v["written"] - v["oral"])
+                 for k, v in par["national_periods"].items()},
     )
 
 
@@ -1098,6 +1145,42 @@ def _finite(o):
     if isinstance(o, list):
         return [_finite(v) for v in o]
     return o
+
+
+REPO_URL = "https://github.com/mi11ione/gegenprobe"
+# files served from site/downloads/ (copied by `python -m gegenprobe.viewer collect`; the OPD box links them):
+# (group, source under track_2a/, what it is)
+DOWNLOADS = (
+    ("Bern lists", "results/repair/repair_BE_relink.tsv",
+     "relink: answers already in OPD under an agenda item, to attach to their affair by the canton's document id"),
+    ("Bern lists", "results/repair/repair_BE_fetch.tsv", "fetch: answers OPD does not hold, with the canton's PDF URL"),
+    ("Bern lists", "results/repair/repair_BE_review.tsv", "review: rows whose per-row check failed, for a person"),
+    ("Bern lists", "results/repair/repair_BE_begin_date.tsv",
+     "begin_date: affairs whose begin date is a load timestamp, with the submission event that replaces it"),
+    ("Apply plan (dry run)", "results/repair/apply_be/apply_BE_plan.sql.txt",
+     "guarded UPDATE statements, one per row, each conditioned on the row's before-state; never executed by us"),
+    ("Apply plan (dry run)", "results/repair/apply_be/apply_BE_relink_plan.csv", "relink plan: before and after per row"),
+    ("Apply plan (dry run)", "results/repair/apply_be/apply_BE_begin_date_plan.csv",
+     "begin_date plan: before and after per row"),
+    ("Apply plan (dry run)", "results/repair/apply_be/apply_BE_plan.json",
+     "plan summary: rows by status, the export identifier rule and the hash/URL side effect"),
+    ("JSON Schemas (v0.1)", "results/schema/affair.schema.json", "Affair: one parliamentary affair with its documents"),
+    ("JSON Schemas (v0.1)", "results/schema/doc_extraction.schema.json", "DocExtraction: what the converter writes per document"),
+)
+
+
+def downloads() -> dict:
+    """The OPD box's direct downloads (site/downloads/) with size and row count, and the repository URL."""
+    files = []
+    for group, rel, what in DOWNLOADS:
+        p = ROOT / rel
+        rows = None
+        if p.suffix in (".tsv", ".csv"):
+            with open(p, encoding="utf-8") as f:
+                rows = sum(1 for line in f if line.strip()) - 1
+        files.append(dict(group=group, name=p.name, href=f"downloads/{p.name}", bytes=p.stat().st_size, rows=rows,
+                          what=what, source=rel))
+    return dict(repo=REPO_URL, files=files)
 
 
 def collect(full_text: bool = False) -> dict:
@@ -1115,5 +1198,6 @@ def collect(full_text: bool = False) -> dict:
             evaluation=ev,
             method=method(),
             schema=schema_view(),
+            downloads=downloads(),
         )
     )

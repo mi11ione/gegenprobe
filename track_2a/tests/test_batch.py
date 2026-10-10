@@ -46,9 +46,15 @@ def test_batch_resume_key_prefers_opd_doc_id(tmp_path, monkeypatch):
     calls = []
     monkeypatch.setattr(batch, "convert_one", _fake_convert_one(calls))
     out = tmp_path / "o.jsonl"
-    out.write_text(json.dumps({"status": "ok", "input": {"source": "https://other-url/x.pdf", "opd_doc_id": "5"}}) + "\n")
+    old = {"source": "https://other-url/x.pdf", "opd_doc_id": "5"}
+    # same document (OPD id), same options, new URL: the URL is not part of the options hash
+    out.write_text(json.dumps({"status": "ok", "input": old, "options": batch.options_of(old, mode="rules_only")}) + "\n")
     counts = batch.run_batch([{"source": "https://x.ch/new-url.pdf", "opd_doc_id": "5"}], str(out))
     assert calls == [] and counts == {"skipped (already done)": 1}
+    # a row written before options were recorded is skipped too, and counted as such
+    out.write_text(json.dumps({"status": "ok", "input": old}) + "\n")
+    counts = batch.run_batch([{"source": "https://x.ch/new-url.pdf", "opd_doc_id": "5"}], str(out))
+    assert calls == [] and counts == {"skipped (older row, options not recorded)": 1}
 
 
 def test_review_queue_is_sorted_strongest_first(tmp_path):

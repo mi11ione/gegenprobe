@@ -5,6 +5,10 @@ identical (GP_DOCS_META/<part>/{docs,texts}_meta.jsonl.gz), so census/extract.py
 
 usage: python -m gegenprobe.census.scan <outdir> [body_key ... | -body_key ...] [@docs|@texts]
   ≈ 6 GB transfer, ≈ 25 min CPU (parsing-bound). The 8 Oct 2026 scan used for the committed census is in four parts A–D.
+
+Bytes: every file is read through a counting wrapper (compressed bytes as they come off the wire, every attempt counted);
+<outdir>/stream_bytes.json records them per file next to the size index.json declares. The nightly job sums these into
+run.json (`bytes.docs_texts_streamed`). A file read from GP_EXPORTS_DIR is counted the same way and marked `local`.
 """
 
 from __future__ import annotations
@@ -12,6 +16,7 @@ from __future__ import annotations
 import collections
 import gzip
 import hashlib
+import io
 import json
 import re
 import sys
@@ -67,11 +72,36 @@ def text_row(d: dict, bk: str) -> dict:
     )
 
 
+class CountingReader:
+    """Read-through wrapper that counts the bytes read from the underlying (compressed) stream."""
+
+    def __init__(self, raw):
+        self.raw, self.n = raw, 0
+
+    def read(self, size: int = -1) -> bytes:
+        b = self.raw.read(size)
+        self.n += len(b)
+        return b
+
+
+def stream_counted(url: str, tally: dict):
+    """net.stream_ndjson_gz (same open_url: robots, pacing, retries, GP_EXPORTS_DIR) plus a byte count in tally['bytes']."""
+    r = net.open_url(url, timeout=600)
+    c = CountingReader(r)
+    tally["local"] = net.local_exports(url).startswith("file:")
+    try:
+        yield from io.TextIOWrapper(gzip.GzipFile(fileobj=c), encoding="utf-8")
+    finally:
+        tally["bytes"] = tally.get("bytes", 0) + c.n
+        r.close()
+
+
 def scan(out: Path, only: set[str], skip: set[str], ents: set[str]) -> None:
     out.mkdir(parents=True, exist_ok=True)
     idx = json.loads(net.get(INDEX))
     heads = collections.defaultdict(collections.Counter)
     sample: dict[str, str] = {}
+    counted: dict[str, dict] = {}
     with gzip.open(out / "docs_meta.jsonl.gz", "wt") as dout, gzip.open(out / "texts_meta.jsonl.gz", "wt") as tout:
         for ent in idx["files"]:
             if ent["entity"] not in ents:
@@ -80,10 +110,13 @@ def scan(out: Path, only: set[str], skip: set[str], ents: set[str]) -> None:
                 bk = f["filename"].split("_", 1)[1].split(".")[0]
                 if (only and bk not in only) or bk in skip:
                     continue
+                tally = counted.setdefault(f["filename"], dict(declared=f.get("size"), bytes=0, attempts=0))
                 for attempt in range(4):
                     t0, n, ok = time.time(), 0, False
+                    tally["attempts"] += 1
+                    lines = stream_counted(f["url"], tally)
                     try:
-                        for line in net.stream_ndjson_gz(f["url"]):
+                        for line in lines:
                             d = json.loads(line)
                             n += 1
                             if ent["entity"] == "docs":
@@ -98,9 +131,14 @@ def scan(out: Path, only: set[str], skip: set[str], ents: set[str]) -> None:
                     except Exception as ex:  # network hiccup: retry the whole file (rows are deduplicated by id later)
                         print("FAIL", f["filename"], n, ex, flush=True)
                         time.sleep(30 * (attempt + 1))
+                    finally:
+                        lines.close()  # counts the bytes of a partial attempt too
                     print(ent["entity"], bk, n, f"{time.time() - t0:.0f}s", "complete" if ok else "partial", flush=True)
                     if ok:
                         break
+    (out / "stream_bytes.json").write_text(json.dumps(dict(
+        bytes=sum(v["bytes"] for v in counted.values()), declared=sum(v["declared"] or 0 for v in counted.values()),
+        files=counted), indent=1))
     top = {bk: [(h, c, sample[h]) for h, c in cnt.most_common(8) if c >= 20] for bk, cnt in heads.items()}
     (out / "boilerplate_heads.json").write_text(json.dumps(top, ensure_ascii=False, indent=1))
 

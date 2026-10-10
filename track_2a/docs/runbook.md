@@ -1,7 +1,8 @@
 # Runbook: running Gegenprobe at OpenParlData
 
-One page for a two- or three-person data team. Everything here is model-free; the converter's optional Apertus review mode
-is out of scope for operations (see `docs/converter.md`).
+The operations guide for a two- or three-person data team; the tables are the quick reference. The nightly job is
+model-free. The converter's optional Apertus review mode is the one part that uses a model; "Review mode in operation"
+below covers its refit procedure, owner and cost.
 
 ## Where it runs
 
@@ -69,7 +70,7 @@ night. `api.openparldata.ch/v1/` is refused outright (its robots.txt disallows i
 | `results/alerts.json` | the on-call person, via webhook or mail if configured |
 | `results/repair_BE_new.tsv` | the person who applies relinks (see triage): tonight's new rows |
 | `results/repair_BE_ledger.tsv` | every row ever proposed, with `first_seen` / `last_seen` and a status: `pending` (checked), `review` (check failed), `unchecked` (seen only on an offline night), `resolved` (left the list because OPD now has the answer), `dropped` (left the list, still unanswered) |
-| `results/run.json` | timings, transfer, peak memory, counts, delivery result of the night |
+| `results/run.json` | timings, bytes read by source (`bytes`: single exports, docs/texts streamed, index, canton tables, total, over the network; `transfer_bytes` is the older single-exports-only field), peak memory, counts, delivery result of the night |
 | `work/` | caches, `state.json` (night-over-night diff and 8 nights of rate history) and `nightly/outbox.json` (alerts not yet delivered). Deleting it costs one full re-download; it also resets the history the trend alert needs |
 
 Not runtime: the one-off backlogs (Fedlex placeholder replacement ~17.5 h once; OCR of image-only scans ~7.8 h once; the
@@ -179,16 +180,93 @@ they differ, OCR output can differ in detail. To run with the measured models, d
 put them in one directory and set `TESSDATA_PREFIX` to it (Docker: mount it and pass `-e TESSDATA_PREFIX=…`). The nightly
 job reads text layers first and uses OCR only for image-only scans of new rows.
 
+## Sandboxing
+
+Both units are sandboxed by systemd; `systemd-analyze security` scores what remains exposed (0 = nothing, 10 = nothing
+restricted). CI job `systemd-units` prints the score of both units (`systemd-analyze security --offline=true`) and fails
+when a unit scores above its threshold:
+
+| unit | what it confines | threshold | not set, and why |
+|---|---|---|---|
+| venv (`gegenprobe-nightly-venv.service`) | the job itself: user `gegenprobe` in its own user namespace, no capabilities (`CapabilityBoundingSet=`), `NoNewPrivileges`, read-only OS and checkout (`ProtectSystem=strict`), writes only to `/var/lib/gegenprobe` (`ReadWritePaths`), no `/home`, private `/tmp` and `/dev`, kernel tunables/modules/logs/clock/cgroups/hostname protected, `/proc` shows only its own processes, sockets `AF_INET AF_INET6 AF_UNIX` only, native system calls from `@system-service` without `@privileged`, `UMask=0027` | **2.0** | `PrivateNetwork=`/`IPAddressDeny=` (it fetches from OPD, the canton and the source sites), `MemoryDenyWriteExecute=` (libffi trampolines on some Python builds), `ProcSubset=pid` (tesseract/OpenMP read `/proc` system files on some platforms) |
+| Docker (`gegenprobe-nightly.service`) | the root docker **client** that starts the container: `NoNewPrivileges`, private `/tmp` and `/dev`, kernel and namespace protections, Unix sockets only, `@system-service` system calls. The job runs in the container (uid 10001, read-only root, no capabilities, no-new-privileges, memory/CPU/pids ceilings), which `systemd-analyze` cannot see | **5.0** | `User=` (the docker socket), `ProtectSystem=`/`ProtectHome=`/`CapabilityBoundingSet=` (`ExecStartPre` creates and chowns the state directories and touches `alerts.env`) |
+
+Everything the venv job writes goes to `/var/lib/gegenprobe` (`GP_WORK=…/work`, `GP_MONITOR_OUT=…/results`,
+`HOME=/var/lib/gegenprobe`, `PYTHONDONTWRITEBYTECODE=1`) or the private `/tmp` (pdftoppm/tesseract scratch); the checkout
+under `/opt/gegenprobe` is never written. A night that fails with `Permission denied`, `Read-only file system` or
+`Operation not permitted` after a change of the job points at the sandbox: `journalctl -u gegenprobe-nightly` names the
+path or system call, and `systemctl edit gegenprobe-nightly` can relax one setting locally.
+
+## Review mode in operation
+
+The nightly job never calls a model. Review mode is a converter option (`python -m gegenprobe convert … --mode review`):
+on the documents the frozen rules leave open (the residue: 97 of the 154 held-out documents, `results/report/cost.json`)
+the Apertus pointer attaches a suggested answer date with page, span, margin and θ, flagged `needs_review`; it is never
+written into the field (`docs/converter.md`).
+
+**θ belongs to one served build.** θ is a margin threshold fitted on dev labels for one build
+(`data/convert/theta/<build>.json`). It does not transfer across builds, quantisations or prompts, and a host can change
+the weights or the inference stack behind an unchanged model name. The θ file records the `system_fingerprint`s the
+server answered from during the fit (`served_fingerprints`; the evaluation fingerprints are also in
+`results/eval/served_models.json`). In review mode the backend is wrapped in a guard (`convert/build_guard.py`): the
+first response from any other fingerprint stops the run with exit code 3 before a suggestion from it is attached; a θ
+file without fingerprints is refused up front; for the local GGUF build the weights file is the build (sha256 pinned in
+`served_models.json` `gguf_pin`; `llm.fetch_gguf` refuses any other file). `--allow-build-mismatch` turns the refusal into
+a warning and marks every suggestion `build_mismatch` (fitted vs served), for a reviewer who wants suggestions anyway
+during a refit. A θ given with `--theta` is the operator's own choice and is not checked.
+
+**Refitting θ** (when the guard stops a run, or when the host announces a new model or inference build), from a checkout
+with network access to the model server:
+
+```sh
+# 1. confirm: the run stops and names the served fingerprint (exit 3)
+python -m gegenprobe convert <answer.pdf> --mode review --backend openai
+# 2. the dev documents (polite fetch into .work/pdf; seeds and ids in eval/gold/SEEDS.md, data/gold/dev_ids.json)
+make gold-dev
+# 3. fit θ on the dev labels (data/gold/dev_labels.jsonl) for the build the server now serves
+LLM_BASE_URL=https://<server>/v1 LLM_NAME=<model> LLM_API_KEY=<key> make theta BACKEND=openai
+#    -> data/convert/theta/<build>.json: theta, leave-one-out accuracy, AUROC, n, and served_fingerprints
+# 4. check before use: compare loo.acc / auroc with the fit it replaces (committed 70B fit: LOO 124/127, AUROC 0.993);
+#    a markedly worse fit means the new build is not a drop-in: re-run the held-out arms before deploying it
+make arms SPLIT=heldout BACKEND=openai
+# 5. deploy the new θ file with the converter; the guard now accepts the fingerprints it records
+```
+
+Notes: `make theta` writes into the checkout's `data/convert/theta/`. In this repository those files are the evaluation
+record and are hash-locked (`eval/prereg/LOCK`), so refit in the deployment's own copy, not here. 30 of the 127 dev
+labels are spike documents whose texts live outside the repository (`SPIKES` in `eval/arms.py`); without that folder,
+put an empty list (`[]`) at `<SPIKES>/round8/ptr_items.json` and θ is fitted on the 97 committed dev documents. A fit
+costs one pointer run over the dev set (3.5 calls per document on average).
+
+**Who reviews.** The data engineer who runs the nightly job owns review mode (refits, the guard's exit 3). Suggestions go
+to the person who already handles `repair_BE_review.tsv`: `--queue FILE` writes the rows that need review, strongest
+band first. Post hoc, 26 of 33 `strong`-band suggestions (margin ≤ −5) and 3 of 11 `weak`-band ones were right
+(`results/convert/band_precision.json`). Reviewer time per suggestion has not been measured.
+
+**Cost per 1,000 residue documents** (committed measurements, `results/report/cost_end_to_end.json`): on Public AI's
+served build, 3.5 calls and 5,905 billed prompt tokens per residue document, **USD 0.59** at the list price of USD 0.10
+per million prompt tokens; with the local 8B GGUF on one 4-vCPU machine, 179.6 s wall per document (PDF fetch, text and
+model load included), **49.9 machine-hours** and 9.3 GB peak memory. 1,000 converted documents contain about 630 residue
+documents at the held-out residue share (97/154; not measured on the corpus mix).
+
 ## Checked in CI
 
 `.github/workflows/ci.yml` job `systemd-units` runs `systemd-analyze verify` on both unit variants with the timer and the
-failure notifier, then starts the failure notifier under real systemd behind two stand-in units (one exits 3, one exits 1)
+failure notifier, prints and gates both units' `systemd-analyze security` exposure (thresholds above, "Sandboxing"),
+then starts the failure notifier under real systemd behind two stand-in units (one exits 3, one exits 1)
 and checks that exactly one webhook post with valid JSON arrives; job `nightly-smoke` builds the image and runs three
 offline nights on fixture exports inside it with the unit's container flags and no network (`docs/nightly.md` "Verified
 in CI"). `.github/workflows/nightly-real.yml` (manual: `gh workflow run nightly-real.yml`) installs the venv variant with
 `install.sh --venv` on a GitHub-hosted Ubuntu runner and runs one real network night under systemd, with a contact
 User-Agent; it uploads `run.json`, the journal and the wall time. One run is committed (`results/monitor/night_real_38062530586/`:
-a first night, 83 min wall, 0 alerts, the BE list reproduced on live data).
+a first night, 83 min wall, 0 alerts, the BE list reproduced on live data; its run.json predates the streamed-bytes
+counter, so the bytes it read are reconstructed from the index it read: `results/monitor/night_real_bytes.json`, 6.2 GB
+of docs/texts streamed plus 198 MB of single exports). `.github/workflows/nightly-real-docker.yml` (manual:
+`gh workflow run nightly-real-docker.yml -f wait_for_new_index=true -f max_wait_min=180`) runs the recommended Docker
+variant: it builds the image and installs the Docker unit with `install.sh`, runs night 1, waits for OPD's next export
+(optional), then runs night 2 on night 1's persisted state, so the index diff, the ledger, retries, outbox redelivery
+and the drop/trend alerts run against a real previous night; it uploads both nights' `run.json`, journal excerpts and
+wall times and `two_nights.json`.
 
 ## Swiss / EU hosting
 

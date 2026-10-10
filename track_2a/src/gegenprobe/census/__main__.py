@@ -67,8 +67,10 @@ def main() -> None:
     if not a.no_extract and (OPD_RAW / "affairs.ndjson.gz").exists():
         extract.extract(CENSUS)
     replay.run_all(CENSUS, OUT)
-    from . import doc, virtual
+    from . import days_by_trust, doc, virtual
     virtual.main()  # virtual-affairs frontier (separate from matrix.csv)
+    if (OUT / "interventions.tsv.gz").exists():
+        days_by_trust.main()  # answer times by date-trust tier and type (what the pooled median mixes)
     doc.main()
     r = spike_reproduction()
     print("spike reproduction:", None if r is None else dict(identical=r["identical"], differences=r["field_differences"]))

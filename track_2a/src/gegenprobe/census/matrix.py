@@ -17,6 +17,7 @@ from pathlib import Path
 
 from ..paths import RESULTS
 from . import defs, funnel
+from .presentation import answer_date_caveat
 from .tables import CENSUS, i, rows
 
 OUT = RESULTS / "census"
@@ -116,7 +117,7 @@ FIELD_NOTE = {
     "answer_link_status": "derived by this census for every affair (census/funnel.py); feasible by construction",
     "language": "share of documents with a language tag; affairs carry no language field; doc = documents with usable text",
     "date_answer": "population = affairs with a written-answer event, so the event date exists by construction; its accuracy "
-    "is checked against the source only for BE (event date == RRB date 39/39, spikes/recovery)",
+    "is " + answer_date_caveat(short=True),
     "decision_outcome": "harmonised outcome event or frozen outcome-title rule; Motion+Postulate numbered/begun before 2024",
     "government_recommendation": "government 'Antrag' event (harmonised ids 29-33 or frozen title rule, government actor only)",
 }

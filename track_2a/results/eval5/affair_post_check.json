@@ -1,0 +1,55 @@
+{
+ "label": "POST-HOC (not pre-registered): round-5 product post-processing (gegenprobe.affair_post) applied to the committed P3 and P3b records; the scored results files are not changed",
+ "tests": {
+  "P3": {
+   "results": "results/eval3/p3__publicai_swiss-ai_apertus-v1.5-8b.json",
+   "labels": "data/gold3/p3_labels.jsonl",
+   "affairs": 29,
+   "answering_body_omitted": 29,
+   "decision_not_applicable": 12,
+   "answer_date_guard": [],
+   "valid": 29,
+   "guard_fired": 0,
+   "guard_kept_correct": 0
+  },
+  "P3b": {
+   "results": "results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json",
+   "labels": "data/gold5/p3b_labels.jsonl",
+   "affairs": 36,
+   "answering_body_omitted": 36,
+   "decision_not_applicable": 9,
+   "answer_date_guard": [
+    {
+     "affair_id": 240980,
+     "body": "LU",
+     "rule_value": "2021-03-16",
+     "kept": "2021-10-19",
+     "gold": "2021-10-19",
+     "kept_correct": true,
+     "rule_correct": false
+    },
+    {
+     "affair_id": 240904,
+     "body": "LU",
+     "rule_value": "2020-05-18",
+     "kept": "2020-06-09",
+     "gold": "2020-06-09",
+     "kept_correct": true,
+     "rule_correct": false
+    },
+    {
+     "affair_id": 241105,
+     "body": "LU",
+     "rule_value": "2017-09-11",
+     "kept": "2018-02-20",
+     "gold": "2018-02-20",
+     "kept_correct": true,
+     "rule_correct": false
+    }
+   ],
+   "valid": 36,
+   "guard_fired": 3,
+   "guard_kept_correct": 3
+  }
+ }
+}

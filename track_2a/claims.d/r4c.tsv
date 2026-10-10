@@ -7,9 +7,9 @@ r4c.tier_verified	2	results/census/date_trust.json	tier_counts.verified	int	pyth
 r4c.tier_mixed	14	results/census/date_trust.json	tier_counts.mixed	int	python -m gegenprobe.census.interventions	docs/viewer.md	{"docs/viewer.md": "mixed"}
 r4c.ti_first_year	2016	site/parliaments.csv	row:key=TI;col:first_year	str	make site	docs/viewer.md	
 r4c.ti_no_text	775	site/parliaments.csv	row:key=TI;col:all_image_only	int	make site	-	
-r4c.ti_missing	776	site/parliaments.csv	row:key=TI;col:all_missing	int	make site	-	
+r4c.ti_missing	776	site/parliaments.csv	row:key=TI;col:all_no_answer_text	int	make site	-	
 r4c.ti_question_median	76	site/parliaments.csv	row:key=TI;col:all_median_days_main_type	int	make site	docs/viewer.md	{"docs/viewer.md": "Ticino: questions"}
-r4c.lugano_list_page	201	site/parliaments.csv	row:key=5192;col:all_missing	int	make site	docs/viewer.md	{"docs/viewer.md": "Lugano"}
+r4c.lugano_list_page	201	site/parliaments.csv	row:key=5192;col:all_no_answer_text	int	make site	docs/viewer.md	{"docs/viewer.md": "Lugano"}
 r4c.p3b_answer_lost	3	site/data.json	evaluation.p3b.answer_date_lost.n	int	make site	docs/viewer.md	{"docs/viewer.md": "Luzern affairs"}
 r4c.schema_shared	12	site/data.json	schema.counts.shared	int	make site	docs/viewer.md,README.md,technical_report.md,docs/form_notes.md,docs/ech-onepager.md	{"docs/viewer.md": "12 shared", "README.md": "mean the same thing in every parliament", "technical_report.md": "by meaning,", "docs/form_notes.md": "12 mean the same everywhere", "docs/ech-onepager.md": "**shared** (12 of 17)"}
 r4c.schema_role_split	5	site/data.json	schema.counts.shared_with_role_split	int	make site	docs/viewer.md,README.md,technical_report.md,docs/form_notes.md,docs/ech-onepager.md	{"docs/viewer.md": "with a role split", "README.md": "are shared but need their roles", "technical_report.md": "shared with a role split (", "docs/form_notes.md": "5 need their roles", "docs/ech-onepager.md": "role split** (5 of 17)"}

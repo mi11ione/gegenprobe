@@ -1,11 +1,122 @@
 [
- {"key": "shared",
-  "labels": {"de": "gemeinsam", "fr": "commun", "it": "comune", "en": "shared"},
-  "definition": "One concept with the same meaning in every parliament; representable consistently (values may live in metadata in some bodies and only in documents in others)."},
- {"key": "shared_with_role_split",
-  "labels": {"de": "gemeinsam, mit Rollenaufteilung", "fr": "commun, avec répartition des rôles", "it": "comune, con suddivisione dei ruoli", "en": "shared with a role split"},
-  "definition": "The concept is shared, but one source label covers several roles that must be kept apart to compare parliaments (e.g. 'answer date' = decided / dispatched / registered; type labels like 'Antrag' that map to several harmonised types)."},
- {"key": "body_specific",
-  "labels": {"de": "parlamentsspezifisch", "fr": "propre au parlement", "it": "specifico del parlamento", "en": "body-specific"},
-  "definition": "No common meaning across parliaments (e.g. oral answers in question time, executive-own business filed as affairs); representable only with the body's own vocabulary."}
+ {
+  "key": "shared",
+  "labels": {
+   "de": "gemeinsam",
+   "fr": "commun",
+   "it": "comune",
+   "en": "shared"
+  },
+  "definition": "One concept with the same meaning in every parliament; representable consistently (values may live in metadata in some bodies and only in documents in others).",
+  "fields": [
+   {
+    "key": "date_submission",
+    "meaning_tested": "by definition, untested",
+    "evidence": null
+   },
+   {
+    "key": "submitter",
+    "meaning_tested": "by definition, untested",
+    "evidence": null
+   },
+   {
+    "key": "co_signatories",
+    "meaning_tested": "by definition, untested",
+    "evidence": null
+   },
+   {
+    "key": "addressed_body",
+    "meaning_tested": "by definition, untested",
+    "evidence": null
+   },
+   {
+    "key": "government_recommendation",
+    "meaning_tested": "measured",
+    "evidence": "results/census/comparability.json government_recommendation"
+   },
+   {
+    "key": "date_decision",
+    "meaning_tested": "by definition, untested",
+    "evidence": null
+   },
+   {
+    "key": "date_dispatch",
+    "meaning_tested": "by definition, untested",
+    "evidence": null
+   },
+   {
+    "key": "qa_pairing",
+    "meaning_tested": "by definition, untested",
+    "evidence": null
+   },
+   {
+    "key": "related_affairs",
+    "meaning_tested": "by definition, untested",
+    "evidence": null
+   },
+   {
+    "key": "language",
+    "meaning_tested": "by definition, untested",
+    "evidence": null
+   },
+   {
+    "key": "documents_usable_text",
+    "meaning_tested": "by definition, untested",
+    "evidence": null
+   },
+   {
+    "key": "answer_link_status",
+    "meaning_tested": "by definition, untested",
+    "evidence": null
+   }
+  ]
+ },
+ {
+  "key": "shared_with_role_split",
+  "labels": {
+   "de": "gemeinsam, mit Rollenaufteilung",
+   "fr": "commun, avec répartition des rôles",
+   "it": "comune, con suddivisione dei ruoli",
+   "en": "shared with a role split"
+  },
+  "definition": "The concept is shared, but one source label covers several roles that must be kept apart to compare parliaments (e.g. 'answer date' = decided / dispatched / registered; type labels like 'Antrag' that map to several harmonised types).",
+  "fields": [
+   {
+    "key": "date_answer",
+    "meaning_tested": "measured",
+    "evidence": "results/census/comparability.json answer_date_split, dates_with_roles"
+   },
+   {
+    "key": "procedural_history",
+    "meaning_tested": "measured",
+    "evidence": "results/census/comparability.json dates_with_roles"
+   },
+   {
+    "key": "type",
+    "meaning_tested": "measured",
+    "evidence": "results/census/comparability.json type"
+   },
+   {
+    "key": "procedural_state",
+    "meaning_tested": "measured",
+    "evidence": "results/census/comparability.json procedural_state"
+   },
+   {
+    "key": "decision_outcome",
+    "meaning_tested": "measured",
+    "evidence": "results/census/comparability.json decision_outcome"
+   }
+  ]
+ },
+ {
+  "key": "body_specific",
+  "labels": {
+   "de": "parlamentsspezifisch",
+   "fr": "propre au parlement",
+   "it": "specifico del parlamento",
+   "en": "body-specific"
+  },
+  "definition": "No common meaning across parliaments (e.g. oral answers in question time, executive-own business filed as affairs); representable only with the body's own vocabulary.",
+  "fields": []
+ }
 ]

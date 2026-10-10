@@ -66,14 +66,18 @@ ANSWER_EVENT = re.compile(r"beantw|r[ée]ponse", re.I)
 
 
 # ---------------------------------------------------------------- inputs
-def fetch_ogd() -> None:
+def fetch_ogd() -> int:
+    """Fetch the canton's two OGD tables into OGD_DIR; returns the bytes read (counted in the nightly run.json)."""
     OGD_DIR.mkdir(parents=True, exist_ok=True)
+    n = 0
     for name, url in OGD_URLS.items():
         b = net.get(url, timeout=600)
         tmp = OGD_DIR / (name + ".part")
         tmp.write_bytes(b)
         tmp.replace(OGD_DIR / name)
+        n += len(b)
         print(name, len(b), hashlib.sha256(b).hexdigest()[:16])
+    return n
 
 
 # Columns and value sets the join relies on (nightly schema check: a renamed column or document type would otherwise make

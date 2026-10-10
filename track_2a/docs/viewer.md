@@ -17,6 +17,28 @@ python -m gegenprobe.viewer build --full-text --out .work/site   # local only: a
 ```
 `make run` renders the viewer into `out/site/index.html` as a final, non-failing step.
 
+## Downloads (OPD box, round 5)
+
+`python -m gegenprobe.viewer collect` (part of `make site`) copies the files listed in `viewer/data.py` `DOWNLOADS`
+byte for byte into `site/downloads/`, and `build --out DIR` copies that folder next to `DIR/index.html`. The "For OPD's
+data team" box lists them under the three steps, each with its row count and size, plus the repository URL
+(https://github.com/mi11ione/gegenprobe):
+
+| group | files (source) |
+|---|---|
+| Bern lists | `repair_BE_relink.tsv`, `repair_BE_fetch.tsv`, `repair_BE_review.tsv`, `repair_BE_begin_date.tsv` (`results/repair/`) |
+| Apply plan (dry run) | `apply_BE_plan.sql.txt`, `apply_BE_relink_plan.csv`, `apply_BE_begin_date_plan.csv`, `apply_BE_plan.json` (`results/repair/apply_be/`) |
+| JSON Schemas (v0.1) | `affair.schema.json`, `doc_extraction.schema.json` (`results/schema/`) |
+
+They add about 3.7 MB to the site (the relink TSV, the SQL text and the relink plan CSV are about 1 MB each; Cloudflare
+compresses text on the wire). The links are relative (`downloads/<file>`); before round 5, `/repair_BE_relink.tsv` was not
+served and the single-page fallback returned the index page instead. `tests/test_r5_ops.py` checks that the copies are
+byte-identical to the results files and that a build into another directory carries them.
+
+The schema sample record (top of the page) is the P3b record after the product post-processing
+(`gegenprobe.affair_post`, `docs/affair.md`): `qa[0].answering_body` is left out with a note instead of a false
+`present_unanchored`, and the interpellation's `decision` is `not_applicable`.
+
 ## Numbers and texts
 Every number on the page is read from the files above when the page is built; none is typed by hand, so the page is
 traced by construction (the README and report numbers are traced separately in `claims.tsv`). The committed copy carries
@@ -94,13 +116,13 @@ adds the always-null baseline (90/154), dates found per arm (of 64) and the prec
   fonts.googleapis.com or fonts.gstatic.com again.
 - **Oral question time is not "missing".** Question-time answers (Fragestunde, heure des questions, question orale) with
   no answer document in OPD are typed `oral` by the census (406; Graubünden 367 of them, `docs/census.md` §2, §4), like
-  the Valais oral stubs. "Safe to say" leads with them where they make up at least 30% of the missing answers in the
-  period it quotes, and states the rate over answers given in writing (Graubünden 2024–25: all 62 missing are question
-  time; every written answer has its text).
+  the Valais oral stubs. "Safe to say" names them separately wherever there are any in the period it quotes, and states
+  the rate over answers given in writing (Graubünden 2024–25: all 62 without text are question time; every written
+  answer has its text). Since round 5 the table splits them out too (below).
 - **Answer time within one type.** The table column and the drawer show the median days to the first written-answer
   event for one intervention type at a time (selector above the table; default interpellation), in the chosen period,
   with the interquartile range; n ≥ 10 per type and period; hidden for same-day bodies. No mixed-type median is shown.
-  The CSV adds `*_median_days_interpellation` per period.
+  The CSV adds per-type medians and counts per period (`*_median_days_{type}`, `*_n_{type}`; round 5).
 - **Coverage gaps are a status.** A parliament for which OPD holds ≥ 20 in-scope interventions but records a written
   government answer for fewer than 20 of them and for under 10% (all years) is a `coverage gap` (31: among the cantons
   SZ, UR, GL, AI, NW, GE): a chip in the table, a strip above it, a "Coverage" filter, a generated "safe to say" ("a gap
@@ -162,3 +184,39 @@ adds the always-null baseline (90/154), dates found per arm (of 64) and the prec
   Ticino answers the title date is the date printed in the answer
   (`results/eval/posthoc_r3_gold_oracle.json`). Bern stays `verified_by: printed`. Tier counts: verified 2, mixed 14. Only
   the `date_trust` column of the 2,386 Ticino rows of `interventions.tsv.gz` changed.
+
+## Round 5: census consistency (data desk U2, OPD partner J1)
+
+- **Oral answers are not "missing".** Each period carries `missing` (no answer text attached: the census gap, 16,749 all
+  years, *including* oral answers), `oral`, `in_writing` (= written − oral), `written_missing` (= missing − oral = agenda
+  + parentless + image_only + absent) and `written_missing_share` (`viewer/data.py:parliaments`). The table shows **No
+  answer text** (muted, the registered total) = **Oral** + **Written missing** (red, with its share of answers given in
+  writing); the old "Missing" column is gone and "No text" is now "Scan, no text". Hero and intro add the split: 1,422
+  of the 16,749 were answered orally; 15,327 of 89,846 answers given in writing (17.1%) are missing; 2024–25: 367 oral,
+  1,488 of 12,632 (11.8%). Valais 2024–25: 315 without text = 305 oral + 10 written missing of 271 (4%).
+- **"Safe to say" uses the written-missing figure** (`safe_say`): "X of Y written government answers" counts only answers
+  given in writing; where a parliament has oral answers in the period, the sentence first says how many were answered
+  orally ("no written text is expected and they are not missing"), then the written-missing rate. The all-years
+  comparison and the cause sentence ("most of the missing written answers …") use written-missing too.
+- **Valais oral counts reconciled** (`viewer/data.py:oral_reconcile` → `parliaments.oral_reconcile`, shown in the Valais
+  drawer): 1,017 typed `oral` (table, dataset) = 1,016 `_ANT` stubs (census length proxy) + 1 question-time answer (3.163);
+  1,008 = the stubs the repair's exact text rule confirms (`retype_oral`; `results/census/vs_reconcile.json`). The
+  function asserts 1,017 = 1,016 + 1.
+- **CSV** (`write_csv`): `*_missing` → `*_no_answer_text`; new `*_in_writing`, `*_written_missing`,
+  `*_written_missing_share`; `median_days` → `median_days_all_types` (pools every type; caution in the column dictionary);
+  per-type `*_median_days_{interpellation,question,motion,postulate,question_time}` and `*_n_{type}` (n ≥ 10). Column
+  dictionary for `parliaments.csv` appended to `interventions_README.md` (shipped next to the CSV).
+- **One naming rule everywhere.** `CANTON_NAME` / `CANTON_RULE` moved to `census/presentation.py`; `results/census/question.json`
+  now names cantons by it (`name`; OPD's German name in `opd_name`), so does the generated part of `docs/census.md`
+  (Valais, Neuchâtel instead of Wallis, Neuenburg).
+- **Stale Bern verification removed.** `question.json` caveat, `matrix.json` (date: answer note) and
+  `answer_days_robust.json` said "39/39"; they now read the current counts from the committed results
+  (`presentation.answer_date_caveat`: Bern 2,421 of 2,459 relink answers by the printed RRB date, 38 to review; Ticino
+  2,379 of 2,379 by the publisher's title). `make census-replay` still matches.
+- **"Meaning tested?" in the schema table.** `data/schema/field_verdict_classes.json` lists per field `meaning_tested`
+  (`measured` + the `comparability.json` key, or `by definition, untested`); `schema_view` adds `tested`, `tested_in`,
+  `tested_counts`. Of the 12 shared fields 1 is measured (government recommendation, 0 of 183 labels ambiguous), 11 are
+  shared by definition; all 5 role-split fields are measured.
+- **Answer times by date tier.** `census/days_by_trust.py` → `results/census/answer_days_by_trust.json`: the pooled 68
+  days split by what OPD's "answer" date is (verified 112 days, 2 bodies; sitting day 79, 24; mixed 62, 14; diffuse 39, 7;
+  same day 0, 7) and by type; run by `make census`.

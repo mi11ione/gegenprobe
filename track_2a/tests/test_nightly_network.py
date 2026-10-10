@@ -117,6 +117,15 @@ def test_first_network_night_on_a_local_mirror(tmp_path, mode):
         got = sorted(f.name for f in (tmp_path / "work" / "nightly" / "opd").glob("*.ndjson.gz"))
         assert got == sorted(f"{n}.ndjson.gz" for n in SINGLE)
         assert run["transfer_bytes"] == sum((m["exports"] / f"{n}.ndjson.gz").stat().st_size for n in SINGLE)
+        assert run["bytes"]["single_exports"] == run["transfer_bytes"]
+    # every docs/texts export streamed tonight is counted byte for byte (a first night streams all of them)
+    split = sorted((m["exports"] / "docs").glob("*.ndjson.gz")) + sorted((m["exports"] / "texts").glob("*.ndjson.gz"))
+    b = run["bytes"]
+    assert b["docs_texts_files"] == len(split) == 4
+    assert b["docs_texts_streamed"] == b["docs_texts_declared"] == sum(f.stat().st_size for f in split) > 0
+    assert b["index"] == (m["exports"] / "index.json").stat().st_size
+    assert b["total"] == b["single_exports"] + b["docs_texts_streamed"] + b["index"] + b["be_ogd"]
+    assert b["over_network"] == (b["be_ogd"] if mode == "local-exports" else b["total"])
     assert run["timings"]["rescanned_bodies"] == ["BE", "ZH"]
     assert run["bodies_rated"] == 2
     assert run["be_repair"] == dict(relink=smoke.BE_PARENTLESS, fetch=smoke.BE_N - smoke.BE_ATTACHED - smoke.BE_PARENTLESS)

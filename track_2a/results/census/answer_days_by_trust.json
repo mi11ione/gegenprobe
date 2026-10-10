@@ -1,0 +1,301 @@
+{
+ "label": "Answer times by date-trust tier (what OPD's 'answer' date is) and intervention type; days from submission to the first written-answer event (census rule), from results/census/interventions.tsv.gz",
+ "tier_definition": "results/census/date_trust.json `definition`: verified = OPD's answer date is the government's decision date (Bern: printed RRB date; Ticino: publisher's answer title); sitting_day = >= 80% of answer dates on one weekday (a weekly government sitting, i.e. a decision date); mixed 50-80%; diffuse < 50% (likely publication or registration dates); same_day = the 'answer' event mostly equals the submission date; too_few = < 20 dated answers",
+ "pooled": {
+  "n": 90556,
+  "median": 68.0,
+  "q1": 34.0,
+  "q3": 98.0,
+  "note": "question.json national.median_days: pools every date role and type"
+ },
+ "pooled_excluding_same_day": {
+  "n": 87203,
+  "median": 69,
+  "q1": 41.0,
+  "q3": 99.0
+ },
+ "decision_like": {
+  "n": 31655,
+  "median": 79,
+  "q1": 55.0,
+  "q3": 114.0,
+  "tiers": [
+   "verified",
+   "sitting_day"
+  ],
+  "bodies": 26,
+  "by_type": {
+   "Interpellation": {
+    "n": 10228,
+    "median": 84.0,
+    "q1": 51.0,
+    "q3": 134.0
+   },
+   "Motion": {
+    "n": 3839,
+    "median": 135,
+    "q1": 79.0,
+    "q3": 176.0
+   },
+   "Postulate": {
+    "n": 3335,
+    "median": 100,
+    "q1": 54.0,
+    "q3": 215.0
+   },
+   "Question": {
+    "n": 13888,
+    "median": 76.0,
+    "q1": 55.0,
+    "q3": 86.0
+   },
+   "Question time": {
+    "n": 365,
+    "median": 2,
+    "q1": 2.0,
+    "q3": 17.0
+   }
+  },
+  "note": "verified decision dates plus weekly-sitting dates (inferred decision dates, not verified)"
+ },
+ "tiers": {
+  "verified": {
+   "n": 5790,
+   "median": 112.0,
+   "q1": 62.0,
+   "q3": 166.0,
+   "bodies": 2,
+   "by_type": {
+    "Interpellation": {
+     "n": 1967,
+     "median": 107,
+     "q1": 30.0,
+     "q3": 162.0
+    },
+    "Motion": {
+     "n": 1865,
+     "median": 141,
+     "q1": 93.0,
+     "q3": 170.0
+    },
+    "Postulate": {
+     "n": 220,
+     "median": 154.0,
+     "q1": 118.0,
+     "q3": 174.75
+    },
+    "Question": {
+     "n": 1738,
+     "median": 76.0,
+     "q1": 50.0,
+     "q3": 133.25
+    }
+   }
+  },
+  "sitting_day": {
+   "n": 25865,
+   "median": 79,
+   "q1": 54.0,
+   "q3": 105.0,
+   "bodies": 24,
+   "by_type": {
+    "Interpellation": {
+     "n": 8261,
+     "median": 79,
+     "q1": 54.0,
+     "q3": 120.0
+    },
+    "Motion": {
+     "n": 1974,
+     "median": 121.0,
+     "q1": 79.0,
+     "q3": 201.0
+    },
+    "Postulate": {
+     "n": 3115,
+     "median": 99,
+     "q1": 51.0,
+     "q3": 229.0
+    },
+    "Question": {
+     "n": 12150,
+     "median": 75.0,
+     "q1": 55.0,
+     "q3": 86.0
+    },
+    "Question time": {
+     "n": 365,
+     "median": 2,
+     "q1": 2.0,
+     "q3": 17.0
+    }
+   }
+  },
+  "mixed": {
+   "n": 51520,
+   "median": 62.0,
+   "q1": 28.0,
+   "q3": 90.0,
+   "bodies": 14,
+   "by_type": {
+    "Interpellation": {
+     "n": 7199,
+     "median": 61,
+     "q1": 41.0,
+     "q3": 76.0
+    },
+    "Motion": {
+     "n": 15453,
+     "median": 69,
+     "q1": 56.0,
+     "q3": 90.0
+    },
+    "Postulate": {
+     "n": 9933,
+     "median": 76,
+     "q1": 61.0,
+     "q3": 193.0
+    },
+    "Question": {
+     "n": 12718,
+     "median": 56.0,
+     "q1": 2.0,
+     "q3": 91.0
+    },
+    "Question time": {
+     "n": 6217,
+     "median": 5,
+     "q1": 5.0,
+     "q3": 6.0
+    }
+   }
+  },
+  "diffuse": {
+   "n": 3986,
+   "median": 39.0,
+   "q1": 9.0,
+   "q3": 77.0,
+   "bodies": 7,
+   "by_type": {
+    "Interpellation": {
+     "n": 1211,
+     "median": 30,
+     "q1": 13.0,
+     "q3": 72.0
+    },
+    "Motion": {
+     "n": 590,
+     "median": 84.0,
+     "q1": 63.0,
+     "q3": 305.0
+    },
+    "Question": {
+     "n": 1591,
+     "median": 49,
+     "q1": 21.0,
+     "q3": 76.0
+    },
+    "Question time": {
+     "n": 586,
+     "median": 2.0,
+     "q1": 2.0,
+     "q3": 10.0
+    }
+   }
+  },
+  "same_day": {
+   "n": 3353,
+   "median": 0,
+   "q1": 0.0,
+   "q3": 0.0,
+   "bodies": 7,
+   "by_type": {
+    "Interpellation": {
+     "n": 827,
+     "median": 0,
+     "q1": 0.0,
+     "q3": 0.0
+    },
+    "Motion": {
+     "n": 551,
+     "median": 0,
+     "q1": 0.0,
+     "q3": 109.0
+    },
+    "Postulate": {
+     "n": 919,
+     "median": 0,
+     "q1": 0.0,
+     "q3": 0.0
+    },
+    "Question": {
+     "n": 734,
+     "median": 0.0,
+     "q1": 0.0,
+     "q3": 0.0
+    },
+    "Question time": {
+     "n": 322,
+     "median": 0.0,
+     "q1": 0.0,
+     "q3": 0.0
+    }
+   }
+  },
+  "too_few": {
+   "n": 42,
+   "median": 105.5,
+   "q1": 0.0,
+   "q3": 182.5,
+   "bodies": 7,
+   "by_type": {
+    "Postulate": {
+     "n": 10,
+     "median": 380.5,
+     "q1": 121.75,
+     "q3": 671.75
+    },
+    "Question": {
+     "n": 16,
+     "median": 0.0,
+     "q1": 0.0,
+     "q3": 0.0
+    }
+   }
+  }
+ },
+ "by_type_pooled": {
+  "Interpellation": {
+   "n": 19473,
+   "median": 65,
+   "q1": 40.0,
+   "q3": 104.5
+  },
+  "Motion": {
+   "n": 20441,
+   "median": 72,
+   "q1": 58.0,
+   "q3": 125.0
+  },
+  "Postulate": {
+   "n": 14205,
+   "median": 76,
+   "q1": 55.0,
+   "q3": 186.0
+  },
+  "Question": {
+   "n": 28947,
+   "median": 70,
+   "q1": 29.0,
+   "q3": 89.0
+  },
+  "Question time": {
+   "n": 7490,
+   "median": 5.0,
+   "q1": 5.0,
+   "q3": 6.0
+  }
+ },
+ "min_n": 10,
+ "caveat": "Not a ranking and not one quantity: a median over several parliaments mixes procedures and deadlines even within one tier and one type; compare a parliament with itself over time."
+}

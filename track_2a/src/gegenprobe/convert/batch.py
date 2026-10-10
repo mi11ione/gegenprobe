@@ -10,13 +10,25 @@
                        an answer (doc_role `answer`, or OPD's category says answer: category_harmonized `response_text`,
                        or a category label the census counts as an answer document) is flagged needs_review, so it
                        reaches the review queue with its candidates instead of staying an unattended null
-  resolve_review(...)  the backend and the per-build θ for review mode, with a clear message when none is fitted
+  resolve_review(...)  the backend and the per-build θ for review mode, with a clear message when none is fitted; the
+                       backend comes wrapped in convert.build_guard (stops on a served build θ was not fitted on)
+  anchors_review       (convert_pages / convert_one / run_batch) a value from a user anchor keeps needs_review true
+                       (--anchors-review), for anchors you have not measured yet
+  letter-line hint     no answer heading, but a letter address to the parliament followed by a place-date line
+                       (convert/hints.py): that date goes first among the candidates, marked suggested_by_letter_line,
+                       and the field is flagged; it is never written into the field
+  resume               every batch row stores `options` (anchors file sha256, mode, affair type, queue_nulls,
+                       anchors_review, explain, review build and θ, the input row) and their hash; a re-run skips an
+                       input only when its last row has the same hash, otherwise it converts it again and appends the new
+                       row. The last row per input wins (write_queue reads only the last). A row written before
+                       options were recorded is skipped and counted as such (use a fresh --out to redo it)
 
 The frozen converter (cascade, rules, pointer) is used unchanged; this module only wraps it.
 """
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import re
 import shutil
@@ -27,7 +39,7 @@ from pathlib import Path
 
 from .. import pdftext
 from ..paths import PDF_CACHE
-from . import cascade, modes, output, overlay, pointer, rules
+from . import cascade, hints, modes, output, overlay, pointer, rules
 
 INPUT_KEYS = ("source", "opd_doc_id", "body", "affair_number", "affair_type", "lang", "doc_category")
 STOP = {
@@ -92,9 +104,13 @@ def make_backend(spec: str):
     return backend(spec)
 
 
-def resolve_review(spec: str, theta_override: float | None = None):
-    """-> (backend, θ). θ is per build (it does not transfer across builds, quantisations or prompts)."""
+def resolve_review(spec: str, theta_override: float | None = None, allow_build_mismatch: bool = False):
+    """-> (backend, θ). θ is per build (it does not transfer across builds, quantisations or prompts): the backend comes
+    wrapped in convert.build_guard.BuildGuard, which stops the run when the served model is not the build θ was fitted on
+    (unless allow_build_mismatch). A θ given explicitly (theta_override) is not checked."""
     from eval.arms import theta_path
+
+    from .build_guard import BuildGuard, fitted
     be = make_backend(spec)
     if theta_override is not None:
         return be, float(theta_override)
@@ -107,7 +123,7 @@ def resolve_review(spec: str, theta_override: float | None = None):
             "Fit one on the dev set (make theta BACKEND=...), or choose a backend whose build is listed. "
             "Note: publicai:* builds were used for evaluation only; they are not a runtime target."
         )
-    return be, json.loads(tp.read_text())["answer_date"]["theta"]
+    return BuildGuard(be, fitted(tp), allow_mismatch=allow_build_mismatch), json.loads(tp.read_text())["answer_date"]["theta"]
 
 
 # --------------------------------------------------------------------------------------------------- conversion
@@ -125,7 +141,7 @@ def answer_doc_evidence(role: dict, inp: dict) -> str | None:
 
 def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: bool, inp: dict, mode: str = "rules_only",
                   backend=None, theta: float | None = None, url: str | None = None, anchors: dict | None = None,
-                  explain: bool = False, queue_nulls: bool = False) -> dict:
+                  explain: bool = False, queue_nulls: bool = False, anchors_review: bool = False) -> dict:
     from ..schema import schema_v0_1 as schema
 
     lang = inp.get("lang") or guess_lang("\n".join(pages))
@@ -152,6 +168,9 @@ def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: boo
         if hit:
             if hit.pop("needs_review"):
                 flags["answer_date"] = hit.pop("review_reason")
+            elif anchors_review:
+                flags["answer_date"] = (f"value from your anchor {hit['rule'].split(':', 1)[-1]} (--anchors-review: values "
+                                        "from user anchors stay flagged until you have measured the anchors)")
             rec["fields"]["answer_date"] = fa = hit
             if suggestion and suggestion.get("value") == hit["value"]:
                 suggestion = None  # Apertus agrees with the user's anchor: nothing to review
@@ -170,6 +189,17 @@ def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: boo
         else:
             traces.setdefault("answer_date", []).append(dict(step="heading proximity",
                                                              result="no date right after an answer heading"))
+    letter = None
+    if fa.get("value") is None and fa.get("rule") == "no_anchor":
+        letter = hints.letter_line_date(pages)
+        if letter:
+            flags.setdefault("answer_date", (
+                f"no answer heading, but a letter to the parliament ('{letter['address']}') is followed by the place-date "
+                f"line {letter['quote']!r}: check candidates[0] (suggested_by_letter_line); the field is not filled"))
+        traces.setdefault("answer_date", []).append(dict(
+            step="letter-line hint", result=(f"date {letter['value']} at p{letter['page']}[{letter['char_start']}:"
+                                             f"{letter['char_end']}] under '{letter['address']}' (not written)") if letter
+            else "no place-date line under a letter address to the parliament"))
     fr = rec["fields"].get("recommendation")
     if fr is not None and fr.get("value") is not None and fr.get("route") in ("rule", "ocr+rule"):
         q = overlay.qualify_recommendation(pages, fr)
@@ -189,6 +219,10 @@ def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: boo
         if hit:
             if hit.pop("needs_review"):
                 flags["recommendation"] = hit.pop("review_reason")
+            elif anchors_review:
+                flags["recommendation"] = (f"value from your anchor {str(hit.get('rule', '')).split(':', 1)[-1]} "
+                                           "(--anchors-review: values from user anchors stay flagged until you have "
+                                           "measured the anchors)")
             rec["fields"]["recommendation"] = fr = hit
     if cov["status"] in ("not_covered", "user_anchors"):
         for name in ("answer_date", "recommendation"):
@@ -233,10 +267,15 @@ def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: boo
         ad_field["candidates"] = output.date_candidates(pages, chosen, shares)
         if heading:
             _promote_heading_candidate(ad_field["candidates"], heading, pages)
+        if letter:
+            _promote_candidate(ad_field["candidates"], letter, pages, dict(suggested_by_letter_line=True,
+                                                                           address=letter["address"]))
         if shares is not None:
             ad_field["null_share"] = round(shares.get(None, 0.0), 4)
     if suggestion:
         suggestion["band"] = output.band_info(suggestion.get("margin"), suggestion.get("theta"))
+        if getattr(backend, "mismatch", None):  # --allow-build-mismatch: the reviewer sees that θ is from another build
+            suggestion["build_mismatch"] = backend.mismatch
     if "recommendation" in fields and fields["recommendation"] is not None:
         rp = output.recommendation_phrases(pages)
         fields["recommendation"]["recommendation_phrases"] = rp["labels"]
@@ -257,6 +296,11 @@ def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: boo
 
 def _promote_heading_candidate(cands: list[dict], h: dict, pages: list[str]) -> None:
     """Move the date printed right after the answer heading to the front, with the heading's occurrence as its span."""
+    _promote_candidate(cands, h, pages, dict(suggested_by_heading_proximity=True, heading=h["heading"]))
+
+
+def _promote_candidate(cands: list[dict], h: dict, pages: list[str], mark: dict) -> None:
+    """Move a hinted date to the front of the candidates, with the hinted occurrence as its span and the hint's mark."""
     ctx = output.anchor_context(pages, h["page"], h["char_start"], h["char_end"], before=100, limit=160)
     for i, c in enumerate(cands):
         if c["value"] == h["value"]:
@@ -264,14 +308,13 @@ def _promote_heading_candidate(cands: list[dict], h: dict, pages: list[str]) -> 
             break
     else:
         c = dict(value=h["value"], occurrences=1)
-    c.update(page=h["page"], char_start=h["char_start"], char_end=h["char_end"], context=ctx,
-             suggested_by_heading_proximity=True, heading=h["heading"])
+    c.update(page=h["page"], char_start=h["char_start"], char_end=h["char_end"], context=ctx, **mark)
     cands.insert(0, c)
 
 
 def convert_one(source: str, inp: dict | None = None, *, mode: str = "rules_only", backend=None, theta=None,
                 timeout: int = 60, tries: int = 2, anchors: dict | None = None, explain: bool = False,
-                queue_nulls: bool = False) -> dict:
+                queue_nulls: bool = False, anchors_review: bool = False) -> dict:
     inp = {k: v for k, v in dict(source=source, **(inp or {})).items() if v not in (None, "")}
     try:
         sha, path = get_document(source, timeout=timeout, tries=tries)
@@ -285,7 +328,8 @@ def convert_one(source: str, inp: dict | None = None, *, mode: str = "rules_only
         return output.failure_row(kind, reason, inp)
     url = source if re.match(r"https?://", source) else None
     return convert_pages(t["pages"], sha=sha, extractor=t["extractor"], image_only=t["image_only"], inp=inp, mode=mode,
-                         backend=backend, theta=theta, url=url, anchors=anchors, explain=explain, queue_nulls=queue_nulls)
+                         backend=backend, theta=theta, url=url, anchors=anchors, explain=explain, queue_nulls=queue_nulls,
+                         anchors_review=anchors_review)
 
 
 # --------------------------------------------------------------------------------------------------- batch
@@ -321,28 +365,63 @@ def row_key(inp: dict) -> str:
     return f"opd:{inp['opd_doc_id']}" if inp.get("opd_doc_id") else inp["source"]
 
 
+def anchors_sha256(anchors: dict | None) -> str | None:
+    if not anchors:
+        return None
+    try:
+        return hashlib.sha256(Path(anchors["file"]).read_bytes()).hexdigest()
+    except (KeyError, OSError):  # anchors built in code (tests): hash their patterns instead
+        return hashlib.sha256(json.dumps(anchors.get("bodies"), sort_keys=True, default=lambda x: getattr(x, "pattern",
+                                                                                                           str(x))).encode()).hexdigest()
+
+
+def options_of(inp: dict, *, mode: str, backend=None, theta=None, anchors: dict | None = None, explain: bool = False,
+               queue_nulls: bool = False, anchors_review: bool = False) -> dict:
+    """Everything besides the document that decides a row's content; `hash` is what resume compares."""
+    review = mode == "review"
+    o = dict(anchors_sha256=anchors_sha256(anchors), mode=mode, affair_type=inp.get("affair_type") or None,
+             queue_nulls=bool(queue_nulls), anchors_review=bool(anchors_review), explain=bool(explain),
+             review_build=getattr(backend, "build", None) if review else None, theta=theta if review else None,
+             input={k: v for k, v in sorted(inp.items()) if v not in (None, "") and k != "source"})  # the key names the doc
+    o["hash"] = hashlib.sha256(json.dumps(o, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:16]
+    return o
+
+
 def run_batch(inputs: list[dict], out_path: str | None, *, mode: str = "rules_only", backend=None, theta=None,
               retry_failed: bool = False, timeout: int = 60, tries: int = 2, anchors: dict | None = None,
-              explain: bool = False, queue_nulls: bool = False) -> dict:
-    """Append one JSONL row per input; skip inputs already in out_path (failed ones too, unless retry_failed)."""
+              explain: bool = False, queue_nulls: bool = False, anchors_review: bool = False) -> dict:
+    """Append one JSONL row per input; skip inputs whose last row in out_path was made with the same options (failed ones
+    too, unless retry_failed). An input whose options changed (anchors file, mode, affair type, ...) is converted again."""
     done = {}
     if out_path and Path(out_path).exists():
         for line in open(out_path, encoding="utf-8"):
             if line.strip():
                 r = json.loads(line)
-                done[row_key(r["input"])] = r["status"]
+                done[row_key(r["input"])] = (r["status"], (r.get("options") or {}).get("hash"))
+    opt = dict(mode=mode, backend=backend, theta=theta, anchors=anchors, explain=explain, queue_nulls=queue_nulls,
+               anchors_review=anchors_review)
     counts: dict[str, int] = {}
     warned: set = set()
     sink = open(out_path, "a", encoding="utf-8") if out_path else sys.stdout
     try:
         for inp in inputs:
             k = row_key(inp)
-            if k in done and (done[k] == "ok" or not retry_failed):
-                counts["skipped (already done)"] = counts.get("skipped (already done)", 0) + 1
-                continue
+            options = options_of({x: inp.get(x) for x in INPUT_KEYS}, **opt)
+            if k in done:
+                status, h = done[k]
+                if h is None and (status == "ok" or not retry_failed):  # a row from before options were recorded
+                    counts["skipped (older row, options not recorded)"] = \
+                        counts.get("skipped (older row, options not recorded)", 0) + 1
+                    continue
+                if h is not None and h != options["hash"]:
+                    counts["re-run (options changed)"] = counts.get("re-run (options changed)", 0) + 1
+                elif status == "ok" or not retry_failed:
+                    counts["skipped (already done)"] = counts.get("skipped (already done)", 0) + 1
+                    continue
             row = convert_one(inp["source"], {x: inp.get(x) for x in INPUT_KEYS if x != "source"}, mode=mode,
                               backend=backend, theta=theta, timeout=timeout, tries=tries, anchors=anchors, explain=explain,
-                              queue_nulls=queue_nulls)
+                              queue_nulls=queue_nulls, anchors_review=anchors_review)
+            row["options"] = options
             cov = row.get("rules_coverage")
             if cov and cov.get("body") not in warned and overlay.coverage_warning(cov):
                 warned.add(cov.get("body"))
@@ -366,8 +445,12 @@ def write_queue(rows_path: str, queue_path: str) -> int:
     qualified recommendation, date next to a heading, ...), suggestions strongest first (band, then margin ascending), so
     a reviewer starts with the suggestions most likely to be right (results/convert/band_precision.json); flagged rows
     without a suggestion follow."""
-    rows = [json.loads(x) for x in open(rows_path, encoding="utf-8") if x.strip()]
-    q = [r for r in rows if r.get("status") == "ok" and r.get("needs_review")]
+    last: dict[str, dict] = {}  # a re-run (options changed) appends a newer row for the same input: the last one wins
+    for x in open(rows_path, encoding="utf-8"):
+        if x.strip():
+            r = json.loads(x)
+            last[row_key(r["input"])] = r
+    q = [r for r in last.values() if r.get("status") == "ok" and r.get("needs_review")]
 
     def key(r):
         s = r.get("review_suggestion") or {}

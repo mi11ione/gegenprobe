@@ -1,0 +1,132 @@
+name: nightly-real-docker
+# Two consecutive real network nights of the nightly job in the RECOMMENDED setup (docs/runbook.md): the Docker image built
+# from this checkout, installed with `sh deploy/nightly/install.sh` (Docker variant: gegenprobe:0.1.0, uid 10001,
+# read-only root, tmpfs /tmp, --cap-drop ALL, 4 GB / 2 CPU ceiling), started by systemd on a GitHub-hosted Ubuntu runner.
+# Night 2 starts from night 1's persisted state in /var/lib/gegenprobe (state.json with the previous index and rates,
+# the ledger, the outbox), so the night-over-night logic runs against a real previous night: index diff (only changed
+# docs/texts files are re-scanned), new BE rows since last night, ledger pending/review/resolved/dropped, the retry of rows
+# whose check failed for a transient reason, outbox redelivery, the drop and trend alerts.
+# OPD regenerates the exports once a day (index.json generated_at about 04:20 UTC). With wait_for_new_index=true (default)
+# the job polls index.json every 10 min (one GET each) after night 1 until generated_at changes or max_wait_min passes,
+# so night 2 is a real incremental night on new exports; dispatch around 00:30 UTC for that. With false, night 2 runs
+# right away (same exports: the incremental best case, nothing to re-scan).
+# Manual only (no schedule):
+#   gh workflow run nightly-real-docker.yml -f wait_for_new_index=true -f max_wait_min=180
+# Network, all GET, all through gegenprobe.net (robots.txt honoured, >= 1.2 s between requests to the same host,
+# User-Agent with a contact URL): files.openparldata.ch/exports, the canton of Bern's two OGD tables, the PDF of every new
+# BE relink/fetch row (night 1: all of them, about 51 min). A local webhook on the runner receives any alert posts.
+# Uploads, per night: run.json, alerts.json, rates.json, ledger, tonight's rows, journal excerpt, systemctl show,
+# night.json (wall time, exit status, index generated_at); plus two_nights.json (night 2 against night 1) and the posts.
+on:
+  workflow_dispatch:
+    inputs:
+      wait_for_new_index:
+        description: "wait for OPD's next export (index.json generated_at changes) before night 2"
+        type: boolean
+        default: true
+      max_wait_min:
+        description: "longest wait for a new index before night 2 runs anyway (minutes)"
+        type: string
+        default: "180"
+permissions:
+  contents: read
+defaults:
+  run:
+    working-directory: track_2a
+jobs:
+  two-nights:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 355
+    env:
+      UA: "hackapertus-research/0.1 (+https://github.com/mi11ione/gegenprobe)"
+      INDEX: "https://files.openparldata.ch/exports/index.json"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: local webhook receiver for alert posts (the container reaches it on the docker0 bridge)
+        run: |
+          cat > /tmp/hook.py <<'PY'
+          import http.server
+          class H(http.server.BaseHTTPRequestHandler):
+              def do_POST(self):
+                  body = self.rfile.read(int(self.headers["Content-Length"])).decode()
+                  open("/tmp/posts", "a").write(body + "\n")
+                  self.send_response(200); self.end_headers()
+          http.server.HTTPServer(("0.0.0.0", 8765), H).serve_forever()
+          PY
+          touch /tmp/posts; nohup python3 /tmp/hook.py > /tmp/hook.log 2>&1 &
+          sleep 1
+      - name: install as documented (install.sh builds gegenprobe:0.1.0 and installs the Docker unit and timer)
+        run: |
+          set -eu
+          t0=$(date -u +%s)
+          sudo sh deploy/nightly/install.sh
+          echo "install + image build: $(( $(date -u +%s) - t0 )) s" | tee /tmp/install_s.txt
+          # the timer stays installed but must not start a night while these two run
+          sudo systemctl stop gegenprobe-nightly.timer
+          bridge=$(docker network inspect bridge -f '{{(index .IPAM.Config 0).Gateway}}')
+          printf 'GP_USER_AGENT=%s\nGP_ALERT_WEBHOOK=http://%s:8765/hook\n' "$UA" "$bridge" | sudo tee -a /etc/gegenprobe/alerts.env
+          sudo systemctl cat gegenprobe-nightly.service
+          docker image inspect gegenprobe:0.1.0 -f '{{.Id}} {{.Created}}'
+      - name: night 1 (first night, no previous state)
+        run: sh ../.github/scripts/docker-night.sh 1
+      - name: wait for OPD's next export before night 2 (optional)
+        if: inputs.wait_for_new_index
+        env:
+          MAX_WAIT_MIN: ${{ inputs.max_wait_min }}
+        run: |
+          set -u
+          case "$MAX_WAIT_MIN" in ''|*[!0-9]*) echo "max_wait_min must be a number of minutes"; exit 1;; esac
+          seen=$(sudo python3 -c 'import json; print(json.load(open("/var/lib/gegenprobe/work/nightly/state.json"))["index"]["generated_at"])')
+          echo "night 1 read index generated_at $seen"
+          deadline=$(( $(date -u +%s) + 60 * MAX_WAIT_MIN ))
+          while [ "$(date -u +%s)" -lt "$deadline" ]; do
+            # one GET through gegenprobe.net (robots.txt, User-Agent with contact); stdlib only, so the runner's python3
+            now=$(GP_USER_AGENT="$UA" PYTHONPATH=src python3 -c 'import json; from gegenprobe import net; print(json.loads(net.get("'"$INDEX"'"))["generated_at"])' || echo "?")
+            echo "$(date -u +%FT%TZ) index generated_at $now"
+            if [ "$now" != "?" ] && [ "$now" != "$seen" ]; then break; fi
+            sleep 600
+          done
+      - name: night 2 (incremental, against night 1's state)
+        run: sh ../.github/scripts/docker-night.sh 2
+      - name: night 2 against night 1
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib
+          d = pathlib.Path(os.environ["GITHUB_WORKSPACE"]) / "nights"
+          out = {}
+          for n in (1, 2):
+              p = d / f"night{n}"
+              try:
+                  run, night = json.loads((p / "results" / "run.json").read_text()), json.loads((p / "night.json").read_text())
+              except (OSError, ValueError) as e:
+                  out[f"night{n}"] = dict(error=str(e)); continue
+              t = run.get("timings", {})
+              out[f"night{n}"] = dict(
+                  wall_s=night["wall_s"], exit_status=night["exit_status"], index_generated_at=night.get("index_generated_at"),
+                  rescanned_bodies=len(t.get("rescanned_bodies", [])), download_s=t.get("download_s"), total_s=t.get("total_s"),
+                  bytes=run.get("bytes"), transfer_bytes=run.get("transfer_bytes"), alerts=run.get("alerts"),
+                  alert_kinds=run.get("alert_kinds"), be_repair=run.get("be_repair"),
+                  be_repair_new_since_last_night=run.get("be_repair_new_since_last_night"),
+                  be_repair_retried=run.get("be_repair_retried"), ledger=run.get("ledger"),
+                  notified=run.get("notified"), notify_error=run.get("notify_error"), peak_rss_mb=run.get("peak_rss_mb"))
+          a, b = out.get("night1", {}), out.get("night2", {})
+          out["night2_had_previous_state"] = json.loads((d / "night2" / "night.json").read_text()).get("state_before") \
+              if (d / "night2" / "night.json").exists() else None
+          out["index_changed_between_nights"] = (a.get("index_generated_at") != b.get("index_generated_at")
+                                                 if a.get("index_generated_at") and b.get("index_generated_at") else None)
+          out["alert_posts_received"] = sum(1 for x in open("/tmp/posts") if x.strip())
+          out["install_and_build"] = open("/tmp/install_s.txt").read().strip()
+          (d / "two_nights.json").write_text(json.dumps(out, indent=1))
+          print(json.dumps(out, indent=1))
+          PY
+          cp /tmp/posts "$GITHUB_WORKSPACE/nights/alert_posts.jsonl" || true
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with: {name: nightly-real-docker, path: nights/}
+      - name: both nights must end quiet (0) or with alerts (3, GP_ALERT_EXIT)
+        run: |
+          for n in 1 2; do
+            s=$(python3 -c "import json; print(json.load(open('$GITHUB_WORKSPACE/nights/night$n/night.json'))['exit_status'])")
+            echo "night $n: exit status $s"; test "$s" = 0 || test "$s" = 3
+          done

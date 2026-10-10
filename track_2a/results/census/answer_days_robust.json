@@ -87,5 +87,5 @@
   }
  },
  "reproduces_question_json_median": true,
- "caveat": "the answer event date is the OPD event date: verified as the government decision date only for BE (39/39); elsewhere it may be a registration or publication date (held-out: 37/44 equal to the printed date)"
+ "caveat": "the answer event date is the OPD event date: checked against the source as the government's decision date only in Bern (the RRB decision date printed in the answer: 2,421 of 2,459 relink answers, the other 38 go to review; results/repair/be_verify_all.json) and Ticino (the date in the publisher's answer title 'Risposta del CdS del \u2026': 2,379 of 2,379 dated answers that carry one; results/census/date_trust.json); elsewhere it may be a registration or publication date (held-out: 37/44 equal to the printed date); the pooled median mixes these date roles and intervention types (results/census/answer_days_by_trust.json)"
 }

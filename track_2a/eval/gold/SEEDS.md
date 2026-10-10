@@ -20,3 +20,9 @@ Draw order: dev first, then heldout excluding every dev doc id, dev affair id, a
 - 2026-10-09 ~19:20Z: the first held-out draw put two documents of one affair into different strata (the one-document-per-affair
   rule was enforced per stratum only). Fixed to be split-wide and the held-out split was redrawn (same seed) before any label
   existed and before any held-out text was read; only metadata (cell, type, token estimate) of the first draw was looked at.
+
+## Correction (appended 10 Oct 2026, POST-HOC; `eval/prereg/DEVIATIONS.md` D13)
+The two times above are wrong; the lines are kept as written. Local logs (`.work/sample_*.log` mtimes) give: dev draw v1
+18:11:44Z, dev draw v2 18:18:49Z, held-out draw 1 18:35:06Z, held-out redraw 18:41:14Z. The held-out sample was committed
+at 18:42:21Z (`da26116`, 20:42:21 CEST) in the same commit as the rules, so P1 is held out by protocol, not by commit
+order (D12). The order of events described above is correct.

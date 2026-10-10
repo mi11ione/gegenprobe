@@ -23,6 +23,7 @@ import statistics
 from datetime import date
 
 from ..paths import DATA, RESULTS
+from .presentation import answer_date_caveat
 from .tables import CENSUS, i, rows
 
 OUT = RESULTS / "census"
@@ -227,8 +228,9 @@ def answer_days_robust(root=CENSUS) -> dict:
         by_type_all={t: med(v) for t, v in sorted(by_type_all.items())},
         by_type_excluding_same_day_bodies={t: med(v) for t, v in sorted(by_type_rob.items())},
         reproduces_question_json_median=statistics.median(ds_all) == q["national"]["median_days"],
-        caveat="the answer event date is the OPD event date: verified as the government decision date only for BE (39/39); "
-        "elsewhere it may be a registration or publication date (held-out: 37/44 equal to the printed date)",
+        caveat="the answer event date is the OPD event date: " + answer_date_caveat(short=True) + "; elsewhere it may be a "
+        "registration or publication date (held-out: 37/44 equal to the printed date); the pooled median mixes these date "
+        "roles and intervention types (results/census/answer_days_by_trust.json)",
     )
 
 

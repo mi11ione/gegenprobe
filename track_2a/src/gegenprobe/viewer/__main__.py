@@ -1,7 +1,8 @@
 """Static evidence viewer.
 
     python -m gegenprobe.viewer collect            results + cached texts + model cache -> site/data.json, parliaments.csv,
-                                                   missing.json, interventions.tsv.gz (+ README) copied from results/census/
+                                                   missing.json, interventions.tsv.gz (+ README) copied from results/census/,
+                                                   and site/downloads/ (Bern lists, apply plan, JSON Schemas)
     python -m gegenprobe.viewer build [--out DIR]   site/data.json + template -> DIR/index.html (default: site/)
     python -m gegenprobe.viewer build --full-text --out DIR   collect with full page texts into DIR only (never committed)
 
@@ -25,6 +26,24 @@ TEMPLATE = Path(__file__).with_name("template.html")
 SHIPPED = ("parliaments.csv", "missing.json", "interventions.tsv.gz", "interventions_README.md")
 DATASET = ("interventions.tsv.gz", "interventions_README.md")
 FONTS = "fonts"
+DOWNLOADS = "downloads"  # the OPD box's direct downloads (Bern lists, apply plan, JSON Schemas; viewer.data.DOWNLOADS)
+
+
+def copy_downloads(dest: Path) -> list[Path]:
+    """Copy the files viewer.data.DOWNLOADS names into dest/downloads/ (and drop files no longer listed)."""
+    from .data import DOWNLOADS as LIST
+
+    d = dest / DOWNLOADS
+    d.mkdir(parents=True, exist_ok=True)
+    out = []
+    for _, rel, _ in LIST:
+        src = ROOT / rel
+        (d / src.name).write_bytes(src.read_bytes())
+        out.append(d / src.name)
+    for f in d.iterdir():
+        if f.is_file() and f not in out:
+            f.unlink()
+    return out
 
 
 def render(data: dict, out: Path) -> Path:
@@ -37,6 +56,11 @@ def render(data: dict, out: Path) -> Path:
         for f in SHIPPED:
             if (SITE / f).exists():
                 (out / f).write_bytes((SITE / f).read_bytes())
+        if (SITE / DOWNLOADS).is_dir():
+            (out / DOWNLOADS).mkdir(exist_ok=True)
+            for f in (SITE / DOWNLOADS).iterdir():
+                if f.is_file():
+                    (out / DOWNLOADS / f.name).write_bytes(f.read_bytes())
         # self-hosted fonts (OFL); the page references fonts/*.woff2 and makes no third-party request
         if (SITE / FONTS).is_dir():
             (out / FONTS).mkdir(exist_ok=True)
@@ -72,6 +96,7 @@ def main(argv: list[str]) -> int:
         from .data import write_csv
 
         write_csv(d["parliaments"], SITE / "parliaments.csv")
+        copy_downloads(SITE)
         print(SITE / "data.json", f"{(SITE / 'data.json').stat().st_size // 1024} KB", "+", ", ".join(SHIPPED))
         return 0
     out = Path(a.out) if a.out else SITE

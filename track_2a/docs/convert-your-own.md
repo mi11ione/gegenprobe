@@ -74,7 +74,12 @@ python -m gegenprobe convert --batch inputs.tsv --out results.jsonl
 docs-export column names `category_harmonized` / `category` work too) are passed through. A `.txt` file with one URL or path per line also works. Each
 input gives one JSONL line, failures included, and a summary goes to stderr. Run the same command again to resume: inputs
 already in `results.jsonl` are skipped (keyed by `opd_doc_id` when given, else by URL/path); add `--retry-failed` to try
-the failed ones again.
+the failed ones again. Every row records the `options` it was made with (sha256 of the `--anchors` file, `--mode`, the
+affair type and the other input columns, `--queue-nulls`, `--anchors-review`, `--explain`, and in review mode the build
+and θ) and their `hash`. An input is skipped only when its last row has the same hash; when you change the anchors file
+or an option, the summary says `re-run (options changed) N` and the new rows are appended. The last row per input wins:
+`--queue` reads only the last one. Rows written before options were recorded are skipped and counted as
+`skipped (older row, options not recorded)`; use a fresh `--out` to redo them.
 
 Exit codes: `0` when every input converted, `2` when at least one input became a failure row (so a CI job or a cron
 wrapper can notice), unless `--allow-failures` is given. `--queue review.jsonl` additionally writes only the rows that
@@ -89,7 +94,8 @@ OPD's category says so: `--doc-category` / the `doc_category` column is `respons
 a label the census counts as an answer document (`Réponse`, `Antwort …`, `Risposta …`, …; `census/defs.py` `ANS_DOC`).
 Example: an answer letter that starts "Collombey-Muraz, le 15 juillet 2019" has no answer heading, so `doc_role` is
 `other` and the rules leave the date null; with `--queue-nulls --doc-category response_text` it goes to review with
-2019-07-15 first in `candidates`.
+2019-07-15 first in `candidates`. For a parliament without rules (`no_rules_for_body`) every null is flagged already, so
+`--queue-nulls` changes nothing there.
 
 ## Review aids (what a reviewer sees next to every value)
 
@@ -124,6 +130,16 @@ Example: an answer letter that starts "Collombey-Muraz, le 15 juillet 2019" has 
   to the front of `candidates`, with its span, and the row is marked `needs_review`. The field itself stays null: no
   frozen rule vouches for the layout. Headings that name the instrument ("Réponse à l'interpellation du …") are
   skipped, because the date that follows is the instrument's own.
+- **`suggested_by_letter_line`** on the first answer-date candidate. Many answers are letters to the parliament with
+  no answer heading: an address block ("An den Kantonsrat", "An die Mitglieder des Grossen Rates", "Au Grand Conseil",
+  "Al Gran Consiglio", …) and right under it the place-date line ("Schaffhausen, 21. Dezember 2021"). The frozen rules
+  only read such a line on a document with an answer heading, so the field stays null. That date is moved to the front of
+  `candidates` with its span and the addressee (`address`), and the row is marked `needs_review`; the field is never
+  filled, in rules_only or review mode. Addressees that are the executive in some places (`Gemeinderat`, `Stadtrat`,
+  `Conseil communal`, `Conseil municipal`) and "An den Regierungsrat" (a member's own text, dated on submission) are not
+  used. On the 313 committed gold documents (P1 dev and held-out, P2; 194 of them without an answer heading) the hint
+  never fires (`results/convert/letter_hint_check.json`, post hoc); it was written for the Schaffhausen layout (three of
+  three answer letters in a user test, round 5).
 - **`needs_review` and `review_reasons`**: the row needs a person when it carries an Apertus suggestion, when a field has
   `needs_review: true` (each with its `review_reason`), or when the parliament has no rules. `review_reasons` lists
   one `{field, reason}` per flag; the CLI also prints them on stderr. `--queue` collects these rows.
@@ -168,7 +184,11 @@ the frozen rules returned null: they can fill a gap, but they never override a r
 - `{DATE}` expands to the rules' own date expression (numeric and DE/FR/IT month names), with a named group `date`. You
   can also write your own `(?P<date>…)`.
 - Patterns are case-insensitive and multi-line. A literal space matches any whitespace, line breaks included, as in the
-  frozen rules.
+  frozen rules: every space in your pattern becomes `\s+`.
+- **Whitespace inside a look-behind.** Because a space becomes `\s+`, a look-behind with a space in it is no longer
+  fixed-width and Python refuses it: `(?<!nicht )` fails with "look-behind requires fixed-width pattern" (the message names
+  the entry, e.g. `bodies.SH.recommendation[1]`). Write the space as `\s` inside a look-behind: `(?<!nicht\s)`. The
+  same holds for `(?<=…)`.
 - An answer-date anchor may set `"role": "decision"` or `"dispatch"`; without one the role is `answered`.
 - A recommendation anchor needs a `label` (`accept`, `reject`, `convert`, `partial`, `accept_and_write_off`).
   `(?P<phrase>…)` marks the span to cite; without it, the whole match is cited.
@@ -177,7 +197,9 @@ A value found this way carries `route: user_anchor`, `rule_id: user_anchor:<id>`
 the flat row and in the schema record. It has `needs_review: false` only when the anchor has a date group that parses.
 An anchor without a date group takes the first date within 80 characters after it, and that value is flagged. If
 recommendation anchors with different labels all match, the value is flagged too. A malformed file (bad JSON, bad regex,
-unknown label) exits 2 with the problem named. The anchors are yours: we have not measured them.
+unknown label) exits 2 with the problem named. The anchors are yours: we have not measured them. Until you have,
+`--anchors-review` keeps every value from your anchors `needs_review: true` (reason "value from your anchor <id>
+(--anchors-review …)"), so `--queue` collects them for a spot check; drop the flag once a sample has confirmed them.
 
 ## `--explain`
 
@@ -268,6 +290,10 @@ For what the rules leave open, the Apertus closed-set pointer chooses among the 
 Its choice is never written into the field: it appears as `review_suggestion` (value, span, context, margin, θ, build)
 with `needs_review: true`, for a person to accept or reject. It needs a threshold θ fitted for the exact build that runs
 (θ does not transfer across builds, quantisations or prompts); the command lists the fitted builds when none matches.
+It also checks, on every live response, that the server still serves the build θ was fitted on (the θ file's
+`served_fingerprints`; for the GGUF build, the pinned weights' sha256). The first response from another build stops the
+run with exit code 3 and names the fingerprint; `--allow-build-mismatch` continues and marks each suggestion
+`build_mismatch`. Refitting θ: `docs/runbook.md`, "Review mode in operation".
 
 - `--backend gguf`: Apertus v1.5 8B (GGUF Q4_K_M, sha256-pinned, 5.1 GB download) in-process on CPU. Nothing leaves the
   machine. Needs `data/convert/theta/gguf_apertus-v1.5-8b-text-q4_k_m.json`.

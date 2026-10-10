@@ -28,6 +28,8 @@ One night =
      configured webhook / SMTP; the outbox is cleared only after a successful send, so an outage does not drop an alert (it
      is re-sent with the next night's alerts). State is written (atomically) after the send attempt. Exit code
      GP_ALERT_EXIT (default 3) when alerts fired, 1 on error or when sending failed.
+Bytes (run.json `bytes`): single exports downloaded, docs/texts streamed by census.scan (counted as they are read), index,
+canton tables, total, and what of it went over the network. `transfer_bytes` (the older field) is the single exports only.
 Outputs (GP_MONITOR_OUT, default results/monitor): rates.json, alerts.json, run.json; repair_BE_new.tsv (tonight's new rows)
 and repair_BE_ledger.tsv (every row ever proposed: first_seen, last_seen, status pending | review | resolved | dropped).
 
@@ -447,6 +449,42 @@ def _download(entity: str, url: str, dest: Path) -> int:
     return n
 
 
+def add_streamed(acc: dict, path: Path) -> None:
+    """Add one census.scan part's stream_bytes.json (compressed bytes read per docs/texts file) to the night's total."""
+    if not path.exists():  # a scan from before the counter: nothing to add (the total is then a lower bound)
+        acc["parts_without_count"] = acc.get("parts_without_count", 0) + 1
+        return
+    sb = json.loads(path.read_text())
+    acc["bytes"] += sb["bytes"]
+    acc["declared"] += sb["declared"]
+    acc["files"] += len(sb["files"])
+    acc["local"] += sum(1 for f in sb["files"].values() if f.get("local"))
+
+
+def bytes_summary(single: int, streamed: dict, index: int, ogd: int, local: bool, offline: bool) -> dict:
+    """Every byte the night read from OPD and the canton, by source. `transfer_bytes` (older field) is `single_exports`."""
+    total = single + streamed["bytes"] + index + ogd
+    # with GP_EXPORTS_DIR every exports URL (index, single, docs/texts) is read from disk; the canton tables still are GETs
+    over_network = 0 if offline else (ogd if local else total)
+    return dict(
+        single_exports=single,
+        docs_texts_streamed=streamed["bytes"],
+        docs_texts_declared=streamed["declared"],
+        docs_texts_files=streamed["files"],
+        index=index,
+        be_ogd=ogd,
+        total=total,
+        over_network=over_network,
+        read_from="cached files (offline)" if offline else ("GP_EXPORTS_DIR (OPD exports on local disk) + canton GETs"
+                                                            if local else "network"),
+        not_counted="PDFs fetched by the per-row check of new BE rows",
+        note="docs_texts_streamed: compressed bytes of every docs_/texts_ export census.scan streamed tonight (all retries "
+             "counted, nothing stored); docs_texts_declared: their sizes in index.json. transfer_bytes (older field, kept "
+             "for compatibility) is single_exports only.",
+        **({"scan_parts_without_count": streamed["parts_without_count"]} if streamed.get("parts_without_count") else {}),
+    )
+
+
 def night(offline: bool) -> dict:
     t = {}
     t0 = time.time()
@@ -463,10 +501,14 @@ def night(offline: bool) -> dict:
         opd = Path(local) if local else NIGHT / "opd"
         meta = Path(os.environ["GP_DOCS_META"]) if os.environ.get("GP_DOCS_META") else NIGHT / "docs_meta"
     transfer, idx = 0, None
+    streamed = dict(bytes=0, declared=0, files=0, local=0)
+    index_bytes = ogd_bytes = 0
     if not offline:
         opd.mkdir(parents=True, exist_ok=True)
         meta.mkdir(parents=True, exist_ok=True)
-        idx = json.loads(net.get(INDEX))
+        raw_index = net.get(INDEX)
+        index_bytes = len(raw_index)
+        idx = json.loads(raw_index)
         prev_idx = state.get("index")
         diff = index_diff(prev_idx, idx) if prev_idx else None
         if not local:  # single exports are read in place from GP_EXPORTS_DIR
@@ -489,9 +531,10 @@ def night(offline: bool) -> dict:
             if part.exists():
                 subprocess.run(["rm", "-rf", str(part)], check=True)
             part.with_suffix(".tmp").rename(part)
+            add_streamed(streamed, part / "stream_bytes.json")
         from ..repair import be
 
-        be.fetch_ogd()
+        ogd_bytes = be.fetch_ogd() or 0
         state["index"] = idx
         t["download_s"] = round(time.time() - t0, 1)
         t["rescanned_bodies"] = sorted(changed_bodies)
@@ -551,7 +594,8 @@ def night(offline: bool) -> dict:
         stale_days=STALE_DAYS, alerts=al, undelivered_from_previous_nights=pending), indent=1))
     run = dict(
         mode="offline" if offline else ("local-exports" if local else "network"),
-        transfer_bytes=transfer,
+        transfer_bytes=transfer,  # kept for compatibility: the single exports only (see `bytes`)
+        bytes=bytes_summary(transfer, streamed, index_bytes, ogd_bytes, local=bool(local), offline=offline),
         timings=t,
         bodies_rated=sum(1 for b in rates if not b.startswith("_")),
         alerts=len(al),

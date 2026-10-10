@@ -105,7 +105,10 @@ characters), `needs_review`, `review_suggestion` (review mode only), and `record
 `DocExtraction`; its values also carry `rule` and, for dates, `decision_number`). A document that cannot be fetched or
 read gives a typed failure row instead of a traceback: `robots_disallowed`, `robots_unreachable`, `http_error`, `timeout`,
 `network_error`, `not_a_pdf`, `sha_mismatch`, `file_not_found`, `text_failed`, `too_large`, `text_timeout`. Review mode refuses to run without a θ fitted for the exact
-build and lists the fitted builds. User guide, field glossary and null reasons in plain words: `docs/convert-your-own.md`.
+build and lists the fitted builds; while it runs, `convert/build_guard.py` compares every live response's
+`system_fingerprint` with the fingerprints the θ file records (GGUF: the weights' sha256) and stops with exit 3 on another
+build (`--allow-build-mismatch` continues and marks each suggestion `build_mismatch`; refit procedure in
+`docs/runbook.md`). User guide, field glossary and null reasons in plain words: `docs/convert-your-own.md`.
 
 **Review aids (round 2).** Every answer-date field carries `candidates` (the closed set: every printed date with page,
 span and context, the chosen one marked, and Apertus' probability shares in review mode); rule values carry

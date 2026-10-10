@@ -301,6 +301,13 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
 .steps .n { font-family: var(--display); font-weight: 750; font-size: 34px; line-height: .9; color: var(--red); letter-spacing: -.03em; font-variation-settings: "wdth" 88; }
 .steps .w { font-weight: 650; font-size: 15.5px; margin-top: 8px; }
 .steps p { margin: 4px 0 0; font-size: 13px; color: var(--ink-2); max-width: 40ch; }
+.dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 16px; margin-top: 16px; border-top: 1px solid var(--rule); padding-top: 10px; }
+.dl h4 { margin: 0 0 4px; font-size: 12px; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-2); }
+.dl ul { list-style: none; margin: 0; padding: 0; }
+.dl li { font-size: 13px; margin: 0 0 6px; min-width: 0; overflow-wrap: anywhere; }
+.dl li .what { display: block; color: var(--ink-2); font-size: 12px; }
+.dl .repo { grid-column: 1 / -1; font-size: 13px; margin-top: 6px; overflow-wrap: anywhere; }
+@media (max-width: 760px) { .dl { grid-template-columns: 1fr; } }
 @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } .steps > div { border-right: 0; border-bottom: 1px solid var(--rule); padding-left: 0 !important; } }
 dl.gloss { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; border-top: 1px solid var(--rule-strong); }
 dl.gloss > div { padding: 9px 14px 10px 0; border-bottom: 1px solid var(--rule); min-width: 0; }
@@ -458,6 +465,7 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
   <div class="idx"><div class="label">For OPD's data team</div><p class="small" style="margin:8px 0 0;max-width:32ch" id="howtoNote"></p></div>
   <div class="work">
     <div class="steps" id="steps"></div>
+    <div class="dl" id="opdDownloads"></div>
     <dl class="gloss" id="gloss" style="margin-top:18px"></dl>
   </div>
 </section>
@@ -664,7 +672,8 @@ const H = D.headline;
 function drawHero() {
   const x = H.periods[period];
   $('#heroBig').textContent = fmt(x.missing);
-  $('#heroLine').innerHTML = `of ${fmt(x.written)} interventions with a written government answer, ${PERW[period]}, have no answer text in OpenParlData. That is ${pct(x.missing / x.written)}, typed by cause for every one.`;
+  $('#heroLine').innerHTML = `of ${fmt(x.written)} interventions with a written government answer, ${PERW[period]}, have no answer text in OpenParlData (${pct(x.missing / x.written)}), typed by cause for every one. ` +
+    (x.oral != null ? `${fmt(x.oral)} of them were answered orally in the sitting, so no text is expected; the other <b>${fmt(x.written_missing)}</b> are written answers missing from OPD (${pct(x.written_missing / x.in_writing)} of the ${fmt(x.in_writing)} answered in writing).` : '');
   $('#heroSrc').textContent = `results/census/summary.json · period: ${D.parliaments.periods[period]}, the same as the table`;
 }
 $('#heroPeriod').append(periodSeg('Period · applies to the whole page'));
@@ -680,11 +689,22 @@ $('#facts').append(...facts.map(([v, t]) => el('div', { class: 'fact' }, el('div
 /* where to look (3 steps) + glossary */
 const RS = D.parliaments.research || {};
 const STEPS = [
-  ['Apply the Bern lists', `${fmt(H.relink)} answers are already in OPD without a parent: relink them by the canton’s own document id. ${fmt(H.fetch)} more to fetch from the canton. Both lists are keyed on OPD ids (results/repair/, docs/repair.md).`, '#bern-numbers'],
+  ['Apply the Bern lists', `${fmt(H.relink)} answers are already in OPD without a parent: relink them by the canton’s own document id. ${fmt(H.fetch)} more to fetch from the canton. Both lists are keyed on OPD ids; download them, the dry-run apply plan and the JSON Schemas below.`, '#bern-numbers'],
   ['Fix the rest by cause', 'Open a parliament’s row: every affair without answer text, with its cause and the fix it needs (agenda join, relink, re-take a text version, OCR, fetch from the parliament), linked to OPD and to the parliament’s own page, as CSV.', '#parliaments'],
   ['Take the data', `All ${fmt(RS.rows)} interventions as one file with a column dictionary (CDLA-Permissive-2.0), the table as CSV, and the converter’s output format (schema v0.1, below).`, '#dataset'],
 ];
 $('#howtoNote').textContent = 'What to fix and which lists to apply, in three steps; six terms the rest of the page uses. Journalists: each parliament’s row has a “safe to say” sentence with its caveat. Not in OPD ≠ not published by the parliament.';
+/* direct downloads (site/downloads/, copied by `viewer collect`) and the repository */
+const DL = D.downloads;
+if (DL) {
+  const kb = b => b >= 1e6 ? `${(b / 1e6).toFixed(1)} MB` : `${Math.max(1, Math.round(b / 1e3))} KB`;
+  const groups = [...new Set(DL.files.map(f => f.group))];
+  $('#opdDownloads').append(...groups.map(g => el('div', {}, el('h4', {}, g), el('ul', {}, DL.files.filter(f => f.group === g).map(f =>
+      el('li', {}, el('a', { href: f.href, download: '' }, f.name), ` · ${f.rows != null ? fmt(f.rows) + ' rows · ' : ''}${kb(f.bytes)}`,
+        el('span', { class: 'what' }, f.what)))))),
+    el('p', { class: 'repo' }, 'Code, tests and every results file: ', el('a', { href: DL.repo }, DL.repo.replace('https://', '')),
+      ' · how the lists are built and checked: docs/repair.md · the apply plan is a dry run, never executed by us'));
+}
 $('#steps').append(...STEPS.map(([w, t, h], i) => el('div', {}, el('div', { class: 'n' }, String(i + 1)), el('div', { class: 'w' }, el('a', { href: h }, w)), el('p', {}, t))));
 const GLOSS = [
   ['OPD', 'OpenParlData.ch, the aggregator that collects affairs, events and documents from Swiss parliaments. Every count here is about its copy.'],
@@ -717,6 +737,7 @@ function renderSchemaTop() {
     ['government_recommendation', val(R.government_recommendation), prov(R.government_recommendation) + ' (an interpellation carries no recommendation)', null],
     ['decision', val(R.decision), prov(R.decision), null],
     qa.answering_body ? ['qa[0].answering_body', val(qa.answering_body), prov(qa.answering_body), null] : null,
+    ...(S.omitted || []).map(o => [o.field.replace(/^qa\.(\d+)\./, 'qa[$1].'), el('span', { class: 'nullv' }, 'left out'), o.note, null]),
     ['answer_link_status', R.answer_link_status, 'census: the answer document is attached to the affair in OPD', null],
     ...Object.entries(S.suggestions || {}).map(([k, v]) => [`suggestion: ${k}`, String(v.value), `Apertus ${v.basis} · margin ${v.margin.toFixed(1)} over ${v.candidates} choices · offered to a reviewer, not written into the record; a document-level choice, so it has no character span`, 'sugg']),
   ].filter(Boolean);
@@ -731,15 +752,18 @@ function renderSchemaTop() {
     el('details', { class: 'json' }, el('summary', {}, 'The whole record · JSON (schema v0.1)'), el('pre', {}, JSON.stringify(R, null, 1))));
   const n = SV.counts, tc = SV.tier_counts;
   $('#schemaNote').textContent = `Schema v0.1: dates with roles, typed nulls, spans. The converter fills it from OPD metadata first, then frozen rules; Apertus only suggests, for a reviewer.`;
-  $('#schemaClassNote').textContent = `Class: does the field mean the same thing everywhere? ${n.shared || 0} fields are shared; ${n.shared_with_role_split || 0} are shared with a role split (one source label covers several roles that must be kept apart); three concepts are body-specific. ` +
-    `Where the value lives is a separate question, counted over the parliaments where the field applies: in OPD metadata, partly, only in the PDF, or not in OPD’s data (tiers: ${tc.feasible} feasible, ${tc.partial} partial, ${tc['fundamentally different']} fundamentally different, docs/census.md §3). Classes: data/schema/field_verdict_classes.json.`;
-  const head = el('thead', {}, el('tr', {}, ['Field', 'Class', 'Tier', 'Metadata', 'Partly', 'Only in PDF', 'Not in OPD’s data', 'Evidence'].map(x => el('th', {}, x))));
+  const tt = SV.tested_counts || {}, ms = c => (tt[c] || {}).measured || 0;
+  $('#schemaClassNote').textContent = `Class: does the field mean the same thing everywhere? ${n.shared || 0} fields are shared, of which ${ms('shared')} has its meaning tested across parliaments; the other ${(n.shared || 0) - ms('shared')} are shared by definition, untested. ${n.shared_with_role_split || 0} are shared with a role split (one source label covers several roles that must be kept apart), all ${ms('shared_with_role_split')} measured; three concepts are body-specific. ` +
+    `“Meaning tested?” names the measurement (raw labels OPD maps to different harmonised concepts, results/census/comparability.json). Where the value lives is a separate question, counted over the parliaments where the field applies: in OPD metadata, partly, only in the PDF, or not in OPD’s data (tiers: ${tc.feasible} feasible, ${tc.partial} partial, ${tc['fundamentally different']} fundamentally different, docs/census.md §3). Classes: data/schema/field_verdict_classes.json.`;
+  const head = el('thead', {}, el('tr', {}, ['Field', 'Class', 'Meaning tested?', 'Tier', 'Metadata', 'Partly', 'Only in PDF', 'Not in OPD’s data', 'Evidence'].map(x => el('th', {}, x))));
   const tb2 = el('tbody', {}, SV.fields.map((f, i) => el('tr', { class: i && SV.fields[i - 1].cls !== f.cls ? 'grp' : '' }, el('td', { class: 'code' }, f.name),
-      el('td', {}, el('span', { class: 'cls c-' + f.cls, title: SV.classes[f.cls].definition }, CLS[f.cls])), el('td', { class: 'code' }, f.tier),
+      el('td', {}, el('span', { class: 'cls c-' + f.cls, title: SV.classes[f.cls].definition }, CLS[f.cls])),
+      el('td', { class: 'small' }, f.tested === 'measured' ? el('span', { title: f.tested_in || '' }, 'measured · ', el('span', { class: 'code muted' }, (f.tested_in || '').replace('results/census/comparability.json ', 'comparability: '))) : el('span', { class: 'muted' }, f.tested || '—')),
+      el('td', { class: 'code' }, f.tier),
       el('td', { class: 'code num' }, f.metadata), el('td', { class: 'code num' }, f.mixed), el('td', { class: 'code num' }, f.pdf),
       el('td', { class: 'code num' + (f.no_source ? ' red' : '') }, f.no_source), el('td', { class: 'ev' }, f.evidence || (f.key === 'co_signatories' ? 'parliaments often print them on the member’s text or list them on their own pages' : '')))),
     SV.body_specific.map((b, i) => el('tr', { class: i === 0 ? 'grp' : '' }, el('td', { class: 'code' }, b.name),
-      el('td', {}, el('span', { class: 'cls c-body_specific', title: SV.classes.body_specific.definition }, CLS.body_specific)), el('td', { class: 'code muted', colspan: 5 }, 'a concept, not a field'),
+      el('td', {}, el('span', { class: 'cls c-body_specific', title: SV.classes.body_specific.definition }, CLS.body_specific)), el('td', { class: 'code muted', colspan: 6 }, 'a concept, not a field'),
       el('td', { class: 'ev' }, b.evidence))));
   $('#schemaTop').replaceChildren(head, tb2);
 }
@@ -1007,11 +1031,13 @@ const COLS = [
     COV[r.coverage] ? el('span', { class: 'chip cov', title: COV[r.coverage][1] }, COV[r.coverage][0]) : null), r => r.label],
   ['written', 'Written answers', r => r.coverage === 'coverage_gap' && period === 'all' ? el('span', { title: COV.coverage_gap[1] }, fmt(c(r).written), el('span', { class: 'muted' }, ` of ${fmt(r.n)}`)) : fmt(c(r).written), r => c(r).written],
   ['with_text', 'Text attached', r => c(r).written ? pct(c(r).with_text) : '—', r => c(r).with_text ?? -1],
-  ['missing', 'Missing', r => c(r).missing ? el('span', { class: 'red' }, fmt(c(r).missing)) : '0', r => c(r).missing],
+  ['missing', () => el('span', { title: 'no answer text attached to the intervention in OPD (the census gap): oral answers + written answers missing' }, 'No answer text'), r => fmt(c(r).missing), r => c(r).missing],
+  ['oral', () => el('span', { title: 'answered orally in the sitting (question time; Valais oral-answer stubs): no written text is expected, so not missing' }, 'Oral'), r => fmt(c(r).oral), r => c(r).oral],
+  ['written_missing', () => el('span', { title: 'written answers without attached text = No answer text − Oral = Agenda + No parent + Scan + Not in OPD; share of the answers given in writing' }, 'Written missing'),
+    r => c(r).written_missing ? el('span', { class: 'red' }, fmt(c(r).written_missing), el('span', { class: 'iqr' }, pct(c(r).written_missing_share))) : '0', r => c(r).written_missing_share ?? -1],
   ['agenda', 'Agenda', r => fmt(c(r).agenda), r => c(r).agenda],
   ['parentless', 'No parent', r => fmt(c(r).parentless), r => c(r).parentless],
-  ['image_only', () => el('span', { title: 'an answer document is attached, but OPD’s copy has no text: no text layer, or OPD’s extraction failed' }, 'No text'), r => fmt(c(r).image_only), r => c(r).image_only],
-  ['oral', 'Oral', r => fmt(c(r).oral), r => c(r).oral],
+  ['image_only', () => el('span', { title: 'an answer document is attached, but OPD’s copy has no text: no text layer, or OPD’s extraction failed' }, 'Scan, no text'), r => fmt(c(r).image_only), r => c(r).image_only],
   ['absent', 'Not in OPD', r => fmt(c(r).absent), r => c(r).absent],
   ['after_repair', 'Repaired', r => c(r).written ? pct(c(r).after_repair) : '—', r => c(r).after_repair ?? -1],
   ['after_ocr', '+ OCR', r => c(r).image_only ? el('span', { class: 'ocr', title: 'if the answers without text were read by OCR (probe: 15/15 recovered) or re-taken as a text version; not yet done' }, pct(c(r).after_ocr)) : el('span', { class: 'muted' }, '·'), r => c(r).image_only ? c(r).after_ocr : -1],
@@ -1028,7 +1054,8 @@ function renderPar() {
   parDone = true;
   const nat = P.national;
   $('#parSnap').textContent = `OPD exports of ${P.snapshot}`;
-  $('#parIntro').textContent = `${P.n_bodies} parliaments with affairs in scope (OpenParlData scrapes 90). Of ${fmt(nat.ev_answer)} interventions whose events record a written government answer (all years), ${fmt(nat.gap)} (${pct(P.gap_share)}) have no answer text attached. ` +
+  $('#parIntro').textContent = `${P.n_bodies} parliaments with affairs in scope (OpenParlData scrapes 90). Of ${fmt(nat.ev_answer)} interventions whose events record a written government answer (all years), ${fmt(nat.gap)} (${pct(P.gap_share)}) have no answer text attached` +
+    (P.oral_reconcile ? `: ${fmt(P.oral_reconcile.typed_oral)} of them were answered orally in the sitting (no text expected), and ${fmt(nat.gap - P.oral_reconcile.typed_oral)} are written answers missing from OPD. ` : '. ') +
     `Every one of them has a typed cause, and each cause has its fix: filed under an agenda item (join), stored without a parent (relink), attached but OPD’s copy has no text (re-take a text version, or OCR), answered orally (not missing), or not in OPD at all (fetch from the parliament). Open a row for its list of affairs.`;
   const find = el('div', { class: 'fgroup' }, el('div', { class: 'label' }, 'Find a parliament'),
     el('input', { class: 'find', type: 'search', placeholder: 'name, canton or BFS no.', 'aria-label': 'Find a parliament', value: parQ,
@@ -1047,8 +1074,9 @@ function renderPar() {
   $('#parFilters').after(warn);
   $('#parLegend').replaceChildren(...LK.map(([, k, t]) => el('span', {}, el('i', { class: k }), t)));
   $('#parDefs').textContent = 'One denominator for every column: interventions whose events record a written government answer, in the chosen period (by the year in the affair number, else its begin date). ' +
-    'Each one is in exactly one place, so Text attached + Agenda + No parent + Scan + Oral + Not in OPD = Written answers. Missing = all but "attached". ' +
-    'After repair = attached + agenda join + Bern relink + Bern fetch from the canton (oral answers are typed, not counted as text). No text = an answer document is attached but OPD’s copy has no text (no text layer, or OPD’s extraction failed). + OCR adds those, shown only where there are any: a separate state, because OCR was probed (15/15 recovered), not run on all of them; where the parliament publishes a text PDF or a Word file, re-taking it is cheaper. ' +
+    'Each one is in exactly one place, so Text attached + Agenda + No parent + Scan + Oral + Not in OPD = Written answers. No answer text = all but "attached" (the census gap, ' + fmt(P.national.gap) + ' over all years) = Oral + Written missing. ' +
+    'Oral = answered orally in the sitting (question time; Valais files an oral-answer note in place of a text): no written text is expected, so these are not missing. Written missing = Agenda + No parent + Scan + Not in OPD, with its share of the answers given in writing (Written answers − Oral). ' +
+    'After repair = attached + agenda join + Bern relink + Bern fetch from the canton (oral answers are typed, not counted as text). Scan, no text = an answer document is attached but OPD’s copy has no text (no text layer, or OPD’s extraction failed). + OCR adds those, shown only where there are any: a separate state, because OCR was probed (15/15 recovered), not run on all of them; where the parliament publishes a text PDF or a Word file, re-taking it is cheaper. ' +
     `“All years” means all years OPD holds for that parliament (its row says from when). ${P.canton_rule || ''}`;
   const tv = Object.entries(TV).map(([k, v]) => `${k === 'TI' ? 'Ticino' : k}: ${fmt(v.title_equal)} of ${fmt(v.title_dated)} answers carry the same date in the publisher’s answer title` + (TO && k === 'TI' ? `, and that title date is the printed date on ${TO.agree}/${TO.checked} held-out answers` : '')).join('; ');
   $('#parFoot').textContent = `* Median days from submission to the first written-answer event in OPD, for one intervention type per parliament (default: the type with the most dated answers there, named in grey; or pick one type for all) in the chosen period, with the interquartile range in grey; shown where at least 10 answers of that type are dated. Medians over mixed types are not shown: a motion "answer" and an interpellation answer are different things. Not a ranking: procedures and deadlines differ between parliaments, and OPD's "answer" event is the government decision date in some bodies and a publication date in others. The Dates column says which: verified (Bern: ${fmt(RS.bern_verified && RS.bern_verified.date_equal)} of ${fmt(RS.bern_verified && RS.bern_verified.n)} relink answers carry the printed decision date${tv ? '; ' + tv : ''}), sitting day (≥ 80% of answer dates on one weekday), mixed, diffuse. ` +
@@ -1153,6 +1181,7 @@ function drawer(r) {
       el('span', {}, `text attached ${pct(x.with_text)} → after repair ${pct(x.after_repair)}`, x.image_only ? el('span', { class: 'ocr' }, ` → after OCR ${pct(x.after_ocr)}`) : null),
       el('span', {}, 'repair actions (all years): ', el('b', {}, rep)), r.key === 'BE' ? el('a', { class: 'bernlink', href: '#bern-numbers' }, 'all Bern numbers, with denominators ↓') : null),
     el('p', { class: 'say' }, el('span', { class: 'label' }, `Safe to say · ${r.safe_say_period} · `), r.safe_say)];
+  if (x.oral) kids.push(el('p', { class: 'small', style: 'margin:6px 0 0;max-width:86ch' }, `${fmt(x.missing)} without answer text ${P.periods[period]} = ${fmt(x.oral)} answered orally (no text expected) + ${fmt(x.written_missing)} written answers missing (${pct(x.written_missing_share)} of ${fmt(x.in_writing)} answered in writing).`, r.oral_note ? ` ${r.oral_note}` : ''));
   if (x.image_only >= 20) { const sf = (P.source_formats || {})[r.key] || [];
     kids.push(el('p', { class: 'small', style: 'margin:6px 0 0;max-width:86ch' }, `After OCR is its own state: ${fmt(x.image_only)} answers are attached in OPD, but OPD’s copy has no text (no text layer, or OPD’s extraction failed). Read by OCR they would bring this parliament to ${pct(x.after_ocr)}; the German+French+Italian OCR probe recovered 15 of 15, but OCR has not been run on all of them. Cheaper where it exists: re-take the text version the parliament publishes (a text PDF or a Word file).`,
       ...sf.map(f => el('span', {}, ` Spot check (${f.checked}, not a count): for `, el('a', { href: f.page, target: '_blank', rel: 'noopener' }, `atto ${f.atto} ↗`), ` the parliament publishes the answer as ${f.files.join(' and ')}; OPD holds ${f.opd_copies} cop${f.opd_copies === 1 ? 'y' : 'ies'} of it, ${f.opd_with_text ? 'with' : 'without'} text.`)))); }

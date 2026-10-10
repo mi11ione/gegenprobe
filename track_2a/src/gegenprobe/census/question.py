@@ -4,10 +4,13 @@
 Neither is answerable reliably today: (1) needs the answer-link census (answers are filed parentless, under agenda items,
 as scans or as oral stubs), (2) needs role-typed dates across 89 differently-structured event vocabularies.
 
-Caveats (also in results): the answer date is the OPD event date; it equals the government decision (RRB) date for BE in
-39/39 verified cases (spikes/recovery/be_recovery.json) and is unverified elsewhere (it may be a publication date).
+Caveats (also in results): the answer date is the OPD event date; where it is verified as the government's decision date
+is read from the committed verification results (presentation.answer_date_caveat: Bern relink answers by
+the printed RRB date, Ticino by the publisher's answer title; unverified elsewhere).
 Submission = the earliest 'Eingereicht'-type event (harmonised ids 1/56/67), else `begin_date`; BE affairs whose begin_date
 is the 2024-10-28 import artefact and no submission event are excluded; durations < 0 or > 3,650 days are excluded and counted.
+The national median pools date roles (decision, weekly-sitting, publication dates) and intervention types: see
+results/census/answer_days_by_trust.json before quoting it. Body names follow the site's rule (`name`; OPD's: `opd_name`).
 
 usage: python -m gegenprobe.census.question [--data data/census] [--out results/census]
 """
@@ -23,6 +26,7 @@ from pathlib import Path
 
 from ..paths import RESULTS
 from . import funnel
+from .presentation import answer_date_caveat, site_name
 from .tables import CENSUS, rows
 
 OUT = RESULTS / "census"
@@ -74,7 +78,8 @@ def compute(root: Path = CENSUS, F: dict | None = None) -> dict:
         bodies.append(
             dict(
                 body=b,
-                name=names.get(b, {}).get("name"),
+                name=site_name(b, names.get(b, {}).get("name"), names.get(b, {}).get("type")),
+                opd_name=names.get(b, {}).get("name"),
                 level=names.get(b, {}).get("type"),
                 written=p["written"],
                 text_share_now=round(p["text_now"] / p["written"], 4),
@@ -113,7 +118,8 @@ def compute(root: Path = CENSUS, F: dict | None = None) -> dict:
         n_same_day_bodies=sum(r["same_day_share"] is not None and r["same_day_share"] >= 0.5 for r in bodies),
         lowest_text_share=sorted(bodies, key=lambda r: r["text_share_now"])[:8],
         bodies=sorted(bodies, key=lambda r: r["body"]),
-        caveats=[__doc__.split("Caveats (also in results): ")[1].split("\n\nusage")[0].replace("\n", " ")],
+        caveats=[answer_date_caveat() + " " + __doc__.split("unverified elsewhere).\n")[1].split("\n\nusage")[0]
+                 .replace("\n", " ")],
     )
 
 

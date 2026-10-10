@@ -150,7 +150,10 @@ The `index_diff.json` numbers come from `python -m gegenprobe.monitor.nightly in
   interpreter `/opt/gegenprobe/.venv/bin/python` is a symlink to the runner's python3, so verify can resolve it. The step
   fails on a non-zero exit and on any unknown-key/ignored/invalid warning that names one of the units.
 
-- `systemd-units`, second step: the failure notifier under real systemd, behind two stand-in units (exit 3 = alerts, exit
+- `systemd-units`, second step: `systemd-analyze security --offline=true` on both units; it prints each exposure score
+  and fails above 2.0 (venv unit) or 5.0 (Docker unit, which scores only the docker client; `docs/runbook.md`
+  "Sandboxing").
+- `systemd-units`, third step: the failure notifier under real systemd, behind two stand-in units (exit 3 = alerts, exit
   1 = failure) and a local webhook. It must post exactly once, for the failure, with valid JSON.
 - `tests/test_nightly_network.py` (pytest, every CI run): a **first network-mode night end to end** on a local mirror of
   the exports built from the smoke fixture. Index read, a `census.scan` subprocess per body, `census.extract`, rates, the
@@ -165,9 +168,29 @@ None of these is a real night against OPD under systemd on a server. `.github/wo
 GitHub-hosted Ubuntu runner: manual only, `install.sh --venv`, `systemctl start`, User-Agent
 `hackapertus-research/0.1 (+https://github.com/mi11ione/gegenprobe)`. It uploads `run.json`, `alerts.json`, the ledger,
 the journal and the wall time (`night.json`). One run is committed: run 38062530586, `results/monitor/night_real_38062530586/`
-(a first night: 4,997 s wall, of which 1,892 s downloading 198 MB and about 50 min the one-time triple check of all
-2,508 BE rows; 28 min CPU, peak memory 2,078 MB, 0 alerts; BE list 2,459 relink + 49 fetch, as committed). It tests the
-install and the job on a GitHub-hosted runner, not Swiss hosting; the job is not yet running at OPD.
+(a first night: 4,997 s wall, of which 1,892 s downloading and streaming the exports and about 50 min the one-time triple
+check of all 2,508 BE rows; 28 min CPU, peak memory 2,078 MB, 0 alerts; BE list 2,459 relink + 49 fetch, as committed).
+In those 1,892 s the night downloaded the five single exports (198 MB, run.json `transfer_bytes`) and, as a first night,
+streamed every docs_/texts_ export once without storing it: 116 files, 6.2 GB (6,196,117,045 bytes), plus the 123 KB
+index and the canton tables (about 23 MB). The streamed bytes are reconstructed, not counted: that run.json predates the
+counter, so `python -m gegenprobe.monitor.night_bytes` reads the sizes of the files it streamed from the index it read
+(`results/monitor/index_2026-10-10.json`, generated 04:22 UTC that day; the five single-export sizes in it sum to exactly
+the night's 198,074,501 bytes) into `results/monitor/night_real_bytes.json`. Every night since counts them:
+`census.scan` reads each file through a counter (`<part>/stream_bytes.json`) and run.json carries `bytes`
+(`single_exports`, `docs_texts_streamed`, `docs_texts_declared`, `index`, `be_ogd`, `total`, `over_network`).
+`transfer_bytes` keeps its old meaning (single exports only) for compatibility. It tests the install and the job on a
+GitHub-hosted runner, not Swiss hosting; the job is not yet running at OPD.
+
+`.github/workflows/nightly-real-docker.yml` (manual) runs **two consecutive real nights in the recommended Docker
+setup**: it builds the image and installs the Docker unit with `install.sh`, runs night 1 under systemd, optionally waits
+for OPD's next export (polls `index.json` every 10 min through `gegenprobe.net` until `generated_at` changes, at most
+`max_wait_min`), then runs night 2 on night 1's state in `/var/lib/gegenprobe`. Night 2 is the incremental case the
+first real night could not show: only changed docs/texts files re-scanned, `be_repair_new_since_last_night` against the
+previous night, ledger `resolved`/`dropped`, transient retries, outbox redelivery and the drop/trend alerts against real
+previous rates (a local webhook on the runner receives any alert post). It uploads, per night, `run.json`, `alerts.json`,
+the ledger, a journal excerpt, `systemctl show` and `night.json` (wall time, exit status, whether state existed, the
+index `generated_at` the night read), plus `two_nights.json`. Dispatch around 00:30 UTC so night 2 falls after OPD's
+~04:20 UTC export: `gh workflow run nightly-real-docker.yml -f wait_for_new_index=true -f max_wait_min=180`.
 
 ## Install
 
