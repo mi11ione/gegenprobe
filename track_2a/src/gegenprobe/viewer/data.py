@@ -608,6 +608,72 @@ def p2() -> dict | None:
     )
 
 
+P3_FIELDS = (("affair_type", "type"), ("number", "affair number"), ("submitter", "submitter"), ("submitted", "submission date"),
+             ("answer_date", "answer date"), ("addressed_body", "addressed body"), ("decision_number", "decision number"),
+             ("recommendation", "recommendation"))
+
+
+def p3() -> dict | None:
+    """Whole affairs (P3, results/eval3): per-field accuracy by arm, registered tiers and the Apertus residue test."""
+    build = "publicai_swiss-ai_apertus-v1.5-8b"
+    rp, hp = RESULTS / "eval3" / f"p3__{build}.json", RESULTS / "eval3" / f"hypotheses3__{build}.json"
+    if not (rp.exists() and hp.exists()):
+        return None
+    res, hyp, agr = json.loads(rp.read_text()), json.loads(hp.read_text()), _j("eval3/gold3_agreement.json")
+    aff = [json.loads(x) for x in open(DATA / "gold3" / "p3_affairs.jsonl")]
+    names = body_names()
+    meta = {b["key"]: b for b in _tsv_gz("bodies")}
+    bodies: dict = {}
+    for a in aff:
+        label, _ = label_of(a["body"], names.get(a["body"], a["body"]), meta.get(a["body"], {}).get("type"))
+        b = bodies.setdefault(a["body"], dict(key=a["body"], name=label, n=0, seen=a["seen_by_rules"], lang=a["lang"]))
+        b["n"] += 1
+    fields = []
+    for key, name in P3_FIELDS:
+        sc = res["scores"]["fields"][key]
+        h = hyp["H1"][key]
+        fields.append(dict(key=key, name=name, tier=h["tier"], ci=h["ci"],
+                           arms={a: [v.get("correct", 0), v["n"]] for a, v in sc.items() if v.get("n")}))
+    return dict(n=len(aff), n_pdfs=sum(len(a["docs"]) for a in aff), fields=fields, h2=hyp["H2"], h3=hyp["H3"],
+                sets={k: v["C"] for k, v in res["scores"]["sets"].items()},
+                agreement=dict(min_raw=min(v["raw"] for v in agr["agreement"].values()), n=agr["n"],
+                               tie_broken=agr["tie_broken_fields"]),
+                bodies=sorted(bodies.values(), key=lambda b: (not b["seen"], b["name"])),
+                lock_commit=_git("log", "--diff-filter=A", "-1", "--format=%h %cI", "--", "eval/prereg3/LOCK3"),
+                labels_commit=_git("log", "--diff-filter=A", "-1", "--format=%h %cI", "--", "data/gold3/p3_labels.jsonl"))
+
+
+def p4() -> dict | None:
+    """Virtual affairs (P4, results/eval4): agenda items of held-out Bulle sittings derived as affairs, with the gold."""
+    build = "publicai_swiss-ai_apertus-v1.5-8b"
+    sp, pp = RESULTS / "eval4" / f"p4_heldout__{build}__score.json", RESULTS / "eval4" / f"p4_heldout__{build}.json"
+    hp = RESULTS / "eval4" / f"hypotheses4__{build}.json"
+    if not (sp.exists() and pp.exists() and hp.exists()):
+        return None
+    sc, pred, hyp = json.loads(sp.read_text()), json.loads(pp.read_text()), json.loads(hp.read_text())
+    gold = [json.loads(x) for x in open(DATA / "gold4" / "p4_heldout_labels.jsonl")]
+    mtgs = {json.loads(x)["date"]: json.loads(x) for x in open(DATA / "gold4" / "p4_heldout_meetings.jsonl")}
+    review = {(r["meeting"], r["no"]): r for r in pred["rows"] if r["arm"] == "review"}
+    rules = {(r["meeting"], r["no"]): r for r in pred["rows"] if r["arm"] == "rules_only"}
+    meetings = []
+    for date in sorted({g["meeting"] for g in gold}):
+        items = []
+        for g in [x for x in gold if x["meeting"] == date]:
+            r, v = rules.get((date, g["no"])), review.get((date, g["no"]))
+            r, v = r or {}, v or {}
+            items.append(dict(no=g["no"], gold_title=(g.get("title_quote") or "")[:160], gold_type=g["type"],
+                              gold_decision=g["decision"], derived=bool(r), number=r.get("number"), type=r.get("type"),
+                              decision=r.get("decision"), quote=(r.get("decision_quote") or "")[:220],
+                              review_decision=v.get("decision") if v.get("decision_route") == "apertus" else None))
+        m = mtgs.get(date, {})
+        meetings.append(dict(date=date, agenda_url=(m.get("agenda") or {}).get("url"),
+                             minutes_url=(m.get("minutes") or {}).get("url"), items=items))
+    return dict(body="2125", arms=sc["arms"], n_items=sc["n_gold_items"], hyp=hyp, meetings=meetings,
+                agreement=_j("eval4/gold4_agreement.json"),
+                lock_commit=_git("log", "--diff-filter=A", "-1", "--format=%h %cI", "--", "eval/prereg4/LOCK4"),
+                labels_commit=_git("log", "--diff-filter=A", "-1", "--format=%h %cI", "--", "data/gold4/p4_heldout_labels.jsonl"))
+
+
 def method() -> dict:
     m = _j("census/matrix.json")
     return dict(
@@ -653,6 +719,8 @@ def _finite(o):
 def collect(full_text: bool = False) -> dict:
     par, ev = parliaments(), evaluation()
     ev["p2"] = p2()
+    ev["p3"] = p3()
+    ev["p4"] = p4()
     return _finite(
         dict(
             generated=_git("log", "-1", "--format=%h %cI"),

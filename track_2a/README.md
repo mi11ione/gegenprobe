@@ -11,12 +11,16 @@ Track 2A · OpenParlData · Team 444 · **Evidence site: https://gegenprobe.mi11
 - **A schema verdict with evidence.** The concepts are shared; what differs is where the value lives, the vocabulary and
   the date roles. 4 of 17 fields are feasible from OPD metadata alone, 13 partial, 0 fundamentally different; 42 raw
   affair-type labels mean different things in different parliaments; "answer date" is at least three dates.
-- **A converter in which Apertus can only point at a date printed in the document, or say null** — page and character
-  span on every value. Two pre-registered tests give one answer: on the parliaments our rules were written for, Apertus
-  adds nothing significant, so rules run unattended; on **15 parliaments the rules never saw, the rules find 2/29 answer
-  dates and Apertus finds 24/29** (exact McNemar p = 4.8 × 10⁻⁷). Apertus is what extends the converter beyond the 15
-  parliaments its rules were written from (74 of the 89 have no rules; tested on 15 of them), as review suggestions,
-  because it still puts a date on 4/33 documents that carry no answer.
+- **A converter in which Apertus can only point at a value printed in the document, or say null** — page and character
+  span on every value. Four pre-registered tests show where Apertus earns its place. On the parliaments our rules were
+  written for it adds nothing significant, so rules run unattended; on **15 parliaments the rules never saw, the rules
+  find 2/29 answer dates and Apertus finds 24/29** (exact McNemar p = 4.8 × 10⁻⁷). On whole affairs (29 affairs, 10
+  parliaments) metadata and rules fill most fields and Apertus finds the addressed body (rules 4/28, with Apertus 23/28);
+  on meeting minutes, regular structure needs no model. Apertus's values arrive as review suggestions, because it still
+  puts a date on 4/33 documents that carry no answer. 74 of the 89 parliaments have no rules; we tested 15 of them.
+- **Virtual affairs for communes that publish only minutes.** From 6 held-out sittings of Bulle's council (OPD holds its
+  members' instruments but none of the council's own business), the agenda and minutes yield 99 affairs with item precision 99/99, every title right, the
+  decision found for 49/63 items and invented for none of 36 that carry none.
 
 ![Answer funnel](docs/figures/fig1_funnel.png)
 
@@ -50,8 +54,10 @@ python -m gegenprobe convert --batch inputs.tsv --out out.jsonl  # many, resumab
 |---|---|
 | Representation model: versioned schema + controlled vocabularies | `src/gegenprobe/schema/schema_v0_1.py`, `data/schema/*.json`, JSON Schema `results/schema/*.schema.json`, `docs/schema.md`; mapping to Popolo / Akoma Ntoso / Parla-CLARIN / OParl in `docs/mapping.md` |
 | Converter: prompts + code, provenance per value | `src/gegenprobe/convert/` (lattice → rules → pointer → cascade, modes), prompts `src/prompts/{de,fr,it}/`, CLI + batch mode, `docs/converter.md` |
+| Whole affairs (multi-field) | `src/gegenprobe/affair/` (metadata → rules → closed-set pointer per field), `docs/affair.md` |
+| Virtual affairs from agendas and minutes | `src/gegenprobe/virtual/` (`python -m gegenprobe.virtual derive …`), `docs/virtual-affairs.md` |
 | Validator | `src/gegenprobe/validate/` (schema, span re-check, typed-null consistency, self-deletion and distractor harnesses) |
-| Evidence: two pre-registered evaluations | `eval/prereg/` (held-out, seen parliaments), `eval/prereg2/` (unseen parliaments), gold sets `data/gold*/` with raw annotations, `docs/gold_protocol.md` |
+| Evidence: four pre-registered evaluations | `eval/prereg/` (held-out, seen parliaments), `eval/prereg2/` (unseen parliaments), `eval/prereg3/` (whole affairs), `eval/prereg4/` (virtual affairs), gold sets `data/gold*/` with raw annotations, `docs/gold_protocol.md` |
 | Cross-parliament question | answer rates and answer times per parliament: `results/census/question.json`, site → Parliaments (CSV) |
 | Census, feasibility matrix, comparability, data-quality findings with OPD's response | `src/gegenprobe/census/`, `results/census/`, `docs/census.md` |
 | Repair lists in OPD's export layout | `results/repair/repair_BE*.tsv`, `docs/repair.md`, `docs/runbook.md` |
@@ -74,8 +80,12 @@ other thresholds is in `results/census/tier_sensitivity.json`):
 - **Availability is not comparability.** In OPD's own vocabularies 42 of 1,038 raw affair-type labels map to different
   harmonised types in different parliaments, 35 event labels carry different date roles, and 29.1% of events have no
   harmonised id at all (`results/census/comparability.json`).
+- **Where OPD metadata carries a field, it mostly agrees with print** (P3, 29 whole affairs): type 17/18, submitter
+  23/28, submission date 15/21; affair numbers 21/29 (format differences). What metadata lacks — addressed body,
+  decision number — lives only in the PDFs.
 - Where the concept itself splits: oral answers, question time, executive business that answers no member's affair,
-  and communes that publish only meeting documents (schema v0.1 marks affairs derived from them as virtual).
+  and communes that publish only meeting documents. Schema v0.1 marks affairs derived from them as `virtual` with
+  `derived_from`, exercised on 99 real agenda items (P4).
 
 ![Feasibility matrix](docs/figures/fig2_matrix.png)
 
@@ -85,9 +95,10 @@ other thresholds is in `results/census/tier_sensitivity.json`):
   linkable within OPD without any model (229 attached, 527 under an agenda item, 2,638 parentless documents carrying
   the canton's document id). The relink list covers the parentless ones whose affair still lacks its answer (2,459, plus 49 to fetch
   from the canton); the other 179 parentless answers are not missing (155 affairs already have the text, 24 have no
-  written-answer event; `results/repair/be_reconcile.json`). On a pre-registered sample of 40 relinks the affair number
-  and the answer heading match 40/40; the decision date matches 36/40 — three misses are our parser on 2020–21 headers,
-  one is a typo in the canton's own PDF. The list is reproduced from code in every `make run`.
+  written-answer event; `results/repair/be_reconcile.json`). Every relink was then checked against OPD's own copy of the
+  document: affair number and answer heading 2,459/2,459, decision date equal to OPD's answer event 2,421 [97.9, 98.9];
+  the rest go to review (`results/repair/be_verify_all.json`). On the earlier pre-registered sample of 40 the date check
+  was 36/40: three misses were our parser on 2020–21 headers, one a typo in the canton's own PDF. The list is reproduced from code in every `make run`.
 - **Bern `begin_date`.** 727 affairs carry a load timestamp: 557 on 2024-10-28 and 170 from later loads, the two groups
   OPD described; 554 get the date of their own "Eingereicht" event, 173 go to review (`repair_BE_begin_date.tsv`).
 - **Elsewhere.** 1,008 Valais "missing" answers are oral answers filed as a stub; German+French+Italian OCR recovered
@@ -96,10 +107,11 @@ other thresholds is in `results/census/tier_sensitivity.json`):
 
 ![Bern before and after](docs/figures/fig3_be_before_after.png)
 
-## Evaluation: two pre-registrations
+## Evaluation: four pre-registrations
 
-Both tests froze code, prompts and θ by sha256 before any label existed (`eval/prereg/LOCK`, commit `812030f`, received by
-GitHub at 2026-10-09T19:38:07Z, labels at 2026-10-09T19:44:06Z; `eval/prereg2/LOCK2`). Gold labels come from two blind
+Every test froze code, prompts and θ by sha256 before any label existed (`eval/prereg/LOCK`, commit `812030f`, received by
+GitHub at 2026-10-09T19:38:07Z, labels at 2026-10-09T19:44:06Z; `eval/prereg2/LOCK2`, `eval/prereg3/LOCK3`,
+`eval/prereg4/LOCK4`). Gold labels come from two blind
 annotators (Claude Opus and Sonnet) and a tie-breaker, quotes verified by code, no human labels by design; the raw
 annotations are committed so agreement recomputes. Apertus = the 70B weights served by Public AI under
 `swiss-ai/apertus-v1.5-8b`, answer date, strict.
@@ -137,10 +149,36 @@ answered documents (22 documents only the pointer gets right, 0 only the rules; 
 letterhead one rule happens to match, 17 vs 0, p = 1.5 × 10⁻⁵); the margin separates the classes (AUROC 0.983); the null
 safety target failed again (4/33, upper bound 27.3%), so Apertus's values remain review suggestions.
 
-**What the two tests say together.** Rules are the right tool where someone wrote them; Apertus is the only part that
-transfers to a parliament nobody wrote rules for. A well-prompted 70B is about as accurate (P1 134 vs 139, P2 52 vs 53),
-but it can fabricate (1 in P2, 24 with the plain prompt in P1) and returns no span; the closed-set pointer cannot
-fabricate by construction and every value carries page and span for the reviewer.
+**P3 — whole affairs: 29 affairs (58 PDFs) from 10 parliaments, 5 with rules and 5 without, DE/FR/IT.** Arms: OPD metadata
+only (M), rules only (R), the default metadata + rules (C), and C plus Apertus suggestions on the fields C leaves open
+(CA). Annotators agreed on at least 27/29 affairs on every field; 4 fields were tie-broken.
+
+| field | M | R | **C (default)** | C + Apertus |
+|---|---|---|---|---|
+| type | 17/29 | 26/29 | **27/29** | 27/29 |
+| affair number | 21/29 | 14/29 | **21/29** | 21/29 |
+| submitter | 23/29 | 5/29 | **23/29** | 23/29 |
+| submission date | 15/21 | 4/21 | **15/21** | 15/21 |
+| answer date | 21/27 | 16/27 | **22/27** | 27/27 |
+| addressed body | 0/28 | 4/28 | **4/28** | 23/28 |
+| decision number | 0/17 | 5/17 | **0/17** | 0/17 |
+
+Outcomes as registered: no field reaches the "unattended" bar (95% lower bound ≥ 0.80; type comes closest); number,
+type, submitter, submission date and answer date are partial. On the fields the default leaves open, Apertus suggestions
+are right for 25/32 of those that have a value (recall holds), and 25/34 of its suggestions are right (precision below
+the 0.70 bar), so the registered consequence is: suggestions with a reviewer gate. Details: `docs/affair.md`.
+
+**P4 — virtual affairs from minutes: 6 held-out sittings of Bulle's council, 120 agenda items.** Deterministic parsing of
+agenda and minutes derives 99 items as virtual affairs, item precision 99/99, titles 99/99, type 91/99, decision found
+for 49/63 items (46 correct), invented for 0/36, meeting date 6/6. Recall stayed below the registered bar (99/120,
+82.5%; sub-items and unnumbered lines), Apertus added 2 decisions (not significant). Details: `docs/virtual-affairs.md`.
+
+**What the four tests say together.** Apertus earns its place where the layout varies: on parliaments nobody wrote rules
+for (P2) and for fields no rule anchors (P3, addressed body). Where structure is regular — the parliaments the rules were
+written for (P1) and council minutes (P4) — rules suffice. The system uses Apertus exactly there, as reviewed
+suggestions. A well-prompted 70B is about as accurate on answer dates (P1 134 vs 139, P2 52 vs 53), but it can fabricate
+(1 in P2, 24 with the plain prompt in P1) and returns no span; the closed-set pointer cannot fabricate by construction
+and every value carries page and span for the reviewer.
 
 ![Scoreboards](docs/figures/fig5_scoreboard.png)
 
@@ -154,7 +192,8 @@ fabricate by construction and every value carries page and span for the reviewer
   null-allowed prompt fixes this on the 70B but not on the local 8B (still 14/15).
 - **Modes:** `rules_only` (default, unattended, no model) and `review`: Apertus on the rules' residue, its value attached
   as a suggestion with page, span, margin and `needs_review: true` for OPD's existing manual-review step. Recommended
-  for every parliament without rules (P2).
+  for every parliament without rules (P2) and for fields no rule anchors, with a reviewer gate (P3: addressed body,
+  answer date).
 - **Builds:** Public AI's `swiss-ai/apertus-v1.5-8b` name serves the 70B weights (measured; report §3), so those results
   are labelled 70B. The real 8B runs as GGUF Q4_K_M on CPU; θ does not transfer between builds, so each gets its own.
 

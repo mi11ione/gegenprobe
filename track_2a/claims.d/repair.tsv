@@ -15,10 +15,10 @@ repair.be40_verified	40/40	results/repair/be_verify40.json	verified_spike_rule/n
 repair.be40_ci	[91.2, 100]	results/repair/be_verify40.json	ci_spike_rule	ci	python -m gegenprobe.repair.be verify40	docs/repair.md,technical_report.md
 repair.be40_event_eq	39/39	results/repair/be_verify40.json	event_eq_rrb/with_answer_event	frac	python -m gegenprobe.repair.be verify40	docs/repair.md,docs/schema.md,technical_report.md
 repair.be40_event_ci	[91, 100]	results/repair/be_verify40.json	ci_event_eq_rrb	ci	python -m gegenprobe.repair.be verify40	docs/repair.md
-repair.relink_sample_idhead	40/40	results/repair/be_relink_sample.json	identity_and_heading/n	frac	python -m gegenprobe.repair.be sample	docs/repair.md,README.md,technical_report.md
+repair.relink_sample_idhead	40/40	results/repair/be_relink_sample.json	identity_and_heading/n	frac	python -m gegenprobe.repair.be sample	docs/repair.md,technical_report.md
 repair.relink_sample_idhead_ci	[91.2, 100]	results/repair/be_relink_sample.json	ci_identity_and_heading	ci	python -m gegenprobe.repair.be sample	docs/repair.md,technical_report.md
 repair.relink_sample_date	36/40	results/repair/be_relink_sample.json	date_eq_event/with_answer_event	frac	python -m gegenprobe.repair.be sample	docs/repair.md,README.md,technical_report.md
-repair.relink_sample_date_ci	[76.9, 96]	results/repair/be_relink_sample.json	ci_date_eq_event	ci	python -m gegenprobe.repair.be sample	docs/repair.md,technical_report.md
+repair.relink_sample_date_ci	[76.9, 96]	results/repair/be_relink_sample.json	ci_date_eq_event	ci	python -m gegenprobe.repair.be sample	docs/repair.md
 repair.relink_sample_posthoc	39/40	results/repair/be_relink_sample_posthoc.json	triple/n	frac	python -m gegenprobe.repair.be recheck	docs/repair.md
 repair.relink_sample_posthoc_ci	[87.1, 99.6]	results/repair/be_relink_sample_posthoc.json	ci_triple	ci	python -m gegenprobe.repair.be recheck	docs/repair.md
 repair.che20_rule	19/20	results/repair/che_reproduce.json	verified_rule/n	frac	python -m gegenprobe.repair.che reproduce	docs/repair.md,technical_report.md
@@ -48,11 +48,11 @@ repair.vs_urgente_docs	11	results/repair/vs_summary.json	short_text_heads.4.1	in
 repair.nightly_be_rate	26.37	results/monitor/rates.json	BE.rate	f2	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
 repair.nightly_new_rows	0	results/monitor/run.json	be_repair_new_since_last_night	int	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
 repair.index_docs_changed	68/116	results/monitor/index_diff.json	census_inputs.docs_texts_changed/census_inputs.docs_texts_files	frac	python -m gegenprobe.monitor.nightly index	docs/nightly.md,technical_report.md
-repair.all_relink_n	2,459	results/repair/be_verify_all.json	by_action.relink.v2.n	int	python -m gegenprobe.repair.verify_all run	docs/repair.md
-repair.all_relink_identity	2,459	results/repair/be_verify_all.json	by_action.relink.v2.identity	int	python -m gegenprobe.repair.verify_all run	docs/repair.md
-repair.all_relink_heading	2,459	results/repair/be_verify_all.json	by_action.relink.v2.heading	int	python -m gegenprobe.repair.verify_all run	docs/repair.md
-repair.all_relink_date_v2	2,421	results/repair/be_verify_all.json	by_action.relink.v2.date_eq_event	int	python -m gegenprobe.repair.verify_all run	docs/repair.md
-repair.all_relink_date_v2_ci	[97.9, 98.9]	results/repair/be_verify_all.json	by_action.relink.v2.ci_date_eq_event	ci	python -m gegenprobe.repair.verify_all run	docs/repair.md
+repair.all_relink_n	2,459	results/repair/be_verify_all.json	by_action.relink.v2.n	int	python -m gegenprobe.repair.verify_all run	docs/repair.md,README.md,docs/form_notes.md,technical_report.md
+repair.all_relink_identity	2,459	results/repair/be_verify_all.json	by_action.relink.v2.identity	int	python -m gegenprobe.repair.verify_all run	docs/repair.md,README.md,docs/form_notes.md
+repair.all_relink_heading	2,459	results/repair/be_verify_all.json	by_action.relink.v2.heading	int	python -m gegenprobe.repair.verify_all run	docs/repair.md,README.md,docs/form_notes.md
+repair.all_relink_date_v2	2,421	results/repair/be_verify_all.json	by_action.relink.v2.date_eq_event	int	python -m gegenprobe.repair.verify_all run	docs/repair.md,README.md,docs/form_notes.md,technical_report.md
+repair.all_relink_date_v2_ci	[97.9, 98.9]	results/repair/be_verify_all.json	by_action.relink.v2.ci_date_eq_event	ci	python -m gegenprobe.repair.verify_all run	docs/repair.md,README.md,technical_report.md
 repair.all_relink_date_v1	2,332	results/repair/be_verify_all.json	by_action.relink.v1_registered.date_eq_event	int	python -m gegenprobe.repair.verify_all run	docs/repair.md
 repair.all_fetch_triple	48	results/repair/be_verify_all.json	by_action.fetch.v2.triple	int	python -m gegenprobe.repair.verify_all run	docs/repair.md
 repair.all_fetch_errors	0	results/repair/be_verify_all.json	fetch_errors	int	python -m gegenprobe.repair.verify_all run	docs/repair.md

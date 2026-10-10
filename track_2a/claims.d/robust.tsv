@@ -23,8 +23,8 @@ robust.dtype_auroc	0.88	results/eval/robustness.json	document_type_baseline.auro
 robust.hard_nulls	3	results/eval/robustness.json	document_type_baseline.hard_nulls	int	PYTHONPATH=src:. python -m eval.robustness all	-
 robust.answer_docs_cascade	55/60	results/eval/robustness.json	per_document_type.answer.exact.cascade/per_document_type.answer.n	frac	PYTHONPATH=src:. python -m eval.robustness all	technical_report.md
 robust.answer_docs_rules	47/60	results/eval/robustness.json	per_document_type.answer.exact.rules/per_document_type.answer.n	frac	PYTHONPATH=src:. python -m eval.robustness all	technical_report.md
-robust.report_docs_cascade	14/24	results/eval/robustness.json	per_document_type.report.exact.cascade/per_document_type.report.n	frac	PYTHONPATH=src:. python -m eval.robustness all	technical_report.md
-robust.report_docs_rules	19/24	results/eval/robustness.json	per_document_type.report.exact.rules/per_document_type.report.n	frac	PYTHONPATH=src:. python -m eval.robustness all	technical_report.md
+robust.report_docs_cascade	14/24	results/eval/robustness.json	per_document_type.report.exact.cascade/per_document_type.report.n	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.report_docs_rules	19/24	results/eval/robustness.json	per_document_type.report.exact.rules/per_document_type.report.n	frac	PYTHONPATH=src:. python -m eval.robustness all	-
 robust.report_cascade_on_null	6/18	results/eval/robustness.json	per_document_type.report.values_on_gold_null.cascade/per_document_type.report.n_gold_null	frac	PYTHONPATH=src:. python -m eval.robustness all	-
 robust.gated_exact	143/154	results/eval/robustness.json	type_gated_cascade.exact/type_gated_cascade.n	frac	PYTHONPATH=src:. python -m eval.robustness all	technical_report.md
 robust.gated_on_null	2/90	results/eval/robustness.json	type_gated_cascade.invented_on_null/type_gated_cascade.n_gold_null	frac	PYTHONPATH=src:. python -m eval.robustness all	technical_report.md

@@ -1,0 +1,175 @@
+{
+ "p3": {
+  "n_affairs": 29,
+  "n_pdfs": 58,
+  "n_bodies": 10,
+  "bodies_seen": 5,
+  "bodies_unseen": 5,
+  "langs": {
+   "de": 18,
+   "it": 5,
+   "fr": 6
+  },
+  "fields": {
+   "number": {
+    "M": "21/29",
+    "R": "14/29",
+    "C": "21/29",
+    "CA": "21/29",
+    "tier": "partial",
+    "ci_pct": [
+     54,
+     85
+    ]
+   },
+   "affair_type": {
+    "M": "17/29",
+    "R": "26/29",
+    "C": "27/29",
+    "CA": "27/29",
+    "tier": "partial",
+    "ci_pct": [
+     78,
+     98
+    ]
+   },
+   "submitter": {
+    "M": "23/29",
+    "R": "5/29",
+    "C": "23/29",
+    "CA": "23/29",
+    "tier": "partial",
+    "ci_pct": [
+     62,
+     90
+    ]
+   },
+   "addressed_body": {
+    "M": "0/28",
+    "R": "4/28",
+    "C": "4/28",
+    "CA": "23/28",
+    "tier": "not yet",
+    "ci_pct": [
+     6,
+     31
+    ]
+   },
+   "submitted": {
+    "M": "15/21",
+    "R": "4/21",
+    "C": "15/21",
+    "CA": "15/21",
+    "tier": "partial",
+    "ci_pct": [
+     50,
+     86
+    ]
+   },
+   "answer_date": {
+    "M": "21/27",
+    "R": "16/27",
+    "C": "22/27",
+    "CA": "27/27",
+    "tier": "partial",
+    "ci_pct": [
+     63,
+     92
+    ]
+   },
+   "decision_number": {
+    "M": "0/17",
+    "R": "5/17",
+    "C": "0/17",
+    "CA": "0/17",
+    "tier": "not yet",
+    "ci_pct": [
+     0,
+     18
+    ]
+   },
+   "recommendation": {
+    "M": "1/2",
+    "R": "0/2",
+    "C": "1/2",
+    "CA": "2/2",
+    "tier": "not yet",
+    "ci_pct": [
+     9,
+     91
+    ]
+   }
+  },
+  "unattended": [],
+  "partial": [
+   "number",
+   "affair_type",
+   "submitter",
+   "submitted",
+   "answer_date"
+  ],
+  "h2": {
+   "number": "21/29",
+   "affair_type": "17/18",
+   "submitter": "23/28",
+   "submitted": "15/21"
+  },
+  "h3": {
+   "recall": "25/32",
+   "precision": "25/34",
+   "recall_lo_pct": 61,
+   "precision_lo_pct": 57,
+   "recall_holds": true,
+   "precision_holds": false,
+   "decision": "recommended with a reviewer gate",
+   "addressed_found": "19/24",
+   "answer_found": "5/5"
+  },
+  "min_raw_agree": 27,
+  "kappa1_fields": [
+   "answer_date",
+   "answer_present",
+   "number",
+   "recommendation",
+   "submitter"
+  ],
+  "tie_broken": 4,
+  "sets": {
+   "co_signatories": {
+    "precision": 0.81,
+    "recall": 0.45
+   },
+   "related_affairs": {
+    "precision": 0.67,
+    "recall": 0.43
+   }
+  },
+  "theta_new": 0.0
+ },
+ "p4": {
+  "meetings": 6,
+  "items": 120,
+  "derived": 99,
+  "precision": "99/99",
+  "recall": "99/120",
+  "recall_pct": 82.5,
+  "titles": "99/99",
+  "type_rules": "91/99",
+  "type_review": "96/99",
+  "decisions_rules": "49/63",
+  "decisions_review": "51/63",
+  "decision_correct_rules": "46/63",
+  "invented": "0/36",
+  "dates": "6/6",
+  "h1": false,
+  "h2": true,
+  "h3": false,
+  "h4": true,
+  "h3_review_only": 2,
+  "h3_rules_only": 0,
+  "h3_p": 0.5,
+  "kappa_type": 0.99,
+  "kappa_decision": 0.96,
+  "tie_broken": 3
+ }
+}

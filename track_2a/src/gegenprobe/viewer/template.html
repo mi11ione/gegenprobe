@@ -239,6 +239,14 @@ a.btnlink:hover { background: var(--ink); color: var(--paper); }
 .c-mis { background: var(--hl); } .c-fab { background: var(--red); }
 .hyp { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); }
 @media (max-width: 800px) { .hyp { grid-template-columns: 1fr; } }
+.p4m { border-top: 1px solid var(--rule); padding: 10px 0; }
+.p4m:last-child { border-bottom: 1px solid var(--rule); }
+.p4m summary { cursor: pointer; font-family: var(--mono); font-size: 12px; letter-spacing: .02em; }
+.p4m summary:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.p4m table { margin-top: 10px; }
+.p4m td.small { max-width: 46ch; }
+table.board.p3 td.num { white-space: nowrap; }
+table.board.p3 td.up { color: var(--ok); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .hyp > div { padding: 16px 18px 18px 0; border-bottom: 1px solid var(--rule); min-width: 0; }
 .hyp > div:nth-child(odd) { border-right: 1px solid var(--rule); }
 .hyp > div:nth-child(even) { padding-left: 18px; }
@@ -346,7 +354,7 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
   <div class="grid sec-head">
     <div class="idx"><div class="label">03 · Pre-registered</div></div>
     <div class="work">
-      <h2 id="h-eval">Two pre-registered tests, frozen before the labels existed</h2>
+      <h2 id="h-eval">Four pre-registered tests, frozen before the labels existed</h2>
       <p id="evalIntro"></p>
     </div>
   </div>
@@ -368,6 +376,20 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
   <div class="grid" style="margin-top:34px">
     <div class="idx"><div class="label">P2 hypotheses · as registered</div></div>
     <div class="work"><div class="hyp" id="p2hyp"></div></div>
+  </div>
+  <div class="grid" style="margin-top:46px">
+    <div class="idx"><div class="label">P3 · whole affairs, field by field</div><p class="small" id="p3Note"></p></div>
+    <div class="work"><p id="p3Intro" style="margin:0 0 14px;max-width:70ch"></p>
+      <div style="overflow-x:auto"><table class="board p3" id="p3board"></table></div>
+      <p class="small" id="p3bodies" style="margin:10px 0 0;max-width:80ch"></p>
+      <div class="hyp" id="p3hyp" style="margin-top:18px"></div></div>
+  </div>
+  <div class="grid" style="margin-top:46px">
+    <div class="idx"><div class="label">P4 · virtual affairs from minutes</div><p class="small" id="p4Note"></p></div>
+    <div class="work"><p id="p4Intro" style="margin:0 0 14px;max-width:70ch"></p>
+      <div class="specs" id="p4specs" style="grid-template-columns:repeat(4,minmax(0,1fr))"></div>
+      <div class="hyp" id="p4hyp" style="margin-top:18px"></div>
+      <div id="p4meetings" style="margin-top:18px"></div></div>
   </div>
   <div class="grid" style="margin-top:34px">
     <div class="idx"><div class="label">Order of events</div><p class="small">From git history of this repository.</p></div>
@@ -644,6 +666,10 @@ function drawer(r) {
       el('p', { class: 'small' }, `Attached to their intervention in OPD: ${fmt(pl.attached)} (${pct(pl.attached / B.canton_listed)}). Linkable within OPD: ${fmt(B.linkable)} (${pct(B.linkable / B.canton_listed)}) — ${fmt(pl.attached)} attached + ${fmt(pl.via_agenda)} under an agenda item + ${fmt(pl.parentless)} without a parent. Not in OPD: ${fmt(pl.absent)}. ` +
         `The relink list holds ${fmt(B.relink_list.relink)} of the ${fmt(pl.parentless)} parentless answers; the other ${fmt(pl.parentless - B.relink_list.relink)} already have answer text elsewhere in OPD or no written-answer event.`)));
   }
+  const V4 = D.evaluation && D.evaluation.p4;
+  if (V4 && r.key === V4.body) { const a = V4.arms.rules_only;
+    kids.push(el('div', { class: 'bern' }, el('div', { class: 'label' }, 'Virtual affairs · pre-registered test P4'),
+      el('p', { class: 'small' }, `OPD holds this council's own business only as meeting documents. From ${V4.meetings.length} held-out sittings, rules derived ${a.segmentation_recall[0]} of ${V4.n_items} agenda items as virtual affairs (precision ${a.segmentation_precision[0]}/${a.segmentation_precision[1]}, titles ${a.title_correct[0]}/${a.title_correct[1]}), found the decision for ${a.decision_recall[0]}/${a.decision_recall[1]} and invented none. See Evaluation → P4.`))); }
   kids.push(el('div', { class: 'fieldrow', style: 'margin-top:12px' }, P.fields.map(f => { const cc = r.fields[f.key];
     return el('div', {}, el('div', { class: 'f' }, f.key.replace(/_/g, ' ')), el('div', { class: 's st-' + (cc ? cc.st : 'na') }, cc ? STL[cc.st] || cc.st : 'not applicable'),
       cc ? el('div', { class: 'code muted' }, `meta ${pct(cc.meta, 0)} · n ${fmt(cc.n)}`) : null); })));
@@ -664,7 +690,7 @@ let evalDone = false;
 function renderEval() {
   evalDone = true;
   const E = D.evaluation, A = E.arms, h = E.hypotheses;
-  $('#evalIntro').textContent = `P1: ${E.n} held-out documents from the parliaments the rules were written for; P2: documents from parliaments they never saw. Both drawn and fetched before any label existed; labels made blind by two annotators; rules, prompts and θ = ${E.theta.toFixed(2)} frozen by hash in ${E.lock.files} files. Apertus runs as the 70B weights served by Public AI; the response model was checked on every call.`;
+  $('#evalIntro').textContent = `P1: ${E.n} held-out documents from the parliaments the rules were written for; P2: documents from parliaments they never saw; P3: whole affairs, field by field; P4: affairs derived from a commune's meeting minutes. All drawn and fetched before any label existed; labels made blind by two annotators; rules, prompts and θ = ${E.theta.toFixed(2)} frozen by hash in ${E.lock.files} files. Apertus runs as the 70B weights served by Public AI; the response model was checked on every call.`;
   const ARMS = [
     ['rules', 'Rules only', 'default · no model', true],
     ['cascade', 'Rules + Apertus suggestions', 'if every suggestion were accepted'],
@@ -733,6 +759,8 @@ function renderEval() {
       <text x="${X(best.theta)}" y="${Y(best.exact) - 8}" text-anchor="middle">${best.exact} at θ ${best.theta}</text></svg>` }),
     el('p', { class: 'small', style: 'margin:8px 0 0;max-width:70ch' }, `The θ fitted on development documents was too permissive on the test set. Near θ = 0 the cascade would reach ${best.exact}, which is a hypothesis for the next registration, not a result. Scanned Ticino answers read with the Italian prompt instead of the frozen German one: pointer alone ${E.ocr_it.pointer_de_frozen.exact} → ${E.ocr_it.pointer_it.exact} of 22.`));
   renderP2();
+  renderP3();
+  renderP4();
 }
 
 function renderP2() {
@@ -765,6 +793,60 @@ function renderP2() {
       `${P.h3.k}/${P.h3.n} documents · upper bound ${(100 * P.h3.ci[1]).toFixed(1)}% (limit 15%)`),
     card('P2-H4', P.h4.holds ? 'PASS' : 'FAIL', 'Does the null margin separate the classes?', 'Yes, also on parliaments it was never calibrated on.',
       `AUROC ${P.h4.auroc.toFixed(3)} · ${P.h4.n_null} answerless vs ${P.h4.n_value} answered`));
+}
+
+function renderP3() {
+  const Q = D.evaluation.p3; if (!Q) return;
+  $('#p3Intro').textContent = `${Q.n} affairs (${Q.n_pdfs} PDFs: the member's text and the executive's answer) from ${Q.bodies.length} parliaments, ${Q.bodies.filter(b => b.seen).length} with rules and ${Q.bodies.filter(b => !b.seen).length} without, in German, French and Italian. Every field is either a value with page and span, or a typed null.`;
+  $('#p3Note').textContent = `Arms: OPD metadata only; rules only; the default (metadata first, rules fill the gaps); the default plus Apertus suggestions on the fields it leaves open. Annotators agreed on at least ${Q.agreement.min_raw}/${Q.agreement.n} affairs on every field; ${Q.agreement.tie_broken} fields were tie-broken.`;
+  const ARMS = [['M', 'Metadata'], ['R', 'Rules'], ['C', 'Default'], ['CA', '+ Apertus']];
+  const head = el('thead', {}, el('tr', {}, ['Field', ...ARMS.map(a => a[1]), 'Tier (registered)'].map(x => el('th', {}, x))));
+  const tb = el('tbody', {}, Q.fields.map(f => el('tr', {}, el('td', { class: 'armname' }, f.name),
+    ...ARMS.map(([k]) => { const v = f.arms[k]; const up = k === 'CA' && v && f.arms.C && v[0] > f.arms.C[0];
+      return el('td', { class: 'num' + (k === 'C' ? ' b' : '') + (up ? ' up' : '') }, v ? (k === 'C' ? el('b', {}, `${v[0]}/${v[1]}`) : `${v[0]}/${v[1]}`) : '—'); }),
+    el('td', {}, el('span', { class: 'chip' + (f.tier === 'partial' ? '' : '') }, f.tier), el('span', { class: 'code muted' }, ` ${Math.round(100 * f.ci[0])}–${Math.round(100 * f.ci[1])}%`)))));
+  $('#p3board').replaceChildren(head, tb);
+  $('#p3bodies').textContent = 'Parliaments: ' + Q.bodies.map(b => `${b.name} (${b.n}${b.seen ? '' : ', no rules'})`).join(' · ') + '. Underlined: where Apertus suggestions find more than the default.';
+  const card = (code, pass, title, text, fig) => el('div', {}, el('span', { class: 'stamp', style: pass === 'FAIL' || pass === 'NONE' ? 'color:var(--red)' : '' }, `${code} · ${pass}`),
+    el('h4', {}, title), el('p', {}, text), el('div', { class: 'fig' }, fig));
+  const h2 = Q.h2, h3 = Q.h3;
+  $('#p3hyp').replaceChildren(
+    card('P3-H1', 'NONE', 'Can any field run unattended?', 'Not yet: no field reaches a 95% lower bound of 0.80. Type comes closest; five fields are partial.',
+      Q.fields.filter(f => f.tier === 'partial').map(f => f.name).join(' · ')),
+    card('P3-H2', 'REPORTED', 'Does OPD metadata agree with the printed value?', 'Mostly, where OPD carries the field; affair numbers differ in format.',
+      `type ${h2.affair_type.agree}/${h2.affair_type.n} · submitter ${h2.submitter.agree}/${h2.submitter.n} · submitted ${h2.submitted.agree}/${h2.submitted.n} · number ${h2.number.agree}/${h2.number.n}`),
+    card('P3-H3', h3.recall_holds && h3.precision_holds ? 'PASS' : 'GATED', 'Apertus on the fields the default leaves open', `Recall holds, precision is below the 0.70 bar: registered consequence, suggestions with a reviewer gate.`,
+      `right ${h3.recall[0]}/${h3.recall[1]} of the open fields with a value · ${h3.precision[0]}/${h3.precision[1]} suggestions right · addressed body ${h3.per_field.addressed_body.recall[0]}/${h3.per_field.addressed_body.recall[1]}`));
+}
+
+function renderP4() {
+  const V = D.evaluation.p4; if (!V) return;
+  const r = V.arms.rules_only, v = V.arms.review, H = V.hyp;
+  $('#p4Intro').textContent = `Bulle's council publishes its own business (credits, regulations, accounts) only as meeting documents. From the agenda and minutes of ${V.meetings.length} held-out sittings, rules derive one virtual affair per agenda item, numbered the way OPD numbers its own: "V <date> - <item>". Each carries the title, type and decision with the minutes sentence it rests on.`;
+  $('#p4Note').textContent = `Gold: two blind annotators per sitting, ${V.agreement.decided_by_A3} items tie-broken; κ type ${V.agreement.agreement.type.kappa.toFixed(2)}, decision ${V.agreement.agreement.decision.kappa.toFixed(2)}.`;
+  $('#p4specs').replaceChildren(...[['Agenda items', V.n_items], ['Derived as affairs', `${r.segmentation_recall[0]} · precision ${r.segmentation_precision[0]}/${r.segmentation_precision[1]}`],
+    ['Titles right', `${r.title_correct[0]}/${r.title_correct[1]}`], ['Type right', `${r.type_accuracy[0]}/${r.type_accuracy[1]} (Apertus ${v.type_accuracy[0]})`],
+    ['Decision found', `${r.decision_recall[0]}/${r.decision_recall[1]}`], ['Decision correct', `${r.decision_accuracy[0]}/${r.decision_accuracy[1]}`],
+    ['Decisions invented', `${r.invented_decisions[0]}/${r.invented_decisions[1]}`], ['Sitting dates', `${H.H4.correct}/${H.H4.n}`]]
+    .map(([k, x]) => el('div', {}, el('div', { class: 'label' }, k), el('div', { class: 'v' }, String(x)))));
+  const card = (code, pass, title, fig) => el('div', {}, el('span', { class: 'stamp', style: pass === 'FAIL' ? 'color:var(--red)' : '' }, `${code} · ${pass}`), el('h4', {}, title), el('div', { class: 'fig' }, fig));
+  $('#p4hyp').replaceChildren(
+    card('P4-H1', H.H1.holds ? 'PASS' : 'FAIL', 'Segmentation recall ≥ 0.90', `${H.H1.recall[0]}/${H.H1.recall[1]}; sub-items and unnumbered lines are missed`),
+    card('P4-H2', H.H2.holds ? 'PASS' : 'FAIL', 'Type accuracy ≥ 0.85', `${H.H2.accuracy[0]}/${H.H2.accuracy[1]} by rules`),
+    card('P4-H3', H.H3.holds ? 'PASS' : 'FAIL', 'Does Apertus add decisions?', `${H.H3.review_only} vs ${H.H3.rules_only}, p = ${H.H3.p.toFixed(2)}: rules suffice here`),
+    card('P4-H4', H.H4.holds ? 'PASS' : 'FAIL', 'Sitting date', `${H.H4.correct}/${H.H4.n}`));
+  const DEC = { adopted: 'adopted', rejected: 'rejected', acknowledged: 'acknowledged', referred: 'referred', withdrawn: 'withdrawn', none: 'none recorded', not_applicable: 'n/a' };
+  $('#p4meetings').replaceChildren(...V.meetings.map(m => {
+    const ok = m.items.filter(i => i.derived).length;
+    const det = el('details', { class: 'p4m' }, el('summary', {}, el('span', { class: 'code' }, `Sitting ${m.date}`), ` · ${m.items.length} agenda items · ${ok} derived`,
+      m.minutes_url ? el('a', { href: m.minutes_url, target: '_blank', rel: 'noopener', style: 'margin-left:10px' }, 'minutes ↗') : null),
+      el('div', { style: 'overflow-x:auto' }, el('table', { class: 'dense' }, el('thead', {}, el('tr', {}, ['Item', 'Virtual affair', 'Title (agenda)', 'Type', 'Decision', 'Gold', 'Minutes sentence'].map(x => el('th', {}, x)))),
+        el('tbody', {}, m.items.map(i => { const right = i.derived && (i.decision || null) === ((['none', 'not_applicable'].includes(i.gold_decision)) ? null : i.gold_decision);
+          return el('tr', {}, el('td', { class: 'code' }, i.no), el('td', { class: 'code' }, i.number || el('span', { class: 'red' }, 'not derived')),
+            el('td', {}, i.gold_title), el('td', { class: 'code' + (i.derived && i.type !== i.gold_type ? ' red' : '') }, i.type || '—'),
+            el('td', { class: 'code' + (i.derived && !right ? ' red' : '') }, i.decision ? DEC[i.decision] || i.decision : (i.derived ? 'null' : '—'), i.review_decision ? el('small', {}, ` · Apertus: ${i.review_decision}`) : null),
+            el('td', { class: 'code muted' }, `${i.gold_type} · ${DEC[i.gold_decision] || i.gold_decision}`), el('td', { class: 'small' }, i.quote || '')); })))));
+    return det; }));
 }
 
 /* ---------------- 04 METHOD ---------------- */
