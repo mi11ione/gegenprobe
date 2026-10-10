@@ -2,6 +2,8 @@
 
     python -m gegenprobe.repair.adapters.run BODY [BODY ...] [--limit N] [--cause absent|image_only] [--no-retry]
     python -m gegenprobe.repair.adapters.run --write [BODY ...]     rebuild outputs from the checkpoints (no network)
+    python -m gegenprobe.repair.adapters.run --refilter [BODY ...]  re-judge saved excerpts with the current checks and
+                                                                    filters; re-process the affairs a filter moved down
     python -m gegenprobe.repair.adapters.run --list                 the registered adapters
 
 Checkpoint: one JSON line per affair in WORK/adapters/state/<BODY>.jsonl, appended as soon as the affair is done; a re-run
@@ -11,7 +13,9 @@ Outputs (results/repair/adapters/):
   repair_<BODY>.tsv       repair rows (verified and review), the columns of repair/common.py
   repair_<BODY>_review.tsv  the rows a person checks
   summary.json            per body: candidates, verified, review, failed by reason; coverage against the 16,749
-Audit: WORK/adapters/audit/<BODY>.jsonl, a stratified sample of 30 (verified / review / failed) with excerpt paths.
+  filtered.tsv            every affair a document-type filter fired on (filters.py): filter, outcome, quote
+Audit: WORK/adapters/audit/<BODY>.jsonl, a stratified sample of 30 (verified / review / failed) with excerpt paths,
+drawn once and never overwritten (auditors' verdicts refer to it).
 """
 from __future__ import annotations
 
@@ -118,6 +122,51 @@ def recheck(body: str) -> collections.Counter:
     return c
 
 
+def refilter(body: str) -> dict:
+    """After a change to the checks or filters: re-judge every saved excerpt (recheck, no network). An affair whose best
+    document a filter moved down is processed again (process(): its other candidates, documents read from the WORK
+    caches; adapters whose candidate list comes from the source's API ask it again), so an answer filed next to the
+    filtered document can still verify. The re-processed record replaces the rechecked one only when it is better."""
+    before = {k: r["outcome"] for k, r in load_state(body).items()}
+    moved = recheck(body)
+    after = load_state(body)
+    redo = [r for k, r in after.items() if ((r.get("best") or {}).get("checks") or {}).get("filter")
+            and ORDER[r["outcome"]] > ORDER[before[k]]]
+    out = collections.Counter()
+    if redo:
+        ad = registry.get(body)
+        xs = {x["id"]: x for x in targets.load(body)}
+        opd = opd_docs.load(body)
+        seed_url_cache(body)
+        with open(STATE / f"{body}.jsonl", "a", encoding="utf-8") as f:
+            for r in redo:
+                rec = process(ad, xs[r["affair_id"]], opd.get(r["affair_id"], []))
+                if ORDER[rec["outcome"]] < ORDER[r["outcome"]]:
+                    rec["refiltered_from"] = dict(outcome=r["outcome"], reason=r.get("reason"),
+                                                  url=(r.get("best") or {}).get("url"))
+                    f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+                    out[f"{r['outcome']}->{rec['outcome']}"] += 1
+                else:
+                    out[f"{r['outcome']} kept"] += 1
+                    if r.get("excerpt") and (r.get("best") or {}).get("url") != (rec.get("best") or {}).get("url"):
+                        _restore_excerpt(body, r)
+    return dict(rechecked={f"{a}->{b}": n for (a, b), n in moved.items()}, reprocessed=dict(out))
+
+
+def _restore_excerpt(body: str, r: dict) -> None:
+    """process() saved the text of its own best document; the kept record's excerpt is the filtered document's."""
+    b = r.get("best") or {}
+    text = None
+    if b.get("origin") == "opd_text" and b.get("opd_doc_id"):
+        text = next((d["text"] for d in opd_docs.load(body).get(r["affair_id"], []) if d["id"] == b["opd_doc_id"]), None)
+    if text is None and b.get("url"):
+        hit = base.url_cache_get(b["url"])
+        text = hit[0] if hit else None
+    if text is not None:
+        base.save_excerpt(body, r["affair_id"], text, dict(affair_id=r["affair_id"], number=r["affair_number"],
+                                                           url=b.get("url"), title=b.get("title"), origin=b.get("origin")))
+
+
 def load_state(body: str) -> dict[int, dict]:
     p = STATE / f"{body}.jsonl"
     out: dict[int, dict] = {}
@@ -215,7 +264,10 @@ def body_summary(recs: list[dict]) -> dict:
     ident = collections.Counter(re.sub(r"\(.*", "", ((r.get("best") or {}).get("checks") or {}).get("identity_by") or "")
                                 for r in ver)
     cands = sum(1 for r in recs if r.get("tried"))
+    filt = collections.Counter(f"{((r.get('best') or {}).get('checks') or {}).get('filter')}:{r['outcome']}" for r in recs
+                               if ((r.get("best") or {}).get("checks") or {}).get("filter"))
     return dict(targets=len(recs), with_candidate=cands, verified=out["verified"], review=out["review"],
+                filtered=dict(sorted(filt.items())),
                 failed=out["failed"], failed_by_reason=dict(fails.most_common()),
                 review_by_reason=dict(review_reasons.most_common()), verified_by_action=dict(by_action),
                 verified_by_date_match=dict(date_class.most_common()), verified_by_identity=dict(ident.most_common()),
@@ -236,11 +288,14 @@ def write(body: str) -> dict:
                  reason=r.get("reason"), action=r.get("action"), url=(r.get("best") or {}).get("url"),
                  sha256=((r.get("best") or {}).get("meta") or {}).get("sha256"),
                  date_match=((r.get("best") or {}).get("checks") or {}).get("date_match"),
-                 identity_by=((r.get("best") or {}).get("checks") or {}).get("identity_by"))
+                 identity_by=((r.get("best") or {}).get("checks") or {}).get("identity_by"),
+                 filter=((r.get("best") or {}).get("checks") or {}).get("filter"),
+                 filter_quote=((r.get("best") or {}).get("checks") or {}).get("filter_quote"))
             for r in recs]
     base_json = dict(summary=s, affairs=slim)
     (OUT / f"{body}.json").write_text(json.dumps(base_json, ensure_ascii=False, indent=0, sort_keys=True))
-    audit(body, recs)
+    if not (AUDIT / f"{body}.jsonl").exists():  # drawn once: the auditors' verdicts refer to this sample
+        audit(body, recs)
     write_summary()
     return s
 
@@ -271,10 +326,84 @@ def audit(body: str, recs: list[dict], n: int = 30, seed: int = 20261011) -> Non
                                ensure_ascii=False) + "\n")
 
 
+def fresh_audit(n: int = 300, seed: int = 20261111, out=None, exclude_dir=None) -> dict:
+    """A fresh stratified random sample of counted verified rows (tiers exact_date and date_window) for blind auditors,
+    excluding every affair of the first audit (WORK/adapters/audit): per parliament max(5, share of n proportional to
+    its pool) where the pool allows, the rest by largest remainder. Each row has the first audit's fields; its excerpt
+    is copied next to the sample (WORK/adapters/audit2/excerpts) so later runs cannot change what was judged."""
+    import shutil
+    out = out or base.ADIR / "audit2"
+    exclude_dir = exclude_dir or AUDIT
+    seen = set()
+    for p in exclude_dir.glob("*.jsonl"):
+        for line in p.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                r = json.loads(line)
+                seen.add((r["body"], r["affair_id"]))
+    pools = {}
+    for p in sorted(OUT.glob("*.json")):
+        if p.name in NOT_BODIES:
+            continue
+        b = p.stem
+        st = load_state(b)
+        ids = [a["affair_id"] for a in json.loads(p.read_text())["affairs"] if a["outcome"] == "verified"
+               and tier_of(a.get("date_match")) in COUNTED and (b, a["affair_id"]) not in seen
+               and st[a["affair_id"]].get("excerpt")]
+        if ids:
+            pools[b] = sorted(ids)
+    total = sum(len(v) for v in pools.values())
+    want = {b: min(5, len(v)) for b, v in pools.items()}
+    rest = n - sum(want.values())
+    share = {b: rest * len(v) / total for b, v in pools.items()}
+    extra = {b: min(int(share[b]), len(pools[b]) - want[b]) for b in pools}
+    left = rest - sum(extra.values())
+    for b in sorted(pools, key=lambda b: (-(share[b] - int(share[b])), b)):
+        if left <= 0:
+            break
+        if want[b] + extra[b] < len(pools[b]):
+            extra[b] += 1
+            left -= 1
+    rng = random.Random(seed)
+    out.mkdir(parents=True, exist_ok=True)
+    for f in out.glob("*.jsonl"):
+        f.unlink()
+    counts = {}
+    for b in sorted(pools):
+        k = want[b] + extra[b]
+        pick = sorted(rng.sample(pools[b], k))
+        st = load_state(b)
+        xs = {x["id"]: x for x in targets.load(b)}
+        with open(out / f"{b}.jsonl", "w", encoding="utf-8") as f:
+            for aid in pick:
+                r = st[aid]
+                bb = r.get("best") or {}
+                x = xs.get(aid, {})
+                ex = out / "excerpts" / b / f"{aid}.txt"
+                ex.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(r["excerpt"], ex)
+                f.write(json.dumps(dict(body=b, affair_id=aid, affair_number=r["affair_number"],
+                                        opd_title=x.get("title"), opd_type=x.get("type"),
+                                        opd_answer_event_dates=x.get("answer_dates"), outcome=r["outcome"],
+                                        reason=r.get("reason"), proposed_action=r.get("action"),
+                                        source_url=bb.get("url"), source_title=bb.get("title"), excerpt_path=str(ex),
+                                        question="Is this document the government's written answer to this affair "
+                                                 "(same affair, an answer not the question, dated consistently)?"),
+                                   ensure_ascii=False) + "\n")
+        counts[b] = k
+    res = dict(n=sum(counts.values()), seed=seed, pool=total, excluded=len(seen), per_body=counts,
+               pool_per_body={b: len(v) for b, v in pools.items()}, bodies=len(counts),
+               note="fresh blind-audit sample of counted verified rows (exact date, date window), drawn after the "
+                    "document-type filters; rows and excerpts in WORK/adapters/audit2 (never committed)")
+    if out == base.ADIR / "audit2":
+        (OUT / "audit2_sample.json").write_text(json.dumps(res, ensure_ascii=False, indent=1, sort_keys=True))
+    return res
+
+
 BASELINE = 3107  # results/report/figure_numbers.json: repairable_deterministic before the adapters
 GAP = 16749
 NEEDS_ADAPTERS = 10800
-NOT_BODIES = ("summary.json", "tiers.json", "robots_audit.json")  # the other files in OUT are one per body
+# the other files in OUT are one per body
+NOT_BODIES = ("summary.json", "tiers.json", "robots_audit.json", "audit_effect.json", "audit2_sample.json")
 
 
 # Verification tiers (docs/adapters.md "Verification tiers"): how strong the date check behind a verified row is. Only
@@ -352,6 +481,10 @@ def write_summary() -> dict:
         by_action.update(tot[k]["by_action"])
         by_date.update(tot[k]["by_date_match"])
     passed = sum(s["verified"] for s in per.values())
+    filtered = collections.Counter()
+    for s in per.values():
+        filtered.update(s.get("filtered") or {})
+    write_filtered()
     iw = tot["identity_wording_only"]
     out = dict(
         bodies=per,
@@ -363,6 +496,7 @@ def write_summary() -> dict:
                     verified_by_action=dict(by_action), verified_by_date_match=dict(by_date),
                     identity_wording_only_by_date_match=iw["by_date_match"],
                     targets=sum(s["targets"] for s in per.values()),
+                    filtered=dict(sorted(filtered.items())),
                     failed_by_reason=dict(sum((collections.Counter(s["failed_by_reason"]) for s in per.values()),
                                               collections.Counter()).most_common())),
         coverage=dict(
@@ -388,22 +522,44 @@ def write_summary() -> dict:
     return out
 
 
+def write_filtered() -> None:
+    """filtered.tsv: every affair whose best document a document-type filter (filters.py) recognised, with the filter,
+    the outcome it left and the quote that triggered it."""
+    rows = []
+    for p in sorted(OUT.glob("*.json")):
+        if p.name in NOT_BODIES:
+            continue
+        for a in json.loads(p.read_text())["affairs"]:
+            if a.get("filter"):
+                rows.append((p.stem, a["affair_id"], a["number"], a["filter"], a["outcome"], a.get("reason") or "",
+                             a.get("url") or "", re.sub(r"\s+", " ", a.get("filter_quote") or "")))
+    with open(OUT / "filtered.tsv", "w", encoding="utf-8", newline="") as f:
+        w = csv.writer(f, delimiter="\t", lineterminator="\n")
+        w.writerow(["body", "affair_id", "affair_number", "filter", "outcome", "reason", "source_url", "quote"])
+        w.writerows(sorted(rows, key=lambda r: (r[0], r[1])))
+
+
 def table() -> str:
     """The per-parliament results table of docs/adapters.md, from summary.json."""
     s = json.loads((OUT / "summary.json").read_text())
     rows = sorted(s["bodies"].values(), key=lambda b: -b["targets"])
     out = ["| parliament | targets (absent + image-only) | verified: exact date | verified: date window | of which "
-           "tag/extract (in OPD) | identity + wording only (not counted) | review | failed: top reasons |",
-           "|---|---|---|---|---|---|---|---|"]
+           "tag/extract (in OPD) | identity + wording only (not counted) | review | failed: top reasons | "
+           "moved down by document-type filters |",
+           "|---|---|---|---|---|---|---|---|---|"]
     for b in rows:
         if not b["targets"]:
             continue
         t = b["tiers"]
         va = b["counted_by_action"]
         inopd = va.get("tag_answer", 0) + va.get("extract_tag", 0)
-        reasons = ", ".join(f"{k} {v:,}" for k, v in list(b["failed_by_reason"].items())[:3])
+        reasons = ", ".join(f"{k} {v:,}" for k, v in sorted(b["failed_by_reason"].items(), key=lambda kv: (-kv[1], kv[0]))[:3])
+        filt = collections.Counter()
+        for k, v in (b.get("filtered") or {}).items():
+            filt[k.split(":")[0]] += v
+        moved = ", ".join(f"{k} {v:,}" for k, v in sorted(filt.items(), key=lambda kv: (-kv[1], kv[0])))
         out.append(f"| {b['label']} ({b['body']}) | {b['targets']:,} | {t['exact_date']:,} | {t['date_window']:,} | "
-                   f"{inopd:,} | {t['identity_wording_only']:,} | {b['review']:,} | {reasons or '-'} |")
+                   f"{inopd:,} | {t['identity_wording_only']:,} | {b['review']:,} | {reasons or '-'} | {moved or '-'} |")
     return "\n".join(out)
 
 
@@ -417,10 +573,17 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--write", action="store_true", help="rebuild outputs from checkpoints, no network")
     ap.add_argument("--list", action="store_true")
     ap.add_argument("--table", action="store_true", help="print the results table of docs/adapters.md")
+    ap.add_argument("--fresh-audit", type=int, metavar="N",
+                    help="draw a fresh audit sample of N counted verified rows into WORK/adapters/audit2")
     ap.add_argument("--recheck", action="store_true", help="re-run the checks on saved excerpts (no network)")
+    ap.add_argument("--refilter", action="store_true",
+                    help="recheck, then re-process the affairs a document-type filter moved down (cached documents)")
     a = ap.parse_args(argv)
     if a.table:
         print(table())
+        return 0
+    if a.fresh_audit:
+        print(json.dumps(fresh_audit(a.fresh_audit), indent=1))
         return 0
     if a.list:
         for b, ad in registry.all().items():
@@ -429,7 +592,9 @@ def main(argv: list[str]) -> int:
     for b in a.bodies or list(registry.all()):
         if a.recheck:
             print(b, "recheck", dict(recheck(b)), flush=True)
-        s = write(b) if (a.write or a.recheck) else run_body(b, a.limit, a.cause, not a.no_retry, a.redo)
+        if a.refilter:
+            print(b, "refilter", json.dumps(refilter(b)), flush=True)
+        s = write(b) if (a.write or a.recheck or a.refilter) else run_body(b, a.limit, a.cause, not a.no_retry, a.redo)
         print(json.dumps({k: s[k] for k in ("body", "targets", "verified", "review", "failed", "failed_by_reason")}))
     return 0
 

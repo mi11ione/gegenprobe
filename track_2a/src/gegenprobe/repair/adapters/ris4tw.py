@@ -27,6 +27,10 @@ HEADING = re.compile(
     re.I,
 )
 EXT = re.compile(r"/geschaefte/(\d+)")
+# the affair number in the document header: "Kantonsrat St.Gallen 51.15.56"; "Regierungsratsbeschluss vom ... Nr. 2024/1732
+# A 0110/2024 (BJD)"
+SHAPES = {"SG": re.compile(r"Kantonsrat St\.?\s?Gallen\s+(\d{2}\.\d{2}\.\d{2})\b"),
+          "SO": re.compile(r"\b([A-Z]{1,3} \d{4}/\d{4})\b")}
 
 
 class RIS4tw(Adapter):
@@ -39,6 +43,7 @@ class RIS4tw(Adapter):
         self.label = LABELS[body]
         self.base = HOSTS[body]
         self.hosts = (self.base.split("//")[1],)
+        self.number_shape = SHAPES[body]
 
     def number_patterns(self, number: str) -> list[str]:
         n = re.escape(number or "")

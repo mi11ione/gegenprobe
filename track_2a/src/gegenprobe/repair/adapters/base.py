@@ -21,11 +21,16 @@ really that answer? It never writes a value of its own; it proposes a typed repa
                                                            separately); within DATE_NEAR days = `near` (review)
 
 Outcome per affair (model-free, deterministic):
-  verified  identity and heading and an equal date                          -> action of the route
+  verified  identity and heading and an equal date, and no document-type filter fires (filters.py)
+                                                                            -> action of the route
   review    identity and heading, the date is near/absent/different; or identity and the source itself types the
             document as the answer (SG/SO `Antwort`, ZH step `Antwort Regierungsrat`) but no heading was matched
   failed    typed reason (no_candidate, not_found, robots_disallowed, http_error, not_a_pdf, empty_text, identity_fail,
             heading_fail, ...): no repair row, counted in the summary
+  filters   (filters.py) a document that passes the checks but is typed by its own wording as something else (a deadline
+            extension, a commission report, minutes that only refer to the answer, the member's text, another affair's
+            answer, a reply to a council resolution) moves down to review or failed with that reason; checks carry
+            `filter` and `filter_quote`
 
 Actions:
   tag_answer   OPD already holds the answer, with text, on the affair; nothing marks it as the answer (generic name, no
@@ -47,10 +52,12 @@ from pathlib import Path
 from ... import net, pdftext
 from ...paths import WORK
 from ..common import ANSWER_HEADING, parse_dates
+from . import filters
 
 ADIR = WORK / "adapters"
 DATE_NEAR = 14  # days; a document date this close to OPD's event (but not equal) goes to review, never verified
 QUOTE_MAX = 200
+FILTER_RANK = {"verified": 0, "review": 1, "failed": 2}
 
 
 @dataclasses.dataclass
@@ -231,6 +238,9 @@ class Adapter:
     _submit: list[str] = []
     ocr: bool = True
     date_window: tuple[int, int] = (0, 0)  # accepted (event - document date) in days; (0, 0) = equal dates only
+    # the parliament's affair-number shape as printed in a document header (group 1 = the number), for the wrong-affair
+    # cross-check (filters.wrong_affair); None = no cross-check
+    number_shape: re.Pattern | None = None
 
     # --- to implement
     def candidates(self, x: dict, opd: list[dict]) -> list[Candidate]:
@@ -337,10 +347,18 @@ class Adapter:
         if outcome != "verified":
             reason = ("identity_fail" if not idn else "heading_fail" if not heading
                       else "no_answer_event" if not ev else "date_mismatch")
-        return dict(identity=idn, identity_by=how, heading=heading,
-                    heading_quote=quote(ft, h.start(), h.end()) if h else None, doc_date=dd, answer_events=ev,
-                    gov_events=x.get("gov_dates") or [], date_match=match, date_eq_event=date_eq, date_ok=date_ok,
-                    outcome=outcome, reason=reason)
+        hit = filters.screen(ft, c.title, x, self.heading, self.number_shape,
+                             [p for p in self.number_patterns(x.get("number") or "") if p])
+        if hit and outcome != "failed":  # a filter only moves a row down, and its reason replaces the check's
+            outcome = hit.outcome if FILTER_RANK[hit.outcome] > FILTER_RANK[outcome] else outcome
+            reason = hit.reason
+        out = dict(identity=idn, identity_by=how, heading=heading,
+                   heading_quote=quote(ft, h.start(), h.end()) if h else None, doc_date=dd, answer_events=ev,
+                   gov_events=x.get("gov_dates") or [], date_match=match, date_eq_event=date_eq, date_ok=date_ok,
+                   outcome=outcome, reason=reason)
+        if hit:  # also on rows that failed anyway (their reason stays the check's)
+            out.update(filter=hit.reason, filter_quote=hit.quote)
+        return out
 
 
 def excerpt_path(body: str, affair_id: int) -> Path:

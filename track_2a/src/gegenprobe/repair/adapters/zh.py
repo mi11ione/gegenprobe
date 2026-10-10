@@ -43,6 +43,7 @@ class Zurich(Adapter):
     hosts = ("parlzhcdws.cmicloud.ch",)
     heading = HEADING
     header_date = HEADER_DATE
+    number_shape = re.compile(r"KR-?\s?Nr\.?\s*(\d{1,4}[a-z]?/\d{4})")
     _opd_eids: dict[str, dict] | None = None
 
     def opd_eids(self) -> dict[str, dict]:

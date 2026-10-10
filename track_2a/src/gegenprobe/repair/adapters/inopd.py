@@ -77,7 +77,7 @@ class InOPD(Adapter):
 
     def __init__(self, body: str, label: str = "", heading: re.Pattern | None = None, window: tuple[int, int] = (0, 0),
                  number_rx=None, answer_name: re.Pattern | None = None, use_oparl_copy: bool = True,
-                 all_docs: bool = False):
+                 all_docs: bool = False, number_shape: re.Pattern | None = None):
         self.body, self.label = body, label or body
         if heading is not None:
             self.heading = heading
@@ -87,6 +87,7 @@ class InOPD(Adapter):
         self.use_oparl_copy = use_oparl_copy
         self.all_docs = all_docs  # every document on the affair is a candidate (the body files the answer as "the" doc)
         self.hosts = ("files.openparldata.ch",)
+        self.number_shape = number_shape
 
     def number_patterns(self, number: str) -> list[str]:
         if self._number_rx:

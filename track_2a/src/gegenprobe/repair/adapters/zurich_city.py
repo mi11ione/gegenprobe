@@ -35,6 +35,7 @@ class ZurichCity(Adapter):
     hosts = ("www.gemeinderat-zuerich.ch",)
     heading = HEADING
     header_date = HEADER_DATE
+    number_shape = re.compile(r"GR\s?Nr\.?\s*(\d{4}\s?/\s?\d+)")
     # OPD's "Stadtrat, Antwort" event is the Stadtrat's decision date since about 2012; before, it is often the dispatch
     # one or two weeks later (pilot of 200 affairs: deltas 0 x150, +1, +7 x13, +8 x3, +14, +15)
     date_window = (0, 15)

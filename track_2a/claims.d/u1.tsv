@@ -1,33 +1,33 @@
 id	shown	file	path	fmt	command	where	context
 u1.targets	12,150	results/repair/adapters/summary.json	totals.targets	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
-u1.verified	6,909	results/repair/adapters/summary.json	totals.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
-u1.verified_absent	6,048	results/repair/adapters/summary.json	totals.verified_absent	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
-u1.verified_image_only	861	results/repair/adapters/summary.json	totals.verified_image_only	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "**861** of the 1,350"}
-u1.repairable_with_adapters	10,016	results/repair/adapters/summary.json	coverage.repairable_deterministic_with_adapters	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
-u1.needs_adapters_after	4,752	results/repair/adapters/summary.json	coverage.needs_adapters_after	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
-u1.review	725	results/repair/adapters/summary.json	totals.review	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "rows are review"}
-u1.review_absent	501	results/repair/adapters/summary.json	totals.review_absent	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "absent"}
-u1.fetch	3,623	results/repair/adapters/summary.json	totals.verified_by_action.fetch	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
-u1.tag_answer	2,379	results/repair/adapters/summary.json	totals.verified_by_action.tag_answer	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
-u1.extract_tag	907	results/repair/adapters/summary.json	totals.verified_by_action.extract_tag	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "extract_tag"}
-u1.date_eq	4,992	results/repair/adapters/summary.json	totals.verified_by_date_match.eq	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.verified	6,833	results/repair/adapters/summary.json	totals.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.verified_absent	5,982	results/repair/adapters/summary.json	totals.verified_absent	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.verified_image_only	851	results/repair/adapters/summary.json	totals.verified_image_only	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "**851** of the 1,350"}
+u1.repairable_with_adapters	9,940	results/repair/adapters/summary.json	coverage.repairable_deterministic_with_adapters	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.needs_adapters_after	4,818	results/repair/adapters/summary.json	coverage.needs_adapters_after	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.review	697	results/repair/adapters/summary.json	totals.review	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "rows are review"}
+u1.review_absent	472	results/repair/adapters/summary.json	totals.review_absent	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "absent"}
+u1.fetch	3,620	results/repair/adapters/summary.json	totals.verified_by_action.fetch	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.tag_answer	2,316	results/repair/adapters/summary.json	totals.verified_by_action.tag_answer	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.extract_tag	897	results/repair/adapters/summary.json	totals.verified_by_action.extract_tag	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "extract_tag"}
+u1.date_eq	4,956	results/repair/adapters/summary.json	totals.verified_by_date_match.eq	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.date_eq_gov	214	results/repair/adapters/summary.json	totals.verified_by_date_match.eq_gov	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "eq_gov"}
-u1.date_anywhere	1,307	results/repair/adapters/summary.json	totals.verified_by_date_match.anywhere	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.date_anywhere	1,267	results/repair/adapters/summary.json	totals.verified_by_date_match.anywhere	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.date_window	301	results/repair/adapters/summary.json	totals.verified_by_date_match.window	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "documented window"}
 u1.date_latest_in_window	95	results/repair/adapters/summary.json	totals.verified_by_date_match.latest_in_window	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "latest_in_window"}
 u1.date_after_submission	282	results/repair/adapters/summary.json	totals.identity_wording_only_by_date_match.after_submission	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "after_submission"}
-u1.zh_verified	2,193	results/repair/adapters/summary.json	bodies.ZH.tiers.exact_date	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.zh_verified	2,182	results/repair/adapters/summary.json	bodies.ZH.tiers.exact_date	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.zurich_city_verified	1,417	results/repair/adapters/summary.json	bodies.261.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
-u1.sg_verified	1,013	results/repair/adapters/summary.json	bodies.SG.tiers.exact_date	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.sg_verified	1,012	results/repair/adapters/summary.json	bodies.SG.tiers.exact_date	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.ti_verified	729	results/repair/adapters/summary.json	bodies.TI.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "Ticino (canton) (TI)"}
 u1.ne_verified	239	results/repair/adapters/summary.json	bodies.NE.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "Neuchâtel (canton) (NE)"}
 u1.ju_verified	357	results/repair/adapters/summary.json	bodies.JU.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "Jura's"}
 u1.vs_date_window	140	results/repair/adapters/summary.json	bodies.VS.tiers.date_window	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "Valais (canton) (VS)"}
 u1.so_verified	210	results/repair/adapters/summary.json	bodies.SO.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "Solothurn (canton) (SO)"}
 u1.lu_verified	104	results/repair/adapters/summary.json	bodies.LU.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "Luzern (canton) (LU)"}
-u1.tier_exact_date	6,513	results/repair/adapters/summary.json	tiers.exact_date.n	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
-u1.tier_exact_date_absent	5,656	results/repair/adapters/summary.json	tiers.exact_date.absent	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
-u1.tier_exact_date_image_only	857	results/repair/adapters/summary.json	tiers.exact_date.image_only	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "| 5,656 |"}
+u1.tier_exact_date	6,437	results/repair/adapters/summary.json	tiers.exact_date.n	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.tier_exact_date_absent	5,590	results/repair/adapters/summary.json	tiers.exact_date.absent	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.tier_exact_date_image_only	847	results/repair/adapters/summary.json	tiers.exact_date.image_only	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "| 5,590 |"}
 u1.tier_date_window	396	results/repair/adapters/summary.json	tiers.date_window.n	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "decided no row"}
 u1.tier_identity_wording_only	282	results/repair/adapters/summary.json	tiers.identity_wording_only.n	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "Jura answers checked by"}
 u1.ju_exact_date	75	results/repair/adapters/summary.json	bodies.JU.tiers.exact_date	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "Jura (canton) (JU)"}
@@ -36,3 +36,16 @@ u1.robots_fetched	7,463	results/repair/adapters/robots_audit.json	totals.urls_fe
 u1.robots_fetched_rechecked	7,393	results/repair/adapters/robots_audit.json	totals.rechecked_fetched	int	python -m gegenprobe.repair.adapters.robots_audit	docs/adapters.md,docs/incidents.md	
 u1.robots_fetched_not_recheckable	70	results/repair/adapters/robots_audit.json	totals.not_recheckable_fetched	int	python -m gegenprobe.repair.adapters.robots_audit	docs/adapters.md,docs/incidents.md	{"docs/adapters.md": "re-checked", "docs/incidents.md": "re-checked"}
 u1.robots_disallowed_listed	1,157	results/repair/adapters/robots_audit.json	totals.disallowed_listed	int	python -m gegenprobe.repair.adapters.robots_audit	docs/adapters.md,docs/incidents.md	
+u1.audit_rows	796	results/repair/adapters/audit_effect.json	rows	int	python -m gegenprobe.repair.adapters.audit_effect	docs/adapters.md	{"docs/adapters.md": "verdicts in"}
+u1.audit_verified	511	results/repair/adapters/audit_effect.json	headline.verified_rows	int	python -m gegenprobe.repair.adapters.audit_effect	docs/adapters.md	{"docs/adapters.md": "verified rows"}
+u1.audit_verified_yes	457	results/repair/adapters/audit_effect.json	headline.verified_yes	int	python -m gegenprobe.repair.adapters.audit_effect	docs/adapters.md	{"docs/adapters.md": "judged the government's answer"}
+u1.audit_verified_no	34	results/repair/adapters/audit_effect.json	headline.verified_no	int	python -m gegenprobe.repair.adapters.audit_effect	docs/adapters.md	{"docs/adapters.md": "not, **20** unclear"}
+u1.audit_verified_no_caught	34	results/repair/adapters/audit_effect.json	headline.verified_no_caught	int	python -m gegenprobe.repair.adapters.audit_effect	docs/adapters.md	{"docs/adapters.md": "verified 'no' rows now fail"}
+u1.audit_verified_unclear	20	results/repair/adapters/audit_effect.json	headline.verified_unclear	int	python -m gegenprobe.repair.adapters.audit_effect	docs/adapters.md	{"docs/adapters.md": "unclear"}
+u1.audit_unclear_to_review	17	results/repair/adapters/audit_effect.json	headline.verified_unclear_to_review	int	python -m gegenprobe.repair.adapters.audit_effect	docs/adapters.md	{"docs/adapters.md": "move to review (resolution_reply)"}
+u1.audit_yes_rows	713	results/repair/adapters/audit_effect.json	headline.yes_rows	int	python -m gegenprobe.repair.adapters.audit_effect	docs/adapters.md	{"docs/adapters.md": "'yes' rows in the whole sample"}
+u1.audit_review_no_to_failed	13	results/repair/adapters/audit_effect.json	headline.review_no_to_failed	int	python -m gegenprobe.repair.adapters.audit_effect	docs/adapters.md	{"docs/adapters.md": "review 'no' rows now fail"}
+u1.audit2_n	300	results/repair/adapters/audit2_sample.json	n	int	python -m gegenprobe.repair.adapters.run --fresh-audit 300	docs/adapters.md	{"docs/adapters.md": "counted verified rows (exact date and date window)"}
+u1.audit2_pool	6,390	results/repair/adapters/audit2_sample.json	pool	int	python -m gegenprobe.repair.adapters.run --fresh-audit 300	docs/adapters.md	
+u1.audit2_bodies	18	results/repair/adapters/audit2_sample.json	bodies	int	python -m gegenprobe.repair.adapters.run --fresh-audit 300	docs/adapters.md	{"docs/adapters.md": "parliaments; Zürich canton 78"}
+u1.review_image_only	225	results/repair/adapters/summary.json	totals.review_image_only	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "image-only): listed, not counted"}

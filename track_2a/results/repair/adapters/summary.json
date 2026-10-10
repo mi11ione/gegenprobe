@@ -16,6 +16,7 @@
    "failed_by_reason": {
     "no_candidate": 2
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -60,6 +61,7 @@
    "failed_by_reason": {
     "no_candidate": 51
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -97,6 +99,7 @@
     "empty_text": 20,
     "http_404": 10
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -141,6 +144,7 @@
    "failed_by_reason": {
     "identity_fail": 3
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -187,6 +191,7 @@
    "failed_by_reason": {
     "no_candidate": 11
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -219,6 +224,7 @@
    "failed_by_reason": {
     "no_candidate": 629
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -251,6 +257,7 @@
    "failed_by_reason": {
     "no_candidate": 4
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -287,6 +294,7 @@
    "failed_by_reason": {
     "heading_fail": 19
    },
+   "filtered": {},
    "hosts": [
     "www.gemeinderat-zuerich.ch"
    ],
@@ -332,6 +340,7 @@
     "identity_fail": 3,
     "no_candidate": 101
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -361,22 +370,27 @@
      "failed": 184
     },
     "image_only": {
-     "review": 16
+     "failed": 1,
+     "review": 15
     }
    },
    "counted_by_action": {},
-   "failed": 184,
+   "failed": 185,
    "failed_by_reason": {
+    "member_text_only": 1,
     "no_candidate": 184
+   },
+   "filtered": {
+    "member_text_only:failed": 1
    },
    "hosts": [
     "files.openparldata.ch"
    ],
    "label": "Pratteln (city)",
-   "review": 16,
+   "review": 15,
    "review_by_reason": {
     "date_mismatch": 3,
-    "heading_fail": 13
+    "heading_fail": 12
    },
    "route": "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)",
    "snapshot": "opd_exports 2026-10-06; opd_docs_2831 2026-10-10",
@@ -404,6 +418,7 @@
    "failed_by_reason": {
     "no_candidate": 1
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -428,31 +443,33 @@
    "body": "296",
    "by_cause": {
     "absent": {
-     "failed": 177,
-     "verified": 1
+     "failed": 178
     },
     "image_only": {
-     "failed": 2,
-     "review": 10,
-     "verified": 32
+     "failed": 5,
+     "review": 9,
+     "verified": 30
     }
    },
    "counted_by_action": {
-    "extract_tag": 32,
-    "tag_answer": 1
+    "extract_tag": 30
    },
-   "failed": 179,
+   "failed": 183,
    "failed_by_reason": {
     "identity_fail": 2,
+    "minutes_reference": 4,
     "no_candidate": 177
+   },
+   "filtered": {
+    "minutes_reference:failed": 4
    },
    "hosts": [
     "files.openparldata.ch"
    ],
    "label": "Illnau-Effretikon (city)",
-   "review": 10,
+   "review": 9,
    "review_by_reason": {
-    "date_mismatch": 5,
+    "date_mismatch": 4,
     "heading_fail": 5
    },
    "route": "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)",
@@ -460,21 +477,19 @@
    "targets": 222,
    "tiers": {
     "date_window": 0,
-    "exact_date": 33,
+    "exact_date": 30,
     "identity_wording_only": 0
    },
-   "verified": 33,
+   "verified": 30,
    "verified_by_action": {
-    "extract_tag": 32,
-    "tag_answer": 1
+    "extract_tag": 30
    },
    "verified_by_date_match": {
-    "anywhere": 2,
-    "eq": 31
+    "anywhere": 1,
+    "eq": 29
    },
    "verified_by_identity": {
-    "number": 1,
-    "title": 32
+    "title": 30
    },
    "with_candidate": 45
   },
@@ -482,45 +497,47 @@
    "body": "351",
    "by_cause": {
     "absent": {
-     "failed": 66,
-     "review": 1,
-     "verified": 39
+     "failed": 101,
+     "review": 2,
+     "verified": 3
     }
    },
    "counted_by_action": {
-    "tag_answer": 39
+    "tag_answer": 3
    },
-   "failed": 66,
+   "failed": 101,
    "failed_by_reason": {
+    "extension_request": 35,
     "no_candidate": 66
+   },
+   "filtered": {
+    "extension_request:failed": 35
    },
    "hosts": [
     "files.openparldata.ch"
    ],
    "label": "Bern (city)",
-   "review": 1,
+   "review": 2,
    "review_by_reason": {
-    "date_mismatch": 1
+    "date_mismatch": 2
    },
    "route": "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)",
    "snapshot": "opd_exports 2026-10-06; opd_docs_351 2026-10-10",
    "targets": 106,
    "tiers": {
     "date_window": 0,
-    "exact_date": 39,
+    "exact_date": 3,
     "identity_wording_only": 0
    },
-   "verified": 39,
+   "verified": 3,
    "verified_by_action": {
-    "tag_answer": 39
+    "tag_answer": 3
    },
    "verified_by_date_match": {
-    "anywhere": 21,
-    "eq": 18
+    "eq": 3
    },
    "verified_by_identity": {
-    "number": 31,
-    "title": 8
+    "title": 3
    },
    "with_candidate": 40
   },
@@ -528,8 +545,8 @@
    "body": "4001",
    "by_cause": {
     "absent": {
-     "failed": 88,
-     "review": 15,
+     "failed": 90,
+     "review": 13,
      "verified": 74
     }
    },
@@ -537,20 +554,24 @@
     "fetch": 70,
     "tag_answer": 4
    },
-   "failed": 88,
+   "failed": 90,
    "failed_by_reason": {
     "identity_fail": 5,
+    "member_text_only": 2,
     "no_candidate": 83
+   },
+   "filtered": {
+    "member_text_only:failed": 2
    },
    "hosts": [
     "www.aarau.ch",
     "files.openparldata.ch"
    ],
    "label": "Aarau (city)",
-   "review": 15,
+   "review": 13,
    "review_by_reason": {
-    "date_mismatch": 13,
-    "heading_fail": 2
+    "date_mismatch": 12,
+    "heading_fail": 1
    },
    "route": "in-OPD first; else the yearly Anfragen page: the 'Antwort Stadtrat' link next to the question asset OPD holds",
    "snapshot": "opd_exports 2026-10-06; opd_docs_4001 2026-10-10",
@@ -597,6 +618,7 @@
     "identity_fail": 1,
     "no_candidate": 6
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -645,6 +667,7 @@
     "identity_fail": 3,
     "no_candidate": 7
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -690,6 +713,7 @@
     "identity_fail": 21,
     "no_candidate": 1
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -738,6 +762,7 @@
     "http_404": 29,
     "no_candidate": 23
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -776,6 +801,7 @@
    "failed_by_reason": {
     "no_candidate": 1
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -803,8 +829,8 @@
    "body": "5113",
    "by_cause": {
     "absent": {
-     "failed": 57,
-     "review": 115,
+     "failed": 74,
+     "review": 98,
      "verified": 124
     },
     "image_only": {
@@ -815,20 +841,24 @@
     "extract_tag": 63,
     "tag_answer": 64
    },
-   "failed": 57,
+   "failed": 74,
    "failed_by_reason": {
     "http_404": 9,
     "identity_fail": 5,
+    "member_text_only": 17,
     "no_candidate": 43
+   },
+   "filtered": {
+    "member_text_only:failed": 17
    },
    "hosts": [
     "files.openparldata.ch"
    ],
    "label": "Locarno (city)",
-   "review": 115,
+   "review": 98,
    "review_by_reason": {
     "date_mismatch": 22,
-    "heading_fail": 93
+    "heading_fail": 76
    },
    "route": "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)",
    "snapshot": "opd_exports 2026-10-06; opd_docs_5113 2026-10-10",
@@ -856,44 +886,47 @@
    "body": "5192",
    "by_cause": {
     "absent": {
-     "failed": 187,
-     "review": 7,
-     "verified": 7
+     "failed": 194,
+     "review": 5,
+     "verified": 2
     }
    },
    "counted_by_action": {
-    "tag_answer": 7
+    "tag_answer": 2
    },
-   "failed": 187,
+   "failed": 194,
    "failed_by_reason": {
-    "no_candidate": 187
+    "no_candidate": 187,
+    "parliament_report": 7
+   },
+   "filtered": {
+    "parliament_report:failed": 7
    },
    "hosts": [
     "files.openparldata.ch"
    ],
    "label": "Lugano (city)",
-   "review": 7,
+   "review": 5,
    "review_by_reason": {
-    "date_mismatch": 7
+    "date_mismatch": 5
    },
    "route": "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)",
    "snapshot": "opd_exports 2026-10-06; opd_docs_5192 2026-10-10",
    "targets": 201,
    "tiers": {
     "date_window": 0,
-    "exact_date": 7,
+    "exact_date": 2,
     "identity_wording_only": 0
    },
-   "verified": 7,
+   "verified": 2,
    "verified_by_action": {
-    "tag_answer": 7
+    "tag_answer": 2
    },
    "verified_by_date_match": {
-    "anywhere": 2,
-    "eq": 5
+    "anywhere": 2
    },
    "verified_by_identity": {
-    "number": 7
+    "number": 2
    },
    "with_candidate": 14
   },
@@ -901,52 +934,56 @@
    "body": "5586",
    "by_cause": {
     "absent": {
-     "failed": 96,
-     "review": 36,
-     "verified": 16
+     "failed": 97,
+     "review": 47,
+     "verified": 4
     },
     "image_only": {
      "failed": 1,
-     "review": 6,
-     "verified": 8
+     "review": 14
     }
    },
    "counted_by_action": {
-    "extract_tag": 8,
-    "tag_answer": 16
+    "tag_answer": 4
    },
-   "failed": 97,
+   "failed": 98,
    "failed_by_reason": {
     "identity_fail": 4,
+    "member_text_only": 1,
     "no_candidate": 93
+   },
+   "filtered": {
+    "member_text_only:failed": 1,
+    "resolution_reply:failed": 2,
+    "resolution_reply:review": 23
    },
    "hosts": [
     "files.openparldata.ch"
    ],
    "label": "Lausanne (city)",
-   "review": 42,
+   "review": 61,
    "review_by_reason": {
-    "date_mismatch": 42
+    "date_mismatch": 38,
+    "resolution_reply": 23
    },
    "route": "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)",
    "snapshot": "opd_exports 2026-10-06; opd_docs_5586 2026-10-10",
    "targets": 163,
    "tiers": {
     "date_window": 0,
-    "exact_date": 24,
+    "exact_date": 4,
     "identity_wording_only": 0
    },
-   "verified": 24,
+   "verified": 4,
    "verified_by_action": {
-    "extract_tag": 8,
-    "tag_answer": 16
+    "tag_answer": 4
    },
    "verified_by_date_match": {
-    "anywhere": 21,
-    "eq": 3
+    "anywhere": 3,
+    "eq": 1
    },
    "verified_by_identity": {
-    "title": 24
+    "title": 4
    },
    "with_candidate": 70
   },
@@ -966,6 +1003,7 @@
    "failed_by_reason": {
     "no_candidate": 12
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1001,6 +1039,7 @@
    "failed_by_reason": {
     "no_candidate": 130
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1037,6 +1076,7 @@
    "failed_by_reason": {
     "no_candidate": 86
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1079,6 +1119,7 @@
     "identity_fail": 1,
     "no_candidate": 268
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1111,6 +1152,7 @@
    "failed_by_reason": {
     "no_candidate": 1
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1143,6 +1185,7 @@
    "failed_by_reason": {
     "no_candidate": 1
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1175,6 +1218,7 @@
    "failed_by_reason": {
     "no_candidate": 32
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1207,6 +1251,7 @@
    "failed_by_reason": {
     "no_candidate": 6
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1239,6 +1284,7 @@
    "failed_by_reason": {
     "no_candidate": 5
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1271,6 +1317,7 @@
    "failed_by_reason": {
     "no_candidate": 2
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1309,6 +1356,7 @@
    "failed_by_reason": {
     "no_candidate": 102
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1339,8 +1387,7 @@
    "body": "BS",
    "by_cause": {
     "absent": {
-     "failed": 76,
-     "review": 2,
+     "failed": 78,
      "verified": 1
     },
     "image_only": {
@@ -1350,18 +1397,20 @@
    "counted_by_action": {
     "tag_answer": 1
    },
-   "failed": 100,
+   "failed": 102,
    "failed_by_reason": {
-    "no_candidate": 100
+    "no_candidate": 100,
+    "parliament_report": 2
+   },
+   "filtered": {
+    "parliament_report:failed": 2
    },
    "hosts": [
     "files.openparldata.ch"
    ],
    "label": "Basel-Stadt (canton)",
-   "review": 2,
-   "review_by_reason": {
-    "date_mismatch": 2
-   },
+   "review": 0,
+   "review_by_reason": {},
    "route": "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)",
    "snapshot": "opd_exports 2026-10-06; opd_docs_BS 2026-10-10",
    "targets": 103,
@@ -1402,6 +1451,7 @@
     "identity_fail": 1,
     "no_candidate": 34
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1440,6 +1490,7 @@
    "failed_by_reason": {
     "no_candidate": 1
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1472,6 +1523,7 @@
    "failed_by_reason": {
     "no_candidate": 2
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1512,6 +1564,7 @@
     "identity_fail": 15,
     "no_candidate": 260
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1557,6 +1610,7 @@
    "failed_by_reason": {
     "no_candidate": 2
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1590,6 +1644,7 @@
    },
    "failed": 0,
    "failed_by_reason": {},
+   "filtered": {},
    "hosts": [
     "www.lu.ch"
    ],
@@ -1634,6 +1689,7 @@
    "failed_by_reason": {
     "no_candidate": 470
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1678,6 +1734,7 @@
    "failed_by_reason": {
     "no_candidate": 12
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1703,47 +1760,50 @@
    "by_cause": {
     "absent": {
      "failed": 4,
-     "review": 1,
-     "verified": 1012
+     "review": 2,
+     "verified": 1011
     },
     "image_only": {
      "verified": 1
     }
    },
    "counted_by_action": {
-    "fetch": 1013
+    "fetch": 1012
    },
    "failed": 4,
    "failed_by_reason": {
     "http_404": 2,
     "no_candidate": 2
    },
+   "filtered": {
+    "wrong_affair:review": 1
+   },
    "hosts": [
     "www.ratsinfo.sg.ch"
    ],
    "label": "St. Gallen (canton)",
-   "review": 1,
+   "review": 2,
    "review_by_reason": {
-    "heading_fail": 1
+    "heading_fail": 1,
+    "wrong_affair": 1
    },
    "route": "RIS JSON API /api/businesses/<external_id>/published_documents -> document type 'Antwort'/'Stellungnahme'",
    "snapshot": "opd_exports 2026-10-06; opd_docs_SG 2026-10-10",
    "targets": 1018,
    "tiers": {
     "date_window": 0,
-    "exact_date": 1013,
+    "exact_date": 1012,
     "identity_wording_only": 0
    },
-   "verified": 1013,
+   "verified": 1012,
    "verified_by_action": {
-    "fetch": 1013
+    "fetch": 1012
    },
    "verified_by_date_match": {
-    "eq": 1013
+    "eq": 1012
    },
    "verified_by_identity": {
-    "number": 1012,
-    "title": 1
+    "number": 1012
    },
    "with_candidate": 1014
   },
@@ -1762,6 +1822,7 @@
    "failed_by_reason": {
     "no_candidate": 2
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1800,6 +1861,9 @@
    "failed": 1,
    "failed_by_reason": {
     "identity_fail": 1
+   },
+   "filtered": {
+    "wrong_affair:failed": 1
    },
    "hosts": [
     "ratsinfo.so.ch"
@@ -1848,6 +1912,7 @@
    "failed_by_reason": {
     "identity_fail": 1
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1898,6 +1963,7 @@
     "identity_fail": 7,
     "no_candidate": 2
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1943,6 +2009,7 @@
    "failed_by_reason": {
     "no_candidate": 8
    },
+   "filtered": {},
    "hosts": [
     "files.openparldata.ch"
    ],
@@ -1997,6 +2064,7 @@
     "no_candidate": 13,
     "oral_pointer": 49
    },
+   "filtered": {},
    "hosts": [
     "parlement.vs.ch"
    ],
@@ -2035,55 +2103,63 @@
    "body": "ZH",
    "by_cause": {
     "absent": {
-     "failed": 730,
-     "review": 86,
-     "verified": 2192
+     "failed": 760,
+     "review": 67,
+     "verified": 2181
     },
     "image_only": {
-     "failed": 10,
-     "review": 11,
+     "failed": 15,
+     "review": 6,
      "verified": 1
     }
    },
    "counted_by_action": {
     "extract_tag": 1,
-    "fetch": 2031,
-    "tag_answer": 161
+    "fetch": 2029,
+    "tag_answer": 152
    },
-   "failed": 740,
+   "failed": 775,
    "failed_by_reason": {
+    "extension_request": 12,
+    "member_text_only": 23,
     "no_candidate": 740
+   },
+   "filtered": {
+    "extension_request:failed": 12,
+    "member_text_only:failed": 23,
+    "wrong_affair:review": 3
    },
    "hosts": [
     "parlzhcdws.cmicloud.ch"
    ],
    "label": "Zürich (canton)",
-   "review": 97,
+   "review": 73,
    "review_by_reason": {
     "date_mismatch": 49,
-    "heading_fail": 48
+    "heading_fail": 21,
+    "wrong_affair": 3
    },
    "route": "Kantonsrat CDWS search by KR-Nr. -> step 'Antwort Regierungsrat' document -> Files/<id>/1/pdf",
    "snapshot": "opd_exports 2026-10-06; opd_docs_ZH 2026-10-10",
    "targets": 3030,
    "tiers": {
     "date_window": 0,
-    "exact_date": 2193,
+    "exact_date": 2182,
     "identity_wording_only": 0
    },
-   "verified": 2193,
+   "verified": 2182,
    "verified_by_action": {
     "extract_tag": 1,
-    "fetch": 2031,
-    "tag_answer": 161
+    "fetch": 2029,
+    "tag_answer": 152
    },
    "verified_by_date_match": {
     "anywhere": 3,
-    "eq": 2190
+    "eq": 2179
    },
    "verified_by_identity": {
-    "number": 2184,
-    "title": 9
+    "number": 2176,
+    "title": 6
    },
    "with_candidate": 2290
   }
@@ -2092,10 +2168,10 @@
   "baseline_repairable_deterministic": 3107,
   "gap": 16749,
   "identity_wording_only_listed_separately": 282,
-  "needs_adapters_after": 4752,
+  "needs_adapters_after": 4818,
   "needs_adapters_before": 10800,
   "note": "adapter rows count only when verified with a date check: tier exact_date (a date in the document equals an OPD event date) or date_window (within the parliament's documented window); rows of tier identity_wording_only (Jura: OPD's answer events carry no date, the document is only dated within a year after submission) and review rows are listed but not counted. image_only affairs were OCR candidates, not counted in the baseline of 3,107; they count once a text copy verifies.",
-  "repairable_deterministic_with_adapters": 10016
+  "repairable_deterministic_with_adapters": 9940
  },
  "tiers": {
   "date_window": {
@@ -2106,11 +2182,11 @@
    "n": 396
   },
   "exact_date": {
-   "absent": 5656,
+   "absent": 5590,
    "counted": true,
-   "image_only": 857,
+   "image_only": 847,
    "label": "verified (exact date)",
-   "n": 6513
+   "n": 6437
   },
   "identity_wording_only": {
    "absent": 282,
@@ -2121,15 +2197,29 @@
   }
  },
  "totals": {
-  "checks_passed_all_tiers": 7191,
+  "checks_passed_all_tiers": 7115,
   "failed_by_reason": {
    "empty_text": 53,
+   "extension_request": 47,
    "heading_fail": 28,
    "http_400": 1,
    "http_404": 67,
    "identity_fail": 73,
+   "member_text_only": 44,
+   "minutes_reference": 4,
    "no_candidate": 3963,
-   "oral_pointer": 49
+   "oral_pointer": 49,
+   "parliament_report": 9
+  },
+  "filtered": {
+   "extension_request:failed": 47,
+   "member_text_only:failed": 44,
+   "minutes_reference:failed": 4,
+   "parliament_report:failed": 9,
+   "resolution_reply:failed": 2,
+   "resolution_reply:review": 23,
+   "wrong_affair:failed": 1,
+   "wrong_affair:review": 4
   },
   "identity_wording_only": 282,
   "identity_wording_only_absent": 282,
@@ -2137,24 +2227,24 @@
    "after_submission": 282
   },
   "identity_wording_only_image_only": 0,
-  "review": 725,
-  "review_absent": 501,
-  "review_image_only": 224,
+  "review": 697,
+  "review_absent": 472,
+  "review_image_only": 225,
   "targets": 12150,
-  "verified": 6909,
-  "verified_absent": 6048,
+  "verified": 6833,
+  "verified_absent": 5982,
   "verified_by_action": {
-   "extract_tag": 907,
-   "fetch": 3623,
-   "tag_answer": 2379
+   "extract_tag": 897,
+   "fetch": 3620,
+   "tag_answer": 2316
   },
   "verified_by_date_match": {
-   "anywhere": 1307,
-   "eq": 4992,
+   "anywhere": 1267,
+   "eq": 4956,
    "eq_gov": 214,
    "latest_in_window": 95,
    "window": 301
   },
-  "verified_image_only": 861
+  "verified_image_only": 851
  }
 }

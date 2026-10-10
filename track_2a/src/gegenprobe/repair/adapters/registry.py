@@ -55,6 +55,7 @@ INOPD = {
     "NE": dict(window=(-1, 1)),
     "4566": dict(window=(-3, 3), all_docs=True),
     "1059": dict(window=(-70, 0)),
+    "351": dict(number_shape=re.compile(r"\b(\d{4}\.(?:SR|GR)\.\d{6})\b")),  # Bern city: "2014.SR.000106" heads the Vortrag
 }
 
 
