@@ -19,3 +19,10 @@ fingerprint `vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840`. The runner was
 responses replay, and only responses that pass the check are stored. Every P6 cache entry carries the model field and
 fingerprint above (`results/p6/p6__publicai_swiss-ai_apertus-v1.5-8b.json` → `served_fingerprints`, re-derived from the
 cache in `results/p6/p6_served.json`).
+
+## N3 (10/11 Oct 2026, annotation; reported, no change to labels)
+Annotation ran in four blind sessions (A1 Opus ×2, A2 Sonnet ×2, 34 documents each) and one A3 (Opus) tie-break on the single
+disputed document (329356, decided 'no answer'). One A2 session reported two slips: it saw the file names and first five lines
+(no labels) of an A1 helper script in a scratch directory shared between sessions, and a directory listing of the A2 folder
+showed summary fields of the other A2 session's files (same annotator role, not A1). It labelled its own 34 documents from its
+own notes. A1 and A2 disagreed on 1 of 68 documents.
