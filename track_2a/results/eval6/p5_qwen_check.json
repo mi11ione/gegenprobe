@@ -1,0 +1,299 @@
+{
+ "model": "aisingapore/Qwen-SEA-LION-v4-32B-IT",
+ "agreement": {
+  "n": 40,
+  "valid": 7,
+  "n_questions": 30,
+  "answer_style": 29,
+  "recommendation": 28,
+  "submitter": 33,
+  "answers_iou05": {
+   "k": 96,
+   "n": 176
+  }
+ },
+ "errors": {
+  "27657": [
+   "answer 2: end quote not on page 2 after the start: 'il relativo credito di realizzazione, la cui richi'",
+   "answer_style per_question but an answer span is null (use mixed)",
+   "reasoning: end quote not on page 2 after the start: 'il relativo credito di realizzazione, la cui richi'"
+  ],
+  "28156": [
+   "answer 1: end quote not on page 1 after the start: 'avrebbero potute esservi delle conseguenze a livel'",
+   "answer 2: end quote not on page 2 after the start: 'non sarebbe stato favorevole ad un rapporto che av'",
+   "answer 3: end quote not on page 3 after the start: 'diventa problematico.'",
+   "answer_style per_question but an answer span is null (use mixed)",
+   "reasoning: end quote not on page 3 after the start: 'diventa problematico.'"
+  ],
+  "29393": [
+   "question 1: end quote not on page 2 after the start: \"inciter à l'ouverture de l'école Rudra.\"",
+   "question 5: end quote not on page 2 after the start: 'de la subvention allouée à BBL est utilisée de man'",
+   "question 10: start quote not on page 2: '10. Quels sont les plans à long terme de la Ville '",
+   "answer 3: end quote not on page 2 after the start: 'à hauteur de CHF 200000.-.'",
+   "answer 7: end quote not on page 3 after the start: 'findancement propre.'",
+   "answer 8: end quote not on page 3 after the start: 'ces objectifs sont aujourd’hui largement atteints '",
+   "answer_style per_question but an answer span is null (use mixed)",
+   "submitter: name's surname not inside the quote",
+   "reasoning: start quote not on page 1: 'La Municipalité répond comme suit aux questions po'"
+  ],
+  "29520": [
+   "submitter: quote not on page: 'Initiante : Françoise Piron'",
+   "recommendation_quote: quote > 200 chars"
+  ],
+  "40420": [
+   "question 1: end quote not on page 1 after the start: 'und der Maturitätsquote in den letzten 10 Jahren e'",
+   "answer 1: start quote not on page 4: 'Antwort des Regierungsrats:\\n\\nIn der Bildungsstatis'",
+   "answer 2: end quote not on page 5 after the start: '34.0).'",
+   "answer 3: end quote not on page 6 after the start: 'Musik, Theater und andere Künste 86%, Angewandte L'",
+   "answer 4: end quote not on page 7 after the start: '29’227)'",
+   "answer 7: end quote not on page 8 after the start: 'nach individuellem Bedarf gewährleistet“ (Regierun'",
+   "answer_style per_question but an answer span is null (use mixed)",
+   "reasoning: start quote not on page 2: '2. Einleitende Bemerkungen\\nIn den vergangenen Jahr'"
+  ],
+  "75591": [
+   "answer 1: end quote not on page 2 after the start: 'diesen Bereich wertvolle Arbeit. Diese Stellen ver'",
+   "answer_style per_question but an answer span is null (use mixed)",
+   "co_signatory 0: quote > 120 chars",
+   "co_signatory 1: quote > 120 chars",
+   "co_signatory 2: quote > 120 chars",
+   "co_signatory 3: quote > 120 chars",
+   "co_signatory 4: quote > 120 chars",
+   "co_signatory 5: quote > 120 chars",
+   "co_signatory 6: quote > 120 chars",
+   "co_signatory 7: quote > 120 chars",
+   "co_signatory 8: quote > 120 chars",
+   "co_signatory 9: quote > 120 chars",
+   "co_signatory 10: quote > 120 chars",
+   "co_signatory 11: quote > 120 chars",
+   "co_signatory 12: quote > 120 chars",
+   "co_signatory 13: quote > 120 chars",
+   "co_signatory 14: quote > 120 chars",
+   "co_signatory 15: quote > 120 chars"
+  ],
+  "79626": [
+   "question 1: start quote not on page 1: '1. Ist es richtig, dass im Auftrag des Bundesamtes'",
+   "question 2: start quote not on page 1: '2. Im statistisch definierten Metropolitanraum Zür'",
+   "question 3: start quote not on page 1: \"3. Welchem Raum werden die restlichen rund 14'000 \"",
+   "question 4: start quote not on page 1: '4. Welche Vorteile erwartet der Regierungsrat für '",
+   "question 5: start quote not on page 1: '5. Wie gedenkt der Regierungsrat die Schaffhauser '",
+   "answer 5: start quote not on page 3: '5. Wie gedenkt der Regierungsrat die Schaffhauser '",
+   "answer_style per_question but an answer span is null (use mixed)"
+  ],
+  "79864": [
+   "question 6: end quote not on page 2 after the start: 'in die Kompetenz des Regierungsrats (Art. 10 lit. '"
+  ],
+  "79870": [
+   "question 7: start quote not on page 3: '7. Ist die Regierung der Meinung, dass der Verglei'",
+   "question 8: start quote not on page 3: '8. Gibt es Überlegungen, die Strategie der Wirtsch'",
+   "answer 5: start quote not on page 5: 'Warum wird die starke Rolle des Finanzdepartements'",
+   "answer_style per_question but an answer span is null (use mixed)"
+  ],
+  "87651": [
+   "question 2: end quote not on page 1 after the start: 'de Miex et Tanay ?'",
+   "question 4: start quote not on page 1: '4. Existe-t-il une coordination entre les cantons '"
+  ],
+  "93906": [
+   "question 1: start quote not on page 2: '1. Wie wird die Arbeitsbelastung heute von Schulle'",
+   "answer 4: end quote not on page 3 after the start: 'Am Projekt beteiligt sind sämtliche Schulleitungen'",
+   "answer_style per_question but an answer span is null (use mixed)",
+   "reasoning: end quote not on page 3 after the start: 'Am Projekt beteiligt sind sämtliche Schulleitungen'"
+  ],
+  "103172": [
+   "answer 5: start quote not on page 3: 'In den Nebenverkehrszeiten sind auf der Linie 6 du'",
+   "answer_style per_question but an answer span is null (use mixed)"
+  ],
+  "105365": [
+   "question 2: start quote not on page 1: 'Wie lange wird an dem für Gehbehinderte und Senior'",
+   "submitter: quote not on page: 'Interpellation Regina Rahmen betreffend verschoben'",
+   "reasoning: end quote not on page 2 after the start: 'Die Arbeiten im Projektperimeter Aeussere Baselstr'"
+  ],
+  "105419": [
+   "answer 3: end quote not on page 1 after the start: 'eingeräumt wird.'",
+   "answer_style per_question but an answer span is null (use mixed)"
+  ],
+  "106129": [
+   "answer 4: start quote not on page 3: 'Sportartikel fallen nicht unter die Kategorie \"Güt'",
+   "answer_style per_question but an answer span is null (use mixed)",
+   "reasoning: start quote not on page 1: 'Vorbemerkungen:\\nAuch die Baubehörde kennt Punkt 3 '"
+  ],
+  "106226": [
+   "question 4: start quote not on page 1: 'o Die technische Ausrüstung installiert und betrei'",
+   "question 5: start quote not on page 1: 'o Gegenüber den EKZ als Stromproduzent auftritt'",
+   "answer 1: end quote not on page 5 after the start: 'Solarstrom seinen Beitrag zum Ziel von 35 TWh Stro'",
+   "answer 2: start quote not on page 5: 'Die Energiestadt Wädenswil engagiert sich seit 202'",
+   "answer_style per_question but an answer span is null (use mixed)"
+  ],
+  "106237": [
+   "question 4: start quote not on page 1: '4.\\n\\nMit der Entlassung des Gebäudes Gerbestrasse 3'",
+   "answer 4: end quote not on page 3 after the start: 'schützenden Bauten.'",
+   "answer 5: end quote not on page 3 after the start: 'könne.'",
+   "answer 8: end quote not on page 3 after the start: 'vorgesehen.'",
+   "answer_style per_question but an answer span is null (use mixed)",
+   "reasoning: start quote not on page 1: 'Vorbemerkungen:\\n\\nDamit keine Doppelspurigkeiten en'"
+  ],
+  "106273": [
+   "question 5: start quote not on page 1: '5. Das Alterszentrum Frohmatt und die Oberstufensc'",
+   "question 6: start quote not on page 2: '6. Im gleichen Kontext stellen sich weitere Fragen'",
+   "answer 4: start quote not on page 4: 'Antwort: Siehe Antwort 3.'",
+   "answer_style per_question but an answer span is null (use mixed)"
+  ],
+  "120219": [
+   "answer 1: end quote not on page 1 after the start: 'cantonale pour toutes demandes de manifestations s'",
+   "answer 3: end quote not on page 3 after the start: '20 sociétés qui reçoivent chacune CHF 6500.-.'",
+   "answer 4: end quote not on page 3 after the start: 'Des exercices sont régulièrement organisés.'",
+   "answer 5: end quote not on page 3 after the start: 'liens avec les besoins de sa flotte.'",
+   "answer_style per_question but an answer span is null (use mixed)",
+   "reasoning: end quote not on page 3 after the start: 'liens avec les besoins de sa flotte.'"
+  ],
+  "120342": [
+   "answer 1: end quote not on page 3 after the start: 'Par 8 avis favorables contre 1 opposition et sans '",
+   "answer_style per_question but an answer span is null (use mixed)",
+   "reasoning: end quote not on page 3 after the start: 'Par 8 avis favorables contre 1 opposition et sans '"
+  ],
+  "130950": [
+   "question 3: end quote not on page 1 after the start: 'vorfina nzieren?'"
+  ],
+  "131418": [
+   "no JSON"
+  ],
+  "169918": [
+   "answer 4: start quote not on page 3: '4. Hat der Regierungsrat intern eine nachvollziehb'",
+   "answer 5: end quote not on page 4 after the start: 'die Prioritätensetzung zum Ausdruck gebracht, die '",
+   "answer_style per_question but an answer span is null (use mixed)",
+   "reasoning: end quote not on page 4 after the start: 'die Prioritätensetzung zum Ausdruck gebracht, die '"
+  ],
+  "247748": [
+   "no JSON"
+  ],
+  "251760": [
+   "no JSON"
+  ],
+  "252838": [
+   "reasoning: end quote not on page 2 after the start: 'wie sie im zweiten Teil des medizinisch-pflegerisc'"
+  ],
+  "279839": [
+   "question 1: end quote not on page 1 after the start: 'einschätzen?'",
+   "question 3: start quote not on page 2: '3. Wie werden Fachstellen aus den Bereichen Gesund'"
+  ],
+  "280476": [
+   "no JSON"
+  ],
+  "288671": [
+   "no JSON"
+  ],
+  "295461": [
+   "question 1: start quote not on page 2: '1. Estimez-vous que le canton du Valais est en mes'",
+   "question 2: start quote not on page 2: \"2. Envisagez-vous d'autres mesures susceptibles de\"",
+   "question 3: start quote not on page 2: '3. La surveillance de la substance la plus dangere'",
+   "answer 3: end quote not on page 2 after the start: 'Regelwerken erfolgen.'",
+   "answer_style per_question but an answer span is null (use mixed)",
+   "co_signatory 2: name's surname not inside the quote"
+  ],
+  "301315": [
+   "answer 4: end quote not on page 4 after the start: 'Für das von Coop geplante Grossprojekt sind keine '",
+   "answer_style per_question but an answer span is null (use mixed)",
+   "submitter: quote not on page: 'Autor/in: Dominik Straumann'"
+  ],
+  "328238": [
+   "co_signatory 0: quote not on page: 'Cosignataires\\nArlettaz Pauline'",
+   "recommendation_quote: quote > 200 chars"
+  ],
+  "328273": [
+   "no JSON"
+  ]
+ },
+ "h1_sensitivity": {
+  "R": {
+   "qwen_as_gold": {
+    "recall": {
+     "k": 65,
+     "n": 116,
+     "rate": 0.5603448275862069,
+     "ci95": [
+      0.4695232988593237,
+      0.6472975713560271
+     ]
+    },
+    "precision": {
+     "k": 65,
+     "n": 105,
+     "rate": 0.6190476190476191,
+     "ci95": [
+      0.5235152399012015,
+      0.706176348609074
+     ]
+    },
+    "false_span_on_gold_null": 24,
+    "gold_null_answers": 39
+   },
+   "consensus": {
+    "recall": {
+     "k": 65,
+     "n": 96,
+     "rate": 0.6770833333333334,
+     "ci95": [
+      0.5782964352989827,
+      0.7622429791334785
+     ]
+    },
+    "precision": {
+     "k": 65,
+     "n": 143,
+     "rate": 0.45454545454545453,
+     "ci95": [
+      0.37518809216689986,
+      0.536281137261273
+     ]
+    },
+    "false_span_on_gold_null": 3,
+    "gold_null_answers": 11
+   }
+  },
+  "RA": {
+   "qwen_as_gold": {
+    "recall": {
+     "k": 65,
+     "n": 116,
+     "rate": 0.5603448275862069,
+     "ci95": [
+      0.4695232988593237,
+      0.6472975713560271
+     ]
+    },
+    "precision": {
+     "k": 65,
+     "n": 105,
+     "rate": 0.6190476190476191,
+     "ci95": [
+      0.5235152399012015,
+      0.706176348609074
+     ]
+    },
+    "false_span_on_gold_null": 24,
+    "gold_null_answers": 39
+   },
+   "consensus": {
+    "recall": {
+     "k": 65,
+     "n": 96,
+     "rate": 0.6770833333333334,
+     "ci95": [
+      0.5782964352989827,
+      0.7622429791334785
+     ]
+    },
+    "precision": {
+     "k": 65,
+     "n": 143,
+     "rate": 0.45454545454545453,
+     "ci95": [
+      0.37518809216689986,
+      0.536281137261273
+     ]
+    },
+    "false_span_on_gold_null": 3,
+    "gold_null_answers": 11
+   }
+  }
+ }
+}
