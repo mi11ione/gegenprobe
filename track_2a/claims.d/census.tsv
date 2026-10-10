@@ -48,7 +48,7 @@ findings.be_begin_off	800	results/census/findings.json	findings.7.count	int	make
 findings.be_begin_import_date	557	results/census/findings.json	findings.7.on_2024_10_28	int	make census	-
 findings.type_unharmonised_share	17.1%	results/census/findings.json	findings.11.share	pct1	make census	-
 findings.state_harmonised	278	results/census/findings.json	findings.12.count	int	make census	-
-findings.persons_contact_fields	6	results/census/findings.json	findings.13.count	int	make census	technical_report.md
+findings.persons_contact_fields	6	results/census/findings.json	findings.13.count	int	make census	-
 question.same_day_bodies	7	results/census/question.json	n_same_day_bodies	int	make census	technical_report.md,README.md
 census.vs_oral_canonical	1,008	results/census/vs_reconcile.json	canonical.value	int	python -m gegenprobe.census.reconcile_vs	docs/census.md,technical_report.md
 census.vs_oral_proxy_only	8	results/census/vs_reconcile.json	only_census	int	python -m gegenprobe.census.reconcile_vs	-

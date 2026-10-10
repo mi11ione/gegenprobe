@@ -8,9 +8,14 @@ steps that need the network or a model endpoint and cannot reach them; the repla
   3 repair    BE canton-uid join on the vendored slice + triple check on a few PDFs fetched by sha256
   4 convert   sample documents through the cascade (metadata -> rules -> Apertus pointer); span / typed-null /
               footer-distractor / self-deletion checks; live scores compared with the committed cache within tolerance
-  5 eval      re-score the cached four-arm results on the frozen gold set; print the scoreboard
-  5b rederive re-derive the rules arm on the held-out set from the source PDFs (sha256-verified); WARN, never FAIL
-  6 claims    every number in README / report recomputed from results files
+  5 eval      re-score the cached P1 arm results on the frozen gold set; print the scoreboard
+  6 replay    all four pre-registrations re-scored from the committed label files (P1-P4), the four hypotheses scripts
+              re-run and compared with their committed outputs, the four LOCK files verified (FAIL on any difference)
+  7 rederive  the P1 rules arm re-derived from the source PDFs (sha256-verified); WARN, never FAIL
+  8 rederive_apertus  P1 + P2 pointer and cascade decisions recomputed from the committed model cache, cache-only
+              (no request leaves the machine); FAIL only if a cache hit gives a different decision
+  9 claims    every number in README / report recomputed from results files (token-bounded; short values need context)
+Re-derivation budgets (seconds): GP_REDERIVE_BUDGET (rules, default 240) + GP_REDERIVE_APERTUS_BUDGET (default 120).
 """
 from __future__ import annotations
 
@@ -26,13 +31,17 @@ from pathlib import Path
 OUT = Path(os.environ.get("GP_OUT", "/app/out" if Path("/app/out").exists() else "out"))
 
 STEPS = [
-    ("census", "gegenprobe.census.replay"),
-    ("repair", "gegenprobe.repair.demo"),
-    ("convert", "gegenprobe.convert.demo"),
-    ("eval", "eval.replay"),
-    ("rederive", "eval.rederive"),  # rules arm re-derived from the source PDFs (non-fatal: PASS / WARN / SKIP)
-    ("claims", "gegenprobe.claims_step"),
+    ("census", "gegenprobe.census.replay", "main"),
+    ("repair", "gegenprobe.repair.demo", "main"),
+    ("convert", "gegenprobe.convert.demo", "main"),
+    ("eval", "eval.replay", "main"),
+    ("replay", "eval.replay_all", "main"),  # P1-P4 + hypotheses + locks, from committed files (FAIL on any difference)
+    ("rederive", "eval.rederive", "main"),  # rules arm re-derived from the source PDFs (non-fatal: PASS / WARN / SKIP)
+    ("rederive_apertus", "eval.replay_all", "main_rederive"),  # pointer/cascade from the model cache (cache-only)
+    ("claims", "gegenprobe.claims_step", "main"),
 ]
+os.environ.setdefault("GP_REDERIVE_BUDGET", "240")
+os.environ.setdefault("GP_REDERIVE_APERTUS_BUDGET", "120")
 
 
 def online(host: str = "files.openparldata.ch", port: int = 443, timeout: float = 5) -> bool:
@@ -66,16 +75,16 @@ def main() -> int:
     report["steps"]["model"] = r
     print(f"[model]   {r['status']}  {r.get('backend') or ''} {r.get('reason', '')}", flush=True)
     ctx = dict(online=report["online"], backend=r.get("backend") if r["status"] == "PASS" else None, out=OUT)
-    for name, mod in STEPS:
+    for name, mod, fn in STEPS:
         s = time.time()
         try:
-            res = importlib.import_module(mod).main(ctx)
+            res = getattr(importlib.import_module(mod), fn)(ctx)
         except Exception as e:
             res = dict(status="FAIL", error=f"{type(e).__name__}: {e}", trace=traceback.format_exc()[-2000:])
         res["secs"] = round(time.time() - s, 1)
         report["steps"][name] = res
         line = res.get("summary") or res.get("error") or res.get("reason") or ""
-        print(f"[{name:<7}] {res['status']}  ({res['secs']} s)  {line}", flush=True)
+        print(f"[{name:<8}] {res['status']}  ({res['secs']} s)  {line}", flush=True)
     # evidence viewer: rendered from the committed site/data.json; never fails the run
     try:
         from .viewer.__main__ import SITE, render

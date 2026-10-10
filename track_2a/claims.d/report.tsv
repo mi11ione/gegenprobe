@@ -20,7 +20,7 @@ report.gguf_selfcheck_mad	3.16	results/eval/gguf_impl60.json	preset_selfcheck.me
 report.heldout_n	154	results/report/report_numbers.json	heldout.n	int	python -m report.stats / CI run (see file)	technical_report.md
 report.heldout_value	64	results/report/report_numbers.json	heldout.with_value	int	python -m report.stats / CI run (see file)	technical_report.md
 report.heldout_null	90	results/report/report_numbers.json	heldout.gold_null	int	python -m report.stats / CI run (see file)	technical_report.md
-report.heldout_rec_values	10	results/report/report_numbers.json	heldout.rec_values	int	python -m report.stats / CI run (see file)	technical_report.md
+report.heldout_rec_values	10	results/report/report_numbers.json	heldout.rec_values	int	python -m report.stats / CI run (see file)	-
 report.kappa_present	0.95	results/eval/gold_agreement.json	agreement.answer_present.kappa	f2	python -m eval.gold.annotate merge	technical_report.md
 report.kappa_date	0.94	results/eval/gold_agreement.json	agreement.answer_date.kappa	f2	python -m eval.gold.annotate merge	technical_report.md
 report.kappa_rec	0.42	results/eval/gold_agreement.json	agreement.recommendation.kappa	f2	python -m eval.gold.annotate merge	technical_report.md
