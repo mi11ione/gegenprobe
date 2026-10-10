@@ -1,0 +1,161 @@
+{
+ "build": "publicai_swiss-ai_apertus-v1.5-8b",
+ "n": 62,
+ "n_bodies": 15,
+ "arms": {
+  "rules": {
+   "exact": 35,
+   "n": 62,
+   "exact_ci_pct": [
+    44.1,
+    68.1
+   ],
+   "correct": 2,
+   "correct_null": 33,
+   "false_null": 25,
+   "misattributed": 2,
+   "fabricated": 0,
+   "invented_on_null": 0,
+   "n_gold_null": 33,
+   "n_gold_value": 29,
+   "value_recall": 2
+  },
+  "pointer": {
+   "exact": 53,
+   "n": 62,
+   "exact_ci_pct": [
+    74.7,
+    92.2
+   ],
+   "correct": 24,
+   "correct_null": 29,
+   "false_null": 1,
+   "misattributed": 8,
+   "fabricated": 0,
+   "invented_on_null": 4,
+   "n_gold_null": 33,
+   "n_gold_value": 29,
+   "value_recall": 24
+  },
+  "cascade": {
+   "exact": 51,
+   "n": 62,
+   "exact_ci_pct": [
+    71.0,
+    89.8
+   ],
+   "correct": 22,
+   "correct_null": 29,
+   "false_null": 1,
+   "misattributed": 10,
+   "fabricated": 0,
+   "invented_on_null": 4,
+   "n_gold_null": 33,
+   "n_gold_value": 29,
+   "value_recall": 22
+  },
+  "naive_plain": {
+   "exact": 45,
+   "n": 62,
+   "exact_ci_pct": [
+    60.4,
+    82.1
+   ],
+   "correct": 21,
+   "correct_null": 24,
+   "false_null": 5,
+   "misattributed": 8,
+   "fabricated": 4,
+   "invented_on_null": 9,
+   "n_gold_null": 33,
+   "n_gold_value": 29,
+   "value_recall": 21
+  },
+  "naive_null": {
+   "exact": 52,
+   "n": 62,
+   "exact_ci_pct": [
+    72.8,
+    91.0
+   ],
+   "correct": 22,
+   "correct_null": 30,
+   "false_null": 2,
+   "misattributed": 7,
+   "fabricated": 1,
+   "invented_on_null": 3,
+   "n_gold_null": 33,
+   "n_gold_value": 29,
+   "value_recall": 22
+  }
+ },
+ "always_null": [
+  33,
+  62
+ ],
+ "n_gold_value": 29,
+ "n_gold_null": 33,
+ "H2": {
+  "pointer_only": 22,
+  "rules_only": 0,
+  "p": 4.76837158203125e-07,
+  "p_str": "4.8 × 10⁻⁷",
+  "holds": true
+ },
+ "H2_without_bellinzona": {
+  "pointer_only": 17,
+  "rules_only": 0,
+  "p": 1.52587890625e-05,
+  "p_str": "1.5 × 10⁻⁵",
+  "holds": true
+ },
+ "H3": {
+  "k": 4,
+  "n": 33,
+  "upper_pct": 27.3,
+  "holds": false
+ },
+ "H3_theta0": {
+  "k": 3,
+  "n": 33,
+  "holds": false
+ },
+ "H1": {
+  "p1": [
+   47,
+   64
+  ],
+  "p2": [
+   2,
+   29
+  ],
+  "diff_ci_pct": [
+   47.3,
+   77.1
+  ],
+  "confirmed_drop": true
+ },
+ "H4": {
+  "auroc": 0.9833147942157954,
+  "auroc_str": "0.983",
+  "holds": true
+ },
+ "gold": {
+  "n": 62,
+  "date_agree": 62,
+  "kappa_date": 1.0,
+  "decided_by_a3": 7,
+  "oracle_match": 6,
+  "oracle_checked": 6
+ },
+ "bodies_rules_developed_on": 15,
+ "bodies_in_scope": 89,
+ "bodies_without_rules": 74,
+ "p2_bodies_disjoint": true,
+ "p1_primary": {
+  "diff_pts": "+3.6",
+  "ci_pts": "−1.4 to 9.3",
+  "mde_pts": "6.2"
+ },
+ "antrag_concepts": 7
+}

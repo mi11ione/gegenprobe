@@ -1,7 +1,7 @@
 id	shown	file	path	fmt	command	where
 repair.be_relink	2,459	results/repair/summary.json	by_action.relink	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md,technical_report.md
 repair.be_fetch	49	results/repair/summary.json	by_action.fetch	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md,technical_report.md
-repair.agenda_join	592	results/repair/summary.json	by_action.agenda_join	int	python -m gegenprobe.repair.run	docs/repair.md,technical_report.md
+repair.agenda_join	592	results/repair/summary.json	by_action.agenda_join	int	python -m gegenprobe.repair.run	docs/repair.md
 repair.vs_retype_oral	1,008	results/repair/summary.json	by_action.retype_oral	int	python -m gegenprobe.repair.run	docs/repair.md,README.md,technical_report.md
 repair.ocr_affairs	1,351	results/repair/summary.json	by_action.ocr	int	python -m gegenprobe.repair.run	docs/repair.md,docs/nightly.md
 repair.che_placeholder_docs	29,946	results/repair/summary.json	by_action.placeholder_replace	int	python -m gegenprobe.repair.run	docs/repair.md,docs/nightly.md,technical_report.md
@@ -39,7 +39,7 @@ repair.ocr_ok_ci	[79.6, 100]	results/repair/ocr_probe.json	ci_image_only_ok	ci	p
 repair.ocr_accents_multi	467	results/repair/ocr_probe.json	image_multi.accented_chars	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,technical_report.md
 repair.ocr_accents_eng	133	results/repair/ocr_probe.json	image_eng.accented_chars	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,technical_report.md
 repair.ocr_s_per_page	6.9	results/repair/ocr_probe.json	image_multi.secs_per_page	f1	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,docs/nightly.md
-repair.nightly_offline_s	260.5	results/monitor/run.json	timings.total_s	f1	python -m gegenprobe.monitor.nightly offline	docs/nightly.md,technical_report.md
+repair.nightly_offline_s	260.5	results/monitor/run.json	timings.total_s	f1	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
 repair.nightly_extract_s	228.0	results/monitor/run.json	timings.extract_s	f1	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
 repair.che_backlog_hours	17.5	results/repair/che_backlog_run.json	est_hours_full_backlog	f1	python -m gegenprobe.repair.che stats	docs/repair.md,docs/nightly.md,technical_report.md
 repair.vs_gap	1,409	results/repair/vs_summary.json	counts.gap	int	python -m gegenprobe.repair.vs list	docs/repair.md

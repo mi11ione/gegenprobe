@@ -55,7 +55,7 @@ census.vs_oral_proxy_only	8	results/census/vs_reconcile.json	only_census	int	pyt
 census.vs_proxy_precision	99.2%	results/census/vs_reconcile.json	doc_level.proxy_precision	pct1	python -m gegenprobe.census.reconcile_vs	docs/census.md
 census.vs_proxy_recall	100.0%	results/census/vs_reconcile.json	doc_level.proxy_recall	pct1	python -m gegenprobe.census.reconcile_vs	docs/census.md
 census.reextract_image_only	15	results/repair/ocr_probe.json	categories.image_only	int	python -m gegenprobe.repair.ocr probe 3	docs/census.md
-convert.f2_final_g64_plain_auroc	1.00	results/convert/spike_replay.json	f2.final|chat_plain.auroc	f2	python -m eval.replay_spikes	technical_report.md
+convert.f2_final_g64_plain_auroc	1.00	results/convert/spike_replay.json	f2.final|chat_plain.auroc	f2	python -m eval.replay_spikes	-
 convert.f2_final_g64_plain_loo	20/20	results/convert/spike_replay.json	f2.final|chat_plain.loo_correct/f2.final|chat_plain.n	frac	python -m eval.replay_spikes	-
 convert.f2_final_g64_plain_theta	-32.3	results/convert/spike_replay.json	f2.final|chat_plain.theta	f1	python -m eval.replay_spikes	-
 convert.f2_final_g64_null_theta	-9.4	results/convert/spike_replay.json	f2.final|chat_null.theta	f1	python -m eval.replay_spikes	-
@@ -81,7 +81,7 @@ docs.be_linked_after_share	96.1%	results/report/figure_numbers.json	be_linked_af
 docs.repairable_deterministic	3,107	results/report/figure_numbers.json	repairable_deterministic	int	python -m report.figures	README.md
 docs.matrix_fields	17	results/report/figure_numbers.json	matrix_fields	int	python -m report.figures	README.md,technical_report.md
 docs.theta_publicai	10.40	data/convert/theta/publicai_swiss-ai_apertus-v1.5-8b.json	answer_date.theta	f2	python -m eval.arms fit --backend gateway:swiss-ai/apertus-v1.5-8b:2a-theta:1.0	README.md,technical_report.md
-docs.sample_null_margin	88.25	docs/samples/ti_question_typed_null.json	apertus_pointer.margin	f2	python -m report.samples	README.md
+docs.sample_null_margin	88.25	docs/samples/ti_question_typed_null.json	apertus_pointer.margin	f2	python -m report.samples	-
 eval.rules.exact	135/154	results/report/eval_numbers.json	arms.rules.exact/arms.rules.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
 eval.rules.exact_ci	[81.5, 92]	results/report/eval_numbers.json	arms.rules.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.rules.correct	47	results/report/eval_numbers.json	arms.rules.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
@@ -98,15 +98,15 @@ eval.pointer.false_null	8	results/report/eval_numbers.json	arms.pointer.false_nu
 eval.pointer.misattributed	16	results/report/eval_numbers.json	arms.pointer.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.pointer.fabricated	0	results/report/eval_numbers.json	arms.pointer.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.pointer.invented_on_null	6	results/report/eval_numbers.json	arms.pointer.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
-eval.cascade.exact	139/154	results/report/eval_numbers.json	arms.cascade.exact/arms.cascade.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
-eval.cascade.exact_ci	[84.6, 94]	results/report/eval_numbers.json	arms.cascade.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
+eval.cascade.exact	139/154	results/report/eval_numbers.json	arms.cascade.exact/arms.cascade.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
+eval.cascade.exact_ci	[84.6, 94]	results/report/eval_numbers.json	arms.cascade.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.cascade.correct	56	results/report/eval_numbers.json	arms.cascade.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.cascade.correct_null	83	results/report/eval_numbers.json	arms.cascade.correct_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.cascade.false_null	4	results/report/eval_numbers.json	arms.cascade.false_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.cascade.misattributed	11	results/report/eval_numbers.json	arms.cascade.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
 eval.cascade.fabricated	0	results/report/eval_numbers.json	arms.cascade.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.cascade.invented_on_null	7	results/report/eval_numbers.json	arms.cascade.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
-eval.naive_plain.exact	98/154	results/report/eval_numbers.json	arms.naive_plain.exact/arms.naive_plain.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
+eval.naive_plain.exact	98/154	results/report/eval_numbers.json	arms.naive_plain.exact/arms.naive_plain.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.naive_plain.exact_ci	[55.8, 70.8]	results/report/eval_numbers.json	arms.naive_plain.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.naive_plain.correct	47	results/report/eval_numbers.json	arms.naive_plain.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.naive_plain.correct_null	51	results/report/eval_numbers.json	arms.naive_plain.correct_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
@@ -114,7 +114,7 @@ eval.naive_plain.false_null	9	results/report/eval_numbers.json	arms.naive_plain.
 eval.naive_plain.misattributed	23	results/report/eval_numbers.json	arms.naive_plain.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.naive_plain.fabricated	24	results/report/eval_numbers.json	arms.naive_plain.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
 eval.naive_plain.invented_on_null	39	results/report/eval_numbers.json	arms.naive_plain.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
-eval.naive_null.exact	134/154	results/report/eval_numbers.json	arms.naive_null.exact/arms.naive_null.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
+eval.naive_null.exact	134/154	results/report/eval_numbers.json	arms.naive_null.exact/arms.naive_null.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.naive_null.exact_ci	[80.8, 91.4]	results/report/eval_numbers.json	arms.naive_null.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.naive_null.correct	47	results/report/eval_numbers.json	arms.naive_null.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.naive_null.correct_null	87	results/report/eval_numbers.json	arms.naive_null.correct_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
@@ -122,21 +122,21 @@ eval.naive_null.false_null	9	results/report/eval_numbers.json	arms.naive_null.fa
 eval.naive_null.misattributed	11	results/report/eval_numbers.json	arms.naive_null.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.naive_null.fabricated	0	results/report/eval_numbers.json	arms.naive_null.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.naive_null.invented_on_null	3	results/report/eval_numbers.json	arms.naive_null.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
-eval.naive_plain.on_null_frac	39/90	results/report/eval_numbers.json	arms.naive_plain.invented_on_null/arms.naive_plain.n_gold_null	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
-eval.naive_null.on_null_frac	3/90	results/report/eval_numbers.json	arms.naive_null.invented_on_null/arms.naive_null.n_gold_null	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.naive_plain.on_null_frac	39/90	results/report/eval_numbers.json	arms.naive_plain.invented_on_null/arms.naive_plain.n_gold_null	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	-
+eval.naive_null.on_null_frac	3/90	results/report/eval_numbers.json	arms.naive_null.invented_on_null/arms.naive_null.n_gold_null	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	-
 eval.n_gold_value	64	results/report/eval_numbers.json	arms.cascade.n_gold_value	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.h1.pooled	7	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H1.pooled.0	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md,docs/form_notes.md
-eval.h1.upper	15.2%	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H1.pooled_ci.1	pct1	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md,docs/form_notes.md
+eval.h1.upper	15.2%	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H1.pooled_ci.1	pct1	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md
 eval.h1.max_cell	4	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H1.max_per_cell	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
 eval.h2.n	110	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.primary_fr_it_ocr.n	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
 eval.h2.cascade_only	5	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.primary_fr_it_ocr.cascade_only	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md
 eval.h2.rules_only	1	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.primary_fr_it_ocr.rules_only	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md
-eval.h2.p	0.22	results/report/eval_numbers.json	h2_p_primary_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md,docs/form_notes.md
+eval.h2.p	0.22	results/report/eval_numbers.json	h2_p_primary_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md
 eval.h2.pooled_cascade_only	9	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.secondary_pooled_all.cascade_only	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
 eval.h2.pooled_rules_only	5	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.secondary_pooled_all.rules_only	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
 eval.h2.p_pooled	0.42	results/report/eval_numbers.json	h2_p_pooled_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
 eval.h2.branch	B	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.branch	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
-eval.h3.auroc	0.969	results/report/eval_numbers.json	auroc_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md,docs/form_notes.md
+eval.h3.auroc	0.969	results/report/eval_numbers.json	auroc_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md
 eval.h4.wrong	3	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H4.wrong	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md
 eval.h4.n	8	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H4.apertus_decided_fr_it_values	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,README.md
 eval.share.apertus_values	16/67	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	model_share.apertus/model_share.values	frac	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
@@ -147,34 +147,70 @@ eval.posthoc.on_null	3	results/report/eval_numbers.json	posthoc.theta0_25_on_nul
 eval.posthoc.ocr_de	17/22	results/report/eval_numbers.json	posthoc.ocr_pointer_de/posthoc.ocr_n	frac	python -m eval.posthoc curve|ocr_it ; python -m report.eval_numbers	technical_report.md
 eval.posthoc.ocr_it	21/22	results/report/eval_numbers.json	posthoc.ocr_pointer_it/posthoc.ocr_n	frac	python -m eval.posthoc curve|ocr_it ; python -m report.eval_numbers	technical_report.md
 eval.rec.on_null	28/144	results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json	recommendation.rec_pointer.invented_on_null/recommendation.rec_pointer.n_gold_null	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
-eval.rec.cascade_on_null	24/144	results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json	recommendation.rec_cascade.invented_on_null/recommendation.rec_cascade.n_gold_null	frac	python -m eval.arms run --split heldout ...	technical_report.md
+eval.rec.cascade_on_null	24/144	results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json	recommendation.rec_cascade.invented_on_null/recommendation.rec_cascade.n_gold_null	frac	python -m eval.arms run --split heldout ...	-
 repair.be_linkable_breakdown_text_present	155	results/repair/be_reconcile.json	parentless_breakdown.answer text already present in OPD (other document or texts)	int	python -m gegenprobe.repair.reconcile_be	README.md,technical_report.md
 repair.be_linkable_breakdown_no_event	24	results/repair/be_reconcile.json	parentless_breakdown.no written-answer event in OPD (not counted as missing)	int	python -m gegenprobe.repair.reconcile_be	README.md,technical_report.md
-repair.be_parentless_not_in_list	179	results/repair/be_reconcile.json	parentless_not_in_list	int	python -m gegenprobe.repair.reconcile_be	README.md,technical_report.md,docs/form_notes.md
+repair.be_parentless_not_in_list	179	results/repair/be_reconcile.json	parentless_not_in_list	int	python -m gegenprobe.repair.reconcile_be	README.md,technical_report.md
 repair.be_linkable	3,394	results/repair/be_reconcile.json	linkable_within_opd	int	python -m gegenprobe.repair.reconcile_be	README.md,docs/form_notes.md
 cost.residue_docs	97	results/report/cost.json	residue_docs	int	python -m report.cost	README.md,technical_report.md
 cost.heldout_docs	154	results/report/cost.json	heldout_docs	int	python -m report.cost	README.md,technical_report.md
-cost.residue_share	63%	results/report/cost.json	residue_share	pct0	python -m report.cost	README.md,technical_report.md
+cost.residue_share	63%	results/report/cost.json	residue_share	pct0	python -m report.cost	-
 cost.calls_per_doc	3.5	results/report/cost.json	calls_per_residue_doc_mean	f1	python -m report.cost	README.md,technical_report.md
 cost.billed_tokens_per_doc	5,905	results/report/cost.json	billed_prompt_tokens_per_residue_doc_mean	int	python -m report.cost	README.md,technical_report.md
-cost.unique_tokens_per_doc	1,593	results/report/cost.json	unique_prefill_tokens_per_residue_doc_mean	int	python -m report.cost	README.md,technical_report.md
-cost.projection_billions	3.4	results/report/cost.json	projection_billed_prompt_tokens_billions	f1	python -m report.cost	README.md,technical_report.md
-cost.projection_usd	336	results/report/cost.json	projection_usd_at_list_price	int	python -m report.cost	README.md,technical_report.md
-cost.projection_usd_x10	3,357	results/report/cost.json	projection_usd_at_list_price_x10	int	python -m report.cost	README.md,technical_report.md
+cost.unique_tokens_per_doc	1,593	results/report/cost.json	unique_prefill_tokens_per_residue_doc_mean	int	python -m report.cost	-
+cost.projection_billions	3.4	results/report/cost.json	projection_billed_prompt_tokens_billions	f1	python -m report.cost	-
+cost.projection_usd	336	results/report/cost.json	projection_usd_at_list_price	int	python -m report.cost	-
+cost.projection_usd_x10	3,357	results/report/cost.json	projection_usd_at_list_price_x10	int	python -m report.cost	-
 cost.rules_cpu_hours	0.5	results/report/cost.json	rules_cpu_hours_corpus	f1	python -m report.cost	README.md,technical_report.md
 cost.corpus_docs	902,754	results/report/cost.json	corpus_documents	int	python -m report.cost	README.md,technical_report.md
 opd.be_begin_flagged	727	results/repair/repair_BE_begin_date.json	summary.flagged	int	python -m gegenprobe.repair.be_begin_date	README.md,technical_report.md,docs/form_notes.md
-opd.be_begin_2024_10_28	557	results/repair/repair_BE_begin_date.json	summary.by_group.load_2024_10_28	int	python -m gegenprobe.repair.be_begin_date	README.md,technical_report.md,docs/form_notes.md
-opd.be_begin_later_loads	170	results/repair/repair_BE_begin_date.json	summary.later_loads	int	python -m gegenprobe.repair.be_begin_date	README.md,technical_report.md,docs/form_notes.md
-opd.be_begin_set	563	results/repair/repair_BE_begin_date.json	summary.by_action.set_begin_date	int	python -m gegenprobe.repair.be_begin_date	README.md,technical_report.md,docs/form_notes.md
-opd.be_begin_review	164	results/repair/repair_BE_begin_date.json	summary.by_action.review	int	python -m gegenprobe.repair.be_begin_date	README.md
+opd.be_begin_2024_10_28	557	results/repair/repair_BE_begin_date.json	summary.by_group.load_2024_10_28	int	python -m gegenprobe.repair.be_begin_date	README.md,technical_report.md
+opd.be_begin_later_loads	170	results/repair/repair_BE_begin_date.json	summary.later_loads	int	python -m gegenprobe.repair.be_begin_date	README.md,technical_report.md
+opd.be_begin_set	554	results/repair/repair_BE_begin_date.json	summary.by_action.set_begin_date	int	python -m gegenprobe.repair.be_begin_date	README.md,technical_report.md
+opd.be_begin_review	173	results/repair/repair_BE_begin_date.json	summary.by_action.review	int	python -m gegenprobe.repair.be_begin_date	README.md
 opd.virtual_bodies	16	results/census/virtual_affairs.json	n_bodies	int	python -m gegenprobe.census.virtual	technical_report.md
 opd.virtual_no_affairs	8	results/census/virtual_affairs.json	n_bodies_no_affairs	int	python -m gegenprobe.census.virtual	technical_report.md
 opd.hash_rule_rows	386	results/census/hash_check.json	matches_not_duplicated	int	python -m gegenprobe.census.hash_check	docs/census.md
 opd.doc_duplicate_rows	726	results/census/hash_check.json	national_duplicates.duplicate_extra_rows	int	python -m gegenprobe.census.hash_check	docs/census.md
+p2.n	62	results/report/p2_numbers.json	n	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.bodies	15	results/report/p2_numbers.json	n_bodies	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md,docs/form_notes.md
+p2.rules_found	2/29	results/report/p2_numbers.json	arms.rules.value_recall/n_gold_value	frac	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md,docs/form_notes.md
+p2.pointer_found	24/29	results/report/p2_numbers.json	arms.pointer.value_recall/n_gold_value	frac	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md,docs/form_notes.md
+p2.cascade_found	22/29	results/report/p2_numbers.json	arms.cascade.value_recall/n_gold_value	frac	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.naive_null_found	22/29	results/report/p2_numbers.json	arms.naive_null.value_recall/n_gold_value	frac	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.naive_plain_found	21/29	results/report/p2_numbers.json	arms.naive_plain.value_recall/n_gold_value	frac	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md
+p2.rules.exact	35/62	results/report/p2_numbers.json	arms.rules.exact/arms.rules.n	frac	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.pointer.exact	53/62	results/report/p2_numbers.json	arms.pointer.exact/arms.pointer.n	frac	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.cascade.exact	51/62	results/report/p2_numbers.json	arms.cascade.exact/arms.cascade.n	frac	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.naive_null.exact	52/62	results/report/p2_numbers.json	arms.naive_null.exact/arms.naive_null.n	frac	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.naive_plain.exact	45/62	results/report/p2_numbers.json	arms.naive_plain.exact/arms.naive_plain.n	frac	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.rules.ci	[44.1, 68.1]	results/report/p2_numbers.json	arms.rules.exact_ci_pct	ci	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md
+p2.pointer.ci	[74.7, 92.2]	results/report/p2_numbers.json	arms.pointer.exact_ci_pct	ci	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md
+p2.cascade.ci	[71, 89.8]	results/report/p2_numbers.json	arms.cascade.exact_ci_pct	ci	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md
+p2.naive_null.ci	[72.8, 91]	results/report/p2_numbers.json	arms.naive_null.exact_ci_pct	ci	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md
+p2.naive_plain.ci	[60.4, 82.1]	results/report/p2_numbers.json	arms.naive_plain.exact_ci_pct	ci	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md
+p2.always_null	33/62	results/report/p2_numbers.json	always_null.0/always_null.1	frac	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.n_value	29	results/report/p2_numbers.json	n_gold_value	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.n_null	33	results/report/p2_numbers.json	n_gold_null	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.h2_pointer_only	22	results/report/p2_numbers.json	H2.pointer_only	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.h2_p	4.8 × 10⁻⁷	results/report/p2_numbers.json	H2.p_str	str	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md,docs/form_notes.md
+p2.h2nb_pointer_only	17	results/report/p2_numbers.json	H2_without_bellinzona.pointer_only	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.h2nb_p	1.5 × 10⁻⁵	results/report/p2_numbers.json	H2_without_bellinzona.p_str	str	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.h3_k	4/33	results/report/p2_numbers.json	H3.k/H3.n	frac	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md,docs/form_notes.md
+p2.h3_upper	27.3%	results/eval2/hypotheses2__publicai_swiss-ai_apertus-v1.5-8b.json	subsets.all.theta_10_40.H3_cascade_values_on_null.ci.1	pct1	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.h4_auroc	0.983	results/report/p2_numbers.json	H4.auroc_str	str	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.naive_null_fab	1	results/report/p2_numbers.json	arms.naive_null.fabricated	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.naive_plain_fab	4	results/report/p2_numbers.json	arms.naive_plain.fabricated	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	-
+p2.gold_kappa	1.0	results/report/p2_numbers.json	gold.kappa_date	f1	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p2.bodies_without_rules	74	results/report/p2_numbers.json	bodies_without_rules	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,docs/form_notes.md
+p2.bodies_scope	89	results/report/p2_numbers.json	bodies_in_scope	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md
+p1.primary_diff_pts	+3.6	results/report/p2_numbers.json	p1_primary.diff_pts	str	python -m eval.robustness; python -m report.p2_numbers	docs/form_notes.md,technical_report.md,README.md
+p1.primary_ci_pts	−1.4 to 9.3	results/report/p2_numbers.json	p1_primary.ci_pts	str	python -m eval.robustness; python -m report.p2_numbers	docs/form_notes.md,README.md,technical_report.md
+p1.primary_mde_pts	6.2	results/report/p2_numbers.json	p1_primary.mde_pts	str	python -m eval.robustness; python -m report.p2_numbers	technical_report.md
+census.antrag_concepts	7	results/report/p2_numbers.json	antrag_concepts	int	python -m eval.robustness; python -m report.p2_numbers	technical_report.md
 repair.be_relink	2,459	results/repair/summary.json	by_action.relink	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md,technical_report.md
 repair.be_fetch	49	results/repair/summary.json	by_action.fetch	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md,technical_report.md
-repair.agenda_join	592	results/repair/summary.json	by_action.agenda_join	int	python -m gegenprobe.repair.run	docs/repair.md,technical_report.md
+repair.agenda_join	592	results/repair/summary.json	by_action.agenda_join	int	python -m gegenprobe.repair.run	docs/repair.md
 repair.vs_retype_oral	1,008	results/repair/summary.json	by_action.retype_oral	int	python -m gegenprobe.repair.run	docs/repair.md,README.md,technical_report.md
 repair.ocr_affairs	1,351	results/repair/summary.json	by_action.ocr	int	python -m gegenprobe.repair.run	docs/repair.md,docs/nightly.md
 repair.che_placeholder_docs	29,946	results/repair/summary.json	by_action.placeholder_replace	int	python -m gegenprobe.repair.run	docs/repair.md,docs/nightly.md,technical_report.md
@@ -212,7 +248,7 @@ repair.ocr_ok_ci	[79.6, 100]	results/repair/ocr_probe.json	ci_image_only_ok	ci	p
 repair.ocr_accents_multi	467	results/repair/ocr_probe.json	image_multi.accented_chars	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,technical_report.md
 repair.ocr_accents_eng	133	results/repair/ocr_probe.json	image_eng.accented_chars	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,technical_report.md
 repair.ocr_s_per_page	6.9	results/repair/ocr_probe.json	image_multi.secs_per_page	f1	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,docs/nightly.md
-repair.nightly_offline_s	260.5	results/monitor/run.json	timings.total_s	f1	python -m gegenprobe.monitor.nightly offline	docs/nightly.md,technical_report.md
+repair.nightly_offline_s	260.5	results/monitor/run.json	timings.total_s	f1	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
 repair.nightly_extract_s	228.0	results/monitor/run.json	timings.extract_s	f1	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
 repair.che_backlog_hours	17.5	results/repair/che_backlog_run.json	est_hours_full_backlog	f1	python -m gegenprobe.repair.che stats	docs/repair.md,docs/nightly.md,technical_report.md
 repair.vs_gap	1,409	results/repair/vs_summary.json	counts.gap	int	python -m gegenprobe.repair.vs list	docs/repair.md
@@ -233,10 +269,10 @@ report.gguf_lcp_agree	58/60	results/eval/gguf_impl60.json	table.llama_cpp_python
 report.gguf_lcp_mad	2.66	results/eval/gguf_impl60.json	table.llama_cpp_python.mean_abs_delta_bf16	f2	python -m report.stats / CI run (see file)	technical_report.md
 report.gguf_metal_agree	57/60	results/eval/gguf_impl60.json	table.metal_q4_spike.decisions_agree_bf16/table.metal_q4_spike.n	frac	python -m report.stats / CI run (see file)	technical_report.md
 report.gguf_metal_mad	2.87	results/eval/gguf_impl60.json	table.metal_q4_spike.mean_abs_delta_bf16	f2	python -m report.stats / CI run (see file)	technical_report.md
-report.gguf_master_agree	57/60	results/eval/gguf_impl60.json	table.llscore_master.decisions_agree_bf16/table.llscore_master.n	frac	python -m report.stats / CI run (see file)	technical_report.md
-report.gguf_master_mad	3.25	results/eval/gguf_impl60.json	table.llscore_master.mean_abs_delta_bf16	f2	python -m report.stats / CI run (see file)	technical_report.md
-report.gguf_vend_agree	58/60	results/eval/gguf_impl60.json	table.llscore_vendored.decisions_agree_bf16/table.llscore_vendored.n	frac	python -m report.stats / CI run (see file)	technical_report.md
-report.gguf_vend_mad	3.34	results/eval/gguf_impl60.json	table.llscore_vendored.mean_abs_delta_bf16	f2	python -m report.stats / CI run (see file)	technical_report.md
+report.gguf_master_agree	57/60	results/eval/gguf_impl60.json	table.llscore_master.decisions_agree_bf16/table.llscore_master.n	frac	python -m report.stats / CI run (see file)	-
+report.gguf_master_mad	3.25	results/eval/gguf_impl60.json	table.llscore_master.mean_abs_delta_bf16	f2	python -m report.stats / CI run (see file)	-
+report.gguf_vend_agree	58/60	results/eval/gguf_impl60.json	table.llscore_vendored.decisions_agree_bf16/table.llscore_vendored.n	frac	python -m report.stats / CI run (see file)	-
+report.gguf_vend_mad	3.34	results/eval/gguf_impl60.json	table.llscore_vendored.mean_abs_delta_bf16	f2	python -m report.stats / CI run (see file)	-
 report.gguf_selfcheck	10/12	results/eval/gguf_impl60.json	preset_selfcheck.decisions_agree/preset_selfcheck.n	frac	python -m report.stats / CI run (see file)	technical_report.md
 report.gguf_selfcheck_mad	3.16	results/eval/gguf_impl60.json	preset_selfcheck.mean_abs_delta	f2	python -m report.stats / CI run (see file)	technical_report.md
 report.heldout_n	154	results/report/report_numbers.json	heldout.n	int	python -m report.stats / CI run (see file)	technical_report.md
@@ -248,10 +284,62 @@ report.kappa_date	0.94	results/eval/gold_agreement.json	agreement.answer_date.ka
 report.kappa_rec	0.42	results/eval/gold_agreement.json	agreement.recommendation.kappa	f2	python -m eval.gold.annotate merge	technical_report.md
 report.date_raw	148/154	results/eval/gold_agreement.json	agreement.answer_date.raw/agreement.answer_date.n	frac	python -m eval.gold.annotate merge	technical_report.md
 report.a3	41	results/eval/gold_agreement.json	decided_by_A3	int	python -m eval.gold.annotate merge	technical_report.md
-report.oracle_match	37	results/eval/gold_agreement.json	oracle.match	int	python -m eval.gold.annotate merge	technical_report.md
+report.oracle_match	37	results/eval/gold_agreement.json	oracle.match	int	python -m eval.gold.annotate merge	technical_report.md,README.md
 report.oracle_mismatch	7	results/eval/gold_agreement.json	oracle.mismatch	int	python -m eval.gold.annotate merge	technical_report.md
 report.chao2_per_body	57.4	data/census/cited_evidence.json	chao2.new_accounts_per_body_mean	f1	census (cited)	technical_report.md
 report.bilanz_bodies	12	data/census/cited_evidence.json	booking.bodies	int	census (cited)	technical_report.md
+robust.always_null_exact	90/154	results/eval/robustness.json	always_null_baseline.exact/always_null_baseline.n	frac	PYTHONPATH=src:. python -m eval.robustness all	technical_report.md
+robust.always_null_rate	58.4%	results/eval/robustness.json	always_null_baseline.rate	pct1	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.apertus_precision	9/16	results/eval/robustness.json	apertus_decided_values.correct/apertus_decided_values.n	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.apertus_on_null	5	results/eval/robustness.json	apertus_decided_values.on_gold_null	int	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.rule_precision	47/51	results/eval/robustness.json	rule_decided_values.correct/rule_decided_values.n	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.recall_rules	47/64	results/eval/robustness.json	arms.rules.value_recall/arms.rules.n_gold_value	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.recall_cascade	56/64	results/eval/robustness.json	arms.cascade.value_recall/arms.cascade.n_gold_value	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.recall_pointer	46/64	results/eval/robustness.json	arms.pointer.value_recall/arms.pointer.n_gold_value	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.recall_naive_null	47/64	results/eval/robustness.json	arms.naive_null.value_recall/arms.naive_null.n_gold_value	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.primary_diff	3.6%	results/eval/robustness.json	paired.primary_fr_it_ocr.difference	pct1	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.primary_ci_lo	-1.4%	results/eval/robustness.json	paired.primary_fr_it_ocr.ci95.0	pct1	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.primary_ci_hi	9.3%	results/eval/robustness.json	paired.primary_fr_it_ocr.ci95.1	pct1	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.primary_mde	6.2%	results/eval/robustness.json	paired.primary_fr_it_ocr.mde_80pct_power	pct1	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.pooled_diff	2.6%	results/eval/robustness.json	paired.pooled.difference	pct1	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.pooled_ci_lo	-2.5%	results/eval/robustness.json	paired.pooled.ci95.0	pct1	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.pooled_ci_hi	7.9%	results/eval/robustness.json	paired.pooled.ci95.1	pct1	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.pooled_mde	6.8%	results/eval/robustness.json	paired.pooled.mde_80pct_power	pct1	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.cascade_vs_naive_null_p	0.36	results/eval/robustness.json	paired.cascade_vs_naive_null_pooled.p_mcnemar_exact	f2	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.h3_no_interventions	0.87	results/eval/robustness.json	h3_excluding_interventions.auroc	f2	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.h3_no_ocr	0.97	results/eval/robustness.json	h3_excluding_ocr_cell.auroc	f2	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.dtype_auroc	0.88	results/eval/robustness.json	document_type_baseline.auroc_answerless_vs_answered	f2	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.hard_nulls	3	results/eval/robustness.json	document_type_baseline.hard_nulls	int	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.answer_docs_cascade	55/60	results/eval/robustness.json	per_document_type.answer.exact.cascade/per_document_type.answer.n	frac	PYTHONPATH=src:. python -m eval.robustness all	technical_report.md
+robust.answer_docs_rules	47/60	results/eval/robustness.json	per_document_type.answer.exact.rules/per_document_type.answer.n	frac	PYTHONPATH=src:. python -m eval.robustness all	technical_report.md
+robust.report_docs_cascade	14/24	results/eval/robustness.json	per_document_type.report.exact.cascade/per_document_type.report.n	frac	PYTHONPATH=src:. python -m eval.robustness all	technical_report.md
+robust.report_docs_rules	19/24	results/eval/robustness.json	per_document_type.report.exact.rules/per_document_type.report.n	frac	PYTHONPATH=src:. python -m eval.robustness all	technical_report.md
+robust.report_cascade_on_null	6/18	results/eval/robustness.json	per_document_type.report.values_on_gold_null.cascade/per_document_type.report.n_gold_null	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.gated_exact	143/154	results/eval/robustness.json	type_gated_cascade.exact/type_gated_cascade.n	frac	PYTHONPATH=src:. python -m eval.robustness all	technical_report.md
+robust.gated_on_null	2/90	results/eval/robustness.json	type_gated_cascade.invented_on_null/type_gated_cascade.n_gold_null	frac	PYTHONPATH=src:. python -m eval.robustness all	technical_report.md
+robust.gated_recall	55/64	results/eval/robustness.json	type_gated_cascade.value_recall/type_gated_cascade.n_gold_value	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.agreed_cascade	107/113	results/eval/robustness.json	sensitivity.1.arms.cascade.exact/sensitivity.1.n	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.agreed_rules	102/113	results/eval/robustness.json	sensitivity.1.arms.rules.exact/sensitivity.1.n	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.agreed_cascade_on_null	2/57	results/eval/robustness.json	sensitivity.1.arms.cascade.invented_on_null/sensitivity.1.arms.cascade.n_gold_null	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.nocontested_rules_on_null	0/88	results/eval/robustness.json	sensitivity.2.arms.rules.invented_on_null/sensitivity.2.arms.rules.n_gold_null	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.nocontested_cascade_on_null	5/88	results/eval/robustness.json	sensitivity.2.arms.cascade.invented_on_null/sensitivity.2.arms.cascade.n_gold_null	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.agreement_reproduces	True	results/eval/robustness_agreement.json	reproduces_gold_agreement_json	str	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.rec_boundary	36/38	results/eval/robustness_agreement.json	recommendation_disagreements_none_vs_not_applicable/recommendation_disagreements	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.a3_picked_a1	36/41	results/eval/robustness_agreement.json	a3_picked_label_of_A1/n_A3_labels	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.lock_server_time	2026-10-09T19:38:07Z	results/eval/lock_server_times.json	lock_server_time	str	see results/eval/lock_server_times.json (gh api actions/runs?head_sha=)	technical_report.md,README.md
+robust.labels_server_time	2026-10-09T19:44:06Z	results/eval/lock_server_times.json	labels_server_time	str	see results/eval/lock_server_times.json	technical_report.md,README.md
+robust.rederive_match	154/154	results/eval/rederive_local.json	match/n	frac	PYTHONPATH=src:. python -m eval.rederive results/eval/rederive_local.json	technical_report.md,README.md,docs/form_notes.md
+robust.rederive_secs	727	results/eval/rederive_local.json	secs	int	PYTHONPATH=src:. python -m eval.rederive results/eval/rederive_local.json	-
+robust.type_ambiguous	42	results/census/comparability.json	type.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md,README.md,docs/form_notes.md
+robust.type_raw_labels	1,038	results/census/comparability.json	type.raw_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md,README.md
+robust.dates_ambiguous	35	results/census/comparability.json	dates_with_roles.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md,README.md
+robust.decision_ambiguous	3	results/census/comparability.json	decision_outcome.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	-
+robust.events_unharmonised	29.1%	results/census/comparability.json	dates_with_roles.unharmonised_share	pct1	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md,README.md
+robust.tier_fu10_fundamental	5	results/census/tier_sensitivity.json	grid.3.counts.fundamentally different	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md,README.md
+robust.tier_fe90_feasible	3	results/census/tier_sensitivity.json	grid.7.counts.feasible	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	-
+robust.days_all	68	results/census/answer_days_robust.json	all_eligible_bodies.median_days	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md
+robust.days_no_same_day	69	results/census/answer_days_robust.json	excluding_same_day_bodies.median_days	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md
+robust.days_question_time	5	results/census/answer_days_robust.json	by_type_excluding_same_day_bodies.Question time.median_days	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md
 schema.opd_affairs	325,691	results/schema/vocab_summary.json	affairs	int	python -m gegenprobe.schema.vocab	docs/schema.md
 schema.type_harmonised_share	82.9%	results/schema/vocab_summary.json	affairs_type_harmonised_share	pct1	python -m gegenprobe.schema.vocab	docs/schema.md,technical_report.md
 schema.state_harmonised_n	278	results/schema/vocab_summary.json	affairs_state_harmonised	int	python -m gegenprobe.schema.vocab	docs/schema.md,technical_report.md

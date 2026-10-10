@@ -293,59 +293,59 @@ def _find_quote(sample: dict, needle: str) -> dict:
 
 
 # ---------------------------------------------------------------- fig 5: held-out scoreboard (filled by the integrator)
-ARMS5 = [("rules", "rules only (default, no model)"), ("pointer", "pointer: Apertus on every document"),
-         ("cascade", "cascade: rules, then pointer (review)"), ("naive_plain", "naive free generation, plain prompt"),
-         ("naive_null", "naive free generation, null-allowed")]
+ARMS5 = [("rules", "rules only (default, no model)"), ("pointer", "Apertus pointer on every document"),
+         ("cascade", "rules + Apertus suggestions"), ("naive_null", "naive free generation, null-allowed"),
+         ("naive_plain", "naive free generation, plain prompt")]
 
 
-def fig5() -> bool:
-    """Held-out scoreboard (frozen, pre-registered) + post-hoc θ curve (labelled). 70B weights served as apertus-v1.5-8b."""
-    build = "publicai_swiss-ai_apertus-v1.5-8b"
-    p = RESULTS / "eval" / f"heldout__{build}.json"
-    if not p.exists():
-        return False
-    d = json.loads(p.read_text())
-    curve = j("eval/posthoc/theta_curve.json")["table"]
-    fig, (ax, bx) = plt.subplots(1, 2, figsize=(7.4, 2.6), gridspec_kw=dict(width_ratios=[2.1, 1], wspace=0.32))
-    segs = [("correct", "correct date", RAMP["600"], None), ("correct_null", "correct null", RAMP["250"], None),
-            ("false_null", "false null", GRAY_LIGHT, None), ("misattributed", "wrong date printed in the document", ORANGE, None),
+def _board(ax, d: dict, title: str, xlabel: str, xmax: float, show_labels: bool) -> list:
+    segs = [("correct", "date found", RAMP["600"], None), ("correct_null", "correct null", RAMP["250"], None),
+            ("false_null", "date missed", GRAY_LIGHT, None),
+            ("misattributed", "wrong date printed in the document", ORANGE, None),
             ("fabricated", "date printed nowhere (fabricated)", ORANGE, "////")]
     for yi, (arm, _label) in enumerate(reversed(ARMS5)):
-        s = d["arms"][arm]["strict"]["ALL"]
+        st = d["arms"][arm]["strict"]["ALL"]
         x = 0
         for key, _, col, hatch in segs:
-            w = s[key]
+            w = st[key]
             if w:
                 ax.barh(yi, w, left=x, color=col, hatch=hatch, edgecolor=SURFACE if not hatch else "#ffffff", linewidth=0.6,
                         height=0.62)
-                if w >= 6:
+                if key == "correct" and w < max(4, xmax / 30):
+                    ax.text(x + w / 2, yi + 0.45, f"{w} found", ha="left", va="bottom", fontsize=6.5, color=RAMP["600"],
+                            fontweight="bold")
+                elif w >= max(4, xmax / 30):
                     box = dict(boxstyle="round,pad=0.15", fc=SURFACE, ec="none") if hatch else None
-                    ax.text(x + w / 2, yi, str(w), ha="center", va="center", fontsize=7, bbox=box,
+                    ax.text(x + w / 2, yi, str(w), ha="center", va="center", fontsize=6.8, bbox=box,
                             color=INK if hatch or col not in (RAMP["600"], ORANGE) else SURFACE)
             x += w
-        ax.text(x + 2, yi, f"{s['exact']}/{s['n']}", va="center", fontsize=7.5, color=INK, fontweight="bold")
-    ax.set_yticks(range(len(ARMS5)), [lab for _, lab in reversed(ARMS5)], fontsize=7.5)
-    ax.set_xlim(0, 175)
-    ax.set_xlabel("held-out documents (n = 154: 64 with an answer date, 90 without)", fontsize=7.5)
-    ax.set_title("Frozen, pre-registered held-out result (answer date, strict)", fontsize=8.5, loc="left", color=INK)
+        ax.text(x + xmax * 0.012, yi, f"{st['exact']}/{st['n']}", va="center", fontsize=7.3, color=INK, fontweight="bold")
+    if show_labels:
+        ax.set_yticks(range(len(ARMS5)), [lab for _, lab in reversed(ARMS5)], fontsize=7.3)
+    else:
+        ax.set_yticks(range(len(ARMS5)), [""] * len(ARMS5))
+    ax.set_xlim(0, xmax)
+    ax.set_xlabel(xlabel, fontsize=7)
+    ax.set_title(title, fontsize=8, loc="left", color=INK, pad=12)
+    return segs
+
+
+def fig5() -> bool:
+    """Both pre-registered scoreboards (frozen code; 70B weights served as apertus-v1.5-8b): P1 held-out documents from the
+    parliaments the rules were written for, P2 documents from 15 parliaments the rules never saw."""
+    build = "publicai_swiss-ai_apertus-v1.5-8b"
+    p1 = RESULTS / "eval" / f"heldout__{build}.json"
+    p2 = RESULTS / "eval2" / f"p2__{build}.json"
+    if not (p1.exists() and p2.exists()):
+        return False
+    d1, d2 = json.loads(p1.read_text()), json.loads(p2.read_text())
+    fig, (ax, bx) = plt.subplots(1, 2, figsize=(7.4, 2.7), gridspec_kw=dict(width_ratios=[1.55, 1], wspace=0.08))
+    segs = _board(ax, d1, "P1 · parliaments the rules were written for",
+                  "documents (n = 154: 64 with an answer date, 90 without)", 178, True)
+    _board(bx, d2, "P2 · 15 parliaments the rules never saw", "documents (n = 62: 29 with, 33 without)", 72, False)
     ax.legend(handles=[Patch(facecolor=c, hatch=h, edgecolor="#ffffff", label=lab) for _, lab, c, h in segs],
-              fontsize=6.5, frameon=False, loc="upper center", bbox_to_anchor=(0.45, -0.22), ncol=5, columnspacing=0.8,
+              fontsize=6.4, frameon=False, loc="upper center", bbox_to_anchor=(0.82, -0.22), ncol=5, columnspacing=0.8,
               handlelength=1.2)
-    th = [r["theta"] for r in curve]
-    bx.plot(th, [r["exact"] for r in curve], color=RAMP["600"], lw=1.4, marker="o", ms=2.5, label="cascade exact /154")
-    bx2 = bx.twinx()
-    bx2.plot(th, [r["invented_on_null"] for r in curve], color=ORANGE, lw=1.4, marker="o", ms=2.5,
-             label="values on gold-null /90")
-    fz = next(r for r in curve if r["frozen"])
-    bx.axvline(fz["theta"], color=INK2, ls="--", lw=0.8)
-    bx.text(fz["theta"] + 1, 133.3, f"frozen θ {fz['theta']:.1f}", fontsize=6.5, color=INK2)
-    bx.set_ylim(132, 145)
-    bx2.set_ylim(0, 13)
-    bx2.spines["right"].set_visible(True)
-    bx.set_xlabel("null-margin threshold θ (nats)", fontsize=7.5)
-    bx.set_ylabel("exact", fontsize=7, color=RAMP["600"])
-    bx2.set_ylabel("values on gold-null", fontsize=7, color=ORANGE)
-    bx.set_title("POST HOC (not pre-registered): θ sweep", fontsize=8.5, loc="left", color=INK)
     save(fig, "fig5_scoreboard")
     return True
 

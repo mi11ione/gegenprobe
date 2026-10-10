@@ -1,16 +1,16 @@
 id	shown	file	path	fmt	command	where
 repair.be_linkable_breakdown_text_present	155	results/repair/be_reconcile.json	parentless_breakdown.answer text already present in OPD (other document or texts)	int	python -m gegenprobe.repair.reconcile_be	README.md,technical_report.md
 repair.be_linkable_breakdown_no_event	24	results/repair/be_reconcile.json	parentless_breakdown.no written-answer event in OPD (not counted as missing)	int	python -m gegenprobe.repair.reconcile_be	README.md,technical_report.md
-repair.be_parentless_not_in_list	179	results/repair/be_reconcile.json	parentless_not_in_list	int	python -m gegenprobe.repair.reconcile_be	README.md,technical_report.md,docs/form_notes.md
+repair.be_parentless_not_in_list	179	results/repair/be_reconcile.json	parentless_not_in_list	int	python -m gegenprobe.repair.reconcile_be	README.md,technical_report.md
 repair.be_linkable	3,394	results/repair/be_reconcile.json	linkable_within_opd	int	python -m gegenprobe.repair.reconcile_be	README.md,docs/form_notes.md
 cost.residue_docs	97	results/report/cost.json	residue_docs	int	python -m report.cost	README.md,technical_report.md
 cost.heldout_docs	154	results/report/cost.json	heldout_docs	int	python -m report.cost	README.md,technical_report.md
-cost.residue_share	63%	results/report/cost.json	residue_share	pct0	python -m report.cost	README.md,technical_report.md
+cost.residue_share	63%	results/report/cost.json	residue_share	pct0	python -m report.cost	-
 cost.calls_per_doc	3.5	results/report/cost.json	calls_per_residue_doc_mean	f1	python -m report.cost	README.md,technical_report.md
 cost.billed_tokens_per_doc	5,905	results/report/cost.json	billed_prompt_tokens_per_residue_doc_mean	int	python -m report.cost	README.md,technical_report.md
-cost.unique_tokens_per_doc	1,593	results/report/cost.json	unique_prefill_tokens_per_residue_doc_mean	int	python -m report.cost	README.md,technical_report.md
-cost.projection_billions	3.4	results/report/cost.json	projection_billed_prompt_tokens_billions	f1	python -m report.cost	README.md,technical_report.md
-cost.projection_usd	336	results/report/cost.json	projection_usd_at_list_price	int	python -m report.cost	README.md,technical_report.md
-cost.projection_usd_x10	3,357	results/report/cost.json	projection_usd_at_list_price_x10	int	python -m report.cost	README.md,technical_report.md
+cost.unique_tokens_per_doc	1,593	results/report/cost.json	unique_prefill_tokens_per_residue_doc_mean	int	python -m report.cost	-
+cost.projection_billions	3.4	results/report/cost.json	projection_billed_prompt_tokens_billions	f1	python -m report.cost	-
+cost.projection_usd	336	results/report/cost.json	projection_usd_at_list_price	int	python -m report.cost	-
+cost.projection_usd_x10	3,357	results/report/cost.json	projection_usd_at_list_price_x10	int	python -m report.cost	-
 cost.rules_cpu_hours	0.5	results/report/cost.json	rules_cpu_hours_corpus	f1	python -m report.cost	README.md,technical_report.md
 cost.corpus_docs	902,754	results/report/cost.json	corpus_documents	int	python -m report.cost	README.md,technical_report.md

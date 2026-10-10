@@ -539,7 +539,7 @@ def evaluation() -> dict:
     ocr = _j("eval/posthoc/ocr_it_prompt.json")
     lock = json.loads((ROOT / "eval/prereg/LOCK").read_text())
     dev = (ROOT / "eval/prereg/DEVIATIONS.md").read_text()
-    deviations = re.findall(r"^## (D\d+) \(([^)]*)\): (.+)$", dev, re.M)
+    deviations = re.findall(r"^## (D\d+) \(([^)]*)\):? ?(.*)$", dev, re.M)
     lab_commit = _git("log", "-1", "--format=%h %cI", "--", "data/gold/heldout_labels.jsonl")
     lock_commit = _git("log", "--diff-filter=A", "-1", "--format=%h %cI", "--", "eval/prereg/LOCK")
     eight = RESULTS / "eval" / "heldout__gguf_apertus-v1.5-8b-text-q4_k_m.json"
@@ -573,6 +573,41 @@ def evaluation() -> dict:
     )
 
 
+def p2() -> dict | None:
+    """The second pre-registered test: 15 parliaments absent from every dev and held-out set (results/eval2)."""
+    build = "publicai_swiss-ai_apertus-v1.5-8b"
+    bp, hp = RESULTS / "eval2" / f"p2__{build}.json", RESULTS / "eval2" / f"hypotheses2__{build}.json"
+    if not (bp.exists() and hp.exists()):
+        return None
+    board, hyp = json.loads(bp.read_text()), json.loads(hp.read_text())
+    gold = _j("eval2/gold2_agreement.json")
+    docs = [json.loads(x) for x in open(DATA / "gold2" / "p2_docs.jsonl")]
+    names = body_names()
+    meta = {b["key"]: b for b in _tsv_gz("bodies")}
+    bodies: dict = {}
+    for d in docs:
+        label, _ = label_of(d["body"], names.get(d["body"], d["body"]), meta.get(d["body"], {}).get("type"))
+        b = bodies.setdefault(d["body"], dict(key=d["body"], name=label, n=0, lang=d.get("cell", "")[:2]))
+        b["n"] += 1
+    t = hyp["subsets"]["all"]["theta_10_40"]
+    return dict(
+        n=board["n_docs"],
+        arms={a: v["strict"]["ALL"] for a, v in board["arms"].items()},
+        recall={a: dict(correct=v["value_recall"][0], of=v["value_recall"][1]) for a, v in t["arms"].items()},
+        always_null=t["always_null_exact"],
+        h1=hyp["subsets"]["all"]["H1_rules_value_recall"],
+        h2=t["H2_pointer_vs_rules"],
+        h2_without_bellinzona=hyp["subsets"]["without_bellinzona"]["theta_10_40"]["H2_pointer_vs_rules"],
+        h3=t["H3_cascade_values_on_null"],
+        h4=hyp["subsets"]["all"]["H4_auroc"],
+        gold=dict(n=gold["n"], kappa_date=gold["agreement"]["answer_date"]["kappa"], a3=gold["decided_by_A3"],
+                  oracle_match=gold["oracle"].get("match", 0)),
+        lock_commit=_git("log", "--diff-filter=A", "-1", "--format=%h %cI", "--", "eval/prereg2/LOCK2"),
+        labels_commit=_git("log", "--diff-filter=A", "-1", "--format=%h %cI", "--", "data/gold2/p2_labels.jsonl"),
+        bodies=sorted(bodies.values(), key=lambda b: (-b["n"], b["name"])),
+    )
+
+
 def method() -> dict:
     m = _j("census/matrix.json")
     return dict(
@@ -599,6 +634,8 @@ def headline(par: dict, ev: dict) -> dict:
         rules_on_null=ev["arms"]["rules"]["invented_on_null"],
         n_null=ev["arms"]["rules"]["n_gold_null"],
         naive_fab=ev["arms"]["naive_plain"]["fabricated"],
+        p2=(dict(pointer=ev["p2"]["recall"]["pointer"], rules=ev["p2"]["recall"]["rules"], bodies=len(ev["p2"]["bodies"]),
+                 p=ev["p2"]["h2"]["p"]) if ev.get("p2") else None),
     )
 
 
@@ -615,6 +652,7 @@ def _finite(o):
 
 def collect(full_text: bool = False) -> dict:
     par, ev = parliaments(), evaluation()
+    ev["p2"] = p2()
     return _finite(
         dict(
             generated=_git("log", "-1", "--format=%h %cI"),
