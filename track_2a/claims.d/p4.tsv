@@ -1,0 +1,7 @@
+id	shown	file	path	fmt	command	where
+p4.dev_items	74	results/eval4/p4_dev_rules.json	items	int	python -m eval.gold4.run_p4 predict --split dev --backend none (summary: see docs/virtual-affairs.md)	docs/virtual-affairs.md
+p4.dev_spans_ok	132	results/eval4/p4_dev_rules.json	span_checks.ok	int	python -m eval.gold4.run_p4 predict --split dev --backend none (summary: see docs/virtual-affairs.md)	docs/virtual-affairs.md
+p4.dev_decided_adopted	13	results/eval4/p4_dev_rules.json	decisions.adopted	int	python -m eval.gold4.run_p4 predict --split dev --backend none (summary: see docs/virtual-affairs.md)	-
+p4.dev_decided_ack	16	results/eval4/p4_dev_rules.json	decisions.acknowledged	int	python -m eval.gold4.run_p4 predict --split dev --backend none (summary: see docs/virtual-affairs.md)	-
+p4.dev_unanchored	14	results/eval4/p4_dev_rules.json	decisions.present_unanchored	int	python -m eval.gold4.run_p4 predict --split dev --backend none (summary: see docs/virtual-affairs.md)	-
+p4.dev_na	31	results/eval4/p4_dev_rules.json	decisions.not_applicable	int	python -m eval.gold4.run_p4 predict --split dev --backend none (summary: see docs/virtual-affairs.md)	-
