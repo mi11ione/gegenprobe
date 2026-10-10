@@ -54,13 +54,13 @@ census and asserts it equal to `results/census/`; replays the Bern join and its 
 through the converter with the validator's checks; re-scores P1–P4 from the committed predictions and labels, re-runs
 the four registered hypothesis scripts and verifies the four LOCK files; re-derives the P1 rules arm from the source
 PDFs (fetched by sha256) and recomputes P1 and P2 Apertus decisions from the committed model cache (cache only, no
-model call) within a time budget; and runs the claims check: each of the 650 numbers listed in `claims.tsv` is
+model call) within a time budget; and runs the claims check: each of the 653 numbers listed in `claims.tsv` is
 recomputed from its results file, and the step fails if a document prints anything else. Locally the rules arm
-re-derives 154/154 and the Apertus decisions 154/154 (P1) and 62/62 (P2) identically. In the Docker run on GitHub's CI
-(run 38043355800, `results/ci/docker_make_run_38043355800.json`) the budget allowed 138 of 154 rules re-derivations, all
-identical; 129/129 recomputed P1 Apertus decisions matched, 24 prompts missed the cache because the image's poppler
-22.12 extracts slightly different text, P2 did not fit the shared budget (reported as WARN, never as PASS), and 463
-claims were checked with 0 failing. P2 now has its own budget; its first CI result is pending. Optional: `LLM_NAME` /
+re-derives 154/154 and the Apertus decisions 154/154 (P1) and 62/62 (P2) identically. In the latest Docker run on GitHub's CI
+(run 38049690293, `results/ci/docker_make_run_38049690293.json`) the budget allowed 140 of 154 rules
+re-derivations, all identical; 129/129 recomputed P1 Apertus decisions matched, 25 prompts missed the cache because the
+image's poppler 22.12 extracts slightly different text; P2 recomputed 7 of 62 documents, 7/7 matching (8 hosts
+unreachable from CI, 46 over budget; reported as WARN, never as PASS); 641 claims were checked with 0 failing. Optional: `LLM_NAME` /
 `LLM_BASE_URL` / `LLM_API_KEY` for a live Apertus slice. `make run GGUF=1` runs Apertus v1.5 8B (GGUF Q4_K_M,
 sha256-pinned) in-process on CPU. Its accuracy on our gold sets is not yet measured. Our CPU scorer matches a bf16
 stand-in reference on 58/60 decisions, but a stricter self-check fixed in advance failed (10/12 decisions, 3.16 nats

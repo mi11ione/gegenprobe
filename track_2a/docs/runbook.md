@@ -143,7 +143,7 @@ matters.
 
 **poppler in the image (decision, 10 Oct 2026): stay on bookworm's 22.12.** The committed P1/P2 model cache was built on
 the development Mac (poppler 26.02.0). The image's poppler-utils `22.12.0-2+deb12u3` extracts some documents differently,
-so the prompt hash differs and `make run` counts a cache miss (24 of 154 P1 documents in CI run 38043355800); a miss is
+so the prompt hash differs and `make run` counts a cache miss (25 of 154 P1 documents in CI run 38049690293); a miss is
 reported, never scored. A newer poppler does not remove this: no Debian release ships 26.02 (trixie 13 has
 `25.03.0-5+deb13u4`, forky/testing and sid have 26.07.0; checked on packages.debian.org, 10 Oct 2026), so a trixie base
 would trade one version gap for another, change tesseract and the whole system layer at once, and testing/sid packages

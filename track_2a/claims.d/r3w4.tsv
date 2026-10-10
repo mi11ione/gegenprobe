@@ -1,6 +1,6 @@
 id	shown	file	path	fmt	command	where	context
-r3w4.ci_claims_checked	463	results/ci/docker_make_run_38043355800.json	claims.checked	int	copied from CI log, run 38043355800	README.md,technical_report.md	
-r3w4.ci_claims_failing	0	results/ci/docker_make_run_38043355800.json	claims.failing	int	copied from CI log, run 38043355800	README.md,technical_report.md	
+r3w4.ci_claims_checked	641	results/ci/docker_make_run_38049690293.json	claims.checked	int	copied from CI log, run 38049690293	README.md,technical_report.md	{"README.md": "claims were checked", "technical_report.md": "641 claims, 0"}
+r3w4.ci_claims_failing	0	results/ci/docker_make_run_38049690293.json	claims.failing	int	copied from CI log, run 38049690293	README.md,technical_report.md	{"README.md": "641 claims were checked with 0 failing", "technical_report.md": "641 claims, 0 failing"}
 r3w4.P1_gold_dates	64	results/eval/posthoc_r3_gold_oracle.json	splits.P1.gold_value_documents_with_any_non_llm_date.1	int	PYTHONPATH=src:. python -m eval.posthoc_r3 oracle	README.md,technical_report.md	
 r3w4.P1_oracle_checkable	44	results/eval/posthoc_r3_gold_oracle.json	splits.P1.gold_value_documents_with_any_non_llm_date.0	int	PYTHONPATH=src:. python -m eval.posthoc_r3 oracle	README.md,technical_report.md	
 r3w4.P1_oracle_within_week	5	results/eval/posthoc_r3_gold_oracle.json	splits.P1.answer_date_vs_opd_written_answer_event.disagree_within_7_days	int	PYTHONPATH=src:. python -m eval.posthoc_r3 oracle	README.md,technical_report.md	
@@ -8,3 +8,6 @@ r3w4.P2_oracle_checkable	6	results/eval/posthoc_r3_gold_oracle.json	splits.P2.go
 r3w4.usd_per_1000_residue	0.59	results/report/cost_end_to_end.json	review_70b_usd_per_1000_residue_docs	f2	python -m report.cost e2e	README.md,technical_report.md,docs/form_notes.md	
 r3w4.P1_naive_null_reparsed_correct	47	results/eval/posthoc_r3_naive_reparsed.json	splits.P1.naive_null.reparsed.correct	int	PYTHONPATH=src:. python -m eval.posthoc_r3 naive	technical_report.md	
 r3w4.P1_naive_plain_reparsed_correct	54	results/eval/posthoc_r3_naive_reparsed.json	splits.P1.naive_plain.reparsed.correct	int	PYTHONPATH=src:. python -m eval.posthoc_r3 naive	technical_report.md	
+r3w4.ci2_p2_recomputed	7	results/ci/docker_make_run_38049690293.json	rederive_apertus.P2.recomputed	int	copied from CI log, run 38049690293	README.md,technical_report.md	{"README.md": "recomputed 7 of 62", "technical_report.md": "and 7/7 (P2"}
+r3w4.ci2_p2_unreachable	8	results/ci/docker_make_run_38049690293.json	rederive_apertus.P2.unreachable	int	copied from CI log, run 38049690293	README.md,technical_report.md	{"README.md": "(8 hosts", "technical_report.md": "8 hosts unreachable"}
+r3w4.ci2_p2_overbudget	46	results/ci/docker_make_run_38049690293.json	rederive_apertus.P2.over_budget	int	copied from CI log, run 38049690293	README.md,technical_report.md	{"README.md": "46 over budget", "technical_report.md": "46 over budget"}
