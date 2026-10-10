@@ -1,0 +1,898 @@
+{
+ "build": "publicai_swiss-ai_apertus-v1.5-8b",
+ "n": 68,
+ "n_answered": 34,
+ "n_answerless": 34,
+ "n_bodies": 8,
+ "underpowered": false,
+ "arms": {
+  "rules": {
+   "exact": [
+    54,
+    68
+   ],
+   "exact_ci": [
+    0.6835749340049412,
+    0.8732055385903238
+   ],
+   "dates_found": [
+    20,
+    34
+   ],
+   "dates_found_ci": [
+    0.42221304146519273,
+    0.7363426221431113
+   ],
+   "wrong_printed_date": 1,
+   "fabricated": 0,
+   "missed": 13,
+   "dated_answerless": [
+    0,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.0,
+    0.10151790621961015
+   ]
+  },
+  "v1": {
+   "exact": [
+    56,
+    68
+   ],
+   "exact_ci": [
+    0.7163933737056788,
+    0.8960651461491128
+   ],
+   "dates_found": [
+    29,
+    34
+   ],
+   "dates_found_ci": [
+    0.6987161182594804,
+    0.9355065361737359
+   ],
+   "wrong_printed_date": 8,
+   "fabricated": 0,
+   "missed": 4,
+   "dated_answerless": [
+    7,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.1034939602235132,
+    0.3679871610821398
+   ]
+  },
+  "cascade_v1": {
+   "exact": [
+    55,
+    68
+   ],
+   "exact_ci": [
+    0.6998913522432758,
+    0.8847281439817526
+   ],
+   "dates_found": [
+    28,
+    34
+   ],
+   "dates_found_ci": [
+    0.6648593225994784,
+    0.9165114439643031
+   ],
+   "wrong_printed_date": 9,
+   "fabricated": 0,
+   "missed": 4,
+   "dated_answerless": [
+    7,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.1034939602235132,
+    0.3679871610821398
+   ]
+  },
+  "v2": {
+   "exact": [
+    59,
+    68
+   ],
+   "exact_ci": [
+    0.7671972303295147,
+    0.9287783604145667
+   ],
+   "dates_found": [
+    30,
+    34
+   ],
+   "dates_found_ci": [
+    0.7337882520370121,
+    0.9532862902656388
+   ],
+   "wrong_printed_date": 5,
+   "fabricated": 0,
+   "missed": 4,
+   "dated_answerless": [
+    5,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.06449346382626417,
+    0.30128388174051957
+   ]
+  },
+  "cascade_v2": {
+   "exact": [
+    60,
+    68
+   ],
+   "exact_ci": [
+    0.7846488137630566,
+    0.939165800610788
+   ],
+   "dates_found": [
+    31,
+    34
+   ],
+   "dates_found_ci": [
+    0.7703918204763959,
+    0.9695346096956899
+   ],
+   "wrong_printed_date": 6,
+   "fabricated": 0,
+   "missed": 2,
+   "dated_answerless": [
+    5,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.06449346382626417,
+    0.30128388174051957
+   ]
+  },
+  "free_null": {
+   "exact": [
+    62,
+    68
+   ],
+   "exact_ci": [
+    0.8205602176535453,
+    0.958932443979826
+   ],
+   "dates_found": [
+    32,
+    34
+   ],
+   "dates_found_ci": [
+    0.8090606311053629,
+    0.9837176869361576
+   ],
+   "wrong_printed_date": 4,
+   "fabricated": 0,
+   "missed": 2,
+   "dated_answerless": [
+    4,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.04671370973436122,
+    0.26621174796298774
+   ]
+  },
+  "free_plain": {
+   "exact": [
+    54,
+    68
+   ],
+   "exact_ci": [
+    0.6835749340049412,
+    0.8732055385903238
+   ],
+   "dates_found": [
+    33,
+    34
+   ],
+   "dates_found_ci": [
+    0.8508409778365519,
+    0.9947892280744034
+   ],
+   "wrong_printed_date": 8,
+   "fabricated": 5,
+   "missed": 1,
+   "dated_answerless": [
+    13,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.23899964851608782,
+    0.5495928000061734
+   ]
+  },
+  "free_guided": {
+   "exact": [
+    61,
+    68
+   ],
+   "exact_ci": [
+    0.8024187647817829,
+    0.9492348732218252
+   ],
+   "dates_found": [
+    32,
+    34
+   ],
+   "dates_found_ci": [
+    0.8090606311053629,
+    0.9837176869361576
+   ],
+   "wrong_printed_date": 5,
+   "fabricated": 0,
+   "missed": 2,
+   "dated_answerless": [
+    5,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.06449346382626417,
+    0.30128388174051957
+   ]
+  },
+  "latest_printed_date": {
+   "exact": [
+    29,
+    68
+   ],
+   "exact_ci": [
+    0.31597057562082875,
+    0.5448343062303549
+   ],
+   "dates_found": [
+    27,
+    34
+   ],
+   "dates_found_ci": [
+    0.6320128389178601,
+    0.8965060397764868
+   ],
+   "wrong_printed_date": 39,
+   "fabricated": 0,
+   "missed": 0,
+   "dated_answerless": [
+    32,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.8090606311053629,
+    0.9837176869361576
+   ]
+  },
+  "latest_on_answer_typed": {
+   "exact": [
+    51,
+    68
+   ],
+   "exact_ci": [
+    0.6356122186609706,
+    0.8376511830450047
+   ],
+   "dates_found": [
+    25,
+    34
+   ],
+   "dates_found_ci": [
+    0.5688253783710155,
+    0.8539897245844621
+   ],
+   "wrong_printed_date": 13,
+   "fabricated": 0,
+   "missed": 4,
+   "dated_answerless": [
+    8,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.12436838109244344,
+    0.3999646280826443
+   ]
+  },
+  "always_null": {
+   "exact": [
+    34,
+    68
+   ],
+   "exact_ci": [
+    0.3843786388809909,
+    0.6156213611190091
+   ],
+   "dates_found": [
+    0,
+    34
+   ],
+   "dates_found_ci": [
+    0.0,
+    0.10151790621961015
+   ],
+   "wrong_printed_date": 0,
+   "fabricated": 0,
+   "missed": 34,
+   "dated_answerless": [
+    0,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.0,
+    0.10151790621961015
+   ]
+  }
+ },
+ "arms_lenient": {
+  "rules": {
+   "exact": [
+    54,
+    68
+   ],
+   "exact_ci": [
+    0.6835749340049412,
+    0.8732055385903238
+   ],
+   "dates_found": [
+    20,
+    34
+   ],
+   "dates_found_ci": [
+    0.42221304146519273,
+    0.7363426221431113
+   ],
+   "wrong_printed_date": 1,
+   "fabricated": 0,
+   "missed": 13,
+   "dated_answerless": [
+    0,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.0,
+    0.10151790621961015
+   ]
+  },
+  "v1": {
+   "exact": [
+    56,
+    68
+   ],
+   "exact_ci": [
+    0.7163933737056788,
+    0.8960651461491128
+   ],
+   "dates_found": [
+    29,
+    34
+   ],
+   "dates_found_ci": [
+    0.6987161182594804,
+    0.9355065361737359
+   ],
+   "wrong_printed_date": 8,
+   "fabricated": 0,
+   "missed": 4,
+   "dated_answerless": [
+    7,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.1034939602235132,
+    0.3679871610821398
+   ]
+  },
+  "cascade_v1": {
+   "exact": [
+    55,
+    68
+   ],
+   "exact_ci": [
+    0.6998913522432758,
+    0.8847281439817526
+   ],
+   "dates_found": [
+    28,
+    34
+   ],
+   "dates_found_ci": [
+    0.6648593225994784,
+    0.9165114439643031
+   ],
+   "wrong_printed_date": 9,
+   "fabricated": 0,
+   "missed": 4,
+   "dated_answerless": [
+    7,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.1034939602235132,
+    0.3679871610821398
+   ]
+  },
+  "v2": {
+   "exact": [
+    59,
+    68
+   ],
+   "exact_ci": [
+    0.7671972303295147,
+    0.9287783604145667
+   ],
+   "dates_found": [
+    30,
+    34
+   ],
+   "dates_found_ci": [
+    0.7337882520370121,
+    0.9532862902656388
+   ],
+   "wrong_printed_date": 5,
+   "fabricated": 0,
+   "missed": 4,
+   "dated_answerless": [
+    5,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.06449346382626417,
+    0.30128388174051957
+   ]
+  },
+  "cascade_v2": {
+   "exact": [
+    60,
+    68
+   ],
+   "exact_ci": [
+    0.7846488137630566,
+    0.939165800610788
+   ],
+   "dates_found": [
+    31,
+    34
+   ],
+   "dates_found_ci": [
+    0.7703918204763959,
+    0.9695346096956899
+   ],
+   "wrong_printed_date": 6,
+   "fabricated": 0,
+   "missed": 2,
+   "dated_answerless": [
+    5,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.06449346382626417,
+    0.30128388174051957
+   ]
+  },
+  "free_null": {
+   "exact": [
+    62,
+    68
+   ],
+   "exact_ci": [
+    0.8205602176535453,
+    0.958932443979826
+   ],
+   "dates_found": [
+    32,
+    34
+   ],
+   "dates_found_ci": [
+    0.8090606311053629,
+    0.9837176869361576
+   ],
+   "wrong_printed_date": 4,
+   "fabricated": 0,
+   "missed": 2,
+   "dated_answerless": [
+    4,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.04671370973436122,
+    0.26621174796298774
+   ]
+  },
+  "free_plain": {
+   "exact": [
+    54,
+    68
+   ],
+   "exact_ci": [
+    0.6835749340049412,
+    0.8732055385903238
+   ],
+   "dates_found": [
+    33,
+    34
+   ],
+   "dates_found_ci": [
+    0.8508409778365519,
+    0.9947892280744034
+   ],
+   "wrong_printed_date": 8,
+   "fabricated": 5,
+   "missed": 1,
+   "dated_answerless": [
+    13,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.23899964851608782,
+    0.5495928000061734
+   ]
+  },
+  "free_guided": {
+   "exact": [
+    61,
+    68
+   ],
+   "exact_ci": [
+    0.8024187647817829,
+    0.9492348732218252
+   ],
+   "dates_found": [
+    32,
+    34
+   ],
+   "dates_found_ci": [
+    0.8090606311053629,
+    0.9837176869361576
+   ],
+   "wrong_printed_date": 5,
+   "fabricated": 0,
+   "missed": 2,
+   "dated_answerless": [
+    5,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.06449346382626417,
+    0.30128388174051957
+   ]
+  },
+  "latest_printed_date": {
+   "exact": [
+    29,
+    68
+   ],
+   "exact_ci": [
+    0.31597057562082875,
+    0.5448343062303549
+   ],
+   "dates_found": [
+    27,
+    34
+   ],
+   "dates_found_ci": [
+    0.6320128389178601,
+    0.8965060397764868
+   ],
+   "wrong_printed_date": 39,
+   "fabricated": 0,
+   "missed": 0,
+   "dated_answerless": [
+    32,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.8090606311053629,
+    0.9837176869361576
+   ]
+  },
+  "latest_on_answer_typed": {
+   "exact": [
+    51,
+    68
+   ],
+   "exact_ci": [
+    0.6356122186609706,
+    0.8376511830450047
+   ],
+   "dates_found": [
+    25,
+    34
+   ],
+   "dates_found_ci": [
+    0.5688253783710155,
+    0.8539897245844621
+   ],
+   "wrong_printed_date": 13,
+   "fabricated": 0,
+   "missed": 4,
+   "dated_answerless": [
+    8,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.12436838109244344,
+    0.3999646280826443
+   ]
+  },
+  "always_null": {
+   "exact": [
+    34,
+    68
+   ],
+   "exact_ci": [
+    0.3843786388809909,
+    0.6156213611190091
+   ],
+   "dates_found": [
+    0,
+    34
+   ],
+   "dates_found_ci": [
+    0.0,
+    0.10151790621961015
+   ],
+   "wrong_printed_date": 0,
+   "fabricated": 0,
+   "missed": 34,
+   "dated_answerless": [
+    0,
+    34
+   ],
+   "dated_answerless_ci": [
+    0.0,
+    0.10151790621961015
+   ]
+  }
+ },
+ "H1_v2_vs_free_null": {
+  "doc_level": {
+   "a": "v2",
+   "b": "free_null",
+   "a_only": 1,
+   "b_only": 4,
+   "p": 0.375,
+   "n": 68
+  },
+  "per_parliament": {
+   "per_body_diff": {
+    "1711": 0,
+    "2937": -1,
+    "306": -1,
+    "3427": 0,
+    "581": -2,
+    "6023": 0,
+    "6458": 0,
+    "ZG": 1
+   },
+   "a_better": 1,
+   "b_better": 3,
+   "ties": 4,
+   "p": 0.625
+  },
+  "holds": false,
+  "holds_across_parliaments": false
+ },
+ "H2_answerless": {
+  "v2": [
+   5,
+   34
+  ],
+  "wilson95": [
+   0.06449346382626417,
+   0.30128388174051957
+  ],
+  "v1": 7,
+  "free_null": 4,
+  "paired_vs_v1_on_answerless": {
+   "a": "v2",
+   "b": "v1",
+   "a_only": 2,
+   "b_only": 0,
+   "p": 0.5,
+   "n": 34
+  },
+  "paired_vs_free_null_on_answerless": {
+   "a": "v2",
+   "b": "free_null",
+   "a_only": 1,
+   "b_only": 2,
+   "p": 1.0,
+   "n": 34
+  },
+  "holds": false
+ },
+ "H3_v2_vs_v1": {
+  "doc_level": {
+   "a": "v2",
+   "b": "v1",
+   "a_only": 5,
+   "b_only": 2,
+   "p": 0.453125,
+   "n": 68
+  },
+  "per_parliament": {
+   "per_body_diff": {
+    "1711": 2,
+    "2937": 0,
+    "306": 1,
+    "3427": 1,
+    "581": -2,
+    "6023": 0,
+    "6458": 0,
+    "ZG": 1
+   },
+   "a_better": 4,
+   "b_better": 1,
+   "ties": 3,
+   "p": 0.375
+  },
+  "holds": false
+ },
+ "holm": {
+  "H1": 0.75,
+  "H3": 0.75
+ },
+ "S1_v2_vs_free_guided": {
+  "doc_level": {
+   "a": "v2",
+   "b": "free_guided",
+   "a_only": 1,
+   "b_only": 3,
+   "p": 0.625,
+   "n": 68
+  },
+  "per_parliament": {
+   "per_body_diff": {
+    "1711": 0,
+    "2937": -1,
+    "306": 0,
+    "3427": 0,
+    "581": -2,
+    "6023": 0,
+    "6458": 0,
+    "ZG": 1
+   },
+   "a_better": 1,
+   "b_better": 2,
+   "ties": 5,
+   "p": 1.0
+  }
+ },
+ "S2_cascade_v2_vs_cascade_v1": {
+  "a": "cascade_v2",
+  "b": "cascade_v1",
+  "a_only": 5,
+  "b_only": 0,
+  "p": 0.0625,
+  "n": 68
+ },
+ "S3_cascade_v2_vs_rules_on_answered": {
+  "a": "cascade_v2",
+  "b": "rules",
+  "a_only": 11,
+  "b_only": 0,
+  "p": 0.0009765625,
+  "n": 34
+ },
+ "S4_presence_auroc": {
+  "auroc": 0.9329044117647058,
+  "n_answerless": 32,
+  "n_answered": 34
+ },
+ "S5_v2_stage_counts": {
+  "generation": 34,
+  "presence": 31,
+  "decision": 1,
+  "no_dates": 2
+ },
+ "S6_per_language": {
+  "de": {
+   "rules": [
+    42,
+    55
+   ],
+   "v1": [
+    43,
+    55
+   ],
+   "cascade_v1": [
+    42,
+    55
+   ],
+   "v2": [
+    46,
+    55
+   ],
+   "cascade_v2": [
+    47,
+    55
+   ],
+   "free_null": [
+    49,
+    55
+   ],
+   "free_plain": [
+    42,
+    55
+   ],
+   "free_guided": [
+    48,
+    55
+   ],
+   "latest_printed_date": [
+    19,
+    55
+   ],
+   "latest_on_answer_typed": [
+    38,
+    55
+   ],
+   "always_null": [
+    29,
+    55
+   ]
+  },
+  "fr": {
+   "rules": [
+    12,
+    13
+   ],
+   "v1": [
+    13,
+    13
+   ],
+   "cascade_v1": [
+    13,
+    13
+   ],
+   "v2": [
+    13,
+    13
+   ],
+   "cascade_v2": [
+    13,
+    13
+   ],
+   "free_null": [
+    13,
+    13
+   ],
+   "free_plain": [
+    12,
+    13
+   ],
+   "free_guided": [
+    13,
+    13
+   ],
+   "latest_printed_date": [
+    10,
+    13
+   ],
+   "latest_on_answer_typed": [
+    13,
+    13
+   ],
+   "always_null": [
+    5,
+    13
+   ]
+  }
+ },
+ "S7_fabricated": {
+  "rules": 0,
+  "v1": 0,
+  "cascade_v1": 0,
+  "v2": 0,
+  "cascade_v2": 0,
+  "free_null": 0,
+  "free_plain": 5,
+  "free_guided": 0,
+  "latest_printed_date": 0,
+  "latest_on_answer_typed": 0,
+  "always_null": 0
+ }
+}

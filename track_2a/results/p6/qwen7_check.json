@@ -1,0 +1,1098 @@
+{
+ "protocol": "eval/posthoc_r5.py (round-5 Qwen protocol, unchanged), set p6",
+ "model": "aisingapore/Qwen-SEA-LION-v4-32B-IT",
+ "agreement_strict": {
+  "overall": {
+   "n": 68,
+   "answer_present_4way": {
+    "raw": 62,
+    "kappa": 0.8278
+   },
+   "answer_present_binary": {
+    "raw": 65,
+    "kappa": 0.9104,
+    "gold_yes": 40,
+    "qwen_yes": 37
+   },
+   "answer_date_exact": {
+    "raw": 61,
+    "kappa": 0.8599
+   },
+   "answer_date_lenient": {
+    "raw": 63
+   },
+   "dates_where_both_give_one": {
+    "n": 31,
+    "exact": 29,
+    "lenient": 29
+   }
+  },
+  "per_body": {
+   "1711": {
+    "n": 8,
+    "answer_present_4way": {
+     "raw": 8,
+     "kappa": 1.0
+    },
+    "answer_present_binary": {
+     "raw": 8,
+     "kappa": 1.0,
+     "gold_yes": 5,
+     "qwen_yes": 5
+    },
+    "answer_date_exact": {
+     "raw": 6,
+     "kappa": 0.6923
+    },
+    "answer_date_lenient": {
+     "raw": 6
+    },
+    "dates_where_both_give_one": {
+     "n": 5,
+     "exact": 3,
+     "lenient": 3
+    }
+   },
+   "2937": {
+    "n": 9,
+    "answer_present_4way": {
+     "raw": 9,
+     "kappa": 1.0
+    },
+    "answer_present_binary": {
+     "raw": 9,
+     "kappa": 1.0,
+     "gold_yes": 5,
+     "qwen_yes": 5
+    },
+    "answer_date_exact": {
+     "raw": 9,
+     "kappa": 1.0
+    },
+    "answer_date_lenient": {
+     "raw": 9
+    },
+    "dates_where_both_give_one": {
+     "n": 4,
+     "exact": 4,
+     "lenient": 4
+    }
+   },
+   "306": {
+    "n": 8,
+    "answer_present_4way": {
+     "raw": 5,
+     "kappa": 0.3846
+    },
+    "answer_present_binary": {
+     "raw": 8,
+     "kappa": 1.0,
+     "gold_yes": 5,
+     "qwen_yes": 5
+    },
+    "answer_date_exact": {
+     "raw": 6,
+     "kappa": 0.0
+    },
+    "answer_date_lenient": {
+     "raw": 8
+    },
+    "dates_where_both_give_one": {
+     "n": 0,
+     "exact": 0,
+     "lenient": 0
+    }
+   },
+   "3427": {
+    "n": 9,
+    "answer_present_4way": {
+     "raw": 9,
+     "kappa": 1.0
+    },
+    "answer_present_binary": {
+     "raw": 9,
+     "kappa": 1.0,
+     "gold_yes": 5,
+     "qwen_yes": 5
+    },
+    "answer_date_exact": {
+     "raw": 9,
+     "kappa": 1.0
+    },
+    "answer_date_lenient": {
+     "raw": 9
+    },
+    "dates_where_both_give_one": {
+     "n": 5,
+     "exact": 5,
+     "lenient": 5
+    }
+   },
+   "581": {
+    "n": 6,
+    "answer_present_4way": {
+     "raw": 3,
+     "kappa": 0.0
+    },
+    "answer_present_binary": {
+     "raw": 3,
+     "kappa": 0.0,
+     "gold_yes": 6,
+     "qwen_yes": 3
+    },
+    "answer_date_exact": {
+     "raw": 3,
+     "kappa": 0.4545
+    },
+    "answer_date_lenient": {
+     "raw": 3
+    },
+    "dates_where_both_give_one": {
+     "n": 3,
+     "exact": 3,
+     "lenient": 3
+    }
+   },
+   "6023": {
+    "n": 8,
+    "answer_present_4way": {
+     "raw": 8,
+     "kappa": 1.0
+    },
+    "answer_present_binary": {
+     "raw": 8,
+     "kappa": 1.0,
+     "gold_yes": 4,
+     "qwen_yes": 4
+    },
+    "answer_date_exact": {
+     "raw": 8,
+     "kappa": 1.0
+    },
+    "answer_date_lenient": {
+     "raw": 8
+    },
+    "dates_where_both_give_one": {
+     "n": 4,
+     "exact": 4,
+     "lenient": 4
+    }
+   },
+   "6458": {
+    "n": 5,
+    "answer_present_4way": {
+     "raw": 5,
+     "kappa": 1.0
+    },
+    "answer_present_binary": {
+     "raw": 5,
+     "kappa": 1.0,
+     "gold_yes": 4,
+     "qwen_yes": 4
+    },
+    "answer_date_exact": {
+     "raw": 5,
+     "kappa": 1.0
+    },
+    "answer_date_lenient": {
+     "raw": 5
+    },
+    "dates_where_both_give_one": {
+     "n": 4,
+     "exact": 4,
+     "lenient": 4
+    }
+   },
+   "ZG": {
+    "n": 15,
+    "answer_present_4way": {
+     "raw": 15,
+     "kappa": 1.0
+    },
+    "answer_present_binary": {
+     "raw": 15,
+     "kappa": 1.0,
+     "gold_yes": 6,
+     "qwen_yes": 6
+    },
+    "answer_date_exact": {
+     "raw": 15,
+     "kappa": 1.0
+    },
+    "answer_date_lenient": {
+     "raw": 15
+    },
+    "dates_where_both_give_one": {
+     "n": 6,
+     "exact": 6,
+     "lenient": 6
+    }
+   }
+  },
+  "qwen_unverified_dates": [
+   872284,
+   872843
+  ],
+  "qwen_unparseable": [],
+  "disagreements": [
+   {
+    "doc_id": 864968,
+    "kind": "date",
+    "cell": "de_commune",
+    "body": "1711",
+    "dtype": "answer",
+    "gold_present": "yes",
+    "qwen_present": "yes",
+    "gold_date": "2025-06-24",
+    "gold_lenient": [],
+    "qwen_date": "2025-06-18",
+    "qwen_date_used": "2025-06-18",
+    "qwen_verified": true,
+    "qwen_in_gold_lenient": false,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": "Sitzung vom 24. Juni 2025",
+    "qwen_quote": "Benützungsordnung für die Fussballanlagen der Stadt Zug vom 18. Juni 2025",
+    "opd_written_answer_dates": []
+   },
+   {
+    "doc_id": 871698,
+    "kind": "date",
+    "cell": "de_commune",
+    "body": "306",
+    "dtype": "answer",
+    "gold_present": "yes",
+    "qwen_present": "yes",
+    "gold_date": null,
+    "gold_lenient": [
+     "2026-03-02"
+    ],
+    "qwen_date": "2026-03-02",
+    "qwen_date_used": "2026-03-02",
+    "qwen_verified": true,
+    "qwen_in_gold_lenient": true,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": null,
+    "qwen_quote": "Sitzung vom: 02.03.2026",
+    "opd_written_answer_dates": []
+   },
+   {
+    "doc_id": 873144,
+    "kind": "date",
+    "cell": "de_commune",
+    "body": "306",
+    "dtype": "answer",
+    "gold_present": "yes",
+    "qwen_present": "yes",
+    "gold_date": null,
+    "gold_lenient": [
+     "2018-11-05"
+    ],
+    "qwen_date": "2018-11-05",
+    "qwen_date_used": "2018-11-05",
+    "qwen_verified": true,
+    "qwen_in_gold_lenient": true,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": null,
+    "qwen_quote": "Sitzung vom: ds 05.11.2018",
+    "opd_written_answer_dates": []
+   },
+   {
+    "doc_id": 878543,
+    "kind": "presence",
+    "cell": "de_commune",
+    "body": "581",
+    "dtype": "answer",
+    "gold_present": "yes",
+    "qwen_present": "no",
+    "gold_date": "2020-10-28",
+    "gold_lenient": [],
+    "qwen_date": null,
+    "qwen_date_used": null,
+    "qwen_verified": true,
+    "qwen_in_gold_lenient": false,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": "Interlaken, 28. Oktober 2020",
+    "qwen_quote": null,
+    "opd_written_answer_dates": []
+   },
+   {
+    "doc_id": 878596,
+    "kind": "presence",
+    "cell": "de_commune",
+    "body": "581",
+    "dtype": "answer",
+    "gold_present": "yes",
+    "qwen_present": "no",
+    "gold_date": "2019-09-04",
+    "gold_lenient": [],
+    "qwen_date": null,
+    "qwen_date_used": null,
+    "qwen_verified": true,
+    "qwen_in_gold_lenient": false,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": "Interlaken, 4. September 2019",
+    "qwen_quote": null,
+    "opd_written_answer_dates": []
+   },
+   {
+    "doc_id": 878786,
+    "kind": "presence",
+    "cell": "de_commune",
+    "body": "581",
+    "dtype": "intervention",
+    "gold_present": "yes",
+    "qwen_present": "no",
+    "gold_date": "2016-12-07",
+    "gold_lenient": [],
+    "qwen_date": null,
+    "qwen_date_used": null,
+    "qwen_verified": true,
+    "qwen_in_gold_lenient": false,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": "Interlaken, 7. Dezember 2016",
+    "qwen_quote": null,
+    "opd_written_answer_dates": []
+   },
+   {
+    "doc_id": 919318,
+    "kind": "date",
+    "cell": "de_commune",
+    "body": "1711",
+    "dtype": "answer",
+    "gold_present": "yes",
+    "qwen_present": "yes",
+    "gold_date": "2026-08-25",
+    "gold_lenient": [],
+    "qwen_date": "2024-12-17",
+    "qwen_date_used": "2024-12-17",
+    "qwen_verified": true,
+    "qwen_in_gold_lenient": false,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": "Sitzung vom 25. August 2026",
+    "qwen_quote": "Mit Schreiben vom 17. Dezember 2024 informierte der Stadtrat den Ornithologischen Verein",
+    "opd_written_answer_dates": []
+   }
+  ]
+ },
+ "agreement_lenient_quote": {
+  "overall": {
+   "n": 68,
+   "answer_present_4way": {
+    "raw": 62,
+    "kappa": 0.8278
+   },
+   "answer_present_binary": {
+    "raw": 65,
+    "kappa": 0.9104,
+    "gold_yes": 40,
+    "qwen_yes": 37
+   },
+   "answer_date_exact": {
+    "raw": 59,
+    "kappa": 0.8234
+   },
+   "answer_date_lenient": {
+    "raw": 62
+   },
+   "dates_where_both_give_one": {
+    "n": 31,
+    "exact": 29,
+    "lenient": 29
+   }
+  },
+  "per_body": {
+   "1711": {
+    "n": 8,
+    "answer_present_4way": {
+     "raw": 8,
+     "kappa": 1.0
+    },
+    "answer_present_binary": {
+     "raw": 8,
+     "kappa": 1.0,
+     "gold_yes": 5,
+     "qwen_yes": 5
+    },
+    "answer_date_exact": {
+     "raw": 6,
+     "kappa": 0.6923
+    },
+    "answer_date_lenient": {
+     "raw": 6
+    },
+    "dates_where_both_give_one": {
+     "n": 5,
+     "exact": 3,
+     "lenient": 3
+    }
+   },
+   "2937": {
+    "n": 9,
+    "answer_present_4way": {
+     "raw": 9,
+     "kappa": 1.0
+    },
+    "answer_present_binary": {
+     "raw": 9,
+     "kappa": 1.0,
+     "gold_yes": 5,
+     "qwen_yes": 5
+    },
+    "answer_date_exact": {
+     "raw": 9,
+     "kappa": 1.0
+    },
+    "answer_date_lenient": {
+     "raw": 9
+    },
+    "dates_where_both_give_one": {
+     "n": 4,
+     "exact": 4,
+     "lenient": 4
+    }
+   },
+   "306": {
+    "n": 8,
+    "answer_present_4way": {
+     "raw": 5,
+     "kappa": 0.3846
+    },
+    "answer_present_binary": {
+     "raw": 8,
+     "kappa": 1.0,
+     "gold_yes": 5,
+     "qwen_yes": 5
+    },
+    "answer_date_exact": {
+     "raw": 4,
+     "kappa": 0.0
+    },
+    "answer_date_lenient": {
+     "raw": 7
+    },
+    "dates_where_both_give_one": {
+     "n": 0,
+     "exact": 0,
+     "lenient": 0
+    }
+   },
+   "3427": {
+    "n": 9,
+    "answer_present_4way": {
+     "raw": 9,
+     "kappa": 1.0
+    },
+    "answer_present_binary": {
+     "raw": 9,
+     "kappa": 1.0,
+     "gold_yes": 5,
+     "qwen_yes": 5
+    },
+    "answer_date_exact": {
+     "raw": 9,
+     "kappa": 1.0
+    },
+    "answer_date_lenient": {
+     "raw": 9
+    },
+    "dates_where_both_give_one": {
+     "n": 5,
+     "exact": 5,
+     "lenient": 5
+    }
+   },
+   "581": {
+    "n": 6,
+    "answer_present_4way": {
+     "raw": 3,
+     "kappa": 0.0
+    },
+    "answer_present_binary": {
+     "raw": 3,
+     "kappa": 0.0,
+     "gold_yes": 6,
+     "qwen_yes": 3
+    },
+    "answer_date_exact": {
+     "raw": 3,
+     "kappa": 0.4545
+    },
+    "answer_date_lenient": {
+     "raw": 3
+    },
+    "dates_where_both_give_one": {
+     "n": 3,
+     "exact": 3,
+     "lenient": 3
+    }
+   },
+   "6023": {
+    "n": 8,
+    "answer_present_4way": {
+     "raw": 8,
+     "kappa": 1.0
+    },
+    "answer_present_binary": {
+     "raw": 8,
+     "kappa": 1.0,
+     "gold_yes": 4,
+     "qwen_yes": 4
+    },
+    "answer_date_exact": {
+     "raw": 8,
+     "kappa": 1.0
+    },
+    "answer_date_lenient": {
+     "raw": 8
+    },
+    "dates_where_both_give_one": {
+     "n": 4,
+     "exact": 4,
+     "lenient": 4
+    }
+   },
+   "6458": {
+    "n": 5,
+    "answer_present_4way": {
+     "raw": 5,
+     "kappa": 1.0
+    },
+    "answer_present_binary": {
+     "raw": 5,
+     "kappa": 1.0,
+     "gold_yes": 4,
+     "qwen_yes": 4
+    },
+    "answer_date_exact": {
+     "raw": 5,
+     "kappa": 1.0
+    },
+    "answer_date_lenient": {
+     "raw": 5
+    },
+    "dates_where_both_give_one": {
+     "n": 4,
+     "exact": 4,
+     "lenient": 4
+    }
+   },
+   "ZG": {
+    "n": 15,
+    "answer_present_4way": {
+     "raw": 15,
+     "kappa": 1.0
+    },
+    "answer_present_binary": {
+     "raw": 15,
+     "kappa": 1.0,
+     "gold_yes": 6,
+     "qwen_yes": 6
+    },
+    "answer_date_exact": {
+     "raw": 15,
+     "kappa": 1.0
+    },
+    "answer_date_lenient": {
+     "raw": 15
+    },
+    "dates_where_both_give_one": {
+     "n": 6,
+     "exact": 6,
+     "lenient": 6
+    }
+   }
+  },
+  "qwen_unverified_dates": [
+   872284,
+   872843
+  ],
+  "qwen_unparseable": [],
+  "disagreements": [
+   {
+    "doc_id": 864968,
+    "kind": "date",
+    "cell": "de_commune",
+    "body": "1711",
+    "dtype": "answer",
+    "gold_present": "yes",
+    "qwen_present": "yes",
+    "gold_date": "2025-06-24",
+    "gold_lenient": [],
+    "qwen_date": "2025-06-18",
+    "qwen_date_used": "2025-06-18",
+    "qwen_verified": true,
+    "qwen_in_gold_lenient": false,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": "Sitzung vom 24. Juni 2025",
+    "qwen_quote": "Benützungsordnung für die Fussballanlagen der Stadt Zug vom 18. Juni 2025",
+    "opd_written_answer_dates": []
+   },
+   {
+    "doc_id": 871698,
+    "kind": "date",
+    "cell": "de_commune",
+    "body": "306",
+    "dtype": "answer",
+    "gold_present": "yes",
+    "qwen_present": "yes",
+    "gold_date": null,
+    "gold_lenient": [
+     "2026-03-02"
+    ],
+    "qwen_date": "2026-03-02",
+    "qwen_date_used": "2026-03-02",
+    "qwen_verified": true,
+    "qwen_in_gold_lenient": true,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": null,
+    "qwen_quote": "Sitzung vom: 02.03.2026",
+    "opd_written_answer_dates": []
+   },
+   {
+    "doc_id": 872284,
+    "kind": "date",
+    "cell": "de_commune",
+    "body": "306",
+    "dtype": "answer",
+    "gold_present": "yes",
+    "qwen_present": "yes",
+    "gold_date": null,
+    "gold_lenient": [
+     "2021-12-13"
+    ],
+    "qwen_date": "2021-12-13",
+    "qwen_date_used": "2021-12-13",
+    "qwen_verified": false,
+    "qwen_in_gold_lenient": true,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": null,
+    "qwen_quote": "Sitzung vom: 13.12.2021",
+    "opd_written_answer_dates": []
+   },
+   {
+    "doc_id": 872843,
+    "kind": "date",
+    "cell": "de_commune",
+    "body": "306",
+    "dtype": "answer",
+    "gold_present": "yes",
+    "qwen_present": "yes",
+    "gold_date": null,
+    "gold_lenient": [],
+    "qwen_date": "2018-12-10",
+    "qwen_date_used": "2018-12-10",
+    "qwen_verified": false,
+    "qwen_in_gold_lenient": false,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": null,
+    "qwen_quote": "Sitzung vom: 10.12.2018",
+    "opd_written_answer_dates": []
+   },
+   {
+    "doc_id": 873144,
+    "kind": "date",
+    "cell": "de_commune",
+    "body": "306",
+    "dtype": "answer",
+    "gold_present": "yes",
+    "qwen_present": "yes",
+    "gold_date": null,
+    "gold_lenient": [
+     "2018-11-05"
+    ],
+    "qwen_date": "2018-11-05",
+    "qwen_date_used": "2018-11-05",
+    "qwen_verified": true,
+    "qwen_in_gold_lenient": true,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": null,
+    "qwen_quote": "Sitzung vom: ds 05.11.2018",
+    "opd_written_answer_dates": []
+   },
+   {
+    "doc_id": 878543,
+    "kind": "presence",
+    "cell": "de_commune",
+    "body": "581",
+    "dtype": "answer",
+    "gold_present": "yes",
+    "qwen_present": "no",
+    "gold_date": "2020-10-28",
+    "gold_lenient": [],
+    "qwen_date": null,
+    "qwen_date_used": null,
+    "qwen_verified": true,
+    "qwen_in_gold_lenient": false,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": "Interlaken, 28. Oktober 2020",
+    "qwen_quote": null,
+    "opd_written_answer_dates": []
+   },
+   {
+    "doc_id": 878596,
+    "kind": "presence",
+    "cell": "de_commune",
+    "body": "581",
+    "dtype": "answer",
+    "gold_present": "yes",
+    "qwen_present": "no",
+    "gold_date": "2019-09-04",
+    "gold_lenient": [],
+    "qwen_date": null,
+    "qwen_date_used": null,
+    "qwen_verified": true,
+    "qwen_in_gold_lenient": false,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": "Interlaken, 4. September 2019",
+    "qwen_quote": null,
+    "opd_written_answer_dates": []
+   },
+   {
+    "doc_id": 878786,
+    "kind": "presence",
+    "cell": "de_commune",
+    "body": "581",
+    "dtype": "intervention",
+    "gold_present": "yes",
+    "qwen_present": "no",
+    "gold_date": "2016-12-07",
+    "gold_lenient": [],
+    "qwen_date": null,
+    "qwen_date_used": null,
+    "qwen_verified": true,
+    "qwen_in_gold_lenient": false,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": "Interlaken, 7. Dezember 2016",
+    "qwen_quote": null,
+    "opd_written_answer_dates": []
+   },
+   {
+    "doc_id": 919318,
+    "kind": "date",
+    "cell": "de_commune",
+    "body": "1711",
+    "dtype": "answer",
+    "gold_present": "yes",
+    "qwen_present": "yes",
+    "gold_date": "2026-08-25",
+    "gold_lenient": [],
+    "qwen_date": "2024-12-17",
+    "qwen_date_used": "2024-12-17",
+    "qwen_verified": true,
+    "qwen_in_gold_lenient": false,
+    "gold_labeller": "claude-agents:A1=A2",
+    "gold_quote": "Sitzung vom 25. August 2026",
+    "qwen_quote": "Mit Schreiben vom 17. Dezember 2024 informierte der Stadtrat den Ornithologischen Verein",
+    "opd_written_answer_dates": []
+   }
+  ]
+ },
+ "hypotheses_under_qwen_gold": {
+  "qwen_strict": {
+   "arms": {
+    "rules": {
+     "exact": [
+      51,
+      68
+     ],
+     "dated_answerless": [
+      2,
+      35
+     ]
+    },
+    "v1": {
+     "exact": [
+      56,
+      68
+     ],
+     "dated_answerless": [
+      7,
+      35
+     ]
+    },
+    "cascade_v1": {
+     "exact": [
+      55,
+      68
+     ],
+     "dated_answerless": [
+      7,
+      35
+     ]
+    },
+    "v2": {
+     "exact": [
+      60,
+      68
+     ],
+     "dated_answerless": [
+      4,
+      35
+     ]
+    },
+    "cascade_v2": {
+     "exact": [
+      57,
+      68
+     ],
+     "dated_answerless": [
+      6,
+      35
+     ]
+    },
+    "free_null": {
+     "exact": [
+      61,
+      68
+     ],
+     "dated_answerless": [
+      4,
+      35
+     ]
+    },
+    "free_plain": {
+     "exact": [
+      53,
+      68
+     ],
+     "dated_answerless": [
+      13,
+      35
+     ]
+    },
+    "free_guided": {
+     "exact": [
+      60,
+      68
+     ],
+     "dated_answerless": [
+      5,
+      35
+     ]
+    },
+    "latest_printed_date": {
+     "exact": [
+      29,
+      68
+     ],
+     "dated_answerless": [
+      33,
+      35
+     ]
+    },
+    "latest_on_answer_typed": {
+     "exact": [
+      52,
+      68
+     ],
+     "dated_answerless": [
+      8,
+      35
+     ]
+    },
+    "always_null": {
+     "exact": [
+      35,
+      68
+     ],
+     "dated_answerless": [
+      0,
+      35
+     ]
+    }
+   },
+   "H1": {
+    "a": "v2",
+    "b": "free_null",
+    "a_only": 2,
+    "b_only": 3,
+    "p": 1.0,
+    "n": 68,
+    "holds": false
+   },
+   "H2": {
+    "v2": [
+     4,
+     35
+    ],
+    "wilson95": [
+     0.0453510585448975,
+     0.2595179478812023
+    ],
+    "v1": 7,
+    "free_null": 4,
+    "holds": false
+   },
+   "H3": {
+    "a": "v2",
+    "b": "v1",
+    "a_only": 5,
+    "b_only": 1,
+    "p": 0.21875,
+    "n": 68,
+    "holds": false
+   },
+   "S1": {
+    "a": "v2",
+    "b": "free_guided",
+    "a_only": 2,
+    "b_only": 2,
+    "p": 1.0,
+    "n": 68
+   }
+  },
+  "qwen_quote_lenient": {
+   "arms": {
+    "rules": {
+     "exact": [
+      49,
+      68
+     ],
+     "dated_answerless": [
+      2,
+      33
+     ]
+    },
+    "v1": {
+     "exact": [
+      58,
+      68
+     ],
+     "dated_answerless": [
+      5,
+      33
+     ]
+    },
+    "cascade_v1": {
+     "exact": [
+      57,
+      68
+     ],
+     "dated_answerless": [
+      5,
+      33
+     ]
+    },
+    "v2": {
+     "exact": [
+      62,
+      68
+     ],
+     "dated_answerless": [
+      2,
+      33
+     ]
+    },
+    "cascade_v2": {
+     "exact": [
+      59,
+      68
+     ],
+     "dated_answerless": [
+      4,
+      33
+     ]
+    },
+    "free_null": {
+     "exact": [
+      63,
+      68
+     ],
+     "dated_answerless": [
+      2,
+      33
+     ]
+    },
+    "free_plain": {
+     "exact": [
+      55,
+      68
+     ],
+     "dated_answerless": [
+      11,
+      33
+     ]
+    },
+    "free_guided": {
+     "exact": [
+      62,
+      68
+     ],
+     "dated_answerless": [
+      3,
+      33
+     ]
+    },
+    "latest_printed_date": {
+     "exact": [
+      31,
+      68
+     ],
+     "dated_answerless": [
+      31,
+      33
+     ]
+    },
+    "latest_on_answer_typed": {
+     "exact": [
+      54,
+      68
+     ],
+     "dated_answerless": [
+      6,
+      33
+     ]
+    },
+    "always_null": {
+     "exact": [
+      33,
+      68
+     ],
+     "dated_answerless": [
+      0,
+      33
+     ]
+    }
+   },
+   "H1": {
+    "a": "v2",
+    "b": "free_null",
+    "a_only": 2,
+    "b_only": 3,
+    "p": 1.0,
+    "n": 68,
+    "holds": false
+   },
+   "H2": {
+    "v2": [
+     2,
+     33
+    ],
+    "wilson95": [
+     0.016780530429070947,
+     0.19606581717798194
+    ],
+    "v1": 5,
+    "free_null": 2,
+    "holds": false
+   },
+   "H3": {
+    "a": "v2",
+    "b": "v1",
+    "a_only": 5,
+    "b_only": 1,
+    "p": 0.21875,
+    "n": 68,
+    "holds": false
+   },
+   "S1": {
+    "a": "v2",
+    "b": "free_guided",
+    "a_only": 2,
+    "b_only": 2,
+    "p": 1.0,
+    "n": 68
+   }
+  }
+ }
+}
