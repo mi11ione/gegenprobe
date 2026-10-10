@@ -82,6 +82,8 @@ def backend():
 
 
 def fit() -> None:
+    import os
+    os.environ["GP_WORKERS"] = "1"  # one llama.cpp context is not thread-safe (3 workers aborted with SIGABRT, 24.6 GB RSS)
     _no_spikes()
     _reachable_only()
     out = arms.fit(backend())
