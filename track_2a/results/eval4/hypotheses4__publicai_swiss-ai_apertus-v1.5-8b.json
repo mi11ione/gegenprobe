@@ -1,0 +1,58 @@
+{
+ "build": "publicai_swiss-ai_apertus-v1.5-8b",
+ "H1": {
+  "recall": [
+   99,
+   120
+  ],
+  "ci": [
+   0.7472413105195714,
+   0.8825955132940744
+  ],
+  "precision": [
+   99,
+   99
+  ],
+  "holds": false
+ },
+ "H2": {
+  "accuracy": [
+   91,
+   99
+  ],
+  "ci": [
+   0.8485803066346849,
+   0.958486094510377
+  ],
+  "holds": true,
+  "review": [
+   96,
+   99
+  ]
+ },
+ "H3": {
+  "review_recall": [
+   51,
+   63
+  ],
+  "rules_recall": [
+   49,
+   63
+  ],
+  "review_only": 2,
+  "rules_only": 0,
+  "p": 0.5,
+  "invented": [
+   0,
+   36
+  ],
+  "invented_upper": 0.09642183044857634,
+  "holds": false
+ },
+ "H4": {
+  "correct": 6,
+  "n": 6,
+  "wrong": [],
+  "holds": true
+ }
+}
