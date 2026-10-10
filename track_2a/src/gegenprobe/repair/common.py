@@ -5,7 +5,8 @@ Every repair row has the same plain columns (no JSON inside cells), so OPD can i
   body, affair_id, affair_number, action, proposed_action, opd_doc_id, source_doc_uid, source_doc_title, source_url,
   snapshot, check_identity, check_heading, check_decision_nr, check_decision_date, check_answer_event_dates,
   check_date_eq_event, check_detail, verified, note
-  action ∈ {relink, agenda_join, fetch, retype_oral, ocr, placeholder_replace, review}
+  action ∈ {relink, agenda_join, fetch, retype_oral, ocr, placeholder_replace, review, tag_answer, extract_tag}
+  (tag_answer / extract_tag: source adapters, repair/adapters/base.py)
   proposed_action  the route's action; equals `action` unless the row failed its per-row check and became `review`
   snapshot  the export dates the row was computed from (OPD exports, canton OGD)
   check_*   per-row document checks where they were run (BE relink/fetch: every row, repair.verify_all); empty = not run
@@ -50,7 +51,7 @@ COLS = [
     "note",
 ]
 CHECK_COLS = [c for c in COLS if c.startswith("check_") and c != "check_detail"]
-ACTIONS = {"relink", "agenda_join", "fetch", "retype_oral", "ocr", "placeholder_replace", "review"}
+ACTIONS = {"relink", "agenda_join", "fetch", "retype_oral", "ocr", "placeholder_replace", "review", "tag_answer", "extract_tag"}
 
 
 def snapshot() -> str:

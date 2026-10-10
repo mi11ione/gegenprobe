@@ -1,0 +1,27 @@
+id	shown	file	path	fmt	command	where	context
+u1.targets	12,150	results/repair/adapters/summary.json	totals.targets	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.verified	7,191	results/repair/adapters/summary.json	totals.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.verified_absent	6,330	results/repair/adapters/summary.json	totals.verified_absent	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.verified_image_only	861	results/repair/adapters/summary.json	totals.verified_image_only	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "**861** of the 1,350"}
+u1.repairable_with_adapters	10,298	results/repair/adapters/summary.json	coverage.repairable_deterministic_with_adapters	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.needs_adapters_after	4,470	results/repair/adapters/summary.json	coverage.needs_adapters_after	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.review	725	results/repair/adapters/summary.json	totals.review	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "rows are review"}
+u1.review_absent	501	results/repair/adapters/summary.json	totals.review_absent	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "absent"}
+u1.fetch	3,623	results/repair/adapters/summary.json	totals.verified_by_action.fetch	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.tag_answer	2,380	results/repair/adapters/summary.json	totals.verified_by_action.tag_answer	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.extract_tag	1,188	results/repair/adapters/summary.json	totals.verified_by_action.extract_tag	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.date_eq	4,992	results/repair/adapters/summary.json	totals.verified_by_date_match.eq	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.date_eq_gov	214	results/repair/adapters/summary.json	totals.verified_by_date_match.eq_gov	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "executive event"}
+u1.date_anywhere	1,307	results/repair/adapters/summary.json	totals.verified_by_date_match.anywhere	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.date_window	301	results/repair/adapters/summary.json	totals.verified_by_date_match.window	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "documented window"}
+u1.date_latest_in_window	95	results/repair/adapters/summary.json	totals.verified_by_date_match.latest_in_window	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "latest printed date in window"}
+u1.date_after_submission	282	results/repair/adapters/summary.json	totals.verified_by_date_match.after_submission	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "after submission"}
+u1.zh_verified	2,193	results/repair/adapters/summary.json	bodies.ZH.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.zurich_city_verified	1,417	results/repair/adapters/summary.json	bodies.261.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.sg_verified	1,013	results/repair/adapters/summary.json	bodies.SG.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
+u1.ti_verified	729	results/repair/adapters/summary.json	bodies.TI.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "Ticino (canton) (TI)"}
+u1.ne_verified	239	results/repair/adapters/summary.json	bodies.NE.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "Neuchâtel (canton) (NE)"}
+u1.ju_verified	357	results/repair/adapters/summary.json	bodies.JU.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "Jura (canton) (JU)"}
+u1.vs_verified	195	results/repair/adapters/summary.json	bodies.VS.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "Valais (canton) (VS)"}
+u1.so_verified	210	results/repair/adapters/summary.json	bodies.SO.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "Solothurn (canton) (SO)"}
+u1.lu_verified	104	results/repair/adapters/summary.json	bodies.LU.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	{"docs/adapters.md": "Luzern (canton) (LU)"}

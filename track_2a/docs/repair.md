@@ -166,4 +166,4 @@ pages per document, under concurrent load).
 ## Not measured
 
 The 11,206 gap affairs with no answer document anywhere in OPD (ZH before 2016, Zürich city, SG, NE, JU, Winterthur, …) need
-per-body source adapters; none is built here. The 1,350 `ocr` rows are candidates; only the 30-document probe was OCR'd.
+per-body source adapters: `repair/adapters/`, results and limits in `docs/adapters.md`. The 1,350 `ocr` rows are candidates; only the 30-document probe was OCR'd.
