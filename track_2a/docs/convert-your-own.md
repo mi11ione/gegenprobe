@@ -7,20 +7,27 @@ anywhere except the request for the PDF itself.
 
 ## Install
 
-Locally (Python 3.11, poppler and tesseract with `deu`, `fra`, `ita` installed):
+Locally (Python 3.11, poppler and tesseract with `deu`, `fra`, `ita` installed), from the hash-pinned lock, so you get
+exactly the versions that were tested (`requirements.txt` only lists the top-level names):
 
 ```bash
 cd track_2a
-python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
+python3.11 -m venv .venv && .venv/bin/pip install --require-hashes -r requirements.lock
 export PYTHONPATH=src:.
 ```
 
-Or with the Docker image that `make run` builds (everything included):
+Or with the Docker image that `make run` builds (everything included; it runs as an unprivileged user, so pass your own
+uid when it writes into a mounted directory):
 
 ```bash
 docker run --rm gegenprobe:latest python -m gegenprobe convert <url>
-docker run --rm -v "$PWD:/work" gegenprobe:latest python -m gegenprobe convert --batch /work/inputs.tsv --out /work/out.jsonl
+docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/work" gegenprobe:latest \
+  python -m gegenprobe convert --batch /work/inputs.tsv --out /work/out.jsonl
 ```
+
+Untrusted input is bounded: a PDF above `GP_MAX_PDF_MB` (default 50) is refused before it is read, and every
+pdftotext / pdftoppm / tesseract call has a timeout (`GP_SUBPROCESS_TIMEOUT`, default 300 s); both end as a typed failure
+row (`too_large`, `text_timeout`), not a hung batch. Requests carry the User-Agent `GP_USER_AGENT` (set your own).
 
 ## One document
 

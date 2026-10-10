@@ -18,8 +18,19 @@ One night =
        new_body / body_gone  a body appears in or disappears from the rated set
        be_ogd_schema_change  the canton tables lost a column or an answer document type the join relies on
        be_ogd_answers_collapsed  the canton's answer-document count fell to zero or by more than half
-  8. routing (monitor.notify): optional webhook / SMTP; exit code GP_ALERT_EXIT (default 3) when alerts fired, 1 on error.
-Outputs: results/monitor/{rates.json, alerts.json, run.json}; repair rows in results/monitor/repair_BE_new.tsv.
+       exports_stale         index.json older than GP_STALE_DAYS (default 2) days: OPD's export job may have stopped
+       rate_trend_drop       a body's rate fell by more than TREND_PP points over the last TREND_NIGHTS nights (a slow
+                             decline that never trips the night-over-night threshold)
+  8. delivery (monitor.notify): alerts go to an outbox (WORK/nightly/outbox.json) first, then to the configured webhook /
+     SMTP; the outbox is cleared only after a successful send, so an outage never loses an alert (it is re-sent with the
+     next night's alerts). State is written after the send attempt. Exit code GP_ALERT_EXIT (default 3) when alerts fired,
+     1 on error or when sending failed.
+Outputs (GP_MONITOR_OUT, default results/monitor): rates.json, alerts.json, run.json; repair_BE_new.tsv (tonight's new rows)
+and repair_BE_ledger.tsv (every row ever proposed: first_seen, last_seen, status pending | review | resolved | dropped).
+
+Local exports: with GP_EXPORTS_DIR set (a mirror of files.openparldata.ch/exports, e.g. OPD's own export directory), every
+exports URL is read from disk (net.local_exports); single exports are read in place and only changed docs/texts files are
+re-scanned. The canton's two OGD tables are still fetched from the canton.
 
 Linking rate (per body) = affairs with a written-answer event whose answer text is reachable in OPD (attached document,
 `texts` row, or agenda item) / affairs with a written-answer event. Same definitions as the census.
@@ -33,6 +44,8 @@ usage:
 from __future__ import annotations
 
 import collections
+import csv
+import datetime as dt
 import json
 import os
 import subprocess
@@ -40,17 +53,24 @@ import sys
 import time
 from pathlib import Path
 
-from .. import net
+from .. import hardening, net
 from ..paths import DOCS_META, OPD_RAW, RESULTS, ROOT, WORK
 
 INDEX = "https://files.openparldata.ch/exports/index.json"
 NIGHT = WORK / "nightly"
 STATE = NIGHT / "state.json"
-OUT = RESULTS / "monitor"
+OUTBOX = NIGHT / "outbox.json"
+OUT = Path(os.environ.get("GP_MONITOR_OUT", RESULTS / "monitor"))
 SINGLE = ("affairs", "events", "agendas", "bodies")
 DROP_PP = 2.0  # alert threshold: linking-rate drop in percentage points, night over night
 MIN_AFFAIRS = 50  # only bodies with at least this many written-answer affairs are rated
 DOC_DROP = 0.10  # alert when a body's OPD document count falls by more than 10 % (a scraper losing documents)
+TREND_PP = 5.0  # alert when a body's rate fell by more than this over TREND_NIGHTS nights
+TREND_NIGHTS = 7
+STALE_DAYS = float(os.environ.get("GP_STALE_DAYS", "2"))
+DOC_BUDGET_S = float(os.environ.get("GP_DOC_BUDGET_S", "600"))  # per-row ceiling for the triple check (fetch + extract)
+LEDGER_COLS = ["key", "affair_id", "affair_number", "action", "opd_doc_id", "source_doc_uid", "source_url", "verified",
+               "check_summary", "status", "first_seen", "last_seen"]
 
 
 def _env(**kw) -> dict:
@@ -152,6 +172,33 @@ def alerts(prev: dict, cur: dict, names: dict | None = None) -> list[dict]:
     return out
 
 
+def trend_alerts(history: list[dict], cur: dict, names: dict | None = None) -> list[dict]:
+    """Rate drop over TREND_NIGHTS nights (history: oldest first, each {ts, rates: {body: rate}})."""
+    names = names or {}
+    if len(history) < TREND_NIGHTS:
+        return []
+    old = history[-TREND_NIGHTS]["rates"]
+    out = []
+    for b, r in cur.items():
+        if b.startswith("_") or r["written"] < MIN_AFFAIRS or b not in old:
+            continue
+        if old[b] - r["rate"] > TREND_PP:
+            out.append(dict(body=b, name=names.get(b, ""), kind="rate_trend_drop", nights=TREND_NIGHTS, prev=old[b],
+                            cur=r["rate"], drop_pp=round(old[b] - r["rate"], 2)))
+    return out
+
+
+def stale_alert(idx: dict | None, now: float | None = None) -> list[dict]:
+    if not idx or not idx.get("generated_at"):
+        return []
+    gen = dt.datetime.fromisoformat(idx["generated_at"].replace("Z", "+00:00"))
+    age = ((now or time.time()) - gen.timestamp()) / 86400
+    if age > STALE_DAYS:
+        return [dict(body="_exports", name="OpenParlData exports", kind="exports_stale", generated_at=idx["generated_at"],
+                     age_days=round(age, 1))]
+    return []
+
+
 def ogd_alerts(prev: dict | None, cur: dict) -> list[dict]:
     out = []
     if cur["missing_columns"] or cur["missing_answer_types"]:
@@ -174,19 +221,119 @@ def verify_new(rows_: list[dict]) -> None:
     vnr = {g["geschaeft_nr"]: g.get("geschaeft_vorstoss_nummer") for g in geschaeft.values()}
     ev = be.answer_events({r["affair_id"] for r in rows_}) if rows_ else {}
     for r in rows_:
-        r["proposed_action"] = r["action"]
+        r["proposed_action"] = r.get("proposed_action") or r["action"]
         try:
-            sha, path = pdftext.fetch_pdf(r["source_url"])
-            text = "\n".join(pdftext.extract(sha, path, ocr=True)["pages"])
+            with hardening.time_budget(DOC_BUDGET_S):
+                sha, path = pdftext.fetch_pdf(r["source_url"])
+                text = "\n".join(pdftext.extract(sha, path, ocr=True)["pages"])
             c = be.verify_text(text, r["affair_number"], vnr.get(r["affair_number"]), ev.get(r["affair_id"], []))
             r["checks"] = dict(identity=c["identity"], heading=c["heading"], decision_nr=c["rrb_nr"],
                                decision_date=c["rrb_date"], answer_event_dates=c["opd_answer_events"],
                                date_eq_event=c["date_eq_event"], pdf_sha256=sha)
             r["verified"] = c["triple"]
-        except Exception as e:
-            r["checks"], r["verified"] = dict(fetch_error=f"{type(e).__name__}: {str(e)[:120]}"), False
+        except Exception as e:  # typed: fetch_error rows are retried on the next night (transient), others stay in review
+            kind = getattr(e, "kind", None) or type(e).__name__
+            r["checks"], r["verified"] = dict(fetch_error=f"{kind}: {str(e)[:120]}"), False
         if not r["verified"]:
             r["action"] = "review"
+
+
+PERMANENT = ("not_a_pdf", "sha_mismatch", "too_large", "HTTPError: HTTP Error 404", "HTTPError: HTTP Error 410")
+
+
+def transient(check_summary: str) -> bool:
+    """A failed check worth repeating the next night: a fetch error that is not a property of the document itself."""
+    if not check_summary.startswith("fetch_error: "):
+        return False
+    return not check_summary.removeprefix("fetch_error: ").startswith(PERMANENT)
+
+
+def _row_key(r: dict) -> str:
+    return f"{r['affair_id']}:{r.get('proposed_action') or r['action']}:{r['source_doc_uid']}"
+
+
+def _summary(checks) -> str:
+    if not isinstance(checks, dict):
+        return ""
+    if "fetch_error" in checks:
+        return "fetch_error: " + checks["fetch_error"]
+    keys = ("identity", "heading", "date_eq_event")
+    return " ".join(f"{k}={checks.get(k)}" for k in keys if k in checks)
+
+
+def read_ledger(path: Path) -> dict[str, dict]:
+    if not path.exists():
+        return {}
+    with open(path, encoding="utf-8") as f:
+        return {r["key"]: r for r in csv.DictReader(f, delimiter="\t")}
+
+
+OPEN = ("pending", "review", "unchecked")
+
+
+def _status(verified) -> str:
+    v = str(verified)
+    return "pending" if v == "True" else "review" if v == "False" else "unchecked"  # unchecked: offline night, no PDF read
+
+
+def update_ledger(ledger: dict[str, dict], rows_: list[dict], aff: dict, today: str) -> dict[str, dict]:
+    """Every row ever proposed. In tonight's list: pending (verified) / review (check failed) / unchecked (offline night).
+    Gone from the list: resolved (the affair's answer is reachable in OPD now) / dropped (still unanswered)."""
+    cur = {}
+    for r in rows_:
+        k = _row_key(r)
+        old = ledger.get(k, {})
+        cur[k] = dict(
+            key=k, affair_id=r["affair_id"], affair_number=r.get("affair_number", ""),
+            action=r.get("proposed_action") or r["action"], opd_doc_id=r.get("opd_doc_id") or "",
+            source_doc_uid=r.get("source_doc_uid", ""), source_url=r.get("source_url", ""),
+            verified=r["verified"] if "verified" in r else old.get("verified", ""),
+            check_summary=_summary(r.get("checks")) or old.get("check_summary", ""),
+            status=_status(r.get("verified", old.get("verified", ""))),
+            first_seen=old.get("first_seen", today), last_seen=today,
+        )
+    for k, old in ledger.items():
+        if k in cur:
+            continue
+        a = aff.get(int(old["affair_id"])) if str(old["affair_id"]).isdigit() else None
+        reachable = bool(a and (a.get("dAt") or a.get("tA") or a.get("gAt")))
+        cur[k] = dict(old, status="resolved" if reachable else ("dropped" if old["status"] in OPEN else old["status"]))
+    return cur
+
+
+def write_ledger(path: Path, ledger: dict[str, dict]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".tmp")
+    with open(tmp, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, LEDGER_COLS, delimiter="\t", lineterminator="\n", extrasaction="ignore")
+        w.writeheader()
+        for k in sorted(ledger, key=lambda k: (str(ledger[k]["affair_id"]), k)):
+            w.writerow(ledger[k])
+    tmp.replace(path)
+
+
+def _peak_rss_mb() -> float:
+    """Largest resident set of this process or any finished child (the census extraction), for sizing MemoryMax."""
+    import resource
+
+    unit = 1 if sys.platform == "darwin" else 1024  # ru_maxrss: bytes on macOS, KiB on Linux
+    rss = max(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss)
+    return round(rss * unit / 2**20, 1)
+
+
+def deliver(outbox: Path, to_send: list[dict], run: dict) -> None:
+    """Persist the alerts in the outbox, send them, and clear the outbox only when the send succeeded; a failed send
+    leaves them for the next night (alerts are never lost by committing state first)."""
+    from .notify import send
+
+    outbox.write_text(json.dumps(to_send, indent=1))
+    try:
+        run["notified"] = send(to_send, run)
+        outbox.unlink()
+        run["notify_error"] = None
+    except Exception as e:  # the outbox stays; tomorrow's night re-sends it
+        run["notified"] = []
+        run["notify_error"] = f"{type(e).__name__}: {str(e)[:200]}"
 
 
 def _download(entity: str, url: str, dest: Path) -> int:
@@ -206,17 +353,24 @@ def night(offline: bool) -> dict:
     t0 = time.time()
     NIGHT.mkdir(parents=True, exist_ok=True)
     state = json.loads(STATE.read_text()) if STATE.exists() else {}
-    opd, meta = (OPD_RAW, DOCS_META) if offline else (NIGHT / "opd", NIGHT / "docs_meta")
-    transfer = 0
+    local = os.environ.get("GP_EXPORTS_DIR")
+    if offline:
+        opd, meta = OPD_RAW, DOCS_META
+    else:
+        opd = Path(local) if local else NIGHT / "opd"
+        meta = Path(os.environ["GP_DOCS_META"]) if os.environ.get("GP_DOCS_META") else NIGHT / "docs_meta"
+    transfer, idx = 0, None
     if not offline:
         opd.mkdir(parents=True, exist_ok=True)
         meta.mkdir(parents=True, exist_ok=True)
         idx = json.loads(net.get(INDEX))
         prev_idx = state.get("index")
         diff = index_diff(prev_idx, idx) if prev_idx else None
-        for e in idx["files"]:
-            if e["entity"] in SINGLE and (not prev_idx or e["entity"] in diff["changed"] or not (opd / e["filename"]).exists()):
-                transfer += _download(e["entity"], e["url"], opd / e["filename"])
+        if not local:  # single exports are read in place from GP_EXPORTS_DIR
+            for e in idx["files"]:
+                if e["entity"] in SINGLE and (not prev_idx or e["entity"] in diff["changed"]
+                                              or not (opd / e["filename"]).exists()):
+                    transfer += _download(e["entity"], e["url"], opd / e["filename"])
         changed_bodies = set()
         for e in idx["files"]:
             if e["entity"] in ("docs", "texts"):
@@ -253,32 +407,43 @@ def night(offline: bool) -> dict:
     t3 = time.time()
     rep, rep_counts = be_repair(census_out, aff)
     t["repair_be_s"] = round(time.time() - t3, 1)
+    ledger_path = OUT / "repair_BE_ledger.tsv"
+    ledger = read_ledger(ledger_path)
     prev_keys = set(state.get("be_repair_keys", []))
-    keys = [f"{r['affair_id']}:{r['action']}:{r['source_doc_uid']}" for r in rep]
+    keys = [_row_key(r) for r in rep]
     new = [r for r, k in zip(rep, keys) if k not in prev_keys]
-    state["be_repair_keys"] = keys
+    # rows whose check failed for a transient fetch reason (network, timeout, 5xx, unreadable robots.txt) are checked again
+    retry = [r for r, k in zip(rep, keys) if k in prev_keys and transient(ledger.get(k, {}).get("check_summary", ""))]
     if not offline:
-        verify_new(new)
+        verify_new(new + retry)
+    names = body_names(census_out)
     prev_rates = state.get("rates", {})
-    al = alerts(prev_rates, rates, body_names(census_out)) if prev_rates else []
+    al = alerts(prev_rates, rates, names) if prev_rates else []
+    history = state.get("history", [])
+    al += trend_alerts(history, rates, names)
+    if not offline:
+        al += stale_alert(idx)
     from ..repair import be as _be
 
     health = _be.ogd_health()
     al += ogd_alerts(state.get("be_ogd"), health)
-    state["be_ogd"] = health
-    state["rates"] = rates
-    STATE.write_text(json.dumps(state))
-    OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / "rates.json").write_text(json.dumps(rates, indent=1, sort_keys=True))
-    (OUT / "alerts.json").write_text(
-        json.dumps(dict(threshold_pp=DROP_PP, min_affairs=MIN_AFFAIRS, doc_drop=DOC_DROP, alerts=al), indent=1)
-    )
     t["total_s"] = round(time.time() - t0, 1)
+    today = dt.date.today().isoformat()
+    ledger = update_ledger(ledger, rep, aff, today)
+    OUT.mkdir(parents=True, exist_ok=True)
     from ..repair.common import write_rows
 
     write_rows("BE_new", new, out=OUT)
+    write_ledger(ledger_path, ledger)
+    (OUT / "rates.json").write_text(json.dumps(rates, indent=1, sort_keys=True))
+    # delivery: outbox first, send, clear only on success
+    pending = json.loads(OUTBOX.read_text()) if OUTBOX.exists() else []
+    to_send = pending + [dict(a, night=today) for a in al]
+    (OUT / "alerts.json").write_text(json.dumps(dict(
+        threshold_pp=DROP_PP, min_affairs=MIN_AFFAIRS, doc_drop=DOC_DROP, trend_pp=TREND_PP, trend_nights=TREND_NIGHTS,
+        stale_days=STALE_DAYS, alerts=al, undelivered_from_previous_nights=pending), indent=1))
     run = dict(
-        mode="offline" if offline else "network",
+        mode="offline" if offline else ("local-exports" if local else "network"),
         transfer_bytes=transfer,
         timings=t,
         bodies_rated=sum(1 for b in rates if not b.startswith("_")),
@@ -287,13 +452,24 @@ def night(offline: bool) -> dict:
         be_ogd=health,
         be_repair=rep_counts,
         be_repair_new_since_last_night=len(new),
+        be_repair_retried=len(retry),
+        ledger=dict(collections.Counter(r["status"] for r in ledger.values())),
+        robots_unreadable=net.robots_report(),
+        peak_rss_mb=_peak_rss_mb(),
         ts=round(time.time()),
     )
+    deliver(OUTBOX, to_send, run)
+    # state after the send attempt
+    state["be_repair_keys"] = keys
+    state["be_ogd"] = health
+    state["rates"] = rates
+    state["history"] = (history + [dict(ts=round(time.time()), rates={b: r["rate"] for b, r in rates.items()
+                                                                       if not b.startswith("_")})])[-(TREND_NIGHTS + 1):]
+    tmp = STATE.with_suffix(".tmp")
+    tmp.write_text(json.dumps(state))
+    tmp.replace(STATE)
     (OUT / "run.json").write_text(json.dumps(run, indent=1))
-    from .notify import send
-
-    run["notified"] = send(al, run)
-    run["_alerts"] = al
+    run["_alerts"] = to_send
     return run
 
 
@@ -325,6 +501,9 @@ def main(argv: list[str]) -> int:
         run = night(offline=cmd == "offline")
         al = run.pop("_alerts")
         print(run)
+        if run.get("notify_error"):
+            print(f"alert delivery failed ({run['notify_error']}); kept in {OUTBOX} for the next night", file=sys.stderr)
+            return 1
         return exit_code(al)
     print(__doc__)
     return 2

@@ -6,15 +6,19 @@ kept under the first parent seen, and that a fix is pending. Until it ships, a r
 by the next scrape, so the list is best applied as a protected override, or used as this acceptance test: after the fix,
 every relink document should be attached to the affair the list names.
 
-    python -m gegenprobe.repair.acceptance <docs_BE.ndjson.gz | docs_meta dir>   score a local snapshot
-    python -m gegenprobe.repair.acceptance --fetch                              stream today's docs_BE export (470 MB,
-                                                                                one polite request, nothing stored)
-Writes results/repair/acceptance_<snapshot>.json.
+    python -m gegenprobe.repair.acceptance <docs_BE.ndjson.gz>   score a local snapshot (e.g. OPD's own export file)
+    python -m gegenprobe.repair.acceptance --fetch               stream today's docs_BE export (470 MB, one polite request,
+                                                                 nothing stored; GP_EXPORTS_DIR reads it from disk)
+    python -m gegenprobe.repair.acceptance                       the census scan of the 6 Oct 2026 snapshot (dev machines)
+Writes results/repair/acceptance_<live|file>_<YYYY-MM-DD>.json (acceptance_snapshot-2026-10-06.json for the default).
+Exit code 0 only when every relink document is attached to the affair the list names (the fix has shipped); 1 otherwise,
+so CI or the nightly can gate on it.
 """
 from __future__ import annotations
 
 import collections
 import csv
+import datetime as dt
 import gzip
 import io
 import json
@@ -66,6 +70,9 @@ def score(docs, want: dict[int, int]) -> dict:
 
 
 def main(argv: list[str]) -> int:
+    if argv and argv[0] in ("-h", "--help"):
+        print(__doc__)
+        return 0
     want = relink_rows()
     if argv and argv[0] == "--fetch":
         r = net.open_url(EXPORT_URL, timeout=600)
@@ -80,9 +87,14 @@ def main(argv: list[str]) -> int:
         res = score(iter_docs_meta({"BE"}), want)
         label = "snapshot-2026-10-06"
     res["snapshot"] = label
-    (OUT / f"acceptance_{label}.json").write_text(json.dumps(res, indent=1))
+    if label.startswith("snapshot-"):  # the pinned census snapshot: one stable file
+        name = f"acceptance_{label}.json"
+    else:  # live / local export: one dated file per check, never overwritten by the next day's run
+        res["checked_on"] = dt.date.today().isoformat()
+        name = f"acceptance_{label}_{res['checked_on']}.json"
+    (OUT / name).write_text(json.dumps(res, indent=1))
     print(json.dumps({k: v for k, v in res.items() if k != "attached_elsewhere_examples"}, indent=1))
-    return 0
+    return 0 if res["passed"] else 1
 
 
 if __name__ == "__main__":

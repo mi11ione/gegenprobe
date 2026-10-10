@@ -41,7 +41,9 @@ is seen under; until that fix ships, the next scrape can re-attach a relinked an
 parentless again. Apply the list as a protected override, or after the fix. Either way the list doubles as the **acceptance
 test of the fix**: `python -m gegenprobe.repair.acceptance` (local snapshot) or `--fetch` (today's `docs_BE` export) counts
 how many of the 2,459 relink documents are attached to the affair the list names. In the 6 Oct 2026 snapshot all 2,459 are
-still parentless; after the fix all 2,459 should be attached.
+still parentless; after the fix all 2,459 should be attached. The command exits 0 only then (1 otherwise, so a deployment
+pipeline can gate on it) and keeps one dated result per check (`acceptance_<live|file>_<YYYY-MM-DD>.json`); the nightly
+job's ledger (`repair_BE_ledger.tsv`, see `docs/nightly.md`) marks each row `resolved` once OPD has the answer.
 
 ## BE: the answers are in OPD, just not attached
 

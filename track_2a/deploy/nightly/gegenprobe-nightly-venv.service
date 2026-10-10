@@ -1,5 +1,8 @@
-# Variant without Docker: a checkout in /opt/gegenprobe with a Python 3.11 venv (pip install -r requirements.lock
-# --require-hashes) and poppler-utils + tesseract-ocr{,-deu,-fra,-ita} from the distribution. Same timer, same outputs.
+# Variant without Docker: a checkout in /opt/gegenprobe/track_2a with a Python 3.11 venv in /opt/gegenprobe/.venv
+# (pip install --require-hashes -r requirements.lock) and poppler-utils + tesseract-ocr{,-deu,-fra,-ita} from the
+# distribution. Same timer, same outputs. The checkout stays read-only for the job: everything it writes goes to
+# /var/lib/gegenprobe (work/ = caches and state, results/ = rates, alerts, ledger), owned by the `gegenprobe` system user
+# that install.sh creates.
 [Unit]
 Description=Gegenprobe nightly (no Docker): OpenParlData answer-linking monitor and repair lists
 Wants=network-online.target
@@ -9,9 +12,23 @@ OnFailure=gegenprobe-nightly-failure.service
 [Service]
 Type=oneshot
 User=gegenprobe
-WorkingDirectory=/opt/gegenprobe/track_2a
+Group=gegenprobe
+StateDirectory=gegenprobe
+StateDirectoryMode=0750
+WorkingDirectory=/var/lib/gegenprobe
 EnvironmentFile=-/etc/gegenprobe/alerts.env
-Environment=PYTHONPATH=/opt/gegenprobe/track_2a/src GP_WORK=/var/lib/gegenprobe/work
+Environment=PYTHONPATH=/opt/gegenprobe/track_2a/src PYTHONDONTWRITEBYTECODE=1 HOME=/var/lib/gegenprobe
+Environment=GP_WORK=/var/lib/gegenprobe/work GP_MONITOR_OUT=/var/lib/gegenprobe/results
 ExecStart=/opt/gegenprobe/.venv/bin/python -m gegenprobe.monitor.nightly run
 TimeoutStartSec=4h
 Nice=10
+# Resource ceiling (cgroup v2). Measured peak: see docs/runbook.md "Resources".
+MemoryMax=4G
+CPUQuota=200%
+TasksMax=256
+# Sandboxing: the job needs network and its state directory, nothing else.
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=/var/lib/gegenprobe

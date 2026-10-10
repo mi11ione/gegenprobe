@@ -292,6 +292,20 @@ r2d1.rule_place_head	10/11	results/convert/rule_precision.json	fields.answer_dat
 r2d1.rule_rrb_vom	3/5	results/convert/rule_precision.json	fields.answer_date.rrb_vom.correct/fields.answer_date.rrb_vom.n	frac	python -m gegenprobe.convert.precision	docs/convert-your-own.md	"{""docs/convert-your-own.md"": ""`rrb_vom`""}"
 r2d1.rule_datum_rr	0/2	results/convert/rule_precision.json	fields.answer_date.datum_rr_sitzung.correct/fields.answer_date.datum_rr_sitzung.n	frac	python -m gegenprobe.convert.precision	docs/convert-your-own.md	"{""docs/convert-your-own.md"": ""`datum_rr_sitzung`""}"
 r2d1.opdtext_docs	30	results/convert/opdtext_alignment.json	n_docs	int	see results/convert/opdtext_alignment.json label	docs/convert-your-own.md	"{""docs/convert-your-own.md"": ""held-out documents of Collombey-Muraz""}"
+r2d2.dataset_rows	91,268	results/census/answer_rule_alt.json	rows	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md	
+r2d2.alt_rows_changed	753	results/census/answer_rule_alt.json	rows_changed	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md	"{""results/census/interventions_README.md"": ""Changes""}"
+r2d2.sh_median_census	0	results/census/answer_rule_alt.json	bodies.SH.median_days	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md	"{""results/census/interventions_README.md"": ""Schaffhausen""}"
+r2d2.sh_median_alt	71	results/census/answer_rule_alt.json	bodies.SH.median_days_alt	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md	"{""results/census/interventions_README.md"": ""Schaffhausen""}"
+r2d2.sh_rows_changed	324	results/census/answer_rule_alt.json	bodies.SH.changed	int	python -m gegenprobe.census.interventions	-	
+r2d2.source_url_filled	16,745	results/census/answer_rule_alt.json	source_url_filled	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md	
+r2d2.not_attached	16,749	results/census/answer_rule_alt.json	not_attached	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md	
+r2d2.bern_verified	2,421	results/census/date_trust.json	bern_verified.date_equal	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md,docs/viewer.md	
+r2d2.bern_verified_n	2,459	results/census/date_trust.json	bern_verified.n	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md,docs/viewer.md	
+r2d2.tier_sitting_day	24	results/census/date_trust.json	tier_counts.sitting_day	int	python -m gegenprobe.census.interventions	-	
+r2d2.tier_mixed	15	results/census/date_trust.json	tier_counts.mixed	int	python -m gegenprobe.census.interventions	-	
+r2d2.tier_diffuse	7	results/census/date_trust.json	tier_counts.diffuse	int	python -m gegenprobe.census.interventions	-	
+r2d2.national_median	68	results/census/answer_rule_alt.json	national.median_days	int	python -m gegenprobe.census.interventions	-	
+r2d2.national_median_alt	68	results/census/answer_rule_alt.json	national.median_days_alt	int	python -m gegenprobe.census.interventions	-	
 repair.be_relink	2,459	results/repair/summary.json	by_action.relink	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md,technical_report.md	
 repair.be_fetch	49	results/repair/summary.json	by_action.fetch	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md,technical_report.md	"{""docs/form_notes.md"": ""fetches, `results/repair/repair_BE.tsv`) is the best interim"", ""docs/repair.md"": ""canton lists an answer OPD lacks |"", ""technical_report.md"": ""fetches, the other""}"
 repair.agenda_join	592	results/repair/summary.json	by_action.agenda_join	int	python -m gegenprobe.repair.run	docs/repair.md	"{""docs/repair.md"": ""| OPD's own `agendas.item_affair_id`; not sample-verified |""}"
@@ -354,6 +368,8 @@ repair.acceptance_parentless	2,459	results/repair/acceptance_snapshot-2026-10-06
 repair.begin_review_years	9	results/repair/repair_BE_begin_date.json	summary.review_years_after_number	int	python -m gegenprobe.repair.be_begin_date	docs/repair.md	"{""docs/repair.md"": ""after the year in the affair number""}"
 repair.begin_event_ids	655	results/repair/repair_BE_begin_date.json	summary.with_event_id	int	python -m gegenprobe.repair.be_begin_date	docs/repair.md	"{""docs/repair.md"": ""OPD can join on (`evidence_event_id`, `evidence_event_date`, `evidence_event_title`;""}"
 repair.be_ogd_answer_docs	9,577	results/monitor/run.json	be_ogd.answer_documents	int	python -m gegenprobe.monitor.nightly offline	docs/nightly.md	
+repair.nightly_local_s	96.8	results/monitor/run_local_exports.json	timings.total_s	f1	GP_EXPORTS_DIR=<exports dir> python -m gegenprobe.monitor.nightly run	docs/nightly.md,docs/runbook.md	
+repair.nightly_peak_rss_mb	2,077.6	results/monitor/run_local_exports.json	peak_rss_mb	f1	GP_EXPORTS_DIR=<exports dir> python -m gegenprobe.monitor.nightly run	docs/nightly.md,docs/runbook.md	
 report.theta_auroc	0.99	results/report/report_numbers.json	theta.auroc	f2	python -m report.stats / CI run (see file)	technical_report.md	
 report.theta_loo	124/127	results/report/report_numbers.json	theta.loo_correct/theta.loo_n	frac	python -m report.stats / CI run (see file)	technical_report.md	
 report.theta_loo_ci	[93.3, 99.2]	results/report/report_numbers.json	theta.loo_ci_pct	ci	python -m report.stats / CI run (see file)	technical_report.md	

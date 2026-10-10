@@ -1,0 +1,15 @@
+id	shown	file	path	fmt	command	where	context
+r2d2.dataset_rows	91,268	results/census/answer_rule_alt.json	rows	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md	
+r2d2.alt_rows_changed	753	results/census/answer_rule_alt.json	rows_changed	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md	{"results/census/interventions_README.md": "Changes"}
+r2d2.sh_median_census	0	results/census/answer_rule_alt.json	bodies.SH.median_days	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md	{"results/census/interventions_README.md": "Schaffhausen"}
+r2d2.sh_median_alt	71	results/census/answer_rule_alt.json	bodies.SH.median_days_alt	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md	{"results/census/interventions_README.md": "Schaffhausen"}
+r2d2.sh_rows_changed	324	results/census/answer_rule_alt.json	bodies.SH.changed	int	python -m gegenprobe.census.interventions	-	
+r2d2.source_url_filled	16,745	results/census/answer_rule_alt.json	source_url_filled	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md	
+r2d2.not_attached	16,749	results/census/answer_rule_alt.json	not_attached	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md	
+r2d2.bern_verified	2,421	results/census/date_trust.json	bern_verified.date_equal	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md,docs/viewer.md	
+r2d2.bern_verified_n	2,459	results/census/date_trust.json	bern_verified.n	int	python -m gegenprobe.census.interventions	results/census/interventions_README.md,docs/viewer.md	
+r2d2.tier_sitting_day	24	results/census/date_trust.json	tier_counts.sitting_day	int	python -m gegenprobe.census.interventions	-	
+r2d2.tier_mixed	15	results/census/date_trust.json	tier_counts.mixed	int	python -m gegenprobe.census.interventions	-	
+r2d2.tier_diffuse	7	results/census/date_trust.json	tier_counts.diffuse	int	python -m gegenprobe.census.interventions	-	
+r2d2.national_median	68	results/census/answer_rule_alt.json	national.median_days	int	python -m gegenprobe.census.interventions	-	
+r2d2.national_median_alt	68	results/census/answer_rule_alt.json	national.median_days_alt	int	python -m gegenprobe.census.interventions	-	

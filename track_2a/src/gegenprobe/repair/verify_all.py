@@ -8,7 +8,9 @@ OGD PDF) is fetched politely, cached by sha256 in WORK, and checked three ways (
 with BOTH RRB parsers: v1 (the parser frozen when the 40-row sample was pre-registered) and v2 (added afterwards, see
 be.recheck_sample). A row is `verified` when the v2 triple holds; every other row becomes action `review`.
 
-Resumable: one JSON per affair under WORK/repair/verify_all/. Writes results/repair/be_verify_all.json and a DONE marker.
+Resumable: one JSON per affair under WORK/repair/verify_all/; a row that failed for a transient reason (network, timeout,
+HTTP 5xx, time budget) is fetched again on the next run. Per-row ceiling GP_DOC_BUDGET_S (default 600 s).
+Writes results/repair/be_verify_all.json and a DONE marker.
 
     python -m gegenprobe.repair.verify_all [run|summary]
 """
@@ -20,7 +22,7 @@ import os
 import sys
 import time
 
-from .. import pdftext
+from .. import hardening, pdftext
 from ..paths import WORK
 from ..stats import wilson_pct
 from .be import answer_events, load_ogd, verify_text
@@ -30,6 +32,8 @@ CACHE = WORK / "repair" / "verify_all"
 LIST = OUT / "repair_BE.tsv"
 RESULT = OUT / "be_verify_all.json"
 DONE = CACHE / "DONE"
+TRANSIENT = ("URLError", "TimeoutError", "timeout", "TimeBudgetExceeded", "HTTPError: HTTP Error 5", "ConnectionError",
+             "RemoteDisconnected", "IncompleteRead", "network_error", "text_timeout")
 
 
 def _rows() -> list[dict]:
@@ -58,19 +62,22 @@ def run() -> dict:
     for r in rows:
         p = CACHE / f"{r['affair_id']}.json"
         if p.exists():
-            continue
+            prev = json.loads(p.read_text())
+            if not str(prev.get("error", "")).startswith(TRANSIENT):
+                continue
         aid = int(r["affair_id"])
         url = url_of.get(int(r["opd_doc_id"])) if r["proposed_action"] == "relink" else r["source_url"]
         rec = dict(affair_id=aid, affair_number=r["affair_number"], proposed_action=r["proposed_action"], url=url)
         try:
-            sha, path = pdftext.fetch_pdf(url)
-            d = pdftext.extract(sha, path, ocr=True)
+            with hardening.time_budget(float(os.environ.get("GP_DOC_BUDGET_S", "600"))):
+                sha, path = pdftext.fetch_pdf(url)
+                d = pdftext.extract(sha, path, ocr=True)
             text = "\n".join(d["pages"])
             rec.update(pdf_sha256=sha, extractor=d["extractor"])
             for v in (1, 2):
                 rec[f"v{v}"] = verify_text(text, r["affair_number"], vnr.get(r["affair_number"]), ev.get(aid, []), parser=v)
         except Exception as e:  # network / robots / non-PDF: recorded, row goes to review
-            rec["error"] = f"{type(e).__name__}: {str(e)[:160]}"
+            rec["error"] = f"{getattr(e, 'kind', None) or type(e).__name__}: {str(e)[:160]}"
         p.write_text(json.dumps(rec, ensure_ascii=False))
         done += 1
         if done % 50 == 0:

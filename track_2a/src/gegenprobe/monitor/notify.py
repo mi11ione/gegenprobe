@@ -8,6 +8,7 @@
                         job or systemd OnFailure= can react
 
     python -m gegenprobe.monitor.notify test      send a test message through every configured channel
+                                                  (exit 0 sent, 2 no channel configured, 1 a channel failed)
 """
 from __future__ import annotations
 
@@ -61,13 +62,35 @@ def send(alerts: list[dict], run: dict, force: bool = False) -> list[str]:
     return used
 
 
+def alert_exit() -> int:
+    """GP_ALERT_EXIT as an int; tolerant of a trailing comment or whitespace copied from an env template."""
+    raw = os.environ.get("GP_ALERT_EXIT", "3").split("#", 1)[0].strip()
+    try:
+        return int(raw)
+    except ValueError:
+        print(f"GP_ALERT_EXIT={raw!r} is not an integer; using 3", file=sys.stderr)
+        return 3
+
+
 def exit_code(alerts: list[dict]) -> int:
-    return int(os.environ.get("GP_ALERT_EXIT", "3")) if alerts else 0
+    return alert_exit() if alerts else 0
+
+
+def main(argv: list[str]) -> int:
+    if argv == ["test"]:
+        try:
+            used = send([dict(kind="test", body="TEST", name="test alert")], dict(bodies_rated=0), force=True)
+        except Exception as e:
+            print(f"sending failed: {type(e).__name__}: {e}", file=sys.stderr)
+            return 1
+        if not used:
+            print("no channel configured (set GP_ALERT_WEBHOOK or GP_ALERT_SMTP_HOST)", file=sys.stderr)
+            return 2
+        print("sent via", ", ".join(used))
+        return 0
+    print(__doc__)
+    return 0
 
 
 if __name__ == "__main__":
-    if sys.argv[1:] == ["test"]:
-        used = send([dict(kind="test", body="TEST", name="test alert")], dict(bodies_rated=0), force=True)
-        print(used or "no channel configured")
-    else:
-        print(__doc__)
+    sys.exit(main(sys.argv[1:]))

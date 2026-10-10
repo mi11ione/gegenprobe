@@ -81,3 +81,68 @@ def test_evaluation_baselines():
     ev = json.loads((SITE / "data.json").read_text(encoding="utf-8"))["evaluation"]["baselines"]
     assert ev["always_null"] == {"exact": 90, "n": 154}
     assert ev["suggestions"]["right"] == 9 and ev["suggestions"]["of"] == 16
+
+
+# ---- v3: census-first site, research dataset, workbench, Bern reconciliation, P2 error profile
+def test_research_dataset_shipped_and_consistent():
+    import gzip
+
+    from gegenprobe.census.interventions import COLS, load
+
+    rows = load(SITE / "interventions.tsv.gz")
+    assert len(rows) == 91268 and list(rows[0]) == COLS
+    assert (SITE / "interventions.tsv.gz").stat().st_size <= 4 * 1024 * 1024
+    src = SITE.parent / "results" / "census" / "interventions.tsv.gz"
+    assert gzip.open(SITE / "interventions.tsv.gz").read() == gzip.open(src).read()
+    assert sum(r["link_status"] != "attached" for r in rows) == 16749
+    assert all(r["opd_url"] == f"https://openparldata.ch/item/affairs/{r['affair_id']}" for r in rows)
+    sh = [r for r in rows if r["body"] == "SH" and r["days_to_answer_alt"] != ""]
+    assert sh and all(r["answer_hid_alt"] in ("6", "") or r["answer_date_alt"] == r["answer_date"] for r in sh)
+    assert (SITE / "interventions_README.md").exists()
+
+
+def test_missing_lists_match_the_table():
+    d = json.loads((SITE / "data.json").read_text(encoding="utf-8"))
+    m = json.loads((SITE / "missing.json").read_text(encoding="utf-8"))
+    assert "missing" not in d["parliaments"], "missing lists ship in missing.json, not inline"
+    for r in d["parliaments"]["rows"]:
+        listed = m.get(r["key"], {"rows": []})["rows"]
+        assert len(listed) == r["periods"]["all"]["missing"], r["key"]
+        assert sum(1 for x in listed if x[3] and x[3] >= 2015) == r["periods"]["since2015"]["missing"], r["key"]
+
+
+def test_one_period_for_headline_and_table():
+    d = json.loads((SITE / "data.json").read_text(encoding="utf-8"))
+    for k, h in d["headline"]["periods"].items():
+        rows = d["parliaments"]["rows"]
+        assert h["written"] == sum(r["periods"][k]["written"] for r in rows)
+        assert h["missing"] == sum(r["periods"][k]["missing"] for r in rows)
+    assert all(r["safe_say_period"] in ("all years", "2024–25 and all years") for r in d["parliaments"]["rows"])
+
+
+def test_bern_numbers_and_trust():
+    p = json.loads((SITE / "data.json").read_text(encoding="utf-8"))["parliaments"]
+    v = [x["v"] for x in p["bern_numbers"]]
+    for n in (3532, 229, 3303, 527, 2638, 138, 3394, 2459, 49, 155, 24, 3409, 3027):
+        assert n in v, n
+    assert p["research"]["bern_verified"]["date_equal"] == 2421 and p["research"]["bern_verified"]["n"] == 2459
+    be = next(r for r in p["rows"] if r["key"] == "BE")
+    assert be["trust"]["tier"] == "verified"
+    assert p["research"]["schaffhausen"]["median_days"] == 0 and p["research"]["schaffhausen"]["median_days_alt"] == 71
+
+
+def test_workbench_queue_and_p2_profile():
+    d = json.loads((SITE / "data.json").read_text(encoding="utf-8"))
+    q = [x for x in d["documents"]
+         if x["rules"]["status"] == "abstain" and x["pointer"]["cands"] and x["pointer"]["margin"] is not None]
+    assert len(q) == 93
+    p2 = d["evaluation"]["p2"]
+    for a, x in p2["arms"].items():
+        f = p2["profile"][a]
+        assert f["right"] + f["right_null"] + f["missed"] + f["wrong_date"] + f["date_no_answer"] == x["n"], a
+    cv, a = p2["cascade_vs_pointer"], p2["arms"]
+    assert cv["pointer_only"] - cv["cascade_only"] == a["pointer"]["exact"] - a["cascade"]["exact"]
+    html = (SITE / "index.html").read_text(encoding="utf-8")
+    for s in ("Not in OpenParlData ≠ not published by the parliament", "demo on held-out documents", 'id="bern-numbers"',
+              "not a ranking"):
+        assert s in html, s

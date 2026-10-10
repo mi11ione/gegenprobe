@@ -5,3 +5,11 @@ out
 .pytest_cache
 .ruff_cache
 *.gguf
+# never bake operator secrets into the image (alerts.env, API keys); the template stays
+.env
+.env.*
+!.env.example
+*.key
+*.token
+**/.env
+**/*.env

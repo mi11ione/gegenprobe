@@ -10,17 +10,24 @@ OnFailure=gegenprobe-nightly-failure.service
 
 [Service]
 Type=oneshot
-# Persistent state (export caches, scan metadata, state.json) and outputs live on the host, never in the image.
+# Persistent state (export caches, scan metadata, state.json, ledger) and outputs live on the host, never in the image.
 Environment=GP_HOME=/var/lib/gegenprobe
 Environment=GP_IMAGE=gegenprobe:0.1.0
-# Optional alert routing (webhook / SMTP / exit code): see deploy/nightly/alerts.env.example
+# Resource ceiling of the container (docker enforces it; the unit's own MemoryMax does not reach dockerd's cgroup).
+# Measured peak: see docs/runbook.md "Resources". Raise GP_MEM if a night is OOM-killed (exit 137).
+Environment=GP_MEM=4g GP_CPUS=2
+# Optional alert routing and operator settings: see deploy/nightly/alerts.env.example
 EnvironmentFile=-/etc/gegenprobe/alerts.env
-ExecStartPre=/usr/bin/mkdir -p ${GP_HOME}/work ${GP_HOME}/results
+# The image runs as uid 10001 (never root); the host directories belong to that uid.
+ExecStartPre=/usr/bin/install -d -o 10001 -g 0 -m 0750 ${GP_HOME}/work ${GP_HOME}/results
+ExecStartPre=/usr/bin/touch /etc/gegenprobe/alerts.env
 ExecStart=/usr/bin/docker run --rm --name gegenprobe-nightly \
+  --user 10001:0 --cap-drop ALL --security-opt no-new-privileges \
+  --memory ${GP_MEM} --memory-swap ${GP_MEM} --cpus ${GP_CPUS} --pids-limit 256 \
   --env-file /etc/gegenprobe/alerts.env \
-  -e GP_WORK=/var/gegenprobe/work \
+  -e GP_WORK=/var/gegenprobe/work -e GP_MONITOR_OUT=/var/gegenprobe/results \
   -v ${GP_HOME}/work:/var/gegenprobe/work \
-  -v ${GP_HOME}/results:/app/results/monitor \
+  -v ${GP_HOME}/results:/var/gegenprobe/results \
   ${GP_IMAGE} python -m gegenprobe.monitor.nightly run
 TimeoutStartSec=4h
 Nice=10

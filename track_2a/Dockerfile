@@ -11,7 +11,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 \
 # poppler (pdftotext/pdftoppm) for page-exact text; tesseract with German, French and Italian models for image-only scans
 RUN apt-get update && apt-get install -y --no-install-recommends \
       poppler-utils tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita ca-certificates make \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && dpkg-query -W poppler-utils tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita \
+       > /usr/local/share/gegenprobe-apt-versions.txt
+# Debian packages are not version-pinned by apt (the digest-pinned base fixes the release, the Debian mirror the build
+# date); the file above records what this build got. OCR language data differs from the measured setup: see docs/runbook.md.
 
 WORKDIR /app
 # Python dependencies are hash-pinned (requirements.lock: sha256 of every PyPI file of each pinned version).
@@ -20,6 +24,10 @@ RUN pip install --require-hashes -r requirements.lock \
     && if [ "$GGUF" = "1" ]; then pip install --require-hashes --no-deps -r requirements-gguf.lock; fi
 
 COPY . .
-# runs as the caller's uid (make run passes --user), so results in ./out stay owned by the judge
+# Never runs as root: the default user is the unprivileged `gp` (uid 10001); `make run` overrides it with the caller's uid
+# (--user) so results in ./out stay owned by the judge, and the nightly unit runs it as 10001 on /var/lib/gegenprobe.
+RUN useradd --system --uid 10001 --gid 0 --home-dir /tmp --no-create-home --shell /usr/sbin/nologin gp \
+    && mkdir -p /app/out && chown 10001:0 /app/out && chmod 0775 /app/out
+USER 10001:0
 
 CMD ["python", "-m", "gegenprobe.run"]

@@ -59,7 +59,7 @@ repair:
 	$(PY) -m gegenprobe.repair.verify_all summary   # per-row checks of every BE relink/fetch row (fetched by repair-network)
 	$(PY) -m gegenprobe.repair.run
 	$(PY) -m gegenprobe.repair.reconcile_be
-	$(PY) -m gegenprobe.repair.acceptance          # how many relink documents OPD has attached (6 Oct snapshot: 0)
+	-$(PY) -m gegenprobe.repair.acceptance         # relink documents OPD has attached (6 Oct snapshot: 0; exits 1 until the fix ships)
 	$(PY) -m gegenprobe.repair.demo
 	$(PY) -m gegenprobe.repair.be_begin_date  # BE begin_date correction list (OPD-confirmed load timestamps)
 
