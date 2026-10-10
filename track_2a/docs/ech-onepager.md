@@ -49,7 +49,12 @@ reason for "not attempted", so the product post-processing (`gegenprobe.affair_p
 
 Interpellations and written questions ask numbered questions, and the answer replies to each. `QAItem` pairs question
 *n* with the answer to question *n*, both sides with a span or a typed null (an answer that replies to all at once is
-`present_unanchored`). It is in v0.1 as an optional, additive structure; our converter does not fill it yet.
+`present_unanchored`). It is in v0.1 as an optional, additive structure, and our converter now fills it
+(`src/gegenprobe/qa/`, `docs/qa.md`). The pre-registered test P5 (40 fresh affairs from 10 parliaments, DE/FR/IT) puts
+rule-based pairing at precision 0.83 and recall 0.67: usable with a reviewer, not yet unattended. It transfers where the
+answer numbers or repeats the questions ("Zu Frage 2", "Réponse à la question 2") and fails where it does not (Valais
+0/11). For a standard this argues for asking executives to number their answers; a v0.2 candidate is a `QAItem` field for
+an answer that replies to several questions at once (the converter tracks it internally as `joint_with`).
 
 ## 5. Five gaps for v0.2 (cited evidence)
 
@@ -62,5 +67,5 @@ recomputed by `make run`).
 
 Adopt date roles, typed nulls and the three classes as the frame; standardise the role split for the answer date first
 (it decides every answer-time comparison); treat oral answers, executive-own business and minutes-only councils as
-named constructs; take `QAItem`, the five gaps and a `not_extracted` null reason into v0.2. Gegenprobe (Hack Apertus,
+named constructs; take `QAItem` (now measured, P5), the five gaps and a `not_extracted` null reason into v0.2. Gegenprobe (Hack Apertus,
 Track 2A, team 444): https://gegenprobe.mi11ion.io.

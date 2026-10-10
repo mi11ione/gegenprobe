@@ -15,7 +15,7 @@ report.gguf_master_agree	57/60	results/eval/gguf_impl60.json	table.llscore_maste
 report.gguf_master_mad	3.25	results/eval/gguf_impl60.json	table.llscore_master.mean_abs_delta_bf16	f2	python -m report.stats / CI run (see file)	-
 report.gguf_vend_agree	58/60	results/eval/gguf_impl60.json	table.llscore_vendored.decisions_agree_bf16/table.llscore_vendored.n	frac	python -m report.stats / CI run (see file)	-
 report.gguf_vend_mad	3.34	results/eval/gguf_impl60.json	table.llscore_vendored.mean_abs_delta_bf16	f2	python -m report.stats / CI run (see file)	-
-report.gguf_selfcheck	10/12	results/eval/gguf_impl60.json	preset_selfcheck.decisions_agree/preset_selfcheck.n	frac	python -m report.stats / CI run (see file)	technical_report.md,README.md
+report.gguf_selfcheck	10/12	results/eval/gguf_impl60.json	preset_selfcheck.decisions_agree/preset_selfcheck.n	frac	python -m report.stats / CI run (see file)	README.md
 report.gguf_selfcheck_mad	3.16	results/eval/gguf_impl60.json	preset_selfcheck.mean_abs_delta	f2	python -m report.stats / CI run (see file)	README.md
 report.heldout_n	154	results/report/report_numbers.json	heldout.n	int	python -m report.stats / CI run (see file)	technical_report.md,docs/form_notes.md
 report.heldout_value	64	results/report/report_numbers.json	heldout.with_value	int	python -m report.stats / CI run (see file)	technical_report.md

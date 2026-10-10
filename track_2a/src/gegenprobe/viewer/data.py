@@ -1028,6 +1028,100 @@ FIELD_NAME = {
 SAMPLE_AFFAIR = 301273  # P3b, Basel-Landschaft: a rule value with page + span, metadata values, typed nulls with reasons
 
 
+def adapters() -> dict | None:
+    """Source adapters (results/repair/adapters/, upgrade U1): coverage, verification tiers, the blind audits and the
+    robots.txt audit; per parliament the verified count and its routes (docs/adapters.md, docs/incidents.md)."""
+    base = RESULTS / "repair" / "adapters"
+    if not (base / "summary.json").exists():
+        return None
+    s = json.loads((base / "summary.json").read_text())
+    tiers = s["tiers"]
+    t = s["totals"]
+    dsum = json.loads((base / "audit" / "design_audit_summary.json").read_text())
+    design = dsum["total"]
+    fresh = json.loads((base / "audit" / "fresh_audit_precision.json").read_text())
+    rob = json.loads((base / "robots_audit.json").read_text()).get("totals", {})
+    bodies = sorted(({"key": k, "name": b["label"], "verified": b["verified"], "targets": b["targets"],
+                      "review": b["review"], "tag_answer": b["counted_by_action"].get("tag_answer", 0)}
+                     for k, b in s["bodies"].items() if b["verified"]), key=lambda b: -b["verified"])
+    return dict(coverage=s["coverage"], n_bodies=len(s["bodies"]),
+                tiers={k: dict(n=v["n"], absent=v["absent"], image_only=v["image_only"], counted=v["counted"])
+                       for k, v in tiers.items()},
+                verified=t["verified"], verified_absent=t["verified_absent"], verified_image_only=t["verified_image_only"],
+                review=t["review"], tag_answer=t["verified_by_action"].get("tag_answer", 0),
+                design_audit=dict(rows=dsum["rows"], verified=design["verified"]["n"],
+                                  verified_no=design["verified"].get("is_answer_no", 0),
+                                  all_yes=design["all"]["is_answer_yes"]),
+                fresh_audit=dict(n=fresh["n"], yes=fresh["is_answer_yes"], no=fresh["no"], unclear=fresh["unclear"],
+                                 precision=fresh["precision"], wilson=fresh["wilson95"]),
+                robots=rob, bodies=bodies)
+
+
+def p5() -> dict | None:
+    """P5 (eval/prereg6, LOCK6): Q/A pairing, people, recommendation and reasoning on 40 fresh affairs (results/eval6)."""
+    build = "publicai_swiss-ai_apertus-v1.5-8b"
+    hp = RESULTS / "eval6" / f"hypotheses6__p5__{build}.json"
+    if not hp.exists():
+        return None
+    h = json.loads(hp.read_text())
+    post = _j("eval6/p5_posthoc.json")
+    q = _j("eval6/p5_qwen_check.json")
+    f = h["fields"]
+    names = body_names()
+    meta = {b["key"]: b for b in _tsv_gz("bodies")}
+    keys = ("questions_recall", "submitter", "recommendation", "reasoning")
+    pick = lambda arm: {k: [f[arm][k]["k"], f[arm][k]["n"]] for k in keys}  # noqa: E731
+    return dict(n=h["n_affairs"], h1=dict(precision=[h["H1"]["precision"]["k"], h["H1"]["precision"]["n"]],
+                                          precision_ci=h["H1"]["precision"]["ci95"],
+                                          recall=[h["H1"]["recall"]["k"], h["H1"]["recall"]["n"]],
+                                          recall_ci=h["H1"]["recall"]["ci95"], tier=h["H1"]["tier"], holds=h["H1"]["holds"]),
+                h2=dict(a=h["H2"]["a_only"], b=h["H2"]["b_only"], p=h["H2"]["p_one_sided"], holds=h["H2"]["holds"]),
+                h3=dict(verdict=h["H3"]["verdict"], residue=h["H3"]["residue_recall"]["n"]),
+                h4=dict(a=h["H4"]["a_only"], b=h["H4"]["b_only"], p=h["H4"]["p_one_sided"], holds=h["H4"]["holds"],
+                        g_precision=[h["H4"]["G_precision"]["k"], h["H4"]["G_precision"]["n"]],
+                        g_unlocatable=h["H4"]["G_unlocatable_values"]),
+                h5=dict(ok=h["H5"]["recheck"]["R"]["ok"], failed=sum(v["failed"] for v in h["H5"]["recheck"].values()),
+                        holds=h["H5"]["holds"]),
+                fields=dict(rules=pick("R"), pointer=pick("RA"), free=pick("G")),
+                dev_submitter=post["R_dev_vs_p5"]["submitter"]["dev"],
+                bodies=sorted((dict(key=k, name=label_of(k, names.get(k, k), meta.get(k, {}).get("type"))[0], n=v["n"],
+                                    qa=v["R"]["qa_recall"]) for k, v in post["body"].items()),
+                              key=lambda b: -b["qa"][0] / max(b["qa"][1], 1)),
+                qwen=dict(valid=q["agreement"]["valid"], n=q["agreement"]["n"],
+                          answers=[q["agreement"]["answers_iou05"]["k"], q["agreement"]["answers_iou05"]["n"]],
+                          h1_recall=[q["h1_sensitivity"]["R"]["qwen_as_gold"]["recall"]["k"],
+                                     q["h1_sensitivity"]["R"]["qwen_as_gold"]["recall"]["n"]],
+                          h1_precision=[q["h1_sensitivity"]["R"]["qwen_as_gold"]["precision"]["k"],
+                                        q["h1_sensitivity"]["R"]["qwen_as_gold"]["precision"]["n"]]))
+
+
+def p6() -> dict | None:
+    """P6 (eval/prereg7, LOCK7): answer-date reader v2 vs free prompting, v1 and baselines on 68 fresh documents."""
+    build = "publicai_swiss-ai_apertus-v1.5-8b"
+    hp = RESULTS / "p6" / f"hypotheses7__{build}.json"
+    if not hp.exists():
+        return None
+    h = json.loads(hp.read_text())
+    q = _j("p6/qwen7_check.json")
+    order = ["free_null", "free_guided", "cascade_v2", "v2", "v1", "cascade_v1", "rules", "free_plain",
+             "latest_on_answer_typed", "latest_printed_date", "always_null"]
+    arms = {k: dict(exact=h["arms"][k]["exact"], found=h["arms"][k]["dates_found"],
+                    answerless=h["arms"][k]["dated_answerless"], fabricated=h["arms"][k]["fabricated"])
+            for k in order if k in h["arms"]}
+    d = lambda x: dict(a=x["a_only"], b=x["b_only"], p=x["p"])  # noqa: E731
+    qs = q["hypotheses_under_qwen_gold"]["qwen_strict"]
+    return dict(n=h["n"], answered=h["n_answered"], answerless=h["n_answerless"], bodies=h["n_bodies"], order=order,
+                arms=arms, h1=dict(d(h["H1_v2_vs_free_null"]["doc_level"]), holds=h["H1_v2_vs_free_null"]["holds"]),
+                h2=dict(v2=h["H2_answerless"]["v2"], upper=h["H2_answerless"]["wilson95"][1], holds=h["H2_answerless"]["holds"]),
+                h3=dict(d(h["H3_v2_vs_v1"]["doc_level"]), holds=h["H3_v2_vs_v1"]["holds"]),
+                s3=d(h["S3_cascade_v2_vs_rules_on_answered"]), auroc=h["S4_presence_auroc"]["auroc"],
+                qwen=dict(presence_kappa=q["agreement_strict"]["overall"]["answer_present_binary"]["kappa"],
+                          date_kappa=q["agreement_strict"]["overall"]["answer_date_exact"]["kappa"],
+                          v2=qs["arms"]["v2"]["exact"], free_null=qs["arms"]["free_null"]["exact"],
+                          decisions_changed=sum(int(qs[k]["holds"]) != int(h[n]["holds"]) for k, n in
+                                                (("H1", "H1_v2_vs_free_null"), ("H2", "H2_answerless"), ("H3", "H3_v2_vs_v1")))))
+
+
 def schema_view() -> dict:
     """Near the top of the site: one real converter record (P3b run, results/eval5) and the 17 fields with their class."""
     m, cmp_ = _j("census/matrix.json"), _j("census/comparability.json")
@@ -1189,6 +1283,8 @@ def collect(full_text: bool = False) -> dict:
     ev["p3"] = p3()
     ev["p3b"] = p3b()
     ev["p4"] = p4()
+    ev["p5"] = p5()
+    ev["p6"] = p6()
     return _finite(
         dict(
             generated=_git("log", "-1", "--format=%h %cI"),
@@ -1199,5 +1295,6 @@ def collect(full_text: bool = False) -> dict:
             method=method(),
             schema=schema_view(),
             downloads=downloads(),
+            adapters=adapters(),
         )
     )

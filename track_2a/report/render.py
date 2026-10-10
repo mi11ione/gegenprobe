@@ -18,11 +18,11 @@ import markdown
 from gegenprobe.paths import ROOT
 
 CSS = """
-@page { size: A4; margin: 15mm 15mm 14mm 15mm; }
+@page { size: A4; margin: 14mm 14mm 13mm 14mm; }
 body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 10pt; line-height: 1.3; color: #111; }
 h1 { font-size: 15pt; margin: 0 0 6pt; line-height: 1.2; }
-h2 { font-size: 12pt; margin: 10pt 0 3pt; border-bottom: 0.5pt solid #999; }
-p, li { margin: 3pt 0; }
+h2 { font-size: 12pt; margin: 8pt 0 3pt; border-bottom: 0.5pt solid #999; }
+p, li { margin: 2pt 0; }
 ul { padding-left: 14pt; margin: 3pt 0; }
 table { border-collapse: collapse; font-size: 8pt; margin: 4pt 0; width: 100%; }
 th, td { border: 0.4pt solid #aaa; padding: 1.5pt 3pt; text-align: left; vertical-align: top; }

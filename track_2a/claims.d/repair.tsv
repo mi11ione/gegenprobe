@@ -61,5 +61,5 @@ repair.acceptance_parentless	2,459	results/repair/acceptance_snapshot-2026-10-06
 repair.begin_review_years	9	results/repair/repair_BE_begin_date.json	summary.review_years_after_number	int	python -m gegenprobe.repair.be_begin_date	docs/repair.md
 repair.begin_event_ids	655	results/repair/repair_BE_begin_date.json	summary.with_event_id	int	python -m gegenprobe.repair.be_begin_date	docs/repair.md
 repair.be_ogd_answer_docs	9,577	results/monitor/run.json	be_ogd.answer_documents	int	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
-repair.nightly_local_s	96.8	results/monitor/run_local_exports.json	timings.total_s	f1	GP_EXPORTS_DIR=<exports dir> python -m gegenprobe.monitor.nightly run	docs/nightly.md,docs/runbook.md,README.md,technical_report.md,docs/form_notes.md
+repair.nightly_local_s	96.8	results/monitor/run_local_exports.json	timings.total_s	f1	GP_EXPORTS_DIR=<exports dir> python -m gegenprobe.monitor.nightly run	docs/nightly.md,docs/runbook.md,README.md,technical_report.md
 repair.nightly_peak_rss_mb	2,077.6	results/monitor/run_local_exports.json	peak_rss_mb	f1	GP_EXPORTS_DIR=<exports dir> python -m gegenprobe.monitor.nightly run	docs/nightly.md,docs/runbook.md

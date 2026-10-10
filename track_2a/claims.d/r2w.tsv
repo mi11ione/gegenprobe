@@ -19,16 +19,16 @@ r2w.p2_cascade_wrong	6	results/report/p2_numbers.json	error_profile.P2.cascade.w
 r2w.p2_cascade_answerless	4	results/report/p2_numbers.json	error_profile.P2.cascade.date_on_answerless	int	python -m report.p2_numbers	README.md,technical_report.md	
 r2w.p2_cascade_missed	1	results/report/p2_numbers.json	error_profile.P2.cascade.missed	int	python -m report.p2_numbers	README.md,technical_report.md	
 r2w.p2_cascade_rule_wrong	2	results/report/p2_numbers.json	p2_cascade_below_pointer.rule_fired_wrong_printed_date	int	python -m report.p2_numbers	README.md,technical_report.md	
-r2w.p4t_items	9/9	results/eval4/p4_transfer__publicai_swiss-ai_apertus-v1.5-8b__score.json	arms.rules_only.segmentation_precision.0/arms.rules_only.segmentation_precision.1	frac	python -m eval.gold4.run_p4 score (transfer split)	README.md,technical_report.md,docs/form_notes.md	
+r2w.p4t_items	9/9	results/eval4/p4_transfer__publicai_swiss-ai_apertus-v1.5-8b__score.json	arms.rules_only.segmentation_precision.0/arms.rules_only.segmentation_precision.1	frac	python -m eval.gold4.run_p4 score (transfer split)	README.md,technical_report.md	
 r2w.p4t_titles	9/9	results/eval4/p4_transfer__publicai_swiss-ai_apertus-v1.5-8b__score.json	arms.rules_only.title_correct.0/arms.rules_only.title_correct.1	frac	python -m eval.gold4.run_p4 score (transfer split)	README.md,technical_report.md	
-r2w.p4t_rules_decisions	0/9	results/eval4/p4_transfer__publicai_swiss-ai_apertus-v1.5-8b__score.json	arms.rules_only.decision_recall.0/arms.rules_only.decision_recall.1	frac	python -m eval.gold4.run_p4 score (transfer split)	README.md,technical_report.md,docs/form_notes.md	
+r2w.p4t_rules_decisions	0/9	results/eval4/p4_transfer__publicai_swiss-ai_apertus-v1.5-8b__score.json	arms.rules_only.decision_recall.0/arms.rules_only.decision_recall.1	frac	python -m eval.gold4.run_p4 score (transfer split)	README.md,technical_report.md	
 r2w.p4t_review_found	2/9	results/eval4/p4_transfer__publicai_swiss-ai_apertus-v1.5-8b__score.json	arms.review.decision_recall.0/arms.review.decision_recall.1	frac	python -m eval.gold4.run_p4 score (transfer split)	README.md,technical_report.md	
 r2w.p4t_review_correct	1	results/eval4/p4_transfer__publicai_swiss-ai_apertus-v1.5-8b__score.json	arms.review.decision_accuracy.0	int	python -m eval.gold4.run_p4 score (transfer split)	README.md,technical_report.md	
 r2w.p4_h3_p	0.5	results/report/p34_numbers.json	p4.h3_p	f1	python -m report.p34_numbers	README.md,technical_report.md	
 r2w.p4_decision_correct	46/63	results/report/p34_numbers.json	p4.decision_correct_rules	str	python -m report.p34_numbers	README.md,technical_report.md	
 r2w.bern_review	38	results/report/r2_numbers.json	bern_relink_to_review	int	python -m report.r2_numbers	README.md,technical_report.md	
 r2w.dataset_columns	23	results/report/r2_numbers.json	dataset_columns	int	python -m report.r2_numbers	README.md	
-r2w.local_transfer_bytes	0	results/monitor/run_local_exports.json	transfer_bytes	int	GP_EXPORTS_DIR=<dir> python -m gegenprobe.monitor.nightly offline	README.md,technical_report.md	
+r2w.local_transfer_bytes	0	results/monitor/run_local_exports.json	transfer_bytes	int	GP_EXPORTS_DIR=<dir> python -m gegenprobe.monitor.nightly offline	README.md	
 r2w.rules_docs_per_s	480	results/report/cost.json	rules_docs_per_second	int	python -m report.cost	README.md,technical_report.md	
 r2w.rederive_scans	22	results/report/cost_end_to_end.json	heldout_rederive_scans	int	python -m report.cost e2e	README.md	
 r2w.x10_rules_cpu_hours	5	results/report/cost_end_to_end.json	x10_rules_cpu_hours	int	python -m report.cost e2e	README.md,technical_report.md	

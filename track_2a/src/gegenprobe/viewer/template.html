@@ -503,6 +503,10 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
     <div class="idx"><div class="label">Bern · every number in one place</div><p class="small" id="bernNote"></p></div>
     <div class="work"><table class="bn" id="bernTable"></table></div>
   </div>
+  <div class="grid" style="margin-top:34px" id="adapters">
+    <div class="idx"><div class="label">Beyond Bern · source adapters</div><p class="small" id="adNote"></p></div>
+    <div class="work" id="adBody"></div>
+  </div>
   <div class="grid" style="margin-top:34px" id="dataset">
     <div class="idx"><div class="label">Research dataset</div><p class="small" id="dsNote"></p></div>
     <div class="work" id="dsBody"></div>
@@ -546,7 +550,7 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
   <div class="grid sec-head">
     <div class="idx"><div class="label">03 · Pre-registered</div></div>
     <div class="work">
-      <h2 id="h-eval">Five pre-registered tests, frozen before any label was committed</h2>
+      <h2 id="h-eval">Seven pre-registered tests, frozen before any label was committed</h2>
       <p id="evalIntro"></p>
     </div>
   </div>
@@ -591,6 +595,20 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
       <div class="specs" id="p4specs" style="grid-template-columns:repeat(4,minmax(0,1fr))"></div>
       <div class="hyp" id="p4hyp" style="margin-top:18px"></div>
       <div id="p4meetings" style="margin-top:18px"></div></div>
+  </div>
+  <div class="grid" style="margin-top:46px" id="p5">
+    <div class="idx"><div class="label">P5 · questions and answers, people, recommendation</div><p class="small" id="p5Note"></p></div>
+    <div class="work"><p id="p5Intro" style="margin:0 0 14px;max-width:70ch"></p>
+      <div style="overflow-x:auto"><table class="board" id="p5board"></table></div>
+      <p class="small" id="p5bodies" style="margin:10px 0 0;max-width:80ch"></p>
+      <div class="hyp" id="p5hyp" style="margin-top:18px"></div></div>
+  </div>
+  <div class="grid" style="margin-top:46px" id="p6">
+    <div class="idx"><div class="label">P6 · answer-date reader v2 vs free prompting</div><p class="small" id="p6Note"></p></div>
+    <div class="work"><p id="p6Intro" style="margin:0 0 14px;max-width:70ch"></p>
+      <div style="overflow-x:auto"><table class="board" id="p6board"></table></div>
+      <p class="why" id="p6why"></p>
+      <div class="hyp" id="p6hyp" style="margin-top:18px"></div></div>
   </div>
   <div class="grid" style="margin-top:34px">
     <div class="idx"><div class="label">Order of events</div><p class="small">From git history of this repository.</p></div>
@@ -690,7 +708,7 @@ $('#facts').append(...facts.map(([v, t]) => el('div', { class: 'fact' }, el('div
 const RS = D.parliaments.research || {};
 const STEPS = [
   ['Apply the Bern lists', `${fmt(H.relink)} answers are already in OPD without a parent: relink them by the canton’s own document id. ${fmt(H.fetch)} more to fetch from the canton. Both lists are keyed on OPD ids; download them, the dry-run apply plan and the JSON Schemas below.`, '#bern-numbers'],
-  ['Fix the rest by cause', 'Open a parliament’s row: every affair without answer text, with its cause and the fix it needs (agenda join, relink, re-take a text version, OCR, fetch from the parliament), linked to OPD and to the parliament’s own page, as CSV.', '#parliaments'],
+  ['Fix the rest by cause', 'Open a parliament’s row: every affair without answer text, with its cause and the fix it needs (agenda join, relink, re-take a text version, OCR, fetch from the parliament), linked to OPD and to the parliament’s own page, as CSV. Source adapters for 50 parliaments add verified lists (results/repair/adapters/).', '#adapters'],
   ['Take the data', `All ${fmt(RS.rows)} interventions as one file with a column dictionary (CDLA-Permissive-2.0), the table as CSV, and the converter’s output format (schema v0.1, below).`, '#dataset'],
 ];
 $('#howtoNote').textContent = 'What to fix and which lists to apply, in three steps; six terms the rest of the page uses. Journalists: each parliament’s row has a “safe to say” sentence with its caveat. Not in OPD ≠ not published by the parliament.';
@@ -712,7 +730,7 @@ const GLOSS = [
   ['Closed set', 'The only answers Apertus may give for a document: one of the dates printed in it, or null. A date that is not printed cannot be chosen.'],
   ['Pointer', 'Apertus used as a selector over the closed set: it points at a printed date, with page and characters, instead of writing one.'],
   ['θ · margin band', 'Null margin: how much more likely “no answer date” is than all printed dates together, in nats. Above θ the value is null; near θ a reviewer looks.'],
-  ['P1–P4 · P3b', 'Five tests frozen by hash before any label was committed: P1 known layouts, P2 15 unseen parliaments, P3 whole affairs field by field, P3b its replication on fresh affairs from 9 other parliaments, P4 affairs from minutes.'],
+  ['P1–P6 · P3b', 'Seven tests frozen by hash before any label was committed: P1 known layouts, P2 15 unseen parliaments, P3 whole affairs field by field, P3b its replication on fresh affairs from 9 other parliaments, P4 affairs from minutes, P5 questions paired with their answers (eval/prereg6), P6 an answer-date reader v2 against free prompting (eval/prereg7).'],
 ];
 $('#gloss').append(...GLOSS.map(([t, d]) => el('div', {}, el('dt', {}, t), el('dd', {}, d))));
 /* schema v0.1: one real converter record + the 17 fields with their class (always visible, under the steps) */
@@ -1083,6 +1101,7 @@ function renderPar() {
     `† ${P.same_day.length} parliaments record the "answer" on the submission date for most interventions (${P.same_day.map(b => (b.label || b.name).replace(/ \((canton|city|municipality)\)$/, '')).join(', ')}): no answer time is shown for them.`;
   renderFindings();
   renderBern();
+  renderAdapters();
   renderDataset();
   drawPar();
 }
@@ -1235,7 +1254,7 @@ let evalDone = false;
 function renderEval() {
   evalDone = true;
   const E = D.evaluation, A = E.arms, h = E.hypotheses;
-  $('#evalIntro').textContent = `P1: ${E.n} held-out documents from the parliaments the rules were written for; P2: documents from parliaments they never saw; P3: whole affairs, field by field; P3b: the same extractor, unchanged, on fresh affairs from ${E.p3b ? E.p3b.bodies.length : 9} other parliaments (a held-out replication of P3); P4: affairs derived from a commune's meeting minutes. All drawn and fetched before any label was committed; labels made blind by two Claude annotators and checked blind, post hoc, by a model from another vendor (Qwen-SEA-LION-v4-32B: answer dates κ 0.80 on P1, 0.87 on P2; no registered decision changes); rules, prompts and θ = ${E.theta.toFixed(2)} frozen by hash in ${E.lock.files} files. Apertus numbers are the 70B weights, which Public AI serves under the 8B name: inferred from the served build’s fingerprint (tp8-pp2) and its behaviour, not documented by Public AI (the response model was checked on every call). The 8B (a community 4-bit build) ran on CPU as an exploratory arm.`;
+  $('#evalIntro').textContent = `P1: ${E.n} held-out documents from the parliaments the rules were written for; P2: documents from parliaments they never saw; P3: whole affairs, field by field; P3b: the same extractor, unchanged, on fresh affairs from ${E.p3b ? E.p3b.bodies.length : 9} other parliaments (a held-out replication of P3); P4: affairs derived from a commune's meeting minutes. All drawn and fetched before any label was committed; labels made blind by two Claude annotators and checked blind, post hoc, by a model from another vendor (Qwen-SEA-LION-v4-32B: answer dates κ 0.80 on P1, 0.87 on P2; no registered decision changes); rules, prompts and θ = ${E.theta.toFixed(2)} frozen by hash in ${E.lock.files} files. Apertus numbers are the 70B weights, which Public AI serves under the 8B name: inferred from the served build’s fingerprint (tp8-pp2) and its behaviour, not documented by Public AI (the response model was checked on every call). The 8B (a community 4-bit build) ran on CPU as an exploratory arm. P5 (questions paired with their answers) and P6 (an answer-date reader v2 against free prompting) follow the same protocol on fresh affairs and documents from parliaments in no earlier set; P6 is the test we lost, reported as registered.`;
   const ARMS = [
     ['rules', 'Rules only', 'default · no model', true],
     ['cascade', 'Rules + Apertus suggestions', 'if every suggestion were accepted'],
@@ -1314,6 +1333,8 @@ function renderEval() {
   renderP3();
   renderP3b();
   renderP4();
+  renderP5();
+  renderP6();
 }
 
 function renderP2() {
@@ -1449,6 +1470,68 @@ function renderP4() {
             el('td', { class: 'code' + (i.derived && !right ? ' red' : '') }, i.decision ? DEC[i.decision] || i.decision : (i.derived ? 'null' : '—'), i.review_decision ? el('small', {}, ` · Apertus: ${i.review_decision}`) : null),
             el('td', { class: 'code muted' }, `${i.gold_type} · ${DEC[i.gold_decision] || i.gold_decision}`), el('td', { class: 'small' }, i.quote || '')); })))));
     return det; }));
+}
+
+function renderAdapters() {
+  const A = D.adapters; if (!A) { $('#adapters').hidden = true; return; }
+  const c = A.coverage, T = A.tiers, F = A.fresh_audit, R = A.robots || {};
+  $('#adNote').textContent = 'Model-free. results/repair/adapters/ (one list per parliament), docs/adapters.md, docs/incidents.md. A row counts only when it passes a date check.';
+  const pc = x => `${(100 * x).toFixed(1)}`;
+  $('#adBody').replaceChildren(
+    el('p', { style: 'margin:0 0 10px;max-width:72ch' }, `Before the adapters, deterministic routes proposed repairs for ${fmt(c.baseline_repairable_deterministic)} of the ${fmt(c.gap)} interventions without answer text, and ${fmt(c.needs_adapters_before)} written answers had no answer document anywhere in OPD. Adapters for ${A.n_bodies} parliaments now verify ${fmt(A.verified)} more answers (${fmt(A.verified_absent)} absent, ${fmt(A.verified_image_only)} image-only), each by affair number or title, the parliament's answer formula and a date check: `,
+      el('b', {}, `repairs proposed for ${fmt(c.repairable_deterministic_with_adapters)} of ${fmt(c.gap)}; ${fmt(c.needs_adapters_after)} written answers still need an adapter.`)),
+    el('p', { class: 'small', style: 'margin:0 0 10px;max-width:80ch' }, `Verification tiers: exact date match to an OPD event ${fmt(T.exact_date.n)}; within the parliament's documented window ${fmt(T.date_window.n)} (at most 15 days in Zürich city, 120 in Valais). Listed, not counted: ${fmt(T.identity_wording_only.n)} Jura answers that match by identity and wording only (OPD's Jura answer events carry no date) and ${fmt(A.review)} rows for a person. ${fmt(A.tag_answer)} of the "missing" answers are already in OPD with text, filed under the question's file: the repair is a category on the document (tag_answer), not a new document.`),
+    el('p', { class: 'small', style: 'margin:0 0 10px;max-width:80ch' }, `Blind audits: a design audit of ${fmt(A.design_audit.rows)} rows found ${A.design_audit.verified_no} non-answers among ${A.design_audit.verified} verified rows (deadline extensions, commission reports, minutes); typed filters now catch all of them and remove none of the sample's ${fmt(A.design_audit.all_yes)} answers. A fresh random sample of ${F.n} counted rows, drawn after the filters were frozen: ${F.yes} are the executive's answer, ${F.no} wrong, ${F.unclear} unclear; precision ${F.precision.toFixed(3)} (Wilson ${F.wilson[0].toFixed(3)}–${F.wilson[1].toFixed(3)}).`),
+    el('p', { class: 'small', style: 'margin:0 0 12px;max-width:80ch' }, `robots.txt: our network layer once used a first-match parser where RFC 9309 requires the longest match; on 10 Oct 2026 that let 3 Ticino files on a disallowed path through. They were deleted and are used nowhere; one RFC 9309 matcher now runs in every process, and of the ${fmt(R.urls_fetched)} documents the adapters fetched, the ${fmt(R.rechecked_fetched)} whose host's robots.txt could be read include no disallowed path (docs/incidents.md).`),
+    el('div', { style: 'overflow-x:auto' }, el('table', { class: 'dense' }, el('thead', {}, el('tr', {}, ['Parliament', 'Targets', 'Verified', 'of which already in OPD (tag_answer)', 'Review'].map(x => el('th', {}, x)))),
+      el('tbody', {}, A.bodies.slice(0, 15).map(b => el('tr', {}, el('td', {}, b.name), el('td', { class: 'num code' }, fmt(b.targets)), el('td', { class: 'num code' }, fmt(b.verified)),
+        el('td', { class: 'num code' }, fmt(b.tag_answer)), el('td', { class: 'num code' }, fmt(b.review))))))),
+    el('p', { class: 'small muted', style: 'margin:6px 0 0' }, `The ${Math.min(15, A.bodies.length)} parliaments with the most verified answers; all ${A.n_bodies} in results/repair/adapters/summary.json.`));
+}
+
+function renderP5() {
+  const P = D.evaluation.p5; if (!P) { $('#p5').hidden = true; return; }
+  const f = P.fields, h1 = P.h1, ci = x => `${x[0].toFixed(2)}–${x[1].toFixed(2)}`;
+  $('#p5Intro').textContent = `${P.n} fresh affairs from ${P.bodies.length} parliaments the converter was not developed on (German, French, Italian), drawn after the lock (eval/prereg6, LOCK6). For each numbered question the converter gives the member's question and the passage of the executive's answer that replies to it (schema QAItem), plus the submitter, the recommendation with its printed sentence and the span of the reasoning. Rules decide first; Apertus only points at printed candidates and never writes a value.`;
+  $('#p5Note').textContent = `Registered verdict: supported at the "${h1.tier}" tier. Labels by blind Claude annotators; Qwen-SEA-LION's labels pass the verbatim quote check in only ${P.qwen.valid}/${P.qwen.n} files, so the check from another vendor is too noisy to confirm or overturn it (as gold it would give recall ${P.qwen.h1_recall[0]}/${P.qwen.h1_recall[1]}).`;
+  const rows = [['Questions found', 'questions_recall'], ['Submitter', 'submitter'], ['Recommendation', 'recommendation'], ['Reasoning span', 'reasoning']];
+  const fr = v => v ? `${v[0]}/${v[1]}` : '—';
+  $('#p5board').replaceChildren(el('thead', {}, el('tr', {}, ['Field', 'Rules', 'Rules + Apertus pointer', 'Free generation'].map(x => el('th', {}, x)))),
+    el('tbody', {}, el('tr', { class: 'default' }, el('td', { class: 'armname' }, 'Q/A pairs', el('small', {}, 'answers placed on the right question')),
+      el('td', { class: 'num' }, el('b', {}, `${h1.recall[0]}/${h1.recall[1]}`), el('small', {}, ` · precision ${h1.precision[0]}/${h1.precision[1]}`)), el('td', { class: 'num' }, `${h1.recall[0]}/${h1.recall[1]}`),
+      el('td', { class: 'num' }, `${P.h4.g_precision[0]}/${h1.recall[1]}`, el('small', {}, ` · precision ${P.h4.g_precision[0]}/${P.h4.g_precision[1]}`))),
+      rows.map(([lab, k]) => el('tr', {}, el('td', { class: 'armname' }, lab), el('td', { class: 'num' }, fr(f.rules[k])), el('td', { class: 'num' }, fr(f.pointer[k])), el('td', { class: 'num' }, fr(f.free[k]))))));
+  $('#p5bodies').textContent = 'Q/A pairs found by rules, per parliament: ' + P.bodies.map(b => `${b.name.replace(/ \((canton|city|municipality)\)$/, '')} ${b.qa[0]}/${b.qa[1]}`).join(' · ') + `. Pairing transfers where answers number or repeat the questions and fails where they do not (post hoc). Submitter by rules: ${P.dev_submitter[0]}/${P.dev_submitter[1]} on dev (in-sample), ${f.rules.submitter[0]}/${f.rules.submitter[1]} here; it stays a review field.`;
+  const card = (code, pass, title, fig) => el('div', {}, el('span', { class: 'stamp', style: pass === 'FAIL' ? 'color:var(--red)' : '' }, `${code} · ${pass}`), el('h4', {}, title), el('div', { class: 'fig' }, fig));
+  const SUP = { '-': '⁻', 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹' };
+  const sci = p => { const [m, e] = p.toExponential(1).split('e'); return `${m} × 10${String(Number(e)).split('').map(c => SUP[c]).join('')}`; };
+  $('#p5hyp').replaceChildren(
+    card('P5-H1', h1.holds ? h1.tier.toUpperCase() : 'FAIL', 'Rules-only pairing on new parliaments', `precision ${(h1.precision[0] / h1.precision[1]).toFixed(2)} (Wilson ${ci(h1.precision_ci)}), recall ${(h1.recall[0] / h1.recall[1]).toFixed(2)} (${ci(h1.recall_ci)}); short of the unattended bar`),
+    card('P5-H2', P.h2.holds ? 'PASS' : 'FAIL', 'Rules vs paragraph order', `${P.h2.a}:${P.h2.b} discordant answers, p = ${sci(P.h2.p)}`),
+    card('P5-H3', 'NO GAIN', 'The dev-fitted pairing pointer', `abstained on all ${P.h3.residue} residue answers`),
+    card('P5-H4', P.h4.holds ? 'PASS' : 'FAIL', 'Closed set vs free generation', `${P.h4.a}:${P.h4.b}, p = ${sci(P.h4.p)}; ${P.h4.g_unlocatable} free-generation values are in no document`),
+    card('P5-H5', P.h5.holds ? 'PASS' : 'FAIL', 'Every span re-checks', `${P.h5.failed} provenance failures (${P.h5.ok} rule values)`));
+}
+
+function renderP6() {
+  const P = D.evaluation.p6; if (!P) { $('#p6').hidden = true; return; }
+  $('#p6Intro').textContent = `${P.n} fresh documents (${P.answered} with an answer date, ${P.answerless} without) from ${P.bodies} parliaments in no earlier set, German and French, drawn after the lock (eval/prereg7, LOCK7). We tried to make the closed-set reader clearly better than free prompting: v2 first asks whether an answer is present, then applies the gold guide's decision-before-letter-date rule, keeping a generated date only if it is printed. The test says it is not better.`;
+  $('#p6Note').textContent = `No registered hypothesis holds. Consequence, registered: no claim that the pointer beats free prompting on accuracy; the shipped review mode keeps v1. Qwen-SEA-LION relabelled blind: presence κ ${P.qwen.presence_kappa.toFixed(2)}, date κ ${P.qwen.date_kappa.toFixed(2)}; ${P.qwen.decisions_changed} registered decisions change under its labels. The 8B run on P6 is still in progress.`;
+  const NAMES = { free_null: ['Free prompt, null allowed', 'the registered prompt'], free_guided: ['Free prompt, v2’s instructions', 'same instructions as v2'], cascade_v2: ['Rules, then v2', 'v2 only where the rules abstain'],
+    v2: ['Reader v2', 'presence gate, then printed-only date'], v1: ['Reader v1 (pointer)', 'shipped review mode'], cascade_v1: ['Rules, then v1', ''], rules: ['Rules only', 'default, no model'],
+    free_plain: ['Free prompt, plain', 'no null instruction'], latest_on_answer_typed: ['Latest date, answer-typed docs', 'baseline'], latest_printed_date: ['Latest printed date', 'baseline'], always_null: ['Always null', 'baseline'] };
+  const fr = v => `${v[0]}/${v[1]}`;
+  $('#p6board').replaceChildren(el('thead', {}, el('tr', {}, ['Arm', 'Exact', 'Dates found', 'Answerless dated', 'Printed nowhere'].map(x => el('th', {}, x)))),
+    el('tbody', {}, P.order.filter(k => P.arms[k]).map(k => { const a = P.arms[k]; return el('tr', { class: k === 'v2' ? 'default' : '' },
+      el('td', { class: 'armname' }, NAMES[k][0], NAMES[k][1] ? el('small', {}, NAMES[k][1]) : null), el('td', { class: 'num' }, el('b', {}, fr(a.exact))), el('td', { class: 'num' }, fr(a.found)),
+      el('td', { class: 'num' + (a.answerless[0] > 5 ? ' red' : '') }, fr(a.answerless)), el('td', { class: 'num' + (a.fabricated ? ' red' : '') }, String(a.fabricated))); })));
+  $('#p6why').textContent = `What holds on unseen parliaments is the division of labour: rules first, Apertus on what they leave open finds ${P.arms.cascade_v2.found[0]} of ${P.answered} answer dates against the rules' ${P.arms.rules.found[0]} (${P.s3.a}:${P.s3.b}, p = ${P.s3.p.toFixed(3)}), and every value it returns is a printed date with its span. The plain free prompt invented ${P.arms.free_plain.fabricated} dates printed nowhere.`;
+  const card = (code, pass, title, fig) => el('div', {}, el('span', { class: 'stamp', style: pass === 'FAIL' ? 'color:var(--red)' : '' }, `${code} · ${pass}`), el('h4', {}, title), el('div', { class: 'fig' }, fig));
+  $('#p6hyp').replaceChildren(
+    card('P6-H1', P.h1.holds ? 'PASS' : 'FAIL', 'v2 beats free prompting', `${P.arms.v2.exact[0]} vs ${P.arms.free_null.exact[0]} of ${P.n}; discordant ${P.h1.a}:${P.h1.b}, p = ${P.h1.p.toFixed(2)}`),
+    card('P6-H2', P.h2.holds ? 'PASS' : 'FAIL', 'v2 rarely dates answerless documents', `${fr(P.h2.v2)}; Wilson upper bound ${(100 * P.h2.upper).toFixed(1)}% against 15%`),
+    card('P6-H3', P.h3.holds ? 'PASS' : 'FAIL', 'v2 beats v1', `${P.h3.a}:${P.h3.b}, p = ${P.h3.p.toFixed(2)}; v1 stays in the review mode`),
+    card('P6-S3', 'SECONDARY', 'Rules, then v2, vs rules alone (answered)', `${P.s3.a}:${P.s3.b}, p = ${P.s3.p.toFixed(3)}; presence AUROC ${P.auroc.toFixed(2)}`));
 }
 
 /* ---------------- 04 METHOD ---------------- */

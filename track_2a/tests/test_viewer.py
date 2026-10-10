@@ -199,6 +199,6 @@ def test_r4_p3b_schema_and_cantons():
     m = json.loads((SITE / "missing.json").read_text(encoding="utf-8"))
     assert all(x[5] == 1 for x in m["5192"]["rows"]), "Lugano's affairs point at one list page"
     html = (SITE / "index.html").read_text(encoding="utf-8")
-    assert "Five pre-registered tests" in html and "Four pre-registered" not in html
+    assert "Seven pre-registered tests" in html and "Five pre-registered" not in html and "Four pre-registered" not in html
     for s in ("Tessin (canton)", "newsroom", "which OCR recovers"):
         assert s not in html, s

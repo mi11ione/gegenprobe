@@ -81,6 +81,11 @@ def numbers() -> dict:
     }
     assert sum(gap.values()) == nat["gap"], (sum(gap.values()), nat["gap"])
     linked_after = pl["attached"] + pl["via_agenda"] + pl["orphan_uid"]
+    ad = j("repair/adapters/summary.json")
+    adt = ad["totals"]
+    assert ad["coverage"]["needs_adapters_before"] == gap["needs_adapters"], "adapter baseline differs from the census"
+    adapters = dict(absent_verified=adt["verified_absent"], absent_open=gap["needs_adapters"] - adt["verified_absent"],
+                    image_only_verified=adt["verified_image_only"], image_only_open=gap["ocr"] - adt["verified_image_only"])
     out = dict(
         written_answer_affairs=nat["ev_answer"],
         text_present=nat["ev_answer"] - nat["gap"],
@@ -93,6 +98,7 @@ def numbers() -> dict:
         be_linked_after_share=linked_after / pl["source_answered"],
         be_linked_before_share=pl["attached"] / pl["source_answered"],
         be_absent=pl["absent"],
+        adapters=adapters,
     )
     NUM.parent.mkdir(parents=True, exist_ok=True)
     NUM.write_text(json.dumps(out, indent=1))
@@ -101,11 +107,13 @@ def numbers() -> dict:
 
 # ---------------------------------------------------------------- fig 1: funnel with typed causes
 def fig1(n: dict) -> None:
-    g = n["gap_parts"]
-    cats = [  # (label, value, colour, group)
-        ("No answer document in OPD: needs a per-body source adapter", g["needs_adapters"], GRAY, "none"),
+    g, ad = n["gap_parts"], n["adapters"]
+    cats = [  # (label, value, colour, group); the source adapters (results/repair/adapters/) split two causes
+        ("No answer document in OPD: verified by a source adapter", ad["absent_verified"], BLUE, "det"),
+        ("No answer document in OPD: still needs a source adapter", ad["absent_open"], GRAY, "none"),
         ("BE: relink the parentless OPD copy by canton uid", g["be_relink"], BLUE, "det"),
-        ("Image-only answer scans: OCR (deu+fra+ita)", g["ocr"], AQUA, "ocr"),
+        ("Image-only answer: text copy verified by a source adapter", ad["image_only_verified"], BLUE, "det"),
+        ("Image-only answer scans: OCR (deu+fra+ita)", ad["image_only_open"], AQUA, "ocr"),
         ("VS: retype as oral answer (not missing)", g["vs_oral"], ORANGE, "oral"),
         ("Answer filed under an agenda item: in-corpus join", g["agenda_join"], BLUE, "det"),
         ("Question time answered in the sitting: oral (not missing)", g["question_time_oral"], ORANGE, "oral"),

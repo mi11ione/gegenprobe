@@ -39,10 +39,10 @@ r4a.served_p1_entries	1,542	results/eval/served_models.json	by_set.P1_heldout_70
 r4a.served_p2_entries	351	results/eval/served_models.json	by_set.P2_70B.entries	int	PYTHONPATH=src:. python -m eval.posthoc_r4 served	README.md	{"README.md": "every P1 (1,542) and P2"}
 r4a.served_p1_fingerprints	1	results/eval/served_models.json	by_set.P1_heldout_70B.n_fingerprints	int	PYTHONPATH=src:. python -m eval.posthoc_r4 served	-	
 r4a.verparity_frozen	29/30	results/eval/gguf_fast_verparity.json	gate.frozen.decisions_agree_bf16/gate.frozen.n	frac	PYTHONPATH=src:. python -m eval.posthoc_r4 verparity	-	
-r4a.verparity_fast	29/30	results/eval/gguf_fast_verparity.json	gate.fast.decisions_agree_bf16/gate.fast.n	frac	PYTHONPATH=src:. python -m eval.posthoc_r4 verparity	README.md,technical_report.md	
+r4a.verparity_fast	29/30	results/eval/gguf_fast_verparity.json	gate.fast.decisions_agree_bf16/gate.fast.n	frac	PYTHONPATH=src:. python -m eval.posthoc_r4 verparity	README.md	
 r4a.verparity_mad	5.63	results/eval/gguf_fast_verparity.json	gate.fast.mean_abs_delta_bf16	f2	PYTHONPATH=src:. python -m eval.posthoc_r4 verparity	-	
-r4a.parity_fail_1	57.8	results/eval/gguf_fast_verparity.json	history.0.parity_max_abs_delta	f1	PYTHONPATH=src:. python -m eval.posthoc_r4 verparity	README.md,technical_report.md	
-r4a.parity_fail_2	4.47	results/eval/gguf_fast_verparity.json	history.1.parity_max_abs_delta	f2	PYTHONPATH=src:. python -m eval.posthoc_r4 verparity	README.md,technical_report.md	
-r4a.gold_p1_checked	3	results/eval/posthoc_r4_gold_audit.json	n_checked	int	PYTHONPATH=src:. python -m eval.posthoc_r4 gold	README.md,technical_report.md	{"README.md": "checked, 0 gold errors", "technical_report.md": "the 3 P1 gold dates"}
+r4a.parity_fail_1	57.8	results/eval/gguf_fast_verparity.json	history.0.parity_max_abs_delta	f1	PYTHONPATH=src:. python -m eval.posthoc_r4 verparity	README.md	
+r4a.parity_fail_2	4.47	results/eval/gguf_fast_verparity.json	history.1.parity_max_abs_delta	f2	PYTHONPATH=src:. python -m eval.posthoc_r4 verparity	README.md	
+r4a.gold_p1_checked	3	results/eval/posthoc_r4_gold_audit.json	n_checked	int	PYTHONPATH=src:. python -m eval.posthoc_r4 gold	README.md	{"README.md": "checked, 0 gold errors"}
 r4a.gold_p1_errors	0	results/eval/posthoc_r4_gold_audit.json	n_gold_errors	int	PYTHONPATH=src:. python -m eval.posthoc_r4 gold	README.md	{"README.md": "gold errors"}
 r4a.p2_oracle_any_check	19/29	results/eval/posthoc_r4_gold_oracle_p2.json	gold_value_documents_with_any_check.0/gold_value_documents_with_any_check.1	frac	PYTHONPATH=src:. python -m eval.posthoc_r4 gold	README.md,technical_report.md	
