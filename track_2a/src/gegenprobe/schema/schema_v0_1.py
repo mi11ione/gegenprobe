@@ -276,6 +276,17 @@ class DatedEvent(BaseModel):
     label: str | None = Field(None, description="source event title, e.g. 'Beantwortet'")
 
 
+class QAItem(BaseModel):
+    """One numbered question of an intervention and the executive's answer to that question (optional, additive in
+    v0.1). Interpellations and written questions usually ask several numbered questions and the answer replies to each;
+    pairing them per number makes answers comparable question by question. Both sides carry provenance (span) or a
+    typed null (e.g. the answer replies to all questions at once: present_unanchored)."""
+    model_config = _strict
+    n: int = Field(..., ge=1, description="question number as printed (1-based)")
+    question: StrF
+    answer: StrF
+
+
 class QAPair(BaseModel):
     """One question and the executive's answer to it. The answer may live in a document or in a text record (CHE texts)."""
     model_config = _strict
@@ -286,6 +297,7 @@ class QAPair(BaseModel):
     answering_body: StrF
     answer_date: DateF
     answer_identifier: StrF = Field(..., description="decision number of the answer, e.g. RRB-Nr. 879/2024")
+    items: list[QAItem] = Field([], description="per-question pairing (question n <-> answer n), optional")
 
 
 class RelatedAffair(BaseModel):

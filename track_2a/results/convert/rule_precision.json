@@ -1,0 +1,291 @@
+{
+ "label": "POST-HOC: per-rule precision of rule-decided values on the pre-registered held-out sets (P1 154 docs, P2 62 docs; frozen rules, no new labels)",
+ "sources": [
+  "heldout__publicai_swiss-ai_apertus-v1.5-8b.json",
+  "p2__publicai_swiss-ai_apertus-v1.5-8b.json"
+ ],
+ "fields": {
+  "answer_date": {
+   "be_ace_split": {
+    "correct": 2,
+    "n": 2,
+    "ci": [
+     0.342,
+     1.0
+    ],
+    "shown": "2/2",
+    "by_test": {
+     "P1": [
+      2,
+      2
+     ]
+    }
+   },
+   "be_rrb_split": {
+    "correct": 1,
+    "n": 1,
+    "ci": [
+     0.207,
+     1.0
+    ],
+    "shown": "1/1",
+    "by_test": {
+     "P1": [
+      1,
+      1
+     ]
+    }
+   },
+   "date_de_depot_head": {
+    "correct": 2,
+    "n": 2,
+    "ci": [
+     0.342,
+     1.0
+    ],
+    "shown": "2/2",
+    "by_test": {
+     "P1": [
+      2,
+      2
+     ]
+    }
+   },
+   "date_line_above_heading_head": {
+    "correct": 3,
+    "n": 3,
+    "ci": [
+     0.438,
+     1.0
+    ],
+    "shown": "3/3",
+    "by_test": {
+     "P1": [
+      3,
+      3
+     ]
+    }
+   },
+   "datum_rr_sitzung": {
+    "correct": 0,
+    "n": 2,
+    "ci": [
+     0.0,
+     0.658
+    ],
+    "shown": "0/2",
+    "by_test": {
+     "P1": [
+      0,
+      2
+     ]
+    }
+   },
+   "fr_adopte_seance": {
+    "correct": 1,
+    "n": 1,
+    "ci": [
+     0.207,
+     1.0
+    ],
+    "shown": "1/1",
+    "by_test": {
+     "P1": [
+      1,
+      1
+     ]
+    }
+   },
+   "it_rg": {
+    "correct": 3,
+    "n": 4,
+    "ci": [
+     0.301,
+     0.954
+    ],
+    "shown": "3/4",
+    "by_test": {
+     "P1": [
+      3,
+      4
+     ]
+    }
+   },
+   "it_ris_label": {
+    "correct": 1,
+    "n": 1,
+    "ci": [
+     0.207,
+     1.0
+    ],
+    "shown": "1/1",
+    "by_test": {
+     "P1": [
+      1,
+      1
+     ]
+    }
+   },
+   "it_risposta_del": {
+    "correct": 3,
+    "n": 3,
+    "ci": [
+     0.438,
+     1.0
+    ],
+    "shown": "3/3",
+    "by_test": {
+     "P1": [
+      3,
+      3
+     ]
+    }
+   },
+   "le_date_line_tail": {
+    "correct": 1,
+    "n": 1,
+    "ci": [
+     0.207,
+     1.0
+    ],
+    "shown": "1/1",
+    "by_test": {
+     "P1": [
+      1,
+      1
+     ]
+    }
+   },
+   "place_date_head": {
+    "correct": 10,
+    "n": 11,
+    "ci": [
+     0.623,
+     0.984
+    ],
+    "shown": "10/11",
+    "by_test": {
+     "P1": [
+      10,
+      11
+     ]
+    }
+   },
+   "place_date_tail": {
+    "correct": 4,
+    "n": 4,
+    "ci": [
+     0.51,
+     1.0
+    ],
+    "shown": "4/4",
+    "by_test": {
+     "P1": [
+      2,
+      2
+     ],
+     "P2": [
+      2,
+      2
+     ]
+    }
+   },
+   "protokoll_sitzung": {
+    "correct": 2,
+    "n": 2,
+    "ci": [
+     0.342,
+     1.0
+    ],
+    "shown": "2/2",
+    "by_test": {
+     "P1": [
+      2,
+      2
+     ]
+    }
+   },
+   "rrb_vom": {
+    "correct": 3,
+    "n": 5,
+    "ci": [
+     0.231,
+     0.882
+    ],
+    "shown": "3/5",
+    "by_test": {
+     "P1": [
+      3,
+      3
+     ],
+     "P2": [
+      0,
+      2
+     ]
+    }
+   },
+   "ti_header_date_head": {
+    "correct": 13,
+    "n": 13,
+    "ci": [
+     0.772,
+     1.0
+    ],
+    "shown": "13/13",
+    "by_test": {
+     "P1": [
+      13,
+      13
+     ]
+    }
+   }
+  },
+  "recommendation": {
+   "rec_accept": {
+    "correct": 2,
+    "n": 2,
+    "ci": [
+     0.342,
+     1.0
+    ],
+    "shown": "2/2",
+    "by_test": {
+     "P1": [
+      2,
+      2
+     ]
+    }
+   },
+   "rec_convert": {
+    "correct": 1,
+    "n": 1,
+    "ci": [
+     0.207,
+     1.0
+    ],
+    "shown": "1/1",
+    "by_test": {
+     "P1": [
+      1,
+      1
+     ]
+    }
+   },
+   "rec_reject": {
+    "correct": 0,
+    "n": 1,
+    "ci": [
+     0.0,
+     0.793
+    ],
+    "shown": "0/1",
+    "by_test": {
+     "P1": [
+      0,
+      1
+     ]
+    }
+   }
+  }
+ }
+}

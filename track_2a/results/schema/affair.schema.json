@@ -1505,6 +1505,61 @@
    "title": "ProceduralStateValue",
    "type": "object"
   },
+  "QAItem": {
+   "additionalProperties": false,
+   "description": "One numbered question of an intervention and the executive's answer to that question (optional, additive in\nv0.1). Interpellations and written questions usually ask several numbered questions and the answer replies to each;\npairing them per number makes answers comparable question by question. Both sides carry provenance (span) or a\ntyped null (e.g. the answer replies to all questions at once: present_unanchored).",
+   "properties": {
+    "n": {
+     "description": "question number as printed (1-based)",
+     "minimum": 1,
+     "title": "N",
+     "type": "integer"
+    },
+    "question": {
+     "discriminator": {
+      "mapping": {
+       "null": "#/$defs/TypedNull",
+       "value": "#/$defs/TextValue"
+      },
+      "propertyName": "kind"
+     },
+     "oneOf": [
+      {
+       "$ref": "#/$defs/TextValue"
+      },
+      {
+       "$ref": "#/$defs/TypedNull"
+      }
+     ],
+     "title": "Question"
+    },
+    "answer": {
+     "discriminator": {
+      "mapping": {
+       "null": "#/$defs/TypedNull",
+       "value": "#/$defs/TextValue"
+      },
+      "propertyName": "kind"
+     },
+     "oneOf": [
+      {
+       "$ref": "#/$defs/TextValue"
+      },
+      {
+       "$ref": "#/$defs/TypedNull"
+      }
+     ],
+     "title": "Answer"
+    }
+   },
+   "required": [
+    "n",
+    "question",
+    "answer"
+   ],
+   "title": "QAItem",
+   "type": "object"
+  },
   "QAPair": {
    "additionalProperties": false,
    "description": "One question and the executive's answer to it. The answer may live in a document or in a text record (CHE texts).",
@@ -1613,6 +1668,15 @@
       }
      ],
      "title": "Answer Identifier"
+    },
+    "items": {
+     "default": [],
+     "description": "per-question pairing (question n <-> answer n), optional",
+     "items": {
+      "$ref": "#/$defs/QAItem"
+     },
+     "title": "Items",
+     "type": "array"
     }
    },
    "required": [

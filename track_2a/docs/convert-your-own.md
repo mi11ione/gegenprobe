@@ -46,6 +46,33 @@ input gives one JSONL line, failures included, and a summary goes to stderr. Run
 already in `results.jsonl` are skipped (keyed by `opd_doc_id` when given, else by URL/path); add `--retry-failed` to try
 the failed ones again.
 
+Exit codes: `0` when every input converted, `2` when at least one input became a failure row (so a CI job or a cron
+wrapper can notice), unless `--allow-failures` is given. `--queue review.jsonl` additionally writes only the rows that
+carry a review suggestion, strongest band first (see "Review aids" below).
+
+## Review aids (what a reviewer sees next to every value)
+
+- **`candidates`** on the answer date: every distinct date printed in the document, with page, character span, 160
+  characters of context, how often it occurs, whether it lies inside Apertus' reading window, and which one was
+  chosen. In review mode each candidate also carries Apertus' probability `share` (and the field has a `null_share`).
+  A reviewer can pick the right date from this list without opening the PDF.
+- **`rule_precision`** on every rule-decided value: how often that rule was right on the pre-registered held-out
+  documents, e.g. `ti_header_date_head` 13/13, `place_date_head` 10/11, `rrb_vom` 3/5, `datum_rr_sitzung` 0/2
+  (`results/convert/rule_precision.json`; small counts, read them as a warning light, not a guarantee).
+- **`band`** on every review suggestion, from Apertus' null margin: `strong` (margin ≤ −5: the model clearly preferred
+  a printed date) or `weak` (−5 < margin ≤ θ: it leaned toward null but stayed under θ). Measured on the two
+  pre-registered tests (post-hoc): strong suggestions were correct 26/33, weak ones 3/11
+  (`results/convert/band_precision.json`). Review strong ones first; treat weak ones as "probably no answer date".
+- **`multiple_recommendations`** on the recommendation: true when the document contains more than one recommendation
+  phrase with different labels (e.g. reject point 1, adopt points 2–3); then read the context before accepting.
+- **`opd_text_span`** (with `--opd-text FILE`): the same value as character offsets into OpenParlData's stored text of
+  the document (the `text` field of the docs export), so the value can be highlighted in OPD's own workbench. The
+  anchor context is matched first, then the quote inside it; a match must be unique (`ambiguous` / `not_found`
+  otherwise). On 30 held-out documents of Collombey-Muraz, Lausanne and Lugano every converter value aligned uniquely
+  (7/7; `results/convert/opdtext_alignment.json`).
+- **Which parliaments have rules:** `data/convert/rules_coverage.json` lists the parliaments whose layouts the rules
+  were written on. Route documents of any other parliament to review mode.
+
 ## Where to get document URLs
 
 OpenParlData publishes every document with its source URL in the `docs_*` exports at

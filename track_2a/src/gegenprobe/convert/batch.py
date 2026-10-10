@@ -21,7 +21,7 @@ from pathlib import Path
 
 from .. import pdftext
 from ..paths import PDF_CACHE
-from . import cascade, modes, output
+from . import cascade, modes, output, pointer, rules
 
 INPUT_KEYS = ("source", "opd_doc_id", "body", "affair_number", "affair_type", "lang")
 STOP = {
@@ -128,8 +128,25 @@ def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: boo
     if suggestion and suggestion.get("page") is not None:
         suggestion = dict(suggestion, context=output.anchor_context(pages, suggestion["page"], suggestion["char_start"],
                                                                     suggestion["char_end"]))
-    fields = {name: output.flat_field(rec["fields"].get(name), rd.get(name), pages)
+    fields = {name: output.flat_field(rec["fields"].get(name), rd.get(name), pages, name)
               for name in ("answer_date", "recommendation", "related_affair") if rec["fields"].get(name) is not None}
+    # the closed set a reviewer chooses from, with Apertus' probability shares in review mode
+    shares = None
+    if mode == "review" and backend is not None and theta is not None and rec["fields"]["answer_date"].get("residue"):
+        p = pointer.answer_date(backend, pages, lang, theta, anchors=rules.anchors(pages))
+        shares = output.pointer_shares(p)
+    ad_field = fields.get("answer_date")
+    if ad_field is not None:
+        chosen = ad_field.get("value") or (suggestion or {}).get("value")
+        ad_field["candidates"] = output.date_candidates(pages, chosen, shares)
+        if shares is not None:
+            ad_field["null_share"] = round(shares.get(None, 0.0), 4)
+    if suggestion:
+        suggestion["band"] = output.band_info(suggestion.get("margin"), suggestion.get("theta"))
+    if "recommendation" in fields and fields["recommendation"] is not None:
+        rp = output.recommendation_phrases(pages)
+        fields["recommendation"]["recommendation_phrases"] = rp["labels"]
+        fields["recommendation"]["multiple_recommendations"] = rp["multiple"]
     return dict(status="ok", input=inp, mode=mode, language=lang, doc_role=role, fields=fields,
                 needs_review=bool(suggestion), review_suggestion=suggestion, record=rd)
 
@@ -203,3 +220,26 @@ def run_batch(inputs: list[dict], out_path: str | None, *, mode: str = "rules_on
         if out_path:
             sink.close()
     return counts
+
+
+BAND_ORDER = {"strong": 0, "weak": 1}
+
+
+def write_queue(rows_path: str, queue_path: str) -> int:
+    """Review queue: every row that carries a suggestion, strongest first (band, then margin ascending), so a reviewer
+    starts with the suggestions most likely to be right (measured per band, results/convert/band_precision.json)."""
+    rows = [json.loads(x) for x in open(rows_path, encoding="utf-8") if x.strip()]
+    q = [r for r in rows if r.get("status") == "ok" and r.get("needs_review")]
+
+    def key(r):
+        s = r.get("review_suggestion") or {}
+        return (BAND_ORDER.get((s.get("band") or {}).get("band"), 9), s.get("margin") if s.get("margin") is not None else 0)
+    q.sort(key=key)
+    with open(queue_path, "w", encoding="utf-8") as f:
+        for r in q:
+            f.write(json.dumps(r, ensure_ascii=False) + "\n")
+    return len(q)
+
+
+def has_failures(counts: dict) -> bool:
+    return any(k in output.FAILURE_KINDS and v for k, v in counts.items())

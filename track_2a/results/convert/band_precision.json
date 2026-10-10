@@ -1,0 +1,69 @@
+{
+ "label": "POST-HOC: precision of Apertus review suggestions (cascade residue, frozen \u03b8) by margin band",
+ "bands": {
+  "strong": "margin <= -5.0",
+  "weak": "-5.0 < margin <= theta (model leaned toward null)"
+ },
+ "results": {
+  "strong": {
+   "correct": 26,
+   "n": 33,
+   "on_answerless": 3,
+   "ci": [
+    0.622,
+    0.893
+   ],
+   "shown": "26/33"
+  },
+  "strong_P1": {
+   "correct": 7,
+   "n": 8,
+   "on_answerless": 1,
+   "ci": [
+    0.529,
+    0.978
+   ],
+   "shown": "7/8"
+  },
+  "strong_P2": {
+   "correct": 19,
+   "n": 25,
+   "on_answerless": 2,
+   "ci": [
+    0.566,
+    0.885
+   ],
+   "shown": "19/25"
+  },
+  "weak": {
+   "correct": 3,
+   "n": 11,
+   "on_answerless": 6,
+   "ci": [
+    0.097,
+    0.566
+   ],
+   "shown": "3/11"
+  },
+  "weak_P1": {
+   "correct": 2,
+   "n": 8,
+   "on_answerless": 4,
+   "ci": [
+    0.071,
+    0.591
+   ],
+   "shown": "2/8"
+  },
+  "weak_P2": {
+   "correct": 1,
+   "n": 3,
+   "on_answerless": 2,
+   "ci": [
+    0.061,
+    0.792
+   ],
+   "shown": "1/3"
+  }
+ }
+}

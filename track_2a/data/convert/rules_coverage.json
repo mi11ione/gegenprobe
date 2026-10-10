@@ -1,0 +1,45 @@
+{
+ "bodies_with_rules": [
+  "230",
+  "261",
+  "5192",
+  "5254",
+  "5586",
+  "6152",
+  "6621",
+  "BE",
+  "BS",
+  "GE",
+  "JU",
+  "LU",
+  "TI",
+  "VS",
+  "ZH"
+ ],
+ "meaning": "The deterministic rules were written on documents of these parliaments; their layouts are known. For any other parliament, route documents to review mode: on 15 parliaments the rules never saw (P2), the rules found 2 of 29 answer dates and the Apertus pointer 24 of 29.",
+ "rule_precision": {
+  "answer_date": {
+   "be_ace_split": "2/2",
+   "be_rrb_split": "1/1",
+   "date_de_depot_head": "2/2",
+   "date_line_above_heading_head": "3/3",
+   "datum_rr_sitzung": "0/2",
+   "fr_adopte_seance": "1/1",
+   "it_rg": "3/4",
+   "it_ris_label": "1/1",
+   "it_risposta_del": "3/3",
+   "le_date_line_tail": "1/1",
+   "place_date_head": "10/11",
+   "place_date_tail": "4/4",
+   "protokoll_sitzung": "2/2",
+   "rrb_vom": "3/5",
+   "ti_header_date_head": "13/13"
+  },
+  "recommendation": {
+   "rec_accept": "2/2",
+   "rec_convert": "1/1",
+   "rec_reject": "0/1"
+  }
+ },
+ "source": "data/gold/dev_docs.jsonl (+ spike items BE/ZH/BS); results/convert/rule_precision.json"
+}

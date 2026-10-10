@@ -107,6 +107,15 @@ read gives a typed failure row instead of a traceback: `robots_disallowed`, `htt
 `not_a_pdf`, `sha_mismatch`, `file_not_found`, `text_failed`. Review mode refuses to run without a θ fitted for the exact
 build and lists the fitted builds. User guide, field glossary and null reasons in plain words: `docs/convert-your-own.md`.
 
+**Review aids (round 2).** Every answer-date field carries `candidates` (the closed set: every printed date with page,
+span and context, the chosen one marked, and Apertus' probability shares in review mode); rule values carry
+`rule_precision` (`results/convert/rule_precision.json`, per rule on the P1 + P2 held-out rows); review suggestions carry a
+`band` (strong: margin ≤ −5; weak: −5 < margin ≤ θ), measured post-hoc on P1 + P2 (`results/convert/band_precision.json`);
+recommendations carry `multiple_recommendations`; `--opd-text` adds `opd_text_span`, offsets into OPD's stored text
+(`convert/opdtext.py`). Batch: exit code 2 on any failure row (`--allow-failures` to override), `--queue` for a review
+queue sorted strongest first. Rule coverage for routing: `data/convert/rules_coverage.json`. All computed by
+`python -m gegenprobe.convert.precision` from committed result rows; no new labels, no model call.
+
 ## Commands
 ```
 python -m gegenprobe convert <pdf|url> [--mode review --backend gguf]   # one document

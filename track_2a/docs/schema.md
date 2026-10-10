@@ -159,6 +159,26 @@ free-generation baseline and the rules baseline can all be tested the same way.
 span that excludes the marker re-checks fine. Candidate builders that scan whole pages need a footnote-aware variant.
 
 
+## Validating a file
+
+`python -m gegenprobe.schema.validate FILE [FILE ...]` validates Affairs, DocExtractions, converter output rows (their
+`record`) or JSONL of any of these with the Pydantic models, and exits 1 on any invalid object. Use it rather than the
+exported JSON Schema alone: JSON Schema cannot express the cross-field rules (a rule value must carry page + span; an
+Apertus abstention must have margin > θ; a null reason must be legal for its route), so a JSON-Schema-only validator
+accepts records the Pydantic models reject. The Pydantic models are normative.
+
+## Per-question pairing: `QAItem` (v0.1 addition, 10 Oct 2026)
+
+`QAPair.items` (optional) pairs question *n* of an intervention with the executive's answer to question *n*, each side
+a span or a typed null (`present_unanchored` when the answer replies to all questions at once). The converter does not
+fill it yet; it makes answers comparable question by question once it does.
+
+## Field verdict classes (for the eCH-ready table)
+
+`data/schema/field_verdict_classes.json`: `shared` (one concept, same meaning everywhere; where the value lives may
+differ), `shared_with_role_split` (shared, but one source label covers several roles that must be kept apart, e.g.
+"answer date" = decided / dispatched / registered), `body_specific` (no common meaning; only the body's own vocabulary).
+
 ## Virtual affairs (v0.1 addition, 10 Oct 2026)
 
 Many communes publish only per-meeting documents (minutes) and no affairs; OPD derives "virtual affairs" for some of them

@@ -7,7 +7,8 @@
       In `review` mode the Apertus closed-set pointer adds a suggestion for what the rules left open, flagged
       needs_review; it is never written into the field. A document that cannot be fetched or read becomes a typed
       failure row (robots_disallowed, http_error, timeout, network_error, not_a_pdf, sha_mismatch, file_not_found,
-      text_failed). Docs: docs/convert-your-own.md.
+      text_failed). Exit codes: 0 all ok; 2 a failure row (single file) or any failure row in a batch (unless
+      --allow-failures). Docs: docs/convert-your-own.md.
   python -m gegenprobe run       the `make run` replay (same as python -m gegenprobe.run)
 """
 from __future__ import annotations
@@ -31,12 +32,24 @@ def _convert(a) -> int:
                                  timeout=a.timeout, tries=a.tries)
         summary = ", ".join(f"{k} {v}" for k, v in sorted(counts.items()))
         print(f"{len(inputs)} inputs: {summary or 'nothing to do'}" + (f" -> {a.out}" if a.out else ""), file=sys.stderr)
+        if a.queue:
+            if not a.out:
+                print("--queue needs --out (the queue is built from the rows file)", file=sys.stderr)
+                return 2
+            n = batch.write_queue(a.out, a.queue)
+            print(f"review queue: {n} suggestions, strongest first -> {a.queue}", file=sys.stderr)
+        if batch.has_failures(counts) and not a.allow_failures:
+            print("some inputs failed (typed failure rows written); exit 2. Use --allow-failures to exit 0.", file=sys.stderr)
+            return 2
         return 0
     if not a.source:
         print("give a PDF path or URL, or --batch FILE", file=sys.stderr)
         return 2
     inp = dict(opd_doc_id=a.opd_doc_id, body=a.body, affair_number=a.affair_number, affair_type=a.affair_type, lang=a.lang)
     row = batch.convert_one(a.source, inp, mode=a.mode, backend=be, theta=theta, timeout=a.timeout, tries=a.tries)
+    if a.opd_text and row["status"] == "ok":
+        from .convert import opdtext
+        row["opd_text_alignment"] = opdtext.annotate(row, opdtext.load(a.opd_text))
     json.dump(row, sys.stdout, ensure_ascii=False, indent=1)
     print()
     if row["status"] != "ok":
@@ -55,6 +68,11 @@ def main(argv: list[str] | None = None) -> int:
                    "affair_number, affair_type, lang) or .txt with one URL/path per line")
     c.add_argument("--out", metavar="JSONL", help="batch: append rows here; inputs already in the file are skipped")
     c.add_argument("--retry-failed", action="store_true", help="batch: retry inputs whose earlier row is a failure")
+    c.add_argument("--allow-failures", action="store_true",
+                   help="batch: exit 0 even if some inputs became failure rows (default: exit 2 so CI can gate on it)")
+    c.add_argument("--queue", metavar="JSONL", help="batch: also write the rows with review suggestions, strongest band first")
+    c.add_argument("--opd-text", metavar="FILE", help="OPD's stored text of this document (plain text, or a docs-export "
+                   "JSON row with a 'text' field): every value also gets opd_text_span, offsets into that text")
     c.add_argument("--mode", choices=["rules_only", "review"], default="rules_only",
                    help="rules_only (default, no model) | review (adds Apertus suggestions, needs a fitted θ)")
     c.add_argument("--lang", choices=["de", "fr", "it"], help="document language (guessed if omitted)")

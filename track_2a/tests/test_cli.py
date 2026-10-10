@@ -58,10 +58,17 @@ def test_review_mode_attaches_a_flagged_suggestion_and_never_writes_the_field():
     rules_only = batch.convert_pages(pages, sha="2" * 64, extractor="t", image_only=False, inp={"source": "r.pdf"})
     row = batch.convert_pages(pages, sha="2" * 64, extractor="t", image_only=False, inp={"source": "r.pdf"},
                               mode="review", backend=_Fake(), theta=0.0)
-    assert row["fields"]["answer_date"] == rules_only["fields"]["answer_date"]  # the unattended field is unchanged
+    a, b = row["fields"]["answer_date"], rules_only["fields"]["answer_date"]
+    assert {k: a.get(k) for k in ("value", "null_reason", "route")} == {k: b.get(k) for k in ("value", "null_reason", "route")}
     assert rules_only["fields"]["answer_date"]["value"] is None  # the rules leave it open: the residue
     assert row["needs_review"] and row["review_suggestion"]["value"] == "2025-03-03"
     assert row["review_suggestion"]["context"] and not rules_only["needs_review"]
+    # reviewer aids: the closed set with Apertus' shares, the null share, and the confidence band
+    cands = a["candidates"]
+    assert [c["value"] for c in cands] == ["2025-03-03"] and cands[0]["chosen"] and cands[0]["share"] > 0.99
+    assert "share" not in b["candidates"][0] and a["null_share"] < 0.01
+    band = row["review_suggestion"]["band"]
+    assert band["band"] == "strong" and "correct" in band["measured"]
 
 
 @pytest.mark.parametrize("exc,kind", [
@@ -113,3 +120,29 @@ def test_convert_cli_on_a_real_pdf():
         assert f["page"] >= 1 and f["char_end"] > f["char_start"] and f["quote"] and f["rule_id"]
     else:
         assert f["null_reason"]
+
+
+def test_rule_value_carries_its_measured_precision_and_alternatives():
+    pages = ["Regierungsrat\nRegierungsratsbeschluss vom 3. Dezember 2019\nAntwort des Regierungsrates\n"
+             "Basel, 4. Dezember 2019\n"]
+    row = batch.convert_pages(pages, sha="3" * 64, extractor="t", image_only=False, inp={"source": "a.pdf"})
+    f = row["fields"]["answer_date"]
+    assert f["value"] == "2019-12-03" and f["rule_id"] == "rrb_vom"
+    assert f["rule_precision"].startswith("3/5")
+    vals = [c["value"] for c in f["candidates"]]
+    assert vals == ["2019-12-03", "2019-12-04"] and f["candidates"][0]["chosen"] and "chosen" not in f["candidates"][1]
+
+
+def test_band_thresholds():
+    from gegenprobe.convert.precision import band
+    assert band(-12.0, 10.4) == "strong" and band(-5.0, 10.4) == "strong"
+    assert band(-4.9, 10.4) == "weak" and band(10.4, 10.4) == "weak"
+    assert band(10.5, 10.4) is None and band(None, 10.4) is None
+
+
+def test_multiple_recommendation_phrases_are_flagged():
+    from gegenprobe.convert import output
+    pages = ["Le Conseil-exécutif propose au Grand Conseil de rejeter le point 1 de la motion.\n"
+             "Le Conseil-exécutif propose au Grand Conseil d'adopter les points 2 et 3 de la motion.\n"]
+    rp = output.recommendation_phrases(pages)
+    assert rp["multiple"] == (len(rp["labels"]) > 1)

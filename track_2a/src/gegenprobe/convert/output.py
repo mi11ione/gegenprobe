@@ -20,12 +20,13 @@ Failure rows carry {"status": kind, "reason": "...", "input": {...}} and nothing
 """
 from __future__ import annotations
 
+import collections
 import re
 import socket
 import urllib.error
 
 from .. import net, pdftext
-from . import rules
+from . import lattice, pointer, precision, rules
 
 FAILURE_KINDS = ("robots_disallowed", "http_error", "timeout", "network_error", "not_a_pdf", "sha_mismatch",
                  "file_not_found", "text_failed")
@@ -86,7 +87,7 @@ def doc_role(pages: list[str], answer_rec: dict) -> dict:
     return dict(value="other", basis="no answer heading, decision anchor or submission marker in the first page(s)")
 
 
-def flat_field(rec_field: dict | None, record_field: dict | None, pages: list[str]) -> dict | None:
+def flat_field(rec_field: dict | None, record_field: dict | None, pages: list[str], field: str = "answer_date") -> dict | None:
     """Reviewer view of one field: value or null reason, where it is printed, which rule/model decided, and why."""
     if rec_field is None:
         return None
@@ -99,6 +100,8 @@ def flat_field(rec_field: dict | None, record_field: dict | None, pages: list[st
         out["role"] = (record_field or {}).get("role", rec_field.get("role"))
     if rec_field.get("rule"):
         out["rule_id"] = rec_field["rule"]
+        if out.get("route") in ("rule", "ocr+rule"):
+            out["rule_precision"] = rule_precision_of(field, rec_field["rule"])
     if rec_field.get("number"):
         out["decision_number"] = rec_field["number"]
     if rec_field.get("page") is not None:
@@ -109,6 +112,72 @@ def flat_field(rec_field: dict | None, record_field: dict | None, pages: list[st
         if rec_field.get(k) is not None:
             out[k] = rec_field[k]
     return out
+
+
+def date_candidates(pages: list[str], chosen: str | None = None, shares: dict | None = None, limit: int = 30) -> list[dict]:
+    """The closed set a reviewer chooses from: every distinct date printed in the document (first occurrence, with page,
+    span and 160 characters of context), whether it is inside the pointer's reading window, and, in review mode, the
+    probability share Apertus gives it among {these dates, null}."""
+    _, offs, _ = pointer.doc_text(pages)
+    seen: dict[str, dict] = {}
+    for c in lattice.dates(pages):
+        v = c["value"]
+        if v in seen:
+            seen[v]["occurrences"] += 1
+            continue
+        seen[v] = dict(value=v, page=c["page"], char_start=c["char_start"], char_end=c["char_end"],
+                       context=anchor_context(pages, c["page"], c["char_start"], c["char_end"], before=100, limit=160),
+                       occurrences=1, in_pointer_window=pointer._visible(c, offs, pointer.CHAR_BUDGET))
+    out = list(seen.values())[:limit]
+    for d in out:
+        if chosen and d["value"] == chosen:
+            d["chosen"] = True
+        if shares is not None:
+            d["share"] = round(shares.get(d["value"], 0.0), 4)
+    return out
+
+
+def pointer_shares(p) -> dict:
+    """{date: probability share, None: null share} from a PointerResult (softmax over null + candidates)."""
+    import math
+    if not p.candidates:
+        return {}
+    lps = [p.lp_null] + [lp for _, lp in p.candidates]
+    m = max(lps)
+    z = sum(math.exp(x - m) for x in lps)
+    out = {v: math.exp(lp - m) / z for v, lp in p.candidates}
+    out[None] = math.exp(p.lp_null - m) / z
+    return out
+
+
+def rule_precision_of(field: str, rule_id: str | None) -> str | None:
+    """'47/51'-style precision of a rule on the pre-registered held-out sets, or None if the rule never fired there."""
+    if not rule_id:
+        return None
+    r = precision.committed_rule_precision().get(field, {}).get(rule_id)
+    return f"{r['shown']} correct on held-out documents (P1+P2)" if r else "not measured (rule did not fire on held-out sets)"
+
+
+def band_info(margin: float | None, theta: float | None) -> dict | None:
+    b = precision.band(margin, theta)
+    if b is None:
+        return None
+    r = precision.committed_band_precision().get(b)
+    label = {"strong": "strong: the model clearly preferred this printed date over null",
+             "weak": "weak: the model leaned toward null but stayed under θ"}[b]
+    return dict(band=b, meaning=label, measured=(f"{r['shown']} suggestions in this band were correct (P1+P2, post-hoc)"
+                                                 if r else None))
+
+
+def recommendation_phrases(pages: list[str]) -> dict:
+    """How many recommendation phrases the rules see, and for which labels (a document can recommend differently per
+    point: 'propose le rejet du premier point' and 'l'adoption des points 2 et 3')."""
+    labels = collections.Counter()
+    for lab, rx in rules.REC:
+        for t in pages:
+            labels[lab] += len(rx.findall(t))
+    found = {k: v for k, v in labels.items() if v}
+    return dict(labels=found, multiple=len(found) > 1)
 
 
 def failure_row(kind: str, reason: str, inp: dict) -> dict:
