@@ -56,6 +56,16 @@ retry) makes the host **disallowed for that night** (fail-closed). It is logged 
 the journal and listed in `run.json` (`robots_unreadable`); the rows it affects get `fetch_error` and are re-checked the next
 night. `api.openparldata.ch/v1/` is refused outright (its robots.txt disallows it).
 
+Rules are matched under **RFC 9309 §2.2.2**: the longest matching path wins, an `Allow` wins a tie, `*` and a final `$` are
+wildcards. Python's `urllib.robotparser` applies the first match instead; on 10 Oct 2026 that let three Ticino files
+through (`Allow: /` before `Disallow: /user_librerie/php/GC/allegato.php` on www4.ti.ch; deleted, unused;
+`docs/incidents.md`). Since 11 Oct 2026 `src/sitecustomize.py` installs the RFC 9309 matcher
+(`src/gegenprobe/robots9309.py`) into `urllib.robotparser` at interpreter start. Python loads it only when `src/` is on
+`PYTHONPATH`, which both units provide: the Docker unit through the image's `ENV PYTHONPATH=/app/src:/app`, the venv unit
+through `Environment=PYTHONPATH=/opt/gegenprobe/track_2a/src`. **Keep that line if you write your own unit or wrapper.**
+To check a host, from the checkout: `PYTHONPATH=src python -c 'import urllib.robotparser as r; print(r.RobotFileParser.can_fetch.__module__)'`
+prints `_gegenprobe_robots9309`. If it prints `urllib.robotparser` instead, the patch is not active.
+
 ## What it reads and writes
 
 | reads (runtime) | data sent | purpose |
@@ -254,8 +264,9 @@ documents at the held-out residue share (97/154; not measured on the corpus mix)
 `.github/workflows/ci.yml` job `systemd-units` runs `systemd-analyze verify` on both unit variants with the timer and the
 failure notifier, prints and gates both units' `systemd-analyze security` exposure (thresholds above, "Sandboxing"),
 then starts the failure notifier under real systemd behind two stand-in units (one exits 3, one exits 1)
-and checks that exactly one webhook post with valid JSON arrives; job `nightly-smoke` builds the image and runs three
-offline nights on fixture exports inside it with the unit's container flags and no network (`docs/nightly.md` "Verified
+and checks that exactly one webhook post with valid JSON arrives; job `test` and job `nightly-smoke` (inside the built image)
+assert that robots.txt is matched under RFC 9309 (`src/sitecustomize.py`, see Operator settings); job `nightly-smoke` builds
+the image and runs three offline nights on fixture exports inside it with the unit's container flags and no network (`docs/nightly.md` "Verified
 in CI"). `.github/workflows/nightly-real.yml` (manual: `gh workflow run nightly-real.yml`) installs the venv variant with
 `install.sh --venv` on a GitHub-hosted Ubuntu runner and runs one real network night under systemd, with a contact
 User-Agent; it uploads `run.json`, the journal and the wall time. One run is committed (`results/monitor/night_real_38062530586/`:

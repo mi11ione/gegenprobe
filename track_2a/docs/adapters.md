@@ -25,7 +25,8 @@ for image-only scans) -> **checks**:
 | heading | the parliament's answer formula is printed ("Der Stadtrat beantwortet die Anfrage wie folgt", "Antwort der Regierung vom", "Réponse écrite du Conseil d'État", "Il Municipio risponde", ...). Question phrases ("prié de répondre", "um Beantwortung", "Souhait d'une réponse écrite") and council minutes ("prend acte de la réponse") are excluded and tested |
 | date | the document's own date (header, or the place-date line) **equals** one of OPD's written-answer event dates (`eq`), or an executive event of the affair (`eq_gov`, Solothurn: OPD's "Beantwortet" event is the committee's, the government's "Antrag" event carries the answer date), or some date printed in the document equals an OPD answer event (`anywhere`); a documented per-parliament window (below); where OPD's answer events carry no date (Jura), the document is dated within a year after OPD's submission event (`after_submission`) |
 
-**Verified** = identity and heading and date. **Review** = identity and heading but the date is off (within 14 days:
+**Verified** = identity and heading and date; how strong the date check is sets the verification tier (Results,
+"Verification tiers"), and only the two tiers with a date check count as repairs. **Review** = identity and heading but the date is off (within 14 days:
 `near`, or further: `differs`), or identity and the source itself types the document as the answer but no heading
 matched. **Failed** = a typed reason: `no_candidate` (the source lists no answer document), `not_found`,
 `robots_disallowed`, `robots_unreachable`, `http_404`, `empty_text`, `oral_pointer` (VS: the answer document points to
@@ -43,8 +44,10 @@ answer file on the affair without usable text; extract (text layer or OCR) and t
 Per-parliament date rules (event − document date, days), each from the parliament's practice: Zürich city 0 to +15
 (before about 2012 OPD's "Stadtrat, Antwort" event is the dispatch a week or two after the decision; pilot of 200: 150
 equal, +1, +7 ×13, +8 ×3, +14, +15); Neuchâtel −1 to +1 ("transmise aux membres du Grand Conseil le …"); Frauenfeld −3
-to +3 (signed around OPD's date); Kriens −70 to 0 (OPD's answer event carries the submission date); Valais −366 to 0
-(OPD's answer event carries the deposit date; the answer's own date follows). Everywhere else: equal dates only.
+to +3 (signed around OPD's date); Kriens −70 to 0 (OPD's answer event carries the submission date; the Stadtrat's
+position follows within about 8 weeks); Valais 0 to +120 (for motions OPD's answer event is the session that treated the
+motion, which the Conseil d'État's written answer precedes; first full run: 0 to 217 days, median about 55, 145 of 172
+within 120; `vs.py`). Everywhere else: equal dates only.
 
 ## Investigation: the parliaments with the most written answers missing
 
@@ -84,90 +87,126 @@ All 12,150 target affairs (10,800 `absent` + 1,350 `image_only`) were run; outpu
 (`summary.json`, per body `<BODY>.json`, `repair_<BODY>.tsv`, `repair_<BODY>_review.tsv`). OPD docs snapshot of 10 Oct
 2026; parliament sites fetched 10-11 Oct 2026.
 
-**Coverage.** Verified: **7,191** affairs, **6,330** of the 10,800 written answers that had no answer document in OPD and
-**861** of the 1,350 image-only answers (a text copy verified). Deterministic routes now propose repairs for **10,298 of
-16,749** interventions without answer text (3,107 before); **4,470** written answers still need adapters. Another **725**
-rows are review (501 absent, 224 image-only): listed, not counted.
+**Coverage.** Every row below printed the affair's identity and the parliament's answer formula; the tiers differ in the
+date check. Counted as verified repairs (tiers with a date check): **6,909** affairs, **6,048** of the 10,800 written
+answers that had no answer document in OPD and **861** of the 1,350 image-only answers (a text copy verified).
+Deterministic routes now propose repairs for **10,016 of 16,749** interventions without answer text (3,107 before);
+**4,752** written answers still need adapters. Listed separately and not counted: **282** Jura answers checked by
+identity and wording only (OPD's Jura answer events carry no date). Another **725** rows are review (501 absent, 224
+image-only): listed, not counted.
 
-**By action:** `fetch` 3,623 (Zürich canton, St. Gallen, Solothurn, Luzern, Valais, Aarau), `tag_answer` 2,380 and
-`extract_tag` 1,188. **2,380 answers are already in OPD with text** on the affair (`tag_answer`: Zürich city 1,417,
-Neuchâtel 239, Zürich canton 161 Vorlagen, Frauenfeld 131, Vaud 95, ...): the census lexicon (`census/defs.py`, frozen) does not recognise their
-wording, so they are counted as missing. **By date check:** equal 4,992, executive event 214 (Solothurn), any printed
-date equal 1,307, documented window 301, latest printed date in window 95 (Zürich city before 2012, no header date),
-after submission 282 (Jura: OPD's answer events carry no date). Identity: the affair number for most bodies; the title for
-Ticino (729), Jura (288), Frauenfeld (145), Locarno (127), Aarau (61); the source's own document label for Valais (132).
+### Verification tiers
+
+`results/repair/adapters/tiers.json` (per tier: rows by cause, action, date class and parliament; for the window tier
+each parliament's window and the offsets observed); `summary.json` carries the counts.
+
+| tier | date check | rows | absent | image-only | counted |
+|---|---|---|---|---|---|
+| verified (exact date) | a date printed in the document equals an OPD event date: the document's own date (`eq` 4,992), the executive's event (`eq_gov` 214, Solothurn) or any printed date (`anywhere` 1,307) | 6,513 | 5,656 | 857 | yes |
+| verified (date window ≤ N days, per parliament) | within the parliament's documented window above (`window` 301; `latest_in_window` 95: no header date, the latest printed date before the event lies in the window): Zürich city N = 15 (215 rows, observed +1 to +15 days), Valais N = 120 (140, +1 to +118), Kriens N = 70 (32, −61 to −1), Neuchâtel N = 1 (9, −1 to +1); Frauenfeld's window (N = 3) decided no row | 396 | 392 | 4 | yes |
+| identity + wording only (no date check) | Jura: OPD's Jura answer events carry no date, so the date check is only "dated within a year after OPD's submission event" (`after_submission`) | 282 | 282 | 0 | no, listed separately |
+
+The 282 Jura rows stay in `repair_JU.tsv` (their `check_detail` says `date_match=after_submission`) for a person or
+OPD to confirm; they are not in the headline figures. Jura's counted rows: 75, all with an exact date.
+
+**By action** (counted tiers): `fetch` 3,623 (Zürich canton, St. Gallen, Solothurn, Luzern, Valais, Aarau), `tag_answer`
+2,379 and `extract_tag` 907 (the Jura tier adds `extract_tag` 281 and `tag_answer` 1). **2,379 answers are already in OPD
+with text** on the affair (`tag_answer`: Zürich city 1,417, Neuchâtel 239, Zürich canton 161 Vorlagen, Frauenfeld 131,
+Vaud 95, ...): the census lexicon (`census/defs.py`, frozen) does not recognise their wording, so they are counted as
+missing. Identity: the affair number for most bodies; the title for Ticino (729), Jura (288), Frauenfeld (145), Locarno
+(127), Aarau (61); the source's own document label for Valais (132).
 
 `python -m gegenprobe.repair.adapters.run --table`:
 
-| parliament | targets (absent + image-only) | verified | of which tag/extract (in OPD) | review | failed: top reasons |
-|---|---|---|---|---|---|
-| Zürich (canton) (ZH) | 3,030 | 2,193 | 162 | 97 | no_candidate 740 |
-| Zürich (city) (261) | 1,457 | 1,417 | 1,417 | 21 | heading_fail 19 |
-| St. Gallen (canton) (SG) | 1,018 | 1,013 | 0 | 1 | http_404 2, no_candidate 2 |
-| Ticino (canton) (TI) | 776 | 729 | 729 | 36 | http_404 2, identity_fail 7, no_candidate 2 |
-| Neuchâtel (canton) (NE) | 721 | 239 | 239 | 12 | no_candidate 470 |
-| Jura (canton) (JU) | 657 | 357 | 357 | 25 | identity_fail 15, no_candidate 260 |
-| Winterthur (city) (230) | 629 | 0 | 0 | 0 | no_candidate 629 |
-| Valais (canton) (VS) | 392 | 195 | 0 | 87 | empty_text 33, http_404 15, no_candidate 13 |
-| Locarno (city) (5113) | 299 | 127 | 127 | 115 | http_404 9, identity_fail 5, no_candidate 43 |
-| Münsingen (city) (616) | 269 | 0 | 0 | 0 | identity_fail 1, no_candidate 268 |
-| Illnau-Effretikon (city) (296) | 222 | 33 | 33 | 10 | identity_fail 2, no_candidate 177 |
-| Solothurn (canton) (SO) | 212 | 210 | 0 | 1 | identity_fail 1 |
-| Lugano (city) (5192) | 201 | 7 | 7 | 7 | no_candidate 187 |
-| Pratteln (city) (2831) | 200 | 0 | 0 | 16 | no_candidate 184 |
-| Frauenfeld (city) (4566) | 194 | 145 | 145 | 18 | heading_fail 9, identity_fail 21, no_candidate 1 |
-| Aarau (city) (4001) | 177 | 74 | 4 | 15 | identity_fail 5, no_candidate 83 |
-| Liestal (city) (2829) | 167 | 0 | 0 | 63 | identity_fail 3, no_candidate 101 |
-| Lausanne (city) (5586) | 163 | 24 | 24 | 42 | identity_fail 4, no_candidate 93 |
-| Collombey-Muraz (municipality) (6152) | 130 | 0 | 0 | 0 | no_candidate 130 |
-| Monthey (city) (6153) | 119 | 29 | 29 | 4 | no_candidate 86 |
-| Vaud (canton) (VD) | 112 | 95 | 95 | 9 | no_candidate 8 |
-| Bern (city) (351) | 106 | 39 | 39 | 1 | no_candidate 66 |
-| Luzern (canton) (LU) | 105 | 104 | 0 | 1 | - |
-| Basel-Landschaft (canton) (BL) | 104 | 2 | 2 | 0 | no_candidate 102 |
-| Basel-Stadt (canton) (BS) | 103 | 1 | 1 | 2 | no_candidate 100 |
-| Kriens (city) (1059) | 75 | 71 | 71 | 2 | no_candidate 2 |
-| Kreuzlingen (city) (4671) | 56 | 0 | 0 | 4 | http_404 29, no_candidate 23 |
-| Adliswil (city) (131) | 52 | 2 | 2 | 20 | empty_text 20, http_404 10 |
-| Wetzikon (ZH) (city) (121) | 51 | 0 | 0 | 0 | no_candidate 51 |
-| Bellinzona (city) (5002) | 50 | 0 | 0 | 49 | no_candidate 1 |
-| Thurgau (canton) (TG) | 50 | 34 | 34 | 15 | identity_fail 1 |
-| Fribourg (canton) (FR) | 43 | 7 | 7 | 0 | http_400 1, identity_fail 1, no_candidate 34 |
-| Dübendorf (city) (191) | 37 | 17 | 17 | 17 | identity_fail 3 |
-| Zofingen (city) (4289) | 34 | 6 | 6 | 21 | identity_fail 1, no_candidate 6 |
-| Vernier (city) (6643) | 32 | 0 | 0 | 0 | no_candidate 32 |
-| Arbon (city) (4401) | 31 | 21 | 21 | 0 | identity_fail 3, no_candidate 7 |
-| Interlaken (city) (581) | 26 | 0 | 0 | 14 | no_candidate 12 |
-| Obwalden (canton) (OW) | 12 | 0 | 0 | 0 | no_candidate 12 |
-| Uster (city) (198) | 11 | 0 | 0 | 0 | no_candidate 11 |
-| Nidau (municipality) (743) | 6 | 0 | 0 | 0 | no_candidate 6 |
-| Thun (city) (942) | 5 | 0 | 0 | 0 | no_candidate 5 |
-| Schlieren (city) (247) | 4 | 0 | 0 | 0 | no_candidate 4 |
-| Appenzell Ausserrhoden (canton) (AR) | 2 | 0 | 0 | 0 | no_candidate 2 |
-| Graubünden (canton) (GR) | 2 | 0 | 0 | 0 | no_candidate 2 |
-| Liechtenstein (Landtag) (LIE) | 2 | 0 | 0 | 0 | no_candidate 2 |
-| Schaffhausen (canton) (SH) | 2 | 0 | 0 | 0 | no_candidate 2 |
-| Wädenswil (city) (293) | 1 | 0 | 0 | 0 | no_candidate 1 |
-| Neuchâtel (city) (6458) | 1 | 0 | 0 | 0 | no_candidate 1 |
-| Opfikon (city) (66) | 1 | 0 | 0 | 0 | no_candidate 1 |
-| Genève (canton) (GE) | 1 | 0 | 0 | 0 | no_candidate 1 |
+| parliament | targets (absent + image-only) | verified: exact date | verified: date window | of which tag/extract (in OPD) | identity + wording only (not counted) | review | failed: top reasons |
+|---|---|---|---|---|---|---|---|
+| Zürich (canton) (ZH) | 3,030 | 2,193 | 0 | 162 | 0 | 97 | no_candidate 740 |
+| Zürich (city) (261) | 1,457 | 1,202 | 215 | 1,417 | 0 | 21 | heading_fail 19 |
+| St. Gallen (canton) (SG) | 1,018 | 1,013 | 0 | 0 | 0 | 1 | http_404 2, no_candidate 2 |
+| Ticino (canton) (TI) | 776 | 729 | 0 | 729 | 0 | 36 | http_404 2, identity_fail 7, no_candidate 2 |
+| Neuchâtel (canton) (NE) | 721 | 230 | 9 | 239 | 0 | 12 | no_candidate 470 |
+| Jura (canton) (JU) | 657 | 75 | 0 | 75 | 282 | 25 | identity_fail 15, no_candidate 260 |
+| Winterthur (city) (230) | 629 | 0 | 0 | 0 | 0 | 0 | no_candidate 629 |
+| Valais (canton) (VS) | 392 | 55 | 140 | 0 | 0 | 87 | empty_text 33, http_404 15, no_candidate 13 |
+| Locarno (city) (5113) | 299 | 127 | 0 | 127 | 0 | 115 | http_404 9, identity_fail 5, no_candidate 43 |
+| Münsingen (city) (616) | 269 | 0 | 0 | 0 | 0 | 0 | identity_fail 1, no_candidate 268 |
+| Illnau-Effretikon (city) (296) | 222 | 33 | 0 | 33 | 0 | 10 | identity_fail 2, no_candidate 177 |
+| Solothurn (canton) (SO) | 212 | 210 | 0 | 0 | 0 | 1 | identity_fail 1 |
+| Lugano (city) (5192) | 201 | 7 | 0 | 7 | 0 | 7 | no_candidate 187 |
+| Pratteln (city) (2831) | 200 | 0 | 0 | 0 | 0 | 16 | no_candidate 184 |
+| Frauenfeld (city) (4566) | 194 | 145 | 0 | 145 | 0 | 18 | heading_fail 9, identity_fail 21, no_candidate 1 |
+| Aarau (city) (4001) | 177 | 74 | 0 | 4 | 0 | 15 | identity_fail 5, no_candidate 83 |
+| Liestal (city) (2829) | 167 | 0 | 0 | 0 | 0 | 63 | identity_fail 3, no_candidate 101 |
+| Lausanne (city) (5586) | 163 | 24 | 0 | 24 | 0 | 42 | identity_fail 4, no_candidate 93 |
+| Collombey-Muraz (municipality) (6152) | 130 | 0 | 0 | 0 | 0 | 0 | no_candidate 130 |
+| Monthey (city) (6153) | 119 | 29 | 0 | 29 | 0 | 4 | no_candidate 86 |
+| Vaud (canton) (VD) | 112 | 95 | 0 | 95 | 0 | 9 | no_candidate 8 |
+| Bern (city) (351) | 106 | 39 | 0 | 39 | 0 | 1 | no_candidate 66 |
+| Luzern (canton) (LU) | 105 | 104 | 0 | 0 | 0 | 1 | - |
+| Basel-Landschaft (canton) (BL) | 104 | 2 | 0 | 2 | 0 | 0 | no_candidate 102 |
+| Basel-Stadt (canton) (BS) | 103 | 1 | 0 | 1 | 0 | 2 | no_candidate 100 |
+| Kriens (city) (1059) | 75 | 39 | 32 | 71 | 0 | 2 | no_candidate 2 |
+| Kreuzlingen (city) (4671) | 56 | 0 | 0 | 0 | 0 | 4 | http_404 29, no_candidate 23 |
+| Adliswil (city) (131) | 52 | 2 | 0 | 2 | 0 | 20 | empty_text 20, http_404 10 |
+| Wetzikon (ZH) (city) (121) | 51 | 0 | 0 | 0 | 0 | 0 | no_candidate 51 |
+| Bellinzona (city) (5002) | 50 | 0 | 0 | 0 | 0 | 49 | no_candidate 1 |
+| Thurgau (canton) (TG) | 50 | 34 | 0 | 34 | 0 | 15 | identity_fail 1 |
+| Fribourg (canton) (FR) | 43 | 7 | 0 | 7 | 0 | 0 | http_400 1, identity_fail 1, no_candidate 34 |
+| Dübendorf (city) (191) | 37 | 17 | 0 | 17 | 0 | 17 | identity_fail 3 |
+| Zofingen (city) (4289) | 34 | 6 | 0 | 6 | 0 | 21 | identity_fail 1, no_candidate 6 |
+| Vernier (city) (6643) | 32 | 0 | 0 | 0 | 0 | 0 | no_candidate 32 |
+| Arbon (city) (4401) | 31 | 21 | 0 | 21 | 0 | 0 | identity_fail 3, no_candidate 7 |
+| Interlaken (city) (581) | 26 | 0 | 0 | 0 | 0 | 14 | no_candidate 12 |
+| Obwalden (canton) (OW) | 12 | 0 | 0 | 0 | 0 | 0 | no_candidate 12 |
+| Uster (city) (198) | 11 | 0 | 0 | 0 | 0 | 0 | no_candidate 11 |
+| Nidau (municipality) (743) | 6 | 0 | 0 | 0 | 0 | 0 | no_candidate 6 |
+| Thun (city) (942) | 5 | 0 | 0 | 0 | 0 | 0 | no_candidate 5 |
+| Schlieren (city) (247) | 4 | 0 | 0 | 0 | 0 | 0 | no_candidate 4 |
+| Appenzell Ausserrhoden (canton) (AR) | 2 | 0 | 0 | 0 | 0 | 0 | no_candidate 2 |
+| Graubünden (canton) (GR) | 2 | 0 | 0 | 0 | 0 | 0 | no_candidate 2 |
+| Liechtenstein (Landtag) (LIE) | 2 | 0 | 0 | 0 | 0 | 0 | no_candidate 2 |
+| Schaffhausen (canton) (SH) | 2 | 0 | 0 | 0 | 0 | 0 | no_candidate 2 |
+| Wädenswil (city) (293) | 1 | 0 | 0 | 0 | 0 | 0 | no_candidate 1 |
+| Neuchâtel (city) (6458) | 1 | 0 | 0 | 0 | 0 | 0 | no_candidate 1 |
+| Opfikon (city) (66) | 1 | 0 | 0 | 0 | 0 | 0 | no_candidate 1 |
+| Genève (canton) (GE) | 1 | 0 | 0 | 0 | 0 | 0 | no_candidate 1 |
 
 Why the large remainders fail: Zürich canton 740 `no_candidate` are mostly postulates (524) and motions (192) whose
 Kantonsrat record lists no government document (OPD's "answer" event there is a step of the council's own procedure);
 Neuchâtel 470 and Pratteln are answers given orally in the session; Winterthur (629), Pratteln, Liestal and
 Illnau-Effretikon sit on unreachable hosts; Münsingen (269) and Collombey-Muraz keep answers only in session minutes; Jura
-260 have no answer file in OPD and the intervention pages are disallowed.
+260 have no answer file in OPD and the intervention pages are disallowed (and 282 of Jura's 357 rows that pass identity
+and wording are not counted: no dated answer event to check against).
 
 
-## Robots.txt: one correction to the network layer
+## Robots.txt: RFC 9309 in every process (incident of 10 Oct 2026)
 
-`gegenprobe.net.allowed()` uses Python's `urllib.robotparser`, which applies the **first** matching rule of a group; RFC
-9309 says the **longest** match wins. www4.ti.ch lists `Allow: /` before `Disallow: /user_librerie/php/GC/allegato.php`,
-so `net` allowed a path the site disallows. During development three Ticino answer files (`allegato.php?allid=115005,
-119023, 137701`) were fetched this way before the check below existed; they were deleted from WORK and no row uses them.
-Every adapter request now passes `adapters/robots.py` first (RFC 9309 longest match, `*` and `$`, allow wins ties) and
-then `net.get`, so a URL is fetched only when both agree; an audit of every URL the adapters requested found no other
-disallowed path. `net.py` is locked (LOCK2); the same fix belongs there in a future version.
+`gegenprobe.net.allowed()` used Python's `urllib.robotparser`, which applies the **first** matching rule of a group; RFC
+9309 §2.2.2 says the **most specific (longest)** match wins and an allow wins a tie. www4.ti.ch lists `Allow: /` before
+`Disallow: /user_librerie/php/GC/allegato.php`, so `net` allowed a path the site disallows. On 10 Oct 2026, during the
+adapter run, three Ticino answer files (`allegato.php?allid=115005`, `119023`, `137701`) were fetched this way; they
+were deleted from WORK and no row uses them (Ticino's answers come from OPD's own copy on files.openparldata.ch).
+Details and timeline: `docs/incidents.md`.
+
+The fix covers every entry point, not only the adapters. `src/gegenprobe/robots9309.py` is the one matcher (longest
+match, allow wins ties, `*` and a final `$`, groups for our product token merged, empty `Disallow` allows, percent
+escapes compared in one normal form); `src/sitecustomize.py`, which Python imports at start-up from the first `sys.path`
+entry that has one, installs it into `urllib.robotparser.RobotFileParser` for the whole process. Every entry point puts
+`src/` on `PYTHONPATH` (Makefile, Dockerfile for `make run` and the Docker nightly unit, the venv nightly unit, CI, the
+subprocesses of the nightly job), so `net.allowed()` (locked, LOCK2, unchanged) now decides by RFC 9309.
+`repair/adapters/robots.py` keeps its own read of robots.txt with the same matcher before every adapter request, so
+an adapter URL is fetched only when both agree. `tests/test_robots9309.py` checks the matcher (the ti.ch case, `*`,
+`$`, ties), that `net` refuses the three allegato.php URLs with a stubbed robots.txt, and that sitecustomize loads under
+each entry point's `PYTHONPATH`; CI checks the patch on the runner and inside the built image.
+
+**Audit** (`python -m gegenprobe.repair.adapters.robots_audit` -> `results/repair/adapters/robots_audit.json`, robots.txt
+read 11 Oct 2026, RFC 9309 matcher): of the 7,463 documents the adapters fetched, 7,393 sit on hosts whose robots.txt
+could be read and **none is disallowed**; the 11 API and index requests (CDWS, RIS, Valais, Luzern, Aarau, OPD
+exports) are allowed. 70 fetched documents (www.ilef.ch 52, www.pratteln.ch 18) cannot be re-checked: both hosts are
+unreachable from our network today, and `net` fetched them only while their robots.txt was readable. The 1,157
+disallowed URLs in the audit are parliament URLs OPD records next to its own copy or its text (Ticino 801, Locarno 259,
+Kriens 73, Arbon 24); the adapters read OPD's copy or text instead, and apart from the three Ticino files above did
+not request them.
 
 ## Audit
 

@@ -1,0 +1,275 @@
+{
+ "counted": [
+  "exact_date",
+  "date_window"
+ ],
+ "headline": {
+  "baseline_repairable_deterministic": 3107,
+  "gap": 16749,
+  "listed_separately_identity_wording_only": 282,
+  "needs_adapters_after": 4752,
+  "repairable_deterministic_with_adapters": 10016
+ },
+ "tiers": {
+  "date_window": {
+   "absent": 392,
+   "by_action": {
+    "fetch": 140,
+    "tag_answer": 256
+   },
+   "by_body": {
+    "1059": {
+     "absent": 32,
+     "image_only": 0,
+     "max_abs_days": 70,
+     "n": 32,
+     "observed_days": [
+      -61,
+      -1
+     ],
+     "window_days": [
+      -70,
+      0
+     ]
+    },
+    "261": {
+     "absent": 215,
+     "image_only": 0,
+     "max_abs_days": 15,
+     "n": 215,
+     "observed_days": [
+      1,
+      15
+     ],
+     "window_days": [
+      0,
+      15
+     ]
+    },
+    "NE": {
+     "absent": 9,
+     "image_only": 0,
+     "max_abs_days": 1,
+     "n": 9,
+     "observed_days": [
+      -1,
+      1
+     ],
+     "window_days": [
+      -1,
+      1
+     ]
+    },
+    "VS": {
+     "absent": 136,
+     "image_only": 4,
+     "max_abs_days": 120,
+     "n": 140,
+     "observed_days": [
+      1,
+      118
+     ],
+     "window_days": [
+      0,
+      120
+     ]
+    }
+   },
+   "by_date_match": {
+    "latest_in_window": 95,
+    "window": 301
+   },
+   "counted": true,
+   "date_classes": [
+    "window",
+    "latest_in_window"
+   ],
+   "image_only": 4,
+   "label": "verified (date window <= N days, per parliament)",
+   "n": 396
+  },
+  "exact_date": {
+   "absent": 5656,
+   "by_action": {
+    "extract_tag": 907,
+    "fetch": 3483,
+    "tag_answer": 2123
+   },
+   "by_body": {
+    "1059": {
+     "absent": 39,
+     "image_only": 0,
+     "n": 39
+    },
+    "131": {
+     "absent": 0,
+     "image_only": 2,
+     "n": 2
+    },
+    "191": {
+     "absent": 0,
+     "image_only": 17,
+     "n": 17
+    },
+    "261": {
+     "absent": 1202,
+     "image_only": 0,
+     "n": 1202
+    },
+    "296": {
+     "absent": 1,
+     "image_only": 32,
+     "n": 33
+    },
+    "351": {
+     "absent": 39,
+     "image_only": 0,
+     "n": 39
+    },
+    "4001": {
+     "absent": 74,
+     "image_only": 0,
+     "n": 74
+    },
+    "4289": {
+     "absent": 5,
+     "image_only": 1,
+     "n": 6
+    },
+    "4401": {
+     "absent": 21,
+     "image_only": 0,
+     "n": 21
+    },
+    "4566": {
+     "absent": 145,
+     "image_only": 0,
+     "n": 145
+    },
+    "5113": {
+     "absent": 124,
+     "image_only": 3,
+     "n": 127
+    },
+    "5192": {
+     "absent": 7,
+     "image_only": 0,
+     "n": 7
+    },
+    "5586": {
+     "absent": 16,
+     "image_only": 8,
+     "n": 24
+    },
+    "6153": {
+     "absent": 29,
+     "image_only": 0,
+     "n": 29
+    },
+    "BL": {
+     "absent": 2,
+     "image_only": 0,
+     "n": 2
+    },
+    "BS": {
+     "absent": 1,
+     "image_only": 0,
+     "n": 1
+    },
+    "FR": {
+     "absent": 0,
+     "image_only": 7,
+     "n": 7
+    },
+    "JU": {
+     "absent": 75,
+     "image_only": 0,
+     "n": 75
+    },
+    "LU": {
+     "absent": 104,
+     "image_only": 0,
+     "n": 104
+    },
+    "NE": {
+     "absent": 230,
+     "image_only": 0,
+     "n": 230
+    },
+    "SG": {
+     "absent": 1012,
+     "image_only": 1,
+     "n": 1013
+    },
+    "SO": {
+     "absent": 209,
+     "image_only": 1,
+     "n": 210
+    },
+    "TG": {
+     "absent": 0,
+     "image_only": 34,
+     "n": 34
+    },
+    "TI": {
+     "absent": 0,
+     "image_only": 729,
+     "n": 729
+    },
+    "VD": {
+     "absent": 95,
+     "image_only": 0,
+     "n": 95
+    },
+    "VS": {
+     "absent": 34,
+     "image_only": 21,
+     "n": 55
+    },
+    "ZH": {
+     "absent": 2192,
+     "image_only": 1,
+     "n": 2193
+    }
+   },
+   "by_date_match": {
+    "anywhere": 1307,
+    "eq": 4992,
+    "eq_gov": 214
+   },
+   "counted": true,
+   "date_classes": [
+    "eq",
+    "eq_gov",
+    "anywhere"
+   ],
+   "image_only": 857,
+   "label": "verified (exact date)",
+   "n": 6513
+  },
+  "identity_wording_only": {
+   "absent": 282,
+   "by_action": {
+    "extract_tag": 281,
+    "tag_answer": 1
+   },
+   "by_body": {
+    "JU": {
+     "absent": 282,
+     "image_only": 0,
+     "n": 282
+    }
+   },
+   "by_date_match": {
+    "after_submission": 282
+   },
+   "counted": false,
+   "date_classes": [
+    "after_submission"
+   ],
+   "image_only": 0,
+   "label": "identity + wording only (no date check)",
+   "n": 282
+  }
+ }
+}

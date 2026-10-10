@@ -251,9 +251,14 @@ def test_robots_longest_match_beats_first_match():
     assert not robots.decide(rules, "/user_librerie/php/GC/allegato.php?allid=131008")
     assert robots.decide(rules, "/poteri/gc/")
     import urllib.robotparser
+
+    from gegenprobe import robots9309
+    url = "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=1"
     rp = urllib.robotparser.RobotFileParser()
-    rp.parse(TI_ROBOTS.splitlines())  # the stdlib parser applies the first match and allows it
-    assert rp.can_fetch("hackapertus-research/0.1", "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=1")
+    rp.parse(TI_ROBOTS.splitlines())  # patched process-wide (src/sitecustomize.py): RFC 9309, disallowed
+    assert not rp.can_fetch("hackapertus-research/0.1", url)
+    # the unpatched stdlib applies the first match and allows it (the 10 Oct 2026 incident, docs/incidents.md)
+    assert robots9309._ORIG_CAN_FETCH(rp, "hackapertus-research/0.1", url)
 
 
 def test_robots_wildcards_and_allow_tie():
@@ -287,3 +292,27 @@ def test_recheck_rejudges_saved_excerpts_without_network(monkeypatch, tmp_path):
     (tmp_path / "261.jsonl").write_text(json.dumps(old) + "\n")
     assert run.recheck("261")[("review", "verified")] == 1
     assert run.load_state("261")[1]["outcome"] == "verified"
+
+
+# ---------------------------------------------------------------- verification tiers (docs/adapters.md)
+def test_tier_of_date_classes():
+    assert run.tier_of("eq") == run.tier_of("eq_gov") == run.tier_of("anywhere") == "exact_date"
+    assert run.tier_of("window(+7d)") == run.tier_of("latest_in_window(+3d)") == "date_window"
+    assert run.tier_of("after_submission(+41d)") == "identity_wording_only"
+    with pytest.raises(ValueError):
+        run.tier_of("near(5d)")
+
+
+def test_committed_summary_counts_only_tiers_with_a_date_check():
+    s = json.loads((run.OUT / "summary.json").read_text())
+    t, c = s["tiers"], s["coverage"]
+    counted = t["exact_date"]["n"] + t["date_window"]["n"]
+    assert s["totals"]["verified"] == counted and not t["identity_wording_only"]["counted"]
+    assert s["totals"]["checks_passed_all_tiers"] == counted + t["identity_wording_only"]["n"]
+    assert c["repairable_deterministic_with_adapters"] == run.BASELINE + counted
+    assert c["needs_adapters_after"] == run.NEEDS_ADAPTERS - t["exact_date"]["absent"] - t["date_window"]["absent"]
+    assert s["bodies"]["JU"]["tiers"]["identity_wording_only"] == t["identity_wording_only"]["n"]  # Jura only
+    tiers = json.loads((run.OUT / "tiers.json").read_text())["tiers"]
+    for x in tiers["date_window"]["by_body"].values():  # every window row lies inside its parliament's window
+        lo, hi = x["window_days"]
+        assert lo <= x["observed_days"][0] <= x["observed_days"][1] <= hi and x["max_abs_days"] == max(-lo, hi)

@@ -274,27 +274,94 @@ def audit(body: str, recs: list[dict], n: int = 30, seed: int = 20261011) -> Non
 BASELINE = 3107  # results/report/figure_numbers.json: repairable_deterministic before the adapters
 GAP = 16749
 NEEDS_ADAPTERS = 10800
+NOT_BODIES = ("summary.json", "tiers.json", "robots_audit.json")  # the other files in OUT are one per body
+
+
+# Verification tiers (docs/adapters.md "Verification tiers"): how strong the date check behind a verified row is. Only
+# the first two count as verified repairs in the coverage figures; the third is listed separately.
+TIERS = {
+    "exact_date": ("verified (exact date)", ("eq", "eq_gov", "anywhere")),
+    "date_window": ("verified (date window <= N days, per parliament)", ("window", "latest_in_window")),
+    "identity_wording_only": ("identity + wording only (no date check)", ("after_submission",)),
+}
+COUNTED = ("exact_date", "date_window")
+
+
+def tier_of(date_match: str | None) -> str:
+    cls = re.sub(r"\(.*", "", date_match or "")
+    for k, (_, classes) in TIERS.items():
+        if cls in classes:
+            return k
+    raise ValueError(f"verified row with date class {date_match!r} has no tier")
+
+
+def body_tiers(body: str, affairs: list[dict]) -> dict:
+    """Per tier: rows by cause, action and date class; for the window tier the parliament's documented window (the
+    adapter's date_window, event - document date in days) and the offsets observed."""
+    out = {k: dict(n=0, absent=0, image_only=0, by_action=collections.Counter(), by_date_match=collections.Counter())
+           for k in TIERS}
+    offs = []
+    for a in affairs:
+        if a["outcome"] != "verified":
+            continue
+        t = out[tier_of(a.get("date_match"))]
+        t["n"] += 1
+        t[a["cause"]] += 1
+        t["by_action"][a.get("action")] += 1
+        t["by_date_match"][re.sub(r"\(.*", "", a.get("date_match") or "")] += 1
+        m = re.search(r"\(\+?(-?\d+)d\)", a.get("date_match") or "")  # "window(+7d)", "window(+-61d)"
+        if m and tier_of(a.get("date_match")) == "date_window":
+            offs.append(int(m.group(1)))
+    for t in out.values():
+        t["by_action"], t["by_date_match"] = dict(t["by_action"]), dict(t["by_date_match"])
+    if out["date_window"]["n"]:
+        lo, hi = registry.get(body).date_window
+        out["date_window"].update(window_days=[lo, hi], max_abs_days=max(abs(lo), abs(hi)),
+                                  observed_days=[min(offs), max(offs)] if offs else None)
+    return out
 
 
 def write_summary() -> dict:
-    per = {}
+    per, tiers = {}, {}
     for p in sorted(OUT.glob("*.json")):
-        if p.name == "summary.json":
+        if p.name in NOT_BODIES:
             continue
-        per[p.stem] = json.loads(p.read_text())["summary"]
-    ver_absent = sum(s["by_cause"].get("absent", {}).get("verified", 0) for s in per.values())
-    ver_img = sum(s["by_cause"].get("image_only", {}).get("verified", 0) for s in per.values())
+        d = json.loads(p.read_text())
+        per[p.stem] = d["summary"]
+        tiers[p.stem] = body_tiers(p.stem, d["affairs"])
+        per[p.stem]["tiers"] = {k: v["n"] for k, v in tiers[p.stem].items()}
+        per[p.stem]["counted_by_action"] = dict(sum((collections.Counter(tiers[p.stem][k]["by_action"]) for k in COUNTED),
+                                                    collections.Counter()))
+    tot = {}
+    for k in TIERS:
+        rows = [t[k] for t in tiers.values()]
+        tot[k] = dict(label=TIERS[k][0], date_classes=list(TIERS[k][1]), counted=k in COUNTED,
+                      n=sum(r["n"] for r in rows), absent=sum(r["absent"] for r in rows),
+                      image_only=sum(r["image_only"] for r in rows),
+                      by_action=dict(sum((collections.Counter(r["by_action"]) for r in rows), collections.Counter())),
+                      by_date_match=dict(sum((collections.Counter(r["by_date_match"]) for r in rows),
+                                             collections.Counter())),
+                      by_body={b: {kk: vv for kk, vv in t[k].items() if kk not in ("by_action", "by_date_match")}
+                               for b, t in sorted(tiers.items()) if t[k]["n"]})
+    ver_absent = sum(tot[k]["absent"] for k in COUNTED)
+    ver_img = sum(tot[k]["image_only"] for k in COUNTED)
     rev_absent = sum(s["by_cause"].get("absent", {}).get("review", 0) for s in per.values())
     rev_img = sum(s["by_cause"].get("image_only", {}).get("review", 0) for s in per.values())
     by_action, by_date = collections.Counter(), collections.Counter()
-    for s in per.values():
-        by_action.update(s["verified_by_action"])
-        by_date.update(s.get("verified_by_date_match", {}))
+    for k in COUNTED:
+        by_action.update(tot[k]["by_action"])
+        by_date.update(tot[k]["by_date_match"])
+    passed = sum(s["verified"] for s in per.values())
+    iw = tot["identity_wording_only"]
     out = dict(
         bodies=per,
+        tiers={k: {kk: v[kk] for kk in ("label", "n", "absent", "image_only", "counted")} for k, v in tot.items()},
         totals=dict(verified=ver_absent + ver_img, verified_absent=ver_absent, verified_image_only=ver_img,
+                    checks_passed_all_tiers=passed, identity_wording_only=iw["n"],
+                    identity_wording_only_absent=iw["absent"], identity_wording_only_image_only=iw["image_only"],
                     review=rev_absent + rev_img, review_absent=rev_absent, review_image_only=rev_img,
                     verified_by_action=dict(by_action), verified_by_date_match=dict(by_date),
+                    identity_wording_only_by_date_match=iw["by_date_match"],
                     targets=sum(s["targets"] for s in per.values()),
                     failed_by_reason=dict(sum((collections.Counter(s["failed_by_reason"]) for s in per.values()),
                                               collections.Counter()).most_common())),
@@ -302,12 +369,22 @@ def write_summary() -> dict:
             gap=GAP, baseline_repairable_deterministic=BASELINE,
             repairable_deterministic_with_adapters=BASELINE + ver_absent + ver_img,
             needs_adapters_before=NEEDS_ADAPTERS, needs_adapters_after=NEEDS_ADAPTERS - ver_absent,
-            note="adapter rows count only when verified (identity + heading + a date consistent with OPD's events); "
-                 "review rows are listed but not counted. image_only affairs were OCR candidates, not counted in the "
-                 "baseline of 3,107; they count once a text copy verifies."),
+            identity_wording_only_listed_separately=iw["n"],
+            note="adapter rows count only when verified with a date check: tier exact_date (a date in the document "
+                 "equals an OPD event date) or date_window (within the parliament's documented window); rows of tier "
+                 "identity_wording_only (Jura: OPD's answer events carry no date, the document is only dated within a "
+                 "year after submission) and review rows are listed but not counted. image_only affairs were OCR "
+                 "candidates, not counted in the baseline of 3,107; they count once a text copy verifies."),
     )
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "summary.json").write_text(json.dumps(out, ensure_ascii=False, indent=1, sort_keys=True))
+    (OUT / "tiers.json").write_text(json.dumps(dict(
+        tiers=tot, counted=list(COUNTED),
+        headline=dict(gap=GAP, baseline_repairable_deterministic=BASELINE,
+                      repairable_deterministic_with_adapters=out["coverage"]["repairable_deterministic_with_adapters"],
+                      needs_adapters_after=out["coverage"]["needs_adapters_after"],
+                      listed_separately_identity_wording_only=iw["n"])),
+        ensure_ascii=False, indent=1, sort_keys=True))
     return out
 
 
@@ -315,16 +392,18 @@ def table() -> str:
     """The per-parliament results table of docs/adapters.md, from summary.json."""
     s = json.loads((OUT / "summary.json").read_text())
     rows = sorted(s["bodies"].values(), key=lambda b: -b["targets"])
-    out = ["| parliament | targets (absent + image-only) | verified | of which tag/extract (in OPD) | review | failed: top "
-           "reasons |", "|---|---|---|---|---|---|"]
+    out = ["| parliament | targets (absent + image-only) | verified: exact date | verified: date window | of which "
+           "tag/extract (in OPD) | identity + wording only (not counted) | review | failed: top reasons |",
+           "|---|---|---|---|---|---|---|---|"]
     for b in rows:
         if not b["targets"]:
             continue
-        va = b["verified_by_action"]
+        t = b["tiers"]
+        va = b["counted_by_action"]
         inopd = va.get("tag_answer", 0) + va.get("extract_tag", 0)
         reasons = ", ".join(f"{k} {v:,}" for k, v in list(b["failed_by_reason"].items())[:3])
-        out.append(f"| {b['label']} ({b['body']}) | {b['targets']:,} | {b['verified']:,} | {inopd:,} | {b['review']:,} | "
-                   f"{reasons or '-'} |")
+        out.append(f"| {b['label']} ({b['body']}) | {b['targets']:,} | {t['exact_date']:,} | {t['date_window']:,} | "
+                   f"{inopd:,} | {t['identity_wording_only']:,} | {b['review']:,} | {reasons or '-'} |")
     return "\n".join(out)
 
 
