@@ -45,19 +45,31 @@ def sha256_bytes(b: bytes) -> str:
     return hashlib.sha256(b).hexdigest()
 
 
-def fetch_pdf(url: str, expect_sha256: str | None = None) -> tuple[str, Path]:
+class FetchError(ValueError):
+    """A typed fetch failure. `kind` is one of: not_a_pdf, sha_mismatch (raised here); the CLI maps network exceptions
+    to robots_disallowed, http_error, timeout, network_error (convert/output.py:classify). Subclasses ValueError so
+    callers that caught the former ValueError keep working."""
+
+    def __init__(self, kind: str, detail: str):
+        super().__init__(f"{kind}: {detail}")
+        self.kind, self.detail = kind, detail
+
+
+def fetch_pdf(url: str, expect_sha256: str | None = None, timeout: int = 180, tries: int = 5) -> tuple[str, Path]:
     """Download (politely) unless cached; return (sha256, path). If expect_sha256 is given and cached, no network."""
     PDF_CACHE.mkdir(parents=True, exist_ok=True)
     if expect_sha256:
         p = PDF_CACHE / f"{expect_sha256}.pdf"
         if p.exists():
             return expect_sha256, p
-    b = net.get(url, timeout=180)
+    b = net.get(url, timeout=timeout, tries=tries)
     if b"%PDF" not in b[:1024]:   # some servers prepend whitespace (Zürich city); HTML error pages have no marker
-        raise ValueError(f"not a PDF: {url}")
+        head = b[:300].decode("utf-8", "replace").lower()
+        what = "an HTML page" if ("<html" in head or "<!doctype" in head) else f"{len(b)} bytes without a PDF header"
+        raise FetchError("not_a_pdf", f"{url} returned {what}")
     h = sha256_bytes(b)
     if expect_sha256 and h != expect_sha256:
-        raise ValueError(f"sha256 mismatch for {url}: {h} != {expect_sha256}")
+        raise FetchError("sha_mismatch", f"{url}: got {h}, expected {expect_sha256}")
     p = PDF_CACHE / f"{h}.pdf"
     if not p.exists():
         p.write_bytes(b)

@@ -96,8 +96,21 @@ On the Public AI endpoint, which serves the 70B weights, the plain prompt invent
 - **Disjointness.** The held-out split shares no document and no affair with dev or the spikes.
 - **Label sheets.** They show the date lattice, never the rules' predictions.
 
+## Command line (`python -m gegenprobe convert`, `convert/batch.py`, `convert/output.py`)
+One PDF (path or URL) or a batch file (`--batch inputs.tsv --out results.jsonl`, resumable) gives one row per document:
+`status`, `input` (with `opd_doc_id`, `body`, `affair_number` passed through), `doc_role` (answer / question / other, by
+rule, with its evidence), `fields` (a flat reviewer view: value or typed null, `route`, `rule_id`, `decision_number`, page +
+char span, `quote` = the exact span text, `context` = the anchor phrase through the end of the date's line, ≤ 200
+characters), `needs_review`, `review_suggestion` (review mode only), and `record` (the validated schema v0.1
+`DocExtraction`; its values also carry `rule` and, for dates, `decision_number`). A document that cannot be fetched or
+read gives a typed failure row instead of a traceback: `robots_disallowed`, `http_error`, `timeout`, `network_error`,
+`not_a_pdf`, `sha_mismatch`, `file_not_found`, `text_failed`. Review mode refuses to run without a θ fitted for the exact
+build and lists the fitted builds. User guide, field glossary and null reasons in plain words: `docs/convert-your-own.md`.
+
 ## Commands
 ```
+python -m gegenprobe convert <pdf|url> [--mode review --backend gguf]   # one document
+python -m gegenprobe convert --batch inputs.tsv --out results.jsonl       # many, resumable
 make convert                     # spike replay, dev rules, tests (no model)
 make gold-heldout gold-candidates
 make theta BACKEND=gateway:swiss-ai/apertus-v1.5-8b:2a-theta:1.0      # model run: fit θ on dev (the -8b name serves the 70B)

@@ -101,6 +101,7 @@ class Valued(BaseModel, Generic[T]):
     theta: float | None = None
     margin: float | None = Field(None, description="null margin of the forced choice (nats); value kept iff margin <= theta")
     candidates: int | None = Field(None, ge=0, description="size of the closed candidate set the model chose from")
+    rule: str | None = Field(None, description="id of the deterministic rule that produced the value (route rule / ocr+rule)")
 
     @model_validator(mode="after")
     def _consistent(self):
@@ -163,6 +164,8 @@ def _model_fields(route, build, theta, margin):
 
 class DateValue(Valued[dt.date]):
     """An ISO date with provenance (basis=normalised when read from a span like '28. August 2024')."""
+    decision_number: str | None = Field(
+        None, description="the executive's decision number printed with the date (RRB-Nr., ACE, RG n.), if the rule captured it")
 
 
 class TextValue(Valued[str]):
@@ -423,12 +426,15 @@ def from_converter(rec: dict, pages: list[str] | None = None, doc: dict | None =
         if f.get("page") is not None:
             span = dict(page=f["page"], char_start=f["char_start"], char_end=f["char_end"], context=f.get("quote"))
             span["quote"] = pages[f["page"] - 1][f["char_start"]:f["char_end"]] if pages else f.get("quote")
+        if rt in ("rule", "ocr+rule") and f.get("rule"):
+            span["rule"] = f["rule"]
         if kind == "date":
             if rt == "metadata":
                 return DateValue(value=f["value"], role=_ROLE.get(f.get("role"), "answered"), basis="metadata", route=rt,
                                  source="opd:events (answer event date, printed in this document)", doc=doc_id, **span)
+            num = {"decision_number": str(f["number"])} if f.get("number") else {}
             return DateValue(value=f["value"], role=_ROLE.get(f.get("role"), "answered"), basis="normalised", route=rt,
-                             doc=doc_id, **span, **model, **cand)
+                             doc=doc_id, **span, **model, **cand, **num)
         if kind == "rec":
             return GovRecommendationValue(value=f["value"], basis="inferred", route=rt, doc=doc_id, **span, **model, **cand)
         return TextValue(value=f["value"], basis="extracted", route=rt, doc=doc_id, **span, **model, **cand)

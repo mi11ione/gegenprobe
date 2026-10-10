@@ -1,94 +1,77 @@
 """Command line.
 
-  python -m gegenprobe convert <pdf path or URL> [--mode rules_only|review] [--lang de|fr|it] [--affair-type Motion]
-                               [--backend openai|gguf|gateway:<model>:<tag>:<cap>]
-      Convert one parliamentary PDF. Prints a schema-valid extraction (schema v0.1, DocExtraction) in which every value
-      carries page + character span + route, or a typed null; in `review` mode the Apertus closed-set pointer adds a
-      suggestion for the rules' residue, flagged needs_review (it is never written into the field).
+  python -m gegenprobe convert <pdf path or URL> [options]
+  python -m gegenprobe convert --batch inputs.tsv [--out results.jsonl] [options]
+      Convert parliamentary PDFs. Each document gives one row: the answer date and the government's recommendation
+      with page + character span + the rule that decided, or a typed null; the full schema v0.1 record under `record`.
+      In `review` mode the Apertus closed-set pointer adds a suggestion for what the rules left open, flagged
+      needs_review; it is never written into the field. A document that cannot be fetched or read becomes a typed
+      failure row (robots_disallowed, http_error, timeout, network_error, not_a_pdf, sha_mismatch, file_not_found,
+      text_failed). Docs: docs/convert-your-own.md.
   python -m gegenprobe run       the `make run` replay (same as python -m gegenprobe.run)
 """
 from __future__ import annotations
 
 import argparse
 import json
-import re
-import shutil
 import sys
-from pathlib import Path
 
-STOP = {
-    "de": r"\b(der|die|das|und|nicht|Regierungsrat|wird|werden|vom)\b",
-    "fr": r"\b(le|la|les|et|des|du|Conseil|est|pour)\b",
-    "it": r"\b(il|la|che|e|del|della|Consiglio|per|sono)\b",
-}
+from .convert.batch import guess_lang  # noqa: F401  (re-exported: tests and older callers import it from here)
 
 
-def guess_lang(text: str) -> str:
-    counts = {lg: len(re.findall(rx, text[:20000])) for lg, rx in STOP.items()}
-    return max(counts, key=counts.get)
+def _convert(a) -> int:
+    from .convert import batch
 
-
-def load(src: str) -> tuple[str, Path]:
-    from . import pdftext
-    from .paths import PDF_CACHE
-    if re.match(r"https?://", src):
-        return pdftext.fetch_pdf(src)
-    p = Path(src)
-    b = p.read_bytes()
-    if b"%PDF" not in b[:1024]:
-        raise SystemExit(f"{src}: not a PDF")
-    sha = pdftext.sha256_bytes(b)
-    PDF_CACHE.mkdir(parents=True, exist_ok=True)
-    dest = PDF_CACHE / f"{sha}.pdf"
-    if not dest.exists():
-        shutil.copyfile(p, dest)
-    return sha, dest
-
-
-def convert(a) -> int:
-    from . import pdftext
-    from .convert import cascade, modes
-    from .schema import schema_v0_1 as schema
-
-    sha, path = load(a.source)
-    t = pdftext.extract(sha, path)
-    lang = a.lang or guess_lang("\n".join(t["pages"]))
-    doc = dict(pages=t["pages"], lang=lang, image_only=t["image_only"], extractor=t["extractor"], affair_type=a.affair_type,
-               doc_id=f"sha256:{sha[:16]}", sha256=sha)
-    rec = cascade.convert(doc)  # backend-free: metadata/rules, typed nulls for the residue
-    be, theta = None, None
+    be, theta = (None, None)
     if a.mode == "review":
-        from eval.arms import backend, theta_path
-        be = backend(a.backend)
-        tp = theta_path(be.build)
-        if not tp.exists():
-            raise SystemExit(f"review mode needs θ fitted for {be.build} (data/convert/theta/); none found")
-        theta = json.loads(tp.read_text())["answer_date"]["theta"]
-    ad = modes.answer_date(doc, a.mode, be, theta, use_metadata=False)
-    suggestion = ad.pop("suggestion", None)
-    rec["fields"]["answer_date"] = {k: v for k, v in ad.items() if k not in ("mode", "needs_review")}
-    ext = schema.from_converter(rec, t["pages"], dict(source="other", url=a.source if a.source.startswith("http") else None,
-                                                      language=lang, n_pages=len(t["pages"]), image_only=t["image_only"]))
-    out = dict(mode=a.mode, language=lang, extraction=json.loads(ext.model_dump_json(exclude_none=True)),
-               needs_review=bool(suggestion), review_suggestion=suggestion)
-    json.dump(out, sys.stdout, ensure_ascii=False, indent=1)
+        be, theta = batch.resolve_review(a.backend, a.theta)
+    if a.batch:
+        inputs = batch.read_inputs(a.batch)
+        counts = batch.run_batch(inputs, a.out, mode=a.mode, backend=be, theta=theta, retry_failed=a.retry_failed,
+                                 timeout=a.timeout, tries=a.tries)
+        summary = ", ".join(f"{k} {v}" for k, v in sorted(counts.items()))
+        print(f"{len(inputs)} inputs: {summary or 'nothing to do'}" + (f" -> {a.out}" if a.out else ""), file=sys.stderr)
+        return 0
+    if not a.source:
+        print("give a PDF path or URL, or --batch FILE", file=sys.stderr)
+        return 2
+    inp = dict(opd_doc_id=a.opd_doc_id, body=a.body, affair_number=a.affair_number, affair_type=a.affair_type, lang=a.lang)
+    row = batch.convert_one(a.source, inp, mode=a.mode, backend=be, theta=theta, timeout=a.timeout, tries=a.tries)
+    json.dump(row, sys.stdout, ensure_ascii=False, indent=1)
     print()
+    if row["status"] != "ok":
+        print(f"{row['status']}: {row['reason']}", file=sys.stderr)
+        return 2
     return 0
 
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="gegenprobe")
     sub = ap.add_subparsers(dest="cmd", required=True)
-    c = sub.add_parser("convert", help="convert one PDF (path or URL) into schema v0.1 with provenance")
-    c.add_argument("source")
-    c.add_argument("--mode", choices=["rules_only", "review"], default="rules_only")
-    c.add_argument("--lang", choices=["de", "fr", "it"])
-    c.add_argument("--affair-type", default=None)
-    c.add_argument("--backend", default="openai", help="review mode: openai (LLM_* env) | gguf | gateway:<model>:<tag>:<cap>")
+    c = sub.add_parser("convert", help="convert PDFs (path or URL, or a batch file) into rows with provenance",
+                       description="Convert parliamentary PDFs. See docs/convert-your-own.md.")
+    c.add_argument("source", nargs="?", help="PDF path or URL (omit with --batch)")
+    c.add_argument("--batch", metavar="FILE", help=".tsv/.csv with a url|path|source column (optional opd_doc_id, body, "
+                   "affair_number, affair_type, lang) or .txt with one URL/path per line")
+    c.add_argument("--out", metavar="JSONL", help="batch: append rows here; inputs already in the file are skipped")
+    c.add_argument("--retry-failed", action="store_true", help="batch: retry inputs whose earlier row is a failure")
+    c.add_argument("--mode", choices=["rules_only", "review"], default="rules_only",
+                   help="rules_only (default, no model) | review (adds Apertus suggestions, needs a fitted θ)")
+    c.add_argument("--lang", choices=["de", "fr", "it"], help="document language (guessed if omitted)")
+    c.add_argument("--affair-type", help="OPD harmonised type, e.g. Motion, Interpellation (recommendation n/a for some)")
+    c.add_argument("--opd-doc-id", help="OPD document id: the record's doc_id becomes opd:<id>")
+    c.add_argument("--body", help="OPD body key, e.g. BE, ZH, 261 (passed through)")
+    c.add_argument("--affair-number", help="affair number as printed, e.g. 2024.RRGR.91 (passed through)")
+    c.add_argument("--backend", default="gguf",
+                   help="review mode: gguf (local Apertus 8B, CPU; default) | openai (LLM_BASE_URL/LLM_NAME/LLM_API_KEY) | "
+                   "gateway:<model>:<tag>:<cap>")
+    c.add_argument("--theta", type=float, help="review mode: override θ (not recommended: θ does not transfer across builds)")
+    c.add_argument("--timeout", type=int, default=60, help="seconds per HTTP request (default 60)")
+    c.add_argument("--tries", type=int, default=2, help="HTTP attempts per document (default 2)")
     sub.add_parser("run", help="the make-run replay")
     a = ap.parse_args(argv)
     if a.cmd == "convert":
-        return convert(a)
+        return _convert(a)
     from .run import main as run_main
     return run_main()
 

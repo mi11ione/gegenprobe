@@ -477,6 +477,32 @@
      "default": null,
      "description": "size of the closed candidate set the model chose from",
      "title": "Candidates"
+    },
+    "rule": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "id of the deterministic rule that produced the value (route rule / ocr+rule)",
+     "title": "Rule"
+    },
+    "decision_number": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "the executive's decision number printed with the date (RRB-Nr., ACE, RG n.), if the rule captured it",
+     "title": "Decision Number"
     }
    },
    "required": [
@@ -756,6 +782,19 @@
      "default": null,
      "description": "size of the closed candidate set the model chose from",
      "title": "Candidates"
+    },
+    "rule": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "id of the deterministic rule that produced the value (route rule / ocr+rule)",
+     "title": "Rule"
     }
    },
    "required": [
@@ -1216,6 +1255,19 @@
      "default": null,
      "description": "size of the closed candidate set the model chose from",
      "title": "Candidates"
+    },
+    "rule": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "id of the deterministic rule that produced the value (route rule / ocr+rule)",
+     "title": "Rule"
     }
    },
    "required": [
@@ -1430,6 +1482,19 @@
      "default": null,
      "description": "size of the closed candidate set the model chose from",
      "title": "Candidates"
+    },
+    "rule": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "id of the deterministic rule that produced the value (route rule / ocr+rule)",
+     "title": "Rule"
     }
    },
    "required": [
@@ -1799,6 +1864,19 @@
      "default": null,
      "description": "size of the closed candidate set the model chose from",
      "title": "Candidates"
+    },
+    "rule": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "id of the deterministic rule that produced the value (route rule / ocr+rule)",
+     "title": "Rule"
     }
    },
    "required": [
