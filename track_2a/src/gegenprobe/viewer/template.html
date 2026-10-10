@@ -188,11 +188,12 @@ table.dense td { padding: 6px 8px; border-bottom: 1px solid var(--rule); text-al
 table.dense tbody tr { cursor: pointer; }
 table.dense tbody tr:hover td { background: var(--paper-2); }
 table.dense tr.open td { background: var(--ink); color: var(--paper); }
-.stack { display: flex; height: 10px; width: 160px; background: var(--paper-2); }
+.stack { display: flex; height: 10px; width: 110px; background: var(--paper-2); }
 .stack i { display: block; height: 100%; }
 .k-att { background: var(--ink); } .k-ag { background: var(--ink-2); } .k-par { background: var(--hl); }
 .k-img { background: repeating-linear-gradient(90deg, var(--ink) 0 1px, transparent 1px 3px); } .k-oral { background: var(--ink-3); }
 .k-abs { background: var(--red); }
+tr.drawer td > div { position: sticky; left: 12px; max-width: calc(100vw - 2 * var(--gut) - 28px); }
 tr.drawer td { background: var(--paper) !important; color: var(--ink) !important; text-align: left; white-space: normal; padding: 16px 12px 20px; cursor: default; }
 .fieldrow { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0; border-top: 1px solid var(--rule-strong); }
 .fieldrow > div { border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); padding: 8px 10px; min-width: 0; }
@@ -275,6 +276,111 @@ table.board.p3 td.up { color: var(--ok); font-weight: 600; text-decoration: unde
 footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top: 12px; font-family: var(--mono); font-size: 11px; color: var(--ink-2); }
 .small { font-size: 12.5px; color: var(--ink-2); }
 @media (prefers-reduced-motion: no-preference) { .detail { animation: none; } }
+/* banner (persistent, in the sticky masthead) */
+.banner { grid-column: 1 / -1; font-family: var(--mono); font-size: 11.5px; letter-spacing: .02em; color: var(--ink); display: flex; gap: 10px;
+  align-items: baseline; border-top: 1px solid var(--rule); padding-top: 9px; margin-top: 2px; flex-wrap: wrap; }
+.banner b { color: var(--red); font-weight: 600; }
+.banner span { color: var(--ink-2); }
+
+/* period switch in the hero */
+.hero .perrow { margin-top: 18px; }
+.hero .perrow .label { margin-bottom: 5px; }
+
+/* where to look + glossary */
+.howto { padding-block: 28px 30px; border-bottom: 1px solid var(--rule); row-gap: 18px; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 2px solid var(--rule-strong); counter-reset: st; }
+.steps > div { padding: 12px 16px 12px 0; border-right: 1px solid var(--rule); min-width: 0; }
+.steps > div + div { padding-left: 16px; }
+.steps > div:last-child { border-right: 0; }
+.steps .n { font-family: var(--display); font-weight: 750; font-size: 34px; line-height: .9; color: var(--red); letter-spacing: -.03em; font-variation-settings: "wdth" 88; }
+.steps .w { font-weight: 650; font-size: 15.5px; margin-top: 8px; }
+.steps p { margin: 4px 0 0; font-size: 13px; color: var(--ink-2); max-width: 40ch; }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr; } .steps > div { border-right: 0; border-bottom: 1px solid var(--rule); padding-left: 0 !important; } }
+dl.gloss { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; border-top: 1px solid var(--rule-strong); }
+dl.gloss > div { padding: 9px 14px 10px 0; border-bottom: 1px solid var(--rule); min-width: 0; }
+dl.gloss dt { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; }
+dl.gloss dd { margin: 3px 0 0; font-size: 12.5px; color: var(--ink-2); max-width: 46ch; }
+@media (max-width: 900px) { dl.gloss { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } }
+
+/* parliaments: search, trust chips, drill-down */
+input.find { font-family: var(--mono); font-size: 12px; background: var(--paper); color: var(--ink); border: 1px solid var(--rule-strong); padding: 6px 9px;
+  width: 220px; max-width: 100%; border-radius: 0; }
+input.find::placeholder { color: var(--ink-3); }
+.tier { font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em; text-transform: uppercase; }
+.tier.t-verified { font-weight: 600; } .tier.t-same_day, .tier.t-diffuse { color: var(--red); } .tier.t-too_few { color: var(--ink-3); }
+th .warn { color: var(--red); letter-spacing: .04em; }
+.ocr { font-weight: 600; text-decoration: underline; text-decoration-color: var(--hl); text-decoration-thickness: 3px; text-underline-offset: 3px; }
+.dgrid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 0 28px; margin-top: 14px; }
+@media (max-width: 1000px) { .dgrid { grid-template-columns: minmax(0, 1fr); } }
+.dgrid h5 { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; margin: 0 0 6px; color: var(--ink); }
+.dgrid h5 .warn { color: var(--red); font-weight: 500; }
+table.mini { border-collapse: collapse; width: 100%; font-size: 12px; font-family: var(--mono); }
+table.mini td, table.mini th { padding: 5px 8px 5px 0; border-bottom: 1px solid var(--rule); text-align: left; white-space: nowrap; }
+table.mini th { font-weight: 500; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); border-bottom: 1px solid var(--rule-strong); }
+table.mini td.r, table.mini th.r { text-align: right; }
+table.mini td.w { white-space: normal; }
+.misswrap { max-height: 340px; overflow: auto; border-top: 1px solid var(--rule-strong); }
+.misswrap th { position: sticky; top: 0; background: var(--paper); }
+.dlrow { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid var(--rule-strong); width: max-content; max-width: 100%; margin: 8px 0 10px; }
+.dlrow a, .dlrow button { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; padding: 6px 9px;
+  border: 0; border-right: 1px solid var(--rule-strong); background: none; color: var(--ink); cursor: pointer; }
+.dlrow > :last-child { border-right: 0; }
+.dlrow a:hover, .dlrow button:hover { background: var(--ink); color: var(--paper); }
+.bernlink { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; }
+table.bn { border-collapse: collapse; width: 100%; font-size: 13px; }
+table.bn td { padding: 7px 12px 7px 0; border-bottom: 1px solid var(--rule); vertical-align: baseline; font-family: var(--display); }
+table.bn td.v { font-family: var(--mono); font-weight: 600; text-align: right; white-space: nowrap; width: 1%; font-variant-numeric: tabular-nums; }
+table.bn td.b { font-family: var(--mono); font-size: 11.5px; color: var(--ink-2); white-space: nowrap; }
+table.bn tr.grp td { border-top: 1px solid var(--rule-strong); }
+#bern-numbers, #dataset { scroll-margin-top: 150px; }
+@media (max-width: 700px) { #bern-numbers, #dataset { scroll-margin-top: 16px; } }
+
+/* workbench */
+.wb { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); border: 1px solid var(--rule-strong); min-height: 600px; }
+@media (max-width: 1000px) { .wb { grid-template-columns: minmax(0, 1fr); } .wbq { max-height: 300px !important; border-right: 0 !important; border-bottom: 1px solid var(--rule-strong); position: static !important; } }
+.wbq { border-right: 1px solid var(--rule-strong); overflow: auto; max-height: calc(100vh - 140px); position: sticky; top: 120px; align-self: start; }
+.wbq .bandh { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); background: var(--paper-2);
+  padding: 7px 10px; border-bottom: 1px solid var(--rule-strong); position: sticky; top: 0; display: flex; justify-content: space-between; }
+.wbq .it { display: grid; grid-template-columns: 54px minmax(0, 1fr) auto; gap: 8px; padding: 6px 10px; border-bottom: 1px solid var(--rule); font-family: var(--mono);
+  font-size: 11.5px; cursor: pointer; align-items: baseline; }
+.wbq .it:hover { background: var(--paper-2); }
+.wbq .it[aria-selected="true"] { background: var(--ink); color: var(--paper); }
+.wbq .it .d { font-weight: 600; }
+.wbq .it .d.ok { } .wbq .it .d.no { color: var(--red); }
+.wbq .it[aria-selected="true"] .d.no { color: var(--paper); }
+.wbc { padding: 20px 24px 26px; min-width: 0; }
+@media (max-width: 600px) { .wbc { padding: 14px; } }
+.keys { display: flex; flex-wrap: wrap; gap: 6px 14px; font-family: var(--mono); font-size: 11px; color: var(--ink-2); margin: 0 0 12px; }
+kbd { font-family: var(--mono); font-size: 10.5px; border: 1px solid var(--rule-strong); border-bottom-width: 2px; padding: 1px 5px; color: var(--ink); background: var(--paper); }
+.wbacts { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid var(--rule-strong); width: max-content; max-width: 100%; margin: 14px 0 6px; }
+.wbacts button { font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; background: none; color: var(--ink); border: 0; border-right: 1px solid var(--rule-strong);
+  padding: 8px 11px; cursor: pointer; }
+.wbacts button:last-child { border-right: 0; }
+.wbacts button:hover { background: var(--ink); color: var(--paper); }
+.wbacts button.primary { background: var(--ink); color: var(--paper); }
+.wbcands { width: 100%; border-collapse: collapse; font-size: 12px; }
+.wbcands td { padding: 7px 8px 7px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.wbcands td.k { width: 28px; }
+.wbcands tr { cursor: pointer; }
+.wbcands tr:hover td { background: var(--paper-2); }
+.wbcands tr.sug td.dv { font-weight: 700; }
+.wbcands tr.sug td.k kbd { background: var(--ink); color: var(--paper); }
+.wbcands tr.chosen td { background: var(--red-wash); }
+.wbcands td.ctx { font-family: var(--mono); font-size: 11.5px; color: var(--ink-2); overflow-wrap: anywhere; }
+.wbcands td.ctx mark { background: var(--hl); color: #101010; }
+.verdict { margin-top: 14px; padding: 10px 12px; border: 1px solid var(--rule-strong); font-size: 13.5px; }
+.verdict .label { display: block; margin-bottom: 4px; }
+.wbstat { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; margin-bottom: 12px; font-family: var(--mono); font-size: 12px; }
+.demo { background: var(--hl); color: #101010; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; padding: 4px 7px 3px; font-weight: 600; }
+
+/* evaluation: error profile in words */
+.profile { margin: 14px 0 0; border-top: 1px solid var(--rule-strong); }
+.profile > div { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 4px 16px; padding: 8px 0; border-bottom: 1px solid var(--rule); font-size: 13.5px; }
+.profile b { font-weight: 650; }
+@media (max-width: 600px) { .profile > div { grid-template-columns: 1fr; } }
+.why { margin: 12px 0 0; padding: 10px 12px; border-left: 2px solid var(--red); background: var(--paper-2); font-size: 13.5px; max-width: 86ch; }
+
 </style>
 </head>
 <body>
@@ -286,20 +392,22 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
     </div>
     <div class="work mast-meta">
       <nav class="tabs" aria-label="Sections">
-        <a href="#documents">01 Documents</a><a href="#parliaments">02 Parliaments</a><a href="#evaluation">03 Evaluation</a><a href="#method">04 Method</a>
+        <a href="#parliaments">01 Parliaments</a><a href="#documents">02 Documents</a><a href="#evaluation">03 Evaluation</a><a href="#method">04 Method</a>
       </nav>
       <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
         <span class="label" id="gen"></span>
         <button class="theme" id="themeBtn" type="button" aria-label="Switch colour theme">Theme</button>
       </div>
     </div>
+    <div class="banner" role="note"><b>Not in OpenParlData ≠ not published by the parliament.</b><span>Counts describe OPD's copy; each missing affair links to OPD and to the parliament's own page.</span></div>
   </div>
 </header>
 
 <section class="grid hero" aria-label="Summary">
   <div class="idx">
-    <div class="label">Written government answers<br>missing from OpenParlData</div>
+    <div class="label">Written government answers<br>without answer text in OpenParlData</div>
     <div class="code muted" style="margin-top:10px" id="heroSrc"></div>
+    <div class="perrow" id="heroPeriod"></div>
   </div>
   <div class="work">
     <p class="big" id="heroBig"></p>
@@ -308,29 +416,19 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
   </div>
 </section>
 
-<main>
-<!-- 01 DOCUMENTS -->
-<section class="view" id="v-documents" aria-labelledby="h-docs">
-  <div class="grid sec-head">
-    <div class="idx"><div class="label">01 · Reviewer view</div></div>
-    <div class="work">
-      <h2 id="h-docs">Every value points at the page and the characters it came from</h2>
-      <p>154 held-out documents in German, French and Italian, cantonal and communal, including scanned answers read by OCR. For each one: the
-        gold label, what the default converter writes, what Apertus suggests for review, and what free generation says. Apertus may choose only
-        a date that is printed in the document, or null.</p>
-    </div>
-  </div>
-  <div class="filters" id="docFilters"></div>
-  <div class="docs">
-    <div class="doclist" id="docList" tabindex="0" aria-label="Documents"></div>
-    <article class="detail" id="docDetail" aria-live="polite"></article>
+<section class="grid howto" aria-label="Where to look">
+  <div class="idx"><div class="label">Where to look</div><p class="small" style="margin:8px 0 0;max-width:30ch">Three steps for a newsroom; six terms the rest of the page uses.</p></div>
+  <div class="work">
+    <div class="steps" id="steps"></div>
+    <dl class="gloss" id="gloss" style="margin-top:18px"></dl>
   </div>
 </section>
 
-<!-- 02 PARLIAMENTS -->
+<main>
+<!-- 01 PARLIAMENTS -->
 <section class="view" id="v-parliaments" aria-labelledby="h-par" hidden>
   <div class="grid sec-head">
-    <div class="idx"><div class="label">02 · Census</div><div class="code muted" style="margin-top:10px" id="parSnap"></div></div>
+    <div class="idx"><div class="label">01 · Census</div><div class="code muted" style="margin-top:10px" id="parSnap"></div></div>
     <div class="work">
       <h2 id="h-par">Where each parliament's answers are, and how to put the missing ones back</h2>
       <p id="parIntro"></p>
@@ -343,9 +441,45 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
     <div class="idx"><div class="label">How to read it</div></div>
     <div class="work"><p class="small" id="parDefs"></p><p class="small" id="parFoot"></p></div>
   </div>
+  <div class="grid" style="margin-top:34px" id="bern-numbers">
+    <div class="idx"><div class="label">Bern · every number in one place</div><p class="small" id="bernNote"></p></div>
+    <div class="work"><table class="bn" id="bernTable"></table></div>
+  </div>
+  <div class="grid" style="margin-top:34px" id="dataset">
+    <div class="idx"><div class="label">Research dataset</div><p class="small" id="dsNote"></p></div>
+    <div class="work" id="dsBody"></div>
+  </div>
   <div class="grid" style="margin-top:34px">
     <div class="idx"><div class="label">Data-quality findings</div><p class="small" id="findNote"></p></div>
     <div class="work"><div class="findings" id="findings"></div></div>
+  </div>
+</section>
+
+<!-- 02 DOCUMENTS -->
+<section class="view" id="v-documents" aria-labelledby="h-docs">
+  <div class="grid sec-head">
+    <div class="idx"><div class="label">02 · Reviewer view</div></div>
+    <div class="work">
+      <h2 id="h-docs">Every value points at the page and the characters it came from</h2>
+      <p>154 held-out documents in German, French and Italian, cantonal and communal, including scanned answers read by OCR. For each one: the
+        gold label, what the default converter writes, what Apertus suggests for review, and what free generation says. Apertus may choose only
+        a date that is printed in the document, or null. <b>Workbench</b> turns the documents the rules leave open into a keyboard review queue.</p>
+    </div>
+  </div>
+  <div class="filters" id="docMode"></div>
+  <div id="browse">
+    <div class="filters" id="docFilters"></div>
+    <div class="docs">
+      <div class="doclist" id="docList" tabindex="0" aria-label="Documents"></div>
+      <article class="detail" id="docDetail" aria-live="polite"></article>
+    </div>
+  </div>
+  <div id="workbench" hidden>
+    <div class="wbstat" id="wbStat"></div>
+    <div class="wb">
+      <div class="wbq" id="wbQueue" aria-label="Review queue"></div>
+      <article class="wbc" id="wbCard" aria-live="polite"></article>
+    </div>
   </div>
 </section>
 
@@ -371,6 +505,8 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
     <div class="idx"><div class="label">P2 · 15 parliaments the rules never saw</div><p class="small" id="p2Note"></p></div>
     <div class="work"><p id="p2Intro" style="margin:0 0 14px;max-width:70ch"></p>
       <div style="overflow-x:auto"><table class="board" id="p2board"></table></div>
+      <div class="profile" id="p2profile"></div>
+      <p class="why" id="p2why"></p>
       <p class="small" id="p2bodies" style="margin:10px 0 0;max-width:80ch"></p></div>
   </div>
   <div class="grid" style="margin-top:34px">
@@ -452,32 +588,76 @@ $('#themeBtn').addEventListener('click', () => {
 });
 $('#gen').textContent = `Data ${D.parliaments.snapshot} · build ` + (D.generated || '').split(' ')[0];
 
+/* one period for every number on the page: hero, table, drawers (by the year in the affair number, else its begin date) */
+let period = 'all';
+const PERW = { all: 'over all years', since2015: 'submitted since 2015', y2425: 'submitted in 2024–25' };
+function periodSeg(label) {
+  return el('div', { class: 'fgroup' }, el('div', { class: 'label' }, label),
+    el('div', { class: 'seg', role: 'group', 'aria-label': 'period' }, Object.entries(D.parliaments.periods).map(([k, t]) =>
+      el('button', { type: 'button', 'data-period': k, 'aria-pressed': String(period === k), onclick: () => setPeriod(k) }, t))));
+}
+function setPeriod(k) {
+  period = k;
+  document.querySelectorAll('button[data-period]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.period === k)));
+  drawHero(); if (parDone) drawPar();
+}
+
 /* hero */
 const H = D.headline;
-$('#heroBig').textContent = fmt(H.gap);
-$('#heroLine').innerHTML = `of ${fmt(H.written)} interventions with a written government answer have no answer text in OpenParlData. That is ${pct(H.gap_share)}, typed by cause for every one.`;
-$('#heroSrc').textContent = 'results/census/summary.json';
+function drawHero() {
+  const x = H.periods[period];
+  $('#heroBig').textContent = fmt(x.missing);
+  $('#heroLine').innerHTML = `of ${fmt(x.written)} interventions with a written government answer, ${PERW[period]}, have no answer text in OpenParlData. That is ${pct(x.missing / x.written)}, typed by cause for every one.`;
+  $('#heroSrc').textContent = `results/census/summary.json · period: ${D.parliaments.periods[period]}, the same as the table`;
+}
+$('#heroPeriod').append(periodSeg('Period · applies to the whole page'));
+drawHero();
 const facts = [
-  [fmt(H.relink), `Bern answers already in OPD without a parent, relinkable by the canton's own document id. Plus ${fmt(H.fetch)} to fetch.`],
+  [fmt(H.relink), el('span', {}, `Bern answers already in OPD without a parent, relinkable by the canton's own document id. Plus ${fmt(H.fetch)} to fetch. `, el('a', { class: 'bernlink', href: '#bern-numbers' }, 'All Bern numbers →'))],
   H.p2 ? [`${H.p2.pointer.correct}/${H.p2.pointer.of}`, `answer dates Apertus found in ${H.p2.bodies} parliaments the rules were never written for; the rules found ${H.p2.rules.correct}. Pre-registered, p = ${sup(H.p2.p)}.`]
        : [`${H.rules_exact}/${H.heldout}`, `held-out documents exact with the default converter (rules, no model), which wrote a date on ${H.rules_on_null} of ${H.n_null} documents without an answer.`],
   [fmt(H.naive_fab), `answer dates invented outright by free-generation Apertus on the 154 held-out documents. The pointer cannot invent: it can only pick a printed date, or null.`],
 ];
 $('#facts').append(...facts.map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
 
+/* where to look (3 steps) + glossary */
+const RS = D.parliaments.research || {};
+const STEPS = [
+  ['Find the parliament', 'Type its name above the table, or sort by Missing. The period switch changes every number on the page at once. “Dates” says how far each parliament’s answer dates can be trusted.', '#parliaments'],
+  ['Open its row', 'What is safe to say, where each missing answer sits, answer times by type, and every affair without text, linked to OPD and to the parliament’s own page.', '#parliaments'],
+  ['Take the data', `A CSV per parliament from its row, the table as CSV, or all ${fmt(RS.rows)} interventions as one file with a column dictionary (CDLA-Permissive-2.0).`, '#dataset'],
+];
+$('#steps').append(...STEPS.map(([w, t, h], i) => el('div', {}, el('div', { class: 'n' }, String(i + 1)), el('div', { class: 'w' }, el('a', { href: h }, w)), el('p', {}, t))));
+const GLOSS = [
+  ['OPD', 'OpenParlData.ch, the aggregator that collects affairs, events and documents from Swiss parliaments. Every count here is about its copy.'],
+  ['Typed null', 'A field left empty on purpose, with the reason recorded (answered orally, not in this document, no source), never a silent blank.'],
+  ['Closed set', 'The only answers Apertus may give for a document: one of the dates printed in it, or null. A date that is not printed cannot be chosen.'],
+  ['Pointer', 'Apertus used as a selector over the closed set: it points at a printed date, with page and characters, instead of writing one.'],
+  ['θ · margin band', 'Null margin: how much more likely “no answer date” is than all printed dates together, in nats. Above θ the value is null; near θ a reviewer looks.'],
+  ['P1–P4', 'Four tests frozen by hash before any label existed: P1 known layouts, P2 15 unseen parliaments, P3 whole affairs field by field, P4 affairs from minutes.'],
+];
+$('#gloss').append(...GLOSS.map(([t, d]) => el('div', {}, el('dt', {}, t), el('dd', {}, d))));
+
 /* tabs (bare #anchors) */
-const views = ['documents', 'parliaments', 'evaluation', 'method'];
+const views = ['parliaments', 'documents', 'evaluation', 'method'];
+function viewOf(h) {
+  if (views.includes(h)) return h;
+  const t = h && document.getElementById(h); const v = t && t.closest('section.view');
+  return v ? v.id.replace(/^v-/, '') : 'parliaments';
+}
 function show() {
-  const h = location.hash.slice(1).replace(/^v-/, ''); const id = views.includes(h) ? h : 'documents';
+  const h = location.hash.slice(1).replace(/^v-/, ''); const id = viewOf(h);
   for (const v of views) $('#v-' + v).hidden = v !== id;
   document.querySelectorAll('nav.tabs a').forEach(a => a.setAttribute('aria-current', a.hash === '#' + id ? 'page' : 'false'));
   if (id === 'parliaments' && !parDone) renderPar();
   if (id === 'evaluation' && !evalDone) renderEval();
   if (id === 'method' && !methodDone) renderMethod();
+  return h;
 }
-addEventListener('hashchange', () => { show(); const t = $('#v-' + location.hash.slice(1)); if (t) t.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); });
+addEventListener('hashchange', () => { const h = show(); const t = document.getElementById(views.includes(h) ? 'v-' + h : h);
+  if (t) t.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); });
 
-/* ---------------- 01 DOCUMENTS ---------------- */
+/* ---------------- 02 DOCUMENTS ---------------- */
 const docs = D.documents;
 const F = { cell: 'all', outcome: 'all', route: 'all' };
 const CELLS = [['all', 'All'], ['de_canton', 'DE canton'], ['de_commune', 'DE commune'], ['fr_canton', 'FR canton'], ['fr_commune', 'FR commune'], ['it_canton', 'IT canton'], ['it_commune', 'IT commune'], ['ocr_ti', 'IT scans · OCR']];
@@ -582,20 +762,123 @@ function pick(id, quiet) {
     el('p', { class: 'rule-note', style: 'margin-top:16px' }, 'Null margin = log-probability of null minus that of all dates together. Above θ (fitted on development documents, frozen before the test) the answer is null.'),
     marginScale(p.margin, p.theta));
   const contested = d.contested ? el('div', { class: 'contested' }, el('span', { class: 'chip', style: 'margin-right:8px' }, 'label contested'), d.contested) : null;
-  $('#docDetail').replaceChildren(part, el('div', { class: 'dtitle' }, d.name || `Document ${d.id}`), specs, contested,
+  $('#docDetail').replaceChildren(part, el('div', { class: 'dtitle' }, d.name || `Document ${d.id}`), specs, contested || '',
     el('h3', { class: 'part' }, 'Answer date'), ans, el('h3', { class: 'part' }, 'Closed set'), closed);
   if (!quiet && matchMedia('(max-width: 1000px)').matches) $('#docDetail').scrollIntoView({ block: 'start', behavior: 'smooth' });
 }
 renderList();
 
-/* ---------------- 02 PARLIAMENTS ---------------- */
-let parDone = false, parSort = ['written', -1], openBody = null, period = 'since2015';
+/* workbench: the documents the rules leave open, as a keyboard review queue (demo: gold is revealed after each decision) */
+let mode = 'browse', wbSel = null;
+const WBKEY = 'gp-wb-v1';
+let DEC = {};
+try { DEC = JSON.parse(localStorage.getItem(WBKEY) || '{}') || {}; } catch (e) { DEC = {}; }
+const saveDec = () => { try { localStorage.setItem(WBKEY, JSON.stringify(DEC)); } catch (e) {} };
+const BANDS = [['strong', 'Strong suggestion', 'margin ≤ −5 nats: Apertus clearly prefers one printed date'],
+  ['weak', 'Weak suggestion', 'margin between −5 and θ: a date, but null is close'],
+  ['open', 'No suggestion · leaned null', 'margin above θ: Apertus says null; the printed dates are listed to check']];
+const bandOf = d => { const m = d.pointer.margin; return m == null ? null : m <= -5 ? 'strong' : m <= d.pointer.theta ? 'weak' : 'open'; };
+const QUEUE = docs.filter(d => d.rules.status === 'abstain' && d.pointer.cands.length && bandOf(d))
+  .sort((a, b) => BANDS.findIndex(x => x[0] === bandOf(a)) - BANDS.findIndex(x => x[0] === bandOf(b)) || a.pointer.margin - b.pointer.margin);
+const sugOf = d => bandOf(d) === 'open' ? null : d.pointer.v;
+const goldOk = (d, v) => (v ?? null) === (d.gold.v ?? null) || (v != null && (d.gold.lenient || []).includes(v));
+function decide(d, action, value) {
+  DEC[d.id] = { doc: d.id, body: d.body, cell: d.cell, band: bandOf(d), suggestion: sugOf(d), margin: +d.pointer.margin.toFixed(2), action, value: value ?? null,
+    at: new Date().toISOString() };
+  saveDec(); drawWb();
+}
+function decLog() {
+  const rows = QUEUE.filter(d => DEC[d.id]).map(d => ({ ...DEC[d.id], gold: d.gold.v ?? null, matches_gold: DEC[d.id].action === 'reject' ? null : goldOk(d, DEC[d.id].value) }));
+  return JSON.stringify({ tool: 'gegenprobe workbench', note: 'demo on held-out documents; gold shown after each decision', theta: QUEUE[0] && QUEUE[0].pointer.theta,
+    exported: new Date().toISOString(), decisions: rows }, null, 1);
+}
+function setMode(m) {
+  mode = m; $('#browse').hidden = m !== 'browse'; $('#workbench').hidden = m !== 'workbench';
+  document.querySelectorAll('#docMode button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+  if (m === 'workbench') { if (wbSel == null) wbSel = (QUEUE.find(d => !DEC[d.id]) || QUEUE[0]).id; drawWb(); }
+}
+$('#docMode').append(el('div', { class: 'fgroup' }, el('div', { class: 'label' }, 'Mode'), el('div', { class: 'seg', role: 'group', 'aria-label': 'mode' },
+  [['browse', 'Browse all 154'], ['workbench', `Workbench · ${QUEUE.length} open`]].map(([k, t]) => el('button', { type: 'button', 'data-mode': k, 'aria-pressed': String(mode === k), onclick: () => setMode(k) }, t)))),
+  el('span', { class: 'demo', style: 'align-self:end' }, 'demo on held-out documents'));
+function drawWb() {
+  const done = QUEUE.filter(d => DEC[d.id]);
+  const scored = done.filter(d => DEC[d.id].action !== 'reject');
+  const agree = scored.filter(d => goldOk(d, DEC[d.id].value)).length;
+  const url = URL.createObjectURL(new Blob([decLog()], { type: 'application/json' }));
+  const old = $('#wbStat a[download]'); if (old) URL.revokeObjectURL(old.href);
+  $('#wbStat').replaceChildren(el('span', {}, el('b', {}, `${done.length}/${QUEUE.length}`), ' decided'), el('span', {}, el('b', {}, `${agree}/${scored.length}`), ' agree with gold'),
+    el('span', { class: 'keys', style: 'margin:0' }, el('span', {}, el('kbd', {}, 'j'), ' ', el('kbd', {}, 'k'), ' move'), el('span', {}, el('kbd', {}, 'a'), ' accept'),
+      el('span', {}, el('kbd', {}, 'r'), ' reject'), el('span', {}, el('kbd', {}, '1'), '–', el('kbd', {}, '9'), ' pick date'), el('span', {}, el('kbd', {}, '0'), ' null')),
+    el('span', { class: 'dlrow', style: 'margin:0' }, el('a', { href: url, download: 'gegenprobe_decisions.json' }, `Export decision log · JSON (${done.length})`),
+      el('button', { type: 'button', onclick: () => { if (confirm('Clear all decisions stored in this browser?')) { DEC = {}; saveDec(); drawWb(); } } }, 'Clear')));
+  const q = $('#wbQueue'); q.replaceChildren();
+  for (const [k, name, why] of BANDS) {
+    const ds = QUEUE.filter(d => bandOf(d) === k); if (!ds.length) continue;
+    q.append(el('div', { class: 'bandh', title: why }, el('span', {}, name), el('span', {}, `${ds.filter(d => DEC[d.id]).length}/${ds.length}`)));
+    for (const d of ds) { const x = DEC[d.id];
+      q.append(el('div', { class: 'it', role: 'option', tabindex: '-1', 'aria-selected': String(wbSel === d.id), onclick: () => { wbSel = d.id; drawWb(); } },
+        el('span', {}, d.id), el('span', {}, `${d.body} · ${d.lang} · ${d.pointer.margin.toFixed(1)}`),
+        x ? el('span', { class: 'd ' + (x.action === 'reject' ? '' : goldOk(d, x.value) ? 'ok' : 'no') }, x.action === 'reject' ? 'rej' : x.value ? `${x.value.slice(8, 10)}.${x.value.slice(5, 7)}.${x.value.slice(2, 4)}` : 'null') : el('span', { class: 'muted' }, '·'))); }
+  }
+  const cur = q.querySelector('[aria-selected="true"]'); if (cur) cur.scrollIntoView({ block: 'nearest' });
+  wbCard();
+}
+function wbCard() {
+  const d = QUEUE.find(x => x.id === wbSel); if (!d) return;
+  const p = d.pointer, b = bandOf(d), sug = sugOf(d), x = DEC[d.id];
+  const lps = p.cands.map(c => c.lp); const all = [p.lp_null, ...lps].filter(v => v != null);
+  const mx = Math.max(...all), Z = all.reduce((s, v) => s + Math.exp(v - mx), 0), pr = v => v == null ? 0 : Math.exp(v - mx) / Z;
+  const ctx = c => `${c.x.lead ? '… ' : ''}${esc(c.x.t.slice(0, c.x.a))}<mark>${esc(c.x.t.slice(c.x.a, c.x.b))}</mark>${esc(c.x.t.slice(c.x.b))}${c.x.tail ? ' …' : ''}`;
+  const chosen = x && x.action !== 'reject' ? (x.value ?? 'null') : undefined;
+  const tb = el('tbody', {}, p.cands.slice(0, 9).map((c, i) => el('tr', { class: (c.v === sug ? 'sug ' : '') + (chosen === c.v ? 'chosen' : ''), onclick: () => decide(d, 'pick', c.v) },
+      el('td', { class: 'k' }, el('kbd', {}, String(i + 1))), el('td', { class: 'dv code num' }, dmy(c.v), el('div', { class: 'muted' }, `p.${c.page} · ${(100 * pr(c.lp)).toFixed(0)}%`)),
+      el('td', { class: 'ctx', html: ctx(c) }))),
+    el('tr', { class: (sug == null ? 'sug ' : '') + (chosen === 'null' ? 'chosen' : ''), onclick: () => decide(d, 'pick', null) }, el('td', { class: 'k' }, el('kbd', {}, '0')),
+      el('td', { class: 'dv code' }, 'null', el('div', { class: 'muted' }, `${(100 * pr(p.lp_null)).toFixed(0)}%`)), el('td', { class: 'ctx' }, 'no government answer date in this document')));
+  const verdict = x ? el('div', { class: 'verdict' }, el('span', { class: 'label' }, 'Held-out gold, shown after your decision'),
+    x.action === 'reject' ? `You rejected the suggestion and left the value open. Gold: ${d.gold.v ? dmy(d.gold.v) : 'null (' + (d.gold.present || 'no answer') + ')'}.` :
+      el('span', {}, `You chose ${x.value ? dmy(x.value) : 'null'}; gold is ${d.gold.v ? dmy(d.gold.v) : 'null'}: `, el('b', { class: goldOk(d, x.value) ? '' : 'red' }, goldOk(d, x.value) ? 'agrees.' : 'differs.'),
+        d.contested ? el('span', { class: 'muted' }, ` Gold label contested: ${d.contested}`) : null)) : null;
+  $('#wbCard').replaceChildren(
+    el('div', { class: 'partno' }, el('span', {}, el('b', {}, d.body), ` · ${d.body_name}`), el('span', {}, 'DOC ', el('b', {}, d.id)), el('span', {}, el('b', {}, BANDS.find(z => z[0] === b)[1])),
+      el('span', {}, `margin ${p.margin.toFixed(1)} · θ ${p.theta.toFixed(1)}`), el('span', {}, el('a', { href: d.url, target: '_blank', rel: 'noopener' }, 'Original PDF ↗'))),
+    el('div', { class: 'dtitle' }, d.name || `Document ${d.id}`),
+    el('p', { class: 'rule-note', style: 'margin-top:8px' }, sug ? `Suggestion: ${dmy(sug)}. Accept with a, reject with r (the value stays open), or pick another printed date.` :
+      'No suggestion: Apertus leans null. Accept null with a, or pick a printed date if one is the answer date.'),
+    el('div', { class: 'wbacts' }, el('button', { type: 'button', class: 'primary', onclick: () => decide(d, 'accept', sug) }, el('kbd', {}, 'a'), ` accept ${sug ? dmy(sug) : 'null'}`),
+      el('button', { type: 'button', onclick: () => decide(d, 'reject', null) }, el('kbd', {}, 'r'), ' reject'), el('button', { type: 'button', onclick: () => wbMove(1) }, el('kbd', {}, 'j'), ' next')),
+    el('h3', { class: 'part' }, `Closed set · ${p.n} printed date${p.n === 1 ? '' : 's'}${p.n > p.cands.length ? `, top ${p.cands.length}` : ''} + null`),
+    el('table', { class: 'wbcands' }, tb), verdict || '',
+    el('h3', { class: 'part' }, 'Null margin'), marginScale(p.margin, p.theta));
+}
+function wbMove(k) { const i = QUEUE.findIndex(d => d.id === wbSel); const n = QUEUE[Math.max(0, Math.min(QUEUE.length - 1, i + k))]; if (n) { wbSel = n.id; drawWb(); } }
+addEventListener('keydown', e => {
+  if (mode !== 'workbench' || $('#v-documents').hidden || e.metaKey || e.ctrlKey || e.altKey || /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+  const d = QUEUE.find(x => x.id === wbSel); if (!d) return;
+  const k = e.key.toLowerCase();
+  if (k === 'j' || k === 'arrowdown') { e.preventDefault(); wbMove(1); }
+  else if (k === 'k' || k === 'arrowup') { e.preventDefault(); wbMove(-1); }
+  else if (k === 'a') { decide(d, 'accept', sugOf(d)); }
+  else if (k === 'r') { decide(d, 'reject', null); }
+  else if (k === '0') { decide(d, 'pick', null); }
+  else if (/^[1-9]$/.test(k) && d.pointer.cands[+k - 1]) { decide(d, 'pick', d.pointer.cands[+k - 1].v); }
+});
+
+/* ---------------- 01 PARLIAMENTS ---------------- */
+let parDone = false, parSort = ['written', -1], openBody = null, parQ = '';
 const P = D.parliaments;
 const PER = () => r => r.periods[period];
 const c = r => r.periods[period];
 const LK = [['attached', 'k-att', 'attached to the intervention'], ['agenda', 'k-ag', 'filed under an agenda item'], ['parentless', 'k-par', 'in OPD without a parent (relinkable)'],
   ['image_only', 'k-img', 'scan without text (OCR)'], ['oral', 'k-oral', 'answered orally'], ['absent', 'k-abs', 'not in OPD']];
 const SAME = new Set(P.same_day.map(b => b.body));
+const TIER = { verified: ['verified', 'OPD answer date = decision date printed in the answer, checked document by document'],
+  sitting_day: ['sitting day', 'most answer dates fall on one weekday: a government’s weekly sitting, i.e. a decision date'],
+  mixed: ['mixed', 'answer dates partly on one weekday: a mix of decision and publication dates'],
+  diffuse: ['diffuse', 'answer dates spread over the week: likely publication or registration dates'],
+  same_day: ['same day', 'the “answer” event mostly equals the submission date: no answer time'], too_few: ['too few', 'fewer than 20 dated answers'] };
+const tierEl = r => { const t = r.trust && TIER[r.trust.tier]; if (!t) return el('span', { class: 'muted' }, '—');
+  return el('span', { class: 'tier t-' + r.trust.tier, title: t[1] + (r.trust.modal_share != null ? ` (${pct(r.trust.modal_share, 0)} on ${r.trust.modal_weekday})` : '') }, t[0]); };
 const COLS = [
   ['name', 'Parliament', r => el('span', {}, el('b', {}, r.key), ' ', el('span', { class: 'muted' }, r.label)), r => r.label],
   ['written', 'Written answers', r => fmt(c(r).written), r => c(r).written],
@@ -606,9 +889,11 @@ const COLS = [
   ['image_only', 'Scan', r => fmt(c(r).image_only), r => c(r).image_only],
   ['oral', 'Oral', r => fmt(c(r).oral), r => c(r).oral],
   ['absent', 'Not in OPD', r => fmt(c(r).absent), r => c(r).absent],
-  ['after_repair', 'After repair', r => c(r).written ? pct(c(r).after_repair) : '—', r => c(r).after_repair ?? -1],
-  ['median', 'Median days*', r => r.median.flag === 'same_day' ? el('span', { class: 'muted', title: 'answer event mostly equals submission' }, '—†') : r.median.days == null ? el('span', { class: 'muted' }, '—') : fmt(r.median.days), r => r.median.days ?? -1],
-  ['mix', 'Where the written answers are', r => stack(r), r => c(r).written ? c(r).attached / c(r).written : -1],
+  ['after_repair', 'Repaired', r => c(r).written ? pct(c(r).after_repair) : '—', r => c(r).after_repair ?? -1],
+  ['after_ocr', '+ OCR', r => c(r).image_only ? el('span', { class: 'ocr', title: 'if the scans were read by OCR (probe: 15/15 recovered); typed, not yet done for the whole body' }, pct(c(r).after_ocr)) : el('span', { class: 'muted' }, '·'), r => c(r).image_only ? c(r).after_ocr : -1],
+  ['median', el('span', {}, 'Median days*', el('br'), el('span', { class: 'warn' }, 'not a ranking')), r => r.median.flag === 'same_day' ? el('span', { class: 'muted', title: 'answer event mostly equals submission' }, '—†') : r.median.days == null ? el('span', { class: 'muted' }, '—') : fmt(r.median.days), r => r.median.days ?? -1],
+  ['trust', 'Dates', r => tierEl(r), r => ['verified', 'sitting_day', 'mixed', 'diffuse', 'same_day', 'too_few'].indexOf(r.trust && r.trust.tier)],
+  ['mix', 'Where they are', r => stack(r), r => c(r).written ? c(r).attached / c(r).written : -1],
 ];
 function stack(r) {
   const x = c(r); if (!x.written) return el('span', { class: 'muted' }, 'none in this period');
@@ -619,61 +904,141 @@ function renderPar() {
   parDone = true;
   const nat = P.national;
   $('#parSnap').textContent = `OPD exports of ${P.snapshot}`;
-  $('#parIntro').textContent = `${P.n_bodies} parliaments with affairs in scope (OpenParlData scrapes 90). Of ${fmt(nat.ev_answer)} interventions whose events record a written government answer, ${fmt(nat.gap)} (${pct(P.gap_share)}) have no answer text attached. ` +
-    `Every one of them has a typed cause: filed under an agenda item, stored without a parent, scanned without text, answered orally, or not in OPD at all.`;
-  const per = el('div', { class: 'fgroup' }, el('div', { class: 'label' }, 'Interventions submitted'),
-    el('div', { class: 'seg', role: 'group', 'aria-label': 'period' }, Object.entries(P.periods).map(([k, t]) => el('button', { type: 'button', 'aria-pressed': String(period === k),
-      onclick: e => { period = k; e.currentTarget.parentNode.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === e.currentTarget))); drawPar(); } }, t))));
-  const dl = el('div', { class: 'fgroup' }, el('div', { class: 'label' }, 'Export'), el('div', { class: 'seg' }, el('a', { class: 'btnlink', href: 'parliaments.csv', download: 'gegenprobe_parliaments.csv' }, 'CSV · all periods')));
-  $('#parFilters').replaceChildren(per, dl);
+  $('#parIntro').textContent = `${P.n_bodies} parliaments with affairs in scope (OpenParlData scrapes 90). Of ${fmt(nat.ev_answer)} interventions whose events record a written government answer (all years), ${fmt(nat.gap)} (${pct(P.gap_share)}) have no answer text attached. ` +
+    `Every one of them has a typed cause: filed under an agenda item, stored without a parent, scanned without text, answered orally, or not in OPD at all. Open a row for its list of affairs.`;
+  const find = el('div', { class: 'fgroup' }, el('div', { class: 'label' }, 'Find a parliament'),
+    el('input', { class: 'find', type: 'search', placeholder: 'name, canton or BFS no.', 'aria-label': 'Find a parliament', value: parQ,
+      oninput: e => { parQ = e.currentTarget.value; drawPar(); } }));
+  const dl = el('div', { class: 'fgroup' }, el('div', { class: 'label' }, 'Export'), el('div', { class: 'seg' },
+    el('a', { class: 'btnlink', href: 'parliaments.csv', download: 'gegenprobe_parliaments.csv' }, 'Table · CSV'),
+    el('a', { class: 'btnlink', href: RS.download, download: 'gegenprobe_interventions.tsv.gz', style: 'border-left:1px solid var(--rule-strong)' }, `All ${fmt(RS.rows)} interventions · TSV`)));
+  $('#parFilters').replaceChildren(periodSeg('Interventions submitted'), find, dl);
   $('#parLegend').replaceChildren(...LK.map(([, k, t]) => el('span', {}, el('i', { class: k }), t)));
   $('#parDefs').textContent = 'One denominator for every column: interventions whose events record a written government answer, in the chosen period (by the year in the affair number, else its begin date). ' +
     'Each one is in exactly one place, so Text attached + Agenda + No parent + Scan + Oral + Not in OPD = Written answers. Missing = all but "attached". ' +
-    'After repair = attached + agenda join + Bern relink + Bern fetch from the canton (OCR candidates and oral answers are typed, not counted as text).';
-  $('#parFoot').textContent = `* Median days from submission to the first written-answer event in OPD, all years; that event is the government decision date in Bern (verified 39/39) and unverified elsewhere (it can be a publication date). ` +
-    `† ${P.same_day.length} parliaments record the "answer" on the submission date for most interventions (${P.same_day.map(b => b.name).join(', ')}): no answer time is shown for them. Intervention types differ between parliaments, so medians are not a ranking.`;
+    'After repair = attached + agenda join + Bern relink + Bern fetch from the canton (oral answers are typed, not counted as text). + OCR adds the scans, shown only where there are any: it is a separate state because OCR was probed (15/15 recovered), not run on every scan.';
+  $('#parFoot').textContent = `* Median days from submission to the first written-answer event in OPD, all years. Not a ranking: parliaments use different intervention types and deadlines, and OPD's "answer" event is the government decision date in some bodies and a publication date in others. The Dates column says which: verified (Bern: ${fmt(RS.bern_verified && RS.bern_verified.date_equal)} of ${fmt(RS.bern_verified && RS.bern_verified.n)} relink answers carry the printed decision date), sitting day (≥ 80% of answer dates on one weekday), mixed, diffuse. ` +
+    `† ${P.same_day.length} parliaments record the "answer" on the submission date for most interventions (${P.same_day.map(b => b.name).join(', ')}): no answer time is shown for them.`;
   renderFindings();
+  renderBern();
+  renderDataset();
   drawPar();
 }
 function drawPar() {
   const [key, dir] = parSort; const col = COLS.find(x => x[0] === key);
   const val = col[3] || (r => r[key]);
-  const rows = [...P.rows].sort((a, b) => { const x = val(a), y = val(b); return (typeof x === 'string' ? x.localeCompare(y) : ((x ?? -1) - (y ?? -1))) * dir; });
+  const q = parQ.trim().toLowerCase();
+  const rows = [...P.rows].filter(r => !q || `${r.key} ${r.label} ${r.canton || ''}`.toLowerCase().includes(q))
+    .sort((a, b) => { const x = val(a), y = val(b); return (typeof x === 'string' ? x.localeCompare(y) : ((x ?? -1) - (y ?? -1))) * dir; });
   const head = el('tr', {}, COLS.map(([k, t]) => el('th', { 'aria-sort': k === key ? (dir < 0 ? 'descending' : 'ascending') : null, tabindex: '0', scope: 'col',
     onclick: () => { parSort = [k, k === key ? -dir : (k === 'name' ? 1 : -1)]; drawPar(); }, onkeydown: e => { if (e.key === 'Enter') e.currentTarget.click(); } }, t)));
   const tb = el('tbody');
   for (const r of rows) {
-    const tr = el('tr', { class: openBody === r.key ? 'open' : '', tabindex: '0', onclick: () => { openBody = openBody === r.key ? null : r.key; drawPar(); },
+    const tr = el('tr', { class: openBody === r.key ? 'open' : '', tabindex: '0', 'aria-expanded': String(openBody === r.key), onclick: () => { openBody = openBody === r.key ? null : r.key; drawPar(); },
       onkeydown: e => { if (e.key === 'Enter') e.currentTarget.click(); } }, COLS.map(x => el('td', {}, x[2](r))));
     tb.append(tr);
     if (openBody === r.key) tb.append(el('tr', { class: 'drawer' }, el('td', { colspan: COLS.length }, drawer(r))));
   }
+  if (!rows.length) tb.append(el('tr', {}, el('td', { colspan: COLS.length, class: 'muted' }, `No parliament matches "${parQ}".`)));
   $('#parTable').replaceChildren(el('thead', {}, head), tb);
 }
 const STL = { metadata: 'in OPD metadata', mixed: 'metadata for part', pdf: 'only in the PDF', no_source: 'no source in OPD' };
 const STATUS = { confirmed_bug: 'confirmed bug', confirmed: 'confirmed', source_discrepancy: 'source discrepancy', explained: 'explained', by_design: 'by design', scope_pointer: 'scope pointer' };
 function findingsFor(key) { return P.findings.filter(f => (key === 'BE' && (/^be_/.test(f.id) || f.id === 'grparl_384_date')) || (key === 'CHE' && /^che_/.test(f.id)) || (key === 'VS' && f.id === 'lang_tag_VS') || (key === 'FR' && f.id === 'lang_tag_FR')); }
+
+/* missing affairs per parliament: site/missing.json, fetched when the first row is opened */
+const CAUSE = { a: 'under an agenda item', p: 'in OPD without a parent', s: 'scan without text', o: 'answered orally', x: 'not in OPD' };
+let MISS = null, missErr = false;
+function loadMissing() {
+  if (MISS || missErr) return Promise.resolve(MISS);
+  return fetch('missing.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(j => (MISS = j)).catch(() => { missErr = true; return null; });
+}
+const inPeriod = y => period === 'all' || (y != null && (period === 'since2015' ? y >= 2015 : y >= 2024 && y <= 2025));
+const opdUrl = id => (RS.opd_url || 'https://openparldata.ch/item/affairs/{id}').replace('{id}', id);
+function downloadBlob(name, text, type) {
+  const a = el('a', { href: URL.createObjectURL(new Blob([text], { type })), download: name });
+  document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+}
+function missingBlock(r) {
+  const box = el('div', {}, el('h5', {}, 'Affairs without attached answer text · ', P.periods[period]), el('p', { class: 'small', style: 'margin:0' }, 'loading the list…'));
+  loadMissing().then(M => {
+    const m = M && M[r.key];
+    if (!m) { box.replaceChildren(el('h5', {}, 'Affairs without attached answer text'), el('p', { class: 'small' }, missErr ? 'The list loads from missing.json when the page is served over http(s). All of them are in the research dataset: ' : 'None.',
+      missErr ? el('a', { href: RS.download }, 'interventions.tsv.gz') : null)); return; }
+    const rows = m.rows.filter(x => inPeriod(x[3]));
+    const src = x => x[4] != null ? m.prefix + x[4] : '';
+    let lim = 150;
+    const tbl = el('table', { class: 'mini' });
+    const draw = () => tbl.replaceChildren(el('thead', {}, el('tr', {}, ['Affair', 'Year', 'Where the answer is', 'OPD', 'Parliament'].map((h, i) => el('th', { class: i === 1 ? 'r' : '' }, h)))),
+      el('tbody', {}, rows.slice(0, lim).map(x => el('tr', {}, el('td', {}, x[0] || `id ${x[1]}`), el('td', { class: 'r' }, x[3] ?? '—'), el('td', { class: 'w' }, CAUSE[x[2]]),
+        el('td', {}, el('a', { href: opdUrl(x[1]), target: '_blank', rel: 'noopener' }, 'OPD ↗')),
+        el('td', {}, src(x) ? el('a', { href: src(x), target: '_blank', rel: 'noopener' }, 'source ↗') : el('span', { class: 'muted' }, '—'))))));
+    draw();
+    const more = rows.length > lim ? el('button', { type: 'button', onclick: e => { lim = rows.length; draw(); e.currentTarget.remove(); } }, `Show all ${fmt(rows.length)}`) : null;
+    const csv = () => downloadBlob(`gegenprobe_missing_${r.key}_${period}.csv`, ['body,affair_id,number,year,where,opd_url,source_url']
+      .concat(rows.map(x => [r.key, x[1], `"${String(x[0]).replace(/"/g, '""')}"`, x[3] ?? '', CAUSE[x[2]], opdUrl(x[1]), src(x)].join(','))).join('\n') + '\n', 'text/csv');
+    box.replaceChildren(el('h5', {}, `${fmt(rows.length)} affairs without attached answer text · ${P.periods[period]}`),
+      el('p', { class: 'small', style: 'margin:0' }, 'Newest first. Not in OpenParlData ≠ not published: “source ↗” is the parliament’s own page for the affair.'),
+      el('div', { class: 'dlrow' }, el('button', { type: 'button', onclick: csv }, `CSV · ${r.key} · ${fmt(rows.length)} rows`), more,
+        el('a', { href: RS.download, download: 'gegenprobe_interventions.tsv.gz' }, 'All parliaments · TSV'), el('a', { href: RS.readme, target: '_blank' }, 'Columns')),
+      rows.length ? el('div', { class: 'misswrap' }, tbl) : el('p', { class: 'small' }, 'None in this period.'));
+  });
+  return box;
+}
+function timesBlock(r) {
+  const bt = Object.entries((r.median && r.median.by_type) || {});
+  const t = r.trust && TIER[r.trust.tier];
+  const alt = r.median.days_alt != null && r.median.days != null && r.median.days_alt !== r.median.days;
+  return el('div', {}, el('h5', {}, 'Answer time by intervention type · all years ', el('span', { class: 'warn' }, '· not a ranking')),
+    r.median.flag === 'same_day' ? el('p', { class: 'small', style: 'margin:0' }, 'OPD’s “answer” event mostly equals the submission date here, so no answer time is shown.') :
+    bt.length ? el('table', { class: 'mini' }, el('thead', {}, el('tr', {}, el('th', {}, 'Type'), el('th', { class: 'r' }, 'Median days'), el('th', { class: 'r' }, 'n'))),
+      el('tbody', {}, bt.map(([k, v]) => el('tr', {}, el('td', {}, k), el('td', { class: 'r' }, fmt(v.median)), el('td', { class: 'r muted' }, fmt(v.n)))))) :
+      el('p', { class: 'small', style: 'margin:0' }, 'Fewer than 10 dated answers per type.'),
+    el('p', { class: 'small', style: 'margin:8px 0 0' }, el('b', {}, 'Date trust: '), t ? `${t[0]}, ${t[1]}` : '—', r.trust && r.trust.modal_share != null ? ` (${pct(r.trust.modal_share, 0)} on ${r.trust.modal_weekday}).` : '.',
+      alt ? ` With the alternative rule (prefer events OPD harmonises as “answered”), the median is ${fmt(r.median.days_alt)} days instead of ${fmt(r.median.days)}.` : '',
+      ' Types, deadlines and what the event records differ between parliaments: compare a parliament with itself over time, not with others.'));
+}
 function drawer(r) {
   const x = c(r);
   const rep = Object.entries(r.repair || {}).map(([k, v]) => `${k.replace('_', ' ')} ${fmt(v)}`).join(' · ') || 'no repair action';
   const kids = [el('div', { class: 'partno' }, el('span', {}, el('b', {}, r.key), ' · ', r.label), el('span', {}, `${fmt(x.written)} written answers · ${P.periods[period]}`),
-      el('span', {}, `text attached ${pct(x.with_text)} → after repair ${pct(x.after_repair)}`), el('span', {}, 'repair actions (all years): ', el('b', {}, rep))),
-    el('p', { class: 'say' }, el('span', { class: 'label' }, 'Safe to say · '), r.safe_say)];
+      el('span', {}, `text attached ${pct(x.with_text)} → after repair ${pct(x.after_repair)}`, x.image_only ? el('span', { class: 'ocr' }, ` → after OCR ${pct(x.after_ocr)}`) : null),
+      el('span', {}, 'repair actions (all years): ', el('b', {}, rep)), r.key === 'BE' ? el('a', { class: 'bernlink', href: '#bern-numbers' }, 'all Bern numbers, with denominators ↓') : null),
+    el('p', { class: 'say' }, el('span', { class: 'label' }, `Safe to say · ${r.safe_say_period} · `), r.safe_say)];
+  if (x.image_only >= 20) kids.push(el('p', { class: 'small', style: 'margin:6px 0 0;max-width:86ch' }, `After OCR is its own state: ${fmt(x.image_only)} answers are scans without a text layer. Read by OCR they would bring this parliament to ${pct(x.after_ocr)}; the German+French+Italian OCR probe recovered 15 of 15, but the scans have not all been run.`));
   for (const f of findingsFor(r.key)) kids.push(el('div', { class: 'opd' }, el('span', { class: 'chip' + (f.status === 'confirmed_bug' ? ' red' : '') }, STATUS[f.status] || 'no response yet'), ' ',
     el('b', {}, f.statement), f.opd ? el('div', { class: 'small' }, f.opd, el('span', { class: 'muted code' }, ` — ${P.attribution}`)) : null));
   if (r.key === 'BE') { const B = P.bern, pl = B.placement;
     kids.push(el('div', { class: 'bern' }, el('div', { class: 'label' }, `By the canton's own list · ${fmt(B.canton_listed)} answers the canton publishes (a different denominator, same as fig. 3)`),
-      el('p', { class: 'small' }, `Attached to their intervention in OPD: ${fmt(pl.attached)} (${pct(pl.attached / B.canton_listed)}). Linkable within OPD: ${fmt(B.linkable)} (${pct(B.linkable / B.canton_listed)}) — ${fmt(pl.attached)} attached + ${fmt(pl.via_agenda)} under an agenda item + ${fmt(pl.parentless)} without a parent. Not in OPD: ${fmt(pl.absent)}. ` +
-        `The relink list holds ${fmt(B.relink_list.relink)} of the ${fmt(pl.parentless)} parentless answers; the other ${fmt(pl.parentless - B.relink_list.relink)} already have answer text elsewhere in OPD or no written-answer event.`)));
+      el('p', { class: 'small' }, `Attached to their intervention in OPD: ${fmt(pl.attached)} (${pct(pl.attached / B.canton_listed)}). Linkable within OPD: ${fmt(B.linkable)} (${pct(B.linkable / B.canton_listed)}): ${fmt(pl.attached)} attached + ${fmt(pl.via_agenda)} under an agenda item + ${fmt(pl.parentless)} without a parent. Not in OPD: ${fmt(pl.absent)}. ` +
+        `The relink list holds ${fmt(B.relink_list.relink)} of the ${fmt(pl.parentless)} parentless answers; the other ${fmt(pl.parentless - B.relink_list.relink)} already have answer text elsewhere in OPD or no written-answer event. `, el('a', { href: '#bern-numbers' }, 'Every Bern number with its denominator ↓'))));
   }
   const V4 = D.evaluation && D.evaluation.p4;
   if (V4 && r.key === V4.body) { const a = V4.arms.rules_only;
     kids.push(el('div', { class: 'bern' }, el('div', { class: 'label' }, 'Virtual affairs · pre-registered test P4'),
       el('p', { class: 'small' }, `OPD holds this council's own business only as meeting documents. From ${V4.meetings.length} held-out sittings, rules derived ${a.segmentation_recall[0]} of ${V4.n_items} agenda items as virtual affairs (precision ${a.segmentation_precision[0]}/${a.segmentation_precision[1]}, titles ${a.title_correct[0]}/${a.title_correct[1]}), found the decision for ${a.decision_recall[0]}/${a.decision_recall[1]} and invented none. See Evaluation → P4.`))); }
-  kids.push(el('div', { class: 'fieldrow', style: 'margin-top:12px' }, P.fields.map(f => { const cc = r.fields[f.key];
+  kids.push(el('div', { class: 'dgrid' }, timesBlock(r), x.missing ? missingBlock(r) : el('div', {}, el('h5', {}, 'Affairs without attached answer text'), el('p', { class: 'small', style: 'margin:0' }, `None ${PERW[period]}.`))));
+  kids.push(el('div', { class: 'fieldrow', style: 'margin-top:16px' }, P.fields.map(f => { const cc = r.fields[f.key];
     return el('div', {}, el('div', { class: 'f' }, f.key.replace(/_/g, ' ')), el('div', { class: 's st-' + (cc ? cc.st : 'na') }, cc ? STL[cc.st] || cc.st : 'not applicable'),
       cc ? el('div', { class: 'code muted' }, `meta ${pct(cc.meta, 0)} · n ${fmt(cc.n)}`) : null); })));
   return el('div', {}, ...kids);
+}
+function renderBern() {
+  const bn = P.bern_numbers || [];
+  $('#bernNote').textContent = 'Bern numbers come from two denominators: the answers the canton lists in its own open data, and OPD interventions with a written-answer event. Every Bern number on this site and in the report is one of these rows.';
+  const grp = new Set([2, 6, 7, 9, 11, 13, 15]);
+  $('#bernTable').replaceChildren(el('tbody', {}, bn.map((x, i) => el('tr', { class: grp.has(i) ? 'grp' : '' }, el('td', { class: 'v' }, fmt(x.v)), el('td', {}, x.what), el('td', { class: 'b' }, x.base))),
+    RS.bern_verified ? el('tr', { class: 'grp' }, el('td', { class: 'v' }, fmt(RS.bern_verified.date_equal)), el('td', {}, `relink answers whose OPD answer date equals the decision date printed in the answer (verified document by document)`), el('td', { class: 'b' }, `of ${fmt(RS.bern_verified.n)} relink`)) : null));
+}
+function renderDataset() {
+  if (!RS.rows) return;
+  const sh = RS.schaffhausen;
+  $('#dsNote').textContent = 'CDLA-Permissive-2.0. One row per intervention whose events record a written government answer: the census denominator.';
+  $('#dsBody').replaceChildren(el('p', { style: 'margin:0 0 10px;max-width:72ch' }, `${fmt(RS.rows)} interventions from ${P.n_bodies} parliaments: submission and answer dates, days to answer, where the answer text is, date trust, the OPD page and, for every affair without attached text, the parliament's own page.`),
+    el('div', { class: 'dlrow' }, el('a', { href: RS.download, download: 'gegenprobe_interventions.tsv.gz' }, 'interventions.tsv.gz'), el('a', { href: RS.readme, target: '_blank' }, 'Column dictionary'), el('a', { href: 'parliaments.csv', download: 'gegenprobe_parliaments.csv' }, 'Table · CSV')),
+    el('p', { class: 'small', style: 'margin:0;max-width:80ch' }, `Two answer-date rules. The census rule takes the earliest written-answer event. The alternative prefers events OPD harmonises as “answered”; it changes ${fmt(RS.rows_changed_alt)} rows` +
+      (sh ? `; the largest share is Schaffhausen (${fmt(sh.changed)}), where an event harmonised as “submitted” carries the answer title on the submission date: median ${fmt(sh.median_days)} → ${fmt(sh.median_days_alt)} days.` : '.') +
+      ` Date trust per parliament: ${Object.entries(RS.tier_counts || {}).map(([k, v]) => `${(TIER[k] || [k])[0]} ${v}`).join(' · ')}.`));
 }
 function renderFindings() {
   $('#findNote').textContent = `Recomputed from the exports. OPD's answer to each, where given: ${P.attribution}.`;
@@ -782,6 +1147,21 @@ function renderP2() {
   }
   $('#p2board').replaceChildren(head, tb);
   $('#p2bodies').textContent = 'Parliaments: ' + P.bodies.map(b => `${b.name} (${b.n})`).join(' · ') + '.';
+  const PF = P.profile || {}, nm = Object.fromEntries(ARMS.map(([k, name]) => [k, name]));
+  const pl = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+  $('#p2profile').replaceChildren(el('div', {}, el('span', { class: 'label' }, 'Error profile, in words'), el('span', { class: 'small' }, `of ${nv} documents with an answer date and ${nn} without`)),
+    ...ARMS.filter(([k]) => PF[k]).map(([k]) => { const f = PF[k];
+      const errs = [[f.wrong_date, 'wrong printed date', 'wrong printed dates'], [f.date_no_answer, 'date on a document without an answer', 'dates on documents without an answer'],
+        [f.missed, 'answer date missed (null instead)', 'answer dates missed (null instead)'], [f.invented, 'date printed nowhere', 'dates printed nowhere']].filter(e => e[0]);
+      return el('div', {}, el('b', {}, nm[k]), el('span', {}, `${f.right} right dates, ${f.right_null} right nulls. `,
+        errs.length ? el('span', {}, 'Wrong: ', errs.map(([n, a, b]) => pl(n, a, b)).join(', '), '.') : 'No errors.')); }));
+  const cv = P.cascade_vs_pointer;
+  if (cv) {
+    const why = Object.entries(cv.reasons).map(([t, n]) => `on ${n} ${n === 1 ? 'document' : 'documents'} ${t}`).join('; ');
+    $('#p2why').replaceChildren(el('b', {}, `Why rules + Apertus (${A.cascade.exact}) scores below Apertus alone (${A.pointer.exact}): `),
+      `the cascade asks Apertus only where the rules leave a document open. ${why[0].toUpperCase() + why.slice(1)}. ` +
+      (cv.cascade_only ? `The cascade is right where the pointer is wrong on ${cv.cascade_only}.` : 'There is no document the cascade gets right and the pointer gets wrong.'));
+  } else $('#p2why').hidden = true;
   const card = (code, pass, title, text, fig) => el('div', {}, el('span', { class: 'stamp', style: pass === 'FAIL' ? 'color:var(--red)' : '' }, `${code} · ${pass}`),
     el('h4', {}, title), el('p', {}, text), el('div', { class: 'fig' }, fig));
   $('#p2hyp').replaceChildren(

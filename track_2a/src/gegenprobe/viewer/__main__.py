@@ -1,6 +1,7 @@
 """Static evidence viewer.
 
-    python -m gegenprobe.viewer collect            results + cached texts + model cache -> site/data.json + site/parliaments.csv
+    python -m gegenprobe.viewer collect            results + cached texts + model cache -> site/data.json, parliaments.csv,
+                                                   missing.json, interventions.tsv.gz (+ README) copied from results/census/
     python -m gegenprobe.viewer build [--out DIR]   site/data.json + template -> DIR/index.html (default: site/)
     python -m gegenprobe.viewer build --full-text --out DIR   collect with full page texts into DIR only (never committed)
 
@@ -19,6 +20,10 @@ from ..paths import ROOT
 
 SITE = ROOT / "site"
 TEMPLATE = Path(__file__).with_name("template.html")
+# files served next to index.html: the table as CSV, the per-body lists of missing affairs (loaded when a row is opened),
+# and the research dataset with its column dictionary (copied from results/census/)
+SHIPPED = ("parliaments.csv", "missing.json", "interventions.tsv.gz", "interventions_README.md")
+DATASET = ("interventions.tsv.gz", "interventions_README.md")
 
 
 def render(data: dict, out: Path) -> Path:
@@ -27,9 +32,10 @@ def render(data: dict, out: Path) -> Path:
     html = TEMPLATE.read_text(encoding="utf-8").replace("/*DATA*/", blob)
     p = out / "index.html"
     p.write_text(html, encoding="utf-8")
-    csv_src = SITE / "parliaments.csv"
-    if out.resolve() != SITE.resolve() and csv_src.exists():
-        (out / "parliaments.csv").write_bytes(csv_src.read_bytes())
+    if out.resolve() != SITE.resolve():
+        for f in SHIPPED:
+            if (SITE / f).exists():
+                (out / f).write_bytes((SITE / f).read_bytes())
     return p
 
 
@@ -48,13 +54,18 @@ def main(argv: list[str]) -> int:
     if a.cmd == "collect":
         d = collect()
         SITE.mkdir(parents=True, exist_ok=True)
+        (SITE / "missing.json").write_text(
+            json.dumps(d["parliaments"].pop("missing"), ensure_ascii=False, separators=(",", ":")), encoding="utf-8"
+        )
+        for f in DATASET:
+            (SITE / f).write_bytes((ROOT / "results" / "census" / f).read_bytes())
         (SITE / "data.json").write_text(
             json.dumps(d, ensure_ascii=False, separators=(",", ":"), allow_nan=False), encoding="utf-8"
         )
         from .data import write_csv
 
         write_csv(d["parliaments"], SITE / "parliaments.csv")
-        print(SITE / "data.json", f"{(SITE / 'data.json').stat().st_size // 1024} KB", "+ parliaments.csv")
+        print(SITE / "data.json", f"{(SITE / 'data.json').stat().st_size // 1024} KB", "+", ", ".join(SHIPPED))
         return 0
     out = Path(a.out) if a.out else SITE
     d = collect(full_text=True) if a.full_text else json.loads((SITE / "data.json").read_text(encoding="utf-8"))

@@ -14,7 +14,9 @@ import gzip
 import io
 import json
 import math
+import os
 import re
+import statistics
 import subprocess
 
 from .. import llm, pdftext
@@ -433,8 +435,17 @@ def parliaments() -> dict:
                 in_scope=k in s["by_body"],
             )
         )
+    extras = research_extras()
     for r in rows:
+        ex = extras["bodies"].get(r["key"], {})
+        r["median"]["by_type"] = ex.get("by_type", {})
+        r["median"]["days_alt"] = ex.get("median_alt")
+        r["trust"] = extras["trust"].get(r["key"], {})
+        for c in r["periods"].values():
+            c["after_ocr"] = ((c["attached"] + c["agenda"] + c["parentless"] + c["fetchable"] + c["image_only"]) / c["written"]
+                              if c["written"] else None)
         r["safe_say"] = safe_say(r)
+        r["safe_say_period"] = "2024–25 and all years" if r["periods"]["y2425"]["written"] >= 20 else "all years"
     rows.sort(key=lambda r: (-r["periods"]["all"]["written"], -r["n"]))
     # Bern, by the canton's own list (a different denominator, shown only in Bern's detail panel; same numbers as fig. 3)
     rc = _j("repair/be_reconcile.json")
@@ -493,7 +504,83 @@ def parliaments() -> dict:
         snapshot=_snapshot(),
         n_bodies=len(rows),
         periods=PERIOD_LABEL,
+        bern_numbers=bern_numbers(rows),
+        missing={k: v["missing"] for k, v in extras["bodies"].items()},  # split off into site/missing.json by `collect`
+        research=extras["meta"],
     )
+
+
+LINK_CODE = {"agenda": "a", "parentless": "p", "image_only": "s", "oral": "o", "absent": "x"}
+
+
+def research_extras() -> dict:
+    """Per-body extras from the research dataset (results/census/interventions.tsv.gz, census/interventions.py): the
+    affairs whose answer text is not attached ([number, affair id, link code, year, source url minus the body's common
+    prefix]; shipped as site/missing.json, loaded when a row is opened), median days by intervention type
+    (n >= 10, census rule), the alternative-rule median, and the date-trust tier (results/census/date_trust.json)."""
+    from ..census import interventions as iv
+
+    p = RESULTS / "census" / "interventions.tsv.gz"
+    trust = json.loads((RESULTS / "census" / "date_trust.json").read_text())
+    if not p.exists():
+        return dict(bodies={}, trust={}, meta=None)
+    bodies: dict = collections.defaultdict(lambda: dict(missing=[], days=collections.defaultdict(list)))
+    for r in iv.load(p):
+        b = bodies[r["body"]]
+        if r["link_status"] != "attached":
+            b["missing"].append([r["number"], int(r["affair_id"]), LINK_CODE.get(r["link_status"], "x"),
+                                 int(r["year"]) if r["year"] else None, r["source_url"]])
+        if r["days_to_answer"] != "":
+            b["days"][r["type"]].append(int(r["days_to_answer"]))
+    out = {}
+    for k, b in bodies.items():
+        by_type = {t: dict(median=statistics.median(v), n=len(v)) for t, v in sorted(b["days"].items()) if len(v) >= 10}
+        b["missing"].sort(key=lambda m: (-(m[3] or 0), m[0]))
+        pre = os.path.commonprefix([m[4] for m in b["missing"] if m[4]]) if b["missing"] else ""
+        for m in b["missing"]:
+            m[4] = m[4][len(pre):] if m[4] else None
+        out[k] = dict(missing=dict(prefix=pre, rows=b["missing"]), by_type=by_type,
+                      median_alt=trust["bodies"].get(k, {}).get("median_days_alt"))
+    alt = json.loads((RESULTS / "census" / "answer_rule_alt.json").read_text())
+    meta = dict(rows=alt["rows"], rows_changed_alt=alt["rows_changed"], tier_counts=trust["tier_counts"],
+                interventions_by_tier=trust["interventions_by_tier"], bern_verified=trust["bern_verified"],
+                schaffhausen=alt["bodies"].get("SH"), download="interventions.tsv.gz", readme="interventions_README.md",
+                opd_url="https://openparldata.ch/item/affairs/{id}")
+    return dict(bodies=out, trust={k: dict(tier=v["tier"], modal_weekday=v["modal_weekday"], modal_share=v["modal_share"])
+                                   for k, v in trust["bodies"].items()}, meta=meta)
+
+
+def bern_numbers(rows: list[dict]) -> list[dict]:
+    """Every Bern number on the site and in the report with its denominator, in one place (U2/U3/J4: 'they don't match')."""
+    rc = _j("repair/be_reconcile.json")
+    be = next(r for r in rows if r["key"] == "BE")
+    pl, pb, rl = rc["placement"], rc["parentless_breakdown"], rc["relink_list"]
+    n = rc["source_answered"]
+    out = [
+        dict(v=n, what="answers the canton lists in its own open data (dokument.csv)", base="the canton's list"),
+        dict(v=pl["attached"], what="of them attached to their intervention in OPD",
+             base=f"of {n:,} ({100 * pl['attached'] / n:.1f}%)"),
+        dict(v=n - pl["attached"], what="not attached to their intervention (the confirmed OPD bug)", base=f"of {n:,}"),
+        dict(v=pl["via_agenda"], what="filed in OPD under an agenda item", base=f"of {n:,}"),
+        dict(v=pl["parentless"], what="in OPD as documents without any parent", base=f"of {n:,}"),
+        dict(v=pl["absent"], what="not in OPD at all (fetch from the canton)", base=f"of {n:,}"),
+        dict(v=rc["linkable_within_opd"], what="linkable within OPD (attached + agenda + parentless)",
+             base=f"of {n:,} ({100 * rc['linkable_within_opd'] / n:.1f}%)"),
+        dict(v=rl["relink"], what="parentless answers in the relink list: interventions in the census gap",
+             base=f"of {pl['parentless']:,} parentless"),
+        dict(v=rl["fetch"], what="answers to fetch from the canton for interventions in the gap",
+             base=f"of {pl['absent']:,} absent"),
+    ]
+    for k, v in pb.items():
+        if not k.startswith("in the relink list") and isinstance(v, int):
+            out.append(dict(v=v, what=f"parentless answers not in the list: {k}", base=f"of {pl['parentless']:,} parentless"))
+    for per in ("all", "since2015", "y2425"):
+        c = be["periods"][per]
+        lab = PERIOD_LABEL[per]
+        out.append(dict(v=c["written"], what=f"Bern interventions with a written-answer event ({lab}): the table's denominator",
+                        base="OPD events, not the canton's list"))
+        out.append(dict(v=c["missing"], what=f"of them without attached answer text ({lab})", base=f"of {c['written']:,}"))
+    return out
 
 
 def write_csv(par: dict, path) -> None:
@@ -590,7 +677,26 @@ def p2() -> dict | None:
         b = bodies.setdefault(d["body"], dict(key=d["body"], name=label, n=0, lang=d.get("cell", "")[:2]))
         b["n"] += 1
     t = hyp["subsets"]["all"]["theta_10_40"]
+    # error profile in words, and why 'rules + Apertus' can trail 'Apertus alone' (data-driven from the per-document rows)
+    profile = {}
+    for a, v in board["arms"].items():
+        x = v["strict"]["ALL"]
+        profile[a] = dict(right=x["correct"], right_null=x["correct_null"], missed=x["false_null"],
+                          date_no_answer=x["invented_on_null"],
+                          wrong_date=x["misattributed"] + x["fabricated"] - x["invented_on_null"], invented=x["fabricated"])
+
+    def _ok(r, arm):
+        v = r[arm].get("value")
+        return v == r["gold"] or (v is not None and v in (r.get("lenient") or []))
+    po = [r for r in board["per_doc"] if _ok(r, "pointer") and not _ok(r, "cascade")]
+    co = [r for r in board["per_doc"] if _ok(r, "cascade") and not _ok(r, "pointer")]
+    why = collections.Counter(("a rule fired with a wrong date, so Apertus was not asked" if r["rules"]["status"] == "value" else
+                               "the rules said null, so Apertus was not asked" if r["rules"]["status"] == "null" else "other")
+                              for r in po)
+    cvp = dict(pointer_only=len(po), cascade_only=len(co), reasons=dict(why))
     return dict(
+        profile=profile,
+        cascade_vs_pointer=cvp,
         n=board["n_docs"],
         arms={a: v["strict"]["ALL"] for a, v in board["arms"].items()},
         recall={a: dict(correct=v["value_recall"][0], of=v["value_recall"][1]) for a, v in t["arms"].items()},
@@ -702,6 +808,7 @@ def headline(par: dict, ev: dict) -> dict:
         naive_fab=ev["arms"]["naive_plain"]["fabricated"],
         p2=(dict(pointer=ev["p2"]["recall"]["pointer"], rules=ev["p2"]["recall"]["rules"], bodies=len(ev["p2"]["bodies"]),
                  p=ev["p2"]["h2"]["p"]) if ev.get("p2") else None),
+        periods={k: dict(written=v["written"], missing=v["written"] - v["attached"]) for k, v in par["national_periods"].items()},
     )
 
 
