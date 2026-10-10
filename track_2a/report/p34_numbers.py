@@ -76,9 +76,37 @@ def main() -> dict:
         kappa_type=round(a4["agreement"]["type"]["kappa"], 2), kappa_decision=round(a4["agreement"]["decision"]["kappa"], 2),
         tie_broken=a4["decided_by_A3"],
     )
+    out["p3b"] = p3b()
     p = RESULTS / "report" / "p34_numbers.json"
     p.write_text(json.dumps(out, indent=1, ensure_ascii=False))
     return out
+
+
+def p3b() -> dict | None:
+    """P3b, the pre-registered held-out replication of P3 (eval/prereg5): verdict, S1/S2 and the fields the docs print."""
+    hp = RESULTS / "eval5" / f"hypotheses_p3b__{BUILD}.json"
+    if not hp.exists():
+        return None
+    h = json.loads(hp.read_text())
+    ag = json.loads((RESULTS / "eval5" / "gold5_agreement.json").read_text())
+    aff = [json.loads(x) for x in open(DATA / "gold5" / "p3b_affairs.jsonl")]
+    rep, s2 = h["replication"], h["replication"]["S2"]
+    h3 = h["H3_primary"]
+    pct = lambda ci: [round(100 * ci[0], 1), round(100 * ci[1], 1)]  # noqa: E731
+    return dict(
+        verdict=rep["verdict"], n_affairs=h["n"], n_bodies=len({a["body"] for a in aff}),
+        s1=rep["S1"]["status"], recall=frac(*h3["recall"]), recall_ci_pct=pct(h3["recall_ci"]),
+        precision=frac(*h3["precision"]), precision_holds=h3["precision_holds"], decision=h3["decision"],
+        answer_suggestions=frac(*h3["per_field"]["answer_date"]["precision"]),
+        answer_suggestions_n=h3["per_field"]["answer_date"]["precision"][1],
+        s2=s2["status"], s2_eligible=s2["eligible"], s2_below=s2["below"],
+        s2_within_or_above=s2["eligible"] - s2["below"],
+        fields={f: dict(C=frac(*v["p3b"]), vs_p3=v["vs_p3_ci"]) for f, v in s2["fields"].items()},
+        answer_date_CA=frac(*h["constant_baseline"]["fields"]["answer_date"]["CA"]),
+        unattended=[f for f, v in h["H1"].items() if v["tier"] == "extractable unattended"],
+        kappa_min=round(min(v["kappa"] for v in ag["agreement"].values()), 2),
+        tie_broken_fields=ag["tie_broken_fields"],
+    )
 
 
 if __name__ == "__main__":

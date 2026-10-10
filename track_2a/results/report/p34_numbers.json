@@ -171,5 +171,65 @@
   "kappa_type": 0.99,
   "kappa_decision": 0.96,
   "tie_broken": 3
+ },
+ "p3b": {
+  "verdict": "replicated",
+  "n_affairs": 36,
+  "n_bodies": 9,
+  "s1": "holds",
+  "recall": "14/16",
+  "recall_ci_pct": [
+   64.0,
+   96.5
+  ],
+  "precision": "14/20",
+  "precision_holds": false,
+  "decision": "recommended with a reviewer gate",
+  "answer_suggestions": "11/11",
+  "answer_suggestions_n": 11,
+  "s2": "holds",
+  "s2_eligible": 5,
+  "s2_below": 1,
+  "s2_within_or_above": 4,
+  "fields": {
+   "number": {
+    "C": "18/29",
+    "vs_p3": "within"
+   },
+   "affair_type": {
+    "C": "35/36",
+    "vs_p3": "within"
+   },
+   "submitter": {
+    "C": "30/36",
+    "vs_p3": "within"
+   },
+   "submitted": {
+    "C": "30/34",
+    "vs_p3": "above"
+   },
+   "answer_date": {
+    "C": "20/35",
+    "vs_p3": "below"
+   },
+   "decision_number": {
+    "C": "0/8",
+    "vs_p3": "not eligible"
+   },
+   "recommendation": {
+    "C": "1/6",
+    "vs_p3": "not eligible"
+   },
+   "addressed_body": {
+    "C": "2/33",
+    "vs_p3": "not eligible"
+   }
+  },
+  "answer_date_CA": "31/35",
+  "unattended": [
+   "affair_type"
+  ],
+  "kappa_min": 0.97,
+  "tie_broken_fields": 1
  }
 }

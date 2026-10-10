@@ -19,7 +19,7 @@ in `claims.tsv` with the results file it comes from, and `make run` re-checks th
   propose repairs for 3,107 of the 16,749; 10,800 need a reader for each parliament's own website, the next step.
 - **The tool says when it does not know.** For a parliament it has no rules for, it warns and marks the row for review.
   "Partially accept" stays partial. You can add your own patterns for your parliament, and ask it to explain each try.
-- **Four tests, frozen before any label was committed, show where Apertus earns its place.** (1) On 154 documents from
+- **Five tests, frozen before any label was committed, show where Apertus earns its place.** (1) On 154 documents from
   parliaments our rules were written for, rules alone are right on 135/154 and Apertus adds nothing significant, so
   by default no AI model runs. (2) On 62 documents from 15 parliaments the rules never saw (answer dates in 7 of them),
   the rules find 2/29 answer dates and Apertus 24/29; it also beats the best simple shortcut, 10 documents to 1. Asked
@@ -31,14 +31,15 @@ in `claims.tsv` with the results file it comes from, and `make run` re-checks th
   37/44 checkable test dates, most others within a few days; Ticino's titles 20/20. The unseen-parliament set is thin
   here: 6 of 29 dates can be checked (6/6 agree).
 - **Whole affairs.** (3) On 29 affairs from 10 parliaments, OPD's metadata plus rules get type 27/29, submitter 23/29
-  and answer date 22/27; Apertus suggestions complete the answer dates (27/27). An early study: no field runs
-  unattended yet.
+  and answer date 22/27; Apertus suggestions complete the answer dates (27/27). A fresh pre-registered replication on
+  36 affairs held: answer date 20/35, with Apertus 31/35.
 - **Affairs rebuilt from minutes.** (4) For Bulle, whose council business exists in OPD only as meeting documents,
   rules turn 6 held-out sittings into 99 affairs (every one real, every title right, no decision invented), though
   only 99/120 items were found; in La Chaux-de-Fonds items carry over (9/9) but decisions do not (0/9).
-- **Which model, what it costs.** All Apertus results are the large 70B model, which the host serves under the small
-  model's name; the small 8B model on an ordinary processor is being measured. Our advice: run without a model, and
-  use Apertus for suggestions where no rules exist. Suggestions cost USD 0.59 per 1,000 documents the rules leave open; at ten times OPD's
+- **Which model, what it costs.** The results above are the large 70B model, which the host serves under the small
+  model's name. The small 8B, measured on one ordinary 4-core machine, invents no date either but is less accurate
+  (119/154 vs 139/154) and takes 180 s per document. Our advice: run without a model; for suggestions use the 70B on
+  Swiss-hosted servers (USD 0.59 per 1,000 documents the rules leave open), or the 8B fully local. At ten times OPD's
   volume the rules need about 5 processor-hours.
 - **Sovereign by default.** One command (`make run`) re-checks the results on an ordinary computer, no graphics card.
   Inside OPD it would read the exports in place: a night with no changed files took 96.8 s, one with three days of

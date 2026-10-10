@@ -692,7 +692,7 @@ def evaluation() -> dict:
     deviations = re.findall(r"^## (D\d+) \(([^)]*)\):? ?(.*)$", dev, re.M)
     lab_commit = _git("log", "-1", "--format=%h %cI", "--", "data/gold/heldout_labels.jsonl")
     lock_commit = _git("log", "--diff-filter=A", "-1", "--format=%h %cI", "--", "eval/prereg/LOCK")
-    eight = RESULTS / "eval" / "heldout__gguf_apertus-v1.5-8b-text-q4_k_m.json"
+    eight = RESULTS / "eval" / "gguf_8b_analysis.json"
     rows = res["per_doc"]
     n_null = sum(r["gold"] is None for r in rows)
     sugg = [r for r in rows if r["cascade"].get("route") == "apertus" and r["cascade"].get("value")]
@@ -719,7 +719,23 @@ def evaluation() -> dict:
         deviations=[dict(id=a, when=b, title=c) for a, b, c in deviations],
         served=res.get("served_fingerprints")
         or json.loads((DATA / "convert" / "theta" / "publicai_swiss-ai_apertus-v1.5-8b.json").read_text())["served_fingerprints"],
-        eight=(json.loads(eight.read_text())["arms"] if eight.exists() else None),
+        eight=(_eight(json.loads(eight.read_text())) if eight.exists() else None),
+    )
+
+
+def _eight(g: dict) -> dict:
+    """The real 8B (GGUF Q4_K_M, CPU) on the same 154 documents: eval/gguf_8b_analysis.py."""
+    c = g.get("cost") or {}
+    return dict(
+        theta=g["theta"],
+        arms={a: dict(g["arms"][a]["strict"]["ALL"], n_gold_null=g["arms"][a]["n_answerless"],
+                      invented_on_null=g["arms"][a]["dates_on_answerless"]) for a in ("pointer", "cascade")},
+        auroc=g["abstention_auroc"]["auroc"],
+        mcnemar_cascade=g["mcnemar"]["cascade_8b_vs_70b"],
+        wall_s_per_doc=c.get("heldout_wall_s_per_doc"),
+        cpu_s_per_doc=c.get("heldout_cpu_s_per_doc"),
+        vcpus=c.get("runner_vcpus"),
+        max_rss_gb=c.get("max_rss_gb"),
     )
 
 

@@ -1,0 +1,102 @@
+{
+ "build": "gguf_apertus-v1.5-8b-text-q4_k_m",
+ "theta": 16.726888806932546,
+ "n": 154,
+ "H1": {
+  "per_cell": {
+   "de_canton": [
+    5,
+    13
+   ],
+   "de_commune": [
+    10,
+    14
+   ],
+   "fr_canton": [
+    1,
+    13
+   ],
+   "fr_commune": [
+    1,
+    14
+   ],
+   "it_canton": [
+    1,
+    13
+   ],
+   "it_commune": [
+    0,
+    13
+   ],
+   "ocr_ti": [
+    7,
+    10
+   ]
+  },
+  "max_per_cell": 10,
+  "pooled": [
+   25,
+   90
+  ],
+  "pooled_ci": [
+   0.1957955914762625,
+   0.37795421671115115
+  ],
+  "pass_per_cell": false,
+  "pass_pooled": false,
+  "naive_plain_values_on_null": "not run on the 8B (DEVIATIONS.md D3)",
+  "pass": false
+ },
+ "H2": {
+  "primary_fr_it_ocr": {
+   "n": 110,
+   "cascade_correct": 90,
+   "rules_correct": 98,
+   "cascade_only": 2,
+   "rules_only": 10,
+   "p": 0.03857421875
+  },
+  "branch": "B",
+  "secondary_pooled_all": {
+   "n": 154,
+   "cascade_correct": 119,
+   "rules_correct": 135,
+   "cascade_only": 7,
+   "rules_only": 23,
+   "p": 0.005222879350185394
+  },
+  "secondary_pointer_vs_rules_all": {
+   "pointer_only": 8,
+   "rules_only": 31,
+   "p": 0.0002940768754342571
+  }
+ },
+ "H3": {
+  "auroc": 0.8542877906976745,
+  "n_null": 86,
+  "n_value": 64,
+  "no_candidates": 4,
+  "pass_": true
+ },
+ "H4": {
+  "apertus_decided_fr_it_values": 9,
+  "wrong": 7,
+  "wrong_ids": [
+   18431,
+   78962,
+   161897,
+   190367,
+   273540,
+   325101,
+   671937
+  ],
+  "triggers_posthoc_curve": true
+ },
+ "model_share": {
+  "apertus": 34,
+  "values": 85,
+  "apertus_decisions_incl_nulls": 93,
+  "n": 154
+ },
+ "note": "eval/hypotheses.py unchanged; naive arm not run on the 8B (D3)"
+}

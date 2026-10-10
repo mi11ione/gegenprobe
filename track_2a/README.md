@@ -25,7 +25,9 @@ answerable: **how many government answers are missing from the open record, and 
   come from 7 of them), Apertus finds 24/29 answer dates where the rules find 2/29. Over all 62 documents it is right on
   22 the rules get wrong and the rules on 4 (McNemar p = 5.3 × 10⁻⁴); against the strongest one-line baseline (latest
   printed date, type-gated) it wins 10 documents to 1 (p = 0.012) and 6 parliaments to 0 (p = 0.031). On whole affairs
-  it completes the answer date (22/27 → 27/27).
+  it completes the answer date (22/27 → 27/27), and a pre-registered held-out replication confirms it (20/35 → 31/35).
+- **Sovereign path, measured.** The real Apertus v1.5 8B runs on one CPU machine (4-bit, llama.cpp): it invents no date,
+  but is less accurate than the 70B (rules + suggestions 119/154 vs 139/154), at 180 s per document on 4 vCPUs.
 - **Virtual affairs for communes that publish only minutes** (a point OPD named in the challenge). From 6 held-out
   sittings of Bulle's council, rules derive 99 affairs with item precision 99/99, every title right, the decision found
   for 49/63 items and invented for none of 36. Two registered hypotheses failed: recall 99/120 stayed below the bar (H1),
@@ -54,7 +56,7 @@ census and asserts it equal to `results/census/`; replays the Bern join and its 
 through the converter with the validator's checks; re-scores P1–P4 from the committed predictions and labels, re-runs
 the four registered hypothesis scripts and verifies the four LOCK files; re-derives the P1 rules arm from the source
 PDFs (fetched by sha256) and recomputes P1 and P2 Apertus decisions from the committed model cache (cache only, no
-model call) within a time budget; and runs the claims check: each of the 653 numbers listed in `claims.tsv` is
+model call) within a time budget; and runs the claims check: each of the 721 numbers listed in `claims.tsv` is
 recomputed from its results file, and the step fails if a document prints anything else. Locally the rules arm
 re-derives 154/154 and the Apertus decisions 154/154 (P1) and 62/62 (P2) identically. In the latest Docker run on GitHub's CI
 (run 38049690293, `results/ci/docker_make_run_38049690293.json`) the budget allowed 140 of 154 rules
@@ -62,9 +64,10 @@ re-derivations, all identical; 129/129 recomputed P1 Apertus decisions matched, 
 image's poppler 22.12 extracts slightly different text; P2 recomputed 7 of 62 documents, 7/7 matching (8 hosts
 unreachable from CI, 46 over budget; reported as WARN, never as PASS); 641 claims were checked with 0 failing. Optional: `LLM_NAME` /
 `LLM_BASE_URL` / `LLM_API_KEY` for a live Apertus slice. `make run GGUF=1` runs Apertus v1.5 8B (GGUF Q4_K_M,
-sha256-pinned) in-process on CPU. Its accuracy on our gold sets is not yet measured. Our CPU scorer matches a bf16
-stand-in reference on 58/60 decisions, but a stricter self-check fixed in advance failed (10/12 decisions, 3.16 nats
-vs ≤ 1.0; `results/eval/gguf_impl60.json`).
+sha256-pinned) in-process on CPU; on P1 it scores pointer 112/154 and rules + suggestions 119/154 (70B: 130 and 139;
+`results/eval/gguf_8b_analysis.json`). Its scorer self-check fixed in advance failed (10/12 decisions, 3.16 nats vs
+≤ 1.0), an implementation difference: it agrees with a bf16 stand-in on 58/60 decisions, like other llama.cpp builds
+(parity table in `results/eval/gguf_impl60.json`).
 
 ## Convert your own PDFs
 
@@ -96,7 +99,7 @@ unreadable one blocks the host for the run. Fetch failures are typed rows.
 | Whole affairs (multi-field) | `src/gegenprobe/affair/` (metadata → rules → closed-set pointer per field), `docs/affair.md` |
 | Virtual affairs from agendas and minutes | `src/gegenprobe/virtual/` (`python -m gegenprobe.virtual derive …`), `docs/virtual-affairs.md` |
 | Validator | `src/gegenprobe/validate/` (schema, span re-check, typed-null consistency, self-deletion and distractor harnesses) |
-| Evidence: four pre-registered evaluations | `eval/prereg/` (held-out, seen parliaments), `eval/prereg2/` (unseen parliaments), `eval/prereg3/` (whole affairs), `eval/prereg4/` (virtual affairs), each with its `DEVIATIONS*.md`; gold sets `data/gold*/` with raw annotations, `docs/gold_protocol.md` |
+| Evidence: five pre-registered evaluations | `eval/prereg/` (held-out, seen parliaments), `eval/prereg2/` (unseen parliaments), `eval/prereg3/` (whole affairs), `eval/prereg4/` (virtual affairs), `eval/prereg5/` (held-out replication of whole affairs), each with its `DEVIATIONS*.md`; gold sets `data/gold*/` with raw annotations, `docs/gold_protocol.md` |
 | Cross-parliament question | answer rates and answer times per parliament: `results/census/question.json`, site → Parliaments (per intervention type, CSV) |
 | Research dataset | `results/census/interventions.tsv.gz`: 91,268 interventions × 23 columns with date-trust tiers and source links (CDLA-Permissive-2.0) |
 | Census, feasibility matrix, comparability, data-quality findings with OPD's response | `src/gegenprobe/census/`, `results/census/`, `docs/census.md` |
@@ -158,11 +161,11 @@ SZ, UR, GL, AI, NW and GE) as a coverage-gap status rather than as unanswered qu
 
 ![Bern before and after](docs/figures/fig3_be_before_after.png)
 
-## Evaluation: four pre-registrations
+## Evaluation: five pre-registrations
 
 **Locks.** Every test froze code, prompts and θ by sha256 before any label was committed: the LOCK commit precedes the
 commit adding its labels by 6 min 0 s (P1), 2 min 28 s (P2), 3 min 37 s (P3) and 4 min 3 s (P4) by commit date
-(`results/eval/posthoc_r3_gold_oracle.json`), an order GitHub's clock confirms (`results/eval/lock_server_times_all.json`;
+(`results/eval/posthoc_r3_gold_oracle.json`; P3b's LOCK5, commit 43a9012, precedes its draw and labels), an order GitHub's clock confirms (`results/eval/lock_server_times_all.json`;
 rewritten SHAs in `docs/commit-map.md`). The clock proves that order; the annotation files carry no timestamps
 (DEVIATIONS D7). Post-hoc findings are logged per test (`eval/prereg*/DEVIATIONS*.md`).
 
@@ -174,11 +177,13 @@ OPD's event matches 37/44, and 5 of the 7 others are 1–5 days apart (decision 
 that name the decision date match 20/20. P3 answer dates match OPD 18/21. The limit is P2: only 6 of its 29 dates have
 an external source, and 6/6 agree (`results/eval/posthoc_r3_gold_oracle.json`, D8).
 
-**Which Apertus.** All Apertus numbers are the 70B weights, which Public AI serves under the name
+**Which Apertus.** Apertus numbers not marked 8B are the 70B weights, which Public AI serves under the name
 `swiss-ai/apertus-v1.5-8b` (measured, report §3; the response's `model` field is checked on every call). We use that
-name because the `-70b` name answers prefilled requests with a different model. The real 8B (GGUF Q4_K_M, CPU) arms are running
-on CI; no 8B accuracy result is committed yet. **Which size to deploy:** `rules_only` (no model) unattended; review
-suggestions with Apertus, the 70B on a Swiss host the operator controls today, the 8B on CPU once its arms confirm.
+name because the `-70b` name answers prefilled requests with a different model. The real 8B (GGUF Q4_K_M, llama.cpp on
+a 4-vCPU CI runner, own θ = 16.73 from 97 dev documents; pre-registered exploratory arms, DEVIATIONS D2/D3) ran the P1
+arms below. **Which size to deploy:** `rules_only` (no model) unattended, the default; review suggestions with the 70B
+on Swiss-hosted infrastructure (rules + suggestions 139/154); the 8B on a single CPU machine as the fully local option,
+with lower accuracy (119/154; it dates 25 of 90 answerless documents where the 70B dates 7).
 
 **P1 — 154 held-out documents from parliaments the rules were written for** (DE/FR/IT × canton/commune + Ticino scans;
 64 with an answer date, 90 without; always-null scores 90/154). Unit: one document's answer date, strict.
@@ -188,12 +193,22 @@ suggestions with Apertus, the 70B on a Swiss host the operator controls today, t
 | **rules only (default mode)** | **135/154 [81.5, 92]** | 47/64 | 4 | 0 | 2 |
 | Apertus pointer on every document | 130/154 [77.9, 89.3] | 46/64 | 16 | 0 | 6 |
 | rules + Apertus suggestions, all accepted | 139/154 [84.6, 94] | 56/64 | 11 | 0 | 7 |
+| 8B pointer on every document (CPU, exploratory) | 112/154 [65.2, 79.1] | 50/64 | 37 | 0 | 28 |
+| 8B rules + suggestions, all accepted (CPU, exploratory) | 119/154 [70, 83.2] | 54/64 | 31 | 0 | 25 |
 | naive free generation, null-allowed | 134/154 [80.8, 91.4] | 47/64 | 11 | 0 | 3 |
 | ↳ null-allowed, re-parsed (post hoc, D5) | 133/154 [80.1, 90.9] | 47/64 | 13 | 0 | 4 |
 | naive free generation, plain prompt | 98/154 [55.8, 70.8] | 47/64 | 23 | 24 | 39 |
 | ↳ plain, re-parsed (post hoc, D5) | 103/154 [59.1, 73.8] | 54/64 | 26 | 24 | 41 |
 
-8B rows: pending the CI run (workflow `arms-8b`, GGUF Q4_K_M on CPU, own θ). The frozen naive scorer could not read
+**The 8B rows** (`python -m eval.gguf_8b_analysis` → `results/eval/gguf_8b_analysis.json`): its rules arm is the same
+(154/154 identical decisions), and every value it returns is a printed date (0 fabricated of 85 cascade values). Against
+the 70B, document by document: pointer 10 right only on the 8B vs 28 only on the 70B (McNemar p = 0.0051), rules +
+suggestions 2 vs 22 (p = 3.6 × 10⁻⁵); against its own rules arm the 8B cascade loses 7 vs 23 (p = 0.0052). Its margin
+still separates answered from answerless documents (AUROC 0.854 vs 0.969), but θ = 16.73 lets through many wrong
+printed dates on answerless documents, mostly German communes and Ticino scans. The registered P1 hypotheses
+(`eval/hypotheses.py`, unchanged) on the 8B: H1 fails (25/90), Branch B (FR+IT+scans: rules alone right on 10, the
+cascade alone on 2, p = 0.039), H3 passes, H4 triggers (7 of 9). The duplicated documents of the sharded run (5) gave
+identical decisions, and an independent CI run fitted the identical θ. The frozen naive scorer could not read
 answers written as DD-MM-YYYY and counted them as "no date" (D5 / D2-4; registered numbers unchanged); the re-parsed rows
 re-score the stored generations with the frozen scorer.
 
@@ -256,6 +271,16 @@ Without it the evidence is thin, 6/8 found and 6/9 right; the case rests on the 
 co-signatories (OPD metadata) precision 13/16, recall 13/29; related affairs (rules) precision 6/9, recall 6/14.
 Details: `docs/affair.md`.
 
+**P3b — pre-registered held-out replication of P3** (`eval/prereg5/`, LOCK5 at commit 43a9012 before the draw; 36 fresh
+affairs from 9 parliaments, 36 of 40 because Locarno and its registered reserve Bellinzona yielded no usable affair,
+DEVIATIONS5 D5-1; blind annotators agreed with κ ≥ 0.97 on every field, 1 field went to the tie-breaker; blindness
+audit `results/eval5/annotation_audit.json`). Registered verdict: **replicated**. S1: Apertus on the fields C leaves
+open finds 14/16 [64, 96.5]; S2: 4 of 5 eligible fields are within or above P3's CIs (number 18/29, type 35/36,
+submitter 30/36, submission date 30/34 above), the answer date is below (C 20/35), and with Apertus it reaches 31/35,
+its 11 suggestions all right (11/11). Precision on the open fields is 14/20, below the bar, so the reviewer gate stays
+as in P3; the type now reaches the "extractable unattended" tier (35/36). `python -m eval.gold5.hypotheses5
+publicai_swiss-ai_apertus-v1.5-8b` → `results/eval5/hypotheses_p3b__publicai_swiss-ai_apertus-v1.5-8b.json`.
+
 **P4 — virtual affairs from minutes: 6 held-out sittings of Bulle's council, 120 agenda items.** Deterministic parsing
 derives 99 items as virtual affairs: item precision 99/99, titles 99/99, type 91/99 (H2 holds), meeting date 6/6 (H4
 holds), decision found for 49/63 items (46/63 correct), invented for 0/36. **H1 failed**: recall 99/120 (82.5%, sub-items
@@ -264,9 +289,10 @@ cell (exploratory, DEVIATIONS4 D4-4): 2 sittings of La Chaux-de-Fonds; items 9/9
 decisions, and with Apertus 2/9 are found, 1 correct (the annotators agreed on 7/9 of these decisions, κ 0.4, so read
 the decision cell as indicative). Details: `docs/virtual-affairs.md`.
 
-**What the four tests say together.** Apertus earns its place where the layout varies and no rule exists: on
+**What the tests say together.** Apertus earns its place where the layout varies and no rule exists: on
 parliaments nobody wrote rules for (P2: 24/29 answer dates where the rules find 2/29; 10 documents to 1 and 6 parliaments
-to 0 against the strongest trivial baseline) and for the answer date of whole affairs (P3: 22/27 → 27/27). Where
+to 0 against the strongest trivial baseline) and for the answer date of whole affairs (P3: 22/27 → 27/27; P3b on fresh
+affairs: 20/35 → 31/35). Where
 structure is regular (P1, Bulle's minutes in P4) rules suffice. **Why a pointer and not free generation:** the same
 Apertus asked freely with a null-allowed prompt is as accurate (P2: 54/62 re-parsed vs 53/62; discordant 1 vs 0, p = 1;
 both right on the same 24 of 29 answer dates). But every pointer value is a printed date with page and span (32/32 on
@@ -288,7 +314,7 @@ the plain prompt 24 on P1).
   as a suggestion with page, span, margin and `needs_review: true` for OPD's existing manual-review step. Recommended
   for the 74 of 89 parliaments without rules (P2) and for the answer date of whole affairs (P3), with a reviewer gate.
 - **Builds:** θ does not transfer between builds, so each gets its own; the 70B results above carry θ = 10.40, the
-  real 8B gets its own θ from the same dev documents.
+  real 8B θ = 16.73 (dev AUROC 0.90; 97 dev documents, D3).
 
 ## Sovereignty, operations, cost
 
@@ -329,7 +355,9 @@ checking takes about 2.1 s (50 federal documents), plus 6.9 s per page where OCR
 process 480 documents per second, about 0.5 CPU-hours for all 902,754 documents in OPD's export. Re-deriving the 154
 held-out documents from their PDFs (22 of them scans) took 727 s. Review mode adds the pointer on the rules' residue
 (97/154 held-out documents): 3.5 calls and 5,905 billed prompt tokens per residue document on the 70B, USD 0.59 per
-1,000 residue documents at Public AI's list price; the 8B cost per residue document is pending the CI run. **At ten
+1,000 residue documents at Public AI's list price. The local 8B takes 180 s per document end to end on a 4-vCPU
+machine (692 CPU-seconds, fetch and extraction included; 9.3 GB memory), about 50 machine-hours per 1,000 residue
+documents; fitting its θ took 5.1 hours for 97 dev documents. **At ten
 times OPD's volume** the rules need about 5 CPU-hours and review mode about USD 3,357 at that list price.
 
 ## Maturity, limitations, coding assistants
@@ -338,8 +366,8 @@ times OPD's volume** the rules need about 5 CPU-hours and review mode about USD 
   `make run`). Nightly job: ready to deploy (container, systemd units, alerts, runbook, local-exports mode; CI runs
   `systemd-analyze verify` on the units and three offline nights in the read-only container on fixture exports); not
   yet running at OPD. Converter, rules-only mode: tested prototype (154 held-out + 62 unseen documents). Review mode
-  with Apertus: feasibility study with a reviewer gate. Whole affairs and virtual affairs: feasibility studies (no field
-  unattended yet; one commune for minutes). Schema v0.1: draft for the eCH group.
+  with Apertus: feasibility study with a reviewer gate. Whole affairs: feasibility study, replicated on held-out affairs
+  (P3b; only the type reaches the unattended bar). Virtual affairs: feasibility study (one commune). Schema v0.1: draft for the eCH group.
 - **Limitations:** answer dates are the field evaluated in depth; 10,800 missing written answers need per-parliament
   adapters that are not built; no federal documents in any gold set; spans index our own pdftotext/tesseract text,
   though `--opd-text` maps values onto OPD's stored text.

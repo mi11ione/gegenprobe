@@ -83,6 +83,22 @@ def main() -> dict:
     return out
 
 
+def _review_8b() -> dict:
+    """The real 8B (GGUF Q4_K_M, llama.cpp, CPU): GNU time of the CI held-out jobs (eval/gguf_8b_analysis.py). The pointer
+    ran on every held-out document there, so seconds per document stand for seconds per residue document. No public
+    vCPU-hour price is sourced here, so the 8B cost stays in CPU-seconds."""
+    g = json.loads((RESULTS / "eval" / "gguf_8b_analysis.json").read_text())["cost"]
+    return dict(
+        review_8b_wall_s_per_doc=g["heldout_wall_s_per_doc"],
+        review_8b_cpu_s_per_doc=g["heldout_cpu_s_per_doc"],
+        review_8b_vcpus=g["runner_vcpus"],
+        review_8b_wall_h_per_1000_docs=1000 * g["heldout_wall_s_per_doc"] / 3600,
+        review_8b_max_rss_gb=g["max_rss_gb"],
+        review_8b_source="results/eval/gguf_8b_analysis.json cost (CI runs 38032826730 + 38057496203, 4-vCPU ubuntu-24.04 "
+                         "runner, one document at a time; includes PDF fetch, text extraction and model load)",
+    )
+
+
 def end_to_end() -> dict:
     """End-to-end cost per document, assembled from committed measurements only (no model, no network, no re-timing):
     fetch + text extraction (+ OCR where the PDF has no text layer) + rules, and the review step on the residue.
@@ -113,8 +129,7 @@ def end_to_end() -> dict:
         review_70b_calls_per_residue_doc=cost["calls_per_residue_doc_mean"],
         review_70b_billed_prompt_tokens_per_residue_doc=cost["billed_prompt_tokens_per_residue_doc_mean"],
         review_70b_usd_per_1000_residue_docs=1000 * cost["billed_prompt_tokens_per_residue_doc_mean"] * PRICE_IN / 1e6,
-        review_8b_s_per_residue_doc=None,
-        review_8b_status="pending: the real 8B (GGUF Q4_K_M, CPU) arms run on CI (workflow arms-8b); no timing committed yet",
+        **_review_8b(),
         corpus_documents=cost["corpus_documents"],
         x10_documents=10 * cost["corpus_documents"],
         x10_rules_cpu_hours=10 * cost["rules_cpu_hours_corpus"],

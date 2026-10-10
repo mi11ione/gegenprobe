@@ -9,7 +9,7 @@ report.cited_qwen	3/3	results/report/cited_spikes.json	qwen_fallback.value/qwen_
 report.cited_role_auroc	0.57	results/report/cited_spikes.json	role_scoring_auroc.value	f2	python -m report.stats / CI run (see file)	-
 report.gguf_lcp_agree	58/60	results/eval/gguf_impl60.json	table.llama_cpp_python.decisions_agree_bf16/table.llama_cpp_python.n	frac	python -m report.stats / CI run (see file)	technical_report.md,README.md
 report.gguf_lcp_mad	2.66	results/eval/gguf_impl60.json	table.llama_cpp_python.mean_abs_delta_bf16	f2	python -m report.stats / CI run (see file)	-
-report.gguf_metal_agree	57/60	results/eval/gguf_impl60.json	table.metal_q4_spike.decisions_agree_bf16/table.metal_q4_spike.n	frac	python -m report.stats / CI run (see file)	technical_report.md
+report.gguf_metal_agree	57/60	results/eval/gguf_impl60.json	table.metal_q4_spike.decisions_agree_bf16/table.metal_q4_spike.n	frac	python -m report.stats / CI run (see file)	-
 report.gguf_metal_mad	2.87	results/eval/gguf_impl60.json	table.metal_q4_spike.mean_abs_delta_bf16	f2	python -m report.stats / CI run (see file)	-
 report.gguf_master_agree	57/60	results/eval/gguf_impl60.json	table.llscore_master.decisions_agree_bf16/table.llscore_master.n	frac	python -m report.stats / CI run (see file)	-
 report.gguf_master_mad	3.25	results/eval/gguf_impl60.json	table.llscore_master.mean_abs_delta_bf16	f2	python -m report.stats / CI run (see file)	-

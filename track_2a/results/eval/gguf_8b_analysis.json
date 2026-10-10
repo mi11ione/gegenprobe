@@ -1,0 +1,805 @@
+{
+ "build": "gguf_apertus-v1.5-8b-text-q4_k_m",
+ "model_file": "Colby/apertus-v1.5-8b-text-Q4_K_M-GGUF (sha256 in results/eval/gguf_impl60.json)",
+ "compare_build": "publicai_swiss-ai_apertus-v1.5-8b",
+ "n": 154,
+ "theta": 16.726888806932546,
+ "theta_dev_auroc": 0.9013157894736842,
+ "theta_dev_n": 97,
+ "theta_70b": 10.395354058425431,
+ "theta_parallel_run": {
+  "run": 38048369442,
+  "theta": 16.726888806932546,
+  "identical": true
+ },
+ "scored_twice": {
+  "n": 5,
+  "identical": 5,
+  "doc_ids": [
+   774557,
+   868901,
+   884657,
+   886123,
+   908233
+  ]
+ },
+ "arms": {
+  "rules": {
+   "strict": {
+    "ALL": {
+     "exact": 135,
+     "n": 154,
+     "ci_pct": [
+      81.5,
+      92.0
+     ],
+     "correct": 47,
+     "correct_null": 88,
+     "false_null": 15,
+     "misattributed": 4,
+     "fabricated": 0
+    },
+    "de_canton": {
+     "exact": 17,
+     "n": 22,
+     "ci_pct": [
+      56.6,
+      89.9
+     ],
+     "correct": 6,
+     "correct_null": 11,
+     "false_null": 3,
+     "misattributed": 2,
+     "fabricated": 0
+    },
+    "de_commune": {
+     "exact": 20,
+     "n": 22,
+     "ci_pct": [
+      72.2,
+      97.5
+     ],
+     "correct": 6,
+     "correct_null": 14,
+     "false_null": 2,
+     "misattributed": 0,
+     "fabricated": 0
+    },
+    "fr_canton": {
+     "exact": 19,
+     "n": 22,
+     "ci_pct": [
+      66.7,
+      95.3
+     ],
+     "correct": 6,
+     "correct_null": 13,
+     "false_null": 3,
+     "misattributed": 0,
+     "fabricated": 0
+    },
+    "fr_commune": {
+     "exact": 19,
+     "n": 22,
+     "ci_pct": [
+      66.7,
+      95.3
+     ],
+     "correct": 5,
+     "correct_null": 14,
+     "false_null": 2,
+     "misattributed": 1,
+     "fabricated": 0
+    },
+    "it_canton": {
+     "exact": 21,
+     "n": 22,
+     "ci_pct": [
+      78.2,
+      99.2
+     ],
+     "correct": 8,
+     "correct_null": 13,
+     "false_null": 1,
+     "misattributed": 0,
+     "fabricated": 0
+    },
+    "it_commune": {
+     "exact": 18,
+     "n": 22,
+     "ci_pct": [
+      61.5,
+      92.7
+     ],
+     "correct": 5,
+     "correct_null": 13,
+     "false_null": 4,
+     "misattributed": 0,
+     "fabricated": 0
+    },
+    "ocr_ti": {
+     "exact": 21,
+     "n": 22,
+     "ci_pct": [
+      78.2,
+      99.2
+     ],
+     "correct": 11,
+     "correct_null": 10,
+     "false_null": 0,
+     "misattributed": 1,
+     "fabricated": 0
+    }
+   },
+   "lenient": {
+    "ALL": {
+     "exact": 136,
+     "n": 154,
+     "ci_pct": [
+      82.3,
+      92.5
+     ]
+    },
+    "de_canton": {
+     "exact": 17,
+     "n": 22,
+     "ci_pct": [
+      56.6,
+      89.9
+     ]
+    },
+    "de_commune": {
+     "exact": 20,
+     "n": 22,
+     "ci_pct": [
+      72.2,
+      97.5
+     ]
+    },
+    "fr_canton": {
+     "exact": 19,
+     "n": 22,
+     "ci_pct": [
+      66.7,
+      95.3
+     ]
+    },
+    "fr_commune": {
+     "exact": 20,
+     "n": 22,
+     "ci_pct": [
+      72.2,
+      97.5
+     ]
+    },
+    "it_canton": {
+     "exact": 21,
+     "n": 22,
+     "ci_pct": [
+      78.2,
+      99.2
+     ]
+    },
+    "it_commune": {
+     "exact": 18,
+     "n": 22,
+     "ci_pct": [
+      61.5,
+      92.7
+     ]
+    },
+    "ocr_ti": {
+     "exact": 21,
+     "n": 22,
+     "ci_pct": [
+      78.2,
+      99.2
+     ]
+    }
+   },
+   "values_returned": 51,
+   "values_printed_in_document": 51,
+   "fabricated": 0,
+   "dates_on_answerless": 2,
+   "n_answerless": 90,
+   "dates_on_answerless_ci_pct": [
+    0.6,
+    7.7
+   ],
+   "model_decided": 0,
+   "exact_70b": [
+    135,
+    154
+   ],
+   "exact_70b_ci_pct": [
+    81.5,
+    92.0
+   ],
+   "dates_on_answerless_70b": 2
+  },
+  "pointer": {
+   "strict": {
+    "ALL": {
+     "exact": 112,
+     "n": 154,
+     "ci_pct": [
+      65.2,
+      79.1
+     ],
+     "correct": 50,
+     "correct_null": 62,
+     "false_null": 5,
+     "misattributed": 37,
+     "fabricated": 0
+    },
+    "de_canton": {
+     "exact": 12,
+     "n": 22,
+     "ci_pct": [
+      34.7,
+      73.1
+     ],
+     "correct": 7,
+     "correct_null": 5,
+     "false_null": 0,
+     "misattributed": 10,
+     "fabricated": 0
+    },
+    "de_commune": {
+     "exact": 12,
+     "n": 22,
+     "ci_pct": [
+      34.7,
+      73.1
+     ],
+     "correct": 8,
+     "correct_null": 4,
+     "false_null": 0,
+     "misattributed": 10,
+     "fabricated": 0
+    },
+    "fr_canton": {
+     "exact": 18,
+     "n": 22,
+     "ci_pct": [
+      61.5,
+      92.7
+     ],
+     "correct": 6,
+     "correct_null": 12,
+     "false_null": 1,
+     "misattributed": 3,
+     "fabricated": 0
+    },
+    "fr_commune": {
+     "exact": 17,
+     "n": 22,
+     "ci_pct": [
+      56.6,
+      89.9
+     ],
+     "correct": 4,
+     "correct_null": 13,
+     "false_null": 3,
+     "misattributed": 2,
+     "fabricated": 0
+    },
+    "it_canton": {
+     "exact": 20,
+     "n": 22,
+     "ci_pct": [
+      72.2,
+      97.5
+     ],
+     "correct": 8,
+     "correct_null": 12,
+     "false_null": 0,
+     "misattributed": 2,
+     "fabricated": 0
+    },
+    "it_commune": {
+     "exact": 18,
+     "n": 22,
+     "ci_pct": [
+      61.5,
+      92.7
+     ],
+     "correct": 5,
+     "correct_null": 13,
+     "false_null": 1,
+     "misattributed": 3,
+     "fabricated": 0
+    },
+    "ocr_ti": {
+     "exact": 15,
+     "n": 22,
+     "ci_pct": [
+      47.3,
+      83.6
+     ],
+     "correct": 12,
+     "correct_null": 3,
+     "false_null": 0,
+     "misattributed": 7,
+     "fabricated": 0
+    }
+   },
+   "lenient": {
+    "ALL": {
+     "exact": 117,
+     "n": 154,
+     "ci_pct": [
+      68.6,
+      82.0
+     ]
+    },
+    "de_canton": {
+     "exact": 13,
+     "n": 22,
+     "ci_pct": [
+      38.7,
+      76.7
+     ]
+    },
+    "de_commune": {
+     "exact": 12,
+     "n": 22,
+     "ci_pct": [
+      34.7,
+      73.1
+     ]
+    },
+    "fr_canton": {
+     "exact": 18,
+     "n": 22,
+     "ci_pct": [
+      61.5,
+      92.7
+     ]
+    },
+    "fr_commune": {
+     "exact": 18,
+     "n": 22,
+     "ci_pct": [
+      61.5,
+      92.7
+     ]
+    },
+    "it_canton": {
+     "exact": 20,
+     "n": 22,
+     "ci_pct": [
+      72.2,
+      97.5
+     ]
+    },
+    "it_commune": {
+     "exact": 21,
+     "n": 22,
+     "ci_pct": [
+      78.2,
+      99.2
+     ]
+    },
+    "ocr_ti": {
+     "exact": 15,
+     "n": 22,
+     "ci_pct": [
+      47.3,
+      83.6
+     ]
+    }
+   },
+   "values_returned": 87,
+   "values_printed_in_document": 87,
+   "fabricated": 0,
+   "dates_on_answerless": 28,
+   "n_answerless": 90,
+   "dates_on_answerless_ci_pct": [
+    22.5,
+    41.3
+   ],
+   "model_decided": 154,
+   "exact_70b": [
+    130,
+    154
+   ],
+   "exact_70b_ci_pct": [
+    77.9,
+    89.3
+   ],
+   "dates_on_answerless_70b": 6
+  },
+  "cascade": {
+   "strict": {
+    "ALL": {
+     "exact": 119,
+     "n": 154,
+     "ci_pct": [
+      70.0,
+      83.2
+     ],
+     "correct": 54,
+     "correct_null": 65,
+     "false_null": 4,
+     "misattributed": 31,
+     "fabricated": 0
+    },
+    "de_canton": {
+     "exact": 17,
+     "n": 22,
+     "ci_pct": [
+      56.6,
+      89.9
+     ],
+     "correct": 9,
+     "correct_null": 8,
+     "false_null": 0,
+     "misattributed": 5,
+     "fabricated": 0
+    },
+    "de_commune": {
+     "exact": 12,
+     "n": 22,
+     "ci_pct": [
+      34.7,
+      73.1
+     ],
+     "correct": 8,
+     "correct_null": 4,
+     "false_null": 0,
+     "misattributed": 10,
+     "fabricated": 0
+    },
+    "fr_canton": {
+     "exact": 20,
+     "n": 22,
+     "ci_pct": [
+      72.2,
+      97.5
+     ],
+     "correct": 8,
+     "correct_null": 12,
+     "false_null": 1,
+     "misattributed": 1,
+     "fabricated": 0
+    },
+    "fr_commune": {
+     "exact": 18,
+     "n": 22,
+     "ci_pct": [
+      61.5,
+      92.7
+     ],
+     "correct": 5,
+     "correct_null": 13,
+     "false_null": 2,
+     "misattributed": 2,
+     "fabricated": 0
+    },
+    "it_canton": {
+     "exact": 20,
+     "n": 22,
+     "ci_pct": [
+      72.2,
+      97.5
+     ],
+     "correct": 8,
+     "correct_null": 12,
+     "false_null": 0,
+     "misattributed": 2,
+     "fabricated": 0
+    },
+    "it_commune": {
+     "exact": 18,
+     "n": 22,
+     "ci_pct": [
+      61.5,
+      92.7
+     ],
+     "correct": 5,
+     "correct_null": 13,
+     "false_null": 1,
+     "misattributed": 3,
+     "fabricated": 0
+    },
+    "ocr_ti": {
+     "exact": 14,
+     "n": 22,
+     "ci_pct": [
+      43.0,
+      80.3
+     ],
+     "correct": 11,
+     "correct_null": 3,
+     "false_null": 0,
+     "misattributed": 8,
+     "fabricated": 0
+    }
+   },
+   "lenient": {
+    "ALL": {
+     "exact": 123,
+     "n": 154,
+     "ci_pct": [
+      72.8,
+      85.4
+     ]
+    },
+    "de_canton": {
+     "exact": 17,
+     "n": 22,
+     "ci_pct": [
+      56.6,
+      89.9
+     ]
+    },
+    "de_commune": {
+     "exact": 12,
+     "n": 22,
+     "ci_pct": [
+      34.7,
+      73.1
+     ]
+    },
+    "fr_canton": {
+     "exact": 20,
+     "n": 22,
+     "ci_pct": [
+      72.2,
+      97.5
+     ]
+    },
+    "fr_commune": {
+     "exact": 19,
+     "n": 22,
+     "ci_pct": [
+      66.7,
+      95.3
+     ]
+    },
+    "it_canton": {
+     "exact": 20,
+     "n": 22,
+     "ci_pct": [
+      72.2,
+      97.5
+     ]
+    },
+    "it_commune": {
+     "exact": 21,
+     "n": 22,
+     "ci_pct": [
+      78.2,
+      99.2
+     ]
+    },
+    "ocr_ti": {
+     "exact": 14,
+     "n": 22,
+     "ci_pct": [
+      43.0,
+      80.3
+     ]
+    }
+   },
+   "values_returned": 85,
+   "values_printed_in_document": 85,
+   "fabricated": 0,
+   "dates_on_answerless": 25,
+   "n_answerless": 90,
+   "dates_on_answerless_ci_pct": [
+    19.6,
+    37.8
+   ],
+   "model_decided": 93,
+   "exact_70b": [
+    139,
+    154
+   ],
+   "exact_70b_ci_pct": [
+    84.6,
+    94.0
+   ],
+   "dates_on_answerless_70b": 7
+  }
+ },
+ "rules_identical_to_70b_run": [
+  154,
+  154
+ ],
+ "outcome_check": {
+  "rules": 0,
+  "pointer": 0,
+  "cascade": 0
+ },
+ "abstention_auroc": {
+  "auroc": 0.8542877906976745,
+  "n_null": 86,
+  "n_value": 64,
+  "auroc_70b": 0.96875
+ },
+ "mcnemar": {
+  "pointer_8b_vs_70b": {
+   "n": 154,
+   "a_correct": 112,
+   "b_correct": 130,
+   "a_only": 10,
+   "b_only": 28,
+   "p": 0.0050976432976312935,
+   "p_str": "0.0051"
+  },
+  "cascade_8b_vs_70b": {
+   "n": 154,
+   "a_correct": 119,
+   "b_correct": 139,
+   "a_only": 2,
+   "b_only": 22,
+   "p": 3.5881996154785156e-05,
+   "p_str": "3.6 \u00d7 10\u207b\u2075"
+  },
+  "cascade_8b_vs_rules": {
+   "n": 154,
+   "a_correct": 119,
+   "b_correct": 135,
+   "a_only": 7,
+   "b_only": 23,
+   "p": 0.005222879350185394,
+   "p_str": "0.0052"
+  },
+  "pointer_8b_vs_rules": {
+   "n": 154,
+   "a_correct": 112,
+   "b_correct": 135,
+   "a_only": 8,
+   "b_only": 31,
+   "p": 0.0002940768754342571,
+   "p_str": "2.9 \u00d7 10\u207b\u2074"
+  }
+ },
+ "dates_found": {
+  "rules": {
+   "b8": 47,
+   "b70": 47,
+   "n_gold_value": 64
+  },
+  "pointer": {
+   "b8": 50,
+   "b70": 46,
+   "n_gold_value": 64
+  },
+  "cascade": {
+   "b8": 54,
+   "b70": 56,
+   "n_gold_value": 64
+  }
+ },
+ "hypotheses_registered": {
+  "build": "gguf_apertus-v1.5-8b-text-q4_k_m",
+  "theta": 16.726888806932546,
+  "n": 154,
+  "H1": {
+   "per_cell": {
+    "de_canton": [
+     5,
+     13
+    ],
+    "de_commune": [
+     10,
+     14
+    ],
+    "fr_canton": [
+     1,
+     13
+    ],
+    "fr_commune": [
+     1,
+     14
+    ],
+    "it_canton": [
+     1,
+     13
+    ],
+    "it_commune": [
+     0,
+     13
+    ],
+    "ocr_ti": [
+     7,
+     10
+    ]
+   },
+   "max_per_cell": 10,
+   "pooled": [
+    25,
+    90
+   ],
+   "pooled_ci": [
+    0.1957955914762625,
+    0.37795421671115115
+   ],
+   "pass_per_cell": false,
+   "pass_pooled": false,
+   "naive_plain_values_on_null": "not run on the 8B (DEVIATIONS.md D3)",
+   "pass": false
+  },
+  "H2": {
+   "primary_fr_it_ocr": {
+    "n": 110,
+    "cascade_correct": 90,
+    "rules_correct": 98,
+    "cascade_only": 2,
+    "rules_only": 10,
+    "p": 0.03857421875
+   },
+   "branch": "B",
+   "secondary_pooled_all": {
+    "n": 154,
+    "cascade_correct": 119,
+    "rules_correct": 135,
+    "cascade_only": 7,
+    "rules_only": 23,
+    "p": 0.005222879350185394
+   },
+   "secondary_pointer_vs_rules_all": {
+    "pointer_only": 8,
+    "rules_only": 31,
+    "p": 0.0002940768754342571
+   }
+  },
+  "H3": {
+   "auroc": 0.8542877906976745,
+   "n_null": 86,
+   "n_value": 64,
+   "no_candidates": 4,
+   "pass_": true
+  },
+  "H4": {
+   "apertus_decided_fr_it_values": 9,
+   "wrong": 7,
+   "wrong_ids": [
+    18431,
+    78962,
+    161897,
+    190367,
+    273540,
+    325101,
+    671937
+   ],
+   "triggers_posthoc_curve": true
+  },
+  "model_share": {
+   "apertus": 34,
+   "values": 85,
+   "apertus_decisions_incl_nulls": 93,
+   "n": 154
+  },
+  "note": "eval/hypotheses.py unchanged; naive arm not run on the 8B (D3)"
+ },
+ "display": {
+  "h2_primary_p": "0.039",
+  "auroc": "0.854",
+  "auroc_70b": "0.969",
+  "h4": "7 of 9"
+ },
+ "cost": {
+  "note": "GNU time of the python step only (PDF fetch + text extraction + model load + rules + pointer on every document; the cascade reuses the pointer's scores). One document at a time per runner, llama.cpp using the runner's 4 vCPUs. No vCPU-hour price source exists in report/cost.py, so cost is given in CPU-seconds.",
+  "runner_vcpus": 4,
+  "heldout_jobs": 7,
+  "heldout_doc_runs": 159,
+  "heldout_docs_unique": 154,
+  "heldout_wall_s_total": 28563.2,
+  "heldout_cpu_s_total": 110042.74,
+  "heldout_wall_s_per_doc": 179.64276729559748,
+  "heldout_cpu_s_per_doc": 692.0927044025158,
+  "heldout_docs_with_candidates": 150,
+  "fit_dev_docs": 97,
+  "fit_wall_s": 18449.0,
+  "fit_wall_h": 5.124722222222222,
+  "fit_cpu_s": 71848.11,
+  "fit_wall_s_per_doc": 190.1958762886598,
+  "fit_cpu_s_per_doc": 740.7021649484536,
+  "max_rss_gb": 9.289148,
+  "cpu_pct_fit": "389%"
+ }
+}

@@ -1098,7 +1098,7 @@ let evalDone = false;
 function renderEval() {
   evalDone = true;
   const E = D.evaluation, A = E.arms, h = E.hypotheses;
-  $('#evalIntro').textContent = `P1: ${E.n} held-out documents from the parliaments the rules were written for; P2: documents from parliaments they never saw; P3: whole affairs, field by field; P4: affairs derived from a commune's meeting minutes. All drawn and fetched before any label existed; labels made blind by two annotators; rules, prompts and θ = ${E.theta.toFixed(2)} frozen by hash in ${E.lock.files} files. Apertus runs as the 70B weights served by Public AI; the response model was checked on every call.`;
+  $('#evalIntro').textContent = `P1: ${E.n} held-out documents from the parliaments the rules were written for; P2: documents from parliaments they never saw; P3: whole affairs, field by field; P4: affairs derived from a commune's meeting minutes. All drawn and fetched before any label existed; labels made blind by two annotators; rules, prompts and θ = ${E.theta.toFixed(2)} frozen by hash in ${E.lock.files} files. Apertus runs as the 70B weights served by Public AI (the response model was checked on every call); the real 8B ran on CPU as an exploratory arm.`;
   const ARMS = [
     ['rules', 'Rules only', 'default · no model', true],
     ['cascade', 'Rules + Apertus suggestions', 'if every suggestion were accepted'],
@@ -1121,9 +1121,16 @@ function renderEval() {
   tb.append(el('tr', { class: 'baseline' }, el('td', { class: 'armname' }, 'Always null', el('small', {}, 'baseline: never write a date')),
     el('td', { class: 'num' }, `${BL.always_null.exact}/${n}`), el('td', { class: 'num' }, `0/${A.rules.n_gold_value}`), el('td', {}, 0), el('td', {}, BL.always_null.exact), el('td', {}, A.rules.n_gold_value),
     el('td', {}, 0), el('td', {}, 0), el('td', {}, `0/${A.rules.n_gold_null}`), el('td', {})));
-  if (E.eight) tb.append(el('tr', {}, el('td', { class: 'armname' }, 'Apertus 8B (GGUF, CPU)', el('small', {}, 'exploratory arm')), el('td', {}, `${E.eight.cascade.strict.ALL.exact}/${E.eight.cascade.strict.ALL.n}`)));
+  if (E.eight) for (const [k, name, sub] of [['cascade', 'Rules + 8B suggestions', '8B on one CPU machine · exploratory'], ['pointer', '8B pointer alone', '8B on one CPU machine · exploratory']]) { const a = E.eight.arms[k];
+    const w = v => `${(100 * v / a.n).toFixed(2)}%`;
+    tb.append(el('tr', {}, el('td', { class: 'armname' }, name, el('small', {}, sub)),
+      el('td', { class: 'num' }, `${a.exact}/${a.n}`), el('td', { class: 'num' }, `${a.correct}/${A.rules.n_gold_value}`), el('td', {}, a.correct), el('td', {}, a.correct_null), el('td', {}, a.false_null),
+      el('td', {}, a.misattributed), el('td', { class: a.fabricated ? 'red' : '' }, a.fabricated), el('td', {}, `${a.invented_on_null}/${a.n_gold_null}`),
+      el('td', { style: 'width:22%' }, el('div', { class: 'hbar' }, el('i', { class: 'c-val', style: `width:${w(a.correct)}` }), el('i', { class: 'c-null', style: `width:${w(a.correct_null)}` }),
+        el('i', { class: 'c-fn', style: `width:${w(a.false_null)}` }), el('i', { class: 'c-mis', style: `width:${w(a.misattributed)}` }), el('i', { class: 'c-fab', style: `width:${w(a.fabricated)}` })))));
+  }
   t.append(tb); $('#board').replaceChildren(t.firstChild, tb);
-  $('#boardNote').textContent = `Exact = right date or right null; never writing a date already scores ${BL.always_null.exact}/${n} (${pct(BL.always_null.exact / n)}), so read "Dates found" next to it. "Invented" = a date printed nowhere in the document. n = ${n}: ${A.rules.n_gold_value} documents with an answer date, ${A.rules.n_gold_null} without. Apertus review suggestions: ${BL.suggestions.right} of ${BL.suggestions.of} right (${BL.suggestions.on_answerless} of the others are on documents without an answer).`;
+  $('#boardNote').textContent = `Exact = right date or right null; never writing a date already scores ${BL.always_null.exact}/${n} (${pct(BL.always_null.exact / n)}), so read "Dates found" next to it. "Invented" = a date printed nowhere in the document. n = ${n}: ${A.rules.n_gold_value} documents with an answer date, ${A.rules.n_gold_null} without. Apertus review suggestions: ${BL.suggestions.right} of ${BL.suggestions.of} right (${BL.suggestions.on_answerless} of the others are on documents without an answer).` + (E.eight ? ` The 8B rows are the real Apertus v1.5 8B (4-bit GGUF, llama.cpp) on a ${E.eight.vcpus}-vCPU machine with its own θ = ${E.eight.theta.toFixed(2)}: it invents no date, but it dates more answerless documents than the 70B (rules + suggestions ${E.eight.mcnemar_cascade.a_correct} vs ${E.eight.mcnemar_cascade.b_correct}, McNemar p = ${E.eight.mcnemar_cascade.p_str}), at about ${Math.round(E.eight.wall_s_per_doc)} s per document (${Math.round(E.eight.cpu_s_per_doc)} CPU-seconds, ${E.eight.max_rss_gb.toFixed(1)} GB memory). Rules only is unchanged.` : '');
   $('#boardLegend').replaceChildren(...[['c-val', 'right date'], ['c-null', 'right null'], ['c-fn', 'missed'], ['c-mis', 'wrong printed date'], ['c-fab', 'invented']].map(([k, x]) => el('span', {}, el('i', { class: k }), x)));
   const H1 = h.H1, H2 = h.H2, H3 = h.H3, H4 = h.H4;
   const card = (code, pass, title, text, fig) => el('div', {}, el('span', { class: 'stamp' + (pass === 'FAIL' ? ' red' : '') , style: pass === 'FAIL' ? 'color:var(--red)' : '' }, `${code} · ${pass}`),
