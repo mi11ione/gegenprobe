@@ -1,0 +1,10 @@
+Voici un document d'un parlement suisse (Confédération, canton ou commune) concernant une intervention parlementaire.
+
+<document>
+{doc}
+</document>
+
+Voici les dates qui figurent dans le document, chacune avec la ligne où elle figure :
+{options}
+
+Laquelle de ces dates est la date de la lettre de réponse du gouvernement (l'exécutif : Conseil fédéral, Conseil d'État, Conseil-exécutif, Gouvernement, Municipalité ou Conseil communal) à cette intervention, c'est-à-dire la ligne lieu et date ou la date à côté de la signature de la réponse (p. ex. « Lausanne, le 12 mai 2023 ») ? Ne sont pas visées les dates de décision, la date de dépôt de l'intervention, les dates d'impression, de version ou de classement, ni les dates de lois, d'autres objets ou d'événements. Si le document ne contient pas une telle date d'une réponse du gouvernement, choisis {null_label}. Base-toi exclusivement sur le document. Réponds par un objet JSON : {"choix": "lettre"}

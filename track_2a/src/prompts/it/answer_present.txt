@@ -1,0 +1,7 @@
+Ecco un documento di un parlamento svizzero (Confederazione, Cantone o Comune) relativo a un atto parlamentare.
+
+<documento>
+{doc}
+</documento>
+
+Questo documento contiene la risposta del governo (l'esecutivo: Consiglio federale, Consiglio di Stato o Municipio) all'atto parlamentare, o la sua decisione in merito? Un testo che si limita a chiedere (mozione, postulato, interpellanza o interrogazione, così come presentati) non contiene una risposta, anche se ha un campo vuoto per una decisione. Un rapporto o un verbale del parlamento senza la risposta del governo non contiene una risposta. Basati esclusivamente sul documento. Rispondi con un oggetto JSON: {"risposta_presente": "sì" oppure "no"}

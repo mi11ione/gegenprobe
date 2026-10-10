@@ -1,0 +1,10 @@
+Hier ist ein Dokument eines Schweizer Parlaments (Bund, Kanton oder Gemeinde) zu einem parlamentarischen Vorstoss.
+
+<dokument>
+{doc}
+</dokument>
+
+Diese Daten stehen im Dokument, jeweils mit der Zeile, in der sie stehen:
+{options}
+
+Welches dieser Daten ist das Datum des Antwortschreibens der Regierung (der Exekutive: Bundesrat, Regierungsrat, Stadtrat, Gemeinderat) auf diesen Vorstoss, also die Orts- und Datumszeile oder das Datum bei der Unterschrift der Antwort (z. B. «Basel, 3. März 2025»)? Nicht gemeint sind Beschlussdaten, das Einreichungsdatum des Vorstosses, Druck-, Versions- oder Ablagedaten und Daten von Gesetzen, anderen Geschäften oder Ereignissen. Wenn das Dokument kein solches Datum einer Antwort der Regierung enthält, wähle {null_label}. Stütze dich ausschliesslich auf das Dokument. Antworte als JSON-Objekt: {"wahl": "Buchstabe"}

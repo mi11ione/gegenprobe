@@ -1,0 +1,7 @@
+Voici un document d'un parlement suisse (Confédération, canton ou commune) concernant une intervention parlementaire.
+
+<document>
+{doc}
+</document>
+
+Ce document contient-il la réponse du gouvernement (l'exécutif : Conseil fédéral, Conseil d'État, Conseil-exécutif, Gouvernement, Municipalité ou Conseil communal) à l'intervention, ou sa décision à son sujet ? Un texte qui ne fait que demander (motion, postulat, interpellation ou question, tels que déposés) ne contient pas de réponse, même s'il comporte un champ vide pour une décision. Un rapport ou un procès-verbal du parlement sans la réponse du gouvernement ne contient pas de réponse. Si le document contient une réponse du gouvernement, donne sa date telle qu'elle figure dans le document : la date à laquelle le gouvernement a décidé (p. ex. « Ainsi adopté en séance du … », « Arrêté du Conseil-exécutif … du … », « N° ACE … du … ») ; s'il n'y en a pas, la date de la lettre de réponse (lieu et date, p. ex. « Lausanne, le 12 mai 2023 »). Ne sont pas visées la date de dépôt de l'intervention, les dates d'impression, de version ou de classement, ni les dates de lois, d'autres objets ou d'événements. Si le document ne contient pas de réponse du gouvernement ou pas de telle date, mets null ; n'invente rien. Base-toi exclusivement sur le document. Réponds uniquement par un objet JSON : {"antwort_datum": "AAAA-MM-JJ" ou null}

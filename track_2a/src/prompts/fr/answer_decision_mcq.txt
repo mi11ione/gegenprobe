@@ -1,0 +1,10 @@
+Voici un document d'un parlement suisse (Confédération, canton ou commune) concernant une intervention parlementaire.
+
+<document>
+{doc}
+</document>
+
+Voici les dates qui figurent dans le document, chacune avec la ligne où elle figure :
+{options}
+
+Laquelle de ces dates est la date à laquelle le gouvernement (l'exécutif : Conseil fédéral, Conseil d'État, Conseil-exécutif, Gouvernement, Municipalité ou Conseil communal) a arrêté sa réponse à cette intervention ou sa décision à son sujet, p. ex. « Ainsi adopté en séance du … », « Arrêté du Conseil-exécutif … du … », « N° ACE … du … », « Décision de la Municipalité du … » ? Ne sont pas visées la date à laquelle la lettre de réponse est datée, signée, envoyée ou remise, la date de dépôt de l'intervention ni aucune autre date. Si le document ne contient pas une telle date de décision du gouvernement, choisis {null_label}. Base-toi exclusivement sur le document. Réponds par un objet JSON : {"choix": "lettre"}

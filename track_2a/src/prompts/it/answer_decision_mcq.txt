@@ -1,0 +1,10 @@
+Ecco un documento di un parlamento svizzero (Confederazione, Cantone o Comune) relativo a un atto parlamentare.
+
+<documento>
+{doc}
+</documento>
+
+Queste sono le date che figurano nel documento, ognuna con la riga in cui figura:
+{options}
+
+Quale di queste date è la data in cui il governo (l'esecutivo: Consiglio federale, Consiglio di Stato o Municipio) ha deciso la sua risposta a questo atto parlamentare o la sua decisione in merito, p. es. «risoluzione municipale del …», «RG n. … del …», «ris. mun. … del …», «seduta del …»? Non si intendono la data in cui la lettera di risposta è datata, firmata, spedita o consegnata, la data di presentazione dell'atto né alcun'altra data. Se il documento non contiene una tale data di decisione del governo, scegli {null_label}. Basati esclusivamente sul documento. Rispondi con un oggetto JSON: {"scelta": "lettera"}

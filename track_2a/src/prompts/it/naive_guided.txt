@@ -1,0 +1,7 @@
+Ecco un documento di un parlamento svizzero (Confederazione, Cantone o Comune) relativo a un atto parlamentare.
+
+<documento>
+{doc}
+</documento>
+
+Questo documento contiene la risposta del governo (l'esecutivo: Consiglio federale, Consiglio di Stato o Municipio) all'atto parlamentare, o la sua decisione in merito? Un testo che si limita a chiedere (mozione, postulato, interpellanza o interrogazione, così come presentati) non contiene una risposta, anche se ha un campo vuoto per una decisione. Un rapporto o un verbale del parlamento senza la risposta del governo non contiene una risposta. Se il documento contiene una risposta del governo, indica la sua data così come figura nel documento: la data in cui il governo ha deciso (p. es. «risoluzione municipale del …», «RG n. … del …», «ris. mun. … del …»); se non c'è, la data della lettera di risposta (luogo e data, p. es. «Bellinzona, 4 aprile 2022»). Non si intendono la data di presentazione dell'atto, le date di stampa, di versione o di archiviazione, né le date di leggi, di altri oggetti o di eventi. Se il documento non contiene una risposta del governo o una tale data, metti null; non inventare nulla. Basati esclusivamente sul documento. Rispondi solo con un oggetto JSON: {"antwort_datum": "AAAA-MM-GG" oppure null}

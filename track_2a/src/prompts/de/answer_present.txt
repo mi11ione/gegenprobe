@@ -1,0 +1,7 @@
+Hier ist ein Dokument eines Schweizer Parlaments (Bund, Kanton oder Gemeinde) zu einem parlamentarischen Vorstoss.
+
+<dokument>
+{doc}
+</dokument>
+
+Enthält dieses Dokument die Antwort der Regierung (der Exekutive: Bundesrat, Regierungsrat, Stadtrat, Gemeinderat) auf den Vorstoss oder ihren Beschluss dazu? Ein Text, der nur fragt oder etwas verlangt (Motion, Postulat, Interpellation oder Anfrage, wie eingereicht), enthält keine Antwort, auch wenn er ein leeres Feld für einen Beschluss hat. Ein Bericht oder Protokoll des Parlaments ohne die Antwort der Regierung enthält keine Antwort. Stütze dich ausschliesslich auf das Dokument. Antworte als JSON-Objekt: {"antwort_enthalten": "ja" oder "nein"}
