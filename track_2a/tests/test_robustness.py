@@ -23,7 +23,8 @@ def test_mcnemar_and_mde():
     assert rb.mde_paired(10, 0.0) is None
 
 
-def test_raw_annotations_reproduce_committed_agreement():
+def test_raw_annotations_reproduce_committed_agreement(tmp_path, monkeypatch):
+    monkeypatch.setattr(rb, "OUT", tmp_path)  # write the recomputed agreement to a temp dir, not into results/
     a = rb.agreement()
     assert a["reproduces_gold_agreement_json"]
     assert a["n_disagreements_sent_to_A3"] == a["n_A3_labels"] == 41
