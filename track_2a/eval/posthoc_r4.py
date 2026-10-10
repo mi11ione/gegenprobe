@@ -487,7 +487,7 @@ def derive_dev_margins_8b() -> list[dict]:
                                              if pointer._visible(c, offs, pointer.CHAR_BUDGET)]))
             try:
                 pointer.answer_date(be, t["pages"], lg, theta=0.0)
-                rows.append(dict(doc_id=i, cache_key=last[0], gold_null=labs[i]["answer_date"] is None, matched="key"))
+                rows.append(dict(doc_id=i, cache_entry=last[0], gold_null=labs[i]["answer_date"] is None, matched="key"))
             except llm.CacheMiss:
                 miss.append((i, nc))
         # held-out keys, so the leftover entries are the dev misses
@@ -524,7 +524,7 @@ def derive_dev_margins_8b() -> list[dict]:
         cand = dict(base)
         for n, keys in zip(sorted(groups), perm):
             for i, k in zip(groups[n], keys):
-                cand[i] = dict(doc_id=i, cache_key=k, gold_null=labs[i]["answer_date"] is None,
+                cand[i] = dict(doc_id=i, cache_entry=k, gold_null=labs[i]["answer_date"] is None,
                                matched="candidate count + exact θ/AUROC/gap reproduction (local extraction differs)")
         out = [cand[i] for i in ids]
         if _refit(out, cache) == (th["theta"], th["auroc"], th["gap"]):
@@ -534,7 +534,7 @@ def derive_dev_margins_8b() -> list[dict]:
 
 def _refit(rows: list[dict], cache: dict) -> tuple:
     from gegenprobe.convert import calibrate
-    m = [_margin(cache[r["cache_key"]]["lps"]) for r in rows]
+    m = [_margin(cache[r["cache_entry"]]["lps"]) for r in rows]
     y = [r["gold_null"] for r in rows]
     t, _ = calibrate.fit_theta(m, y)
     pos = [a for a, b in zip(m, y) if b]
@@ -568,7 +568,7 @@ def theta_fragility_8b(dev_rows: list[dict], argmax: dict | None = None) -> dict
     from gegenprobe.convert import calibrate
     cache = _cache8()
     th = _j(DATA / "convert" / "theta" / f"{B8}.json")["answer_date"]
-    m = [_margin(cache[r["cache_key"]]["lps"]) for r in dev_rows]
+    m = [_margin(cache[r["cache_entry"]]["lps"]) for r in dev_rows]
     y = [r["gold_null"] for r in dev_rows]
     refit = _refit(dev_rows, cache)
     t = th["theta"]
