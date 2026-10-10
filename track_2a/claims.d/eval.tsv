@@ -1,5 +1,5 @@
 id	shown	file	path	fmt	command	where
-eval.rules.exact	135/154	results/report/eval_numbers.json	arms.rules.exact/arms.rules.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md,docs/form_notes.md
+eval.rules.exact	135/154	results/report/eval_numbers.json	arms.rules.exact/arms.rules.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.rules.exact_ci	[81.5, 92]	results/report/eval_numbers.json	arms.rules.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.rules.correct	47	results/report/eval_numbers.json	arms.rules.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.rules.correct_null	88	results/report/eval_numbers.json	arms.rules.correct_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	-

@@ -1,0 +1,48 @@
+{
+ "label": "round-4 docs pass: display numbers (night, 8B scale, 70B weights)",
+ "night": {
+  "run": 38062530586,
+  "source": "results/monitor/night_real_38062530586/ (night.json, run.json, systemctl_show.txt, journal_excerpt.txt)",
+  "where": "GitHub-hosted ubuntu-24.04 runner (4 vCPU), installed with deploy/nightly/install.sh --venv, started by systemd (gegenprobe-nightly.service), network mode against files.openparldata.ch",
+  "result": "success",
+  "wall_s": 4997,
+  "wall_min": 83,
+  "download_s": 1892.1,
+  "download_min": 32,
+  "transfer_mb": 198,
+  "cpu_s": 1686.165054,
+  "cpu_min": 28,
+  "cpu_journal_min": 28,
+  "peak_rss_mb": 2078,
+  "named_steps_s": 1977.1,
+  "triple_check_s_derived": 3019,
+  "triple_check_min_derived": 50,
+  "triple_check_note": "total_s minus the named steps (download, extract, rates, repair_be): the one-time triple check of every new Bern row (first night: all of them), which run.json does not time separately",
+  "bodies_rescanned": 97,
+  "alerts": 0,
+  "be_relink": 2459,
+  "be_fetch": 49,
+  "be_rows_checked": 2508,
+  "ledger_pending": 2468,
+  "ledger_review": 40,
+  "user_agent_has_contact": true
+ },
+ "scale_8b": {
+  "note": "The rules' residue share on the stratified held-out sample (97/154) applied to every document in OPD's docs export, times the measured 8B seconds per document on one 4-vCPU machine (fetch, extraction, model load included). An upper bound for a one-off back-catalogue run; review mode runs only on new answer documents.",
+  "corpus_documents": 902754,
+  "residue_share": 0.6298701298701299,
+  "residue_documents": 568618,
+  "residue_documents_k": "569k",
+  "s_per_doc": 179.64276729559748,
+  "machine_hours": 28374,
+  "machine_hours_display": "28,400",
+  "machine_years_display": "3.2",
+  "usd_70b_same_documents": 336
+ },
+ "weights_70b": {
+  "note": "arithmetic, not measured: 70 billion parameters × 2 bytes (bf16) of weights, before KV cache",
+  "params_b": 70,
+  "bytes_per_param": 2,
+  "weights_gb": 140
+ }
+}

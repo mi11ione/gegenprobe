@@ -917,7 +917,142 @@
     }
    }
   },
-  "P2_8B": "not present (8B on P2: workflow arms-8b-p2 not yet run)"
+  "P2_8B": {
+   "file": "results/eval2/p2__gguf_apertus-v1.5-8b-text-q4_k_m.json",
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "n": 52,
+   "arms": {
+    "rules": {
+     "strict": [
+      33,
+      52
+     ],
+     "lenient": [
+      33,
+      52
+     ],
+     "strict_correct": 2,
+     "lenient_correct": 2,
+     "strict_ci": [
+      0.4987142858480117,
+      0.7519948628869816
+     ],
+     "lenient_ci": [
+      0.4987142858480117,
+      0.7519948628869816
+     ],
+     "gain": 0,
+     "per_cell": {
+      "de_canton": [
+       11,
+       11,
+       23
+      ],
+      "de_commune": [
+       8,
+       8,
+       9
+      ],
+      "fr_commune": [
+       13,
+       13,
+       14
+      ],
+      "it_commune": [
+       1,
+       1,
+       6
+      ]
+     }
+    },
+    "pointer": {
+     "strict": [
+      35,
+      52
+     ],
+     "lenient": [
+      38,
+      52
+     ],
+     "strict_correct": 15,
+     "lenient_correct": 18,
+     "strict_ci": [
+      0.5375593513988892,
+      0.7847809826889593
+     ],
+     "lenient_ci": [
+      0.59747521247539,
+      0.8323118996417412
+     ],
+     "gain": 3,
+     "per_cell": {
+      "de_canton": [
+       18,
+       21,
+       23
+      ],
+      "de_commune": [
+       4,
+       4,
+       9
+      ],
+      "fr_commune": [
+       9,
+       9,
+       14
+      ],
+      "it_commune": [
+       4,
+       4,
+       6
+      ]
+     }
+    },
+    "cascade": {
+     "strict": [
+      33,
+      52
+     ],
+     "lenient": [
+      36,
+      52
+     ],
+     "strict_correct": 13,
+     "lenient_correct": 16,
+     "strict_ci": [
+      0.4987142858480117,
+      0.7519948628869816
+     ],
+     "lenient_ci": [
+      0.5573015506778113,
+      0.8008543760864647
+     ],
+     "gain": 3,
+     "per_cell": {
+      "de_canton": [
+       16,
+       19,
+       23
+      ],
+      "de_commune": [
+       4,
+       4,
+       9
+      ],
+      "fr_commune": [
+       9,
+       9,
+       14
+      ],
+      "it_commune": [
+       4,
+       4,
+       6
+      ]
+     }
+    }
+   }
+  }
  },
  "n_documents_with_lenient_alternatives": {
   "P1 held-out": 16,

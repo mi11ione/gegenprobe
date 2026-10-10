@@ -3,7 +3,8 @@
 The schema is a middle layer for Swiss parliamentary affairs (motions, postulates, interpellations, written questions,
 initiatives, government business). It sits between a generic page representation (Docling, plain text) and heavyweight
 legislative XML (Akoma Ntoso). It plays the role JATS plays for journal articles: it records affair semantics and keeps
-every value tied to the place in the source it came from.
+every value tied to its source: a page and character span for dates and rule values, the OPD record for metadata, and
+the document and closed set for a model's document-level classification (a review suggestion).
 
 - Code: `src/gegenprobe/schema/schema_v0_1.py` (Pydantic v2; this is the single source of truth)
 - Public import for integrators: `from gegenprobe.schema.public import Affair, DocExtraction, Document, TypedNull, …`
@@ -31,7 +32,7 @@ every value tied to the place in the source it came from.
    | `extracted` | the value string occurs verbatim at the span | yes |
    | `normalised` | the span is verbatim, the value is its normal form ("28. August 2024" → `2024-08-28`) | yes |
    | `metadata` | taken from a structured OPD or canton record, named in `source` (e.g. `opd:events/84384`) | no |
-   | `inferred` | a classification derived from a cited span (e.g. a government recommendation enum) | yes |
+   | `inferred` | a classification derived from a cited span (e.g. a government recommendation enum) | yes, except a document-level model classification (route `apertus`/`ocr+apertus`: the type, addressed body or recommendation Apertus chose from a closed set over the whole document), which names `doc` and `candidates` instead of a span and is a review suggestion |
 
 3. **The deciding stage is recorded.** `route ∈ {metadata, rule, apertus, ocr+rule, ocr+apertus, user_anchor}`
    (`user_anchor`: a regex anchor supplied by the converter's user with `--anchors`, tried only after the frozen rules;

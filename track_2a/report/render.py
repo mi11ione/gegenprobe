@@ -19,15 +19,15 @@ from gegenprobe.paths import ROOT
 
 CSS = """
 @page { size: A4; margin: 15mm 15mm 14mm 15mm; }
-body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 10.2pt; line-height: 1.32; color: #111; }
+body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 10pt; line-height: 1.3; color: #111; }
 h1 { font-size: 15pt; margin: 0 0 6pt; line-height: 1.2; }
 h2 { font-size: 12pt; margin: 10pt 0 3pt; border-bottom: 0.5pt solid #999; }
 p, li { margin: 3pt 0; }
 ul { padding-left: 14pt; margin: 3pt 0; }
-table { border-collapse: collapse; font-size: 8.8pt; margin: 4pt 0; width: 100%; }
+table { border-collapse: collapse; font-size: 8.5pt; margin: 4pt 0; width: 100%; }
 th, td { border: 0.4pt solid #aaa; padding: 2pt 4pt; text-align: left; vertical-align: top; }
 th { background: #eee; }
-img { max-width: 100%; max-height: 60mm; display: block; margin: 4pt auto 0; }
+img { max-width: 100%; max-height: 52mm; display: block; margin: 4pt auto 0; }
 em { color: #333; }
 code { font-size: 8.8pt; }
 """

@@ -8,7 +8,7 @@ is out of scope for operations (see `docs/converter.md`).
 | option | when | cost |
 |---|---|---|
 | **Inside OPD**, next to the export job | recommended | no download: `GP_EXPORTS_DIR` points at OPD's export directory and every exports URL is read from there. A night measured that way took 96.8 s wall (incremental best case on a copied snapshot: no docs/texts file changed, so no rescan; peak memory 2,077.6 MB) plus two canton GETs (~23 MB). A night that re-scans changed files takes longer: about 21.8 min after the 6→9 Oct changes (20.2 min of re-scan, derived; `results/monitor/night_cost.json`) |
-| A Swiss or EU VPS (e.g. 4 vCPU / 8 GB RAM / 20 GB disk at a Swiss provider) | if OPD prefers to keep it outside | the exports are full nightly dumps (6.2 GB; 68 of 116 docs/texts files changed between 6 and 9 Oct), so a night is roughly 30–40 min, mostly download and parsing |
+| A Swiss or EU VPS (e.g. 4 vCPU / 8 GB RAM / 20 GB disk at a Swiss provider) | if OPD prefers to keep it outside | the exports are full nightly dumps (6.2 GB; 68 of 116 docs/texts files changed between 6 and 9 Oct), so a night is roughly 30–40 min, mostly download and parsing (estimate; the measured first night on a 4-vCPU GitHub runner took 83 min, about 50 of them the one-time BE triple check) |
 
 It needs Linux, systemd, and either Docker (`deploy/nightly/gegenprobe-nightly.service`) or a Python 3.11 venv with poppler
 and tesseract (`deploy/nightly/gegenprobe-nightly-venv.service`, `sh deploy/nightly/install.sh --venv`). No GPU, no model,
@@ -187,8 +187,8 @@ and checks that exactly one webhook post with valid JSON arrives; job `nightly-s
 offline nights on fixture exports inside it with the unit's container flags and no network (`docs/nightly.md` "Verified
 in CI"). `.github/workflows/nightly-real.yml` (manual: `gh workflow run nightly-real.yml`) installs the venv variant with
 `install.sh --venv` on a GitHub-hosted Ubuntu runner and runs one real network night under systemd, with a contact
-User-Agent; it uploads `run.json`, the journal and the wall time. Until a run of it is committed, no real night has run
-under systemd.
+User-Agent; it uploads `run.json`, the journal and the wall time. One run is committed (`results/monitor/night_real_38062530586/`:
+a first night, 83 min wall, 0 alerts, the BE list reproduced on live data).
 
 ## Swiss / EU hosting
 

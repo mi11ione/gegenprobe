@@ -1,0 +1,58 @@
+# Gegenprobe schema v0.1: one page for the eCH expert group
+
+What a common schema for the business of Swiss parliaments needs, measured on OpenParlData (OPD, snapshot 6 Oct 2026,
+89 parliaments with affairs in scope). Normative models: `src/gegenprobe/schema/schema_v0_1.py` (Pydantic); JSON Schema
+with `$id` and version 0.1.0: `results/schema/*.schema.json`; field guide: `docs/schema.md`; mappings to Popolo, Akoma
+Ntoso, Parla-CLARIN and OParl: `docs/mapping.md`.
+
+## 1. Three classes of field (by meaning, from OPD's own vocabularies)
+
+| class | fields and concepts | what it means for a standard |
+|---|---|---|
+| **shared** (12 of 17) | submission date, submitter, co-signatories, addressed body, government recommendation, decision date, dispatch date, Q/A pairing, related affairs, language, usable text, answer-link status | one definition fits every parliament; only *where* the value lives differs (metadata, PDF, or not in OPD) |
+| **shared with a role split** (5 of 17) | answer date, procedural history, type, procedural state, decision outcome | one source label covers several roles that must be kept apart before parliaments can be compared |
+| **body-specific** (3 concepts) | oral answers in question time; executive business that answers no member's affair; councils that publish only meeting documents | needs its own construct, not a field: v0.1 types oral answers as a null reason and marks affairs rebuilt from minutes `virtual` with `derived_from` |
+
+Evidence: `results/census/comparability.json`, classes in `data/schema/field_verdict_classes.json`. Separately, *where*
+the value lives (`results/census/matrix.json`): 4 fields are in OPD's metadata almost everywhere, 13 partly; no field
+lacks a written source in a fifth of the parliaments (5 would at a 10% threshold). That threshold measures coverage, not
+meaning; the classes above are the finding.
+
+## 2. The answer date is three dates
+
+"Answer date" in OPD can be the date the government **decided** (Regierungsratsbeschluss), the date the answer was
+**dispatched**, or the date parliament **registered** it. In 7 of 54 bodies OPD's "answer" event is mostly the
+submission date; on our held-out gold OPD's event equals the printed date for 37 of 44 checkable documents, and 5 of the
+other 7 are 1–5 days apart (decision vs dispatch). OPD's answer date is verified as the decision date only in Bern and
+Ticino. v0.1 therefore carries a `DateRole` on every date (`answer_decided`, `answer_dispatched`, `answered`,
+`submitted`, `scheduled`, `debated`, … in `data/schema/date_roles.json`), and a date-trust tier per parliament in the
+research dataset (`results/census/interventions.tsv.gz`, `results/census/date_trust.json`).
+
+## 3. No bare nulls
+
+Every extractable field is either a value with provenance (`basis`: extracted, normalised, metadata or inferred; the
+deciding `route`; for document values page and character span) or a **typed null** that says why it is empty:
+`not_in_corpus`, `unlinked` (the document exists in OPD but is not attached), `image_only`, `text_failed`, `oral`,
+`present_unanchored`, `not_in_document`, `no_rules_for_body`, `not_applicable` (`data/schema/null_reasons.json`). A
+model's document-level classification (e.g. a recommendation chosen from a closed set) names its document and the set
+it chose from instead of a span, and is a review suggestion, never an unattended value.
+
+## 4. Question by question: `QAItem`
+
+Interpellations and written questions ask numbered questions, and the answer replies to each. `QAItem` pairs question
+*n* with the answer to question *n*, both sides with a span or a typed null (an answer that replies to all at once is
+`present_unanchored`). It is in v0.1 as an optional, additive structure; our converter does not fill it yet.
+
+## 5. Five gaps for v0.2 (cited evidence)
+
+An inventory of what the answers state, over 12 bodies, left 45.9% of statements without a schema account; five gaps
+recur across bodies and languages: **person roles; comparison amounts; dates and laws of other polities; dates of
+other affairs; entry-into-force and deadline dates** (`docs/census.md`, `data/census/cited_evidence.json`; cited, not
+recomputed by `make run`).
+
+## 6. Proposal
+
+Adopt date roles, typed nulls and the three classes as the frame; standardise the role split for the answer date first
+(it decides every answer-time comparison); treat oral answers, executive-own business and minutes-only councils as
+named constructs; take `QAItem` and the five gaps into v0.2. Gegenprobe (Hack Apertus, Track 2A, team 444):
+https://gegenprobe.mi11ion.io.

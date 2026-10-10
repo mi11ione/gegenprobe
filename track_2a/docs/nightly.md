@@ -164,7 +164,10 @@ The `index_diff.json` numbers come from `python -m gegenprobe.monitor.nightly in
 None of these is a real night against OPD under systemd on a server. `.github/workflows/nightly-real.yml` runs one on a
 GitHub-hosted Ubuntu runner: manual only, `install.sh --venv`, `systemctl start`, User-Agent
 `hackapertus-research/0.1 (+https://github.com/mi11ione/gegenprobe)`. It uploads `run.json`, `alerts.json`, the ledger,
-the journal and the wall time (`night.json`). Until a run of it is committed, no real night has run.
+the journal and the wall time (`night.json`). One run is committed: run 38062530586, `results/monitor/night_real_38062530586/`
+(a first night: 4,997 s wall, of which 1,892 s downloading 198 MB and about 50 min the one-time triple check of all
+2,508 BE rows; 28 min CPU, peak memory 2,078 MB, 0 alerts; BE list 2,459 relink + 49 fetch, as committed). It tests the
+install and the job on a GitHub-hosted runner, not Swiss hosting; the job is not yet running at OPD.
 
 ## Install
 

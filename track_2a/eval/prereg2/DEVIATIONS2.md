@@ -73,3 +73,9 @@ the date for only 17 of its 32 values. A quote check would pass 3 of its 8 wrong
     - the answer never follows OPD's scheduling event ("Traktandiert"): 6/6;
     - decision-role dates fall on one weekday per executive: VD 8/8 Wednesday, NW 6/6 Tuesday, OW 3 Tuesday + 1 Monday.
   - 19 of 29 gold dates now face at least one non-LLM bound. Only 6/29 are confirmed exactly by an outside source.
+- **Addendum, 8B on P2 run** (CI run 38062249318, committed in 962e2f7; analysis `python -m report.p2_8b` →
+  `results/eval2/p2_8b_analysis.json`). 52 of the 62 documents were scored: the hosts of 10 (VD 8, all of them answered; 6266 1; 62 1)
+  were unreachable from the CI runners (`results/eval2/shards/unreachable_p2__*.json`), so Vaud is absent and 21 of
+  the 29 answer dates remain. On the 52: rules 33, pointer 35, cascade 33 exact; the pointer finds 15 of 21 answer dates, dates 11 of 31
+  answerless documents and returns no unprinted date. P2-H2 on the 8B rows (registered script, unchanged): 13 vs 0,
+  p = 2.4 × 10⁻⁴. The 70B on the same 52: pointer 43, cascade 41 (8B vs 70B: 2 vs 10 documents, p = 0.039 for both).

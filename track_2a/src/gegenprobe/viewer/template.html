@@ -510,7 +510,7 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
   <div class="grid sec-head">
     <div class="idx"><div class="label">02 · Reviewer view</div></div>
     <div class="work">
-      <h2 id="h-docs">Every value points at the page and the characters it came from</h2>
+      <h2 id="h-docs">Every answer date points at the page and the characters it came from</h2>
       <p>154 held-out documents in German, French and Italian, cantonal and communal, including scanned answers read by OCR. For each one: the
         gold label, what the default converter writes, what Apertus suggests for review, and what free generation says. Apertus may choose only
         a date that is printed in the document, or null. <b>Workbench</b> turns the documents the rules leave open into a keyboard review queue.</p>
@@ -538,7 +538,7 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
   <div class="grid sec-head">
     <div class="idx"><div class="label">03 · Pre-registered</div></div>
     <div class="work">
-      <h2 id="h-eval">Five pre-registered tests, frozen before the labels existed</h2>
+      <h2 id="h-eval">Five pre-registered tests, frozen before any label was committed</h2>
       <p id="evalIntro"></p>
     </div>
   </div>
@@ -671,7 +671,7 @@ $('#heroPeriod').append(periodSeg('Period · applies to the whole page'));
 drawHero();
 const facts = [
   [fmt(H.relink), el('span', {}, `Bern answers already in OPD without a parent, relinkable by the canton's own document id. Plus ${fmt(H.fetch)} to fetch. `, el('a', { class: 'bernlink', href: '#bern-numbers' }, 'All Bern numbers →'))],
-  H.p2 ? [`${H.p2.pointer.correct}/${H.p2.pointer.of}`, `answer dates Apertus found in ${H.p2.bodies} parliaments the rules were never written for; the rules found ${H.p2.rules.correct}. Pre-registered, p = ${sup(H.p2.p)}.`]
+  H.p2 ? [`${H.p2.pointer.correct}/${H.p2.pointer.of}`, `answer dates Apertus found in ${H.p2.bodies} parliaments the rules were never written for (the 29 dated answers come from 7 of them; Apertus is ahead in 6 of those, the rules in none); the rules found ${H.p2.rules.correct}. Pre-registered test on the documents, p = ${sup(H.p2.p)}.`]
        : [`${H.rules_exact}/${H.heldout}`, `held-out documents exact with the default converter (rules, no model), which wrote a date on ${H.rules_on_null} of ${H.n_null} documents without an answer.`],
   [fmt(H.naive_fab), `answer dates invented outright by free-generation Apertus on the 154 held-out documents. The pointer only picks a date printed in the document, or null; it can still pick the wrong printed date.`],
 ];
@@ -692,7 +692,7 @@ const GLOSS = [
   ['Closed set', 'The only answers Apertus may give for a document: one of the dates printed in it, or null. A date that is not printed cannot be chosen.'],
   ['Pointer', 'Apertus used as a selector over the closed set: it points at a printed date, with page and characters, instead of writing one.'],
   ['θ · margin band', 'Null margin: how much more likely “no answer date” is than all printed dates together, in nats. Above θ the value is null; near θ a reviewer looks.'],
-  ['P1–P4 · P3b', 'Five tests frozen by hash before any label existed: P1 known layouts, P2 15 unseen parliaments, P3 whole affairs field by field, P3b its replication on fresh affairs from 9 other parliaments, P4 affairs from minutes.'],
+  ['P1–P4 · P3b', 'Five tests frozen by hash before any label was committed: P1 known layouts, P2 15 unseen parliaments, P3 whole affairs field by field, P3b its replication on fresh affairs from 9 other parliaments, P4 affairs from minutes.'],
 ];
 $('#gloss').append(...GLOSS.map(([t, d]) => el('div', {}, el('dt', {}, t), el('dd', {}, d))));
 /* schema v0.1: one real converter record + the 17 fields with their class (always visible, under the steps) */
@@ -1206,7 +1206,7 @@ let evalDone = false;
 function renderEval() {
   evalDone = true;
   const E = D.evaluation, A = E.arms, h = E.hypotheses;
-  $('#evalIntro').textContent = `P1: ${E.n} held-out documents from the parliaments the rules were written for; P2: documents from parliaments they never saw; P3: whole affairs, field by field; P3b: the same extractor, unchanged, on fresh affairs from ${E.p3b ? E.p3b.bodies.length : 9} other parliaments (a held-out replication of P3); P4: affairs derived from a commune's meeting minutes. All drawn and fetched before any label existed; labels made blind by two annotators; rules, prompts and θ = ${E.theta.toFixed(2)} frozen by hash in ${E.lock.files} files. Apertus runs as the 70B weights served by Public AI (the response model was checked on every call); the real 8B ran on CPU as an exploratory arm.`;
+  $('#evalIntro').textContent = `P1: ${E.n} held-out documents from the parliaments the rules were written for; P2: documents from parliaments they never saw; P3: whole affairs, field by field; P3b: the same extractor, unchanged, on fresh affairs from ${E.p3b ? E.p3b.bodies.length : 9} other parliaments (a held-out replication of P3); P4: affairs derived from a commune's meeting minutes. All drawn and fetched before any label was committed; labels made blind by two annotators; rules, prompts and θ = ${E.theta.toFixed(2)} frozen by hash in ${E.lock.files} files. Apertus runs as the 70B weights served by Public AI (the response model was checked on every call); the real 8B ran on CPU as an exploratory arm.`;
   const ARMS = [
     ['rules', 'Rules only', 'default · no model', true],
     ['cascade', 'Rules + Apertus suggestions', 'if every suggestion were accepted'],
@@ -1290,7 +1290,7 @@ function renderEval() {
 function renderP2() {
   const P = D.evaluation.p2; if (!P) return;
   const A = P.arms, n = P.n, nv = A.rules.n_gold_value, nn = A.rules.n_gold_null;
-  $('#p2Intro').textContent = `${n} documents (${nv} with an answer date, ${nn} without) from ${P.bodies.length} parliaments that appear in no development or held-out set, drawn and fetched before any label existed; same frozen rules, prompts and θ as P1. The two annotators agreed on every answer date (κ ${P.gold.kappa_date.toFixed(1)}).`;
+  $('#p2Intro').textContent = `${n} documents (${nv} with an answer date, ${nn} without) from ${P.bodies.length} parliaments that appear in no development or held-out set, drawn and fetched before any label was committed; same frozen rules, prompts and θ as P1. The two annotators agreed on every answer date (κ ${P.gold.kappa_date.toFixed(1)}).`;
   $('#p2Note').textContent = `Never writing a date scores ${P.always_null[0]}/${P.always_null[1]} here, so read "Dates found". The rules were written for the P1 layouts; on these parliaments they find ${P.recall.rules.correct} of ${P.recall.rules.of} answer dates.`;
   const ARMS = [['rules', 'Rules only', 'frozen; written for other layouts'], ['pointer', 'Apertus pointer', 'a printed date or null, every document', true],
     ['cascade', 'Rules + Apertus suggestions', 'if every suggestion were accepted'], ['naive_null', 'Free generation, null allowed', 'same weights'], ['naive_plain', 'Free generation, plain', 'the naive converter']];
@@ -1326,7 +1326,7 @@ function renderP2() {
   $('#p2hyp').replaceChildren(
     card('P2-H1', P.h1.confirmed_drop ? 'CONFIRMED' : 'NOT SHOWN', 'Do the rules carry over?', 'No. Off the layouts they were written for, the rules find almost no answer dates.',
       `dates found: P1 ${P.h1.p1[0]}/${P.h1.p1[1]} → P2 ${P.h1.p2[0]}/${P.h1.p2[1]}`),
-    card('P2-H2', P.h2.holds ? 'HOLDS' : 'FAILS', 'Does Apertus find what the rules miss?', 'Yes. This is the registered primary test: on documents with an answer date, the pointer against the rules.',
+    card('P2-H2', P.h2.holds ? 'HOLDS' : 'FAILS', 'Does Apertus find what the rules miss?', 'Yes. This is the registered primary test: on documents with an answer date, the pointer against the rules. Post hoc, on all 62 documents (a right null counts): 22 documents to 4; by parliament 6 to 2, 7 tied (sign test p = 0.29).',
       `only the pointer right ${P.h2.pointer_only}, only the rules ${P.h2.rules_only} · exact McNemar p = ${sup(P.h2.p)} · without Bellinzona ${P.h2_without_bellinzona.pointer_only} vs ${P.h2_without_bellinzona.rules_only}, p = ${sup(P.h2_without_bellinzona.p)}`),
     card('P2-H3', P.h3.holds ? 'PASS' : 'FAIL', 'Null safety', 'Not met: Apertus still dates some documents that carry no answer, so its values stay review suggestions.',
       `${P.h3.k}/${P.h3.n} documents · upper bound ${(100 * P.h3.ci[1]).toFixed(1)}% (limit 15%)`),

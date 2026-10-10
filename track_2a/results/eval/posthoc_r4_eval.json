@@ -982,9 +982,9 @@
  },
  "gguf_cache_n_ctx": {
   "finding": "TRUE: src/gegenprobe/gguf_fast.py builds the cache key with n_ctx=4096 (line 'payload = dict(... n_ctx=4096)  # key identical to the frozen scorer') while GGUFFast loads llama.cpp with n_ctx=6144.",
-  "entries": 251,
+  "entries": 302,
   "scorer_tags": {
-   "gguf_fast": 251
+   "gguf_fast": 302
   },
   "max_n_prompt": 4079,
   "n_prompt_over_4096": 0,
