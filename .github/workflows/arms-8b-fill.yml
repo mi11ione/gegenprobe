@@ -1,0 +1,44 @@
+name: arms-8b-fill
+# Score named held-out documents with the 8B (fill-in for documents a shard run missed), using the θ and model cache of an
+# earlier arms-8b run's 'fit' artifact. Output: artifact 'fill' with results/eval/shards/heldout__gguf__fill_<n>.json.
+on:
+  workflow_dispatch:
+    inputs:
+      ids: {description: "comma-separated held-out doc ids", required: true}
+      fit_run: {description: "run id whose 'fit' artifact provides θ and the model cache", required: true}
+permissions:
+  contents: read
+  actions: read
+defaults:
+  run:
+    working-directory: track_2a
+env:
+  GP_WORK: ${{ github.workspace }}/work
+  PYTHONPATH: src:.
+jobs:
+  fill:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita
+      - run: |
+          pip install -r requirements.txt
+          pip install --only-binary=:all: --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu llama-cpp-python==0.3.35 \
+            || CMAKE_ARGS="-DGGML_NATIVE=ON" pip install llama-cpp-python==0.3.35
+      - uses: actions/cache@v4
+        with: {path: "${{ github.workspace }}/work/models", key: model-cache-apertus-8b-gguf-v1}
+      - run: python -c "from gegenprobe import llm; print(llm.fetch_gguf('apertus-v1.5-8b-text-q4_k_m'))"
+      - uses: actions/download-artifact@v4
+        with: {name: fit, path: track_2a, run-id: "${{ inputs.fit_run }}", github-token: "${{ github.token }}"}
+      - run: python -m eval.run_arms fetch --split heldout
+      - run: /usr/bin/time -v python -m eval.run_arms run --ids "${{ inputs.ids }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fill
+          path: |
+            track_2a/results/eval/shards/
+            track_2a/data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m/

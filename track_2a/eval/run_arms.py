@@ -106,24 +106,36 @@ def warm(shard: str) -> None:
         print(f"warm {i}/{n}: {k}/{len(docs)} {d['doc_id']} {time.time() - t0:.0f}s", flush=True)
 
 
-def run(shard: str) -> None:
+def run(shard: str, ids: str = "") -> None:
     i, n = map(int, shard.split("/"))
     _reachable_only()
     orig = arms.load_split
-    arms.load_split = lambda split: orig(split)[i::n]
+    # slice on the full label order, then drop unreachable documents: a document one runner cannot fetch must not shift
+    # the other documents between shards (run 38032826730: one unreachable PDF shifted shard 1 -> 5 duplicates, 5 gaps)
+    order = list(dict.fromkeys(json.loads(x)["doc_id"] for x in open(DATA / "gold" / "heldout_labels.jsonl")))
+    mine = set(order[i::n]) if not ids else {int(x) for x in ids.split(",")}
+    arms.load_split = lambda split: [d for d in orig(split) if d["doc_id"] in mine]
     be = backend()
     theta = json.loads(arms.theta_path(be.build).read_text())["answer_date"]["theta"]
     res = arms.run(be, "heldout", ["rules", "pointer", "cascade"], theta)
     SHARDS.mkdir(parents=True, exist_ok=True)
     src = RESULTS / "eval" / f"heldout__{llm._slug(be.build)}.json"
-    dst = SHARDS / f"heldout__gguf__{i}_of_{n}.json"
+    dst = SHARDS / (f"heldout__gguf__{i}_of_{n}.json" if not ids else f"heldout__gguf__fill_{len(mine)}.json")
     src.replace(dst)
     print(dst, res["n_docs"])
 
 
 def merge() -> None:
-    parts = [json.loads(p.read_text()) for p in sorted(SHARDS.glob("heldout__gguf__*_of_*.json"))]
-    per_doc = sorted((r for p in parts for r in p["per_doc"]), key=lambda r: r["doc_id"])
+    parts = [json.loads(p.read_text()) for p in sorted(SHARDS.glob("heldout__gguf__*.json"))]
+    per_doc, seen = [], {}
+    for r in (r for p in parts for r in p["per_doc"]):
+        key = json.dumps({a: (r[a].get("value"), r[a].get("route")) for a in ("rules", "pointer", "cascade") if a in r})
+        if r["doc_id"] in seen:  # scored twice (shard overlap or two runs): the decisions must be identical
+            assert seen[r["doc_id"]] == key, f"doc {r['doc_id']} scored twice with different decisions"
+            continue
+        seen[r["doc_id"]] = key
+        per_doc.append(r)
+    per_doc.sort(key=lambda r: r["doc_id"])
     rows: dict[str, list] = {}
     for r in per_doc:
         base = dict(cell=r["cell"], gold=r["gold"], lenient=r.get("lenient") or [], doc_dates=r.get("doc_dates") or [])
@@ -144,7 +156,8 @@ if __name__ == "__main__":
     ap.add_argument("cmd", choices=["fetch", "warm", "fit", "run", "merge"])
     ap.add_argument("--split", default="heldout")
     ap.add_argument("--shard", default="0/1")
+    ap.add_argument("--ids", default="", help="comma-separated held-out doc ids to score instead of a shard (fill-in)")
     a = ap.parse_args()
-    cmds = {"fetch": lambda: fetch(a.split), "warm": lambda: warm(a.shard), "fit": fit, "run": lambda: run(a.shard),
+    cmds = {"fetch": lambda: fetch(a.split), "warm": lambda: warm(a.shard), "fit": fit, "run": lambda: run(a.shard, a.ids),
             "merge": merge}
     cmds[a.cmd]()
