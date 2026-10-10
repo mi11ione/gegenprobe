@@ -9,8 +9,8 @@ recomputed from a results file in the repository by `make run`; spike figures ar
   and answer times per parliament, with a CSV: site → Parliaments. Open dataset: 91,268 interventions × 23 columns with
   source links and a trust level for each parliament's answer dates.
 - **Repair lists OPD can apply.** In Bern, OPD attaches 229 of the 3,532 answers the canton publishes (6.5%), yet
-  3,394 (96.1%) are already in OPD. OPD confirmed the bug and its cause (correspondence, 10 Oct 2026) and called our
-  list of 2,459 relinks + 49 fetches "the best workaround" until its fix ships. Each relink was checked against OPD's
+  3,394 (96.1%) are already in OPD. OPD confirmed the bug and its cause (correspondence, 10 Oct 2026) and that our
+  list of 2,459 relinks + 49 fetches is the workaround until its fix ships. Each relink was checked against OPD's
   own copy: affair number and heading 2,459/2,459, decision date 2,421 (the rest go to review). A second list fixes 727
   Bern start dates that are load timestamps. Ready-made routes repair 3,107 of the 16,749; 11,206 need a reader for
   each parliament's own website, the next step.

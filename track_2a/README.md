@@ -6,7 +6,7 @@ Track 2A · OpenParlData · Team 444 · **Evidence site: https://gegenprobe.mi11
   text in OpenParlData (OPD)**, 1,008 of them Valais oral answers filed as stub documents. Every one has a typed cause:
   filed under an agenda item, stored without a parent, scanned without text, answered orally, or not in OPD at all.
 - **Repair lists keyed on OPD ids.** In Bern the answers are in OPD but unlinked. OPD confirmed the bug and its root
-  cause (correspondence, 10 Oct 2026) and called our relink list (2,459 relinks + 49 fetches) "the best workaround" until
+  cause (correspondence, 10 Oct 2026), and that our relink list (2,459 relinks + 49 fetches) is the workaround until
   its fix ships. A second list fixes 727 Bern `begin_date` values that are load timestamps. Deterministic routes repair
   3,107 of the 16,749; 11,206 need per-parliament source adapters, the next step.
 - **A schema verdict with evidence.** The concepts are shared; what differs is where the value lives, the vocabulary and
