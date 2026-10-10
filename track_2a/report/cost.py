@@ -6,7 +6,8 @@ hash cache and the token counts are read from the cached responses).
   rules_only (default): CPU time of rules.answer_date over the held-out page texts, measured here.
 Projection: OPD's docs export holds 902,754 documents (results/census); the pointer runs only on the rules' residue.
 
-    python -m report.cost  -> results/report/cost.json
+    python -m report.cost      -> results/report/cost.json
+    python -m report.cost e2e  -> results/report/cost_end_to_end.json (end-to-end per document, from committed measurements)
 """
 
 from __future__ import annotations
@@ -82,5 +83,48 @@ def main() -> dict:
     return out
 
 
+def end_to_end() -> dict:
+    """End-to-end cost per document, assembled from committed measurements only (no model, no network, no re-timing):
+    fetch + text extraction (+ OCR where the PDF has no text layer) + rules, and the review step on the residue.
+
+        python -m report.cost e2e  -> results/report/cost_end_to_end.json
+    """
+    cost = json.loads((RESULTS / "report" / "cost.json").read_text())
+    che = json.loads((RESULTS / "repair" / "che_backlog_run.json").read_text())
+    ocr = json.loads((RESULTS / "repair" / "ocr_probe.json").read_text())
+    red = json.loads((RESULTS / "eval" / "rederive_local.json").read_text())
+    held = [json.loads(x) for x in open(arms.DATA / "gold" / "heldout_docs.jsonl", encoding="utf-8")]
+    n_scans = sum(bool(d.get("image_only")) for d in held)
+    out = dict(
+        label="end-to-end cost per document, from committed measurements (one core, no GPU)",
+        fetch_extract_check_s_per_doc=che["s_per_doc"],
+        fetch_extract_check_source="results/repair/che_backlog_run.json: 50 federal documents fetched politely, "
+                                   "text extracted and triple-checked (wall clock incl. SPARQL lookup)",
+        ocr_s_per_page=ocr["image_multi"]["secs_per_page"],
+        ocr_source="results/repair/ocr_probe.json: tesseract deu+fra+ita, 15 image-only answers",
+        rules_docs_per_second=cost["rules_docs_per_second"],
+        rules_ms_per_doc=1000 / cost["rules_docs_per_second"],
+        heldout_rederive_s=red["secs"],
+        heldout_rederive_n=red["n"],
+        heldout_rederive_scans=n_scans,
+        heldout_rederive_s_per_doc=red["secs"] / red["n"],
+        heldout_rederive_source="results/eval/rederive_local.json: the 154 held-out PDFs through pdftotext (OCR for the "
+                                "scans) and the frozen rules on one laptop core",
+        review_70b_calls_per_residue_doc=cost["calls_per_residue_doc_mean"],
+        review_70b_billed_prompt_tokens_per_residue_doc=cost["billed_prompt_tokens_per_residue_doc_mean"],
+        review_8b_s_per_residue_doc=None,
+        review_8b_status="pending: the real 8B (GGUF Q4_K_M, CPU) arms run on CI (workflow arms-8b); no timing committed yet",
+        corpus_documents=cost["corpus_documents"],
+        x10_documents=10 * cost["corpus_documents"],
+        x10_rules_cpu_hours=10 * cost["rules_cpu_hours_corpus"],
+        x10_review_usd_at_list_price=cost["projection_usd_at_list_price_x10"],
+        caveat=cost["caveat"],
+    )
+    (RESULTS / "report" / "cost_end_to_end.json").write_text(json.dumps(out, indent=1))
+    return out
+
+
 if __name__ == "__main__":
-    print(json.dumps(main(), indent=1))
+    import sys
+
+    print(json.dumps(end_to_end() if sys.argv[1:] == ["e2e"] else main(), indent=1))

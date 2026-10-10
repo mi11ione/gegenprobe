@@ -24,6 +24,51 @@ def sci(p: float) -> str:
     return f"{m} × 10{str(int(e)).translate(sup)}"
 
 
+PROFILE_ARMS = ("rules", "pointer", "cascade")  # the arms that can only return a printed date (or null)
+
+
+def _arm_value(arm: str, row: dict):
+    x = row[arm]
+    if arm == "rules":
+        return x.get("value") if x["status"] == "value" else None
+    return x.get("value")
+
+
+def error_profile(path) -> dict:
+    """Per arm, every document in exactly one class: right (date or null), wrong printed date (document has an answer date,
+    the arm returned another date printed in it), date on a document without an answer, missed (answer date, arm null).
+    Recomputed from the committed per-document rows of the frozen run (strict scoring)."""
+    rows = json.loads(path.read_text())["per_doc"]
+    out = {}
+    for a in PROFILE_ARMS:
+        c = dict(n=len(rows), right=0, wrong_printed_date=0, date_on_answerless=0, missed=0, not_printed=0)
+        for r in rows:
+            g, v = r["gold"], _arm_value(a, r)
+            if v == g:
+                c["right"] += 1
+            elif v is not None and v not in set(r["doc_dates"]):
+                c["not_printed"] += 1
+            elif g is None:
+                c["date_on_answerless"] += 1
+            elif v is None:
+                c["missed"] += 1
+            else:
+                c["wrong_printed_date"] += 1
+        c["wrong_any"] = c["wrong_printed_date"] + c["date_on_answerless"]
+        out[a] = c
+    return out
+
+
+def cascade_below_pointer(path) -> dict:
+    """Documents the pointer alone gets right and the cascade gets wrong (and the reverse), with the reason."""
+    rows = json.loads(path.read_text())["per_doc"]
+    worse = [r for r in rows if r["pointer"]["value"] == r["gold"] and r["cascade"]["value"] != r["gold"]]
+    better = [r for r in rows if r["pointer"]["value"] != r["gold"] and r["cascade"]["value"] == r["gold"]]
+    return dict(cascade_wrong_pointer_right=len(worse), cascade_right_pointer_wrong=len(better),
+                rule_fired_wrong_printed_date=sum(r["rules"]["status"] == "value" for r in worse),
+                rules=sorted({r["rules"].get("rule") for r in worse}))
+
+
 def main() -> dict:
     board = json.loads((RESULTS / "eval2" / f"p2__{BUILD}.json").read_text())
     hyp = json.loads((RESULTS / "eval2" / f"hypotheses2__{BUILD}.json").read_text())
@@ -77,6 +122,17 @@ def main() -> dict:
     comp = json.loads((RESULTS / "census" / "comparability.json").read_text())
     antrag = next(e for e in comp["type"]["ambiguous_examples"] if e["label"] == "antrag")
     out["antrag_concepts"] = len(antrag["concepts"])
+    out["procedural_state_ambiguous"] = comp["procedural_state"]["ambiguous_labels"]
+    out["error_profile"] = dict(P1=error_profile(RESULTS / "eval" / f"heldout__{BUILD}.json"),
+                                P2=error_profile(RESULTS / "eval2" / f"p2__{BUILD}.json"))
+    out["p2_cascade_below_pointer"] = cascade_below_pointer(RESULTS / "eval2" / f"p2__{BUILD}.json")
+    body = json.loads((RESULTS / "eval2" / "body_level.json").read_text())
+    out["p2_body_level"] = dict(pointer=body["bodies_favouring_pointer"], rules=body["bodies_favouring_rules"],
+                                ties=body["bodies_with_answers_but_no_discordance"],
+                                sign_p_str=f"{body['sign_test_p_two_sided']:.3f}",
+                                label=body["label"])
+    h3lm = json.loads((RESULTS / "eval" / "baselines_dates.json").read_text())["P1_H3_length_matched"]
+    out["p1_h3_length_matched_str"] = f"{h3lm['auroc']:.3f}"
     p = RESULTS / "report" / "p2_numbers.json"
     p.write_text(json.dumps(out, indent=1, ensure_ascii=False))
     return out

@@ -37,6 +37,8 @@ In scope: affairs whose OPD harmonised type is Interpellation, Motion, Postulate
 - **`text_answer`**: an answer-type row (Antwort, Réponse, Risposta, Stellungnahme) in the `texts` export with ≥50 chars.
 - **gap** = `ev_answer` ∧ no answer text; **gap′** = gap after re-attaching answer documents filed under an agenda item
   (`agendas.item_affair_id`).
+- The gap counts what OPD holds, not what the parliaments publish: it includes the 1,008 Valais answers given orally and
+  filed as an `_ANT` stub document (§4), which the repair list retypes as oral rather than searching for a text.
 
 ## 2. Answer-link status (new schema field `answer_link_status`)
 
@@ -83,6 +85,14 @@ outcome and government recommendation; all documents for language.
 
 Vocabulary is reported next to availability (harmonised-vocabulary coverage per body, number of raw labels) but does not
 change the tier: a raw label without a harmonised mapping is a lookup-table problem, not a schema problem.
+
+**Meaning classes (added 10 Oct, post hoc; they do not change the tiers).** The tier says where a value lives. Whether it
+means the same thing everywhere is classed separately (`data/schema/field_verdict_classes.json`), from the ambiguous raw
+labels measured in `results/census/comparability.json`: *shared* (one meaning; only where the value lives differs),
+*shared with a role split* (one source label covers several roles: the answer date is decided / dispatched / registered;
+type, procedural history, procedural state and decision outcome have labels that map to different harmonised concepts in
+different bodies) and *body-specific* (oral answers in question time, executive-own business, councils that publish only
+meeting documents). The README's schema section gives the table.
 
 <!-- BEGIN GENERATED: census results -->
 

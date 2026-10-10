@@ -1,0 +1,38 @@
+{
+ "run_id": 38043355800,
+ "run_url": "https://github.com/mi11ione/gegenprobe/actions/runs/38043355800",
+ "commit": "fec4029",
+ "image_poppler": "22.12.0-2+deb12u3",
+ "result": "PASS",
+ "wall_s": 456.6,
+ "rederive_rules": {
+  "n": 154,
+  "rederived": 138,
+  "match": 138,
+  "differ": 0,
+  "unreachable": 0,
+  "not_reached_budget": 16
+ },
+ "rederive_apertus": {
+  "P1": {
+   "n": 154,
+   "match": 129,
+   "recomputed": 129,
+   "cache_miss": 24,
+   "over_budget": 1
+  },
+  "P2": {
+   "n": 62,
+   "match": 0,
+   "recomputed": 0,
+   "cache_miss": 0,
+   "over_budget": 62
+  },
+  "status": "WARN"
+ },
+ "claims": {
+  "checked": 463,
+  "failing": 0
+ },
+ "note": "Step summaries copied from the public CI log of this run (job make-run). Numbers within the time budget vary run to run; mismatches are 0 in every run."
+}

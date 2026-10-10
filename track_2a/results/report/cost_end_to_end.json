@@ -1,0 +1,23 @@
+{
+ "label": "end-to-end cost per document, from committed measurements (one core, no GPU)",
+ "fetch_extract_check_s_per_doc": 2.1,
+ "fetch_extract_check_source": "results/repair/che_backlog_run.json: 50 federal documents fetched politely, text extracted and triple-checked (wall clock incl. SPARQL lookup)",
+ "ocr_s_per_page": 6.86,
+ "ocr_source": "results/repair/ocr_probe.json: tesseract deu+fra+ita, 15 image-only answers",
+ "rules_docs_per_second": 479.6631706831142,
+ "rules_ms_per_doc": 2.0847962927315145,
+ "heldout_rederive_s": 727.2,
+ "heldout_rederive_n": 154,
+ "heldout_rederive_scans": 22,
+ "heldout_rederive_s_per_doc": 4.722077922077922,
+ "heldout_rederive_source": "results/eval/rederive_local.json: the 154 held-out PDFs through pdftotext (OCR for the scans) and the frozen rules on one laptop core",
+ "review_70b_calls_per_residue_doc": 3.515463917525773,
+ "review_70b_billed_prompt_tokens_per_residue_doc": 5904.505154639175,
+ "review_8b_s_per_residue_doc": null,
+ "review_8b_status": "pending: the real 8B (GGUF Q4_K_M, CPU) arms run on CI (workflow arms-8b); no timing committed yet",
+ "corpus_documents": 902754,
+ "x10_documents": 9027540,
+ "x10_rules_cpu_hours": 5.227939423468182,
+ "x10_review_usd_at_list_price": 3357.406608428572,
+ "caveat": "residue share measured on the stratified held-out sample, not on the corpus mix"
+}

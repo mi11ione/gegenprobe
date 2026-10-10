@@ -616,7 +616,7 @@ const facts = [
   [fmt(H.relink), el('span', {}, `Bern answers already in OPD without a parent, relinkable by the canton's own document id. Plus ${fmt(H.fetch)} to fetch. `, el('a', { class: 'bernlink', href: '#bern-numbers' }, 'All Bern numbers →'))],
   H.p2 ? [`${H.p2.pointer.correct}/${H.p2.pointer.of}`, `answer dates Apertus found in ${H.p2.bodies} parliaments the rules were never written for; the rules found ${H.p2.rules.correct}. Pre-registered, p = ${sup(H.p2.p)}.`]
        : [`${H.rules_exact}/${H.heldout}`, `held-out documents exact with the default converter (rules, no model), which wrote a date on ${H.rules_on_null} of ${H.n_null} documents without an answer.`],
-  [fmt(H.naive_fab), `answer dates invented outright by free-generation Apertus on the 154 held-out documents. The pointer cannot invent: it can only pick a printed date, or null.`],
+  [fmt(H.naive_fab), `answer dates invented outright by free-generation Apertus on the 154 held-out documents. The pointer only picks a date printed in the document, or null; it can still pick the wrong printed date.`],
 ];
 $('#facts').append(...facts.map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
 
@@ -1196,7 +1196,8 @@ function renderP3() {
     card('P3-H2', 'REPORTED', 'Does OPD metadata agree with the printed value?', 'Mostly, where OPD carries the field; affair numbers differ in format.',
       `type ${h2.affair_type.agree}/${h2.affair_type.n} · submitter ${h2.submitter.agree}/${h2.submitter.n} · submitted ${h2.submitted.agree}/${h2.submitted.n} · number ${h2.number.agree}/${h2.number.n}`),
     card('P3-H3', h3.recall_holds && h3.precision_holds ? 'PASS' : 'GATED', 'Apertus on the fields the default leaves open', `Recall holds, precision is below the 0.70 bar: registered consequence, suggestions with a reviewer gate.`,
-      `right ${h3.recall[0]}/${h3.recall[1]} of the open fields with a value · ${h3.precision[0]}/${h3.precision[1]} suggestions right · addressed body ${h3.per_field.addressed_body.recall[0]}/${h3.per_field.addressed_body.recall[1]}`));
+      (() => { const pf = Object.entries(h3.per_field).filter(([f]) => f !== 'addressed_body'), s = (k, i) => pf.reduce((a, [, v]) => a + v[k][i], 0);
+        return `right ${h3.recall[0]}/${h3.recall[1]} of the open fields with a value · ${h3.precision[0]}/${h3.precision[1]} suggestions right · without addressed body (withdrawn: every gold value is "executive") ${s('recall', 0)}/${s('recall', 1)} and ${s('precision', 0)}/${s('precision', 1)}`; })()));
 }
 
 function renderP4() {

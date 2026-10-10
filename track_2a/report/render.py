@@ -27,7 +27,7 @@ ul { padding-left: 14pt; margin: 3pt 0; }
 table { border-collapse: collapse; font-size: 8.8pt; margin: 4pt 0; width: 100%; }
 th, td { border: 0.4pt solid #aaa; padding: 2pt 4pt; text-align: left; vertical-align: top; }
 th { background: #eee; }
-img { max-width: 100%; max-height: 66mm; display: block; margin: 4pt auto 0; }
+img { max-width: 100%; max-height: 60mm; display: block; margin: 4pt auto 0; }
 em { color: #333; }
 code { font-size: 8.8pt; }
 """
@@ -58,8 +58,14 @@ def main(argv: list[str]) -> int:
     with tempfile.TemporaryDirectory() as td:
         h = Path(td) / "report.html"
         h.write_text(html, encoding="utf-8")
-        subprocess.run([exe, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", "--allow-file-access-from-files",
-                        f"--print-to-pdf={out}", h.as_uri()], check=True, capture_output=True, timeout=120)
+        if out.exists():
+            out.unlink()
+        r = subprocess.run([exe, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", "--allow-file-access-from-files",
+                            f"--print-to-pdf={out}", h.as_uri()], capture_output=True, timeout=120)
+        # recent Chrome builds on macOS can exit non-zero from a teardown watchdog after the PDF is written: judge by the file
+        if not out.exists() or out.stat().st_size == 0:
+            sys.stderr.write(r.stderr.decode("utf-8", "replace")[-2000:])
+            return r.returncode or 1
     pages = len(re.findall(rb"/Type\s*/Page[^s]", out.read_bytes()))
     print(f"{out} ({pages} pages)")
     return 0

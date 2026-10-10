@@ -1,0 +1,11 @@
+# fetched 2026-10-10 11:09:53 GMT from https://api.openparldata.ch/robots.txt (UA hackapertus-research/0.1), verbatim below
+User-agent: *
+# Block all API data endpoints (not for SEO)
+Disallow: /v1/
+
+# Allow documentation
+Allow: /documentation
+Allow: /openapi.json
+
+# Sitemap is on the GUI domain
+Sitemap: https://openparldata.ch/sitemap-index.xml

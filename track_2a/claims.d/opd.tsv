@@ -4,7 +4,7 @@ opd.be_begin_2024_10_28	557	results/repair/repair_BE_begin_date.json	summary.by_
 opd.be_begin_later_loads	170	results/repair/repair_BE_begin_date.json	summary.later_loads	int	python -m gegenprobe.repair.be_begin_date	README.md,technical_report.md
 opd.be_begin_set	554	results/repair/repair_BE_begin_date.json	summary.by_action.set_begin_date	int	python -m gegenprobe.repair.be_begin_date	README.md,technical_report.md
 opd.be_begin_review	173	results/repair/repair_BE_begin_date.json	summary.by_action.review	int	python -m gegenprobe.repair.be_begin_date	README.md
-opd.virtual_bodies	16	results/census/virtual_affairs.json	n_bodies	int	python -m gegenprobe.census.virtual	technical_report.md
-opd.virtual_no_affairs	8	results/census/virtual_affairs.json	n_bodies_no_affairs	int	python -m gegenprobe.census.virtual	technical_report.md
+opd.virtual_bodies	16	results/census/virtual_affairs.json	n_bodies	int	python -m gegenprobe.census.virtual	technical_report.md,README.md
+opd.virtual_no_affairs	8	results/census/virtual_affairs.json	n_bodies_no_affairs	int	python -m gegenprobe.census.virtual	technical_report.md,README.md
 opd.hash_rule_rows	386	results/census/hash_check.json	matches_not_duplicated	int	python -m gegenprobe.census.hash_check	docs/census.md
 opd.doc_duplicate_rows	726	results/census/hash_check.json	national_duplicates.duplicate_extra_rows	int	python -m gegenprobe.census.hash_check	docs/census.md

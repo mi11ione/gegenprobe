@@ -1,9 +1,9 @@
 {
  "census.antrag_concepts": {
-  "technical_report.md": "types in different parliaments (\"Antrag\" alone to"
+  "technical_report.md": "\"Antrag\" alone to"
  },
  "census.bodies_with_affairs": {
-  "README.md": "parliaments have no rules; we tested",
+  "README.md": "parliaments with affairs in scope (OPD",
   "docs/form_notes.md": "and we show where it breaks.** Over",
   "technical_report.md": "schema field comes from, per parliament (all"
  },
@@ -15,16 +15,16 @@
   "technical_report.md": "held-out documents):"
  },
  "cost.heldout_docs": {
-  "README.md": "identical to the committed predictions); every number",
-  "technical_report.md": "and Apertus adds nothing significant, so rules"
+  "README.md": "held-out documents, Apertus on",
+  "technical_report.md": "held-out documents; Apertus:"
  },
  "cost.residue_docs": {
   "README.md": "held-out documents):",
-  "technical_report.md": "runs the pointer on the rules' residue"
+  "technical_report.md": "mode adds the pointer on the residue"
  },
  "cost.rules_cpu_hours": {
-  "README.md": "**Cost.** Rules only: about",
-  "technical_report.md": "**Cost.** Rules only: about"
+  "README.md": "documents per second, about",
+  "technical_report.md": "CPU-hours for all"
  },
  "docs.matrix_fields": {
   "README.md": "fields are feasible from OPD metadata alone,",
@@ -61,7 +61,7 @@
   "technical_report.md": "Branch B**: on FR+IT+scans (n ="
  },
  "eval.h2.pooled_cascade_only": {
-  "technical_report.md": "Apertus does not measurably add null-safety, so"
+  "technical_report.md": "so rules run unattended and Apertus's answers"
  },
  "eval.h2.pooled_rules_only": {
   "technical_report.md": "pooled 9 vs"
@@ -70,11 +70,11 @@
   "technical_report.md": "documents, the rules alone on"
  },
  "eval.h4.n": {
-  "README.md": "Apertus-decided French/Italian values are wrong (θ sweep",
+  "README.md": "Apertus-decided French/Italian",
   "technical_report.md": "Apertus-decided FR/IT values are wrong."
  },
  "eval.h4.wrong": {
-  "README.md": "Apertus-decided French/Italian values are wrong (θ sweep",
+  "README.md": "on the registered length-matched set);",
   "technical_report.md": "Apertus-decided FR/IT values are wrong."
  },
  "eval.n_gold_value": {
@@ -151,12 +151,12 @@
  },
  "matrix.fields_fundamental": {
   "README.md": "fundamentally different;",
-  "docs/form_notes.md": "some parliaments, only the PDF in others),",
-  "technical_report.md": "fundamentally different** at our thresholds;"
+  "docs/form_notes.md": "some parliaments (elsewhere only in the PDF),",
+  "technical_report.md": "fundamentally different**; \"answer date\" is shared only"
  },
  "matrix.fields_partial": {
   "README.md": "fields are feasible from OPD metadata alone,",
-  "docs/form_notes.md": "partial (metadata in some parliaments, only the",
+  "docs/form_notes.md": "only for some parliaments (elsewhere only in",
   "technical_report.md": "are feasible** from OPD metadata alone,"
  },
  "matrix.gov_rec_pdf_bodies": {
@@ -168,8 +168,8 @@
  },
  "opd.be_begin_flagged": {
   "README.md": "Bern `begin_date` values that are load timestamps.",
-  "docs/form_notes.md": "Bern begin dates that are load timestamps.",
-  "technical_report.md": "one canton typo). A second list corrects"
+  "docs/form_notes.md": "go to review). A second list fixes",
+  "technical_report.md": "site `#bern-numbers`, `results/repair/be_reconcile.json`). A second list corrects"
  },
  "opd.be_begin_later_loads": {
   "README.md": "from later loads, the two groups",
@@ -189,37 +189,39 @@
   "docs/census.md": "| recomputed | explained |"
  },
  "opd.virtual_bodies": {
-  "technical_report.md": "and where communes publish only meeting documents"
+  "README.md": "bodies publish only meeting documents",
+  "technical_report.md": "bodies publish only meeting documents"
  },
  "opd.virtual_no_affairs": {
-  "technical_report.md": "without any affair; schema"
+  "README.md": "have no affair at all",
+  "technical_report.md": "without any affair"
  },
  "p1.primary_mde_pts": {
   "technical_report.md": "detectable effect"
  },
  "p2.bodies": {
-  "README.md": "parliaments the rules never saw, the rules",
+  "README.md": "suggestions. **Where Apertus earns its place:** on",
   "docs/form_notes.md": "parliaments the rules never saw",
-  "technical_report.md": "parliaments the rules never saw, the rules"
+  "technical_report.md": "parliaments the rules never saw**:"
  },
  "p2.bodies_scope": {
   "README.md": "parliaments with affairs in scope (OPD",
   "technical_report.md": "reality.** OpenParlData (OPD) publishes the affairs of"
  },
  "p2.bodies_without_rules": {
-  "README.md": "documents that carry no answer."
+  "README.md": "parliaments without rules"
  },
  "p2.gold_kappa": {
   "README.md": "annotators agreed on all",
-  "technical_report.md": "annotators agreed on every date, κ"
+  "technical_report.md": "absent from every dev and held-out set**"
  },
  "p2.h2_pointer_only": {
   "README.md": "documents only the pointer gets right,",
-  "technical_report.md": "answered documents only the pointer gets right,"
+  "technical_report.md": "by document, as registered,"
  },
  "p2.h2nb_pointer_only": {
-  "README.md": "letterhead one rule happens to match,",
-  "technical_report.md": "whose letterhead one rule happens to match,"
+  "README.md": "one rule happens to match,",
+  "technical_report.md": "without Bellinzona"
  },
  "p2.n": {
   "README.md": "parliaments absent from every dev and held-out",
@@ -231,7 +233,7 @@
  },
  "p2.n_value": {
   "README.md": "with an answer date, 33 without",
-  "technical_report.md": "answer dates and Apertus finds"
+  "technical_report.md": "with an answer date, 33 without"
  },
  "p2.naive_null_fab": {
   "README.md": "[72.8, 91] | 22/29 | 7 |",
@@ -246,14 +248,14 @@
   "technical_report.md": "leaves open (CA); annotators agreed on ≥"
  },
  "p3.n_affairs": {
-  "README.md": "On whole affairs (",
-  "docs/form_notes.md": "- **Whole affairs, not one field.**",
-  "technical_report.md": "whole affairs from"
+  "README.md": "P3 — whole affairs:",
+  "docs/form_notes.md": "affairs from",
+  "technical_report.md": "P3 — whole affairs:"
  },
  "p3.n_bodies": {
-  "README.md": "parliaments) metadata and rules",
+  "README.md": "affairs (58 PDFs) from",
   "docs/form_notes.md": "parliaments in German, French",
-  "technical_report.md": "whole affairs from"
+  "technical_report.md": "affairs (58 PDFs),"
  },
  "p3.n_pdfs": {
   "README.md": "— whole affairs:",
@@ -266,7 +268,7 @@
   "README.md": "meeting date"
  },
  "p4.derived": {
-  "README.md": "`derived_from`, exercised on",
+  "README.md": "affairs with item precision",
   "docs/form_notes.md": "held-out sittings into",
   "technical_report.md": "commune that publishes only minutes, rules derive"
  },
@@ -277,11 +279,11 @@
   "docs/virtual-affairs.md": "spans re-checked against the PDF text"
  },
  "p4.h3_review_only": {
-  "README.md": "decisions (not significant)",
-  "technical_report.md": "decisions (n.s.)"
+  "README.md": "Apertus added",
+  "technical_report.md": "(Apertus +"
  },
  "p4.items": {
-  "README.md": "agenda items.** Deterministic parsing of",
+  "README.md": "agenda items.** Deterministic parsing",
   "technical_report.md": "held-out sittings of Bulle's council,"
  },
  "p4.meetings": {
@@ -290,8 +292,8 @@
   "technical_report.md": "held-out sittings of Bulle"
  },
  "question.bodies": {
-  "README.md": "bodies it is mostly the submission date,",
-  "technical_report.md": "bodies the \"answer\" event is mostly the"
+  "README.md": "bodies the \"answer\" event is mostly the",
+  "technical_report.md": "parliaments, 82.3% of written"
  },
  "question.median_days": {
   "technical_report.md": "measured repairs); the median government answers in"
@@ -300,8 +302,133 @@
   "technical_report.md": "same-day bodies; Question time"
  },
  "question.same_day_bodies": {
-  "README.md": "parliament but is not one concept: in",
+  "README.md": "least three dates (decided, dispatched, registered): in",
   "technical_report.md": "same-day bodies; Question time"
+ },
+ "r2a.p2_bodies_pointer": {
+  "README.md": "the pointer wins in",
+  "docs/form_notes.md": "for the best simple shortcut; better in",
+  "technical_report.md": "the pointer wins in"
+ },
+ "r2a.p2_bodies_rules": {
+  "README.md": "parliaments, the rules in",
+  "technical_report.md": "wins in 6, the rules in"
+ },
+ "r2a.p3_h3_wo_addr_precision": {
+  "README.md": "related affairs (rules) precision",
+  "technical_report.md": "Set fields (C, registered): co-signatories precision"
+ },
+ "r2a.p3_h3_wo_addr_recall": {
+  "README.md": "evidence is thin,",
+  "technical_report.md": "the addressed-body claim is withdrawn; without it"
+ },
+ "r2a.p3_related_precision": {
+  "README.md": "related affairs (rules) precision",
+  "technical_report.md": "(OPD metadata); related affairs"
+ },
+ "r2w.bern_review": {
+  "README.md": "written after the registered run; the remaining",
+  "technical_report.md": "go to review (pre-registered sample:"
+ },
+ "r2w.dataset_columns": {
+  "README.md": "columns with date-trust tiers and source links",
+  "docs/form_notes.md": "interventions ×"
+ },
+ "r2w.local_transfer_bytes": {
+  "README.md": "bytes of export transfer (`results/monitor/run_local_exports.json`).",
+  "technical_report.md": "bytes of export transfer. The research dataset"
+ },
+ "r2w.p2_baseline_misattributed": {
+  "README.md": "OPD types as answers (post hoc)* |",
+  "technical_report.md": "date on answer-typed documents (post hoc)* |"
+ },
+ "r2w.p2_baseline_on_null": {
+  "README.md": "OPD types as answers (post hoc)* |",
+  "technical_report.md": "latest date on answer-typed documents"
+ },
+ "r2w.p2_body_ties": {
+  "README.md": "parliaments, the rules in",
+  "technical_report.md": "tie (sign test"
+ },
+ "r2w.p2_cascade_answerless": {
+  "README.md": "wrong date 6, answerless",
+  "technical_report.md": "| 22/29 | 10 | 0 |"
+ },
+ "r2w.p2_cascade_missed": {
+  "README.md": "answerless 4, missed",
+  "technical_report.md": "The cascade trails the pointer because on"
+ },
+ "r2w.p2_cascade_rule_wrong": {
+  "README.md": "documents a rule (`rrb_vom`) fired with a",
+  "technical_report.md": "The cascade trails the pointer because on"
+ },
+ "r2w.p2_cascade_wrong": {
+  "README.md": "The combination scores below the pointer alone",
+  "technical_report.md": "The cascade trails the pointer because on"
+ },
+ "r2w.p2_pointer_answerless": {
+  "README.md": "| **Apertus pointer** |",
+  "technical_report.md": "answerless dated"
+ },
+ "r2w.p2_pointer_missed": {
+  "README.md": "answerless documents and misses",
+  "technical_report.md": "pointer 53,"
+ },
+ "r2w.p2_pointer_wrong": {
+  "README.md": "picks a wrong printed date on",
+  "technical_report.md": "answerless dated"
+ },
+ "r2w.p2_rules_answerless": {
+  "technical_report.md": "answerless dated"
+ },
+ "r2w.p2_rules_missed": {
+  "README.md": "none of the answerless documents and miss",
+  "technical_report.md": "answerless dated"
+ },
+ "r2w.p2_rules_wrong": {
+  "README.md": "pick a wrong printed date on",
+  "technical_report.md": "rules right 35, wrong printed date"
+ },
+ "r2w.p4_h3_p": {
+  "README.md": "decisions (p =",
+  "technical_report.md": "decisions, p ="
+ },
+ "r2w.p4t_items": {
+  "README.md": "agenda and minutes in OPD; items",
+  "docs/form_notes.md": "La Chaux-de-Fonds, items and titles carry over",
+  "technical_report.md": "sittings of La Chaux-de-Fonds,"
+ },
+ "r2w.p4t_review_correct": {
+  "README.md": "decisions, and with Apertus",
+  "technical_report.md": "correct): decision parsing is commune-specific."
+ },
+ "r2w.p4t_review_found": {
+  "README.md": "decisions, and with Apertus",
+  "technical_report.md": "found with Apertus"
+ },
+ "r2w.p4t_rules_decisions": {
+  "README.md": "decisions, and with Apertus",
+  "docs/form_notes.md": "but decisions do not",
+  "technical_report.md": "found with Apertus"
+ },
+ "r2w.p4t_titles": {
+  "README.md": "but the rules find",
+  "technical_report.md": "sittings of La Chaux-de-Fonds,"
+ },
+ "r2w.procedural_state_ambiguous": {
+  "README.md": "type labels map to different harmonised types,",
+  "technical_report.md": "to different harmonised types (\"Antrag\" alone to"
+ },
+ "r2w.rederive_scans": {
+  "README.md": "of them scans) took"
+ },
+ "r2w.rules_docs_per_s": {
+  "README.md": "the rules themselves process",
+  "technical_report.md": "where OCR is needed; the rules process"
+ },
+ "r2w.x10_rules_cpu_hours": {
+  "README.md": "ten times OPD's volume, rules need about",
+  "technical_report.md": "run. At ten times OPD's volume: about"
  },
  "repair.agenda_join": {
   "docs/repair.md": "| OPD's own `agendas.item_affair_id`; not sample-verified |"
@@ -322,7 +449,7 @@
   "technical_report.md": "**Repair.** Bern:"
  },
  "repair.be_fetch": {
-  "docs/form_notes.md": "fetches, `results/repair/repair_BE.tsv`) is the best interim",
+  "docs/form_notes.md": "fetches \"the best workaround\" until its fix",
   "docs/repair.md": "canton lists an answer OPD lacks |",
   "technical_report.md": "fetches, the other"
  },
@@ -352,8 +479,10 @@
   "docs/repair.md": "are short documents (one-page decrees under"
  },
  "repair.che_s_per_doc": {
+  "README.md": "s to fetch politely, extract and check",
   "docs/nightly.md": "s per document at ≥",
-  "docs/repair.md": "conservative; the backlog run needs"
+  "docs/repair.md": "conservative; the backlog run needs",
+  "technical_report.md": "s to fetch politely, extract and check,"
  },
  "repair.nightly_new_rows": {
   "docs/nightly.md": "second run on the same inputs reports"
@@ -367,8 +496,10 @@
   "technical_report.md": "accented characters where English OCR keeps"
  },
  "repair.ocr_s_per_page": {
+  "README.md": "s per page where OCR is needed;",
   "docs/nightly.md": "s per page ≈",
-  "docs/repair.md": "pages, which matters for quoting spans. Cost:"
+  "docs/repair.md": "pages, which matters for quoting spans. Cost:",
+  "technical_report.md": "to fetch politely, extract and check, plus"
  },
  "repair.ocr_vs_stubs": {
   "docs/repair.md": "VS oral-answer pointers that have a text",
@@ -384,16 +515,16 @@
   "docs/repair.md": "documents), i.e. no answer by procedure, and"
  },
  "report.a3": {
-  "technical_report.md": "tie-breaks, order not randomised; OPD oracle"
+  "technical_report.md": "tie-breaks; OPD oracle"
  },
  "report.bilanz_bodies": {
-  "technical_report.md": "bodies found five recurring schema gaps; estimating"
+  "technical_report.md": "format differences). Five schema gaps recur across"
  },
  "report.cited_qwen": {
   "technical_report.md": "name is answered by Qwen-SEA-LION"
  },
  "report.heldout_n": {
-  "technical_report.md": "and Apertus adds nothing significant, so rules"
+  "technical_report.md": "held-out documents; Apertus:"
  },
  "report.heldout_null": {
   "technical_report.md": "null safety failed**: the cascade dates"
@@ -402,15 +533,15 @@
   "technical_report.md": "for** (DE/FR/IT × canton/commune + Ticino scans;"
  },
  "report.oracle_match": {
-  "README.md": "the date printed in the answer for",
-  "technical_report.md": "tie-breaks, order not randomised; OPD oracle"
+  "README.md": "OPD's event equals the printed date for",
+  "technical_report.md": "tie-breaks; OPD oracle"
  },
  "report.oracle_mismatch": {
-  "technical_report.md": "tie-breaks, order not randomised; OPD oracle"
+  "technical_report.md": "tie-breaks; OPD oracle"
  },
  "robust.dates_ambiguous": {
-  "README.md": "event labels carry different date roles, and",
-  "technical_report.md": "event labels carry different date roles (\"Beantwortet\""
+  "README.md": "event labels carry different date roles",
+  "technical_report.md": "event labels carry different date roles;"
  },
  "robust.days_all": {
   "technical_report.md": "measured repairs); the median government answers in"
@@ -421,14 +552,21 @@
  "robust.days_question_time": {
   "technical_report.md": "same-day bodies; Question time"
  },
+ "robust.decision_ambiguous": {
+  "README.md": "outcome labels are ambiguous",
+  "technical_report.md": "outcome labels ambiguous"
+ },
+ "robust.rederive_secs": {
+  "README.md": "of them scans) took"
+ },
  "robust.tier_fu10_fundamental": {
   "README.md": "no-source threshold",
   "technical_report.md": "fields would be (`results/census/tier_sensitivity.json`). Type is harmonised"
  },
  "robust.type_ambiguous": {
-  "README.md": "is not comparability.** In OPD's own vocabularies",
-  "docs/form_notes.md": "at our thresholds. Availability is not comparability:",
-  "technical_report.md": "is not comparability** (`results/census/comparability.json`). In OPD's vocabularies"
+  "README.md": "event labels carry different date roles,",
+  "docs/form_notes.md": "affair-type labels mean different things in different",
+  "technical_report.md": "event labels carry different date roles;"
  },
  "schema.event_titles": {
   "docs/schema.md": "| distinct harmonised event titles |"

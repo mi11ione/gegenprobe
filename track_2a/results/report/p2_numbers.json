@@ -157,5 +157,82 @@
   "ci_pts": "−1.4 to 9.3",
   "mde_pts": "6.2"
  },
- "antrag_concepts": 7
+ "antrag_concepts": 7,
+ "procedural_state_ambiguous": 32,
+ "error_profile": {
+  "P1": {
+   "rules": {
+    "n": 154,
+    "right": 135,
+    "wrong_printed_date": 2,
+    "date_on_answerless": 2,
+    "missed": 15,
+    "not_printed": 0,
+    "wrong_any": 4
+   },
+   "pointer": {
+    "n": 154,
+    "right": 130,
+    "wrong_printed_date": 10,
+    "date_on_answerless": 6,
+    "missed": 8,
+    "not_printed": 0,
+    "wrong_any": 16
+   },
+   "cascade": {
+    "n": 154,
+    "right": 139,
+    "wrong_printed_date": 4,
+    "date_on_answerless": 7,
+    "missed": 4,
+    "not_printed": 0,
+    "wrong_any": 11
+   }
+  },
+  "P2": {
+   "rules": {
+    "n": 62,
+    "right": 35,
+    "wrong_printed_date": 2,
+    "date_on_answerless": 0,
+    "missed": 25,
+    "not_printed": 0,
+    "wrong_any": 2
+   },
+   "pointer": {
+    "n": 62,
+    "right": 53,
+    "wrong_printed_date": 4,
+    "date_on_answerless": 4,
+    "missed": 1,
+    "not_printed": 0,
+    "wrong_any": 8
+   },
+   "cascade": {
+    "n": 62,
+    "right": 51,
+    "wrong_printed_date": 6,
+    "date_on_answerless": 4,
+    "missed": 1,
+    "not_printed": 0,
+    "wrong_any": 10
+   }
+  }
+ },
+ "p2_cascade_below_pointer": {
+  "cascade_wrong_pointer_right": 2,
+  "cascade_right_pointer_wrong": 0,
+  "rule_fired_wrong_printed_date": 2,
+  "rules": [
+   "rrb_vom"
+  ]
+ },
+ "p2_body_level": {
+  "pointer": 6,
+  "rules": 0,
+  "ties": 1,
+  "sign_p_str": "0.031",
+  "label": "POST-HOC (not pre-registered): body-level analysis of P2-H2"
+ },
+ "p1_h3_length_matched_str": "0.966"
 }
