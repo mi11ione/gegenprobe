@@ -1,0 +1,1075 @@
+{
+ "build": "publicai_swiss-ai_apertus-v1.5-8b",
+ "prereg": "eval/prereg5/PREREG5.md",
+ "n": 36,
+ "H1": {
+  "number": {
+   "correct": 18,
+   "n": 29,
+   "ci": [
+    0.4400222620928496,
+    0.7731220426913266
+   ],
+   "values_where_doc_prints_none": 7,
+   "tier": "not yet"
+  },
+  "affair_type": {
+   "correct": 35,
+   "n": 36,
+   "ci": [
+    0.8582996626496918,
+    0.9950797197044302
+   ],
+   "values_where_doc_prints_none": 0,
+   "tier": "extractable unattended"
+  },
+  "submitter": {
+   "correct": 30,
+   "n": 36,
+   "ci": [
+    0.6810888526532568,
+    0.9212965937143589
+   ],
+   "values_where_doc_prints_none": 0,
+   "tier": "partial"
+  },
+  "addressed_body": {
+   "correct": 2,
+   "n": 33,
+   "ci": [
+    0.016780530429070947,
+    0.19606581717798194
+   ],
+   "values_where_doc_prints_none": 0,
+   "tier": "not yet"
+  },
+  "submitted": {
+   "correct": 30,
+   "n": 34,
+   "ci": [
+    0.7337882520370121,
+    0.9532862902656388
+   ],
+   "values_where_doc_prints_none": 2,
+   "tier": "partial"
+  },
+  "answer_date": {
+   "correct": 20,
+   "n": 35,
+   "ci": [
+    0.4085712925897337,
+    0.7201566691832108
+   ],
+   "values_where_doc_prints_none": 0,
+   "tier": "not yet"
+  },
+  "decision_number": {
+   "correct": 0,
+   "n": 8,
+   "ci": [
+    0.0,
+    0.3244156195108769
+   ],
+   "values_where_doc_prints_none": 0,
+   "tier": "not yet"
+  },
+  "recommendation": {
+   "correct": 1,
+   "n": 6,
+   "ci": [
+    0.03005258587173032,
+    0.563509436563646
+   ],
+   "values_where_doc_prints_none": 0,
+   "tier": "not yet"
+  }
+ },
+ "H2": {
+  "number": {
+   "agree": 18,
+   "n": 29,
+   "ci": [
+    0.4400222620928496,
+    0.7731220426913266
+   ]
+  },
+  "affair_type": {
+   "agree": 16,
+   "n": 16,
+   "ci": [
+    0.8063865817272802,
+    1.0
+   ]
+  },
+  "submitter": {
+   "agree": 30,
+   "n": 36,
+   "ci": [
+    0.6810888526532568,
+    0.9212965937143589
+   ]
+  },
+  "submitted": {
+   "agree": 30,
+   "n": 34,
+   "ci": [
+    0.7337882520370121,
+    0.9532862902656388
+   ]
+  }
+ },
+ "H3_primary": {
+  "recall": [
+   14,
+   16
+  ],
+  "recall_ci": [
+   0.6397666856325173,
+   0.9650232506629428
+  ],
+  "precision": [
+   14,
+   20
+  ],
+  "precision_ci": [
+   0.4810232237710206,
+   0.854524726031006
+  ],
+  "recall_holds": true,
+  "precision_holds": false,
+  "per_field": {
+   "submitter": {
+    "recall": [
+     0,
+     0
+    ],
+    "precision": [
+     0,
+     0
+    ]
+   },
+   "submitted": {
+    "recall": [
+     0,
+     0
+    ],
+    "precision": [
+     0,
+     0
+    ]
+   },
+   "affair_type": {
+    "recall": [
+     0,
+     0
+    ],
+    "precision": [
+     0,
+     0
+    ]
+   },
+   "answer_date": {
+    "recall": [
+     11,
+     11
+    ],
+    "precision": [
+     11,
+     11
+    ]
+   },
+   "recommendation": {
+    "recall": [
+     3,
+     5
+    ],
+    "precision": [
+     3,
+     9
+    ]
+   }
+  },
+  "decision": "recommended with a reviewer gate",
+  "fields": [
+   "submitter",
+   "submitted",
+   "affair_type",
+   "answer_date",
+   "recommendation"
+  ]
+ },
+ "H3_secondary_as_PREREG3": {
+  "recall": [
+   40,
+   47
+  ],
+  "recall_ci": [
+   0.7231410342888723,
+   0.925933739125025
+  ],
+  "precision": [
+   40,
+   54
+  ],
+  "precision_ci": [
+   0.610688551197827,
+   0.8388149203520608
+  ],
+  "recall_holds": true,
+  "precision_holds": false,
+  "per_field": {
+   "submitter": {
+    "recall": [
+     0,
+     0
+    ],
+    "precision": [
+     0,
+     0
+    ]
+   },
+   "submitted": {
+    "recall": [
+     0,
+     0
+    ],
+    "precision": [
+     0,
+     0
+    ]
+   },
+   "addressed_body": {
+    "recall": [
+     26,
+     31
+    ],
+    "precision": [
+     26,
+     34
+    ]
+   },
+   "affair_type": {
+    "recall": [
+     0,
+     0
+    ],
+    "precision": [
+     0,
+     0
+    ]
+   },
+   "answer_date": {
+    "recall": [
+     11,
+     11
+    ],
+    "precision": [
+     11,
+     11
+    ]
+   },
+   "recommendation": {
+    "recall": [
+     3,
+     5
+    ],
+    "precision": [
+     3,
+     9
+    ]
+   }
+  },
+  "decision": "recommended with a reviewer gate",
+  "fields": [
+   "submitter",
+   "submitted",
+   "addressed_body",
+   "affair_type",
+   "answer_date",
+   "recommendation"
+  ]
+ },
+ "H4": {
+  "seen": {
+   "number": {
+    "C": {
+     "correct": 9,
+     "n": 16
+    },
+    "CA": {
+     "correct": 9,
+     "n": 16
+    },
+    "M": {
+     "correct": 9,
+     "n": 16
+    },
+    "R": {
+     "correct": 4,
+     "n": 16
+    }
+   },
+   "affair_type": {
+    "C": {
+     "correct": 19,
+     "n": 20
+    },
+    "CA": {
+     "correct": 19,
+     "n": 20
+    },
+    "M": {
+     "correct": 10,
+     "n": 20
+    },
+    "R": {
+     "correct": 19,
+     "n": 20
+    }
+   },
+   "submitter": {
+    "C": {
+     "correct": 18,
+     "n": 20
+    },
+    "CA": {
+     "correct": 18,
+     "n": 20
+    },
+    "M": {
+     "correct": 18,
+     "n": 20
+    },
+    "R": {
+     "correct": 10,
+     "n": 20
+    }
+   },
+   "addressed_body": {
+    "C": {
+     "correct": 2,
+     "n": 19
+    },
+    "CA": {
+     "correct": 15,
+     "n": 19
+    },
+    "M": {
+     "correct": 0,
+     "n": 19
+    },
+    "R": {
+     "correct": 2,
+     "n": 19
+    }
+   },
+   "submitted": {
+    "C": {
+     "correct": 18,
+     "n": 18
+    },
+    "CA": {
+     "correct": 18,
+     "n": 18
+    },
+    "M": {
+     "correct": 18,
+     "n": 18
+    },
+    "R": {
+     "correct": 4,
+     "n": 18
+    }
+   },
+   "answer_date": {
+    "C": {
+     "correct": 8,
+     "n": 19
+    },
+    "CA": {
+     "correct": 15,
+     "n": 19
+    },
+    "M": {
+     "correct": 4,
+     "n": 19
+    },
+    "R": {
+     "correct": 7,
+     "n": 19
+    }
+   },
+   "decision_number": {
+    "C": {
+     "correct": 0,
+     "n": 4
+    },
+    "CA": {
+     "correct": 0,
+     "n": 4
+    },
+    "M": {
+     "correct": 0,
+     "n": 4
+    },
+    "R": {
+     "correct": 0,
+     "n": 4
+    }
+   },
+   "recommendation": {
+    "C": {
+     "correct": 1,
+     "n": 6
+    },
+    "CA": {
+     "correct": 4,
+     "n": 6
+    },
+    "M": {
+     "correct": 0,
+     "n": 6
+    },
+    "R": {
+     "correct": 1,
+     "n": 6
+    }
+   }
+  },
+  "unseen": {
+   "number": {
+    "C": {
+     "correct": 9,
+     "n": 13
+    },
+    "CA": {
+     "correct": 9,
+     "n": 13
+    },
+    "M": {
+     "correct": 9,
+     "n": 13
+    },
+    "R": {
+     "correct": 4,
+     "n": 13
+    }
+   },
+   "affair_type": {
+    "C": {
+     "correct": 16,
+     "n": 16
+    },
+    "CA": {
+     "correct": 16,
+     "n": 16
+    },
+    "M": {
+     "correct": 6,
+     "n": 16
+    },
+    "R": {
+     "correct": 16,
+     "n": 16
+    }
+   },
+   "submitter": {
+    "C": {
+     "correct": 12,
+     "n": 16
+    },
+    "CA": {
+     "correct": 12,
+     "n": 16
+    },
+    "M": {
+     "correct": 12,
+     "n": 16
+    },
+    "R": {
+     "correct": 4,
+     "n": 16
+    }
+   },
+   "addressed_body": {
+    "C": {
+     "correct": 0,
+     "n": 14
+    },
+    "CA": {
+     "correct": 13,
+     "n": 14
+    },
+    "M": {
+     "correct": 0,
+     "n": 14
+    },
+    "R": {
+     "correct": 0,
+     "n": 14
+    }
+   },
+   "submitted": {
+    "C": {
+     "correct": 12,
+     "n": 16
+    },
+    "CA": {
+     "correct": 12,
+     "n": 16
+    },
+    "M": {
+     "correct": 12,
+     "n": 16
+    },
+    "R": {
+     "correct": 2,
+     "n": 16
+    }
+   },
+   "answer_date": {
+    "C": {
+     "correct": 12,
+     "n": 16
+    },
+    "CA": {
+     "correct": 16,
+     "n": 16
+    },
+    "M": {
+     "correct": 10,
+     "n": 16
+    },
+    "R": {
+     "correct": 11,
+     "n": 16
+    }
+   },
+   "decision_number": {
+    "C": {
+     "correct": 0,
+     "n": 4
+    },
+    "CA": {
+     "correct": 0,
+     "n": 4
+    },
+    "M": {
+     "correct": 0,
+     "n": 4
+    },
+    "R": {
+     "correct": 0,
+     "n": 4
+    }
+   },
+   "recommendation": {
+    "C": {
+     "correct": 0,
+     "n": 0
+    },
+    "CA": {
+     "correct": 0,
+     "n": 0
+    },
+    "M": {
+     "correct": 0,
+     "n": 0
+    },
+    "R": {
+     "correct": 0,
+     "n": 0
+    }
+   }
+  }
+ },
+ "sets": {
+  "co_signatories": {
+   "C": {
+    "tp": 152,
+    "fp": 13,
+    "fn": 67,
+    "precision": [
+     152,
+     165
+    ],
+    "precision_ci": [
+     0.869876223783493,
+     0.9533806039177369
+    ],
+    "recall": [
+     152,
+     219
+    ],
+    "recall_ci": [
+     0.6301235473073663,
+     0.7513133118787101
+    ]
+   },
+   "CA": {
+    "tp": 152,
+    "fp": 13,
+    "fn": 67,
+    "precision": [
+     152,
+     165
+    ],
+    "precision_ci": [
+     0.869876223783493,
+     0.9533806039177369
+    ],
+    "recall": [
+     152,
+     219
+    ],
+    "recall_ci": [
+     0.6301235473073663,
+     0.7513133118787101
+    ]
+   },
+   "M": {
+    "tp": 152,
+    "fp": 13,
+    "fn": 67,
+    "precision": [
+     152,
+     165
+    ],
+    "precision_ci": [
+     0.869876223783493,
+     0.9533806039177369
+    ],
+    "recall": [
+     152,
+     219
+    ],
+    "recall_ci": [
+     0.6301235473073663,
+     0.7513133118787101
+    ]
+   },
+   "R": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 219,
+    "precision": [
+     0,
+     0
+    ],
+    "precision_ci": null,
+    "recall": [
+     0,
+     219
+    ],
+    "recall_ci": [
+     0.0,
+     0.017239151038226253
+    ]
+   }
+  },
+  "related_affairs": {
+   "C": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 14,
+    "precision": [
+     1,
+     1
+    ],
+    "precision_ci": [
+     0.20654329147389294,
+     1.0
+    ],
+    "recall": [
+     1,
+     15
+    ],
+    "recall_ci": [
+     0.011866588606194856,
+     0.2981707755242399
+    ]
+   },
+   "CA": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 14,
+    "precision": [
+     1,
+     1
+    ],
+    "precision_ci": [
+     0.20654329147389294,
+     1.0
+    ],
+    "recall": [
+     1,
+     15
+    ],
+    "recall_ci": [
+     0.011866588606194856,
+     0.2981707755242399
+    ]
+   },
+   "M": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 15,
+    "precision": [
+     0,
+     0
+    ],
+    "precision_ci": null,
+    "recall": [
+     0,
+     15
+    ],
+    "recall_ci": [
+     0.0,
+     0.20388926630434784
+    ]
+   },
+   "R": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 14,
+    "precision": [
+     1,
+     1
+    ],
+    "precision_ci": [
+     0.20654329147389294,
+     1.0
+    ],
+    "recall": [
+     1,
+     15
+    ],
+    "recall_ci": [
+     0.011866588606194856,
+     0.2981707755242399
+    ]
+   }
+  }
+ },
+ "decision_number": {
+  "registered_C": [
+   0,
+   8
+  ],
+  "registered_R": [
+   0,
+   8
+  ],
+  "post_hoc_C_with_rule_number": [
+   0,
+   8
+  ],
+  "label": "POST-HOC: arm C loses the decision number when the frozen P1 cascade returns through its metadata branch (opd_event_date_in_document), which does not carry the rule's `number`; taking the rule's number (as arm R) gives the post-hoc figure"
+ },
+ "constant_baseline": {
+  "label": "PRE-REGISTERED in PREREG5 (post-hoc in P3)",
+  "fields": {
+   "number": {
+    "constant": "P 550",
+    "constant_correct": [
+     1,
+     29
+    ],
+    "n_distinct_gold": 29,
+    "C": [
+     18,
+     29
+    ],
+    "CA": [
+     18,
+     29
+    ]
+   },
+   "affair_type": {
+    "constant": "question",
+    "constant_correct": [
+     16,
+     36
+    ],
+    "n_distinct_gold": 4,
+    "C": [
+     35,
+     36
+    ],
+    "CA": [
+     35,
+     36
+    ]
+   },
+   "submitter": {
+    "constant": "Ana Roch",
+    "constant_correct": [
+     2,
+     36
+    ],
+    "n_distinct_gold": 34,
+    "C": [
+     30,
+     36
+    ],
+    "CA": [
+     30,
+     36
+    ]
+   },
+   "addressed_body": {
+    "constant": "executive",
+    "constant_correct": [
+     33,
+     33
+    ],
+    "n_distinct_gold": 1,
+    "C": [
+     2,
+     33
+    ],
+    "CA": [
+     28,
+     33
+    ]
+   },
+   "submitted": {
+    "constant": "2025-04-24",
+    "constant_correct": [
+     2,
+     34
+    ],
+    "n_distinct_gold": 32,
+    "C": [
+     30,
+     34
+    ],
+    "CA": [
+     30,
+     34
+    ]
+   },
+   "answer_date": {
+    "constant": "2025-06-10",
+    "constant_correct": [
+     2,
+     35
+    ],
+    "n_distinct_gold": 33,
+    "C": [
+     20,
+     35
+    ],
+    "CA": [
+     31,
+     35
+    ]
+   },
+   "decision_number": {
+    "constant": "1207",
+    "constant_correct": [
+     1,
+     8
+    ],
+    "n_distinct_gold": 8,
+    "C": [
+     0,
+     8
+    ],
+    "CA": [
+     0,
+     8
+    ]
+   },
+   "recommendation": {
+    "constant": "reject",
+    "constant_correct": [
+     3,
+     6
+    ],
+    "n_distinct_gold": 3,
+    "C": [
+     1,
+     6
+    ],
+    "CA": [
+     4,
+     6
+    ]
+   }
+  }
+ },
+ "replication": {
+  "S1": {
+   "status": "holds",
+   "recall": [
+    14,
+    16
+   ],
+   "recall_ci": [
+    0.6397666856325173,
+    0.9650232506629428
+   ]
+  },
+  "S2": {
+   "status": "holds",
+   "eligible": 5,
+   "below": 1,
+   "fields": {
+    "number": {
+     "p3": [
+      21,
+      29
+     ],
+     "p3_ci": [
+      0.5428252365556403,
+      0.8530141866149725
+     ],
+     "p3b": [
+      18,
+      29
+     ],
+     "p3b_ci": [
+      0.4400222620928496,
+      0.7731220426913266
+     ],
+     "vs_p3_ci": "within"
+    },
+    "affair_type": {
+     "p3": [
+      27,
+      29
+     ],
+     "p3_ci": [
+      0.7803505240414808,
+      0.9808791359020055
+     ],
+     "p3b": [
+      35,
+      36
+     ],
+     "p3b_ci": [
+      0.8582996626496918,
+      0.9950797197044302
+     ],
+     "vs_p3_ci": "within"
+    },
+    "submitter": {
+     "p3": [
+      23,
+      29
+     ],
+     "p3_ci": [
+      0.6160955339174228,
+      0.9015406348441479
+     ],
+     "p3b": [
+      30,
+      36
+     ],
+     "p3b_ci": [
+      0.6810888526532568,
+      0.9212965937143589
+     ],
+     "vs_p3_ci": "within"
+    },
+    "submitted": {
+     "p3": [
+      15,
+      21
+     ],
+     "p3_ci": [
+      0.500432261771624,
+      0.8618632425437179
+     ],
+     "p3b": [
+      30,
+      34
+     ],
+     "p3b_ci": [
+      0.7337882520370121,
+      0.9532862902656388
+     ],
+     "vs_p3_ci": "above"
+    },
+    "answer_date": {
+     "p3": [
+      22,
+      27
+     ],
+     "p3_ci": [
+      0.6330094349480825,
+      0.9181941342571468
+     ],
+     "p3b": [
+      20,
+      35
+     ],
+     "p3b_ci": [
+      0.4085712925897337,
+      0.7201566691832108
+     ],
+     "vs_p3_ci": "below"
+    },
+    "decision_number": {
+     "p3": [
+      0,
+      17
+     ],
+     "p3_ci": [
+      0.0,
+      0.18432366037156456
+     ],
+     "p3b": [
+      0,
+      8
+     ],
+     "p3b_ci": [
+      0.0,
+      0.3244156195108769
+     ],
+     "vs_p3_ci": "not eligible"
+    },
+    "recommendation": {
+     "p3": [
+      1,
+      2
+     ],
+     "p3_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "p3b": [
+      1,
+      6
+     ],
+     "p3b_ci": [
+      0.03005258587173032,
+      0.563509436563646
+     ],
+     "vs_p3_ci": "not eligible"
+    },
+    "addressed_body": {
+     "p3": [
+      4,
+      28
+     ],
+     "p3_ci": [
+      0.056989129307017855,
+      0.31490173044877334
+     ],
+     "p3b": [
+      2,
+      33
+     ],
+     "p3b_ci": [
+      0.016780530429070947,
+      0.19606581717798194
+     ],
+     "vs_p3_ci": "not eligible"
+    }
+   }
+  },
+  "verdict": "replicated"
+ }
+}
