@@ -1,0 +1,7404 @@
+{
+ "split": "p3",
+ "build": "publicai:swiss-ai/apertus-v1.5-8b",
+ "theta_answer": 10.395354058425431,
+ "theta_new_fields": 0.0,
+ "n_affairs": 29,
+ "served_fingerprints": [
+  "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840"
+ ],
+ "per_affair": [
+  {
+   "affair_id": 39369,
+   "arms": {
+    "M": {
+     "number": "2021.RRGR.388",
+     "affair_type": "interpellation",
+     "submitter": "Fritz Ruchti",
+     "co_signatories": [
+      "Peter Gerber"
+     ],
+     "submitted": "2021-12-08",
+     "recommendation": null,
+     "answer_date": "2022-05-18",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": "2021.RRGR.388",
+     "affair_type": "interpellation",
+     "submitter": "Fritz Ruchti",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2021-12-08",
+     "answer_date": "2022-05-18",
+     "decision_number": "508/2022",
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "2021.RRGR.388",
+     "affair_type": "interpellation",
+     "submitter": "Fritz Ruchti",
+     "co_signatories": [
+      "Peter Gerber"
+     ],
+     "addressed_body": null,
+     "submitted": "2021-12-08",
+     "answer_date": "2022-05-18",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "2021.RRGR.388",
+     "affair_type": "interpellation",
+     "submitter": "Fritz Ruchti",
+     "co_signatories": [
+      "Peter Gerber"
+     ],
+     "addressed_body": "executive",
+     "submitted": "2021-12-08",
+     "answer_date": "2022-05-18",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:23227",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -28.87104393958489,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "BE",
+     "number": "2021.RRGR.388",
+     "opd_id": 39369,
+     "virtual": false
+    },
+    "body": {
+     "key": "BE",
+     "level": "cantonal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "interpellation",
+     "source_label": "Interpellation"
+    },
+    "title": {
+     "de": "Nachhaltige Bewirtschaftung im Berner Wald",
+     "fr": "Gestion durable de la forêt bernoise"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Fritz Ruchti",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/20548"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Peter Gerber",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/496950"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2021-12-08",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/333218"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2022-05-18",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/333247"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "scheduled",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/673640"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "not_applicable",
+     "route": "rule",
+     "evidence": "affair_type",
+     "doc": "opd:656633"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:23227",
+      "answer_doc": "opd:656633",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2022-05-18",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:656633",
+       "page": 1,
+       "char_start": 466,
+       "char_end": 477,
+       "quote": "18 mai 2022",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:23227",
+      "source": "opd",
+      "url": "https://ogd.parl.apps.be.ch/pdf-upload/e9f25f930292403ca8287c1060567006-332.pdf",
+      "role": "question",
+      "language": "de",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:656633",
+      "source": "opd",
+      "url": "https://ogd.parl.apps.be.ch/pdf-upload/afb41251635b452493a91ec5a4e77199-332.pdf",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 3,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:43:29.097587Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 271530,
+   "arms": {
+    "M": {
+     "number": "2025.GRPARL.296",
+     "affair_type": "interpellation",
+     "submitter": "Sarah Gabi Schönenberger",
+     "co_signatories": [],
+     "submitted": "2025-06-02",
+     "recommendation": "accept",
+     "answer_date": "2025-10-15",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": "2025.GRPARL.296",
+     "affair_type": "interpellation",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2025-06-02",
+     "answer_date": "2025-10-15",
+     "decision_number": "1055/2025",
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "2025.GRPARL.296",
+     "affair_type": "interpellation",
+     "submitter": "Sarah Gabi Schönenberger",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2025-06-02",
+     "answer_date": "2025-10-15",
+     "decision_number": null,
+     "recommendation": "accept",
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "2025.GRPARL.296",
+     "affair_type": "interpellation",
+     "submitter": "Sarah Gabi Schönenberger",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2025-06-02",
+     "answer_date": "2025-10-15",
+     "decision_number": null,
+     "recommendation": "accept",
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:604227",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -31.285041929231944,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "BE",
+     "number": "2025.GRPARL.296",
+     "opd_id": 271530,
+     "virtual": false
+    },
+    "body": {
+     "key": "BE",
+     "level": "cantonal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "interpellation",
+     "source_label": "Interpellation"
+    },
+    "title": {
+     "de": "Nach wie vor belastetes Trinkwasser im Kanton Bern",
+     "fr": "L’eau potable reste polluée dans le canton de Berne"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Sarah Gabi Schönenberger",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/919902"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2025-06-02",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/754831"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2025-10-15",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/756693"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "scheduled",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/755224"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "value",
+     "value": "accept",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/755223"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:604227",
+      "answer_doc": "opd:604199",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2025-10-15",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:604199",
+       "page": 1,
+       "char_start": 398,
+       "char_end": 414,
+       "quote": "15. Oktober 2025",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:604227",
+      "source": "opd",
+      "url": "https://ogd.parl.apps.be.ch/pdf-upload/d55f4f7685a14622b0ca67e35b15143e-332.pdf",
+      "role": "question",
+      "language": "de",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:604199",
+      "source": "opd",
+      "url": "https://www.rrgr-service.apps.be.ch/api/gr/documents/document/f71065d083a742bca1caa8345234f373-332/47/RRB-15.10.2025-de.pdf",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 4,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:43:35.607566Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 271519,
+   "arms": {
+    "M": {
+     "number": "2025.GRPARL.365",
+     "affair_type": "interpellation",
+     "submitter": "Rahel Ruch",
+     "co_signatories": [
+      "Fredy Lindegger",
+      "Seraina Patzen",
+      "Regula Bühlmann"
+     ],
+     "submitted": "2025-06-12",
+     "recommendation": "accept",
+     "answer_date": "2025-10-15",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": "2025.GRPARL.365",
+     "affair_type": "interpellation",
+     "submitter": "Rahel Ruch",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2025-06-12",
+     "answer_date": "2025-10-15",
+     "decision_number": "1048/2025",
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "2025.GRPARL.365",
+     "affair_type": "interpellation",
+     "submitter": "Rahel Ruch",
+     "co_signatories": [
+      "Fredy Lindegger",
+      "Seraina Patzen",
+      "Regula Bühlmann"
+     ],
+     "addressed_body": null,
+     "submitted": "2025-06-12",
+     "answer_date": "2025-10-15",
+     "decision_number": null,
+     "recommendation": "accept",
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "2025.GRPARL.365",
+     "affair_type": "interpellation",
+     "submitter": "Rahel Ruch",
+     "co_signatories": [
+      "Fredy Lindegger",
+      "Seraina Patzen",
+      "Regula Bühlmann"
+     ],
+     "addressed_body": "executive",
+     "submitted": "2025-06-12",
+     "answer_date": "2025-10-15",
+     "decision_number": null,
+     "recommendation": "accept",
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:604216",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -29.92306099908406,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "BE",
+     "number": "2025.GRPARL.365",
+     "opd_id": 271519,
+     "virtual": false
+    },
+    "body": {
+     "key": "BE",
+     "level": "cantonal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "interpellation",
+     "source_label": "Interpellation"
+    },
+    "title": {
+     "de": "Einschätzung Entwicklungen Steuerpolitik",
+     "fr": "Évaluation des développements de la politique fiscale"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Rahel Ruch",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/919825"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Fredy Lindegger",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/919826"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Seraina Patzen",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/919827"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Regula Bühlmann",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/919828"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2025-06-12",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/754838"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2025-10-15",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/756701"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "scheduled",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/755238"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "value",
+     "value": "accept",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/755237"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:604216",
+      "answer_doc": "opd:604192",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2025-10-15",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:604192",
+       "page": 1,
+       "char_start": 499,
+       "char_end": 515,
+       "quote": "15. Oktober 2025",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:604216",
+      "source": "opd",
+      "url": "https://ogd.parl.apps.be.ch/pdf-upload/3c6d0f70326442d689eddb5dc0d8fe28-332.pdf",
+      "role": "question",
+      "language": "de",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:604192",
+      "source": "opd",
+      "url": "https://www.rrgr-service.apps.be.ch/api/gr/documents/document/267f4d955ea44535ad25b6241f44f4d1-332/26/RRB-15.10.2025-de.pdf",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 7,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:43:41.492801Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 180608,
+   "arms": {
+    "M": {
+     "number": "223/2020",
+     "affair_type": null,
+     "submitter": "Judith Anna Stofer",
+     "co_signatories": [
+      "Melanie Berner"
+     ],
+     "submitted": "2020-06-15",
+     "recommendation": null,
+     "answer_date": "2020-09-23",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": "223/2020",
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": "2020-09-23",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "223/2020",
+     "affair_type": null,
+     "submitter": "Judith Anna Stofer",
+     "co_signatories": [
+      "Melanie Berner"
+     ],
+     "addressed_body": null,
+     "submitted": "2020-06-15",
+     "answer_date": "2020-09-23",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "223/2020",
+     "affair_type": "interpellation",
+     "submitter": "Judith Anna Stofer",
+     "co_signatories": [
+      "Melanie Berner"
+     ],
+     "addressed_body": "executive",
+     "submitted": "2020-06-15",
+     "answer_date": "2020-09-23",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:278737",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -29.86849722641393,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    },
+    "affair_type": {
+     "value": "interpellation",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:278737",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -18.356812964666233,
+     "candidates": 5,
+     "prompt_id": "de/affair_affair_type.txt@2bf54a546bb6"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "ZH",
+     "number": "223/2020",
+     "opd_id": 180608,
+     "virtual": false
+    },
+    "body": {
+     "key": "ZH",
+     "level": "cantonal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "unknown"
+    },
+    "title": {
+     "de": "Mit der Vereinbarkeit von Beruf und Familie vorwärts machen"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Judith Anna Stofer",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/782243"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Melanie Berner",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/782244"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2020-06-15",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/572698"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2020-09-23",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/572699"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "answered",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/572699"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "present_unanchored",
+     "route": "rule",
+     "evidence": "no_anchor",
+     "doc": "opd:172579"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:278737",
+      "answer_doc": "opd:172579",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2020-09-23",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:172579",
+       "page": 1,
+       "char_start": 94,
+       "char_end": 112,
+       "quote": "23. September 2020",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:278737",
+      "source": "opd",
+      "url": "https://parlzhcdws.cmicloud.ch/parlzh5/cdws/Files/20f53e5dd3d1458fa15dffa242400465-332/2/pdf",
+      "role": "question",
+      "language": "de",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:172579",
+      "source": "opd",
+      "url": "https://parlzhcdws.cmicloud.ch/parlzh5/cdws/Files/6c86bb1a7a904af49dca60441543b030-332/1/pdf",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 5,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:44:05.072393Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 180017,
+   "arms": {
+    "M": {
+     "number": "126/2023",
+     "affair_type": null,
+     "submitter": "Nicole Wyss",
+     "co_signatories": [],
+     "submitted": "2023-03-27",
+     "recommendation": null,
+     "answer_date": "2023-06-07",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": "126/2023",
+     "affair_type": "question",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": "2023-06-07",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "28/2023",
+      "206/2018"
+     ]
+    },
+    "C": {
+     "number": "126/2023",
+     "affair_type": "question",
+     "submitter": "Nicole Wyss",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2023-03-27",
+     "answer_date": "2023-06-07",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "28/2023",
+      "206/2018"
+     ]
+    },
+    "CA": {
+     "number": "126/2023",
+     "affair_type": "question",
+     "submitter": "Nicole Wyss",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2023-03-27",
+     "answer_date": "2023-06-07",
+     "decision_number": null,
+     "recommendation": "convert",
+     "related_affairs": [
+      "28/2023",
+      "206/2018"
+     ]
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:118403",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -30.48044121215073,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    },
+    "recommendation": {
+     "value": "convert",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:111612",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -10.878980892320197,
+     "candidates": 3,
+     "prompt_id": "de/recommendation.txt@4b9fe2c38a43"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "ZH",
+     "number": "126/2023",
+     "opd_id": 180017,
+     "virtual": false
+    },
+    "body": {
+     "key": "ZH",
+     "level": "cantonal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "unknown"
+    },
+    "title": {
+     "de": "Ideen für das freiwerdende Areal Kinderspital"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Nicole Wyss",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/787256"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2023-03-27",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/568413"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2023-06-07",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/568414"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "answered",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/568414"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "present_unanchored",
+     "route": "rule",
+     "evidence": "no_anchor",
+     "doc": "opd:111612"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:118403",
+      "answer_doc": "opd:111612",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2023-06-07",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:111612",
+       "page": 1,
+       "char_start": 94,
+       "char_end": 106,
+       "quote": "7. Juni 2023",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [
+     {
+      "relation": "cites",
+      "ref": {
+       "body_key": "ZH",
+       "number": "28/2023",
+       "virtual": false
+      },
+      "evidence": {
+       "kind": "value",
+       "value": "28/2023",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:118403",
+       "page": 1,
+       "char_start": 487,
+       "char_end": 494,
+       "quote": "28/2023",
+       "rule": "opd_number_printed"
+      }
+     },
+     {
+      "relation": "cites",
+      "ref": {
+       "body_key": "ZH",
+       "number": "206/2018",
+       "virtual": false
+      },
+      "evidence": {
+       "kind": "value",
+       "value": "206/2018",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:118403",
+       "page": 1,
+       "char_start": 1861,
+       "char_end": 1869,
+       "quote": "206/2018",
+       "rule": "opd_number_printed"
+      }
+     }
+    ],
+    "documents": [
+     {
+      "doc_id": "opd:118403",
+      "source": "opd",
+      "url": "https://parlzhcdws.cmicloud.ch/parlzh5/cdws/Files/5e9017ee23dd42e0b92af42cb5262b7a-332/1/pdf",
+      "role": "question",
+      "language": "de",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:111612",
+      "source": "opd",
+      "url": "https://parlzhcdws.cmicloud.ch/parlzh5/cdws/Files/55521ff314f744f8965ed46ae23b3788-332/1/pdf",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 6,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:44:21.886059Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 90357,
+   "arms": {
+    "M": {
+     "number": "215/2022",
+     "affair_type": null,
+     "submitter": "Leandra Columberg",
+     "co_signatories": [
+      "Michèle Dünki-Bättig",
+      "Nicola Siegrist"
+     ],
+     "submitted": "2022-06-27",
+     "recommendation": null,
+     "answer_date": "2022-07-06",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": "215/2022",
+     "affair_type": "question",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": "2022-07-06",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "215/2022",
+     "affair_type": "question",
+     "submitter": "Leandra Columberg",
+     "co_signatories": [
+      "Michèle Dünki-Bättig",
+      "Nicola Siegrist"
+     ],
+     "addressed_body": null,
+     "submitted": "2022-06-27",
+     "answer_date": "2022-07-06",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "215/2022",
+     "affair_type": "question",
+     "submitter": "Leandra Columberg",
+     "co_signatories": [
+      "Michèle Dünki-Bättig",
+      "Nicola Siegrist"
+     ],
+     "addressed_body": "executive",
+     "submitted": "2022-06-27",
+     "answer_date": "2022-07-06",
+     "decision_number": null,
+     "recommendation": "convert",
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:117860",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -30.37163852908692,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    },
+    "recommendation": {
+     "value": "convert",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:226381",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -12.431925267108811,
+     "candidates": 3,
+     "prompt_id": "de/recommendation.txt@4b9fe2c38a43"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "ZH",
+     "number": "215/2022",
+     "opd_id": 90357,
+     "virtual": false
+    },
+    "body": {
+     "key": "ZH",
+     "level": "cantonal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "unknown"
+    },
+    "title": {
+     "de": "Rechtsextremismus im Kanton Zürich"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Leandra Columberg",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/787943"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Michèle Dünki-Bättig",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/787944"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Nicola Siegrist",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/787945"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2022-06-27",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/572415"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2022-07-06",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/572416"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "answered",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/572416"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "present_unanchored",
+     "route": "rule",
+     "evidence": "no_anchor",
+     "doc": "opd:226381"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:117860",
+      "answer_doc": "opd:226381",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2022-07-06",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:226381",
+       "page": 1,
+       "char_start": 94,
+       "char_end": 106,
+       "quote": "6. Juli 2022",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:117860",
+      "source": "opd",
+      "url": "https://parlzhcdws.cmicloud.ch/parlzh5/cdws/Files/8e4fb142663945eca85056eef17d2c57-332/1/pdf",
+      "role": "question",
+      "language": "de",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:226381",
+      "source": "opd",
+      "url": "https://parlzhcdws.cmicloud.ch/parlzh5/cdws/Files/841cd7fa7e4c4468a399eaf576b3865f-332/1/pdf",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 5,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:44:42.701141Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 46346,
+   "arms": {
+    "M": {
+     "number": "23.5318",
+     "affair_type": "interpellation",
+     "submitter": "Heidi Mück",
+     "co_signatories": [],
+     "submitted": "2023-06-05",
+     "recommendation": null,
+     "answer_date": "2023-09-06",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": "23.5318",
+     "affair_type": "interpellation",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": "2023-09-05",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "23.5033"
+     ]
+    },
+    "C": {
+     "number": "23.5318",
+     "affair_type": "interpellation",
+     "submitter": "Heidi Mück",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2023-06-05",
+     "answer_date": "2023-09-05",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "23.5033"
+     ]
+    },
+    "CA": {
+     "number": "23.5318",
+     "affair_type": "interpellation",
+     "submitter": "Heidi Mück",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2023-06-05",
+     "answer_date": "2023-09-05",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "23.5033"
+     ]
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:405251",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -32.83873852608595,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "BS",
+     "number": "23.5318",
+     "opd_id": 46346,
+     "virtual": false
+    },
+    "body": {
+     "key": "BS",
+     "level": "cantonal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "interpellation",
+     "source_label": "Interpellation"
+    },
+    "title": {
+     "de": "Die Primarschule Kleinhüningen auf dem Ackermätteli"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Heidi Mück",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/217884"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2023-06-05",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/730752"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2023-09-06",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/215843"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "closed",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/278722"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "not_applicable",
+     "route": "rule",
+     "evidence": "affair_type",
+     "doc": "opd:153494"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:405251",
+      "answer_doc": "opd:153494",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2023-09-05",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:153494",
+       "page": 1,
+       "char_start": 135,
+       "char_end": 152,
+       "quote": "5. September 2023",
+       "rule": "rrb_vom"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [
+     {
+      "relation": "cites",
+      "ref": {
+       "body_key": "BS",
+       "number": "23.5033",
+       "virtual": false
+      },
+      "evidence": {
+       "kind": "value",
+       "value": "23.5033",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:405251",
+       "page": 1,
+       "char_start": 265,
+       "char_end": 272,
+       "quote": "23.5033",
+       "rule": "opd_number_printed"
+      }
+     }
+    ],
+    "documents": [
+     {
+      "doc_id": "opd:405251",
+      "source": "opd",
+      "url": "https://grosserrat.bs.ch/?dnr=23.5318.01",
+      "role": "question",
+      "language": "de",
+      "n_pages": 1,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:153494",
+      "source": "opd",
+      "url": "https://grosserrat.bs.ch/?dnr=23.5318.02",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 4,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:44:49.705320Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 121857,
+   "arms": {
+    "M": {
+     "number": "16.5409",
+     "affair_type": null,
+     "submitter": "Harald Friedl",
+     "co_signatories": [],
+     "submitted": "2016-08-25",
+     "recommendation": null,
+     "answer_date": "2016-11-30",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": "16.5409",
+     "affair_type": "question",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": "2016-11-29",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "10.5170"
+     ]
+    },
+    "C": {
+     "number": "16.5409",
+     "affair_type": "question",
+     "submitter": "Harald Friedl",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2016-08-25",
+     "answer_date": "2016-11-29",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "10.5170"
+     ]
+    },
+    "CA": {
+     "number": "16.5409",
+     "affair_type": "question",
+     "submitter": "Harald Friedl",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2016-08-25",
+     "answer_date": "2016-11-29",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "10.5170"
+     ]
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:150556",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -35.41616951879114,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "BS",
+     "number": "16.5409",
+     "opd_id": 121857,
+     "virtual": false
+    },
+    "body": {
+     "key": "BS",
+     "level": "cantonal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "unknown"
+    },
+    "title": {
+     "de": "Kriterienkataloge für die öffentliche Beschaffung"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Harald Friedl",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/592660"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2016-08-25",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/726415"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2016-11-30",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/26245"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "debated",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/213230"
+    },
+    "decision": {
+     "kind": "value",
+     "value": "referred",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/398562"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "present_unanchored",
+     "route": "rule",
+     "evidence": "no_anchor",
+     "doc": "opd:97616"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:150556",
+      "answer_doc": "opd:97616",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2016-11-29",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:97616",
+       "page": 1,
+       "char_start": 136,
+       "char_end": 153,
+       "quote": "29. November 2016",
+       "rule": "rrb_vom"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [
+     {
+      "relation": "cites",
+      "ref": {
+       "body_key": "BS",
+       "number": "10.5170",
+       "virtual": false
+      },
+      "evidence": {
+       "kind": "value",
+       "value": "10.5170",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:150556",
+       "page": 1,
+       "char_start": 804,
+       "char_end": 811,
+       "quote": "10.5170",
+       "rule": "opd_number_printed"
+      }
+     }
+    ],
+    "documents": [
+     {
+      "doc_id": "opd:150556",
+      "source": "opd",
+      "url": "https://grosserrat.bs.ch/?dnr=16.5409.01",
+      "role": "question",
+      "language": "de",
+      "n_pages": 1,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:97616",
+      "source": "opd",
+      "url": "https://grosserrat.bs.ch/?dnr=16.5409.02",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 3,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:45:03.396249Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 568,
+   "arms": {
+    "M": {
+     "number": "08.5131",
+     "affair_type": "postulate",
+     "submitter": "Roland Engeler-Ohnemus",
+     "co_signatories": [],
+     "submitted": "2008-04-16",
+     "recommendation": null,
+     "answer_date": "2010-09-01",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": "08.5131",
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": "2010-08-31",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "08.1210"
+     ]
+    },
+    "C": {
+     "number": "08.5131",
+     "affair_type": "postulate",
+     "submitter": "Roland Engeler-Ohnemus",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2008-04-16",
+     "answer_date": "2010-08-31",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "08.1210"
+     ]
+    },
+    "CA": {
+     "number": "08.5131",
+     "affair_type": "postulate",
+     "submitter": "Roland Engeler-Ohnemus",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2008-04-16",
+     "answer_date": "2010-08-31",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "08.1210"
+     ]
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:149558",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -32.107072614655095,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "BS",
+     "number": "08.5131",
+     "opd_id": 568,
+     "virtual": false
+    },
+    "body": {
+     "key": "BS",
+     "level": "cantonal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "postulate",
+     "source_label": "Anzug"
+    },
+    "title": {
+     "de": "Umweltverträgliche Bewältigung des zusätzlichen Verkehrsaufkommens im Bereich der Hoffmann-La Roche"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Roland Engeler-Ohnemus",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/406045"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2008-04-16",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/721783"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2010-09-01",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/24318"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "closed",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/397200"
+    },
+    "decision": {
+     "kind": "value",
+     "value": "written_off",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/397200"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "present_unanchored",
+     "route": "rule",
+     "evidence": "no_anchor",
+     "doc": "opd:360674"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:149558",
+      "answer_doc": "opd:360674",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2010-08-31",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:360674",
+       "page": 1,
+       "char_start": 136,
+       "char_end": 151,
+       "quote": "31. August 2010",
+       "rule": "rrb_vom"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [
+     {
+      "relation": "cites",
+      "ref": {
+       "body_key": "BS",
+       "number": "08.1210",
+       "virtual": false
+      },
+      "evidence": {
+       "kind": "value",
+       "value": "08.1210",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:360674",
+       "page": 2,
+       "char_start": 1075,
+       "char_end": 1082,
+       "quote": "08.1210",
+       "rule": "opd_number_printed"
+      }
+     }
+    ],
+    "documents": [
+     {
+      "doc_id": "opd:149558",
+      "source": "opd",
+      "url": "https://grosserrat.bs.ch/?dnr=08.5131.01",
+      "role": "question",
+      "language": "de",
+      "n_pages": 1,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:360674",
+      "source": "opd",
+      "url": "https://grosserrat.bs.ch/?dnr=08.5131.02",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 8,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:45:18.507250Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 174066,
+   "arms": {
+    "M": {
+     "number": "I67.24",
+     "affair_type": null,
+     "submitter": "Maddalena Ermotti-Lepori",
+     "co_signatories": [],
+     "submitted": "2024-05-28",
+     "recommendation": null,
+     "answer_date": "2024-08-07",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": "question",
+     "submitter": "Maddalena Ermotti-Lepori",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": null,
+     "answer_date": "2024-08-07",
+     "decision_number": "3835",
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "I67.24",
+     "affair_type": "question",
+     "submitter": "Maddalena Ermotti-Lepori",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2024-05-28",
+     "answer_date": "2024-08-07",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "I67.24",
+     "affair_type": "question",
+     "submitter": "Maddalena Ermotti-Lepori",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2024-05-28",
+     "answer_date": "2024-08-07",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {},
+   "needs_review": false,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "TI",
+     "number": "I67.24",
+     "opd_id": 174066,
+     "virtual": false
+    },
+    "body": {
+     "key": "TI",
+     "level": "cantonal",
+     "languages": [
+      "it"
+     ]
+    },
+    "type": {
+     "harmonised": "unknown"
+    },
+    "title": {
+     "it": "Far morire i corsi per adulti?"
+    },
+    "languages": [
+     "it"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Maddalena Ermotti-Lepori",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/190518"
+      }
+     },
+     {
+      "role": "addressed_body",
+      "kind": "executive",
+      "name": {
+       "kind": "value",
+       "value": "al Consiglio di Stato",
+       "basis": "inferred",
+       "route": "rule",
+       "doc": "opd:166758",
+       "page": 1,
+       "char_start": 2741,
+       "char_end": 2762,
+       "quote": "al Consiglio di Stato",
+       "rule": "addressed_executive"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2024-05-28",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/492120"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2024-08-07",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/311144"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "closed",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/432036"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "present_unanchored",
+     "route": "rule",
+     "evidence": "no_anchor",
+     "doc": "opd:50511"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:166758",
+      "answer_doc": "opd:50511",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2024-08-07",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:50511",
+       "page": 2,
+       "char_start": 59,
+       "char_end": 72,
+       "quote": "7 agosto 2024",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:166758",
+      "source": "opd",
+      "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=169657",
+      "role": "question",
+      "language": "it",
+      "n_pages": 1,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:50511",
+      "source": "opd",
+      "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=170538",
+      "role": "answer",
+      "language": "it",
+      "n_pages": 3,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:45:32.134576Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 83444,
+   "arms": {
+    "M": {
+     "number": "I133.22",
+     "affair_type": null,
+     "submitter": "Sara Imelli",
+     "co_signatories": [],
+     "submitted": "2022-11-11",
+     "recommendation": null,
+     "answer_date": "2023-03-08",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": "question",
+     "submitter": "Sara Imelli",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": null,
+     "answer_date": "2023-03-08",
+     "decision_number": "1121",
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "I133.22",
+     "affair_type": "question",
+     "submitter": "Sara Imelli",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2022-11-11",
+     "answer_date": "2023-03-08",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "I133.22",
+     "affair_type": "question",
+     "submitter": "Sara Imelli",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2022-11-11",
+     "answer_date": "2023-03-08",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {},
+   "needs_review": false,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "TI",
+     "number": "I133.22",
+     "opd_id": 83444,
+     "virtual": false
+    },
+    "body": {
+     "key": "TI",
+     "level": "cantonal",
+     "languages": [
+      "it"
+     ]
+    },
+    "type": {
+     "harmonised": "unknown"
+    },
+    "title": {
+     "it": "Obbligo di raccolta separata delle plastiche riciclate: quanto aumenterà la tassa base rifiuti per i cittadini e le aziende?"
+    },
+    "languages": [
+     "it"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Sara Imelli",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/286483"
+      }
+     },
+     {
+      "role": "addressed_body",
+      "kind": "executive",
+      "name": {
+       "kind": "value",
+       "value": "al Consiglio di Stato",
+       "basis": "inferred",
+       "route": "rule",
+       "doc": "opd:110010",
+       "page": 1,
+       "char_start": 2904,
+       "char_end": 2925,
+       "quote": "al Consiglio di Stato",
+       "rule": "addressed_executive"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2022-11-11",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/62371"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2023-03-08",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/432233"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "closed",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/62428"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "present_unanchored",
+     "route": "rule",
+     "evidence": "no_anchor",
+     "doc": "opd:325535"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:110010",
+      "answer_doc": "opd:325535",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2023-03-08",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:325535",
+       "page": 2,
+       "char_start": 59,
+       "char_end": 71,
+       "quote": "8 marzo 2023",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:110010",
+      "source": "opd",
+      "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=156784",
+      "role": "question",
+      "language": "it",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:325535",
+      "source": "opd",
+      "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=159219",
+      "role": "answer",
+      "language": "it",
+      "n_pages": 4,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:45:41.401658Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 173540,
+   "arms": {
+    "M": {
+     "number": "I125.21",
+     "affair_type": null,
+     "submitter": "Alessandro Speziali",
+     "co_signatories": [],
+     "submitted": "2021-12-22",
+     "recommendation": null,
+     "answer_date": "2022-09-07",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": "question",
+     "submitter": "Alessandro Speziali",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": "2022-09-07",
+     "decision_number": "4313",
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "I125.21",
+     "affair_type": "question",
+     "submitter": "Alessandro Speziali",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2021-12-22",
+     "answer_date": "2022-09-07",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "I125.21",
+     "affair_type": "question",
+     "submitter": "Alessandro Speziali",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2021-12-22",
+     "answer_date": "2022-09-07",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:220840",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -30.00000033885471,
+     "candidates": 4,
+     "prompt_id": "it/affair_addressed_body.txt@6132abd55610"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "TI",
+     "number": "I125.21",
+     "opd_id": 173540,
+     "virtual": false
+    },
+    "body": {
+     "key": "TI",
+     "level": "cantonal",
+     "languages": [
+      "it"
+     ]
+    },
+    "type": {
+     "harmonised": "unknown"
+    },
+    "title": {
+     "it": "Il mondo del gaming: una grande opportunità d’innovazione per il Ticino"
+    },
+    "languages": [
+     "it"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Alessandro Speziali",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/382987"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2021-12-22",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/310774"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2022-09-07",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/126625"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "closed",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/249458"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "present_unanchored",
+     "route": "rule",
+     "evidence": "no_anchor",
+     "doc": "opd:375588"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:220840",
+      "answer_doc": "opd:375588",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2022-09-07",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:375588",
+       "page": 2,
+       "char_start": 59,
+       "char_end": 75,
+       "quote": "7 settembre 2022",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:220840",
+      "source": "opd",
+      "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=142768",
+      "role": "question",
+      "language": "it",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:375588",
+      "source": "opd",
+      "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=154726",
+      "role": "answer",
+      "language": "it",
+      "n_pages": 4,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:45:59.894669Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 250883,
+   "arms": {
+    "M": {
+     "number": "2025/386",
+     "affair_type": null,
+     "submitter": "Derek Richter",
+     "co_signatories": [
+      "Johann Widmer",
+      "Roger Bartholdi"
+     ],
+     "submitted": "2025-09-03",
+     "recommendation": null,
+     "answer_date": "2025-11-26",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": "2025/386",
+     "affair_type": "question",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "2025/386",
+     "affair_type": "question",
+     "submitter": "Derek Richter",
+     "co_signatories": [
+      "Johann Widmer",
+      "Roger Bartholdi"
+     ],
+     "addressed_body": null,
+     "submitted": "2025-09-03",
+     "answer_date": "2025-11-26",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "2025/386",
+     "affair_type": "question",
+     "submitter": "Derek Richter",
+     "co_signatories": [
+      "Johann Widmer",
+      "Roger Bartholdi"
+     ],
+     "addressed_body": "administration",
+     "submitted": "2025-09-03",
+     "answer_date": "2025-11-26",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "administration",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:547378",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -30.087581584375915,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "261",
+     "number": "2025/386",
+     "opd_id": 250883,
+     "virtual": false
+    },
+    "body": {
+     "key": "261",
+     "level": "communal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "unknown"
+    },
+    "title": {
+     "de": "Einsatz von Softwarelösungen amerikanischer Konzerne, gespeicherte Daten, genutzte Applikationen und Kommunikationstools, Projekte, die die Abhängigkeiten erhöhen, Lizenzkosten und Beurteilung der Risiken sowie Prüfung von datenschutzkonformen Alternativen"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Derek Richter",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/1421653"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Johann Widmer",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/846373"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Roger Bartholdi",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/846374"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2025-09-03",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/683256"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2025-11-26",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/798314"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "closed",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/802305"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "present_unanchored",
+     "route": "rule",
+     "evidence": "no_anchor",
+     "doc": "opd:651306"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:547378",
+      "answer_doc": "opd:651306",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2025-11-26",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:651306",
+       "page": 1,
+       "char_start": 28,
+       "char_end": 45,
+       "quote": "26. November 2025",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:547378",
+      "source": "opd",
+      "url": "https://www.gemeinderat-zuerich.ch/dokumente/bc90b35893274a8d86391682fe0753e2-332?filename=2025_0386SchriftlicheAnfrage",
+      "role": "question",
+      "language": "de",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:651306",
+      "source": "opd",
+      "url": "https://www.gemeinderat-zuerich.ch/dokumente/ead391b337b749ae9f732a40d6ea63e0-332?filename=2025_0386AntwortStadtrat",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 6,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:46:18.330644Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 335762,
+   "arms": {
+    "M": {
+     "number": "2026/363",
+     "affair_type": null,
+     "submitter": "Sibylle Kauer",
+     "co_signatories": [
+      "Catalina Gajardo Hofmann",
+      "Leonora Seiler"
+     ],
+     "submitted": "2026-07-01",
+     "recommendation": null,
+     "answer_date": null,
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": "2026/363",
+     "affair_type": "question",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "2025/539"
+     ]
+    },
+    "C": {
+     "number": "2026/363",
+     "affair_type": "question",
+     "submitter": "Sibylle Kauer",
+     "co_signatories": [
+      "Catalina Gajardo Hofmann",
+      "Leonora Seiler"
+     ],
+     "addressed_body": null,
+     "submitted": "2026-07-01",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "2025/539"
+     ]
+    },
+    "CA": {
+     "number": "2026/363",
+     "affair_type": "question",
+     "submitter": "Sibylle Kauer",
+     "co_signatories": [
+      "Catalina Gajardo Hofmann",
+      "Leonora Seiler"
+     ],
+     "addressed_body": "administration",
+     "submitted": "2026-07-01",
+     "answer_date": "2026-09-30",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "2025/539"
+     ]
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "administration",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:903989",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -30.19119149585284,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    },
+    "answer_date": {
+     "value": "2026-09-30",
+     "route": "apertus",
+     "basis": "normalised",
+     "doc": "opd:928734",
+     "page": 1,
+     "char_start": 28,
+     "char_end": 46,
+     "quote": "30. September 2026",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 10.395354058425431,
+     "margin": 6.491124018892002,
+     "candidates": 4,
+     "prompt_id": "de/answer_date.txt@cdff33e00ab9"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "261",
+     "number": "2026/363",
+     "opd_id": 335762,
+     "virtual": false
+    },
+    "body": {
+     "key": "261",
+     "level": "communal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "unknown"
+    },
+    "title": {
+     "de": "Schutzgebiete und Inventarobjekte als hochwertige Lebensräume, Sicherstellung der lokaltypischen Biodiversität, Bewirtschaftungspläne für die Schutzobjekte, Vorgaben für die kommunalen Naturschutzflächen, Bestrebungen zur Aufwertung entlassener Objekte, Regelung der Art und Dauer einer Nutztierhaltung auf Naturschutzflächen sowie mögliche biodiversitätsfördernde Rolle einer Nutztierhaltung"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Sibylle Kauer",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/1479366"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Catalina Gajardo Hofmann",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/1479364"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Leonora Seiler",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/1479365"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2026-07-01",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/961147"
+      }
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "submitted",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/961147"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "present_unanchored",
+     "route": "rule",
+     "evidence": "no_anchor",
+     "doc": "opd:928734"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:903989",
+      "answer_doc": "opd:928734",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "no_anchor",
+       "doc": "opd:928734"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [
+     {
+      "relation": "cites",
+      "ref": {
+       "body_key": "261",
+       "number": "2025/539",
+       "virtual": false
+      },
+      "evidence": {
+       "kind": "value",
+       "value": "2025/539",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:928734",
+       "page": 5,
+       "char_start": 465,
+       "char_end": 473,
+       "quote": "2025/539",
+       "rule": "opd_number_printed"
+      }
+     }
+    ],
+    "documents": [
+     {
+      "doc_id": "opd:903989",
+      "source": "opd",
+      "url": "https://www.gemeinderat-zuerich.ch/dokumente/79f0ee83d2a942009ed33f7188880d35-332?filename=2026_0363SchriftlicheAnfrage",
+      "role": "question",
+      "language": "de",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:928734",
+      "source": "opd",
+      "url": "https://www.gemeinderat-zuerich.ch/dokumente/31bf1e7c7b7e44e6ae8f1b1e3a5982df-332?filename=2026_0363AntwortStadtrat",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 7,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:46:45.698657Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 250848,
+   "arms": {
+    "M": {
+     "number": "2025/280",
+     "affair_type": "motion",
+     "submitter": "Severin Meier",
+     "co_signatories": [
+      "Guy Krayenbühl"
+     ],
+     "submitted": "2025-07-02",
+     "recommendation": "reject",
+     "answer_date": "2025-11-12",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": "2025/280",
+     "affair_type": "motion",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "2021/13",
+      "2018/14",
+      "2017/202"
+     ]
+    },
+    "C": {
+     "number": "2025/280",
+     "affair_type": "motion",
+     "submitter": "Severin Meier",
+     "co_signatories": [
+      "Guy Krayenbühl"
+     ],
+     "addressed_body": null,
+     "submitted": "2025-07-02",
+     "answer_date": "2025-11-12",
+     "decision_number": null,
+     "recommendation": "reject",
+     "related_affairs": [
+      "2021/13",
+      "2018/14",
+      "2017/202"
+     ]
+    },
+    "CA": {
+     "number": "2025/280",
+     "affair_type": "motion",
+     "submitter": "Severin Meier",
+     "co_signatories": [
+      "Guy Krayenbühl"
+     ],
+     "addressed_body": "executive",
+     "submitted": "2025-07-02",
+     "answer_date": "2025-11-12",
+     "decision_number": null,
+     "recommendation": "reject",
+     "related_affairs": [
+      "2021/13",
+      "2018/14",
+      "2017/202"
+     ]
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:547244",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -37.783533120820856,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "261",
+     "number": "2025/280",
+     "opd_id": 250848,
+     "virtual": false
+    },
+    "body": {
+     "key": "261",
+     "level": "communal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "motion",
+     "source_label": "Motion"
+    },
+    "title": {
+     "de": "Realisierung von mindestens zwei zusätzlichen Stegen oder niederschwelligen Zugängen zwischen der Rathausbrücke und dem Drahtschmidlisteg"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Severin Meier",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/846337"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Guy Krayenbühl",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/1421000"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2025-07-02",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/683089"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2025-11-12",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/793890"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "referred",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/846363"
+    },
+    "decision": {
+     "kind": "value",
+     "value": "referred",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/846363"
+    },
+    "government_recommendation": {
+     "kind": "value",
+     "value": "reject",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/793890"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:547244",
+      "answer_doc": "opd:638493",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2025-11-12",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:638493",
+       "page": 1,
+       "char_start": 32,
+       "char_end": 49,
+       "quote": "12. November 2025",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [
+     {
+      "relation": "cites",
+      "ref": {
+       "body_key": "261",
+       "number": "2021/13",
+       "virtual": false
+      },
+      "evidence": {
+       "kind": "value",
+       "value": "2021/13",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:547244",
+       "page": 1,
+       "char_start": 1209,
+       "char_end": 1216,
+       "quote": "2021/13",
+       "rule": "opd_number_printed"
+      }
+     },
+     {
+      "relation": "cites",
+      "ref": {
+       "body_key": "261",
+       "number": "2018/14",
+       "virtual": false
+      },
+      "evidence": {
+       "kind": "value",
+       "value": "2018/14",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:638493",
+       "page": 2,
+       "char_start": 581,
+       "char_end": 588,
+       "quote": "2018/14",
+       "rule": "opd_number_printed"
+      }
+     },
+     {
+      "relation": "cites",
+      "ref": {
+       "body_key": "261",
+       "number": "2017/202",
+       "virtual": false
+      },
+      "evidence": {
+       "kind": "value",
+       "value": "2017/202",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:638493",
+       "page": 2,
+       "char_start": 669,
+       "char_end": 677,
+       "quote": "2017/202",
+       "rule": "opd_number_printed"
+      }
+     }
+    ],
+    "documents": [
+     {
+      "doc_id": "opd:547244",
+      "source": "opd",
+      "url": "https://www.gemeinderat-zuerich.ch/dokumente/564cdaae5b6a4970b695ae519ff9f6cb-332?filename=2025_0280Motion",
+      "role": "question",
+      "language": "de",
+      "n_pages": 1,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:638493",
+      "source": "opd",
+      "url": "https://www.gemeinderat-zuerich.ch/dokumente/30ef3c625d6840729909859bdae7614c-332?filename=2025_0280AntwortStadtrat",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 3,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:46:50.991801Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 203603,
+   "arms": {
+    "M": {
+     "number": "2023.NWLR.729",
+     "affair_type": "interpellation",
+     "submitter": "Markus Walker",
+     "co_signatories": [],
+     "submitted": "2023-12-10",
+     "recommendation": null,
+     "answer_date": null,
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": "2023.NWLR.729",
+     "affair_type": "interpellation",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": "2024-05-07",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "2023.NWLR.729",
+     "affair_type": "interpellation",
+     "submitter": "Markus Walker",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2023-12-10",
+     "answer_date": "2024-05-07",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "2023.NWLR.729",
+     "affair_type": "interpellation",
+     "submitter": "Markus Walker",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2023-12-10",
+     "answer_date": "2024-05-07",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:459951",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -28.87112790078315,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "NW",
+     "number": "2023.NWLR.729",
+     "opd_id": 203603,
+     "virtual": false
+    },
+    "body": {
+     "key": "NW",
+     "level": "cantonal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "interpellation",
+     "source_label": "Interpellation"
+    },
+    "title": {
+     "de": "Pumpspeicher- und Wasserkraftwerke im Kanton Nidwalden"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Markus Walker",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/1063512"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2023-12-10",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/555896"
+      }
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "scheduled",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/555897"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "not_applicable",
+     "route": "rule",
+     "evidence": "affair_type",
+     "doc": "opd:459950"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:459951",
+      "answer_doc": "opd:459950",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2024-05-07",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:459950",
+       "page": 1,
+       "char_start": 131,
+       "char_end": 142,
+       "quote": "7. Mai 2024",
+       "rule": "place_date_head"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:459951",
+      "source": "opd",
+      "url": "https://www.nw.ch/_doc/363730",
+      "role": "question",
+      "language": "de",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:459950",
+      "source": "opd",
+      "url": "https://www.nw.ch/_doc/379369",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 4,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:46:58.119037Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 203870,
+   "arms": {
+    "M": {
+     "number": "2016.NWLR.28",
+     "affair_type": "interpellation",
+     "submitter": null,
+     "co_signatories": [],
+     "submitted": "2016-05-02",
+     "recommendation": null,
+     "answer_date": null,
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": "2016.NWLR.28",
+     "affair_type": "interpellation",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "2016.NWLR.28",
+     "affair_type": "interpellation",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2016-05-02",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "2016.NWLR.28",
+     "affair_type": "interpellation",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2016-05-02",
+     "answer_date": "2016-10-18",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:458058",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -31.989885826606955,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    },
+    "answer_date": {
+     "value": "2016-10-18",
+     "route": "apertus",
+     "basis": "normalised",
+     "doc": "opd:458059",
+     "page": 1,
+     "char_start": 131,
+     "char_end": 147,
+     "quote": "18. Oktober 2016",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 10.395354058425431,
+     "margin": -17.08695755008451,
+     "candidates": 6,
+     "prompt_id": "de/answer_date.txt@cdff33e00ab9"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "NW",
+     "number": "2016.NWLR.28",
+     "opd_id": 203870,
+     "virtual": false
+    },
+    "body": {
+     "key": "NW",
+     "level": "cantonal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "interpellation",
+     "source_label": "Interpellation"
+    },
+    "title": {
+     "de": "Parlamentarische Vorstösse. Interpellation von Landrat Stefan Hurschler, Oberdorf, zu den Kosten im Asyl- und Flüchtlingswesen. Antrag auf Dringlichkeit"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "no known name after an author cue",
+       "doc": "opd:458058"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2016-05-02",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/554853"
+      }
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "scheduled",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/554855"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "not_applicable",
+     "route": "rule",
+     "evidence": "affair_type",
+     "doc": "opd:458059"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:458058",
+      "answer_doc": "opd:458059",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "no_anchor",
+       "doc": "opd:458059"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:458058",
+      "source": "opd",
+      "url": "https://www.nw.ch/_doc/83000",
+      "role": "question",
+      "language": "de",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:458059",
+      "source": "opd",
+      "url": "https://www.nw.ch/_doc/87802",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 5,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:47:22.856557Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 167415,
+   "arms": {
+    "M": {
+     "number": "NWLR.37",
+     "affair_type": "motion",
+     "submitter": "Beat Ettlin",
+     "co_signatories": [],
+     "submitted": "2010-03-23",
+     "recommendation": null,
+     "answer_date": "2010-07-06",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": "motion",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "NWLR.37",
+     "affair_type": "motion",
+     "submitter": "Beat Ettlin",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2010-03-23",
+     "answer_date": "2010-07-06",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "NWLR.37",
+     "affair_type": "motion",
+     "submitter": "Beat Ettlin",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2010-03-23",
+     "answer_date": "2010-07-06",
+     "decision_number": null,
+     "recommendation": "reject",
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:460941",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -26.124800824640644,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    },
+    "recommendation": {
+     "value": "reject",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:462678",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -19.37500000000002,
+     "candidates": 3,
+     "prompt_id": "de/recommendation.txt@4b9fe2c38a43"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "NW",
+     "number": "NWLR.37",
+     "opd_id": 167415,
+     "virtual": false
+    },
+    "body": {
+     "key": "NW",
+     "level": "cantonal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "motion",
+     "source_label": "Motion"
+    },
+    "title": {
+     "de": "Transparenz bei den Parteifinanzen, Abstimmungs- und Wahlkampagnen"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Beat Ettlin",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/1075079"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2010-03-23",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/556333"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2010-07-06",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/556334"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "scheduled",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/556335"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "present_unanchored",
+     "route": "rule",
+     "evidence": "no_anchor",
+     "doc": "opd:462678"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:460941",
+      "answer_doc": "opd:462678",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2010-07-06",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:462678",
+       "page": 1,
+       "char_start": 68,
+       "char_end": 81,
+       "quote": "06. Juli 2010",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:460941",
+      "source": "opd",
+      "url": "https://www.nw.ch/_doc/24745",
+      "role": "question",
+      "language": "de",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:462678",
+      "source": "opd",
+      "url": "https://www.nw.ch/_doc/27004",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:47:34.893738Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 167740,
+   "arms": {
+    "M": {
+     "number": "54.22.06",
+     "affair_type": "interpellation",
+     "submitter": "Peter Lötscher",
+     "co_signatories": [],
+     "submitted": "2022-05-19",
+     "recommendation": null,
+     "answer_date": "2022-08-29",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": "interpellation",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2022-05-19",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "54.22.06",
+     "affair_type": "interpellation",
+     "submitter": "Peter Lötscher",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2022-05-19",
+     "answer_date": "2022-08-29",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "54.22.06",
+     "affair_type": "interpellation",
+     "submitter": "Peter Lötscher",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2022-05-19",
+     "answer_date": "2022-08-29",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:431739",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -21.419516870884216,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "OW",
+     "number": "54.22.06",
+     "opd_id": 167740,
+     "virtual": false
+    },
+    "body": {
+     "key": "OW",
+     "level": "cantonal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "interpellation",
+     "source_label": "Interpellation"
+    },
+    "title": {
+     "de": "Situation ehemaliger Heim- und Pflegekinder (sogenannter Careleaver:innen) im Kanton Obwalden."
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Peter Lötscher",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/758932"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2022-05-19",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/495957"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2022-08-29",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/495958"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "scheduled",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/495959"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "not_applicable",
+     "route": "rule",
+     "evidence": "affair_type",
+     "doc": "opd:431738"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:431739",
+      "answer_doc": "opd:431738",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2022-08-29",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:431738",
+       "page": 1,
+       "char_start": 53,
+       "char_end": 68,
+       "quote": "29. August 2022",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:431739",
+      "source": "opd",
+      "url": "https://www.ow.ch/_doc/296285",
+      "role": "question",
+      "language": "de",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:431738",
+      "source": "opd",
+      "url": "https://www.ow.ch/_doc/309032",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 5,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:47:41.827695Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 167741,
+   "arms": {
+    "M": {
+     "number": "54.22.08",
+     "affair_type": "interpellation",
+     "submitter": "Peter Abächerli",
+     "co_signatories": [
+      "Daniel Blättler"
+     ],
+     "submitted": "2022-05-19",
+     "recommendation": null,
+     "answer_date": "2022-09-06",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": "interpellation",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "54.22.08",
+     "affair_type": "interpellation",
+     "submitter": "Peter Abächerli",
+     "co_signatories": [
+      "Daniel Blättler"
+     ],
+     "addressed_body": null,
+     "submitted": "2022-05-19",
+     "answer_date": "2022-09-06",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "54.22.08",
+     "affair_type": "interpellation",
+     "submitter": "Peter Abächerli",
+     "co_signatories": [
+      "Daniel Blättler"
+     ],
+     "addressed_body": "executive",
+     "submitted": "2022-05-19",
+     "answer_date": "2022-09-06",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:431711",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -31.122191644752114,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "OW",
+     "number": "54.22.08",
+     "opd_id": 167741,
+     "virtual": false
+    },
+    "body": {
+     "key": "OW",
+     "level": "cantonal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "interpellation",
+     "source_label": "Interpellation"
+    },
+    "title": {
+     "de": "uneingeschränkte Wolfsverbreitung wichtiger als Landwirtschaft und Tourismus?"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Peter Abächerli",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/758944"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Daniel Blättler",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/758945"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2022-05-19",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/495963"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2022-09-06",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/495964"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "scheduled",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/495965"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "not_applicable",
+     "route": "rule",
+     "evidence": "affair_type",
+     "doc": "opd:431710"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:431711",
+      "answer_doc": "opd:431710",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2022-09-06",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:431710",
+       "page": 1,
+       "char_start": 54,
+       "char_end": 71,
+       "quote": "6. September 2022",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:431711",
+      "source": "opd",
+      "url": "https://www.ow.ch/_doc/309350",
+      "role": "question",
+      "language": "de",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:431710",
+      "source": "opd",
+      "url": "https://www.ow.ch/_doc/309347",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 7,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:47:49.872563Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 294993,
+   "arms": {
+    "M": {
+     "number": "54.25.14",
+     "affair_type": "interpellation",
+     "submitter": "Gregor Jaggi",
+     "co_signatories": [
+      "Martin Sigg"
+     ],
+     "submitted": "2025-12-05",
+     "recommendation": null,
+     "answer_date": "2026-02-24",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": "interpellation",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "54.25.14",
+     "affair_type": "interpellation",
+     "submitter": "Gregor Jaggi",
+     "co_signatories": [
+      "Martin Sigg"
+     ],
+     "addressed_body": null,
+     "submitted": "2025-12-05",
+     "answer_date": "2026-02-24",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "54.25.14",
+     "affair_type": "interpellation",
+     "submitter": "Gregor Jaggi",
+     "co_signatories": [
+      "Martin Sigg"
+     ],
+     "addressed_body": "executive",
+     "submitted": "2025-12-05",
+     "answer_date": "2026-02-24",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:676927",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -32.66088833232927,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "OW",
+     "number": "54.25.14",
+     "opd_id": 294993,
+     "virtual": false
+    },
+    "body": {
+     "key": "OW",
+     "level": "cantonal",
+     "languages": [
+      "de"
+     ]
+    },
+    "type": {
+     "harmonised": "interpellation",
+     "source_label": "Interpellation"
+    },
+    "title": {
+     "de": "Regierungsrätliche Oberaufsicht über Verwaltungsrat und Geschäftsleitung der Spital Obwalden Betriebs AG in der Transformations-Phase bis zum Anschluss an die Luks-Gruppe"
+    },
+    "languages": [
+     "de"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Gregor Jaggi",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/1100501"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Martin Sigg",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/1100502"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2025-12-05",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/837268"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2026-02-24",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/849170"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "scheduled",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/837269"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "not_applicable",
+     "route": "rule",
+     "evidence": "affair_type",
+     "doc": "opd:686525"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:676927",
+      "answer_doc": "opd:686525",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2026-02-24",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:686525",
+       "page": 1,
+       "char_start": 46,
+       "char_end": 62,
+       "quote": "24. Februar 2026",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:676927",
+      "source": "opd",
+      "url": "https://www.ow.ch/_doc/440486",
+      "role": "question",
+      "language": "de",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:686525",
+      "source": "opd",
+      "url": "https://www.ow.ch/_doc/443248",
+      "role": "answer",
+      "language": "de",
+      "n_pages": 4,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:47:56.483755Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 223831,
+   "arms": {
+    "M": {
+     "number": "16_INT_580",
+     "affair_type": "interpellation",
+     "submitter": "Philippe Jobin",
+     "co_signatories": [],
+     "submitted": "2016-09-27",
+     "recommendation": null,
+     "answer_date": null,
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": "interpellation",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "16_INT_580",
+     "affair_type": "interpellation",
+     "submitter": "Philippe Jobin",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2016-09-27",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "16_INT_580",
+     "affair_type": "interpellation",
+     "submitter": "Philippe Jobin",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2016-09-27",
+     "answer_date": "2017-05-03",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:553468",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -35.49906110768929,
+     "candidates": 4,
+     "prompt_id": "fr/affair_addressed_body.txt@b9f4e8728cb7"
+    },
+    "answer_date": {
+     "value": "2017-05-03",
+     "route": "apertus",
+     "basis": "normalised",
+     "doc": "opd:553469",
+     "page": 4,
+     "char_start": 1855,
+     "char_end": 1865,
+     "quote": "3 mai 2017",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 10.395354058425431,
+     "margin": -20.874925160361588,
+     "candidates": 4,
+     "prompt_id": "fr/answer_date.txt@fe960af0754d"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "VD",
+     "number": "16_INT_580",
+     "opd_id": 223831,
+     "virtual": false
+    },
+    "body": {
+     "key": "VD",
+     "level": "cantonal",
+     "languages": [
+      "fr"
+     ]
+    },
+    "type": {
+     "harmonised": "interpellation",
+     "source_label": "Interpellation"
+    },
+    "title": {
+     "fr": "Quelles sont les conséquences financières de la restructuration de l'école par la LEO ?"
+    },
+    "languages": [
+     "fr"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Philippe Jobin",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/801330"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2016-09-27",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/600696"
+      }
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "debated",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/600698"
+    },
+    "decision": {
+     "kind": "value",
+     "value": "referred",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/600697"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "not_applicable",
+     "route": "rule",
+     "evidence": "affair_type",
+     "doc": "opd:553469"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:553468",
+      "answer_doc": "opd:553469",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "heading_without_date",
+       "doc": "opd:553469"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:553468",
+      "source": "opd",
+      "url": "https://www.vd.ch/fileadmin/user_upload/organisation/gc/fichiers_pdf/2012-2017/16_INT_580_depot.PDF",
+      "role": "question",
+      "language": "fr",
+      "n_pages": 4,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:553469",
+      "source": "opd",
+      "url": "https://www.vd.ch/fileadmin/user_upload/organisation/gc/fichiers_pdf/2012-2017/16_INT_580_Texte_CE.PDF",
+      "role": "answer",
+      "language": "fr",
+      "n_pages": 4,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:48:15.569760Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 224608,
+   "arms": {
+    "M": {
+     "number": "19_INT_293",
+     "affair_type": "interpellation",
+     "submitter": "Philippe Liniger",
+     "co_signatories": [],
+     "submitted": "2019-01-29",
+     "recommendation": null,
+     "answer_date": null,
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": "interpellation",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "19_INT_293",
+     "affair_type": "interpellation",
+     "submitter": "Philippe Liniger",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2019-01-29",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "19_INT_293",
+     "affair_type": "interpellation",
+     "submitter": "Philippe Liniger",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2019-01-29",
+     "answer_date": "2019-05-22",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:551059",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -31.24907530246118,
+     "candidates": 4,
+     "prompt_id": "fr/affair_addressed_body.txt@b9f4e8728cb7"
+    },
+    "answer_date": {
+     "value": "2019-05-22",
+     "route": "apertus",
+     "basis": "normalised",
+     "doc": "opd:551060",
+     "page": 3,
+     "char_start": 3471,
+     "char_end": 3482,
+     "quote": "22 mai 2019",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 10.395354058425431,
+     "margin": -21.874992969270146,
+     "candidates": 2,
+     "prompt_id": "fr/answer_date.txt@fe960af0754d"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "VD",
+     "number": "19_INT_293",
+     "opd_id": 224608,
+     "virtual": false
+    },
+    "body": {
+     "key": "VD",
+     "level": "cantonal",
+     "languages": [
+      "fr"
+     ]
+    },
+    "type": {
+     "harmonised": "interpellation",
+     "source_label": "Interpellation"
+    },
+    "title": {
+     "fr": "Agissons ensemble"
+    },
+    "languages": [
+     "fr"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Philippe Liniger",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/801307"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2019-01-29",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/602990"
+      }
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "debated",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/602992"
+    },
+    "decision": {
+     "kind": "value",
+     "value": "referred",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/602991"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "not_applicable",
+     "route": "rule",
+     "evidence": "affair_type",
+     "doc": "opd:551060"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:551059",
+      "answer_doc": "opd:551060",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "heading_without_date",
+       "doc": "opd:551060"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:551059",
+      "source": "opd",
+      "url": "https://www.vd.ch/fileadmin/user_upload/organisation/gc/fichiers_pdf/2017-2022/19_INT_293_depot.pdf",
+      "role": "question",
+      "language": "fr",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:551060",
+      "source": "opd",
+      "url": "https://www.vd.ch/fileadmin/user_upload/organisation/gc/fichiers_pdf/2017-2022/19_INT_293_TexteCE.pdf",
+      "role": "answer",
+      "language": "fr",
+      "n_pages": 3,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:48:28.034884Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 224730,
+   "arms": {
+    "M": {
+     "number": "19_INT_417",
+     "affair_type": "interpellation",
+     "submitter": "Yvan Luccarini",
+     "co_signatories": [],
+     "submitted": "2019-11-05",
+     "recommendation": null,
+     "answer_date": null,
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": "interpellation",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "19_INT_417",
+     "affair_type": "interpellation",
+     "submitter": "Yvan Luccarini",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2019-11-05",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "19_INT_417",
+     "affair_type": "interpellation",
+     "submitter": "Yvan Luccarini",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2019-11-05",
+     "answer_date": "2019-12-04",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "answer_date": {
+     "value": "2019-12-04",
+     "route": "apertus",
+     "basis": "normalised",
+     "doc": "opd:551237",
+     "page": 4,
+     "char_start": 262,
+     "char_end": 277,
+     "quote": "4 décembre 2019",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 10.395354058425431,
+     "margin": -22.74882984362936,
+     "candidates": 5,
+     "prompt_id": "fr/answer_date.txt@fe960af0754d"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "VD",
+     "number": "19_INT_417",
+     "opd_id": 224730,
+     "virtual": false
+    },
+    "body": {
+     "key": "VD",
+     "level": "cantonal",
+     "languages": [
+      "fr"
+     ]
+    },
+    "type": {
+     "harmonised": "interpellation",
+     "source_label": "Interpellation"
+    },
+    "title": {
+     "fr": "POP - La confiance et l'autorité du Préfet du district de la Riviera Pays-d'Enhaut sont-elles compromises ?"
+    },
+    "languages": [
+     "fr"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Yvan Luccarini",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/798482"
+      }
+     },
+     {
+      "role": "addressed_body",
+      "kind": "executive",
+      "name": {
+       "kind": "value",
+       "value": "au\nConseil d'État",
+       "basis": "inferred",
+       "route": "rule",
+       "doc": "opd:551236",
+       "page": 1,
+       "char_start": 1294,
+       "char_end": 1311,
+       "quote": "au\nConseil d'État",
+       "rule": "addressed_executive"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2019-11-05",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/603368"
+      }
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "debated",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/603370"
+    },
+    "decision": {
+     "kind": "value",
+     "value": "referred",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/603369"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "not_applicable",
+     "route": "rule",
+     "evidence": "affair_type",
+     "doc": "opd:551237"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:551236",
+      "answer_doc": "opd:551237",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "heading_without_date",
+       "doc": "opd:551237"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:551236",
+      "source": "opd",
+      "url": "https://www.vd.ch/fileadmin/user_upload/organisation/gc/fichiers_pdf/2017-2022/19_INT_417_depot.pdf",
+      "role": "question",
+      "language": "fr",
+      "n_pages": 3,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:551237",
+      "source": "opd",
+      "url": "https://www.vd.ch/fileadmin/user_upload/organisation/gc/fichiers_pdf/2017-2022/19_INT_417_TexteCE.pdf",
+      "role": "answer",
+      "language": "fr",
+      "n_pages": 4,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:48:40.328757Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 328935,
+   "arms": {
+    "M": {
+     "number": "I 358 – 24.05",
+     "affair_type": "interpellation",
+     "submitter": "Pierre Bleiker",
+     "co_signatories": [],
+     "submitted": "2024-05-14",
+     "recommendation": null,
+     "answer_date": "2024-06-18",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": "interpellation",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": "2024-06-18",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "I 358 – 24.05",
+     "affair_type": "interpellation",
+     "submitter": "Pierre Bleiker",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2024-05-14",
+     "answer_date": "2024-06-18",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "I 358 – 24.05",
+     "affair_type": "interpellation",
+     "submitter": "Pierre Bleiker",
+     "co_signatories": [],
+     "addressed_body": "parliament",
+     "submitted": "2024-05-14",
+     "answer_date": "2024-06-18",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "parliament",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:879602",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -15.214316074158141,
+     "candidates": 4,
+     "prompt_id": "fr/affair_addressed_body.txt@b9f4e8728cb7"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "6643",
+     "number": "I 358 – 24.05",
+     "opd_id": 328935,
+     "virtual": false
+    },
+    "body": {
+     "key": "6643",
+     "level": "communal",
+     "languages": [
+      "fr"
+     ]
+    },
+    "type": {
+     "harmonised": "interpellation",
+     "source_label": "Interpellation"
+    },
+    "title": {
+     "fr": "Moyens techniques de lutte contre les canicules"
+    },
+    "languages": [
+     "fr"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Pierre Bleiker",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/1443231"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2024-05-14",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/905885"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2024-06-18",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/922609"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "answered",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/922609"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "not_applicable",
+     "route": "rule",
+     "evidence": "affair_type",
+     "doc": "opd:920059"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:879602",
+      "answer_doc": "opd:920059",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2024-06-18",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:920059",
+       "page": 2,
+       "char_start": 2858,
+       "char_end": 2870,
+       "quote": "18 juin 2024",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:879602",
+      "source": "opd",
+      "url": "https://www.vernier.ch/sites/default/files/council-object/2024-05/I%20358%20Texte.pdf",
+      "role": "question",
+      "language": "fr",
+      "n_pages": 1,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:920059",
+      "source": "opd",
+      "url": "https://www.vernier.ch/sites/default/files/council-object/2024-06/R%C3%A9ponse%20CA%20I%20358.pdf",
+      "role": "answer",
+      "language": "fr",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:48:45.858630Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 328691,
+   "arms": {
+    "M": {
+     "number": "QE 337 - 24.03",
+     "affair_type": null,
+     "submitter": "Howard Nobs",
+     "co_signatories": [],
+     "submitted": "2024-03-12",
+     "recommendation": null,
+     "answer_date": "2024-06-10",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": "question",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": null,
+     "answer_date": "2024-06-10",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "QE 337 - 24.03",
+     "affair_type": "question",
+     "submitter": "Howard Nobs",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2024-03-12",
+     "answer_date": "2024-06-10",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "QE 337 - 24.03",
+     "affair_type": "question",
+     "submitter": "Howard Nobs",
+     "co_signatories": [],
+     "addressed_body": "executive",
+     "submitted": "2024-03-12",
+     "answer_date": "2024-06-10",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {},
+   "needs_review": false,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "6643",
+     "number": "QE 337 - 24.03",
+     "opd_id": 328691,
+     "virtual": false
+    },
+    "body": {
+     "key": "6643",
+     "level": "communal",
+     "languages": [
+      "fr"
+     ]
+    },
+    "type": {
+     "harmonised": "unknown"
+    },
+    "title": {
+     "fr": "Contrat de quartier Aïre-Le Lignon"
+    },
+    "languages": [
+     "fr"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Howard Nobs",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/1442886"
+      }
+     },
+     {
+      "role": "addressed_body",
+      "kind": "executive",
+      "name": {
+       "kind": "value",
+       "value": "au Conseil administratif",
+       "basis": "inferred",
+       "route": "rule",
+       "doc": "opd:879274",
+       "page": 1,
+       "char_start": 1469,
+       "char_end": 1493,
+       "quote": "au Conseil administratif",
+       "rule": "addressed_executive"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2024-03-12",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/905651"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2024-06-10",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/922573"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "answered",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/922573"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "present_unanchored",
+     "route": "rule",
+     "evidence": "no_anchor",
+     "doc": "opd:895359"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:879274",
+      "answer_doc": "opd:895359",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2024-06-10",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:895359",
+       "page": 4,
+       "char_start": 1190,
+       "char_end": 1202,
+       "quote": "10 juin 2024",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:879274",
+      "source": "opd",
+      "url": "https://www.vernier.ch/sites/default/files/council-object/2024-03/QE%20337%20Texte.pdf",
+      "role": "question",
+      "language": "fr",
+      "n_pages": 1,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:895359",
+      "source": "opd",
+      "url": "https://www.vernier.ch/sites/default/files/council-object/2024-06/R%C3%A9ponse%20CA%20QE%20337.pdf",
+      "role": "answer",
+      "language": "fr",
+      "n_pages": 4,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:48:54.780283Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 328952,
+   "arms": {
+    "M": {
+     "number": "QE 199 - 22.09",
+     "affair_type": null,
+     "submitter": "Thérèse Osman Wata",
+     "co_signatories": [],
+     "submitted": "2022-09-06",
+     "recommendation": null,
+     "answer_date": "2022-10-11",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": "question",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": "2022-10-11",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "QE 199 - 22.09",
+     "affair_type": "question",
+     "submitter": "Thérèse Osman Wata",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2022-09-06",
+     "answer_date": "2022-10-11",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "QE 199 - 22.09",
+     "affair_type": "question",
+     "submitter": "Thérèse Osman Wata",
+     "co_signatories": [],
+     "addressed_body": "administration",
+     "submitted": "2022-09-06",
+     "answer_date": "2022-10-11",
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "administration",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:920074",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -25.998027306785037,
+     "candidates": 4,
+     "prompt_id": "fr/affair_addressed_body.txt@b9f4e8728cb7"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "6643",
+     "number": "QE 199 - 22.09",
+     "opd_id": 328952,
+     "virtual": false
+    },
+    "body": {
+     "key": "6643",
+     "level": "communal",
+     "languages": [
+      "fr"
+     ]
+    },
+    "type": {
+     "harmonised": "unknown"
+    },
+    "title": {
+     "fr": "Où en est la mise en œuvre de i) la motion « pour l’égalité réelle au sein de l’administration communale » et ii) la révision de la LEg ?"
+    },
+    "languages": [
+     "fr"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Thérèse Osman Wata",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/1443345"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2022-09-06",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/905901"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2022-10-11",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/922822"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "answered",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/922822"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "present_unanchored",
+     "route": "rule",
+     "evidence": "no_anchor",
+     "doc": "opd:879619"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:920074",
+      "answer_doc": "opd:879619",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "value",
+       "value": "2022-10-11",
+       "basis": "normalised",
+       "route": "rule",
+       "doc": "opd:879619",
+       "page": 3,
+       "char_start": 1706,
+       "char_end": 1721,
+       "quote": "11 octobre 2022",
+       "rule": "opd_event_date_in_document"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:920074",
+      "source": "opd",
+      "url": "https://www.vernier.ch/sites/default/files/council-object/2023-02/QE_199_Texte.pdf",
+      "role": "question",
+      "language": "fr",
+      "n_pages": 1,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:879619",
+      "source": "opd",
+      "url": "https://www.vernier.ch/sites/default/files/council-object/2023-02/Reponse_CA_QE_199.pdf",
+      "role": "answer",
+      "language": "fr",
+      "n_pages": 3,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:49:08.828207Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 254570,
+   "arms": {
+    "M": {
+     "number": "Interpellanza 17/2021",
+     "affair_type": "interpellation",
+     "submitter": "Angelica Lepori-Sergi",
+     "co_signatories": [
+      "Pronzini Matteo",
+      "Giuseppe Sergi"
+     ],
+     "submitted": "2021-06-22",
+     "recommendation": null,
+     "answer_date": "2021-07-02",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": "interpellation",
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "Interpellanza 17/2021",
+     "affair_type": "interpellation",
+     "submitter": "Angelica Lepori-Sergi",
+     "co_signatories": [
+      "Pronzini Matteo",
+      "Giuseppe Sergi"
+     ],
+     "addressed_body": null,
+     "submitted": "2021-06-22",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "Interpellanza 17/2021",
+     "affair_type": "interpellation",
+     "submitter": "Angelica Lepori-Sergi",
+     "co_signatories": [
+      "Pronzini Matteo",
+      "Giuseppe Sergi"
+     ],
+     "addressed_body": "executive",
+     "submitted": "2021-06-22",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:642442",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -19.028253298447886,
+     "candidates": 4,
+     "prompt_id": "it/affair_addressed_body.txt@6132abd55610"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "5002",
+     "number": "Interpellanza 17/2021",
+     "opd_id": 254570,
+     "virtual": false
+    },
+    "body": {
+     "key": "5002",
+     "level": "communal",
+     "languages": [
+      "it"
+     ]
+    },
+    "type": {
+     "harmonised": "interpellation",
+     "source_label": "Interpellanza"
+    },
+    "title": {
+     "it": "Casa anziani Sementina"
+    },
+    "languages": [
+     "it"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Angelica Lepori-Sergi",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/964219"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Pronzini Matteo",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/964220"
+      }
+     },
+     {
+      "role": "co_signatory",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Giuseppe Sergi",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/964221"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2021-06-22",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/794683"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2021-07-02",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/794684"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "answered",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/794684"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "not_applicable",
+     "route": "rule",
+     "evidence": "affair_type",
+     "doc": "opd:644143"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:642442",
+      "answer_doc": "opd:644143",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "null",
+       "null_reason": "not_in_document",
+       "route": "rule",
+       "evidence": "no_anchor",
+       "doc": "opd:644143"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:642442",
+      "source": "opd",
+      "url": "https://www.bellinzona.ch/Interpellanza-172021-0eaf9100",
+      "role": "question",
+      "language": "it",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:644143",
+      "source": "opd",
+      "url": "https://www.bellinzona.ch/Interpellanza-172021-Risposta-del-Municipio-97164900",
+      "role": "answer",
+      "language": "it",
+      "n_pages": 3,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:49:17.412568Z",
+     "builds": []
+    }
+   }
+  },
+  {
+   "affair_id": 254745,
+   "arms": {
+    "M": {
+     "number": "Interpellanza 258/2020",
+     "affair_type": "interpellation",
+     "submitter": "Donati Manuel",
+     "co_signatories": [],
+     "submitted": "2020-12-03",
+     "recommendation": null,
+     "answer_date": "2020-12-29",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": "Donati Manuel",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "Interpellanza 258/2020",
+     "affair_type": "interpellation",
+     "submitter": "Donati Manuel",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2020-12-03",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "CA": {
+     "number": "Interpellanza 258/2020",
+     "affair_type": "interpellation",
+     "submitter": "Donati Manuel",
+     "co_signatories": [],
+     "addressed_body": "committee",
+     "submitted": "2020-12-03",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "committee",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd:643228",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -15.63629465626589,
+     "candidates": 4,
+     "prompt_id": "it/affair_addressed_body.txt@6132abd55610"
+    }
+   },
+   "needs_review": true,
+   "affair": {
+    "schema_version": "0.1.0",
+    "ref": {
+     "body_key": "5002",
+     "number": "Interpellanza 258/2020",
+     "opd_id": 254745,
+     "virtual": false
+    },
+    "body": {
+     "key": "5002",
+     "level": "communal",
+     "languages": [
+      "it"
+     ]
+    },
+    "type": {
+     "harmonised": "interpellation",
+     "source_label": "Interpellanza"
+    },
+    "title": {
+     "it": "Agenzie di sicurezza"
+    },
+    "languages": [
+     "it"
+    ],
+    "actors": [
+     {
+      "role": "submitter",
+      "kind": "person",
+      "name": {
+       "kind": "value",
+       "value": "Donati Manuel",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:contributors/964491"
+      }
+     }
+    ],
+    "dates": [
+     {
+      "role": "submitted",
+      "date": {
+       "kind": "value",
+       "value": "2020-12-03",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/795030"
+      }
+     },
+     {
+      "role": "answered",
+      "date": {
+       "kind": "value",
+       "value": "2020-12-29",
+       "basis": "metadata",
+       "route": "metadata",
+       "source": "opd:events/795031"
+      },
+      "label": "OPD answer event"
+     }
+    ],
+    "procedural_state": {
+     "kind": "value",
+     "value": "answered",
+     "basis": "metadata",
+     "route": "metadata",
+     "source": "opd:events/795031"
+    },
+    "decision": {
+     "kind": "null",
+     "null_reason": "not_in_corpus",
+     "route": "metadata",
+     "evidence": "no decision event"
+    },
+    "government_recommendation": {
+     "kind": "null",
+     "null_reason": "not_applicable",
+     "route": "rule",
+     "evidence": "affair_type",
+     "doc": "opd:642553"
+    },
+    "qa": [
+     {
+      "question_doc": "opd:643228",
+      "answer_doc": "opd:642553",
+      "link_status": "attached",
+      "answering_body": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "not extracted in P3"
+      },
+      "answer_date": {
+       "kind": "null",
+       "null_reason": "not_in_document",
+       "route": "rule",
+       "evidence": "no_anchor",
+       "doc": "opd:642553"
+      },
+      "answer_identifier": {
+       "kind": "null",
+       "null_reason": "present_unanchored",
+       "route": "rule",
+       "evidence": "decision number carried on answer_date.decision_number"
+      }
+     }
+    ],
+    "answer_link_status": "attached",
+    "related_affairs": [],
+    "documents": [
+     {
+      "doc_id": "opd:643228",
+      "source": "opd",
+      "url": "https://www.bellinzona.ch/Interpellanza-2582020-Agenzie-di-sicurezza-del-Gruppo-Lega-dei-Ticinesi-UDC-4a196100",
+      "role": "question",
+      "language": "it",
+      "n_pages": 2,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     },
+     {
+      "doc_id": "opd:642553",
+      "source": "opd",
+      "url": "https://www.bellinzona.ch/Risposta-interpellanza-2582020-Agenzie-di-sicurezza-del-Gruppo-Lega-dei-Ticinesi-UDC-18166400",
+      "role": "answer",
+      "language": "it",
+      "n_pages": 4,
+      "extractor": "pdftotext-26.02.0",
+      "image_only": false,
+      "parts": []
+     }
+    ],
+    "extraction": {
+     "converter_version": "gegenprobe-0.1.0+affair",
+     "schema_version": "0.1.0",
+     "created": "2026-10-10T08:49:25.416002Z",
+     "builds": []
+    }
+   }
+  }
+ ],
+ "scores": {
+  "arms": [
+   "C",
+   "CA",
+   "M",
+   "R"
+  ],
+  "fields": {
+   "number": {
+    "C": {
+     "correct": 21,
+     "wrong": 8,
+     "n": 29,
+     "accuracy": 0.7241379310344828,
+     "accuracy_ci": [
+      0.5428252365556403,
+      0.8530141866149725
+     ]
+    },
+    "CA": {
+     "correct": 21,
+     "wrong": 8,
+     "n": 29,
+     "accuracy": 0.7241379310344828,
+     "accuracy_ci": [
+      0.5428252365556403,
+      0.8530141866149725
+     ]
+    },
+    "M": {
+     "correct": 21,
+     "wrong": 8,
+     "n": 29,
+     "accuracy": 0.7241379310344828,
+     "accuracy_ci": [
+      0.5428252365556403,
+      0.8530141866149725
+     ]
+    },
+    "R": {
+     "correct": 14,
+     "missed": 15,
+     "n": 29,
+     "accuracy": 0.4827586206896552,
+     "accuracy_ci": [
+      0.3138581933079522,
+      0.6556926202943085
+     ]
+    }
+   },
+   "affair_type": {
+    "C": {
+     "correct": 27,
+     "missed": 1,
+     "wrong": 1,
+     "n": 29,
+     "accuracy": 0.9310344827586207,
+     "accuracy_ci": [
+      0.7803505240414808,
+      0.9808791359020055
+     ]
+    },
+    "CA": {
+     "correct": 27,
+     "wrong": 2,
+     "n": 29,
+     "accuracy": 0.9310344827586207,
+     "accuracy_ci": [
+      0.7803505240414808,
+      0.9808791359020055
+     ]
+    },
+    "M": {
+     "correct": 17,
+     "missed": 11,
+     "wrong": 1,
+     "n": 29,
+     "accuracy": 0.5862068965517241,
+     "accuracy_ci": [
+      0.40737528478515245,
+      0.7448706472035449
+     ]
+    },
+    "R": {
+     "correct": 26,
+     "missed": 3,
+     "n": 29,
+     "accuracy": 0.896551724137931,
+     "accuracy_ci": [
+      0.7361455275293085,
+      0.9641857596186989
+     ]
+    }
+   },
+   "submitter": {
+    "C": {
+     "correct": 23,
+     "wrong": 5,
+     "missed": 1,
+     "n": 29,
+     "accuracy": 0.7931034482758621,
+     "accuracy_ci": [
+      0.6160955339174228,
+      0.9015406348441479
+     ]
+    },
+    "CA": {
+     "correct": 23,
+     "wrong": 5,
+     "missed": 1,
+     "n": 29,
+     "accuracy": 0.7931034482758621,
+     "accuracy_ci": [
+      0.6160955339174228,
+      0.9015406348441479
+     ]
+    },
+    "M": {
+     "correct": 23,
+     "wrong": 5,
+     "missed": 1,
+     "n": 29,
+     "accuracy": 0.7931034482758621,
+     "accuracy_ci": [
+      0.6160955339174228,
+      0.9015406348441479
+     ]
+    },
+    "R": {
+     "correct": 5,
+     "missed": 23,
+     "wrong": 1,
+     "n": 29,
+     "accuracy": 0.1724137931034483,
+     "accuracy_ci": [
+      0.07597745271479928,
+      0.34548800572815114
+     ]
+    }
+   },
+   "addressed_body": {
+    "C": {
+     "missed": 24,
+     "correct": 4,
+     "null_ok": 1,
+     "n": 28,
+     "accuracy": 0.14285714285714285,
+     "accuracy_ci": [
+      0.056989129307017855,
+      0.31490173044877334
+     ]
+    },
+    "CA": {
+     "correct": 23,
+     "wrong": 5,
+     "unprinted": 1,
+     "n": 28,
+     "accuracy": 0.8214285714285714,
+     "accuracy_ci": [
+      0.644082084514089,
+      0.9212161417056989
+     ]
+    },
+    "M": {
+     "missed": 28,
+     "null_ok": 1,
+     "n": 28,
+     "accuracy": 0.0,
+     "accuracy_ci": [
+      0.0,
+      0.12064720365810762
+     ]
+    },
+    "R": {
+     "missed": 24,
+     "correct": 4,
+     "null_ok": 1,
+     "n": 28,
+     "accuracy": 0.14285714285714285,
+     "accuracy_ci": [
+      0.056989129307017855,
+      0.31490173044877334
+     ]
+    }
+   },
+   "submitted": {
+    "C": {
+     "correct": 15,
+     "unprinted": 8,
+     "wrong": 6,
+     "n": 21,
+     "accuracy": 0.7142857142857143,
+     "accuracy_ci": [
+      0.500432261771624,
+      0.8618632425437179
+     ]
+    },
+    "CA": {
+     "correct": 15,
+     "unprinted": 8,
+     "wrong": 6,
+     "n": 21,
+     "accuracy": 0.7142857142857143,
+     "accuracy_ci": [
+      0.500432261771624,
+      0.8618632425437179
+     ]
+    },
+    "M": {
+     "correct": 15,
+     "unprinted": 8,
+     "wrong": 6,
+     "n": 21,
+     "accuracy": 0.7142857142857143,
+     "accuracy_ci": [
+      0.500432261771624,
+      0.8618632425437179
+     ]
+    },
+    "R": {
+     "correct": 4,
+     "missed": 17,
+     "null_ok": 8,
+     "n": 21,
+     "accuracy": 0.19047619047619047,
+     "accuracy_ci": [
+      0.07667440615177301,
+      0.40000986539273287
+     ]
+    }
+   },
+   "answer_date": {
+    "C": {
+     "correct": 22,
+     "missed": 5,
+     "null_ok": 2,
+     "n": 27,
+     "accuracy": 0.8148148148148148,
+     "accuracy_ci": [
+      0.6330094349480825,
+      0.9181941342571468
+     ]
+    },
+    "CA": {
+     "correct": 27,
+     "null_ok": 2,
+     "n": 27,
+     "accuracy": 1.0,
+     "accuracy_ci": [
+      0.8754409628553641,
+      1.0
+     ]
+    },
+    "M": {
+     "correct": 21,
+     "missed": 6,
+     "unprinted": 2,
+     "n": 27,
+     "accuracy": 0.7777777777777778,
+     "accuracy_ci": [
+      0.5924270453692919,
+      0.8939290451059105
+     ]
+    },
+    "R": {
+     "correct": 16,
+     "missed": 11,
+     "null_ok": 2,
+     "n": 27,
+     "accuracy": 0.5925925925925926,
+     "accuracy_ci": [
+      0.4072638305536409,
+      0.7548548662714265
+     ]
+    }
+   },
+   "decision_number": {
+    "C": {
+     "missed": 17,
+     "null_ok": 12,
+     "n": 17,
+     "accuracy": 0.0,
+     "accuracy_ci": [
+      0.0,
+      0.18432366037156456
+     ]
+    },
+    "CA": {
+     "missed": 17,
+     "null_ok": 12,
+     "n": 17,
+     "accuracy": 0.0,
+     "accuracy_ci": [
+      0.0,
+      0.18432366037156456
+     ]
+    },
+    "M": {
+     "missed": 17,
+     "null_ok": 12,
+     "n": 17,
+     "accuracy": 0.0,
+     "accuracy_ci": [
+      0.0,
+      0.18432366037156456
+     ]
+    },
+    "R": {
+     "correct": 5,
+     "missed": 11,
+     "null_ok": 12,
+     "wrong": 1,
+     "n": 17,
+     "accuracy": 0.29411764705882354,
+     "accuracy_ci": [
+      0.13279793865556402,
+      0.5313353332621391
+     ]
+    }
+   },
+   "recommendation": {
+    "C": {
+     "null_ok": 25,
+     "unprinted": 2,
+     "correct": 1,
+     "missed": 1,
+     "n": 2,
+     "accuracy": 0.5,
+     "accuracy_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "CA": {
+     "null_ok": 23,
+     "unprinted": 4,
+     "correct": 2,
+     "n": 2,
+     "accuracy": 1.0,
+     "accuracy_ci": [
+      0.34237195288961925,
+      1.0
+     ]
+    },
+    "M": {
+     "null_ok": 25,
+     "unprinted": 2,
+     "correct": 1,
+     "missed": 1,
+     "n": 2,
+     "accuracy": 0.5,
+     "accuracy_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "R": {
+     "null_ok": 27,
+     "missed": 2,
+     "n": 2,
+     "accuracy": 0.0,
+     "accuracy_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    }
+   }
+  },
+  "sets": {
+   "co_signatories": {
+    "C": {
+     "tp": 13,
+     "fp": 3,
+     "fn": 16,
+     "precision": 0.8125,
+     "recall": 0.4482758620689655
+    },
+    "CA": {
+     "tp": 13,
+     "fp": 3,
+     "fn": 16,
+     "precision": 0.8125,
+     "recall": 0.4482758620689655
+    },
+    "M": {
+     "tp": 13,
+     "fp": 3,
+     "fn": 16,
+     "precision": 0.8125,
+     "recall": 0.4482758620689655
+    },
+    "R": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 29,
+     "precision": null,
+     "recall": 0.0
+    }
+   },
+   "related_affairs": {
+    "C": {
+     "tp": 6,
+     "fp": 3,
+     "fn": 8,
+     "precision": 0.6666666666666666,
+     "recall": 0.42857142857142855
+    },
+    "CA": {
+     "tp": 6,
+     "fp": 3,
+     "fn": 8,
+     "precision": 0.6666666666666666,
+     "recall": 0.42857142857142855
+    },
+    "M": {
+     "tp": 0,
+     "fp": 0,
+     "fn": 14,
+     "precision": null,
+     "recall": 0.0
+    },
+    "R": {
+     "tp": 6,
+     "fp": 3,
+     "fn": 8,
+     "precision": 0.6666666666666666,
+     "recall": 0.42857142857142855
+    }
+   }
+  },
+  "by_rules_coverage": {
+   "seen": {
+    "number": {
+     "C": {
+      "correct": 12,
+      "n": 15
+     },
+     "CA": {
+      "correct": 12,
+      "n": 15
+     },
+     "M": {
+      "correct": 12,
+      "n": 15
+     },
+     "R": {
+      "correct": 12,
+      "n": 15
+     }
+    },
+    "affair_type": {
+     "C": {
+      "correct": 13,
+      "n": 15
+     },
+     "CA": {
+      "correct": 13,
+      "n": 15
+     },
+     "M": {
+      "correct": 5,
+      "n": 15
+     },
+     "R": {
+      "correct": 13,
+      "n": 15
+     }
+    },
+    "submitter": {
+     "C": {
+      "correct": 14,
+      "n": 15
+     },
+     "CA": {
+      "correct": 14,
+      "n": 15
+     },
+     "M": {
+      "correct": 14,
+      "n": 15
+     },
+     "R": {
+      "correct": 5,
+      "n": 15
+     }
+    },
+    "addressed_body": {
+     "C": {
+      "correct": 2,
+      "n": 15
+     },
+     "CA": {
+      "correct": 13,
+      "n": 15
+     },
+     "M": {
+      "correct": 0,
+      "n": 15
+     },
+     "R": {
+      "correct": 2,
+      "n": 15
+     }
+    },
+    "submitted": {
+     "C": {
+      "correct": 12,
+      "n": 12
+     },
+     "CA": {
+      "correct": 12,
+      "n": 12
+     },
+     "M": {
+      "correct": 12,
+      "n": 12
+     },
+     "R": {
+      "correct": 3,
+      "n": 12
+     }
+    },
+    "answer_date": {
+     "C": {
+      "correct": 14,
+      "n": 15
+     },
+     "CA": {
+      "correct": 15,
+      "n": 15
+     },
+     "M": {
+      "correct": 14,
+      "n": 15
+     },
+     "R": {
+      "correct": 12,
+      "n": 15
+     }
+    },
+    "decision_number": {
+     "C": {
+      "correct": 0,
+      "n": 11
+     },
+     "CA": {
+      "correct": 0,
+      "n": 11
+     },
+     "M": {
+      "correct": 0,
+      "n": 11
+     },
+     "R": {
+      "correct": 5,
+      "n": 11
+     }
+    },
+    "recommendation": {
+     "C": {
+      "correct": 1,
+      "n": 1
+     },
+     "CA": {
+      "correct": 1,
+      "n": 1
+     },
+     "M": {
+      "correct": 1,
+      "n": 1
+     },
+     "R": {
+      "correct": 0,
+      "n": 1
+     }
+    }
+   },
+   "unseen": {
+    "number": {
+     "C": {
+      "correct": 9,
+      "n": 14
+     },
+     "CA": {
+      "correct": 9,
+      "n": 14
+     },
+     "M": {
+      "correct": 9,
+      "n": 14
+     },
+     "R": {
+      "correct": 2,
+      "n": 14
+     }
+    },
+    "affair_type": {
+     "C": {
+      "correct": 14,
+      "n": 14
+     },
+     "CA": {
+      "correct": 14,
+      "n": 14
+     },
+     "M": {
+      "correct": 12,
+      "n": 14
+     },
+     "R": {
+      "correct": 13,
+      "n": 14
+     }
+    },
+    "submitter": {
+     "C": {
+      "correct": 9,
+      "n": 14
+     },
+     "CA": {
+      "correct": 9,
+      "n": 14
+     },
+     "M": {
+      "correct": 9,
+      "n": 14
+     },
+     "R": {
+      "correct": 0,
+      "n": 14
+     }
+    },
+    "addressed_body": {
+     "C": {
+      "correct": 2,
+      "n": 13
+     },
+     "CA": {
+      "correct": 10,
+      "n": 13
+     },
+     "M": {
+      "correct": 0,
+      "n": 13
+     },
+     "R": {
+      "correct": 2,
+      "n": 13
+     }
+    },
+    "submitted": {
+     "C": {
+      "correct": 3,
+      "n": 9
+     },
+     "CA": {
+      "correct": 3,
+      "n": 9
+     },
+     "M": {
+      "correct": 3,
+      "n": 9
+     },
+     "R": {
+      "correct": 1,
+      "n": 9
+     }
+    },
+    "answer_date": {
+     "C": {
+      "correct": 8,
+      "n": 12
+     },
+     "CA": {
+      "correct": 12,
+      "n": 12
+     },
+     "M": {
+      "correct": 7,
+      "n": 12
+     },
+     "R": {
+      "correct": 4,
+      "n": 12
+     }
+    },
+    "decision_number": {
+     "C": {
+      "correct": 0,
+      "n": 6
+     },
+     "CA": {
+      "correct": 0,
+      "n": 6
+     },
+     "M": {
+      "correct": 0,
+      "n": 6
+     },
+     "R": {
+      "correct": 0,
+      "n": 6
+     }
+    },
+    "recommendation": {
+     "C": {
+      "correct": 0,
+      "n": 1
+     },
+     "CA": {
+      "correct": 1,
+      "n": 1
+     },
+     "M": {
+      "correct": 0,
+      "n": 1
+     },
+     "R": {
+      "correct": 0,
+      "n": 1
+     }
+    }
+   }
+  },
+  "n_gold": 29
+ }
+}

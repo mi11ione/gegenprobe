@@ -1,0 +1,497 @@
+{
+ "build": "publicai_swiss-ai_apertus-v1.5-8b",
+ "n": 29,
+ "H1": {
+  "number": {
+   "correct": 21,
+   "n": 29,
+   "ci": [
+    0.5428252365556403,
+    0.8530141866149725
+   ],
+   "values_where_doc_prints_none": 0,
+   "tier": "partial"
+  },
+  "affair_type": {
+   "correct": 27,
+   "n": 29,
+   "ci": [
+    0.7803505240414808,
+    0.9808791359020055
+   ],
+   "values_where_doc_prints_none": 0,
+   "tier": "partial"
+  },
+  "submitter": {
+   "correct": 23,
+   "n": 29,
+   "ci": [
+    0.6160955339174228,
+    0.9015406348441479
+   ],
+   "values_where_doc_prints_none": 0,
+   "tier": "partial"
+  },
+  "addressed_body": {
+   "correct": 4,
+   "n": 28,
+   "ci": [
+    0.056989129307017855,
+    0.31490173044877334
+   ],
+   "values_where_doc_prints_none": 0,
+   "tier": "not yet"
+  },
+  "submitted": {
+   "correct": 15,
+   "n": 21,
+   "ci": [
+    0.500432261771624,
+    0.8618632425437179
+   ],
+   "values_where_doc_prints_none": 8,
+   "tier": "partial"
+  },
+  "answer_date": {
+   "correct": 22,
+   "n": 27,
+   "ci": [
+    0.6330094349480825,
+    0.9181941342571468
+   ],
+   "values_where_doc_prints_none": 0,
+   "tier": "partial"
+  },
+  "decision_number": {
+   "correct": 0,
+   "n": 17,
+   "ci": [
+    0.0,
+    0.18432366037156456
+   ],
+   "values_where_doc_prints_none": 0,
+   "tier": "not yet"
+  },
+  "recommendation": {
+   "correct": 1,
+   "n": 2,
+   "ci": [
+    0.09452865480086614,
+    0.9054713451991339
+   ],
+   "values_where_doc_prints_none": 2,
+   "tier": "not yet"
+  }
+ },
+ "H2": {
+  "number": {
+   "agree": 21,
+   "n": 29,
+   "ci": [
+    0.5428252365556403,
+    0.8530141866149725
+   ]
+  },
+  "affair_type": {
+   "agree": 17,
+   "n": 18,
+   "ci": [
+    0.7424220019799247,
+    0.9901250641690756
+   ]
+  },
+  "submitter": {
+   "agree": 23,
+   "n": 28,
+   "ci": [
+    0.644082084514089,
+    0.9212161417056989
+   ]
+  },
+  "submitted": {
+   "agree": 15,
+   "n": 21,
+   "ci": [
+    0.500432261771624,
+    0.8618632425437179
+   ]
+  }
+ },
+ "H3": {
+  "recall": [
+   25,
+   32
+  ],
+  "recall_ci": [
+   0.6124466920955516,
+   0.8897630306846815
+  ],
+  "precision": [
+   25,
+   34
+  ],
+  "precision_ci": [
+   0.5688253783710155,
+   0.8539897245844621
+  ],
+  "recall_holds": true,
+  "precision_holds": false,
+  "per_field": {
+   "submitter": {
+    "recall": [
+     0,
+     1
+    ],
+    "precision": [
+     0,
+     0
+    ]
+   },
+   "submitted": {
+    "recall": [
+     0,
+     0
+    ],
+    "precision": [
+     0,
+     0
+    ]
+   },
+   "addressed_body": {
+    "recall": [
+     19,
+     24
+    ],
+    "precision": [
+     19,
+     25
+    ]
+   },
+   "affair_type": {
+    "recall": [
+     0,
+     1
+    ],
+    "precision": [
+     0,
+     1
+    ]
+   },
+   "answer_date": {
+    "recall": [
+     5,
+     5
+    ],
+    "precision": [
+     5,
+     5
+    ]
+   },
+   "recommendation": {
+    "recall": [
+     1,
+     1
+    ],
+    "precision": [
+     1,
+     3
+    ]
+   }
+  },
+  "decision": "recommended with a reviewer gate"
+ },
+ "H4": {
+  "seen": {
+   "number": {
+    "C": {
+     "correct": 12,
+     "n": 15
+    },
+    "CA": {
+     "correct": 12,
+     "n": 15
+    },
+    "M": {
+     "correct": 12,
+     "n": 15
+    },
+    "R": {
+     "correct": 12,
+     "n": 15
+    }
+   },
+   "affair_type": {
+    "C": {
+     "correct": 13,
+     "n": 15
+    },
+    "CA": {
+     "correct": 13,
+     "n": 15
+    },
+    "M": {
+     "correct": 5,
+     "n": 15
+    },
+    "R": {
+     "correct": 13,
+     "n": 15
+    }
+   },
+   "submitter": {
+    "C": {
+     "correct": 14,
+     "n": 15
+    },
+    "CA": {
+     "correct": 14,
+     "n": 15
+    },
+    "M": {
+     "correct": 14,
+     "n": 15
+    },
+    "R": {
+     "correct": 5,
+     "n": 15
+    }
+   },
+   "addressed_body": {
+    "C": {
+     "correct": 2,
+     "n": 15
+    },
+    "CA": {
+     "correct": 13,
+     "n": 15
+    },
+    "M": {
+     "correct": 0,
+     "n": 15
+    },
+    "R": {
+     "correct": 2,
+     "n": 15
+    }
+   },
+   "submitted": {
+    "C": {
+     "correct": 12,
+     "n": 12
+    },
+    "CA": {
+     "correct": 12,
+     "n": 12
+    },
+    "M": {
+     "correct": 12,
+     "n": 12
+    },
+    "R": {
+     "correct": 3,
+     "n": 12
+    }
+   },
+   "answer_date": {
+    "C": {
+     "correct": 14,
+     "n": 15
+    },
+    "CA": {
+     "correct": 15,
+     "n": 15
+    },
+    "M": {
+     "correct": 14,
+     "n": 15
+    },
+    "R": {
+     "correct": 12,
+     "n": 15
+    }
+   },
+   "decision_number": {
+    "C": {
+     "correct": 0,
+     "n": 11
+    },
+    "CA": {
+     "correct": 0,
+     "n": 11
+    },
+    "M": {
+     "correct": 0,
+     "n": 11
+    },
+    "R": {
+     "correct": 5,
+     "n": 11
+    }
+   },
+   "recommendation": {
+    "C": {
+     "correct": 1,
+     "n": 1
+    },
+    "CA": {
+     "correct": 1,
+     "n": 1
+    },
+    "M": {
+     "correct": 1,
+     "n": 1
+    },
+    "R": {
+     "correct": 0,
+     "n": 1
+    }
+   }
+  },
+  "unseen": {
+   "number": {
+    "C": {
+     "correct": 9,
+     "n": 14
+    },
+    "CA": {
+     "correct": 9,
+     "n": 14
+    },
+    "M": {
+     "correct": 9,
+     "n": 14
+    },
+    "R": {
+     "correct": 2,
+     "n": 14
+    }
+   },
+   "affair_type": {
+    "C": {
+     "correct": 14,
+     "n": 14
+    },
+    "CA": {
+     "correct": 14,
+     "n": 14
+    },
+    "M": {
+     "correct": 12,
+     "n": 14
+    },
+    "R": {
+     "correct": 13,
+     "n": 14
+    }
+   },
+   "submitter": {
+    "C": {
+     "correct": 9,
+     "n": 14
+    },
+    "CA": {
+     "correct": 9,
+     "n": 14
+    },
+    "M": {
+     "correct": 9,
+     "n": 14
+    },
+    "R": {
+     "correct": 0,
+     "n": 14
+    }
+   },
+   "addressed_body": {
+    "C": {
+     "correct": 2,
+     "n": 13
+    },
+    "CA": {
+     "correct": 10,
+     "n": 13
+    },
+    "M": {
+     "correct": 0,
+     "n": 13
+    },
+    "R": {
+     "correct": 2,
+     "n": 13
+    }
+   },
+   "submitted": {
+    "C": {
+     "correct": 3,
+     "n": 9
+    },
+    "CA": {
+     "correct": 3,
+     "n": 9
+    },
+    "M": {
+     "correct": 3,
+     "n": 9
+    },
+    "R": {
+     "correct": 1,
+     "n": 9
+    }
+   },
+   "answer_date": {
+    "C": {
+     "correct": 8,
+     "n": 12
+    },
+    "CA": {
+     "correct": 12,
+     "n": 12
+    },
+    "M": {
+     "correct": 7,
+     "n": 12
+    },
+    "R": {
+     "correct": 4,
+     "n": 12
+    }
+   },
+   "decision_number": {
+    "C": {
+     "correct": 0,
+     "n": 6
+    },
+    "CA": {
+     "correct": 0,
+     "n": 6
+    },
+    "M": {
+     "correct": 0,
+     "n": 6
+    },
+    "R": {
+     "correct": 0,
+     "n": 6
+    }
+   },
+   "recommendation": {
+    "C": {
+     "correct": 0,
+     "n": 1
+    },
+    "CA": {
+     "correct": 1,
+     "n": 1
+    },
+    "M": {
+     "correct": 0,
+     "n": 1
+    },
+    "R": {
+     "correct": 0,
+     "n": 1
+    }
+   }
+  }
+ }
+}
