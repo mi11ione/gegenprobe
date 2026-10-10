@@ -1,0 +1,162 @@
+{
+ "label": "POST-HOC (not pre-registered): round-4 jury follow-up, 10 Oct 2026",
+ "method": "Each results file's documents are re-run through the frozen arms (eval.arms.run) with a cache-only backend (GP_OFFLINE=1; no request leaves the machine) on the local text cache, and every cache entry the run reads is recorded. The served model and system_fingerprint are read from those entries' stored response ('resp'). A document whose local text differs from the run's (other extractor version) misses the cache; misses are counted, and the build-level set (every committed entry of that build) is given next to it. The results files themselves are not modified: their served_fingerprints field is [] because eval/arms.py only collects fingerprints from live calls (llm._Remote._check), and these runs were replayed from the cache.",
+ "files": {
+  "results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json": {
+   "cache_entries_used": 1542,
+   "cache_miss_calls": 0,
+   "served_models": {
+    "swiss-ai/apertus-v1.5-8b": 1542
+   },
+   "system_fingerprints": {
+    "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840": 1542
+   },
+   "scorer_tags": {
+    "null": 1542
+   },
+   "build_level": {
+    "entries": 3503,
+    "served_models": {
+     "swiss-ai/apertus-v1.5-8b": 3503
+    },
+    "system_fingerprints": {
+     "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840": 3503
+    },
+    "scorer_tags": {
+     "null": 3503
+    }
+   }
+  },
+  "data/convert/theta/publicai_swiss-ai_apertus-v1.5-8b.json": {
+   "cache_entries_used": 544,
+   "cache_miss_calls": 0,
+   "served_models": {
+    "swiss-ai/apertus-v1.5-8b": 544
+   },
+   "system_fingerprints": {
+    "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840": 544
+   },
+   "scorer_tags": {
+    "null": 544
+   },
+   "build_level": {
+    "entries": 3503,
+    "served_models": {
+     "swiss-ai/apertus-v1.5-8b": 3503
+    },
+    "system_fingerprints": {
+     "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840": 3503
+    },
+    "scorer_tags": {
+     "null": 3503
+    }
+   }
+  },
+  "results/eval2/p2__publicai_swiss-ai_apertus-v1.5-8b.json": {
+   "cache_entries_used": 351,
+   "cache_miss_calls": 0,
+   "served_models": {
+    "swiss-ai/apertus-v1.5-8b": 351
+   },
+   "system_fingerprints": {
+    "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840": 351
+   },
+   "scorer_tags": {
+    "null": 351
+   },
+   "build_level": {
+    "entries": 3503,
+    "served_models": {
+     "swiss-ai/apertus-v1.5-8b": 3503
+    },
+    "system_fingerprints": {
+     "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840": 3503
+    },
+    "scorer_tags": {
+     "null": 3503
+    }
+   }
+  },
+  "results/eval/heldout__gguf_apertus-v1.5-8b-text-q4_k_m.json": {
+   "cache_entries_used": 129,
+   "cache_miss_calls": 35,
+   "served_models": {
+    "null": 129
+   },
+   "system_fingerprints": {
+    "null": 129
+   },
+   "scorer_tags": {
+    "gguf_fast": 129
+   },
+   "build_level": {
+    "entries": 251,
+    "served_models": {
+     "null": 251
+    },
+    "system_fingerprints": {
+     "null": 251
+    },
+    "scorer_tags": {
+     "gguf_fast": 251
+    }
+   }
+  },
+  "data/convert/theta/gguf_apertus-v1.5-8b-text-q4_k_m.json": {
+   "cache_entries_used": 97,
+   "cache_miss_calls": 0,
+   "note": "dev keys re-derived in results/eval/posthoc_r4_eval.json theta_8b.dev_rows (7 by candidate count)",
+   "build_level": {
+    "entries": 251,
+    "served_models": {
+     "null": 251
+    },
+    "system_fingerprints": {
+     "null": 251
+    },
+    "scorer_tags": {
+     "gguf_fast": 251
+    }
+   }
+  }
+ },
+ "by_set": {
+  "P1_heldout_70B": {
+   "entries": 1542,
+   "miss_calls": 0,
+   "n_fingerprints": 1
+  },
+  "P1_dev_theta_70B": {
+   "entries": 544,
+   "miss_calls": 0,
+   "n_fingerprints": 1
+  },
+  "P2_70B": {
+   "entries": 351,
+   "miss_calls": 0,
+   "n_fingerprints": 1
+  },
+  "P1_heldout_8B": {
+   "entries": 129,
+   "miss_calls": 35,
+   "n_fingerprints": 0
+  }
+ },
+ "recorded_in_results_files": {
+  "results/eval3/p3__publicai_swiss-ai_apertus-v1.5-8b.json": [
+   "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840"
+  ],
+  "results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json": [
+   "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840"
+  ],
+  "data/convert/theta/publicai_swiss-ai_apertus-v1.5-8b.json": [
+   "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840"
+  ]
+ },
+ "gguf_pin": {
+  "url": "https://huggingface.co/Colby/apertus-v1.5-8b-text-Q4_K_M-GGUF/resolve/main/apertus-v1.5-8b-text-q4_k_m.gguf",
+  "sha256": "a037df8d87ff6caacee794ee85f55342f2152e0d359b7389033300c3bee5f299",
+  "size": 5059027136,
+  "note": "llm.fetch_gguf refuses a file whose sha256 differs; GGUF cache entries record no served-model field because the weights are the pinned local file"
+ }
+}

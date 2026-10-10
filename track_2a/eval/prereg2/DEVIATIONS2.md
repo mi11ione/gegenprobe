@@ -51,3 +51,25 @@ the date for only 17 of its 32 values. A quote check would pass 3 of its 8 wrong
 - **Gold vs non-LLM sources.** 6 of the 29 P2 answer dates have an OPD written-answer event, and 6/6 agree. NW titles
   carry the RRB number, and it agrees with the gold decision number 6/6. No other P2 date can be checked without an LLM:
   the external check covers 6/29. `results/eval/posthoc_r3_gold_oracle.json`.
+
+## D2-6 (10 Oct 2026, POST-HOC, found by the round-4 jury): body level on all 62 documents, the 8B on P2, more gold checks
+- **Body level on all documents.** `results/eval2/body_level.json` used answered documents only, where the pointer wins
+  6 bodies and the rules 0 (sign test p = 0.031). Here the per-document outcome is exact: a correct value or a correct
+  null. On all 62 documents the pointer wins 6 bodies, the rules 2 (2196 Fribourg, 6266) and 7 tie (sign test p = 0.29;
+  cluster permutation p = 0.15). In the 2 bodies the rules win, the pointer dates answerless documents that the rules
+  leave empty. At document level on all 62 the pointer is still ahead, 22–4 (McNemar p = 5.3 × 10⁻⁴; exact 53 vs 35).
+  `results/eval/posthoc_r4_eval.json` → `p2_body_level_all_documents`.
+- **8B on P2 (added after the result; PREREG2 lists the 8B arms as exploratory).** Workflow `arms-8b-p2` runs the frozen
+  arms rules, pointer and cascade on the 62 documents with the D2-gated fast scorer and the committed 8B θ, in 6 shards
+  sliced on the full label order. `python -m eval.run_arms_p2 merge` scores the result with the frozen P2 scorer and
+  hypotheses script → `results/eval2/p2__gguf_apertus-v1.5-8b-text-q4_k_m.json`. Not run yet when this entry was written.
+- **Gold checks without an LLM** (`results/eval/posthoc_r4_gold_oracle_p2.json`):
+  - **The 3 ordering violations are genuine.** In 26192 and 431985 (OW) the document prints its own submission date
+    (10 Sep 2012; 26 Jan 2012), and that date is earlier than OPD's "Eingereicht" date. In 895511 (Vernier) the gold
+    equals an OPD written-answer event (2017-01-30).
+  - **New bounds, none contradicting a gold date:**
+    - a printed submission date never follows the answer: 6/6;
+    - a printed dispatch date ("Versand:") falls 0–30 days after a decision-role gold: 4/4;
+    - the answer never follows OPD's scheduling event ("Traktandiert"): 6/6;
+    - decision-role dates fall on one weekday per executive: VD 8/8 Wednesday, NW 6/6 Tuesday, OW 3 Tuesday + 1 Monday.
+  - 19 of 29 gold dates now face at least one non-LLM bound. Only 6/29 are confirmed exactly by an outside source.

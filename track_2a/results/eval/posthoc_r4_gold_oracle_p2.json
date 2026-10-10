@@ -1,0 +1,61 @@
+{
+ "label": "POST-HOC (not pre-registered): round-4 jury follow-up, 10 Oct 2026",
+ "scope": "More non-LLM checks of the 29 P2 gold answer dates, next to results/eval/posthoc_r3_gold_oracle.json (OPD written-answer events 6/6 exact, publisher decision numbers 6/6, OPD submission ordering 14/17). (a) and (b) are consistency checks inside the same document (deterministic regex on the printed dates, not an independent source); (c) and (d) use OPD's event table; none was used to set a label.",
+ "n_gold_value": 29,
+ "previous": {
+  "opd_written_answer_event": [
+   6,
+   6
+  ],
+  "title_decision_number": [
+   6,
+   6
+  ],
+  "opd_submission_order": [
+   14,
+   17
+  ]
+ },
+ "a_printed_submission_not_after_answer": {
+  "checked": 6,
+  "holds": 6,
+  "violations": []
+ },
+ "b_printed_dispatch_within_30_days_after_decision": {
+  "checked": 4,
+  "holds": 4,
+  "violations": []
+ },
+ "c_answer_not_after_opd_scheduling": {
+  "checked": 6,
+  "holds": 6,
+  "violations": []
+ },
+ "d_gold_equals_some_opd_event": [
+  6,
+  17
+ ],
+ "e_decision_weekday_by_body": {
+  "247": {
+   "Mon": 1
+  },
+  "NW": {
+   "Tue": 6
+  },
+  "OW": {
+   "Tue": 3,
+   "Mon": 1
+  },
+  "SZ": {
+   "Tue": 2
+  },
+  "VD": {
+   "Wed": 8
+  }
+ },
+ "gold_value_documents_with_any_check": [
+  19,
+  29
+ ],
+ "reading": "No check contradicts a P2 gold date. Exact external confirmation stays at 6 of 29 (OPD answer events); the new checks are ordering and consistency bounds, not confirmations of the exact day."
+}

@@ -1,0 +1,971 @@
+{
+ "label": "POST-HOC (not pre-registered): round-4 jury follow-up, 10 Oct 2026",
+ "metric": "Registered in eval/prereg/PREREG.md (field table) and computed by the frozen eval/score.py summarise(strict=False) into every results file since the first run: a value is also correct if it is one of the alternative dates the annotators listed as defensible (answer_date_lenient, e.g. the letter date next to the RRB date). Nulls are scored identically. This file only tabulates what the results files already hold.",
+ "files": {
+  "P1_heldout_rules_only": {
+   "file": "results/eval/heldout__none.json",
+   "build": "none",
+   "n": 154,
+   "arms": {
+    "rules": {
+     "strict": [
+      135,
+      154
+     ],
+     "lenient": [
+      136,
+      154
+     ],
+     "strict_correct": 47,
+     "lenient_correct": 48,
+     "strict_ci": [
+      0.8153385729602641,
+      0.9195754167610767
+     ],
+     "lenient_ci": [
+      0.8228102864619796,
+      0.9247746341166257
+     ],
+     "gain": 1,
+     "per_cell": {
+      "de_canton": [
+       17,
+       17,
+       22
+      ],
+      "de_commune": [
+       20,
+       20,
+       22
+      ],
+      "fr_canton": [
+       19,
+       19,
+       22
+      ],
+      "fr_commune": [
+       19,
+       20,
+       22
+      ],
+      "it_canton": [
+       21,
+       21,
+       22
+      ],
+      "it_commune": [
+       18,
+       18,
+       22
+      ],
+      "ocr_ti": [
+       21,
+       21,
+       22
+      ]
+     }
+    }
+   }
+  },
+  "P1_heldout_70B": {
+   "file": "results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json",
+   "build": "publicai:swiss-ai/apertus-v1.5-8b",
+   "n": 154,
+   "arms": {
+    "rules": {
+     "strict": [
+      135,
+      154
+     ],
+     "lenient": [
+      136,
+      154
+     ],
+     "strict_correct": 47,
+     "lenient_correct": 48,
+     "strict_ci": [
+      0.8153385729602641,
+      0.9195754167610767
+     ],
+     "lenient_ci": [
+      0.8228102864619796,
+      0.9247746341166257
+     ],
+     "gain": 1,
+     "per_cell": {
+      "de_canton": [
+       17,
+       17,
+       22
+      ],
+      "de_commune": [
+       20,
+       20,
+       22
+      ],
+      "fr_canton": [
+       19,
+       19,
+       22
+      ],
+      "fr_commune": [
+       19,
+       20,
+       22
+      ],
+      "it_canton": [
+       21,
+       21,
+       22
+      ],
+      "it_commune": [
+       18,
+       18,
+       22
+      ],
+      "ocr_ti": [
+       21,
+       21,
+       22
+      ]
+     }
+    },
+    "pointer": {
+     "strict": [
+      130,
+      154
+     ],
+     "lenient": [
+      132,
+      154
+     ],
+     "strict_correct": 46,
+     "lenient_correct": 48,
+     "strict_ci": [
+      0.7785779959198154,
+      0.8929813395152029
+     ],
+     "lenient_ci": [
+      0.7931716849037994,
+      0.9037295122457479
+     ],
+     "gain": 2,
+     "per_cell": {
+      "de_canton": [
+       19,
+       19,
+       22
+      ],
+      "de_commune": [
+       16,
+       16,
+       22
+      ],
+      "fr_canton": [
+       18,
+       18,
+       22
+      ],
+      "fr_commune": [
+       19,
+       20,
+       22
+      ],
+      "it_canton": [
+       21,
+       21,
+       22
+      ],
+      "it_commune": [
+       20,
+       21,
+       22
+      ],
+      "ocr_ti": [
+       17,
+       17,
+       22
+      ]
+     }
+    },
+    "cascade": {
+     "strict": [
+      139,
+      154
+     ],
+     "lenient": [
+      140,
+      154
+     ],
+     "strict_correct": 56,
+     "lenient_correct": 57,
+     "strict_ci": [
+      0.8455154205321458,
+      0.940082292618253
+     ],
+     "lenient_ci": [
+      0.8531934321432111,
+      0.9450752118644521
+     ],
+     "gain": 1,
+     "per_cell": {
+      "de_canton": [
+       20,
+       20,
+       22
+      ],
+      "de_commune": [
+       17,
+       17,
+       22
+      ],
+      "fr_canton": [
+       20,
+       20,
+       22
+      ],
+      "fr_commune": [
+       19,
+       20,
+       22
+      ],
+      "it_canton": [
+       21,
+       21,
+       22
+      ],
+      "it_commune": [
+       21,
+       21,
+       22
+      ],
+      "ocr_ti": [
+       21,
+       21,
+       22
+      ]
+     }
+    },
+    "naive_plain": {
+     "strict": [
+      98,
+      154
+     ],
+     "lenient": [
+      101,
+      154
+     ],
+     "strict_correct": 47,
+     "lenient_correct": 50,
+     "strict_ci": [
+      0.5579247120689479,
+      0.7081648359336066
+     ],
+     "lenient_ci": [
+      0.5778362586801595,
+      0.7262660818941884
+     ],
+     "gain": 3,
+     "per_cell": {
+      "de_canton": [
+       10,
+       11,
+       22
+      ],
+      "de_commune": [
+       12,
+       12,
+       22
+      ],
+      "fr_canton": [
+       13,
+       13,
+       22
+      ],
+      "fr_commune": [
+       13,
+       13,
+       22
+      ],
+      "it_canton": [
+       14,
+       14,
+       22
+      ],
+      "it_commune": [
+       16,
+       18,
+       22
+      ],
+      "ocr_ti": [
+       20,
+       20,
+       22
+      ]
+     }
+    },
+    "naive_null": {
+     "strict": [
+      134,
+      154
+     ],
+     "lenient": [
+      139,
+      154
+     ],
+     "strict_correct": 47,
+     "lenient_correct": 52,
+     "strict_ci": [
+      0.8079099214201346,
+      0.9143331374439416
+     ],
+     "lenient_ci": [
+      0.8455154205321458,
+      0.940082292618253
+     ],
+     "gain": 5,
+     "per_cell": {
+      "de_canton": [
+       18,
+       19,
+       22
+      ],
+      "de_commune": [
+       20,
+       20,
+       22
+      ],
+      "fr_canton": [
+       18,
+       18,
+       22
+      ],
+      "fr_commune": [
+       21,
+       21,
+       22
+      ],
+      "it_canton": [
+       19,
+       19,
+       22
+      ],
+      "it_commune": [
+       17,
+       21,
+       22
+      ],
+      "ocr_ti": [
+       21,
+       21,
+       22
+      ]
+     }
+    }
+   }
+  },
+  "P1_heldout_8B": {
+   "file": "results/eval/heldout__gguf_apertus-v1.5-8b-text-q4_k_m.json",
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "n": 154,
+   "arms": {
+    "rules": {
+     "strict": [
+      135,
+      154
+     ],
+     "lenient": [
+      136,
+      154
+     ],
+     "strict_correct": 47,
+     "lenient_correct": 48,
+     "strict_ci": [
+      0.8153385729602641,
+      0.9195754167610767
+     ],
+     "lenient_ci": [
+      0.8228102864619796,
+      0.9247746341166257
+     ],
+     "gain": 1,
+     "per_cell": {
+      "de_canton": [
+       17,
+       17,
+       22
+      ],
+      "de_commune": [
+       20,
+       20,
+       22
+      ],
+      "fr_canton": [
+       19,
+       19,
+       22
+      ],
+      "fr_commune": [
+       19,
+       20,
+       22
+      ],
+      "it_canton": [
+       21,
+       21,
+       22
+      ],
+      "it_commune": [
+       18,
+       18,
+       22
+      ],
+      "ocr_ti": [
+       21,
+       21,
+       22
+      ]
+     }
+    },
+    "pointer": {
+     "strict": [
+      112,
+      154
+     ],
+     "lenient": [
+      117,
+      154
+     ],
+     "strict_correct": 50,
+     "lenient_correct": 55,
+     "strict_ci": [
+      0.6520416991732721,
+      0.7914408808309853
+     ],
+     "lenient_ci": [
+      0.6864667010177107,
+      0.8203705332728691
+     ],
+     "gain": 5,
+     "per_cell": {
+      "de_canton": [
+       12,
+       13,
+       22
+      ],
+      "de_commune": [
+       12,
+       12,
+       22
+      ],
+      "fr_canton": [
+       18,
+       18,
+       22
+      ],
+      "fr_commune": [
+       17,
+       18,
+       22
+      ],
+      "it_canton": [
+       20,
+       20,
+       22
+      ],
+      "it_commune": [
+       18,
+       21,
+       22
+      ],
+      "ocr_ti": [
+       15,
+       15,
+       22
+      ]
+     }
+    },
+    "cascade": {
+     "strict": [
+      119,
+      154
+     ],
+     "lenient": [
+      123,
+      154
+     ],
+     "strict_correct": 54,
+     "lenient_correct": 58,
+     "strict_ci": [
+      0.7003753803832903,
+      0.8318037156218187
+     ],
+     "lenient_ci": [
+      0.7284559621005571,
+      0.8544068573336099
+     ],
+     "gain": 4,
+     "per_cell": {
+      "de_canton": [
+       17,
+       17,
+       22
+      ],
+      "de_commune": [
+       12,
+       12,
+       22
+      ],
+      "fr_canton": [
+       20,
+       20,
+       22
+      ],
+      "fr_commune": [
+       18,
+       19,
+       22
+      ],
+      "it_canton": [
+       20,
+       20,
+       22
+      ],
+      "it_commune": [
+       18,
+       21,
+       22
+      ],
+      "ocr_ti": [
+       14,
+       14,
+       22
+      ]
+     }
+    }
+   }
+  },
+  "P1_dev_rules_only": {
+   "file": "results/eval/dev__none.json",
+   "build": "none",
+   "n": 127,
+   "arms": {
+    "rules": {
+     "strict": [
+      126,
+      127
+     ],
+     "lenient": [
+      127,
+      127
+     ],
+     "strict_correct": 54,
+     "lenient_correct": 55,
+     "strict_ci": [
+      0.9567449252236082,
+      0.9986087237687615
+     ],
+     "lenient_ci": [
+      0.9706393073762475,
+      1.0
+     ],
+     "gain": 1,
+     "per_cell": {
+      "de_canton": [
+       10,
+       10,
+       10
+      ],
+      "de_commune": [
+       13,
+       13,
+       13
+      ],
+      "fr_canton": [
+       20,
+       20,
+       20
+      ],
+      "fr_commune": [
+       18,
+       19,
+       19
+      ],
+      "it_canton": [
+       20,
+       20,
+       20
+      ],
+      "it_commune": [
+       10,
+       10,
+       10
+      ],
+      "ocr_ti": [
+       5,
+       5,
+       5
+      ],
+      "spike_be_zh_bs": [
+       30,
+       30,
+       30
+      ]
+     }
+    }
+   }
+  },
+  "P2_rules_only": {
+   "file": "results/eval2/p2__none.json",
+   "build": "none",
+   "n": 62,
+   "arms": {
+    "rules": {
+     "strict": [
+      35,
+      62
+     ],
+     "lenient": [
+      35,
+      62
+     ],
+     "strict_correct": 2,
+     "lenient_correct": 2,
+     "strict_ci": [
+      0.4409276740746583,
+      0.6805760560898577
+     ],
+     "lenient_ci": [
+      0.4409276740746583,
+      0.6805760560898577
+     ],
+     "gain": 0,
+     "per_cell": {
+      "de_canton": [
+       11,
+       11,
+       23
+      ],
+      "de_commune": [
+       9,
+       9,
+       10
+      ],
+      "fr_canton": [
+       0,
+       0,
+       8
+      ],
+      "fr_commune": [
+       14,
+       14,
+       15
+      ],
+      "it_commune": [
+       1,
+       1,
+       6
+      ]
+     }
+    }
+   }
+  },
+  "P2_70B": {
+   "file": "results/eval2/p2__publicai_swiss-ai_apertus-v1.5-8b.json",
+   "build": "publicai:swiss-ai/apertus-v1.5-8b",
+   "n": 62,
+   "arms": {
+    "rules": {
+     "strict": [
+      35,
+      62
+     ],
+     "lenient": [
+      35,
+      62
+     ],
+     "strict_correct": 2,
+     "lenient_correct": 2,
+     "strict_ci": [
+      0.4409276740746583,
+      0.6805760560898577
+     ],
+     "lenient_ci": [
+      0.4409276740746583,
+      0.6805760560898577
+     ],
+     "gain": 0,
+     "per_cell": {
+      "de_canton": [
+       11,
+       11,
+       23
+      ],
+      "de_commune": [
+       9,
+       9,
+       10
+      ],
+      "fr_canton": [
+       0,
+       0,
+       8
+      ],
+      "fr_commune": [
+       14,
+       14,
+       15
+      ],
+      "it_commune": [
+       1,
+       1,
+       6
+      ]
+     }
+    },
+    "pointer": {
+     "strict": [
+      53,
+      62
+     ],
+     "lenient": [
+      56,
+      62
+     ],
+     "strict_correct": 24,
+     "lenient_correct": 27,
+     "strict_ci": [
+      0.7465637464683084,
+      0.92170676943653
+     ],
+     "lenient_ci": [
+      0.8045095713255586,
+      0.9548887422026668
+     ],
+     "gain": 3,
+     "per_cell": {
+      "de_canton": [
+       19,
+       22,
+       23
+      ],
+      "de_commune": [
+       10,
+       10,
+       10
+      ],
+      "fr_canton": [
+       8,
+       8,
+       8
+      ],
+      "fr_commune": [
+       10,
+       10,
+       15
+      ],
+      "it_commune": [
+       6,
+       6,
+       6
+      ]
+     }
+    },
+    "cascade": {
+     "strict": [
+      51,
+      62
+     ],
+     "lenient": [
+      54,
+      62
+     ],
+     "strict_correct": 22,
+     "lenient_correct": 25,
+     "strict_ci": [
+      0.7095819851661977,
+      0.8979366656563825
+     ],
+     "lenient_ci": [
+      0.7655044310309549,
+      0.9331420174150125
+     ],
+     "gain": 3,
+     "per_cell": {
+      "de_canton": [
+       17,
+       20,
+       23
+      ],
+      "de_commune": [
+       10,
+       10,
+       10
+      ],
+      "fr_canton": [
+       8,
+       8,
+       8
+      ],
+      "fr_commune": [
+       10,
+       10,
+       15
+      ],
+      "it_commune": [
+       6,
+       6,
+       6
+      ]
+     }
+    },
+    "naive_plain": {
+     "strict": [
+      45,
+      62
+     ],
+     "lenient": [
+      47,
+      62
+     ],
+     "strict_correct": 21,
+     "lenient_correct": 23,
+     "strict_ci": [
+      0.6040722415667276,
+      0.8211908140090788
+     ],
+     "lenient_ci": [
+      0.6384725574675495,
+      0.8475423631905147
+     ],
+     "gain": 2,
+     "per_cell": {
+      "de_canton": [
+       20,
+       22,
+       23
+      ],
+      "de_commune": [
+       7,
+       7,
+       10
+      ],
+      "fr_canton": [
+       4,
+       4,
+       8
+      ],
+      "fr_commune": [
+       8,
+       8,
+       15
+      ],
+      "it_commune": [
+       6,
+       6,
+       6
+      ]
+     }
+    },
+    "naive_null": {
+     "strict": [
+      52,
+      62
+     ],
+     "lenient": [
+      55,
+      62
+     ],
+     "strict_correct": 22,
+     "lenient_correct": 25,
+     "strict_ci": [
+      0.7279343069043936,
+      0.9099602764593157
+     ],
+     "lenient_ci": [
+      0.7848003079004455,
+      0.9442220730866508
+     ],
+     "gain": 3,
+     "per_cell": {
+      "de_canton": [
+       19,
+       22,
+       23
+      ],
+      "de_commune": [
+       10,
+       10,
+       10
+      ],
+      "fr_canton": [
+       6,
+       6,
+       8
+      ],
+      "fr_commune": [
+       11,
+       11,
+       15
+      ],
+      "it_commune": [
+       6,
+       6,
+       6
+      ]
+     }
+    }
+   }
+  },
+  "P2_8B": "not present (8B on P2: workflow arms-8b-p2 not yet run)"
+ },
+ "n_documents_with_lenient_alternatives": {
+  "P1 held-out": 16,
+  "P2": 3
+ },
+ "primary_tests_strict_vs_lenient": {
+  "P1_H2_primary": {
+   "strict": {
+    "n": 110,
+    "cascade_only": 5,
+    "rules_only": 1,
+    "p": 0.21875
+   },
+   "lenient": {
+    "n": 110,
+    "cascade_only": 5,
+    "rules_only": 1,
+    "p": 0.21875
+   }
+  },
+  "P2_H2_primary": {
+   "strict": {
+    "n": 29,
+    "pointer_only": 22,
+    "rules_only": 0,
+    "p": 4.76837158203125e-07
+   },
+   "lenient": {
+    "n": 29,
+    "pointer_only": 25,
+    "rules_only": 0,
+    "p": 5.960464477539063e-08
+   }
+  },
+  "P1_H2_primary_8B": {
+   "strict": {
+    "n": 110,
+    "cascade_only": 2,
+    "rules_only": 10,
+    "p": 0.03857421875
+   },
+   "lenient": {
+    "n": 110,
+    "cascade_only": 5,
+    "rules_only": 10,
+    "p": 0.3017578125
+   }
+  }
+ },
+ "conclusion": "The lenient metric raises each arm by 0-5 documents and changes no registered decision (P1-H2 5-1 either way; P2-H2 22-0 strict, 25-0 lenient). The exploratory 8B P1-H2 contrast weakens: rules better than the cascade 10-2 (p = 0.039) strict, 10-5 (p = 0.30) lenient."
+}

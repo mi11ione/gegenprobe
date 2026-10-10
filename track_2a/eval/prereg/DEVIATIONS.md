@@ -131,3 +131,82 @@ annotating after the lock, but they do not prove it. The correct wording is "fro
   "Risposta del CdS del …"): 20 of 20 agree. One BE title names an RRB date on a gold-null document (28271); this is a scope
   call (an executive credit decision, not an answer to a member's affair), on which A1 and A2 disagreed. 20 P1 gold dates
   have no non-LLM source.
+
+## D9 (10 Oct 2026, POST-HOC, found by the round-4 jury): 8B scorer provenance — gate record, cache key n_ctx, θ interval
+- **Every 8B scorer check, in order** (`results/eval/gguf_fast_verparity.json`, written by `eval/posthoc_r4.py verparity`
+  from the GitHub job logs; `results/eval/gguf_impl60.json`):
+  1. Pre-registered implementation check (`gguf_check impl`, run 37975752529): llama-cpp-python agrees with bf16 on 58/60
+     decisions, mean |Δ| 2.66 nats — PASS (D2).
+  2. Preset scorer self-check (run 37970947075; rule fixed before the run: every decision agrees with the Metal reference
+     and mean |Δ| ≤ 1.0 nat): 10/12 decisions, 3.16 nats — **FAIL**.
+  3. Fast-vs-frozen parity gate (max |Δ| ≤ 0.5 nats): **FAIL** in run 37992237668 (57.8 nats, uniform-logits bug) and
+     **FAIL** in run 37994205470 after the fix (4.47 nats). Every single-token value matched exactly (Δ 0.00); the 3-token
+     date continuation differed by 0.65–4.47 nats. Recorded again, not gating, in run 37996141049: 4.47 nats.
+  4. Replacement gate, written after the failures and before any 8B arm (D2 addendum 2): run 37996141049, job 114042612830,
+     commit 435fc9e. Frozen scorer 29/30 decisions agree with bf16, mean |Δ| 5.63 nats; fast scorer 29/30, 5.63 — PASS.
+     Its cells are 30 verdict continuations (" schuldig" / " nicht schuldig") from a spike fixture, not dates.
+- **The gate's output file was never uploaded.** The runner was shut down during the next step (fit), before the upload
+  step, and the run lists 0 artifacts. The committed evidence is the job log, verbatim
+  (`results/eval/gguf_fast_verparity_log.txt`). The two failed gates' artifacts exist; their rows equal the logged rows.
+- **What the record shows.** On multi-token continuations, both scorers are equally far from bf16. On a date continuation,
+  the fast scorer does not reproduce the frozen scorer (up to 4.47 nats). The 8B numbers are fast-scorer numbers, with θ
+  fitted by the same scorer; they are not frozen-scorer numbers.
+- **Cache key n_ctx (the jury's claim is true).** `src/gegenprobe/gguf_fast.py` keys every entry with `n_ctx=4096`, the
+  frozen scorer's key, but loads llama.cpp with `n_ctx=6144`. At the gate commit 435fc9e the load value was 8192; 69094aa
+  set 6144 after the fit job ran out of memory. The key is only a lookup id. The effective context of every 8B result is
+  6144 tokens.
+- **Effect of n_ctx: none on the results.** No prompt exceeded 4096 tokens: the largest `n_prompt` among all 251 8B
+  cache entries is 4079. A date continuation has at most 13 tokens, so 4079 + 12 = 4091 ≤ 4096: every call also fits
+  the frozen scorer's context. All 251 entries carry `scorer: gguf_fast`, so the shared key cannot be mistaken for a
+  frozen-scorer entry. `results/eval/posthoc_r4_eval.json` → `gguf_cache_n_ctx`.
+- **θ interval** (`posthoc_r4_eval.json` → `theta_8b`). The 97 dev margins were recomputed from the committed cache entries,
+  by key; they refit θ, AUROC and gap exactly.
+  - θ = 16.727 is the midpoint of the only accuracy-optimal gap between two adjacent dev margins: 16.675 and 16.779,
+    0.105 nats apart.
+  - Moving θ 0.5 nats either way flips 1 of 97 dev decisions (86 → 85 correct).
+  - Held-out at θ − 0.5: pointer 112, cascade 120. At θ + 0.5: pointer 113, cascade 120. The frozen θ gives 112 and 119.
+  - 7 dev documents extract differently on this machine than on the CI runner. They were matched to the 7 cache entries
+    no other key explains, by candidate count. The assignment used is the only one that reproduces θ, AUROC and gap exactly.
+
+## D10 (10 Oct 2026, POST-HOC, found by the round-4 jury): multiplicity, the lenient metric, served fingerprints
+- **Multiplicity** (`results/eval/posthoc_r4_multiplicity.json`). The family is every registered confirmatory decision of
+  P1–P4 and P3b that rests on a test or an interval, m = 9.
+  - Exact McNemar p-values are used as registered. Interval rules are converted to the p-value of the test the interval
+    inverts (Wilson → score test, Newcombe → hybrid score). No registered outcome changes under the conversion.
+  - The 4 conclusions that held all survive Holm, and BH:
+    - P2-H1: p 8.0 × 10⁻¹⁰, Holm 7.2 × 10⁻⁹.
+    - P2-H2: p 4.8 × 10⁻⁷, Holm 3.8 × 10⁻⁶.
+    - P3-H3a: p 0.0015, Holm 0.01.
+    - P3b-S1: p 0.0027, Holm 0.016.
+  - The 5 that failed stay failed: P1-H1 pooled, P1-H2, P2-H3, P3-H3b, P4-H3.
+  - The 8B tests are exploratory and outside the family. The 8B H2 primary has p 0.039; × 9 gives 0.35.
+- **Lenient metric** (`results/eval/posthoc_r4_lenient.json`). It is registered in PREREG and computed by the frozen scorer
+  in every results file, but was not reported until now. It raises each arm by 0–5 documents and changes no registered
+  decision.
+  - P1 held-out (70B): rules 135 → 136, pointer 130 → 132, cascade 139 → 140.
+  - P1 held-out (8B): pointer 112 → 117, cascade 119 → 123.
+  - P2 (70B): pointer 53 → 56, cascade 51 → 54; P2-H2 22–0 → 25–0.
+  - The exploratory 8B P1 contrast weakens: rules better than the cascade 10–2 (p 0.039) strict, 10–5 (p 0.30) lenient.
+- **served_fingerprints = [] in the P1/P2 results files.** `eval/arms.py` collects fingerprints only from live calls
+  (`llm._Remote._check`), and these runs were replayed from the hash cache. The results files are not changed.
+  `results/eval/served_models.json` re-derives the set from the cache entries each file's documents read (cache-only
+  re-run of the frozen arms, no request sent):
+  - P1 held-out 1,542 entries, P2 351, 70B dev θ fit 544. Every entry: model `swiss-ai/apertus-v1.5-8b`, one fingerprint
+    `vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840`. That is the same single build as the whole 70B cache (3,503
+    entries) and as the fingerprints recorded live in the P3/P3b results files.
+  - The 8B entries carry no served-model field: the weights are the local GGUF file, pinned by sha256 (a037df8d…).
+    Matching: 129 held-out documents by key, the other 25 by their committed margin, the 97 dev documents as above. All
+    are tagged `gguf_fast`.
+
+## D11 (10 Oct 2026, POST-HOC, found by the round-4 jury): three P1 gold dates before OPD's submission date
+`results/eval/posthoc_r4_gold_audit.json`. No label file is changed.
+- **300277 (BE): genuine.** An RRB of 25 Aug 2010 on a credit business (Kreditgeschäft RR 2010.RRGR.1464). For government
+  affairs the executive decides first and parliament receives the business later (OPD "Eingereicht" 2010-11-22).
+- **886123 (Mendrisio): genuine.** A municipal report, Ris.mun. 2345 of 20 Dec 2016, on a motion the document says was
+  presented on 11 Oct 2016. OPD files the report under a later affair, MM 71/2018 (submitted 2018-09-14).
+- **249052 (BE, government affair 2011.RRGR.410): labelled as printed.** The document prints "Berne, le 18 février 2010",
+  but it reports the 2010 lottery-fund accounts and cites an audit of 4 Feb 2011. The printed year is a typo in the
+  source. The protocol labels the printed date. Both annotators listed 2011-02-18 as the lenient alternative, and that
+  date is printed nowhere in the document.
+- **Sensitivity: no score changes.** No arm or build returns 2010-02-18 for 249052. Every closed-set arm returns null;
+  naive_plain returns 2011-03-23. So setting the gold to 2011-02-18, or dropping the document, changes no P1 count.

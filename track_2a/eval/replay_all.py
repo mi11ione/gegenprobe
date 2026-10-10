@@ -10,6 +10,11 @@ Step `replay` (FAIL on any difference; no network, no model):
   hypotheses  eval.hypotheses, eval.gold2.hypotheses2, eval.gold3.hypotheses3, eval.gold4.hypotheses4 re-run into a
               temporary results tree; each output must be JSON-equal to the committed one
   locks       LOCK, LOCK2, LOCK3, LOCK4: every frozen file still has its registered sha256
+  P3b         results/eval5/p3b__*.json re-scored (eval.gold3.score3.score_all, labels data/gold5/p3b_labels.jsonl),
+              eval.gold5.hypotheses5 re-run into a scratch tree (JSON-equal to the committed file), LOCK5 verified
+              (added 10 Oct 2026, round 4)
+  8B          eval.gguf_8b_analysis re-run offline into a scratch tree from the committed 8B rows, θ file and CI timings;
+              both outputs (gguf_8b_analysis.json, hypotheses__gguf_….json) must be JSON-equal to the committed ones
 
 Step `rederive_apertus` (PASS / WARN / SKIP; FAIL only if a decision recomputed from a cache HIT disagrees):
   For the P1 held-out and P2 documents whose PDF can be fetched and sha256-verified within the time budget, extract
@@ -211,11 +216,58 @@ def replay_hypotheses(build: str = BUILD) -> list[dict]:
     return out
 
 
+def replay_p3b(build: str = BUILD) -> list[dict]:
+    """P3b: re-score from the committed labels, re-run the registered hypotheses/verdict script into a scratch tree."""
+    from eval.gold3.score3 import score_all
+    from eval.gold5 import hypotheses5
+    out = []
+    labels = {g["affair_id"]: g for g in _jsonl(DATA / "gold5" / "p3b_labels.jsonl")}
+    entries = {e["affair_id"]: e for e in _jsonl(DATA / "gold5" / "p3b_affairs.jsonl")}
+    for f in sorted((RESULTS / "eval5").glob("p3b__*.json")):
+        res = json.loads(f.read_text())
+        if "scores" not in res:  # the rules-only file carries no scores (scored only for the model build)
+            continue
+        bad = _diff(_norm(res["scores"]), _norm(score_all(res["per_affair"], labels, entries)))
+        out.append(dict(test=f"P3b fresh affairs: {f.name}", ok=not bad, detail=bad, n=len(res["per_affair"])))
+    committed = RESULTS / "eval5" / f"hypotheses_p3b__{build}.json"
+    tmp = Path(tempfile.mkdtemp())
+    shutil.copyfile(RESULTS / "eval5" / f"p3b__{build}.json", tmp / f"p3b__{build}.json")
+    saved = hypotheses5.OUT5, hypotheses5.STAGE
+    hypotheses5.OUT5, hypotheses5.STAGE = tmp, tmp / "stage_h"
+    try:
+        hypotheses5.main(build)
+    finally:
+        hypotheses5.OUT5, hypotheses5.STAGE = saved
+    bad = _diff(_norm(json.loads(committed.read_text())), _norm(json.loads((tmp / committed.name).read_text())))
+    out.append(dict(test="P3b H1-H4 + replication verdict (eval.gold5.hypotheses5)", ok=not bad, detail=bad))
+    return out
+
+
+def replay_8b() -> list[dict]:
+    """The 8B analysis (exploratory P1 arms on the real 8B) re-run offline from committed files into a scratch tree."""
+    from eval import gguf_8b_analysis as g8
+    tmp = Path(tempfile.mkdtemp())
+    shutil.copytree(RESULTS / "eval", tmp / "eval")
+    saved = g8.RESULTS, g8.TIMES
+    g8.RESULTS, g8.TIMES = tmp, tmp / "eval" / g8.TIMES.name
+    try:
+        g8.main()
+    finally:
+        g8.RESULTS, g8.TIMES = saved
+    out = []
+    for name in ("gguf_8b_analysis.json", f"hypotheses__{g8.B8}.json"):
+        bad = _diff(_norm(json.loads((RESULTS / "eval" / name).read_text())),
+                    _norm(json.loads((tmp / "eval" / name).read_text())))
+        out.append(dict(test=f"8B analysis: {name} (eval.gguf_8b_analysis)", ok=not bad, detail=bad))
+    return out
+
+
 def replay_locks() -> list[dict]:
     import importlib
     out = []
     for name, mod in (("LOCK (P1)", "eval.prereg.lock"), ("LOCK2 (P2)", "eval.prereg2.lock2"),
-                      ("LOCK3 (P3)", "eval.prereg3.lock3"), ("LOCK4 (P4)", "eval.prereg4.lock4")):
+                      ("LOCK3 (P3)", "eval.prereg3.lock3"), ("LOCK4 (P4)", "eval.prereg4.lock4"),
+                      ("LOCK5 (P3b)", "eval.prereg5.lock5")):
         changed = importlib.import_module(mod).check()
         out.append(dict(test=name, ok=not changed, detail=[f"changed: {c}" for c in changed]))
     return out
@@ -223,7 +275,7 @@ def replay_locks() -> list[dict]:
 
 def replay() -> dict:
     t0 = time.time()
-    tests = replay_p1_p2() + replay_p3() + replay_p4() + replay_hypotheses() + replay_locks()
+    tests = replay_p1_p2() + replay_p3() + replay_p4() + replay_hypotheses() + replay_p3b() + replay_8b() + replay_locks()
     fails = [t for t in tests if not t["ok"]]
     return dict(tests=tests, n=len(tests), failing=len(fails), secs=round(time.time() - t0, 1))
 
@@ -233,7 +285,7 @@ def main(ctx: dict | None = None) -> dict:
     for t in r["tests"]:
         print(f"    {'PASS' if t['ok'] else 'FAIL'}  {t['test']}" + ("" if t["ok"] else f"  {t['detail'][:3]}"), flush=True)
     s = (f"{r['n'] - r['failing']}/{r['n']} replay tests pass "
-         "(P1-P4 re-scored from committed labels, 4 hypotheses scripts, 4 locks)")
+         "(P1-P4 and P3b re-scored from committed labels, 5 hypotheses scripts, the 8B analysis, 5 locks)")
     return dict(status="FAIL" if r["failing"] else "PASS", summary=s, tests=r["tests"])
 
 

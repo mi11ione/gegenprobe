@@ -1,0 +1,417 @@
+{
+ "label": "Evidence for DEVIATIONS.md D2 (addenda): the replacement gate that cleared the fast 8B scorer",
+ "source": "GitHub Actions job logs (gh api repos/mi11ione/gegenprobe/actions/jobs/<job>/logs); the gate's JSON output (out/gguf_fast_verparity.json) was never uploaded as an artifact: the runner of job 114042612830 was shut down during the following fit step, before the upload step. Values below are the job's printed lines, verbatim; per-cell log-odds were not printed and are not recoverable.",
+ "gate": {
+  "run": 37996141049,
+  "job": 114042612830,
+  "head_sha": "435fc9ef6fb7e10f05cd81b97e38cb3f02afbddd",
+  "fixture": "tests/fixtures/gguf_ver30.json (30 verdict cells, ' schuldig' / ' nicht schuldig', seed 20261010)",
+  "rule": "fast scorer used iff decisions agree with bf16 >= frozen - 1 and mean |delta| vs bf16 <= frozen + 0.5 nats (D2 addendum 2, fixed before running)",
+  "printed": "{'frozen': (29, 5.63), 'fast': (29, 5.63)} PASS",
+  "verdict": "PASS",
+  "frozen": {
+   "decisions_agree_bf16": 29,
+   "n": 30,
+   "mean_abs_delta_bf16": 5.63
+  },
+  "fast": {
+   "decisions_agree_bf16": 29,
+   "n": 30,
+   "mean_abs_delta_bf16": 5.63
+  }
+ },
+ "n_ctx_at_gate": {
+  "frozen": 4096,
+  "fast": 8192,
+  "note": "GGUFFast default n_ctx was 8192 at 435fc9e; 69094aa set 6144 for the arms after the fit job ran out of memory"
+ },
+ "history": [
+  {
+   "run": 37992237668,
+   "job": 114029116738,
+   "what": "first parity gate",
+   "head_sha": "50cec734c37409908db7c7bd805df0bc91430401",
+   "created": "2026-10-09T21:14:40Z",
+   "run_conclusion": "failure",
+   "artifacts": 1,
+   "parity_rows": [
+    {
+     "key": "canton-L17/base",
+     "slow": [
+      -39.60000991828658,
+      -29.39750862128951,
+      -89.07555181545425,
+      -24.965059280469198
+     ],
+     "fast": [
+      -11.785026785454987,
+      -11.785026785454987,
+      -141.42032142545983,
+      -11.785026785454987
+     ],
+     "max_abs": 52.344769610005585
+    },
+    {
+     "key": "occupation-L17/base",
+     "slow": [
+      -37.14799118052053,
+      -30.524223327737324,
+      -91.07077375339864,
+      -24.606296539407246
+     ],
+     "fast": [
+      -11.785026785454987,
+      -11.785026785454987,
+      -141.42032142545983,
+      -11.785026785454987
+     ],
+     "max_abs": 50.34954767206119
+    },
+    {
+     "key": "age-L16/base",
+     "slow": [
+      -38.31913948083295,
+      -29.822608947996038,
+      -83.65297644479342,
+      -22.679101944211858
+     ],
+     "fast": [
+      -11.785026785454987,
+      -11.785026785454987,
+      -141.42032142545983,
+      -11.785026785454987
+     ],
+     "max_abs": 57.76734498066641
+    },
+    {
+     "key": "occupation-L17/placebo",
+     "slow": [
+      -37.52447509790658,
+      -28.60469436670541,
+      -90.55458001859915,
+      -22.59461021448373
+     ],
+     "fast": [
+      -11.785026785454987,
+      -11.785026785454987,
+      -141.42032142545983,
+      -11.785026785454987
+     ],
+     "max_abs": 50.86574140686068
+    },
+    {
+     "key": "canton-L16/placebo",
+     "slow": [
+      -37.3159847263552,
+      -30.473312378332736,
+      -88.42908421236592,
+      -23.21988296549094
+     ],
+     "fast": [
+      -11.785026785454987,
+      -11.785026785454987,
+      -141.42032142545983,
+      -11.785026785454987
+     ],
+     "max_abs": 52.99123721309391
+    },
+    {
+     "key": "occupation-L15/placebo",
+     "slow": [
+      -41.89809989948861,
+      -30.660596847730794,
+      -92.43774397969969,
+      -23.420627594190755
+     ],
+     "fast": [
+      -11.785026785454987,
+      -11.785026785454987,
+      -141.42032142545983,
+      -11.785026785454987
+     ],
+     "max_abs": 48.98257744576014
+    }
+   ],
+   "parity_summary": "fast vs frozen GGUF scorer: max |delta| 57.767 nats -> FAIL",
+   "parity_max_abs_delta": 57.76734498066641,
+   "artifact_gguf_fast_parity_json": {
+    "present": true,
+    "max_abs_delta": 57.76734498066641,
+    "verdict": "FAIL",
+    "rows_equal_log": true
+   }
+  },
+  {
+   "run": 37994205470,
+   "job": 114035932274,
+   "what": "parity gate re-run after the last-token-logits fix",
+   "head_sha": "ba6a90c69f94187d7a41473d35f8e78fa52b563a",
+   "created": "2026-10-09T21:33:53Z",
+   "run_conclusion": "failure",
+   "artifacts": 1,
+   "parity_rows": [
+    {
+     "key": "canton-L17/base",
+     "slow": [
+      -39.60000991828658,
+      -29.39750862128951,
+      -89.07555181545425,
+      -24.965059280469198
+     ],
+     "fast": [
+      -39.60000991828658,
+      -29.39750862128951,
+      -90.6423654332721,
+      -24.965059280469198
+     ],
+     "max_abs": 1.566813617817857
+    },
+    {
+     "key": "occupation-L17/base",
+     "slow": [
+      -37.14799118052053,
+      -30.524223327737324,
+      -91.07077375339864,
+      -24.606296539407246
+     ],
+     "fast": [
+      -37.148002624612324,
+      -30.524229049783223,
+      -90.38556874544707,
+      -24.606304168801778
+     ],
+     "max_abs": 0.6852050079515664
+    },
+    {
+     "key": "age-L16/base",
+     "slow": [
+      -38.31913948083295,
+      -29.822608947996038,
+      -83.65297644479342,
+      -22.679101944211858
+     ],
+     "fast": [
+      -38.31913948083295,
+      -29.822608947996038,
+      -84.30515504163208,
+      -22.679101944211858
+     ],
+     "max_abs": 0.6521785968386524
+    },
+    {
+     "key": "occupation-L17/placebo",
+     "slow": [
+      -37.52447509790658,
+      -28.60469436670541,
+      -90.55458001859915,
+      -22.59461021448373
+     ],
+     "fast": [
+      -37.52447509790658,
+      -28.60469436670541,
+      -86.08250395150225,
+      -22.59461021448373
+     ],
+     "max_abs": 4.472076067096907
+    },
+    {
+     "key": "canton-L16/placebo",
+     "slow": [
+      -37.3159847263552,
+      -30.473312378332736,
+      -88.42908421236592,
+      -23.21988296549094
+     ],
+     "fast": [
+      -37.3159847263552,
+      -30.473312378332736,
+      -91.02726130061737,
+      -23.21988296549094
+     ],
+     "max_abs": 2.5981770882514468
+    },
+    {
+     "key": "occupation-L15/placebo",
+     "slow": [
+      -41.89809989948861,
+      -30.660596847730794,
+      -92.43774397969969,
+      -23.420627594190755
+     ],
+     "fast": [
+      -41.89809989948861,
+      -30.660598755079427,
+      -91.12105504623787,
+      -23.42063140888802
+     ],
+     "max_abs": 1.316688933461819
+    }
+   ],
+   "parity_summary": "fast vs frozen GGUF scorer: max |delta| 4.472 nats -> FAIL",
+   "parity_max_abs_delta": 4.472076067096907,
+   "artifact_gguf_fast_parity_json": {
+    "present": true,
+    "max_abs_delta": 4.472076067096907,
+    "verdict": "FAIL",
+    "rows_equal_log": true
+   }
+  },
+  {
+   "run": 37996141049,
+   "job": 114042612830,
+   "what": "parity recorded (not gating) + replacement gate 'verparity' against bf16",
+   "head_sha": "435fc9ef6fb7e10f05cd81b97e38cb3f02afbddd",
+   "created": "2026-10-09T21:53:42Z",
+   "run_conclusion": "failure",
+   "artifacts": 0,
+   "parity_rows": [
+    {
+     "key": "canton-L17/base",
+     "slow": [
+      -39.60000991828658,
+      -29.39750862128951,
+      -89.07555181545425,
+      -24.965059280469198
+     ],
+     "fast": [
+      -39.60000991828658,
+      -29.39750862128951,
+      -90.6423654332721,
+      -24.965059280469198
+     ],
+     "max_abs": 1.566813617817857
+    },
+    {
+     "key": "occupation-L17/base",
+     "slow": [
+      -37.14799118052053,
+      -30.524223327737324,
+      -91.07077375339864,
+      -24.606296539407246
+     ],
+     "fast": [
+      -37.148002624612324,
+      -30.524229049783223,
+      -90.38556874544707,
+      -24.606304168801778
+     ],
+     "max_abs": 0.6852050079515664
+    },
+    {
+     "key": "age-L16/base",
+     "slow": [
+      -38.31913948083295,
+      -29.822608947996038,
+      -83.65297644479342,
+      -22.679101944211858
+     ],
+     "fast": [
+      -38.31913948083295,
+      -29.822608947996038,
+      -84.30515504163208,
+      -22.679101944211858
+     ],
+     "max_abs": 0.6521785968386524
+    },
+    {
+     "key": "occupation-L17/placebo",
+     "slow": [
+      -37.52447509790658,
+      -28.60469436670541,
+      -90.55458001859915,
+      -22.59461021448373
+     ],
+     "fast": [
+      -37.52447509790658,
+      -28.60469436670541,
+      -86.08250395150225,
+      -22.59461021448373
+     ],
+     "max_abs": 4.472076067096907
+    },
+    {
+     "key": "canton-L16/placebo",
+     "slow": [
+      -37.3159847263552,
+      -30.473312378332736,
+      -88.42908421236592,
+      -23.21988296549094
+     ],
+     "fast": [
+      -37.3159847263552,
+      -30.473312378332736,
+      -91.02726130061737,
+      -23.21988296549094
+     ],
+     "max_abs": 2.5981770882514468
+    },
+    {
+     "key": "occupation-L15/placebo",
+     "slow": [
+      -41.89809989948861,
+      -30.660596847730794,
+      -92.43774397969969,
+      -23.420627594190755
+     ],
+     "fast": [
+      -41.89809989948861,
+      -30.660598755079427,
+      -91.12105504623787,
+      -23.42063140888802
+     ],
+     "max_abs": 1.316688933461819
+    }
+   ],
+   "parity_summary": "fast vs frozen GGUF scorer: max |delta| 4.472 nats -> FAIL",
+   "parity_max_abs_delta": 4.472076067096907,
+   "verparity": {
+    "printed": "{'frozen': (29, 5.63), 'fast': (29, 5.63)} PASS",
+    "verdict": "PASS",
+    "frozen": {
+     "decisions_agree_bf16": 29,
+     "n": 30,
+     "mean_abs_delta_bf16": 5.63
+    },
+    "fast": {
+     "decisions_agree_bf16": 29,
+     "n": 30,
+     "mean_abs_delta_bf16": 5.63
+    }
+   }
+  }
+ ],
+ "preset_selfcheck": {
+  "source": "GitHub Actions run 37970947075 (workflow gguf-8b, task selfcheck), 12 cells nearest the decision boundary + 2 saturated",
+  "rule": "every decision agrees with the Metal reference and mean |delta| <= 1.0 nat (fixed before the run)",
+  "decisions_agree": 10,
+  "n": 12,
+  "mean_abs_delta": 3.16,
+  "verdict": "FAIL"
+ },
+ "implementation_check": {
+  "llama_cpp_python": {
+   "label": "llama-cpp-python 0.3.35, CPU (our scorer)",
+   "decisions_agree_bf16": 58,
+   "n": 60,
+   "mean_abs_delta_bf16": 2.659081967671712
+  },
+  "metal_q4_spike": {
+   "label": "libllama, Metal (spike reference)",
+   "decisions_agree_bf16": 57,
+   "n": 60,
+   "mean_abs_delta_bf16": 2.871521949621619
+  },
+  "llscore_master": {
+   "label": "libllama master, CPU",
+   "decisions_agree_bf16": 57,
+   "n": 60,
+   "mean_abs_delta_bf16": 3.2467208865143244
+  },
+  "llscore_vendored": {
+   "label": "libllama as vendored by llama-cpp-python 0.3.35, CPU",
+   "decisions_agree_bf16": 58,
+   "n": 60,
+   "mean_abs_delta_bf16": 3.3359333674116454
+  }
+ }
+}

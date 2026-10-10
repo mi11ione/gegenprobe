@@ -1,0 +1,419 @@
+{
+ "label": "POST-HOC (not pre-registered): round-4 jury follow-up, 10 Oct 2026",
+ "question": "J5: 3 P1 gold answer dates fall before OPD's submission date (249052, 300277, 886123).",
+ "source": "results/eval/posthoc_r3_gold_oracle.json splits.P1.answer_not_before_opd_submission (already listed there)",
+ "items": [
+  {
+   "doc_id": 249052,
+   "body": "BE",
+   "cell": "fr_canton",
+   "dtype": "report",
+   "name": "Vortrag: 2011.0414-vortrag-fr",
+   "affair_id": 36910,
+   "opd_affair": {
+    "number": "2011.RRGR.410",
+    "type_raw": "Kreditgeschäft RR",
+    "type_h": "Government affairs",
+    "begin": "2024-10-28"
+   },
+   "opd_events": [
+    {
+     "date": "2011-06-06",
+     "hid": 1,
+     "title": "Eingereicht",
+     "cls": null
+    }
+   ],
+   "gold": "2010-02-18",
+   "gold_role": "dispatch",
+   "gold_quote": "Berne, le 18 février 2010",
+   "gold_lenient": [
+    "2011-02-18"
+   ],
+   "labeller": "claude-agents:A1=A2",
+   "printed_dates": [
+    {
+     "value": "2004-11-13",
+     "line": "Conformément à l'article 20, alinéa 1 de la loi du 13 novembre 2004 sur le statut particulier"
+    },
+    {
+     "value": "2011-02-04",
+     "line": "révision établi le 4 février 2011 confirme l'exactitude du compte."
+    },
+    {
+     "value": "2010-02-18",
+     "line": "Berne, le 18 février 2010"
+    },
+    {
+     "value": "2011-02-04",
+     "line": "– Rapport du Contrôle des finances du 4 février 2011 (en allemand seulement)"
+    }
+   ],
+   "verdict": "genuine as printed (protocol), document typo",
+   "explanation": "Bern Grand Council government affair (Kreditgeschäft RR 2011.RRGR.410, 'Approbation du compte 2010' of the lottery fund). The report prints 'Berne, le 18 février 2010', yet it reports the 2010 accounts and cites the audit report of 4 February 2011, so the printed year is a typo for 2011. The strict gold follows the protocol (the date as printed); both annotators also listed 2011-02-18 as the lenient alternative. OPD's 'submission' (2011-06-06) is the date the government business went to parliament, which follows the executive's report for government affairs, so the ordering check does not apply to this affair type."
+  },
+  {
+   "doc_id": 300277,
+   "body": "BE",
+   "cell": "de_canton",
+   "dtype": "answer",
+   "name": "RRB gescannt: 2010.9380-rrb gescannt-1214-2010-de",
+   "affair_id": 36639,
+   "opd_affair": {
+    "number": "2010.RRGR.1464",
+    "type_raw": "Kreditgeschäft RR",
+    "type_h": "Government affairs",
+    "begin": "2024-10-28"
+   },
+   "opd_events": [
+    {
+     "date": "2010-11-22",
+     "hid": 1,
+     "title": "Eingereicht",
+     "cls": null
+    }
+   ],
+   "gold": "2010-08-25",
+   "gold_role": "decision",
+   "gold_quote": "25. August 2010",
+   "gold_lenient": [],
+   "labeller": "claude-agents:A3",
+   "printed_dates": [
+    {
+     "value": "2010-08-25",
+     "line": "25. August 2010"
+    },
+    {
+     "value": "1991-06-21",
+     "line": "Bundesgesetz vom 21. Juni 1991 über den Wasserbau (SR 721.100), Art. 6 ff."
+    },
+    {
+     "value": "1989-02-14",
+     "line": "Gesetz vom 14. Februar 1989 über Gewässerunterhalt und Wasserbau (Wasserbaugesetz, WBG, BSG 751.11), Art. 36, 37 und 40"
+    },
+    {
+     "value": "1989-11-15",
+     "line": "Wasserbauverordnung vom 15. November 1989 (WBV, BSG 751.111.1), Art. 29"
+    },
+    {
+     "value": "2007-10-24",
+     "line": "Einführungsverordnung vom 24. Oktober 2007 zur Neugestaltung des Finanzausgleichs und der Aufgabenteilung zwischen Bund und Kantonen im Bereich Wasserbau"
+    },
+    {
+     "value": "1992-09-16",
+     "line": "Staatsbeitragsgesetz vom 16. September 1992 (StBG, BSG 641.1), Art. 11"
+    },
+    {
+     "value": "2002-03-26",
+     "line": "Gesetz vom 26. März 2002 über die Steuerung von Finanzen und Leistungen (FLG,"
+    },
+    {
+     "value": "2003-12-03",
+     "line": "Verordnung vom 3. Dezember 2003 über die Steuerung von Finanzen und Leistungen"
+    },
+    {
+     "value": "1997-11-23",
+     "line": "Wassernutzungsgesetz vom 23. November 1997 (WNG, BSG 752.41), Art. 36a"
+    },
+    {
+     "value": "1999-09-14",
+     "line": "Renaturierungsdekret vom 14. September 1999 (RenD, BSG 752.413), Art. 1"
+    },
+    {
+     "value": "2010-06-21",
+     "line": "Entscheid Renaturierungsfonds vom 21 Juni.2010"
+    },
+    {
+     "value": "2008-03-28",
+     "line": "Richtlinie des Tiefbauamtes vom 28. März 2008 zur Abgeltung von Mehrleistungen bei"
+    }
+   ],
+   "verdict": "genuine",
+   "explanation": "Bern executive decision (RRB, 'Auszug aus dem Protokoll des Regierungsrates', 25 August 2010) on a credit business (Kreditgeschäft RR 2010.RRGR.1464). For government affairs the executive decides first and the business is then submitted to parliament (OPD 'Eingereicht' 2010-11-22), so an answer date before OPD's submission date is expected. Side note: the document's OCR'd text layer prints the RRB number as '1014', the publisher's title says 1214 (decision_number is not a scored P1 field)."
+  },
+  {
+   "doc_id": 886123,
+   "body": "5254",
+   "cell": "it_commune",
+   "dtype": "report",
+   "name": "rapporto preliminare del Municipio",
+   "affair_id": 29105,
+   "opd_affair": {
+    "number": "MM 71/2018",
+    "type_raw": "Messaggio",
+    "type_h": "",
+    "begin": "2018-09-14"
+   },
+   "opd_events": [
+    {
+     "date": "2018-09-14",
+     "hid": 1,
+     "title": "Eingereicht",
+     "cls": null
+    },
+    {
+     "date": "2018-10-08",
+     "hid": 37,
+     "title": "Angenommen",
+     "cls": null
+    }
+   ],
+   "gold": "2016-12-20",
+   "gold_role": "decision",
+   "gold_quote": "Ris.mun. 2345 del 20 dicembre 2016",
+   "gold_lenient": [
+    "2016-12-21"
+   ],
+   "labeller": "claude-agents:A1=A2",
+   "printed_dates": [
+    {
+     "value": "2016-12-20",
+     "line": "Ris.mun. 2345 del 20 dicembre 2016"
+    },
+    {
+     "value": "2016-12-21",
+     "line": "21 dicembre 2016"
+    },
+    {
+     "value": "2016-10-11",
+     "line": "sulla mozione presentata in data 11 ottobre 2016 dai"
+    },
+    {
+     "value": "2016-10-11",
+     "line": "sulla mozione citata, presentata in data 11 ottobre 2016 e demandata per esame alla"
+    },
+    {
+     "value": "2016-11-07",
+     "line": "7 novembre 2016."
+    }
+   ],
+   "verdict": "genuine",
+   "explanation": "Mendrisio municipal preliminary report ('rapporto preliminare del Municipio', Ris.mun. 2345 del 20 dicembre 2016) on a motion the document says was presented on 11 October 2016. OPD files it under a later affair, the municipal message MM 71/2018 (OPD 'Eingereicht' 2018-09-14), which carries the 2016 report as an attachment. The gold is the printed decision date of this document; the ordering check compares it with a different (later) affair's submission date."
+  }
+ ],
+ "n_checked": 3,
+ "n_gold_errors": 0,
+ "result": "0 of 3 are gold errors under the labelling protocol. 300277 and 886123 are genuine: an executive decision on a government business that precedes its submission to parliament, and a 2016 report that OPD files under a 2018 affair. 249052 is labelled as printed, but the printed year is a typo in the source (the report on the 2010 accounts cites a February 2011 audit); the evident date 2011-02-18 is printed nowhere in the document and is already the lenient alternative.",
+ "sensitivity_249052": {
+  "note": "P1 exact (strict) per arm: registered gold, gold set to 2011-02-18, and the document excluded.",
+  "by_build": {
+   "none": {
+    "rules": {
+     "registered": [
+      135,
+      154
+     ],
+     "gold_2011_02_18": [
+      135,
+      154
+     ],
+     "doc_excluded": [
+      135,
+      153
+     ],
+     "prediction_249052": null
+    }
+   },
+   "publicai:swiss-ai/apertus-v1.5-8b": {
+    "rules": {
+     "registered": [
+      135,
+      154
+     ],
+     "gold_2011_02_18": [
+      135,
+      154
+     ],
+     "doc_excluded": [
+      135,
+      153
+     ],
+     "prediction_249052": null
+    },
+    "pointer": {
+     "registered": [
+      130,
+      154
+     ],
+     "gold_2011_02_18": [
+      130,
+      154
+     ],
+     "doc_excluded": [
+      130,
+      153
+     ],
+     "prediction_249052": null
+    },
+    "cascade": {
+     "registered": [
+      139,
+      154
+     ],
+     "gold_2011_02_18": [
+      139,
+      154
+     ],
+     "doc_excluded": [
+      139,
+      153
+     ],
+     "prediction_249052": null
+    },
+    "naive_plain": {
+     "registered": [
+      98,
+      154
+     ],
+     "gold_2011_02_18": [
+      98,
+      154
+     ],
+     "doc_excluded": [
+      98,
+      153
+     ],
+     "prediction_249052": "2011-03-23"
+    },
+    "naive_null": {
+     "registered": [
+      134,
+      154
+     ],
+     "gold_2011_02_18": [
+      134,
+      154
+     ],
+     "doc_excluded": [
+      134,
+      153
+     ],
+     "prediction_249052": null
+    }
+   },
+   "gguf:apertus-v1.5-8b-text-q4_k_m": {
+    "rules": {
+     "registered": [
+      135,
+      154
+     ],
+     "gold_2011_02_18": [
+      135,
+      154
+     ],
+     "doc_excluded": [
+      135,
+      153
+     ],
+     "prediction_249052": null
+    },
+    "pointer": {
+     "registered": [
+      112,
+      154
+     ],
+     "gold_2011_02_18": [
+      112,
+      154
+     ],
+     "doc_excluded": [
+      112,
+      153
+     ],
+     "prediction_249052": null
+    },
+    "cascade": {
+     "registered": [
+      119,
+      154
+     ],
+     "gold_2011_02_18": [
+      119,
+      154
+     ],
+     "doc_excluded": [
+      119,
+      153
+     ],
+     "prediction_249052": null
+    }
+   }
+  }
+ },
+ "p2_same_check": {
+  "violations": [
+   {
+    "doc_id": 26192,
+    "body": "OW",
+    "gold": "2012-10-16",
+    "gold_quote": "16. Oktober 2012",
+    "opd_submitted": [
+     "2012-10-24"
+    ],
+    "opd_affair": {
+     "number": "8825",
+     "type_raw": "Interpellation",
+     "type_h": "Interpellation",
+     "begin": "2012-10-24"
+    },
+    "printed_submission": [
+     {
+      "value": "2012-09-10",
+      "line": "Hampi Lussi-Berwert, Sarnen, und Mitunterzeichnende am 10. September 2012 eingereicht"
+     }
+    ],
+    "opd_written_answer_events": [],
+    "gold_equals_opd_answer_event": false,
+    "verdict": "genuine: the document prints its own earlier submission date"
+   },
+   {
+    "doc_id": 431985,
+    "body": "OW",
+    "gold": "2012-04-03",
+    "gold_quote": "3. April 2012",
+    "opd_submitted": [
+     "2012-05-30"
+    ],
+    "opd_affair": {
+     "number": "7347",
+     "type_raw": "Motion",
+     "type_h": "Motion",
+     "begin": "2012-05-30"
+    },
+    "printed_submission": [
+     {
+      "value": "2012-01-26",
+      "line": "sowie 32 Mitunterzeichneten am 26. Januar 2012 eingereicht wurde, wie folgt:"
+     }
+    ],
+    "opd_written_answer_events": [],
+    "gold_equals_opd_answer_event": false,
+    "verdict": "genuine: the document prints its own earlier submission date"
+   },
+   {
+    "doc_id": 895511,
+    "body": "6643",
+    "gold": "2017-01-30",
+    "gold_quote": "Vernier, le 30 janvier 2017",
+    "opd_submitted": [
+     "2023-05-09"
+    ],
+    "opd_affair": {
+     "number": "R 151 – 16.09",
+     "type_raw": "Résolution",
+     "type_h": "",
+     "begin": "2023-05-09"
+    },
+    "printed_submission": [],
+    "opd_written_answer_events": [
+     "2016-11-09",
+     "2017-01-30",
+     "2023-05-08"
+    ],
+    "gold_equals_opd_answer_event": true,
+    "verdict": "genuine: gold equals an OPD written-answer event"
+   }
+  ],
+  "result": "3 of 3 resolved as genuine (OPD submission date later than the document's own submission date, or the gold equals an OPD answer event)"
+ }
+}
