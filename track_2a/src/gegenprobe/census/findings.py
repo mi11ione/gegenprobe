@@ -16,7 +16,7 @@ import re
 from pathlib import Path
 
 from ..paths import RESULTS
-from . import defs
+from . import defs, opd_status
 from .tables import CENSUS, rows
 
 OUT = RESULTS / "census"
@@ -109,7 +109,7 @@ def compute(root: Path = CENSUS, fetch_persons: bool = False) -> dict:
                 count=1 if bodies[b]["lang"] == "DE" else 0,
                 denominator=1,
                 value=bodies[b]["lang"],
-                definition=f"{b} is French-majority (bilingual canton); a 'DE' tag misdirects language stratification",
+                definition=f"{b} is a bilingual canton (French-majority); a single-valued body language cannot represent it",
                 source="data/census/bodies.tsv.gz",
                 verified="recomputed",
             )
@@ -159,29 +159,48 @@ def compute(root: Path = CENSUS, fetch_persons: bool = False) -> dict:
             count=be_begin["off_by_more_than_a_year"],
             denominator=be_n,
             on_2024_10_28=be_begin["on_2024_10_28"],
-            definition="|year(begin_date) - year(number)| > 1; 2024-10-28 is the likely import date "
-            "(ask OPD before calling it an error)",
+            definition="|year(begin_date) - year(number)| > 1; 2024-10-28 is a load timestamp; correction list "
+            "results/repair/repair_BE_begin_date.tsv",
             source="data/census/affairs.tsv.gz",
             verified="recomputed",
         )
     )
+    hc_path = RESULTS / "census" / "hash_check.json"
+    hc = json.loads(hc_path.read_text()) if hc_path.exists() else None
     F.append(
         dict(
             id="hash_not_sha256",
-            statement="The docs `hash` field is not the PDF's sha256 (0/2 matched); `size` matches the bytes",
-            count=0,
-            denominator=2,
-            definition="sha256 of the fetched PDF vs docs.hash",
-            source="spikes/data/report.md row 10",
-            verified="cited",
+            statement="The docs `hash` field is an identifier (sha256 of body_key + parent_type + url), not the PDF's sha256",
+            count=hc["matches_not_duplicated"] if hc else 0,
+            denominator=hc["rows_not_duplicated"] if hc else 2,
+            definition="rule tested on every row of two docs exports (docs_6082, docs_404); rows that duplicate another row "
+            "are counted separately (doc_duplicate_rows)",
+            source="results/census/hash_check.json (python -m gegenprobe.census.hash_check); spikes/data/report.md row 10",
+            verified="recomputed" if hc else "cited",
         )
     )
+    if hc and hc.get("national_duplicates"):
+        nd = hc["national_duplicates"]
+        F.append(
+            dict(
+                id="doc_duplicate_rows",
+                statement="Document rows that duplicate another row's body, parent and URL",
+                count=nd["duplicate_extra_rows"],
+                denominator=nd["n_docs"],
+                share=round(nd["duplicate_extra_rows"] / nd["n_docs"], 4),
+                n_bodies=nd["n_bodies"],
+                by_body=nd["by_body"],
+                definition=nd["definition"] + "; in docs_404 the duplicate copy's hash does not follow the identifier rule",
+                source="results/census/hash_check.json (metadata scan of all docs exports)",
+                verified="recomputed",
+            )
+        )
     F.append(
         dict(
             id="grparl_384_date",
-            statement="2025.GRPARL.384: OPD begin_date vs the date printed in the PDF",
+            statement="2025.GRPARL.384: the canton's open data and the canton's own PDF disagree on the submission date",
             value=dict(opd_begin=grparl384, pdf="19.06.2025"),
-            definition="begin_date (recomputed) vs PDF text (cited)",
+            definition="begin_date (recomputed; OPD keeps the canton's open-data value) vs PDF text (cited)",
             source="data/census/affairs.tsv.gz; spikes/data/report.md row 13",
             verified="recomputed+cited",
         )
@@ -216,7 +235,8 @@ def compute(root: Path = CENSUS, fetch_persons: bool = False) -> dict:
         F.append(
             dict(
                 id="persons_contact_fields",
-                statement="The public persons export carries contact/birth fields",
+                statement="The persons export includes contact and birth-date fields of public figures "
+                "(we stored field names only)",
                 count=len(contact),
                 denominator=len(pf),
                 fields=contact,
@@ -225,7 +245,26 @@ def compute(root: Path = CENSUS, fetch_persons: bool = False) -> dict:
                 verified="recomputed (field names only)",
             )
         )
-    return dict(findings=F, n=len(F))
+    bp = RESULTS / "repair" / "be_placement.json"
+    if bp.exists():
+        t = json.loads(bp.read_text())["total"]
+        F.insert(
+            0,
+            dict(
+                id="be_answers_unlinked",
+                statement="Bern government answers that the canton publishes but OPD does not attach to their affair",
+                count=t["source_answered"] - t["attached"],
+                denominator=t["source_answered"],
+                share=round((t["source_answered"] - t["attached"]) / t["source_answered"], 4),
+                placement=t,
+                definition="canton open data dokument.csv answers joined to OPD by canton uid: attached / under an agenda item / "
+                "parentless / absent",
+                source="results/repair/be_placement.json (python -m gegenprobe.repair.be)",
+                verified="recomputed",
+            ),
+        )
+    F = [opd_status.attach(f) for f in F]
+    return dict(findings=F, n=len(F), opd_attribution=opd_status.ATTRIBUTION)
 
 
 def main(root: Path = CENSUS, out: Path = OUT, fetch_persons: bool = False) -> dict:

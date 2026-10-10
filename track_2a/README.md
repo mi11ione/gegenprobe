@@ -9,9 +9,11 @@ measured how far the corpus carries that promise for the object most citizens ca
 parliamentary question:
 - **Reality:** of 91,268 interventions whose events record a written answer, **16,749 (18.4%) have no answer text in
   OPD**. In Bern only 229 of the 3,532 answers the canton publishes (6.5%) are attached to their affair, yet most of the
-  rest already sit in OPD, unlinked.
+  rest already sit in OPD, unlinked. OPD confirmed the cause (correspondence, 10 Oct 2026): the answer reaches OPD
+  from two sources with the same document id and staging keeps the first parent it sees; a fix is pending, and until then
+  the relink list below is the workaround.
 - **Repair:** in Bern, 3,394 of the canton's answers (96.1%) are linkable within OPD without any model: 229 attached,
-  527 under an agenda item, 2,638 as parentless documents. The delivered list relinks 2,459 of the parentless ones and
+  527 under an agenda item, 2,638 as parentless documents. The relink list (prepared for OPD) relinks 2,459 of the parentless ones and
   fetches 49; the other 179 parentless answers belong to affairs whose answer text is already in OPD (155) or that OPD
   records without a written-answer event (24), so they are not missing (`results/repair/be_reconcile.json`). Across
   Switzerland, 3,107 missing answers are recoverable by deterministic routes (agenda join, Bern relink and fetch, federal
@@ -19,6 +21,10 @@ parliamentary question:
   decision date 36/40, one miss being a typo in the canton's own PDF), the agenda join and Curia routes are not. 1,008
   Valais "missing" answers are in fact oral, and 11,206 need per-parliament source adapters. That last number is the
   honest remainder, stated as such.
+- **Second list for OPD:** 727 Bern affairs whose `begin_date` is a load timestamp, not a date of the affair: 557 on
+  2024-10-28 (numbers mostly 2010–2013) and 170 from later loads — the two groups OPD described (correspondence,
+  10 Oct 2026). 563 get their own "Eingereicht" event date; 164 are flagged for review
+  (`results/repair/repair_BE_begin_date.tsv`).
 - **Schema:** a field-by-field verdict over 89 parliaments says which parts of an affair can be represented consistently
   and where the parliaments differ (below).
 - **Converter:** rules first; Apertus is a closed-set pointer with a calibrated null, every value with page and

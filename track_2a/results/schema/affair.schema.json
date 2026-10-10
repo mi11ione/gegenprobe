@@ -132,6 +132,25 @@
      ],
      "default": null,
      "title": "Opd Id"
+    },
+    "virtual": {
+     "default": false,
+     "description": "affair derived from a meeting document of a body that publishes no affairs (OPD numbers these 'V' + start date)",
+     "title": "Virtual",
+     "type": "boolean"
+    },
+    "derived_from": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "doc_id of the meeting document a virtual affair was derived from",
+     "title": "Derived From"
     }
    },
    "required": [
@@ -244,6 +263,7 @@
     },
     "languages": {
      "default": [],
+     "description": "multi-valued: bilingual bodies (FR, VS, BE, …) list every language",
      "items": {
       "enum": [
        "de",
@@ -821,10 +841,15 @@
        "type": "string"
       },
       {
+       "const": "unspecified",
+       "type": "string"
+      },
+      {
        "type": "null"
       }
      ],
      "default": null,
+     "description": "'unspecified' = the source records no language (OPD's empty field); None = not known to us",
      "title": "Language"
     },
     "n_pages": {

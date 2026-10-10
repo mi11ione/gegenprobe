@@ -12,8 +12,11 @@ Gegenprobe, Track 2A OpenParlData. Every number below is recomputed from a resul
   from the raw exports and replayable from `data/census/` alone.
 - **A verified, drop-in repair job.** Bern: only 229 of 3,532 published answers (6.5%) are attached in OPD; deterministic
   3,394 (96.1%) are linkable within OPD (attached, agenda, or parentless by canton uid). Relink list in OPD's export layout:
-  `results/repair/repair_BE.tsv` (2,459 relink + 49 fetch, byte-identical to the list sent to OPD; the other 179 parentless
-  answers are not missing, `results/repair/be_reconcile.json`). Nightly systemd job:
+  `results/repair/repair_BE.tsv` (2,459 relink + 49 fetch, byte-identical to the list prepared for OPD; the other 179 parentless
+  answers are not missing, `results/repair/be_reconcile.json`). OPD confirmed the bug and its root cause (correspondence,
+  10 Oct 2026); the fix is pending and the relink list is the interim workaround. Second list: 727 Bern affairs whose
+  `begin_date` is a load timestamp (557 + 170, the groups OPD described), 563 with their own "Eingereicht" date
+  (`results/repair/repair_BE_begin_date.tsv`). Nightly systemd job:
   `deploy/nightly/`, `docs/nightly.md`.
 - **The converter Apertus cannot make invent.** Apertus only chooses among values printed in the document, or null, with
   a threshold θ calibrated per build; every value has page and character span (`docs/samples/`). The naive alternative,

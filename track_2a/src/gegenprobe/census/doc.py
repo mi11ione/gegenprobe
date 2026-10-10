@@ -125,8 +125,8 @@ def render() -> str:
         "",
         "### Data-quality findings",
         "",
-        "| finding | value | verified |",
-        "|---|---|---|",
+        "| finding | value | verified | OPD response |",
+        "|---|---|---|---|",
     ]
     for f in fnd:
         val = f.get("share")
@@ -139,7 +139,18 @@ def render() -> str:
         )
         if f["id"] == "be_begin_date_import":
             v += f"; {f['on_2024_10_28']:,} on 2024-10-28"
-        L.append(f"| {f['statement']} | {v} | {f['verified']} |")
+        o = f.get("opd_response")
+        L.append(f"| {f['statement']} | {v} | {f['verified']} | {o['status'].replace('_', ' ') if o else '—'} |")
+    att = json.loads((OUT / "findings.json").read_text()).get("opd_attribution")
+    if att:
+        L += ["", f"OPD response column, source: {att}; per-finding detail in `results/census/findings.json` (`opd_response`)."]
+    vp = OUT / "virtual_affairs.json"
+    if vp.exists():
+        va = json.loads(vp.read_text())
+        L += ["", f"Virtual-affairs frontier (`results/census/virtual_affairs.json`): {va['n_bodies']} bodies whose documents hang on "
+              f"meetings rather than affairs ({va['n_bodies_no_affairs']} with no affairs at all; {va['meeting_only_docs']:,} "
+              "meeting-only documents). Deriving affairs from those meeting documents ('virtual affairs', schema "
+              "`AffairRef.virtual` / `derived_from`) is the next frontier of the common schema."]
     L += [
         "",
         "## 5. Known limitations",

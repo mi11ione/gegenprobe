@@ -62,14 +62,14 @@ A model abstention (`route: apertus`) must have `margin > theta`.
 | Object | Fields | Notes |
 |---|---|---|
 | `Affair` | `schema_version`, `ref`, `body`, `type`, `title{lang}`, `languages`, `actors[]`, `dates[]`, `procedural_state`, `decision`, `government_recommendation`, `qa[]`, `answer_link_status`, `related_affairs[]`, `documents[]`, `extraction` | `extra="forbid"` everywhere; doc references are checked |
-| `AffairRef` | `body_key`, `number`, `opd_id` | the body's own number is kept verbatim; OPD numbers can be built from dates ("RIS 2025-03-20") |
-| `Body` | `key` (OPD body_key), `name`, `level` (federal/cantonal/communal), `languages` | language is per body *and* per document; OPD tags FR and VS as German (see the census findings) |
+| `AffairRef` | `body_key`, `number`, `opd_id`, `virtual`, `derived_from` | the body's own number is kept verbatim; date-like numbers ("V 2021-06-28") are OPD's virtual-affair numbers ('V' + start date); see *Virtual affairs* below |
+| `Body` | `key` (OPD body_key), `name`, `level` (federal/cantonal/communal), `languages` | multi-valued: bilingual bodies (FR, VS, BE …) list every language. OPD stores one value per body because its crawler fetches German first, then French (OPD response to the census findings) |
 | `AffairTypeV` | `harmonised` (20 keys), `opd_harmonised_id`, `source_label`, `urgent` | the body's own label is kept next to the harmonised key |
 | `Actor` | `role` (15 keys), `kind`, `name` (a field), `opd_person_id`, `party`, `group` | names are field values with provenance; no contact data |
 | `DatedEvent` | `role` (16 date roles), `date` (a field), `label` | one event per role and source; disagreements stay visible |
 | `QAPair` | `question_doc`, `answer_doc`, `answer_text_ref`, `link_status`, `answering_body`, `answer_date`, `answer_identifier` | the answer may be a document or a text record (CHE Curia Vista answers live in OPD's `texts` export) |
 | `RelatedAffair` | `relation`, `ref`, `evidence` (a field) | evidence is the span that names the other affair |
-| `Document` | `doc_id`, `source`, `url`, `sha256`, `role`, `language`, `n_pages`, `extractor`, `image_only`, `opd_text_status`, `parts[]` | the sha256 is our own; OPD's `hash` is not the PDF sha256 |
+| `Document` | `doc_id`, `source`, `url`, `sha256`, `role`, `language`, `n_pages`, `extractor`, `image_only`, `opd_text_status`, `parts[]` | the sha256 is our own content hash; OPD's `hash` is an identifier (sha256 of body_key + parent_type + url; `results/census/hash_check.json`). `language` = `unspecified` when the source records none (OPD's empty field), `null` when we do not know |
 | `DocumentPart` | `kind` (table, annex, image, signature, stamp, handwriting, header, footer, budget_table, toc), `page_from`, `page_to`, `label` | tables, annexes and images are referenced by page range, not re-extracted |
 | `ExtractionRun` | `converter_version`, `schema_version`, `created`, `builds[]`, `notes` | |
 
@@ -157,3 +157,12 @@ free-generation baseline and the rules baseline can all be tested the same way.
 **Known limitation.** `find_dates` does not split a date from a footnote marker glued to its year. Fedlex PDF text has
 "10. März 20142" for "10. März 2014" with footnote 2, so such a date is not found when a whole page is scanned, although a
 span that excludes the marker re-checks fine. Candidate builders that scan whole pages need a footnote-aware variant.
+
+
+## Virtual affairs (v0.1 addition, 10 Oct 2026)
+
+Many communes publish only per-meeting documents (minutes) and no affairs; OPD derives "virtual affairs" for some of them
+and numbers them `V` + start date (e.g. Solothurn consultations, "V 2021-06-28"). Schema v0.1 represents this explicitly:
+`AffairRef.virtual = true` and `AffairRef.derived_from` = the `doc_id` of the meeting document the affair was derived from
+(validated: `derived_from` requires `virtual`, and must be one of the affair's documents). The census measures the frontier:
+`results/census/virtual_affairs.json` lists the bodies whose documents hang on meetings rather than affairs.

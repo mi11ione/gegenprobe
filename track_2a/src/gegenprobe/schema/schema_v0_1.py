@@ -214,7 +214,8 @@ class Document(BaseModel):
     url: str | None = None
     sha256: str | None = Field(None, pattern=r"^[0-9a-f]{64}$")
     role: DocRole
-    language: Lang | None = None
+    language: Lang | Literal["unspecified"] | None = Field(
+        None, description="'unspecified' = the source records no language (OPD's empty field); None = not known to us")
     n_pages: int | None = Field(None, ge=0)
     extractor: str | None = Field(None, description="pdftotext-<ver> | tesseract-<ver>-<langs> | opd-text")
     image_only: bool = False
@@ -228,7 +229,7 @@ class Body(BaseModel):
     key: str = Field(..., description="OPD body_key, e.g. BE, CHE, 261")
     name: str | None = None
     level: Level
-    languages: list[Lang] = []
+    languages: list[Lang] = Field([], description="multi-valued: bilingual bodies (FR, VS, BE, …) list every language")
 
 
 class AffairRef(BaseModel):
@@ -236,6 +237,15 @@ class AffairRef(BaseModel):
     body_key: str
     number: str | None = None
     opd_id: int | None = None
+    virtual: bool = Field(False, description="affair derived from a meeting document of a body that publishes no affairs "
+                          "(OPD numbers these 'V' + start date)")
+    derived_from: str | None = Field(None, description="doc_id of the meeting document a virtual affair was derived from")
+
+    @model_validator(mode="after")
+    def _virtual(self):
+        if self.derived_from is not None and not self.virtual:
+            raise ValueError("derived_from is only allowed on a virtual affair")
+        return self
 
 
 class AffairTypeV(BaseModel):
@@ -321,6 +331,8 @@ class Affair(BaseModel):
                 ref = getattr(v, attr, None)
                 if ref is not None and ref not in ids:
                     raise ValueError(f"{path}.{attr}={ref!r} is not in documents")
+        if self.ref.derived_from is not None and self.ref.derived_from not in ids:
+            raise ValueError(f"ref.derived_from={self.ref.derived_from!r} is not in documents")
         for q in self.qa:
             for ref in (q.question_doc, q.answer_doc):
                 if ref is not None and ref not in ids:

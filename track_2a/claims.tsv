@@ -39,16 +39,16 @@ question.text_share_now	82.3%	results/census/question.json	national.text_share_n
 question.text_share_after_relink	85.0%	results/census/question.json	national.text_share_after_relink	pct1	make census	technical_report.md
 question.bodies	54	results/census/question.json	n_bodies	int	make census	technical_report.md,README.md
 question.median_days_question_time	5	results/census/question.json	by_type.Question time.median_days	int	make census	technical_report.md
-findings.che_placeholder_docs	30,033	results/census/findings.json	findings.0.count	int	make census	-
-findings.che_placeholder_share	57.3%	results/census/findings.json	findings.0.share	pct1	make census	technical_report.md
-findings.doc_language_null_share	58.2%	results/census/findings.json	findings.3.share	pct1	make census	-
-findings.docs_without_affairs	8	results/census/findings.json	findings.4.count	int	make census	-
-findings.numbers_from_dates	5,528	results/census/findings.json	findings.5.count	int	make census	-
-findings.be_begin_off	800	results/census/findings.json	findings.6.count	int	make census	-
-findings.be_begin_import_date	557	results/census/findings.json	findings.6.on_2024_10_28	int	make census	-
-findings.type_unharmonised_share	17.1%	results/census/findings.json	findings.9.share	pct1	make census	-
-findings.state_harmonised	278	results/census/findings.json	findings.10.count	int	make census	-
-findings.persons_contact_fields	6	results/census/findings.json	findings.11.count	int	make census	technical_report.md
+findings.che_placeholder_docs	30,033	results/census/findings.json	findings.1.count	int	make census	-
+findings.che_placeholder_share	57.3%	results/census/findings.json	findings.1.share	pct1	make census	technical_report.md
+findings.doc_language_null_share	58.2%	results/census/findings.json	findings.4.share	pct1	make census	-
+findings.docs_without_affairs	8	results/census/findings.json	findings.5.count	int	make census	-
+findings.numbers_from_dates	5,528	results/census/findings.json	findings.6.count	int	make census	-
+findings.be_begin_off	800	results/census/findings.json	findings.7.count	int	make census	-
+findings.be_begin_import_date	557	results/census/findings.json	findings.7.on_2024_10_28	int	make census	-
+findings.type_unharmonised_share	17.1%	results/census/findings.json	findings.11.share	pct1	make census	-
+findings.state_harmonised	278	results/census/findings.json	findings.12.count	int	make census	-
+findings.persons_contact_fields	6	results/census/findings.json	findings.13.count	int	make census	technical_report.md
 question.same_day_bodies	7	results/census/question.json	n_same_day_bodies	int	make census	technical_report.md,README.md
 census.vs_oral_canonical	1,008	results/census/vs_reconcile.json	canonical.value	int	python -m gegenprobe.census.reconcile_vs	docs/census.md,technical_report.md
 census.vs_oral_proxy_only	8	results/census/vs_reconcile.json	only_census	int	python -m gegenprobe.census.reconcile_vs	-
@@ -163,6 +163,15 @@ cost.projection_usd	336	results/report/cost.json	projection_usd_at_list_price	in
 cost.projection_usd_x10	3,357	results/report/cost.json	projection_usd_at_list_price_x10	int	python -m report.cost	README.md,technical_report.md
 cost.rules_cpu_hours	0.5	results/report/cost.json	rules_cpu_hours_corpus	f1	python -m report.cost	README.md,technical_report.md
 cost.corpus_docs	902,754	results/report/cost.json	corpus_documents	int	python -m report.cost	README.md,technical_report.md
+opd.be_begin_flagged	727	results/repair/repair_BE_begin_date.json	summary.flagged	int	python -m gegenprobe.repair.be_begin_date	README.md,technical_report.md,docs/form_notes.md
+opd.be_begin_2024_10_28	557	results/repair/repair_BE_begin_date.json	summary.by_group.load_2024_10_28	int	python -m gegenprobe.repair.be_begin_date	README.md,technical_report.md,docs/form_notes.md
+opd.be_begin_later_loads	170	results/repair/repair_BE_begin_date.json	summary.later_loads	int	python -m gegenprobe.repair.be_begin_date	README.md,technical_report.md,docs/form_notes.md
+opd.be_begin_set	563	results/repair/repair_BE_begin_date.json	summary.by_action.set_begin_date	int	python -m gegenprobe.repair.be_begin_date	README.md,technical_report.md,docs/form_notes.md
+opd.be_begin_review	164	results/repair/repair_BE_begin_date.json	summary.by_action.review	int	python -m gegenprobe.repair.be_begin_date	README.md
+opd.virtual_bodies	16	results/census/virtual_affairs.json	n_bodies	int	python -m gegenprobe.census.virtual	technical_report.md
+opd.virtual_no_affairs	8	results/census/virtual_affairs.json	n_bodies_no_affairs	int	python -m gegenprobe.census.virtual	technical_report.md
+opd.hash_rule_rows	386	results/census/hash_check.json	matches_not_duplicated	int	python -m gegenprobe.census.hash_check	docs/census.md
+opd.doc_duplicate_rows	726	results/census/hash_check.json	national_duplicates.duplicate_extra_rows	int	python -m gegenprobe.census.hash_check	docs/census.md
 repair.be_relink	2,459	results/repair/summary.json	by_action.relink	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md,technical_report.md
 repair.be_fetch	49	results/repair/summary.json	by_action.fetch	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md,technical_report.md
 repair.agenda_join	592	results/repair/summary.json	by_action.agenda_join	int	python -m gegenprobe.repair.run	docs/repair.md,technical_report.md

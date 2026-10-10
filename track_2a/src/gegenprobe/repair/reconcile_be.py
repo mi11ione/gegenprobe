@@ -1,5 +1,5 @@
 """Reconcile the two Bern numbers: answers *linkable within OPD* (placement: attached + agenda + parentless-by-uid = 3,394)
-vs the *delivered repair list* (2,459 relink + 49 fetch, gap affairs only). Explains every parentless answer that is not a
+vs the *relink list prepared for OPD* (2,459 relink + 49 fetch, gap affairs only). Explains every parentless answer that is not a
 relink row. Needs the exports (.work) like repair.be; writes results/repair/be_reconcile.json.
 
     python -m gegenprobe.repair.reconcile_be
@@ -62,9 +62,9 @@ def main() -> dict:
         if oid is None:
             why["no OPD affair for the canton affair"] += 1
         elif oid in relink:
-            why["in the delivered list: relink"] += 1
+            why["in the relink list: relink"] += 1
         elif oid in fetch:
-            why["in the delivered list: fetch"] += 1
+            why["in the relink list: fetch"] += 1
         elif a.get("type_harmonized_en") not in SCOPE:
             why["affair type outside the census scope"] += 1
         elif not written[oid]:
@@ -76,9 +76,9 @@ def main() -> dict:
     linkable = placed["attached"] + placed["via_agenda"] + placed["parentless"]
     out = dict(placement=dict(placed), linkable_within_opd=linkable,
                source_answered=sum(placed.values()), parentless_breakdown=dict(why),
-               delivered_list=dict(relink=len(relink), fetch=len(fetch)),
+               relink_list=dict(relink=len(relink), fetch=len(fetch)),
                parentless_not_in_list=placed["parentless"] - len(relink),
-               note="placement counts every canton-answered BE intervention; the delivered list covers only affairs in "
+               note="placement counts every canton-answered BE intervention; the relink list covers only affairs in "
                     "the funnel gap (written-answer event in OPD, no answer text, not repaired by OPD's agenda join)")
     (OUT / "be_reconcile.json").write_text(json.dumps(out, indent=1, ensure_ascii=False))
     return out

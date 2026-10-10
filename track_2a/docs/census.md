@@ -147,20 +147,26 @@ Across 54 parliaments with ≥ 20 written-answer interventions, the answer text 
 
 ### Data-quality findings
 
-| finding | value | verified |
-|---|---|---|
-| Federal (CHE) documents whose stored text is Fedlex's 'JavaScript required' page | 30,033 / 52,450 (57.3%) | recomputed |
-| bodies.lang tags canton FR as 'DE' | 1 / 1 | recomputed |
-| bodies.lang tags canton VS as 'DE' | 1 / 1 | recomputed |
-| Documents without a language tag | 525,363 / 902,754 (58.2%) | recomputed |
-| Bodies with a docs export but zero affairs | 8 | recomputed |
-| Affair numbers that are dates | 5,528 / 325,691 | recomputed |
-| BE affairs whose begin_date is > 1 year off the year in their number | 800 / 8,193; 557 on 2024-10-28 | recomputed |
-| The docs `hash` field is not the PDF's sha256 (0/2 matched); `size` matches the bytes | 0 / 2 | cited |
-| 2025.GRPARL.384: OPD begin_date vs the date printed in the PDF | {"opd_begin": "2025-06-18", "pdf": "19.06.2025"} | recomputed+cited |
-| Affairs without a harmonised type | 55,767 / 325,691 (17.1%) | recomputed |
-| Affairs with a harmonised procedural state | 278 / 325,691 (0.1%) | recomputed |
-| The public persons export carries contact/birth fields | 6 / 60 | recomputed (field names only) |
+| finding | value | verified | OPD response |
+|---|---|---|---|
+| Bern government answers that the canton publishes but OPD does not attach to their affair | 3,303 / 3,532 (93.5%) | recomputed | confirmed bug |
+| Federal (CHE) documents whose stored text is Fedlex's 'JavaScript required' page | 30,033 / 52,450 (57.3%) | recomputed | confirmed |
+| bodies.lang tags canton FR as 'DE' | 1 / 1 | recomputed | by design |
+| bodies.lang tags canton VS as 'DE' | 1 / 1 | recomputed | by design |
+| Documents without a language tag | 525,363 / 902,754 (58.2%) | recomputed | by design |
+| Bodies with a docs export but zero affairs | 8 | recomputed | scope pointer |
+| Affair numbers that are dates | 5,528 / 325,691 | recomputed | scope pointer |
+| BE affairs whose begin_date is > 1 year off the year in their number | 800 / 8,193; 557 on 2024-10-28 | recomputed | confirmed bug |
+| The docs `hash` field is an identifier (sha256 of body_key + parent_type + url), not the PDF's sha256 | 386 / 386 | recomputed | explained |
+| Document rows that duplicate another row's body, parent and URL | 726 / 902,754 (0.1%) | recomputed | — |
+| 2025.GRPARL.384: the canton's open data and the canton's own PDF disagree on the submission date | {"opd_begin": "2025-06-18", "pdf": "19.06.2025"} | recomputed+cited | source discrepancy |
+| Affairs without a harmonised type | 55,767 / 325,691 (17.1%) | recomputed | — |
+| Affairs with a harmonised procedural state | 278 / 325,691 (0.1%) | recomputed | — |
+| The persons export includes contact and birth-date fields of public figures (we stored field names only) | 6 / 60 | recomputed (field names only) | by design |
+
+OPD response column, source: OPD confirmed (correspondence, 10 Oct 2026); per-finding detail in `results/census/findings.json` (`opd_response`).
+
+Virtual-affairs frontier (`results/census/virtual_affairs.json`): 16 bodies whose documents hang on meetings rather than affairs (8 with no affairs at all; 5,887 meeting-only documents). Deriving affairs from those meeting documents ('virtual affairs', schema `AffairRef.virtual` / `derived_from`) is the next frontier of the common schema.
 
 ## 5. Known limitations
 

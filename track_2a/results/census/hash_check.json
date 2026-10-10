@@ -1,0 +1,53 @@
+{
+ "files": [
+  "docs_6082",
+  "docs_404"
+ ],
+ "rule": "sha256_hex(body_key + parent_type + url), no separator",
+ "n_rows": 904,
+ "matches": 645,
+ "mismatches": 259,
+ "parent_types": {
+  "meeting": 238,
+  "news": 115,
+  "affair": 541,
+  "agenda": 10
+ },
+ "rows_not_duplicated": 386,
+ "matches_not_duplicated": 386,
+ "duplicated_rows": 518,
+ "mismatches_all_duplicates": true,
+ "mismatch_note": "every mismatching row duplicates another row with the same body, affair, url and external_id; the other copy matches the rule; the mismatching copy's hash input could not be reconstructed",
+ "mismatch_ids_sample": [
+  894762,
+  894822,
+  894763,
+  894749,
+  894813,
+  894721,
+  895560,
+  894690,
+  894596,
+  894840
+ ],
+ "national_duplicates": {
+  "n_docs": 902754,
+  "duplicate_extra_rows": 726,
+  "n_bodies": 12,
+  "by_body": {
+   "404": 259,
+   "SH": 138,
+   "5002": 127,
+   "VD": 89,
+   "NE": 69,
+   "5254": 30,
+   "LIE": 4,
+   "GE": 4,
+   "261": 3,
+   "247": 1,
+   "66": 1,
+   "942": 1
+  },
+  "definition": "extra document rows whose (body, affair, meeting, agenda, url) equals another row's; snapshot 6 Oct 2026"
+ }
+}

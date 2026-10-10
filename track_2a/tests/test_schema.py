@@ -107,3 +107,23 @@ def test_extracted_vs_inferred_is_explicit():
     assert a.government_recommendation.basis == "inferred"
     a = Affair.model_validate(_load("be_2024_RRGR_91"))
     assert a.qa[0].answer_identifier.basis == "extracted" and a.qa[0].answer_date.basis == "normalised"
+
+
+def test_virtual_affair_and_unspecified_language():
+    """OPD (correspondence, 10 Oct 2026): communes with meeting documents only get 'virtual affairs'; an empty document
+    language means 'not specified'; bilingual bodies need several languages."""
+    obj = _load("be_2024_RRGR_91")
+    doc_id = obj["documents"][0]["doc_id"]
+    v = copy.deepcopy(obj)
+    v["ref"].update(virtual=True, derived_from=doc_id, number="V 2021-06-28")
+    v["documents"][0]["language"] = "unspecified"
+    v["body"]["languages"] = ["de", "fr"]
+    Affair.model_validate(v)
+    bad = copy.deepcopy(v)
+    bad["ref"]["virtual"] = False
+    with pytest.raises(ValidationError):
+        Affair.model_validate(bad)
+    bad = copy.deepcopy(v)
+    bad["ref"]["derived_from"] = "opd:999"
+    with pytest.raises(ValidationError):
+        Affair.model_validate(bad)

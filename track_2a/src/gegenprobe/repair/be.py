@@ -19,7 +19,7 @@ usage:
   python -m gegenprobe.repair.be placement     where BE answers sit in OPD (attached / agenda / parentless / absent)
   python -m gegenprobe.repair.be verify40      re-check the 40 source-verified 2024-25 interpellations (cached PDFs)
   python -m gegenprobe.repair.be sample        pre-registered random sample of relink rows, fetched from OPD's own URLs
-  python -m gegenprobe.repair.be regress       compare the list with the delivered fixture (2,459 relink + 49 fetch)
+  python -m gegenprobe.repair.be regress       compare the list with the outreach fixture (2,459 relink + 49 fetch)
   python -m gegenprobe.repair.be fetch-ogd     download the two canton CSVs into WORK/be_ogd
 """
 
@@ -162,7 +162,7 @@ def build_list(ogd_dir: Path = OGD_DIR) -> tuple[list[dict], collections.Counter
 
 
 def regress(rows: list[dict]) -> dict:
-    """Compare with the fixture delivered to OpenParlData (same columns as the spike's be_repair_list.tsv)."""
+    """Compare with the outreach fixture prepared for OpenParlData (same columns as the spike's be_repair_list.tsv)."""
     fx = list(csv.DictReader(open(FIXTURE, encoding="utf-8"), delimiter="\t"))
     mine = [
         dict(

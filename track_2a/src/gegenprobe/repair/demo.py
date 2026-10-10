@@ -4,7 +4,7 @@ data/repair/demo/ holds, for five BE interpellations, exactly the rows the bulk 
 OPD affair ids and external ids, OPD parentless documents with their canton uid, OPD answer-event dates), the expected join
 output (copied from results/repair/repair_BE.tsv) and the sha256 of each answer PDF. The demo
   1. re-runs be.join on the slice and asserts it reproduces the expected rows;
-  2. asserts the committed full list still has 2,459 relink + 49 fetch rows and matches the fixture delivered to OPD;
+  2. asserts the committed full list still has 2,459 relink + 49 fetch rows and matches the outreach fixture prepared for OPD;
   3. fetches each answer PDF (pinned by sha256; skipped with a message when offline) and prints the triple check.
 The five cases: a 2024 relink (2024.RRGR.91, the S-NULL demo affair), a 2024 fetch (2024.RRGR.139, no copy in OPD), two older
 relinks, and 2015.RRGR.870, where the check fails on purpose: the canton's own PDF prints "RRB-Nr.: 119/2016 vom 3. Februar
@@ -106,7 +106,7 @@ def run(report: bool = False) -> int | dict:
     ok_full = n_rel == 2459 and n_fet == 49 and reg["identical"]
     print(
         f"[repair] committed BE list: {n_rel} relink + {n_fet} fetch; "
-        f"identical to the list delivered to OPD: {reg['identical']}  "
+        f"identical to the list prepared for OPD (outreach fixture): {reg['identical']}  "
         f"{'PASS' if ok_full else 'FAIL'}"
     )
     by_nr = {g["geschaeft_nr"]: g for g in geschaeft.values()}
@@ -137,8 +137,8 @@ def run(report: bool = False) -> int | dict:
         unexpected = [c["affair"] for c in checked if not c["triple"] and c["affair"] not in expected_fail]
         ok = ok_join and ok_full and not unexpected
         summ = (f"BE join on vendored slice {'reproduces' if ok_join else 'DIFFERS from'} expected rows; committed list "
-                f"{n_rel} relink + {n_fet} fetch {'identical to' if reg['identical'] else 'DIFFERS from'} the list delivered "
-                f"to OPD; triple check {sum(c['triple'] for c in checked)}/{n_checked} verified"
+                f"{n_rel} relink + {n_fet} fetch {'identical to' if reg['identical'] else 'DIFFERS from'} the list prepared "
+                f"for OPD; triple check {sum(c['triple'] for c in checked)}/{n_checked} verified"
                 + (f" ({n_checked}/{len(rows)} fetched)" if n_checked < len(rows) else "")
                 + f", expected review {sorted(expected_fail)}" + (f", UNEXPECTED {unexpected}" if unexpected else ""))
         return dict(ok=ok, summary=summ, rows=checked)

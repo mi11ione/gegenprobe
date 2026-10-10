@@ -277,10 +277,15 @@
        "type": "string"
       },
       {
+       "const": "unspecified",
+       "type": "string"
+      },
+      {
        "type": "null"
       }
      ],
      "default": null,
+     "description": "'unspecified' = the source records no language (OPD's empty field); None = not known to us",
      "title": "Language"
     },
     "n_pages": {

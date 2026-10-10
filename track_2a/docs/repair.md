@@ -18,7 +18,7 @@ gzipped for CHE):
 
 | route | affairs | evidence |
 |---|---|---|
-| `relink` (BE): canton answer already in OPD as a parentless document | 2,459 | uid join, byte-identical to the list sent to OPD |
+| `relink` (BE): canton answer already in OPD as a parentless document | 2,459 | uid join, byte-identical to the list prepared for OPD |
 | `fetch` (BE): canton lists an answer OPD lacks | 49 | canton OGD |
 | `agenda_join` (all bodies): answer filed under an agenda item of the affair | 592 | OPD's own `agendas.item_affair_id` |
 | `retype_oral` (VS): the "answer" document is an oral-answer pointer | 1,008 | rule on OPD's own text |
@@ -33,8 +33,8 @@ interventions. In the 2026-10-06 OPD exports, 229 of them are attached to their 
 parentless documents (no affair, agenda or meeting) that carry the canton's document uid in their URL, and 138 are absent.
 
 `python -m gegenprobe.repair.be list` joins the canton answer documents to the OPD gap affairs on
-`dokument_geschaeft_uid == affair.external_id` and to OPD's parentless documents on the uid. It reproduces the list delivered
-to OpenParlData (`data/repair/fixtures/openparldata_be_relink_list.tsv`) byte for byte: 2,459 relink and 49 fetch rows, plus 2
+`dokument_geschaeft_uid == affair.external_id` and to OPD's parentless documents on the uid. It reproduces the list prepared
+for OpenParlData (`data/repair/fixtures/openparldata_be_relink_list.tsv`) byte for byte: 2,459 relink and 49 fetch rows, plus 2
 gap affairs for which the canton lists no answer. The same join on the nightly census tables (`monitor.nightly`) gives the same
 2,459 / 49, which cross-checks the census extraction against the raw exports.
 

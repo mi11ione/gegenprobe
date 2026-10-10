@@ -47,7 +47,7 @@ census-hash:  # network: two small docs exports; tests OPD's hash identifier rul
 # Model-free. Needs the census tables (data/census), the cached exports (GP_OPD_RAW, GP_DOCS_META) and the canton OGD tables
 # (WORK/be_ogd; `$(PY) -m gegenprobe.repair.be fetch-ogd`). Network steps: sample (40 PDFs), che backlog, che curia, vs scan.
 repair:
-	$(PY) -m gegenprobe.repair.be list          # 2,459 relink + 49 fetch; exits 1 unless identical to the delivered fixture
+	$(PY) -m gegenprobe.repair.be list          # 2,459 relink + 49 fetch; exits 1 unless identical to the outreach fixture
 	$(PY) -m gegenprobe.repair.be placement
 	$(PY) -m gegenprobe.repair.be verify40      # 40 cached source PDFs (spikes/recovery)
 	$(PY) -m gegenprobe.repair.be recheck       # post-hoc parser v2 on the pre-registered sample (cached texts)
