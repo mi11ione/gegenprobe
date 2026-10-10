@@ -25,20 +25,20 @@ DOCS = DATA / "p6" / "p6_docs.jsonl"
 LOG = DATA / "p6" / "p6_fetch_log.jsonl"
 LABELS = DATA / "p6" / "p6_labels.jsonl"
 W = WORK / "p6"
-# (cell, body, dtype, n) exactly as PREREG7. 10 bodies, 77 documents.
+# (cell, body, dtype, n) exactly as PREREG7: 9 bodies, 77 documents. Riehen (2703) was planned and removed before LOCK7
+# because U2's P5 test uses it; its 9 documents are redistributed to ZG, Zug city, Wil, Lyss and Neuhausen (no other unseen
+# parliament with answer documents was reachable from this machine on 10 Oct 2026; PREREG7 lists the probe).
 QUOTAS = [
-    ("de_canton", "ZG", "answer", 6),
-    ("de_canton", "ZG", "intervention", 5),
+    ("de_canton", "ZG", "answer", 8),
+    ("de_canton", "ZG", "intervention", 7),
     ("de_commune", "1711", "answer", 4),  # Zug city
-    ("de_commune", "1711", "intervention", 3),
-    ("de_commune", "2703", "answer", 5),  # Riehen
-    ("de_commune", "2703", "intervention", 4),
-    ("de_commune", "3427", "answer", 4),  # Wil SG
+    ("de_commune", "1711", "intervention", 4),
+    ("de_commune", "3427", "answer", 5),  # Wil SG
     ("de_commune", "3427", "intervention", 4),
-    ("de_commune", "306", "answer", 4),  # Lyss
+    ("de_commune", "306", "answer", 5),  # Lyss
     ("de_commune", "306", "intervention", 3),
-    ("de_commune", "2937", "answer", 4),  # Neuhausen am Rheinfall
-    ("de_commune", "2937", "intervention", 3),
+    ("de_commune", "2937", "answer", 5),  # Neuhausen am Rheinfall
+    ("de_commune", "2937", "intervention", 4),
     ("de_commune", "581", "answer", 3),  # Interlaken
     ("de_commune", "581", "intervention", 3),
     ("fr_commune", "6023", "answer", 5),  # Conthey
@@ -47,6 +47,8 @@ QUOTAS = [
     ("fr_commune", "6037", "answer", 4),  # Val de Bagnes
     ("fr_commune", "6037", "intervention", 4),
 ]
+# U2's P5 test bodies (data/gold6/p5_affairs.jsonl): never in P6, in addition to every P5/P5-dev affair and document
+P5_BODIES = {"2703", "BL", "SH", "1061", "293", "5586", "VS", "6152", "5192", "GR"}
 BODIES = sorted({q[1] for q in QUOTAS})
 
 
@@ -56,8 +58,9 @@ def draw() -> None:
     if LABELS.exists():
         raise SystemExit("P6 labels exist before the draw")
     x_docs, x_affs, x_bodies = C.exclusions(extra=[dev2.DOCS])
-    clash = set(BODIES) & x_bodies
+    clash = set(BODIES) & (x_bodies | P5_BODIES)
     assert not clash, f"P6 bodies already in an existing set: {clash}"
+    assert (C.DATA / "gold6" / "p5_affairs.jsonl").exists(), "P5 affair list missing: exclusions would be incomplete"
     got, log = C.draw(QUOTAS, SEED, "p6", BAND, x_docs, x_affs)
     C.write_jsonl(DOCS, got)
     C.write_jsonl(LOG, log)

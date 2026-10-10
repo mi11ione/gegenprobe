@@ -272,13 +272,58 @@ def table(sets: list[str]) -> dict:
     return out
 
 
+THETA_PRESENCE_DEV = -5.887991393334232  # calibrate.fit_theta on the P1 dev presence margins (127 documents)
+
+
+def select() -> dict:
+    """Apply eval/p6/DEV2_SELECTION.md exactly: candidates A, B, C on DEV2 with θ from P1 dev, plus the comparison arms."""
+    out = dict(rule="eval/p6/DEV2_SELECTION.md (committed 6810ee5 before any DEV2 label)",
+               theta_presence_p1dev=THETA_PRESENCE_DEV, sets={})
+    for s in ("dev2", "dev"):
+        rows = [r for r in (json.loads(x) for x in open(FEAT / f"{s}.jsonl")) if r["has_label"]]
+
+        def gv(r):
+            g = r["naive_guided"]["date"]
+            return g if g in r["doc_dates"] else None
+
+        arms_ = {
+            "A_presence_theta_dev+role": [None if m_pres(r) > THETA_PRESENCE_DEV else pick_role(r) for r in rows],
+            "B_presence_theta0+role": [None if m_pres(r) > 0 else pick_role(r) for r in rows],
+            "C_presence_theta_dev+generate_then_point": [None if m_pres(r) > THETA_PRESENCE_DEV else (gv(r) or pick_role(r))
+                                                         for r in rows],
+            "v1_pointer_theta_10.40": [None if m_v1(r) > V1_THETA else pick_v1(r) for r in rows],
+            "rules": [r["rules"]["value"] for r in rows],
+            "free_prompt_registered_null_reparsed": [r["naive_null"]["date"] for r in rows],
+            "free_prompt_guided_reparsed": [r["naive_guided"]["date"] for r in rows],
+            "latest_printed_date": [max(r["doc_dates"]) if r["doc_dates"] else None for r in rows],
+            "always_null": [None for _ in rows],
+        }
+        out["sets"][s] = dict(n=len(rows), n_answered=sum(r["gold"] is not None for r in rows),
+                              bodies=sorted({str(r.get("body")) for r in rows if r.get("body")}),
+                              arms={k: summary(rows, v) for k, v in arms_.items()})
+    d2 = out["sets"]["dev2"]["arms"]
+    cand = ["A_presence_theta_dev+role", "B_presence_theta0+role", "C_presence_theta_dev+generate_then_point"]
+    calls = {"B_presence_theta0+role": 0, "A_presence_theta_dev+role": 1, "C_presence_theta_dev+generate_then_point": 2}
+    pooled = {c: d2[c]["exact"][0] + out["sets"]["dev"]["arms"][c]["exact"][0] for c in cand}
+    order = sorted(cand, key=lambda c: (-d2[c]["exact"][0], d2[c]["dated_answerless"][0], -pooled[c], calls[c]))
+    out["chosen"] = order[0]
+    out["ranking"] = order
+    OUT.mkdir(parents=True, exist_ok=True)
+    (OUT / "dev2_selection.json").write_text(json.dumps(out, indent=1))
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["features", "table"])
+    ap.add_argument("cmd", choices=["features", "table", "select"])
     ap.add_argument("--set", action="append", default=[])
     ap.add_argument("--backend", default="gateway:swiss-ai/apertus-v1.5-8b:2a-p6-dev:3.0")
     a = ap.parse_args()
     sets = a.set or ["dev"]
+    if a.cmd == "select":
+        o = select()
+        print("chosen:", o["chosen"], "ranking:", o["ranking"])
+        return
     if a.cmd == "features":
         for s in sets:
             run_features(s, a.backend)

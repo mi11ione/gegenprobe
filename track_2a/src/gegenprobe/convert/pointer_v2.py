@@ -1,27 +1,24 @@
-"""Closed-set pointer v2 for the answer date: a presence question, then a choice among dates shown with their printed line.
+"""Closed-set answer-date reader v2: a presence question, then a date that must be printed in the document, or null.
 
-v1 (convert/pointer.py) scores ' null' against every date string ' "DD.MM.YYYY"' after one question and abstains when the
-null margin exceeds a fitted θ. Two weaknesses were seen in the P1/P2 analyses: (i) the date continuations carry no
-context, so the model must recall which printed date plays which role (decision, dispatch, deposit, footer), and (ii) the
-null decision is entangled with the multi-token date strings (θ ≈ 10 nats largely offsets token length, J5).
+v1 (convert/pointer.py) scores ' null' against every printed date string after one question and abstains when the null
+margin exceeds a fitted θ. On P1 dev and P2 its errors were mostly role errors between two printed dates (decision vs
+letter date) and dates given to answerless documents. v2 keeps the output closed (a printed date with its span, or null):
 
-v2 keeps the output a closed set (one of the printed dates, or null) and splits the decision in two forced choices:
+  stage 1  presence   document + "does this document contain the executive's answer?" (src/prompts/<lang>/answer_present.txt)
+                      forced choice ' "ja"' / ' "nein"' (FR oui/non, IT sì/no); m_absent = lp(no) − lp(yes)
+                      null iff m_absent > θ_presence (θ fitted on P1 dev, frozen per build)
+  stage 2  date       pick 'gen_then_role' (the frozen P6 configuration, data/p6/v2_config.json):
+                      (a) free generation with the guide-derived instructions (src/prompts/<lang>/naive_guided.txt); the
+                          answer is kept only if it is one of the printed dates (lattice), and gets that date's span;
+                      (b) otherwise the role choices, two lettered closed-set choices over the printed dates shown with
+                          their lines: decision date (answer_decision_mcq) or none, then letter date
+                          (answer_dispatch_mcq) or none; the gold guide's precedence (decision, else letter) is applied
+                          in code; if neither names a date, the answer-date choice (answer_date_mcq), argmax over dates.
+                      picks 'role' and 'answer' are the development alternatives (results/p6/dev_variants__*.txt).
 
-  stage 1  presence   user = document + "does this document contain the executive's answer?"
-                      (src/prompts/<lang>/answer_present.txt)
-                      prefix '{"antwort_enthalten":'  continuations ' "ja"' / ' "nein"'  (FR oui/non, IT sì/no)
-                      m_absent = lp(no) − lp(yes)
-  stage 2  choice     user = document + every distinct printed date as a lettered option with the line(s) it is printed on,
-                      plus one option "none" (src/prompts/<lang>/answer_date_mcq.txt)
-                      prefix '{"wahl":'  continuations ' "A"', ' "B"', … (one letter each: equal token length)
-                      m_mcq = lp(none letter) − logsumexp(lp(date letters))
-
-  decision (config)   null  if  m_absent > θ_presence   (or, for config "presence+mcq_null", also if m_mcq > θ_mcq)
-                      else  the date whose letter has the highest log-probability.
-
-The options are built only from the lattice (convert/lattice.dates) on the visible part of the document, so the chosen value
-is always a printed date with a span (pointer.locate). Only a single user message is sent per call, with an assistant
-prefill, to a name on llm.PREFILL_OK (the served model is checked on every call by llm.py).
+The configuration was chosen on DEV2 by a rule written before its labels (eval/p6/DEV2_SELECTION.md,
+results/p6/dev2_selection.json). Every forced choice is one user message plus an assistant prefill, sent only to a name on
+llm.PREFILL_OK; generation is one plain user message; llm.py checks the served model on every call.
 """
 
 from __future__ import annotations
@@ -151,16 +148,89 @@ def guided(backend, pages: list[str], lang: str, budget: int = CHAR_BUDGET) -> d
                 cands=cands, truncated=trunc)
 
 
+# ------------------------------------------------------------------------------- guided generation, then point (stage 2, C)
+_MON = {}
+for _names in (
+    ["januar", "februar", "märz", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "dezember"],
+    ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+    ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre",
+     "dicembre"],
+):
+    for _i, _n in enumerate(_names):
+        _MON[_n] = _i + 1
+        _MON[_n.translate(str.maketrans("äàâéèêëîïôöûüç", "aaaeeeeiioouuc"))] = _i + 1
+_NULLISH = {"", "null", "none", "nicht angegeben", "keine angabe", "unbekannt", "non indiqué", "non indicato", "n/a"}
+
+
+def _json_field(g: str, key: str = "antwort_datum"):
+    """The value of `key` in a generated JSON object (same reading as eval/naive_baseline.parse)."""
+    import json
+
+    s = re.sub(r"^```(json)?|```$", "", (g or "").strip()).strip()
+    m = re.search(r"\{.*\}", s, re.S)
+    if m:
+        try:
+            d = json.loads(m.group(0))
+            if isinstance(d, dict):
+                return d.get(key)
+        except Exception:
+            pass
+    m = re.search(rf'"{key}"\s*:\s*(null|"((?:[^"\\]|\\.)*)")', s)
+    return None if not m or m.group(1) == "null" else m.group(2)
+
+
+def read_date(v) -> str | None:
+    """ISO date from a generated value, or None (same reading as eval/posthoc_r3.to_iso_fixed)."""
+    import datetime as _dt
+
+    if v is None or (isinstance(v, str) and v.strip().lower() in _NULLISH):
+        return None
+    s = str(v).strip()
+
+    def mk(y, mo, d):
+        try:
+            return _dt.date(y, mo, d).isoformat()
+        except ValueError:
+            return None
+
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", s[:10]):
+        return s[:10]
+    m = re.fullmatch(r"(\d{1,2})\s*[.\-/]\s*(\d{1,2})\s*[.\-/]\s*(\d{4})", s)
+    if m:
+        return mk(int(m.group(3)), int(m.group(2)), int(m.group(1)))
+    m = re.fullmatch(r"(\d{1,2})(?:er|\.)?[\s\-]+([^\W\d_]+)[\s\-.]+(\d{4})", s)
+    if m and m.group(2).lower() in _MON:
+        return mk(int(m.group(3)), _MON[m.group(2).lower()], int(m.group(1)))
+    c = lattice.dates([s])
+    return c[0]["value"] if c else None
+
+
+def generate_then_point(backend, pages: list[str], lang: str, seed: int = 0, budget: int = CHAR_BUDGET,
+                        max_tokens: int = 60) -> dict:
+    """Free generation with the guided prompt; the answer is kept only if it is one of the dates printed in the document
+    (visible part), so the value always has a span. Returns {date (printed ISO or None), raw, printed: bool}."""
+    values, _, _ = options(pages, budget)
+    text, _, _ = doc_text(pages, budget)
+    tmpl, pid = template("naive_guided", _lang(lang))
+    g = backend.generate(tmpl.replace("{doc}", text), max_tokens=max_tokens, seed=seed)
+    raw = _json_field(g)
+    iso = read_date(raw)
+    return dict(date=iso if iso in values else None, raw=raw, iso=iso, printed=iso in values, prompt_id=pid)
+
+
 @dataclass
 class Config:
     """A frozen v2 configuration.
     gate   'presence': null iff m_absent > theta_presence (stage 1); 'none': no gate (every document with a date gets one).
     pick   'role': the gold guide's precedence applied in code: the decision-date choice if its best date letter beats
            its 'none' letter, else the dispatch-date choice if it does, else the answer-date choice (argmax over dates);
-           'answer': the answer-date choice only (argmax over dates)."""
+           'answer': the answer-date choice only (argmax over dates);
+           'gen_then_role': guided free generation, kept only if it names a printed date, else the 'role' pick.
+    gen_max_tokens: generation budget of 'gen_then_role'."""
     gate: str = "presence"
     theta_presence: float = 0.0
     pick: str = "role"
+    gen_max_tokens: int = 60
     name: str = "v2"
 
 
@@ -168,7 +238,7 @@ class Config:
 class V2Result:
     value: str | None
     m_absent: float
-    stage: str  # which step decided: 'no_dates' | 'presence' | 'decision' | 'dispatch' | 'answer'
+    stage: str  # which step decided: 'no_dates' | 'presence' | 'generation' | 'decision' | 'dispatch' | 'answer'
     candidates: list  # [(ISO, lp of its letter)] of the deciding choice
     span: dict | None
     prompt_ids: list = field(default_factory=list)
@@ -189,7 +259,8 @@ def pick_from(choices: dict) -> tuple[str | None, str]:
     return None, "answer"
 
 
-def answer_date(backend, pages: list[str], lang: str, cfg: Config, anchors=None, budget: int = CHAR_BUDGET) -> V2Result:
+def answer_date(backend, pages: list[str], lang: str, cfg: Config, anchors=None, budget: int = CHAR_BUDGET,
+                seed: int = 0) -> V2Result:
     """Stage 1 (presence) then stage 2 (role choices, answer choice only if neither role names a date). Calls are made
     lazily in that order, so a document stopped by the gate costs two calls."""
     build = getattr(backend, "build", "?")
@@ -205,8 +276,15 @@ def answer_date(backend, pages: list[str], lang: str, cfg: Config, anchors=None,
         m_absent = p["m_absent"]
         if m_absent > cfg.theta_presence:
             return V2Result(None, m_absent, "presence", [], None, pids, build, p["truncated"], calls)
+    if cfg.pick == "gen_then_role":
+        g = generate_then_point(backend, pages, lang, seed=seed, budget=budget, max_tokens=cfg.gen_max_tokens)
+        pids.append(g["prompt_id"])
+        calls += 1
+        if g["date"]:
+            return V2Result(g["date"], m_absent, "generation", [], locate(g["date"], cands, pages, anchors), pids, build,
+                            False, calls)
     choices = {}
-    names = (*ROLE_TEMPLATES, "answer_date_mcq") if cfg.pick == "role" else ("answer_date_mcq",)
+    names = (*ROLE_TEMPLATES, "answer_date_mcq") if cfg.pick in ("role", "gen_then_role") else ("answer_date_mcq",)
     for name in names:
         q = mcq(backend, pages, lang, budget, name=name)
         choices[name] = q

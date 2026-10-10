@@ -1,0 +1,29 @@
+{
+ "name": "v2",
+ "candidate": "C_presence_theta_dev+generate_then_point",
+ "gate": "presence",
+ "theta_presence": -5.887991393334232,
+ "pick": "gen_then_role",
+ "gen_max_tokens": 60,
+ "budget_chars": 12000,
+ "build": "publicai:swiss-ai/apertus-v1.5-8b",
+ "theta_fitted_on": "P1 dev, 127 documents (calibrate.fit_theta on presence margins)",
+ "selected_by": "eval/p6/DEV2_SELECTION.md -> results/p6/dev2_selection.json",
+ "prompt_ids": {
+  "answer_present/de": "de/answer_present.txt@bb923a8b8a15",
+  "answer_present/fr": "fr/answer_present.txt@f0475779e036",
+  "answer_present/it": "it/answer_present.txt@e84f728eff94",
+  "answer_decision_mcq/de": "de/answer_decision_mcq.txt@07cc38c5d1b3",
+  "answer_decision_mcq/fr": "fr/answer_decision_mcq.txt@7b0f33b19851",
+  "answer_decision_mcq/it": "it/answer_decision_mcq.txt@d4ce969a8737",
+  "answer_dispatch_mcq/de": "de/answer_dispatch_mcq.txt@9ab7e2c3bbc4",
+  "answer_dispatch_mcq/fr": "fr/answer_dispatch_mcq.txt@0610ed9477db",
+  "answer_dispatch_mcq/it": "it/answer_dispatch_mcq.txt@66f313d362db",
+  "answer_date_mcq/de": "de/answer_date_mcq.txt@dd5e18aeb5f4",
+  "answer_date_mcq/fr": "fr/answer_date_mcq.txt@9bbd898b2114",
+  "answer_date_mcq/it": "it/answer_date_mcq.txt@fda566027bfc",
+  "naive_guided/de": "de/naive_guided.txt@ff342982ecff",
+  "naive_guided/fr": "fr/naive_guided.txt@46bd6b28327e",
+  "naive_guided/it": "it/naive_guided.txt@a55c6f4e7223"
+ }
+}

@@ -1,0 +1,1604 @@
+{
+ "sets": [
+  "dev2"
+ ],
+ "n": 31,
+ "n_answered": 18,
+ "variants": {
+  "rules": {
+   "exact": [
+    16,
+    31
+   ],
+   "exact_ci": [
+    0.348,
+    0.68
+   ],
+   "dates_found": [
+    3,
+    18
+   ],
+   "wrong_date_on_answered": 0,
+   "missed": 15,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "v1_theta_frozen": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "naive_null_reparsed": {
+   "exact": [
+    30,
+    31
+   ],
+   "exact_ci": [
+    0.838,
+    0.994
+   ],
+   "dates_found": [
+    17,
+    18
+   ],
+   "wrong_date_on_answered": 1,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "naive_guided_reparsed": {
+   "exact": [
+    31,
+    31
+   ],
+   "exact_ci": [
+    0.89,
+    1.0
+   ],
+   "dates_found": [
+    18,
+    18
+   ],
+   "wrong_date_on_answered": 0,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "latest_printed_date": {
+   "exact": [
+    17,
+    31
+   ],
+   "exact_ci": [
+    0.378,
+    0.708
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    11,
+    13
+   ]
+  },
+  "always_null": {
+   "exact": [
+    13,
+    31
+   ],
+   "exact_ci": [
+    0.264,
+    0.592
+   ],
+   "dates_found": [
+    0,
+    18
+   ],
+   "wrong_date_on_answered": 0,
+   "missed": 18,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "v1_loo|v1": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "v1_loo|mcq": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "v1_loo|ens": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "v1_loo|role": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "v1_loo|role_ens": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "v1_loo|guided": {
+   "exact": [
+    31,
+    31
+   ],
+   "exact_ci": [
+    0.89,
+    1.0
+   ],
+   "dates_found": [
+    18,
+    18
+   ],
+   "wrong_date_on_answered": 0,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "guided_loo|v1": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "guided_theta0|v1": {
+   "exact": [
+    26,
+    31
+   ],
+   "exact_ci": [
+    0.674,
+    0.929
+   ],
+   "dates_found": [
+    13,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 2,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "guided_loo|mcq": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "guided_theta0|mcq": {
+   "exact": [
+    26,
+    31
+   ],
+   "exact_ci": [
+    0.674,
+    0.929
+   ],
+   "dates_found": [
+    13,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 2,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "guided_loo|ens": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "guided_theta0|ens": {
+   "exact": [
+    26,
+    31
+   ],
+   "exact_ci": [
+    0.674,
+    0.929
+   ],
+   "dates_found": [
+    13,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 2,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "guided_loo|role": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "guided_theta0|role": {
+   "exact": [
+    26,
+    31
+   ],
+   "exact_ci": [
+    0.674,
+    0.929
+   ],
+   "dates_found": [
+    13,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 2,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "guided_loo|role_ens": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "guided_theta0|role_ens": {
+   "exact": [
+    26,
+    31
+   ],
+   "exact_ci": [
+    0.674,
+    0.929
+   ],
+   "dates_found": [
+    13,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 2,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "guided_loo|guided": {
+   "exact": [
+    31,
+    31
+   ],
+   "exact_ci": [
+    0.89,
+    1.0
+   ],
+   "dates_found": [
+    18,
+    18
+   ],
+   "wrong_date_on_answered": 0,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "guided_theta0|guided": {
+   "exact": [
+    29,
+    31
+   ],
+   "exact_ci": [
+    0.793,
+    0.982
+   ],
+   "dates_found": [
+    16,
+    18
+   ],
+   "wrong_date_on_answered": 0,
+   "missed": 2,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "role_none_loo|v1": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "role_none_theta0|v1": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "role_none_loo|mcq": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "role_none_theta0|mcq": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "role_none_loo|ens": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "role_none_theta0|ens": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "role_none_loo|role": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "role_none_theta0|role": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "role_none_loo|role_ens": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "role_none_theta0|role_ens": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "role_none_loo|guided": {
+   "exact": [
+    31,
+    31
+   ],
+   "exact_ci": [
+    0.89,
+    1.0
+   ],
+   "dates_found": [
+    18,
+    18
+   ],
+   "wrong_date_on_answered": 0,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "role_none_theta0|guided": {
+   "exact": [
+    31,
+    31
+   ],
+   "exact_ci": [
+    0.89,
+    1.0
+   ],
+   "dates_found": [
+    18,
+    18
+   ],
+   "wrong_date_on_answered": 0,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "v1_norm_loo|v1": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "v1_norm_loo|mcq": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "v1_norm_loo|ens": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "v1_norm_loo|role": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "v1_norm_loo|role_ens": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "v1_norm_loo|guided": {
+   "exact": [
+    31,
+    31
+   ],
+   "exact_ci": [
+    0.89,
+    1.0
+   ],
+   "dates_found": [
+    18,
+    18
+   ],
+   "wrong_date_on_answered": 0,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence_loo|v1": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence_theta0|v1": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence_loo|mcq": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence_theta0|mcq": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence_loo|ens": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence_theta0|ens": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence_loo|role": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence_theta0|role": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence_loo|role_ens": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence_theta0|role_ens": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence_loo|guided": {
+   "exact": [
+    31,
+    31
+   ],
+   "exact_ci": [
+    0.89,
+    1.0
+   ],
+   "dates_found": [
+    18,
+    18
+   ],
+   "wrong_date_on_answered": 0,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence_theta0|guided": {
+   "exact": [
+    31,
+    31
+   ],
+   "exact_ci": [
+    0.89,
+    1.0
+   ],
+   "dates_found": [
+    18,
+    18
+   ],
+   "wrong_date_on_answered": 0,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "mcq_none_loo|v1": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    1,
+    13
+   ]
+  },
+  "mcq_none_theta0|v1": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    1,
+    13
+   ]
+  },
+  "mcq_none_loo|mcq": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    1,
+    13
+   ]
+  },
+  "mcq_none_theta0|mcq": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    1,
+    13
+   ]
+  },
+  "mcq_none_loo|ens": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    1,
+    13
+   ]
+  },
+  "mcq_none_theta0|ens": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    1,
+    13
+   ]
+  },
+  "mcq_none_loo|role": {
+   "exact": [
+    26,
+    31
+   ],
+   "exact_ci": [
+    0.674,
+    0.929
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    1,
+    13
+   ]
+  },
+  "mcq_none_theta0|role": {
+   "exact": [
+    26,
+    31
+   ],
+   "exact_ci": [
+    0.674,
+    0.929
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    1,
+    13
+   ]
+  },
+  "mcq_none_loo|role_ens": {
+   "exact": [
+    26,
+    31
+   ],
+   "exact_ci": [
+    0.674,
+    0.929
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    1,
+    13
+   ]
+  },
+  "mcq_none_theta0|role_ens": {
+   "exact": [
+    26,
+    31
+   ],
+   "exact_ci": [
+    0.674,
+    0.929
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    1,
+    13
+   ]
+  },
+  "mcq_none_loo|guided": {
+   "exact": [
+    30,
+    31
+   ],
+   "exact_ci": [
+    0.838,
+    0.994
+   ],
+   "dates_found": [
+    18,
+    18
+   ],
+   "wrong_date_on_answered": 0,
+   "missed": 0,
+   "dated_answerless": [
+    1,
+    13
+   ]
+  },
+  "mcq_none_theta0|guided": {
+   "exact": [
+    30,
+    31
+   ],
+   "exact_ci": [
+    0.838,
+    0.994
+   ],
+   "dates_found": [
+    18,
+    18
+   ],
+   "wrong_date_on_answered": 0,
+   "missed": 0,
+   "dated_answerless": [
+    1,
+    13
+   ]
+  },
+  "presence+mcq_sum_loo|v1": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence+mcq_sum_theta0|v1": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence+mcq_sum_loo|mcq": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence+mcq_sum_theta0|mcq": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence+mcq_sum_loo|ens": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence+mcq_sum_theta0|ens": {
+   "exact": [
+    28,
+    31
+   ],
+   "exact_ci": [
+    0.751,
+    0.967
+   ],
+   "dates_found": [
+    15,
+    18
+   ],
+   "wrong_date_on_answered": 3,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence+mcq_sum_loo|role": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence+mcq_sum_theta0|role": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence+mcq_sum_loo|role_ens": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence+mcq_sum_theta0|role_ens": {
+   "exact": [
+    27,
+    31
+   ],
+   "exact_ci": [
+    0.711,
+    0.949
+   ],
+   "dates_found": [
+    14,
+    18
+   ],
+   "wrong_date_on_answered": 4,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence+mcq_sum_loo|guided": {
+   "exact": [
+    31,
+    31
+   ],
+   "exact_ci": [
+    0.89,
+    1.0
+   ],
+   "dates_found": [
+    18,
+    18
+   ],
+   "wrong_date_on_answered": 0,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  },
+  "presence+mcq_sum_theta0|guided": {
+   "exact": [
+    31,
+    31
+   ],
+   "exact_ci": [
+    0.89,
+    1.0
+   ],
+   "dates_found": [
+    18,
+    18
+   ],
+   "wrong_date_on_answered": 0,
+   "missed": 0,
+   "dated_answerless": [
+    0,
+    13
+   ]
+  }
+ },
+ "pick_accuracy_on_answered": {
+  "v1": [
+   15,
+   18
+  ],
+  "mcq": [
+   15,
+   18
+  ],
+  "ens": [
+   15,
+   18
+  ],
+  "role": [
+   14,
+   18
+  ],
+  "role_ens": [
+   14,
+   18
+  ],
+  "guided": [
+   18,
+   18
+  ]
+ },
+ "null_auroc": {
+  "v1": 1.0,
+  "guided": 1.0,
+  "role_none": 1.0,
+  "v1_norm": 1.0,
+  "presence": 1.0,
+  "mcq_none": 1.0,
+  "presence+mcq_sum": 1.0
+ }
+}

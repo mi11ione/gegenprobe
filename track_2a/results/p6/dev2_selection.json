@@ -1,0 +1,408 @@
+{
+ "rule": "eval/p6/DEV2_SELECTION.md (committed 6810ee5 before any DEV2 label)",
+ "theta_presence_p1dev": -5.887991393334232,
+ "sets": {
+  "dev2": {
+   "n": 31,
+   "n_answered": 18,
+   "bodies": [
+    "121",
+    "4671",
+    "5938",
+    "6025",
+    "6136"
+   ],
+   "arms": {
+    "A_presence_theta_dev+role": {
+     "exact": [
+      26,
+      31
+     ],
+     "exact_ci": [
+      0.674,
+      0.929
+     ],
+     "dates_found": [
+      13,
+      18
+     ],
+     "wrong_date_on_answered": 3,
+     "missed": 2,
+     "dated_answerless": [
+      0,
+      13
+     ]
+    },
+    "B_presence_theta0+role": {
+     "exact": [
+      27,
+      31
+     ],
+     "exact_ci": [
+      0.711,
+      0.949
+     ],
+     "dates_found": [
+      14,
+      18
+     ],
+     "wrong_date_on_answered": 4,
+     "missed": 0,
+     "dated_answerless": [
+      0,
+      13
+     ]
+    },
+    "C_presence_theta_dev+generate_then_point": {
+     "exact": [
+      29,
+      31
+     ],
+     "exact_ci": [
+      0.793,
+      0.982
+     ],
+     "dates_found": [
+      16,
+      18
+     ],
+     "wrong_date_on_answered": 0,
+     "missed": 2,
+     "dated_answerless": [
+      0,
+      13
+     ]
+    },
+    "v1_pointer_theta_10.40": {
+     "exact": [
+      28,
+      31
+     ],
+     "exact_ci": [
+      0.751,
+      0.967
+     ],
+     "dates_found": [
+      15,
+      18
+     ],
+     "wrong_date_on_answered": 3,
+     "missed": 0,
+     "dated_answerless": [
+      0,
+      13
+     ]
+    },
+    "rules": {
+     "exact": [
+      16,
+      31
+     ],
+     "exact_ci": [
+      0.348,
+      0.68
+     ],
+     "dates_found": [
+      3,
+      18
+     ],
+     "wrong_date_on_answered": 0,
+     "missed": 15,
+     "dated_answerless": [
+      0,
+      13
+     ]
+    },
+    "free_prompt_registered_null_reparsed": {
+     "exact": [
+      30,
+      31
+     ],
+     "exact_ci": [
+      0.838,
+      0.994
+     ],
+     "dates_found": [
+      17,
+      18
+     ],
+     "wrong_date_on_answered": 1,
+     "missed": 0,
+     "dated_answerless": [
+      0,
+      13
+     ]
+    },
+    "free_prompt_guided_reparsed": {
+     "exact": [
+      31,
+      31
+     ],
+     "exact_ci": [
+      0.89,
+      1.0
+     ],
+     "dates_found": [
+      18,
+      18
+     ],
+     "wrong_date_on_answered": 0,
+     "missed": 0,
+     "dated_answerless": [
+      0,
+      13
+     ]
+    },
+    "latest_printed_date": {
+     "exact": [
+      17,
+      31
+     ],
+     "exact_ci": [
+      0.378,
+      0.708
+     ],
+     "dates_found": [
+      15,
+      18
+     ],
+     "wrong_date_on_answered": 3,
+     "missed": 0,
+     "dated_answerless": [
+      11,
+      13
+     ]
+    },
+    "always_null": {
+     "exact": [
+      13,
+      31
+     ],
+     "exact_ci": [
+      0.264,
+      0.592
+     ],
+     "dates_found": [
+      0,
+      18
+     ],
+     "wrong_date_on_answered": 0,
+     "missed": 18,
+     "dated_answerless": [
+      0,
+      13
+     ]
+    }
+   }
+  },
+  "dev": {
+   "n": 127,
+   "n_answered": 55,
+   "bodies": [
+    "230",
+    "261",
+    "5192",
+    "5254",
+    "5586",
+    "6152",
+    "6621",
+    "BE",
+    "BS",
+    "GE",
+    "JU",
+    "LU",
+    "TI",
+    "VS",
+    "ZH"
+   ],
+   "arms": {
+    "A_presence_theta_dev+role": {
+     "exact": [
+      123,
+      127
+     ],
+     "exact_ci": [
+      0.922,
+      0.988
+     ],
+     "dates_found": [
+      51,
+      55
+     ],
+     "wrong_date_on_answered": 3,
+     "missed": 1,
+     "dated_answerless": [
+      0,
+      72
+     ]
+    },
+    "B_presence_theta0+role": {
+     "exact": [
+      120,
+      127
+     ],
+     "exact_ci": [
+      0.891,
+      0.973
+     ],
+     "dates_found": [
+      51,
+      55
+     ],
+     "wrong_date_on_answered": 4,
+     "missed": 0,
+     "dated_answerless": [
+      3,
+      72
+     ]
+    },
+    "C_presence_theta_dev+generate_then_point": {
+     "exact": [
+      125,
+      127
+     ],
+     "exact_ci": [
+      0.944,
+      0.996
+     ],
+     "dates_found": [
+      53,
+      55
+     ],
+     "wrong_date_on_answered": 1,
+     "missed": 1,
+     "dated_answerless": [
+      0,
+      72
+     ]
+    },
+    "v1_pointer_theta_10.40": {
+     "exact": [
+      118,
+      127
+     ],
+     "exact_ci": [
+      0.871,
+      0.962
+     ],
+     "dates_found": [
+      47,
+      55
+     ],
+     "wrong_date_on_answered": 6,
+     "missed": 2,
+     "dated_answerless": [
+      1,
+      72
+     ]
+    },
+    "rules": {
+     "exact": [
+      126,
+      127
+     ],
+     "exact_ci": [
+      0.957,
+      0.999
+     ],
+     "dates_found": [
+      54,
+      55
+     ],
+     "wrong_date_on_answered": 1,
+     "missed": 0,
+     "dated_answerless": [
+      0,
+      72
+     ]
+    },
+    "free_prompt_registered_null_reparsed": {
+     "exact": [
+      116,
+      127
+     ],
+     "exact_ci": [
+      0.852,
+      0.951
+     ],
+     "dates_found": [
+      44,
+      55
+     ],
+     "wrong_date_on_answered": 8,
+     "missed": 3,
+     "dated_answerless": [
+      0,
+      72
+     ]
+    },
+    "free_prompt_guided_reparsed": {
+     "exact": [
+      125,
+      127
+     ],
+     "exact_ci": [
+      0.944,
+      0.996
+     ],
+     "dates_found": [
+      54,
+      55
+     ],
+     "wrong_date_on_answered": 1,
+     "missed": 0,
+     "dated_answerless": [
+      1,
+      72
+     ]
+    },
+    "latest_printed_date": {
+     "exact": [
+      39,
+      127
+     ],
+     "exact_ci": [
+      0.234,
+      0.392
+     ],
+     "dates_found": [
+      39,
+      55
+     ],
+     "wrong_date_on_answered": 16,
+     "missed": 0,
+     "dated_answerless": [
+      72,
+      72
+     ]
+    },
+    "always_null": {
+     "exact": [
+      72,
+      127
+     ],
+     "exact_ci": [
+      0.48,
+      0.65
+     ],
+     "dates_found": [
+      0,
+      55
+     ],
+     "wrong_date_on_answered": 0,
+     "missed": 55,
+     "dated_answerless": [
+      0,
+      72
+     ]
+    }
+   }
+  }
+ },
+ "chosen": "C_presence_theta_dev+generate_then_point",
+ "ranking": [
+  "C_presence_theta_dev+generate_then_point",
+  "B_presence_theta0+role",
+  "A_presence_theta_dev+role"
+ ]
+}
