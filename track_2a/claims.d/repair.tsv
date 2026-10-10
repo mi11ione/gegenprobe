@@ -3,9 +3,9 @@ repair.be_relink	2,459	results/repair/summary.json	by_action.relink	int	python -
 repair.be_fetch	49	results/repair/summary.json	by_action.fetch	int	python -m gegenprobe.repair.run	docs/repair.md,docs/form_notes.md,technical_report.md
 repair.agenda_join	592	results/repair/summary.json	by_action.agenda_join	int	python -m gegenprobe.repair.run	docs/repair.md
 repair.vs_retype_oral	1,008	results/repair/summary.json	by_action.retype_oral	int	python -m gegenprobe.repair.run	docs/repair.md,README.md,technical_report.md
-repair.ocr_affairs	1,351	results/repair/summary.json	by_action.ocr	int	python -m gegenprobe.repair.run	docs/repair.md,docs/nightly.md
+repair.ocr_affairs	1,350	results/repair/summary.json	by_action.ocr	int	python -m gegenprobe.repair.run	docs/repair.md,docs/nightly.md
 repair.che_placeholder_docs	29,946	results/repair/summary.json	by_action.placeholder_replace	int	python -m gegenprobe.repair.run	docs/repair.md,docs/nightly.md,technical_report.md
-repair.affairs_with_action	5,459	results/repair/summary.json	affairs_with_action	int	python -m gegenprobe.repair.run	docs/repair.md
+repair.affairs_with_action	5,458	results/repair/summary.json	affairs_with_action	int	python -m gegenprobe.repair.run	docs/repair.md
 repair.be_source_answered	3,532	results/repair/be_placement.json	total.source_answered	int	python -m gegenprobe.repair.be placement	docs/repair.md,README.md,docs/form_notes.md,technical_report.md
 repair.be_attached	229	results/repair/be_placement.json	total.attached	int	python -m gegenprobe.repair.be placement	docs/repair.md,README.md,docs/form_notes.md,technical_report.md
 repair.be_via_agenda	527	results/repair/be_placement.json	total.via_agenda	int	python -m gegenprobe.repair.be placement	docs/repair.md,README.md
@@ -39,8 +39,8 @@ repair.ocr_ok_ci	[79.6, 100]	results/repair/ocr_probe.json	ci_image_only_ok	ci	p
 repair.ocr_accents_multi	467	results/repair/ocr_probe.json	image_multi.accented_chars	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,technical_report.md
 repair.ocr_accents_eng	133	results/repair/ocr_probe.json	image_eng.accented_chars	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,technical_report.md
 repair.ocr_s_per_page	6.9	results/repair/ocr_probe.json	image_multi.secs_per_page	f1	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,docs/nightly.md
-repair.nightly_offline_s	260.5	results/monitor/run.json	timings.total_s	f1	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
-repair.nightly_extract_s	228.0	results/monitor/run.json	timings.extract_s	f1	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
+repair.nightly_offline_s	233.0	results/monitor/run.json	timings.total_s	f1	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
+repair.nightly_extract_s	215.8	results/monitor/run.json	timings.extract_s	f1	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
 repair.che_backlog_hours	17.5	results/repair/che_backlog_run.json	est_hours_full_backlog	f1	python -m gegenprobe.repair.che stats	docs/repair.md,docs/nightly.md,technical_report.md
 repair.vs_gap	1,409	results/repair/vs_summary.json	counts.gap	int	python -m gegenprobe.repair.vs list	docs/repair.md
 repair.vs_pas_de_reponse_docs	38	results/repair/vs_summary.json	short_text_heads.3.1	int	python -m gegenprobe.repair.vs list	docs/repair.md
@@ -48,3 +48,16 @@ repair.vs_urgente_docs	11	results/repair/vs_summary.json	short_text_heads.4.1	in
 repair.nightly_be_rate	26.37	results/monitor/rates.json	BE.rate	f2	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
 repair.nightly_new_rows	0	results/monitor/run.json	be_repair_new_since_last_night	int	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
 repair.index_docs_changed	68/116	results/monitor/index_diff.json	census_inputs.docs_texts_changed/census_inputs.docs_texts_files	frac	python -m gegenprobe.monitor.nightly index	docs/nightly.md,technical_report.md
+repair.all_relink_n	2,459	results/repair/be_verify_all.json	by_action.relink.v2.n	int	python -m gegenprobe.repair.verify_all run	docs/repair.md
+repair.all_relink_identity	2,459	results/repair/be_verify_all.json	by_action.relink.v2.identity	int	python -m gegenprobe.repair.verify_all run	docs/repair.md
+repair.all_relink_heading	2,459	results/repair/be_verify_all.json	by_action.relink.v2.heading	int	python -m gegenprobe.repair.verify_all run	docs/repair.md
+repair.all_relink_date_v2	2,421	results/repair/be_verify_all.json	by_action.relink.v2.date_eq_event	int	python -m gegenprobe.repair.verify_all run	docs/repair.md
+repair.all_relink_date_v2_ci	[97.9, 98.9]	results/repair/be_verify_all.json	by_action.relink.v2.ci_date_eq_event	ci	python -m gegenprobe.repair.verify_all run	docs/repair.md
+repair.all_relink_date_v1	2,332	results/repair/be_verify_all.json	by_action.relink.v1_registered.date_eq_event	int	python -m gegenprobe.repair.verify_all run	docs/repair.md
+repair.all_fetch_triple	48	results/repair/be_verify_all.json	by_action.fetch.v2.triple	int	python -m gegenprobe.repair.verify_all run	docs/repair.md
+repair.all_fetch_errors	0	results/repair/be_verify_all.json	fetch_errors	int	python -m gegenprobe.repair.verify_all run	docs/repair.md
+repair.review_after_check	39	results/repair/summary.json	review_after_check	int	python -m gegenprobe.repair.run	docs/repair.md
+repair.acceptance_parentless	2,459	results/repair/acceptance_snapshot-2026-10-06.json	still_parentless	int	python -m gegenprobe.repair.acceptance	docs/repair.md,docs/runbook.md
+repair.begin_review_years	9	results/repair/repair_BE_begin_date.json	summary.review_years_after_number	int	python -m gegenprobe.repair.be_begin_date	docs/repair.md
+repair.begin_event_ids	655	results/repair/repair_BE_begin_date.json	summary.with_event_id	int	python -m gegenprobe.repair.be_begin_date	docs/repair.md
+repair.be_ogd_answer_docs	9,577	results/monitor/run.json	be_ogd.answer_documents	int	python -m gegenprobe.monitor.nightly offline	docs/nightly.md

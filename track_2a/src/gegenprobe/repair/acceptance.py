@@ -1,0 +1,89 @@
+"""Acceptance test for OPD's staging fix: how many of the BE relink documents are attached to their affair in a given
+OPD snapshot.
+
+OPD confirmed (correspondence, 10 Oct 2026) that a Bern answer arriving through two sources with the same document id is
+kept under the first parent seen, and that a fix is pending. Until it ships, a relink applied to the database can be undone
+by the next scrape, so the list is best applied as a protected override, or used as this acceptance test: after the fix,
+every relink document should be attached to the affair the list names.
+
+    python -m gegenprobe.repair.acceptance <docs_BE.ndjson.gz | docs_meta dir>   score a local snapshot
+    python -m gegenprobe.repair.acceptance --fetch                              stream today's docs_BE export (470 MB,
+                                                                                one polite request, nothing stored)
+Writes results/repair/acceptance_<snapshot>.json.
+"""
+from __future__ import annotations
+
+import collections
+import csv
+import gzip
+import io
+import json
+import sys
+from pathlib import Path
+
+from .. import net
+from .common import OUT, iter_docs_meta
+
+EXPORT_URL = "https://files.openparldata.ch/exports/docs/docs_BE.ndjson.gz"
+
+
+def relink_rows() -> dict[int, int]:
+    """opd_doc_id -> affair_id for every relink row (including rows sent to review by the per-row check)."""
+    out = {}
+    for r in csv.DictReader(open(OUT / "repair_BE.tsv", encoding="utf-8"), delimiter="\t"):
+        if (r.get("proposed_action") or r["action"]) == "relink":
+            out[int(r["opd_doc_id"])] = int(r["affair_id"])
+    return out
+
+
+def _iter_export(lines):
+    for line in lines:
+        d = json.loads(line)
+        yield dict(id=d["id"], a=d.get("affair_id"), ag=d.get("agenda_id"), m=d.get("meeting_id"))
+
+
+def score(docs, want: dict[int, int]) -> dict:
+    c = collections.Counter()
+    seen = set()
+    wrong = []
+    for d in docs:
+        if d["id"] not in want or d["id"] in seen:
+            continue
+        seen.add(d["id"])
+        if d["a"] == want[d["id"]]:
+            c["attached_to_listed_affair"] += 1
+        elif d["a"]:
+            c["attached_elsewhere"] += 1
+            if len(wrong) < 20:
+                wrong.append(dict(opd_doc_id=d["id"], listed_affair=want[d["id"]], attached_to=d["a"]))
+        elif d["ag"] or d["m"]:
+            c["under_agenda_or_meeting"] += 1
+        else:
+            c["still_parentless"] += 1
+    c["doc_not_in_snapshot"] = len(want) - len(seen)
+    return dict(n=len(want), **c, attached_elsewhere_examples=wrong,
+                passed=c["attached_to_listed_affair"] == len(want))
+
+
+def main(argv: list[str]) -> int:
+    want = relink_rows()
+    if argv and argv[0] == "--fetch":
+        r = net.open_url(EXPORT_URL, timeout=600)
+        res = score(_iter_export(io.TextIOWrapper(gzip.GzipFile(fileobj=r), encoding="utf-8")), want)
+        r.close()
+        label = "live"
+    elif argv and Path(argv[0]).is_file():
+        with gzip.open(argv[0], "rt", encoding="utf-8") as f:
+            res = score(_iter_export(f), want)
+        label = Path(argv[0]).stem.split(".")[0]
+    else:  # the census scan of the 6 Oct 2026 snapshot (default; dev machine)
+        res = score(iter_docs_meta({"BE"}), want)
+        label = "snapshot-2026-10-06"
+    res["snapshot"] = label
+    (OUT / f"acceptance_{label}.json").write_text(json.dumps(res, indent=1))
+    print(json.dumps({k: v for k, v in res.items() if k != "attached_elsewhere_examples"}, indent=1))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

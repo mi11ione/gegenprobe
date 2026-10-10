@@ -1,0 +1,10 @@
+# Optional local 8B path (docker build --build-arg GGUF=1): llama-cpp-python 0.3.35 CPU wheel, hash-pinned per architecture.
+# Installed with --require-hashes --no-deps after requirements.lock (its other dependencies are already pinned there).
+# Wheels: https://github.com/abetlen/llama-cpp-python/releases/tag/v0.3.35 (the CPU index the CI runs used).
+llama-cpp-python @ https://github.com/abetlen/llama-cpp-python/releases/download/v0.3.35/llama_cpp_python-0.3.35-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl ; platform_machine == "x86_64" \
+    --hash=sha256:d172f3d3c8cdd194c3c47c71cb077ed6e61354a2d0f939ceeac0c8fd29999596
+llama-cpp-python @ https://github.com/abetlen/llama-cpp-python/releases/download/v0.3.35/llama_cpp_python-0.3.35-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl ; platform_machine == "aarch64" \
+    --hash=sha256:b5a4abd4d1d506d6f06b997c21d0532670a3f5350c9e6cfb3e54c33bf1322584
+diskcache==5.6.3 \
+    --hash=sha256:2c3a3fa2743d8535d832ec61c2054a1641f41775aa7c556758a109941e33e4fc \
+    --hash=sha256:5e31b2d5fbad117cc363ebaf6b689474db18a1f6438bc82358b024abd4c2ca19

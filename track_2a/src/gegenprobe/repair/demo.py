@@ -94,13 +94,14 @@ def run(report: bool = False) -> int | dict:
     ok_join = sorted(got) == exp
     print(f"[repair] BE bulk join on the vendored slice: {dict(c)}  reproduces expected rows: {'PASS' if ok_join else 'FAIL'}")
     full = list(csv.DictReader(open(OUT / "repair_BE.tsv", encoding="utf-8"), delimiter="\t"))
-    n_rel = sum(r["action"] == "relink" for r in full)
-    n_fet = sum(r["action"] == "fetch" for r in full)
+    route = [(r.get("proposed_action") or r["action"]) for r in full]
+    n_rel = route.count("relink")
+    n_fet = route.count("fetch")
     reg = be.regress(
         [
-            dict(r, affair_id=int(r["affair_id"]), opd_doc_id=int(r["opd_doc_id"]) if r["opd_doc_id"] else None)
-            for r in full
-            if r["action"] in ("relink", "fetch")
+            dict(r, action=a, affair_id=int(r["affair_id"]), opd_doc_id=int(r["opd_doc_id"]) if r["opd_doc_id"] else None)
+            for r, a in zip(full, route)
+            if a in ("relink", "fetch")
         ]
     )
     ok_full = n_rel == 2459 and n_fet == 49 and reg["identical"]

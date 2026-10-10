@@ -34,5 +34,26 @@ def test_alerts():
         "NEW": dict(written=60, linked=6, rate=10.0, docs=10),
         "_docs_only": {},
     }
-    kinds = {(a["body"], a["kind"]) for a in nightly.alerts(prev, cur)}
+    al = nightly.alerts(prev, cur, {"BE": "Bern", "ZH": "Zürich"})
+    kinds = {(a["body"], a["kind"]) for a in al}
     assert kinds == {("BE", "linking_rate_drop"), ("ZH", "document_count_drop"), ("NEW", "new_body")}  # XS below MIN_AFFAIRS
+    assert {a["body"]: a["name"] for a in al}["BE"] == "Bern"
+
+
+def test_body_gone_alert():
+    prev = {"BE": dict(written=3400, linked=900, rate=26.47, docs=50000), "ZH": dict(written=10000, linked=7000, rate=70.0,
+                                                                                      docs=33000)}
+    cur = {"BE": dict(prev["BE"]), "_docs_only": {}}
+    assert [(a["body"], a["kind"]) for a in nightly.alerts(prev, cur)] == [("ZH", "body_gone")]
+
+
+def test_notify_exit_code_and_quiet_nights(monkeypatch):
+    from gegenprobe.monitor import notify
+
+    monkeypatch.delenv("GP_ALERT_WEBHOOK", raising=False)
+    monkeypatch.delenv("GP_ALERT_SMTP_HOST", raising=False)
+    assert notify.exit_code([]) == 0 and notify.exit_code([{"kind": "x"}]) == 3
+    monkeypatch.setenv("GP_ALERT_EXIT", "0")
+    assert notify.exit_code([{"kind": "x"}]) == 0
+    assert notify.send([], {}) == [] and notify.send([{"kind": "x", "body": "B"}], {}) == []  # nothing configured
+    assert "body_gone" in notify.text([dict(kind="body_gone", body="ZH", name="Zürich")], {})

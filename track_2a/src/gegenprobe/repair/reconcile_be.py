@@ -34,8 +34,9 @@ def main() -> dict:
             if u:
                 orphan.add(u)
     rows = json.loads((OUT / "repair_BE.json").read_text())["rows"]
-    relink = {r["affair_id"] for r in rows if r["action"] == "relink"}
-    fetch = {r["affair_id"] for r in rows if r["action"] == "fetch"}
+    route = lambda r: r.get("proposed_action") or r["action"]  # noqa: E731  (review rows keep their route here)
+    relink = {int(r["affair_id"]) for r in rows if route(r) == "relink"}
+    fetch = {int(r["affair_id"]) for r in rows if route(r) == "fetch"}
     gap = set(gap_ids())
     written = collections.defaultdict(bool)
     for e in tables.rows("events"):

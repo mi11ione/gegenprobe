@@ -1,6 +1,6 @@
 # Gegenprobe (Track 2A, OpenParlData). Judges: `make run` (Docker, CPU, clean checkout).
 # Development targets run on the host with .venv (python 3.11); every target is re-runnable and writes under results/.
-.PHONY: figures run test lint claims census census-scan census-replay census-hash repair repair-network nightly-offline convert eval report install-nightly docker-build
+.PHONY: figures run test lint claims census census-scan census-replay census-hash repair repair-network nightly-offline nightly-notify-test convert eval report install-nightly docker-build
 
 PY ?= .venv/bin/python
 IMAGE ?= gegenprobe:latest
@@ -56,18 +56,25 @@ repair:
 	$(PY) -m gegenprobe.repair.vs list
 	$(PY) -m gegenprobe.repair.ocr probe 3
 	$(PY) -m gegenprobe.repair.che list
+	$(PY) -m gegenprobe.repair.verify_all summary   # per-row checks of every BE relink/fetch row (fetched by repair-network)
 	$(PY) -m gegenprobe.repair.run
+	$(PY) -m gegenprobe.repair.reconcile_be
+	$(PY) -m gegenprobe.repair.acceptance          # how many relink documents OPD has attached (6 Oct snapshot: 0)
 	$(PY) -m gegenprobe.repair.demo
 	$(PY) -m gegenprobe.repair.be_begin_date  # BE begin_date correction list (OPD-confirmed load timestamps)
 
 repair-network:   # one-off measurements that fetch documents (polite: >= 1.2 s per host); results are committed
 	$(PY) -m gegenprobe.repair.be sample        # pre-registered: data/repair/prereg_be_relink_sample.md
+	$(PY) -m gegenprobe.repair.verify_all run   # every BE relink/fetch row: fetch + triple check (~50 min, resumable)
 	$(PY) -m gegenprobe.repair.che backlog 50
 	$(PY) -m gegenprobe.repair.che curia
 	$(PY) -m gegenprobe.repair.vs scan
 
 nightly-offline:
-	$(PY) -m gegenprobe.monitor.nightly offline
+	$(PY) -m gegenprobe.monitor.nightly offline; rc=$$?; [ $$rc -eq 0 ] || [ $$rc -eq 3 ]   # 3 = alerts fired
+
+nightly-notify-test:   # sends one test message through the channels configured in the environment (GP_ALERT_*)
+	$(PY) -m gegenprobe.monitor.notify test
 
 # ---- nightly (owner: repair workstream)
 install-nightly:

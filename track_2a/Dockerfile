@@ -1,7 +1,8 @@
 # Gegenprobe: judges' runtime. CPU only, no GPU, no host dependencies.
 # Build:  docker build -t gegenprobe .            (default: replay + live slice over LLM_BASE_URL if set)
 #         docker build --build-arg GGUF=1 ...      (adds llama-cpp-python for the optional local 8B GGUF slice)
-FROM python:3.11.14-slim-bookworm
+# Base image pinned by digest (python:3.11.14-slim-bookworm, multi-arch index, resolved 2026-10-10).
+FROM python:3.11.14-slim-bookworm@sha256:65a93d69fa75478d554f4ad27c85c1e69fa184956261b4301ebaf6dbb0a3543d
 
 ARG GGUF=0
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 \
@@ -13,10 +14,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt \
-    && if [ "$GGUF" = "1" ]; then pip install --only-binary=:all: \
-         --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu llama-cpp-python==0.3.35; fi
+# Python dependencies are hash-pinned (requirements.lock: sha256 of every PyPI file of each pinned version).
+COPY requirements.lock requirements-gguf.lock ./
+RUN pip install --require-hashes -r requirements.lock \
+    && if [ "$GGUF" = "1" ]; then pip install --require-hashes --no-deps -r requirements-gguf.lock; fi
 
 COPY . .
 # runs as the caller's uid (make run passes --user), so results in ./out stay owned by the judge

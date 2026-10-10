@@ -107,16 +107,62 @@ def test_write_rows_roundtrip(tmp_path):
     )
     tsv, js = common.write_rows("XX", [r], out=tmp_path)
     row = next(csv.DictReader(open(tsv), delimiter="\t"))
-    assert row["action"] == "relink" and json.loads(row["checks"]) == {"a": True} and row["verified"] == "true"
+    assert row["action"] == "relink" and row["proposed_action"] == "relink" and row["verified"] == "true"
+    assert row["check_detail"] == "a=true"  # no JSON inside cells
     with pytest.raises(AssertionError):
         common.write_rows("XX", [dict(r, action="guess")], out=tmp_path)
+
+
+def test_write_rows_plain_checks_and_per_action_split(tmp_path):
+    base = dict(body="XX", affair_id=1, affair_number="1", opd_doc_id=2, source_doc_uid="u", source_doc_title="t",
+                source_url="s", note="n")
+    rows = [
+        dict(base, action="relink", checks=dict(identity=True, heading=True, decision_date="2024-08-28",
+                                                answer_event_dates=["2024-08-28"], date_eq_event=True), verified=True),
+        dict(base, affair_id=3, action="review", proposed_action="relink",
+             checks=dict(identity=True, heading=False, fetch_error=None), verified=False),
+        dict(base, affair_id=4, action="fetch"),
+    ]
+    common.write_rows("XX", rows, out=tmp_path)
+    got = list(csv.DictReader(open(tmp_path / "repair_XX.tsv"), delimiter="\t"))
+    assert [r["action"] for r in got] == ["relink", "review", "fetch"]
+    assert got[0]["check_answer_event_dates"] == "2024-08-28" and got[0]["check_date_eq_event"] == "true"
+    assert got[1]["proposed_action"] == "relink" and got[1]["check_heading"] == "false" and got[2]["verified"] == ""
+    assert not any(c.startswith("{") for r in got for c in r.values())
+    for a in ("relink", "review", "fetch"):
+        assert (tmp_path / f"repair_XX_{a}.tsv").exists()
+
+
+def test_ogd_alerts():
+    from gegenprobe.monitor.nightly import ogd_alerts
+
+    ok = dict(missing_columns=[], missing_answer_types=[], answer_documents=9577)
+    assert ogd_alerts(dict(answer_documents=9500), ok) == []
+    bad = dict(missing_columns=["dokument_typ_deutsch"], missing_answer_types=["RRB"], answer_documents=0)
+    assert {a["kind"] for a in ogd_alerts(dict(answer_documents=9577), bad)} == {"be_ogd_schema_change",
+                                                                                 "be_ogd_answers_collapsed"}
+    assert [a["kind"] for a in ogd_alerts(dict(answer_documents=9577), dict(ok, answer_documents=4000))] == [
+        "be_ogd_answers_collapsed"]
+
+
+def test_acceptance_score():
+    from gegenprobe.repair.acceptance import score
+
+    want = {10: 1, 11: 2, 12: 3, 13: 4}
+    docs = [dict(id=10, a=1, ag=None, m=None), dict(id=11, a=None, ag=None, m=None), dict(id=12, a=9, ag=None, m=None)]
+    r = score(docs, want)
+    assert (r["attached_to_listed_affair"], r["still_parentless"], r["attached_elsewhere"], r["doc_not_in_snapshot"]) == (
+        1, 1, 1, 1) and not r["passed"]
 
 
 # ---------------------------------------------------------------- regression on committed outputs
 def test_be_list_matches_fixture():
     rows = [
         dict(r, affair_id=int(r["affair_id"]), opd_doc_id=int(r["opd_doc_id"]) if r["opd_doc_id"] else None)
-        for r in csv.DictReader(open(RESULTS / "repair" / "repair_BE.tsv", encoding="utf-8"), delimiter="\t")
+        for r in (
+            dict(x, action=x.get("proposed_action") or x["action"])  # rows sent to review keep their route
+            for x in csv.DictReader(open(RESULTS / "repair" / "repair_BE.tsv", encoding="utf-8"), delimiter="\t")
+        )
         if r["action"] in ("relink", "fetch")
     ]
     reg = be.regress(rows)

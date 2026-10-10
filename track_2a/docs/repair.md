@@ -1,30 +1,47 @@
 # Repair: putting OpenParlData's missing government answers back
 
-Model-free. Every number below is produced by `make repair` (cached inputs) or `make repair-network` (one-off fetches) and is
-listed in `claims.d/repair.tsv`. Output files follow one layout for every route (`results/repair/repair_<BODY>.tsv` and `.json`,
-gzipped for CHE):
+Model-free. Every number below is produced by `make repair` (cached inputs) or `make repair-network` (fetches) and is listed
+in `claims.d/repair.tsv`. Output files follow one layout for every route: `results/repair/repair_<BODY>.tsv` and `.json`
+(gzipped for CHE), and for bodies with more than one action one file per action (`repair_BE_relink.tsv`,
+`repair_BE_review.tsv`, `repair_BE_fetch.tsv`, `repair_BE_agenda_join.tsv`, …). Every cell is plain text (no JSON inside
+cells), so a `COPY` or a spreadsheet reads it:
 
 | column | meaning |
 |---|---|
 | `body`, `affair_id`, `affair_number` | the OPD affair the row repairs (`affair_id` = OPD id) |
-| `action` | `relink` · `agenda_join` · `fetch` · `retype_oral` · `ocr` · `placeholder_replace` |
+| `action` | `relink` · `agenda_join` · `fetch` · `retype_oral` · `ocr` · `placeholder_replace` · `review` |
+| `proposed_action` | the route; equals `action` unless the row failed its per-row check and became `review` |
 | `opd_doc_id` | the OPD document to re-attach / re-extract / replace |
 | `source_doc_uid`, `source_doc_title`, `source_url` | the source document (canton uid, Fedlex ELI) and where to get it |
-| `checks`, `verified` | the named checks run on that row (JSON) and their verdict; empty where only a sample was checked |
+| `snapshot` | the export dates the row was computed from (`opd_exports 2026-10-06; be_ogd 2026-10-08`) |
+| `check_identity`, `check_heading`, `check_decision_nr`, `check_decision_date`, `check_answer_event_dates`, `check_date_eq_event` | per-row document checks (BE relink/fetch: every row) |
+| `check_detail` | other routes' row facts as `key=value; key=value` |
+| `verified` | `true` / `false` per row where checked; empty where only a sample was checked (precision in `summary.json`) |
 
-`results/repair/summary.json` gives the counts per body and action, and the measured precision of each route.
+`results/repair/summary.json` gives the counts per body and route (`by_action` counts the route, i.e. `proposed_action`), the
+39 rows sent to `review` by the per-row check, and the measured precision of each route.
 
 ## What the routes produce
 
 | route | affairs | evidence |
 |---|---|---|
-| `relink` (BE): canton answer already in OPD as a parentless document | 2,459 | uid join, byte-identical to the list prepared for OPD |
-| `fetch` (BE): canton lists an answer OPD lacks | 49 | canton OGD |
-| `agenda_join` (all bodies): answer filed under an agenda item of the affair | 592 | OPD's own `agendas.item_affair_id` |
+| `relink` (BE): canton answer already in OPD as a parentless document | 2,459 | uid join; **every row** fetched and checked (2,421 pass, 38 → `review`) |
+| `fetch` (BE): canton lists an answer OPD lacks | 49 | canton OGD; every row checked (48 pass, 1 → `review`) |
+| `agenda_join` (all bodies): answer filed under an agenda item of the affair | 592 | OPD's own `agendas.item_affair_id`; not sample-verified |
 | `retype_oral` (VS): the "answer" document is an oral-answer pointer | 1,008 | rule on OPD's own text |
-| `ocr` (all bodies): answer document attached, no usable text in OPD | 1,351 | 30-document probe |
-| **gap affairs with a typed repair action** | **5,459** | |
+| `ocr` (all bodies): answer document attached, no usable text in OPD | 1,350 | 30-document probe |
+| **gap affairs with a typed repair action** | **5,458** | |
 | `placeholder_replace` (CHE, documents not affairs) | 29,946 | Fedlex SPARQL |
+
+One affair, 2024.RRGR.195, used to carry two rows (a canton `fetch` and an `ocr` row: OPD holds a scanned French RRB without
+text, the canton OGD has the German text PDF). It now has one row, the canton route; the `ocr` count went from 1,351 to 1,350.
+
+**Applying the BE relinks.** OPD confirmed (correspondence, 10 Oct 2026) that its staging keeps the first parent a document
+is seen under; until that fix ships, the next scrape can re-attach a relinked answer to the agenda item or leave it
+parentless again. Apply the list as a protected override, or after the fix. Either way the list doubles as the **acceptance
+test of the fix**: `python -m gegenprobe.repair.acceptance` (local snapshot) or `--fetch` (today's `docs_BE` export) counts
+how many of the 2,459 relink documents are attached to the affair the list names. In the 6 Oct 2026 snapshot all 2,459 are
+still parentless; after the fix all 2,459 should be attached.
 
 ## BE: the answers are in OPD, just not attached
 
@@ -42,21 +59,39 @@ gap affairs for which the canton lists no answer. The same join on the nightly c
 answer heading is present (DE/FR/IT lexicon); (3) the header field `RRB-Nr.: NNN/YYYY vom <date>` equals OPD's own answer-event
 date.
 
-| sample | identity + heading | RRB date = OPD event date |
+| rows checked | identity + heading | RRB date = OPD event date |
 |---|---|---|
 | 40 random 2024–25 interpellations without an attached answer, canton source PDF (seed 20261008; re-run from code) | 40/40 [91.2, 100] | 39/39 [91, 100] (one affair has no OPD answer event) |
 | **pre-registered**: 40 random `relink` rows, the copy OPD itself stores (seed 20261009, `data/repair/prereg_be_relink_sample.md`, hashed before drawing) | 40/40 [91.2, 100] | 36/40 [76.9, 96] |
+| **all 2,459 `relink` rows**, the copy OPD stores, fetched and checked (`repair.verify_all`, 0 fetch errors) | 2,459 / 2,459 | parser v2: 2,421 [97.9, 98.9]; registered parser v1: 2,332 |
+| all 49 `fetch` rows, the canton's OGD PDF | 49 / 49 | 48 |
 
-The four registered date failures: three are parser misses (2020–21 header layouts where pdftotext emits the RRB number, other
+Every row of the list is now checked, not only the samples: the document OPD would re-attach prints the affair (or the
+canton's Vorstoss) number and an answer heading in all 2,459 cases, and its RRB date equals OPD's own answer-event date in
+2,421 (parser v2). The 39 rows that fail (38 relink, 1 fetch) are moved to `action=review` with their checks filled in: in 22
+no decision date was parsed from the header, in 16 the parsed date differs from OPD's event (several 2015 RRBs whose header
+carries a second "vom" date), and one is the canton's own typo (2015.RRGR.870, below). They are not wrong relinks; they are
+the rows a person looks at before applying (about 2 minutes each).
+
+The four registered date failures of the 40-row sample: three are parser misses (2020–21 header layouts where pdftotext emits the RRB number, other
 header values, then `vom <date>`), and one is a typo in the canton's own PDF: 2015.RRGR.870 prints "RRB-Nr.: 119/2016 vom
 3. Februar 2015" while OPD's answer event is 2016-02-03. A second parser version (v2, written after the registered run and
 reported separately as post-hoc) reads the split header; on the same 40 cached documents the triple check then passes
 39/40 [87.1, 99.6], and the only failure left is the source typo, which the check is meant to catch. The demo in `make run`
-shows exactly this case as `REVIEW (date mismatch)`.
+shows exactly this case as `REVIEW (date mismatch)`. The three parser misses are ours, not the canton's.
 
 Per-affair fallback (no OPD ids needed): the canton's Geschäftsdetail fragment
 `https://www.rrgr-service.apps.be.ch/api/gr/instances/585199c5-e188-44cb-b514-f143ada83635/render?gnumber=<nr>&lang=de`
 (`be.route_b`).
+
+## BE begin_date corrections
+
+`python -m gegenprobe.repair.be_begin_date` → `repair_BE_begin_date.tsv`: 727 BE affairs whose `begin_date` is a load timestamp
+(557 on 2024-10-28 and 170 from later loads, the two groups OPD described). The proposal is the affair's own "Eingereicht"
+event, given as columns OPD can join on (`evidence_event_id`, `evidence_event_date`, `evidence_event_title`; 655 rows carry an
+event id, the other 72 affairs have no events at all). 554 rows are `set_begin_date`; 173 are `review`: no Eingereicht event,
+or a proposed date two or more years after the year in the affair number (9 rows, e.g. 2007.RRGR.2254 → 2011-03-28,
+plausible for a re-submitted affair but checked before applying).
 
 ## CHE: placeholders and federal answers
 
@@ -102,4 +137,4 @@ pages per document, under concurrent load).
 ## Not measured
 
 The 11,206 gap affairs with no answer document anywhere in OPD (ZH before 2016, Zürich city, SG, NE, JU, Winterthur, …) need
-per-body source adapters; none is built here. The 1,351 `ocr` rows are candidates; only the 30-document probe was OCR'd.
+per-body source adapters; none is built here. The 1,350 `ocr` rows are candidates; only the 30-document probe was OCR'd.

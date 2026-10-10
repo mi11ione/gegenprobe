@@ -10,8 +10,15 @@ One night =
   4. BE canton OGD tables (2 GETs, ~23 MB).
   5. census.extract -> census.funnel.compute on the nightly snapshot -> per-body answer-linking rates.
   6. repair.be list on the nightly snapshot -> new relink/fetch rows since the previous night.
-  7. alerts.json: a body whose linking rate drops by more than DROP_PP percentage points night over night (bodies with at
-     least MIN_AFFAIRS written-answer affairs), a body whose document count falls by more than DOC_DROP, a new body.
+  6b. every NEW relink/fetch row is triple-checked before it is emitted (affair number printed, answer heading, RRB date ==
+     OPD answer event); a row that fails becomes action `review` (network mode only; offline rows stay unchecked).
+  7. alerts.json (every alert carries the body key and name):
+       linking_rate_drop     rate drops by more than DROP_PP points night over night (bodies with >= MIN_AFFAIRS)
+       document_count_drop   a body's OPD document count falls by more than DOC_DROP
+       new_body / body_gone  a body appears in or disappears from the rated set
+       be_ogd_schema_change  the canton tables lost a column or an answer document type the join relies on
+       be_ogd_answers_collapsed  the canton's answer-document count fell to zero or by more than half
+  8. routing (monitor.notify): optional webhook / SMTP; exit code GP_ALERT_EXIT (default 3) when alerts fired, 1 on error.
 Outputs: results/monitor/{rates.json, alerts.json, run.json}; repair rows in results/monitor/repair_BE_new.tsv.
 
 Linking rate (per body) = affairs with a written-answer event whose answer text is reachable in OPD (attached document,
@@ -112,8 +119,21 @@ def be_repair(census_root: Path, aff: dict) -> tuple[list[dict], dict]:
     return rows_, dict(c)
 
 
-def alerts(prev: dict, cur: dict) -> list[dict]:
+def body_names(census_root: Path) -> dict[str, str]:
+    from ..census.tables import rows
+
+    try:
+        return {r["key"]: r["name"] for r in rows("bodies", census_root)}
+    except FileNotFoundError:
+        return {}
+
+
+def alerts(prev: dict, cur: dict, names: dict | None = None) -> list[dict]:
+    names = names or {}
     out = []
+    for b in sorted(set(prev) - set(cur)):
+        if not b.startswith("_"):
+            out.append(dict(body=b, kind="body_gone", prev_rate=prev[b]["rate"], prev_written=prev[b]["written"]))
     for b, r in cur.items():
         if b.startswith("_"):
             continue
@@ -127,7 +147,46 @@ def alerts(prev: dict, cur: dict) -> list[dict]:
             )
         if p.get("docs") and r["docs"] < (1 - DOC_DROP) * p["docs"]:
             out.append(dict(body=b, kind="document_count_drop", prev=p["docs"], cur=r["docs"]))
+    for a in out:
+        a["name"] = names.get(a["body"], "")
     return out
+
+
+def ogd_alerts(prev: dict | None, cur: dict) -> list[dict]:
+    out = []
+    if cur["missing_columns"] or cur["missing_answer_types"]:
+        out.append(dict(body="BE", name="Bern (canton OGD)", kind="be_ogd_schema_change",
+                        missing_columns=cur["missing_columns"], missing_answer_types=cur["missing_answer_types"]))
+    p = (prev or {}).get("answer_documents")
+    if cur["answer_documents"] == 0 or (p and cur["answer_documents"] < 0.5 * p):
+        out.append(dict(body="BE", name="Bern (canton OGD)", kind="be_ogd_answers_collapsed", prev=p,
+                        cur=cur["answer_documents"]))
+    return out
+
+
+def verify_new(rows_: list[dict]) -> None:
+    """Triple-check new relink/fetch rows before they are emitted (network mode). The canton's OGD PDF of the same document
+    uid is checked (the census tables keep no document URLs)."""
+    from .. import pdftext
+    from ..repair import be
+
+    _, geschaeft = be.load_ogd()
+    vnr = {g["geschaeft_nr"]: g.get("geschaeft_vorstoss_nummer") for g in geschaeft.values()}
+    ev = be.answer_events({r["affair_id"] for r in rows_}) if rows_ else {}
+    for r in rows_:
+        r["proposed_action"] = r["action"]
+        try:
+            sha, path = pdftext.fetch_pdf(r["source_url"])
+            text = "\n".join(pdftext.extract(sha, path, ocr=True)["pages"])
+            c = be.verify_text(text, r["affair_number"], vnr.get(r["affair_number"]), ev.get(r["affair_id"], []))
+            r["checks"] = dict(identity=c["identity"], heading=c["heading"], decision_nr=c["rrb_nr"],
+                               decision_date=c["rrb_date"], answer_event_dates=c["opd_answer_events"],
+                               date_eq_event=c["date_eq_event"], pdf_sha256=sha)
+            r["verified"] = c["triple"]
+        except Exception as e:
+            r["checks"], r["verified"] = dict(fetch_error=f"{type(e).__name__}: {str(e)[:120]}"), False
+        if not r["verified"]:
+            r["action"] = "review"
 
 
 def _download(entity: str, url: str, dest: Path) -> int:
@@ -198,8 +257,15 @@ def night(offline: bool) -> dict:
     keys = [f"{r['affair_id']}:{r['action']}:{r['source_doc_uid']}" for r in rep]
     new = [r for r, k in zip(rep, keys) if k not in prev_keys]
     state["be_repair_keys"] = keys
+    if not offline:
+        verify_new(new)
     prev_rates = state.get("rates", {})
-    al = alerts(prev_rates, rates) if prev_rates else []
+    al = alerts(prev_rates, rates, body_names(census_out)) if prev_rates else []
+    from ..repair import be as _be
+
+    health = _be.ogd_health()
+    al += ogd_alerts(state.get("be_ogd"), health)
+    state["be_ogd"] = health
     state["rates"] = rates
     STATE.write_text(json.dumps(state))
     OUT.mkdir(parents=True, exist_ok=True)
@@ -217,11 +283,17 @@ def night(offline: bool) -> dict:
         timings=t,
         bodies_rated=sum(1 for b in rates if not b.startswith("_")),
         alerts=len(al),
+        alert_kinds=sorted({a["kind"] for a in al}),
+        be_ogd=health,
         be_repair=rep_counts,
         be_repair_new_since_last_night=len(new),
         ts=round(time.time()),
     )
     (OUT / "run.json").write_text(json.dumps(run, indent=1))
+    from .notify import send
+
+    run["notified"] = send(al, run)
+    run["_alerts"] = al
     return run
 
 
@@ -248,8 +320,12 @@ def main(argv: list[str]) -> int:
         print({k: (v if not isinstance(v, list) else len(v)) for k, v in d.items()})
         return 0
     if cmd in ("run", "offline"):
-        print(night(offline=cmd == "offline"))
-        return 0
+        from .notify import exit_code
+
+        run = night(offline=cmd == "offline")
+        al = run.pop("_alerts")
+        print(run)
+        return exit_code(al)
     print(__doc__)
     return 2
 

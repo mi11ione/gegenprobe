@@ -76,6 +76,28 @@ def fetch_ogd() -> None:
         print(name, len(b), hashlib.sha256(b).hexdigest()[:16])
 
 
+# Columns and value sets the join relies on (nightly schema check: a renamed column or document type would otherwise make
+# the join silently produce zero rows).
+REQUIRED_DOK = ("dokument_uid", "dokument_titel", "dokument_typ_deutsch", "dokument_url", "dokument_geschaeft_uid")
+REQUIRED_GES = ("geschaeft_uid", "geschaeft_nr", "geschaeft_typ_deutsch", "geschaeft_vorstoss_nummer")
+REQUIRED_TYPES = ("RRB", "Vorstossantwort")
+
+
+def ogd_health(ogd_dir: Path = OGD_DIR) -> dict:
+    """Schema and volume of the canton tables: missing required columns, missing answer document types, answer count."""
+    with open(ogd_dir / "dokument.csv", encoding="utf-8") as f:
+        r = csv.DictReader(f)
+        dok_cols = set(r.fieldnames or [])
+        types = collections.Counter(d.get("dokument_typ_deutsch", "") for d in r)
+    with open(ogd_dir / "geschaeft.csv", encoding="utf-8") as f:
+        ges_cols = set(csv.DictReader(f).fieldnames or [])
+    return dict(
+        missing_columns=sorted((set(REQUIRED_DOK) - dok_cols) | (set(REQUIRED_GES) - ges_cols)),
+        missing_answer_types=sorted(t for t in REQUIRED_TYPES if not types.get(t)),
+        answer_documents=sum(types[t] for t in ANSWER_TYPES),
+    )
+
+
 def load_ogd_files(dokument: Path, geschaeft_csv: Path):
     answers = collections.defaultdict(list)
     for d in csv.DictReader(open(dokument, encoding="utf-8")):

@@ -58,6 +58,38 @@ def ocr_rows() -> list[dict]:
     return out
 
 
+def apply_verification(be_rows: list[dict]) -> collections.Counter:
+    """Per-row checks from repair.verify_all (every BE relink/fetch row fetched and checked). A row whose v2 triple check
+    fails, or whose document could not be fetched, becomes action `review` (proposed_action keeps the route)."""
+    res = _load("be_verify_all.json")
+    c = collections.Counter()
+    if not res:
+        return c
+    per = res["rows"]
+    for r in be_rows:
+        v = per.get(str(r["affair_id"]))
+        if v is None:
+            continue
+        r["proposed_action"] = r["action"]
+        r["checks"] = dict(
+            identity=v["identity"],
+            heading=v["heading"],
+            decision_nr=v["rrb_nr"],
+            decision_date=v["rrb_date"],
+            answer_event_dates=v["answer_events"],
+            date_eq_event=v["date_eq_event"],
+            fetch_error=v["error"],
+            pdf_sha256=v["sha"],
+        )
+        r["verified"] = bool(v["triple"])
+        if not r["verified"]:
+            r["action"] = "review"
+            why = "document not fetched" if v["error"] else "triple check failed (identity, heading or decision date)"
+            r["note"] = f"{r['note']}; {why}: check before applying"
+        c["verified" if r["verified"] else "review"] += 1
+    return c
+
+
 def _load(name: str):
     p = OUT / name
     return json.loads(p.read_text()) if p.exists() else None
@@ -66,6 +98,8 @@ def _load(name: str):
 def main(argv: list[str]) -> int:
     per_body: dict[str, list[dict]] = collections.defaultdict(list)
     be_rows, _ = be.build_list()
+    be_status = apply_verification(be_rows)
+    be_ids = {r["affair_id"] for r in be_rows}
     for r in be_rows:
         per_body["BE"].append(r)
     ag, _ = agenda.build()
@@ -75,14 +109,17 @@ def main(argv: list[str]) -> int:
     vs_ids = {r["affair_id"] for r in vs_rows}
     per_body["VS"].extend(vs_rows)
     for r in ocr_rows():
-        if r["affair_id"] not in vs_ids:
+        # one row per affair: a BE affair already on the canton route (fetch/relink a text PDF) gets no OCR row
+        # (2024.RRGR.195: OPD holds a scanned French RRB without text; the canton OGD has the German text PDF)
+        if r["affair_id"] not in vs_ids and r["affair_id"] not in be_ids:
             per_body[r["body"]].append(r)
     per_body["CHE"].extend(che.repair_list())
     counts = {}
     for b, rs in sorted(per_body.items()):
         write_rows(b, rs)
-        counts[b] = dict(collections.Counter(r["action"] for r in rs))
-    by_action = collections.Counter(r["action"] for rs in per_body.values() for r in rs)
+        counts[b] = dict(collections.Counter(r.get("proposed_action") or r["action"] for r in rs))
+    # by route (proposed action); rows that failed their per-row check are counted under `review_after_check`
+    by_action = collections.Counter(r.get("proposed_action") or r["action"] for rs in per_body.values() for r in rs)
 
     v40, smp, smp2 = _load("be_verify40.json"), _load("be_relink_sample.json"), _load("be_relink_sample_posthoc.json")
     cre, cbl, ocr, vss = (
@@ -155,8 +192,17 @@ def main(argv: list[str]) -> int:
             nothing=cur["nothing"],
         ),
     )
+    vall = _load("be_verify_all.json")
+    if vall:
+        precision["relink_all_rows"] = dict(
+            note="every relink row fetched and checked (repair.verify_all); not a sample",
+            **{k: vall["by_action"]["relink"][k] for k in ("v1_registered", "v2")},
+        )
+        precision["fetch_all_rows"] = dict(**{k: vall["by_action"]["fetch"][k] for k in ("v1_registered", "v2")})
     summary = dict(
         by_action=dict(by_action),
+        be_per_row=dict(be_status),
+        review_after_check=sum(1 for rs in per_body.values() for r in rs if r["action"] == "review"),
         by_body=counts,
         precision=precision,
         affairs_with_action=sum(v for k, v in by_action.items() if k != "placeholder_replace"),

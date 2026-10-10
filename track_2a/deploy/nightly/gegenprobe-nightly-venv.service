@@ -1,0 +1,17 @@
+# Variant without Docker: a checkout in /opt/gegenprobe with a Python 3.11 venv (pip install -r requirements.lock
+# --require-hashes) and poppler-utils + tesseract-ocr{,-deu,-fra,-ita} from the distribution. Same timer, same outputs.
+[Unit]
+Description=Gegenprobe nightly (no Docker): OpenParlData answer-linking monitor and repair lists
+Wants=network-online.target
+After=network-online.target
+OnFailure=gegenprobe-nightly-failure.service
+
+[Service]
+Type=oneshot
+User=gegenprobe
+WorkingDirectory=/opt/gegenprobe/track_2a
+EnvironmentFile=-/etc/gegenprobe/alerts.env
+Environment=PYTHONPATH=/opt/gegenprobe/track_2a/src GP_WORK=/var/lib/gegenprobe/work
+ExecStart=/opt/gegenprobe/.venv/bin/python -m gegenprobe.monitor.nightly run
+TimeoutStartSec=4h
+Nice=10

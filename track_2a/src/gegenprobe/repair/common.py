@@ -1,11 +1,18 @@
 """Shared helpers for the repair routes: OPD export readers, answer-heading lexicons, multilingual date parsing, and the
 OPD-export-style output writer (repair_<BODY>.tsv / .json).
 
-Every repair row has the same columns, so OPD can ingest any route with one importer:
-  body, affair_id, affair_number, action, opd_doc_id, source_doc_uid, source_doc_title, source_url, checks, verified, note
-  action ∈ {relink, agenda_join, fetch, retype_oral, ocr, placeholder_replace}
-  checks  = JSON object of named boolean/string checks (null when not run for that row)
-  verified = true | false | null (null: not checked; the route's precision is measured on a sample, see summary.json)
+Every repair row has the same plain columns (no JSON inside cells), so OPD can ingest any route with one importer:
+  body, affair_id, affair_number, action, proposed_action, opd_doc_id, source_doc_uid, source_doc_title, source_url,
+  snapshot, check_identity, check_heading, check_decision_nr, check_decision_date, check_answer_event_dates,
+  check_date_eq_event, check_detail, verified, note
+  action ∈ {relink, agenda_join, fetch, retype_oral, ocr, placeholder_replace, review}
+  proposed_action  the route's action; equals `action` unless the row failed its per-row check and became `review`
+  snapshot  the export dates the row was computed from (OPD exports, canton OGD)
+  check_*   per-row document checks where they were run (BE relink/fetch: every row, repair.verify_all); empty = not run
+  check_detail  other routes' row facts as plain `key=value; key=value`
+  verified = true | false | empty (empty: not checked per row; the route's precision is measured on a sample, summary.json)
+Per body, one combined file repair_<BODY>.tsv/.json, and for bodies with more than one action one file per action
+(repair_<BODY>_<action>.tsv/.json).
 """
 
 from __future__ import annotations
@@ -26,15 +33,49 @@ COLS = [
     "affair_id",
     "affair_number",
     "action",
+    "proposed_action",
     "opd_doc_id",
     "source_doc_uid",
     "source_doc_title",
     "source_url",
-    "checks",
+    "snapshot",
+    "check_identity",
+    "check_heading",
+    "check_decision_nr",
+    "check_decision_date",
+    "check_answer_event_dates",
+    "check_date_eq_event",
+    "check_detail",
     "verified",
     "note",
 ]
-ACTIONS = {"relink", "agenda_join", "fetch", "retype_oral", "ocr", "placeholder_replace"}
+CHECK_COLS = [c for c in COLS if c.startswith("check_") and c != "check_detail"]
+ACTIONS = {"relink", "agenda_join", "fetch", "retype_oral", "ocr", "placeholder_replace", "review"}
+
+
+def snapshot() -> str:
+    """Export dates the repair rows are computed from: the OPD export index and the canton OGD download."""
+    from ..paths import DATA, WORK
+    parts = []
+    meta = DATA / "census" / "meta.json"
+    if meta.exists():
+        idx = json.loads(meta.read_text())["inputs"].get("index.json", {})
+        if idx.get("generated_at"):
+            parts.append(f"opd_exports {idx['generated_at'][:10]}")
+    ogd = WORK / "be_ogd" / "dokument.csv"
+    if ogd.exists():
+        parts.append("be_ogd " + dt.datetime.fromtimestamp(ogd.resolve().stat().st_mtime, dt.timezone.utc).date().isoformat())
+    return "; ".join(parts)
+
+
+def _cell(v) -> str:
+    if v is None:
+        return ""
+    if isinstance(v, bool):
+        return str(v).lower()
+    if isinstance(v, list | tuple):
+        return " ".join(str(x) for x in v)
+    return str(v)
 
 # ---------------------------------------------------------------- answer headings (DE / FR / IT)
 ANSWER_HEADING = re.compile(
@@ -170,15 +211,22 @@ def canton_uid(url: str | None) -> str | None:
 GZIP_ABOVE = 5000  # rows; large files (CHE placeholders) are written gzipped to keep the repository small
 
 
-def write_rows(body: str, rows: list[dict], out: Path = OUT) -> tuple[Path, Path]:
-    out.mkdir(parents=True, exist_ok=True)
-    for r in rows:
-        assert r["action"] in ACTIONS, r["action"]
-    gz = len(rows) > GZIP_ABOVE
-    ext = ".gz" if gz else ""
-    for old in out.glob(f"repair_{body}.*"):
-        old.unlink()
-    tsv, js = out / f"repair_{body}.tsv{ext}", out / f"repair_{body}.json{ext}"
+def flat(r: dict, snap: str = "") -> dict:
+    """Row -> plain columns. A legacy `checks` dict is spread: known keys to check_* columns, the rest to check_detail."""
+    row = {k: r.get(k) for k in COLS}
+    row["proposed_action"] = r.get("proposed_action") or r["action"]
+    row["snapshot"] = r.get("snapshot") or snap
+    chk = r.get("checks")
+    if isinstance(chk, dict):
+        rest = {k: v for k, v in chk.items() if f"check_{k}" not in CHECK_COLS}
+        for k, v in chk.items():
+            if f"check_{k}" in CHECK_COLS:
+                row[f"check_{k}"] = v
+        row["check_detail"] = "; ".join(f"{k}={_cell(v)}" for k, v in sorted(rest.items()) if v not in (None, ""))
+    return {k: _cell(v) for k, v in row.items()}
+
+
+def _write(tsv: Path, js: Path, body: str, rows: list[dict], gz: bool) -> None:
     opener = (
         (lambda p: gzip.open(p, "wt", encoding="utf-8", newline=""))
         if gz
@@ -188,16 +236,34 @@ def write_rows(body: str, rows: list[dict], out: Path = OUT) -> tuple[Path, Path
         w = csv.DictWriter(f, COLS, delimiter="\t", lineterminator="\n")
         w.writeheader()
         for r in rows:
-            row = {k: r.get(k) for k in COLS}
-            row["checks"] = json.dumps(r.get("checks"), ensure_ascii=False, sort_keys=True) if r.get("checks") is not None else ""
-            row["verified"] = "" if r.get("verified") is None else str(bool(r["verified"])).lower()
-            w.writerow({k: ("" if v is None else v) for k, v in row.items()})
+            w.writerow(r)
     with opener(js) as f:
         f.write(
             json.dumps(
                 dict(body=body, n=len(rows), columns=COLS, rows=rows), ensure_ascii=False, separators=(",", ":"), sort_keys=True
             )
         )
+
+
+def write_rows(body: str, rows: list[dict], out: Path = OUT) -> tuple[Path, Path]:
+    out.mkdir(parents=True, exist_ok=True)
+    for r in rows:
+        assert r["action"] in ACTIONS, r["action"]
+    snap = snapshot()
+    flat_rows = [flat(r, snap) for r in rows]
+    gz = len(rows) > GZIP_ABOVE
+    ext = ".gz" if gz else ""
+    for old in [*out.glob(f"repair_{body}.*"), *(p for a in ACTIONS for p in out.glob(f"repair_{body}_{a}.*"))]:
+        old.unlink()
+    tsv, js = out / f"repair_{body}.tsv{ext}", out / f"repair_{body}.json{ext}"
+    _write(tsv, js, body, flat_rows, gz)
+    actions = sorted({r["action"] for r in flat_rows})
+    if len(actions) > 1:
+        for a in actions:
+            sel = [r for r in flat_rows if r["action"] == a]
+            g = len(sel) > GZIP_ABOVE
+            e = ".gz" if g else ""
+            _write(out / f"repair_{body}_{a}.tsv{e}", out / f"repair_{body}_{a}.json{e}", body, sel, g)
     return tsv, js
 
 

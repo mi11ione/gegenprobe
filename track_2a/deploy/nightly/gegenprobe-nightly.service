@@ -5,16 +5,22 @@ Description=Gegenprobe nightly: OpenParlData answer-linking monitor and repair l
 Wants=network-online.target
 After=network-online.target docker.service
 Requires=docker.service
+# A failed run (exit 1) and a night with alerts (exit 3, GP_ALERT_EXIT) both trigger the failure notifier.
+OnFailure=gegenprobe-nightly-failure.service
 
 [Service]
 Type=oneshot
 # Persistent state (export caches, scan metadata, state.json) and outputs live on the host, never in the image.
 Environment=GP_HOME=/var/lib/gegenprobe
+Environment=GP_IMAGE=gegenprobe:0.1.0
+# Optional alert routing (webhook / SMTP / exit code): see deploy/nightly/alerts.env.example
+EnvironmentFile=-/etc/gegenprobe/alerts.env
 ExecStartPre=/usr/bin/mkdir -p ${GP_HOME}/work ${GP_HOME}/results
 ExecStart=/usr/bin/docker run --rm --name gegenprobe-nightly \
+  --env-file /etc/gegenprobe/alerts.env \
   -e GP_WORK=/var/gegenprobe/work \
   -v ${GP_HOME}/work:/var/gegenprobe/work \
   -v ${GP_HOME}/results:/app/results/monitor \
-  gegenprobe:latest python -m gegenprobe.monitor.nightly run
+  ${GP_IMAGE} python -m gegenprobe.monitor.nightly run
 TimeoutStartSec=4h
 Nice=10

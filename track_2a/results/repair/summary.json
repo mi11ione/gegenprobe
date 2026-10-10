@@ -1,9 +1,13 @@
 {
- "affairs_with_action": 5459,
+ "affairs_with_action": 5458,
+ "be_per_row": {
+  "review": 39,
+  "verified": 2469
+ },
  "by_action": {
   "agenda_join": 592,
   "fetch": 49,
-  "ocr": 1351,
+  "ocr": 1350,
   "placeholder_replace": 29946,
   "relink": 2459,
   "retype_oral": 1008
@@ -53,7 +57,6 @@
   "BE": {
    "agenda_join": 517,
    "fetch": 49,
-   "ocr": 1,
    "relink": 2459
   },
   "BL": {
@@ -118,6 +121,58 @@
     7,
     75
    ]
+  },
+  "fetch_all_rows": {
+   "v1_registered": {
+    "ci_date_eq_event": [
+     89.3,
+     99.6
+    ],
+    "ci_heading": [
+     92.7,
+     100.0
+    ],
+    "ci_identity": [
+     92.7,
+     100.0
+    ],
+    "ci_triple": [
+     89.3,
+     99.6
+    ],
+    "date_eq_event": 48,
+    "fetched": 49,
+    "heading": 49,
+    "identity": 49,
+    "n": 49,
+    "triple": 48,
+    "with_answer_event": 49
+   },
+   "v2": {
+    "ci_date_eq_event": [
+     89.3,
+     99.6
+    ],
+    "ci_heading": [
+     92.7,
+     100.0
+    ],
+    "ci_identity": [
+     92.7,
+     100.0
+    ],
+    "ci_triple": [
+     89.3,
+     99.6
+    ],
+    "date_eq_event": 48,
+    "fetched": 49,
+    "heading": 49,
+    "identity": 49,
+    "n": 49,
+    "triple": 48,
+    "with_answer_event": 49
+   }
   },
   "fetch_and_source": {
    "ci": [
@@ -228,10 +283,64 @@
     40
    ]
   },
+  "relink_all_rows": {
+   "note": "every relink row fetched and checked (repair.verify_all); not a sample",
+   "v1_registered": {
+    "ci_date_eq_event": [
+     93.9,
+     95.6
+    ],
+    "ci_heading": [
+     99.8,
+     100.0
+    ],
+    "ci_identity": [
+     99.8,
+     100.0
+    ],
+    "ci_triple": [
+     93.9,
+     95.6
+    ],
+    "date_eq_event": 2332,
+    "fetched": 2459,
+    "heading": 2459,
+    "identity": 2459,
+    "n": 2459,
+    "triple": 2332,
+    "with_answer_event": 2459
+   },
+   "v2": {
+    "ci_date_eq_event": [
+     97.9,
+     98.9
+    ],
+    "ci_heading": [
+     99.8,
+     100.0
+    ],
+    "ci_identity": [
+     99.8,
+     100.0
+    ],
+    "ci_triple": [
+     97.9,
+     98.9
+    ],
+    "date_eq_event": 2421,
+    "fetched": 2459,
+    "heading": 2459,
+    "identity": 2459,
+    "n": 2459,
+    "triple": 2421,
+    "with_answer_event": 2459
+   }
+  },
   "retype_oral": {
    "of_gap_with_ant_doc": 1112,
    "retyped": 1008,
    "rule": "VS _ANT doc text < 200 chars matching 'réponse orale|mündliche Antwort'"
   }
- }
+ },
+ "review_after_check": 39
 }

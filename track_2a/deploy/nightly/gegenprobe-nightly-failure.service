@@ -1,0 +1,11 @@
+# Runs when gegenprobe-nightly.service fails (error, or alerts with GP_ALERT_EXIT != 0).
+# Posts one line to the webhook if configured; always leaves a journal entry.
+[Unit]
+Description=Gegenprobe nightly: failure / alert notifier
+
+[Service]
+Type=oneshot
+EnvironmentFile=-/etc/gegenprobe/alerts.env
+ExecStart=/bin/sh -c 'echo "gegenprobe-nightly failed or raised alerts; see journalctl -u gegenprobe-nightly and /var/lib/gegenprobe/results/alerts.json"; \
+  if [ -n "$GP_ALERT_WEBHOOK" ]; then /usr/bin/curl -fsS -m 30 -X POST -H "Content-Type: application/json" \
+  -d "{\"text\": \"gegenprobe-nightly on $(hostname): failed or raised alerts (journalctl -u gegenprobe-nightly)\"}" "$GP_ALERT_WEBHOOK"; fi'
