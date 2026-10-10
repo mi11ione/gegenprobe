@@ -1,0 +1,91 @@
+{
+ "label": "Answer time robustness (post hoc, round-1 review): bodies whose answer event is mostly the submission date out",
+ "same_day_bodies": [
+  "1059",
+  "191",
+  "2829",
+  "581",
+  "AR",
+  "SH",
+  "VS"
+ ],
+ "n_bodies_eligible": 54,
+ "all_eligible_bodies": {
+  "n": 90514,
+  "median_days": 68.0,
+  "q1": 34.0,
+  "q3": 98.0
+ },
+ "excluding_same_day_bodies": {
+  "n": 87161,
+  "median_days": 69,
+  "q1": 41.0,
+  "q3": 99.0
+ },
+ "by_type_all": {
+  "Interpellation": {
+   "n": 19465,
+   "median_days": 65,
+   "q1": 40.0,
+   "q3": 104.0
+  },
+  "Motion": {
+   "n": 20433,
+   "median_days": 72,
+   "q1": 58.0,
+   "q3": 125.0
+  },
+  "Postulate": {
+   "n": 14195,
+   "median_days": 76,
+   "q1": 55.0,
+   "q3": 186.0
+  },
+  "Question": {
+   "n": 28931,
+   "median_days": 70,
+   "q1": 29.0,
+   "q3": 89.0
+  },
+  "Question time": {
+   "n": 7490,
+   "median_days": 5.0,
+   "q1": 5.0,
+   "q3": 6.0
+  }
+ },
+ "by_type_excluding_same_day_bodies": {
+  "Interpellation": {
+   "n": 18638,
+   "median_days": 69.0,
+   "q1": 43.0,
+   "q3": 106.25
+  },
+  "Motion": {
+   "n": 19882,
+   "median_days": 72.0,
+   "q1": 61.0,
+   "q3": 125.0
+  },
+  "Postulate": {
+   "n": 13276,
+   "median_days": 79.0,
+   "q1": 61.0,
+   "q3": 196.0
+  },
+  "Question": {
+   "n": 28197,
+   "median_days": 71,
+   "q1": 34.0,
+   "q3": 90.0
+  },
+  "Question time": {
+   "n": 7168,
+   "median_days": 5.0,
+   "q1": 5.0,
+   "q3": 6.0
+  }
+ },
+ "reproduces_question_json_median": true,
+ "caveat": "the answer event date is the OPD event date: verified as the government decision date only for BE (39/39); elsewhere it may be a registration or publication date (held-out: 37/44 equal to the printed date)"
+}

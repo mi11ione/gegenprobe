@@ -1,0 +1,445 @@
+{
+ "label": "POST-HOC (not pre-registered): robustness of the frozen held-out result",
+ "build": "publicai_swiss-ai_apertus-v1.5-8b",
+ "theta": 10.395354058425431,
+ "n": 154,
+ "always_null_baseline": {
+  "exact": 90,
+  "n": 154,
+  "rate": 0.5844155844155844,
+  "ci95": [
+   0.5054496246857966,
+   0.6592724764586418
+  ],
+  "note": "predict null for every document"
+ },
+ "arms": {
+  "rules": {
+   "n": 154,
+   "exact": 135,
+   "exact_ci": [
+    0.8153385729602641,
+    0.9195754167610767
+   ],
+   "n_gold_null": 90,
+   "invented_on_null": 2,
+   "n_gold_value": 64,
+   "value_recall": 47,
+   "value_recall_ci": [
+    0.615168937427648,
+    0.8270376143046224
+   ],
+   "misattributed": 4,
+   "fabricated": 0,
+   "false_null": 15
+  },
+  "pointer": {
+   "n": 154,
+   "exact": 130,
+   "exact_ci": [
+    0.7785779959198154,
+    0.8929813395152029
+   ],
+   "n_gold_null": 90,
+   "invented_on_null": 6,
+   "n_gold_value": 64,
+   "value_recall": 46,
+   "value_recall_ci": [
+    0.598658376004965,
+    0.8140677389451542
+   ],
+   "misattributed": 16,
+   "fabricated": 0,
+   "false_null": 8
+  },
+  "cascade": {
+   "n": 154,
+   "exact": 139,
+   "exact_ci": [
+    0.8455154205321458,
+    0.940082292618253
+   ],
+   "n_gold_null": 90,
+   "invented_on_null": 7,
+   "n_gold_value": 64,
+   "value_recall": 56,
+   "value_recall_ci": [
+    0.7722521366978408,
+    0.9352783460737919
+   ],
+   "misattributed": 11,
+   "fabricated": 0,
+   "false_null": 4
+  },
+  "naive_plain": {
+   "n": 154,
+   "exact": 98,
+   "exact_ci": [
+    0.5579247120689479,
+    0.7081648359336066
+   ],
+   "n_gold_null": 90,
+   "invented_on_null": 39,
+   "n_gold_value": 64,
+   "value_recall": 47,
+   "value_recall_ci": [
+    0.615168937427648,
+    0.8270376143046224
+   ],
+   "misattributed": 23,
+   "fabricated": 24,
+   "false_null": 9
+  },
+  "naive_null": {
+   "n": 154,
+   "exact": 134,
+   "exact_ci": [
+    0.8079099214201346,
+    0.9143331374439416
+   ],
+   "n_gold_null": 90,
+   "invented_on_null": 3,
+   "n_gold_value": 64,
+   "value_recall": 47,
+   "value_recall_ci": [
+    0.615168937427648,
+    0.8270376143046224
+   ],
+   "misattributed": 11,
+   "fabricated": 0,
+   "false_null": 9
+  }
+ },
+ "apertus_decided_values": {
+  "n": 16,
+  "correct": 9,
+  "precision": 0.5625,
+  "ci95": [
+   0.33178195606776517,
+   0.7690163666481448
+  ],
+  "on_gold_null": 5,
+  "wrong_date_on_gold_value": 2,
+  "note": "cascade values whose route is apertus (review suggestions in the shipped review mode)"
+ },
+ "rule_decided_values": {
+  "n": 51,
+  "correct": 47,
+  "precision": 0.9215686274509803,
+  "ci95": [
+   0.8149980177513917,
+   0.9690783038730685
+  ]
+ },
+ "paired": {
+  "primary_fr_it_ocr": {
+   "n": 110,
+   "both": 97,
+   "only_first": 5,
+   "only_second": 1,
+   "neither": 7,
+   "arms": [
+    "cascade",
+    "rules"
+   ],
+   "difference": 0.036363636363636376,
+   "ci95": [
+    -0.013683767292939804,
+    0.09303391411442635
+   ],
+   "p_mcnemar_exact": 0.21875,
+   "discordant": 6,
+   "mde_80pct_power": 0.0618,
+   "note": "difference = correct-rate(first) - correct-rate(second) over all n documents"
+  },
+  "pooled": {
+   "n": 154,
+   "both": 130,
+   "only_first": 9,
+   "only_second": 5,
+   "neither": 10,
+   "arms": [
+    "cascade",
+    "rules"
+   ],
+   "difference": 0.025974025974025983,
+   "ci95": [
+    -0.025068155629239718,
+    0.07908185824835207
+   ],
+   "p_mcnemar_exact": 0.4239501953125,
+   "discordant": 14,
+   "mde_80pct_power": 0.0676,
+   "note": "difference = correct-rate(first) - correct-rate(second) over all n documents"
+  },
+  "pointer_vs_rules_pooled": {
+   "n": 154,
+   "both": 120,
+   "only_first": 10,
+   "only_second": 15,
+   "neither": 9,
+   "arms": [
+    "pointer",
+    "rules"
+   ],
+   "difference": -0.032467532467532534,
+   "ci95": [
+    -0.09914983811028931,
+    0.03337385277096694
+   ],
+   "p_mcnemar_exact": 0.42435622215270996,
+   "discordant": 25,
+   "mde_80pct_power": 0.0903,
+   "note": "difference = correct-rate(first) - correct-rate(second) over all n documents"
+  },
+  "cascade_vs_naive_null_pooled": {
+   "n": 154,
+   "both": 127,
+   "only_first": 12,
+   "only_second": 7,
+   "neither": 8,
+   "arms": [
+    "cascade",
+    "naive_null"
+   ],
+   "difference": 0.032467532467532534,
+   "ci95": [
+    -0.02572929461773673,
+    0.09237676010121224
+   ],
+   "p_mcnemar_exact": 0.359283447265625,
+   "discordant": 19,
+   "mde_80pct_power": 0.0787,
+   "note": "difference = correct-rate(first) - correct-rate(second) over all n documents"
+  }
+ },
+ "per_document_type": {
+  "answer": {
+   "n": 60,
+   "n_gold_null": 3,
+   "n_gold_value": 57,
+   "values_on_gold_null": {
+    "rules": 1,
+    "pointer": 1,
+    "cascade": 1
+   },
+   "exact": {
+    "rules": 47,
+    "pointer": 45,
+    "cascade": 55,
+    "naive_plain": 47,
+    "naive_null": 47
+   },
+   "h3_auroc": 0.8304093567251462,
+   "h3_n_null": 3,
+   "h3_n_value": 57
+  },
+  "intervention": {
+   "n": 70,
+   "n_gold_null": 69,
+   "n_gold_value": 1,
+   "values_on_gold_null": {
+    "rules": 0,
+    "pointer": 0,
+    "cascade": 0
+   },
+   "exact": {
+    "rules": 69,
+    "pointer": 70,
+    "cascade": 70,
+    "naive_plain": 44,
+    "naive_null": 69
+   },
+   "h3_auroc": 1.0,
+   "h3_n_null": 65,
+   "h3_n_value": 1
+  },
+  "report": {
+   "n": 24,
+   "n_gold_null": 18,
+   "n_gold_value": 6,
+   "values_on_gold_null": {
+    "rules": 1,
+    "pointer": 5,
+    "cascade": 6
+   },
+   "exact": {
+    "rules": 19,
+    "pointer": 15,
+    "cascade": 14,
+    "naive_plain": 7,
+    "naive_null": 18
+   },
+   "h3_auroc": 0.7314814814814815,
+   "h3_n_null": 18,
+   "h3_n_value": 6
+  }
+ },
+ "h3_excluding_interventions": {
+  "auroc": 0.873015873015873,
+  "n_null": 21,
+  "n_value": 63
+ },
+ "h3_excluding_ocr_cell": {
+  "auroc": 0.972165991902834,
+  "n_null": 76,
+  "n_value": 52,
+  "note": "the OCR cell is not length-matched (data/gold/README.md); PREREG H3 names the length-matched set"
+ },
+ "document_type_baseline": {
+  "definition": "document type from the sampler's frozen classifier of OPD name/category (eval/gold/doctype.py): 'intervention' => no answer in the document",
+  "auroc_answerless_vs_answered": 0.8755208333333333,
+  "gate_plus_rules": {
+   "definition": "predict null for interventions, the frozen rules otherwise",
+   "exact": 135,
+   "n": 154,
+   "ci95": [
+    0.8153385729602641,
+    0.9195754167610767
+   ]
+  },
+  "hard_nulls": 3,
+  "note": "hard null = an answer document with no printed answer date"
+ },
+ "type_gated_cascade": {
+  "definition": "cascade (rules + Apertus on the residue) on documents typed 'answer'; frozen rules elsewhere",
+  "note": "POST-HOC hypothesis for the next pre-registration, not a result: the gate was chosen after seeing per-type errors",
+  "n": 154,
+  "exact": 143,
+  "exact_ci": [
+   0.8766307639631303,
+   0.9596506726163265
+  ],
+  "invented_on_null": 2,
+  "n_gold_null": 90,
+  "value_recall": 55,
+  "n_gold_value": 64,
+  "misattributed": 5,
+  "fabricated": 0
+ },
+ "sensitivity": [
+  {
+   "name": "all 154 documents (frozen headline)",
+   "n": 154,
+   "arms": {
+    "rules": {
+     "exact": 135,
+     "invented_on_null": 2,
+     "n_gold_null": 90,
+     "value_recall": 47,
+     "n_gold_value": 64
+    },
+    "pointer": {
+     "exact": 130,
+     "invented_on_null": 6,
+     "n_gold_null": 90,
+     "value_recall": 46,
+     "n_gold_value": 64
+    },
+    "cascade": {
+     "exact": 139,
+     "invented_on_null": 7,
+     "n_gold_null": 90,
+     "value_recall": 56,
+     "n_gold_value": 64
+    },
+    "naive_plain": {
+     "exact": 98,
+     "invented_on_null": 39,
+     "n_gold_null": 90,
+     "value_recall": 47,
+     "n_gold_value": 64
+    },
+    "naive_null": {
+     "exact": 134,
+     "invented_on_null": 3,
+     "n_gold_null": 90,
+     "value_recall": 47,
+     "n_gold_value": 64
+    }
+   }
+  },
+  {
+   "name": "A1 = A2 only (the 113 documents with no tie-break; identical to excluding the 41 A3 documents)",
+   "n": 113,
+   "arms": {
+    "rules": {
+     "exact": 102,
+     "invented_on_null": 0,
+     "n_gold_null": 57,
+     "value_recall": 45,
+     "n_gold_value": 56
+    },
+    "pointer": {
+     "exact": 98,
+     "invented_on_null": 2,
+     "n_gold_null": 57,
+     "value_recall": 43,
+     "n_gold_value": 56
+    },
+    "cascade": {
+     "exact": 107,
+     "invented_on_null": 2,
+     "n_gold_null": 57,
+     "value_recall": 52,
+     "n_gold_value": 56
+    },
+    "naive_plain": {
+     "exact": 78,
+     "invented_on_null": 21,
+     "n_gold_null": 57,
+     "value_recall": 42,
+     "n_gold_value": 56
+    },
+    "naive_null": {
+     "exact": 99,
+     "invented_on_null": 0,
+     "n_gold_null": 57,
+     "value_recall": 42,
+     "n_gold_value": 56
+    }
+   }
+  },
+  {
+   "name": "excluding the 3 contested executive-own-business documents (28271, 862297, 300277)",
+   "n": 151,
+   "arms": {
+    "rules": {
+     "exact": 135,
+     "invented_on_null": 0,
+     "n_gold_null": 88,
+     "value_recall": 47,
+     "n_gold_value": 63
+    },
+    "pointer": {
+     "exact": 128,
+     "invented_on_null": 5,
+     "n_gold_null": 88,
+     "value_recall": 45,
+     "n_gold_value": 63
+    },
+    "cascade": {
+     "exact": 138,
+     "invented_on_null": 5,
+     "n_gold_null": 88,
+     "value_recall": 55,
+     "n_gold_value": 63
+    },
+    "naive_plain": {
+     "exact": 97,
+     "invented_on_null": 37,
+     "n_gold_null": 88,
+     "value_recall": 46,
+     "n_gold_value": 63
+    },
+    "naive_null": {
+     "exact": 132,
+     "invented_on_null": 2,
+     "n_gold_null": 88,
+     "value_recall": 46,
+     "n_gold_value": 63
+    }
+   }
+  }
+ ]
+}

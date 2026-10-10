@@ -1,0 +1,38 @@
+{
+ "source": "data/gold/annotations/{A1,A2,A3}.jsonl (raw blind annotations; quotes <= 200 chars, notes are annotator text)",
+ "agreement": {
+  "answer_present": {
+   "raw": 150,
+   "n": 154,
+   "kappa": 0.9477656236750615
+  },
+  "answer_date": {
+   "raw": 148,
+   "n": 154,
+   "kappa": 0.9406093328191285
+  },
+  "recommendation": {
+   "raw": 116,
+   "n": 154,
+   "kappa": 0.41990483743061086
+  }
+ },
+ "n_disagreements_sent_to_A3": 41,
+ "n_A3_labels": 41,
+ "reproduces_gold_agreement_json": true,
+ "recommendation_disagreements": 38,
+ "recommendation_disagreements_none_vs_not_applicable": 36,
+ "recommendation_boundary_share": 0.9473684210526315,
+ "answer_date_disagreements": 6,
+ "answer_date_disagreement_ids": [
+  28271,
+  166437,
+  166845,
+  273540,
+  862297,
+  868895
+ ],
+ "a3_picked_label_of_A1": 36,
+ "a3_picked_label_of_A2": 5,
+ "note": "A3 saw both labels as X (=A1) and Y (=A2) in a fixed order; the order was not randomised (DEVIATIONS D4)."
+}

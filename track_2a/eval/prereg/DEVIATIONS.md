@@ -42,3 +42,20 @@ decisions (mean |Δ| 2.66 nats), as close as or closer than the spike's Metal bu
   were killed by memory pressure; the repository was made public (4 vCPU/16 GB runners). Some cantonal/communal PDF hosts
   do not answer CI runner IPs; such documents are skipped in the 8B arms and listed in
   `results/eval/shards/unreachable_{dev,heldout}.json`, so the 8B arms are evaluated on the reachable subset (n reported).
+
+## D4 (2026-10-10, found by the round-1 jury review after the frozen result; no result changes)
+- **Stale sentence in a locked file.** `data/gold/README.md:43` (LOCK-hashed) still says "Roman adjudicates every
+  disagreement". The protocol was changed to no human labels or adjudication before any held-out label existed
+  (`docs/gold_protocol.md`, PREREG "Labels", commit 812030f); the README sentence was not updated before the lock and is
+  left unchanged so the lock stays verifiable. No human labelled or adjudicated any held-out document.
+- **H3 population.** PREREG H3 names "the length-matched held-out set"; `eval/hypotheses.py` computed it on all
+  documents, including the OCR cell, which is not length-matched. Without the OCR cell the AUROC is 0.972 (frozen: 0.969;
+  `results/eval/robustness.json` → `h3_excluding_ocr_cell`). Passes either way.
+- **Text extraction not hashed.** `src/gegenprobe/pdftext.py` (and `net.py`) are not in the LOCK file list. Neither has
+  changed since the lock (`git log 812030f..HEAD` is empty for both files); every held-out document records its extractor
+  and version (`data/gold/heldout_docs.jsonl` → `extractor`).
+- **`eval/hypotheses.py` written after the labels** (first committed in bc66dd9, 2026-10-10T00:41, after the labels in
+  ded0033). It computes H1–H4 exactly as worded in PREREG; the only later change (da6e69c) is formatting — the file is
+  identical to bc66dd9 modulo whitespace and trailing commas (checked by code).
+- **Tie-break order not randomised.** A3 always saw A1's label as "X" and A2's as "Y"; A3 chose A1's label in 36 of 41
+  tie-breaks (34 of the 41 differ only in recommendation, none vs not_applicable). Any further tie-break randomises the order.

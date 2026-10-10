@@ -9,6 +9,7 @@ steps that need the network or a model endpoint and cannot reach them; the repla
   4 convert   sample documents through the cascade (metadata -> rules -> Apertus pointer); span / typed-null /
               footer-distractor / self-deletion checks; live scores compared with the committed cache within tolerance
   5 eval      re-score the cached four-arm results on the frozen gold set; print the scoreboard
+  5b rederive re-derive the rules arm on the held-out set from the source PDFs (sha256-verified); WARN, never FAIL
   6 claims    every number in README / report recomputed from results files
 """
 from __future__ import annotations
@@ -29,6 +30,7 @@ STEPS = [
     ("repair", "gegenprobe.repair.demo"),
     ("convert", "gegenprobe.convert.demo"),
     ("eval", "eval.replay"),
+    ("rederive", "eval.rederive"),  # rules arm re-derived from the source PDFs (non-fatal: PASS / WARN / SKIP)
     ("claims", "gegenprobe.claims_step"),
 ]
 

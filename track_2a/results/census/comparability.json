@@ -1,0 +1,580 @@
+{
+ "label": "Comparability of field semantics across parliaments, from OPD's own vocabularies (snapshot 2026-10-06)",
+ "type": {
+  "concepts": 17,
+  "raw_labels": 1038,
+  "labels_per_concept_median": 35,
+  "labels_per_concept_max": 218,
+  "ambiguous_labels": 42,
+  "ambiguous_examples": [
+   {
+    "label": "anfrage",
+    "concepts": [
+     "Question",
+     "Question time"
+    ],
+    "seen": [
+     "4082: Anfrage",
+     "CHE: Anfrage",
+     "ZH: Anfrage"
+    ]
+   },
+   {
+    "label": "antrag",
+    "concepts": [
+     "Amendment",
+     "Government affairs",
+     "Miscellaneous",
+     "Motion",
+     "Parliamentary approval decision",
+     "Votaziun",
+     "information document"
+    ],
+    "seen": [
+     "198: Antrag",
+     "2831: Antrag",
+     "GL: Antrag"
+    ]
+   },
+   {
+    "label": "auftrag",
+    "concepts": [
+     "Government affairs",
+     "Motion",
+     "Votaziun"
+    ],
+    "seen": [
+     "3901: Auftrag",
+     "GR: Auftrag",
+     "SO: Auftrag"
+    ]
+   },
+   {
+    "label": "begnadigung",
+    "concepts": [
+     "Miscellaneous",
+     "Parliamentary approval decision"
+    ],
+    "seen": [
+     "AI: Begnadigung",
+     "FR: Begnadigung",
+     "ZG: Begnadigung"
+    ]
+   },
+   {
+    "label": "behördeninitiative",
+    "concepts": [
+     "Parliamentary approval decision",
+     "Parliamentary initiative"
+    ],
+    "seen": [
+     "261: Behördeninitiative",
+     "ZH: Behördeninitiative"
+    ]
+   },
+   {
+    "label": "bericht",
+    "concepts": [
+     "Government affairs",
+     "Interpellation",
+     "Question",
+     "Report",
+     "Votaziun",
+     "information document"
+    ],
+    "seen": [
+     "BE: Bericht",
+     "BS: Bericht",
+     "FR: Bericht"
+    ]
+   },
+   {
+    "label": "bericht dir amt",
+    "concepts": [
+     "Government affairs",
+     "Report"
+    ],
+    "seen": [
+     "BE: Bericht DIR/Amt"
+    ]
+   },
+   {
+    "label": "bericht dritte",
+    "concepts": [
+     "Government affairs",
+     "Report"
+    ],
+    "seen": [
+     "BE: Bericht Dritte"
+    ]
+   },
+   {
+    "label": "bericht gr",
+    "concepts": [
+     "Government affairs",
+     "Report"
+    ],
+    "seen": [
+     "BE: Bericht GR"
+    ]
+   },
+   {
+    "label": "bericht und antrag",
+    "concepts": [
+     "Government affairs",
+     "Parliamentary approval decision",
+     "Popular initiative ",
+     "Report"
+    ],
+    "seen": [
+     "198: Bericht und Antrag",
+     "4082: Bericht und Antrag",
+     "62: Bericht und Antrag"
+    ]
+   },
+   {
+    "label": "bericht und rechnung",
+    "concepts": [
+     "Government affairs",
+     "Report"
+    ],
+    "seen": [
+     "1024: Bericht und Rechnung",
+     "62: Bericht und Rechnung",
+     "FR: Bericht und Rechnung"
+    ]
+   },
+   {
+    "label": "beschluss",
+    "concepts": [
+     "Government affairs",
+     "Parliamentary approval decision",
+     "Report",
+     "information document"
+    ],
+    "seen": [
+     "1058: Beschluss",
+     "2831: Beschluss",
+     "3901: Beschluss"
+    ]
+   }
+  ],
+  "records": 325691,
+  "unharmonised_share": 0.1712267148923366,
+  "bodies_mostly_unharmonised": [
+   {
+    "body": "2581",
+    "share": 1.0
+   },
+   {
+    "body": "5254",
+    "share": 1.0
+   },
+   {
+    "body": "2125",
+    "share": 1.0
+   },
+   {
+    "body": "GE",
+    "share": 0.972
+   }
+  ]
+ },
+ "dates_with_roles": {
+  "concepts": 14,
+  "raw_labels": 14618,
+  "labels_per_concept_median": 123.0,
+  "labels_per_concept_max": 4903,
+  "ambiguous_labels": 35,
+  "ambiguous_examples": [
+   {
+    "label": "abgeschlossen",
+    "concepts": [
+     "closed",
+     "debated",
+     "submitted"
+    ],
+    "seen": [
+     "121: Abgeschlossen",
+     "2831: abgeschlossen ",
+     "SH: abgeschlossen"
+    ]
+   },
+   {
+    "label": "antrag geschäftsleitung",
+    "concepts": [
+     "answered",
+     "debated"
+    ],
+    "seen": [
+     "261: Antrag Geschäftsleitung",
+     "ZH: Antrag Geschäftsleitung"
+    ]
+   },
+   {
+    "label": "antwort des regierungsrats",
+    "concepts": [
+     "answered",
+     "scheduled"
+    ],
+    "seen": [
+     "ZG: Antwort des Regierungsrats"
+    ]
+   },
+   {
+    "label": "beantwortet",
+    "concepts": [
+     "answered",
+     "submitted"
+    ],
+    "seen": [
+     "FR: Beantwortet",
+     "LIE: Beantwortet",
+     "SO: Beantwortet"
+    ]
+   },
+   {
+    "label": "diskutiert verfahren beendet",
+    "concepts": [
+     "closed",
+     "debated"
+    ],
+    "seen": [
+     "ZH: Diskutiert, Verfahren beendet",
+     "ZH: diskutiert, Verfahren beendet"
+    ]
+   },
+   {
+    "label": "débat général d entrée en matière",
+    "concepts": [
+     "answered",
+     "debated"
+    ],
+    "seen": [
+     "NE: Débat général d'entrée en matière",
+     "NE: Débat général d'entrée en matière.",
+     "NE: Débat général d’entrée en matière."
+    ]
+   },
+   {
+    "label": "einreichung",
+    "concepts": [
+     "scheduled",
+     "submitted"
+    ],
+    "seen": [
+     "581: Einreichung",
+     "ZG: Einreichung",
+     "ZH: Einreichung"
+    ]
+   },
+   {
+    "label": "entrée en matière acceptée acceptée non combattue",
+    "concepts": [
+     "answered",
+     "debated"
+    ],
+    "seen": [
+     "NE: Entrée en matière acceptée acceptée non combattue",
+     "NE: Entrée en matière acceptée acceptée non combattue."
+    ]
+   },
+   {
+    "label": "entrée en matière acceptée non combattue",
+    "concepts": [
+     "answered",
+     "debated"
+    ],
+    "seen": [
+     "NE: Entrée en matière acceptée non combattue",
+     "NE: Entrée en matière acceptée non combattue.",
+     "NE: Entrée en matière acceptée non combattue. "
+    ]
+   },
+   {
+    "label": "entrée en matière acceptée à une majorité évidente",
+    "concepts": [
+     "answered",
+     "debated"
+    ],
+    "seen": [
+     "NE: Entrée en matière acceptée à une majorité évidente."
+    ]
+   },
+   {
+    "label": "entrée en matière du décret acceptée non combattue",
+    "concepts": [
+     "answered",
+     "debated"
+    ],
+    "seen": [
+     "NE: Entrée en matière du décret acceptée non combattue",
+     "NE: Entrée en matière du décret acceptée non combattue."
+    ]
+   },
+   {
+    "label": "entrée en matière du projet de loi acceptée non combattue",
+    "concepts": [
+     "answered",
+     "debated"
+    ],
+    "seen": [
+     "NE: Entrée en matière du projet de loi acceptée non combattue",
+     "NE: Entrée en matière du projet de loi acceptée non combattue."
+    ]
+   }
+  ],
+  "records": 878006,
+  "unharmonised_share": 0.29055951781650696,
+  "bodies_mostly_unharmonised": [
+   {
+    "body": "CHE",
+    "share": 0.974
+   }
+  ],
+  "unharmonised_share_note": "share of ALL events without an OPD harmonised id (any field could be hiding there)"
+ },
+ "procedural_state": {
+  "concepts": 10,
+  "raw_labels": 14396,
+  "labels_per_concept_median": 928.5,
+  "labels_per_concept_max": 4903,
+  "ambiguous_labels": 32,
+  "ambiguous_examples": [
+   {
+    "label": "abgeschlossen",
+    "concepts": [
+     "closed",
+     "debated",
+     "submitted"
+    ],
+    "seen": [
+     "121: Abgeschlossen",
+     "2831: abgeschlossen ",
+     "SH: abgeschlossen"
+    ]
+   },
+   {
+    "label": "antrag geschäftsleitung",
+    "concepts": [
+     "answered",
+     "debated"
+    ],
+    "seen": [
+     "261: Antrag Geschäftsleitung",
+     "ZH: Antrag Geschäftsleitung"
+    ]
+   },
+   {
+    "label": "antwort des regierungsrats",
+    "concepts": [
+     "answered",
+     "scheduled"
+    ],
+    "seen": [
+     "ZG: Antwort des Regierungsrats"
+    ]
+   },
+   {
+    "label": "beantwortet",
+    "concepts": [
+     "answered",
+     "submitted"
+    ],
+    "seen": [
+     "FR: Beantwortet",
+     "LIE: Beantwortet",
+     "SO: Beantwortet"
+    ]
+   },
+   {
+    "label": "diskutiert verfahren beendet",
+    "concepts": [
+     "closed",
+     "debated"
+    ],
+    "seen": [
+     "ZH: Diskutiert, Verfahren beendet",
+     "ZH: diskutiert, Verfahren beendet"
+    ]
+   },
+   {
+    "label": "débat général d entrée en matière",
+    "concepts": [
+     "answered",
+     "debated"
+    ],
+    "seen": [
+     "NE: Débat général d'entrée en matière",
+     "NE: Débat général d'entrée en matière.",
+     "NE: Débat général d’entrée en matière."
+    ]
+   },
+   {
+    "label": "einreichung",
+    "concepts": [
+     "scheduled",
+     "submitted"
+    ],
+    "seen": [
+     "581: Einreichung",
+     "ZG: Einreichung",
+     "ZH: Einreichung"
+    ]
+   },
+   {
+    "label": "entrée en matière acceptée acceptée non combattue",
+    "concepts": [
+     "answered",
+     "debated"
+    ],
+    "seen": [
+     "NE: Entrée en matière acceptée acceptée non combattue",
+     "NE: Entrée en matière acceptée acceptée non combattue."
+    ]
+   },
+   {
+    "label": "entrée en matière acceptée non combattue",
+    "concepts": [
+     "answered",
+     "debated"
+    ],
+    "seen": [
+     "NE: Entrée en matière acceptée non combattue",
+     "NE: Entrée en matière acceptée non combattue.",
+     "NE: Entrée en matière acceptée non combattue. "
+    ]
+   },
+   {
+    "label": "entrée en matière acceptée à une majorité évidente",
+    "concepts": [
+     "answered",
+     "debated"
+    ],
+    "seen": [
+     "NE: Entrée en matière acceptée à une majorité évidente."
+    ]
+   },
+   {
+    "label": "entrée en matière du décret acceptée non combattue",
+    "concepts": [
+     "answered",
+     "debated"
+    ],
+    "seen": [
+     "NE: Entrée en matière du décret acceptée non combattue",
+     "NE: Entrée en matière du décret acceptée non combattue."
+    ]
+   },
+   {
+    "label": "entrée en matière du projet de loi acceptée non combattue",
+    "concepts": [
+     "answered",
+     "debated"
+    ],
+    "seen": [
+     "NE: Entrée en matière du projet de loi acceptée non combattue",
+     "NE: Entrée en matière du projet de loi acceptée non combattue."
+    ]
+   }
+  ],
+  "records": 878006,
+  "unharmonised_share": 0.29055951781650696,
+  "bodies_mostly_unharmonised": [
+   {
+    "body": "CHE",
+    "share": 0.974
+   }
+  ],
+  "unharmonised_share_note": "share of ALL events without an OPD harmonised id (any field could be hiding there)"
+ },
+ "decision_outcome": {
+  "concepts": 11,
+  "raw_labels": 5654,
+  "labels_per_concept_median": 144,
+  "labels_per_concept_max": 2321,
+  "ambiguous_labels": 3,
+  "ambiguous_examples": [
+   {
+    "label": "erheblicherklärung",
+    "concepts": [
+     "converted_to_postulate",
+     "referred"
+    ],
+    "seen": [
+     "581: Erheblicherklärung",
+     "ZG: Erheblicherklärung"
+    ]
+   },
+   {
+    "label": "volksabstimmung",
+    "concepts": [
+     "adopted",
+     "rejected"
+    ],
+    "seen": [
+     "ZG: Volksabstimmung"
+    ]
+   },
+   {
+    "label": "überweisung an regierungsrat",
+    "concepts": [
+     "converted_to_postulate",
+     "referred"
+    ],
+    "seen": [
+     "ZG: Überweisung an Regierungsrat",
+     "ZH: Überweisung an Regierungsrat"
+    ]
+   }
+  ],
+  "records": 878006,
+  "unharmonised_share": 0.29055951781650696,
+  "bodies_mostly_unharmonised": [
+   {
+    "body": "CHE",
+    "share": 0.974
+   }
+  ],
+  "unharmonised_share_note": "share of ALL events without an OPD harmonised id (any field could be hiding there)"
+ },
+ "government_recommendation": {
+  "concepts": 4,
+  "raw_labels": 183,
+  "labels_per_concept_median": 47.0,
+  "labels_per_concept_max": 79,
+  "ambiguous_labels": 0,
+  "ambiguous_examples": [],
+  "records": 878006,
+  "unharmonised_share": 0.29055951781650696,
+  "bodies_mostly_unharmonised": [
+   {
+    "body": "CHE",
+    "share": 0.974
+   }
+  ],
+  "unharmonised_share_note": "share of ALL events without an OPD harmonised id (any field could be hiding there)"
+ },
+ "answer_date_split": {
+  "verdict": "split concept: 'answer date' is at least decision (executive resolution), dispatch (letter) and registration/publication (OPD event); one field cannot carry all three",
+  "date_roles_in_schema": 16,
+  "heldout_opd_event_equals_printed": [
+   37,
+   44
+  ],
+  "heldout_mismatch_lag_days": [
+   -488,
+   1,
+   1,
+   2,
+   4,
+   5,
+   13
+  ],
+  "same_day_answer_event_bodies": [
+   7,
+   54
+  ],
+  "opd_beantwortet_maps_to": "answered (not answer_decided): the OPD event is a registration date unless verified per body"
+ }
+}
