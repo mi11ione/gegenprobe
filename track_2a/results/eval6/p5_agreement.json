@@ -1,0 +1,44 @@
+{
+ "split": "p5",
+ "n": 40,
+ "agreement": {
+  "n_questions": {
+   "raw": 40,
+   "n": 40,
+   "kappa": 1.0
+  },
+  "answer_style": {
+   "raw": 40,
+   "n": 40,
+   "kappa": 1.0
+  },
+  "recommendation": {
+   "raw": 40,
+   "n": 40,
+   "kappa": 1.0
+  },
+  "submitter": {
+   "raw": 38,
+   "n": 40,
+   "kappa": 0.9487836107554417
+  },
+  "questions": {
+   "raw": 40,
+   "n": 40,
+   "rule": "IoU >= 0.5 per span (agree_fields)"
+  },
+  "answers": {
+   "raw": 40,
+   "n": 40,
+   "rule": "IoU >= 0.5 per span (agree_fields)"
+  },
+  "reasoning": {
+   "raw": 40,
+   "n": 40,
+   "rule": "IoU >= 0.5 per span (agree_fields)"
+  }
+ },
+ "tie_broken_affairs": 2,
+ "tie_broken_fields": 2,
+ "a3_order_randomised": true
+}
