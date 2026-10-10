@@ -59,3 +59,16 @@ decisions (mean |Δ| 2.66 nats), as close as or closer than the spike's Metal bu
   identical to bc66dd9 modulo whitespace and trailing commas (checked by code).
 - **Tie-break order not randomised.** A3 always saw A1's label as "X" and A2's as "Y"; A3 chose A1's label in 36 of 41
   tie-breaks (34 of the 41 differ only in recommendation, none vs not_applicable). Any further tie-break randomises the order.
+
+## D4 corrections (2026-10-10, found by the round-2 jury review)
+- **Correction to "Text extraction not hashed".** The D4 sentence "Neither has changed since the lock" is wrong for
+  `src/gegenprobe/pdftext.py`: commit 7dd269b (2026-10-10T09:40) changed it. The diff touches only `fetch_pdf` (typed
+  `FetchError` for not-a-PDF and sha mismatch, configurable timeout/tries); `extract`, `_pdftotext_pages` and `_ocr_pages`
+  are byte-identical, so no extracted text and no held-out result changes (the rules arm re-derived from source PDFs after
+  the change still matches 154/154, `results/eval/rederive_local.json`). `net.py` is unchanged since the lock. LOCK2–LOCK4
+  hash the post-7dd269b version.
+- **Correction to "H3 population".** The registered population is the length-matched set (1,000–2,000 estimated tokens),
+  not "all documents except the OCR cell" as D4 substituted. On the registered population the AUROC is **0.966**
+  (68 gold-null vs 57 gold-value documents with candidates; `results/eval/baselines_dates.json` →
+  `P1_H3_length_matched`, written by `eval/baselines.py`). H3 passes on every population (all 0.969; without OCR 0.972;
+  length-matched 0.966).

@@ -1,0 +1,151 @@
+{
+ "label": "POST-HOC (not pre-registered): trivial baselines asked for by the round-2 jury",
+ "fields": {
+  "number": {
+   "constant": "2021.RRGR.388",
+   "constant_correct": [
+    1,
+    29
+   ],
+   "n_distinct_gold": 29,
+   "C": [
+    21,
+    29
+   ],
+   "CA": [
+    21,
+    29
+   ]
+  },
+  "affair_type": {
+   "constant": "interpellation",
+   "constant_correct": [
+    15,
+    29
+   ],
+   "n_distinct_gold": 4,
+   "C": [
+    27,
+    29
+   ],
+   "CA": [
+    27,
+    29
+   ]
+  },
+  "submitter": {
+   "constant": "Ruchti",
+   "constant_correct": [
+    1,
+    29
+   ],
+   "n_distinct_gold": 29,
+   "C": [
+    23,
+    29
+   ],
+   "CA": [
+    23,
+    29
+   ]
+  },
+  "addressed_body": {
+   "constant": "executive",
+   "constant_correct": [
+    28,
+    28
+   ],
+   "n_distinct_gold": 1,
+   "C": [
+    4,
+    28
+   ],
+   "CA": [
+    23,
+    28
+   ]
+  },
+  "submitted": {
+   "constant": "2021-12-08",
+   "constant_correct": [
+    1,
+    21
+   ],
+   "n_distinct_gold": 21,
+   "C": [
+    15,
+    21
+   ],
+   "CA": [
+    15,
+    21
+   ]
+  },
+  "answer_date": {
+   "constant": "2025-10-15",
+   "constant_correct": [
+    2,
+    27
+   ],
+   "n_distinct_gold": 26,
+   "C": [
+    22,
+    27
+   ],
+   "CA": [
+    27,
+    27
+   ]
+  },
+  "decision_number": {
+   "constant": "508/2022",
+   "constant_correct": [
+    1,
+    17
+   ],
+   "n_distinct_gold": 17,
+   "C": [
+    0,
+    17
+   ],
+   "CA": [
+    0,
+    17
+   ]
+  },
+  "recommendation": {
+   "constant": "reject",
+   "constant_correct": [
+    2,
+    2
+   ],
+   "n_distinct_gold": 1,
+   "C": [
+    1,
+    2
+   ],
+   "CA": [
+    2,
+    2
+   ]
+  }
+ },
+ "H3_without_addressed_body": {
+  "recall": [
+   6,
+   8
+  ],
+  "recall_ci": [
+   0.40926987910258916,
+   0.9285223111419724
+  ],
+  "precision": [
+   6,
+   9
+  ],
+  "precision_ci": [
+   0.35419734749908977,
+   0.879418401317257
+  ]
+ }
+}

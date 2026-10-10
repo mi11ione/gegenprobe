@@ -1,0 +1,320 @@
+{
+ "label": "POST-HOC (not pre-registered): trivial baselines asked for by the round-2 jury",
+ "P1_heldout": {
+  "latest_printed_date": {
+   "n": 154,
+   "exact": 50,
+   "exact_ci": [
+    0.255766892716209,
+    0.4021179741376495
+   ],
+   "value_recall": [
+    46,
+    64
+   ],
+   "values_on_gold_null": [
+    86,
+    90
+   ],
+   "misattributed": 104,
+   "fabricated": 0,
+   "false_null": 0
+  },
+  "latest_date_gated_by_doc_type": {
+   "n": 154,
+   "exact": 114,
+   "exact_ci": [
+    0.6657547304559079,
+    0.8030697112628784
+   ],
+   "value_recall": [
+    45,
+    64
+   ],
+   "values_on_gold_null": [
+    21,
+    90
+   ],
+   "misattributed": 39,
+   "fabricated": 0,
+   "false_null": 1
+  },
+  "latest_date_on_answer_docs_only": {
+   "n": 154,
+   "exact": 131,
+   "exact_ci": [
+    0.7858577243873844,
+    0.8983725419048983
+   ],
+   "value_recall": [
+    44,
+    64
+   ],
+   "values_on_gold_null": [
+    3,
+    90
+   ],
+   "misattributed": 16,
+   "fabricated": 0,
+   "false_null": 7
+  },
+  "rules": {
+   "n": 154,
+   "exact": 135,
+   "exact_ci": [
+    0.8153385729602641,
+    0.9195754167610767
+   ],
+   "value_recall": [
+    47,
+    64
+   ],
+   "values_on_gold_null": [
+    2,
+    90
+   ],
+   "misattributed": 4,
+   "fabricated": 0,
+   "false_null": 15
+  },
+  "pointer": {
+   "n": 154,
+   "exact": 130,
+   "exact_ci": [
+    0.7785779959198154,
+    0.8929813395152029
+   ],
+   "value_recall": [
+    46,
+    64
+   ],
+   "values_on_gold_null": [
+    6,
+    90
+   ],
+   "misattributed": 16,
+   "fabricated": 0,
+   "false_null": 8
+  },
+  "cascade": {
+   "n": 154,
+   "exact": 139,
+   "exact_ci": [
+    0.8455154205321458,
+    0.940082292618253
+   ],
+   "value_recall": [
+    56,
+    64
+   ],
+   "values_on_gold_null": [
+    7,
+    90
+   ],
+   "misattributed": 11,
+   "fabricated": 0,
+   "false_null": 4
+  },
+  "naive_null": {
+   "n": 154,
+   "exact": 134,
+   "exact_ci": [
+    0.8079099214201346,
+    0.9143331374439416
+   ],
+   "value_recall": [
+    47,
+    64
+   ],
+   "values_on_gold_null": [
+    3,
+    90
+   ],
+   "misattributed": 11,
+   "fabricated": 0,
+   "false_null": 9
+  },
+  "always_null": {
+   "n": 154,
+   "exact": 90,
+   "exact_ci": [
+    0.5054496246857966,
+    0.6592724764586418
+   ],
+   "value_recall": [
+    0,
+    64
+   ],
+   "values_on_gold_null": [
+    0,
+    90
+   ],
+   "misattributed": 0,
+   "fabricated": 0,
+   "false_null": 64
+  }
+ },
+ "P2_unseen": {
+  "latest_printed_date": {
+   "n": 62,
+   "exact": 24,
+   "exact_ci": [
+    0.2758446342699068,
+    0.5115238379421901
+   ],
+   "value_recall": [
+    22,
+    29
+   ],
+   "values_on_gold_null": [
+    31,
+    33
+   ],
+   "misattributed": 38,
+   "fabricated": 0,
+   "false_null": 0
+  },
+  "latest_date_gated_by_doc_type": {
+   "n": 62,
+   "exact": 44,
+   "exact_ci": [
+    0.5871211868886292,
+    0.8077659361460481
+   ],
+   "value_recall": [
+    18,
+    29
+   ],
+   "values_on_gold_null": [
+    7,
+    33
+   ],
+   "misattributed": 13,
+   "fabricated": 0,
+   "false_null": 5
+  },
+  "latest_date_on_answer_docs_only": {
+   "n": 62,
+   "exact": 44,
+   "exact_ci": [
+    0.5871211868886292,
+    0.8077659361460481
+   ],
+   "value_recall": [
+    18,
+    29
+   ],
+   "values_on_gold_null": [
+    7,
+    33
+   ],
+   "misattributed": 13,
+   "fabricated": 0,
+   "false_null": 5
+  },
+  "rules": {
+   "n": 62,
+   "exact": 35,
+   "exact_ci": [
+    0.4409276740746583,
+    0.6805760560898577
+   ],
+   "value_recall": [
+    2,
+    29
+   ],
+   "values_on_gold_null": [
+    0,
+    33
+   ],
+   "misattributed": 2,
+   "fabricated": 0,
+   "false_null": 25
+  },
+  "pointer": {
+   "n": 62,
+   "exact": 53,
+   "exact_ci": [
+    0.7465637464683084,
+    0.92170676943653
+   ],
+   "value_recall": [
+    24,
+    29
+   ],
+   "values_on_gold_null": [
+    4,
+    33
+   ],
+   "misattributed": 8,
+   "fabricated": 0,
+   "false_null": 1
+  },
+  "cascade": {
+   "n": 62,
+   "exact": 51,
+   "exact_ci": [
+    0.7095819851661977,
+    0.8979366656563825
+   ],
+   "value_recall": [
+    22,
+    29
+   ],
+   "values_on_gold_null": [
+    4,
+    33
+   ],
+   "misattributed": 10,
+   "fabricated": 0,
+   "false_null": 1
+  },
+  "naive_null": {
+   "n": 62,
+   "exact": 52,
+   "exact_ci": [
+    0.7279343069043936,
+    0.9099602764593157
+   ],
+   "value_recall": [
+    22,
+    29
+   ],
+   "values_on_gold_null": [
+    3,
+    33
+   ],
+   "misattributed": 7,
+   "fabricated": 1,
+   "false_null": 2
+  },
+  "always_null": {
+   "n": 62,
+   "exact": 33,
+   "exact_ci": [
+    0.40983817375848014,
+    0.650913691323778
+   ],
+   "value_recall": [
+    0,
+    29
+   ],
+   "values_on_gold_null": [
+    0,
+    33
+   ],
+   "misattributed": 0,
+   "fabricated": 0,
+   "false_null": 29
+  }
+ },
+ "P1_H3_length_matched": {
+  "auroc": 0.9664602683178535,
+  "n_null": 68,
+  "n_value": 57,
+  "tokens": [
+   1000,
+   2000
+  ]
+ }
+}

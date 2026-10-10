@@ -1,0 +1,186 @@
+{
+ "label": "REGISTERED set metrics (PREREG3), previously unreported; plus POST-HOC decision-number defect view",
+ "sets": {
+  "co_signatories": {
+   "C": {
+    "tp": 13,
+    "fp": 3,
+    "fn": 16,
+    "precision": [
+     13,
+     16
+    ],
+    "precision_ci": [
+     0.5699064013154177,
+     0.9340852122641324
+    ],
+    "recall": [
+     13,
+     29
+    ],
+    "recall_ci": [
+     0.2841291114874579,
+     0.6245233293193238
+    ]
+   },
+   "CA": {
+    "tp": 13,
+    "fp": 3,
+    "fn": 16,
+    "precision": [
+     13,
+     16
+    ],
+    "precision_ci": [
+     0.5699064013154177,
+     0.9340852122641324
+    ],
+    "recall": [
+     13,
+     29
+    ],
+    "recall_ci": [
+     0.2841291114874579,
+     0.6245233293193238
+    ]
+   },
+   "M": {
+    "tp": 13,
+    "fp": 3,
+    "fn": 16,
+    "precision": [
+     13,
+     16
+    ],
+    "precision_ci": [
+     0.5699064013154177,
+     0.9340852122641324
+    ],
+    "recall": [
+     13,
+     29
+    ],
+    "recall_ci": [
+     0.2841291114874579,
+     0.6245233293193238
+    ]
+   },
+   "R": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 29,
+    "precision": [
+     0,
+     0
+    ],
+    "precision_ci": null,
+    "recall": [
+     0,
+     29
+    ],
+    "recall_ci": [
+     0.0,
+     0.11697359446555587
+    ]
+   }
+  },
+  "related_affairs": {
+   "C": {
+    "tp": 6,
+    "fp": 3,
+    "fn": 8,
+    "precision": [
+     6,
+     9
+    ],
+    "precision_ci": [
+     0.35419734749908977,
+     0.879418401317257
+    ],
+    "recall": [
+     6,
+     14
+    ],
+    "recall_ci": [
+     0.21380509930400526,
+     0.6740973309713064
+    ]
+   },
+   "CA": {
+    "tp": 6,
+    "fp": 3,
+    "fn": 8,
+    "precision": [
+     6,
+     9
+    ],
+    "precision_ci": [
+     0.35419734749908977,
+     0.879418401317257
+    ],
+    "recall": [
+     6,
+     14
+    ],
+    "recall_ci": [
+     0.21380509930400526,
+     0.6740973309713064
+    ]
+   },
+   "M": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 14,
+    "precision": [
+     0,
+     0
+    ],
+    "precision_ci": null,
+    "recall": [
+     0,
+     14
+    ],
+    "recall_ci": [
+     0.0,
+     0.21531701192718142
+    ]
+   },
+   "R": {
+    "tp": 6,
+    "fp": 3,
+    "fn": 8,
+    "precision": [
+     6,
+     9
+    ],
+    "precision_ci": [
+     0.35419734749908977,
+     0.879418401317257
+    ],
+    "recall": [
+     6,
+     14
+    ],
+    "recall_ci": [
+     0.21380509930400526,
+     0.6740973309713064
+    ]
+   }
+  }
+ },
+ "decision_number_defect": {
+  "registered_C": [
+   0,
+   17
+  ],
+  "registered_R": [
+   5,
+   17
+  ],
+  "post_hoc_C_with_rule_number": [
+   5,
+   17
+  ],
+  "label": "POST-HOC: arm C loses the decision number when the frozen P1 cascade returns through its metadata branch (opd_event_date_in_document), which does not carry the rule's `number`; taking the rule's number (as arm R) gives the post-hoc figure"
+ }
+}
