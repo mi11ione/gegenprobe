@@ -1,6 +1,6 @@
 # Gegenprobe (Track 2A, OpenParlData). Judges: `make run` (Docker, CPU, clean checkout).
 # Development targets run on the host with .venv (python 3.11); every target is re-runnable and writes under results/.
-.PHONY: figures run test lint claims census census-scan census-replay repair repair-network nightly-offline convert eval report install-nightly docker-build
+.PHONY: figures run test lint claims census census-scan census-replay census-hash repair repair-network nightly-offline convert eval report install-nightly docker-build
 
 PY ?= .venv/bin/python
 IMAGE ?= gegenprobe:latest
@@ -40,6 +40,9 @@ census-scan:
 census-replay:
 	$(PY) -m gegenprobe.census.replay
 
+census-hash:  # network: two small docs exports; tests OPD's hash identifier rule
+	$(PY) -m gegenprobe.census.hash_check
+
 # ---- repair (owner: repair workstream)
 # Model-free. Needs the census tables (data/census), the cached exports (GP_OPD_RAW, GP_DOCS_META) and the canton OGD tables
 # (WORK/be_ogd; `$(PY) -m gegenprobe.repair.be fetch-ogd`). Network steps: sample (40 PDFs), che backlog, che curia, vs scan.
@@ -55,6 +58,7 @@ repair:
 	$(PY) -m gegenprobe.repair.che list
 	$(PY) -m gegenprobe.repair.run
 	$(PY) -m gegenprobe.repair.demo
+	$(PY) -m gegenprobe.repair.be_begin_date  # BE begin_date correction list (OPD-confirmed load timestamps)
 
 repair-network:   # one-off measurements that fetch documents (polite: >= 1.2 s per host); results are committed
 	$(PY) -m gegenprobe.repair.be sample        # pre-registered: data/repair/prereg_be_relink_sample.md
@@ -109,3 +113,8 @@ report:  # technical_report.md -> 444_Report.pdf (needs the [report] extra and C
 # ---- figures (dev only; needs the [report] extra: matplotlib)
 figures:
 	$(PY) -m report.figures
+
+# ---- evidence viewer (static site; committed copy in site/ holds excerpts only, never full texts)
+site:
+	$(PY) -m gegenprobe.viewer collect
+	$(PY) -m gegenprobe.viewer build

@@ -74,12 +74,21 @@ def main() -> int:
         report["steps"][name] = res
         line = res.get("summary") or res.get("error") or res.get("reason") or ""
         print(f"[{name:<7}] {res['status']}  ({res['secs']} s)  {line}", flush=True)
+    # evidence viewer: rendered from the committed site/data.json; never fails the run
+    try:
+        from .viewer.__main__ import SITE, render
+        site = render(json.loads((SITE / "data.json").read_text(encoding="utf-8")), OUT / "site")
+        report["site"] = str(site)
+    except Exception as e:  # noqa: BLE001 - optional artefact
+        report["site"] = f"not rendered ({type(e).__name__}: {e})"
     report["secs"] = round(time.time() - t0, 1)
     fails = [k for k, v in report["steps"].items() if v["status"] == "FAIL"]
     report["result"] = "FAIL" if fails else "PASS"
     (OUT / "run_report.json").write_text(json.dumps(report, indent=1, ensure_ascii=False, default=str))
     print(f"\nRESULT {report['result']} in {report['secs']} s" + (f"  failing: {', '.join(fails)}" if fails else ""))
     print(f"Full report: {OUT / 'run_report.json'}")
+    if str(report.get("site", "")).endswith("index.html"):
+        print("Evidence viewer: open out/site/index.html")
     return 1 if fails else 0
 
 

@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gegenprobe · Evidence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: 12-column Swiss grid, flush-left; a narrow index column (cols 1–3) carries labels and codes, the work area
+   (cols 4–12) carries data. Ink on paper, one signal red. Monospace for every datum, grotesk for statements. */
+:root {
+  --paper: #f6f6f4;
+  --paper-2: #ececE9;
+  --ink: #101010;
+  --ink-2: #4a4a47;
+  --ink-3: #8b8b86;
+  --rule: #10101026;
+  --rule-strong: #101010;
+  --red: #e2001a;
+  --red-wash: #e2001a14;
+  --ok: #101010;
+  --hl: #ffd400;
+  --display: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --gut: clamp(16px, 2.4vw, 32px);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d0d0c; --paper-2: #1a1a18; --ink: #eeeee9; --ink-2: #b4b4ae; --ink-3: #7a7a74;
+    --rule: #eeeee92b; --rule-strong: #eeeee9; --red: #ff3347; --red-wash: #ff334720; --ok: #eeeee9; --hl: #ffd400;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d0d0c; --paper-2: #1a1a18; --ink: #eeeee9; --ink-2: #b4b4ae; --ink-3: #7a7a74;
+  --rule: #eeeee92b; --rule-strong: #eeeee9; --red: #ff3347; --red-wash: #ff334720; --ok: #eeeee9; --hl: #ffd400;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--display); font-size: 15px; line-height: 1.45;
+  font-variation-settings: "wdth" 100; padding-inline: var(--gut); padding-block: 0 64px; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--red); }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.mono, code, table, .label, .code { font-family: var(--mono); }
+.label { font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); font-weight: 500; }
+.code { font-size: 12px; letter-spacing: .02em; }
+.num { font-variant-numeric: tabular-nums; }
+.red { color: var(--red); }
+.muted { color: var(--ink-3); }
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gut); }
+.idx { grid-column: 1 / span 3; }
+.work { grid-column: 4 / span 9; min-width: 0; }
+@media (max-width: 900px) { .idx, .work { grid-column: 1 / -1; } }
+
+/* masthead */
+header.mast { border-bottom: 2px solid var(--rule-strong); padding-block: 18px 14px; position: sticky; top: env(safe-area-inset-top, 0px);
+  background: var(--paper); z-index: 5; }
+.mast .grid { align-items: end; row-gap: 10px; }
+@media (max-width: 700px) { header.mast { position: static; } }
+.mark { font-family: var(--display); font-weight: 800; font-size: 22px; letter-spacing: -.01em; font-variation-settings: "wdth" 112; line-height: 1; }
+.mark span { color: var(--red); }
+nav.tabs { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid var(--rule-strong); width: max-content; max-width: 100%; }
+nav.tabs a { font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none;
+  padding: 7px 12px; border-right: 1px solid var(--rule-strong); }
+nav.tabs a:last-child { border-right: 0; }
+nav.tabs a[aria-current="page"] { background: var(--ink); color: var(--paper); }
+.mast-meta { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: end; }
+button.theme { font: inherit; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; background: none;
+  color: var(--ink-2); border: 1px solid var(--rule); padding: 5px 9px; cursor: pointer; }
+
+/* hero */
+.hero { padding-block: 56px 40px; border-bottom: 1px solid var(--rule); row-gap: 28px; }
+.hero .big { font-family: var(--display); font-weight: 750; font-variation-settings: "wdth" 88; font-size: clamp(76px, 14.5vw, 232px);
+  line-height: .82; letter-spacing: -.045em; color: var(--red); margin: 0; font-variant-numeric: tabular-nums; }
+.hero h1 { font-weight: 500; font-size: clamp(20px, 2.3vw, 30px); line-height: 1.18; letter-spacing: -.01em; margin: 18px 0 0;
+  max-width: 30ch; text-wrap: balance; }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); margin-top: 36px; }
+.fact { padding: 14px 16px 6px 0; border-right: 1px solid var(--rule); min-width: 0; }
+.fact + .fact { padding-left: 16px; }
+.fact:last-child { border-right: 0; }
+.fact .v { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 3.6vw, 52px); letter-spacing: -.03em; line-height: 1;
+  font-variation-settings: "wdth" 92; font-variant-numeric: tabular-nums; }
+.fact p { margin: 8px 0 0; font-size: 13.5px; color: var(--ink-2); max-width: 34ch; }
+@media (max-width: 700px) { .facts { grid-template-columns: 1fr; } .fact { border-right: 0; border-bottom: 1px solid var(--rule); padding-left: 0 !important; } }
+
+/* sections */
+section.view { padding-block: 40px 8px; scroll-margin-top: 96px; }
+section.view[hidden] { display: none !important; }
+.sec-head { border-top: 2px solid var(--rule-strong); padding-top: 12px; margin-bottom: 26px; row-gap: 8px; }
+.sec-head h2 { margin: 0; font-weight: 700; font-size: clamp(26px, 3vw, 40px); letter-spacing: -.02em; line-height: 1.02; text-wrap: balance; }
+.sec-head p { margin: 10px 0 0; max-width: 66ch; color: var(--ink-2); }
+.rulebox { border: 1px solid var(--rule-strong); }
+.hair { border-top: 1px solid var(--rule); }
+
+/* chips / stamps */
+.chip { display: inline-block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; line-height: 1;
+  padding: 4px 6px 3px; border: 1px solid currentColor; white-space: nowrap; }
+.chip.solid { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chip.red { color: var(--red); }
+.chip.redsolid { background: var(--red); color: #fff; border-color: var(--red); }
+.chip.ghost { color: var(--ink-3); }
+.stamp { display: inline-block; font-family: var(--mono); font-weight: 600; font-size: 12px; letter-spacing: .14em; padding: 5px 9px 4px;
+  border: 2px solid currentColor; }
+
+/* filters */
+.filters { display: flex; flex-wrap: wrap; gap: 14px 22px; margin-bottom: 14px; align-items: start; }
+.seg { display: flex; flex-wrap: wrap; border: 1px solid var(--rule-strong); }
+.seg button { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; background: none; color: var(--ink);
+  border: 0; border-right: 1px solid var(--rule-strong); padding: 6px 9px; cursor: pointer; }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.fgroup { display: grid; gap: 5px; min-width: 0; max-width: 100%; }
+.filters { min-width: 0; }
+
+/* documents */
+.docs { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 0; border: 1px solid var(--rule-strong); min-height: 640px; }
+@media (max-width: 1000px) { .docs { grid-template-columns: minmax(0, 1fr); } .doclist { position: static; max-height: 340px !important; border-right: 0; border-bottom: 1px solid var(--rule-strong); } }
+.doclist { border-right: 1px solid var(--rule-strong); overflow: auto; max-height: calc(100vh - 110px); min-width: 0; position: sticky; top: 92px; align-self: start; }
+.doclist table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+.doclist th { position: sticky; top: 0; background: var(--paper-2); text-align: left; font-weight: 500; letter-spacing: .08em; font-size: 10px;
+  text-transform: uppercase; color: var(--ink-2); padding: 7px 8px; border-bottom: 1px solid var(--rule-strong); z-index: 1; }
+.doclist td { padding: 6px 8px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.doclist tr { cursor: pointer; }
+.doclist tbody tr:hover td { background: var(--paper-2); }
+.doclist tr[aria-selected="true"] td { background: var(--ink); color: var(--paper); }
+.doclist tr[aria-selected="true"] .o { color: var(--paper); }
+.o { font-weight: 600; }
+.o.bad { color: var(--red); }
+.detail { padding: 22px 24px 28px; min-width: 0; overflow: hidden; }
+@media (max-width: 600px) { .detail { padding: 16px; } }
+.partno { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; display: flex; flex-wrap: wrap; gap: 4px 14px; color: var(--ink-2);
+  border-bottom: 1px solid var(--rule); padding-bottom: 10px; }
+.partno b { color: var(--ink); font-weight: 600; }
+.dtitle { font-weight: 700; font-size: 24px; letter-spacing: -.015em; margin: 14px 0 4px; line-height: 1.1; overflow-wrap: anywhere; }
+.specs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); margin-top: 16px; }
+.specs > div { padding: 8px 10px 8px 0; border-bottom: 1px solid var(--rule); min-width: 0; }
+.specs .v { font-family: var(--mono); font-size: 12.5px; overflow-wrap: anywhere; }
+@media (max-width: 600px) { .specs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+h3.part { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; margin: 26px 0 10px;
+  display: flex; gap: 10px; align-items: baseline; }
+h3.part::after { content: ""; flex: 1; border-top: 1px solid var(--rule-strong); transform: translateY(-3px); }
+.answers { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.answers td, .answers th { padding: 8px 8px 8px 0; border-bottom: 1px solid var(--rule); vertical-align: top; text-align: left; }
+.answers th { font-weight: 500; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
+.answers td.src { width: 34%; }
+@media (max-width: 600px) { .answers td { display: block; width: auto !important; padding-right: 0; } .answers td.src { border-bottom: 0; padding-bottom: 2px; } }
+.answers .who { font-family: var(--display); font-size: 13.5px; font-weight: 600; }
+.answers .how { color: var(--ink-3); font-size: 11px; margin-top: 2px; }
+.answers .val { font-size: 15px; font-weight: 600; }
+.nullv { font-family: var(--mono); font-size: 12px; color: var(--ink-2); border: 1px dashed var(--ink-3); padding: 2px 6px; display: inline-block; }
+
+.excerpt { font-family: var(--mono); font-size: 12.5px; line-height: 1.65; background: var(--paper-2); padding: 12px 14px 10px; margin-top: 6px;
+  border-left: 2px solid var(--ink); overflow-wrap: anywhere; }
+.excerpt mark { background: var(--hl); color: #101010; padding: 1px 0; }
+.excerpt .ell { color: var(--ink-3); }
+.ruler { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; color: var(--ink-3); margin-top: 6px; letter-spacing: .04em; }
+
+/* margin scale */
+.scale { margin-top: 8px; }
+.scale svg { width: 100%; height: auto; display: block; overflow: visible; }
+.scale text { font-family: var(--mono); font-size: 10px; fill: var(--ink-2); }
+.cands { width: 100%; border-collapse: collapse; font-size: 12px; }
+.cands td { padding: 5px 8px 5px 0; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+.cands td.ctx { font-size: 11.5px; color: var(--ink-2); white-space: normal; min-width: 0; }
+.cands td.ctx mark { background: none; color: var(--ink); font-weight: 600; border-bottom: 2px solid var(--hl); }
+.bar { height: 8px; background: var(--paper-2); position: relative; min-width: 70px; }
+.bar i { position: absolute; inset: 0 auto 0 0; background: var(--ink); }
+.cands tr.pick td { font-weight: 600; }
+.cands tr.pick .bar i { background: var(--red); }
+.cands tr.nullrow td { border-bottom: 1px solid var(--rule-strong); }
+.rule-note { font-size: 13px; color: var(--ink-2); max-width: 70ch; margin: 0 0 10px; }
+
+/* tables (parliaments) */
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule-strong); max-width: 100%; }
+table.dense { border-collapse: collapse; width: 100%; font-size: 12px; min-width: 980px; }
+table.dense th { background: var(--paper-2); text-align: right; font-weight: 500; font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink-2); padding: 8px 8px; border-bottom: 1px solid var(--rule-strong); position: sticky; top: 0; cursor: pointer; user-select: none; white-space: nowrap; }
+table.dense th:first-child, table.dense td:first-child { text-align: left; }
+table.dense th[aria-sort] { color: var(--ink); }
+table.dense th[aria-sort="descending"]::after { content: " ↓"; }
+table.dense th[aria-sort="ascending"]::after { content: " ↑"; }
+table.dense td { padding: 6px 8px; border-bottom: 1px solid var(--rule); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+table.dense tbody tr { cursor: pointer; }
+table.dense tbody tr:hover td { background: var(--paper-2); }
+table.dense tr.open td { background: var(--ink); color: var(--paper); }
+.stack { display: flex; height: 10px; width: 160px; background: var(--paper-2); }
+.stack i { display: block; height: 100%; }
+.k-att { background: var(--ink); } .k-ag { background: var(--ink-2); } .k-par { background: var(--hl); }
+.k-img { background: repeating-linear-gradient(90deg, var(--ink) 0 1px, transparent 1px 3px); } .k-oral { background: var(--ink-3); }
+.k-abs { background: var(--red); }
+tr.drawer td { background: var(--paper) !important; color: var(--ink) !important; text-align: left; white-space: normal; padding: 16px 12px 20px; cursor: default; }
+.fieldrow { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0; border-top: 1px solid var(--rule-strong); }
+.fieldrow > div { border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); padding: 8px 10px; min-width: 0; }
+.fieldrow .f { font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
+.fieldrow .s { font-family: var(--mono); font-size: 12px; margin-top: 3px; }
+.st-metadata { } .st-pdf { color: var(--ink-2); } .st-no_source { color: var(--red); } .st-mixed { }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--mono); font-size: 11px; color: var(--ink-2); margin: 10px 0 14px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 14px; height: 10px; display: inline-block; }
+
+/* evaluation */
+.board { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.board th, .board td { padding: 9px 10px 9px 0; border-bottom: 1px solid var(--rule); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.board th:first-child, .board td:first-child { text-align: left; }
+.board th { font-weight: 500; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); border-bottom: 1px solid var(--rule-strong); }
+.board td.armname { font-family: var(--display); font-size: 14px; font-weight: 600; white-space: normal; min-width: 180px; }
+.board td.armname small { display: block; font-family: var(--mono); font-weight: 400; font-size: 11px; color: var(--ink-3); }
+.board tr.default td { border-top: 2px solid var(--rule-strong); }
+.hbar { display: flex; height: 14px; width: 100%; min-width: 220px; }
+.hbar i { display: block; height: 100%; }
+.c-val { background: var(--ink); } .c-null { background: var(--ink-3); } .c-fn { background: repeating-linear-gradient(45deg, var(--ink-3) 0 2px, transparent 2px 5px); }
+.c-mis { background: var(--hl); } .c-fab { background: var(--red); }
+.hyp { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); }
+@media (max-width: 800px) { .hyp { grid-template-columns: 1fr; } }
+.hyp > div { padding: 16px 18px 18px 0; border-bottom: 1px solid var(--rule); min-width: 0; }
+.hyp > div:nth-child(odd) { border-right: 1px solid var(--rule); }
+.hyp > div:nth-child(even) { padding-left: 18px; }
+@media (max-width: 800px) { .hyp > div:nth-child(odd) { border-right: 0; } .hyp > div:nth-child(even) { padding-left: 0; } }
+.hyp h4 { margin: 8px 0 6px; font-size: 17px; font-weight: 650; letter-spacing: -.01em; }
+.hyp p { margin: 0; font-size: 13.5px; color: var(--ink-2); max-width: 52ch; }
+.hyp .fig { font-family: var(--mono); font-size: 12px; margin-top: 10px; color: var(--ink); }
+.timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); }
+@media (max-width: 800px) { .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.timeline > div { border-right: 1px solid var(--rule); padding: 12px 12px 14px 0; position: relative; min-width: 0; }
+.timeline > div + div { padding-left: 12px; }
+.timeline .t { font-family: var(--mono); font-size: 11px; color: var(--ink-2); }
+.timeline .w { font-weight: 600; margin-top: 4px; font-size: 14px; }
+.timeline .d { font-size: 12.5px; color: var(--ink-2); margin-top: 4px; }
+.curve svg { width: 100%; height: auto; display: block; }
+.curve text { font-family: var(--mono); font-size: 10px; fill: var(--ink-2); }
+.posthoc { border: 1px dashed var(--ink-3); padding: 14px 16px 16px; }
+
+/* method */
+.flow svg { width: 100%; height: auto; display: block; }
+.flow text { font-family: var(--mono); fill: var(--ink); }
+.flow .t2 { fill: var(--ink-2); }
+.schema { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.schema td, .schema th { padding: 7px 10px 7px 0; border-bottom: 1px solid var(--rule); text-align: left; }
+.schema th { font-weight: 500; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); border-bottom: 1px solid var(--rule-strong); }
+footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top: 12px; font-family: var(--mono); font-size: 11px; color: var(--ink-2); }
+.small { font-size: 12.5px; color: var(--ink-2); }
+@media (prefers-reduced-motion: no-preference) { .detail { animation: none; } }
+</style>
+</head>
+<body>
+<header class="mast">
+  <div class="grid">
+    <div class="idx">
+      <div class="mark">Gegen<span>probe</span></div>
+      <div class="label" style="margin-top:7px">Track 2A · OpenParlData · Team 444</div>
+    </div>
+    <div class="work mast-meta">
+      <nav class="tabs" aria-label="Sections">
+        <a href="#documents">01 Documents</a><a href="#parliaments">02 Parliaments</a><a href="#evaluation">03 Evaluation</a><a href="#method">04 Method</a>
+      </nav>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <span class="label" id="gen"></span>
+        <button class="theme" id="themeBtn" type="button" aria-label="Switch colour theme">Theme</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="grid hero" aria-label="Summary">
+  <div class="idx">
+    <div class="label">Written government answers<br>missing from OpenParlData</div>
+    <div class="code muted" style="margin-top:10px" id="heroSrc"></div>
+  </div>
+  <div class="work">
+    <p class="big" id="heroBig"></p>
+    <h1 id="heroLine"></h1>
+    <div class="facts" id="facts"></div>
+  </div>
+</section>
+
+<main>
+<!-- 01 DOCUMENTS -->
+<section class="view" id="v-documents" aria-labelledby="h-docs">
+  <div class="grid sec-head">
+    <div class="idx"><div class="label">01 · Reviewer view</div></div>
+    <div class="work">
+      <h2 id="h-docs">Every value points at the page and the characters it came from</h2>
+      <p>154 held-out documents in German, French and Italian, cantonal and communal, including scanned answers read by OCR. For each one: the
+        gold label, what the default converter writes, what Apertus suggests for review, and what free generation says. Apertus may choose only
+        a date that is printed in the document, or null.</p>
+    </div>
+  </div>
+  <div class="filters" id="docFilters"></div>
+  <div class="docs">
+    <div class="doclist" id="docList" tabindex="0" aria-label="Documents"></div>
+    <article class="detail" id="docDetail" aria-live="polite"></article>
+  </div>
+</section>
+
+<!-- 02 PARLIAMENTS -->
+<section class="view" id="v-parliaments" aria-labelledby="h-par" hidden>
+  <div class="grid sec-head">
+    <div class="idx"><div class="label">02 · Census</div></div>
+    <div class="work">
+      <h2 id="h-par">Where each parliament's answers are, and how to put the missing ones back</h2>
+      <p id="parIntro"></p>
+    </div>
+  </div>
+  <div class="legend" id="parLegend"></div>
+  <div class="tablewrap"><table class="dense" id="parTable"></table></div>
+  <p class="small" style="margin-top:10px">Click a row for its schema-feasibility row (17 fields: where each value lives in that parliament). Sort by any column.</p>
+</section>
+
+<!-- 03 EVALUATION -->
+<section class="view" id="v-evaluation" aria-labelledby="h-eval" hidden>
+  <div class="grid sec-head">
+    <div class="idx"><div class="label">03 · Pre-registered</div></div>
+    <div class="work">
+      <h2 id="h-eval">Held-out result, frozen before the labels existed</h2>
+      <p id="evalIntro"></p>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="idx"><div class="label">Scoreboard · answer date · strict</div><p class="small" id="boardNote"></p></div>
+    <div class="work"><div style="overflow-x:auto"><table class="board" id="board"></table></div>
+      <div class="legend" id="boardLegend"></div></div>
+  </div>
+  <div class="grid" style="margin-top:34px">
+    <div class="idx"><div class="label">Hypotheses · as registered</div></div>
+    <div class="work"><div class="hyp" id="hyp"></div></div>
+  </div>
+  <div class="grid" style="margin-top:34px">
+    <div class="idx"><div class="label">Order of events</div><p class="small">From git history of this repository.</p></div>
+    <div class="work"><div class="timeline" id="timeline"></div></div>
+  </div>
+  <div class="grid" style="margin-top:34px">
+    <div class="idx"><div class="label">Gold labels</div></div>
+    <div class="work" id="gold"></div>
+  </div>
+  <div class="grid" style="margin-top:34px">
+    <div class="idx"><div class="label red">Post hoc · not registered</div><p class="small">Analyses run after the frozen result, labelled as such. They suggest the next registration; they are not results.</p></div>
+    <div class="work posthoc" id="posthoc"></div>
+  </div>
+</section>
+
+<!-- 04 METHOD -->
+<section class="view" id="v-method" aria-labelledby="h-method" hidden>
+  <div class="grid sec-head">
+    <div class="idx"><div class="label">04 · Pipeline</div></div>
+    <div class="work">
+      <h2 id="h-method">Deterministic first; Apertus only points, and only on the residue</h2>
+      <p>The census and every repair route run without a model. The converter reads OPD metadata, then frozen German, French and Italian rules,
+        and offers the documents the rules leave open to Apertus, which may pick one printed date or null. Every output is validated against
+        schema v0.1: spans re-checked against the text, typed nulls instead of blanks.</p>
+    </div>
+  </div>
+  <div class="flow rulebox" id="flow" style="padding:18px"></div>
+  <div class="grid" style="margin-top:34px">
+    <div class="idx"><div class="label">Schema v0.1 · feasibility per field</div><p class="small" id="tierNote"></p></div>
+    <div class="work"><div style="overflow-x:auto"><table class="schema" id="schema"></table></div></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div id="foot"></div>
+</footer>
+
+<script id="data" type="application/json">/*DATA*/</script>
+<script>
+(() => {
+const D = JSON.parse(document.getElementById('data').textContent);
+const $ = (s, r = document) => r.querySelector(s);
+const el = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (v == null) continue; if (k === 'class') e.className = v; else if (k === 'html') e.innerHTML = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v); }
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k))); return e; };
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = n => n == null ? '—' : Number(n).toLocaleString('en-US');
+const pct = (x, d = 1) => x == null ? '—' : (100 * x).toFixed(d) + '%';
+const dmy = iso => iso ? iso.split('-').reverse().join('.') : null;
+const OUT = { correct: ['correct', ''], correct_null: ['correct null', ''], false_null: ['false null', 'bad'], misattributed: ['wrong date', 'bad'], fabricated: ['invented', 'bad'] };
+
+/* theme */
+const root = document.documentElement;
+try { const t = localStorage.getItem('gp-theme'); if (t) root.dataset.theme = t; } catch (e) {}
+$('#themeBtn').addEventListener('click', () => {
+  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = dark ? 'light' : 'dark'; try { localStorage.setItem('gp-theme', root.dataset.theme); } catch (e) {}
+});
+$('#gen').textContent = 'Build ' + (D.generated || '').split(' ')[0];
+
+/* hero */
+const H = D.headline;
+$('#heroBig').textContent = fmt(H.gap);
+$('#heroLine').innerHTML = `of ${fmt(H.written)} interventions with a written government answer have no answer text in OpenParlData. That is ${pct(H.gap_share)}, typed by cause for every one.`;
+$('#heroSrc').textContent = 'results/census/summary.json';
+const facts = [
+  [fmt(H.relink), `Bern answers already in OPD without a parent, relinkable by the canton's own document id. Plus ${fmt(H.fetch)} to fetch.`],
+  [`${H.rules_exact}/${H.heldout}`, `held-out documents exact with the default converter (rules, no model), which wrote a date on ${H.rules_on_null} of ${H.n_null} documents without an answer.`],
+  [fmt(H.naive_fab), `answer dates invented outright by free-generation Apertus on the same documents. The pointer cannot invent: it can only pick a printed date, or null.`],
+];
+$('#facts').append(...facts.map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
+
+/* tabs (bare #anchors) */
+const views = ['documents', 'parliaments', 'evaluation', 'method'];
+function show() {
+  const h = location.hash.slice(1).replace(/^v-/, ''); const id = views.includes(h) ? h : 'documents';
+  for (const v of views) $('#v-' + v).hidden = v !== id;
+  document.querySelectorAll('nav.tabs a').forEach(a => a.setAttribute('aria-current', a.hash === '#' + id ? 'page' : 'false'));
+  if (id === 'parliaments' && !parDone) renderPar();
+  if (id === 'evaluation' && !evalDone) renderEval();
+  if (id === 'method' && !methodDone) renderMethod();
+}
+addEventListener('hashchange', () => { show(); const t = $('#v-' + location.hash.slice(1)); if (t) t.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); });
+
+/* ---------------- 01 DOCUMENTS ---------------- */
+const docs = D.documents;
+const F = { cell: 'all', outcome: 'all', route: 'all' };
+const CELLS = [['all', 'All'], ['de_canton', 'DE canton'], ['de_commune', 'DE commune'], ['fr_canton', 'FR canton'], ['fr_commune', 'FR commune'], ['it_canton', 'IT canton'], ['it_commune', 'IT commune'], ['ocr_ti', 'IT scans · OCR']];
+const OUTF = [['all', 'All'], ['correct', 'Default correct'], ['error', 'Default wrong'], ['review', 'Has review suggestion'], ['answerless', 'No answer in doc']];
+function seg(name, opts, key) {
+  return el('div', { class: 'fgroup' }, el('div', { class: 'label' }, name),
+    el('div', { class: 'seg', role: 'group', 'aria-label': name }, opts.map(([v, t]) => el('button', { type: 'button', 'aria-pressed': String(F[key] === v), onclick: e => {
+      F[key] = v; e.currentTarget.parentNode.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === e.currentTarget))); renderList(); } }, t))));
+}
+$('#docFilters').append(seg('Language · level', CELLS, 'cell'), seg('Show', OUTF, 'outcome'));
+let sel = null;
+function keep(d) {
+  if (F.cell !== 'all' && d.cell !== F.cell) return false;
+  const o = d.rules.o;
+  if (F.outcome === 'correct' && !(o === 'correct' || o === 'correct_null')) return false;
+  if (F.outcome === 'error' && (o === 'correct' || o === 'correct_null')) return false;
+  if (F.outcome === 'review' && !d.review.needs_review) return false;
+  if (F.outcome === 'answerless' && d.gold.v) return false;
+  return true;
+}
+function oc(o) { const [t, c] = OUT[o] || [o, '']; return el('span', { class: 'o ' + c }, t); }
+function renderList() {
+  const rows = docs.filter(keep);
+  const t = el('table', {}, el('thead', {}, el('tr', {}, ['Doc', 'Body', 'Gold', 'Default', 'Review'].map(h => el('th', {}, h)))));
+  const tb = el('tbody');
+  for (const d of rows) {
+    const tr = el('tr', { tabindex: '0', 'aria-selected': String(sel === d.id), onclick: () => pick(d.id), onkeydown: e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(d.id); } } },
+      el('td', { class: 'num' }, d.id), el('td', {}, `${d.body} · ${d.lang}`), el('td', { class: 'num' }, dmy(d.gold.v) || '—'),
+      el('td', {}, oc(d.rules.o)), el('td', {}, d.review.needs_review ? el('span', { class: 'chip red' }, 'suggest') : el('span', { class: 'muted' }, '·')));
+    tb.append(tr);
+  }
+  t.append(tb);
+  const wrap = $('#docList'); wrap.replaceChildren(t, el('div', { class: 'label', style: 'padding:10px 8px' }, `${rows.length} of ${docs.length} documents`));
+  if (!rows.find(d => d.id === sel) && rows.length) {
+    const show = sel == null ? rows.find(d => d.review.needs_review && d.pointer.o === 'correct') : null;
+    pick((show || rows[0]).id, true);
+  }
+}
+function excerptEl(sp, label) {
+  if (!sp || !sp.x) return null;
+  const x = sp.x;
+  const pre = esc(x.t.slice(0, x.a)), hit = esc(x.t.slice(x.a, x.b)), post = esc(x.t.slice(x.b));
+  return el('div', {}, el('div', { class: 'excerpt', html: (x.lead ? '<span class="ell">… </span>' : '') + pre + '<mark>' + hit + '</mark>' + post + (x.tail ? '<span class="ell"> …</span>' : '') }),
+    el('div', { class: 'ruler' }, el('span', {}, `${label} · p. ${sp.page}`), el('span', {}, `chars ${fmt(sp.s)}–${fmt(sp.e)}`)));
+}
+function marginScale(m, theta) {
+  if (m == null || !isFinite(m)) return el('div', { class: 'small' }, 'No date printed in the document: nothing to point at, so the value is null without asking the model.');
+  const lo = -45, hi = 45, W = 560, x = v => 20 + (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * (W - 40);
+  const ticks = [-40, -20, 0, 20, 40].map(t => `<line x1="${x(t)}" x2="${x(t)}" y1="30" y2="36" stroke="currentColor"/><text x="${x(t)}" y="50" text-anchor="middle">${t}</text>`).join('');
+  const abst = m > theta;
+  return el('div', { class: 'scale', html: `<svg viewBox="0 0 ${W} 74" role="img" aria-label="null margin ${m.toFixed(1)} nats against threshold ${theta.toFixed(1)}" style="color:var(--ink-2)">
+    <rect x="${x(theta)}" y="10" width="${x(hi) - x(theta)}" height="20" fill="var(--red-wash)"/>
+    <line x1="20" x2="${W - 20}" y1="30" y2="30" stroke="currentColor"/>${ticks}
+    <line x1="${x(theta)}" x2="${x(theta)}" y1="4" y2="34" stroke="var(--red)" stroke-width="2"/>
+    <text x="${x(theta) + 5}" y="12" style="fill:var(--red)">θ ${theta.toFixed(1)}</text>
+    <text x="${W - 20}" y="22" text-anchor="end" style="fill:var(--red)">null</text><text x="20" y="22">pick a date</text>
+    <circle cx="${x(m)}" cy="30" r="6" fill="${abst ? 'var(--red)' : 'var(--ink)'}" stroke="var(--paper)" stroke-width="2"/>
+    <text x="${x(m)}" y="66" text-anchor="middle" style="fill:var(--ink);font-weight:600">${m.toFixed(1)} nats</text></svg>` });
+}
+function pick(id, quiet) {
+  sel = id;
+  document.querySelectorAll('#docList tbody tr').forEach(tr => tr.setAttribute('aria-selected', String(tr.firstChild.textContent == id)));
+  const d = docs.find(x => x.id === id);
+  const p = d.pointer;
+  const part = el('div', { class: 'partno' }, el('span', {}, el('b', {}, `${d.body}`), ` · ${d.body_name}`), el('span', {}, 'DOC ', el('b', {}, d.id)),
+    d.affair ? el('span', {}, 'AFFAIR ', el('b', {}, d.affair)) : null, el('span', {}, 'SHA ', el('b', {}, d.sha.slice(0, 8).toUpperCase())),
+    el('span', {}, el('a', { href: d.url, target: '_blank', rel: 'noopener' }, 'Original PDF ↗')));
+  const specs = el('div', { class: 'specs' }, [['Cell', `${d.lang} · ${d.level}`], ['Type', d.dtype], ['Affair type', d.affair_type || '—'], ['Pages', `${d.pages} · ${fmt(d.chars)} ch`],
+    ['Text from', d.image_only ? 'OCR (scan)' : 'PDF text layer'], ['Extractor', d.extractor], ['Gold by', (d.gold.by || '').replace('claude-agents:', 'agents ')], ['Answer in doc', d.gold.present]]
+    .map(([k, v]) => el('div', {}, el('div', { class: 'label' }, k), el('div', { class: 'v' }, v))));
+  const val = (v, o, extra, why) => v ? el('div', {}, el('span', { class: 'val num' }, dmy(v)), ' ', o ? oc(o) : null, extra || null)
+    : el('div', {}, el('span', { class: 'nullv' }, 'null' + (why ? ' · ' + why : '')), ' ', o ? oc(o) : null, extra || null);
+  const WHY = { be_empty_template: 'empty RRB template', oral_stub: 'answered orally', not_in_document: 'not in document', no_anchor: 'no answer anchor' };
+  const goldWhy = d.gold.present === 'oral' ? 'answered orally' : d.gold.present === 'unclear' ? 'unreadable' : 'no government answer in this document';
+  const rows = [
+    ['Gold label', 'two blind annotators + tie-break; quote verified by code', val(d.gold.v, null, d.gold.role ? el('span', { class: 'muted code' }, ` ${d.gold.role}`) : null, goldWhy), excerptEl(d.gold.span, 'gold quote')],
+    ['Default · rules', `no model · rule ${d.rules.rule}${d.rules.status === 'abstain' ? ' · leaves it open' : ''}`, val(d.rules.v, d.rules.o, null, d.rules.status === 'null' ? (WHY[d.rules.rule] || d.rules.rule) : d.rules.status === 'abstain' ? 'left open' : null), excerptEl(d.rules.span, 'rule span')],
+    ['Review suggestion · Apertus', d.review.needs_review ? 'offered to a reviewer, not written' : (d.rules.status === 'abstain' ? 'pointer abstained (null)' : 'not asked: the rules decided'),
+      d.review.needs_review ? val(d.review.v, null, el('span', { class: 'chip red' }, 'needs review')) : el('span', { class: 'muted' }, '—'),
+      d.review.needs_review ? excerptEl(p.span, 'pointer span') : null],
+    ['Free generation · naive', 'plain prompt; the same weights', val(d.naive.naive_plain.v, d.naive.naive_plain.o, d.naive.naive_plain.v && !d.naive.naive_plain.in_doc ? el('span', { class: 'chip redsolid' }, 'printed nowhere') : null), null],
+  ];
+  const ans = el('table', { class: 'answers' }, el('tbody', {}, rows.map(([w, h, v, x]) => el('tr', {}, el('td', { class: 'src' }, el('div', { class: 'who' }, w), el('div', { class: 'how code' }, h)), el('td', {}, v, x)))));
+  // closed set
+  const lps = p.cands.map(c => c.lp).filter(v => v != null);
+  const all = p.lp_null != null ? [p.lp_null, ...lps] : lps;
+  const mx = Math.max(...all), Z = all.reduce((s, v) => s + Math.exp(v - mx), 0);
+  const prob = v => v == null ? 0 : Math.exp(v - mx) / Z;
+  const ct = el('table', { class: 'cands' }, el('tbody', {},
+    p.lp_null != null ? el('tr', { class: 'nullrow' + (p.v == null && p.margin != null && isFinite(p.margin) ? ' pick' : '') }, el('td', { class: 'code' }, 'null'),
+      el('td', { style: 'width:28%' }, el('div', { class: 'bar' }, el('i', { style: `width:${(100 * prob(p.lp_null)).toFixed(1)}%` }))),
+      el('td', { class: 'code num' }, (100 * prob(p.lp_null)).toFixed(1) + '%'), el('td', { class: 'ctx' }, 'there is no government answer date in this document')) : null,
+    p.cands.map(c => el('tr', { class: c.v === p.v ? 'pick' : '' }, el('td', { class: 'code num' }, dmy(c.v)),
+      el('td', {}, el('div', { class: 'bar' }, el('i', { style: `width:${(100 * prob(c.lp)).toFixed(1)}%` }))),
+      el('td', { class: 'code num' }, (100 * prob(c.lp)).toFixed(1) + '%'),
+      el('td', { class: 'ctx code', html: `p.${c.page} · ${c.x.lead ? '…' : ''}${esc(c.x.t.slice(0, c.x.a))}<mark>${esc(c.x.t.slice(c.x.a, c.x.b))}</mark>${esc(c.x.t.slice(c.x.b))}${c.x.tail ? '…' : ''}` })))));
+  const closed = el('div', {}, el('p', { class: 'rule-note' }, `The only answers Apertus can give: the ${p.n} date${p.n === 1 ? '' : 's'} printed in this document${p.n > p.cands.length ? ` (top ${p.cands.length} shown)` : ''}, or null. Share of probability over this closed set:`), ct,
+    el('p', { class: 'rule-note', style: 'margin-top:16px' }, 'Null margin = log-probability of null minus that of all dates together. Above θ (fitted on development documents, frozen before the test) the answer is null.'),
+    marginScale(p.margin, p.theta));
+  $('#docDetail').replaceChildren(part, el('div', { class: 'dtitle' }, d.name || `Document ${d.id}`), specs,
+    el('h3', { class: 'part' }, 'Answer date'), ans, el('h3', { class: 'part' }, 'Closed set'), closed);
+  if (!quiet && matchMedia('(max-width: 1000px)').matches) $('#docDetail').scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+renderList();
+
+/* ---------------- 02 PARLIAMENTS ---------------- */
+let parDone = false, parSort = ['written', -1], openBody = null;
+const P = D.parliaments;
+const COLS = [
+  ['name', 'Parliament', r => el('span', {}, el('b', {}, r.key), ' ', el('span', { class: 'muted' }, r.name !== r.key ? r.name : '')), r => r.name],
+  ['written', 'Written ans.', r => fmt(r.written)],
+  ['share_now', 'With text', r => pct(r.share_now)],
+  ['gap', 'Missing', r => r.gap ? el('span', { class: 'red' }, fmt(r.gap)) : '0'],
+  ['agenda', 'Under agenda', r => fmt(r.link.agenda), r => r.link.agenda],
+  ['parentless', 'Parentless', r => fmt(r.link.parentless), r => r.link.parentless],
+  ['image', 'Scan only', r => fmt(r.link.image_only), r => r.link.image_only],
+  ['oral', 'Oral', r => fmt(r.link.oral), r => r.link.oral],
+  ['absent', 'Absent', r => fmt(r.link.absent), r => r.link.absent],
+  ['median_days', 'Median days', r => r.median_days == null ? '—' : fmt(r.median_days)],
+  ['mix', 'Where answers are', r => stack(r), r => r.link.attached / Math.max(1, total(r))],
+];
+const total = r => r.link.attached + r.link.agenda + r.link.parentless + r.link.image_only + r.link.oral + r.link.absent;
+function stack(r) {
+  const t = total(r); if (!t) return el('span', { class: 'muted' }, 'no answers in scope');
+  const parts = [['k-att', r.link.attached], ['k-ag', r.link.agenda], ['k-par', r.link.parentless], ['k-img', r.link.image_only], ['k-oral', r.link.oral], ['k-abs', r.link.absent]];
+  return el('div', { class: 'stack', title: parts.map(([k, v]) => v).join(' / ') }, parts.filter(([, v]) => v).map(([k, v]) => el('i', { class: k, style: `width:${(100 * v / t).toFixed(2)}%` })));
+}
+function renderPar() {
+  parDone = true;
+  const nat = P.national;
+  $('#parIntro').textContent = `${P.rows.length} parliaments. Of ${fmt(nat.ev_answer)} interventions whose events record a written government answer, ${fmt(nat.gap)} have no answer text. ` +
+    `The cause is typed for every one: filed under an agenda item, stored without a parent, scanned without text, answered orally, or absent from OPD.`;
+  $('#parLegend').replaceChildren(...[['k-att', 'attached'], ['k-ag', 'under an agenda item'], ['k-par', 'parentless (relinkable)'], ['k-img', 'scan only (OCR)'], ['k-oral', 'oral'], ['k-abs', 'absent']]
+    .map(([k, t]) => el('span', {}, el('i', { class: k }), t)));
+  drawPar();
+}
+function drawPar() {
+  const [key, dir] = parSort; const col = COLS.find(c => c[0] === key);
+  const val = col[3] || (r => r[key]);
+  const rows = [...P.rows].sort((a, b) => { const x = val(a), y = val(b); return (typeof x === 'string' ? x.localeCompare(y) : ((x ?? -1) - (y ?? -1))) * dir; });
+  const head = el('tr', {}, COLS.map(([k, t]) => el('th', { 'aria-sort': k === key ? (dir < 0 ? 'descending' : 'ascending') : null, tabindex: '0', scope: 'col',
+    onclick: () => { parSort = [k, k === key ? -dir : (k === 'name' ? 1 : -1)]; drawPar(); }, onkeydown: e => { if (e.key === 'Enter') e.currentTarget.click(); } }, t)));
+  const tb = el('tbody');
+  for (const r of rows) {
+    const tr = el('tr', { class: openBody === r.key ? 'open' : '', tabindex: '0', onclick: () => { openBody = openBody === r.key ? null : r.key; drawPar(); },
+      onkeydown: e => { if (e.key === 'Enter') e.currentTarget.click(); } }, COLS.map(c => el('td', {}, c[2](r))));
+    tb.append(tr);
+    if (openBody === r.key) tb.append(el('tr', { class: 'drawer' }, el('td', { colspan: COLS.length }, drawer(r))));
+  }
+  $('#parTable').replaceChildren(el('thead', {}, head), tb);
+}
+const STL = { metadata: 'in OPD metadata', mixed: 'metadata for part', pdf: 'only in the PDF', no_source: 'no source in OPD' };
+function drawer(r) {
+  const rep = Object.entries(r.repair || {}).map(([k, v]) => `${k.replace('_', ' ')} ${fmt(v)}`).join(' · ') || 'no repair action';
+  return el('div', {}, el('div', { class: 'partno' }, el('span', {}, el('b', {}, r.key), ' · ', r.name), el('span', {}, `${fmt(r.n)} affairs in scope`),
+      el('span', {}, `answer text now ${pct(r.share_now)} · after measured repairs ${pct(r.share_after)}`), el('span', {}, 'repair: ', el('b', {}, rep))),
+    el('div', { class: 'fieldrow', style: 'margin-top:12px' }, P.fields.map(f => { const c = r.fields[f.key];
+      return el('div', {}, el('div', { class: 'f' }, f.key.replace(/_/g, ' ')), el('div', { class: 's st-' + (c ? c.st : 'na') }, c ? STL[c.st] || c.st : 'not applicable'),
+        c ? el('div', { class: 'code muted' }, `meta ${pct(c.meta, 0)} · n ${fmt(c.n)}`) : null); })));
+}
+
+/* ---------------- 03 EVALUATION ---------------- */
+let evalDone = false;
+function renderEval() {
+  evalDone = true;
+  const E = D.evaluation, A = E.arms, h = E.hypotheses;
+  $('#evalIntro').textContent = `${E.n} held-out documents, drawn and fetched before any label existed; labels made blind by two annotators; rules, prompts and θ = ${E.theta.toFixed(2)} frozen by hash in ${E.lock.files} files. Apertus runs as the 70B weights served by Public AI; the response model was checked on every call.`;
+  const ARMS = [
+    ['rules', 'Rules only', 'default · no model', true],
+    ['cascade', 'Rules + Apertus suggestions', 'if every suggestion were accepted'],
+    ['pointer', 'Apertus pointer alone', 'closed set + null, every document'],
+    ['naive_null', 'Free generation, null allowed', 'same weights; told to say null'],
+    ['naive_plain', 'Free generation, plain', 'same weights; the naive converter'],
+  ];
+  const n = A.rules.n;
+  const t = el('table', { class: 'board' }, el('thead', {}, el('tr', {}, ['Arm', 'Exact', 'Right date', 'Right null', 'Missed', 'Wrong date', 'Invented', 'Date on doc without answer', ''].map(x => el('th', {}, x)))));
+  const tb = el('tbody');
+  for (const [k, name, sub, def] of ARMS) { const a = A[k]; if (!a) continue;
+    const w = v => `${(100 * v / n).toFixed(2)}%`;
+    tb.append(el('tr', { class: def ? 'default' : '' }, el('td', { class: 'armname' }, name, el('small', {}, sub)),
+      el('td', { class: 'num' }, el('b', {}, `${a.exact}/${n}`)), el('td', {}, a.correct), el('td', {}, a.correct_null), el('td', {}, a.false_null),
+      el('td', {}, a.misattributed), el('td', { class: a.fabricated ? 'red' : '' }, a.fabricated), el('td', {}, `${a.invented_on_null}/${a.n_gold_null}`),
+      el('td', { style: 'width:30%' }, el('div', { class: 'hbar' }, el('i', { class: 'c-val', style: `width:${w(a.correct)}` }), el('i', { class: 'c-null', style: `width:${w(a.correct_null)}` }),
+        el('i', { class: 'c-fn', style: `width:${w(a.false_null)}` }), el('i', { class: 'c-mis', style: `width:${w(a.misattributed)}` }), el('i', { class: 'c-fab', style: `width:${w(a.fabricated)}` })))));
+  }
+  if (E.eight) tb.append(el('tr', {}, el('td', { class: 'armname' }, 'Apertus 8B (GGUF, CPU)', el('small', {}, 'exploratory arm')), el('td', {}, `${E.eight.cascade.strict.ALL.exact}/${E.eight.cascade.strict.ALL.n}`)));
+  t.append(tb); $('#board').replaceChildren(t.firstChild, tb);
+  $('#boardNote').textContent = `Exact = right date or right null. "Invented" = a date printed nowhere in the document. n = ${n}: ${A.rules.n_gold_value} documents with an answer date, ${A.rules.n_gold_null} without.`;
+  $('#boardLegend').replaceChildren(...[['c-val', 'right date'], ['c-null', 'right null'], ['c-fn', 'missed'], ['c-mis', 'wrong printed date'], ['c-fab', 'invented']].map(([k, x]) => el('span', {}, el('i', { class: k }), x)));
+  const H1 = h.H1, H2 = h.H2, H3 = h.H3, H4 = h.H4;
+  const card = (code, pass, title, text, fig) => el('div', {}, el('span', { class: 'stamp' + (pass === 'FAIL' ? ' red' : '') , style: pass === 'FAIL' ? 'color:var(--red)' : '' }, `${code} · ${pass}`),
+    el('h4', {}, title), el('p', {}, text), el('div', { class: 'fig' }, fig));
+  $('#hyp').replaceChildren(
+    card('H1', H1.pass ? 'PASS' : 'FAIL', 'Null safety', 'With every suggestion accepted, the cascade wrote a date on more answerless documents than the registered limit allows.',
+      `${H1.pooled[0]}/${H1.pooled[1]} documents · upper bound ${(100 * H1.pooled_ci[1]).toFixed(1)}% (limit 10%) · rules alone ${A.rules.invented_on_null}/${A.rules.n_gold_null}`),
+    card('H2', 'BRANCH ' + H2.branch, 'Does Apertus add anything over the rules?', 'Not significantly. Under the registered rule, Apertus is not kept in the unattended path: the default is rules only, and its answers on the residue become review suggestions.',
+      `FR+IT+scans: right only with Apertus ${H2.primary_fr_it_ocr.cascade_only}, only with rules ${H2.primary_fr_it_ocr.rules_only} · exact McNemar p = ${H2.primary_fr_it_ocr.p.toFixed(2)}`),
+    card('H3', H3.pass_ ? 'PASS' : 'FAIL', 'Does the null margin separate answered from answerless documents?', 'Yes, on documents matched for length, which removes the length confound of the earlier spike.',
+      `AUROC ${H3.auroc.toFixed(3)} · ${H3.n_null} answerless vs ${H3.n_value} answered`),
+    card('H4', H4.triggers_posthoc_curve ? 'TRIGGERED' : 'CLEAR', 'Apertus on French and Italian residue', 'More than one wrong date among the values Apertus decided, so the registered follow-up (a θ curve) is published below as post-hoc.',
+      `${H4.wrong} wrong of ${H4.apertus_decided_fr_it_values} values`));
+  const tl = [[E.lock.commit, 'Pre-registration locked', `${E.lock.files} files hashed: rules, prompts, θ, scorer, gold sample`], [E.labels_commit, 'Gold labels committed', 'after the lock, by two blind annotators and a tie-break'],
+    ['', 'Results replayed', `offline from the hash cache; every live call from one served build (${(E.served[0] || '').split('-tp')[0]})`], ['', 'Deviations logged', E.deviations.map(x => x.id).join(' · ')]];
+  $('#timeline').replaceChildren(...tl.map(([c, w, d]) => el('div', {}, el('div', { class: 't' }, c ? `${c.split(' ')[0]} · ${(c.split(' ')[1] || '').replace('T', ' ').slice(0, 16)}` : '—'), el('div', { class: 'w' }, w), el('div', { class: 'd' }, d))));
+  const g = E.gold;
+  $('#gold').replaceChildren(el('div', { class: 'specs', style: 'grid-template-columns:repeat(4,minmax(0,1fr))' },
+    [['Documents', g.n], ['κ answer present', g.agreement.answer_present.kappa.toFixed(2)], ['κ answer date', g.agreement.answer_date.kappa.toFixed(2)], ['Tie-breaks', g.a3],
+     ['OPD event date = printed date', `${g.oracle.match} of ${g.oracle.match + g.oracle.mismatch}`], ['Human labels', 'none, by design'], ['Annotators', 'Claude Opus + Sonnet, blind'], ['Quotes', 'verified verbatim by code']]
+    .map(([k, v]) => el('div', {}, el('div', { class: 'label' }, k), el('div', { class: 'v' }, v)))),
+    el('p', { class: 'small', style: 'margin-top:10px;max-width:70ch' }, 'Where OPD records an answer event, its date matched the printed date for most documents; every mismatch is a later registration or publication date. OPD metadata is used as an external check, never to set a label.'));
+  // post-hoc theta curve
+  const cv = E.curve; const W = 640, Hh = 210, l = 46, r = 16, tp = 16, bt = 34;
+  const xs = cv.map(c => c.theta), xmin = Math.min(...xs), xmax = Math.max(...xs);
+  const X = v => l + (v - xmin) / (xmax - xmin) * (W - l - r), ymin = 125, ymax = 146, Y = v => tp + (1 - (v - ymin) / (ymax - ymin)) * (Hh - tp - bt);
+  const path = cv.map((c, i) => `${i ? 'L' : 'M'}${X(c.theta).toFixed(1)},${Y(c.exact).toFixed(1)}`).join('');
+  const fz = cv.find(c => c.frozen);
+  const yt = [125, 130, 135, 140, 145].map(v => `<line x1="${l}" x2="${W - r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--rule)"/><text x="${l - 8}" y="${Y(v) + 3}" text-anchor="end">${v}</text>`).join('');
+  const xt = [-40, -20, 0, 20, 40].map(v => `<text x="${X(v)}" y="${Hh - 12}" text-anchor="middle">${v}</text>`).join('');
+  const best = cv.reduce((a, b) => b.exact > a.exact ? b : a);
+  $('#posthoc').replaceChildren(el('div', { class: 'label' }, 'Exact (of 154) if every suggestion were accepted, by threshold θ'),
+    el('div', { class: 'curve', html: `<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="exact by theta, post hoc">${yt}${xt}
+      <text x="${(l + W - r) / 2}" y="${Hh}" text-anchor="middle">θ (nats)</text>
+      <line x1="${X(fz.theta)}" x2="${X(fz.theta)}" y1="${tp}" y2="${Hh - bt}" stroke="var(--red)" stroke-width="1.5"/>
+      <text x="${X(fz.theta) + 5}" y="${tp + 10}" style="fill:var(--red)">frozen θ ${fz.theta.toFixed(1)} → ${fz.exact}</text>
+      <line x1="${l}" x2="${W - r}" y1="${Y(A.rules.exact)}" y2="${Y(A.rules.exact)}" stroke="var(--ink-3)" stroke-dasharray="3 3"/>
+      <text x="${l + 6}" y="${Y(A.rules.exact) + 13}">rules only ${A.rules.exact}</text>
+      <path d="${path}" fill="none" stroke="var(--ink)" stroke-width="1.75"/>
+      ${cv.map(c => `<circle cx="${X(c.theta)}" cy="${Y(c.exact)}" r="${c.frozen ? 4 : 2.5}" fill="${c.frozen ? 'var(--red)' : 'var(--ink)'}"/>`).join('')}
+      <text x="${X(best.theta)}" y="${Y(best.exact) - 8}" text-anchor="middle">${best.exact} at θ ${best.theta}</text></svg>` }),
+    el('p', { class: 'small', style: 'margin:8px 0 0;max-width:70ch' }, `The θ fitted on development documents was too permissive on the test set. Near θ = 0 the cascade would reach ${best.exact}, which is a hypothesis for the next registration, not a result. Scanned Ticino answers read with the Italian prompt instead of the frozen German one: pointer alone ${E.ocr_it.pointer_de_frozen.exact} → ${E.ocr_it.pointer_it.exact} of 22.`));
+}
+
+/* ---------------- 04 METHOD ---------------- */
+let methodDone = false;
+function renderMethod() {
+  methodDone = true;
+  const boxes = [['CENSUS', 'OPD exports, 89 bodies', 'every missing answer', 'gets a typed cause'], ['REPAIR', 'deterministic routes', 'relink · agenda · OCR', 'triple check each one'],
+    ['CONVERT', 'metadata, then rules', 'then Apertus points:', 'a printed date or null'], ['VALIDATE', 'schema v0.1', 'span re-check', 'typed nulls, no blanks']];
+  const W = 1000, pad = 2, bw = 226, gap = (W - 2 * pad - 4 * bw) / 3;
+  const svg = `<svg viewBox="0 0 ${W} 150" role="img" aria-label="pipeline">${boxes.map((b, i) => { const x = pad + i * (bw + gap);
+    return `<rect x="${x + .5}" y="14.5" width="${bw}" height="118" fill="none" stroke="var(--ink)"/>
+      <text x="${x + 12}" y="10" font-size="10" class="t2" letter-spacing="1.5">0${i + 1}</text>
+      <text x="${x + 14}" y="44" font-size="15" font-weight="600" letter-spacing="2">${b[0]}</text>
+      <text x="${x + 14}" y="72" font-size="12">${b[1]}</text><text x="${x + 14}" y="92" font-size="12" class="t2">${b[2]}</text>
+      <text x="${x + 14}" y="112" font-size="12" class="t2">${b[3]}</text>
+      ${i < 3 ? `<line x1="${x + bw + 6}" x2="${x + bw + gap - 8}" y1="73" y2="73" stroke="var(--ink)" stroke-width="1.5"/><path d="M${x + bw + gap - 8},68 l8,5 l-8,5 z" fill="var(--ink)"/>` : ''}`; }).join('')}
+    <line x1="${pad + 2 * (bw + gap) + 14}" x2="${pad + 2 * (bw + gap) + bw - 14}" y1="124" y2="124" stroke="var(--red)" stroke-width="2"/></svg>`;
+  $('#flow').innerHTML = svg;
+  const tc = D.parliaments.tier_counts;
+  $('#tierNote').textContent = `${tc.feasible} feasible, ${tc.partial} partial, ${tc['fundamentally different']} fundamentally different, by criteria written down before computing. What differs between parliaments is where a value lives, not what it means.`;
+  const ord = { feasible: 0, partial: 1, 'fundamentally different': 2 };
+  const fs = [...D.parliaments.fields].sort((a, b) => ord[a.tier] - ord[b.tier] || a.key.localeCompare(b.key));
+  $('#schema').replaceChildren(el('thead', {}, el('tr', {}, ['Field', 'Tier', 'Route', 'Bodies', 'In OPD metadata', 'Only in PDF', 'No source'].map(x => el('th', {}, x)))),
+    el('tbody', {}, fs.map(f => el('tr', {}, el('td', { class: 'code' }, f.key.replace(/_/g, ' ')), el('td', {}, el('span', { class: 'chip' + (f.tier === 'feasible' ? ' solid' : '') }, f.tier)),
+      el('td', { class: 'code' }, f.route), el('td', { class: 'code num' }, f.eligible), el('td', { class: 'code num' }, f.counts.metadata), el('td', { class: 'code num' }, f.counts.pdf),
+      el('td', { class: 'code num' + (f.counts.no_source ? ' red' : '') }, f.counts.no_source)))));
+}
+
+$('#foot').innerHTML = `Gegenprobe · Team 444 · generated from the repository's results files (build ${esc(D.generated)}). Code Apache-2.0 · data CDLA-Permissive-2.0 · report CC-BY-4.0. ` +
+  `Document text appears only as short excerpts around the cited spans; the original PDFs are linked.`;
+show();
+})();
+</script>
+</body>
+</html>
