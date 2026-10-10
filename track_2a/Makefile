@@ -118,3 +118,7 @@ figures:
 site:
 	$(PY) -m gegenprobe.viewer collect
 	$(PY) -m gegenprobe.viewer build
+
+# ---- evidence viewer on Cloudflare (static assets; token read from CLOUDFLARE_API_TOKEN, never stored in the repo)
+deploy-site: site
+	cd deploy/site && npx --yes wrangler@4.149.0 deploy
