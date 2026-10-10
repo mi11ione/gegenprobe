@@ -1,0 +1,17 @@
+{
+ "source": "GitHub Actions run 38073556535 (workflow ci, commit 2e440db), job systemd-units, step 'systemd-analyze security exposure of both units (fails above the documented thresholds)'; lines copied from `gh run view 38073556535 --log`",
+ "job_conclusion": "success",
+ "log_lines": [
+  "== venv: exposure 1.2 (threshold 2.0, exit 0)",
+  "== docker: exposure 3.9 (threshold 5.0, exit 0)"
+ ],
+ "venv": {
+  "exposure": 1.2,
+  "threshold": 2.0
+ },
+ "docker": {
+  "exposure": 3.9,
+  "threshold": 5.0
+ },
+ "note": "systemd-analyze security --offline=true on deploy/nightly units; the Docker unit's score covers only the docker client (the job runs confined by the container flags)"
+}

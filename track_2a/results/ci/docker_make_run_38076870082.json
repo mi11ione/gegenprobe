@@ -1,0 +1,45 @@
+{
+ "run_id": 38076870082,
+ "run_url": "https://github.com/mi11ione/gegenprobe/actions/runs/38076870082",
+ "commit": "15dd077",
+ "result": "PASS",
+ "wall_s": 494.5,
+ "replay": {
+  "passed": 22,
+  "n": 22,
+  "note": "P1-P4 and P3b re-scored, 5 hypotheses scripts, the 8B analysis, 5 locks"
+ },
+ "rederive_rules": {
+  "n": 154,
+  "rederived": 141,
+  "match": 141,
+  "differ": 0,
+  "unreachable": 0,
+  "not_reached_budget": 13
+ },
+ "rederive_apertus": {
+  "P1": {
+   "n": 154,
+   "match": 129,
+   "recomputed": 129,
+   "cache_miss": 25,
+   "unreachable": 0,
+   "over_budget": 0
+  },
+  "P2": {
+   "n": 62,
+   "match": 49,
+   "recomputed": 49,
+   "cache_miss": 5,
+   "unreachable": 8,
+   "over_budget": 0
+  },
+  "status": "WARN"
+ },
+ "claims": {
+  "checked": 984,
+  "failing": 0
+ },
+ "image_poppler": "22.12.0-2+deb12u3",
+ "note": "Step summaries copied from the public CI log (job make-run). 0 mismatches; cache misses come from the image's older poppler."
+}

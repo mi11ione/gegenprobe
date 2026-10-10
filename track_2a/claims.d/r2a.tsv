@@ -15,7 +15,7 @@ r2a.p3_cosig_precision	13/16	results/eval3/p3_extra.json	sets.co_signatories.C.p
 r2a.p3_related_recall	6/14	results/eval3/p3_extra.json	sets.related_affairs.C.recall	frac	PYTHONPATH=src:. python -m eval.baselines	README.md,technical_report.md
 r2a.p3_related_precision	6/9	results/eval3/p3_extra.json	sets.related_affairs.C.precision	frac	PYTHONPATH=src:. python -m eval.baselines	README.md,technical_report.md
 r2a.p3_decno_posthoc	5/17	results/eval3/p3_extra.json	decision_number_defect.post_hoc_C_with_rule_number	frac	PYTHONPATH=src:. python -m eval.baselines	README.md,technical_report.md
-r2a.p2_bodies_pointer	6	results/eval2/body_level.json	bodies_favouring_pointer	int	PYTHONPATH=src:. python -m eval.body_level	README.md,technical_report.md
+r2a.p2_bodies_pointer	6	results/eval2/body_level.json	bodies_favouring_pointer	int	PYTHONPATH=src:. python -m eval.body_level	README.md,technical_report.md,docs/form_notes.md
 r2a.p2_bodies_rules	0	results/eval2/body_level.json	bodies_favouring_rules	int	PYTHONPATH=src:. python -m eval.body_level	README.md,technical_report.md
 r2a.p2_sign_p	0.03	results/eval2/body_level.json	sign_test_p_two_sided	f2	PYTHONPATH=src:. python -m eval.body_level	-
 r2a.p2_perm_p	0.03	results/eval2/body_level.json	cluster_permutation_p_two_sided	f2	PYTHONPATH=src:. python -m eval.body_level	-

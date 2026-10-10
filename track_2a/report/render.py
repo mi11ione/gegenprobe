@@ -24,8 +24,8 @@ h1 { font-size: 15pt; margin: 0 0 6pt; line-height: 1.2; }
 h2 { font-size: 12pt; margin: 10pt 0 3pt; border-bottom: 0.5pt solid #999; }
 p, li { margin: 3pt 0; }
 ul { padding-left: 14pt; margin: 3pt 0; }
-table { border-collapse: collapse; font-size: 8.5pt; margin: 4pt 0; width: 100%; }
-th, td { border: 0.4pt solid #aaa; padding: 2pt 4pt; text-align: left; vertical-align: top; }
+table { border-collapse: collapse; font-size: 8pt; margin: 4pt 0; width: 100%; }
+th, td { border: 0.4pt solid #aaa; padding: 1.5pt 3pt; text-align: left; vertical-align: top; }
 th { background: #eee; }
 img { max-width: 100%; max-height: 52mm; display: block; margin: 4pt auto 0; }
 em { color: #333; }

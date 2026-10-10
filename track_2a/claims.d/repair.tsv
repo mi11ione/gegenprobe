@@ -2,7 +2,7 @@ id	shown	file	path	fmt	command	where
 repair.be_relink	2,459	results/repair/summary.json	by_action.relink	int	python -m gegenprobe.repair.run	docs/repair.md,technical_report.md
 repair.be_fetch	49	results/repair/summary.json	by_action.fetch	int	python -m gegenprobe.repair.run	docs/repair.md,technical_report.md,README.md
 repair.agenda_join	592	results/repair/summary.json	by_action.agenda_join	int	python -m gegenprobe.repair.run	docs/repair.md
-repair.vs_retype_oral	1,008	results/repair/summary.json	by_action.retype_oral	int	python -m gegenprobe.repair.run	docs/repair.md,README.md,technical_report.md
+repair.vs_retype_oral	1,008	results/repair/summary.json	by_action.retype_oral	int	python -m gegenprobe.repair.run	docs/repair.md,README.md
 repair.ocr_affairs	1,350	results/repair/summary.json	by_action.ocr	int	python -m gegenprobe.repair.run	docs/repair.md,docs/nightly.md,README.md
 repair.che_placeholder_docs	29,946	results/repair/summary.json	by_action.placeholder_replace	int	python -m gegenprobe.repair.run	docs/repair.md,docs/nightly.md
 repair.affairs_with_action	5,458	results/repair/summary.json	affairs_with_action	int	python -m gegenprobe.repair.run	docs/repair.md
@@ -57,7 +57,7 @@ repair.all_relink_date_v1	2,332	results/repair/be_verify_all.json	by_action.reli
 repair.all_fetch_triple	48	results/repair/be_verify_all.json	by_action.fetch.v2.triple	int	python -m gegenprobe.repair.verify_all run	docs/repair.md,README.md,technical_report.md,docs/form_notes.md
 repair.all_fetch_errors	0	results/repair/be_verify_all.json	fetch_errors	int	python -m gegenprobe.repair.verify_all run	docs/repair.md
 repair.review_after_check	39	results/repair/summary.json	review_after_check	int	python -m gegenprobe.repair.run	docs/repair.md,README.md,technical_report.md,docs/form_notes.md
-repair.acceptance_parentless	2,459	results/repair/acceptance_snapshot-2026-10-06.json	still_parentless	int	python -m gegenprobe.repair.acceptance	docs/repair.md,docs/runbook.md
+repair.acceptance_parentless	2,459	results/repair/acceptance_snapshot-2026-10-06.json	still_parentless	int	python -m gegenprobe.repair.acceptance	docs/repair.md,docs/runbook.md,README.md
 repair.begin_review_years	9	results/repair/repair_BE_begin_date.json	summary.review_years_after_number	int	python -m gegenprobe.repair.be_begin_date	docs/repair.md
 repair.begin_event_ids	655	results/repair/repair_BE_begin_date.json	summary.with_event_id	int	python -m gegenprobe.repair.be_begin_date	docs/repair.md
 repair.be_ogd_answer_docs	9,577	results/monitor/run.json	be_ogd.answer_documents	int	python -m gegenprobe.monitor.nightly offline	docs/nightly.md

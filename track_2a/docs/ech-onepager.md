@@ -9,11 +9,13 @@ Ntoso, Parla-CLARIN and OParl: `docs/mapping.md`.
 
 | class | fields and concepts | what it means for a standard |
 |---|---|---|
-| **shared** (12 of 17) | submission date, submitter, co-signatories, addressed body, government recommendation, decision date, dispatch date, Q/A pairing, related affairs, language, usable text, answer-link status | one definition fits every parliament; only *where* the value lives differs (metadata, PDF, or not in OPD) |
-| **shared with a role split** (5 of 17) | answer date, procedural history, type, procedural state, decision outcome | one source label covers several roles that must be kept apart before parliaments can be compared |
+| **shared** (12 of 17) | submission date, submitter, co-signatories, addressed body, government recommendation, decision date, dispatch date, Q/A pairing, related affairs, language, usable text, answer-link status | one definition by design; the meaning is tested across parliaments for 1 (the government recommendation: 0 of 183 raw labels map to different concepts), the other 11 are shared by definition, untested; *where* the value lives (metadata, PDF, or not in OPD) is measured |
+| **shared with a role split** (5 of 17) | answer date, procedural history, type, procedural state, decision outcome | one source label covers several roles that must be kept apart before parliaments can be compared; all 5 are measured |
 | **body-specific** (3 concepts) | oral answers in question time; executive business that answers no member's affair; councils that publish only meeting documents | needs its own construct, not a field: v0.1 types oral answers as a null reason and marks affairs rebuilt from minutes `virtual` with `derived_from` |
 
-Evidence: `results/census/comparability.json`, classes in `data/schema/field_verdict_classes.json`. Separately, *where*
+Of 17 fields, 12 are shared: we tested the meaning of 1 across parliaments, and the other 11 are shared by definition,
+untested. 5 are shared but need their roles kept apart, and all 5 are measured. Evidence:
+`results/census/comparability.json`, classes and the `meaning_tested` flag in `data/schema/field_verdict_classes.json`. Separately, *where*
 the value lives (`results/census/matrix.json`): 4 fields are in OPD's metadata almost everywhere, 13 partly; no field
 lacks a written source in a fifth of the parliaments (5 would at a 10% threshold). That threshold measures coverage, not
 meaning; the classes above are the finding.
@@ -37,6 +39,12 @@ deciding `route`; for document values page and character span) or a **typed null
 model's document-level classification (e.g. a recommendation chosen from a closed set) names its document and the set
 it chose from instead of a span, and is a review suggestion, never an unattended value.
 
+The product record does not carry a null whose reason is not true. Our whole-affair assembly (frozen for the P3/P3b
+evaluation) wrote `answering_body` as `present_unanchored` although that field was never extracted; schema v0.1 has no
+reason for "not attempted", so the product post-processing (`gegenprobe.affair_post`) leaves the field out and says so
+(`omitted`), and an interpellation's `decision` is `not_applicable`, not `not_in_corpus`. A v0.2 candidate: a
+`not_extracted` reason, so that a record can be complete and honest at once.
+
 ## 4. Question by question: `QAItem`
 
 Interpellations and written questions ask numbered questions, and the answer replies to each. `QAItem` pairs question
@@ -54,5 +62,5 @@ recomputed by `make run`).
 
 Adopt date roles, typed nulls and the three classes as the frame; standardise the role split for the answer date first
 (it decides every answer-time comparison); treat oral answers, executive-own business and minutes-only councils as
-named constructs; take `QAItem` and the five gaps into v0.2. Gegenprobe (Hack Apertus, Track 2A, team 444):
-https://gegenprobe.mi11ion.io.
+named constructs; take `QAItem`, the five gaps and a `not_extracted` null reason into v0.2. Gegenprobe (Hack Apertus,
+Track 2A, team 444): https://gegenprobe.mi11ion.io.

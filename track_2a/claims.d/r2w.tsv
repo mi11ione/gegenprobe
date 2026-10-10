@@ -1,5 +1,5 @@
 id	shown	file	path	fmt	command	where	context
-r2w.p1_rules_wrong_any	4/154	results/report/p2_numbers.json	error_profile.P1.rules.wrong_any/error_profile.P1.rules.n	frac	python -m report.p2_numbers	README.md	
+r2w.p1_rules_wrong_any	4/154	results/report/p2_numbers.json	error_profile.P1.rules.wrong_any/error_profile.P1.rules.n	frac	python -m report.p2_numbers	README.md,technical_report.md	
 r2w.p2_pointer_wrong_any	8/62	results/report/p2_numbers.json	error_profile.P2.pointer.wrong_any/error_profile.P2.pointer.n	frac	python -m report.p2_numbers	-	
 r2w.p2_baseline_exact	44/62	results/eval/baselines_dates.json	P2_unseen.latest_date_on_answer_docs_only.exact/P2_unseen.latest_date_on_answer_docs_only.n	frac	PYTHONPATH=src:. python -m eval.baselines	README.md,technical_report.md	
 r2w.p2_baseline_recall	18/29	results/eval/baselines_dates.json	P2_unseen.latest_date_on_answer_docs_only.value_recall.0/P2_unseen.latest_date_on_answer_docs_only.value_recall.1	frac	PYTHONPATH=src:. python -m eval.baselines	README.md,technical_report.md	
