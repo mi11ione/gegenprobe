@@ -131,7 +131,8 @@ byte-identical, and its post-hoc files through `eval/p7/offline.py`; P8 re-runs 
 from `data/p8/p8_gold.jsonl`, byte-identical, with LOCK9); re-derives the P1 rules arm from the
 source PDFs (fetched by sha256) and recomputes P1 and P2 Apertus decisions from the committed model cache (cache only,
 no model call) within a time budget; and runs the claims check: each number listed in `claims.tsv` is recomputed from
-its results file, and the step fails if a document prints anything else. Locally the rules arm re-derives 154/154 and
+its results file, and the step fails if a document a claim lists does not print the claimed value, or if any number
+in the headline blocks (the README's top, the report's summary, the form notes; `claims_strict.json`) is not a claim. Locally the rules arm re-derives 154/154 and
 the Apertus decisions 154/154 (P1) and 62/62 (P2) identically. A CI run on main whose jobs all passed (run
 38076870082, commit 15dd077, `results/ci/docker_make_run_38076870082.json`) ran `make run` in this hardened container
 before P5 and P6 joined the replay: 22/22 replay tests (P1–P4, P3b, the 8B analysis, 5 locks), 141 of 154 rules re-derivations within the budget, all identical;
@@ -216,7 +217,7 @@ from a dated snapshot. Every request carries `GP_USER_AGENT`; a network night wa
   alerts, the Bern list unchanged (2,459 relink + 49 fetch). Night 2 also exposed a ledger-status bug (rows seen again
   lost their stored check verdict); it is fixed and covered by a two-night test (`tests/test_ledger_two_nights.py`;
   `results/monitor/two_nights_docker_38098822336/README.md`), and the real two-night re-run of the fixed code is
-  scheduled. Both nights ran on a standard GitHub runner; nothing in the job is tied to one host.
+  dispatched tonight. Both nights ran on a standard GitHub runner; the job runs on standard Linux hosts.
 - **Operator-facing details.** The recommended Docker unit bind-mounts `GP_EXPORTS_DIR` read-only at the same path; CI
   runs a network-mode night that way inside the image, on a root-owned, read-only fixture export directory with
   `--network none`. The adapter canaries are on by default (`GP_ADAPTER_CANARY=1` in the template); the live run of 11

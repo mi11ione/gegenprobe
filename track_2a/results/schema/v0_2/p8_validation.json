@@ -1,0 +1,85 @@
+{
+ "schema_version": "0.2.0",
+ "source": "data/p8/p8_gold.jsonl (P8, eval/prereg9/LOCK9)",
+ "command": "PYTHONPATH=src:. python -m gegenprobe.schema.p8_v0_2",
+ "n_affairs": 66,
+ "n_valid": 66,
+ "n_invalid": 0,
+ "invalid": [],
+ "n_parliaments": 11,
+ "n_actors": 345,
+ "n_dates": 256,
+ "counts": {
+  "actors_by_kind": {
+   "parliamentary_group": 16,
+   "person": 329
+  },
+  "actors_by_role": {
+   "co_signatory": 200,
+   "first_signatory": 34,
+   "joint_author": 70,
+   "other": 2,
+   "sole_author": 27,
+   "spokesperson": 12
+  },
+  "affairs_with_new_actor_role": {
+   "no": 20,
+   "yes": 46
+  },
+  "dates_by_role": {
+   "answered": 77,
+   "later_step": 30,
+   "lodged": 18,
+   "other": 19,
+   "signed": 46,
+   "submitted": 66
+  },
+  "documents_language_tag": {
+   "de": 28,
+   "fr": 35,
+   "it": 7,
+   "rm": 2,
+   "unspecified": 60
+  },
+  "documents_with_language_of_text": {
+   "yes": 66
+  },
+  "instrument_function": {
+   "direct_decision": 3,
+   "examine_report": 9,
+   "mandate": 26,
+   "null:present_unanchored": 2,
+   "questions": 26
+  },
+  "recommendation_stage": {
+   "null:not_applicable": 29,
+   "null:not_in_document": 1,
+   "on_adoption": 31,
+   "on_fulfilment": 5
+  },
+  "spokesperson_on_behalf_of": {
+   "named": 12
+  }
+ },
+ "v0_1_samples": {
+  "n_samples": 3,
+  "n_lossless": 3,
+  "samples": [
+   {
+    "sample": "results/schema/samples/be_2024_RRGR_91.json",
+    "valid_v0_2": true,
+    "lossless": true
+   },
+   {
+    "sample": "results/schema/samples/be_2024_RRGR_97.json",
+    "valid_v0_2": true,
+    "lossless": true
+   },
+   {
+    "sample": "results/schema/samples/che_14_089.json",
+    "valid_v0_2": true,
+    "lossless": true
+   }
+  ]
+ }
+}

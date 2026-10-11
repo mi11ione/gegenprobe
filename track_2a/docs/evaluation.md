@@ -482,8 +482,9 @@ two-step reader restrains the small model where v1's margin does not. **Non-LLM 
 have one; every gold quote occurs on its stated page and yields the gold date (34/34); OPD's document type agrees with
 the answer/no-answer label on 58/68; 20/34 dated gold documents have at least one non-LLM date source.
 
-**What the tests say together.** Apertus earns its place where layout varies and no rule exists, by finding what the
-rules miss: on parliaments nobody wrote rules for (P2: 24/29 answer dates where the rules find 2/29, 22:4 documents on
+**What the tests say together.** Apertus earns its place over the rules where they were not written for the layout,
+and over the latest-date rule on answerless documents (P2: it dates 4 of 33, the latest printed date 31): on
+parliaments nobody wrote rules for (P2: 24/29 answer dates where the rules find 2/29, 22:4 documents on
 all 62), for the answer date of whole affairs (P3: 22/27 → 27/27; P3b on fresh affairs: 20/35 → 31/35), and on
 submitters, where both model routes beat the rules (P5: pointer 24/40, free generation 34/40, rules 12/40). **Null safety:** every registered
 null-safety test on the 70B failed (P1-H1, P2-H3, P6-H2), so its values and nulls go to a reviewer. As a

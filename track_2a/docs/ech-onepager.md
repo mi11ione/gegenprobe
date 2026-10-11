@@ -1,8 +1,9 @@
-# Gegenprobe schema v0.1: one page for the eCH expert group
+# Gegenprobe schema v0.1 and v0.2: one page for the eCH expert group
 
 What a common schema for the business of Swiss parliaments needs, measured on OpenParlData (OPD, snapshot 6 Oct 2026,
 89 parliaments with affairs in scope). Normative models: `src/gegenprobe/schema/schema_v0_1.py` (Pydantic); JSON Schema
-with `$id` and version 0.1.0: `results/schema/*.schema.json`; field guide: `docs/schema.md`; mappings to Popolo, Akoma
+with `$id` and version 0.1.0: `results/schema/*.schema.json`; v0.2 with P8's roles: `schema/gegenprobe_schema_v0_2.py`,
+JSON Schema `results/schema/v0_2/affair.schema.json`; field guide: `docs/schema.md`; mappings to Popolo, Akoma
 Ntoso, Parla-CLARIN and OParl: `docs/mapping.md`.
 
 **In one line:** a common schema works if it carries roles, and not only for dates: authorship (sole author, first
@@ -10,7 +11,9 @@ signatory, joint authors, parliamentary group), signatories, the instrument behi
 the date a submission really carries. "Answer date" is the government's decision in some parliaments, the letter or
 registration date in others and in 7 bodies mostly the submission date; v0.1 makes the role explicit on every date. A
 pre-registered test on 66 fresh affairs from 11 parliaments (P8) finds the same for the fields v0.1 defined once; §2
-turns each finding into a recommendation. Meaning is now measured for 11 of the 17 fields.
+turns each finding into a recommendation. Meaning is now measured for 11 of the 17 fields. **v0.2 ships P8's roles;
+all 66 P8 affairs validate** as v0.2 records, and the v0.1 samples upgrade losslessly
+(`results/schema/v0_2/p8_validation.json`).
 
 ## 1. Three classes (by meaning, measured on OPD's labels and on the documents)
 
@@ -41,30 +44,32 @@ tolerated); a parliament that departs systematically names a role. Share in v0.1
   print a sole author or designated first signatory; Zürich city, Thurgau, Fribourg and Vernier print joint authors
   with none designated first, and OPD's "submitter" is whichever is listed first; in Valais the author of record is a
   parliamentary group. *Recommend:* `Actor.role` ∈ {sole_author, first_signatory, joint_author, co_signatory,
-  supporter, spokesperson} with `kind` ∈ {person, group, committee}. *v0.2 candidates:* `joint_author` (found), with `supporter` and
-  `spokesperson` as registered categories without a verdict of their own (v0.1 has `submitter`, `first_signatory`, `co_signatory`, `on_behalf_of_group`).
+  supporter, spokesperson} with `kind` ∈ {person, group, committee}. *In v0.2:* `Actor.role` adds `sole_author`,
+  `joint_author`, `supporter`, `spokesperson` and `group` to v0.1's `first_signatory`, `co_signatory` and `committee`;
+  groups and committees are actors (`kind`), and a spokesperson names the body it speaks for (`on_behalf_of`).
 - **Co-signatories: the printed role of each person, not a derived list** (role split; 10/41 [6.8%, 46.3%]). Bern
   city prints two to four first signatories ("Erstunterzeichnende"), so OPD's co-signatory list includes authors of
   record; elsewhere the list holds joint authors (Zürich city, Thurgau, Fribourg, Vernier) or persons signing for a
   group (Valais). *Recommend:* derive no co-signatory tail from an author list; carry each person with the role above.
 - **Type: the instrument behind the harmonised value** (role split; 55/64 [76.2%, 95.3%]). Two Bellinzona "Motions"
   propose a decision the council takes itself; two Valais "Postulate" mandate the executive to act. *Recommend:* carry
-  the operative request next to the harmonised type. *v0.2 candidate:* `instrument_function` ∈ {mandate,
-  examine_and_report, questions, direct_decision}.
+  the operative request next to the harmonised type. *In v0.2:* `type.instrument_function` ∈ {mandate,
+  direct_decision, examine_report, questions, other}, with `type.instrument_named`.
 - **Language: the text's language, apart from the source's tag** (role split; 34/36 [83.3%, 100.0%]). In Fribourg 2 of
   6 tags name the other official language; 5 of 11 parliaments tag no document. *Recommend:* record the language
-  determined from the text and, separately, the tag the source carries.
+  determined from the text and, separately, the tag the source carries. *In v0.2:* `Document.language_of_text` and
+  `Document.language_tag`.
 - **Submission date: the event and its source** (body-specific; 44/57 [57.1%, 91.8%]). In 9 of 11 parliaments OPD's
   date is the printed lodging date (one exception allowed); in Vernier (0/5) and Lausanne (2/5) it is mostly printed nowhere in the documents,
   2 to 28 days after the lodging date they print. *Recommend:* give the submission date a role and a source like every
-  other date. *v0.2 candidates:* `DateRole` values for lodged, registered and announced in session (v0.1 has
-  `submitted`).
+  other date. *In v0.2:* `DateRole` adds `signed`, `lodged`, `received`, `announced` and `later_step` (v0.1's
+  `submitted` stays for a source's own "submitted" event).
 - **Addressed body and recommendation: fragile, to confirm.** Both split on the gold but not under both registered
   checks (the addressed body is shared on agreed labels only, the recommendation on Qwen's labels). Addressed body:
   the executive in 10 of 11 parliaments (one exception allowed); Bellinzona's direct-decision instruments address the council itself, which
   `instrument_function` already captures. Recommendation: "accept" at referral and "approve the report and write off"
-  on a motion already adopted (Vernier) are different acts; *v0.2 candidate:* a procedural `stage` next to the value
-  (v0.1's enum has `accept_and_write_off` but no stage).
+  on a motion already adopted (Vernier) are different acts; *in v0.2:* `government_recommendation.stage` ∈
+  {on_adoption, on_fulfilment} next to the value.
 
 Labels: two blind Claude annotators (Opus, Sonnet), a third on 11 disputed fields; another vendor's model
 (Qwen-SEA-LION) gives the same verdict for the five robust fields above. Every outcome, the tables per parliament and
@@ -93,7 +98,7 @@ it chose from instead of a span, and is a review suggestion, never an unattended
 The product record does not carry a null whose reason is not true. Our whole-affair assembly (frozen for the P3/P3b
 evaluation) wrote `answering_body` as `present_unanchored` although that field was never extracted; schema v0.1 has no
 reason for "not attempted", so the product post-processing (`gegenprobe.affair_post`) leaves the field out and says so
-(`omitted`), and an interpellation's `decision` is `not_applicable`, not `not_in_corpus`. A v0.2 candidate: a
+(`omitted`), and an interpellation's `decision` is `not_applicable`, not `not_in_corpus`. v0.2 adds the
 `not_extracted` reason, so that a record can be complete and honest at once.
 
 ## 5. Question by question: `QAItem`
@@ -105,10 +110,10 @@ Interpellations and written questions ask numbered questions, and the answer rep
 rule-based pairing at precision 0.83 and recall 0.67: usable with a reviewer, not yet unattended (the *partial*
 tier holds with document-level intervals, not when whole parliaments are resampled). It transfers where the
 answer numbers or repeats the questions ("Zu Frage 2", "Réponse à la question 2") and fails where it does not (Valais
-0/11). For a standard this argues for asking executives to number their answers; a v0.2 candidate is a `QAItem` field for
+0/11). For a standard this argues for asking executives to number their answers; a v0.3 candidate is a `QAItem` field for
 an answer that replies to several questions at once (the converter tracks it internally as `joint_with`).
 
-## 6. Five gaps for v0.2 (cited evidence)
+## 6. Five gaps for the next version (cited evidence)
 
 An inventory of what the answers state, over 12 bodies, left 45.9% of statements without a schema account; five gaps
 recur across bodies and languages: **person roles; comparison amounts; dates and laws of other polities; dates of
@@ -119,9 +124,10 @@ recomputed by `make run`).
 
 Adopt date roles, typed nulls and the three classes as the frame; standardise the role split for the answer date first
 (it decides every answer-time comparison); treat oral answers, executive-own business and minutes-only councils as
-named constructs. For v0.2: the P8 roles of §2 (author roles `joint_author`, `supporter`, `spokesperson`; an
-`instrument_function` next to the type; the language from the text apart from the tag; submission-date roles; a
-recommendation `stage`), `QAItem` (measured, P5), the five gaps and a `not_extracted` null reason. Test plan for the
+named constructs. v0.2 ships the P8 roles of §2 (author roles, `instrument_function` next to the type, the language
+from the text apart from the tag, submission-date roles, the recommendation's `stage`) and a `not_extracted` null
+reason; all 66 P8 affairs validate in it. Next for v0.3: a `QAItem` field for joint answers (measured, P5) and the
+five gaps. Test plan for the
 six fields still shared by definition (decision and dispatch dates, Q/A pairing, related affairs, usable text,
 answer-link status): the same P8 protocol, with Ticino's documents once its robots.txt permits them. OPD vocabulary errors found on the way
 (e.g. the harmonised type "Votaziun", Romansh for a vote, on 9,887 affairs) are listed in `results/census/vocab_bugs.tsv`. Gegenprobe (Hack Apertus,

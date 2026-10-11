@@ -1,6 +1,6 @@
 # Gegenprobe (Track 2A, OpenParlData). Judges: `make run` (Docker, CPU, clean checkout).
 # Development targets run on the host with .venv (python 3.11); every target is re-runnable and writes under results/.
-.PHONY: dev-install gold-dev-fetch site deploy-site figures run test lint claims census census-corrected census-scan census-replay census-hash repair repair-network adapters-write adapters-canary repair-manifest nightly-offline nightly-smoke nightly-notify-test convert eval report install-nightly docker-build
+.PHONY: schema-v02 dev-install gold-dev-fetch site deploy-site figures run test lint claims census census-corrected census-scan census-replay census-hash repair repair-network adapters-write adapters-canary repair-manifest nightly-offline nightly-smoke nightly-notify-test convert eval report install-nightly docker-build
 
 PY ?= .venv/bin/python
 IMAGE ?= gegenprobe:latest
@@ -42,6 +42,11 @@ lint:
 
 claims:
 	$(PY) -m gegenprobe.claims check
+
+# schema-v02: schema/gegenprobe_schema_v0_2.py (P8's roles) -> results/schema/v0_2/: JSON Schema, the 66 P8 gold affairs as
+#             v0.2 records and p8_validation.json (all valid; v0.1 samples upgraded losslessly). No network, no model.
+schema-v02:
+	$(PY) -m gegenprobe.schema.p8_v0_2
 
 # ---- census (owner: census workstream)
 # census:        re-extract data/census from the full exports in GP_OPD_RAW / GP_DOCS_META (if present) and recompute results/census

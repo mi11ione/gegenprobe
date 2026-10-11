@@ -3,6 +3,8 @@ an hour, and the scorer for the filled file. The gold of every test comes reprod
 with a cross-vendor check; the kit is sized for one sitting.
 
     PYTHONPATH=src:. python -m eval.spotcheck score results/opd_spotcheck/spotcheck.csv    agreement, Wilson 95% interval
+    PYTHONPATH=src:. python -m eval.spotcheck summary   results/opd_spotcheck/summary.json from the committed kit (rows
+                                                        per set; the claims check reads it)
     PYTHONPATH=src:. python -m eval.spotcheck build     DEV ONLY: rewrite the kit (needs WORK: the census docs scan for
                                                         OPD's copy URLs, the extracted texts for character spans)
 
@@ -42,6 +44,7 @@ from gegenprobe.stats import wilson
 
 SEED = 20261050
 KIT = RESULTS / "opd_spotcheck" / "spotcheck.csv"
+SUMMARY = RESULTS / "opd_spotcheck" / "summary.json"
 COLS = ["item_id", "set", "parliament", "affair_number", "document_url", "source_url", "page", "char_span", "quoted_text",
         "what_to_check", "our_label", "reviewer_agrees", "note"]
 YES, NO = {"yes", "y", "1", "true", "ja", "oui", "agree"}, {"no", "n", "0", "false", "nein", "non", "disagree"}
@@ -309,9 +312,22 @@ def build() -> dict:
                 opd_copy=sum(bool(_opd_copy(meta.get(r.get("doc_id")))) for r in rows))
 
 
+def summary() -> dict:
+    """Rows of the committed kit, per set -> results/opd_spotcheck/summary.json (no WORK, no network)."""
+    rows = list(csv.DictReader(open(KIT, encoding="utf-8")))
+    out = dict(file=str(KIT.relative_to(ROOT)), rows=len(rows),
+               by_set=dict(sorted(collections.Counter(r["set"] for r in rows).items())))
+    SUMMARY.write_text(json.dumps(out, indent=1) + "\n", encoding="utf-8")
+    return out
+
+
 def main(argv: list[str]) -> int:
     if argv[:1] == ["build"]:
         print(json.dumps(build(), indent=1))
+        print(json.dumps(summary(), indent=1))
+        return 0
+    if argv[:1] == ["summary"]:
+        print(json.dumps(summary(), indent=1))
         return 0
     if argv[:1] == ["score"]:
         r = score(Path(argv[1]) if len(argv) > 1 else KIT)

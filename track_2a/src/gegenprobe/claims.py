@@ -6,7 +6,12 @@ claims.tsv, `check` fails (exit 1) when
   * a document listed in `where` does not contain the `shown` string as a whole token (a match inside a longer number,
     e.g. "459" inside "2,459", "4" inside "4.5" or "10" in "10⁻⁷", does not count), or
   * the `shown` string has 3 characters or fewer and the claim carries no `context` for that document, or the context
-    phrase is not found within CONTEXT_WINDOW characters of a token match of `shown` in that document.
+    phrase is not found within CONTEXT_WINDOW characters of a token match of `shown` in that document, or
+  * a numeric token inside a strict zone (claims_strict.json: the README's headline block up to its first "## ", the
+    report's summary up to "## 2.", the form notes entirely) is not the `shown` value of a claim whose `where` lists that
+    document. Numeric tokens: integers >= 10, every decimal, percentage, ratio (120/120) and interval ([96.9, 100]);
+    integers below 10 are free. Non-claims (team number, dates, the form's character limit) are listed one by one in
+    claims_strict.json as literal phrases; a token is exempt only inside an occurrence of such a phrase.
 
 Short values ("4", "13", "0.9") occur all over a report, so a bare match proves nothing: the context pins the claim to one
 place in each document (for a table cell, the phrase is the row label: it pins the row, not the column). Contexts come
@@ -40,6 +45,7 @@ COLS = ["id", "shown", "file", "path", "fmt", "command", "where", "context"]
 SHORT = 3            # shown strings of at most this many characters need a context
 CONTEXT_WINDOW = 120  # the context phrase must sit within this many characters of the value
 CONTEXT_FILE = ROOT / "claims_context.json"
+STRICT_NAME = "claims_strict.json"  # at ROOT; read at call time
 SUPERSCRIPT = "⁰¹²³⁴⁵⁶⁷⁸⁹⁻"
 
 
@@ -159,6 +165,108 @@ def merge() -> list[dict]:
     return rows
 
 
+# ---------------------------------------------------------------------------------------------------- strict zones
+_N = r"\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?"
+_SN = rf"[−-]?(?:{_N})%?"
+NUMERIC = re.compile(
+    rf"\[\s*{_SN}\s*,\s*{_SN}\s*\]"           # interval  [96.9, 100] | [-0.02, 0.54] | [33.3%, 75.0%]
+    rf"|(?:{_N})/(?:{_N})"                          # ratio     120/120
+    rf"|[+−-]?(?:{_N})\s?%"                    # percent   92.3% | +3.6%
+    rf"|[+−-]?(?:{_N})")                        # number    9,720 | 0.83 | +22.7
+
+
+def numeric_tokens(text: str) -> list[tuple[int, int, str]]:
+    """(start, end, token) for every numeric token that a strict zone must back with a claim: intervals, ratios,
+    percentages, decimals and integers >= 10. Skipped: numbers glued to letters or identifiers (P8, v0.1, 8B, fig1,
+    run_38098822336, #1-the-schema), power bases (10 in 10⁻⁴) and plain integers below 10."""
+    out = []
+    for m in NUMERIC.finditer(text):
+        i, j, tok = m.start(), m.end(), m.group(0)
+        prev = text[i - 1] if i > 0 else " "  # never "": "" is in every string
+        nxt = text[j] if j < len(text) else " "
+        if tok[0] in "+-−" and (prev.isalnum() or prev in "_-/"):   # a hyphen after a word, id or number: no sign
+            i, tok = i + 1, tok[1:]
+            k = i - 1                                                      # the hyphen; the word before it decides
+            while k > 0 and (text[k - 1].isalnum() or text[k - 1] == "_"):
+                k -= 1
+            if any(c.isalpha() or c == "_" for c in text[k:i - 1]):     # an id (D2-4, P1-H1): skip
+                continue
+            prev = " "                                                     # a range (10-20): the second number counts
+        if prev.isalpha() or prev in "_#./\\" or prev.isdigit():
+            continue
+        if nxt.isalpha() or nxt == "_" or nxt in SUPERSCRIPT:
+            continue
+        plain = re.fullmatch(r"[+−-]?\d+", tok.replace(",", ""))
+        if plain and abs(int(tok.lstrip("+-−").replace(",", ""))) < 10:
+            continue
+        out.append((i, j, tok))
+    return out
+
+
+def strict_config() -> dict:
+    p = ROOT / STRICT_NAME
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+
+
+def zone_of(text: str, spec: dict) -> tuple[int, int]:
+    """[start, end) of a strict zone: from `start` (a literal, default the top) up to `end` (a literal, default the end)."""
+    lo = 0
+    if spec.get("start"):
+        lo = text.find(spec["start"])
+        if lo < 0:
+            raise ValueError(f"zone start {spec['start']!r} not found")
+    hi = len(text)
+    if spec.get("end"):
+        hi = text.find(spec["end"], lo)
+        if hi < 0:
+            raise ValueError(f"zone end {spec['end']!r} not found")
+    return lo, hi
+
+
+def _norm(tok: str) -> str:
+    return re.sub(r"\s+", " ", tok.replace("−", "-")).replace(" %", "%")
+
+
+def zone_check(rows: list[dict], cfg: dict | None = None, docs: dict[str, str] | None = None) -> list[str]:
+    """Every numeric token in each strict zone equals the `shown` value of a claim whose `where` lists that document,
+    or sits inside an allowlisted literal phrase of that document. A token with a leading '+' may match the unsigned
+    value; a leading minus must be claimed with its sign."""
+    cfg = strict_config() if cfg is None else cfg
+    errs = []
+    for doc, spec in (cfg.get("zones") or {}).items():
+        if docs is not None and doc in docs:
+            text = docs[doc]
+        else:
+            p = ROOT / doc
+            if not p.exists():
+                errs.append(f"strict zone: document {doc} missing")
+                continue
+            text = p.read_text(encoding="utf-8")
+        shown = {_norm(r["shown"]) for r in rows
+                 if doc in [w.strip() for w in r["where"].split(",")]}
+        try:
+            lo, hi = zone_of(text, spec)
+        except ValueError as e:
+            errs.append(f"strict zone {doc}: {e}")
+            continue
+        allowed = []
+        for a in (cfg.get("allow") or {}).get(doc, []):
+            hits = [(m.start(), m.end()) for m in re.finditer(re.escape(a["phrase"]), text)]
+            if not hits:
+                errs.append(f"strict zone {doc}: allowlisted phrase {a['phrase']!r} not found (remove it)")
+            allowed += hits
+        for i, j, tok in numeric_tokens(text[lo:hi]):
+            i, j = i + lo, j + lo
+            if any(a <= i and j <= b for a, b in allowed):
+                continue
+            t = _norm(tok)
+            if t in shown or (t.startswith("+") and t[1:] in shown):
+                continue
+            line = text.count("\n", 0, i) + 1
+            errs.append(f"strict zone {doc}:{line}: {tok!r} is not the shown value of any claim for {doc}")
+    return errs
+
+
 def check(rows: list[dict] | None = None) -> list[str]:
     rows = rows if rows is not None else load(ROOT / "claims.tsv")
     errs, docs, side = [], {}, contexts()
@@ -190,7 +298,7 @@ def check(rows: list[dict] | None = None) -> list[str]:
                     errs.append(f"{r['id']}: short value {r['shown']!r} in {doc} has no context")
                 elif not context_ok(docs[doc], r["shown"], phrase):
                     errs.append(f"{r['id']}: context {phrase!r} not within {CONTEXT_WINDOW} chars of {r['shown']!r} in {doc}")
-    return errs
+    return errs + zone_check(rows)
 
 
 STOP = {"eval", "results", "json", "report", "claims", "the", "and", "with", "arms", "strict", "counts", "publicai", "swiss",

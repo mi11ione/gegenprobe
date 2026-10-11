@@ -13,10 +13,14 @@ steps that need the network or a model endpoint and cannot reach them; the repla
               committed label files, the nine hypotheses scripts re-run and compared with their committed outputs (P5-P8
               byte-identical), the P7 dev table, the P8 tables, the P7 post-hoc files (eval/p7/offline.py) and the 8B
               analysis re-run offline and compared, the nine LOCK files verified (FAIL on any difference)
+  6b schema_v02  schema v0.2 re-derived from the committed P8 gold (66 affairs validate) and the v0.1 samples upgraded
+              losslessly, compared with results/schema/v0_2/ (FAIL on any difference)
   7 rederive  the P1 rules arm re-derived from the source PDFs (sha256-verified); WARN, never FAIL
   8 rederive_apertus  P1 + P2 pointer and cascade decisions recomputed from the committed model cache, cache-only
               (no request leaves the machine); FAIL only if a cache hit gives a different decision
-  9 claims    every number in README / report recomputed from results files (token-bounded; short values need context)
+  9 claims    every claimed number recomputed from its results file and found where it is printed (token-bounded; short
+              values need context); in the strict zones (README top, report summary, form notes) every number token
+              must be a claim (claims_strict.json)
 Re-derivation budgets (seconds): GP_REDERIVE_BUDGET (rules, default 240) + GP_REDERIVE_APERTUS_BUDGET (default 180, per set:
 P1 and P2 each get it, so P2 is always attempted; worst case 240 + 2 x 180 s).
 """
@@ -39,6 +43,7 @@ STEPS = [
     ("convert", "gegenprobe.convert.demo", "main"),
     ("eval", "eval.replay", "main"),
     ("replay", "eval.replay_all", "main"),  # P1-P8, 8B analysis + hypotheses + nine locks, committed files (FAIL on any diff)
+    ("schema_v02", "gegenprobe.schema.p8_v0_2", "step"),  # schema v0.2: 66 P8 gold affairs + v0.1 samples (FAIL on a diff)
     ("rederive", "eval.rederive", "main"),  # rules arm re-derived from the source PDFs (non-fatal: PASS / WARN / SKIP)
     ("rederive_apertus", "eval.replay_all", "main_rederive"),  # pointer/cascade from the model cache (cache-only)
     ("claims", "gegenprobe.claims_step", "main"),

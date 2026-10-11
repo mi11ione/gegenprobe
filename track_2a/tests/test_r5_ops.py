@@ -233,7 +233,9 @@ def test_site_downloads_are_the_committed_files_and_the_opd_box_links_them(tmp_p
             # round 9 (J1): the standalone workbench schema the README points OPD to
             "gegenprobe_schema.py",
             # round 10: the 30-row spot-check kit
-            "spotcheck.csv"} == names
+            "spotcheck.csv",
+            # round 11: schema v0.2 (P8's roles) and its P8 validation counts
+            "gegenprobe_schema_v0_2.py", "p8_validation.json"} == names
     assert d["repo"] == "https://github.com/mi11ione/gegenprobe"
     relink = next(f for f in d["files"] if f["name"] == "repair_BE_relink.tsv")
     assert relink["rows"] == 2421 and relink["href"] == "downloads/repair_BE_relink.tsv"

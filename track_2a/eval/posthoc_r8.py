@@ -92,7 +92,8 @@ def new_tests() -> list[dict]:
         "Wilson 95% lower bound >= 0.70", 1.0, False, f"{s5} H3.suggestion_precision",
         p_kind="untestable (0 suggestions): p = 1, kept in the family so that m is not reduced after the result")
     x = h5["H4"]
-    add("P5-H4", "eval/prereg6/PREREG6.md", f"closed-set pointer vs free generation, discordant {x['a_only']}-{x['b_only']}",
+    add("P5-H4", "eval/prereg6/PREREG6.md",
+        f"rules vs free generation (the pointer never fired, H3), discordant {x['a_only']}-{x['b_only']}",
         "exact one-sided McNemar, alpha 0.05, pointer better", x["p_one_sided"], x["holds"], f"{s5} H4",
         p_kind="exact McNemar (one-sided, as registered)")
 

@@ -1,0 +1,57 @@
+{
+ "_doc": "Strict zones for `make claims` (gegenprobe.claims.zone_check): every numeric token in a zone must be the shown value of a claim whose `where` lists the document. `allow` lists the non-claims literally, each with why.",
+ "zones": {
+  "README.md": {
+   "start": null,
+   "end": "\n## "
+  },
+  "technical_report.md": {
+   "start": null,
+   "end": "\n## 2."
+  },
+  "docs/form_notes.md": {
+   "start": null,
+   "end": null
+  }
+ },
+ "allow": {
+  "README.md": [
+   {
+    "phrase": "Team 444",
+    "why": "team number"
+   },
+   {
+    "phrase": "Wilson 95%",
+    "why": "confidence level of the interval, not a result"
+   }
+  ],
+  "technical_report.md": [
+   {
+    "phrase": "Team 444",
+    "why": "team number"
+   },
+   {
+    "phrase": "Wilson 95%",
+    "why": "confidence level of the interval, not a result"
+   },
+   {
+    "phrase": "10 Oct 2026",
+    "why": "date of OPD's correspondence"
+   }
+  ],
+  "docs/form_notes.md": [
+   {
+    "phrase": "≤ 5000 characters",
+    "why": "the form's character limit"
+   },
+   {
+    "phrase": "team 444",
+    "why": "team number"
+   },
+   {
+    "phrase": "10 Oct 2026",
+    "why": "date of OPD's correspondence"
+   }
+  ]
+ }
+}

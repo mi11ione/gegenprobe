@@ -1330,7 +1330,8 @@ def p7() -> dict | None:
                 h1=dict(correct=h["H1"]["correct"], n=h["H1"]["n"], wilson=h["H1"]["wilson95"], holds=h["H1"]["holds"]),
                 h3=dict(correct=h["H3"]["correct"], n=h["H3"]["n"], supported=h["H3"]["supported"]),
                 h4=dict(diff=h["H4"]["difference_precision_dated_p7_minus_trivial"]["estimate"],
-                        ci=h["H4"]["difference_precision_dated_p7_minus_trivial"]["ci95"], supported=h["H4"]["supported"]),
+                        ci=h["H4"]["difference_precision_dated_p7_minus_trivial"]["ci95"], supported=h["H4"]["supported"],
+                        unweighted=_j("p7/p7_posthoc_r8.json")["display"]["h4_unweighted_pts"]),
                 arms={k: arm(k) for k in ("p7", "free", "trivial")},
                 base_rate=post["base_rate"]["yes"], base_rate_dated=post["base_rate"]["yes_dated"],
                 qwen=dict(agree=h["qwen_check"]["agree"], n=h["qwen_check"]["n"]),
@@ -1363,6 +1364,8 @@ def p8() -> dict | None:
                            n_none=sum(r["n_det"] == 0 for r in f["per_parliament"].values())))
     return dict(n=h["n_affairs"], parliaments=h["n_parliaments"], meaning_tested=h["meaning_tested"],
                 n_robust=sum(f["robust"] for f in fields),
+                n_robust_role_split=sum(f["robust"] and f["verdict"] == "role_split" for f in fields),
+                n_robust_body_specific=sum(f["robust"] and f["verdict"] == "body_specific" for f in fields),
                 summary=h["summary"], fields=fields, qwen_model=q["model"],
                 qwen_usd=_j("p8/p8_qwen_run.json")["usd"], a3_packets=ag["disputed_packets"],
                 a3_fields=ag["disputed_fields"],
@@ -1452,6 +1455,11 @@ DOWNLOADS = (
     ("Workbench schema (v0.1)", "schema/gegenprobe_schema.py",
      "schema v0.1 as one Python file for OPD's workbench: pydantic only, no imports from gegenprobe, no I/O; its JSON "
      "Schemas are tested equal to the two above"),
+    ("Workbench schema (v0.2)", "schema/gegenprobe_schema_v0_2.py",
+     "schema v0.2: v0.1 plus P8's roles (author roles, the instrument's function, the text's language apart from the "
+     "tag, submission-date roles, the recommendation's stage); pydantic only, imports the v0.1 file next to it"),
+    ("Workbench schema (v0.2)", "results/schema/v0_2/p8_validation.json",
+     "the 66 P8 gold affairs converted to v0.2 records, all valid, and the v0.1 samples upgraded losslessly (counts)"),
     ("Federal (Fedlex) list", "results/repair/repair_CHE.tsv.gz",
      "placeholder_replace: federal answers whose OPD document is a placeholder; a work queue (source_url resolved and "
      "verified on a minority of rows; the rest by repair.che backlog)"),

@@ -159,6 +159,7 @@ def fig1(n: dict) -> None:
 STATUS = [("metadata", RAMP["600"], "in OPD metadata"), ("mixed", RAMP["400"], "partly (metadata for some affairs)"),
           ("pdf", RAMP["250"], "PDF only"), ("no_source", ORANGE, "not in OPD"),
           ("n/a", GRAY_LIGHT, "not applicable / too few affairs")]
+HATCH = {"mixed": "////"}  # "partly" is hatched so it does not rest on telling two blues apart (round 11)
 
 
 def _where(f: dict) -> str:
@@ -197,7 +198,9 @@ def fig2(n_communes: int = 13) -> dict:
     fig, ax = plt.subplots(figsize=(6.8, 4.1))
     for yi, f in enumerate(fields):
         for xi, b in enumerate(cols):
-            ax.add_patch(plt.Rectangle((xi, yi), 0.92, 0.88, color=cmap.get(st.get((f, b), "n/a"), GRAY_LIGHT), lw=0))
+            k = st.get((f, b), "n/a")
+            ax.add_patch(plt.Rectangle((xi, yi), 0.92, 0.88, facecolor=cmap.get(k, GRAY_LIGHT), edgecolor=SURFACE,
+                                       hatch=HATCH.get(k), lw=0))
     ax.set_xlim(0, len(cols))
     ax.set_ylim(len(fields), 0)
     def lab(b):
@@ -216,7 +219,8 @@ def fig2(n_communes: int = 13) -> dict:
             fontsize=7.5, color=INK2)
     # the legend sits below the longest rotated parliament label (no overlap): anchored in figure coordinates
     fig.subplots_adjust(left=0.31, right=0.995, top=0.91, bottom=0.31)
-    fig.legend(handles=[Patch(color=c, label=t) for _, c, t in STATUS], loc="lower left", bbox_to_anchor=(0.01, 0.0),
+    fig.legend(handles=[Patch(facecolor=c, edgecolor=SURFACE, hatch=HATCH.get(k), lw=0, label=t) for k, c, t in STATUS],
+               loc="lower left", bbox_to_anchor=(0.01, 0.0),
                ncol=3, frameon=False, fontsize=7.5)
     ax.text(-0.44, 1.09, f"Where each schema field comes from, per parliament ({len(cols)} of {meta['n_bodies']}; all in "
             f"results/census/matrix.csv)", ha="left", va="bottom", fontsize=8.5, color=INK, transform=ax.transAxes)
