@@ -27,6 +27,9 @@ from ..paths import WORK
 from ..stats import wilson_pct
 from .be import answer_events, load_ogd, verify_text
 from .common import OUT, iter_docs_meta
+from gegenprobe.compliance import fetchguard
+
+fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
 
 CACHE = WORK / "repair" / "verify_all"
 LIST = OUT / "repair_BE.tsv"

@@ -31,7 +31,7 @@ import time
 import urllib.parse
 from pathlib import Path
 
-from .. import net, pdftext
+from .. import devpaths, net, pdftext
 from gegenprobe.compliance import fetchguard
 from ..paths import DATA, PDF_CACHE, WORK
 from ..stats import wilson_pct
@@ -51,7 +51,7 @@ NAME = {
 }
 OPC = re.compile(r"/opc/(de|fr|it)/(federal-gazette|official-compilation)/(\d{4})/(\d+)\.pdf$")
 STATE = WORK / "che_backlog.jsonl"
-SPIKE = Path.home() / "Desktop/hackapertus/spikes/recovery"
+SPIKE = devpaths.spikes() / "recovery"  # GP_SPIKES_DIR (development only)
 GAP_IDS = DATA / "repair" / "che_gap_ids.json"
 
 
@@ -137,7 +137,7 @@ def _text(path: Path) -> str:
 
 def reproduce() -> dict:
     """The 20 spike documents (seed 20261008), re-verified from the cached PDFs with this module's rule."""
-    rec = json.loads((SPIKE / "che_placeholder_recovery.json").read_text())
+    rec = json.loads((devpaths.require_spikes("repair.che reproduce", "recovery") / "che_placeholder_recovery.json").read_text())
     rows = []
     for r in rec["rows"]:
         x = dict(r, year=r["citation"].split()[1], page=r["citation"].split()[2])

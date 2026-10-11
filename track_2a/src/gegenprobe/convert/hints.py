@@ -14,6 +14,9 @@ from __future__ import annotations
 import re
 
 from . import rules
+from gegenprobe.compliance import fetchguard
+
+fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
 
 _RAT = r"(?:Kantonsrat|Grossen?\s+Rat|Grosser\s+Rat|Landrat|Einwohnerrat)(?:e?s)?"
 ADDRESS = re.compile(

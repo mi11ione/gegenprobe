@@ -17,16 +17,26 @@ Environment=GP_IMAGE=gegenprobe:0.1.0
 # Resource ceiling of the container (docker enforces it; the unit's own MemoryMax does not reach dockerd's cgroup).
 # Measured peak: see docs/runbook.md "Resources". Raise GP_MEM if a night is OOM-killed (exit 137).
 Environment=GP_MEM=4g GP_CPUS=2
-# Optional alert routing and operator settings: see deploy/nightly/alerts.env.example
+# Local exports (GP_EXPORTS_DIR, "Inside OPD" in docs/runbook.md): the directory is bind-mounted read-only into the
+# container at the SAME path, so the value the container receives through --env-file names a directory that exists there.
+# Without GP_EXPORTS_DIR in alerts.env, this default (an empty directory created below) is mounted instead; the container
+# then has no GP_EXPORTS_DIR and downloads the exports. A path set in alerts.env that does not exist on the host makes
+# `docker run` fail (--mount, unlike -v, never creates the source), so a typo is a failed night, not a silent download.
+# Leave the line commented out rather than empty: an empty value cannot be mounted.
+Environment=GP_EXPORTS_DIR=/var/lib/gegenprobe/no-exports
+# Optional alert routing and operator settings: see deploy/nightly/alerts.env.example (a value there overrides the
+# Environment= lines above)
 EnvironmentFile=-/etc/gegenprobe/alerts.env
 # The image runs as uid 10001 (never root); the host directories belong to that uid.
 ExecStartPre=/usr/bin/install -d -o 10001 -g 0 -m 0750 ${GP_HOME}/work ${GP_HOME}/results
+ExecStartPre=/usr/bin/install -d -m 0755 /var/lib/gegenprobe/no-exports
 ExecStartPre=/usr/bin/touch /etc/gegenprobe/alerts.env
 # A container left behind by a killed night (SIGKILL at TimeoutStartSec, OOM of dockerd, host crash) would block the name
 # tomorrow; remove it before the run and after every run ("-": a missing container is not an error).
 ExecStartPre=-/usr/bin/docker rm -f gegenprobe-nightly
 # Read-only root filesystem: the job writes only to the two mounted host directories and to a private /tmp (tmpfs;
-# pdftoppm/tesseract scratch files; HOME=/tmp in the image).
+# pdftoppm/tesseract scratch files; HOME=/tmp in the image). The exports directory is mounted read-only; uid 10001 needs
+# read access to it (world-readable, or group 0).
 ExecStart=/usr/bin/docker run --rm --name gegenprobe-nightly \
   --read-only --tmpfs /tmp:rw,nosuid,nodev,size=1g \
   --user 10001:0 --cap-drop ALL --security-opt no-new-privileges \
@@ -35,6 +45,7 @@ ExecStart=/usr/bin/docker run --rm --name gegenprobe-nightly \
   -e GP_WORK=/var/gegenprobe/work -e GP_MONITOR_OUT=/var/gegenprobe/results \
   -v ${GP_HOME}/work:/var/gegenprobe/work \
   -v ${GP_HOME}/results:/var/gegenprobe/results \
+  --mount type=bind,source=${GP_EXPORTS_DIR},target=${GP_EXPORTS_DIR},readonly \
   ${GP_IMAGE} python -m gegenprobe.monitor.nightly run
 ExecStopPost=-/usr/bin/docker rm -f gegenprobe-nightly
 TimeoutStartSec=4h

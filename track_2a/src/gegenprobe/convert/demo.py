@@ -32,6 +32,9 @@ from .. import llm, pdftext
 from ..paths import DATA, WORK
 from ..validate import distractor, recheck, self_deletion
 from . import cascade, modes, pointer, rules
+from gegenprobe.compliance import fetchguard
+
+fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
 
 DEMO = DATA / "convert" / "demo_docs.json"
 THETA_DIR = DATA / "convert" / "theta"

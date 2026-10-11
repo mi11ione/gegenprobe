@@ -21,6 +21,9 @@ import re
 
 from ..paths import PDF_CACHE, RESULTS, TEXT_CACHE
 from .schema_v0_1 import SCHEMA_VERSION, Affair
+from gegenprobe.compliance import fetchguard
+
+fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
 
 OUT = RESULTS / "schema"
 BE91_SHA = "aee311edbe3633cbc60d581aa17b6a4f368d8ec31eeae3dbe16c44e6e05bce32"   # canton OGD 0778ef86…-332.pdf (201,704 B)

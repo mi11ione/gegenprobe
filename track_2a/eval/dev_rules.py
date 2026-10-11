@@ -5,16 +5,17 @@ usage: python -m eval.dev_rules        -> results/convert/rules_dev.json
 """
 
 import json
-import os
-from pathlib import Path
 
 from eval.score import summarise
-from gegenprobe import pdftext
+from gegenprobe import devpaths, pdftext
 from gegenprobe.convert import rules
 from gegenprobe.convert.lattice import dates
 from gegenprobe.paths import DATA, RESULTS
+from gegenprobe.compliance import fetchguard
 
-SPIKES = Path(os.path.expanduser("~/Desktop/hackapertus/spikes"))
+fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
+
+SPIKES = devpaths.spikes()  # GP_SPIKES_DIR (development only; gegenprobe/devpaths.py)
 
 
 def pages_for(label: dict, docs: dict, spike_texts: dict) -> tuple[list[str], bool] | None:
@@ -29,7 +30,8 @@ def pages_for(label: dict, docs: dict, spike_texts: dict) -> tuple[list[str], bo
 def main() -> dict:
     labels = [json.loads(line) for line in open(DATA / "gold" / "dev_labels.jsonl")]
     docs = {json.loads(line)["doc_id"]: json.loads(line) for line in open(DATA / "gold" / "dev_docs.jsonl")}
-    spike_texts = {int(x["doc_id"]): x["text"] for x in json.load(open(SPIKES / "round8/ptr_items.json"))}
+    items = devpaths.require_spikes("eval.dev_rules (the 30 spike dev items)", "round8/ptr_items.json")
+    spike_texts = {int(x["doc_id"]): x["text"] for x in json.load(open(items))}
     rows, per_doc, rule_hits = [], [], {}
     for lab in labels:
         pg = pages_for(lab, docs, spike_texts)

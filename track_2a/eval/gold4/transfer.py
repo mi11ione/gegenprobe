@@ -25,6 +25,9 @@ import sys
 
 from gegenprobe import pdftext
 from gegenprobe.paths import DATA, DOCS_META, WORK
+from gegenprobe.compliance import fetchguard
+
+fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
 
 BODY = "6421"
 SEED = 20261015

@@ -1,34 +1,147 @@
 {
- "note": "Upper bound on repeated requests to disallowed www4.ti.ch paths made by GitHub Actions runs before the RFC 9309 fix (commit 099f416, pushed 2026-10-10T22:48:05Z). Run counts from `gh run list` (all runs created before the fix, any conclusion); per-run request counts from the recorded runs in results/compliance/robots_audit_all.json. Runs that failed before their fetch step made fewer or no requests, so these are upper bounds.",
+ "note": "Upper bound on requests to disallowed www4.ti.ch paths made by GitHub Actions runs before the RFC 9309 fix (commit 099f416, pushed 2026-10-10T22:48:08Z), from the committed run snapshot (data/compliance/ci_runs_before_fix.json) and the documents each executed fetching step reads (python -m gegenprobe.compliance.ci_repeats).",
  "fix_commit": "099f416",
- "fix_pushed": "2026-10-10T22:48:05Z",
+ "fix_pushed": "2026-10-10T22:48:08Z",
+ "disallowed_ti_urls_per_set": {
+  "gold_dev": 21,
+  "gold_heldout": 40,
+  "gold_p2": 0,
+  "p6_test": 0,
+  "convert_demo": 3
+ },
  "workflows": {
-  "ci.yml (make run re-derivation)": {
+  "ci.yml": {
    "runs_before_fix": 96,
-   "ti_requests_per_run": 43,
-   "upper_bound": 4128
+   "executed_fetch_steps": {
+    "make run (re-derivation + converter demo)": 96
+   },
+   "skipped_fetch_steps": 0,
+   "downloads_max": 4128,
+   "requests_max_with_retries": 20640
   },
   "arms-8b.yml": {
    "runs_before_fix": 6,
-   "ti_requests_per_run": 261,
-   "upper_bound": 1566
+   "executed_fetch_steps": {
+    "run_arms fetch dev": 4,
+    "run_arms fetch heldout": 6
+   },
+   "skipped_fetch_steps": 2,
+   "downloads_max": 324,
+   "requests_max_with_retries": 648
   },
   "arms-8b-par.yml": {
    "runs_before_fix": 2,
-   "ti_requests_per_run": 387,
-   "upper_bound": 774
+   "executed_fetch_steps": {
+    "run_arms fetch dev": 9,
+    "run_arms fetch heldout": 6
+   },
+   "skipped_fetch_steps": 1,
+   "downloads_max": 429,
+   "requests_max_with_retries": 858
   },
   "arms-8b-fill.yml": {
    "runs_before_fix": 1,
-   "ti_requests_per_run": 40,
-   "upper_bound": 40
+   "executed_fetch_steps": {
+    "run_arms fetch heldout": 1
+   },
+   "skipped_fetch_steps": 0,
+   "downloads_max": 40,
+   "requests_max_with_retries": 80
   },
   "arms-8b-p6.yml": {
    "runs_before_fix": 1,
-   "ti_requests_per_run": 147,
-   "upper_bound": 147
+   "executed_fetch_steps": {
+    "p6 fetch (dev + P6)": 1
+   },
+   "skipped_fetch_steps": 0,
+   "downloads_max": 21,
+   "requests_max_with_retries": 42
+  },
+  "arms-8b-p2.yml": {
+   "runs_before_fix": 1,
+   "executed_fetch_steps": {
+    "p2 fetch": 6
+   },
+   "skipped_fetch_steps": 0,
+   "downloads_max": 0,
+   "requests_max_with_retries": 0,
+   "why_zero": "its 6 shard jobs fetch the 62 P2 documents, none of which is on www4.ti.ch"
+  },
+  "gguf-8b.yml": {
+   "runs_before_fix": 4,
+   "executed_fetch_steps": {},
+   "skipped_fetch_steps": 4,
+   "downloads_max": 0,
+   "requests_max_with_retries": 0,
+   "why_zero": "steps selfcheck / diag / impl score committed token-id fixtures (tests/fixtures/gguf_*.json) and fetch only the model file and llama.cpp sources; the `arms` step, the only one that reads documents, was skipped in all runs before the fix"
+  },
+  "nightly-real.yml": {
+   "runs_before_fix": 1,
+   "executed_fetch_steps": {},
+   "skipped_fetch_steps": 0,
+   "downloads_max": 0,
+   "requests_max_with_retries": 0,
+   "why_zero": "one network night: OPD exports, Bern's OGD tables and BE documents; no www4.ti.ch URL"
+  },
+  "nightly-real-docker.yml": {
+   "runs_before_fix": 0,
+   "executed_fetch_steps": {},
+   "skipped_fetch_steps": 0,
+   "downloads_max": 0,
+   "requests_max_with_retries": 0,
+   "why_zero": "no run before the fix"
   }
  },
+ "upper_bound_downloads": 4942,
+ "upper_bound_requests_with_retries": 22268,
  "upper_bound_total": 6655,
- "not_counted": "arms-8b-p2.yml (1 run) and gguf-8b.yml (4 runs): per-run Ticino request counts not recorded; P2 contains no www4.ti.ch document; gguf-8b fetched model files and a few demo documents"
+ "upper_bound_total_note": "the round-6 bound: every run of a workflow counted at the full per-invocation fetch of its definition (ci 96 x 43, arms-8b 6 x 261, arms-8b-par 2 x 387, fill 40, p6 147). It left out arms-8b-p2 and gguf-8b; both made no request to www4.ti.ch (workflows.*.why_zero), so it is an upper bound on downloads too, looser than upper_bound_downloads",
+ "max_concurrent_fetching_steps": 8,
+ "max_concurrency_at": {
+  "time": "2026-10-10T13:37:25Z",
+  "steps": [
+   {
+    "workflow": "ci.yml",
+    "run": 38055849710,
+    "job": "make-run"
+   },
+   {
+    "workflow": "ci.yml",
+    "run": 38056232065,
+    "job": "make-run"
+   },
+   {
+    "workflow": "arms-8b-par.yml",
+    "run": 38048369442,
+    "job": "shard (2)"
+   },
+   {
+    "workflow": "arms-8b-par.yml",
+    "run": 38048369442,
+    "job": "shard (0)"
+   },
+   {
+    "workflow": "arms-8b-par.yml",
+    "run": 38048369442,
+    "job": "shard (3)"
+   },
+   {
+    "workflow": "arms-8b-par.yml",
+    "run": 38048369442,
+    "job": "shard (4)"
+   },
+   {
+    "workflow": "arms-8b-par.yml",
+    "run": 38048369442,
+    "job": "shard (5)"
+   },
+   {
+    "workflow": "arms-8b-par.yml",
+    "run": 38048369442,
+    "job": "shard (1)"
+   }
+  ]
+ },
+ "pacing": "net.py waits >= 1.2 s between two requests to the same host within one process (all threads); separate processes on separate runners do not coordinate, so at the peak above at most 8 requests could reach www4.ti.ch within any 1.2 s",
+ "not_in_bound": "robots.txt reads (an allowed path) and requests made outside GitHub Actions (results/compliance/robots_audit_all.json, totals.project)"
 }

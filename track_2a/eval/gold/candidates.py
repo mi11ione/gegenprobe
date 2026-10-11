@@ -19,6 +19,9 @@ import re
 from gegenprobe import pdftext
 from gegenprobe.convert import lattice, rules
 from gegenprobe.paths import DATA, WORK
+from gegenprobe.compliance import fetchguard
+
+fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
 
 SHEET_COLS = [
     "doc_id",

@@ -29,6 +29,7 @@ import time
 
 from eval.gold2.hypotheses2 import block as p2_block
 from eval.score import outcome
+from gegenprobe import devpaths
 from gegenprobe.convert import lattice
 from gegenprobe.paths import DATA, RESULTS, WORK
 from gegenprobe.stats import cohen_kappa, wilson
@@ -37,7 +38,6 @@ MODEL = "aisingapore/Qwen-SEA-LION-v4-32B-IT"
 TAG = "2a-qwen-audit"
 TAG_CAP = 1.5
 MAX_TOKENS = 700
-GATEWAY = "/Users/mi11ion/Desktop/hackapertus/gateway"
 BUILD = "publicai_swiss-ai_apertus-v1.5-8b"  # the 70B weights served under the -8b name (technical_report §3)
 LABEL = "POST HOC (round 5, 10 Oct 2026; not pre-registered): independent non-Anthropic annotator (Qwen-SEA-LION-v4-32B-IT)"
 SETS = {
@@ -155,8 +155,7 @@ def verify(a: dict, pgs: list[str]) -> dict:
 
 
 def annotate_one(s: str, d: dict) -> dict:
-    sys.path.insert(0, GATEWAY)
-    import gw  # noqa: E402  (budget gateway; key handling stays inside it)
+    gw = devpaths.import_gw("posthoc_r5 Qwen annotation")  # budget gateway, GP_GATEWAY_DIR; key handling stays inside it
 
     pgs = pages(s, d["doc_id"])
     body = "".join(f"\n=== PAGE {i} ===\n{p}" for i, p in enumerate(pgs, 1)).lstrip("\n")

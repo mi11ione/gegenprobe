@@ -11,15 +11,14 @@ usage: python -m eval.replay_spikes [--vendor]
 """
 
 import json
-import os
 import sys
-from pathlib import Path
 
 from gegenprobe.convert.calibrate import calibrate, fit_theta, transfer
+from gegenprobe import devpaths
 from gegenprobe.paths import DATA, RESULTS
 from gegenprobe.stats import logsumexp
 
-SPIKES = Path(os.path.expanduser("~/Desktop/hackapertus/spikes"))
+SPIKES = devpaths.spikes()  # GP_SPIKES_DIR (development only; gegenprobe/devpaths.py)
 VENDOR = DATA / "convert" / "spike_margins.json"
 STAGES = ["SFT", "RLVR", "DPO", "final", "final_dwq"]
 SHAPE_ARMS = ["a_json_null", "b_verbal", "c_schema_sentinel", "d_doc_sentinel"]
@@ -27,6 +26,7 @@ SHAPE_ARMS = ["a_json_null", "b_verbal", "c_schema_sentinel", "d_doc_sentinel"]
 
 def extract() -> dict:
     """Pull only margins/labels (no document text) from the spike files."""
+    devpaths.require_spikes("eval.replay_spikes extract")
     out = {"snull": {}, "shape": [], "live": None}
     for st in STAGES:
         d = json.load(open(SPIKES / f"stage/results/{st}.json"))

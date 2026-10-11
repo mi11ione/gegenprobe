@@ -10,12 +10,13 @@ import argparse
 import json
 from pathlib import Path
 
+from .. import devpaths
 from ..paths import OPD_RAW
 from . import extract, replay
 from .funnel import OUT
 from .tables import CENSUS
 
-SPIKE_FUNNEL = Path.home() / "Desktop/hackapertus/spikes/recovery/funnel.json"
+SPIKE_FUNNEL = devpaths.spikes() / "recovery" / "funnel.json"  # GP_SPIKES_DIR; optional (skipped when absent)
 CELL_FIELDS = [
     "n",
     "ev_answer",

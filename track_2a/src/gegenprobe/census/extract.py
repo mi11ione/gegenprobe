@@ -27,11 +27,13 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .. import devpaths
 from ..paths import DATA, DOCS_META, OPD_RAW
 from . import defs
 
 OUT = DATA / "census"
-BE_OGD = Path(os.environ.get("GP_BE_OGD", Path.home() / "Desktop/hackapertus/spikes/recovery/data/be_ogd"))
+# the canton tables: GP_BE_OGD (the nightly job passes WORK/be_ogd); development default: the recovery spike's copy
+BE_OGD = Path(os.environ.get("GP_BE_OGD") or devpaths.spikes() / "recovery" / "data" / "be_ogd")
 SEP = "\t"
 
 

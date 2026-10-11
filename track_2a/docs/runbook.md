@@ -8,7 +8,7 @@ below covers its refit procedure, owner and cost.
 
 | option | when | cost |
 |---|---|---|
-| **Inside OPD**, next to the export job | recommended | no download: `GP_EXPORTS_DIR` points at OPD's export directory and every exports URL is read from there. A night measured that way took 96.8 s wall (incremental best case on a copied snapshot: no docs/texts file changed, so no rescan; peak memory 2,077.6 MB) plus two canton GETs (~23 MB). A night that re-scans changed files takes longer: about 21.8 min after the 6→9 Oct changes (20.2 min of re-scan, derived; `results/monitor/night_cost.json`) |
+| **Inside OPD**, next to the export job | recommended | no download: `GP_EXPORTS_DIR` points at OPD's export directory and every exports URL is read from there (the Docker unit bind-mounts that directory read-only at the same path; CI job `nightly-smoke` runs a night that way inside the image). A night measured that way took 96.8 s wall (incremental best case on a copied snapshot: no docs/texts file changed, so no rescan; peak memory 2,077.6 MB) plus two canton GETs (~23 MB). A night that re-scans changed files takes longer: about 21.8 min after the 6→9 Oct changes (20.2 min of re-scan, derived; `results/monitor/night_cost.json`) |
 | A Swiss or EU VPS (e.g. 4 vCPU / 8 GB RAM / 20 GB disk at a Swiss provider) | if OPD prefers to keep it outside | the exports are full nightly dumps (6.2 GB; 68 of 116 docs/texts files changed between 6 and 9 Oct), so a night is roughly 30–40 min, mostly download and parsing (estimate; the measured first night on a 4-vCPU GitHub runner took 83 min, about 50 of them the one-time BE triple check) |
 
 It needs Linux, systemd, and either Docker (`deploy/nightly/gegenprobe-nightly.service`) or a Python 3.11 venv with poppler
@@ -42,7 +42,8 @@ their own lines, because Docker's `--env-file` keeps a trailing `# …` as part 
 | setting | default | what it does |
 |---|---|---|
 | `GP_USER_AGENT` | `hackapertus-research/0.1` | User-Agent of every request. **Set it**: your own product token and a contact URL or mail, e.g. `opd-gegenprobe/0.1 (+https://openparldata.ch)`, so the hosts we fetch from can reach you. The default names no contact; a network night then prints a note on stderr and records `user_agent.has_contact: false` in `run.json` |
-| `GP_EXPORTS_DIR` | unset | read `files.openparldata.ch/exports/…` from this local directory (same layout: `index.json`, `affairs.ndjson.gz`, `docs/docs_<body>.ndjson.gz`, …); no export transfer |
+| `GP_EXPORTS_DIR` | unset | read `files.openparldata.ch/exports/…` from this local directory (same layout: `index.json`, `affairs.ndjson.gz`, `docs/docs_<body>.ndjson.gz`, …); no export transfer. Docker unit: the directory is mounted read-only into the container at the same path (`--mount …,readonly`), so it must exist on the host (a missing path fails the night instead of downloading) and be readable by uid 10001. Leave the line commented out rather than empty |
+| `GP_ADAPTER_CANARY` | `1` in the template | re-check one known affair per external adapter source each network night (operating plan below); `0` turns it off |
 | `GP_MAX_PDF_MB` | 50 | a document larger than this is refused before it is read (typed `too_large`, row goes to `review`) |
 | `GP_MAX_DOWNLOAD_MB` | 100 | the same for other in-memory downloads (the canton tables are ~20 MB) |
 | `GP_SUBPROCESS_TIMEOUT` | 300 | seconds per pdftotext / pdftoppm / tesseract call (typed `text_timeout`) |
@@ -70,18 +71,27 @@ prints `_gegenprobe_robots9309`. If it prints `urllib.robotparser` instead, the 
 `PYTHONPATH=src python -c 'import sys; from gegenprobe import net; print(sys.modules["_gegenprobe_mirror"].installed(net))'`
 prints `True`.
 
-**Fail-closed since round 6.** Before, a matcher that could not be installed printed a warning, and fetching went on
-under `urllib.robotparser`'s first match. Now every request checks, at request time, that the RFC 9309 matcher is
-active, and is refused before any byte is sent when it is not (`net.Disallowed`, kind `robots_matcher_inactive`; a
-`convert` row gets that status). The check lives in `src/gegenprobe/compliance/fetchguard.py`, which wraps
-`gegenprobe.net`'s `open_url` and `allowed` (`net.py` stays locked). It reaches every start-up path:
+**Fail-closed once the guard is loaded.** Before round 6, a matcher that could not be installed printed a warning, and
+fetching went on under `urllib.robotparser`'s first match. Now, in a process where the guard is loaded, every request
+checks at request time that the RFC 9309 matcher is active, and is refused before any byte is sent when it is not
+(`net.Disallowed`, kind `robots_matcher_inactive`; a `convert` row gets that status). The check lives in
+`src/gegenprobe/compliance/fetchguard.py`, which wraps `gegenprobe.net`'s `open_url` and `allowed` (`net.py` stays
+locked). Three things load it:
 - `src/sitecustomize.py` (`src/` on `PYTHONPATH`, as above);
 - `gegenprobe-robots9309.pth`, which `pip install -e .` (and `pip install .`) puts into site-packages (`setup.py`), so
-  an installed checkout needs no `PYTHONPATH`;
-- `fetchguard.ensure()`, called at import by every unlocked module that fetches (adapters, repair, census, monitor,
-  `convert`, the eval drivers; `tests/test_fetchguard.py` fails if one is missing).
+  an installed checkout needs no `PYTHONPATH`. `make dev-install` does this for the development `.venv`
+  (`--no-deps`, no dependency changes);
+- `fetchguard.ensure()`, called at import by every unlocked module that imports `gegenprobe.net` or
+  `gegenprobe.pdftext` (adapters, repair, census, monitor, `convert`, `qa_cli`, the viewer, the eval drivers;
+  `tests/test_fetchguard.py` fails if one is missing).
 
-The locked samplers and `pdftext.fetch_pdf` are covered by the first two. To check the guard:
+**When it is not loaded.** A process that starts with none of the three, and then imports `gegenprobe.net` or the locked
+`gegenprobe.pdftext` directly, fetches under `urllib.robotparser`'s first match: `python -S`; `python -I` in an
+interpreter whose site-packages has no `gegenprobe-robots9309.pth`; or importing `gegenprobe.net` with `src/` on
+`sys.path` only through the current directory (`cd src && python -c "import gegenprobe.net"`), where `site` never sees
+`src/sitecustomize.py`. The locked samplers (`eval/gold/sample.py`, `eval/gold2/sample.py`) and `pdftext.fetch_pdf`
+cannot call `ensure()`; they are covered only by the first two. Use the documented entry points (`make …`, the units,
+the image) or install the checkout. To check the guard:
 `PYTHONPATH=src python -c 'import sys; from gegenprobe import net; print(sys.modules["_gegenprobe_fetchguard"].installed(net))'`
 prints `True`. Re-run the project-wide audit with `python -m gegenprobe.compliance.audit --offline` (stored robots.txt
 copies) or `--refresh` (one robots.txt request per host).
@@ -179,7 +189,7 @@ The source adapters (`docs/adapters.md`) are a batch, not part of the nightly jo
 | re-run every adapter on the new targets | monthly (first week), and after an adapter change | adapter owner (data engineer, repair workstream) | `python -m gegenprobe.repair.adapters.targets`, `... opd_docs`, `... run BODY ...` (resumable, polite), then `make adapters-write` |
 | check before publishing a re-run | after every re-run | adapter owner | `make test` (list hygiene: tier, counted = verified, opd_doc_id, text_sha256, target_category); compare `adapters_summary.json` per parliament with the previous run (`adapter_counted_drop` fires on a drop); `python -m gegenprobe.repair.adapters.canary select` |
 | canaries: one known counted affair per external source, re-checked live | nightly (`GP_ADAPTER_CANARY=1` in `/etc/gegenprobe/alerts.env`), or by hand | the nightly's alert channel; first responder = adapter owner | `python -m gegenprobe.repair.adapters.canary run` (exit 3 on alerts) |
-| blind audit of the counted tiers | after a re-run that changes a tier's rule or adds an adapter | adapter owner + two auditors from different vendors | `python -m gegenprobe.repair.adapters.audit3 draw / qwen / score` |
+| blind audit of the counted tiers | after a re-run that changes a tier's rule or adds an adapter | adapter owner + two auditors from different vendors | `python -m gegenprobe.repair.adapters.audit3 draw`, then the second auditor with `qwen --backend openai` (any OpenAI-compatible server: `LLM_BASE_URL`, `LLM_API_KEY`, `LLM_NAME`; never an Apertus model), then `score`. Plain `qwen` is development-only: it calls Qwen through the developer's budget gateway (`GP_GATEWAY_DIR`) |
 | robots.txt re-audit of every URL fetched | after every re-run | adapter owner | `python -m gegenprobe.repair.adapters.robots_audit` |
 
 **Canaries** (`results/repair/adapters/canary.json`, `src/gegenprobe/repair/adapters/canary.py`): Kantonsrat Zürich CDWS
@@ -187,9 +197,11 @@ The source adapters (`docs/adapters.md`) are a batch, not part of the nightly jo
 pages, and OPD's own file copies (`files.openparldata.ch`, an `extract_tag` row through OCR). Each canary runs its
 adapter's whole path (the source's API or index, a fresh download that bypasses the URL cache, extraction, the checks) and
 compares the outcome and the text hash with the committed list; its excerpt goes to `work/canary/`, never over the run's
-own. About 45 requests and 70 seconds a night (measured live on 11 Oct 2026, robots.txt reads included: 7 of 7
-verified, no alert; Aarau's nine yearly index pages are 14 of the requests), one at a time per host, through the same RFC 9309 robots check and OPD-mirror fallback
-as every fetch. `canary check` (offline, in `make test`) asserts that every canary is a counted row of its committed list
+own. About 45 requests and 70 seconds a night (estimate; Aarau's nine yearly index pages are 14 of the requests). The live
+run of 11 Oct 2026 is committed: `results/repair/adapters/canary_runs/2026-10-11.json`, 7 of 7 verified with the committed
+text hash, no alert, 67.6 s wall. Requests go one at a time per host, through the same RFC 9309 robots check and
+OPD-mirror fallback as every fetch. `GP_ADAPTER_CANARY=1` is set in the template (`deploy/nightly/alerts.env.example`),
+so an installed night runs the canaries unless the operator sets `0`. `canary check` (offline, in `make test`) asserts that every canary is a counted row of its committed list
 with the committed text hash. Offline drills: `canary run --fixtures DIR` reads `DIR/<BODY>_<affair_id>.txt` instead of
 the network. A failed canary blocks publishing that parliament's next list until the adapter is fixed and the canary
 verifies again.
@@ -284,8 +296,8 @@ with network access to the model server:
 ```sh
 # 1. confirm: the run stops and names the served fingerprint (exit 3)
 python -m gegenprobe convert <answer.pdf> --mode review --backend openai
-# 2. the dev documents (polite fetch into .work/pdf; seeds and ids in eval/gold/SEEDS.md, data/gold/dev_ids.json)
-make gold-dev
+# 2. the committed dev documents (polite fetch by URL into .work/pdf, each checked against its committed sha256)
+make gold-dev-fetch
 # 3. fit θ on the dev labels (data/gold/dev_labels.jsonl) for the build the server now serves
 LLM_BASE_URL=https://<server>/v1 LLM_NAME=<model> LLM_API_KEY=<key> make theta BACKEND=openai
 #    -> data/convert/theta/<build>.json: theta, leave-one-out accuracy, AUROC, n, and served_fingerprints
@@ -297,8 +309,10 @@ make arms SPLIT=heldout BACKEND=openai
 
 Notes: `make theta` writes into the checkout's `data/convert/theta/`. In this repository those files are the evaluation
 record and are hash-locked (`eval/prereg/LOCK`), so refit in the deployment's own copy, not here. 30 of the 127 dev
-labels are spike documents whose texts live outside the repository (`SPIKES` in `eval/arms.py`); without that folder,
-put an empty list (`[]`) at `<SPIKES>/round8/ptr_items.json` and θ is fitted on the 97 committed dev documents. A fit
+labels are spike documents whose texts live outside the repository (`SPIKES` in the locked `eval/arms.py`). `make
+theta` runs it through `eval/devrun.py`, which takes that folder from `GP_SPIKES_DIR`; without the folder, set
+`GP_SPIKES_DIR=none` and θ is fitted on the 97 committed dev documents (a dev-split command without either stops with
+that message before any model call). A fit
 costs one pointer run over the dev set (3.5 calls per document on average).
 
 **Who reviews.** The data engineer who runs the nightly job owns review mode (refits, the guard's exit 3). Suggestions go
@@ -321,7 +335,10 @@ and checks that exactly one webhook post with valid JSON arrives; job `test` and
 assert that robots.txt is matched under RFC 9309 and that a process without the matcher fetches nothing
 (`src/sitecustomize.py`, `tests/test_fetchguard.py`, see Operator settings); job `nightly-smoke` builds
 the image and runs three offline nights on fixture exports inside it with the unit's container flags and no network (`docs/nightly.md` "Verified
-in CI"). `.github/workflows/nightly-real.yml` (manual: `gh workflow run nightly-real.yml`) installs the venv variant with
+in CI"), then one network-mode night (`nightly run`) whose exports come from a root-owned, read-only fixture directory in
+OPD's layout, passed exactly as the Docker unit passes it (`--env-file` with `GP_EXPORTS_DIR`, `--mount
+type=bind,…,readonly` at the same path, `--network none`; `gegenprobe.monitor.smoke local-exports-check`; the same
+night runs under pytest, `tests/test_monitor_smoke.py`). `.github/workflows/nightly-real.yml` (manual: `gh workflow run nightly-real.yml`) installs the venv variant with
 `install.sh --venv` on a GitHub-hosted Ubuntu runner and runs one real network night under systemd, with a contact
 User-Agent; it uploads `run.json`, the journal and the wall time. One run is committed (`results/monitor/night_real_38062530586/`:
 a first night, 83 min wall, 0 alerts, the BE list reproduced on live data; its run.json predates the streamed-bytes
@@ -332,6 +349,23 @@ variant: it builds the image and installs the Docker unit with `install.sh`, run
 (optional), then runs night 2 on night 1's persisted state, so the index diff, the ledger, retries, outbox redelivery
 and the drop/trend alerts run against a real previous night; it uploads both nights' `run.json`, journal excerpts and
 wall times and `two_nights.json`.
+
+## Development-only paths
+
+Two directories outside the repository served development and are never needed in operation. Both come from the
+environment (`src/gegenprobe/devpaths.py`); the default is a sibling of the checkout (`<checkout>/../spikes`,
+`<checkout>/../gateway`), not a fixed home path.
+
+| variable | what it holds | who reads it | without it |
+|---|---|---|---|
+| `GP_SPIKES_DIR` | the exploration spikes: texts of the 30 spike dev items, the recovery spike's cached PDFs, canton tables and funnel | `make convert` (`eval.replay_spikes`, `eval.dev_rules`), `make theta` / `make arms` on the dev split, `make gold-dev` / `gold-heldout` (re-draws), `repair.be verify40`, `repair.ocr probe`, `repair.che reproduce`, `make census` when `GP_BE_OGD` is unset (the nightly job sets it) | a clear error names the variable; `GP_SPIKES_DIR=none` fits θ on the 97 committed dev documents; `census` and `compliance.audit` skip their spike comparisons |
+| `GP_GATEWAY_DIR` | the developer's budget gateway (`gw.py`: per-tag spending caps, ledger, cache) | backend `gateway:<model>:<tag>:<cap>` of `make theta` / `make arms`, `audit3 qwen` (plain), `eval/posthoc_r5.py`, `eval/gold6/qwen6.py` | a clear error that names the operator backends: `openai` (`LLM_BASE_URL`, `LLM_API_KEY`, `LLM_NAME`) or `gguf` |
+
+The locked modules (`eval/arms.py`, `eval/gold/sample.py`, `eval/gold6/qwen6.py`, `src/gegenprobe/llm.py`'s `Gateway`)
+name the developer's layout literally and cannot be edited. Run them as `python -m eval.devrun <module> …` (the Makefile
+does): it redirects exactly the two literal prefixes to `GP_SPIKES_DIR` / `GP_GATEWAY_DIR` and runs the module
+unchanged. Everything an operator runs (the nightly job, `make run`, the adapters, the canaries, review mode with
+`openai` or `gguf`) reads neither directory.
 
 ## Swiss / EU hosting
 

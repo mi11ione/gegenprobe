@@ -9,7 +9,7 @@
   "exact_doc_date/fetch": 67,
   "exact_doc_date/tag_answer": 39
  },
- "blind": "packets carry id, affair number, title, type, OPD answer event dates and the text path only",
+ "blind": "packets carry id, affair number, title, type, OPD answer event dates, the text path, the full text's sha256 (text_sha256) and the shown text's sha256 (excerpt_sha256); no parliament, outcome, reason, action, tier or verified field. text_sha256 equals the text_sha256 column of the committed adapters_<BODY>.tsv lists, so a reader of the repository can join a packet to its tier and counted flag: the Qwen auditor received only the filled item prompt (no hash, no repository); the Claude auditor ran as an agent in a checkout and was blind by instruction only (PROMPT.md: read nothing else in the repository)",
  "decoys": {
   "failed": 30,
   "review": 30
@@ -33,6 +33,8 @@
    "exact_doc_date/tag_answer": 1602
   }
  },
+ "key_committed_github_time": "2026-10-11T00:56:16Z",
+ "key_committed_note": "Server-side time of the push that published commit ce416a8 (this file with key_sha256) to github.com/mi11ione/gegenprobe: GitHub repository activity API (repos/mi11ione/gegenprobe/activity, push 85de1a0..ce416a8, 2026-10-11T00:56:16Z); the first Actions runs for ce416a8 were created at 2026-10-11T00:56:18Z (ci 38100116762, pages 38100116772). The verdicts and key were published with 483dd2e (push 2026-10-11T01:03:57Z). Local file times (not server evidence): key.jsonl written at draw, 2026-10-11T00:32:17Z; the Qwen verdicts were complete at 00:54:11Z, before the push (Qwen saw only the packets, never the key); the Claude verdicts were last written at 01:03:13Z and scored at 01:03:29Z, after it. So GitHub's clock shows the key could not change after 00:56:16Z, before the Claude verdicts were finished and before any scoring; before that the order rests on local times.",
  "key_note": "WORK/adapters/audit3/key.jsonl (packet id -> parliament, affair, stratum); committed only after both auditors' verdicts are in (`score --final`); its sha256 is fixed here",
  "key_sha256": "2164eac93fbb059dbe282627d72d2e705ee7d495120ac7418caf054e732dc644",
  "n_counted": 200,

@@ -153,6 +153,35 @@ jobs:
             -v "$w:/var/gegenprobe/work" \
             gegenprobe:smoke python -m gegenprobe.monitor.smoke /var/gegenprobe/work/smoke
           cat "$w/smoke/results/run.json"
+      - name: local exports (GP_EXPORTS_DIR, the "Inside OPD" setup) mounted read-only as the Docker unit mounts them
+        run: |
+          set -eu
+          # fixture exports in files.openparldata.ch/exports layout, written by the image; then owned by root and
+          # read-only, like OPD's own export directory (uid 10001 can read, not write)
+          d="$RUNNER_TEMP/opd"; mkdir -p "$d"; chmod 0777 "$d"
+          docker run --rm --network none --user 10001:0 -v "$d:/fx" gegenprobe:smoke \
+            python -m gegenprobe.monitor.smoke exports-fixture /fx
+          sudo chown -R root:root "$d/exports" && sudo chmod -R a+rX,a-w "$d/exports"
+          w=$(mktemp -d); r=$(mktemp -d); chmod 0777 "$w" "$r"
+          envf=$(mktemp)
+          printf 'GP_EXPORTS_DIR=%s\nGP_BE_OGD_LOCAL=/fx/be_ogd\n' "$d/exports" > "$envf"
+          GP_EXPORTS_DIR="$d/exports"
+          # deploy/nightly/gegenprobe-nightly.service ExecStart (same flags, --env-file and read-only --mount), plus
+          # --network none and the fixture's canton tables; the night is the unit's `nightly run` (network mode)
+          docker run --rm --name gegenprobe-nightly-local --network none \
+            --read-only --tmpfs /tmp:rw,nosuid,nodev,size=1g \
+            --user 10001:0 --cap-drop ALL --security-opt no-new-privileges \
+            --memory 1g --memory-swap 1g --cpus 2 --pids-limit 256 \
+            --env-file "$envf" \
+            -e GP_WORK=/var/gegenprobe/work -e GP_MONITOR_OUT=/var/gegenprobe/results \
+            -v "$w:/var/gegenprobe/work" \
+            -v "$r:/var/gegenprobe/results" \
+            --mount type=bind,source=${GP_EXPORTS_DIR},target=${GP_EXPORTS_DIR},readonly \
+            -v "$d/be_ogd:/fx/be_ogd:ro" \
+            gegenprobe:smoke python -m gegenprobe.monitor.nightly run
+          cat "$r/run.json"
+          docker run --rm --network none --user 10001:0 -v "$r:/out:ro" gegenprobe:smoke \
+            python -m gegenprobe.monitor.smoke local-exports-check /out
   secrets:
     runs-on: ubuntu-24.04
     steps:

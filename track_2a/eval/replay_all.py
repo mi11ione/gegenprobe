@@ -44,6 +44,9 @@ import time
 from pathlib import Path
 
 from gegenprobe.paths import DATA, RESULTS
+from gegenprobe.compliance import fetchguard
+
+fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
 
 BUILD = "publicai_swiss-ai_apertus-v1.5-8b"
 SERVED = "publicai:swiss-ai/apertus-v1.5-8b"

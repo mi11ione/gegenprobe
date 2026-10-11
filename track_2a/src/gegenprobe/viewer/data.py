@@ -23,6 +23,9 @@ from .. import llm, pdftext
 from ..census.presentation import CANTON_NAME, CANTON_RULE
 from ..convert import lattice, pointer, rules
 from ..paths import DATA, ROOT
+from gegenprobe.compliance import fetchguard
+
+fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
 
 RESULTS = ROOT / "results"
 BUILD = "publicai:swiss-ai/apertus-v1.5-8b"

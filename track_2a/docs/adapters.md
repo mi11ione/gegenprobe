@@ -323,9 +323,16 @@ stratified by parliament but the interval treated it as simple random; there wer
 - `packets.jsonl` (committed): per packet only an opaque id, the affair number, OPD's title, type and answer event dates,
   the path of the text (`.work/adapters/audit3/texts/`, the extracted text without any header, cut to the first 12,000 and
   last 3,000 characters when longer) and the sha256 of the full text (equal to the list's `text_sha256`) and of the text
-  shown. No parliament, outcome, reason, action, tier or verified field;
+  shown. No parliament, outcome, reason, action, tier or verified field. **Blind for Qwen, blind by instruction for
+  Claude:** `text_sha256` is a join key. It equals the `text_sha256` column of the committed `adapters_<BODY>.tsv`
+  lists, so anyone with the repository can look up a packet's tier and counted flag. The Qwen auditor received only the
+  filled item prompt (metadata and text; no hash, no repository). The Claude auditor ran as an agent in a checkout, so
+  its blindness rests on the instruction in `PROMPT.md` ("Read nothing else in the repository for this task");
 - the key (packet id -> parliament, affair, stratum or decoy group) stays in WORK until both auditors are done; its
-  sha256 is committed in `sample.json` (`score --final` then commits it);
+  sha256 is committed in `sample.json` (`score --final` then commits it). GitHub's server time for that commitment:
+  commit `ce416a8` was pushed at 2026-10-11T00:56:16Z (repository activity API; `sample.json`
+  `key_committed_github_time`), the verdicts and the key with `483dd2e` at 01:03:57Z. Local file times put the Qwen
+  verdicts (which never depend on the key) before the push and the Claude verdicts and the scoring after it;
 - `PROMPT.md`: the exact prompt, identical for both auditors (is_answer, date_ok within about 30 days, a verbatim quote);
 - two independent auditors: a Claude agent and Qwen-SEA-LION-v4-32B-IT (another vendor, through the budget gateway,
   temperature 0; never an Apertus model). `score` reports per auditor the stratified precision (N_h/N weights, 95%

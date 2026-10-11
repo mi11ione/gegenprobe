@@ -47,3 +47,16 @@ def test_corrupt_state_is_quarantined_and_the_night_runs_as_a_first_night(tmp_pa
 
 def test_offline_nights_on_fixture_exports(tmp_path):
     assert smoke.smoke(tmp_path) == []
+
+
+def test_local_exports_night_reads_a_read_only_exports_dir_and_sends_nothing(tmp_path):
+    """The "Inside OPD" setup (GP_EXPORTS_DIR): a network-mode night whose exports all come from a read-only directory in
+    OPD's layout; nothing goes over the network (canton tables from GP_BE_OGD_LOCAL, BE row checks to a .invalid host).
+    CI runs the same night inside the image with the Docker unit's --env-file and read-only --mount (job nightly-smoke)."""
+    try:
+        assert smoke.local_exports(tmp_path) == []
+        ex = tmp_path / "exports"
+        assert (ex / "index.json").exists() and not os.access(ex / "affairs.ndjson.gz", os.W_OK) or os.geteuid() == 0
+    finally:
+        for f in [tmp_path / "exports", *(tmp_path / "exports").rglob("*")]:
+            f.chmod(0o755 if f.is_dir() else 0o644)

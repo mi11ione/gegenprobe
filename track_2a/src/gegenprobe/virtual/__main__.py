@@ -14,6 +14,9 @@ from pathlib import Path
 from .. import pdftext
 from ..paths import PDF_CACHE
 from . import derive
+from gegenprobe.compliance import fetchguard
+
+fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
 
 
 def load(src: str):

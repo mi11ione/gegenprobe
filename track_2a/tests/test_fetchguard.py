@@ -56,9 +56,9 @@ def test_matcher_missing_refuses_every_fetch_before_any_request(monkeypatch):
 
 
 def test_matcher_missing_typed_failure_row(monkeypatch):
+    from gegenprobe.convert import batch  # imported first: its fetchguard.ensure() would re-install the matcher
     _stdlib_matcher(monkeypatch)
     _no_network(monkeypatch)
-    from gegenprobe.convert import batch
     row = batch.convert_one("https://example.org/doc.pdf")
     assert row["status"] == "robots_matcher_inactive" and "RFC 9309" in row["reason"]
     assert "robots_matcher_inactive" in output.FAILURE_KINDS
@@ -80,15 +80,21 @@ def test_guard_keeps_the_mirror_marker_and_is_idempotent():
 
 # ---------------------------------------------------------------- fresh interpreters without / with each start-up path
 def _run(code: str, *, pythonpath: str | None = None, isolated: bool = True, cwd: Path = ROOT):
+    """isolated: `-I -S`, an interpreter with no start-up hook at all: no PYTHONPATH (so no src/sitecustomize.py) and no
+    site-packages .pth files (the dev venv has gegenprobe-robots9309.pth installed by `make dev-install`); the venv's
+    site-packages directory is appended to sys.path so third-party imports still resolve, without running its .pth."""
+    import sysconfig
     env = {k: v for k, v in os.environ.items() if k not in ("PYTHONPATH", "GP_EXPORTS_DIR")}
     if pythonpath:
         env["PYTHONPATH"] = pythonpath
-    args = [sys.executable] + (["-I"] if isolated else []) + ["-c", code]
+    if isolated:
+        code = f"import sys; sys.path.append({sysconfig.get_paths()['purelib']!r})\n" + code
+    args = [sys.executable] + (["-I", "-S"] if isolated else []) + ["-c", code]
     return subprocess.run(args, env=env, cwd=cwd, capture_output=True, text=True, timeout=120)
 
 
 def test_no_startup_hook_unlocked_fetch_module_installs_the_guard():
-    """-I: no PYTHONPATH, so no sitecustomize and no .pth. Importing an unlocked fetch module (convert.output, as the
+    """-I -S: no PYTHONPATH, so no sitecustomize, and no .pth. Importing an unlocked fetch module (convert.output, as the
     convert CLI does) runs fetchguard.ensure(): matcher, guard and mirror routing are installed before any fetch."""
     code = (f"import sys; sys.path[:0] = [{str(SRC)!r}, {str(ROOT)!r}]\n" + NO_NET +
             "from gegenprobe import net\n"
@@ -214,10 +220,11 @@ def _locked() -> set[str]:
     return out
 
 
-NET_IMPORT = re.compile(r"^\s*(from\s+(\.+|gegenprobe)\s+import\s+[^\n]*\bnet\b|import\s+gegenprobe\.net\b)", re.M)
+NET_IMPORT = re.compile(r"^\s*(from\s+(\.+|gegenprobe)\s+import\s+[^\n]*\b(net|pdftext)\b|import\s+gegenprobe\.(net|pdftext)\b|"
+                        r"from\s+(\.+|gegenprobe\.)pdftext\s+import)", re.M)  # pdftext.fetch_pdf fetches through net
 
 
-def test_every_unlocked_module_that_imports_net_calls_ensure():
+def test_every_unlocked_module_that_imports_net_or_pdftext_calls_ensure():
     locked = _locked()
     missing, seen = [], 0
     for base in ("src/gegenprobe", "eval", "tools", "report"):

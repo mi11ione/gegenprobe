@@ -16,9 +16,19 @@ stratified sample with a simple-random-sample interval and had no negative contr
     is committed with the sample (results/repair/adapters/audit3/sample.json) so the key cannot change afterwards;
   * two independent auditors on the same packets and prompt (PROMPT.md): a Claude agent (launched by the lead) and
     Qwen-SEA-LION-v4-32B-IT through the budget gateway (never an Apertus model).
+  * blindness: a packet carries no outcome, but its `text_sha256` (the full text's sha256) equals the `text_sha256`
+    column of the committed adapters_<BODY>.tsv lists, so anyone with the repository can join a packet to its tier and
+    counted flag. The Qwen auditor received only the filled item prompt (metadata and text, no hash, no repository); the
+    Claude auditor ran as an agent in a checkout and was blind by instruction only (PROMPT.md: "Read nothing else in the
+    repository for this task").
 
     python -m gegenprobe.repair.adapters.audit3 draw     sample + packets + PROMPT.md (results), texts + key (WORK)
-    python -m gegenprobe.repair.adapters.audit3 qwen     the Qwen auditor -> WORK/adapters/audit3/verdicts_qwen.jsonl
+    python -m gegenprobe.repair.adapters.audit3 qwen     the second auditor -> WORK/adapters/audit3/verdicts_qwen.jsonl
+                                                         development: Qwen through the developer's budget gateway
+                                                         (GP_GATEWAY_DIR, gegenprobe/devpaths.py);
+                                                         `qwen --backend openai`: any OpenAI-compatible server
+                                                         (LLM_BASE_URL, LLM_API_KEY, LLM_NAME; never an Apertus model),
+                                                         the route for an operator
     python -m gegenprobe.repair.adapters.audit3 score [--final]   join verdicts with the key; per auditor: stratified
                                                          precision, decoy rates, date_ok, quote check, agreement.
                                                          WORK/adapters/audit3/score.json; --final also writes
@@ -34,8 +44,8 @@ import math
 import random
 import re
 import sys
-from pathlib import Path
 
+from ... import devpaths
 from ...paths import RESULTS, ROOT
 from . import base, lists, run
 
@@ -50,7 +60,6 @@ TEXTS = WORKDIR / "texts"
 KEY = WORKDIR / "key.jsonl"
 QWEN = "aisingapore/Qwen-SEA-LION-v4-32B-IT"
 QWEN_TAG = "2a-adapter-audit-qwen"
-GATEWAY = Path("/Users/mi11ion/Desktop/hackapertus/gateway")
 LABELS = ("yes", "no", "unclear")
 
 ITEM = """You are auditing whether a document is the government's written answer to a parliamentary intervention in a Swiss \
@@ -268,9 +277,48 @@ def packets() -> list[dict]:
     return [json.loads(line) for line in (OUT / "packets.jsonl").read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
-def qwen(cap_usd: float = 0.8, max_tokens: int = 400) -> dict:
-    sys.path.insert(0, str(GATEWAY))
-    import gw  # noqa: E402  (the budget gateway: priced before sending, ledger, cache)
+def _gateway_backend(cap_usd: float, max_tokens: int):
+    """Development: Qwen through the developer's budget gateway (priced before sending, ledger, cache)."""
+    gw = devpaths.import_gw("audit3 qwen (development route; operators use `qwen --backend openai`)")
+
+    def call(prompt: str) -> tuple[str | None, str, float, bool]:
+        choice, meta = gw.chat([dict(role="user", content=prompt)], model=QWEN, max_tokens=max_tokens,
+                               temperature=0.0, tag=QWEN_TAG, tag_cap_usd=cap_usd, full=True)
+        cached = bool(meta.get("cached"))
+        return ((meta.get("resp") or {}).get("model"), (choice.get("message") or {}).get("content") or "",
+                0.0 if cached else meta.get("usd", 0.0), cached)
+
+    def ok(served: str | None) -> bool:
+        return served is not None and "qwen-sea-lion" in served.lower()
+
+    return call, ok, QWEN
+
+
+def _openai_backend(max_tokens: int):
+    """Operator route: any OpenAI-compatible chat endpoint (LLM_BASE_URL, LLM_API_KEY, LLM_NAME). Not cached into the
+    repository's model cache; the raw replies go to WORK like the gateway route's."""
+    from ... import llm
+
+    be = llm.OpenAICompat()
+    if not be.base or not be.model:
+        raise SystemExit("audit3 qwen --backend openai: set LLM_BASE_URL, LLM_API_KEY and LLM_NAME (an auditor model "
+                         "from another vendor than the first auditor; never an Apertus model)")
+    if "apertus" in be.model.lower():
+        raise SystemExit(f"audit3: the auditor must not be an Apertus model (LLM_NAME={be.model})")
+
+    def call(prompt: str) -> tuple[str | None, str, float, bool]:
+        r = be._post(dict(model=be.model, messages=[dict(role="user", content=prompt)], max_tokens=max_tokens,
+                          temperature=0.0))
+        return (r.get("resp") or {}).get("model"), r.get("text") or "", 0.0, False
+
+    def ok(served: str | None) -> bool:
+        return served is not None and "apertus" not in served.lower()
+
+    return call, ok, be.model
+
+
+def qwen(cap_usd: float = 0.8, max_tokens: int = 400, backend: str = "gateway") -> dict:
+    call, ok, expected = _openai_backend(max_tokens) if backend == "openai" else _gateway_backend(cap_usd, max_tokens)
     out = WORKDIR / "verdicts_qwen.jsonl"  # with the raw replies; `score --final` commits the parsed fields
     done = {}
     if out.exists():
@@ -280,17 +328,14 @@ def qwen(cap_usd: float = 0.8, max_tokens: int = 400) -> dict:
         for p in packets():
             if p["id"] in done:
                 continue
-            choice, meta = gw.chat([dict(role="user", content=item_prompt(p))], model=QWEN, max_tokens=max_tokens,
-                                   temperature=0.0, tag=QWEN_TAG, tag_cap_usd=cap_usd, full=True)
-            served = (meta.get("resp") or {}).get("model")
+            served, reply, cost, cached = call(item_prompt(p))
             models[served] += 1
-            if served is None or "qwen-sea-lion" not in served.lower():
-                raise RuntimeError(f"{p['id']}: served model {served!r}, expected {QWEN}")
-            reply = (choice.get("message") or {}).get("content") or ""
-            v = dict(id=p["id"], **parse(reply), model=served, raw=reply[:2000], cached=bool(meta.get("cached")))
+            if not ok(served):
+                raise RuntimeError(f"{p['id']}: served model {served!r}, expected {expected}")
+            v = dict(id=p["id"], **parse(reply), model=served, raw=reply[:2000], cached=cached)
             f.write(json.dumps(v, ensure_ascii=False) + "\n")
             f.flush()
-            usd += meta.get("usd", 0.0) if not meta.get("cached") else 0.0
+            usd += cost
             n_new += 1
     return dict(new=n_new, usd=round(usd, 4), served_models=dict(models))
 
@@ -420,7 +465,8 @@ def main(argv: list[str]) -> int:
         print(json.dumps(draw(), indent=1))
         return 0
     if cmd == "qwen":
-        print(json.dumps(qwen(), indent=1))
+        backend = argv[argv.index("--backend") + 1] if "--backend" in argv[:-1] else "gateway"
+        print(json.dumps(qwen(backend=backend), indent=1))
         return 0
     if cmd == "score":
         print(json.dumps(score("--final" in argv), indent=1))

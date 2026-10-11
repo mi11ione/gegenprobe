@@ -1,6 +1,6 @@
 # Gegenprobe (Track 2A, OpenParlData). Judges: `make run` (Docker, CPU, clean checkout).
 # Development targets run on the host with .venv (python 3.11); every target is re-runnable and writes under results/.
-.PHONY: site deploy-site figures run test lint claims census census-corrected census-scan census-replay census-hash repair repair-network adapters-write adapters-canary repair-manifest nightly-offline nightly-smoke nightly-notify-test convert eval report install-nightly docker-build
+.PHONY: dev-install gold-dev-fetch site deploy-site figures run test lint claims census census-corrected census-scan census-replay census-hash repair repair-network adapters-write adapters-canary repair-manifest nightly-offline nightly-smoke nightly-notify-test convert eval report install-nightly docker-build
 
 PY ?= .venv/bin/python
 IMAGE ?= gegenprobe:latest
@@ -28,6 +28,12 @@ docker-build:
 	docker build --build-arg GGUF=$(GGUF) -t $(IMAGE) .
 
 # ---------------------------------------------------------------- development
+# dev-install: editable install of this checkout into .venv (no dependency changes: --no-deps). It puts
+# gegenprobe-robots9309.pth into the venv's site-packages, so every interpreter of the venv boots the RFC 9309 matcher and
+# the fail-closed fetch guard even without PYTHONPATH (docs/runbook.md "Fail-closed"). Uses pip, or uv for a uv-made venv.
+dev-install:
+	$(PY) -m pip --version >/dev/null 2>&1 && $(PY) -m pip install --no-deps -e . || uv pip install --python $(PY) --no-deps -e .
+
 test:
 	$(PY) -m pytest -q
 
@@ -116,8 +122,12 @@ install-nightly:
 #   convert           model-free: spike replay through calibrate.py, rules on the dev pool, convert tests
 #   gold-dev / gold-heldout   draw + fetch the gold documents (polite; seeds in eval/gold/SEEDS.md)
 #   gold-candidates   lattice candidates + label sheet for annotators (no rule predictions shown)
-#   theta BACKEND=…   fit θ on dev labels (model run: gateway:<model>:<tag>:<cap> | openai | gguf)
+#   theta BACKEND=…   fit θ on dev labels (model run: openai | gguf | gateway:<model>:<tag>:<cap>, the last development only)
 #   arms  BACKEND=…   rules / pointer / cascade / naive on SPLIT (default heldout)
+#   gold-dev-fetch    fetch the committed dev documents by URL, sha256-verified (no re-draw; what a θ refit needs)
+# The locked modules (eval/arms.py, eval/gold/sample.py) name the developer's spike and gateway folders literally; they
+# run through eval/devrun.py, which takes those folders from GP_SPIKES_DIR / GP_GATEWAY_DIR (GP_SPIKES_DIR=none: θ on
+# the 97 committed dev documents only). See docs/runbook.md "Development-only paths".
 SPLIT ?= heldout
 BACKEND ?= none
 convert:
@@ -126,19 +136,22 @@ convert:
 	$(PY) -m pytest -q tests/test_convert.py
 
 gold-dev:
-	$(PY) -m eval.gold.sample --split dev --fetch
+	$(PY) -m eval.devrun eval.gold.sample --split dev --fetch
+
+gold-dev-fetch:
+	$(PY) -m eval.run_arms fetch --split dev
 
 gold-heldout:
-	$(PY) -m eval.gold.sample --split heldout --fetch
+	$(PY) -m eval.devrun eval.gold.sample --split heldout --fetch
 
 gold-candidates:
 	$(PY) -m eval.gold.candidates --split $(SPLIT)
 
 theta:
-	$(PY) -m eval.arms fit --backend $(BACKEND)
+	$(PY) -m eval.devrun eval.arms fit --backend $(BACKEND)
 
 arms:
-	$(PY) -m eval.arms run --split $(SPLIT) --backend $(BACKEND)
+	$(PY) -m eval.devrun eval.arms run --split $(SPLIT) --backend $(BACKEND)
 
 # ---- eval / report (owner: integrator)
 eval:  # no model: re-score every committed evaluation file, recompute H1-H4, matrix accuracy and cost

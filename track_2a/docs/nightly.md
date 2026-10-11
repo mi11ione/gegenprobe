@@ -144,7 +144,11 @@ The `index_diff.json` numbers come from `python -m gegenprobe.monitor.nightly in
   Night 1 is quiet (exit 0, 40 relink + 10 fetch rows); before night 2 the outbox is truncated, which must give
   `outbox_corrupt`, a quarantined file and exit 3; night 3 loses 20 Zürich answer documents, which must give
   `linking_rate_drop` and `document_count_drop` (exit 3). Locally: `make nightly-smoke` (seconds); the same run is a
-  pytest test (`tests/test_monitor_smoke.py`).
+  pytest test (`tests/test_monitor_smoke.py`). A further step runs the recommended "Inside OPD" setup the way the Docker
+  unit does: a fixture exports directory in OPD's layout, owned by root and read-only, passed with the unit's
+  `--env-file` (`GP_EXPORTS_DIR`) and its `--mount type=bind,…,readonly` at the same path; one `nightly run`
+  (network mode, `--network none`) must read every export from it, send nothing, rate both parliaments and build the
+  BE list (`python -m gegenprobe.monitor.smoke local-exports-check`; locally `smoke local-exports`, also under pytest).
 - `systemd-units`: `systemd-analyze verify` on the Docker variant and on the venv variant, each together with the timer
   and the failure notifier, under the name `install.sh` gives it (`gegenprobe-nightly.service`). On the runner the venv's
   interpreter `/opt/gegenprobe/.venv/bin/python` is a symlink to the runner's python3, so verify can resolve it. The step

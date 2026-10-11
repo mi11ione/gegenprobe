@@ -30,13 +30,14 @@ import csv
 import gzip
 import hashlib
 import json
+import os
 import random
 import re
 import shutil
 import sys
 from pathlib import Path
 
-from .. import net, pdftext
+from .. import devpaths, net, pdftext
 from gegenprobe.compliance import fetchguard
 from ..paths import DATA, PDF_CACHE, RESULTS, WORK
 from ..stats import wilson_pct
@@ -54,8 +55,8 @@ RENDER = "https://www.rrgr-service.apps.be.ch/api/gr/instances/585199c5-e188-44c
 FIXTURE = DATA / "repair" / "fixtures" / "openparldata_be_relink_list.tsv"
 GAP_IDS = DATA / "repair" / "be_gap_ids.json"  # pinned BE funnel-gap affair ids (snapshot 2026-10-06)
 CENSUS_GAP = RESULTS / "census" / "funnel_gap_ids.json.gz"
-SPIKE_PDF = Path.home() / "Desktop/hackapertus/spikes/recovery/data/be_pdf"
-SPIKE_REC = Path.home() / "Desktop/hackapertus/spikes/recovery/be_recovery.json"
+SPIKE_PDF = devpaths.spikes() / "recovery" / "data" / "be_pdf"  # GP_SPIKES_DIR (development only: verify40)
+SPIKE_REC = devpaths.spikes() / "recovery" / "be_recovery.json"
 FIXTURE_ACTION = {"relink": "relink_parentless_opd_doc", "fetch": "fetch_from_canton"}
 
 # Header field "RRB-Nr.: 876/2024 vom 28. August 2024" (FR: "N° ACE: ... du ..."). In pdftotext's reading order the label
@@ -70,8 +71,18 @@ ANSWER_EVENT = re.compile(r"beantw|r[ée]ponse", re.I)
 
 # ---------------------------------------------------------------- inputs
 def fetch_ogd() -> int:
-    """Fetch the canton's two OGD tables into OGD_DIR; returns the bytes read (counted in the nightly run.json)."""
+    """Fetch the canton's two OGD tables into OGD_DIR; returns the bytes read over the network (counted in the nightly
+    run.json). With GP_BE_OGD_LOCAL set to a directory holding dokument.csv and geschaeft.csv (a local mirror, or the
+    fixture of the CI smoke night), they are copied from there instead and nothing is fetched (returns 0)."""
     OGD_DIR.mkdir(parents=True, exist_ok=True)
+    local = os.environ.get("GP_BE_OGD_LOCAL")
+    if local:
+        for name in OGD_URLS:
+            tmp = OGD_DIR / (name + ".part")
+            shutil.copyfile(Path(local) / name, tmp)
+            tmp.replace(OGD_DIR / name)
+            print(name, "copied from GP_BE_OGD_LOCAL", (OGD_DIR / name).stat().st_size)
+        return 0
     n = 0
     for name, url in OGD_URLS.items():
         b = net.get(url, timeout=600)
@@ -338,6 +349,7 @@ def _doc_text(path: Path) -> tuple[str, str]:
 
 def verify40() -> dict:
     """Re-run the checks from code on the 40 source PDFs of the 2024-25 interpellation sample (spikes/recovery)."""
+    devpaths.require_spikes("repair.be verify40 (the 40 cached source PDFs)", "recovery/be_recovery.json")
     rec = json.loads(SPIKE_REC.read_text())
     _, geschaeft = load_ogd()
     by_nr = {g["geschaeft_nr"]: g for g in geschaeft.values()}

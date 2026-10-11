@@ -12,7 +12,17 @@ and checks the outputs. Used by tests/test_monitor_smoke.py and by the CI job `n
 Docker image with the same container flags as deploy/nightly/gegenprobe-nightly.service (--read-only, --tmpfs /tmp, uid
 10001, no capabilities, --network none).
 
+Local exports (the "Inside OPD" setup, GP_EXPORTS_DIR): one NETWORK-mode night (`nightly run`, the unit's command) whose
+exports all come from a directory laid out like files.openparldata.ch/exports (index.json, single exports, docs/ and
+texts/ split files, written from the same fixture), the canton tables from GP_BE_OGD_LOCAL, and the per-row PDF checks
+of new BE rows pointed at an unresolvable host (`.invalid`), so nothing leaves the machine. CI builds the directory, then
+runs the night inside the image with the Docker unit's flags, its `--env-file` and its read-only `--mount` of
+GP_EXPORTS_DIR at the same path, and --network none.
+
 usage: python -m gegenprobe.monitor.smoke [workdir]     (default: $GP_WORK, else a temporary directory)
+       python -m gegenprobe.monitor.smoke exports-fixture DIR      write DIR/exports (the OPD layout) and DIR/be_ogd
+       python -m gegenprobe.monitor.smoke local-exports-check OUT  check the outputs of a local-exports night in OUT
+       python -m gegenprobe.monitor.smoke local-exports [workdir]  both, with the night as a subprocess (tests)
 Exit 0 when every check holds, 1 otherwise.
 """
 
@@ -44,7 +54,7 @@ def _csv(path: Path, cols: list[str], rows: list[dict]) -> None:
                     encoding="utf-8")
 
 
-def build_fixture(root: Path, zh_answers_lost: int = 0) -> dict[str, Path]:
+def build_fixture(root: Path, zh_answers_lost: int = 0, be_host: str = "www.gr.be.ch") -> dict[str, Path]:
     """Write opd/, docs_meta/partF/ and be_ogd/ under root. zh_answers_lost removes that many ZH answer documents."""
     opd, meta, ogd = root / "opd", root / "docs_meta" / "partF", root / "be_ogd"
     bodies = [dict(body_key="ZH", type="canton", name_de="Zürich", lang="DE", canton_key="ZH", has_parliament=True),
@@ -78,7 +88,7 @@ def build_fixture(root: Path, zh_answers_lost: int = 0) -> dict[str, Path]:
         ges.append(dict(geschaeft_uid=guid, geschaeft_nr=nr, geschaeft_typ_deutsch="Interpellation",
                         geschaeft_vorstoss_nummer=f"I {i:03d}-2025"))
         duid = f"{0xABC000 + i:032x}"
-        url = f"https://www.gr.be.ch/de/start/geschaefte/dokumente/{duid}-332.pdf"
+        url = f"https://{be_host}/de/start/geschaefte/dokumente/{duid}-332.pdf"
         dok.append(dict(dokument_uid=duid, dokument_titel=f"RRB-{i}-de", dokument_typ_deutsch="RRB", dokument_url=url,
                         dokument_geschaeft_uid=guid))
         did += 1
@@ -89,7 +99,7 @@ def build_fixture(root: Path, zh_answers_lost: int = 0) -> dict[str, Path]:
             docs.append(dict(id=did, b="BE", a=None, m=None, ag=None, name="RRB Antwort", cat="", st="ok", n=4100,
                              fl=["ans_head", "be_rrb_filled"], lang="de", ch=None, url=url))
     dok.append(dict(dokument_uid="f" * 32, dokument_titel="Vorstossantwort-x-de", dokument_typ_deutsch="Vorstossantwort",
-                    dokument_url="https://www.gr.be.ch/x-332.pdf", dokument_geschaeft_uid="0" * 31 + "x"))
+                    dokument_url=f"https://{be_host}/x-332.pdf", dokument_geschaeft_uid="0" * 31 + "x"))
     _ndjson_gz(opd / "bodies.ndjson.gz", bodies)
     _ndjson_gz(opd / "affairs.ndjson.gz", affairs)
     _ndjson_gz(opd / "events.ndjson.gz", events)
@@ -159,7 +169,130 @@ def smoke(root: Path) -> list[str]:
     return bad
 
 
+# ---------------------------------------------------------------- local exports (GP_EXPORTS_DIR), network-mode night
+EXPORTS_URL = "https://files.openparldata.ch/exports/"
+FIXTURE_HOST = "be-fixture.invalid"  # RFC 6761: never resolves, so the per-row checks of new BE rows fetch nothing
+
+
+def _raw_doc(m: dict) -> dict:
+    """An OPD docs-export row whose text yields the fixture's scan metadata (census.scan recomputes status and flags)."""
+    head = ""
+    if "ans_head" in m["fl"]:
+        head += "Antwort des Regierungsrates. "
+    if "be_rrb_filled" in m["fl"]:
+        head += "RRB-Nr.: 2025/123 vom 18. Juni 2025. "
+    text = (head + "Text der Vorlage. " * (m["n"] // 18 + 1))[: m["n"]]
+    return dict(id=m["id"], body_key=m["b"], affair_id=m["a"], meeting_id=m["m"], agenda_id=m["ag"], name=m["name"],
+                category={"de": m["cat"]}, category_harmonized=m["ch"], language=m["lang"], date=None, size=None,
+                url=m["url"], text=text)
+
+
+def build_exports(root: Path) -> dict[str, Path]:
+    """root/exports: the fixture in files.openparldata.ch/exports layout (index.json with today's timestamps, single
+    exports, docs/docs_<body>.ndjson.gz, texts/texts_<body>.ndjson.gz); root/be_ogd: the canton tables."""
+    import datetime as dt
+    import shutil
+
+    fx = build_fixture(root / "src", be_host=FIXTURE_HOST)
+    ex = root / "exports"
+    (ex / "docs").mkdir(parents=True, exist_ok=True)
+    (ex / "texts").mkdir(parents=True, exist_ok=True)
+    now = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    files = []
+    for name in ("affairs", "events", "agendas", "bodies", "contributors"):
+        shutil.copyfile(fx["opd"] / f"{name}.ndjson.gz", ex / f"{name}.ndjson.gz")
+        files.append(dict(entity=name, type="single", format="ndjson.gz", filename=f"{name}.ndjson.gz",
+                          url=EXPORTS_URL + f"{name}.ndjson.gz", size=(ex / f"{name}.ndjson.gz").stat().st_size,
+                          created=now))
+    meta = [json.loads(line) for line in gzip.open(fx["meta"] / "partF" / "docs_meta.jsonl.gz", "rt", encoding="utf-8")]
+    split = dict(docs=[], texts=[])
+    for body in ("BE", "ZH"):
+        _ndjson_gz(ex / "docs" / f"docs_{body}.ndjson.gz", [_raw_doc(m) for m in meta if m["b"] == body])
+        _ndjson_gz(ex / "texts" / f"texts_{body}.ndjson.gz", [])
+        for ent in ("docs", "texts"):
+            f = ex / ent / f"{ent}_{body}.ndjson.gz"
+            split[ent].append(dict(filename=f.name, url=EXPORTS_URL + f"{ent}/{f.name}", size=f.stat().st_size,
+                                   created=now))
+    for ent, fl in split.items():
+        files.append(dict(entity=ent, type="split", format="ndjson.gz", directory=f"{ent}/", url=EXPORTS_URL + f"{ent}/",
+                          file_count=len(fl), files=fl))
+    (ex / "index.json").write_text(json.dumps(dict(generated_at=now, environment="fixture",
+                                                   base_url=EXPORTS_URL.rstrip("/"), files=files), indent=1))
+    ogd = root / "be_ogd"
+    shutil.copytree(fx["ogd"], ogd, dirs_exist_ok=True)
+    return dict(exports=ex, ogd=ogd)
+
+
+def local_exports_checks(out: Path, log: str = "") -> list[str]:
+    """What a local-exports night must show: every export read from GP_EXPORTS_DIR, nothing over the network but the
+    (here local) canton tables, both bodies rescanned and rated, the BE list built, the new rows checked (and, with no
+    reachable document, held back as review)."""
+    bad: list[str] = []
+    run = json.loads((out / "run.json").read_text()) if (out / "run.json").exists() else {}
+    b = run.get("bytes") or {}
+    t = run.get("timings") or {}
+    checks = [
+        (run.get("mode") == "local-exports", f"mode {run.get('mode')} (want local-exports)"),
+        (b.get("read_from", "").startswith("GP_EXPORTS_DIR"), f"bytes.read_from {b.get('read_from')}"),
+        (b.get("single_exports") == 0, f"bytes.single_exports {b.get('single_exports')} (want 0: read in place)"),
+        (b.get("docs_texts_files") == 4 and (b.get("docs_texts_streamed") or 0) > 0,
+         f"docs/texts streamed {b.get('docs_texts_files')} files, {b.get('docs_texts_streamed')} bytes (want 4, > 0)"),
+        (b.get("over_network") == 0, f"bytes.over_network {b.get('over_network')} (want 0)"),
+        (t.get("rescanned_bodies") == ["BE", "ZH"], f"rescanned_bodies {t.get('rescanned_bodies')}"),
+        (run.get("bodies_rated") == 2, f"bodies_rated {run.get('bodies_rated')} (want 2)"),
+        (run.get("be_repair") == dict(relink=BE_PARENTLESS, fetch=BE_N - BE_ATTACHED - BE_PARENTLESS),
+         f"be_repair {run.get('be_repair')}"),
+        (run.get("be_repair_new_since_last_night") == BE_N - BE_ATTACHED,
+         f"be_repair_new_since_last_night {run.get('be_repair_new_since_last_night')}"),
+        (run.get("alerts") == 0, f"alerts {run.get('alert_kinds')} (want none on a first night with fresh exports)"),
+    ]
+    for ok, what in checks:
+        if not ok:
+            bad.append("local-exports night: " + what + (f"\n{log}" if log else ""))
+    return bad
+
+
+def local_exports(root: Path, readonly: bool = True) -> list[str]:
+    """Build the exports, run one network-mode night on them as a subprocess, check it (tests and a local drill). With
+    `readonly` the exports directory is made read-only first, as the unit's read-only mount makes it."""
+    fx = build_exports(root)
+    if readonly:
+        for f in [fx["exports"], *fx["exports"].rglob("*")]:
+            f.chmod(0o555 if f.is_dir() else 0o444)
+    work, out = root / "work", root / "results"
+    src = Path(__file__).resolve().parents[2]
+    env = dict(os.environ, GP_WORK=str(work), GP_MONITOR_OUT=str(out), GP_EXPORTS_DIR=str(fx["exports"]),
+               GP_BE_OGD_LOCAL=str(fx["ogd"]), PYTHONDONTWRITEBYTECODE="1",
+               PYTHONPATH=os.pathsep.join([str(src), os.environ.get("PYTHONPATH", "")]))
+    for k in ("GP_ALERT_WEBHOOK", "GP_ALERT_SMTP_HOST", "GP_ALERT_EXIT", "GP_OPD_RAW", "GP_DOCS_META", "GP_BE_OGD",
+              "GP_ADAPTER_CANARY"):
+        env.pop(k, None)
+    p = subprocess.run([sys.executable, "-m", "gegenprobe.monitor.nightly", "run"], env=env, capture_output=True,
+                       text=True, timeout=900)
+    log = p.stdout[-1500:] + p.stderr[-3000:]
+    bad = [] if p.returncode == 0 else [f"local-exports night exit {p.returncode} (want 0)\n{log}"]
+    return bad + local_exports_checks(out, log if bad else "")
+
+
 def main(argv: list[str]) -> int:
+    if argv[:1] == ["exports-fixture"]:
+        fx = build_exports(Path(argv[1]))
+        print(f"fixture exports: {fx['exports']} (GP_EXPORTS_DIR), canton tables: {fx['ogd']} (GP_BE_OGD_LOCAL)")
+        return 0
+    if argv[:1] == ["local-exports-check"]:
+        bad = local_exports_checks(Path(argv[1]))
+        for b in bad:
+            print("NIGHTLY SMOKE FAIL", b)
+        print(f"local-exports night: {'PASS' if not bad else 'FAIL'} ({len(bad)} failed checks)")
+        return 1 if bad else 0
+    if argv[:1] == ["local-exports"]:
+        root = Path(argv[1]) if len(argv) > 1 else Path(tempfile.mkdtemp())
+        root.mkdir(parents=True, exist_ok=True)
+        bad = local_exports(root)
+        for b in bad:
+            print("NIGHTLY SMOKE FAIL", b)
+        print(f"local-exports night: {'PASS' if not bad else 'FAIL'} ({len(bad)} failed checks)")
+        return 1 if bad else 0
     if argv:
         root = Path(argv[0])
         root.mkdir(parents=True, exist_ok=True)

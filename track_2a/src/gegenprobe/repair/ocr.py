@@ -28,11 +28,14 @@ import sys
 import time
 from pathlib import Path
 
-from .. import pdftext
+from .. import devpaths, pdftext
 from ..paths import PDF_CACHE, WORK
 from ..stats import wilson_pct
 from .common import ANSWER_HEADING, OUT, dump, parse_dates
 from .vs import STUB
+from gegenprobe.compliance import fetchguard
+
+fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
 
 TESSDATA_COMMIT = "87416418657359cb625c412a48b6e1d6d41c29bd"
 TESSDATA_SHA256 = {
@@ -46,7 +49,7 @@ LETTERHEAD = re.compile(
     r"Stadtrat|Gemeinderat|Municipio|Conseil communal|Stellungnahme|Risposta|R[ée]ponse|Antwort",
     re.I,
 )
-SPIKE = Path.home() / "Desktop/hackapertus/spikes/recovery"
+SPIKE = devpaths.spikes() / "recovery"  # GP_SPIKES_DIR (development only)
 STOP = {
     "deu": {"und", "der", "die", "das", "nicht", "ist", "mit", "für"},
     "fra": {"les", "des", "est", "pour", "dans", "que", "une", "par"},
@@ -101,7 +104,7 @@ def ocr_doc(path: Path, langs: str, max_pages: int | None) -> tuple[dict, float,
 
 def probe(max_pages: int = 3) -> dict:
     use_local_tessdata()
-    rows_in = json.loads((SPIKE / "reextract.json").read_text())
+    rows_in = json.loads((devpaths.require_spikes("repair.ocr probe", "recovery") / "reextract.json").read_text())
     rows = []
     for r in rows_in:
         p = SPIKE / "data/reextract" / f"{r['doc_id']}.pdf"

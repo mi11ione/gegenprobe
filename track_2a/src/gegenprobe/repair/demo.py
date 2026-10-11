@@ -23,6 +23,9 @@ from .. import pdftext
 from ..paths import DATA
 from . import be
 from .common import OUT, canton_uid, iter_docs_meta, iter_ndjson
+from gegenprobe.compliance import fetchguard
+
+fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
 
 DEMO = DATA / "repair" / "demo"
 CASES = ["2024.RRGR.91", "2024.RRGR.139", "2021.RRGR.201", "2019.RRGR.246", "2015.RRGR.870"]

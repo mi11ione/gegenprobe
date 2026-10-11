@@ -36,6 +36,9 @@ from pathlib import Path
 from eval.score import outcome, summarise
 from gegenprobe.paths import DATA, MODEL_CACHE, RESULTS
 from gegenprobe.stats import auroc, logsumexp, wilson
+from gegenprobe.compliance import fetchguard
+
+fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
 
 LABEL = "POST-HOC (not pre-registered): round-4 jury follow-up, 10 Oct 2026"
 B70 = "publicai_swiss-ai_apertus-v1.5-8b"  # Public AI name that serves the 70B weights

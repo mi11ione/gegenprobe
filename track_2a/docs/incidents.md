@@ -9,7 +9,11 @@ Operational incidents of Gegenprobe: what happened, what was affected, what was 
 Ticino) lists `Allow: /` before its `Disallow` lines, so every path it disallows looked allowed to us. OPD records the
 parliament's own URL for each document (`url` in the docs exports), and our gold-set samplers fetched those recorded
 URLs. Between 9 and 11 Oct 2026 the project requested **147 distinct www4.ti.ch URLs on disallowed paths: 133 downloads,
-11 bodies read and discarded, 2 header-only requests and 1 HTML page**. Automated runs on GitHub's servers re-downloaded them: at most about 6,700 requests in total before the fix, all spaced at least 1.2 s apart (upper bound from the run counts, `results/compliance/ci_repeats.json`). No other host
+11 bodies read and discarded, 2 header-only requests and 1 HTML page**. Automated runs on GitHub's servers re-downloaded them: at most 4,942 downloads before the fix, counted per executed
+fetching step of the 112 runs created before it (at most 22,268 HTTP requests if every download had used all the retries
+the code allows; `results/compliance/ci_repeats.json`). Each process kept at least 1.2 s between its own requests to
+www4.ti.ch. Processes on separate runners did not coordinate: at most 8 fetching steps ran at once (10 Oct, 13:37 UTC:
+six `arms-8b-par` shards and two CI runs), so at most 8 requests could arrive within any 1.2 s. No other host
 was affected. Every document used in evaluation that we could compare (126 of 130) is byte-identical to OPD's own public
 copy on files.openparldata.ch. The other 4 were downloaded without logging their sha256. All re-fetches now go to OPD's
 copy. A first version of this entry (10 Oct) said three files were involved. That was wrong: it covered only the
@@ -66,14 +70,27 @@ are among P1's.
 
 The table counts distinct URLs. Repeat downloads come on top of them:
 
-- **`make run` in CI.** The four recorded runs (`results/ci/docker_make_run_*.json`; 38043355800, 38049690293,
-  38062904003, 38076870082) downloaded 42, 43, 43 and 43 of these documents. The CI job runs on every push, and 96
-  commits lie between the job's introduction (`2775988`) and the fix. `gh run list` counts 96 CI runs created before the fix, so at most 96 × 43 = 4,128 requests (runs that failed before the
-  re-derivation step made fewer); `results/compliance/ci_repeats.json` has the per-workflow run counts.
-- **Manually dispatched workflows.** Each invocation fetches the gold PDFs again on fresh runners (no PDF cache). Per
-  invocation: `arms-8b` 261 disallowed downloads (dev once, held-out in 6 shards), `arms-8b-par` 387, `arms-8b-fill`
-  40, `arms-8b-p6` 147 (dev in 7 jobs), `arms-8b-p2` 0 (`results/compliance/robots_audit_all.json`, `ci_jobs`).
-  `results/eval/shards/` shows that at least one `arms-8b` run and one fill ran.
+How the bound is counted (`python -m gegenprobe.compliance.ci_repeats`). The input is a snapshot of every GitHub
+Actions run created before the fix was pushed (2026-10-10T22:48:08Z), with each job's steps, conclusions and times
+(`data/compliance/ci_runs_before_fix.json`, 112 runs). A step that fetches documents is recognised by its command. Each
+executed fetching step can have downloaded at most the disallowed www4.ti.ch documents of the sets it reads, each once.
+Those are judged under RFC 9309 against the stored robots.txt: dev 21, held-out 40, P2 0, P6 0, converter demo 3.
+
+- **`make run` in CI** (96 runs, every push): held-out, P2 and the demo, at most 43 per run, so at most 4,128. The four
+  recorded runs (`results/ci/docker_make_run_*.json`; 38043355800, 38049690293, 38062904003, 38076870082) downloaded 42,
+  43, 43 and 43; runs that failed before the re-derivation step made fewer.
+- **Manually dispatched 8B workflows** (fresh runners, no PDF cache). Executed fetching steps: `arms-8b` 4 dev and 6
+  held-out (324), `arms-8b-par` 9 dev and 6 held-out (429), `arms-8b-fill` 1 held-out (40), `arms-8b-p6` 1 dev + P6 (21).
+  Steps that never ran (`skipped`) are not counted.
+- **Workflows that made no such request.** `arms-8b-p2` (1 run, 6 shards) fetched only the 62 P2 documents, none on
+  www4.ti.ch. `gguf-8b` (4 runs) ran the scorer checks (`selfcheck`, `diag`, `impl`) on committed token-id fixtures and
+  downloaded only the model file and llama.cpp sources; its `arms` step, the only one that reads documents, was skipped
+  in all 4. `nightly-real` (1 run) read OPD's exports and Bern's sources only.
+- **Retries.** `net.open_url` retries a request after a 429, a 5xx or a timeout: up to 5 attempts per document in
+  `make run`, 2 in the 8B workflows. No run logged a retry. Counting every allowed attempt gives the 22,268.
+- **The earlier bound.** Round 6 multiplied each workflow's run count by its full per-invocation fetch (6,655: ci
+  4,128, `arms-8b` 6 × 261, `arms-8b-par` 2 × 387, fill 40, `arms-8b-p6` 147) and left out `arms-8b-p2` and `gguf-8b`.
+  Both made no request to www4.ti.ch, so 6,655 is also an upper bound on downloads, a looser one.
 - **Local log records.** Counting each logged event once, the project made 450 requests to disallowed www4.ti.ch paths,
   436 of them downloads (`totals.project`).
 

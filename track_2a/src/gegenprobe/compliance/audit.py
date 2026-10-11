@@ -54,7 +54,7 @@ import urllib.request
 import urllib.robotparser
 from pathlib import Path
 
-from .. import net, robots9309
+from .. import devpaths, net, robots9309
 from gegenprobe.compliance import fetchguard
 from ..paths import DATA, DOCS_META, RESULTS, ROOT, WORK
 
@@ -62,7 +62,7 @@ fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compl
 
 OUT = RESULTS / "compliance" / "robots_audit_all.json"
 ROBOTS_DIR = DATA / "compliance" / "robots"
-SPIKE = Path(os.environ.get("GP_SPIKE_RECOVERY", Path.home() / "Desktop/hackapertus/spikes/recovery"))
+SPIKE = Path(os.environ.get("GP_SPIKE_RECOVERY") or devpaths.spikes() / "recovery")  # optional; skipped when absent
 FIX_COMMIT, FIX_TIME = "099f416", "2026-10-11T00:48:05+02:00"
 MAKE_RUN_JOB = "2775988"  # commit that added the CI make-run job (9 Oct 2026, 20:04)
 KINDS = ("download", "get_discarded", "page_read", "headers_only", "failed", "refused", "endpoint", "unknown_url")
