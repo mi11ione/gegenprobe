@@ -1,0 +1,143 @@
+{
+ "affairs_with_several_answer_rows": {},
+ "answer_slot_vs_language_guess": {
+  "de:holds_fr": 11,
+  "de:same": 38023,
+  "fr:same": 37798,
+  "it:holds_de": 1,
+  "it:holds_fr": 7165,
+  "it:same": 30662
+ },
+ "answers_with_a_lattice_date": {
+  "de:no": 6538,
+  "de:yes": 7609,
+  "fr:no": 6498,
+  "fr:yes": 7507,
+  "it:no": 4848,
+  "it:yes": 5307
+ },
+ "contributor_roles_on_eligible_affairs": {
+  "assigned_committee": 2268,
+  "assuming": 776,
+  "author": 39631,
+  "controvert": 1106,
+  "cosign": 356528,
+  "council_initial": 8159,
+  "leading_department": 25585,
+  "speaker": 2347
+ },
+ "eligible_by_stratum": {
+  "de": 14147,
+  "fr": 14005,
+  "it": 10155
+ },
+ "eligible_by_stratum_and_type": {
+  "de:Interpellation": 6376,
+  "de:Motion": 4526,
+  "de:Postulate": 1612,
+  "de:Question": 1633,
+  "fr:Interpellation": 6174,
+  "fr:Motion": 4509,
+  "fr:Postulate": 1706,
+  "fr:Question": 1616,
+  "it:Interpellation": 4777,
+  "it:Motion": 3321,
+  "it:Postulate": 1299,
+  "it:Question": 758
+ },
+ "eligible_by_stratum_group_and_event": {
+  "de:IQ:fc_event": 1189,
+  "de:IQ:no_answer_event": 6820,
+  "de:MP:fc_event": 5924,
+  "de:MP:no_answer_event": 214,
+  "fr:IQ:fc_event": 1167,
+  "fr:IQ:no_answer_event": 6623,
+  "fr:MP:fc_event": 6052,
+  "fr:MP:no_answer_event": 163,
+  "it:IQ:fc_event": 1104,
+  "it:IQ:no_answer_event": 4431,
+  "it:MP:fc_event": 4572,
+  "it:MP:no_answer_event": 48
+ },
+ "eligible_with_genuine_slot": {
+  "de": 37955,
+  "fr": 37770,
+  "it": 30447
+ },
+ "frame": {
+  "counts": {
+   "answered_by_another_body:Interpellation": 42,
+   "answered_by_another_body:Postulate": 1,
+   "answered_by_another_body:Question": 22,
+   "eligible:de:IQ": 8009,
+   "eligible:de:MP": 6138,
+   "eligible:fr:IQ": 7790,
+   "eligible:fr:MP": 6215,
+   "eligible:it:IQ": 5535,
+   "eligible:it:MP": 4620,
+   "no_genuine_slot:Interpellation": 20,
+   "no_genuine_slot:Motion": 912,
+   "no_genuine_slot:Postulate": 1601,
+   "no_genuine_slot:Question": 26,
+   "no_member_text:Motion": 14,
+   "no_member_text:Postulate": 5,
+   "recorded:event+no_text:Interpellation": 2,
+   "recorded:event+no_text:Motion": 1,
+   "recorded:event+text:Interpellation": 3414,
+   "recorded:event+text:Motion": 12983,
+   "recorded:event+text:Postulate": 5994,
+   "recorded:event+text:Question": 48,
+   "recorded:no_event+no_text:Interpellation": 637,
+   "recorded:no_event+no_text:Motion": 480,
+   "recorded:no_event+no_text:Postulate": 245,
+   "recorded:no_event+no_text:Question": 42,
+   "recorded:no_event+text:Interpellation": 13975,
+   "recorded:no_event+text:Motion": 299,
+   "recorded:no_event+text:Postulate": 230,
+   "recorded:no_event+text:Question": 4007,
+   "scope:Interpellation": 18028,
+   "scope:Motion": 13763,
+   "scope:Postulate": 6469,
+   "scope:Question": 4097
+  },
+  "exclusions": {
+   "affairs": 2436,
+   "docs": 1022,
+   "from_existing_gold_sets": {
+    "affairs": 833,
+    "docs": 1022
+   },
+   "from_p7_and_audits": 1603,
+   "p8_sample": 66
+  }
+ },
+ "genuine_slot_patterns": {
+  "de": 470,
+  "de+fr": 7149,
+  "de+fr+it": 30325,
+  "de+it": 11,
+  "fr": 241,
+  "fr+it": 55,
+  "it": 56
+ },
+ "note": "counts of eligible affairs only; no affair was selected or opened before the LOCKFED commit",
+ "opd_snapshot": {
+  "affairs": "bf75bd925bcc2273cf903c1ec0f0b7d5dd893323b326201b8a88b4a429874ba5",
+  "contributors": "1bfff9b1f5bcc396c3411aa95907caa00af8ff42b5e3af51105515119e1c0855",
+  "events": "83e079f65b76e42e3d1963ad3dfb96af5cd03f8f2c8aa1b452df6c92852f9152"
+ },
+ "scan": {
+  "bytes_streamed": 248128982,
+  "entry": {
+   "created": "2026-10-10T04:10:13Z",
+   "filename": "texts_CHE.ndjson.gz",
+   "row_count": 210423,
+   "size": 248128982,
+   "url": "https://files.openparldata.ch/exports/texts/texts_CHE.ndjson.gz"
+  },
+  "index_generated_at": "2026-10-11T04:33:46Z",
+  "local": false,
+  "rows": 210423,
+  "scan_sha256": "9b47068defdb5880fd8f88336a96d44e8cc02ae9a004e9e0e3bd5e6dd161e842"
+ }
+}
