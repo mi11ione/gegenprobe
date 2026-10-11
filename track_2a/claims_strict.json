@@ -1,5 +1,5 @@
 {
- "_doc": "Strict zones for `make claims` (gegenprobe.claims.zone_check): every numeric token in a zone must be bound to a claim whose `where` lists the document, by an anchor in claims_anchor.json that holds the claim's value at that position. Round 13: README.md, technical_report.md and docs/form_notes.md are strict end to end. A zone is {start, end} (literals; null = top/end) or a list of them. `allow` lists the non-claims literally, each with why. Round 14: `small_int_tables` lists result tables (by the start of their header row) whose integer cells below 10 must be bound too; scope words (post hoc, registered, exploratory, in-sample, held out, weighted, unweighted) must sit inside an anchor phrase or an allowlisted phrase; `pinned` phrases must occur exactly `count` times. Round 16: the repository-root README (../README.md) is strict end to end as well (skipped inside the Docker build context, checked by the host CI job with GP_CLAIMS_STRICT=1).",
+ "_doc": "Strict zones for `make claims` (gegenprobe.claims.zone_check): every numeric token in a zone must be bound to a claim whose `where` lists the document, by an anchor in claims_anchor.json that holds the claim's value at that position. README.md, technical_report.md and docs/form_notes.md are strict end to end. A zone is {start, end} (literals; null = top/end) or a list of them. `allow` lists the non-claims literally, each with why. `small_int_tables` lists result tables (by the start of their header row) whose integer cells below 10 must be bound too; scope words (post hoc, registered, exploratory, in-sample, held out, weighted, unweighted) must sit inside an anchor phrase or an allowlisted phrase; `pinned` phrases must occur exactly `count` times. The repository-root README (../README.md) is strict end to end as well (skipped inside the Docker build context, checked by the host CI job with GP_CLAIMS_STRICT=1).",
  "zones": {
   "README.md": {
    "start": null,
@@ -43,10 +43,6 @@
    {
     "phrase": "95% lower bound",
     "why": "confidence level of the registered bar, not a result"
-   },
-   {
-    "phrase": "12 Oct 00:30 UTC",
-    "why": "start time of OPD's next nightly export"
    },
    {
     "phrase": "HTTP 404",
@@ -127,6 +123,14 @@
    {
     "phrase": "export (0.47 GB for Bern)",
     "why": "size of OPD's docs_BE export as streamed on 11 Oct 2026 (docs/affair.md), an operating note, not a result"
+   },
+   {
+    "phrase": "the venv unit (10 Oct)",
+    "why": "date of the venv night (results/monitor/night_real_38062530586/night.json)"
+   },
+   {
+    "phrase": "Docker unit\n  (11 Oct)",
+    "why": "date of the two Docker nights (results/monitor/two_nights_docker_38098822336/)"
    }
   ],
   "technical_report.md": [
@@ -137,10 +141,6 @@
    {
     "phrase": "10 Oct 2026",
     "why": "date of OPD's correspondence"
-   },
-   {
-    "phrase": "12 Oct 00:30 UTC",
-    "why": "dispatch time of the nightly re-run"
    },
    {
     "phrase": "6 Oct 2026",
@@ -203,11 +203,11 @@
     "why": "a setting: the minimum interval between requests to one host"
    },
    {
-    "phrase": "style=\"width:48%;",
+    "phrase": "style=\"width:36%;",
     "why": "figure width in the PDF layout, not a result"
    },
    {
-    "phrase": "style=\"width:55%;",
+    "phrase": "style=\"width:37%;",
     "why": "figure width in the PDF layout, not a result"
    },
    {
@@ -229,6 +229,30 @@
    {
     "phrase": "default 30 days",
     "why": "a setting's default, not a result"
+   },
+   {
+    "phrase": "the venv unit, 10 Oct,",
+    "why": "date of the venv night (results/monitor/night_real_38062530586/night.json)"
+   },
+   {
+    "phrase": "the Docker unit, 11 Oct)",
+    "why": "date of the two Docker nights"
+   },
+   {
+    "phrase": "the venv unit (10 Oct)",
+    "why": "date of the venv night"
+   },
+   {
+    "phrase": "(11 Oct, Actions run",
+    "why": "date of the two Docker nights"
+   },
+   {
+    "phrase": "**Post hoc**: analysed after the labels, often proposed in review; **registered**: decided by the frozen rule.",
+    "why": "glossary: definition of the scope words"
+   },
+   {
+    "phrase": "**Branch B**: P1's registered outcome",
+    "why": "glossary: names a registered outcome, not a result"
    }
   ],
   "docs/form_notes.md": [
@@ -295,7 +319,7 @@
    },
    {
     "phrase": "model-free",
-    "count": 5,
+    "count": 8,
     "why": "which repairs and baselines use no model"
    },
    {
@@ -327,7 +351,7 @@
    },
    {
     "phrase": "model-free",
-    "count": 6,
+    "count": 8,
     "why": "which repairs and baselines use no model"
    },
    {
@@ -349,7 +373,7 @@
    },
    {
     "phrase": "model-free",
-    "count": 3,
+    "count": 4,
     "why": "which repairs and baselines use no model"
    },
    {

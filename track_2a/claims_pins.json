@@ -1,5 +1,5 @@
 {
- "_doc": "Wording pins for `make claims` (src/gegenprobe/claims_pins.py; round 16). pins: phrases that must occur exactly `count` times (default 1), bound where possible to the result they state (`results`: {file, path, is} or {file, vars, expr, is}); `polarity` neg/pos keeps a verdict phrase on the side its result is. guards: every match in `docs` must lie inside a pin phrase or an `allow` phrase. A docs pass that rewrites one of these sentences updates its phrase here; a result that changes fails its pin until the sentence is rewritten.",
+ "_doc": "Wording pins for `make claims` (src/gegenprobe/claims_pins.py;). pins: phrases that must occur exactly `count` times (default 1), bound where possible to the result they state (`results`: {file, path, is} or {file, vars, expr, is}); `polarity` neg/pos keeps a verdict phrase on the side its result is. guards: every match in `docs` must lie inside a pin phrase or an `allow` phrase. A docs pass that rewrites one of these sentences updates its phrase here; a result that changes fails its pin until the sentence is rewritten.",
  "docs": [
   "README.md",
   "technical_report.md",
@@ -318,12 +318,12 @@
    "docs": {
     "README.md": [
      "none uniform: 6 role split, 1 body-specific; 5 robust under both checks",
-     "Needs roles: 10 fields** (2 of them fragile: the split holds under one of P8's two checks)",
+     "2 are fragile (the split holds under one of P8's two checks)",
      "These five verdicts hold on agreed labels only and on another vendor's"
     ],
     "technical_report.md": [
      "**none uniform**: 6 role split, 1 body-specific",
-     "*Needs roles:* **10 fields** (2 of them fragile: the split holds under one of P8's two checks)"
+     "2 are fragile (the split holds under one of P8's two checks)"
     ]
    }
   },
@@ -382,7 +382,7 @@
     "technical_report.md": [
      "Confirmed: H1, recall over the rules",
      "H2, precision non-inferior (+0.21)",
-     "(P10, registered: recall +23.4 points, precision non-inferior)"
+     "(P10, registered: recall +23.4 points over the rules, precision non-inferior;"
     ]
    }
   },
@@ -399,19 +399,11 @@
    "docs": {
     "README.md": [
      "H3a, F1 over the stronger OPD reading, is not confirmed",
-     "(37/141; not significant)",
-     "Apertus is not significantly better (H3a, Holm p = 0.17)"
+     "Apertus is not significantly better\n  (H3a, Holm p = 0.17)"
     ],
     "technical_report.md": [
      "Not confirmed: H3a, over OPD's list",
-     "(37/141; not significant)",
-     "Apertus is not significantly better than it (H3a)"
-    ],
-    "docs/form_notes.md": [
-     "not\n  significantly different (Holm p = 0.17)"
-    ],
-    "../README.md": [
-     "(37/141; not significant)"
+     "not significantly better than OPD's list, H3a)"
     ]
    }
   },
@@ -512,12 +504,6 @@
    ],
    "docs": {
     "README.md": [
-     "about three times the rules (17/141)"
-    ],
-    "technical_report.md": [
-     "about three times the rules (17/141)"
-    ],
-    "../README.md": [
      "about three times the rules (17/141)"
     ]
    }
@@ -655,12 +641,20 @@
     "README.md": [
      "The default nightly job uses no third-party processor.",
      "(our evaluation used Public AI, which may route outside Switzerland; with the local 8B no text leaves the machine)",
-     "With the local 8B no document text leaves the machine."
+     "With the local 8B no document text leaves the machine.",
+     "**Runtime external services:** none by\ndefault (public sources only); Apertus review mode sends document text to the Public AI gateway, or nothing with the\nlocal 8B."
     ],
     "technical_report.md": [
      "No third-party processor by default;",
      "or the local 8B, where no text leaves the machine)",
-     "Public AI (may route outside Switzerland) served evaluation only."
+     "Public AI (may route outside Switzerland) served evaluation only.",
+     "**Runtime external services:** none by default (public sources only); Apertus review mode sends document text to the Public AI gateway, or nothing with the local 8B."
+    ],
+    "docs/form_notes.md": [
+     "Runtime external services: none by default (public sources only); Apertus review mode sends document\n  text to the Public AI gateway, or nothing with the local 8B."
+    ],
+    "../README.md": [
+     "**Runtime external services:** none by\ndefault (public sources only); Apertus review mode sends document text to the Public AI gateway, or nothing with the\nlocal 8B."
     ]
    }
   },
@@ -677,6 +671,227 @@
     ],
     "docs/form_notes.md": [
      "Claude Code agents wrote the code and labels."
+    ]
+   }
+  },
+  {
+   "id": "verdict.p10.level_with_opd",
+   "why": "P10-H3a not confirmed (Holm p 0.17 > 0.05): Apertus and OPD's contributor list are level, not 'ahead'",
+   "results": [
+    {
+     "file": "results/p10/p10_scores.json",
+     "path": "primary.hypotheses.tests.H3a.verdict",
+     "is": "not confirmed"
+    },
+    {
+     "file": "results/p10/p10_scores.json",
+     "vars": {
+      "p": "primary.hypotheses.tests.H3a.p_holm"
+     },
+     "expr": "p > 0.05",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "level with OPD's\ncontributor list (37/141; H3a, Holm p = 0.17)"
+    ],
+    "technical_report.md": [
+     "level with OPD's contributor list (37/141; H3a, Holm p = 0.17)"
+    ],
+    "docs/form_notes.md": [
+     "level with OPD's contributor list (37/141; Holm p = 0.17)"
+    ],
+    "../README.md": [
+     "level with OPD's contributor list\n(37/141; H3a, Holm p = 0.17)"
+    ]
+   }
+  },
+  {
+   "id": "headline.answer",
+   "why": "the answer to the brief's question, with roles defined; bound to P8's verdict counts (role splits and a body-specific field exist, so the answer is conditional)",
+   "results": [
+    {
+     "file": "results/p8/p8_hypotheses.json",
+     "path": "summary.role_split",
+     "is": 6
+    },
+    {
+     "file": "results/p8/p8_hypotheses.json",
+     "path": "summary.body_specific",
+     "is": 1
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "Yes, if each field says which role its value plays** (e.g. \"answer\ndate\" = the government's decision, its letter or the submission date)"
+    ],
+    "technical_report.md": [
+     "Yes, if each field says which role its value plays** (e.g. \"answer date\" = the government's decision, its letter or the submission date)"
+    ],
+    "docs/form_notes.md": [
+     "Yes, if each field says which role its value plays\n  (e.g. \"answer date\" = the government's decision, its letter or the submission date)"
+    ],
+    "../README.md": [
+     "Yes, if each field says which role its value plays** (e.g. \"answer\ndate\" = the government's decision, its letter or the submission date)"
+    ]
+   }
+  },
+  {
+   "id": "safety.no_invention_closed_set",
+   "why": "no closed-set arm (pointer, cascade, reader v2) invented a date in P1, P2 or P6; the free prompt did (P2 re-parsed: 1)",
+   "results": [
+    {
+     "file": "results/report/eval_numbers.json",
+     "vars": {
+      "a": "arms.pointer.fabricated",
+      "b": "arms.cascade.fabricated"
+     },
+     "expr": "a + b",
+     "is": 0
+    },
+    {
+     "file": "results/eval2/posthoc_r5_p2_table.json",
+     "path": "all_62_70b.pointer.fabricated",
+     "is": 0
+    },
+    {
+     "file": "results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "vars": {
+      "a": "arms.v2.fabricated",
+      "b": "arms.cascade_v2.fabricated"
+     },
+     "expr": "a + b",
+     "is": 0
+    },
+    {
+     "file": "results/eval/posthoc_r3_naive_reparsed.json",
+     "path": "splits.P2.naive_null.reparsed.fabricated",
+     "is": 1
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "No closed-set arm returned a date printed nowhere (P1, P2, P6).",
+     "the closed set gives it by construction"
+    ],
+    "technical_report.md": [
+     "no arm that picks from printed dates returned a date printed nowhere (P1, P2, P6)"
+    ]
+   }
+  },
+  {
+   "id": "safety.bern_rollback",
+   "why": "the Bern plan on PostgreSQL: a re-run or a perturbed row rolls back and leaves the database unchanged",
+   "results": [
+    {
+     "file": "results/repair/apply_be/apply_BE_pg_check.json",
+     "path": "checks.2_rerun.unchanged",
+     "is": true
+    },
+    {
+     "file": "results/repair/apply_be/apply_BE_pg_check.json",
+     "path": "checks.3_perturbed_doc.unchanged",
+     "is": true
+    },
+    {
+     "file": "results/repair/apply_be/apply_BE_pg_check.json",
+     "path": "checks.4_perturbed_affair.unchanged",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "a second run, or one perturbed\n  row, rolls the whole transaction back",
+     {
+      "phrase": "in one transaction that rolls back on any deviation",
+      "count": 1
+     }
+    ],
+    "technical_report.md": [
+     "in one transaction that rolls back on any deviation"
+    ],
+    "docs/form_notes.md": [
+     "in one transaction that rolls back on any deviation"
+    ],
+    "../README.md": [
+     "in one transaction that rolls back on any deviation"
+    ]
+   }
+  },
+  {
+   "id": "count.ten_tests",
+   "why": "ten pre-registrations (P1, P2, P3, P4, P3b, P5, P6, P7, P8, P10), locks LOCK..LOCK10",
+   "docs": {
+    "README.md": [
+     "Ten tests, each with code, prompts and θ frozen by sha256 before any label was committed",
+     "ten tests, each frozen by hash before its labels"
+    ],
+    "technical_report.md": [
+     "the ten tests (P3b replicates P3), each frozen by hash before its labels"
+    ],
+    "docs/form_notes.md": [
+     "**Ten tests, frozen before any label**"
+    ],
+    "../README.md": [
+     "ten tests, each frozen by hash before its labels"
+    ]
+   }
+  },
+  {
+   "id": "incident.night2_ledger",
+   "why": "the incident the second real Docker night exposed, and its fix",
+   "docs": {
+    "README.md": [
+     "Night 2\n  exposed a ledger bug (it reset night 1's per-row verdicts to `unchecked`)"
+    ],
+    "technical_report.md": [
+     "the ledger-status bug night 2 exposed is fixed and covered by a two-night test"
+    ]
+   }
+  },
+  {
+   "id": "deviation.d4_d12",
+   "why": "P1's logged deviations: the hypothesis script followed the labels (D4), the rules entered with the sample (D12)",
+   "docs": {
+    "README.md": [
+     "(P1's hypothesis script followed its labels and\n  its rules entered with its sample, both logged: D4, D12)"
+    ],
+    "technical_report.md": [
+     "(P1's hypothesis script followed its labels, D4)",
+     "P1's rules entered with its sample, D12"
+    ],
+    "docs/form_notes.md": [
+     "(P1's hypothesis script followed its labels, its rules came with its\n  sample: D4, D12)"
+    ]
+   }
+  },
+  {
+   "id": "verdict.p8.qwen_sensitivity",
+   "why": "post hoc: on affairs gold and Qwen label alike, 5 of 7 P8 verdicts hold; addressed body and recommendation become shared",
+   "results": [
+    {
+     "file": "results/p8/p8_qwen_sensitivity.json",
+     "path": "summary.n_holds",
+     "is": 5
+    },
+    {
+     "file": "results/p8/p8_qwen_sensitivity.json",
+     "path": "summary.changes.addressed_body.1",
+     "is": "shared"
+    },
+    {
+     "file": "results/p8/p8_qwen_sensitivity.json",
+     "path": "summary.changes.government_recommendation.1",
+     "is": "shared"
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "recommendation become shared (5/7 verdicts hold;"
+    ],
+    "technical_report.md": [
+     "the first two become shared (5/7 verdicts hold;"
     ]
    }
   }
@@ -754,6 +969,10 @@
    {
     "phrase": "appear in at least one test",
     "why": "definition of a count (54 bound by claims)"
+   },
+   {
+    "phrase": "the shipped template's placeholder fails closed",
+    "why": "describes the User-Agent guard of the nightly job"
    }
   ],
   "technical_report.md": [

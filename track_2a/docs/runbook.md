@@ -53,7 +53,7 @@ their own lines, because Docker's `--env-file` keeps a trailing `# …` as part 
 
 | setting | default | what it does |
 |---|---|---|
-| `GP_USER_AGENT` | `hackapertus-research/0.1` | User-Agent of every request Gegenprobe sends (the development gateway `gw.py` aside, [External hosts](#operator-sheet)). **Set it**: your own product token and a contact **URL**, e.g. `opd-gegenprobe/0.1 (+https://openparldata.ch)`, so the hosts we fetch from can reach you. **Never an e-mail address**: the User-Agent is sent to every host and kept in their logs, so a personal address would be personal data. A value with an e-mail address (or `mailto:`) is refused: every fetch fails closed (`Disallowed`, kind `user_agent_email`) and a network night exits 1 before its first request. The default names no contact; a network night then prints a note on stderr and records `user_agent.has_contact: false` in `run.json` |
+| `GP_USER_AGENT` | `hackapertus-research/0.1`; **required** for a network night | User-Agent of every request Gegenprobe sends (the development gateway `gw.py` aside, [External hosts](#operator-sheet)). **Set it**: your own product token and a contact **URL**, e.g. `opd-gegenprobe/0.1 (+https://openparldata.ch)`, so the hosts we fetch from can reach you. **Never an e-mail address**: the User-Agent is sent to every host and kept in their logs, so a personal address would be personal data. A value with an e-mail address (or `mailto:`) is refused: every fetch fails closed (`Disallowed`, kind `user_agent_email`) and a network night exits 1 before its first request. A network night refuses to start (exit 1, before any request) until it names your product and a contact URL; the template's placeholder `SET-ME/0.1 (+https://set-me.invalid/your-contact-page)` fails closed, and `install.sh --user-agent '…'` writes the line. `run.json` records `user_agent.has_contact` |
 | `GP_OPD_TEXT` | `auto` | converter only (the environment of `python -m gegenprobe convert --opd-doc-id …`; the nightly job does not convert): a value found in OPD's own stored text also gets its span there (`opd_text_span`); the text is found by OPD's document id in the local cache, a docs snapshot or OPD's export (through `GP_EXPORTS_DIR` when set). The first lookup for a body can stream its docs export up to the document (0.47 GB for Bern), then the text is cached. `local`: no network; `off` (or `--no-opd-text`): no OPD spans |
 | `GP_EXPORTS_DIR` | unset | read `files.openparldata.ch/exports/…` from this local directory (same layout: `index.json`, `affairs.ndjson.gz`, `docs/docs_<body>.ndjson.gz`, …); no export transfer. Docker unit: the directory is mounted read-only into the container at the same path (`--mount …,readonly`), so it must exist on the host (a missing path fails the night instead of downloading) and be readable by uid 10001. Leave the line commented out rather than empty |
 | `GP_ADAPTER_CANARY` | `1` in the template | re-check one known affair per external adapter source each network night (operating plan below); `0` turns it off |
@@ -256,8 +256,12 @@ would trade one version gap for another, change tesseract and the whole system l
 cannot be pinned for long. We keep the digest-pinned bookworm base and the recorded versions
 (`/usr/local/share/gegenprobe-apt-versions.txt`). To reproduce the cache exactly, run `make run` outside Docker with poppler
 26.02.0. The Apertus re-derivation budget is per set (`GP_REDERIVE_APERTUS_BUDGET`, default 180 s each for P1 and P2;
-earlier a shared 120 s let P1 use all of it and CI reached 0 of 62 P2 documents); worst case 240 + 2 × 180 s of
-re-derivation on top of the replay steps.
+earlier a shared 120 s let P1 use all of it and CI reached 0 of 62 P2 documents). Every budget is a hard ceiling: a
+document still being fetched or read at the budget is interrupted and counted as not reached; each request is capped at
+30 s (`GP_REQUEST_TIMEOUT`), 2 tries. Worst case for the three network steps (`affair_cli`, `rederive`,
+`rederive_apertus`): 240 + 240 + 2 × 180 = 840 s; on a cold cache they took 7, 240 and 126 s, and the whole of
+`python -m gegenprobe.run` passed in 456 s (12 Oct 2026, host venv). A source that is gone is a typed skip
+(`source_gone`, `over_budget`), never a failure, and the operator command reads OPD's own copy where one exists.
 
 **OCR models are pinned; OCR fails loudly.** The OCR numbers in `docs/repair.md` and the scanned strata of P1/P2 were
 measured with Tesseract 5.5.3 and the tessdata_fast models at commit `8741641` (`TESSDATA_COMMIT`, sha256 per language in

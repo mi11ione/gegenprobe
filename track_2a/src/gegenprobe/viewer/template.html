@@ -313,12 +313,10 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
 .hero .scope { margin: 8px 0 0; font-size: 13.5px; color: var(--ink-2); max-width: 86ch; }
 .hero .next { margin: 12px 0 0; padding: 8px 12px; border-left: 2px solid var(--ink); background: var(--paper-2); font-size: 14px; line-height: 1.45; max-width: 86ch; }
 .hero .next b { font-weight: 650; }
-.banner-m { display: none; }
+.banner-hero { margin-top: 18px; }
 /* phones: the hero comes first; the caveat and the period switch sit under the hero sentence */
 @media (max-width: 900px) { .hero .hero-main { order: -1; } .hero { padding-block: 26px 30px; row-gap: 14px; } }
 @media (max-width: 700px) {
-  header.mast .banner { display: none; }
-  .banner-m { display: flex; grid-column: auto; margin-top: 14px; }
   .hero .big { font-size: clamp(64px, 21vw, 96px); }
   .hero h1 { margin-top: 12px; }
 }
@@ -480,7 +478,6 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
         <button class="theme" id="themeBtn" type="button" aria-label="Switch colour theme">Theme</button>
       </div>
     </div>
-    <div class="banner" role="note"><b>Not in OpenParlData ≠ not published by the parliament.</b><span>Counts describe OPD's copy; each missing affair links to OPD and to the parliament's own page.</span></div>
   </div>
 </header>
 
@@ -495,12 +492,12 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
     <p class="scope" id="heroScope"></p>
     <p class="delivered" id="heroDelivered"></p>
     <p class="next" id="heroNext"><b>What OPD does next:</b> run the Bern plan (<a href="#bern-numbers">Bern numbers</a>), import the lists keyed on your ids (<a href="#opdDownloads">downloads</a>), and decide the hash rule for relinked documents.</p>
-    <div class="banner banner-m" role="note"><b>Not in OpenParlData ≠ not published by the parliament.</b><span>Counts describe OPD's copy.</span></div>
     <div class="perrow" id="heroPeriod"></div>
     <div class="facts three" id="facts"></div>
-    <div class="label factpair">Apertus where no rules exist</div>
+    <div class="label factpair">Where nobody wrote rules: Apertus picks among printed values</div>
     <div class="facts two" id="factsApertus"></div>
     <p class="factnote" id="factNote"></p>
+    <div class="banner banner-hero" role="note"><b>Not in OpenParlData ≠ not published by the parliament.</b><span>Counts describe OPD's copy; each missing affair links to OPD and to the parliament's own page.</span></div>
   </div>
 </section>
 
@@ -575,7 +572,7 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
     <div class="idx"><div class="label">02 · Reviewer view</div></div>
     <div class="work">
       <h2 id="h-docs">Every answer date points at the page and the characters it came from</h2>
-      <p>154 held-out documents in German, French and Italian, cantonal and communal, including scanned answers read by OCR. For each one: the
+      <p>154 documents held out by protocol, in German, French and Italian, cantonal and communal, including scanned answers read by OCR. For each one: the
         gold label, what the default converter writes, what Apertus suggests for review, and what free generation says. Apertus may choose only
         a date that is printed in the document, or null. <b>Workbench</b> turns the documents the rules leave open into a keyboard review queue.</p>
     </div>
@@ -774,13 +771,15 @@ function drawHero() {
     ? `of answered interventions${period === 'all' ? '' : ` (${PERW[period]})`} would have answer text after the repairs; ${pct(1 - x.missing / x.written)} today`
     : `answered interventions${period === 'all' ? '' : ` (${PERW[period]})`} without answer text in OpenParlData`;
   // the plain answer first (README, report, form notes and site share it), then what was delivered
-  $('#heroLine').textContent = 'Can one schema hold Swiss parliamentary business? Yes, if its fields carry roles.';
-  $('#heroScope').textContent = D.scope ? `Asked of interventions, OPD's five intervention types: ${fmt(D.scope.interventions)} of its ${fmt(D.scope.opd_affairs)} affairs.` : '';
-  const T = D.tiles, all = period === 'all';
-  $('#heroDelivered').replaceChildren(el('b', {}, 'Delivered: '), am && am.after_repair != null ?
-    `repairs for ${fmt(D.parliaments.corrected.national.all.repaired)} answers keyed on OPD ids, every one from model-free rules. Once applied, ${pct(am.after_repair)} of interventions with a recorded government answer${all ? '' : ` (${PERW[period]})`} have answer text, up from ${pct(1 - x.missing / x.written)} today` +
-    (all && T ? `: ${T.share_row_checked} from row-checked repairs + ${T.points_unchecked} points from the ${fmt(T.agenda)} agenda joins and ${fmt(T.review)} review rows.` : '.') :
-    `${fmt(x.missing)} of ${fmt(x.written)} interventions with a recorded government answer, ${PERW[period]}, have no answer text attached in OpenParlData by the registered census rule.`);
+  $('#heroLine').textContent = 'Can one schema hold Swiss parliamentary business? Yes, if each field says which role its value plays (e.g. “answer date” = the government’s decision, its letter or the submission date).';
+  $('#heroScope').textContent = D.scope ? `Asked of interventions, OPD's five intervention types: ${fmt(D.scope.interventions)} of its ${fmt(D.scope.opd_affairs)} affairs` +
+    (D.scope.parliamentary_initiative != null ? `; parliamentary initiatives (${fmt(D.scope.parliamentary_initiative)}) and government business (${fmt(D.scope.government_affair)}) are outside the tested scope.` : '.') : '';
+  const all = period === 'all';
+  { const N = D.parliaments.corrected.national.all, E = N.opd_elsewhere_parts || {}, I = N.image_only_parts || {};
+    const now = (E.agenda || 0) + (N.unrecognised || 0) + (I.text_verified || 0), fetch = (N.fetchable || 0) + (I.fetchable || 0);
+    $('#heroDelivered').replaceChildren(el('b', {}, `The ${fmt(N.repaired)} repairs, `), all && N.repaired === now + (E.parentless || 0) + fetch ?
+      `every one from model-free rules and keyed on OPD ids: ${fmt(now)} need neither a decision nor a fetch (${fmt(E.agenda)} agenda joins, ${fmt(N.unrecognised)} category tags, ${fmt(I.text_verified)} verified texts of OPD's own copies); ${fmt(E.parentless)} Bern answers OPD holds without a parent (${fmt(H.relink_ready)} ready relinks, which follow OPD's hash decision); ${fmt(fetch)} answers checked at the parliaments, to fetch.` + (H.pg && H.pg.begin != null ? ` The ${fmt(H.pg.begin)} Bern begin_date corrections fix another field and are not among them.` : '') :
+      `every one from model-free rules and keyed on OPD ids.`); }
   $('#heroDetail').textContent = am && am.written != null ?
     `Headline, ${PERW[period]}: at most ${fmt(am.written)} written answers lack answer text on their intervention in OpenParlData (${pct(am.written / x.in_writing)} of the ${fmt(x.in_writing)} answered in writing). ` +
     `The registered census rule counts ${fmt(x.missing)} of the ${fmt(x.written)} interventions with a recorded government answer without attached answer text (${pct(x.missing / x.written)}); ` +
@@ -795,24 +794,24 @@ const V = D.schema.verdict, V2 = D.schema.v02, P7 = D.evaluation.p7, P2E = D.eva
 const facts = [
   [fmt(D.parliaments.corrected.national.all.repaired), el('span', {}, `answers with a model-free repair proposed to OPD, keyed on OPD ids. ` + (H.pg && H.pg.ok ? `The Bern plan ran on PostgreSQL ${H.pg.server.split('.')[0]}: ${fmt(H.pg.rows)} rows in one transaction that rolls back on any deviation. ` : ''), el('a', { class: 'bernlink', href: '#bern-numbers' }, 'All Bern numbers →'))],
   [`${V.need_roles} of ${V.fields}`, `fields are shared once their roles are explicit; ${V.body_specific} is body-specific; ${V.defined_once} are not yet tested for meaning.`],
-  D.tiles ? [fmt(D.tiles.v02_affairs), `affairs from ${D.tiles.v02_parliaments} parliaments, communal, cantonal and federal, validate in schema v0.2.`]
+  D.tiles && D.tiles.converter_records != null ? [fmt(D.tiles.converter_records), `records the converter made, from ${D.tiles.converter_parliaments} parliaments (communal, cantonal, federal), validate in schema v0.2; so do P8's ${D.tiles.gold_records} gold records.`]
           : [fmt(V2 ? V2.n_valid : 0), 'affairs validate in schema v0.2.'],
 ];
 const factsApertus = [
-  H.p2 && P2E && P2E.arms && P2E.arms.pointer ? [`${P2E.arms.pointer.exact}/${P2E.arms.pointer.n}`, (() => { const b = D.evaluation.baselines.p2_answer_typed; return `documents exact where nobody wrote rules (${H.p2.bodies} parliaments): Apertus picks the answer date among printed dates; best no-model baseline ${b.exact}/${b.n}.`; })()]
-       : [`${H.rules_exact}/${H.heldout}`, `held-out documents exact with the default converter (rules, no model).`],
-  P10 ? [`${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs}`, `author roles Apertus reads right where nobody wrote rules (${P10.primary.parliaments} parliaments): about three times the rules (${P10.primary.arms.rules.right}), ahead of OPD's contributor list (${P10.primary.arms.opd_first.right}; not significant).`] : null,
+  H.p2 ? [`${H.p2.pointer.correct}/${H.p2.pointer.of}`, `answer dates Apertus picks right among the printed dates in ${H.p2.bodies} parliaments: the rules ${H.p2.rules.correct}/${H.p2.rules.of} (registered)` +
+       (D.tiles && D.tiles.p2_keyword ? `, a generic keyword rule ${D.tiles.p2_keyword[0]}/${D.tiles.p2_keyword[1]} (post hoc).` : '.')]
+       : [`${H.rules_exact}/${H.heldout}`, `documents exact with the default converter (rules, no model).`],
+  P10 ? [`${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs}`, `author roles Apertus reads right in ${P10.primary.parliaments} parliaments (rules ${P10.primary.arms.rules.right}/${P10.primary.gold_pairs})` +
+       (P10.order ? `; the gain is the model-free candidate finder: document order ${P10.order.right}/${P10.order.gold} (post hoc), level.` : '.')] : null,
 ];
 $('#facts').append(...facts.filter(Boolean).map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
 $('#factsApertus').append(...factsApertus.filter(Boolean).map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
-{ const b = D.evaluation.baselines && D.evaluation.baselines.p2_answer_typed;
-  $('#factNote').textContent = `Sources: 92.3% and ${fmt(D.parliaments.corrected.national.all.repaired)} from the census and the repair lists (no model); ${V.need_roles} of ${V.fields} from OPD's labels and P8 (pre-registered)` +
-    (b ? `; ${P2E.arms.pointer.exact}/${P2E.arms.pointer.n} from P2, post hoc (McNemar p = ${b.p_mcnemar}, parliament-cluster p = ${b.p_cluster})` : '') +
-    (P10 ? `; ${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs} from P10, registered (recall +${P10.hypotheses.H1.points} points over the rules, Holm p = ${P10.hypotheses.H1.p_holm}; over OPD's list Holm p = ${P10.hypotheses.H3a.p_holm_2}` +
-      (P10.r16 ? `, level without ${P10.r16.concentration.largest.name}: ${P10.r16.concentration.without_largest.pointer} vs ${P10.r16.concentration.without_largest.opd_first} of ${P10.r16.concentration.without_largest.gold} pairs, post hoc` : '') + ')' : '') +
-    (D.tiles ? `; ${fmt(D.tiles.v02_affairs)} from P3, P3b, P5, P8 and the federal cell, whose ${D.tiles.federal} affairs are exploratory` : '') +
+{ $('#factNote').textContent = `Sources: 92.3% and ${fmt(D.parliaments.corrected.national.all.repaired)} from the census and the repair lists (no model); ${V.need_roles} of ${V.fields} from OPD's labels and P8 (pre-registered)` +
+    (H.p2 ? `; ${H.p2.pointer.correct}/${H.p2.pointer.of} from P2, registered (the keyword rule post hoc, proposed in review)` : '') +
+    (P10 ? `; ${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs} from P10, registered (recall +${P10.hypotheses.H1.points} points over the rules, Holm p = ${P10.hypotheses.H1.p_holm}), level with OPD's contributor list (${P10.primary.arms.opd_first.right}/${P10.primary.gold_pairs}; H3a, Holm p = ${P10.hypotheses.H3a.p_holm_2})` : '') +
+    (D.tiles && D.tiles.converter_records != null ? `; ${fmt(D.tiles.converter_records)} from P3, P3b, P5 and the federal cell, whose ${D.tiles.federal} affairs are exploratory` : '') +
     '. P1–P8 and P10 are the ten tests (P3b replicates P3), each frozen by hash before its labels.' +
-    (b && P10 ? ` Which model: ${P2E.arms.pointer.exact}/${P2E.arms.pointer.n} and ${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs} come from Apertus v1.5 70B weights, which Public AI serves under the name swiss-ai/apertus-v1.5-8b; local 8B results: 03 Evaluation.` : ''); }
+    (H.p2 && P10 ? ` Which model: ${H.p2.pointer.correct}/${H.p2.pointer.of} and ${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs} come from Apertus v1.5 70B weights, which Public AI serves under the name swiss-ai/apertus-v1.5-8b; local 8B results: 03 Evaluation. Runtime external services: none by default (public sources only); Apertus review mode sends document text to the Public AI gateway, or nothing with the local 8B.` : ''); }
 /* converter coverage per parliament (results/convert/coverage_by_parliament.json) */
 if (D.coverage) {
   const C = D.coverage, S = C.summary, ST = ['frozen rules', 'source adapter', 'metadata only'];
@@ -851,7 +850,7 @@ if (DL) {
       el('p', { class: 'small code', style: 'margin:0;max-width:96ch;line-height:1.7' }, ...DL.adapter_lists.files.flatMap((f, i) => [i ? ' · ' : '', el('a', { href: f.href, download: '', title: `${f.label}: ${f.rows} rows, ${f.counted} counted` }, f.body), ` ${fmt(f.counted)}`]))) : null,
     el('p', { class: 'repo' }, 'Code, tests and every results file: ', el('a', { href: DL.repo }, DL.repo.replace('https://', '')),
       ' · how the lists are built and checked: docs/repair.md · the apply plan is a dry run, never executed by us'),
-    D.nights ? el('p', { class: 'small', style: 'margin:6px 0 0;max-width:80ch' }, `Nightly job: two consecutive real nights in the recommended Docker setup (GitHub Actions run ${D.nights.run}, results/monitor/two_nights_docker_${D.nights.run}/): night 1 took ${Math.round(D.nights.night1_s / 60)} min and streamed ${(D.nights.night1_bytes / 1e9).toFixed(1)} GB; night 2, on night 1’s state and OPD’s next export, took ${(D.nights.night2_s / 60).toFixed(1)} min and re-scanned the ${D.nights.night2_bodies} bodies whose exports changed; ${D.nights.alerts} alerts, the Bern list unchanged (${fmt(D.nights.relink)} relink and ${fmt(D.nights.fetch)} fetch candidates). Night 2 exposed a ledger bug (per-row verdicts reset to unchecked); it is fixed and guarded by two-night tests, and its real two-night re-run starts with OPD's next nightly export (12 Oct 00:30 UTC). Ready for OPD's side: the same unit reads a local export directory (GP_EXPORTS_DIR).`) : null);
+    D.nights ? el('p', { class: 'small', style: 'margin:6px 0 0;max-width:80ch' }, `Nightly job: three real nights on standard GitHub runners, one with the venv unit and two consecutive in the recommended Docker setup (GitHub Actions run ${D.nights.run}, results/monitor/two_nights_docker_${D.nights.run}/): night 1 took ${Math.round(D.nights.night1_s / 60)} min and streamed ${(D.nights.night1_bytes / 1e9).toFixed(1)} GB; night 2, on night 1’s state and OPD’s next export, took ${(D.nights.night2_s / 60).toFixed(1)} min and re-scanned the ${D.nights.night2_bodies} bodies whose exports changed; ${D.nights.alerts} alerts, the Bern list unchanged (${fmt(D.nights.relink)} relink and ${fmt(D.nights.fetch)} fetch candidates). Night 2 exposed a ledger bug (per-row verdicts reset to unchecked); it is fixed and guarded by two-night tests, and the fixed code's first real two-night pair runs with OPD's next exports. Ready for OPD's side: the same unit reads a local export directory (GP_EXPORTS_DIR).`) : null);
 }
 $('#steps').append(...STEPS.map(([w, t, h], i) => el('div', {}, el('div', { class: 'n' }, String(i + 1)), el('div', { class: 'w' }, el('a', { href: h }, w)), el('p', {}, t))));
 const GLOSS = [

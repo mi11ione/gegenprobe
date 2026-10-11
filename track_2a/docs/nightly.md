@@ -37,8 +37,11 @@ exit 2, without a traceback.
 
 **User-Agent.** Every request carries `GP_USER_AGENT` (default `hackapertus-research/0.1`). Set it to your own product
 token and a contact URL (never an e-mail address: such a value is refused, every fetch fails closed), e.g. `GP_USER_AGENT=opd-gegenprobe/0.1 (+https://openparldata.ch)` in
-`/etc/gegenprobe/alerts.env`. The default names no contact, so a network night with it prints a note on stderr, and every
-`run.json` records `user_agent` (`value`, `has_contact`, `source`). No personal data is hard-coded.
+`/etc/gegenprobe/alerts.env`. A network night refuses to start (exit 1, before any request) until `GP_USER_AGENT` names
+your product and a contact URL (`http(s)://` and a real host; reserved example and placeholder hosts are refused). The
+shipped template's placeholder fails closed, and `install.sh --user-agent '…'` writes the line. `offline` sends nothing
+and is not checked. Every `run.json` records `user_agent` (`value`, `has_contact`, `source`). No personal data is
+hard-coded.
 
 **Linking rate** of a body = affairs with a written-answer event whose answer text is reachable in OPD (attached document,
 `texts` row, or agenda item) ÷ affairs with a written-answer event. Same definitions as the census (`docs/census.md`).

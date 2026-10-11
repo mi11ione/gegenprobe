@@ -147,6 +147,15 @@ the same named category. The addressed body and the recommendation split on the 
 agreed labels only and the recommendation on Qwen's labels, so both are recorded as role splits marked fragile
 (`data/schema/field_verdict_classes.json`).
 
+**Sensitivity to coder noise** (post hoc, proposed in review; `eval/p8/qwen_sensitivity.py` →
+`results/p8/p8_qwen_sensitivity.json`; never decisive, the registered verdicts stand). Under P8's rule one deviating
+parliament makes a field non-shared, so a noisier coder can only add splits: a verdict that also holds on Qwen's labels
+does not corroborate a split; one that holds on the affairs both coders label alike does. Recomputed only on the
+affairs where the gold and the cross-vendor Qwen check derive the same category, 5 of 7 verdicts hold (submitter,
+co-signatories, language and type role split, the submission date body-specific); the addressed body and the
+government recommendation become shared, so their role splits rest on affairs the two coders label differently. On
+that subset co-signatories rest on 3 evaluable parliaments, and the language split rests on Fribourg alone.
+
 **Gold and checks.** A1 (Claude Opus) and A2 (Claude Sonnet) labelled all 66 affairs blind; A3 (Opus) decided 11
 disputed fields in 7 affairs (`results/p8/p8_agreement.json`). The registered Qwen check
 (`aisingapore/Qwen-SEA-LION-v4-32B-IT`, USD 0.0856, `results/p8/p8_qwen.json`) changes no gold label and no decision.
@@ -209,12 +218,39 @@ Hypotheses (one-sided, paired parliament-cluster bootstrap, 10,000 resamples, Ho
 - **H2, confirmed:** precision non-inferior to the rules within 0.10; observed +0.21, Holm p = 0.033.
 - **H3a, not confirmed:** F1 over the stronger OPD reading in each resample, observed +0.12, Holm p = 0.17. Where OPD
   lists the authors, its contributor order is a strong baseline.
-- **H3b, confirmed:** F1 over the same candidates with a trivial role, observed +0.29, Holm p = 0.032.
+- **H3b, confirmed:** F1 over the same candidates with a trivial role, observed +0.29, Holm p = 0.032. H3b's
+  registered baseline reads every candidate as a joint author (16/141); against the stronger reading, document order
+  (52/141, post hoc, below), the pointer is not ahead.
 
 Per parliament, Apertus reads more pairs right than the rules in 9 of the 14, fewer in 1, as many in 4. The candidate
 finder offers 87 of the 141 gold names (111 candidates), which bounds recall. Post hoc, per parliament: 25 of the 33
 pairs Apertus finds beyond the rules come from 2 of the 14 parliaments (Horw 15 vs 1, Neuchâtel 17 vs 6); Neuchâtel
 holds 62 of the 141 gold pairs, and without it Apertus and OPD's list are level (33 vs 34 of 79 pairs).
+
+**Document order on the same candidates** (post hoc, proposed in review; `eval/p10/posthoc_baselines.py` →
+`results/p10/p10_posthoc_baselines.json`; scored with the registered `eval.p10.score`, mapped with the registered
+`eval.p10.arms.opd_pairs(..., "first_and_co")`; no registered verdict changes):
+
+| arm (primary cell) | pairs right / printed / gold | precision | recall | F1 |
+|---|---|---|---|---|
+| Apertus role reader (registered) | 50/96/141 | 0.52 | 0.35 | 0.42 |
+| document order, OPD's mapping (first = first signatory, rest co-signatories, a lone name sole author) | 52/111/141 | 0.47 | 0.37 | 0.41 |
+| document order, persons only | 53/105/141 | 0.50 | 0.38 | 0.43 |
+| Apertus's author set, document-order roles | 52/96/141 | 0.54 | 0.37 | 0.44 |
+
+Pointer against document order, paired parliament-cluster bootstrap (10,000 resamples, the P10 seed), in points:
+precision +5.2 [-7.4, 22.3], recall -1.4 [-12, 10.6], F1 +0.9 [-9, 15.5]; per affair 8 better, 7 worse, 19 tied; per
+parliament 5 ahead, 5 behind, 4 tied. The gain over the rules comes from the model-free candidate finder plus
+document order; Apertus's first-vs-co judgement is level with order (on the same author set F1 -1.7 [-13.1, 9.8]).
+What Apertus adds is the author filter: its author set with document-order roles, against document order on all
+candidates, keeps recall (0.0 [-4, 5.6]) and adds +7.3 points precision [0.8, 18.2] (one-sided p = 0.012, uncorrected
+for the file's other comparisons). In Lugano the pointer gets 33/56 (46 printed), document order 31/56 (61 printed).
+
+**The role set out of sample** (post hoc, proposed in review; `role_set` in the same file). In P10's merged gold (40
+affairs, 15 parliaments, 197 people) no annotator needed the guide's open `other` role (0/197) or `supporter`
+(0/197); roles used: co-signatory 126, joint author 27, sole author 22, first signatory 18, spokesperson 4. This
+supports "yes, if roles" for what these parliaments print, as the annotators read them; Qwen's check, which does not
+enter the gold, used `other` 9 times.
 
 **Cross-check of the gold by another vendor** (exploratory; `results/p10/p10_qwen_check.json`). Qwen-SEA-LION
 relabelled the 40 packets blind: pair F1 0.63 against the gold (A1 against A2: 0.868), and with its labels as the gold no
@@ -447,7 +483,14 @@ p = 0.63), but it dates 31 of the 33 answerless documents, where the pointer dat
 printed date. Its 4 dates on answerless documents all fall on documents that contain an answer but print no qualifying
 answer date; of the 25 P2 documents with no answer at all it dates none (`results/report/r7docs_numbers.json`). Against the latest date gated by OPD's document type (null on documents OPD types as member
 texts), the pointer is right on 10 documents the baseline gets wrong and the baseline on 1 (p = 0.012), 6 parliaments
-to 0 (p = 0.031; this comparison was chosen after the results, D2-5). Asked freely with a null-allowed prompt, Apertus
+to 0 (p = 0.031; this comparison was chosen after the results, D2-5). **A generic keyword rule** (post hoc, proposed in
+review; `eval/gold2/posthoc_keyword.py` → `results/eval/p2_posthoc_keyword.json`): a DE/FR/IT rule (government and
+answer cue; the first date after a "Sitzung vom / séance du / seduta del" cue, else the latest date; answer-typed
+documents only), written without the gold and run unchanged on all 62 cached texts (62 sha256-verified), is exact on
+45/62 and finds 16/29 answer dates (4/33 answerless documents dated). Against the pointer (53/62, 24/29): pointer only
+12 documents, rule only 4, exact McNemar p = 0.077; on the 29 answered documents 11 vs 3, p = 0.057; 5 parliaments
+favour the pointer, 2 the rule (cluster permutation p = 0.20). Apertus's lead over a generic rule is in the answer dates
+it finds; the p = 0.012 above is against the latest-date baseline (44/62). Asked freely with a null-allowed prompt, Apertus
 scores about the same as the pointer (52 vs 53 of 62; re-parsed 54); the pointer adds provenance by construction, not
 accuracy. The margin separates the classes (AUROC 0.983); null safety failed again (4/33, upper bound 27.3%), so
 Apertus's values remain review suggestions. θ = 0, registered in PREREG2 as a secondary with no decision attached,
@@ -668,7 +711,9 @@ and 369 of the 863 eligible queue rows against 214. Keeping Apertus's yes/no gat
 printed date, 172 rows reach 74.9% (P7 +20.9 points [5.2, 33.1]). With whole parliaments resampled (post hoc, `eval/p7/cluster_r9.py` → `results/p7/p7_cluster_r9.json`;
 15 parliaments, B = 10,000) the gap to the no-model rule is [0.9, 42.8] and to the gated rule [0, 47.4]: it is
 concentrated in a few parliaments, and without Frauenfeld it is larger (+28.5 and +36.4 points). On is-answer, the no-model comparison: a date match without a
-model is also right (146/146) and also stops all 10 gold-no rows; Apertus's yes/no question adds 1.1 points [0, 2.9]. So Apertus's selection makes the
+model is also right (146/146) and also stops all 10 gold-no rows (post hoc, proposed in review,
+`results/p7/p7_posthoc_overlap.json`: on the 478-row frame it promotes 206 rows, Apertus 135, 126 both, 9 Apertus only;
+weighted, the date Apertus picks is the gold answer date 22.0 points more often [9.5, 33.6], 94.2% vs 72.2%); Apertus's yes/no question adds 1.1 points [0, 2.9]. So Apertus's selection makes the
 promoted tier date-checkable; a no-model rule recovers more rows with less precision. These scripts replay from a clean
 checkout on the committed `data/p7/` copies (`eval/p7/offline.py`, part of `make run`). H4 as registered is weighted to the frame; unweighted over the judged rows it is
 115/120 vs 129/146 (88.4%), +7.5 points [3.4, 12.2], the gap coming from the `rest` stratum (2/8 trivial promotions

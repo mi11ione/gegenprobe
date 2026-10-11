@@ -6,7 +6,7 @@ with `$id` and version 0.1.0: `results/schema/*.schema.json`; v0.2 with P8's rol
 JSON Schema `results/schema/v0_2/affair.schema.json`; field guide: `docs/schema.md`; mappings to Popolo, Akoma
 Ntoso, Parla-CLARIN and OParl: `docs/mapping.md`.
 
-**In one line:** a common schema works if its fields carry roles, and not only for dates. The 17 fields: 10 need
+**In one line:** a common schema works if each field says which role its value plays (e.g. "answer date" = the government's decision, its letter or the submission date), and not only for dates. The 17 fields: 10 need
 roles (8 robust, 2 fragile), 1 body-specific, 6 defined once in v0.1 (meaning is the next test). "Answer date" is the
 government's decision in some parliaments, the letter or registration date in others and in 7 bodies mostly the
 submission date; v0.1 makes the role explicit on every date. A pre-registered test of 7 fields on 66 fresh affairs
@@ -26,7 +26,7 @@ federal cell adds 15 Federal Council answers whose v0.2 records validate as well
 | **body-specific** (1 of 17) | submission date: in Vernier and Lausanne OPD's date is mostly printed nowhere in the documents (P8, under both checks) | a standard records which event the date is |
 | **defined once in v0.1** (6 of 17) | decision date, dispatch date, Q/A pairing, related affairs, usable text, answer-link status | one definition in v0.1; their meaning is the next test (the same test as P8); *where* the value lives (metadata, PDF, or not in OPD) is measured |
 | **body-specific** (2 concepts, not among the 17 fields) | oral answers in question time; councils that publish only meeting documents | needs its own construct, not a field: v0.1 types oral answers as a null reason and marks affairs rebuilt from minutes `virtual` with `derived_from` |
-| **outside the tested scope** | executive business that answers no member's affair | the census and the tests sample interventions (OPD's five intervention types); a standard for it is a separate question |
+| **outside the tested scope** | parliamentary initiatives (5,817 OPD affairs), government business (37,864) and other executive business that answers no member's affair | the census and the tests sample interventions (OPD's five intervention types); a standard for it is a separate question |
 
 For the government recommendation OPD's harmonised labels map unambiguously (0 of 183 raw labels map to different
 concepts, a string check); the documents show the split P8 found, by procedural stage. Evidence:

@@ -230,7 +230,7 @@
  },
  "p2.bodies": {
   "README.md": "parliaments nobody wrote rules for",
-  "docs/form_notes.md": "that rolls back on any deviation. In"
+  "docs/form_notes.md": "parliaments nobody wrote"
  },
  "p2.bodies_scope": {
   "docs/evaluation.md": "parliaments without rules"
@@ -260,6 +260,9 @@
  },
  "p2.naive_null_fab": {
   "docs/evaluation.md": "| 22/29 [57.9, 87.8] | 7 |"
+ },
+ "p2.rules_found": {
+  "../README.md": "the rules 2/29"
  },
  "p3.bodies_seen": {
   "docs/evaluation.md": "with rules and 5 without"
@@ -302,7 +305,7 @@
  "p7.queue.promoted": {
   "README.md": "promoted_by_apertus",
   "docs/evaluation.md": "promoted_by_apertus",
-  "docs/form_notes.md": "promotions (not paired), at lower recall",
+  "docs/form_notes.md": "214 queue rows",
   "docs/operations.md": "promoted_by_apertus",
   "technical_report.md": "promoted_by_apertus"
  },
@@ -317,7 +320,9 @@
   "technical_report.md": "blind packets"
  },
  "p8.addressed_body.5002": {
-  "docs/evaluation.md": "Bellinzona 2/4"
+  "README.md": "Bellinzona",
+  "docs/evaluation.md": "Bellinzona 2/4",
+  "technical_report.md": "Bellinzona"
  },
  "p8.addressed_body.evaluable": {
   "docs/evaluation.md": "| addressed body | role split, **fragile** |"
@@ -377,13 +382,17 @@
   "docs/evaluation.md": "2 to 28 days after the printed lodging date"
  },
  "p8.government_recommendation.6643": {
-  "docs/evaluation.md": "Vernier 0/3"
+  "README.md": "Vernier",
+  "docs/evaluation.md": "Vernier 0/3",
+  "technical_report.md": "Vernier"
  },
  "p8.government_recommendation.evaluable": {
   "docs/evaluation.md": "| government recommendation | role split, **fragile** |"
  },
  "p8.language.FR": {
-  "docs/evaluation.md": "Fribourg 4/6: the tag names"
+  "README.md": "Fribourg",
+  "docs/evaluation.md": "Fribourg 4/6: the tag names",
+  "technical_report.md": "Fribourg"
  },
  "p8.language.FR_other": {
   "README.md": "the other official language in 2",
@@ -404,7 +413,7 @@
   "technical_report.md": "meaning is measured for the other"
  },
  "p8.meaning_tested": {
-  "../README.md": "the government's decision, its letter or, in",
+  "../README.md": "government's decision, its letter or, in",
   "README.md": "meaning of",
   "docs/evaluation.md": "what 7 fields v0.1 defines once",
   "docs/form_notes.md": "test of 7 fields on 66",
@@ -489,8 +498,8 @@
  "question.same_day_bodies": {
   "README.md": "in 7 parliaments",
   "docs/ech-onepager.md": "of 54 bodies",
-  "docs/form_notes.md": "in 7 parliaments, mostly",
-  "technical_report.md": "in 7 parliaments, mostly the submission date"
+  "docs/form_notes.md": "- **Schema.** A pre-registered test of",
+  "technical_report.md": "of 54 bodies"
  },
  "r10.fetch_hours": {
   "README.md": "hours for"
@@ -514,9 +523,9 @@
   "docs/evaluation.md": "eligible queue rows against"
  },
  "r10.p7_rule_queue": {
-  "README.md": "(369 vs 214)",
+  "README.md": "recovers 369",
   "docs/evaluation.md": "of the 863 eligible queue rows",
-  "docs/form_notes.md": "rows). Where rules exist it adds one",
+  "docs/form_notes.md": "takes 369",
   "technical_report.md": "vs 214 queue rows"
  },
  "r10.p7_rule_recall": {
@@ -555,13 +564,13 @@
  "r11.schema_body_specific": {
   "../README.md": "is body-specific",
   "README.md": "is body-specific",
-  "docs/form_notes.md": "the submission date. Body-specific:",
+  "docs/form_notes.md": "open). Body-specific:",
   "technical_report.md": "the submission date"
  },
  "r11.schema_fields": {
   "../README.md": "fields for communal, cantonal and federal business;",
   "README.md": "fields for communal, cantonal and federal business;",
-  "docs/form_notes.md": "fields for communal, cantonal and federal business,",
+  "docs/form_notes.md": "fields for communal, cantonal and",
   "technical_report.md": "fields for communal, cantonal and federal business;"
  },
  "r11.schema_one_definition": {
@@ -571,9 +580,9 @@
   "technical_report.md": "fields**, defined once in"
  },
  "r11.schema_role_split": {
-  "../README.md": "fields:** \"answer date\" is the government's decision,",
+  "../README.md": "- **Needs roles:",
   "README.md": "- **Needs roles:",
-  "docs/form_notes.md": "fields; \"answer date\" is the government's decision,",
+  "docs/form_notes.md": "gap with a typed reason. Needs roles:",
   "technical_report.md": "every gap a typed reason. *Needs roles:*"
  },
  "r11.spotcheck_rows": {
@@ -672,7 +681,7 @@
   "../README.md": "fragile",
   "README.md": "fragile",
   "docs/ech-onepager.md": "fragile",
-  "docs/form_notes.md": "answer dates on new layouts, the rules",
+  "docs/form_notes.md": "open). Body-specific:",
   "technical_report.md": "fragile"
  },
  "r12.verdict_robust": {
@@ -737,23 +746,17 @@
  },
  "r13.ranked": {
   "README.md": "17 parliaments with at least",
-  "docs/form_notes.md": "fields for communal, cantonal and federal business,",
+  "docs/form_notes.md": "registered: recall",
   "technical_report.md": "17 parliaments with at least"
  },
  "r13.tagged_docs": {
   "README.md": "of the 130 tagged"
  },
  "r13.v02_fed_affairs": {
-  "../README.md": "from P3, P3b, P5, P8 and the federal cell",
-  "README.md": "186 affairs from",
-  "docs/form_notes.md": "parliaments, communal, cantonal and federal, validate in",
-  "technical_report.md": "186 affairs from"
+  "README.md": "186 affairs from"
  },
  "r13.v02_fed_parliaments": {
-  "../README.md": "parliaments, communal, cantonal and federal, validate in",
-  "README.md": "from 26 parliaments",
-  "docs/form_notes.md": "parliaments, communal, cantonal and federal, validate in",
-  "technical_report.md": "from 26 parliaments"
+  "README.md": "from 26 parliaments"
  },
  "r13.vs_median_doc": {
   "README.md": "days in Kriens and",
@@ -779,7 +782,7 @@
  "r14.at_valais_doc": {
   "README.md": "days in Kriens and",
   "docs/census.md": "Elsewhere the ranking holds; post hoc, descriptive.",
-  "docs/form_notes.md": "on the same affairs OPD's and the",
+  "docs/form_notes.md": "days; the answer documents give",
   "technical_report.md": "verified answer documents carry give 26.5 and"
  },
  "r14.cc_adapter": {
@@ -815,7 +818,7 @@
   "docs/converter-coverage.md": "appear in at least one test,"
  },
  "r14.cc_v02": {
-  "README.md": "parliaments (`results/fed/fed_tables.json`).",
+  "README.md": "parliaments validate (`results/fed/fed_tables.json`).",
   "docs/converter-coverage.md": "appear in at least one test,"
  },
  "r14.cov_agenda": {
@@ -973,6 +976,98 @@
  },
  "r14.tbl.p6.v2.printed_nowhere": {
   "technical_report.md": "| v2 | 59/68 | 30/34 | 5/34 | 0 |"
+ },
+ "r15.p10_gold": {
+  "../README.md": "registered (recall"
+ },
+ "r15.p10_parl": {
+  "../README.md": "| author roles Apertus reads right in",
+  "README.md": "German- and French-speaking parliaments outside",
+  "docs/form_notes.md": "parliaments without rules:",
+  "technical_report.md": "short under the registered fill rule),"
+ },
+ "r15.p10_rules_right": {
+  "README.md": "pairs right, about three times the rules"
+ },
+ "r15.p10_shortfall_fr": {
+  "docs/evaluation.md": "French stratum"
+ },
+ "r16.p10_gain": {
+  "docs/evaluation.md": "pairs Apertus finds beyond the rules"
+ },
+ "r16.p10_horw_ptr": {
+  "docs/evaluation.md": "Horw"
+ },
+ "r16.p10_ne_gold": {
+  "docs/evaluation.md": "of the 141 gold pairs"
+ },
+ "r16.p10_planned": {
+  "README.md": "planned",
+  "docs/evaluation.md": "planned",
+  "technical_report.md": "planned"
+ },
+ "r16.p10_scored": {
+  "docs/evaluation.md": "planned"
+ },
+ "r16.p10_top2_gain": {
+  "docs/evaluation.md": "pairs Apertus finds beyond the rules"
+ },
+ "r16.p10_wo_ne_gold": {
+  "README.md": "without Neuchâtel",
+  "docs/evaluation.md": "and without it"
+ },
+ "r16.p10_wo_ne_opd": {
+  "README.md": "without Neuchâtel",
+  "docs/evaluation.md": "and without it"
+ },
+ "r16.p10_wo_ne_ptr": {
+  "README.md": "without Neuchâtel",
+  "docs/evaluation.md": "and without it"
+ },
+ "r16.root.fed_n": {
+  "../README.md": "federal cell, whose"
+ },
+ "r16.route_added": {
+  "README.md": "none right",
+  "docs/evaluation.md": "none right",
+  "technical_report.md": "none right"
+ },
+ "r16.route_fired": {
+  "docs/evaluation.md": "fired on"
+ },
+ "r16a1.sessions_all": {
+  "README.md": "annotator sessions",
+  "docs/evaluation.md": "annotator sessions",
+  "technical_report.md": "annotator sessions"
+ },
+ "r17.qa_records": {
+  "README.md": "lock). Of its",
+  "technical_report.md": "records carry printed authors with their role);"
+ },
+ "r17.qa_with_items": {
+  "README.md": "converter records carry pairs",
+  "technical_report.md": "affairs (the operator command writes them:"
+ },
+ "r17.v02_converter_parliaments": {
+  "../README.md": "parliaments (communal, cantonal, federal), validate in schema",
+  "README.md": "parliaments, and with",
+  "docs/form_notes.md": "parliaments (communal, cantonal, federal; the",
+  "technical_report.md": "converter records from"
+ },
+ "r17.v02_converter_records": {
+  "../README.md": "| records the converter made, from",
+  "README.md": "records pass the check: the converter's",
+  "docs/form_notes.md": "transaction that rolls back on any deviation.",
+  "technical_report.md": "converter records from"
+ },
+ "r17.v02_federal": {
+  "docs/form_notes.md": "parliaments (communal, cantonal, federal; the"
+ },
+ "r17.v02_gold_records": {
+  "../README.md": "(OPD's labels and",
+  "README.md": "gold records.",
+  "docs/form_notes.md": "gold records.",
+  "technical_report.md": "and signatures are marked by page range"
  },
  "r2a.p2_bodies_pointer": {
   "docs/evaluation.md": "on answered documents the pointer is ahead in"
@@ -1933,7 +2028,7 @@
   "README.md": "for the first",
   "docs/form_notes.md": "first network night took",
   "docs/operations.md": "night 1 took",
-  "technical_report.md": "in the recommended Docker setup** (Actions run"
+  "technical_report.md": "Oct, Actions run"
  },
  "r7docs.night2_bodies": {
   "README.md": "bodies re-scanned",
@@ -2093,7 +2188,7 @@
  },
  "r9p.audit_agree": {
   "README.md": "agree on",
-  "technical_report.md": "agreement 252 of 260"
+  "technical_report.md": "packets agree)."
  },
  "r9p.audit_date_no": {
   "README.md": "wrong or unsupported in",
@@ -2137,21 +2232,21 @@
   "README.md": "and dating"
  },
  "r9p.p2_answerless_n": {
-  "README.md": "not all. It puts a date on",
+  "README.md": "answerless documents, where the latest printed date",
   "technical_report.md": "answerless dated /33"
  },
  "r9p.p2_bodies": {
   "../README.md": "parliaments nobody wrote rules for",
   "README.md": "parliaments nobody wrote rules for",
-  "docs/form_notes.md": "that rolls back on any deviation. In",
+  "docs/form_notes.md": "parliaments nobody wrote",
   "technical_report.md": "parliaments nobody wrote rules for"
  },
  "r9p.p2_latest_answerless": {
-  "README.md": "(22/29 found) dates",
+  "README.md": "found) dates",
   "technical_report.md": "| *trivial: latest printed date* | *24/62*"
  },
  "r9p.p2_latest_found_n": {
-  "README.md": "(22/29 found) dates"
+  "README.md": "answerless documents, where the latest printed date"
  },
  "r9p.p2_pointer_answerless": {
   "README.md": "It puts a date on"
@@ -2514,11 +2609,13 @@
   "technical_report.md": "| P5 | 40 fresh affairs"
  },
  "upd.p5.precision": {
+  "README.md": "precision is",
   "docs/ech-onepager.md": "precision",
   "docs/form_notes.md": "precision",
   "technical_report.md": "precision"
  },
  "upd.p5.recall": {
+  "README.md": "recall 0.67",
   "docs/ech-onepager.md": "recall",
   "docs/form_notes.md": "recall",
   "technical_report.md": "recall"
@@ -2644,72 +2741,54 @@
  "w5.p3b.tie": {
   "docs/evaluation.md": "field went to the tie-breaker"
  },
- "r15.p10_gold": {
-  "../README.md": "gold names, each located"
+ "x1.p10.author_filter.diff_precision_pts": {
+  "README.md": "+7.3 points precision",
+  "technical_report.md": "+7.3 points"
  },
- "r15.p10_names_found": {
-  "../README.md": "gold names, each located"
+ "x1.p10.order.diff_f1_pts": {
+  "README.md": "F1 +0.9"
  },
- "r15.p10_parl": {
-  "README.md": "where nobody wrote rules",
-  "technical_report.md": "where nobody wrote rules",
-  "../README.md": "where nobody wrote rules"
+ "x1.p10.order.printed": {
+  "README.md": "pairs instead of",
+  "docs/evaluation.md": "| same candidates, trivial role |",
+  "technical_report.md": "document order with OPD's registered mapping match"
  },
- "r16a1.sessions_all": {
-  "README.md": "annotator sessions",
-  "technical_report.md": "annotator sessions",
-  "docs/evaluation.md": "annotator sessions"
+ "x1.p10.order.tied": {
+  "README.md": "tied; parliament-cluster bootstrap:",
+  "technical_report.md": "tied. The gain over the rules is"
  },
- "r16.p10_planned": {
-  "README.md": "planned",
-  "technical_report.md": "planned",
-  "docs/evaluation.md": "planned"
+ "x1.p10.pointer.printed": {
+  "README.md": "it calls authors keeps recall and prints"
  },
- "r16.p10_scored": {
-  "docs/evaluation.md": "planned"
+ "x1.p10.roles.parliaments": {
+  "README.md": "mostly the submission date. Post hoc, in",
+  "technical_report.md": "parliaments none of the"
  },
- "r16.p10_gain": {
-  "docs/evaluation.md": "pairs Apertus finds beyond the rules"
+ "x1.p10.roles.people": {
+  "README.md": "people needed the guide's open `other` role",
+  "docs/evaluation.md": "people) no annotator needed the guide's open",
+  "technical_report.md": "people needed the guide's open `other` role"
  },
- "r16.p10_top2_gain": {
-  "docs/evaluation.md": "pairs Apertus finds beyond the rules"
+ "x1.p7.frame_rows": {
+  "README.md": "test frame against Apertus's"
  },
- "r16.p10_horw_ptr": {
-  "docs/evaluation.md": "Horw"
+ "x1.p7.overlap_both": {
+  "README.md": "test frame against Apertus's",
+  "docs/evaluation.md": "rows, Apertus",
+  "technical_report.md": "both); weighted date-hit difference"
  },
- "r16.p10_ne_gold": {
-  "docs/evaluation.md": "of the 141 gold pairs"
+ "x1.p7.promoted_p7": {
+  "README.md": "test frame against Apertus's",
+  "docs/evaluation.md": "rows, Apertus",
+  "technical_report.md": "frame rows, Apertus"
  },
- "r16.p10_wo_ne_ptr": {
-  "README.md": "without Neuchâtel",
-  "technical_report.md": "without Neuchâtel",
-  "../README.md": "without",
-  "docs/evaluation.md": "and without it"
+ "x1.p7.promoted_trivial": {
+  "README.md": "test frame against Apertus's",
+  "docs/evaluation.md": "frame it promotes",
+  "technical_report.md": "rows). Post hoc: the exact-date match promotes"
  },
- "r16.p10_wo_ne_opd": {
-  "README.md": "without Neuchâtel",
-  "technical_report.md": "without Neuchâtel",
-  "../README.md": "without",
-  "docs/evaluation.md": "and without it"
- },
- "r16.p10_wo_ne_gold": {
-  "README.md": "without Neuchâtel",
-  "technical_report.md": "without Neuchâtel",
-  "../README.md": "without",
-  "docs/evaluation.md": "and without it"
- },
- "r16.route_fired": {
-  "docs/evaluation.md": "fired on"
- },
- "r16.route_added": {
-  "README.md": "none right",
-  "technical_report.md": "none right",
-  "docs/evaluation.md": "none right"
- },
- "r16.root.fed_n": {
-  "../README.md": "federal cell, whose"
- },
- "r15.p10_shortfall_fr": {
-  "docs/evaluation.md": "French stratum"
+ "x1.p8.holds": {
+  "README.md": "verdicts hold; post hoc, proposed in review).",
+  "technical_report.md": "verdicts hold; post hoc): more parliaments per"
  }
 }

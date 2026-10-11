@@ -1,6 +1,6 @@
 id	shown	file	path	fmt	command	where	context
-r12.p2_pointer_exact	53/62	results/report/p2_numbers.json	arms.pointer.exact/arms.pointer.n	frac	PYTHONPATH=src:. python -m report.p2_numbers	README.md,docs/form_notes.md	
-r12.p2_best_nomodel_exact	44/62	results/eval/baselines_dates.json	P2_unseen.latest_date_on_answer_docs_only.exact/P2_unseen.latest_date_on_answer_docs_only.n	frac	PYTHONPATH=src:. python -m eval.baselines	README.md,technical_report.md,docs/form_notes.md	
+r12.p2_pointer_exact	53/62	results/report/p2_numbers.json	arms.pointer.exact/arms.pointer.n	frac	PYTHONPATH=src:. python -m report.p2_numbers	README.md	
+r12.p2_best_nomodel_exact	44/62	results/eval/baselines_dates.json	P2_unseen.latest_date_on_answer_docs_only.exact/P2_unseen.latest_date_on_answer_docs_only.n	frac	PYTHONPATH=src:. python -m eval.baselines	README.md,technical_report.md	
 r12.p2_best_nomodel_found	18/29	results/eval/baselines_dates.json	P2_unseen.latest_date_on_answer_docs_only.value_recall.0/P2_unseen.latest_date_on_answer_docs_only.value_recall.1	frac	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
 r12.p2_best_nomodel_wrong	13	results/eval/baselines_dates.json	P2_unseen.latest_date_on_answer_docs_only.misattributed	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
 r12.p2_best_nomodel_answerless	7	results/eval/baselines_dates.json	P2_unseen.latest_date_on_answer_docs_only.values_on_gold_null.0	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	

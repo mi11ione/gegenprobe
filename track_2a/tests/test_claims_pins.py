@@ -1,5 +1,5 @@
-"""Wording pins (claims_pins.json, gegenprobe.claims_pins) and the strict repository-root README: every mutation the
-a skeptical reviewer made that `make claims` did NOT catch must now fail; the committed documents pass."""
+"""Wording pins (claims_pins.json, gegenprobe.claims_pins) and the strict repository-root README: every mutation found
+in review that `make claims` did NOT catch must now fail; the committed documents pass."""
 import copy
 import json
 
@@ -22,7 +22,7 @@ def test_committed_documents_pass(monkeypatch):
 
 
 # (document, text before, text after): the misses found in review, verbatim
-J5_MISSES = [
+REVIEW_MISSES = [
     ("README.md", "H3a, F1 over the stronger OPD reading, is not confirmed",
      "H3a, F1 over the stronger OPD reading, is confirmed"),
     ("technical_report.md", "Not confirmed: H3a", "Confirmed: H3a"),
@@ -39,11 +39,36 @@ J5_MISSES = [
     ("docs/form_notes.md", "Claude Code agents wrote the code and labels.", "The team wrote the code and labels."),
     ("README.md", "(our evaluation used Public AI, which may route outside Switzerland; with the local 8B no text leaves "
                   "the machine)", "(with Public AI no text leaves Switzerland)"),
+    # the headline answer, the no-invention and rollback sentences, the test count, the night-2 incident and the
+    # D4/D12 caveat (number-free sentences that passed the claims check before they were pinned)
+    ("README.md", "Yes, if each field says which role its value plays", "Yes, without qualification"),
+    ("technical_report.md", "Yes, if each field says which role its value plays", "Yes, without qualification"),
+    ("docs/form_notes.md", "Yes, if each field says which role its value plays", "Yes, without qualification"),
+    ("../README.md", "Yes, if each field says which role its value plays", "Yes, without qualification"),
+    ("README.md", "No closed-set arm returned a date printed nowhere", "No arm returned a date printed nowhere"),
+    ("README.md", "the closed set gives it by construction", "the free prompt gives it by construction"),
+    ("README.md", "rolls the whole transaction back", "never rolls the transaction back"),
+    ("README.md", "Ten tests, each with code", "Eleven tests, each with code"),
+    ("docs/form_notes.md", "**Ten tests, frozen before any label**", "**Eleven tests, frozen before any label**"),
+    ("README.md", "Night 2\n  exposed a ledger bug (it reset night 1's per-row verdicts to `unchecked`)", "Night 2\n  ran clean"),
+    ("README.md", " (P1's hypothesis script followed its labels and\n  its rules entered with its sample, both logged: "
+                  "D4, D12)", ""),
+    ("technical_report.md", " (P1's hypothesis script followed its labels, D4)", ""),
+    # P10 against OPD's contributor list is level (H3a not confirmed), never "ahead"
+    ("README.md", "level with OPD's\ncontributor list", "ahead of OPD's\ncontributor list"),
+    ("technical_report.md", "level with OPD's contributor list", "ahead of OPD's contributor list"),
+    ("docs/form_notes.md", "level with OPD's contributor list", "ahead of OPD's contributor list"),
+    # where document text goes at runtime
+    ("README.md", "or nothing with the\nlocal 8B.", "or to any provider with the\nlocal 8B."),
+    ("technical_report.md", "Apertus review mode sends document text to the Public AI gateway",
+     "Apertus review mode keeps document text in Switzerland"),
+    # P8's sensitivity check
+    ("README.md", "(5/7 verdicts hold;", "(7/7 verdicts hold;"),
 ]
 
 
-@pytest.mark.parametrize("doc,before,after", J5_MISSES, ids=[f"{d}:{a[:28]}" for d, _, a in J5_MISSES])
-def test_j5_round15_misses_now_fail(doc, before, after, monkeypatch):
+@pytest.mark.parametrize("doc,before,after", REVIEW_MISSES, ids=[f"{d}:{a[:28]}" for d, _, a in REVIEW_MISSES])
+def test_review_misses_now_fail(doc, before, after, monkeypatch):
     monkeypatch.setenv("GP_CLAIMS_STRICT", "1")
     docs = _docs()
     assert before in docs[doc], f"{doc} no longer prints {before!r}: update this regression case with the docs"
@@ -129,3 +154,36 @@ def test_root_readme_skipped_outside_the_build_context(monkeypatch, tmp_path):
     monkeypatch.setenv("GP_CLAIMS_STRICT", "1")
     assert C.zone_check([], cfg=cfg, anchors={})
     assert P.check(pcfg, root=tmp_path / "track_2a")
+
+
+def test_rollback_pin_reads_the_result(tmp_path):
+    """The rollback sentence is bound to the PostgreSQL check: a re-run that changed rows fails it."""
+    cfg = _only("safety.bern_rollback")
+    assert P.check(cfg) == []
+    src = json.loads((ROOT / "results/repair/apply_be/apply_BE_pg_check.json").read_text())
+    src["checks"]["2_rerun"]["unchanged"] = False
+    (tmp_path / "results/repair/apply_be").mkdir(parents=True)
+    (tmp_path / "results/repair/apply_be/apply_BE_pg_check.json").write_text(json.dumps(src))
+    assert P.check(cfg, docs=_docs(), root=tmp_path)
+
+
+def test_level_with_opd_pin_reads_the_result(tmp_path):
+    """'level with OPD's contributor list' holds only while H3a is not confirmed (Holm p > 0.05)."""
+    cfg = _only("verdict.p10.level_with_opd")
+    assert P.check(cfg) == []
+    src = json.loads((ROOT / "results/p10/p10_scores.json").read_text())
+    src["primary"]["hypotheses"]["tests"]["H3a"]["p_holm"] = 0.01
+    (tmp_path / "results/p10").mkdir(parents=True)
+    (tmp_path / "results/p10/p10_scores.json").write_text(json.dumps(src))
+    assert P.check(cfg, docs=_docs(), root=tmp_path)
+
+
+def test_no_invention_pin_reads_the_result(tmp_path):
+    """The closed-set no-invention sentence fails if a closed-set arm invented a date."""
+    cfg = _only("safety.no_invention_closed_set")
+    assert P.check(cfg) == []
+    src = json.loads((ROOT / "results/eval2/posthoc_r5_p2_table.json").read_text())
+    src["all_62_70b"]["pointer"]["fabricated"] = 1
+    (tmp_path / "results/eval2").mkdir(parents=True)
+    (tmp_path / "results/eval2/posthoc_r5_p2_table.json").write_text(json.dumps(src))
+    assert P.check(cfg, docs=_docs(), root=tmp_path)

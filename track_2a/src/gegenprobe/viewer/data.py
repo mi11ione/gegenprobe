@@ -1424,14 +1424,25 @@ def p10() -> dict | None:
     p16 = RESULTS / "report" / "r16_numbers.json"   # sample against plan, concentration, shipped route (post hoc)
     if p16.exists():
         out["r16"] = json.loads(p16.read_text(encoding="utf-8"))["p10"]
+    pb = RESULTS / "p10" / "p10_posthoc_baselines.json"  # post hoc, proposed in review: document order, role set
+    if pb.exists():
+        b = json.loads(pb.read_text(encoding="utf-8"))
+        o = b["primary"]["arms"]["cand_order"]
+        out["order"] = dict(right=o["matched"], printed=o["pairs_predicted"], gold=o["pairs_gold"])
+        out["role_set"] = dict(other=b["role_set"]["gold"]["other_role"], people=b["role_set"]["gold"]["people"])
     return out
 
 
 def scope() -> dict:
     """What the headline question was asked of: OPD's five intervention types (results/census/summary.json)
     among all of OPD's affairs (results/schema/vocab_summary.json)."""
-    return dict(interventions=_j("census/summary.json")["national"]["n"],
-                opd_affairs=_j("schema/vocab_summary.json")["affairs"])
+    out = dict(interventions=_j("census/summary.json")["national"]["n"],
+               opd_affairs=_j("schema/vocab_summary.json")["affairs"])
+    p17 = RESULTS / "report" / "r17_numbers.json"  # the two harmonised types named outside the tested scope
+    if p17.exists():
+        s = json.loads(p17.read_text(encoding="utf-8"))["scope"]
+        out.update(parliamentary_initiative=s["parliamentary_initiative"], government_affair=s["government_affair"])
+    return out
 
 
 def parts_check() -> dict | None:
@@ -1444,7 +1455,8 @@ def parts_check() -> dict | None:
 
 
 def nights() -> dict | None:
-    """The two consecutive real nights in the recommended Docker setup (Actions run 38098822336)."""
+    """The two consecutive real nights in the recommended Docker setup (Actions run 38098822336); the venv night before
+    them (run 38062530586) makes three real nights."""
     p = RESULTS / "monitor" / "two_nights_docker_38098822336" / "two_nights.json"
     if not p.exists():
         return None
@@ -1471,7 +1483,8 @@ def _pg_check() -> dict | None:
     if not (RESULTS / "repair" / "apply_be" / "apply_BE_pg_check.json").exists():
         return None
     g = _j("repair/apply_be/apply_BE_pg_check.json")
-    return dict(rows=g["expected_rows_changed"], server=g["server"], ok=g["ok"])
+    return dict(rows=g["expected_rows_changed"], server=g["server"], ok=g["ok"],
+                begin=g["checks"]["1_apply"]["affairs_changed"])
 
 
 def _p2_answer_typed() -> dict | None:
@@ -1617,9 +1630,19 @@ def tiles() -> dict | None:
         return None
     c = json.loads(p14.read_text(encoding="utf-8"))["coverage"]
     v = json.loads(p13.read_text(encoding="utf-8"))["v02_with_federal"]
-    return dict(share_all=c["share_all"], share_row_checked=c["share_row_checked"], points_unchecked=c["points_unchecked"],
-                agenda=c["agenda"], review=c["review"], repaired=c["repaired"],
-                v02_affairs=v["valid"], v02_parliaments=v["parliaments"], federal=v["federal_valid"])
+    out = dict(share_all=c["share_all"], share_row_checked=c["share_row_checked"], points_unchecked=c["points_unchecked"],
+               agenda=c["agenda"], review=c["review"], repaired=c["repaired"],
+               v02_affairs=v["valid"], v02_parliaments=v["parliaments"], federal=v["federal_valid"])
+    p17 = RESULTS / "report" / "r17_numbers.json"  # who made the v0.2 records: the converter, or P8's gold labels
+    if p17.exists():
+        s = json.loads(p17.read_text(encoding="utf-8"))["v02"]
+        out.update(converter_records=s["converter_records"], converter_parliaments=s["converter_parliaments"],
+                   gold_records=s["gold_records"])
+    pk = RESULTS / "eval" / "p2_posthoc_keyword.json"  # post hoc, proposed in review: a generic keyword rule on P2
+    if pk.exists():
+        k = json.loads(pk.read_text(encoding="utf-8"))["arms"]["keyword"]
+        out["p2_keyword"] = k["value_recall"]
+    return out
 
 
 def converter_coverage() -> dict | None:

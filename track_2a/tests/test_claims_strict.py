@@ -66,9 +66,9 @@ def test_altered_report_fails_in_the_summary_and_in_the_body(rows, cfg):
     """The whole report is a strict zone (it used to stop at "## 2.")."""
     t = _text("technical_report.md")
     head, sep, body = t.partition("\n## 2.")
-    assert sep and "**53/62**" in head
-    in_summary = head.replace("**53/62**", "**52/62**", 1) + sep + body
-    assert any("'52/62'" in e for e in claims.zone_check(rows, cfg, docs={"technical_report.md": in_summary}))
+    assert sep and "**24/29**" in head
+    in_summary = head.replace("**24/29**", "**23/29**", 1) + sep + body
+    assert any("'23/29'" in e for e in claims.zone_check(rows, cfg, docs={"technical_report.md": in_summary}))
     stray = head + sep + body + "\nA stray 12.34% after the summary.\n"
     assert any("'12.34%'" in e for e in claims.zone_check(rows, cfg, docs={"technical_report.md": stray}))
 
@@ -94,14 +94,15 @@ def test_check_includes_the_anchor_check(monkeypatch, rows):
 # ---- a swap between two valid claims of the same document must fail
 
 def test_m3_readme_headline_swap_between_valid_claims_fails(rows, cfg):
-    """M3 (headline re-cut in review): 53/62 -> 54/62 in the README headline. 54/62 is a valid claim for
-    README.md (the re-parsed free prompt), so a value-set check would pass it; the anchor binds 53/62 to its position."""
+    """M3 (headline re-cut in review): 24/29 -> 25/29 in the README headline. 25/29 is a valid claim for
+    README.md (the re-parsed plain free prompt), so a value-set check would pass it; the anchor binds 24/29 to its
+    position."""
     t = _text("README.md")
-    assert "| **53/62** | documents exact" in t
-    assert any(r["shown"] == "54/62" and "README.md" in r["where"] for r in rows)
-    bad = t.replace("| **53/62** | documents exact", "| **54/62** | documents exact", 1)
+    assert "| **24/29** | answer dates" in t
+    assert any(r["shown"] == "25/29" and "README.md" in r["where"] for r in rows)
+    bad = t.replace("| **24/29** | answer dates", "| **25/29** | answer dates", 1)
     errs = claims.zone_check(rows, cfg, docs={"README.md": bad})
-    assert any("README.md:" in e and "'54/62'" in e for e in errs), errs
+    assert any("README.md:" in e and "'25/29'" in e for e in errs), errs
 
 
 def test_m5_report_body_change_with_the_value_elsewhere_fails(rows):

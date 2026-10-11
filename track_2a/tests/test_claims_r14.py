@@ -39,11 +39,11 @@ def _errs(rows, cfg, doc, old, new):
 
 # ---- 1 scope words are bound to their claims
 @pytest.mark.parametrize("doc,old,new", [
-    ("technical_report.md", "53/62 from P2, post hoc (McNemar", "53/62 from P2, registered (McNemar"),
-    ("technical_report.md", "44/62 for the best no-model baseline (P2, post hoc)",
-     "44/62 for the best no-model baseline (P2, registered)"),
+    ("technical_report.md", "a generic keyword rule 16/29 (post hoc) |", "a generic keyword rule 16/29 (registered) |"),
+    ("technical_report.md", "document order (52/141, F1 0.41; Apertus 50/141, F1 0.42), and Apertus adds",
+     "document order (52/141, F1 0.41; Apertus 50/141, F1 0.42, registered), and Apertus adds"),
     ("technical_report.md", "(held out: pair recall 39/137)", "(in-sample: pair recall 39/137)"),
-    ("README.md", "53/62 from P2, post hoc (McNemar", "53/62 from P2, registered (McNemar"),
+    ("README.md", "document order 52/141 (post hoc), level |", "document order 52/141 (registered), level |"),
     ("README.md", "recall 286/345 (in-sample)", "recall 286/345 (held out)"),
     ("README.md", "**Federal level (exploratory,", "**Federal level (registered,"),
     ("docs/form_notes.md", "15 federal ones exploratory)", "15 federal ones registered)"),

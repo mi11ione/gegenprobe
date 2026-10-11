@@ -1,0 +1,17 @@
+id	shown	file	path	fmt	command	where	context
+r17.v02_converter_records	120	results/report/r17_numbers.json	v02.converter_records	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md,technical_report.md,docs/form_notes.md,../README.md	
+r17.v02_converter_parliaments	23	results/report/r17_numbers.json	v02.converter_parliaments	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md,technical_report.md,docs/form_notes.md,../README.md	
+r17.v02_gold_records	66	results/report/r17_numbers.json	v02.gold_records	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md,technical_report.md,docs/form_notes.md,../README.md	
+r17.v02_federal	15	results/report/r17_numbers.json	v02.federal	int	PYTHONPATH=src:. python -m report.r17_numbers	docs/form_notes.md	
+r17.v02_all_records	186	results/report/r17_numbers.json	v02.all_records	int	PYTHONPATH=src:. python -m report.r17_numbers	-	
+r17.v02_all_parliaments	26	results/report/r17_numbers.json	v02.all_parliaments	int	PYTHONPATH=src:. python -m report.r17_numbers	-	
+r17.scope_parl_init	5,817	results/report/r17_numbers.json	scope.parliamentary_initiative	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md,technical_report.md,../README.md,docs/ech-onepager.md	
+r17.scope_gov	37,864	results/report/r17_numbers.json	scope.government_affair	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md,technical_report.md,../README.md,docs/ech-onepager.md	
+r17.qa_with_items	91	results/report/r17_numbers.json	qa_pairing.with_items	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md,technical_report.md	
+r17.qa_records	105	results/report/r17_numbers.json	qa_pairing.records	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md,technical_report.md	
+r17.qa_p3	26/29	results/report/r17_numbers.json	qa_pairing.sets.p3.with_items/qa_pairing.sets.p3.records	frac	PYTHONPATH=src:. python -m report.r17_numbers	README.md,docs/evaluation.md	
+r17.qa_p3b	32/36	results/report/r17_numbers.json	qa_pairing.sets.p3b.with_items/qa_pairing.sets.p3b.records	frac	PYTHONPATH=src:. python -m report.r17_numbers	README.md	
+r17.qa_p5	33/40	results/report/r17_numbers.json	qa_pairing.sets.p5.with_items/qa_pairing.sets.p5.records	frac	PYTHONPATH=src:. python -m report.r17_numbers	README.md	
+r17.qa_before	33/105	results/report/r17_numbers.json	qa_pairing.with_items_before/qa_pairing.records	frac	PYTHONPATH=src:. python -m report.r17_numbers	README.md	
+r17.p7_w_date_hit_p7	94.2%	results/p7/p7_posthoc_overlap.json	weighted_from_posthoc_r8.p7.precision_date_hit.estimate	pct1	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	docs/evaluation.md	
+r17.p7_w_date_hit_trivial	72.2%	results/p7/p7_posthoc_overlap.json	weighted_from_posthoc_r8.trivial.precision_date_hit.estimate	pct1	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	docs/evaluation.md	
