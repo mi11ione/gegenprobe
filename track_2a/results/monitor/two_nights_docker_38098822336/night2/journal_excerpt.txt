@@ -1,0 +1,45 @@
+2026-10-11T04:36:58+00:00 runnervmmprz5 systemd[1]: Starting gegenprobe-nightly.service - Gegenprobe nightly: OpenParlData answer-linking monitor and repair lists...
+2026-10-11T04:36:58+00:00 runnervmmprz5 docker[12976]: Error response from daemon: No such container: gegenprobe-nightly
+2026-10-11T04:37:28+00:00 runnervmmprz5 docker[12985]: docs 1024 2723 8s complete
+2026-10-11T04:37:40+00:00 runnervmmprz5 docker[12985]: docs 198 3769 9s complete
+2026-10-11T04:37:48+00:00 runnervmmprz5 docker[12985]: docs 329 2480 5s complete
+2026-10-11T04:38:00+00:00 runnervmmprz5 docker[12985]: docs 5192 9525 10s complete
+2026-10-11T04:38:04+00:00 runnervmmprz5 docker[12985]: docs 6023 394 2s complete
+2026-10-11T04:38:08+00:00 runnervmmprz5 docker[12985]: docs 6133 518 2s complete
+2026-10-11T04:38:17+00:00 runnervmmprz5 docker[12985]: docs AI 2277 7s complete
+2026-10-11T04:39:59+00:00 runnervmmprz5 docker[12985]: docs BE 49810 99s complete
+2026-10-11T04:40:36+00:00 runnervmmprz5 docker[12985]: docs FR 14728 34s complete
+2026-10-11T04:40:36+00:00 runnervmmprz5 docker[12985]: texts FR 93 1s complete
+2026-10-11T04:41:02+00:00 runnervmmprz5 docker[12985]: docs SG 24031 23s complete
+2026-10-11T04:41:15+00:00 runnervmmprz5 docker[12985]: docs SZ 4353 11s complete
+2026-10-11T04:41:56+00:00 runnervmmprz5 docker[12985]: docs VD 21107 39s complete
+2026-10-11T04:41:57+00:00 runnervmmprz5 docker[12985]: texts VD 7 1s complete
+2026-10-11T04:42:04+00:00 runnervmmprz5 docker[12985]: dokument.csv 19279990 3133d7fc1cec79bd
+2026-10-11T04:42:06+00:00 runnervmmprz5 docker[12985]: geschaeft.csv 3956101 48737383618e0d61
+2026-10-11T04:43:36+00:00 runnervmmprz5 docker[12985]: {'mode': 'network', 'transfer_bytes': 197832152, 'bytes': {'single_exports': 197832152, 'docs_texts_streamed': 966780364, 'docs_texts_declared': 966780364, 'docs_texts_files': 14, 'index': 123382, 'be_ogd': 23236091, 'total': 1187971989, 'over_network': 1187971989, 'read_from': 'network', 'not_counted': 'PDFs fetched by the per-row check of new BE rows', 'note': 'docs_texts_streamed: compressed bytes of every docs_/texts_ export census.scan streamed tonight (all retries counted, nothing stored); docs_texts_declared: their sizes in index.json. transfer_bytes (older field, kept for compatibility) is single_exports only.'}, 'timings': {'download_s': 306.9, 'rescanned_bodies': ['1024', '198', '329', '5192', '6023', '6133', 'AI', 'BE', 'FR', 'SG', 'SZ', 'VD'], 'extract_s': 75.1, 'rates_s': 13.2, 'repair_be_s': 1.4, 'total_s': 397.3}, 'bodies_rated': 61, 'alerts': 0, 'alert_kinds': [], 'be_ogd': {'missing_columns': [], 'missing_answer_types': [], 'answer_documents': 9579}, 'be_repair': {'relink': 2459, 'fetch': 49, 'no_source_answer': 2}, 'be_repair_new_since_last_night': 0, 'be_repair_retried': 0, 'ledger': {'unchecked': 2508}, 'robots_unreadable': {}, 'user_agent': {'value': 'hackapertus-research/0.1 (+https://github.com/mi11ione/gegenprobe)', 'has_contact': True, 'source': 'GP_USER_AGENT'}, 'peak_rss_mb': 2078.3, 'ts': 1791693817, 'notified': [], 'notify_error': None}
+2026-10-11T04:43:36+00:00 runnervmmprz5 docker[13860]: Error response from daemon: No such container: gegenprobe-nightly
+2026-10-11T04:43:36+00:00 runnervmmprz5 systemd[1]: gegenprobe-nightly.service: Deactivated successfully.
+2026-10-11T04:43:36+00:00 runnervmmprz5 systemd[1]: Finished gegenprobe-nightly.service - Gegenprobe nightly: OpenParlData answer-linking monitor and repair lists.
+[...]
+2026-10-11T04:36:58+00:00 runnervmmprz5 systemd[1]: Starting gegenprobe-nightly.service - Gegenprobe nightly: OpenParlData answer-linking monitor and repair lists...
+2026-10-11T04:36:58+00:00 runnervmmprz5 docker[12976]: Error response from daemon: No such container: gegenprobe-nightly
+2026-10-11T04:37:28+00:00 runnervmmprz5 docker[12985]: docs 1024 2723 8s complete
+2026-10-11T04:37:40+00:00 runnervmmprz5 docker[12985]: docs 198 3769 9s complete
+2026-10-11T04:37:48+00:00 runnervmmprz5 docker[12985]: docs 329 2480 5s complete
+2026-10-11T04:38:00+00:00 runnervmmprz5 docker[12985]: docs 5192 9525 10s complete
+2026-10-11T04:38:04+00:00 runnervmmprz5 docker[12985]: docs 6023 394 2s complete
+2026-10-11T04:38:08+00:00 runnervmmprz5 docker[12985]: docs 6133 518 2s complete
+2026-10-11T04:38:17+00:00 runnervmmprz5 docker[12985]: docs AI 2277 7s complete
+2026-10-11T04:39:59+00:00 runnervmmprz5 docker[12985]: docs BE 49810 99s complete
+2026-10-11T04:40:36+00:00 runnervmmprz5 docker[12985]: docs FR 14728 34s complete
+2026-10-11T04:40:36+00:00 runnervmmprz5 docker[12985]: texts FR 93 1s complete
+2026-10-11T04:41:02+00:00 runnervmmprz5 docker[12985]: docs SG 24031 23s complete
+2026-10-11T04:41:15+00:00 runnervmmprz5 docker[12985]: docs SZ 4353 11s complete
+2026-10-11T04:41:56+00:00 runnervmmprz5 docker[12985]: docs VD 21107 39s complete
+2026-10-11T04:41:57+00:00 runnervmmprz5 docker[12985]: texts VD 7 1s complete
+2026-10-11T04:42:04+00:00 runnervmmprz5 docker[12985]: dokument.csv 19279990 3133d7fc1cec79bd
+2026-10-11T04:42:06+00:00 runnervmmprz5 docker[12985]: geschaeft.csv 3956101 48737383618e0d61
+2026-10-11T04:43:36+00:00 runnervmmprz5 docker[12985]: {'mode': 'network', 'transfer_bytes': 197832152, 'bytes': {'single_exports': 197832152, 'docs_texts_streamed': 966780364, 'docs_texts_declared': 966780364, 'docs_texts_files': 14, 'index': 123382, 'be_ogd': 23236091, 'total': 1187971989, 'over_network': 1187971989, 'read_from': 'network', 'not_counted': 'PDFs fetched by the per-row check of new BE rows', 'note': 'docs_texts_streamed: compressed bytes of every docs_/texts_ export census.scan streamed tonight (all retries counted, nothing stored); docs_texts_declared: their sizes in index.json. transfer_bytes (older field, kept for compatibility) is single_exports only.'}, 'timings': {'download_s': 306.9, 'rescanned_bodies': ['1024', '198', '329', '5192', '6023', '6133', 'AI', 'BE', 'FR', 'SG', 'SZ', 'VD'], 'extract_s': 75.1, 'rates_s': 13.2, 'repair_be_s': 1.4, 'total_s': 397.3}, 'bodies_rated': 61, 'alerts': 0, 'alert_kinds': [], 'be_ogd': {'missing_columns': [], 'missing_answer_types': [], 'answer_documents': 9579}, 'be_repair': {'relink': 2459, 'fetch': 49, 'no_source_answer': 2}, 'be_repair_new_since_last_night': 0, 'be_repair_retried': 0, 'ledger': {'unchecked': 2508}, 'robots_unreadable': {}, 'user_agent': {'value': 'hackapertus-research/0.1 (+https://github.com/mi11ione/gegenprobe)', 'has_contact': True, 'source': 'GP_USER_AGENT'}, 'peak_rss_mb': 2078.3, 'ts': 1791693817, 'notified': [], 'notify_error': None}
+2026-10-11T04:43:36+00:00 runnervmmprz5 docker[13860]: Error response from daemon: No such container: gegenprobe-nightly
+2026-10-11T04:43:36+00:00 runnervmmprz5 systemd[1]: gegenprobe-nightly.service: Deactivated successfully.
+2026-10-11T04:43:36+00:00 runnervmmprz5 systemd[1]: Finished gegenprobe-nightly.service - Gegenprobe nightly: OpenParlData answer-linking monitor and repair lists.

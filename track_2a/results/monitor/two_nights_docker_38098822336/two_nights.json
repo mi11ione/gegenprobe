@@ -1,0 +1,81 @@
+{
+ "night1": {
+  "wall_s": 5180,
+  "exit_status": "0",
+  "index_generated_at": "2026-10-10T04:22:43Z",
+  "rescanned_bodies": 97,
+  "download_s": 2065.0,
+  "total_s": 5179.3,
+  "bytes": {
+   "single_exports": 198074501,
+   "docs_texts_streamed": 6196117045,
+   "docs_texts_declared": 6196117045,
+   "docs_texts_files": 116,
+   "index": 123382,
+   "be_ogd": 23236091,
+   "total": 6417551019,
+   "over_network": 6417551019,
+   "read_from": "network",
+   "not_counted": "PDFs fetched by the per-row check of new BE rows",
+   "note": "docs_texts_streamed: compressed bytes of every docs_/texts_ export census.scan streamed tonight (all retries counted, nothing stored); docs_texts_declared: their sizes in index.json. transfer_bytes (older field, kept for compatibility) is single_exports only."
+  },
+  "transfer_bytes": 198074501,
+  "alerts": 0,
+  "alert_kinds": [],
+  "be_repair": {
+   "relink": 2459,
+   "fetch": 49,
+   "no_source_answer": 2
+  },
+  "be_repair_new_since_last_night": 2508,
+  "be_repair_retried": 0,
+  "ledger": {
+   "pending": 2468,
+   "review": 40
+  },
+  "notified": [],
+  "notify_error": null,
+  "peak_rss_mb": 2078.6
+ },
+ "night2": {
+  "wall_s": 398,
+  "exit_status": "0",
+  "index_generated_at": "2026-10-11T04:33:46Z",
+  "rescanned_bodies": 12,
+  "download_s": 306.9,
+  "total_s": 397.3,
+  "bytes": {
+   "single_exports": 197832152,
+   "docs_texts_streamed": 966780364,
+   "docs_texts_declared": 966780364,
+   "docs_texts_files": 14,
+   "index": 123382,
+   "be_ogd": 23236091,
+   "total": 1187971989,
+   "over_network": 1187971989,
+   "read_from": "network",
+   "not_counted": "PDFs fetched by the per-row check of new BE rows",
+   "note": "docs_texts_streamed: compressed bytes of every docs_/texts_ export census.scan streamed tonight (all retries counted, nothing stored); docs_texts_declared: their sizes in index.json. transfer_bytes (older field, kept for compatibility) is single_exports only."
+  },
+  "transfer_bytes": 197832152,
+  "alerts": 0,
+  "alert_kinds": [],
+  "be_repair": {
+   "relink": 2459,
+   "fetch": 49,
+   "no_source_answer": 2
+  },
+  "be_repair_new_since_last_night": 0,
+  "be_repair_retried": 0,
+  "ledger": {
+   "unchecked": 2508
+  },
+  "notified": [],
+  "notify_error": null,
+  "peak_rss_mb": 2078.3
+ },
+ "night2_had_previous_state": true,
+ "index_changed_between_nights": true,
+ "alert_posts_received": 0,
+ "install_and_build": "install + image build: 30 s"
+}
