@@ -92,6 +92,7 @@ def test_dev_lock_installs_pytest_with_the_runtime_pins():
 
 
 def test_report_pdf_title_is_the_report_heading():
+    pytest.importorskip("markdown")  # report rendering deps are not in the test job's lock
     from report import render
 
     md = (ROOT / "technical_report.md").read_text(encoding="utf-8")
