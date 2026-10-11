@@ -24,6 +24,8 @@ What the converter writes for each affair, from the gold labels (route `annotato
     on_fulfilment); an interpellation or question gets a typed null `not_applicable`, an answer that prints none
     `not_in_document`
   * procedural_state and decision: typed null `not_extracted` (P8 did not label them)
+  * body.languages: the parliament's official languages (gegenprobe.schema.body_languages); documents carry
+    `language_of_text_method` "annotator"; every empty list has a typed reason in `empty_reasons` (P8_EMPTY)
 """
 from __future__ import annotations
 
@@ -34,6 +36,7 @@ import json
 import sys
 
 from ..paths import ROOT
+from . import body_languages
 
 DATA = ROOT / "data" / "p8"
 OUT = ROOT / "results" / "schema" / "v0_2"
@@ -86,7 +89,8 @@ def convert(gold: dict, affair: dict, meta: dict, dates: dict, types: dict[int, 
     langs = parts["language"]["languages"]
     documents = [dict(doc_id=docs[d["role"]], source="opd", url=d["url"], sha256=d["sha256"], role=d["role"],
                       language=d["opd_lang"] or "unspecified", language_tag=d["opd_lang"] or "unspecified",
-                      language_of_text=langs.get(d["role"], []), n_pages=d["pages"], extractor=d["extractor"],
+                      language_of_text=langs.get(d["role"], []), language_of_text_method="annotator",
+                      n_pages=d["pages"], extractor=d["extractor"],
                       image_only=bool(d["image_only"]), opd_text_status=d["opd_text_status"]) for d in affair["docs"]]
 
     # actors: the submitter part, then anyone the co-signatory part adds (the two lists are the same people in 64/66)
@@ -150,16 +154,43 @@ def convert(gold: dict, affair: dict, meta: dict, dates: dict, types: dict[int, 
     not_extracted = dict(kind="null", null_reason="not_extracted", route="annotator",
                          evidence="P8 labels authors, dates, addressee, instrument, languages and recommendation only")
     title = {lg: a[f"title_{lg}"] for lg in ("de", "fr", "it") if a.get(f"title_{lg}")}
-    return dict(
+    body_langs, _ = body_languages.languages(a["body_key"])
+    rec = dict(
         schema_version="0.2.0",
         ref=dict(body_key=a["body_key"], number=a["number"], opd_id=a["id"]),
-        body=dict(key=a["body_key"], level=LEVEL[affair["level"]]),
+        body=dict(key=a["body_key"], level=LEVEL[affair["level"]], languages=body_langs),
         type=typ, title=title, actors=actors, dates=events,
         procedural_state=not_extracted, decision=not_extracted, government_recommendation=gov,
         answer_link_status="attached", documents=documents,
         extraction=dict(converter_version=CONVERTER, schema_version="0.2.0", created=CREATED.isoformat(),
                         notes=f"P8 gold labels ({gold['id']}, eval/prereg9/LOCK9); data/p8/p8_gold.jsonl"),
     )
+    rec["empty_reasons"] = p8_empty_reasons(rec, pid)
+    return rec
+
+
+# why a list of a P8 record is empty (path pattern -> reason, route, evidence)
+P8_EMPTY = {
+    "title": ("not_in_corpus", "metadata", "OPD's affair record carries no title"),
+    "languages": ("not_extracted", "annotator", "P8 labels the language of each document, not of the affair"),
+    "actors": ("none_printed", "annotator", "P8 gold: the documents print no author"),
+    "dates": ("none_printed", "annotator", "P8 gold: no procedure date printed and no OPD submission event"),
+    "qa": ("not_extracted", "annotator", "P8 labels no question/answer pairs"),
+    "related_affairs": ("not_extracted", "annotator", "P8 labels no related affairs"),
+    "body.languages": ("not_in_corpus", "metadata", "no official language recorded for this body"),
+    "documents.*.language_of_text": ("text_failed", "annotator", "P8 gold: the document has no readable text"),
+    "documents.*.parts": ("not_extracted", "annotator", "P8 labels no document parts (tables, annexes, images)"),
+}
+
+
+def p8_empty_reasons(rec: dict, pid: str) -> dict:
+    m = schema_module()
+    out = {}
+    for path in m.empty_fields(rec):
+        key = path if path in P8_EMPTY else ".".join("*" if p.isdigit() else p for p in path.split("."))
+        reason, route, ev = P8_EMPTY[key]
+        out[path] = dict(reason=reason, route=route, evidence=f"{ev} ({pid})")
+    return out
 
 
 def build() -> tuple[list[dict], dict]:

@@ -1,0 +1,47 @@
+{
+ "plan": "results/repair/apply_be/apply_BE_plan.sql.txt",
+ "expected_rows_changed": 2975,
+ "relinks": 2421,
+ "begin_dates": 554,
+ "begin_date_review_rows": 173,
+ "server": "16.2",
+ "checks": {
+  "1_apply": {
+   "psql_exit": 0,
+   "stderr": "",
+   "docs_changed": 2421,
+   "affairs_changed": 554,
+   "docs_at_after_value": 2421,
+   "affairs_at_after_value": 554,
+   "review_rows_changed": 0,
+   "ok": true
+  },
+  "2_rerun": {
+   "psql_exit": 3,
+   "stderr": "psql:apply_BE_plan.sql.txt:2995: ERROR:  gegenprobe apply_be: 0 rows changed by 2975 statements (2975 not exactly 1), expected 2975: rolled back\nCONTEXT:  PL/pgSQL function inline_code_block line 6 at RAISE",
+   "unchanged": true,
+   "ok": true
+  },
+  "3_perturbed_doc": {
+   "psql_exit": 3,
+   "stderr": "psql:apply_BE_plan.sql.txt:2995: ERROR:  gegenprobe apply_be: 2974 rows changed by 2975 statements (1 not exactly 1), expected 2975: rolled back\nCONTEXT:  PL/pgSQL function inline_code_block line 6 at RAISE",
+   "rows_changed_before_rollback": 2974,
+   "statements_off": 1,
+   "unchanged": true,
+   "docs_changed": 0,
+   "affairs_changed": 0,
+   "ok": true
+  },
+  "4_perturbed_affair": {
+   "psql_exit": 3,
+   "stderr": "psql:apply_BE_plan.sql.txt:2995: ERROR:  gegenprobe apply_be: 2974 rows changed by 2975 statements (1 not exactly 1), expected 2975: rolled back\nCONTEXT:  PL/pgSQL function inline_code_block line 6 at RAISE",
+   "rows_changed_before_rollback": 2974,
+   "statements_off": 1,
+   "unchanged": true,
+   "docs_changed": 0,
+   "affairs_changed": 0,
+   "ok": true
+  }
+ },
+ "ok": true
+}

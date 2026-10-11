@@ -1,0 +1,643 @@
+{
+ "status": "post hoc finding (not a registered result); no model, no network",
+ "definitions": {
+  "scope": "OPD harmonised type Interpellation, Motion, Postulate, Question or Question time (census/defs.py)",
+  "question_document": "eval/gold3/sample.py pair_type == 'intervention' (frozen P3 pairing, OPD name/category)",
+  "answer_document": "eval/gold3/sample.py pair_type == 'answer'",
+  "opd_tag": "OPD docs export `language` (data/census/docs.tsv.gz lang; 'de;fr' counts as both)",
+  "file_name": "language suffix of the URL file name: _DE/_FR/_IT.pdf, _D1/_F1/_I1.pdf, -de/-fr/-it.pdf",
+  "text": "stop-word counts on cached PDF text (repair/ocr.py word lists; >= 3 hits and twice the runner-up)",
+  "cross": "affair with >= 1 question and >= 1 answer document carrying the signal, and no language shared between the question documents and the answer documents (OPD offers no same-language pair)",
+  "first_pair_cross": "the lowest-id question and lowest-id answer document (P3/P5 sampling convention) differ"
+ },
+ "inputs": {
+  "committed": [
+   "data/census/affairs.tsv.gz",
+   "data/census/docs.tsv.gz",
+   "data/census/bodies.tsv.gz",
+   "eval/gold3/sample.py:pair_type (LOCK3)"
+  ],
+  "local": [
+   "GP_DOCS_META/part*/docs_meta.jsonl.gz (file names)",
+   "WORK/text (cached PDF text)"
+  ],
+  "file_name_signal": true
+ },
+ "totals": {
+  "affairs_with_q_and_a": 23471,
+  "opd_tag_evaluable": 1999,
+  "opd_tag_cross": 6,
+  "opd_tag_first_pair_evaluable": 1999,
+  "opd_tag_first_pair_cross": 214,
+  "bodies_evaluable": 10,
+  "bodies_with_cross": [
+   "VS",
+   "BE"
+  ],
+  "file_name_evaluable": 290,
+  "file_name_cross": 3
+ },
+ "bodies": [
+  {
+   "body": "VS",
+   "name": "Wallis",
+   "affairs_with_q_and_a": 313,
+   "opd_tag": {
+    "evaluable": 313,
+    "cross": 3,
+    "first_pair_evaluable": 313,
+    "first_pair_cross": 63
+   },
+   "file_name": {
+    "evaluable": 290,
+    "cross": 3
+   },
+   "tag_and_file_name": {
+    "evaluable_both": 290,
+    "tag_same__url_same": 287,
+    "tag_cross__url_cross": 3
+   }
+  },
+  {
+   "body": "BE",
+   "name": "Bern",
+   "affairs_with_q_and_a": 20,
+   "opd_tag": {
+    "evaluable": 7,
+    "cross": 3,
+    "first_pair_evaluable": 7,
+    "first_pair_cross": 3
+   },
+   "file_name": {
+    "evaluable": 0,
+    "cross": 0
+   },
+   "tag_and_file_name": {}
+  },
+  {
+   "body": "BL",
+   "name": "Basel-Landschaft",
+   "affairs_with_q_and_a": 752,
+   "opd_tag": {
+    "evaluable": 752,
+    "cross": 0,
+    "first_pair_evaluable": 752,
+    "first_pair_cross": 0
+   },
+   "file_name": {
+    "evaluable": 0,
+    "cross": 0
+   },
+   "tag_and_file_name": {}
+  },
+  {
+   "body": "5586",
+   "name": "Lausanne",
+   "affairs_with_q_and_a": 409,
+   "opd_tag": {
+    "evaluable": 409,
+    "cross": 0,
+    "first_pair_evaluable": 409,
+    "first_pair_cross": 0
+   },
+   "file_name": {
+    "evaluable": 0,
+    "cross": 0
+   },
+   "tag_and_file_name": {}
+  },
+  {
+   "body": "GR",
+   "name": "Graubünden",
+   "affairs_with_q_and_a": 341,
+   "opd_tag": {
+    "evaluable": 341,
+    "cross": 0,
+    "first_pair_evaluable": 341,
+    "first_pair_cross": 148
+   },
+   "file_name": {
+    "evaluable": 0,
+    "cross": 0
+   },
+   "tag_and_file_name": {}
+  },
+  {
+   "body": "306",
+   "name": "Lyss",
+   "affairs_with_q_and_a": 84,
+   "opd_tag": {
+    "evaluable": 84,
+    "cross": 0,
+    "first_pair_evaluable": 84,
+    "first_pair_cross": 0
+   },
+   "file_name": {
+    "evaluable": 0,
+    "cross": 0
+   },
+   "tag_and_file_name": {}
+  },
+  {
+   "body": "6643",
+   "name": "Vernier",
+   "affairs_with_q_and_a": 62,
+   "opd_tag": {
+    "evaluable": 62,
+    "cross": 0,
+    "first_pair_evaluable": 62,
+    "first_pair_cross": 0
+   },
+   "file_name": {
+    "evaluable": 0,
+    "cross": 0
+   },
+   "tag_and_file_name": {}
+  },
+  {
+   "body": "6152",
+   "name": "Collombey-Muraz",
+   "affairs_with_q_and_a": 21,
+   "opd_tag": {
+    "evaluable": 21,
+    "cross": 0,
+    "first_pair_evaluable": 21,
+    "first_pair_cross": 0
+   },
+   "file_name": {
+    "evaluable": 0,
+    "cross": 0
+   },
+   "tag_and_file_name": {}
+  },
+  {
+   "body": "351",
+   "name": "Bern",
+   "affairs_with_q_and_a": 6,
+   "opd_tag": {
+    "evaluable": 6,
+    "cross": 0,
+    "first_pair_evaluable": 6,
+    "first_pair_cross": 0
+   },
+   "file_name": {
+    "evaluable": 0,
+    "cross": 0
+   },
+   "tag_and_file_name": {}
+  },
+  {
+   "body": "ZG",
+   "name": "Zug",
+   "affairs_with_q_and_a": 4,
+   "opd_tag": {
+    "evaluable": 4,
+    "cross": 0,
+    "first_pair_evaluable": 4,
+    "first_pair_cross": 0
+   },
+   "file_name": {
+    "evaluable": 0,
+    "cross": 0
+   },
+   "tag_and_file_name": {}
+  }
+ ],
+ "no_same_language_pair": [
+  {
+   "body": "BE",
+   "affair": 39369,
+   "number": "2021.RRGR.388",
+   "same_number_affairs": [],
+   "question_docs": [
+    {
+     "id": 23227,
+     "lang": "de",
+     "name_number": null,
+     "file": "e9f25f930292403ca8287c1060567006-332.pdf"
+    }
+   ],
+   "answer_docs": [
+    {
+     "id": 656633,
+     "lang": "fr",
+     "name_number": null,
+     "file": "afb41251635b452493a91ec5a4e77199-332.pdf"
+    }
+   ]
+  },
+  {
+   "body": "BE",
+   "affair": 130479,
+   "number": "2023.RRGR.280",
+   "same_number_affairs": [],
+   "question_docs": [
+    {
+     "id": 248841,
+     "lang": "de",
+     "name_number": null,
+     "file": "d6be6752f5d54ed994262caea0c61e5a-332.pdf"
+    }
+   ],
+   "answer_docs": [
+    {
+     "id": 657257,
+     "lang": "fr",
+     "name_number": null,
+     "file": "5066458182ce46ba850a2829b7dc5d8c-332.pdf"
+    }
+   ]
+  },
+  {
+   "body": "BE",
+   "affair": 130732,
+   "number": "2024.RRGR.195",
+   "same_number_affairs": [],
+   "question_docs": [
+    {
+     "id": 83407,
+     "lang": "de",
+     "name_number": null,
+     "file": "9b3d8f4af0284add813f2a0d3081df79-332.pdf"
+    }
+   ],
+   "answer_docs": [
+    {
+     "id": 577767,
+     "lang": "fr",
+     "name_number": null,
+     "file": "277340bf05b9437da7ccd38bd4da0af6-332.pdf"
+    }
+   ]
+  },
+  {
+   "body": "VS",
+   "affair": 86774,
+   "number": "2020.09.253",
+   "same_number_affairs": [
+    176868
+   ],
+   "question_docs": [
+    {
+     "id": 580128,
+     "lang": "de",
+     "name_number": "2020.09.253",
+     "file": "INT_2020.09.253_EIN_Final_DE.pdf"
+    }
+   ],
+   "answer_docs": [
+    {
+     "id": 169279,
+     "lang": "fr",
+     "name_number": "2020.09.253",
+     "file": "INT_2020.09.253_REP_FR.pdf"
+    }
+   ]
+  },
+  {
+   "body": "VS",
+   "affair": 86823,
+   "number": "2020.11.336",
+   "same_number_affairs": [
+    86815
+   ],
+   "question_docs": [
+    {
+     "id": 588229,
+     "lang": "fr",
+     "name_number": "2020.11.350",
+     "file": "INT_2020.11.350_DEP_Final_FR.pdf"
+    }
+   ],
+   "answer_docs": [
+    {
+     "id": 906317,
+     "lang": "de",
+     "name_number": "2020.11.336",
+     "file": "POS_2020.11.336_ANT_DE.pdf"
+    }
+   ]
+  },
+  {
+   "body": "VS",
+   "affair": 176868,
+   "number": "2020.09.253",
+   "same_number_affairs": [
+    86774
+   ],
+   "question_docs": [
+    {
+     "id": 586887,
+     "lang": "fr",
+     "name_number": "2020.09.253",
+     "file": "INT_2020.09.253_DEP_Final_FR.pdf"
+    }
+   ],
+   "answer_docs": [
+    {
+     "id": 168789,
+     "lang": "de",
+     "name_number": "2020.09.253",
+     "file": "INT_2020.09.253_ANT_DE.pdf"
+    }
+   ]
+  }
+ ],
+ "gold_text_check": {
+  "affairs": 209,
+  "with_both_texts": 209,
+  "both_languages_detected": 208,
+  "cross_language_by_text": 15,
+  "cross_language_by_body": {
+   "BE": 2,
+   "GR": 7,
+   "VS": 5,
+   "FR": 1
+  },
+  "cross_language_rows": [
+   {
+    "set": "P3",
+    "body": "BE",
+    "affair_id": 39369,
+    "q_doc": 23227,
+    "a_doc": 656633,
+    "q_text": "de",
+    "a_text": "fr",
+    "q_tag": "de",
+    "a_tag": "fr"
+   },
+   {
+    "set": "P3b",
+    "body": "GR",
+    "affair_id": 288663,
+    "q_doc": 910521,
+    "a_doc": 917833,
+    "q_text": "it",
+    "a_text": "de",
+    "q_tag": "it",
+    "a_tag": "de"
+   },
+   {
+    "set": "P3b",
+    "body": "GR",
+    "affair_id": 165724,
+    "q_doc": 909410,
+    "a_doc": 909086,
+    "q_text": "it",
+    "a_text": "de",
+    "q_tag": "it",
+    "a_tag": "de"
+   },
+   {
+    "set": "P5dev",
+    "body": "BE",
+    "affair_id": 271526,
+    "q_doc": 604221,
+    "a_doc": 604201,
+    "q_text": "fr",
+    "a_text": "de",
+    "q_tag": "fr",
+    "a_tag": null
+   },
+   {
+    "set": "P5",
+    "body": "VS",
+    "affair_id": 87651,
+    "q_doc": 112889,
+    "a_doc": 603955,
+    "q_text": "fr",
+    "a_text": "de",
+    "q_tag": "fr",
+    "a_tag": "de"
+   },
+   {
+    "set": "P5",
+    "body": "VS",
+    "affair_id": 295461,
+    "q_doc": 678845,
+    "a_doc": 907442,
+    "q_text": "fr",
+    "a_text": "de",
+    "q_tag": "fr",
+    "a_tag": "de"
+   },
+   {
+    "set": "P5",
+    "body": "VS",
+    "affair_id": 247619,
+    "q_doc": 537296,
+    "a_doc": 716649,
+    "q_text": "fr",
+    "a_text": "de",
+    "q_tag": "fr",
+    "a_tag": "de"
+   },
+   {
+    "set": "P5",
+    "body": "VS",
+    "affair_id": 252838,
+    "q_doc": 558479,
+    "a_doc": 869686,
+    "q_text": "fr",
+    "a_text": "de",
+    "q_tag": "fr",
+    "a_tag": "de"
+   },
+   {
+    "set": "P5",
+    "body": "GR",
+    "affair_id": 280476,
+    "q_doc": 910662,
+    "a_doc": 909073,
+    "q_text": "it",
+    "a_text": "de",
+    "q_tag": "it",
+    "a_tag": "de"
+   },
+   {
+    "set": "P5",
+    "body": "GR",
+    "affair_id": 75591,
+    "q_doc": 909235,
+    "a_doc": 917799,
+    "q_text": "it",
+    "a_text": "de",
+    "q_tag": "it",
+    "a_tag": "de"
+   },
+   {
+    "set": "P8",
+    "body": "VS",
+    "affair_id": 87634,
+    "q_doc": 113251,
+    "a_doc": 112700,
+    "q_text": "fr",
+    "a_text": "de",
+    "q_tag": null,
+    "a_tag": "de"
+   },
+   {
+    "set": "P8",
+    "body": "FR",
+    "affair_id": 239566,
+    "q_doc": 508139,
+    "a_doc": 508140,
+    "q_text": "fr",
+    "a_text": "de",
+    "q_tag": null,
+    "a_tag": "fr"
+   },
+   {
+    "set": "P8",
+    "body": "GR",
+    "affair_id": 329717,
+    "q_doc": 910362,
+    "a_doc": 917682,
+    "q_text": "it",
+    "a_text": "de",
+    "q_tag": null,
+    "a_tag": "de"
+   },
+   {
+    "set": "P8",
+    "body": "GR",
+    "affair_id": 334570,
+    "q_doc": 914352,
+    "a_doc": 922235,
+    "q_text": "de",
+    "a_text": "it",
+    "q_tag": "de",
+    "a_tag": "it"
+   },
+   {
+    "set": "P8",
+    "body": "GR",
+    "affair_id": 334567,
+    "q_doc": 917402,
+    "a_doc": 922081,
+    "q_text": "de",
+    "a_text": "it",
+    "q_tag": "de",
+    "a_tag": "it"
+   }
+  ],
+  "opd_tag_vs_text": {
+   "documents_with_tag_and_text": 141,
+   "tag_differs_from_text": 3,
+   "rows": [
+    {
+     "set": "P8",
+     "body": "FR",
+     "affair_id": 232317,
+     "doc": 509607,
+     "role": "answer",
+     "opd_tag": "de",
+     "text": "fr"
+    },
+    {
+     "set": "P8",
+     "body": "FR",
+     "affair_id": 239969,
+     "doc": 509130,
+     "role": "answer",
+     "opd_tag": "fr",
+     "text": "de"
+    },
+    {
+     "set": "P8",
+     "body": "FR",
+     "affair_id": 239566,
+     "doc": 508140,
+     "role": "answer",
+     "opd_tag": "fr",
+     "text": "de"
+    }
+   ]
+  }
+ },
+ "valais_pairing_by_number": {
+  "status": "post hoc, not registered (P5 registered result unchanged: rules-only Valais Q/A 0/11)",
+  "rule": "numbered paragraphs '1.' ... 'k.' inside the frozen reply span (qa/answers.py reply_span), all k questions found by the frozen question rules present in order, without the same-language reprint check; a reprinted question after the number is skipped up to its line-final '?'",
+  "affairs": 4,
+  "gold_answers": 11,
+  "rules_right": 0,
+  "rules_predicted": 0,
+  "by_number_right": 11,
+  "by_number_predicted": 11,
+  "rows": [
+   {
+    "affair_id": 87651,
+    "q_doc": 112889,
+    "a_doc": 603955,
+    "q_text": "fr",
+    "a_text": "de",
+    "questions_found": 6,
+    "gold_answers": 6,
+    "answer_style_gold": "per_question",
+    "rules_right": 0,
+    "rules_predicted": 0,
+    "by_number_right": 6,
+    "by_number_predicted": 6,
+    "by_number_iou": [
+     1.0,
+     1.0,
+     1.0,
+     0.574,
+     1.0,
+     0.758
+    ]
+   },
+   {
+    "affair_id": 295461,
+    "q_doc": 678845,
+    "a_doc": 907442,
+    "q_text": "fr",
+    "a_text": "de",
+    "questions_found": 5,
+    "gold_answers": 5,
+    "answer_style_gold": "per_question",
+    "rules_right": 0,
+    "rules_predicted": 0,
+    "by_number_right": 5,
+    "by_number_predicted": 5,
+    "by_number_iou": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.849
+    ]
+   },
+   {
+    "affair_id": 247619,
+    "q_doc": 537296,
+    "a_doc": 716649,
+    "q_text": "fr",
+    "a_text": "de",
+    "questions_found": 5,
+    "gold_answers": 0,
+    "answer_style_gold": "global",
+    "rules_right": 0,
+    "rules_predicted": 0,
+    "by_number_right": 0,
+    "by_number_predicted": 0,
+    "by_number_iou": []
+   },
+   {
+    "affair_id": 252838,
+    "q_doc": 558479,
+    "a_doc": 869686,
+    "q_text": "fr",
+    "a_text": "de",
+    "questions_found": 0,
+    "gold_answers": 0,
+    "answer_style_gold": "global",
+    "rules_right": 0,
+    "rules_predicted": 0,
+    "by_number_right": 0,
+    "by_number_predicted": 0,
+    "by_number_iou": []
+   }
+  ]
+ }
+}

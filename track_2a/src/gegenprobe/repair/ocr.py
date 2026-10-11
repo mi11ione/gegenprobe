@@ -10,7 +10,7 @@ never extracted. The scans are real written answers. This module OCRs them and t
   oral_stub        VS pointer to an oral answer
 
 Language models: tessdata_fast @ 87416418657359cb625c412a48b6e1d6d41c29bd (deu, fra, ita, eng; sha256 in TESSDATA_SHA256).
-Docker installs Debian's tesseract-ocr-{deu,fra,ita}; local runs use WORK/tessdata via TESSDATA_PREFIX.
+The Docker image ships exactly these files (Dockerfile, TESSDATA_PREFIX); local runs use WORK/tessdata via TESSDATA_PREFIX.
 
 usage:
   python -m gegenprobe.repair.ocr probe [max_pages]   the 30-document re-extraction sample, deu+fra+ita vs eng-only
@@ -29,6 +29,7 @@ import time
 from pathlib import Path
 
 from .. import devpaths, pdftext
+from ..ocrguard import TESSDATA_COMMIT, TESSDATA_SHA256  # noqa: F401  (one table: checked before OCR, pinned in Docker)
 from ..paths import PDF_CACHE, WORK
 from ..stats import wilson_pct
 from .common import ANSWER_HEADING, OUT, dump, parse_dates
@@ -37,13 +38,6 @@ from gegenprobe.compliance import fetchguard
 
 fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
 
-TESSDATA_COMMIT = "87416418657359cb625c412a48b6e1d6d41c29bd"
-TESSDATA_SHA256 = {
-    "deu": "19d219bbb6672c869d20a9636c6816a81eb9a71796cb93ebe0cb1530e2cdb22d",
-    "fra": "ced037562e8c80c13122dece28dd477d399af80911a28791a66a63ac1e3445ca",
-    "ita": "b8f89e1e785118dac4d51ae042c029a64edb5c3ee42ef73027a6d412748d8827",
-    "eng": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
-}
 LETTERHEAD = re.compile(
     r"Consiglio di Stato|Repubblica e Cantone Ticino|Regierungsrat|Conseil d.[ÉE]tat|Conseil-ex[ée]cutif|"
     r"Stadtrat|Gemeinderat|Municipio|Conseil communal|Stellungnahme|Risposta|R[ée]ponse|Antwort",

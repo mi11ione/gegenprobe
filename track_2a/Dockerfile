@@ -8,14 +8,24 @@ ARG GGUF=0
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 \
     PYTHONPATH=/app/src:/app GP_WORK=/tmp/gp-work HOME=/tmp
 
-# poppler (pdftotext/pdftoppm) for page-exact text; tesseract with German, French and Italian models for image-only scans
+# poppler (pdftotext/pdftoppm) for page-exact text; tesseract for image-only scans (its language models: next step)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-      poppler-utils tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita ca-certificates make \
+      poppler-utils tesseract-ocr ca-certificates make \
     && rm -rf /var/lib/apt/lists/* \
-    && dpkg-query -W poppler-utils tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita \
-       > /usr/local/share/gegenprobe-apt-versions.txt
+    && dpkg-query -W poppler-utils tesseract-ocr > /usr/local/share/gegenprobe-apt-versions.txt
 # Debian packages are not version-pinned by apt (the digest-pinned base fixes the release, the Debian mirror the build
-# date); the file above records what this build got. OCR language data differs from the measured setup: see docs/runbook.md.
+# date); the file above records what this build got.
+# OCR language models: exactly the ones the OCR numbers were measured with (docs/runbook.md, OCR): tessdata_fast at commit
+# 87416418657359cb625c412a48b6e1d6d41c29bd (deu, fra, ita, eng), downloaded by gegenprobe/ocrguard.py (stdlib only; the
+# commit and the sha256 of each file are its TESSDATA_COMMIT / TESSDATA_SHA256) and checked file by file: a mismatch
+# fails the build. tesseract reads only this directory (TESSDATA_PREFIX), and GP_OCR_REQUIRE_PINNED=1 makes every OCR
+# call refuse with a typed ocr_failed if the files ever differ from the pins.
+ENV TESSDATA_PREFIX=/usr/local/share/tessdata-pinned GP_OCR_REQUIRE_PINNED=1
+COPY src/gegenprobe/ocrguard.py /usr/local/share/gegenprobe-ocrguard.py
+RUN python /usr/local/share/gegenprobe-ocrguard.py install-pinned "$TESSDATA_PREFIX" \
+    && python /usr/local/share/gegenprobe-ocrguard.py \
+    && rm /usr/local/share/gegenprobe-ocrguard.py \
+    && sha256sum "$TESSDATA_PREFIX"/*.traineddata >> /usr/local/share/gegenprobe-apt-versions.txt
 
 WORKDIR /app
 # Python dependencies are hash-pinned (requirements.lock: sha256 of every PyPI file of each pinned version).

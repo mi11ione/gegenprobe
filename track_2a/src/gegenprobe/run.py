@@ -14,8 +14,9 @@ steps that need the network or a model endpoint and cannot reach them; the repla
               byte-identical), the P7 dev table, the P8 tables, the P7 post-hoc files (eval/p7/offline.py) and the 8B
               analysis re-run offline and compared, the nine LOCK files verified (FAIL on any difference)
   6b schema_v02  schema v0.2 re-derived from committed files and compared with results/schema/v0_2/ (FAIL on any
-              difference or invalid record): the converter's own P3, P3b and P5 records carried to v0.2 (105 affairs), the
-              P8 gold (66 affairs) and the v0.1 samples upgraded losslessly
+              difference or invalid record): the converter's own P3, P3b and P5 records carried to v0.2 (105 affairs) with
+              v0.2's roles from the committed role-rule readings (re-extracted from the texts and compared when they are
+              cached), the P8 gold (66 affairs) and the v0.1 samples upgraded losslessly
   7 rederive  the P1 rules arm re-derived from the source PDFs (sha256-verified); WARN, never FAIL
   8 rederive_apertus  P1 + P2 pointer and cascade decisions recomputed from the committed model cache, cache-only
               (no request leaves the machine); FAIL only if a cache hit gives a different decision
@@ -124,6 +125,8 @@ def result_line(report: dict) -> str:
 
 
 def main() -> int:
+    from gegenprobe import ocrguard
+    ocrguard.ensure()  # OCR fails loudly: a scan without OCR is a typed ocr_failed, never a cached page of empty text
     OUT.mkdir(parents=True, exist_ok=True)
     t0 = time.time()
     report = dict(started=time.strftime("%Y-%m-%dT%H:%M:%S%z"), online=online(), steps={})

@@ -1,0 +1,702 @@
+{
+ "status": "exploratory: not pre-registered; written after eval/prereg9/LOCK9 (P8 locked and labelled)",
+ "command": "PYTHONPATH=src:. python -m eval.converter_roles write",
+ "gold": "data/p8/p8_gold.jsonl (66 affairs, 11 parliaments)",
+ "split_rule": "held out = the 5 parliaments with the smallest sha256(\"gegenprobe-r13A-converter-roles:\" + body key); fixed before any held-out label or text was opened",
+ "split": {
+  "held_out": [
+   "351",
+   "5192",
+   "TG",
+   "VD",
+   "VS"
+  ],
+  "dev": [
+   "261",
+   "5002",
+   "5586",
+   "6643",
+   "FR",
+   "GR"
+  ]
+ },
+ "exposure": "before the split the agent saw the gold submitter labels of P8-001 (VD) and P8-002 (5192), both held out; no held-out document text was read before the frozen held-out score",
+ "scoring": "* authors (affair): the set of (person or body, role) the rules print equals the gold set (P8 parts submitter and\n    co_signatories, union) - names matched by gegenprobe.convert.roles.same_person; persons: precision and recall of\n    (name, role) pairs pooled over affairs; author_names: the same without the role.\n  * author_pattern (affair): the gold's role pattern (sole, joint, first+co, group, ...) reproduced.\n  * language_of_text (document): the set of languages equals the gold's languages for that document.\n  * instrument_named / instrument_function (affair): equal to the gold value; gold `unclear` function is not\n    determinable and left out of the denominator (counted apart).\n  * submission dates (pairs): (ISO date, role) with role in signed / lodged / announced / later_step (P8's\n    session_lodged = announced; the rules' received = lodged, P8 counts a receipt as lodged); precision and recall pooled.\nAn abstention (nothing printed by the rules) counts against recall and accuracy, never against precision.",
+ "language_method": "stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15)",
+ "frozen": {
+  "rules_version": "roles-1",
+  "rules": "results/schema/v0_2/converter_roles_frozen/roles_r13a_heldout.py",
+  "rules_sha256": "01a06cc4cf84c0034524ec214c4ec7c81160d13b3b9c857a1ab2f703f01fb8d9",
+  "note": "generalisation estimate = held_out; in_sample_dev is the development set",
+  "held_out": {
+   "n_affairs": 30,
+   "n_parliaments": 5,
+   "parliaments": [
+    "351",
+    "5192",
+    "TG",
+    "VD",
+    "VS"
+   ],
+   "authors_affair_exact": {
+    "k": 3,
+    "n": 30,
+    "rate": 0.1,
+    "wilson95": [
+     0.0346,
+     0.2562
+    ]
+   },
+   "authors_affair_with_any_prediction": {
+    "k": 11,
+    "n": 30,
+    "rate": 0.3667,
+    "wilson95": [
+     0.2187,
+     0.5449
+    ]
+   },
+   "author_pattern": {
+    "k": 3,
+    "n": 30,
+    "rate": 0.1,
+    "wilson95": [
+     0.0346,
+     0.2562
+    ]
+   },
+   "author_pairs_precision": {
+    "k": 39,
+    "n": 49,
+    "rate": 0.7959,
+    "wilson95": [
+     0.6636,
+     0.8852
+    ]
+   },
+   "author_pairs_recall": {
+    "k": 39,
+    "n": 137,
+    "rate": 0.2847,
+    "wilson95": [
+     0.2158,
+     0.3653
+    ]
+   },
+   "author_names_precision": {
+    "k": 47,
+    "n": 49,
+    "rate": 0.9592,
+    "wilson95": [
+     0.8629,
+     0.9887
+    ]
+   },
+   "author_names_recall": {
+    "k": 47,
+    "n": 137,
+    "rate": 0.3431,
+    "wilson95": [
+     0.2688,
+     0.4259
+    ]
+   },
+   "language_of_text_documents": {
+    "k": 60,
+    "n": 60,
+    "rate": 1.0,
+    "wilson95": [
+     0.9398,
+     1.0
+    ]
+   },
+   "language_of_text_abstained": 0,
+   "instrument_named": {
+    "k": 27,
+    "n": 30,
+    "rate": 0.9,
+    "wilson95": [
+     0.7438,
+     0.9654
+    ]
+   },
+   "instrument_function": {
+    "k": 23,
+    "n": 30,
+    "rate": 0.7667,
+    "wilson95": [
+     0.5907,
+     0.8821
+    ]
+   },
+   "instrument_function_gold_unclear": 0,
+   "instrument_function_abstained": 2,
+   "submission_dates_precision": {
+    "k": 13,
+    "n": 15,
+    "rate": 0.8667,
+    "wilson95": [
+     0.6212,
+     0.9626
+    ]
+   },
+   "submission_dates_recall": {
+    "k": 13,
+    "n": 34,
+    "rate": 0.3824,
+    "wilson95": [
+     0.239,
+     0.5496
+    ]
+   },
+   "submission_dates_affair_exact": {
+    "k": 14,
+    "n": 30,
+    "rate": 0.4667,
+    "wilson95": [
+     0.3023,
+     0.6386
+    ]
+   }
+  },
+  "in_sample_dev": {
+   "n_affairs": 36,
+   "n_parliaments": 6,
+   "parliaments": [
+    "261",
+    "5002",
+    "5586",
+    "6643",
+    "FR",
+    "GR"
+   ],
+   "authors_affair_exact": {
+    "k": 28,
+    "n": 36,
+    "rate": 0.7778,
+    "wilson95": [
+     0.6192,
+     0.8828
+    ]
+   },
+   "authors_affair_with_any_prediction": {
+    "k": 31,
+    "n": 36,
+    "rate": 0.8611,
+    "wilson95": [
+     0.7134,
+     0.9392
+    ]
+   },
+   "author_pattern": {
+    "k": 28,
+    "n": 36,
+    "rate": 0.7778,
+    "wilson95": [
+     0.6192,
+     0.8828
+    ]
+   },
+   "author_pairs_precision": {
+    "k": 198,
+    "n": 199,
+    "rate": 0.995,
+    "wilson95": [
+     0.9721,
+     0.9991
+    ]
+   },
+   "author_pairs_recall": {
+    "k": 198,
+    "n": 208,
+    "rate": 0.9519,
+    "wilson95": [
+     0.9138,
+     0.9737
+    ]
+   },
+   "author_names_precision": {
+    "k": 198,
+    "n": 199,
+    "rate": 0.995,
+    "wilson95": [
+     0.9721,
+     0.9991
+    ]
+   },
+   "author_names_recall": {
+    "k": 198,
+    "n": 208,
+    "rate": 0.9519,
+    "wilson95": [
+     0.9138,
+     0.9737
+    ]
+   },
+   "language_of_text_documents": {
+    "k": 72,
+    "n": 72,
+    "rate": 1.0,
+    "wilson95": [
+     0.9493,
+     1.0
+    ]
+   },
+   "language_of_text_abstained": 0,
+   "instrument_named": {
+    "k": 29,
+    "n": 36,
+    "rate": 0.8056,
+    "wilson95": [
+     0.6497,
+     0.9025
+    ]
+   },
+   "instrument_function": {
+    "k": 24,
+    "n": 34,
+    "rate": 0.7059,
+    "wilson95": [
+     0.5383,
+     0.8317
+    ]
+   },
+   "instrument_function_gold_unclear": 2,
+   "instrument_function_abstained": 6,
+   "submission_dates_precision": {
+    "k": 30,
+    "n": 35,
+    "rate": 0.8571,
+    "wilson95": [
+     0.7062,
+     0.9374
+    ]
+   },
+   "submission_dates_recall": {
+    "k": 30,
+    "n": 60,
+    "rate": 0.5,
+    "wilson95": [
+     0.3774,
+     0.6226
+    ]
+   },
+   "submission_dates_affair_exact": {
+    "k": 14,
+    "n": 36,
+    "rate": 0.3889,
+    "wilson95": [
+     0.2478,
+     0.5514
+    ]
+   }
+  }
+ },
+ "post_hoc": {
+  "rules_version": "roles-2",
+  "rules": "src/gegenprobe/convert/roles.py",
+  "rules_sha256": "5f6c978e0d81f591c6e790c671da210ed58d37e7d2b22311a9bc3e265ae1c2ce",
+  "note": "in-sample on all 66: roles-2 adds rules written after the frozen held-out score from the held-out parliaments' layouts; this is what the converter's v0.2 records carry",
+  "all_in_sample": {
+   "n_affairs": 66,
+   "n_parliaments": 11,
+   "parliaments": [
+    "261",
+    "351",
+    "5002",
+    "5192",
+    "5586",
+    "6643",
+    "FR",
+    "GR",
+    "TG",
+    "VD",
+    "VS"
+   ],
+   "authors_affair_exact": {
+    "k": 45,
+    "n": 66,
+    "rate": 0.6818,
+    "wilson95": [
+     0.5621,
+     0.7815
+    ]
+   },
+   "authors_affair_with_any_prediction": {
+    "k": 55,
+    "n": 66,
+    "rate": 0.8333,
+    "wilson95": [
+     0.7257,
+     0.9043
+    ]
+   },
+   "author_pattern": {
+    "k": 46,
+    "n": 66,
+    "rate": 0.697,
+    "wilson95": [
+     0.5778,
+     0.7945
+    ]
+   },
+   "author_pairs_precision": {
+    "k": 286,
+    "n": 291,
+    "rate": 0.9828,
+    "wilson95": [
+     0.9604,
+     0.9926
+    ]
+   },
+   "author_pairs_recall": {
+    "k": 286,
+    "n": 345,
+    "rate": 0.829,
+    "wilson95": [
+     0.7857,
+     0.865
+    ]
+   },
+   "author_names_precision": {
+    "k": 288,
+    "n": 291,
+    "rate": 0.9897,
+    "wilson95": [
+     0.9701,
+     0.9965
+    ]
+   },
+   "author_names_recall": {
+    "k": 288,
+    "n": 345,
+    "rate": 0.8348,
+    "wilson95": [
+     0.792,
+     0.8702
+    ]
+   },
+   "language_of_text_documents": {
+    "k": 132,
+    "n": 132,
+    "rate": 1.0,
+    "wilson95": [
+     0.9717,
+     1.0
+    ]
+   },
+   "language_of_text_abstained": 0,
+   "instrument_named": {
+    "k": 56,
+    "n": 66,
+    "rate": 0.8485,
+    "wilson95": [
+     0.7431,
+     0.9156
+    ]
+   },
+   "instrument_function": {
+    "k": 47,
+    "n": 64,
+    "rate": 0.7344,
+    "wilson95": [
+     0.6152,
+     0.827
+    ]
+   },
+   "instrument_function_gold_unclear": 2,
+   "instrument_function_abstained": 8,
+   "submission_dates_precision": {
+    "k": 45,
+    "n": 51,
+    "rate": 0.8824,
+    "wilson95": [
+     0.7662,
+     0.9449
+    ]
+   },
+   "submission_dates_recall": {
+    "k": 45,
+    "n": 94,
+    "rate": 0.4787,
+    "wilson95": [
+     0.3806,
+     0.5785
+    ]
+   },
+   "submission_dates_affair_exact": {
+    "k": 31,
+    "n": 66,
+    "rate": 0.4697,
+    "wilson95": [
+     0.3543,
+     0.5884
+    ]
+   }
+  },
+  "held_out_parliaments_in_sample": {
+   "n_affairs": 30,
+   "n_parliaments": 5,
+   "parliaments": [
+    "351",
+    "5192",
+    "TG",
+    "VD",
+    "VS"
+   ],
+   "authors_affair_exact": {
+    "k": 17,
+    "n": 30,
+    "rate": 0.5667,
+    "wilson95": [
+     0.392,
+     0.7262
+    ]
+   },
+   "authors_affair_with_any_prediction": {
+    "k": 24,
+    "n": 30,
+    "rate": 0.8,
+    "wilson95": [
+     0.6269,
+     0.9049
+    ]
+   },
+   "author_pattern": {
+    "k": 18,
+    "n": 30,
+    "rate": 0.6,
+    "wilson95": [
+     0.4232,
+     0.7541
+    ]
+   },
+   "author_pairs_precision": {
+    "k": 88,
+    "n": 92,
+    "rate": 0.9565,
+    "wilson95": [
+     0.8935,
+     0.983
+    ]
+   },
+   "author_pairs_recall": {
+    "k": 88,
+    "n": 137,
+    "rate": 0.6423,
+    "wilson95": [
+     0.5592,
+     0.7177
+    ]
+   },
+   "author_names_precision": {
+    "k": 90,
+    "n": 92,
+    "rate": 0.9783,
+    "wilson95": [
+     0.9242,
+     0.994
+    ]
+   },
+   "author_names_recall": {
+    "k": 90,
+    "n": 137,
+    "rate": 0.6569,
+    "wilson95": [
+     0.5741,
+     0.7312
+    ]
+   },
+   "language_of_text_documents": {
+    "k": 60,
+    "n": 60,
+    "rate": 1.0,
+    "wilson95": [
+     0.9398,
+     1.0
+    ]
+   },
+   "language_of_text_abstained": 0,
+   "instrument_named": {
+    "k": 27,
+    "n": 30,
+    "rate": 0.9,
+    "wilson95": [
+     0.7438,
+     0.9654
+    ]
+   },
+   "instrument_function": {
+    "k": 23,
+    "n": 30,
+    "rate": 0.7667,
+    "wilson95": [
+     0.5907,
+     0.8821
+    ]
+   },
+   "instrument_function_gold_unclear": 0,
+   "instrument_function_abstained": 2,
+   "submission_dates_precision": {
+    "k": 16,
+    "n": 17,
+    "rate": 0.9412,
+    "wilson95": [
+     0.7302,
+     0.9895
+    ]
+   },
+   "submission_dates_recall": {
+    "k": 16,
+    "n": 34,
+    "rate": 0.4706,
+    "wilson95": [
+     0.3145,
+     0.6326
+    ]
+   },
+   "submission_dates_affair_exact": {
+    "k": 17,
+    "n": 30,
+    "rate": 0.5667,
+    "wilson95": [
+     0.392,
+     0.7262
+    ]
+   }
+  },
+  "dev_parliaments_in_sample": {
+   "n_affairs": 36,
+   "n_parliaments": 6,
+   "parliaments": [
+    "261",
+    "5002",
+    "5586",
+    "6643",
+    "FR",
+    "GR"
+   ],
+   "authors_affair_exact": {
+    "k": 28,
+    "n": 36,
+    "rate": 0.7778,
+    "wilson95": [
+     0.6192,
+     0.8828
+    ]
+   },
+   "authors_affair_with_any_prediction": {
+    "k": 31,
+    "n": 36,
+    "rate": 0.8611,
+    "wilson95": [
+     0.7134,
+     0.9392
+    ]
+   },
+   "author_pattern": {
+    "k": 28,
+    "n": 36,
+    "rate": 0.7778,
+    "wilson95": [
+     0.6192,
+     0.8828
+    ]
+   },
+   "author_pairs_precision": {
+    "k": 198,
+    "n": 199,
+    "rate": 0.995,
+    "wilson95": [
+     0.9721,
+     0.9991
+    ]
+   },
+   "author_pairs_recall": {
+    "k": 198,
+    "n": 208,
+    "rate": 0.9519,
+    "wilson95": [
+     0.9138,
+     0.9737
+    ]
+   },
+   "author_names_precision": {
+    "k": 198,
+    "n": 199,
+    "rate": 0.995,
+    "wilson95": [
+     0.9721,
+     0.9991
+    ]
+   },
+   "author_names_recall": {
+    "k": 198,
+    "n": 208,
+    "rate": 0.9519,
+    "wilson95": [
+     0.9138,
+     0.9737
+    ]
+   },
+   "language_of_text_documents": {
+    "k": 72,
+    "n": 72,
+    "rate": 1.0,
+    "wilson95": [
+     0.9493,
+     1.0
+    ]
+   },
+   "language_of_text_abstained": 0,
+   "instrument_named": {
+    "k": 29,
+    "n": 36,
+    "rate": 0.8056,
+    "wilson95": [
+     0.6497,
+     0.9025
+    ]
+   },
+   "instrument_function": {
+    "k": 24,
+    "n": 34,
+    "rate": 0.7059,
+    "wilson95": [
+     0.5383,
+     0.8317
+    ]
+   },
+   "instrument_function_gold_unclear": 2,
+   "instrument_function_abstained": 6,
+   "submission_dates_precision": {
+    "k": 29,
+    "n": 34,
+    "rate": 0.8529,
+    "wilson95": [
+     0.6987,
+     0.9355
+    ]
+   },
+   "submission_dates_recall": {
+    "k": 29,
+    "n": 60,
+    "rate": 0.4833,
+    "wilson95": [
+     0.3618,
+     0.6069
+    ]
+   },
+   "submission_dates_affair_exact": {
+    "k": 14,
+    "n": 36,
+    "rate": 0.3889,
+    "wilson95": [
+     0.2478,
+     0.5514
+    ]
+   }
+  }
+ },
+ "per_affair": "results/schema/v0_2/converter_roles_per_affair.tsv"
+}

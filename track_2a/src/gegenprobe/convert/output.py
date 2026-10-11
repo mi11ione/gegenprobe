@@ -24,6 +24,8 @@ Failure rows carry {"status": kind, "reason": "...", "input": {...}} and nothing
   text_failed        the PDF could not be read and OCR produced no text
   too_large          the PDF is above GP_MAX_PDF_MB (default 50) and was not read
   text_timeout       pdftotext / tesseract exceeded GP_SUBPROCESS_TIMEOUT
+  ocr_failed         an image-only PDF could not be OCR'd: tesseract or its deu/fra/ita data missing, a tesseract error,
+                     or no text recognised (gegenprobe/ocrguard.py); never a silent null, never cached
 """
 from __future__ import annotations
 
@@ -40,7 +42,8 @@ from ..stats import wilson, wilson_pct
 fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
 FAILURE_KINDS = ("robots_disallowed", "robots_unreachable", "robots_matcher_inactive", "http_error", "timeout",
-                 "network_error", "not_a_pdf", "sha_mismatch", "file_not_found", "text_failed", "too_large", "text_timeout")
+                 "network_error", "not_a_pdf", "sha_mismatch", "file_not_found", "text_failed", "too_large", "text_timeout",
+                 "ocr_failed")
 
 
 def classify(exc: BaseException) -> tuple[str, str]:

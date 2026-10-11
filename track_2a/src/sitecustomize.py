@@ -21,6 +21,10 @@ package (whose __init__ installs the I/O hardening and would pull in the convert
    same meta-path hook patches it (net.open_url, through which net.get, pdftext.fetch_pdf and the eval drivers fetch), in
    every process: the samplers and evaluation code that LOCK files freeze included.
 
+4. OCR fails loudly: the moment gegenprobe.pdftext (locked) is imported, gegenprobe/ocrguard.py wraps its OCR path, so a
+   missing deu/fra/ita language pack, a non-zero tesseract exit or an empty OCR result is a typed `ocr_failed` error and
+   is never cached (round-13 finding: a scan used to become a cached page of empty text and then a typed null).
+
 A sitecustomize further down sys.path (a distribution's own) is executed afterwards, so it is not shadowed.
 """
 import importlib.machinery
@@ -45,6 +49,41 @@ try:
     _guard.boot(os.path.join(_HERE, "gegenprobe"))
 except Exception as e:  # never break interpreter start; fetchguard.ensure() in the fetch modules installs the guard
     print(f"[sitecustomize] Gegenprobe fetch guard NOT booted: {type(e).__name__}: {e}", file=sys.stderr)
+
+
+
+class _PdftextHook:
+    """4. OCR fails loudly (gegenprobe/ocrguard.py): after the locked gegenprobe.pdftext executes, its OCR path is
+    wrapped so that a missing language pack, a non-zero tesseract exit or an empty OCR result is a typed `ocr_failed`
+    error and is never cached. Applies in every process, the frozen evaluation code included."""
+
+    def __init__(self, guard):
+        self.guard = guard
+
+    def find_spec(self, name, path=None, target=None):
+        if name != "gegenprobe.pdftext":
+            return None
+        spec = importlib.machinery.PathFinder.find_spec(name, path)
+        if spec is None or spec.loader is None or not hasattr(spec.loader, "exec_module"):
+            return spec
+        run = spec.loader.exec_module
+
+        def exec_module(module, _run=run, _guard=self.guard):
+            _run(module)
+            _guard.patch(module)
+
+        spec.loader.exec_module = exec_module
+        return spec
+
+
+try:
+    _ocr = sys.modules.get("_gegenprobe_ocrguard") or _load(
+        "_gegenprobe_ocrguard", os.path.join(_HERE, "gegenprobe", "ocrguard.py"))
+    if "gegenprobe.pdftext" in sys.modules:
+        _ocr.patch(sys.modules["gegenprobe.pdftext"])
+    sys.meta_path.insert(0, _PdftextHook(_ocr))
+except Exception as e:  # never break interpreter start; ocrguard.ensure() in the entry points installs it
+    print(f"[sitecustomize] Gegenprobe OCR guard NOT booted: {type(e).__name__}: {e}", file=sys.stderr)
 
 _rest = [p for p in sys.path if os.path.abspath(p or os.curdir) != _HERE]
 _spec = importlib.machinery.PathFinder.find_spec("sitecustomize", _rest)

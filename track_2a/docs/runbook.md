@@ -8,6 +8,7 @@ below covers its refit procedure, owner and cost.
 
 | | |
 |---|---|
+| **Data protection (nDSG)** | *Personal data in the documents:* parliamentary documents are public and name members of parliament and of the government in their public office (authors, signatories, signers). An answer can also name other people, for example officials or people concerned by a matter. *Where text goes, by route:* **default (rules only: nightly job, `convert` without `--mode review`, `make run`)**: nowhere. Documents are read from their public source and processed on the machine that runs the job. **Review mode with a model you host** (local Apertus 8B GGUF with `GP_GGUF=1`, or your own vLLM in Switzerland): the text stays on your infrastructure. **Review mode through the Public AI gateway** (`LLM_BASE_URL`): the text of each residue document goes to that provider, which may process it outside Switzerland. That is a disclosure abroad under nDSG Art. 16: check the provider's terms and processing locations before use. *Retention:* PDFs and extracted text are cached under `GP_WORK` (`pdf/`, `text/`, keyed by sha256; nightly: `/var/lib/gegenprobe/work`; `make run`: `.work/make-run`). Nothing expires them automatically, so delete the directory when no longer needed. Committed results hold ids, URLs, hashes, dates, short quotations and the names of office holders, but no contact data and no full document texts. *Recommendation for public bodies:* run rules only (the default), or review mode with the local 8B, so that no document text leaves your infrastructure. |
 | **Hardware** | Nightly job: Linux, systemd, Docker or a Python 3.11 venv; one core most of the run, ceilings 4 GB memory and 2 CPU (peak 2,077.6 MB), state under 1 GB, 20 GB disk; no GPU, no model. Optional local Apertus 8B (review mode only): 9.3 GB peak memory, 180 s per document on 4 vCPUs. |
 | **Time** | First network night 83 and 86 min on 4-vCPU GitHub runners, the incremental next night 6.6 min; inside OPD with `GP_EXPORTS_DIR` and no changed export, 96.8 s. `TimeoutStartSec=4h`. |
 | **External hosts** | files.openparldata.ch (GET of the exports; none with `GP_EXPORTS_DIR`) · ogd.parl.apps.be.ch, rrgr-service.apps.be.ch (GET; an affair number) · fedlex.data.admin.ch, www.fedlex.admin.ch (a citation such as "BBl 2014 9657") · the document hosts OPD lists and the parliaments' sites (GET of public pages, PDFs and robots.txt; one canary per adapter source each network night) · huggingface.co only with `GP_GGUF=1` (the pinned GGUF, once) · the LLM endpoint you set (`LLM_BASE_URL`: text of public documents, review mode only) · your webhook or SMTP relay (`GP_ALERT_*`: the night's alerts). Every request carries `GP_USER_AGENT`, keeps 1.2 s per host and obeys robots.txt (RFC 9309, fail-closed). |
@@ -257,14 +258,24 @@ cannot be pinned for long. We keep the digest-pinned bookworm base and the recor
 before round 3 a shared 120 s let P1 use all of it and CI reached 0 of 62 P2 documents); worst case 240 + 2 × 180 s of
 re-derivation on top of the replay steps.
 
-**OCR language data differs from the measured setup.** The OCR numbers in `docs/repair.md` were measured with Tesseract
-5.5.3 and the tessdata_fast models at commit `8741641` (sha256 per language in `repair/ocr.py`, `TESSDATA_SHA256`). The
-image uses Debian's Tesseract (bookworm ships 5.3) with the `tesseract-ocr-{deu,fra,ita}` packages, which need not be
-the same model files: compare `sha256sum /usr/share/tesseract-ocr/5/tessdata/deu.traineddata` with `TESSDATA_SHA256`. Where
-they differ, OCR output can differ in detail. To run with the measured models, download `deu`, `fra`, `ita` (and `eng`)
-`.traineddata` from `github.com/tesseract-ocr/tessdata_fast` at that commit, check each sha256 against `TESSDATA_SHA256`,
-put them in one directory and set `TESSDATA_PREFIX` to it (Docker: mount it and pass `-e TESSDATA_PREFIX=…`). The nightly
-job reads text layers first and uses OCR only for image-only scans of new rows.
+**OCR models are pinned; OCR fails loudly.** The OCR numbers in `docs/repair.md` and the scanned strata of P1/P2 were
+measured with Tesseract 5.5.3 and the tessdata_fast models at commit `8741641` (`TESSDATA_COMMIT`, sha256 per language in
+`TESSDATA_SHA256`, both in `src/gegenprobe/ocrguard.py`). The image downloads exactly those `deu`, `fra`, `ita` and `eng`
+files at build time, checks each sha256 (a mismatch fails the build), and points tesseract at them
+(`TESSDATA_PREFIX=/usr/local/share/tessdata-pinned`). It installs no Debian language packages. The tesseract binary is
+still Debian's (bookworm ships 5.3.0), so only the binary differs from the measured setup, not the models.
+`GP_OCR_REQUIRE_PINNED=1` (set in the image) makes every OCR call refuse models that differ from the pins.
+
+Outside Docker, run `python -m gegenprobe.ocrguard` to check whether OCR can run on the host and with which models. It
+exits 1 when tesseract or a language is missing. To use the measured models, run
+`python -m gegenprobe.ocrguard install-pinned DIR` (it downloads and verifies the files) and set `TESSDATA_PREFIX=DIR`.
+OCR never fails silently. A missing language pack, a non-zero tesseract exit or a scan with no recognised text raises
+the typed failure `ocr_failed` (a `convert` failure row, a counted line in `make run`'s rederive step). Such a result is
+never cached. Until round 13, a host without the deu/fra/ita data cached empty pages and turned scans into typed nulls.
+Measured on the development Mac: with Homebrew's tesseract (eng/osd only), rederive now reports "22 scans skipped (OCR not
+ready: … no language data for deu+fra+ita)" instead of 22 silent differences. With the pinned models and an empty text
+cache, all 154 of 154 held-out documents re-derive, the 22 Ticino scans re-OCR'd from scratch included (313 s). The
+nightly job reads text layers first and uses OCR only for image-only scans of new rows.
 
 ## Sandboxing
 

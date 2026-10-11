@@ -1,0 +1,133 @@
+rules	split	id	affair_id	body	authors_ok	pattern_gold	pattern_pred	n_gold_people	n_pred_people	matched_role	matched_name	author_rules	lang_q_gold	lang_q_pred	lang_a_gold	lang_a_pred	named_gold	named_pred	function_gold	function_pred	dates_gold	dates_pred	dates_matched
+roles-1	held_out	P8-001	224324	VD	False	sole_author	none	1	0	0	0		fr	fr	fr	fr	interpellation	interpellation	questions	questions			0
+roles-1	held_out	P8-002	27684	5192	False	joint_author*	none	3	0	0	0		it	it	it	it	motion	motion	mandate	mandate	2021-04-06,signed;2022-03-14,later_step;2023-09-04,later_step	2021-04-06,signed	1
+roles-1	held_out	P8-003	82543	TG	False	joint_author*	none	4	0	0	0		de	de	de	de	question	question	questions	questions			0
+roles-1	dev	P8-004	329148	6643	True	sole_author	sole_author	1	1	1	1	authors:signatures	fr	fr	fr	fr	question	question	questions	questions	2024-12-16,signed	2024-12-16,signed	1
+roles-1	dev	P8-005	330284	261	True	joint_author*	joint_author*	3	3	3	3	authors:heading_name_lines	de	de	de	de	motion	motion	mandate	mandate	2026-05-27,lodged;2026-05-27,signed;2026-06-10,later_step	2026-05-27,lodged	1
+roles-1	dev	P8-006	329163	6643	True	joint_author*	joint_author*	3	3	3	3	authors:signatures	fr	fr	fr	fr	motion	motion	mandate	mandate	2022-09-28,signed;2022-12-22,later_step	2022-09-28,signed	1
+roles-1	dev	P8-007	329717	GR	True	co_signatory*+first_signatory+sole_author	co_signatory*+first_signatory+sole_author	25	25	25	25	authors:heading;authors:heading:primo_firmatario;authors:signatures	it	it	de	de	other	other	mandate	mandate	2026-04-23,signed	2026-04-23,signed	1
+roles-1	held_out	P8-008	22272	351	False	co_signatory+first_signatory*+sole_author	co_signatory*+first_signatory	4	3	2	3	authors:label:erstunterzeichner;authors:label:mitunterzeichnende	de	de	de	de	question	question	questions	questions	2019-11-28,signed	2019-11-28,signed	1
+roles-1	dev	P8-009	239566	FR	True	joint_author*	joint_author*	2	2	2	2	authors:numbered_heading	fr	fr	de	de	question	question	questions	questions	2022-01-24,lodged;2022-01-24,signed	2022-01-24,lodged	1
+roles-1	dev	P8-010	328829	6643	True	joint_author*	joint_author*	5	5	5	5	authors:signatures	fr	fr	fr	fr	motion	motion	mandate	mandate			0
+roles-1	held_out	P8-011	177292	VS	False	sole_author+spokesperson*	none	4	0	0	0		de	de	de	de	postulate	postulate	mandate	examine_report	2022-03-07,signed		0
+roles-1	held_out	P8-012	112966	351	False	first_signatory*	co_signatory+first_signatory	2	2	1	2	authors:label:erstunterzeichner	de	de	de	de	interpellation	interpellation	questions	questions	2018-02-01,signed	2018-02-01,signed	1
+roles-1	dev	P8-013	328864	6643	True	sole_author+spokesperson	sole_author+spokesperson	2	2	2	2	authors:on_behalf_of;authors:signatures	fr	fr	fr	fr	question	question	questions	questions	2024-01-14,signed	2024-01-14,signed	1
+roles-1	held_out	P8-014	89496	VS	False	sole_author+spokesperson	none	2	0	0	0		de	de	de	de	postulate	postulate	mandate	examine_report	2014-12-19,signed	2014-12-19,lodged	0
+roles-1	held_out	P8-015	172740	TG	False	sole_author	none	1	0	0	0		de	de	de	de	question	question	questions	questions	2017-01-11,signed	2017-01-11,signed	1
+roles-1	dev	P8-016	103521	261	True	joint_author*	joint_author*	2	2	2	2	authors:von_line	de	de	de	de	motion	motion	mandate	mandate	2019-06-05,lodged;2019-06-05,signed	2019-06-05,lodged	1
+roles-1	held_out	P8-017	222146	VD	False	first_signatory	co_signatory+first_signatory	1	2	1	1	authors:heading;authors:signatures	fr	fr	fr	fr	postulate	postulate	examine_report	examine_report	2010-10-05,signed;2010-10-12,later_step		0
+roles-1	held_out	P8-018	176505	VS	False	sole_author+spokesperson*	none	4	0	0	0		de	de	de	de	motion	motion	mandate	mandate	2008-05-07,signed	2008-05-07,signed	1
+roles-1	dev	P8-019	239465	FR	True	joint_author*	joint_author*	2	2	2	2	authors:numbered_heading	fr	fr	fr	fr	postulate	postulate	questions	examine_report	2014-01-21,lodged;2014-01-24,later_step	2014-01-21,lodged;2014-01-24,later_step	2
+roles-1	held_out	P8-020	224194	VD	True	first_signatory	first_signatory	1	1	1	1	authors:answer_et_consorts	fr	fr	fr	fr	interpellation	interpellation	questions	questions	2018-01-30,signed		0
+roles-1	dev	P8-021	105134	261	True	joint_author*	joint_author*	3	3	3	3	authors:von_line	de	de	de	de	question	none	questions		2024-09-18,lodged;2024-09-18,signed	2024-09-18,lodged	1
+roles-1	held_out	P8-022	176919	VS	False	joint_author*	none	4	0	0	0		de	de	de	de	postulate	postulate	examine_report	examine_report	2020-11-10,signed		0
+roles-1	dev	P8-023	255185	5002	False	sole_author	none	1	0	0	0		it	it	it	it	motion	none	unclear		2020-05-16,later_step	2020-05-16,signed	0
+roles-1	dev	P8-024	237180	FR	True	joint_author*	joint_author*	2	2	2	2	authors:numbered_heading	fr	fr	fr	fr	motion	motion	mandate	mandate	2014-12-16,later_step;2014-12-16,lodged;2014-12-23,later_step	2014-12-16,lodged;2014-12-23,later_step	2
+roles-1	dev	P8-025	328895	6643	True	joint_author*	joint_author*	4	4	4	4	authors:signatures	fr	fr	fr	fr	motion	motion	mandate	mandate	2020-08-23,signed;2020-11-24,later_step	2020-08-23,signed	1
+roles-1	dev	P8-026	334570	GR	True	co_signatory*+first_signatory	co_signatory*+first_signatory	26	26	26	26	authors:heading;authors:signatures	de	de	it	it	question	question	questions	questions	2026-06-17,signed	2026-06-17,signed	1
+roles-1	dev	P8-027	120530	5586	True	sole_author	sole_author	1	1	1	1	authors:signatures	fr	fr	fr	fr	postulate	none	examine_report		2024-11-19,lodged;2024-11-19,signed;2025-01-14,later_step	2024-11-19,signed	1
+roles-1	dev	P8-028	120270	5586	True	co_signatory*+first_signatory	co_signatory*+first_signatory	3	3	3	3	authors:signatures	fr	fr	fr	fr	interpellation	interpellation	questions	questions	2024-01-12,signed;2025-02-04,lodged	2024-01-12,signed	1
+roles-1	held_out	P8-029	223862	VD	False	sole_author	none	1	0	0	0		fr	fr	fr	fr	interpellation	interpellation	questions	questions			0
+roles-1	held_out	P8-030	172861	TG	False	joint_author*	none	7	0	0	0		de	de	de	de	motion	motion	mandate	mandate	2016-11-23,signed;2017-06-14,later_step		0
+roles-1	dev	P8-031	239969	FR	True	sole_author	sole_author	1	1	1	1	authors:heading	de	de	de	de	question	question	questions	questions	2015-01-29,signed	2015-01-29,lodged	0
+roles-1	dev	P8-032	236883	FR	True	joint_author*	joint_author*	2	2	2	2	authors:numbered_heading	fr	fr	fr	fr	postulate	postulate	examine_report	examine_report	2016-01-06,later_step;2016-01-06,lodged;2016-01-13,later_step	2016-01-06,lodged;2016-01-13,later_step	2
+roles-1	dev	P8-033	255253	5002	False	sole_author	none	1	0	0	0		it	it	it	it	motion	motion	direct_decision	mandate	2024-07-05,lodged;2024-11-21,later_step	2024-07-05,lodged	1
+roles-1	held_out	P8-034	224358	VD	True	first_signatory	first_signatory	1	1	1	1	authors:answer_et_consorts	fr	fr	fr	fr	interpellation	interpellation	questions	questions			0
+roles-1	dev	P8-035	254651	5002	False	sole_author	none	1	0	0	0		it	it	it	it	interpellation	none	questions		2023-11-17,signed;2023-11-21,lodged	2023-11-17,signed	1
+roles-1	held_out	P8-036	118481	5192	False	co_signatory*+first_signatory	none	11	0	0	0		it	it	it	it	motion	none	mandate		2018-10-08,signed;2023-02-15,later_step	2018-10-08,signed	1
+roles-1	dev	P8-037	334567	GR	True	co_signatory*+first_signatory	co_signatory*+first_signatory	25	25	25	25	authors:heading;authors:signatures	de	de	it	it	question	question	questions	questions	2026-06-17,signed	2026-06-17,signed	1
+roles-1	held_out	P8-038	87634	VS	False	sole_author+spokesperson	none	2	0	0	0		fr	fr	de	de	interpellation	interpellation	questions	questions	2023-06-16,signed		0
+roles-1	held_out	P8-039	22897	351	False	co_signatory*+first_signatory*	co_signatory*+first_signatory	6	6	5	6	authors:label:erstunterzeichner;authors:label:mitunterzeichnende	de	de	de	de	postulate	postulate	examine_report	examine_report	2024-02-15,signed	2024-02-15,signed	1
+roles-1	held_out	P8-040	26748	5192	False	co_signatory*+first_signatory+sole_author	none	8	0	0	0		it	it	it	it	question	question	questions	questions	2020-12-07,signed	2020-12-07,signed	1
+roles-1	dev	P8-041	29378	5586	False	co_signatory*+first_signatory	co_signatory+first_signatory	3	2	2	2	authors:signatures	fr	fr	fr	fr	interpellation	interpellation	questions	questions	2023-08-28,signed;2023-08-29,lodged	2023-08-28,signed	1
+roles-1	dev	P8-042	105270	261	True	joint_author*	joint_author*	2	2	2	2	authors:von_line	de	de	de	de	motion	motion	mandate	mandate	2025-01-29,lodged;2025-01-29,signed	2025-01-29,lodged	1
+roles-1	dev	P8-043	255239	5002	True	first_signatory	first_signatory	1	1	1	1	authors:answer_et_consorts	it	it	it	it	motion	none	mandate				0
+roles-1	held_out	P8-044	22446	351	False	first_signatory*+other*	co_signatory+first_signatory	4	2	1	2	authors:label:erstunterzeichner	de	de	de	de	motion	motion	mandate	mandate	2020-10-19,signed	2020-10-19,signed	1
+roles-1	dev	P8-045	255067	5002	False	sole_author	none	1	0	0	0		it	it	it	it	question	none	questions				0
+roles-1	dev	P8-046	250830	261	True	sole_author	sole_author	1	1	1	1	authors:von_line	de	de	de	de	motion	motion	mandate	mandate	2025-08-27,lodged;2025-08-27,signed	2025-08-27,lodged	1
+roles-1	held_out	P8-047	26726	5192	False	co_signatory*+first_signatory	none	8	0	0	0		it	it	it	it	question	question	questions	questions	2020-08-24,signed	2020-08-24,signed	1
+roles-1	dev	P8-048	120362	5586	False	co_signatory*+first_signatory	co_signatory+first_signatory	3	2	2	2	authors:label:initiant	fr	fr	fr	fr	postulate	postulate	examine_report	examine_report	2020-10-28,lodged;2020-10-28,signed;2022-10-11,later_step	2020-10-28,signed	1
+roles-1	dev	P8-049	14086	261	True	sole_author	sole_author	1	1	1	1	authors:von_line	de	de	de	de	question	question	questions	questions	2023-09-13,lodged;2023-09-13,signed	2023-09-13,lodged	1
+roles-1	held_out	P8-050	21842	351	False	co_signatory+first_signatory*+sole_author	co_signatory*+first_signatory	4	3	2	3	authors:label:erstunterzeichner;authors:label:mitunterzeichnende	de	de	de	de	motion	motion	mandate	mandate	2017-04-06,signed;2024-01-18,later_step	2026-01-14,signed	0
+roles-1	dev	P8-051	250262	GR	True	co_signatory*+first_signatory+sole_author	co_signatory*+first_signatory+sole_author	23	23	23	23	authors:heading;authors:heading:primo_firmatario;authors:signatures	it	it	it	it	other	other	mandate	mandate	2025-08-30,signed	2025-08-30,signed	1
+roles-1	dev	P8-052	232317	FR	True	first_signatory	first_signatory	1	1	1	1	authors:answer_et_consorts	fr	fr	fr	fr	motion	motion	examine_report	mandate	2017-03-23,later_step;2017-03-23,lodged;2018-03-22,later_step	2019-07-04,signed	0
+roles-1	held_out	P8-053	173156	TG	False	joint_author*	none	4	0	0	0		de	de	de	de	motion	other	mandate	other	2021-10-04,later_step		0
+roles-1	held_out	P8-054	118138	5192	False	sole_author+spokesperson	sole_author	2	1	0	0	authors:heading_name_lines	it	it	it	it	motion	motion	examine_report	mandate	2005-06-03,lodged;2006-01-30,later_step	2005-06-03,lodged	1
+roles-1	held_out	P8-055	47091	TG	False	joint_author*	none	3	0	0	0		de	de	de	de	motion	none	mandate		2011-11-09,later_step		0
+roles-1	held_out	P8-056	224702	VD	True	first_signatory	first_signatory	1	1	1	1	authors:answer_et_consorts	fr	fr	fr	fr	interpellation	interpellation	questions	questions			0
+roles-1	held_out	P8-057	27625	5192	False	joint_author*	none	10	0	0	0		it	it	it	it	motion	motion	direct_decision	mandate	2018-12-21,signed;2022-10-25,later_step;2023-01-10,later_step	2018-12-21,signed	1
+roles-1	held_out	P8-058	49069	TG	False	co_signatory*+first_signatory	none	5	0	0	0		de	de	de	de	motion	motion	mandate	mandate	2024-06-17,signed		0
+roles-1	dev	P8-059	120392	5586	False	first_signatory+sole_author	sole_author	2	1	0	0	authors:answer_heading	fr	fr	fr	fr	postulate	postulate	mandate	examine_report			0
+roles-1	held_out	P8-060	113852	351	False	co_signatory*+first_signatory*	co_signatory*+first_signatory	27	27	24	27	authors:label:erstunterzeichner;authors:label:mitunterzeichnende	de	de	de	de	motion	motion	mandate	mandate	2024-02-15,signed	2024-02-15,signed	1
+roles-1	dev	P8-061	288670	GR	True	sole_author	sole_author	1	1	1	1	authors:heading	rm	rm	it	it	other	other	unclear	mandate		2026-02-03,lodged	0
+roles-1	dev	P8-062	120388	5586	True	first_signatory	first_signatory	1	1	1	1	authors:et_consorts	fr	fr	fr	fr	postulate	postulate	examine_report	examine_report	2021-02-09,signed	2021-02-09,signed	1
+roles-1	dev	P8-063	247751	GR	True	co_signatory*+first_signatory	co_signatory*+first_signatory	46	46	46	46	authors:heading;authors:signatures	rm	rm	it	it	other	other	mandate	mandate	2025-06-13,signed	2025-06-13,signed	1
+roles-1	dev	P8-064	328981	6643	True	joint_author*	joint_author*	5	5	5	5	authors:signatures	fr	fr	fr	fr	motion	motion	mandate	mandate	2022-01-23,signed	2022-01-23,signed	1
+roles-1	dev	P8-065	255216	5002	False	sole_author+spokesperson	none	2	0	0	0		it	it	it	it	motion	none	direct_decision		2018-05-29,later_step;2018-07-10,later_step;2018-07-24,later_step;2019-03-12,later_step;2019-08-06,later_step	2019-08-06,signed	0
+roles-1	held_out	P8-066	87914	VS	False	sole_author+spokesperson	none	2	0	0	0		de	de	de	de	interpellation	interpellation	questions	questions	2024-09-12,signed		0
+roles-2	held_out	P8-001	224324	VD	True	sole_author	sole_author	1	1	1	1	authors:label:vd_auteur	fr	fr	fr	fr	interpellation	interpellation	questions	questions			0
+roles-2	held_out	P8-002	27684	5192	False	joint_author*	none	3	0	0	0		it	it	it	it	motion	motion	mandate	mandate	2021-04-06,signed;2022-03-14,later_step;2023-09-04,later_step	2021-04-06,signed	1
+roles-2	held_out	P8-003	82543	TG	True	joint_author*	joint_author*	4	4	4	4	authors:address_block	de	de	de	de	question	question	questions	questions			0
+roles-2	dev	P8-004	329148	6643	True	sole_author	sole_author	1	1	1	1	authors:signatures	fr	fr	fr	fr	question	question	questions	questions	2024-12-16,signed	2024-12-16,signed	1
+roles-2	dev	P8-005	330284	261	True	joint_author*	joint_author*	3	3	3	3	authors:heading_name_lines	de	de	de	de	motion	motion	mandate	mandate	2026-05-27,lodged;2026-05-27,signed;2026-06-10,later_step	2026-05-27,lodged	1
+roles-2	dev	P8-006	329163	6643	True	joint_author*	joint_author*	3	3	3	3	authors:signatures	fr	fr	fr	fr	motion	motion	mandate	mandate	2022-09-28,signed;2022-12-22,later_step	2022-09-28,signed	1
+roles-2	dev	P8-007	329717	GR	True	co_signatory*+first_signatory+sole_author	co_signatory*+first_signatory+sole_author	25	25	25	25	authors:heading;authors:heading:primo_firmatario;authors:signatures	it	it	de	de	other	other	mandate	mandate	2026-04-23,signed	2026-04-23,signed	1
+roles-2	held_out	P8-008	22272	351	False	co_signatory+first_signatory*+sole_author	co_signatory+first_signatory*	4	3	3	3	authors:label:erstunterzeichner;authors:label:mitunterzeichnende	de	de	de	de	question	question	questions	questions	2019-11-28,signed	2019-11-28,signed	1
+roles-2	dev	P8-009	239566	FR	True	joint_author*	joint_author*	2	2	2	2	authors:numbered_heading	fr	fr	de	de	question	question	questions	questions	2022-01-24,lodged;2022-01-24,signed	2022-01-24,lodged	1
+roles-2	dev	P8-010	328829	6643	True	joint_author*	joint_author*	5	5	5	5	authors:signatures	fr	fr	fr	fr	motion	motion	mandate	mandate			0
+roles-2	held_out	P8-011	177292	VS	True	sole_author+spokesperson*	sole_author+spokesperson*	4	4	4	4	authors:durch	de	de	de	de	postulate	postulate	mandate	examine_report	2022-03-07,signed	2022-03-07,signed	1
+roles-2	held_out	P8-012	112966	351	True	first_signatory*	first_signatory*	2	2	2	2	authors:label:erstunterzeichner	de	de	de	de	interpellation	interpellation	questions	questions	2018-02-01,signed	2018-02-01,signed	1
+roles-2	dev	P8-013	328864	6643	True	sole_author+spokesperson	sole_author+spokesperson	2	2	2	2	authors:on_behalf_of;authors:signatures	fr	fr	fr	fr	question	question	questions	questions	2024-01-14,signed	2024-01-14,signed	1
+roles-2	held_out	P8-014	89496	VS	True	sole_author+spokesperson	sole_author+spokesperson	2	2	2	2	authors:durch	de	de	de	de	postulate	postulate	mandate	examine_report	2014-12-19,signed	2014-12-19,signed	1
+roles-2	held_out	P8-015	172740	TG	True	sole_author	sole_author	1	1	1	1	authors:address_block	de	de	de	de	question	question	questions	questions	2017-01-11,signed		0
+roles-2	dev	P8-016	103521	261	True	joint_author*	joint_author*	2	2	2	2	authors:von_line	de	de	de	de	motion	motion	mandate	mandate	2019-06-05,lodged;2019-06-05,signed	2019-06-05,lodged	1
+roles-2	held_out	P8-017	222146	VD	False	first_signatory	co_signatory+first_signatory	1	2	1	1	authors:heading;authors:signatures	fr	fr	fr	fr	postulate	postulate	examine_report	examine_report	2010-10-05,signed;2010-10-12,later_step		0
+roles-2	held_out	P8-018	176505	VS	True	sole_author+spokesperson*	sole_author+spokesperson*	4	4	4	4	authors:durch	de	de	de	de	motion	motion	mandate	mandate	2008-05-07,signed		0
+roles-2	dev	P8-019	239465	FR	True	joint_author*	joint_author*	2	2	2	2	authors:numbered_heading	fr	fr	fr	fr	postulate	postulate	questions	examine_report	2014-01-21,lodged;2014-01-24,later_step	2014-01-21,lodged;2014-01-24,later_step	2
+roles-2	held_out	P8-020	224194	VD	True	first_signatory	first_signatory	1	1	1	1	authors:answer_et_consorts	fr	fr	fr	fr	interpellation	interpellation	questions	questions	2018-01-30,signed		0
+roles-2	dev	P8-021	105134	261	True	joint_author*	joint_author*	3	3	3	3	authors:von_line	de	de	de	de	question	none	questions		2024-09-18,lodged;2024-09-18,signed	2024-09-18,lodged	1
+roles-2	held_out	P8-022	176919	VS	True	joint_author*	joint_author*	4	4	4	4	authors:label:urheber_line	de	de	de	de	postulate	postulate	examine_report	examine_report	2020-11-10,signed	2020-11-10,signed	1
+roles-2	dev	P8-023	255185	5002	False	sole_author	none	1	0	0	0		it	it	it	it	motion	none	unclear		2020-05-16,later_step	2020-05-16,signed	0
+roles-2	dev	P8-024	237180	FR	True	joint_author*	joint_author*	2	2	2	2	authors:numbered_heading	fr	fr	fr	fr	motion	motion	mandate	mandate	2014-12-16,later_step;2014-12-16,lodged;2014-12-23,later_step	2014-12-16,lodged;2014-12-23,later_step	2
+roles-2	dev	P8-025	328895	6643	True	joint_author*	joint_author*	4	4	4	4	authors:signatures	fr	fr	fr	fr	motion	motion	mandate	mandate	2020-08-23,signed;2020-11-24,later_step	2020-08-23,signed	1
+roles-2	dev	P8-026	334570	GR	True	co_signatory*+first_signatory	co_signatory*+first_signatory	26	26	26	26	authors:heading;authors:signatures	de	de	it	it	question	question	questions	questions	2026-06-17,signed	2026-06-17,signed	1
+roles-2	dev	P8-027	120530	5586	True	sole_author	sole_author	1	1	1	1	authors:signatures	fr	fr	fr	fr	postulate	none	examine_report		2024-11-19,lodged;2024-11-19,signed;2025-01-14,later_step	2024-11-19,signed	1
+roles-2	dev	P8-028	120270	5586	True	co_signatory*+first_signatory	co_signatory*+first_signatory	3	3	3	3	authors:signatures	fr	fr	fr	fr	interpellation	interpellation	questions	questions	2024-01-12,signed;2025-02-04,lodged	2024-01-12,signed	1
+roles-2	held_out	P8-029	223862	VD	True	sole_author	sole_author	1	1	1	1	authors:answer_heading	fr	fr	fr	fr	interpellation	interpellation	questions	questions			0
+roles-2	held_out	P8-030	172861	TG	False	joint_author*	joint_author*	7	6	6	6	authors:address_block	de	de	de	de	motion	motion	mandate	mandate	2016-11-23,signed;2017-06-14,later_step		0
+roles-2	dev	P8-031	239969	FR	True	sole_author	sole_author	1	1	1	1	authors:heading	de	de	de	de	question	question	questions	questions	2015-01-29,signed	2015-01-29,lodged	0
+roles-2	dev	P8-032	236883	FR	True	joint_author*	joint_author*	2	2	2	2	authors:numbered_heading	fr	fr	fr	fr	postulate	postulate	examine_report	examine_report	2016-01-06,later_step;2016-01-06,lodged;2016-01-13,later_step	2016-01-06,lodged;2016-01-13,later_step	2
+roles-2	dev	P8-033	255253	5002	False	sole_author	none	1	0	0	0		it	it	it	it	motion	motion	direct_decision	mandate	2024-07-05,lodged;2024-11-21,later_step		0
+roles-2	held_out	P8-034	224358	VD	True	first_signatory	first_signatory	1	1	1	1	authors:answer_et_consorts	fr	fr	fr	fr	interpellation	interpellation	questions	questions			0
+roles-2	dev	P8-035	254651	5002	False	sole_author	none	1	0	0	0		it	it	it	it	interpellation	none	questions		2023-11-17,signed;2023-11-21,lodged	2023-11-17,signed	1
+roles-2	held_out	P8-036	118481	5192	False	co_signatory*+first_signatory	none	11	0	0	0		it	it	it	it	motion	none	mandate		2018-10-08,signed;2023-02-15,later_step	2018-10-08,signed	1
+roles-2	dev	P8-037	334567	GR	True	co_signatory*+first_signatory	co_signatory*+first_signatory	25	25	25	25	authors:heading;authors:signatures	de	de	it	it	question	question	questions	questions	2026-06-17,signed	2026-06-17,signed	1
+roles-2	held_out	P8-038	87634	VS	True	sole_author+spokesperson	sole_author+spokesperson	2	2	2	2	authors:durch	fr	fr	de	de	interpellation	interpellation	questions	questions	2023-06-16,signed	2023-06-16,signed	1
+roles-2	held_out	P8-039	22897	351	True	co_signatory*+first_signatory*	co_signatory*+first_signatory*	6	6	6	6	authors:label:erstunterzeichner;authors:label:mitunterzeichnende	de	de	de	de	postulate	postulate	examine_report	examine_report	2024-02-15,signed	2024-02-15,signed	1
+roles-2	held_out	P8-040	26748	5192	False	co_signatory*+first_signatory+sole_author	none	8	0	0	0		it	it	it	it	question	question	questions	questions	2020-12-07,signed	2020-12-07,signed	1
+roles-2	dev	P8-041	29378	5586	False	co_signatory*+first_signatory	co_signatory+first_signatory	3	2	2	2	authors:signatures	fr	fr	fr	fr	interpellation	interpellation	questions	questions	2023-08-28,signed;2023-08-29,lodged	2023-08-28,signed	1
+roles-2	dev	P8-042	105270	261	True	joint_author*	joint_author*	2	2	2	2	authors:von_line	de	de	de	de	motion	motion	mandate	mandate	2025-01-29,lodged;2025-01-29,signed	2025-01-29,lodged	1
+roles-2	dev	P8-043	255239	5002	True	first_signatory	first_signatory	1	1	1	1	authors:answer_et_consorts	it	it	it	it	motion	none	mandate				0
+roles-2	held_out	P8-044	22446	351	False	first_signatory*+other*	first_signatory*	4	2	2	2	authors:label:erstunterzeichner	de	de	de	de	motion	motion	mandate	mandate	2020-10-19,signed	2020-10-19,signed	1
+roles-2	dev	P8-045	255067	5002	False	sole_author	none	1	0	0	0		it	it	it	it	question	none	questions				0
+roles-2	dev	P8-046	250830	261	True	sole_author	sole_author	1	1	1	1	authors:von_line	de	de	de	de	motion	motion	mandate	mandate	2025-08-27,lodged;2025-08-27,signed	2025-08-27,lodged	1
+roles-2	held_out	P8-047	26726	5192	False	co_signatory*+first_signatory	none	8	0	0	0		it	it	it	it	question	question	questions	questions	2020-08-24,signed	2020-08-24,signed	1
+roles-2	dev	P8-048	120362	5586	False	co_signatory*+first_signatory	co_signatory+first_signatory	3	2	2	2	authors:label:initiant	fr	fr	fr	fr	postulate	postulate	examine_report	examine_report	2020-10-28,lodged;2020-10-28,signed;2022-10-11,later_step	2020-10-28,signed	1
+roles-2	dev	P8-049	14086	261	True	sole_author	sole_author	1	1	1	1	authors:von_line	de	de	de	de	question	question	questions	questions	2023-09-13,lodged;2023-09-13,signed	2023-09-13,lodged	1
+roles-2	held_out	P8-050	21842	351	False	co_signatory+first_signatory*+sole_author	co_signatory+first_signatory*	4	3	3	3	authors:label:erstunterzeichner;authors:label:mitunterzeichnende	de	de	de	de	motion	motion	mandate	mandate	2017-04-06,signed;2024-01-18,later_step	2026-01-14,signed	0
+roles-2	dev	P8-051	250262	GR	True	co_signatory*+first_signatory+sole_author	co_signatory*+first_signatory+sole_author	23	23	23	23	authors:heading;authors:heading:primo_firmatario;authors:signatures	it	it	it	it	other	other	mandate	mandate	2025-08-30,signed	2025-08-30,signed	1
+roles-2	dev	P8-052	232317	FR	True	first_signatory	first_signatory	1	1	1	1	authors:answer_et_consorts	fr	fr	fr	fr	motion	motion	examine_report	mandate	2017-03-23,later_step;2017-03-23,lodged;2018-03-22,later_step	2019-07-04,signed	0
+roles-2	held_out	P8-053	173156	TG	False	joint_author*	none	4	0	0	0		de	de	de	de	motion	other	mandate	other	2021-10-04,later_step		0
+roles-2	held_out	P8-054	118138	5192	False	sole_author+spokesperson	sole_author	2	1	0	0	authors:heading_name_lines	it	it	it	it	motion	motion	examine_report	mandate	2005-06-03,lodged;2006-01-30,later_step	2005-06-03,lodged	1
+roles-2	held_out	P8-055	47091	TG	False	joint_author*	none	3	0	0	0		de	de	de	de	motion	none	mandate		2011-11-09,later_step		0
+roles-2	held_out	P8-056	224702	VD	True	first_signatory	first_signatory	1	1	1	1	authors:label:vd_auteur	fr	fr	fr	fr	interpellation	interpellation	questions	questions			0
+roles-2	held_out	P8-057	27625	5192	True	joint_author*	joint_author*	10	10	10	10	authors:signatures	it	it	it	it	motion	motion	direct_decision	mandate	2018-12-21,signed;2022-10-25,later_step;2023-01-10,later_step	2018-12-21,signed	1
+roles-2	held_out	P8-058	49069	TG	False	co_signatory*+first_signatory	joint_author*	5	2	0	2	authors:address_block	de	de	de	de	motion	motion	mandate	mandate	2024-06-17,signed		0
+roles-2	dev	P8-059	120392	5586	False	first_signatory+sole_author	sole_author	2	1	0	0	authors:answer_heading	fr	fr	fr	fr	postulate	postulate	mandate	examine_report			0
+roles-2	held_out	P8-060	113852	351	True	co_signatory*+first_signatory*	co_signatory*+first_signatory*	27	27	27	27	authors:label:erstunterzeichner;authors:label:mitunterzeichnende	de	de	de	de	motion	motion	mandate	mandate	2024-02-15,signed	2024-02-15,signed	1
+roles-2	dev	P8-061	288670	GR	True	sole_author	sole_author	1	1	1	1	authors:heading	rm	rm	it	it	other	other	unclear	mandate		2026-02-03,lodged	0
+roles-2	dev	P8-062	120388	5586	True	first_signatory	first_signatory	1	1	1	1	authors:et_consorts	fr	fr	fr	fr	postulate	postulate	examine_report	examine_report	2021-02-09,signed	2021-02-09,signed	1
+roles-2	dev	P8-063	247751	GR	True	co_signatory*+first_signatory	co_signatory*+first_signatory	46	46	46	46	authors:heading;authors:signatures	rm	rm	it	it	other	other	mandate	mandate	2025-06-13,signed	2025-06-13,signed	1
+roles-2	dev	P8-064	328981	6643	True	joint_author*	joint_author*	5	5	5	5	authors:signatures	fr	fr	fr	fr	motion	motion	mandate	mandate	2022-01-23,signed	2022-01-23,signed	1
+roles-2	dev	P8-065	255216	5002	False	sole_author+spokesperson	none	2	0	0	0		it	it	it	it	motion	none	direct_decision		2018-05-29,later_step;2018-07-10,later_step;2018-07-24,later_step;2019-03-12,later_step;2019-08-06,later_step	2019-08-06,signed	0
+roles-2	held_out	P8-066	87914	VS	True	sole_author+spokesperson	sole_author+spokesperson	2	2	2	2	authors:durch	de	de	de	de	interpellation	interpellation	questions	questions	2024-09-12,signed	2024-09-12,signed	1

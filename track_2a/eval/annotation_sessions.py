@@ -41,7 +41,8 @@ TRANSCRIPTS = Path(os.environ.get(
     "GP_TRANSCRIPTS", Path.home() / ".claude/projects/-Users-mi11ion-Desktop-hackapertus-FINAL"))
 LEDGER = Path.home() / ".config/hackapertus/ledger.jsonl"
 OUT = RESULTS / "eval" / "annotation_sessions.json"
-LABEL = ("POST HOC (11 Oct 2026, round 6): session times from the annotator agents' own transcripts and GitHub's server "
+LABEL = ("POST HOC (11 Oct 2026, round 6; P7 round 8; P8 and its Qwen check round 13): session times from the annotator "
+         "agents' own transcripts and GitHub's server "
          "times of the commits; no registered decision depends on this file")
 SLACK_S = 5
 
@@ -67,17 +68,22 @@ SETS = [
          note="the P7 dev labels chose theta_A, the is_answer variant and theta_B (PREREG8); LOCK8 (73954c3) came after them"),
     dict(set="P7", work="p7test", commits=dict(lock="73954c3", draw="6e4420c", labels="432cd74"),
          note="'draw' is 6e4420c: every arm run on the 478-row test frame, decisions and key hashes recorded, packets drawn"),
+    # round 13 (J2): P8, the meaning test the schema headline rests on
+    dict(set="P8", work="p8", commits=dict(lock="b8d1a19", draw="4d8a228", labels="c0a2f91"),
+         note="LOCK9 b8d1a19, draw 4d8a228 (66 affairs, key and packet hashes), labels c0a2f91 (A1, A2 on 66, A3 on 7)"),
 ]
 QWEN = [  # scripted checks through the gateway (no agent session): ledger tag -> set, commit that added the labels
     dict(set="Qwen check P1 + P2 (post hoc)", tag="2a-qwen-audit", commit="15dd077"),
     dict(set="Qwen check P5", tag="2a-p5-qwen", commit="b6aaf7a"),
     dict(set="Qwen check P6", tag="2a-p6-qwen", commit="cc44e27"),
     dict(set="Qwen check P7", tag="2a-p7-qwen", commit="db3f3ed"),
+    dict(set="Qwen check P8", tag="2a-p8-qwen", commit="363c548"),  # round 13 (J2)
 ]
 ROLE_RX = re.compile(r"You are (tie-break annotator A3|annotator A[12]|blind annotator A[12])\b")
 OUT_RX = re.compile(r"\.work/([\w./-]+?)/ann/(A[123])/")
 OUT_RX_JSONL = re.compile(r"\.work/(p7\w+)/ann/((A[123])(?:_part\d)?)\.jsonl")  # P7: one JSONL file per session
-ID_RX = re.compile(r"\b(\d{4}-\d{2}-\d{2}|\d{3,7})\b")
+ID_RX = re.compile(r"\b(P8-\d{3}|\d{4}-\d{2}-\d{2}|\d{3,7})\b")  # P8 packets are P8-001 ... P8-066
+RANGE_RX = re.compile(r"\bP8-(\d{3}) to P8-(\d{3})\b")
 
 
 def _utc(s: str) -> dt.datetime:
@@ -117,7 +123,10 @@ def sessions() -> list[dict]:
             work, role = o.group(1), o.group(2)
             ann = WORK / work / "ann" / role
             on_disk = {p.stem: p for p in ann.glob("*.json")} if ann.exists() else {}
-            assigned = sorted(set(ID_RX.findall(prompt)) & set(on_disk))
+            ids = set(ID_RX.findall(prompt))
+            for a, b in RANGE_RX.findall(prompt):  # P8 prompts assign a range: "label ONLY P8-001 to P8-033"
+                ids |= {f"P8-{i:03d}" for i in range(int(a), int(b) + 1)}
+            assigned = sorted(ids & set(on_disk))
             mt = {k: dt.datetime.fromtimestamp(on_disk[k].stat().st_mtime, dt.timezone.utc) for k in assigned}
         else:
             work, role = oj.group(1), oj.group(3)
@@ -201,7 +210,18 @@ def ledger(tag: str) -> dict | None:
                 clock="author's machine (gateway ledger), UTC")
 
 
-def main() -> dict:
+def _overall(sets: list[dict]) -> dict:
+    return dict(
+        n_sessions=sum(len(s["sessions"]) for s in sets),
+        n_sets_with_sessions=sum(1 for s in sets if s["sessions"]),
+        label_files_total=sum(s["summary"]["label_files_total"] for s in sets if s["sessions"]),
+        label_files_mtime_in_session=sum(s["summary"]["label_files_mtime_in_session"] for s in sets if s["sessions"]),
+        all_order_checks_hold=all(v for s in sets for k, v in (s.get("order_checks") or {}).items()
+                                  if not k.startswith("seconds")),
+    )
+
+
+def main(out_path: Path | None = None) -> dict:
     sess = sessions()
     shas = {c for s in SETS for c in s["commits"].values()} | {q["commit"] for q in QWEN}
     ct = commit_times(shas)
@@ -263,29 +283,25 @@ def main() -> dict:
                                        "prompts; they stay on the author's machine. Timestamps are written by the "
                                        "Claude Code client (author's clock), GitHub times by GitHub's servers"),
         ),
-        overall=dict(
-            n_sessions=len(sess), n_sets_with_sessions=sum(1 for s in sets if s["sessions"]),
-            label_files_total=sum(s["summary"]["label_files_total"] for s in sets if s["sessions"]),
-            label_files_mtime_in_session=sum(s["summary"]["label_files_mtime_in_session"] for s in sets if s["sessions"]),
-            all_order_checks_hold=all(v for s in sets for k, v in (s.get("order_checks") or {}).items()
-                                      if not k.startswith("seconds")),
-        ),
+        # P1-P7 (the scope of rounds 6-8; P8 is added below in overall_with_p8, so the round-8 figures stay traceable)
+        overall=_overall([s for s in sets if s["set"] != "P8"]),
+        overall_with_p8=_overall(sets),
         # the round-6 scope (P1-P6, before P7 existed), kept so that the round-6 figures stay traceable
         overall_p1_p6=dict(
-            n_sessions=sum(len(s["sessions"]) for s in sets if not s["set"].startswith("P7")),
-            n_sets_with_sessions=sum(1 for s in sets if s["sessions"] and not s["set"].startswith("P7")),
+            n_sessions=sum(len(s["sessions"]) for s in sets if not s["set"].startswith(("P7", "P8"))),
+            n_sets_with_sessions=sum(1 for s in sets if s["sessions"] and not s["set"].startswith(("P7", "P8"))),
             label_files_total=sum(s["summary"]["label_files_total"] for s in sets
-                                  if s["sessions"] and not s["set"].startswith("P7")),
+                                  if s["sessions"] and not s["set"].startswith(("P7", "P8"))),
             label_files_mtime_in_session=sum(s["summary"]["label_files_mtime_in_session"] for s in sets
-                                             if s["sessions"] and not s["set"].startswith("P7")),
+                                             if s["sessions"] and not s["set"].startswith(("P7", "P8"))),
         ),
     )
-    OUT.write_text(json.dumps(out, indent=1, ensure_ascii=False))
+    (out_path or OUT).write_text(json.dumps(out, indent=1, ensure_ascii=False))
     return out
 
 
 if __name__ == "__main__":
-    o = main()
+    o = main(Path(sys.argv[1]) if len(sys.argv) > 1 else None)
     for s in o["sets"]:
         print(s["set"], json.dumps(s.get("summary", {}).get("sessions_per_role")), s.get("summary", {}).get(
             "first_session_start"), s.get("summary", {}).get("last_session_end"), json.dumps(s.get("order_checks")))

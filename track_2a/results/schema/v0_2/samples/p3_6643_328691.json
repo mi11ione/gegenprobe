@@ -1,0 +1,240 @@
+{
+ "actors": [
+  {
+   "kind": "person",
+   "name": {
+    "basis": "extracted",
+    "char_end": 2918,
+    "char_start": 2907,
+    "doc": "opd:879274",
+    "kind": "value",
+    "page": 1,
+    "quote_sha256": "5c980654f5d78ab299408d0a93972df0b09c83dddac7499c945f4c8f883f2178",
+    "route": "rule",
+    "rule": "roles-2:authors:signatures",
+    "value": "Howard NOBS"
+   },
+   "role": "sole_author"
+  },
+  {
+   "kind": "executive",
+   "name": {
+    "basis": "inferred",
+    "char_end": 1493,
+    "char_start": 1469,
+    "doc": "opd:879274",
+    "kind": "value",
+    "page": 1,
+    "quote": "au Conseil administratif",
+    "route": "rule",
+    "rule": "addressed_executive",
+    "value": "au Conseil administratif"
+   },
+   "role": "addressed_body"
+  }
+ ],
+ "answer_link_status": "attached",
+ "body": {
+  "key": "6643",
+  "languages": [
+   "fr"
+  ],
+  "level": "communal"
+ },
+ "dates": [
+  {
+   "date": {
+    "basis": "metadata",
+    "kind": "value",
+    "route": "metadata",
+    "source": "opd:events/905651",
+    "value": "2024-03-12"
+   },
+   "role": "submitted"
+  },
+  {
+   "date": {
+    "basis": "metadata",
+    "kind": "value",
+    "route": "metadata",
+    "source": "opd:events/922573",
+    "value": "2024-06-10"
+   },
+   "label": "OPD answer event",
+   "role": "answered"
+  },
+  {
+   "date": {
+    "basis": "normalised",
+    "char_end": 2969,
+    "char_start": 2954,
+    "doc": "opd:879274",
+    "kind": "value",
+    "page": 1,
+    "quote_sha256": "9f8559c8c742348eab781f58f799b53dba5fb2795b24ee243cec31660f482a46",
+    "role": "signed",
+    "route": "rule",
+    "rule": "roles-2:date:place_date_line",
+    "value": "2024-02-27"
+   },
+   "label": "printed: place_date_line",
+   "role": "signed"
+  }
+ ],
+ "decision": {
+  "evidence": "no decision event",
+  "kind": "null",
+  "null_reason": "not_in_corpus",
+  "route": "metadata"
+ },
+ "documents": [
+  {
+   "doc_id": "opd:879274",
+   "extractor": "pdftotext-26.02.0",
+   "image_only": false,
+   "language": "fr",
+   "language_of_text": [
+    "fr"
+   ],
+   "language_of_text_method": "stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15)",
+   "language_tag": "fr",
+   "n_pages": 1,
+   "parts": [],
+   "role": "question",
+   "source": "opd",
+   "url": "https://www.vernier.ch/sites/default/files/council-object/2024-03/QE%20337%20Texte.pdf"
+  },
+  {
+   "doc_id": "opd:895359",
+   "extractor": "pdftotext-26.02.0",
+   "image_only": false,
+   "language": "fr",
+   "language_of_text": [
+    "fr"
+   ],
+   "language_of_text_method": "stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15)",
+   "language_tag": "fr",
+   "n_pages": 4,
+   "parts": [],
+   "role": "answer",
+   "source": "opd",
+   "url": "https://www.vernier.ch/sites/default/files/council-object/2024-06/R%C3%A9ponse%20CA%20QE%20337.pdf"
+  }
+ ],
+ "empty_reasons": {
+  "documents.0.parts": {
+   "evidence": "this converter version does not detect document parts",
+   "reason": "not_extracted",
+   "route": "rule"
+  },
+  "documents.1.parts": {
+   "evidence": "this converter version does not detect document parts",
+   "reason": "not_extracted",
+   "route": "rule"
+  },
+  "qa.0.items": {
+   "evidence": "this record's path does not pair numbered questions with answers",
+   "reason": "not_extracted",
+   "route": "rule"
+  },
+  "related_affairs": {
+   "evidence": "the converter's related-affair rule found no cited affair number in the documents",
+   "reason": "none_printed",
+   "route": "rule"
+  }
+ },
+ "extraction": {
+  "builds": [],
+  "converter_version": "gegenprobe-0.1.0+affair",
+  "created": "2026-10-10T08:48:54.780283Z",
+  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it); v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 1 printed authors (1 earlier entries for the same persons replaced), 1 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15)",
+  "schema_version": "0.2.0"
+ },
+ "government_recommendation": {
+  "doc": "opd:895359",
+  "evidence": "no_anchor",
+  "kind": "null",
+  "null_reason": "present_unanchored",
+  "route": "rule"
+ },
+ "languages": [
+  "fr"
+ ],
+ "procedural_state": {
+  "basis": "metadata",
+  "kind": "value",
+  "route": "metadata",
+  "source": "opd:events/922573",
+  "value": "answered"
+ },
+ "qa": [
+  {
+   "answer_date": {
+    "basis": "normalised",
+    "char_end": 1202,
+    "char_start": 1190,
+    "doc": "opd:895359",
+    "kind": "value",
+    "page": 4,
+    "quote": "10 juin 2024",
+    "route": "rule",
+    "rule": "opd_event_date_in_document",
+    "value": "2024-06-10"
+   },
+   "answer_doc": "opd:895359",
+   "answer_identifier": {
+    "evidence": "decision number carried on answer_date.decision_number",
+    "kind": "null",
+    "null_reason": "present_unanchored",
+    "route": "rule"
+   },
+   "answering_body": {
+    "evidence": "the answering body is not extracted by converter gegenprobe-0.1.0+affair",
+    "kind": "null",
+    "null_reason": "not_extracted",
+    "route": "rule"
+   },
+   "items": [],
+   "link_status": "attached",
+   "question_doc": "opd:879274"
+  }
+ ],
+ "ref": {
+  "body_key": "6643",
+  "number": "QE 337 - 24.03",
+  "opd_id": 328691,
+  "virtual": false
+ },
+ "related_affairs": [],
+ "schema_version": "0.2.0",
+ "title": {
+  "fr": "Contrat de quartier Aïre-Le Lignon"
+ },
+ "type": {
+  "harmonised": "unknown",
+  "instrument_function": {
+   "basis": "inferred",
+   "char_end": 50,
+   "char_start": 35,
+   "doc": "opd:879274",
+   "kind": "value",
+   "page": 1,
+   "quote_sha256": "381a9aa3d4656e6a0cbfc1b5e2ee40dfbdf88564ed19b725944160a262745129",
+   "route": "rule",
+   "rule": "roles-2:instrument_function:default:question",
+   "value": "questions"
+  },
+  "instrument_named": {
+   "basis": "normalised",
+   "char_end": 50,
+   "char_start": 35,
+   "doc": "opd:879274",
+   "kind": "value",
+   "page": 1,
+   "quote_sha256": "381a9aa3d4656e6a0cbfc1b5e2ee40dfbdf88564ed19b725944160a262745129",
+   "route": "rule",
+   "rule": "roles-2:instrument:heading",
+   "value": "question"
+  }
+ }
+}

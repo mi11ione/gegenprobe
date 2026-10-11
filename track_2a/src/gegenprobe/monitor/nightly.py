@@ -78,8 +78,10 @@ from pathlib import Path
 from .. import hardening, net
 from gegenprobe.compliance import fetchguard
 from ..paths import DOCS_META, OPD_RAW, RESULTS, ROOT, WORK
+from .. import ocrguard
 
 fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
+ocrguard.ensure()  # OCR fails loudly (typed ocr_failed, never cached empty pages): also without sitecustomize
 
 INDEX = "https://files.openparldata.ch/exports/index.json"
 NIGHT = WORK / "nightly"

@@ -45,28 +45,61 @@
    "counts": {
     "actor_roles": {
      "addressed_body": 4,
-     "co_signatory": 16,
-     "submitter": 29
+     "co_signatory": 12,
+     "first_signatory": 3,
+     "joint_author": 22,
+     "sole_author": 14,
+     "spokesperson": 5,
+     "submitter": 5
     },
     "date_roles": {
      "answered": 23,
+     "lodged": 5,
+     "signed": 8,
      "submitted": 29
+    },
+    "empty_reasons": {
+     "none_printed": 23,
+     "not_extracted": 87
     },
     "null_reasons": {
      "not_applicable": 25,
      "not_extracted": 29,
      "not_in_corpus": 11,
-     "not_in_document": 2,
+     "not_in_document": 8,
      "present_unanchored": 48
     },
     "qa_items": {
      "none": 29
     },
-    "routes": {
-     "metadata": 157,
-     "rule": 127
+    "records_carrying": {
+     "actor_role:co_signatory": 1,
+     "actor_role:first_signatory": 3,
+     "actor_role:joint_author": 8,
+     "actor_role:sole_author": 14,
+     "actor_role:spokesperson": 2,
+     "empty_reasons_typed": 29,
+     "instrument_function": 23,
+     "instrument_named": 23,
+     "language_of_text_all_documents": 29,
+     "printed_author_with_role": 25,
+     "printed_date:lodged": 5,
+     "printed_date:signed": 8
     },
-    "v02_additions_used": {}
+    "routes": {
+     "metadata": 119,
+     "rule": 246
+    },
+    "v02_additions_used": {
+     "actor_role:joint_author": 22,
+     "actor_role:sole_author": 14,
+     "actor_role:spokesperson": 5,
+     "date_role:lodged": 5,
+     "date_role:signed": 8,
+     "instrument_function": 23,
+     "language_of_text": 29,
+     "quote_sha256": 113
+    }
    }
   },
   "p3b": {
@@ -78,27 +111,61 @@
    "counts": {
     "actor_roles": {
      "addressed_body": 2,
-     "co_signatory": 175,
-     "submitter": 36
+     "co_signatory": 160,
+     "first_signatory": 5,
+     "joint_author": 11,
+     "sole_author": 23,
+     "spokesperson": 1,
+     "submitter": 10
     },
     "date_roles": {
      "answered": 19,
+     "lodged": 8,
+     "signed": 21,
      "submitted": 36
+    },
+    "empty_reasons": {
+     "none_printed": 35,
+     "not_extracted": 108
     },
     "null_reasons": {
      "not_applicable": 18,
      "not_extracted": 36,
      "not_in_corpus": 23,
+     "not_in_document": 9,
      "present_unanchored": 74
     },
     "qa_items": {
      "none": 36
     },
-    "routes": {
-     "metadata": 341,
-     "rule": 144
+    "records_carrying": {
+     "actor_role:co_signatory": 5,
+     "actor_role:first_signatory": 5,
+     "actor_role:joint_author": 3,
+     "actor_role:sole_author": 23,
+     "actor_role:spokesperson": 1,
+     "empty_reasons_typed": 36,
+     "instrument_function": 27,
+     "instrument_named": 27,
+     "language_of_text_all_documents": 36,
+     "printed_author_with_role": 29,
+     "printed_date:lodged": 8,
+     "printed_date:signed": 21
     },
-    "v02_additions_used": {}
+    "routes": {
+     "metadata": 169,
+     "rule": 407
+    },
+    "v02_additions_used": {
+     "actor_role:joint_author": 11,
+     "actor_role:sole_author": 23,
+     "actor_role:spokesperson": 1,
+     "date_role:lodged": 8,
+     "date_role:signed": 21,
+     "instrument_function": 27,
+     "language_of_text": 36,
+     "quote_sha256": 254
+    }
    }
   },
   "p5": {
@@ -109,25 +176,58 @@
    "n_parliaments": 10,
    "counts": {
     "actor_roles": {
-     "co_signatory": 103,
-     "submitter": 26
+     "co_signatory": 151,
+     "first_signatory": 5,
+     "joint_author": 11,
+     "sole_author": 15,
+     "spokesperson": 18,
+     "submitter": 11
     },
-    "date_roles": {},
+    "date_roles": {
+     "lodged": 4,
+     "signed": 23
+    },
+    "empty_reasons": {
+     "not_extracted": 160,
+     "not_in_corpus": 42,
+     "present_unanchored": 7
+    },
     "null_reasons": {
      "not_extracted": 200,
-     "not_in_document": 10,
+     "not_in_document": 22,
      "present_unanchored": 31
     },
     "qa_items": {
      "none": 7,
      "with_items": 33
     },
+    "records_carrying": {
+     "actor_role:co_signatory": 6,
+     "actor_role:first_signatory": 5,
+     "actor_role:joint_author": 3,
+     "actor_role:sole_author": 15,
+     "actor_role:spokesperson": 6,
+     "empty_reasons_typed": 40,
+     "instrument_function": 28,
+     "instrument_named": 28,
+     "language_of_text_all_documents": 40,
+     "printed_author_with_role": 21,
+     "printed_date:lodged": 4,
+     "printed_date:signed": 23
+    },
     "routes": {
      "metadata": 80,
-     "rule": 639
+     "rule": 816
     },
     "v02_additions_used": {
-     "quote_sha256": 283
+     "actor_role:joint_author": 11,
+     "actor_role:sole_author": 15,
+     "actor_role:spokesperson": 18,
+     "date_role:lodged": 4,
+     "date_role:signed": 23,
+     "instrument_function": 28,
+     "language_of_text": 40,
+     "quote_sha256": 557
     }
    }
   },
@@ -154,6 +254,9 @@
      "signed": 46,
      "submitted": 66
     },
+    "empty_reasons": {
+     "not_extracted": 330
+    },
     "null_reasons": {
      "not_applicable": 29,
      "not_extracted": 132,
@@ -162,6 +265,24 @@
     },
     "qa_items": {
      "none": 66
+    },
+    "records_carrying": {
+     "actor_role:co_signatory": 16,
+     "actor_role:first_signatory": 26,
+     "actor_role:joint_author": 19,
+     "actor_role:other": 1,
+     "actor_role:sole_author": 27,
+     "actor_role:spokesperson": 8,
+     "empty_reasons_typed": 66,
+     "instrument_function": 64,
+     "instrument_named": 66,
+     "language_of_text_all_documents": 66,
+     "printed_author_with_role": 66,
+     "printed_date:answered": 62,
+     "printed_date:later_step": 21,
+     "printed_date:lodged": 18,
+     "printed_date:other": 19,
+     "printed_date:signed": 46
     },
     "routes": {
      "annotator": 865,
@@ -174,7 +295,7 @@
      "date_role:later_step": 30,
      "date_role:lodged": 18,
      "date_role:signed": 46,
-     "instrument_function": 66,
+     "instrument_function": 64,
      "language_of_text": 66,
      "quote_sha256": 527,
      "recommendation_stage": 36
@@ -200,17 +321,17 @@
    "quote_sha256"
   ],
   "used_in_converter_records": [
-   "quote_sha256"
-  ],
-  "used_only_in_p8": [
    "actor_role:joint_author",
    "actor_role:sole_author",
    "actor_role:spokesperson",
-   "date_role:later_step",
    "date_role:lodged",
    "date_role:signed",
    "instrument_function",
    "language_of_text",
+   "quote_sha256"
+  ],
+  "used_only_in_p8": [
+   "date_role:later_step",
    "recommendation_stage"
   ],
   "used_nowhere": [
@@ -222,7 +343,13 @@
  },
  "samples": [
   "results/schema/v0_2/samples/p3_BE_39369.json",
-  "results/schema/v0_2/samples/p5_VS_295461.json",
-  "results/schema/v0_2/samples/p5_GR_288671.json"
- ]
+  "results/schema/v0_2/samples/p3_6643_328691.json",
+  "results/schema/v0_2/samples/p5_5192_28156.json"
+ ],
+ "sample_rule": "three converter records, chosen by a fixed rule: a German member's text from the product records (P3/P3b), then a French and an Italian member's text from all three sets (P3, P3b, P5); within each, the record with the most v0.2 role fields filled from the documents (role_score: printed authors with a role, instrument function, printed submission date, language of every text, a per-question answer), then one where the language of a text differs from the source's tag (what language_of_text adds), then set order (p3, p3b, p5) and the lowest OPD id",
+ "converter_roles": {
+  "rules": "src/gegenprobe/convert/roles.py",
+  "records": "results/schema/v0_2/converter_roles_records.jsonl (gegenprobe.schema.v0_2_roles)",
+  "score": "results/schema/v0_2/converter_roles.json (eval.converter_roles, exploratory)"
+ }
 }

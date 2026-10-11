@@ -7,9 +7,9 @@
       In `review` mode the Apertus closed-set pointer adds a suggestion for what the rules left open, flagged
       needs_review; it is never written into the field. A document that cannot be fetched or read becomes a typed
       failure row (robots_disallowed, robots_unreachable, http_error, timeout, network_error, not_a_pdf, sha_mismatch,
-      file_not_found, text_failed, too_large, text_timeout). Exit codes: 0 all ok; 2 a failure row (single file) or any
-      failure row in a batch (unless --allow-failures), or a malformed --anchors file; 3 review mode refused because the
-      served model or fingerprint is not the build θ was fitted on (--allow-build-mismatch overrides, marking
+      file_not_found, text_failed, too_large, text_timeout, ocr_failed). Exit codes: 0 all ok; 2 a failure row (single
+      file) or any failure row in a batch (unless --allow-failures), or a malformed --anchors file; 3 review mode refused
+      because the served model or fingerprint is not the build θ was fitted on (--allow-build-mismatch overrides, marking
       suggestions). A --body outside data/convert/rules_coverage.json prints a warning and marks the row needs_review.
       --anchors FILE adds your own per-body regex anchors after the frozen rules (--anchors-review keeps their values
       flagged); --explain lists every rule/anchor tried and the cache path.
@@ -25,6 +25,7 @@ import argparse
 import json
 import sys
 
+from . import ocrguard
 from .convert import affair_types
 from .convert.batch import guess_lang  # noqa: F401  (re-exported: tests and older callers import it from here)
 
@@ -98,6 +99,7 @@ def _convert(a) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
+    ocrguard.ensure()  # OCR fails loudly (typed ocr_failed row), also in an installed checkout without sitecustomize
     ap = argparse.ArgumentParser(prog="gegenprobe")
     sub = ap.add_subparsers(dest="cmd", required=True)
     c = sub.add_parser("convert", help="convert PDFs (path or URL, or a batch file) into rows with provenance",

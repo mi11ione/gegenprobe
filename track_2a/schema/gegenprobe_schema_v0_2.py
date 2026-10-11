@@ -20,6 +20,12 @@ What v0.2 adds to v0.1 (every v0.1 field is kept, so a v0.1 record upgrades loss
   * Provenance: a span may be pinned by `quote_sha256` instead of a verbatim `quote` (the value stays checkable against the
     document without redistributing its text); route `annotator` for values labelled by an annotator (gold labels), located
     to a document and page; null reason `not_extracted` for a field the producer did not attempt.
+  * Typed reasons for empty lists (`Affair.empty_reasons`): every list field of the record that is empty (EMPTY_FIELDS:
+    languages, actors, dates, qa, related_affairs, documents, title, body.languages and, per document, language_of_text
+    and parts, per Q/A pair, items) carries a reason keyed by its path ("documents.1.language_of_text"), so an empty list
+    is never silent; a reason for a list that is not empty is an error. `Document.language_of_text_method` names how the
+    language of the text was determined (a detector, or `annotator`), apart from the source's `language_tag`.
+    `extraction.builds` is not covered: it lists model builds consulted, and [] means no model was consulted.
 """
 from __future__ import annotations
 
@@ -51,6 +57,10 @@ DateRole = Literal[get_args(_v01.DateRole) + ("signed", "lodged", "received", "a
 InstrumentFunction = Literal["mandate", "direct_decision", "examine_report", "questions", "other"]
 InstrumentNamed = Literal["motion", "postulate", "interpellation", "question", "resolution", "initiative", "other"]
 RecommendationStage = Literal["on_adoption", "on_fulfilment"]
+# why a list is empty: the null reasons, plus `carried_from_v0_1` (a v0.1 record upgraded by upgrade_v0_1: v0.1 records no
+# reason for an empty list) and `none_printed` (the producer read the source and it lists nothing: no co-signatory, no
+# related affair)
+EmptyReasonCode = Literal[get_args(NullReason) + ("carried_from_v0_1", "none_printed")]
 Lang = _v01.Lang
 
 T = TypeVar("T")
@@ -130,6 +140,25 @@ class TypedNull(_v01.TypedNull):
         return self
 
 
+class EmptyReason(BaseModel):
+    """Why a list field of the record is empty."""
+    model_config = _strict
+    reason: EmptyReasonCode
+    route: Route | None = Field(None, description="the route that established it (None for carried_from_v0_1)")
+    evidence: str = Field(..., min_length=1, description="the record, rule or source that establishes why it is empty")
+    doc: str | None = Field(None, description="Document.doc_id that was read, for not_in_document / none_printed")
+
+    @model_validator(mode="after")
+    def _consistent(self):
+        if self.reason == "carried_from_v0_1":
+            return self
+        if self.route is None:
+            raise ValueError(f"empty reason {self.reason} needs the route that established it")
+        if self.reason in NULL_ROUTES and self.route not in NULL_ROUTES[self.reason]:
+            raise ValueError(f"empty reason {self.reason} cannot come from route={self.route}")
+        return self
+
+
 class DateValue(Valued[dt.date]):
     decision_number: str | None = Field(
         None, description="the executive's decision number printed with the date (RRB-Nr., ACE, RG n.), if the rule captured it")
@@ -181,6 +210,8 @@ class Document(_v01.Document):
         "v0.1's `language` carries the same value")
     language_of_text: list[Lang] = Field(
         [], description="the language(s) the text is written in, determined from the text (several only for substantial parts)")
+    language_of_text_method: str | None = Field(
+        None, description="how language_of_text was determined: a detector id (e.g. 'stopword-profile-v1 ...') or 'annotator'")
 
 
 class AffairTypeV(_v01.AffairTypeV):
@@ -233,6 +264,24 @@ class Affair(_v01.Affair):
     related_affairs: list[RelatedAffair] = []
     documents: list[Document] = []
     extraction: ExtractionRun
+    empty_reasons: dict[str, EmptyReason] = Field(
+        {}, description="a typed reason for every empty list field (EMPTY_FIELDS), keyed by its path, e.g. "
+        "'body.languages', 'documents.0.language_of_text', 'qa.0.items'")
+
+    @model_validator(mode="after")
+    def _empty(self):
+        empty = set(empty_fields(self))
+        missing = sorted(empty - set(self.empty_reasons))
+        if missing:
+            raise ValueError(f"empty list fields without a typed reason (empty_reasons): {missing}")
+        extra = sorted(set(self.empty_reasons) - empty)
+        if extra:
+            raise ValueError(f"empty_reasons given for fields that are not empty or not covered: {extra}")
+        ids = {d.doc_id for d in self.documents}
+        for k, r in self.empty_reasons.items():
+            if r.doc is not None and r.doc not in ids:
+                raise ValueError(f"empty_reasons.{k}.doc={r.doc!r} is not in documents")
+        return self
 
     @model_validator(mode="after")
     def _refs(self):
@@ -257,6 +306,25 @@ class Affair(_v01.Affair):
         return self
 
 
+EMPTY_FIELDS = ("title", "languages", "actors", "dates", "qa", "related_affairs", "documents", "body.languages",
+                "documents.*.language_of_text", "documents.*.parts", "qa.*.items")
+
+
+def empty_fields(affair) -> list[str]:
+    """Paths of the EMPTY_FIELDS that are empty in `affair` (an Affair or its JSON dict)."""
+    get = (lambda o, k: o.get(k)) if isinstance(affair, dict) else getattr
+    out = [k for k in ("title", "languages", "actors", "dates", "qa", "related_affairs", "documents")
+           if not get(affair, k)]
+    if not get(get(affair, "body"), "languages"):
+        out.append("body.languages")
+    for i, d in enumerate(get(affair, "documents") or []):
+        out += [f"documents.{i}.{k}" for k in ("language_of_text", "parts") if not get(d, k)]
+    for i, q in enumerate(get(affair, "qa") or []):
+        if not get(q, "items"):
+            out.append(f"qa.{i}.items")
+    return out
+
+
 def iter_fields(affair: Affair):
     """Yield (path, Valued|TypedNull) for every provenance-bearing field of a v0.2 affair."""
     yield from _v01.iter_fields(affair)
@@ -268,7 +336,8 @@ def iter_fields(affair: Affair):
 
 # ----------------------------------------------------------------------------------------------- v0.1 <-> v0.2
 V02_ONLY_KEYS = frozenset({"quote_sha256", "stage", "instrument_function", "instrument_named", "language_tag",
-                           "language_of_text", "on_behalf_of"})
+                           "language_of_text", "language_of_text_method", "on_behalf_of", "empty_reasons"})
+UPGRADE_EVIDENCE = "upgraded from schema v0.1 by upgrade_v0_1: v0.1 records no reason for an empty list"
 
 
 def upgrade_v0_1(obj: dict) -> Affair:
@@ -278,6 +347,7 @@ def upgrade_v0_1(obj: dict) -> Affair:
     v1["extraction"]["schema_version"] = SCHEMA_VERSION
     for d in v1["documents"]:
         d["language_tag"] = d.get("language")
+    v1["empty_reasons"] = {k: {"reason": "carried_from_v0_1", "evidence": UPGRADE_EVIDENCE} for k in empty_fields(v1)}
     return Affair.model_validate(v1)
 
 

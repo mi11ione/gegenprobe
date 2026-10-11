@@ -118,3 +118,37 @@ def test_span_needs_quote_or_hash(m):
     m.TextValue.model_validate({**base, "quote": "x"})
     with pytest.raises(ValidationError):  # an annotator value names its document and page
         m.TextValue.model_validate(dict(kind="value", value="x", basis="extracted", route="annotator"))
+
+
+def test_every_empty_list_has_a_typed_reason(m):
+    """Round 13 (J1): an empty list field without a reason is invalid, a reason for a filled list is invalid, and a v0.1
+    record upgrades with `carried_from_v0_1` for each of its empty lists."""
+    up = m.upgrade_v0_1(json.loads(SAMPLES[0].read_text(encoding="utf-8")))
+    obj = up.model_dump(mode="json")
+    assert set(obj["empty_reasons"]) == set(m.empty_fields(obj)) and obj["empty_reasons"]
+    assert {r["reason"] for r in obj["empty_reasons"].values()} == {"carried_from_v0_1"}
+    key = next(iter(obj["empty_reasons"]))
+    o = copy.deepcopy(obj)
+    o["empty_reasons"].pop(key)
+    with pytest.raises(ValidationError, match="without a typed reason"):
+        m.validate_affair(o)
+    o = copy.deepcopy(obj)
+    o["empty_reasons"]["documents"] = dict(reason="not_extracted", route="rule", evidence="x")
+    with pytest.raises(ValidationError, match="not empty or not covered"):
+        m.validate_affair(o)
+    o = copy.deepcopy(obj)  # a reason needs its route (except carried_from_v0_1)
+    o["empty_reasons"][key] = dict(reason="not_in_document", evidence="x")
+    with pytest.raises(ValidationError):
+        m.validate_affair(o)
+    o["empty_reasons"][key] = dict(reason="unlinked", route="rule", evidence="x")  # unlinked is metadata-only
+    with pytest.raises(ValidationError):
+        m.validate_affair(o)
+    assert "documents.*.language_of_text" in m.EMPTY_FIELDS and "body.languages" in m.EMPTY_FIELDS
+
+
+def test_p8_records_type_every_empty_list(fresh, m):
+    for line in fresh["p8_records.jsonl"].splitlines():
+        r = json.loads(line)
+        assert set(r.get("empty_reasons", {})) == set(m.empty_fields(r))
+        assert all(d["language_of_text_method"] == "annotator" for d in r["documents"])
+        assert r["body"]["languages"], r["ref"]

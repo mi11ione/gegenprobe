@@ -1,0 +1,1840 @@
+{
+ "headline": {
+  "counted_rows": 6613,
+  "parliaments": 27,
+  "durations": 6438,
+  "ranked_parliaments": 17,
+  "rho_opd_plain_vs_adapter": 0.656,
+  "rho_without_same_day": 0.832,
+  "rho_same_affairs_vs_adapter": 0.99,
+  "rho_question_type_matched": 0.966,
+  "question_type_parliaments": 13,
+  "vs_motions_submission_after_answer_document": 61,
+  "vs_counted_rows": 163,
+  "opd_date_equals_document_date_ge_90pct": [
+   "261",
+   "296",
+   "4001",
+   "4401",
+   "5113",
+   "JU",
+   "LU",
+   "NE",
+   "SG",
+   "TG",
+   "TI",
+   "VD",
+   "ZH"
+  ],
+  "opd_date_differs_from_document_date": [
+   "1059",
+   "6153",
+   "SO",
+   "VS"
+  ]
+ },
+ "label": "Answer times per parliament on the answer document's own date (adapter-verified) vs OPD's plain medians; post hoc, descriptive",
+ "sample": {
+  "source": "results/repair/adapters/adapters_*.tsv, counted=true (the three tiers with a date check)",
+  "counted_rows": 6613,
+  "parliaments_with_counted_rows": 27,
+  "durations": 6438,
+  "parliaments_with_durations": 27,
+  "excluded": {
+   "negative": 75,
+   "ambiguous_event_date": 98,
+   "over_3650_days": 2,
+   "by_body": {
+    "1059": {
+     "negative": 1
+    },
+    "261": {
+     "ambiguous_event_date": 89
+    },
+    "351": {
+     "negative": 1
+    },
+    "4566": {
+     "over_3650_days": 1
+    },
+    "5113": {
+     "negative": 3
+    },
+    "NE": {
+     "ambiguous_event_date": 5
+    },
+    "SG": {
+     "negative": 1
+    },
+    "SO": {
+     "negative": 1
+    },
+    "VD": {
+     "over_3650_days": 1
+    },
+    "VS": {
+     "ambiguous_event_date": 3,
+     "negative": 61
+    },
+    "ZH": {
+     "ambiguous_event_date": 1,
+     "negative": 7
+    }
+   }
+  },
+  "date_source": {
+   "document_date": 5428,
+   "printed_date_equals_single_opd_answer_event": 1010
+  },
+  "tiers": {
+   "exact_doc_date": 5146,
+   "exact_any_printed_date": 1053,
+   "date_window": 239
+  },
+  "definition": "adapter date = the document's own date as read by the adapter (check_decision_date), else for 'anywhere' rows the single OPD answer event date the printed date equals; submission = census rule (interventions.tsv.gz `submitted`); durations < 0 or > 3,650 days excluded"
+ },
+ "min_n": 20,
+ "pooled_adapter": {
+  "n": 6438,
+  "median": 79.0,
+  "q1": 51.0,
+  "q3": 98.0
+ },
+ "pooled_opd_same_affairs": {
+  "n": 6430,
+  "median": 79.0,
+  "q1": 50.0,
+  "q3": 98.0
+ },
+ "ranking": {
+  "parliaments": 17,
+  "spearman_opd_plain_vs_adapter": {
+   "rho": 0.656,
+   "n": 17,
+   "p_permutation": 0.0058,
+   "permutations": 20000,
+   "seed": 20261011
+  },
+  "spearman_opd_plain_vs_adapter_without_same_day": {
+   "rho": 0.832,
+   "n": 15,
+   "p_permutation": 0.0004,
+   "permutations": 20000,
+   "seed": 20261011
+  },
+  "spearman_opd_same_affairs_vs_adapter": {
+   "rho": 0.99,
+   "n": 17,
+   "p_permutation": 0.0,
+   "permutations": 20000,
+   "seed": 20261011
+  },
+  "spearman_opd_plain_vs_opd_same_affairs": {
+   "rho": 0.584,
+   "n": 17,
+   "p_permutation": 0.0153,
+   "permutations": 20000,
+   "seed": 20261011
+  },
+  "note": "rank 1 = shortest median; rank_move = rank on OPD's plain median minus rank on the adapter date (negative = the parliament looks faster on OPD's date than on its answer documents)",
+  "table": [
+   {
+    "body": "1059",
+    "name": "Kriens",
+    "date_trust": "same_day",
+    "n_adapter": 68,
+    "opd_plain_median": 0.0,
+    "opd_plain_n": 80,
+    "opd_same_affairs_median": 0,
+    "adapter_median": 26.5,
+    "adapter_q1": 15.0,
+    "adapter_q3": 41.5,
+    "rank_opd_plain": 1.5,
+    "rank_adapter": 1.0,
+    "rank_opd_same_affairs": 1.0,
+    "rank_move": 0.5
+   },
+   {
+    "body": "NE",
+    "name": "Neuchâtel",
+    "date_trust": "diffuse",
+    "n_adapter": 232,
+    "opd_plain_median": 25,
+    "opd_plain_n": 771,
+    "opd_same_affairs_median": 36.0,
+    "adapter_median": 36.0,
+    "adapter_q1": 28.0,
+    "adapter_q3": 88.75,
+    "rank_opd_plain": 3.0,
+    "rank_adapter": 2.0,
+    "rank_opd_same_affairs": 2.0,
+    "rank_move": 1.0
+   },
+   {
+    "body": "JU",
+    "name": "Jura",
+    "date_trust": "mixed",
+    "n_adapter": 72,
+    "opd_plain_median": 48,
+    "opd_plain_n": 1095,
+    "opd_same_affairs_median": 48.0,
+    "adapter_median": 48.0,
+    "adapter_q1": 41.0,
+    "adapter_q3": 83.0,
+    "rank_opd_plain": 4.0,
+    "rank_adapter": 3.0,
+    "rank_opd_same_affairs": 3.0,
+    "rank_move": 1.0
+   },
+   {
+    "body": "4401",
+    "name": "Arbon",
+    "date_trust": "sitting_day",
+    "n_adapter": 21,
+    "opd_plain_median": 55.0,
+    "opd_plain_n": 56,
+    "opd_same_affairs_median": 55,
+    "adapter_median": 55,
+    "adapter_q1": 48.0,
+    "adapter_q3": 74.5,
+    "rank_opd_plain": 6.0,
+    "rank_adapter": 4.5,
+    "rank_opd_same_affairs": 4.5,
+    "rank_move": 1.5
+   },
+   {
+    "body": "TG",
+    "name": "Thurgau",
+    "date_trust": "sitting_day",
+    "n_adapter": 32,
+    "opd_plain_median": 55.0,
+    "opd_plain_n": 1230,
+    "opd_same_affairs_median": 55.0,
+    "adapter_median": 55.0,
+    "adapter_q1": 41.0,
+    "adapter_q3": 184.5,
+    "rank_opd_plain": 6.0,
+    "rank_adapter": 4.5,
+    "rank_opd_same_affairs": 4.5,
+    "rank_move": 1.5
+   },
+   {
+    "body": "4001",
+    "name": "Aarau",
+    "date_trust": "sitting_day",
+    "n_adapter": 71,
+    "opd_plain_median": 59,
+    "opd_plain_n": 233,
+    "opd_same_affairs_median": 60,
+    "adapter_median": 60,
+    "adapter_q1": 35.0,
+    "adapter_q3": 141.0,
+    "rank_opd_plain": 8.0,
+    "rank_adapter": 6.0,
+    "rank_opd_same_affairs": 6.0,
+    "rank_move": 2.0
+   },
+   {
+    "body": "SG",
+    "name": "St. Gallen",
+    "date_trust": "sitting_day",
+    "n_adapter": 1011,
+    "opd_plain_median": 64,
+    "opd_plain_n": 3517,
+    "opd_same_affairs_median": 63,
+    "adapter_median": 63,
+    "adapter_q1": 41.0,
+    "adapter_q3": 85.0,
+    "rank_opd_plain": 10.0,
+    "rank_adapter": 7.0,
+    "rank_opd_same_affairs": 7.0,
+    "rank_move": 3.0
+   },
+   {
+    "body": "TI",
+    "name": "Ticino",
+    "date_trust": "verified",
+    "n_adapter": 719,
+    "opd_plain_median": 61,
+    "opd_plain_n": 2381,
+    "opd_same_affairs_median": 67,
+    "adapter_median": 67,
+    "adapter_q1": 37.0,
+    "adapter_q3": 116.0,
+    "rank_opd_plain": 9.0,
+    "rank_adapter": 8.0,
+    "rank_opd_same_affairs": 8.0,
+    "rank_move": 1.0
+   },
+   {
+    "body": "5113",
+    "name": "Locarno",
+    "date_trust": "diffuse",
+    "n_adapter": 119,
+    "opd_plain_median": 66,
+    "opd_plain_n": 351,
+    "opd_same_affairs_median": 70,
+    "adapter_median": 70,
+    "adapter_q1": 38.0,
+    "adapter_q3": 174.0,
+    "rank_opd_plain": 11.0,
+    "rank_adapter": 9.0,
+    "rank_opd_same_affairs": 9.0,
+    "rank_move": 2.0
+   },
+   {
+    "body": "ZH",
+    "name": "Zürich",
+    "date_trust": "sitting_day",
+    "n_adapter": 2164,
+    "opd_plain_median": 79,
+    "opd_plain_n": 10069,
+    "opd_same_affairs_median": 79.0,
+    "adapter_median": 79.0,
+    "adapter_q1": 58.0,
+    "adapter_q3": 86.0,
+    "rank_opd_plain": 12.0,
+    "rank_adapter": 10.0,
+    "rank_opd_same_affairs": 10.0,
+    "rank_move": 2.0
+   },
+   {
+    "body": "261",
+    "name": "Zürich",
+    "date_trust": "sitting_day",
+    "n_adapter": 1328,
+    "opd_plain_median": 91,
+    "opd_plain_n": 2771,
+    "opd_same_affairs_median": 85.0,
+    "adapter_median": 84.0,
+    "adapter_q1": 70.0,
+    "adapter_q3": 92.0,
+    "rank_opd_plain": 13.0,
+    "rank_adapter": 11.0,
+    "rank_opd_same_affairs": 11.0,
+    "rank_move": 2.0
+   },
+   {
+    "body": "296",
+    "name": "Illnau-Effretikon",
+    "date_trust": "sitting_day",
+    "n_adapter": 30,
+    "opd_plain_median": 105.0,
+    "opd_plain_n": 356,
+    "opd_same_affairs_median": 90.5,
+    "adapter_median": 90.5,
+    "adapter_q1": 74.75,
+    "adapter_q3": 175.75,
+    "rank_opd_plain": 15.0,
+    "rank_adapter": 12.0,
+    "rank_opd_same_affairs": 12.0,
+    "rank_move": 3.0
+   },
+   {
+    "body": "6153",
+    "name": "Monthey",
+    "date_trust": "sitting_day",
+    "n_adapter": 29,
+    "opd_plain_median": 98.0,
+    "opd_plain_n": 126,
+    "opd_same_affairs_median": 91,
+    "adapter_median": 91,
+    "adapter_q1": 70.0,
+    "adapter_q3": 101.5,
+    "rank_opd_plain": 14.0,
+    "rank_adapter": 13.0,
+    "rank_opd_same_affairs": 13.0,
+    "rank_move": 1.0
+   },
+   {
+    "body": "VS",
+    "name": "Valais",
+    "date_trust": "same_day",
+    "n_adapter": 99,
+    "opd_plain_median": 0.0,
+    "opd_plain_n": 2570,
+    "opd_same_affairs_median": 173,
+    "adapter_median": 100,
+    "adapter_q1": 50.0,
+    "adapter_q3": 147.0,
+    "rank_opd_plain": 1.5,
+    "rank_adapter": 14.0,
+    "rank_opd_same_affairs": 16.0,
+    "rank_move": -12.5
+   },
+   {
+    "body": "SO",
+    "name": "Solothurn",
+    "date_trust": "mixed",
+    "n_adapter": 209,
+    "opd_plain_median": 55,
+    "opd_plain_n": 1865,
+    "opd_same_affairs_median": 169,
+    "adapter_median": 125,
+    "adapter_q1": 76.0,
+    "adapter_q3": 153.0,
+    "rank_opd_plain": 6.0,
+    "rank_adapter": 15.0,
+    "rank_opd_same_affairs": 15.0,
+    "rank_move": -9.0
+   },
+   {
+    "body": "LU",
+    "name": "Luzern",
+    "date_trust": "mixed",
+    "n_adapter": 104,
+    "opd_plain_median": 134,
+    "opd_plain_n": 1697,
+    "opd_same_affairs_median": 155.0,
+    "adapter_median": 155.0,
+    "adapter_q1": 119.0,
+    "adapter_q3": 222.5,
+    "rank_opd_plain": 16.0,
+    "rank_adapter": 16.0,
+    "rank_opd_same_affairs": 14.0,
+    "rank_move": 0.0
+   },
+   {
+    "body": "VD",
+    "name": "Vaud",
+    "date_trust": "sitting_day",
+    "n_adapter": 90,
+    "opd_plain_median": 161,
+    "opd_plain_n": 1339,
+    "opd_same_affairs_median": 1156.0,
+    "adapter_median": 1156.0,
+    "adapter_q1": 802.5,
+    "adapter_q3": 1642.5,
+    "rank_opd_plain": 17.0,
+    "rank_adapter": 17.0,
+    "rank_opd_same_affairs": 17.0,
+    "rank_move": 0.0
+   }
+  ],
+  "biggest_moves": [
+   {
+    "body": "VS",
+    "name": "Valais",
+    "rank_opd_plain": 1.5,
+    "rank_adapter": 14.0,
+    "opd_plain_median": 0.0,
+    "adapter_median": 100,
+    "date_trust": "same_day"
+   },
+   {
+    "body": "SO",
+    "name": "Solothurn",
+    "rank_opd_plain": 6.0,
+    "rank_adapter": 15.0,
+    "opd_plain_median": 55,
+    "adapter_median": 125,
+    "date_trust": "mixed"
+   },
+   {
+    "body": "296",
+    "name": "Illnau-Effretikon",
+    "rank_opd_plain": 15.0,
+    "rank_adapter": 12.0,
+    "opd_plain_median": 105.0,
+    "adapter_median": 90.5,
+    "date_trust": "sitting_day"
+   },
+   {
+    "body": "SG",
+    "name": "St. Gallen",
+    "rank_opd_plain": 10.0,
+    "rank_adapter": 7.0,
+    "opd_plain_median": 64,
+    "adapter_median": 63,
+    "date_trust": "sitting_day"
+   },
+   {
+    "body": "261",
+    "name": "Zürich",
+    "rank_opd_plain": 13.0,
+    "rank_adapter": 11.0,
+    "opd_plain_median": 91,
+    "adapter_median": 84.0,
+    "date_trust": "sitting_day"
+   },
+   {
+    "body": "4001",
+    "name": "Aarau",
+    "rank_opd_plain": 8.0,
+    "rank_adapter": 6.0,
+    "opd_plain_median": 59,
+    "adapter_median": 60,
+    "date_trust": "sitting_day"
+   }
+  ]
+ },
+ "type_matched": {
+  "note": "within one intervention type: OPD plain = census durations of that type in that parliament (every answered intervention); adapter = the adapter sample of that type; types with >= 3 parliaments (rho on 3 parliaments is shown but says little)",
+  "by_type": {
+   "Interpellation": {
+    "parliaments": 5,
+    "spearman_opd_plain_vs_adapter": {
+     "rho": 0.9,
+     "n": 5,
+     "p_permutation": 0.0835,
+     "permutations": 20000,
+     "seed": 20261011
+    },
+    "table": [
+     {
+      "body": "TI",
+      "name": "Ticino",
+      "n_adapter": 102,
+      "opd_plain_n": 643,
+      "opd_plain_median": 18.0,
+      "adapter_median": 26.0,
+      "rank_opd_plain": 1.0,
+      "rank_adapter": 1.0,
+      "rank_move": 0.0
+     },
+     {
+      "body": "ZH",
+      "name": "Zürich",
+      "n_adapter": 142,
+      "opd_plain_n": 589,
+      "opd_plain_median": 51.0,
+      "adapter_median": 51.0,
+      "rank_opd_plain": 2.0,
+      "rank_adapter": 2.0,
+      "rank_move": 0.0
+     },
+     {
+      "body": "SG",
+      "name": "St. Gallen",
+      "n_adapter": 679,
+      "opd_plain_n": 2333,
+      "opd_plain_median": 69.0,
+      "adapter_median": 64.0,
+      "rank_opd_plain": 4.0,
+      "rank_adapter": 3.0,
+      "rank_move": 1.0
+     },
+     {
+      "body": "NE",
+      "name": "Neuchâtel",
+      "n_adapter": 99,
+      "opd_plain_n": 240,
+      "opd_plain_median": 57.0,
+      "adapter_median": 99.0,
+      "rank_opd_plain": 3.0,
+      "rank_adapter": 4.0,
+      "rank_move": -1.0
+     },
+     {
+      "body": "261",
+      "name": "Zürich",
+      "n_adapter": 27,
+      "opd_plain_n": 274,
+      "opd_plain_median": 174.0,
+      "adapter_median": 175.0,
+      "rank_opd_plain": 5.0,
+      "rank_adapter": 5.0,
+      "rank_move": 0.0
+     }
+    ]
+   },
+   "Motion": {
+    "parliaments": 3,
+    "spearman_opd_plain_vs_adapter": {
+     "rho": 0.5,
+     "n": 3,
+     "p_permutation": 1.0,
+     "permutations": 20000,
+     "seed": 20261011
+    },
+    "table": [
+     {
+      "body": "ZH",
+      "name": "Zürich",
+      "n_adapter": 161,
+      "opd_plain_n": 806,
+      "opd_plain_median": 100.0,
+      "adapter_median": 107.0,
+      "rank_opd_plain": 2.0,
+      "rank_adapter": 1.0,
+      "rank_move": 1.0
+     },
+     {
+      "body": "VS",
+      "name": "Valais",
+      "n_adapter": 76,
+      "opd_plain_n": 519,
+      "opd_plain_median": 0.0,
+      "adapter_median": 118.5,
+      "rank_opd_plain": 1.0,
+      "rank_adapter": 2.0,
+      "rank_move": -1.0
+     },
+     {
+      "body": "SO",
+      "name": "Solothurn",
+      "n_adapter": 183,
+      "opd_plain_n": 265,
+      "opd_plain_median": 176.0,
+      "adapter_median": 133.0,
+      "rank_opd_plain": 3.0,
+      "rank_adapter": 3.0,
+      "rank_move": 0.0
+     }
+    ]
+   },
+   "Postulate": {
+    "parliaments": 4,
+    "spearman_opd_plain_vs_adapter": {
+     "rho": 1.0,
+     "n": 4,
+     "p_permutation": 0.0823,
+     "permutations": 20000,
+     "seed": 20261011
+    },
+    "table": [
+     {
+      "body": "1059",
+      "name": "Kriens",
+      "n_adapter": 61,
+      "opd_plain_n": 69,
+      "opd_plain_median": 0.0,
+      "adapter_median": 27.0,
+      "rank_opd_plain": 1.0,
+      "rank_adapter": 1.0,
+      "rank_move": 0.0
+     },
+     {
+      "body": "ZH",
+      "name": "Zürich",
+      "n_adapter": 406,
+      "opd_plain_n": 1791,
+      "opd_plain_median": 79.0,
+      "adapter_median": 100.0,
+      "rank_opd_plain": 2.0,
+      "rank_adapter": 2.0,
+      "rank_move": 0.0
+     },
+     {
+      "body": "LU",
+      "name": "Luzern",
+      "n_adapter": 32,
+      "opd_plain_n": 726,
+      "opd_plain_median": 145.0,
+      "adapter_median": 221.0,
+      "rank_opd_plain": 3.0,
+      "rank_adapter": 3.0,
+      "rank_move": 0.0
+     },
+     {
+      "body": "VD",
+      "name": "Vaud",
+      "n_adapter": 87,
+      "opd_plain_n": 149,
+      "opd_plain_median": 1163.0,
+      "adapter_median": 1142.0,
+      "rank_opd_plain": 4.0,
+      "rank_adapter": 4.0,
+      "rank_move": 0.0
+     }
+    ]
+   },
+   "Question": {
+    "parliaments": 13,
+    "spearman_opd_plain_vs_adapter": {
+     "rho": 0.966,
+     "n": 13,
+     "p_permutation": 0.0,
+     "permutations": 20000,
+     "seed": 20261011
+    },
+    "table": [
+     {
+      "body": "NE",
+      "name": "Neuchâtel",
+      "n_adapter": 133,
+      "opd_plain_n": 516,
+      "opd_plain_median": 7.0,
+      "adapter_median": 31.0,
+      "rank_opd_plain": 1.0,
+      "rank_adapter": 1.0,
+      "rank_move": 0.0
+     },
+     {
+      "body": "JU",
+      "name": "Jura",
+      "n_adapter": 72,
+      "opd_plain_n": 854,
+      "opd_plain_median": 49.0,
+      "adapter_median": 48.0,
+      "rank_opd_plain": 2.0,
+      "rank_adapter": 2.5,
+      "rank_move": -0.5
+     },
+     {
+      "body": "TG",
+      "name": "Thurgau",
+      "n_adapter": 22,
+      "opd_plain_n": 795,
+      "opd_plain_median": 54.0,
+      "adapter_median": 48.0,
+      "rank_opd_plain": 3.0,
+      "rank_adapter": 2.5,
+      "rank_move": 0.5
+     },
+     {
+      "body": "4401",
+      "name": "Arbon",
+      "n_adapter": 21,
+      "opd_plain_n": 38,
+      "opd_plain_median": 54.5,
+      "adapter_median": 55.0,
+      "rank_opd_plain": 4.0,
+      "rank_adapter": 4.0,
+      "rank_move": 0.0
+     },
+     {
+      "body": "SG",
+      "name": "St. Gallen",
+      "n_adapter": 332,
+      "opd_plain_n": 1180,
+      "opd_plain_median": 57.0,
+      "adapter_median": 58.0,
+      "rank_opd_plain": 5.0,
+      "rank_adapter": 5.0,
+      "rank_move": 0.0
+     },
+     {
+      "body": "4001",
+      "name": "Aarau",
+      "n_adapter": 71,
+      "opd_plain_n": 225,
+      "opd_plain_median": 59.0,
+      "adapter_median": 60.0,
+      "rank_opd_plain": 6.0,
+      "rank_adapter": 6.0,
+      "rank_move": 0.0
+     },
+     {
+      "body": "5113",
+      "name": "Locarno",
+      "n_adapter": 119,
+      "opd_plain_n": 351,
+      "opd_plain_median": 66.0,
+      "adapter_median": 70.0,
+      "rank_opd_plain": 7.0,
+      "rank_adapter": 7.0,
+      "rank_move": 0.0
+     },
+     {
+      "body": "TI",
+      "name": "Ticino",
+      "n_adapter": 617,
+      "opd_plain_n": 1738,
+      "opd_plain_median": 76.0,
+      "adapter_median": 72.0,
+      "rank_opd_plain": 9.0,
+      "rank_adapter": 8.0,
+      "rank_move": 1.0
+     },
+     {
+      "body": "ZH",
+      "name": "Zürich",
+      "n_adapter": 1455,
+      "opd_plain_n": 6883,
+      "opd_plain_median": 79.0,
+      "adapter_median": 79.0,
+      "rank_opd_plain": 10.0,
+      "rank_adapter": 9.0,
+      "rank_move": 1.0
+     },
+     {
+      "body": "261",
+      "name": "Zürich",
+      "n_adapter": 1291,
+      "opd_plain_n": 1959,
+      "opd_plain_median": 84.0,
+      "adapter_median": 84.0,
+      "rank_opd_plain": 11.0,
+      "rank_adapter": 10.0,
+      "rank_move": 1.0
+     },
+     {
+      "body": "296",
+      "name": "Illnau-Effretikon",
+      "n_adapter": 27,
+      "opd_plain_n": 104,
+      "opd_plain_median": 71.0,
+      "adapter_median": 87.0,
+      "rank_opd_plain": 8.0,
+      "rank_adapter": 11.0,
+      "rank_move": -3.0
+     },
+     {
+      "body": "6153",
+      "name": "Monthey",
+      "n_adapter": 25,
+      "opd_plain_n": 80,
+      "opd_plain_median": 91.0,
+      "adapter_median": 91.0,
+      "rank_opd_plain": 12.0,
+      "rank_adapter": 12.0,
+      "rank_move": 0.0
+     },
+     {
+      "body": "LU",
+      "name": "Luzern",
+      "n_adapter": 57,
+      "opd_plain_n": 741,
+      "opd_plain_median": 120.0,
+      "adapter_median": 141.0,
+      "rank_opd_plain": 13.0,
+      "rank_adapter": 13.0,
+      "rank_move": 0.0
+     }
+    ]
+   }
+  }
+ },
+ "per_parliament": {
+  "1059": {
+   "name": "Kriens",
+   "date_trust": "same_day",
+   "same_day_share": 0.6625,
+   "adapter": {
+    "n": 68,
+    "median": 26.5,
+    "q1": 15.0,
+    "q3": 41.5
+   },
+   "opd_same_affairs": {
+    "n": 67,
+    "median": 0,
+    "q1": 0.0,
+    "q3": 1.0
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 67,
+    "median": 23,
+    "q1": 14.0,
+    "q3": 37.0,
+    "equal_share": 0.09
+   },
+   "opd_plain": {
+    "n": 80,
+    "median": 0.0,
+    "q1": 0.0,
+    "q3": 1.0
+   },
+   "types": {
+    "Postulate": 61,
+    "Motion": 7
+   },
+   "date_source": {
+    "document_date": 66,
+    "printed_date_equals_single_opd_answer_event": 2
+   },
+   "in_ranking": true
+  },
+  "131": {
+   "name": "Adliswil",
+   "date_trust": "mixed",
+   "same_day_share": 0.0263,
+   "adapter": {
+    "n": 2,
+    "median": 61.0,
+    "q1": null,
+    "q3": null
+   },
+   "opd_same_affairs": {
+    "n": 2,
+    "median": 61.0,
+    "q1": null,
+    "q3": null
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 2,
+    "median": 0.0,
+    "q1": null,
+    "q3": null,
+    "equal_share": 1.0
+   },
+   "opd_plain": {
+    "n": 114,
+    "median": 82.0,
+    "q1": 52.0,
+    "q3": 103.25
+   },
+   "types": {
+    "Interpellation": 1,
+    "Postulate": 1
+   },
+   "date_source": {
+    "document_date": 2
+   },
+   "in_ranking": false
+  },
+  "191": {
+   "name": "Dübendorf",
+   "date_trust": "same_day",
+   "same_day_share": 0.5926,
+   "adapter": {
+    "n": 2,
+    "median": 26.0,
+    "q1": null,
+    "q3": null
+   },
+   "opd_same_affairs": {
+    "n": 2,
+    "median": 26.0,
+    "q1": null,
+    "q3": null
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 2,
+    "median": 0.0,
+    "q1": null,
+    "q3": null,
+    "equal_share": 1.0
+   },
+   "opd_plain": {
+    "n": 81,
+    "median": 0,
+    "q1": 0.0,
+    "q3": 51.5
+   },
+   "types": {
+    "Interpellation": 1,
+    "Question": 1
+   },
+   "date_source": {
+    "printed_date_equals_single_opd_answer_event": 1,
+    "document_date": 1
+   },
+   "in_ranking": false
+  },
+  "261": {
+   "name": "Zürich",
+   "date_trust": "sitting_day",
+   "same_day_share": 0.0004,
+   "adapter": {
+    "n": 1328,
+    "median": 84.0,
+    "q1": 70.0,
+    "q3": 92.0
+   },
+   "opd_same_affairs": {
+    "n": 1328,
+    "median": 85.0,
+    "q1": 76.0,
+    "q3": 98.0
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 1328,
+    "median": 0.0,
+    "q1": 0.0,
+    "q3": 0.0,
+    "equal_share": 0.905
+   },
+   "opd_plain": {
+    "n": 2771,
+    "median": 91,
+    "q1": 77.0,
+    "q3": 119.0
+   },
+   "types": {
+    "Question": 1291,
+    "Interpellation": 27,
+    "Motion": 10
+   },
+   "date_source": {
+    "document_date": 1288,
+    "printed_date_equals_single_opd_answer_event": 40
+   },
+   "in_ranking": true
+  },
+  "296": {
+   "name": "Illnau-Effretikon",
+   "date_trust": "sitting_day",
+   "same_day_share": 0.0,
+   "adapter": {
+    "n": 30,
+    "median": 90.5,
+    "q1": 74.75,
+    "q3": 175.75
+   },
+   "opd_same_affairs": {
+    "n": 30,
+    "median": 90.5,
+    "q1": 74.75,
+    "q3": 175.75
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 30,
+    "median": 0.0,
+    "q1": 0.0,
+    "q3": 0.0,
+    "equal_share": 1.0
+   },
+   "opd_plain": {
+    "n": 356,
+    "median": 105.0,
+    "q1": 64.0,
+    "q3": 311.5
+   },
+   "types": {
+    "Question": 27,
+    "Interpellation": 3
+   },
+   "date_source": {
+    "printed_date_equals_single_opd_answer_event": 1,
+    "document_date": 29
+   },
+   "in_ranking": true
+  },
+  "351": {
+   "name": "Bern",
+   "date_trust": "mixed",
+   "same_day_share": 0.0129,
+   "adapter": {
+    "n": 2,
+    "median": 1325.5,
+    "q1": null,
+    "q3": null
+   },
+   "opd_same_affairs": {
+    "n": 2,
+    "median": 667.5,
+    "q1": null,
+    "q3": null
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 2,
+    "median": 658.0,
+    "q1": null,
+    "q3": null,
+    "equal_share": 0.5
+   },
+   "opd_plain": {
+    "n": 4978,
+    "median": 136.5,
+    "q1": 42.0,
+    "q3": 181.0
+   },
+   "types": {
+    "Motion": 2
+   },
+   "date_source": {
+    "document_date": 2
+   },
+   "in_ranking": false
+  },
+  "4001": {
+   "name": "Aarau",
+   "date_trust": "sitting_day",
+   "same_day_share": 0.0343,
+   "adapter": {
+    "n": 71,
+    "median": 60,
+    "q1": 35.0,
+    "q3": 141.0
+   },
+   "opd_same_affairs": {
+    "n": 71,
+    "median": 60,
+    "q1": 35.0,
+    "q3": 141.0
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 71,
+    "median": 0,
+    "q1": 0.0,
+    "q3": 0.0,
+    "equal_share": 1.0
+   },
+   "opd_plain": {
+    "n": 233,
+    "median": 59,
+    "q1": 33.0,
+    "q3": 101.5
+   },
+   "types": {
+    "Question": 71
+   },
+   "date_source": {
+    "printed_date_equals_single_opd_answer_event": 69,
+    "document_date": 2
+   },
+   "in_ranking": true
+  },
+  "4289": {
+   "name": "Zofingen",
+   "date_trust": "sitting_day",
+   "same_day_share": 0.0405,
+   "adapter": {
+    "n": 5,
+    "median": 280,
+    "q1": 211.0,
+    "q3": 331.0
+   },
+   "opd_same_affairs": {
+    "n": 5,
+    "median": 280,
+    "q1": 101.5,
+    "q3": 331.0
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 5,
+    "median": 0,
+    "q1": 0.0,
+    "q3": 109.5,
+    "equal_share": 0.8
+   },
+   "opd_plain": {
+    "n": 74,
+    "median": 203.0,
+    "q1": 146.25,
+    "q3": 283.5
+   },
+   "types": {
+    "Postulate": 3,
+    "Interpellation": 1,
+    "Motion": 1
+   },
+   "date_source": {
+    "document_date": 5
+   },
+   "in_ranking": false
+  },
+  "4401": {
+   "name": "Arbon",
+   "date_trust": "sitting_day",
+   "same_day_share": 0.0,
+   "adapter": {
+    "n": 21,
+    "median": 55,
+    "q1": 48.0,
+    "q3": 74.5
+   },
+   "opd_same_affairs": {
+    "n": 21,
+    "median": 55,
+    "q1": 48.0,
+    "q3": 74.5
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 21,
+    "median": 0,
+    "q1": 0.0,
+    "q3": 0.0,
+    "equal_share": 1.0
+   },
+   "opd_plain": {
+    "n": 56,
+    "median": 55.0,
+    "q1": 46.25,
+    "q3": 82.0
+   },
+   "types": {
+    "Question": 21
+   },
+   "date_source": {
+    "document_date": 21
+   },
+   "in_ranking": true
+  },
+  "4566": {
+   "name": "Frauenfeld",
+   "date_trust": "sitting_day",
+   "same_day_share": 0.0,
+   "adapter": {
+    "n": 15,
+    "median": 69,
+    "q1": 0.0,
+    "q3": 83.0
+   },
+   "opd_same_affairs": {
+    "n": 14,
+    "median": 72.0,
+    "q1": 53.25,
+    "q3": 83.0
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 14,
+    "median": 0.0,
+    "q1": -3.25,
+    "q3": 0.0,
+    "equal_share": 0.786
+   },
+   "opd_plain": {
+    "n": 239,
+    "median": 83,
+    "q1": 69.0,
+    "q3": 111.0
+   },
+   "types": {
+    "Question": 15
+   },
+   "date_source": {
+    "document_date": 15
+   },
+   "in_ranking": false
+  },
+  "5113": {
+   "name": "Locarno",
+   "date_trust": "diffuse",
+   "same_day_share": 0.037,
+   "adapter": {
+    "n": 119,
+    "median": 70,
+    "q1": 38.0,
+    "q3": 174.0
+   },
+   "opd_same_affairs": {
+    "n": 119,
+    "median": 70,
+    "q1": 38.0,
+    "q3": 174.0
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 119,
+    "median": 0,
+    "q1": 0.0,
+    "q3": 0.0,
+    "equal_share": 0.992
+   },
+   "opd_plain": {
+    "n": 351,
+    "median": 66,
+    "q1": 37.0,
+    "q3": 148.0
+   },
+   "types": {
+    "Question": 119
+   },
+   "date_source": {
+    "document_date": 107,
+    "printed_date_equals_single_opd_answer_event": 12
+   },
+   "in_ranking": true
+  },
+  "5192": {
+   "name": "Lugano",
+   "date_trust": "diffuse",
+   "same_day_share": 0.0047,
+   "adapter": {
+    "n": 1,
+    "median": 672,
+    "q1": null,
+    "q3": null
+   },
+   "opd_same_affairs": {
+    "n": 1,
+    "median": 672,
+    "q1": null,
+    "q3": null
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 1,
+    "median": 0,
+    "q1": null,
+    "q3": null,
+    "equal_share": 1.0
+   },
+   "opd_plain": {
+    "n": 212,
+    "median": 358.5,
+    "q1": 217.75,
+    "q3": 668.0
+   },
+   "types": {
+    "Motion": 1
+   },
+   "date_source": {
+    "printed_date_equals_single_opd_answer_event": 1
+   },
+   "in_ranking": false
+  },
+  "5586": {
+   "name": "Lausanne",
+   "date_trust": "diffuse",
+   "same_day_share": 0.1632,
+   "adapter": {
+    "n": 4,
+    "median": 43.5,
+    "q1": 9.0,
+    "q3": 157.5
+   },
+   "opd_same_affairs": {
+    "n": 4,
+    "median": 17.5,
+    "q1": 0.0,
+    "q3": 67.25
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 4,
+    "median": 9.0,
+    "q1": 2.25,
+    "q3": 114.0,
+    "equal_share": 0.25
+   },
+   "opd_plain": {
+    "n": 429,
+    "median": 52,
+    "q1": 7.0,
+    "q3": 213.0
+   },
+   "types": {
+    "Interpellation": 3,
+    "Question": 1
+   },
+   "date_source": {
+    "document_date": 4
+   },
+   "in_ranking": false
+  },
+  "6153": {
+   "name": "Monthey",
+   "date_trust": "sitting_day",
+   "same_day_share": 0.0476,
+   "adapter": {
+    "n": 29,
+    "median": 91,
+    "q1": 70.0,
+    "q3": 101.5
+   },
+   "opd_same_affairs": {
+    "n": 29,
+    "median": 91,
+    "q1": 80.5,
+    "q3": 112.0
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 29,
+    "median": -7,
+    "q1": -14.0,
+    "q3": 0.0,
+    "equal_share": 0.31
+   },
+   "opd_plain": {
+    "n": 126,
+    "median": 98.0,
+    "q1": 74.5,
+    "q3": 350.0
+   },
+   "types": {
+    "Question": 25,
+    "Interpellation": 3,
+    "Postulate": 1
+   },
+   "date_source": {
+    "document_date": 24,
+    "printed_date_equals_single_opd_answer_event": 5
+   },
+   "in_ranking": true
+  },
+  "BL": {
+   "name": "Basel-Landschaft",
+   "date_trust": "sitting_day",
+   "same_day_share": 0.0367,
+   "adapter": {
+    "n": 2,
+    "median": 0.0,
+    "q1": null,
+    "q3": null
+   },
+   "opd_same_affairs": {
+    "n": 2,
+    "median": 0.0,
+    "q1": null,
+    "q3": null
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 2,
+    "median": 0.0,
+    "q1": null,
+    "q3": null,
+    "equal_share": 1.0
+   },
+   "opd_plain": {
+    "n": 1717,
+    "median": 96,
+    "q1": 54.0,
+    "q3": 166.0
+   },
+   "types": {
+    "Interpellation": 2
+   },
+   "date_source": {
+    "printed_date_equals_single_opd_answer_event": 2
+   },
+   "in_ranking": false
+  },
+  "BS": {
+   "name": "Basel-Stadt",
+   "date_trust": "mixed",
+   "same_day_share": 0.0002,
+   "adapter": {
+    "n": 1,
+    "median": 384,
+    "q1": null,
+    "q3": null
+   },
+   "opd_same_affairs": {
+    "n": 1,
+    "median": 385,
+    "q1": null,
+    "q3": null
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 1,
+    "median": -1,
+    "q1": null,
+    "q3": null,
+    "equal_share": 0.0
+   },
+   "opd_plain": {
+    "n": 5879,
+    "median": 91,
+    "q1": 57.0,
+    "q3": 644.0
+   },
+   "types": {
+    "Postulate": 1
+   },
+   "date_source": {
+    "document_date": 1
+   },
+   "in_ranking": false
+  },
+  "FR": {
+   "name": "Fribourg",
+   "date_trust": "mixed",
+   "same_day_share": 0.0009,
+   "adapter": {
+    "n": 6,
+    "median": 75.0,
+    "q1": 51.0,
+    "q3": 155.5
+   },
+   "opd_same_affairs": {
+    "n": 6,
+    "median": 75.0,
+    "q1": 51.0,
+    "q3": 155.5
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 6,
+    "median": 0.0,
+    "q1": 0.0,
+    "q3": 0.0,
+    "equal_share": 1.0
+   },
+   "opd_plain": {
+    "n": 2173,
+    "median": 118,
+    "q1": 69.5,
+    "q3": 188.0
+   },
+   "types": {
+    "Question": 5,
+    "Postulate": 1
+   },
+   "date_source": {
+    "printed_date_equals_single_opd_answer_event": 6
+   },
+   "in_ranking": false
+  },
+  "JU": {
+   "name": "Jura",
+   "date_trust": "mixed",
+   "same_day_share": 0.0,
+   "adapter": {
+    "n": 72,
+    "median": 48.0,
+    "q1": 41.0,
+    "q3": 83.0
+   },
+   "opd_same_affairs": {
+    "n": 72,
+    "median": 48.0,
+    "q1": 41.0,
+    "q3": 83.0
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 72,
+    "median": 0.0,
+    "q1": 0.0,
+    "q3": 0.0,
+    "equal_share": 1.0
+   },
+   "opd_plain": {
+    "n": 1095,
+    "median": 48,
+    "q1": 39.0,
+    "q3": 69.0
+   },
+   "types": {
+    "Question": 72
+   },
+   "date_source": {
+    "document_date": 72
+   },
+   "in_ranking": true
+  },
+  "LU": {
+   "name": "Luzern",
+   "date_trust": "mixed",
+   "same_day_share": 0.1084,
+   "adapter": {
+    "n": 104,
+    "median": 155.0,
+    "q1": 119.0,
+    "q3": 222.5
+   },
+   "opd_same_affairs": {
+    "n": 104,
+    "median": 155.0,
+    "q1": 119.0,
+    "q3": 222.5
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 104,
+    "median": 0.0,
+    "q1": 0.0,
+    "q3": 0.0,
+    "equal_share": 1.0
+   },
+   "opd_plain": {
+    "n": 1697,
+    "median": 134,
+    "q1": 56.0,
+    "q3": 176.0
+   },
+   "types": {
+    "Question": 57,
+    "Postulate": 32,
+    "Motion": 15
+   },
+   "date_source": {
+    "document_date": 104
+   },
+   "in_ranking": true
+  },
+  "NE": {
+   "name": "Neuchâtel",
+   "date_trust": "diffuse",
+   "same_day_share": 0.083,
+   "adapter": {
+    "n": 232,
+    "median": 36.0,
+    "q1": 28.0,
+    "q3": 88.75
+   },
+   "opd_same_affairs": {
+    "n": 232,
+    "median": 36.0,
+    "q1": 28.0,
+    "q3": 88.75
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 232,
+    "median": 0.0,
+    "q1": 0.0,
+    "q3": 0.0,
+    "equal_share": 0.974
+   },
+   "opd_plain": {
+    "n": 771,
+    "median": 25,
+    "q1": 2.0,
+    "q3": 50.0
+   },
+   "types": {
+    "Question": 133,
+    "Interpellation": 99
+   },
+   "date_source": {
+    "document_date": 123,
+    "printed_date_equals_single_opd_answer_event": 109
+   },
+   "in_ranking": true
+  },
+  "SG": {
+   "name": "St. Gallen",
+   "date_trust": "sitting_day",
+   "same_day_share": 0.0009,
+   "adapter": {
+    "n": 1011,
+    "median": 63,
+    "q1": 41.0,
+    "q3": 85.0
+   },
+   "opd_same_affairs": {
+    "n": 1011,
+    "median": 63,
+    "q1": 41.0,
+    "q3": 85.0
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 1011,
+    "median": 0,
+    "q1": 0.0,
+    "q3": 0.0,
+    "equal_share": 1.0
+   },
+   "opd_plain": {
+    "n": 3517,
+    "median": 64,
+    "q1": 42.0,
+    "q3": 95.0
+   },
+   "types": {
+    "Interpellation": 679,
+    "Question": 332
+   },
+   "date_source": {
+    "document_date": 1011
+   },
+   "in_ranking": true
+  },
+  "SO": {
+   "name": "Solothurn",
+   "date_trust": "mixed",
+   "same_day_share": 0.0064,
+   "adapter": {
+    "n": 209,
+    "median": 125,
+    "q1": 76.0,
+    "q3": 153.0
+   },
+   "opd_same_affairs": {
+    "n": 203,
+    "median": 169,
+    "q1": 99.0,
+    "q3": 205.0
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 203,
+    "median": -36,
+    "q1": -65.0,
+    "q3": -15.0,
+    "equal_share": 0.133
+   },
+   "opd_plain": {
+    "n": 1865,
+    "median": 55,
+    "q1": 35.0,
+    "q3": 90.0
+   },
+   "types": {
+    "Motion": 183,
+    "Interpellation": 16,
+    "Question": 10
+   },
+   "date_source": {
+    "document_date": 209
+   },
+   "in_ranking": true
+  },
+  "TG": {
+   "name": "Thurgau",
+   "date_trust": "sitting_day",
+   "same_day_share": 0.0195,
+   "adapter": {
+    "n": 32,
+    "median": 55.0,
+    "q1": 41.0,
+    "q3": 184.5
+   },
+   "opd_same_affairs": {
+    "n": 32,
+    "median": 55.0,
+    "q1": 41.0,
+    "q3": 184.5
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 32,
+    "median": 0.0,
+    "q1": 0.0,
+    "q3": 0.0,
+    "equal_share": 1.0
+   },
+   "opd_plain": {
+    "n": 1230,
+    "median": 55.0,
+    "q1": 48.0,
+    "q3": 195.0
+   },
+   "types": {
+    "Question": 22,
+    "Interpellation": 6,
+    "Motion": 4
+   },
+   "date_source": {
+    "printed_date_equals_single_opd_answer_event": 32
+   },
+   "in_ranking": true
+  },
+  "TI": {
+   "name": "Ticino",
+   "date_trust": "verified",
+   "same_day_share": 0.0017,
+   "adapter": {
+    "n": 719,
+    "median": 67,
+    "q1": 37.0,
+    "q3": 116.0
+   },
+   "opd_same_affairs": {
+    "n": 719,
+    "median": 67,
+    "q1": 37.0,
+    "q3": 116.0
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 719,
+    "median": 0,
+    "q1": 0.0,
+    "q3": 0.0,
+    "equal_share": 0.999
+   },
+   "opd_plain": {
+    "n": 2381,
+    "median": 61,
+    "q1": 26.0,
+    "q3": 107.0
+   },
+   "types": {
+    "Question": 617,
+    "Interpellation": 102
+   },
+   "date_source": {
+    "printed_date_equals_single_opd_answer_event": 718,
+    "document_date": 1
+   },
+   "in_ranking": true
+  },
+  "VD": {
+   "name": "Vaud",
+   "date_trust": "sitting_day",
+   "same_day_share": 0.0,
+   "adapter": {
+    "n": 90,
+    "median": 1156.0,
+    "q1": 802.5,
+    "q3": 1642.5
+   },
+   "opd_same_affairs": {
+    "n": 90,
+    "median": 1156.0,
+    "q1": 802.5,
+    "q3": 1642.5
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 90,
+    "median": 0.0,
+    "q1": 0.0,
+    "q3": 0.0,
+    "equal_share": 1.0
+   },
+   "opd_plain": {
+    "n": 1339,
+    "median": 161,
+    "q1": 99.0,
+    "q3": 358.0
+   },
+   "types": {
+    "Postulate": 87,
+    "Motion": 3
+   },
+   "date_source": {
+    "document_date": 82,
+    "printed_date_equals_single_opd_answer_event": 8
+   },
+   "in_ranking": true
+  },
+  "VS": {
+   "name": "Valais",
+   "date_trust": "same_day",
+   "same_day_share": 0.886,
+   "adapter": {
+    "n": 99,
+    "median": 100,
+    "q1": 50.0,
+    "q3": 147.0
+   },
+   "opd_same_affairs": {
+    "n": 99,
+    "median": 173,
+    "q1": 54.0,
+    "q3": 203.0
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 99,
+    "median": -42,
+    "q1": -84.0,
+    "q3": 0.0,
+    "equal_share": 0.111
+   },
+   "opd_plain": {
+    "n": 2570,
+    "median": 0.0,
+    "q1": 0.0,
+    "q3": 0.0
+   },
+   "types": {
+    "Motion": 76,
+    "Interpellation": 13,
+    "Question": 10
+   },
+   "date_source": {
+    "document_date": 96,
+    "printed_date_equals_single_opd_answer_event": 3
+   },
+   "in_ranking": true
+  },
+  "ZH": {
+   "name": "Zürich",
+   "date_trust": "sitting_day",
+   "same_day_share": 0.0133,
+   "adapter": {
+    "n": 2164,
+    "median": 79.0,
+    "q1": 58.0,
+    "q3": 86.0
+   },
+   "opd_same_affairs": {
+    "n": 2164,
+    "median": 79.0,
+    "q1": 58.0,
+    "q3": 86.0
+   },
+   "adapter_minus_opd_same_affairs": {
+    "n": 2164,
+    "median": 0.0,
+    "q1": 0.0,
+    "q3": 0.0,
+    "equal_share": 0.957
+   },
+   "opd_plain": {
+    "n": 10069,
+    "median": 79,
+    "q1": 58.0,
+    "q3": 86.0
+   },
+   "types": {
+    "Question": 1455,
+    "Postulate": 406,
+    "Motion": 161,
+    "Interpellation": 142
+   },
+   "date_source": {
+    "document_date": 2163,
+    "printed_date_equals_single_opd_answer_event": 1
+   },
+   "in_ranking": true
+  }
+ },
+ "caveat": "The adapter sample is the census gap (answers OPD holds without text, or not at all), not every answer of a parliament, and its type mix differs (per_parliament.types). The document date is the government's decision or letter date in most parliaments (Neuchâtel: the date the answer was transmitted to the Grand Conseil). Medians mix intervention types; compare a parliament with itself, or within one type."
+}

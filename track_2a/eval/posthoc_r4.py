@@ -432,13 +432,16 @@ def residue_precision() -> dict:
 
 
 def _fisher(a: int, b: int, c: int, d: int) -> float:
+    """Two-sided Fisher exact p, in exact integer arithmetic (one division at the end): the same float on every Python.
+    Until round 13 the float terms were summed with sum(), whose last digit changed with Python 3.12's compensated
+    sum() (0.021430165582901877 on 3.11 vs 0.02143016558290188, the exact value; display 0.021 either way)."""
     n1, n2, k = a + b, c + d, a + c
     n = n1 + n2
 
-    def pr(x):
-        return math.comb(n1, x) * math.comb(n2, k - x) / math.comb(n, k)
-    p0 = pr(a)
-    return min(1.0, sum(pr(x) for x in range(max(0, k - n2), min(k, n1) + 1) if pr(x) <= p0 * (1 + 1e-9)))
+    def t(x):
+        return math.comb(n1, x) * math.comb(n2, k - x)
+    t0 = t(a)
+    return min(1.0, sum(t(x) for x in range(max(0, k - n2), min(k, n1) + 1) if t(x) <= t0) / math.comb(n, k))
 
 
 def _cache8() -> dict[str, dict]:

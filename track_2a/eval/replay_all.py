@@ -47,6 +47,7 @@ from __future__ import annotations
 
 import collections
 import json
+import math
 import os
 import shutil
 import sys
@@ -72,8 +73,14 @@ def _norm(x):
     return json.loads(json.dumps(x, sort_keys=True))
 
 
-def _diff(a, b, path="", out=None, limit=8):
-    """First few differing paths between two JSON values (for the report)."""
+FLOAT_REL_TOL = 1e-12  # last-digit float differences only (see _diff)
+
+
+def _diff(a, b, path="", out=None, limit=8, tol=0.0):
+    """First few differing paths between two JSON values (for the report). With tol > 0, two floats that differ by at
+    most tol (relative) count as equal: Python 3.12 made float sum() compensated (Neumaier), so the locked scripts that
+    sum floats (e.g. eval/gold6/hypotheses6.py, LOCK6) can print a different last digit under 3.12 than under the pinned
+    3.11 that wrote the committed files. Only _bytes_check uses it, and it says so in the result."""
     out = [] if out is None else out
     if len(out) >= limit:
         return out
@@ -82,10 +89,12 @@ def _diff(a, b, path="", out=None, limit=8):
             if k not in a or k not in b:
                 out.append(f"{path}.{k}: only in {'committed' if k in a else 'recomputed'}")
             else:
-                _diff(a[k], b[k], f"{path}.{k}", out, limit)
+                _diff(a[k], b[k], f"{path}.{k}", out, limit, tol)
     elif isinstance(a, list) and isinstance(b, list) and len(a) == len(b):
         for i, (x, y) in enumerate(zip(a, b)):
-            _diff(x, y, f"{path}[{i}]", out, limit)
+            _diff(x, y, f"{path}[{i}]", out, limit, tol)
+    elif tol and isinstance(a, float) and isinstance(b, float) and math.isclose(a, b, rel_tol=tol, abs_tol=tol):
+        pass
     elif a != b:
         out.append(f"{path}: committed {str(a)[:60]} != recomputed {str(b)[:60]}")
     return out
@@ -285,8 +294,14 @@ def _bytes_check(name: str, committed: Path, got: Path) -> dict:
     a, b = committed.read_bytes(), got.read_bytes()
     if a == b:
         return dict(test=name, ok=True, detail=[])
-    bad = _diff(_norm(json.loads(a)), _norm(json.loads(b))) or ["JSON-equal but not byte-identical"]
-    return dict(test=name, ok=False, detail=bad)
+    ja, jb = _norm(json.loads(a)), _norm(json.loads(b))
+    bad = _diff(ja, jb)
+    if bad and not _diff(ja, jb, tol=FLOAT_REL_TOL):  # only last-digit float differences (Python >= 3.12 sum())
+        return dict(test=name, ok=True, float_tolerance=FLOAT_REL_TOL,
+                    detail=[f"not byte-identical: equal within relative {FLOAT_REL_TOL:g} (float summation order, "
+                            f"Python {sys.version_info.major}.{sys.version_info.minor}; the pinned 3.11 is byte-identical)"]
+                    + bad)
+    return dict(test=name, ok=False, detail=bad or ["JSON-equal but not byte-identical"])
 
 
 def replay_p5(build: str = BUILD) -> list[dict]:
@@ -445,8 +460,12 @@ def rederive_apertus(budget_s: float | None = None) -> dict:
         if res_f.exists():
             res = json.loads(res_f.read_text())
             sets.append((name, _jsonl(docs_f), {r["doc_id"]: r for r in res["per_doc"]}, res["theta"]))
-    out = dict(sets={}, poppler=pdftext.poppler_version(), tesseract=pdftext.tesseract_version())
-    has_ocr = shutil.which("tesseract") is not None
+    from gegenprobe import ocrguard
+    ocrguard.ensure()
+    ocr = ocrguard.status()  # tesseract AND its deu/fra/ita data (round 13: not just the binary)
+    out = dict(sets={}, poppler=pdftext.poppler_version(), tesseract=pdftext.tesseract_version(),
+               ocr=dict(ok=ocr["ok"], reason=ocr["reason"], pinned=ocr["pinned"]))
+    has_ocr = ocr["ok"]
     for name, docs, committed, theta in sets:
         t_set, stop = time.time(), False
         s = collections.Counter()
@@ -464,6 +483,9 @@ def rederive_apertus(budget_s: float | None = None) -> dict:
             try:
                 sha, path = pdftext.fetch_pdf(d["url"], expect_sha256=d["sha256"])
                 t = pdftext.extract(sha, path)
+            except pdftext.FetchError as e:
+                s["ocr_failed" if e.kind == "ocr_failed" else "unreachable"] += 1
+                continue
             except Exception:  # unreachable, robots.txt, changed source
                 s["unreachable"] += 1
                 continue

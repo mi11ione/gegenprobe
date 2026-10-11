@@ -84,13 +84,56 @@ affairs blind with the same guide and the same packets.
 ## What P5 shows (post hoc, `results/eval6/p5_posthoc.json`)
 
 - **Pairing transfers best where answers repeat or number the questions.** Rules-only Q/A recall was 21/22 in Riehen,
-  20/24 in Wädenswil and 17/20 in Lugano. It was 0/11 in Valais, whose answers discuss the questions without marking
-  them. Basel-Landschaft was 14/31, with precision 14/30.
+  20/24 in Wädenswil and 17/20 in Lugano. It was 0/11 in Valais. The cause is the language of the documents, not the
+  answers: all 11 scored answers sit in two affairs whose German answers number their replies (1.–6. and 1.–5.), but the
+  question documents are the French versions. The frozen rule accepts bare numbers only where the answer reprints
+  question n in the member's words, which cannot happen across languages (see "Question and answer in different
+  languages" below; pairing by number alone finds 11/11, post hoc). Basel-Landschaft was 14/31, with precision 14/30.
+  *Corrected in round 13; until then this line said that the Valais answers discuss the questions without marking
+  them, which holds only for the two affairs without scored answers.*
 - **Rules-only submitter detection does not transfer:** 12/40 on P5, against 36/38 on dev. There were 14 affairs
   without a value and 14 with the wrong person. The pointer over printed names raises it to 24/40. Free generation names
   the right printed person in 34/40, but without a span or a closed set. Submitter detection stays a review field.
 - Questions (167/187), reasoning (37/40) and recommendation (34/40 by rules, 36/40 with the pointer) hold up across the
   new parliaments.
+
+## Question and answer in different languages (finding for OPD, post hoc, `results/findings/cross_language_links.json`)
+
+How the Valais pairs came about: P5's Valais quota fixed the language of the question document (French), and the P3
+pairing convention takes the lowest-id answer document. In all 4 Valais P5 affairs that is the German file
+(`INT_…_ANT_DE.pdf` / `_ANT_D1.pdf`) next to the French question (`INT_…_DEP_Final_FR.pdf`). OPD links a German
+question too in all 4. It links a French answer in 2 of them (87651, 247619), with a higher id than the German one, and no
+French answer in the other 2 (295461, 252838).
+
+Across OPD's exports (`python -m gegenprobe.findings.cross_language`; committed census tables, no model, no network):
+
+- **Definitions.** An affair counts when it is an Interpellation, Motion, Postulate, Question or Question time, and OPD
+  links at least one question document and one answer document to it. Roles follow the frozen P3 pairing
+  (`eval/gold3/sample.py` `pair_type`, which reads OPD's document name and category). Language comes from OPD's
+  `language` tag on the document. The file-name suffix (`_DE.pdf`, `_FR.pdf`, `_D1.pdf`, `-fr.pdf` …) and stop-word
+  counts on the cached PDF text serve as cross-checks.
+- **Coverage.** 23,471 affairs have both roles. In 1,999 of them, all in 10 parliaments, both roles carry a language
+  tag. Elsewhere OPD leaves documents untagged, which is mostly harmless in a one-language parliament.
+- **No same-language pair at all: 6 affairs.** Three are in Bern (German question, French answer; 39369, 130479,
+  130732). The other three are in Valais. There the file names confirm the tags: on the 290 Valais affairs where both
+  signals are available, they agree in all 290 (287 same language, 3 different):
+  - Valais affair 2020.09.253 is split over two OPD affairs, 86774 and 176868. Each holds one language of the question
+    and the other language of the answer.
+  - OPD affair 86823 (postulate 2020.11.336) carries the French question file of interpellation 2020.11.350.
+- **The lowest-id question and answer differ in language in 214 of the 1,999 affairs (10.7%):** Graubünden 148/341,
+  Valais 63/313, Bern 3/7. Where OPD links both language versions, the consumer has to match the languages itself.
+  Anyone who takes one document per role without doing so gets a cross-language pair, as our P5 sampler did.
+- **Text cross-check.** Of the 209 gold-set affairs (P3, P3b, P5 dev, P5, P8) whose PDF text is cached, 208 have a
+  detectable language on both documents. Of these, 15 pair a question and an answer in different languages: Graubünden
+  7, Valais 5, Bern 2, Fribourg canton 1. On the 141 documents that have both an OPD tag and a detected text language,
+  the tag names another language than the text in 3 cases. All 3 are in the canton of Fribourg (P8's tag finding).
+
+**Valais re-scored by question number (post hoc, not registered; the registered result stays 0/11).** Pair answer n with
+the numbered paragraph "n." inside the frozen reply span when all k numbers appear in order. Skip a reprinted question up
+to its line-final "?". Drop the same-language reprint check. This finds 11/11 gold answers with 11 predictions (IoU ≥ 0.5;
+per-answer IoU 0.57–1.0). The two affairs whose answers are running text get no prediction. The rule is language-independent.
+It was applied only to Valais, the one P5 parliament whose question and answer differ in language. It is a candidate for
+the converter, to be tested on fresh affairs before it counts.
 
 ## Commands
 

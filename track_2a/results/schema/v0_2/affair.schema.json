@@ -1099,6 +1099,19 @@
      },
      "title": "Language Of Text",
      "type": "array"
+    },
+    "language_of_text_method": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "how language_of_text was determined: a detector id (e.g. 'stopword-profile-v1 ...') or 'annotator'",
+     "title": "Language Of Text Method"
     }
    },
    "required": [
@@ -1158,6 +1171,77 @@
     "page_to"
    ],
    "title": "DocumentPart",
+   "type": "object"
+  },
+  "EmptyReason": {
+   "additionalProperties": false,
+   "description": "Why a list field of the record is empty.",
+   "properties": {
+    "reason": {
+     "enum": [
+      "not_in_corpus",
+      "unlinked",
+      "text_failed",
+      "image_only",
+      "oral",
+      "present_unanchored",
+      "not_applicable",
+      "not_in_document",
+      "no_rules_for_body",
+      "not_extracted",
+      "carried_from_v0_1",
+      "none_printed"
+     ],
+     "title": "Reason",
+     "type": "string"
+    },
+    "route": {
+     "anyOf": [
+      {
+       "enum": [
+        "metadata",
+        "rule",
+        "apertus",
+        "ocr+rule",
+        "ocr+apertus",
+        "user_anchor",
+        "annotator"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "the route that established it (None for carried_from_v0_1)",
+     "title": "Route"
+    },
+    "evidence": {
+     "description": "the record, rule or source that establishes why it is empty",
+     "minLength": 1,
+     "title": "Evidence",
+     "type": "string"
+    },
+    "doc": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Document.doc_id that was read, for not_in_document / none_printed",
+     "title": "Doc"
+    }
+   },
+   "required": [
+    "reason",
+    "evidence"
+   ],
+   "title": "EmptyReason",
    "type": "object"
   },
   "ExtractionRun": {
@@ -2926,6 +3010,15 @@
   },
   "extraction": {
    "$ref": "#/$defs/ExtractionRun"
+  },
+  "empty_reasons": {
+   "additionalProperties": {
+    "$ref": "#/$defs/EmptyReason"
+   },
+   "default": {},
+   "description": "a typed reason for every empty list field (EMPTY_FIELDS), keyed by its path, e.g. 'body.languages', 'documents.0.language_of_text', 'qa.0.items'",
+   "title": "Empty Reasons",
+   "type": "object"
   }
  },
  "required": [

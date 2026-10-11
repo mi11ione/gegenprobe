@@ -3,31 +3,42 @@
   {
    "kind": "person",
    "name": {
-    "basis": "metadata",
+    "basis": "extracted",
+    "char_end": 237,
+    "char_start": 231,
+    "doc": "opd:23227",
     "kind": "value",
-    "route": "metadata",
-    "source": "opd:contributors/20548",
-    "value": "Fritz Ruchti"
+    "page": 1,
+    "quote_sha256": "94cbc0329ffdf881ed2f07f16ff48b2b3f2cb732210310f20c84acea9d1710f5",
+    "route": "rule",
+    "rule": "roles-2:authors:table:eingereicht_von",
+    "value": "Ruchti"
    },
-   "role": "submitter"
+   "role": "joint_author"
   },
   {
    "kind": "person",
    "name": {
-    "basis": "metadata",
+    "basis": "extracted",
+    "char_end": 272,
+    "char_start": 266,
+    "doc": "opd:23227",
     "kind": "value",
-    "route": "metadata",
-    "source": "opd:contributors/496950",
-    "value": "Peter Gerber"
+    "page": 1,
+    "quote_sha256": "c109b8cffa547332bff47174109ae60041ac56d4c2b2fb0ab26a253e4464f1e7",
+    "route": "rule",
+    "rule": "roles-2:authors:table:eingereicht_von",
+    "value": "Gerber"
    },
-   "role": "co_signatory"
+   "role": "joint_author"
   }
  ],
  "answer_link_status": "attached",
  "body": {
   "key": "BE",
   "languages": [
-   "de"
+   "de",
+   "fr"
   ],
   "level": "cantonal"
  },
@@ -52,6 +63,23 @@
    },
    "label": "OPD answer event",
    "role": "answered"
+  },
+  {
+   "date": {
+    "basis": "normalised",
+    "char_end": 161,
+    "char_start": 151,
+    "doc": "opd:23227",
+    "kind": "value",
+    "page": 1,
+    "quote_sha256": "f58b4f68b8946d9fe69812275eb54bf7f95ca92ba34d356e36a9a784f6c3d29d",
+    "role": "lodged",
+    "route": "rule",
+    "rule": "roles-2:date:label:eingereicht_am",
+    "value": "2021-12-08"
+   },
+   "label": "printed: Eingereicht am",
+   "role": "lodged"
   }
  ],
  "decision": {
@@ -66,7 +94,10 @@
    "extractor": "pdftotext-26.02.0",
    "image_only": false,
    "language": "de",
-   "language_of_text": [],
+   "language_of_text": [
+    "de"
+   ],
+   "language_of_text_method": "stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15)",
    "language_tag": "de",
    "n_pages": 2,
    "parts": [],
@@ -79,7 +110,10 @@
    "extractor": "pdftotext-26.02.0",
    "image_only": false,
    "language": "de",
-   "language_of_text": [],
+   "language_of_text": [
+    "fr"
+   ],
+   "language_of_text_method": "stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15)",
    "language_tag": "de",
    "n_pages": 3,
    "parts": [],
@@ -88,11 +122,33 @@
    "url": "https://ogd.parl.apps.be.ch/pdf-upload/afb41251635b452493a91ec5a4e77199-332.pdf"
   }
  ],
+ "empty_reasons": {
+  "documents.0.parts": {
+   "evidence": "this converter version does not detect document parts",
+   "reason": "not_extracted",
+   "route": "rule"
+  },
+  "documents.1.parts": {
+   "evidence": "this converter version does not detect document parts",
+   "reason": "not_extracted",
+   "route": "rule"
+  },
+  "qa.0.items": {
+   "evidence": "this record's path does not pair numbered questions with answers",
+   "reason": "not_extracted",
+   "route": "rule"
+  },
+  "related_affairs": {
+   "evidence": "the converter's related-affair rule found no cited affair number in the documents",
+   "reason": "none_printed",
+   "route": "rule"
+  }
+ },
  "extraction": {
   "builds": [],
   "converter_version": "gegenprobe-0.1.0+affair",
   "created": "2026-10-10T08:43:29.097587Z",
-  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it)",
+  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it); v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 2 printed authors (2 earlier entries for the same persons replaced), 1 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15)",
   "schema_version": "0.2.0"
  },
  "government_recommendation": {
@@ -158,6 +214,30 @@
  },
  "type": {
   "harmonised": "interpellation",
+  "instrument_function": {
+   "basis": "inferred",
+   "char_end": 116,
+   "char_start": 102,
+   "doc": "opd:23227",
+   "kind": "value",
+   "page": 1,
+   "quote_sha256": "ef0ab661960a481b3f917c7048761e97a63e1dd1d17157af554dbf132d44770f",
+   "route": "rule",
+   "rule": "roles-2:instrument_function:default:interpellation",
+   "value": "questions"
+  },
+  "instrument_named": {
+   "basis": "normalised",
+   "char_end": 116,
+   "char_start": 102,
+   "doc": "opd:23227",
+   "kind": "value",
+   "page": 1,
+   "quote_sha256": "ef0ab661960a481b3f917c7048761e97a63e1dd1d17157af554dbf132d44770f",
+   "route": "rule",
+   "rule": "roles-2:instrument:heading",
+   "value": "interpellation"
+  },
   "source_label": "Interpellation"
  }
 }
