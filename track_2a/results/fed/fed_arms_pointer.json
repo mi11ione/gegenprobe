@@ -1,0 +1,661 @@
+{
+ "label": "EXPLORATORY federal cell (eval/fed/PROTOCOL.md)",
+ "build": "publicai:swiss-ai/apertus-v1.5-8b",
+ "theta_answer": 10.395354058425431,
+ "theta_new_fields": 0.0,
+ "served_fingerprints": [
+  "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840"
+ ],
+ "n": 15,
+ "per_affair": [
+  {
+   "affair_id": 142904,
+   "stratum": "de",
+   "pointer": {
+    "value": null,
+    "margin": Infinity,
+    "n_cands": 0,
+    "truncated": false
+   },
+   "CA": {
+    "number": "08.3170",
+    "affair_type": "motion",
+    "submitter": "Lukas Reimann",
+    "co_signatories": [],
+    "addressed_body": "executive",
+    "submitted": "2008-03-20",
+    "answer_date": null,
+    "decision_number": null,
+    "recommendation": "reject",
+    "related_affairs": []
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:61985",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -37.23704490201486,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    },
+    "recommendation": {
+     "value": "reject",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:61984",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -24.249999046327307,
+     "candidates": 3,
+     "prompt_id": "de/recommendation.txt@4b9fe2c38a43"
+    }
+   }
+  },
+  {
+   "affair_id": 157601,
+   "stratum": "de",
+   "pointer": {
+    "value": null,
+    "margin": Infinity,
+    "n_cands": 0,
+    "truncated": false
+   },
+   "CA": {
+    "number": "21.3916",
+    "affair_type": "motion",
+    "submitter": "Mike Egger",
+    "co_signatories": [],
+    "addressed_body": "executive",
+    "submitted": "2021-06-18",
+    "answer_date": null,
+    "decision_number": null,
+    "recommendation": "reject",
+    "related_affairs": []
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:159677",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -37.23580984862893,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    },
+    "recommendation": {
+     "value": "reject",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:159676",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -18.50000000003442,
+     "candidates": 3,
+     "prompt_id": "de/recommendation.txt@4b9fe2c38a43"
+    }
+   }
+  },
+  {
+   "affair_id": 146074,
+   "stratum": "de",
+   "pointer": {
+    "value": null,
+    "margin": 44.40567374681605,
+    "n_cands": 2,
+    "truncated": false
+   },
+   "CA": {
+    "number": "11.3630",
+    "affair_type": "interpellation",
+    "submitter": "Fulvio Pelli",
+    "co_signatories": [],
+    "addressed_body": "executive",
+    "submitted": "2011-06-16",
+    "answer_date": null,
+    "decision_number": null,
+    "recommendation": null,
+    "related_affairs": []
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:83958",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -32.61346895334114,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    }
+   }
+  },
+  {
+   "affair_id": 55025,
+   "stratum": "de",
+   "pointer": {
+    "value": null,
+    "margin": 42.74422997228686,
+    "n_cands": 1,
+    "truncated": false
+   },
+   "CA": {
+    "number": "11.3172",
+    "affair_type": "interpellation",
+    "submitter": "Meinrado Robbiani",
+    "co_signatories": [],
+    "addressed_body": "executive",
+    "submitted": "2011-03-17",
+    "answer_date": null,
+    "decision_number": null,
+    "recommendation": null,
+    "related_affairs": [
+     "04.3000",
+     "10.3821"
+    ]
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:82284",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -32.12251404548034,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    }
+   }
+  },
+  {
+   "affair_id": 70763,
+   "stratum": "de",
+   "pointer": {
+    "value": null,
+    "margin": Infinity,
+    "n_cands": 0,
+    "truncated": false
+   },
+   "CA": {
+    "number": "24.3862",
+    "affair_type": "interpellation",
+    "submitter": "Samira Marti",
+    "co_signatories": [],
+    "addressed_body": "executive",
+    "submitted": "2024-09-12",
+    "answer_date": null,
+    "decision_number": null,
+    "recommendation": null,
+    "related_affairs": []
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:187779",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -30.620085947647954,
+     "candidates": 4,
+     "prompt_id": "de/affair_addressed_body.txt@fb5a906191c2"
+    }
+   }
+  },
+  {
+   "affair_id": 288089,
+   "stratum": "fr",
+   "pointer": {
+    "value": null,
+    "margin": Infinity,
+    "n_cands": 0,
+    "truncated": false
+   },
+   "CA": {
+    "number": "25.4463",
+    "affair_type": "motion",
+    "submitter": "Felix Wettstein",
+    "co_signatories": [],
+    "addressed_body": "executive",
+    "submitted": "2025-12-04",
+    "answer_date": null,
+    "decision_number": null,
+    "recommendation": "reject",
+    "related_affairs": [
+     "13.3363"
+    ]
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:211363",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -30.746371979478198,
+     "candidates": 4,
+     "prompt_id": "fr/affair_addressed_body.txt@b9f4e8728cb7"
+    },
+    "recommendation": {
+     "value": "reject",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:213770",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -28.124999046325684,
+     "candidates": 3,
+     "prompt_id": "fr/recommendation.txt@d745293039eb"
+    }
+   }
+  },
+  {
+   "affair_id": 70942,
+   "stratum": "fr",
+   "pointer": {
+    "value": null,
+    "margin": Infinity,
+    "n_cands": 0,
+    "truncated": false
+   },
+   "CA": {
+    "number": "24.4209",
+    "affair_type": "motion",
+    "submitter": "Lorenzo Quadri",
+    "co_signatories": [],
+    "addressed_body": "executive",
+    "submitted": "2024-09-27",
+    "answer_date": null,
+    "decision_number": null,
+    "recommendation": "reject",
+    "related_affairs": [
+     "23.4157"
+    ]
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:189035",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -35.36635776892989,
+     "candidates": 4,
+     "prompt_id": "fr/affair_addressed_body.txt@b9f4e8728cb7"
+    },
+    "recommendation": {
+     "value": "reject",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:189034",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -24.624999880790718,
+     "candidates": 3,
+     "prompt_id": "fr/recommendation.txt@d745293039eb"
+    }
+   }
+  },
+  {
+   "affair_id": 206864,
+   "stratum": "fr",
+   "pointer": {
+    "value": null,
+    "margin": Infinity,
+    "n_cands": 0,
+    "truncated": false
+   },
+   "CA": {
+    "number": "00.1037",
+    "affair_type": "postulate",
+    "submitter": "Pia Hollenstein",
+    "co_signatories": [],
+    "addressed_body": "executive",
+    "submitted": "2000-03-22",
+    "answer_date": null,
+    "decision_number": null,
+    "recommendation": "accept",
+    "related_affairs": []
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:24750",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -32.496804822124304,
+     "candidates": 4,
+     "prompt_id": "fr/affair_addressed_body.txt@b9f4e8728cb7"
+    },
+    "affair_type": {
+     "value": "postulate",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:24750",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -29.73438357183983,
+     "candidates": 5,
+     "prompt_id": "fr/affair_affair_type.txt@0ec8a0e83b70"
+    },
+    "recommendation": {
+     "value": "accept",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:24749",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -5.79918369529938,
+     "candidates": 3,
+     "prompt_id": "fr/recommendation.txt@d745293039eb"
+    }
+   }
+  },
+  {
+   "affair_id": 156290,
+   "stratum": "fr",
+   "pointer": {
+    "value": null,
+    "margin": Infinity,
+    "n_cands": 0,
+    "truncated": false
+   },
+   "CA": {
+    "number": "20.4315",
+    "affair_type": "interpellation",
+    "submitter": "Regula Rytz",
+    "co_signatories": [],
+    "addressed_body": "executive",
+    "submitted": "2020-10-30",
+    "answer_date": null,
+    "decision_number": null,
+    "recommendation": null,
+    "related_affairs": [
+     "20.3863",
+     "19.3504"
+    ]
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:150987",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -34.24805846797838,
+     "candidates": 4,
+     "prompt_id": "fr/affair_addressed_body.txt@b9f4e8728cb7"
+    }
+   }
+  },
+  {
+   "affair_id": 208413,
+   "stratum": "fr",
+   "pointer": {
+    "value": null,
+    "margin": 72.3577095112397,
+    "n_cands": 1,
+    "truncated": false
+   },
+   "CA": {
+    "number": "03.1128",
+    "affair_type": "interpellation",
+    "submitter": "Walter Schmied",
+    "co_signatories": [],
+    "addressed_body": "executive",
+    "submitted": "2003-10-03",
+    "answer_date": null,
+    "decision_number": null,
+    "recommendation": "accept",
+    "related_affairs": []
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:37637",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -18.845095575103365,
+     "candidates": 4,
+     "prompt_id": "fr/affair_addressed_body.txt@b9f4e8728cb7"
+    },
+    "affair_type": {
+     "value": "interpellation",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:37637",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -22.07732790289781,
+     "candidates": 5,
+     "prompt_id": "fr/affair_affair_type.txt@0ec8a0e83b70"
+    },
+    "recommendation": {
+     "value": "accept",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:37636",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -3.182719141327887,
+     "candidates": 3,
+     "prompt_id": "fr/recommendation.txt@d745293039eb"
+    }
+   }
+  },
+  {
+   "affair_id": 215141,
+   "stratum": "it",
+   "pointer": {
+    "value": null,
+    "margin": Infinity,
+    "n_cands": 0,
+    "truncated": false
+   },
+   "CA": {
+    "number": "23.4457",
+    "affair_type": "motion",
+    "submitter": "Hans Wicki",
+    "co_signatories": [
+     "Philippe Nantermod"
+    ],
+    "addressed_body": "executive",
+    "submitted": "2023-12-21",
+    "answer_date": null,
+    "decision_number": null,
+    "recommendation": "reject",
+    "related_affairs": []
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:181006",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -37.75003720980797,
+     "candidates": 4,
+     "prompt_id": "it/affair_addressed_body.txt@6132abd55610"
+    },
+    "recommendation": {
+     "value": "reject",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:181005",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -24.250000000001158,
+     "candidates": 3,
+     "prompt_id": "it/recommendation.txt@d4b87f8cfb19"
+    }
+   }
+  },
+  {
+   "affair_id": 57189,
+   "stratum": "it",
+   "pointer": {
+    "value": null,
+    "margin": 26.508317896150402,
+    "n_cands": 1,
+    "truncated": false
+   },
+   "CA": {
+    "number": "13.3505",
+    "affair_type": "postulate",
+    "submitter": "Sebastian Frehner",
+    "co_signatories": [],
+    "addressed_body": "executive",
+    "submitted": "2013-06-20",
+    "answer_date": null,
+    "decision_number": null,
+    "recommendation": "reject",
+    "related_affairs": []
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:96891",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -39.499441123617586,
+     "candidates": 4,
+     "prompt_id": "it/affair_addressed_body.txt@6132abd55610"
+    },
+    "recommendation": {
+     "value": "reject",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:96890",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -26.124999881005568,
+     "candidates": 3,
+     "prompt_id": "it/recommendation.txt@d4b87f8cfb19"
+    }
+   }
+  },
+  {
+   "affair_id": 157691,
+   "stratum": "it",
+   "pointer": {
+    "value": null,
+    "margin": Infinity,
+    "n_cands": 0,
+    "truncated": false
+   },
+   "CA": {
+    "number": "21.4143",
+    "affair_type": "interpellation",
+    "submitter": "Maya Graf",
+    "co_signatories": [],
+    "addressed_body": "executive",
+    "submitted": "2021-09-29",
+    "answer_date": null,
+    "decision_number": null,
+    "recommendation": null,
+    "related_affairs": [
+     "20.3010"
+    ]
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:160465",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -20.24489311715162,
+     "candidates": 4,
+     "prompt_id": "it/affair_addressed_body.txt@6132abd55610"
+    }
+   }
+  },
+  {
+   "affair_id": 140985,
+   "stratum": "it",
+   "pointer": {
+    "value": null,
+    "margin": 42.458046573632856,
+    "n_cands": 2,
+    "truncated": false
+   },
+   "CA": {
+    "number": "05.3549",
+    "affair_type": "interpellation",
+    "submitter": "Otto Ineichen",
+    "co_signatories": [],
+    "addressed_body": "executive",
+    "submitted": "2005-10-05",
+    "answer_date": null,
+    "decision_number": null,
+    "recommendation": null,
+    "related_affairs": []
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:48342",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -35.498952054651355,
+     "candidates": 4,
+     "prompt_id": "it/affair_addressed_body.txt@6132abd55610"
+    }
+   }
+  },
+  {
+   "affair_id": 140335,
+   "stratum": "it",
+   "pointer": {
+    "value": null,
+    "margin": 51.37407335341977,
+    "n_cands": 1,
+    "truncated": false
+   },
+   "CA": {
+    "number": "04.3538",
+    "affair_type": "interpellation",
+    "submitter": "Maria Bernasconi",
+    "co_signatories": [],
+    "addressed_body": "executive",
+    "submitted": "2004-10-07",
+    "answer_date": null,
+    "decision_number": null,
+    "recommendation": null,
+    "related_affairs": []
+   },
+   "suggestions": {
+    "addressed_body": {
+     "value": "executive",
+     "route": "apertus",
+     "basis": "inferred",
+     "doc": "opd-texts:43710",
+     "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+     "theta": 0.0,
+     "margin": -30.001325512467787,
+     "candidates": 4,
+     "prompt_id": "it/affair_addressed_body.txt@6132abd55610"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,1505 @@
+{
+ "label": "EXPLORATORY federal cell (eval/fed/PROTOCOL.md)",
+ "n": 15,
+ "v0_2_validation": {
+  "n_affairs": 15,
+  "n_valid": 15,
+  "n_invalid": 0,
+  "invalid": [],
+  "n_parliaments": 1,
+  "counts": {
+   "actor_roles": {
+    "co_signatory": 1,
+    "submitter": 15
+   },
+   "date_roles": {
+    "answered": 7,
+    "submitted": 15
+   },
+   "empty_reasons": {
+    "none_printed": 10,
+    "not_extracted": 45,
+    "present_unanchored": 30
+   },
+   "null_reasons": {
+    "not_applicable": 14,
+    "not_extracted": 15,
+    "not_in_corpus": 22,
+    "not_in_document": 9,
+    "present_unanchored": 29
+   },
+   "qa_items": {
+    "none": 15
+   },
+   "records_carrying": {
+    "empty_reasons_typed": 15,
+    "instrument_function": 0,
+    "instrument_named": 0,
+    "language_of_text_all_documents": 0,
+    "printed_author_with_role": 0
+   },
+   "routes": {
+    "metadata": 68,
+    "rule": 67
+   },
+   "v02_additions_used": {}
+  }
+ },
+ "roles_arm": "run",
+ "per_affair": [
+  {
+   "affair_id": 142904,
+   "stratum": "de",
+   "affair_type": "Motion",
+   "answer_date": {
+    "doc_dates": [],
+    "latest": null,
+    "rules": {
+     "status": "abstain",
+     "value": null,
+     "rule": "no_anchor"
+    }
+   },
+   "converter": {
+    "M": {
+     "number": "08.3170",
+     "affair_type": "motion",
+     "submitter": "Lukas Reimann",
+     "co_signatories": [],
+     "submitted": "2008-03-20",
+     "recommendation": null,
+     "answer_date": "2008-05-21",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "08.3170",
+     "affair_type": "motion",
+     "submitter": "Lukas Reimann",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2008-03-20",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "record_answer_date": {
+    "kind": "null",
+    "null_reason": "not_in_document",
+    "route": "rule",
+    "evidence": "no_anchor",
+    "doc": "opd-texts:61984"
+   },
+   "record_dates": [
+    {
+     "role": "submitted",
+     "date": {
+      "kind": "value",
+      "value": "2008-03-20",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:affairs/142904#begin_date"
+     }
+    },
+    {
+     "role": "answered",
+     "date": {
+      "kind": "value",
+      "value": "2008-05-21",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:events/341459"
+     },
+     "label": "OPD answer event"
+    }
+   ],
+   "language_guess": {
+    "question": "de",
+    "answer": "de"
+   },
+   "roles": {
+    "rules_version": "roles-2",
+    "actors": [],
+    "instrument": null,
+    "dates": [],
+    "language_of_text": {
+     "question": [
+      "de"
+     ],
+     "answer": [
+      "de"
+     ]
+    }
+   }
+  },
+  {
+   "affair_id": 157601,
+   "stratum": "de",
+   "affair_type": "Motion",
+   "answer_date": {
+    "doc_dates": [],
+    "latest": null,
+    "rules": {
+     "status": "abstain",
+     "value": null,
+     "rule": "no_anchor"
+    }
+   },
+   "converter": {
+    "M": {
+     "number": "21.3916",
+     "affair_type": "motion",
+     "submitter": "Mike Egger",
+     "co_signatories": [],
+     "submitted": "2021-06-18",
+     "recommendation": null,
+     "answer_date": "2021-09-01",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "21.3916",
+     "affair_type": "motion",
+     "submitter": "Mike Egger",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2021-06-18",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "record_answer_date": {
+    "kind": "null",
+    "null_reason": "not_in_document",
+    "route": "rule",
+    "evidence": "no_anchor",
+    "doc": "opd-texts:159676"
+   },
+   "record_dates": [
+    {
+     "role": "submitted",
+     "date": {
+      "kind": "value",
+      "value": "2021-06-18",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:affairs/157601#begin_date"
+     }
+    },
+    {
+     "role": "answered",
+     "date": {
+      "kind": "value",
+      "value": "2021-09-01",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:events/461906"
+     },
+     "label": "OPD answer event"
+    }
+   ],
+   "language_guess": {
+    "question": "de",
+    "answer": "de"
+   },
+   "roles": {
+    "rules_version": "roles-2",
+    "actors": [],
+    "instrument": null,
+    "dates": [],
+    "language_of_text": {
+     "question": [
+      "de"
+     ],
+     "answer": [
+      "de"
+     ]
+    }
+   }
+  },
+  {
+   "affair_id": 146074,
+   "stratum": "de",
+   "affair_type": "Interpellation",
+   "answer_date": {
+    "doc_dates": [
+     "2007-11-24",
+     "2011-05-26"
+    ],
+    "latest": "2011-05-26",
+    "rules": {
+     "status": "abstain",
+     "value": null,
+     "rule": "no_anchor"
+    }
+   },
+   "converter": {
+    "M": {
+     "number": "11.3630",
+     "affair_type": "interpellation",
+     "submitter": "Fulvio Pelli",
+     "co_signatories": [],
+     "submitted": "2011-06-16",
+     "recommendation": null,
+     "answer_date": null,
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "11.3630",
+     "affair_type": "interpellation",
+     "submitter": "Fulvio Pelli",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2011-06-16",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "record_answer_date": {
+    "kind": "null",
+    "null_reason": "present_unanchored",
+    "route": "rule",
+    "evidence": "no_anchor",
+    "doc": "opd-texts:83957"
+   },
+   "record_dates": [
+    {
+     "role": "submitted",
+     "date": {
+      "kind": "value",
+      "value": "2011-06-16",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:affairs/146074#begin_date"
+     }
+    }
+   ],
+   "language_guess": {
+    "question": "de",
+    "answer": "de"
+   },
+   "roles": {
+    "rules_version": "roles-2",
+    "actors": [],
+    "instrument": null,
+    "dates": [],
+    "language_of_text": {
+     "question": [
+      "de"
+     ],
+     "answer": [
+      "de"
+     ]
+    }
+   }
+  },
+  {
+   "affair_id": 55025,
+   "stratum": "de",
+   "affair_type": "Interpellation",
+   "answer_date": {
+    "doc_dates": [
+     "2009-10-30"
+    ],
+    "latest": "2009-10-30",
+    "rules": {
+     "status": "abstain",
+     "value": null,
+     "rule": "no_anchor"
+    }
+   },
+   "converter": {
+    "M": {
+     "number": "11.3172",
+     "affair_type": "interpellation",
+     "submitter": "Meinrado Robbiani",
+     "co_signatories": [],
+     "submitted": "2011-03-17",
+     "recommendation": null,
+     "answer_date": null,
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "04.3000",
+      "10.3821"
+     ]
+    },
+    "C": {
+     "number": "11.3172",
+     "affair_type": "interpellation",
+     "submitter": "Meinrado Robbiani",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2011-03-17",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "04.3000",
+      "10.3821"
+     ]
+    }
+   },
+   "record_answer_date": {
+    "kind": "null",
+    "null_reason": "present_unanchored",
+    "route": "rule",
+    "evidence": "no_anchor",
+    "doc": "opd-texts:82283"
+   },
+   "record_dates": [
+    {
+     "role": "submitted",
+     "date": {
+      "kind": "value",
+      "value": "2011-03-17",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:affairs/55025#begin_date"
+     }
+    }
+   ],
+   "language_guess": {
+    "question": "de",
+    "answer": "de"
+   },
+   "roles": {
+    "rules_version": "roles-2",
+    "actors": [],
+    "instrument": null,
+    "dates": [],
+    "language_of_text": {
+     "question": [
+      "de"
+     ],
+     "answer": [
+      "de"
+     ]
+    }
+   }
+  },
+  {
+   "affair_id": 70763,
+   "stratum": "de",
+   "affair_type": "Interpellation",
+   "answer_date": {
+    "doc_dates": [],
+    "latest": null,
+    "rules": {
+     "status": "abstain",
+     "value": null,
+     "rule": "no_anchor"
+    }
+   },
+   "converter": {
+    "M": {
+     "number": "24.3862",
+     "affair_type": "interpellation",
+     "submitter": "Samira Marti",
+     "co_signatories": [],
+     "submitted": "2024-09-12",
+     "recommendation": null,
+     "answer_date": "2024-10-30",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "24.3862",
+     "affair_type": "interpellation",
+     "submitter": "Samira Marti",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2024-09-12",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "record_answer_date": {
+    "kind": "null",
+    "null_reason": "not_in_document",
+    "route": "rule",
+    "evidence": "no_anchor",
+    "doc": "opd-texts:187778"
+   },
+   "record_dates": [
+    {
+     "role": "submitted",
+     "date": {
+      "kind": "value",
+      "value": "2024-09-12",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:affairs/70763#begin_date"
+     }
+    },
+    {
+     "role": "answered",
+     "date": {
+      "kind": "value",
+      "value": "2024-10-30",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:events/35046"
+     },
+     "label": "OPD answer event"
+    }
+   ],
+   "language_guess": {
+    "question": "de",
+    "answer": "de"
+   },
+   "roles": {
+    "rules_version": "roles-2",
+    "actors": [],
+    "instrument": null,
+    "dates": [],
+    "language_of_text": {
+     "question": [
+      "de"
+     ],
+     "answer": [
+      "de"
+     ]
+    }
+   }
+  },
+  {
+   "affair_id": 288089,
+   "stratum": "fr",
+   "affair_type": "Motion",
+   "answer_date": {
+    "doc_dates": [],
+    "latest": null,
+    "rules": {
+     "status": "abstain",
+     "value": null,
+     "rule": "no_anchor"
+    }
+   },
+   "converter": {
+    "M": {
+     "number": "25.4463",
+     "affair_type": "motion",
+     "submitter": "Felix Wettstein",
+     "co_signatories": [],
+     "submitted": "2025-12-04",
+     "recommendation": null,
+     "answer_date": "2026-02-11",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "13.3363"
+     ]
+    },
+    "C": {
+     "number": "25.4463",
+     "affair_type": "motion",
+     "submitter": "Felix Wettstein",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2025-12-04",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "13.3363"
+     ]
+    }
+   },
+   "record_answer_date": {
+    "kind": "null",
+    "null_reason": "not_in_document",
+    "route": "rule",
+    "evidence": "no_anchor",
+    "doc": "opd-texts:213770"
+   },
+   "record_dates": [
+    {
+     "role": "submitted",
+     "date": {
+      "kind": "value",
+      "value": "2025-12-04",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:affairs/288089#begin_date"
+     }
+    },
+    {
+     "role": "answered",
+     "date": {
+      "kind": "value",
+      "value": "2026-02-11",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:events/840641"
+     },
+     "label": "OPD answer event"
+    }
+   ],
+   "language_guess": {
+    "question": "fr",
+    "answer": "fr"
+   },
+   "roles": {
+    "rules_version": "roles-2",
+    "actors": [],
+    "instrument": null,
+    "dates": [],
+    "language_of_text": {
+     "question": [
+      "fr"
+     ],
+     "answer": [
+      "fr"
+     ]
+    }
+   }
+  },
+  {
+   "affair_id": 70942,
+   "stratum": "fr",
+   "affair_type": "Motion",
+   "answer_date": {
+    "doc_dates": [],
+    "latest": null,
+    "rules": {
+     "status": "abstain",
+     "value": null,
+     "rule": "no_anchor"
+    }
+   },
+   "converter": {
+    "M": {
+     "number": "24.4209",
+     "affair_type": "motion",
+     "submitter": "Lorenzo Quadri",
+     "co_signatories": [],
+     "submitted": "2024-09-27",
+     "recommendation": null,
+     "answer_date": "2024-11-27",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "23.4157"
+     ]
+    },
+    "C": {
+     "number": "24.4209",
+     "affair_type": "motion",
+     "submitter": "Lorenzo Quadri",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2024-09-27",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "23.4157"
+     ]
+    }
+   },
+   "record_answer_date": {
+    "kind": "null",
+    "null_reason": "not_in_document",
+    "route": "rule",
+    "evidence": "no_anchor",
+    "doc": "opd-texts:189034"
+   },
+   "record_dates": [
+    {
+     "role": "submitted",
+     "date": {
+      "kind": "value",
+      "value": "2024-09-27",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:affairs/70942#begin_date"
+     }
+    },
+    {
+     "role": "answered",
+     "date": {
+      "kind": "value",
+      "value": "2024-11-27",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:events/407178"
+     },
+     "label": "OPD answer event"
+    }
+   ],
+   "language_guess": {
+    "question": "fr",
+    "answer": "fr"
+   },
+   "roles": {
+    "rules_version": "roles-2",
+    "actors": [],
+    "instrument": null,
+    "dates": [],
+    "language_of_text": {
+     "question": [
+      "fr"
+     ],
+     "answer": [
+      "fr"
+     ]
+    }
+   }
+  },
+  {
+   "affair_id": 206864,
+   "stratum": "fr",
+   "affair_type": "Question",
+   "answer_date": {
+    "doc_dates": [],
+    "latest": null,
+    "rules": {
+     "status": "abstain",
+     "value": null,
+     "rule": "no_anchor"
+    }
+   },
+   "converter": {
+    "M": {
+     "number": "00.1037",
+     "affair_type": null,
+     "submitter": "Pia Hollenstein",
+     "co_signatories": [],
+     "submitted": "2000-03-22",
+     "recommendation": null,
+     "answer_date": null,
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "00.1037",
+     "affair_type": null,
+     "submitter": "Pia Hollenstein",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2000-03-22",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "record_answer_date": {
+    "kind": "null",
+    "null_reason": "not_in_document",
+    "route": "rule",
+    "evidence": "no_anchor",
+    "doc": "opd-texts:24749"
+   },
+   "record_dates": [
+    {
+     "role": "submitted",
+     "date": {
+      "kind": "value",
+      "value": "2000-03-22",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:affairs/206864#begin_date"
+     }
+    }
+   ],
+   "language_guess": {
+    "question": "fr",
+    "answer": "fr"
+   },
+   "roles": {
+    "rules_version": "roles-2",
+    "actors": [],
+    "instrument": null,
+    "dates": [],
+    "language_of_text": {
+     "question": [
+      "fr"
+     ],
+     "answer": [
+      "fr"
+     ]
+    }
+   }
+  },
+  {
+   "affair_id": 156290,
+   "stratum": "fr",
+   "affair_type": "Interpellation",
+   "answer_date": {
+    "doc_dates": [],
+    "latest": null,
+    "rules": {
+     "status": "abstain",
+     "value": null,
+     "rule": "heading_without_date"
+    }
+   },
+   "converter": {
+    "M": {
+     "number": "20.4315",
+     "affair_type": "interpellation",
+     "submitter": "Regula Rytz",
+     "co_signatories": [],
+     "submitted": "2020-10-30",
+     "recommendation": null,
+     "answer_date": null,
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "20.3863",
+      "19.3504"
+     ]
+    },
+    "C": {
+     "number": "20.4315",
+     "affair_type": "interpellation",
+     "submitter": "Regula Rytz",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2020-10-30",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "20.3863",
+      "19.3504"
+     ]
+    }
+   },
+   "record_answer_date": {
+    "kind": "null",
+    "null_reason": "not_in_document",
+    "route": "rule",
+    "evidence": "heading_without_date",
+    "doc": "opd-texts:150986"
+   },
+   "record_dates": [
+    {
+     "role": "submitted",
+     "date": {
+      "kind": "value",
+      "value": "2020-10-30",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:affairs/156290#begin_date"
+     }
+    }
+   ],
+   "language_guess": {
+    "question": "fr",
+    "answer": "fr"
+   },
+   "roles": {
+    "rules_version": "roles-2",
+    "actors": [],
+    "instrument": null,
+    "dates": [],
+    "language_of_text": {
+     "question": [
+      "fr"
+     ],
+     "answer": [
+      "fr"
+     ]
+    }
+   }
+  },
+  {
+   "affair_id": 208413,
+   "stratum": "fr",
+   "affair_type": "Question",
+   "answer_date": {
+    "doc_dates": [
+     "1994-03-25"
+    ],
+    "latest": "1994-03-25",
+    "rules": {
+     "status": "abstain",
+     "value": null,
+     "rule": "heading_without_date"
+    }
+   },
+   "converter": {
+    "M": {
+     "number": "03.1128",
+     "affair_type": null,
+     "submitter": "Walter Schmied",
+     "co_signatories": [],
+     "submitted": "2003-10-03",
+     "recommendation": null,
+     "answer_date": null,
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "03.1128",
+     "affair_type": null,
+     "submitter": "Walter Schmied",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2003-10-03",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "record_answer_date": {
+    "kind": "null",
+    "null_reason": "present_unanchored",
+    "route": "rule",
+    "evidence": "heading_without_date",
+    "doc": "opd-texts:37636"
+   },
+   "record_dates": [
+    {
+     "role": "submitted",
+     "date": {
+      "kind": "value",
+      "value": "2003-10-03",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:affairs/208413#begin_date"
+     }
+    }
+   ],
+   "language_guess": {
+    "question": "fr",
+    "answer": "fr"
+   },
+   "roles": {
+    "rules_version": "roles-2",
+    "actors": [],
+    "instrument": null,
+    "dates": [],
+    "language_of_text": {
+     "question": [
+      "fr"
+     ],
+     "answer": [
+      "fr"
+     ]
+    }
+   }
+  },
+  {
+   "affair_id": 215141,
+   "stratum": "it",
+   "affair_type": "Motion",
+   "answer_date": {
+    "doc_dates": [],
+    "latest": null,
+    "rules": {
+     "status": "abstain",
+     "value": null,
+     "rule": "no_anchor"
+    }
+   },
+   "converter": {
+    "M": {
+     "number": "23.4457",
+     "affair_type": "motion",
+     "submitter": "Hans Wicki",
+     "co_signatories": [
+      "Philippe Nantermod"
+     ],
+     "submitted": "2023-12-21",
+     "recommendation": null,
+     "answer_date": "2024-02-22",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "23.4457",
+     "affair_type": "motion",
+     "submitter": "Hans Wicki",
+     "co_signatories": [
+      "Philippe Nantermod"
+     ],
+     "addressed_body": null,
+     "submitted": "2023-12-21",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "record_answer_date": {
+    "kind": "null",
+    "null_reason": "not_in_document",
+    "route": "rule",
+    "evidence": "no_anchor",
+    "doc": "opd-texts:181005"
+   },
+   "record_dates": [
+    {
+     "role": "submitted",
+     "date": {
+      "kind": "value",
+      "value": "2023-12-21",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:affairs/215141#begin_date"
+     }
+    },
+    {
+     "role": "answered",
+     "date": {
+      "kind": "value",
+      "value": "2024-02-22",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:events/346306"
+     },
+     "label": "OPD answer event"
+    }
+   ],
+   "language_guess": {
+    "question": "it",
+    "answer": "it"
+   },
+   "roles": {
+    "rules_version": "roles-2",
+    "actors": [],
+    "instrument": null,
+    "dates": [],
+    "language_of_text": {
+     "question": [
+      "it"
+     ],
+     "answer": [
+      "it"
+     ]
+    }
+   }
+  },
+  {
+   "affair_id": 57189,
+   "stratum": "it",
+   "affair_type": "Postulate",
+   "answer_date": {
+    "doc_dates": [
+     "2013-06-26"
+    ],
+    "latest": "2013-06-26",
+    "rules": {
+     "status": "abstain",
+     "value": null,
+     "rule": "no_anchor"
+    }
+   },
+   "converter": {
+    "M": {
+     "number": "13.3505",
+     "affair_type": "postulate",
+     "submitter": "Sebastian Frehner",
+     "co_signatories": [],
+     "submitted": "2013-06-20",
+     "recommendation": null,
+     "answer_date": "2013-08-21",
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "13.3505",
+     "affair_type": "postulate",
+     "submitter": "Sebastian Frehner",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2013-06-20",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "record_answer_date": {
+    "kind": "null",
+    "null_reason": "present_unanchored",
+    "route": "rule",
+    "evidence": "no_anchor",
+    "doc": "opd-texts:96890"
+   },
+   "record_dates": [
+    {
+     "role": "submitted",
+     "date": {
+      "kind": "value",
+      "value": "2013-06-20",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:affairs/57189#begin_date"
+     }
+    },
+    {
+     "role": "answered",
+     "date": {
+      "kind": "value",
+      "value": "2013-08-21",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:events/463063"
+     },
+     "label": "OPD answer event"
+    }
+   ],
+   "language_guess": {
+    "question": "it",
+    "answer": "it"
+   },
+   "roles": {
+    "rules_version": "roles-2",
+    "actors": [],
+    "instrument": null,
+    "dates": [],
+    "language_of_text": {
+     "question": [
+      "it"
+     ],
+     "answer": [
+      "it"
+     ]
+    }
+   }
+  },
+  {
+   "affair_id": 157691,
+   "stratum": "it",
+   "affair_type": "Interpellation",
+   "answer_date": {
+    "doc_dates": [],
+    "latest": null,
+    "rules": {
+     "status": "abstain",
+     "value": null,
+     "rule": "no_anchor"
+    }
+   },
+   "converter": {
+    "M": {
+     "number": "21.4143",
+     "affair_type": "interpellation",
+     "submitter": "Maya Graf",
+     "co_signatories": [],
+     "submitted": "2021-09-29",
+     "recommendation": null,
+     "answer_date": null,
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "20.3010"
+     ]
+    },
+    "C": {
+     "number": "21.4143",
+     "affair_type": "interpellation",
+     "submitter": "Maya Graf",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2021-09-29",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": [
+      "20.3010"
+     ]
+    }
+   },
+   "record_answer_date": {
+    "kind": "null",
+    "null_reason": "not_in_document",
+    "route": "rule",
+    "evidence": "no_anchor",
+    "doc": "opd-texts:160464"
+   },
+   "record_dates": [
+    {
+     "role": "submitted",
+     "date": {
+      "kind": "value",
+      "value": "2021-09-29",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:affairs/157691#begin_date"
+     }
+    }
+   ],
+   "language_guess": {
+    "question": "it",
+    "answer": "it"
+   },
+   "roles": {
+    "rules_version": "roles-2",
+    "actors": [],
+    "instrument": null,
+    "dates": [],
+    "language_of_text": {
+     "question": [
+      "it"
+     ],
+     "answer": [
+      "it"
+     ]
+    }
+   }
+  },
+  {
+   "affair_id": 140985,
+   "stratum": "it",
+   "affair_type": "Interpellation",
+   "answer_date": {
+    "doc_dates": [
+     "2005-07-01",
+     "2009-07-01"
+    ],
+    "latest": "2009-07-01",
+    "rules": {
+     "status": "abstain",
+     "value": null,
+     "rule": "no_anchor"
+    }
+   },
+   "converter": {
+    "M": {
+     "number": "05.3549",
+     "affair_type": "interpellation",
+     "submitter": "Otto Ineichen",
+     "co_signatories": [],
+     "submitted": "2005-10-05",
+     "recommendation": null,
+     "answer_date": null,
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "05.3549",
+     "affair_type": "interpellation",
+     "submitter": "Otto Ineichen",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2005-10-05",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "record_answer_date": {
+    "kind": "null",
+    "null_reason": "present_unanchored",
+    "route": "rule",
+    "evidence": "no_anchor",
+    "doc": "opd-texts:48341"
+   },
+   "record_dates": [
+    {
+     "role": "submitted",
+     "date": {
+      "kind": "value",
+      "value": "2005-10-05",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:affairs/140985#begin_date"
+     }
+    }
+   ],
+   "language_guess": {
+    "question": "it",
+    "answer": "it"
+   },
+   "roles": {
+    "rules_version": "roles-2",
+    "actors": [],
+    "instrument": null,
+    "dates": [],
+    "language_of_text": {
+     "question": [
+      "it"
+     ],
+     "answer": [
+      "it"
+     ]
+    }
+   }
+  },
+  {
+   "affair_id": 140335,
+   "stratum": "it",
+   "affair_type": "Interpellation",
+   "answer_date": {
+    "doc_dates": [
+     "1998-08-20"
+    ],
+    "latest": "1998-08-20",
+    "rules": {
+     "status": "abstain",
+     "value": null,
+     "rule": "heading_without_date"
+    }
+   },
+   "converter": {
+    "M": {
+     "number": "04.3538",
+     "affair_type": "interpellation",
+     "submitter": "Maria Bernasconi",
+     "co_signatories": [],
+     "submitted": "2004-10-07",
+     "recommendation": null,
+     "answer_date": null,
+     "addressed_body": null,
+     "decision_number": null,
+     "related_affairs": []
+    },
+    "R": {
+     "number": null,
+     "affair_type": null,
+     "submitter": null,
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": null,
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    },
+    "C": {
+     "number": "04.3538",
+     "affair_type": "interpellation",
+     "submitter": "Maria Bernasconi",
+     "co_signatories": [],
+     "addressed_body": null,
+     "submitted": "2004-10-07",
+     "answer_date": null,
+     "decision_number": null,
+     "recommendation": null,
+     "related_affairs": []
+    }
+   },
+   "record_answer_date": {
+    "kind": "null",
+    "null_reason": "present_unanchored",
+    "route": "rule",
+    "evidence": "heading_without_date",
+    "doc": "opd-texts:43709"
+   },
+   "record_dates": [
+    {
+     "role": "submitted",
+     "date": {
+      "kind": "value",
+      "value": "2004-10-07",
+      "basis": "metadata",
+      "route": "metadata",
+      "source": "opd:affairs/140335#begin_date"
+     }
+    }
+   ],
+   "language_guess": {
+    "question": "it",
+    "answer": "it"
+   },
+   "roles": {
+    "rules_version": "roles-2",
+    "actors": [],
+    "instrument": null,
+    "dates": [],
+    "language_of_text": {
+     "question": [
+      "it"
+     ],
+     "answer": [
+      "it"
+     ]
+    }
+   }
+  }
+ ]
+}
