@@ -1,0 +1,24 @@
+id	shown	file	path	fmt	command	where	context
+r16a1.p10_qwen_pair_f1	0.63	results/p10/p10_qwen_check.json	agreement.qwen_vs_gold.pair_f1	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_name_f1	0.80	results/p10/p10_qwen_check.json	agreement.qwen_vs_gold.name_f1	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_role_kappa	0.57	results/p10/p10_qwen_check.json	agreement.qwen_vs_gold.role_kappa_on_names_both	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_a1a2_role_kappa	0.81	results/p10/p10_qwen_check.json	agreement.A1_vs_A2.role_kappa_on_names_both	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_packets_agree	12/40	results/p10/p10_qwen_check.json	agreement.qwen_vs_gold.packets_agreeing/agreement.qwen_vs_gold.packets	frac	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_de_pair_f1	0.40	results/p10/p10_qwen_check.json	qwen_vs_gold_by_stratum.de.pair_f1	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_fr_pair_f1	0.91	results/p10/p10_qwen_check.json	qwen_vs_gold_by_stratum.fr.pair_f1	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_gold_h3a_holm	0.20	results/p10/p10_qwen_check.json	decisions.qwen_as_gold.p_holm.H3a	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_gold_h1_verdict	confirmed	results/p10/p10_qwen_check.json	decisions.qwen_as_gold.verdicts.H1	str	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_gold_h3a_verdict	not confirmed	results/p10/p10_qwen_check.json	decisions.qwen_as_gold.verdicts.H3a	str	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_usd	0.04	results/p10/p10_qwen_run.json	usd	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 run	-	
+r16a1.sessions_all	96	results/eval/annotation_sessions.json	overall_all.n_sessions	int	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.sessions_all_labels	1,864	results/eval/annotation_sessions.json	overall_all.label_files_total	int	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.sessions_all_in_session	1,864	results/eval/annotation_sessions.json	overall_all.label_files_mtime_in_session	int	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.sessions_new	7	results/eval/annotation_sessions.json	overall_p10_parts_fed.n_sessions	int	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.p10_lock_push	2026-10-11T18:25:40Z	results/eval/annotation_sessions.json	sets.13.commits.lock.github_push_received	str	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.p10_draw_push	2026-10-11T18:29:26Z	results/eval/annotation_sessions.json	sets.13.commits.draw.github_push_received	str	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.p10_first_session	2026-10-11T18:29:31Z	results/eval/annotation_sessions.json	sets.13.summary.first_session_start	str	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.p10_last_session	2026-10-11T18:39:51Z	results/eval/annotation_sessions.json	sets.13.summary.last_session_end	str	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.p10_labels_push	2026-10-11T18:40:07Z	results/eval/annotation_sessions.json	sets.13.commits.labels.github_push_received	str	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.p10_last_to_labels_s	16	results/eval/annotation_sessions.json	sets.13.order_checks.seconds_from_last_session_end_to_label_push	int	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.parts_draw_to_first_s	10	results/eval/annotation_sessions.json	sets.14.order_checks.seconds_from_draw_push_to_first_session	int	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.parts_last_to_labels_s	22	results/eval/annotation_sessions.json	sets.14.order_checks.seconds_from_last_session_end_to_label_push	int	PYTHONPATH=src:. python -m eval.annotation_sessions	-	

@@ -1,0 +1,811 @@
+{
+ "_doc": "Wording pins for `make claims` (src/gegenprobe/claims_pins.py; round 16). pins: phrases that must occur exactly `count` times (default 1), bound where possible to the result they state (`results`: {file, path, is} or {file, vars, expr, is}); `polarity` neg/pos keeps a verdict phrase on the side its result is. guards: every match in `docs` must lie inside a pin phrase or an `allow` phrase. A docs pass that rewrites one of these sentences updates its phrase here; a result that changes fails its pin until the sentence is rewritten.",
+ "docs": [
+  "README.md",
+  "technical_report.md",
+  "docs/form_notes.md",
+  "../README.md"
+ ],
+ "guards": {
+  "verdict": "(?i)(?<![\\w-])(not\\s+confirmed|confirmed|unconfirmed|not\\s+supported|supported|not\\s+held|held(?!\\s+out)|holds?|failed|fails?|replicated|rejected|inconclusive|no\\s+(?:measurable\\s+)?gain|non-inferior|superior|not\\s+significant\\w*|significant\\w*)(?![\\w-])",
+  "quantifier": "(?i)(?<![\\w-])((?:one|two|three|four|five|six|seven|eight|nine|ten|a\\s+few|several|many)\\s+times|twice|thrice|doubl(?:e|es|ed|ing)|tripl(?:e|es|ed|ing)|quadrupl\\w*|halv(?:e|es|ed|ing)|half|(?:about|nearly|almost|roughly|around|over|under|at\\s+least|at\\s+most)\\s+(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|a\\s+(?:third|quarter|half|dozen)))(?![\\w-])",
+  "safety": "(?i)(runs?\\s+no\\s+model|no\\s+model\\s+runs|no\\s+model\\s+by\\s+default|never\\s+writes|only\\s+suggests|only\\s+picks|writes\\s+(?:a|every|the|no)\\s+values?|runs?\\s+unattended|leaves\\s+(?:the\\s+machine|Switzerland)|outside\\s+Switzerland|in\\s+Switzerland|third-party\\s+processor|Claude\\s+Code|coding\\s+assistants?|wrote\\s+(?:the|most|all)\\s+code|team\\s+wrote|every\\s+value)"
+ },
+ "pins": [
+  {
+   "id": "verdict.p1",
+   "results": [
+    {
+     "file": "results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H1.pass",
+     "is": false
+    },
+    {
+     "file": "results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H2.branch",
+     "is": "B"
+    },
+    {
+     "file": "results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H3.pass_",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "partial: H3 held; H1 null safety failed (7/90); H2 Branch B"
+    ],
+    "technical_report.md": [
+     "**partial**: H3 held; H1 null safety failed (7/90); H2 Branch B",
+     "H1 null safety failed (the cascade dates 7 of 90",
+     "H2 gave Branch B",
+     "H3 held (AUROC 0.969)"
+    ]
+   }
+  },
+  {
+   "id": "verdict.p2",
+   "results": [
+    {
+     "file": "results/eval2/hypotheses2__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "subsets.all.H1_rules_value_recall.confirmed_drop",
+     "is": true
+    },
+    {
+     "file": "results/eval2/hypotheses2__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "subsets.all.theta_10_40.H2_pointer_vs_rules.holds",
+     "is": true
+    },
+    {
+     "file": "results/eval2/hypotheses2__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "subsets.all.theta_10_40.H3_cascade_values_on_null.holds",
+     "is": false
+    },
+    {
+     "file": "results/eval2/hypotheses2__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "subsets.all.H4_auroc.holds",
+     "is": true
+    },
+    {
+     "file": "results/eval2/hypotheses2__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "vars": {
+      "a": "subsets.all.H1_rules_value_recall.confirmed_drop",
+      "b": "subsets.all.theta_10_40.H2_pointer_vs_rules.holds",
+      "c": "subsets.all.theta_10_40.H3_cascade_values_on_null.holds",
+      "d": "subsets.all.H4_auroc.holds"
+     },
+     "expr": "int(a) + int(b) + int(c) + int(d)",
+     "is": 3
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "3 of 4 held; H3 null safety failed (4/33)"
+    ],
+    "technical_report.md": [
+     "**3 of 4 held**; H3 null safety failed (4/33)",
+     "H2 held: on all 62 documents"
+    ]
+   }
+  },
+  {
+   "id": "verdict.p2.cluster_gain_in_few_parliaments",
+   "why": "the parliament-cluster interval of the P2 gain includes 0",
+   "results": [
+    {
+     "file": "results/eval/posthoc_r6_cluster.json",
+     "vars": {
+      "lo": "p2.paired.pointer vs rules.cluster_bootstrap95.0",
+      "hi": "p2.paired.pointer vs rules.cluster_bootstrap95.1"
+     },
+     "expr": "lo < 0 < hi",
+     "is": true
+    }
+   ],
+   "docs": {
+    "technical_report.md": [
+     "so it sits in a few parliaments"
+    ]
+   }
+  },
+  {
+   "id": "verdict.p3",
+   "results": [
+    {
+     "file": "results/eval3/hypotheses3__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H3.recall_holds",
+     "is": true
+    },
+    {
+     "file": "results/eval3/hypotheses3__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H3.precision_holds",
+     "is": false
+    },
+    {
+     "file": "results/eval3/hypotheses3__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "vars": {
+      "a": "H1.number.tier",
+      "b": "H1.affair_type.tier",
+      "d": "H1.answer_date.tier",
+      "f": "H1.submitter.tier",
+      "g": "H1.addressed_body.tier",
+      "h": "H1.submitted.tier",
+      "i": "H1.decision_number.tier",
+      "j": "H1.recommendation.tier"
+     },
+     "expr": "'unattended' not in [a, b, d, f, g, h, i, j]",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "partial: no field unattended; Apertus recall held, precision below"
+    ],
+    "technical_report.md": [
+     "**partial**: no field unattended; Apertus recall held, precision below"
+    ]
+   }
+  },
+  {
+   "id": "verdict.p3b",
+   "results": [
+    {
+     "file": "results/eval5/hypotheses_p3b__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "replication.verdict",
+     "is": "replicated"
+    }
+   ],
+   "polarity": "pos",
+   "docs": {
+    "README.md": [
+     "held: replicated (S1, S2)"
+    ],
+    "technical_report.md": [
+     "**held**: replicated (S1, S2)",
+     "P3b replicated by its registered criteria"
+    ]
+   }
+  },
+  {
+   "id": "verdict.p4",
+   "results": [
+    {
+     "file": "results/eval4/hypotheses4__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H1.holds",
+     "is": false
+    },
+    {
+     "file": "results/eval4/hypotheses4__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H2.holds",
+     "is": true
+    },
+    {
+     "file": "results/eval4/hypotheses4__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H3.holds",
+     "is": false
+    },
+    {
+     "file": "results/eval4/hypotheses4__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H4.holds",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "partial: H2, H4 held; H1, H3 failed"
+    ],
+    "technical_report.md": [
+     "**partial**: H2, H4 held; H1, H3 failed"
+    ]
+   }
+  },
+  {
+   "id": "verdict.p5",
+   "results": [
+    {
+     "file": "results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H1.tier",
+     "is": "partial"
+    },
+    {
+     "file": "results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H2.holds",
+     "is": true
+    },
+    {
+     "file": "results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H5.holds",
+     "is": true
+    },
+    {
+     "file": "results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H3.verdict",
+     "is": "no measurable gain"
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "partial tier (H1); H2, H5 held; H3 no gain"
+    ],
+    "technical_report.md": [
+     "**partial** tier (H1); H2, H5 held; H4 as rules vs free generation; H3 no gain"
+    ]
+   }
+  },
+  {
+   "id": "verdict.p6",
+   "results": [
+    {
+     "file": "results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H1_v2_vs_free_null.holds",
+     "is": false
+    },
+    {
+     "file": "results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H2_answerless.holds",
+     "is": false
+    },
+    {
+     "file": "results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H3_v2_vs_v1.holds",
+     "is": false
+    }
+   ],
+   "polarity": "neg",
+   "docs": {
+    "README.md": [
+     "no hypothesis held"
+    ],
+    "technical_report.md": [
+     "**no hypothesis held**",
+     "No registered hypothesis held: v2 vs free prompting"
+    ],
+    "docs/form_notes.md": [
+     "P6: no registered hypothesis held."
+    ]
+   }
+  },
+  {
+   "id": "verdict.p7",
+   "results": [
+    {
+     "file": "results/p7/p7_hypotheses.json",
+     "path": "H1.holds",
+     "is": true
+    },
+    {
+     "file": "results/p7/p7_hypotheses.json",
+     "path": "H4.supported",
+     "is": true
+    },
+    {
+     "file": "results/p7/p7_hypotheses.json",
+     "path": "H3.supported",
+     "is": false
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "H1 holds (120/120); H4 supported; H3 not supported"
+    ],
+    "technical_report.md": [
+     "**H1 holds** (120/120); H4 supported; H3 not supported",
+     "Wilson lower bound 96.9% ≥ 0.90: **holds**",
+     "as registered (unweighted +7.5): **supported**",
+     "28/30 right: **not supported**"
+    ]
+   }
+  },
+  {
+   "id": "verdict.p8",
+   "results": [
+    {
+     "file": "results/p8/p8_hypotheses.json",
+     "path": "summary.role_split",
+     "is": 6
+    },
+    {
+     "file": "results/p8/p8_hypotheses.json",
+     "path": "summary.body_specific",
+     "is": 1
+    },
+    {
+     "file": "results/p8/p8_hypotheses.json",
+     "path": "fields.addressed_body.verdict_agreed_only",
+     "is": "shared"
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "none uniform: 6 role split, 1 body-specific; 5 robust under both checks",
+     "Needs roles: 10 fields** (2 of them fragile: the split holds under one of P8's two checks)",
+     "These five verdicts hold on agreed labels only and on another vendor's"
+    ],
+    "technical_report.md": [
+     "**none uniform**: 6 role split, 1 body-specific",
+     "*Needs roles:* **10 fields** (2 of them fragile: the split holds under one of P8's two checks)"
+    ]
+   }
+  },
+  {
+   "id": "verdict.p10.table",
+   "results": [
+    {
+     "file": "results/p10/p10_scores.json",
+     "path": "primary.hypotheses.tests.H1.verdict",
+     "is": "confirmed"
+    },
+    {
+     "file": "results/p10/p10_scores.json",
+     "path": "primary.hypotheses.tests.H2.verdict",
+     "is": "confirmed"
+    },
+    {
+     "file": "results/p10/p10_scores.json",
+     "path": "primary.hypotheses.tests.H3a.verdict",
+     "is": "not confirmed"
+    },
+    {
+     "file": "results/p10/p10_scores.json",
+     "path": "primary.hypotheses.tests.H3b.verdict",
+     "is": "confirmed"
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "3 of 4 held: H1 recall, H2 precision, H3b; H3a (over OPD's list) not"
+    ],
+    "technical_report.md": [
+     "**3 of 4 held**: H1, H2, H3b; H3a not"
+    ]
+   }
+  },
+  {
+   "id": "verdict.p10.h1_h2_confirmed",
+   "results": [
+    {
+     "file": "results/p10/p10_scores.json",
+     "path": "primary.hypotheses.tests.H1.verdict",
+     "is": "confirmed"
+    },
+    {
+     "file": "results/p10/p10_scores.json",
+     "path": "primary.hypotheses.tests.H2.verdict",
+     "is": "confirmed"
+    }
+   ],
+   "polarity": "pos",
+   "docs": {
+    "README.md": [
+     "precision non-inferior (H2, observed +0.21)"
+    ],
+    "technical_report.md": [
+     "Confirmed: H1, recall over the rules",
+     "H2, precision non-inferior (+0.21)",
+     "(P10, registered: recall +23.4 points, precision non-inferior)"
+    ]
+   }
+  },
+  {
+   "id": "verdict.p10.h3a_not_confirmed",
+   "results": [
+    {
+     "file": "results/p10/p10_scores.json",
+     "path": "primary.hypotheses.tests.H3a.verdict",
+     "is": "not confirmed"
+    }
+   ],
+   "polarity": "neg",
+   "docs": {
+    "README.md": [
+     "H3a, F1 over the stronger OPD reading, is not confirmed"
+    ],
+    "technical_report.md": [
+     "Not confirmed: H3a, over OPD's list"
+    ]
+   }
+  },
+  {
+   "id": "verdict.p10.opd_order_strong_baseline",
+   "why": "H3a not confirmed: OPD's list order is not beaten",
+   "results": [
+    {
+     "file": "results/p10/p10_scores.json",
+     "path": "primary.hypotheses.tests.H3a.verdict",
+     "is": "not confirmed"
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "its order is a strong baseline"
+    ],
+    "technical_report.md": [
+     "its order is a strong baseline"
+    ]
+   }
+  },
+  {
+   "id": "verdict.null_safety_failed",
+   "why": "P1-H1, P2-H3 and P6-H2 failed",
+   "results": [
+    {
+     "file": "results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H1.pass",
+     "is": false
+    },
+    {
+     "file": "results/eval2/hypotheses2__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "subsets.all.theta_10_40.H3_cascade_values_on_null.holds",
+     "is": false
+    },
+    {
+     "file": "results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H2_answerless.holds",
+     "is": false
+    }
+   ],
+   "polarity": "neg",
+   "docs": {
+    "technical_report.md": [
+     "the registered null-safety tests on the 70B failed (P1-H1, P2-H3, P6-H2)"
+    ],
+    "docs/form_notes.md": [
+     "Null safety failed on the 70B (P1, P2, P6), so"
+    ]
+   }
+  },
+  {
+   "id": "verdict.holm_9_of_20",
+   "why": "9 registered holds of P1-P7, all survive Holm over 20",
+   "results": [
+    {
+     "file": "results/eval/posthoc_r8_multiplicity.json",
+     "path": "m",
+     "is": 20
+    },
+    {
+     "file": "results/eval/posthoc_r8_multiplicity.json",
+     "path": "n_registered_holds",
+     "is": 9
+    },
+    {
+     "file": "results/eval/posthoc_r8_multiplicity.json",
+     "path": "n_survive_holm",
+     "is": 9
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "the 9 that held as registered all survive"
+    ],
+    "technical_report.md": [
+     "the 9 that held survive"
+    ],
+    "docs/form_notes.md": [
+     "The 9 held results of P1–P7 survive Holm over their 20 tests."
+    ]
+   }
+  },
+  {
+   "id": "quant.p10_three_times",
+   "why": "Apertus 50/141 vs the rules 17/141: 2.9, about three times",
+   "results": [
+    {
+     "file": "results/p10/p10_scores.json",
+     "vars": {
+      "a": "primary.table.all.pointer.matched",
+      "b": "primary.table.all.rules.matched"
+     },
+     "expr": "round(a / b)",
+     "is": 3
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "about three times the rules' 17/141"
+    ],
+    "technical_report.md": [
+     "about three times the rules' 17/141"
+    ],
+    "../README.md": [
+     "about three times the rules' 17/141"
+    ]
+   }
+  },
+  {
+   "id": "quant.p5_doubles",
+   "why": "P5 submitter: pointer 24/40 vs rules 12/40",
+   "results": [
+    {
+     "file": "results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "vars": {
+      "a": "scores.RA.submitter.k",
+      "b": "scores.R.submitter.k"
+     },
+     "expr": "a / b",
+     "is": 2.0
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "pointing at printed names doubles extraction over"
+    ]
+   }
+  },
+  {
+   "id": "quant.p1_one_document",
+   "why": "P1: Apertus cascade 139/154 vs model-free cascade 138/154",
+   "results": [
+    {
+     "file": "results/report/r14_numbers.json",
+     "vars": {
+      "a": "p1_model_free_cascade.arms.apertus_cascade.exact",
+      "b": "p1_model_free_cascade.arms.model_free_cascade.exact"
+     },
+     "expr": "a - b",
+     "is": 1
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "Apertus adds about one document"
+    ],
+    "technical_report.md": [
+     "Where rules exist it adds about one document"
+    ],
+    "docs/form_notes.md": [
+     "Where rules exist it adds one document net"
+    ]
+   }
+  },
+  {
+   "id": "safety.default_runs_no_model",
+   "why": "the default (rules_only) runs no model",
+   "docs": {
+    "README.md": [
+     "The default runs no model.",
+     "The default (`rules_only`) runs no model, and no repair behind the 92.3% and the 9,720 needs one",
+     "so the default runs no model |"
+    ],
+    "technical_report.md": [
+     "which is why the default runs no model.",
+     "so no model by default |"
+    ],
+    "docs/form_notes.md": [
+     "The default runs no model and only reads public sources; every model value goes",
+     "so by default no model runs."
+    ],
+    "../README.md": [
+     "the default runs no model and only reads public sources."
+    ]
+   }
+  },
+  {
+   "id": "safety.apertus_closed_form",
+   "why": "Apertus never writes a value; it picks printed values, code locates them",
+   "docs": {
+    "README.md": [
+     "Apertus only picks values printed in the document,",
+     "every value Apertus extracts is a date or phrase printed in the document, located by"
+    ],
+    "technical_report.md": [
+     "**Closed form only.** Apertus never writes a value.",
+     "Apertus only picks values printed in the document, and code locates them"
+    ],
+    "docs/form_notes.md": [
+     "Apertus only picks values\n  printed in the document, and code locates them.",
+     "Apertus only suggests."
+    ],
+    "../README.md": [
+     "Apertus only picks values printed in the document,"
+    ]
+   }
+  },
+  {
+   "id": "safety.review",
+   "why": "model values go to a reviewer; only rules run unattended",
+   "docs": {
+    "README.md": [
+     "**Suggestions go to a reviewer; rules run unattended.**"
+    ]
+   }
+  },
+  {
+   "id": "safety.every_value_located",
+   "why": "provenance: every value carries page and span",
+   "docs": {
+    "README.md": [
+     "every value carries its role and",
+     "a converter that gives every value its page and span",
+     "every value has its page, span and quote hash",
+     "every value a printed",
+     "with a page and span for every value",
+     "every value has its page, character span and rule"
+    ],
+    "technical_report.md": [
+     "every value carries its role and source",
+     "a converter that gives every value its page and span",
+     "with a page, span and margin on every value"
+    ],
+    "docs/form_notes.md": [
+     "every value with its role and source",
+     "a converter that gives every value its page and span"
+    ],
+    "../README.md": [
+     "every value carries its role and",
+     "a converter that gives every value its page and span"
+    ]
+   }
+  },
+  {
+   "id": "sovereignty",
+   "why": "where data goes: no third-party processor by default; Public AI may route outside Switzerland",
+   "docs": {
+    "README.md": [
+     "The default nightly job uses no third-party processor.",
+     "(our evaluation used Public AI, which may route outside Switzerland; with the local 8B no text leaves the machine)",
+     "With the local 8B no document text leaves the machine."
+    ],
+    "technical_report.md": [
+     "No third-party processor by default;",
+     "or the local 8B, where no text leaves the machine)",
+     "Public AI (may route outside Switzerland) served evaluation only."
+    ]
+   }
+  },
+  {
+   "id": "declaration.coding_assistants",
+   "why": "hackathon rule: coding assistants declared",
+   "docs": {
+    "README.md": [
+     "**Coding assistants.** Claude Code agents (Anthropic) wrote most code, documentation and the gold labels."
+    ],
+    "technical_report.md": [
+     "Team 444 — Roman (+ Claude Code agents, §7)",
+     "**Declarations.** Claude Code agents (Anthropic) wrote most code, documentation and the gold labels."
+    ],
+    "docs/form_notes.md": [
+     "Claude Code agents wrote the code and labels."
+    ]
+   }
+  }
+ ],
+ "allow": {
+  "README.md": [
+   {
+    "phrase": "Can one schema hold Swiss parliamentary business?",
+    "why": "the brief's question, not a verdict"
+   },
+   {
+    "phrase": "co-signatory list holds authors of",
+    "why": "describes OPD's data"
+   },
+   {
+    "phrase": "a category on a document OPD already holds",
+    "why": "describes OPD's data"
+   },
+   {
+    "phrase": "OPD confirmed the linking bug",
+    "why": "OPD's correspondence (pinned in claims_strict.json)"
+   },
+   {
+    "phrase": "Bern answers OPD holds without a",
+    "why": "describes OPD's data"
+   },
+   {
+    "phrase": "answer slot holds French text",
+    "why": "describes OPD's data"
+   },
+   {
+    "phrase": "Italian slot holds French text",
+    "why": "describes OPD's data"
+   },
+   {
+    "phrase": "where OPD holds interventions",
+    "why": "describes OPD's data"
+   },
+   {
+    "phrase": "The tier it fills holds 214 of 917",
+    "why": "a container, not a verdict (214 bound by claims)"
+   },
+   {
+    "phrase": "fails on any mismatch",
+    "why": "describes the claims checker"
+   },
+   {
+    "phrase": "It fails if a document a claim",
+    "why": "describes the claims checker"
+   },
+   {
+    "phrase": "**OCR fails loudly.**",
+    "why": "describes the OCR guard"
+   },
+   {
+    "phrase": "failed OCR is never cached",
+    "why": "describes the OCR guard"
+   },
+   {
+    "phrase": "every fetch path now fails closed",
+    "why": "describes the fetch guard"
+   },
+   {
+    "phrase": "at ten times OPD's",
+    "why": "a scenario input (10x volume), not a result"
+   },
+   {
+    "phrase": "ten times OPD's volume**",
+    "why": "a scenario input (10x volume), not a result"
+   },
+   {
+    "phrase": "carry at least one",
+    "why": "definition of a count (66 of 105 bound by claims)"
+   },
+   {
+    "phrase": "appear in at least one test",
+    "why": "definition of a count (54 bound by claims)"
+   }
+  ],
+  "technical_report.md": [
+   {
+    "phrase": "Can one schema hold Swiss parliamentary business?",
+    "why": "the brief's question, not a verdict"
+   },
+   {
+    "phrase": "a linking bug OPD confirmed",
+    "why": "OPD's correspondence (pinned in claims_strict.json)"
+   },
+   {
+    "phrase": "at ten times OPD's volume",
+    "why": "a scenario input (10x volume), not a result"
+   },
+   {
+    "phrase": "OCR fails loudly",
+    "why": "describes the OCR guard"
+   },
+   {
+    "phrase": "every fetch path now fails closed",
+    "why": "describes the fetch guard"
+   },
+   {
+    "phrase": "what OPD already holds",
+    "why": "describes OPD's data"
+   },
+   {
+    "phrase": "and rejected 60% of the failed decoys",
+    "why": "audit description; 60% bound by claims"
+   }
+  ],
+  "docs/form_notes.md": [
+   {
+    "phrase": "fails on any mismatch",
+    "why": "describes the claims checker"
+   },
+   {
+    "phrase": "Can one schema hold Swiss parliamentary business?",
+    "why": "the brief's question, not a verdict"
+   },
+   {
+    "phrase": "OPD confirmed",
+    "why": "OPD's correspondence (pinned in claims_strict.json)"
+   },
+   {
+    "phrase": "every fetch now fails closed",
+    "why": "describes the fetch guard"
+   }
+  ],
+  "../README.md": [
+   {
+    "phrase": "Can one schema hold Swiss parliamentary business?",
+    "why": "the brief's question, not a verdict"
+   },
+   {
+    "phrase": "OPD confirmed the bug",
+    "why": "OPD's correspondence"
+   },
+   {
+    "phrase": "fails on any mismatch",
+    "why": "describes the claims checker"
+   }
+  ]
+ }
+}

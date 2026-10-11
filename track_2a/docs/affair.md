@@ -26,7 +26,7 @@ instances. The evaluation design is `eval/prereg3/PREREG3_draft.md`; the annotat
 ## One affair from OPD: `python -m gegenprobe affair`
 
 ```bash
-python -m gegenprobe affair --opd-affair 39369 --schema v0.2 [--mode rules_only|review] [--out FILE]
+python -m gegenprobe affair --opd-affair 39369 --schema v0.2 [--mode rules_only|review] [--roles rules|apertus [--roles-fallback none|opd]] [--out FILE]
 ```
 
 This command turns one OPD affair id into one validated schema v0.2 record (`src/gegenprobe/affair_cli.py`). It reads
@@ -63,6 +63,21 @@ Pydantic model validates it.
 - **Document parts.** `detect_parts` in `affair_cli.py` is the one adapter to the rule-based detector
   `gegenprobe.convert.parts` (`detect_pdf` + `schema_parts`). A document where the detector found nothing gets the
   typed reason `none_printed`. Without the detector, `parts` stays empty with `not_extracted`.
+- **Author roles (round 16).** The record's roles are the rules' (`gegenprobe.convert.roles`), passed through
+  `gegenprobe.schema.role_consistency`: where the rules print a group as `sole_author` next to persons as
+  `joint_author` (a group's name over signatures, no "for the group"), the group becomes a joint author, by GUIDE_P8's
+  definition (several authors of equal standing, none designated first). A remaining inconsistency (R1-R4 in that
+  module) is listed in `review`. The same step runs on the committed v0.2 records (`make schema-v02`).
+- **`--roles apertus` (opt-in review route).** Runs the frozen P10 role reader (`convert/roles_review.py`: located
+  candidates, closed true/false questions to Apertus, the frozen `data/p10/p10_config.json`) with `--backend` (`gguf`,
+  `openai`, `gateway:...`). The reading goes under `suggestions.actors`, every entry `review: true` with its `route`
+  (`apertus_role_pointer`), the role the rules printed for the same person and whether they agree. Where the reader
+  suggests no author, nothing is suggested by default; `--roles-fallback opd` offers OPD's contributor list instead
+  (route `opd_contributors`, not located in the documents). The fallback is off because, post hoc on P10's committed
+  arms (primary cell, 34 affairs), the reader alone gives 50/96 pairs (precision 0.52, recall 0.355, F1 0.42), and with
+  the fallback 50/128 (precision 0.39, F1 0.37): it fired on 2 affairs and added 32 pairs, none correct. `record.actors` is never changed. A build
+  other than the one P10 measured (Public AI, `publicai:swiss-ai/apertus-v1.5-8b`) is marked exploratory. The default,
+  `--roles rules`, runs no model.
 - **Scope.** The command serves affairs whose member's text and answer are PDF documents in OPD's docs export: the
   cantonal and communal parliaments. Federal affairs keep their texts in OPD's `texts` export, which the command does
   not read (`no_documents`).

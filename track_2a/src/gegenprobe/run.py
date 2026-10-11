@@ -12,7 +12,14 @@ steps that need the network or a model endpoint and cannot reach them; the repla
   6 replay    all nine pre-registered tests from committed files (P1-P8, P3b): P1-P4 and P3b re-scored from the
               committed label files, the nine hypotheses scripts re-run and compared with their committed outputs (P5-P8
               byte-identical), the P7 dev table, the P8 tables, the P7 post-hoc files (eval/p7/offline.py) and the 8B
-              analysis re-run offline and compared, the nine LOCK files verified (FAIL on any difference)
+              analysis re-run offline and compared, the nine LOCK files LOCK-LOCK9 verified (FAIL on any difference)
+  6a replay_p10  P10 and the federal cell from committed files (eval/replay_p10.py): the P10 gold merged again from the
+              committed A1/A2/A3 annotations, the arms joined and H1-H3b re-scored (eval.p10.arms join, eval.p10.score),
+              the exploratory Qwen-SEA-LION check of the P10 gold and the federal tables re-scored, each byte-identical
+              to the committed file; LOCK10 and LOCKFED verified on
+              every committed file they hash, their uncommitted WORK inputs checked through committed copies or locally
+              where present, else reported as "unavailable on a clean clone" (FAIL on any committed difference). With
+              step replay: all ten pre-registration locks (LOCK-LOCK10) and LOCKFED verified
   6b schema_v02  schema v0.2 re-derived from committed files and compared with results/schema/v0_2/ (FAIL on any
               difference or invalid record): the converter's own P3, P3b and P5 records carried to v0.2 (105 affairs) with
               v0.2's roles from the committed role-rule readings (re-extracted from the texts and compared when they are
@@ -60,6 +67,7 @@ STEPS = [
     ("convert", "gegenprobe.convert.demo", "main"),
     ("eval", "eval.replay", "main"),
     ("replay", "eval.replay_all", "main"),  # P1-P8, 8B analysis + hypotheses + nine locks, committed files (FAIL on any diff)
+    ("replay_p10", "eval.replay_p10", "main"),  # P10 gold, arms, H1-H3b + federal tables; LOCK10 + LOCKFED (ten locks + LOCKFED)
     ("schema_v02", "gegenprobe.schema.v0_2_parts", "step"),  # v0.2: 105 converter records (+ document parts) + 66 P8 gold
     ("affair_cli", "gegenprobe.affair_cli", "step"),  # `gegenprobe affair` on the 3 v0.2 sample affairs (network; SKIP offline)
     ("rederive", "eval.rederive", "main"),  # rules arm re-derived from the source PDFs (non-fatal: PASS / WARN / SKIP)

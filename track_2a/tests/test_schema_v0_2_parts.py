@@ -7,6 +7,7 @@ import pytest
 
 from gegenprobe.convert import parts as P
 from gegenprobe.paths import PDF_CACHE
+from gegenprobe.schema import role_consistency as RC
 from gegenprobe.schema import v0_2_all as V
 from gegenprobe.schema import v0_2_parts as VP
 from gegenprobe.schema.p8_v0_2 import OUT, schema_module
@@ -143,8 +144,10 @@ def test_known_documents_when_cached():
 def test_overlay_changes_nothing_else(base, over):
     for k in VP.CONVERTER_SETS:
         got = [VP.strip_parts(json.loads(x)) for x in over[f"{k}_records.jsonl"].splitlines()]
-        assert got == [json.loads(x) for x in base[f"{k}_records.jsonl"].splitlines()], k
-    fed_in = [json.loads(x) for x in VP.FED_IN.read_text(encoding="utf-8").splitlines()]
+        # round 16: after the parts, the role-consistency repair (gegenprobe.schema.role_consistency) is the only
+        # other change
+        assert got == [RC.harmonise(json.loads(x))[0] for x in base[f"{k}_records.jsonl"].splitlines()], k
+    fed_in = [RC.harmonise(json.loads(x))[0] for x in VP.FED_IN.read_text(encoding="utf-8").splitlines()]
     assert [VP.strip_parts(json.loads(x)) for x in over[VP.FED_OUT].splitlines()] == fed_in
     b, o = json.loads(base["validation_all.json"]), json.loads(over["validation_all.json"])
     for k in ("n_affairs", "n_valid", "n_invalid", "n_parliaments", "converter_made", "product_records", "samples"):

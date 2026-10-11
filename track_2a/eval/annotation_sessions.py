@@ -19,6 +19,12 @@ Sources (none committed; this script runs only on the author's machine, its outp
   * the budget gateway's append-only ledger (~/.config/hackapertus/ledger.jsonl: time, tag, model per call) for the
     scripted Qwen checks, which ran without an agent session.
 
+  Round 16 (J2, J5): P10 (A1, A2 on 40 packets, A3 on the 9 tie-breaks), the document-parts blind check (A1, A2;
+  exploratory, no lock: its draw rule, guide and scorer were committed in 4473c27f before any annotation) and the federal
+  cell (exploratory, LOCKFED) are appended as sets 13-15. Their prompts read "You are annotator `A1`" (backticks) and
+  assign packet ranges as "P10-001 ... P10-040" or the tie-break directory (.work/p10/a3/). `overall` and
+  `overall_with_p8` keep their earlier scope (P1-P7; P1-P8); `overall_all` adds the new sets.
+
     PYTHONPATH=src:. python -m eval.annotation_sessions      -> results/eval/annotation_sessions.json
 """
 
@@ -41,8 +47,8 @@ TRANSCRIPTS = Path(os.environ.get(
     "GP_TRANSCRIPTS", Path.home() / ".claude/projects/-Users-mi11ion-Desktop-hackapertus-FINAL"))
 LEDGER = Path.home() / ".config/hackapertus/ledger.jsonl"
 OUT = RESULTS / "eval" / "annotation_sessions.json"
-LABEL = ("POST HOC (11 Oct 2026, round 6; P7 round 8; P8 and its Qwen check round 13): session times from the annotator "
-         "agents' own transcripts and GitHub's server "
+LABEL = ("POST HOC (11 Oct 2026, round 6; P7 round 8; P8 and its Qwen check round 13; P10, the document-parts check and "
+         "the federal cell round 16): session times from the annotator agents' own transcripts and GitHub's server "
          "times of the commits; no registered decision depends on this file")
 SLACK_S = 5
 
@@ -71,19 +77,32 @@ SETS = [
     # round 13 (J2): P8, the meaning test the schema headline rests on
     dict(set="P8", work="p8", commits=dict(lock="b8d1a19", draw="4d8a228", labels="c0a2f91"),
          note="LOCK9 b8d1a19, draw 4d8a228 (66 affairs, key and packet hashes), labels c0a2f91 (A1, A2 on 66, A3 on 7)"),
+    # round 16 (J2 item 4, J5 item 5): the two results added last, and the federal cell
+    dict(set="P10", work="p10", commits=dict(lock="2228e4e", draw="1ba6729", labels="f5abc5b"),
+         note="LOCK10 2228e4ed, draw 1ba67294 (34 primary + 6 secondary affairs, ids and hashes), labels f5abc5b8 (A1, A2 on "
+              "40, A3 on the 9 tie-breaks); the arms ran after the labels (7677a6d0)"),
+    dict(set="Document parts (exploratory, no lock)", work="parts", commits=dict(draw="4473c27", labels="ee81c1b"),
+         note="no lock by design (exploratory); 'draw' is 4473c27f: the draw (results/parts/draw.json), the guide "
+              "(eval/parts/GUIDE_PARTS.md) and the scorer, committed before any annotation; labels ee81c1b7 (A1, A2 on 30)"),
+    dict(set="Federal cell (exploratory)", work="fed", commits=dict(lock="11deff9", draw="e6ca39e", labels="d457c51"),
+         note="LOCKFED 11deff9b, draw e6ca39ea (15 affairs, hashes only), labels d457c51f (A1, A2 on 15; no tie-break)"),
 ]
+NEW_SETS = ("P10", "Document parts (exploratory, no lock)", "Federal cell (exploratory)")
 QWEN = [  # scripted checks through the gateway (no agent session): ledger tag -> set, commit that added the labels
     dict(set="Qwen check P1 + P2 (post hoc)", tag="2a-qwen-audit", commit="15dd077"),
     dict(set="Qwen check P5", tag="2a-p5-qwen", commit="b6aaf7a"),
     dict(set="Qwen check P6", tag="2a-p6-qwen", commit="cc44e27"),
     dict(set="Qwen check P7", tag="2a-p7-qwen", commit="db3f3ed"),
     dict(set="Qwen check P8", tag="2a-p8-qwen", commit="363c548"),  # round 13 (J2)
+    dict(set="Qwen check P10 (exploratory)", tag="2a-p10-qwen", commit=None),  # round 16 (J5); labels not yet pushed
 ]
-ROLE_RX = re.compile(r"You are (tie-break annotator A3|annotator A[12]|blind annotator A[12])\b")
+ROLE_RX = re.compile(r"You are (tie-break annotator A3|annotator A[12]|blind annotator A[12]|annotator `A[123]`)")
 OUT_RX = re.compile(r"\.work/([\w./-]+?)/ann/(A[123])/")
 OUT_RX_JSONL = re.compile(r"\.work/(p7\w+)/ann/((A[123])(?:_part\d)?)\.jsonl")  # P7: one JSONL file per session
-ID_RX = re.compile(r"\b(P8-\d{3}|\d{4}-\d{2}-\d{2}|\d{3,7})\b")  # P8 packets are P8-001 ... P8-066
-RANGE_RX = re.compile(r"\bP8-(\d{3}) to P8-(\d{3})\b")
+ID_RX = re.compile(r"\b(P10-\d{3}|PRT-\d{3}|FED-\d{3}|P8-\d{3}|\d{4}-\d{2}-\d{2}|\d{3,7})\b")  # P8-001, P10-001, PRT-001, FED-001
+# a packet range: "P8-001 to P8-033" (P8); "P10-001.txt` … `P10-040.txt" (P10); "PRT-001` … `PRT-030" (parts)
+RANGE_RX = re.compile(r"\b(P8|P10|PRT|FED)-(\d{3})(?:\.txt)?`?\s*(?:to|…|\.\.\.)\s*`?\1-(\d{3})\b")
+A3_DIR_RX = re.compile(r"\.work/([\w./-]+?)/a3/")  # a tie-break prompt that assigns the files of a directory
 
 
 def _utc(s: str) -> dt.datetime:
@@ -124,8 +143,12 @@ def sessions() -> list[dict]:
             ann = WORK / work / "ann" / role
             on_disk = {p.stem: p for p in ann.glob("*.json")} if ann.exists() else {}
             ids = set(ID_RX.findall(prompt))
-            for a, b in RANGE_RX.findall(prompt):  # P8 prompts assign a range: "label ONLY P8-001 to P8-033"
-                ids |= {f"P8-{i:03d}" for i in range(int(a), int(b) + 1)}
+            for px, a, b in RANGE_RX.findall(prompt):  # a range: "label ONLY P8-001 to P8-033", "P10-001 … P10-040"
+                ids |= {f"{px}-{i:03d}" for i in range(int(a), int(b) + 1)}
+            d3 = A3_DIR_RX.search(prompt)
+            if role == "A3" and d3 and d3.group(1) == work and not ids & set(on_disk):
+                # a prompt that names no packet but its tie-break directory ("the tie-break files in .work/p10/a3/")
+                ids |= {p.stem for p in (WORK / work / "a3").glob("*.json")}
             assigned = sorted(ids & set(on_disk))
             mt = {k: dt.datetime.fromtimestamp(on_disk[k].stat().st_mtime, dt.timezone.utc) for k in assigned}
         else:
@@ -223,7 +246,7 @@ def _overall(sets: list[dict]) -> dict:
 
 def main(out_path: Path | None = None) -> dict:
     sess = sessions()
-    shas = {c for s in SETS for c in s["commits"].values()} | {q["commit"] for q in QWEN}
+    shas = {c for s in SETS for c in s["commits"].values()} | {q["commit"] for q in QWEN if q["commit"]}
     ct = commit_times(shas)
     by = collections.defaultdict(list)
     for s in sess:
@@ -265,10 +288,17 @@ def main(out_path: Path | None = None) -> dict:
     qwen = []
     for q in QWEN:
         lg = ledger(q["tag"])
+        if not q["commit"]:
+            qwen.append(dict(set=q["set"], agent_session="none: a script called the model through the budget gateway",
+                             gateway_ledger=lg or "ledger not available",
+                             label_commit="not yet committed when this file was written",
+                             calls_before_label_commit_push=None))
+            continue
         qwen.append(dict(set=q["set"], agent_session="none: a script called the model through the budget gateway",
                          gateway_ledger=lg or "ledger not available", label_commit=ct[q["commit"]],
                          calls_before_label_commit_push=(None if not lg else _utc(lg["last_call"]) < _utc(
                              ct[q["commit"]]["github_push_received"]))))
+    early = [s for s in sets if not s["set"].startswith(("P7", "P8")) and s["set"] not in NEW_SETS]  # P1-P6
     out = dict(
         label=LABEL,
         method=__doc__.split("Sources")[1].split("    PYTHONPATH")[0].strip(),
@@ -284,16 +314,17 @@ def main(out_path: Path | None = None) -> dict:
                                        "Claude Code client (author's clock), GitHub times by GitHub's servers"),
         ),
         # P1-P7 (the scope of rounds 6-8; P8 is added below in overall_with_p8, so the round-8 figures stay traceable)
-        overall=_overall([s for s in sets if s["set"] != "P8"]),
-        overall_with_p8=_overall(sets),
+        overall=_overall([s for s in sets if s["set"] != "P8" and s["set"] not in NEW_SETS]),
+        overall_with_p8=_overall([s for s in sets if s["set"] not in NEW_SETS]),
+        # round 16: every set, P10, the document-parts check and the federal cell included
+        overall_all=_overall(sets),
+        overall_p10_parts_fed=_overall([s for s in sets if s["set"] in NEW_SETS]),
         # the round-6 scope (P1-P6, before P7 existed), kept so that the round-6 figures stay traceable
         overall_p1_p6=dict(
-            n_sessions=sum(len(s["sessions"]) for s in sets if not s["set"].startswith(("P7", "P8"))),
-            n_sets_with_sessions=sum(1 for s in sets if s["sessions"] and not s["set"].startswith(("P7", "P8"))),
-            label_files_total=sum(s["summary"]["label_files_total"] for s in sets
-                                  if s["sessions"] and not s["set"].startswith(("P7", "P8"))),
-            label_files_mtime_in_session=sum(s["summary"]["label_files_mtime_in_session"] for s in sets
-                                             if s["sessions"] and not s["set"].startswith(("P7", "P8"))),
+            n_sessions=sum(len(s["sessions"]) for s in early),
+            n_sets_with_sessions=sum(1 for s in early if s["sessions"]),
+            label_files_total=sum(s["summary"]["label_files_total"] for s in early if s["sessions"]),
+            label_files_mtime_in_session=sum(s["summary"]["label_files_mtime_in_session"] for s in early if s["sessions"]),
         ),
     )
     (out_path or OUT).write_text(json.dumps(out, indent=1, ensure_ascii=False))

@@ -24,6 +24,11 @@ validation_all.json gets a `document_parts` block (EXPLORATORY: the rules were w
 is eval/parts): per set, the documents examined and the records and documents carrying each part kind. The federal cell's
 15 records (results/fed/fed_records_v0_2.jsonl, eval.fed.arms offline) are carried with their parts to fed_records.jsonl
 and counted there, apart from the 105 converter records.
+
+Round 16 (J1): after the parts, each record's author roles pass gegenprobe.schema.role_consistency: where the rules put
+`sole_author` next to `joint_author` (a group's name over signatures with no "for the group"), the sole author becomes a
+joint author (GUIDE_P8), with a sentence in `extraction.notes`. validation_all.json's `role_consistency` block lists the
+records changed and the R1-R4 check over every set (P8's gold included); a violation stops the render.
 """
 from __future__ import annotations
 
@@ -34,6 +39,7 @@ import sys
 
 from ..convert import parts as P
 from ..paths import PDF_CACHE, ROOT
+from . import role_consistency as RC
 from . import v0_2_all as V
 from . import v0_2_roles
 from .p8_v0_2 import OUT, schema_module
@@ -217,9 +223,10 @@ def render() -> dict[str, str]:
     base = V.render()
     files = dict(base)
     val = json.loads(base["validation_all.json"])
-    by_set, block = {}, {}
+    by_set, block, roles_changed = {}, {}, {}
     for k in CONVERTER_SETS:
-        recs = [with_parts(json.loads(x), det, k) for x in base[f"{k}_records.jsonl"].splitlines() if x.strip()]
+        recs = [with_roles_consistent(with_parts(json.loads(x), det, k), roles_changed, k)
+                for x in base[f"{k}_records.jsonl"].splitlines() if x.strip()]
         st, valid = V.stats(recs, m)
         if st["n_invalid"]:
             raise ValueError(f"{k}: {st['invalid'][:2]}")
@@ -227,7 +234,8 @@ def render() -> dict[str, str]:
         by_set[k] = valid
         files[f"{k}_records.jsonl"] = "".join(json.dumps(r, ensure_ascii=False, sort_keys=True) + "\n" for r in valid)
         block[k] = summary(valid, det, k)
-    fed = [with_parts(json.loads(x), det, "fed") for x in FED_IN.read_text(encoding="utf-8").splitlines() if x.strip()]
+    fed = [with_roles_consistent(with_parts(json.loads(x), det, "fed"), roles_changed, "fed")
+           for x in FED_IN.read_text(encoding="utf-8").splitlines() if x.strip()]
     st, valid = V.stats(fed, m)
     if st["n_invalid"]:
         raise ValueError(f"fed: {st['invalid'][:2]}")
@@ -259,8 +267,45 @@ def render() -> dict[str, str]:
         fed=dict(fed_block, records="results/schema/v0_2/fed_records.jsonl",
                  source=f"{FED_IN.relative_to(ROOT).as_posix()} (eval.fed.arms offline) + {OVERLAY}"),
     )
+    val["role_consistency"] = role_block(files, roles_changed)
     files["validation_all.json"] = json.dumps(val, ensure_ascii=False, indent=1) + "\n"
     return files
+
+
+# ----------------------------------------------------------------------------------------------------------- roles
+def with_roles_consistent(rec: dict, changed: dict, set_name: str) -> dict:
+    """The record with R2 (sole_author next to joint_author) repaired by gegenprobe.schema.role_consistency."""
+    rec, ch = RC.harmonise(rec)
+    if ch:
+        changed[f"{set_name}:{rec['ref']['body_key']}:{rec['ref']['opd_id']}"] = ch
+    return rec
+
+
+def role_block(files: dict[str, str], changed: dict) -> dict:
+    """validation_all.json's `role_consistency`: the records the repair changed and the R1-R4 check over every set
+    (raises if a record still violates a rule)."""
+    sets = {k: f"{k}_records.jsonl" for k in CONVERTER_SETS}
+    sets["fed"] = FED_OUT
+    checked = {}
+    for k, name in sets.items():
+        checked[k] = RC.check_records([json.loads(x) for x in files[name].splitlines() if x.strip()])
+    p8 = OUT / "p8_records.jsonl"
+    if p8.exists():
+        checked["p8"] = RC.check_records([json.loads(x) for x in p8.read_text(encoding="utf-8").splitlines()
+                                          if x.strip()])
+    bad = {k: c["violations"] for k, c in checked.items() if c["n_violating"]}
+    if bad:
+        raise ValueError(f"role consistency (R1-R4): {bad}")
+    return dict(
+        rules=("R1 at most one sole_author; R2 sole_author excludes joint_author; R3 a person sole_author excludes a "
+               "first_signatory; R4 joint_author excludes first_signatory and needs another joint author "
+               "(gegenprobe.schema.role_consistency, from eval/p8/GUIDE_P8.md section 2)"),
+        repair=("R2: every sole_author next to a joint_author becomes joint_author (GUIDE_P8: authors printed with equal "
+                "standing, none designated first); names, pages, spans and rules unchanged"),
+        n_records_changed=len(changed),
+        changed={k: [dict(kind=x["kind"], was=x["was"], now=x["now"]) for x in v] for k, v in sorted(changed.items())},
+        checked={k: dict(n_records=c["n_records"], n_violating=c["n_violating"]) for k, c in checked.items()},
+    )
 
 
 def _diff(files: dict[str, str]) -> list[str]:

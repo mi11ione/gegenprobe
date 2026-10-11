@@ -1,0 +1,16 @@
+{
+ "label": "EXPLORATORY (round 16; not registered in PREREG10): cross-vendor check of the P10 gold with Qwen-SEA-LION; changes no gold label and no decision",
+ "model": "aisingapore/Qwen-SEA-LION-v4-32B-IT",
+ "tag": "2a-p10-qwen",
+ "cap_usd": 1.0,
+ "max_tokens": 1500,
+ "temperature": 0.0,
+ "usd": 0.0435,
+ "calls_this_run": 40,
+ "packets": 40,
+ "served": {
+  "aisingapore/Qwen-SEA-LION-v4-32B-IT": 40
+ },
+ "command": "PYTHONPATH=src:. .venv/bin/python -m eval.p10.qwen10 run",
+ "note": "spend summed from the gateway's per-call report (cached replays cost 0); served model checked on every call"
+}

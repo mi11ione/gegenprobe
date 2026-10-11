@@ -22,7 +22,14 @@ claims.tsv, `check` fails (exit 1) when
     qualifies by an anchor that contains both (`python -m gegenprobe.claims scope` proposes them), so flipping
     "post hoc" to "registered" breaks the anchor, or
   * a pinned phrase (claims_strict.json `pinned`: statements without a number such as "blind AI annotators" or "OPD
-    confirmed") does not occur exactly its pinned number of times.
+    confirmed") does not occur exactly its pinned number of times, or
+  * a wording pin fails (claims_pins.json, gegenprobe.claims_pins; round 16): a verdict, multiplier or comparative bound
+    to the result it states ("is not confirmed" bound to P10's H3a verdict, "about three times" to 50/17), or a safety,
+    sovereignty or coding-assistant sentence, no longer occurs exactly as pinned; or a verdict, quantifier or safety
+    word appears outside every pinned or allowlisted phrase.
+
+The repository-root README (../README.md) is a strict zone too (round 16). It is outside the Docker build context, so
+inside the image it is skipped; the host CI job sets GP_CLAIMS_STRICT=1 and checks it.
 
 Binding by anchor is positional: an anchor phrase is the number together with the words that name its claim ("24/29**
 | answer dates Apertus finds", "Claude Opus judged 197/200"), so swapping two numbers that are both valid claims for the
@@ -356,6 +363,12 @@ def anchor_extents(rows: list[dict], anchors: dict, doc: str, text: str) -> list
     return out
 
 
+def _outside_skipped(doc: str) -> bool:
+    """A document outside the project (the repository-root README) that is absent: skipped inside the Docker build
+    context, an error under GP_CLAIMS_STRICT (the host CI job)."""
+    return doc.startswith("../") and not os.environ.get("GP_CLAIMS_STRICT")
+
+
 def pinned_check(cfg: dict | None = None, docs: dict[str, str] | None = None) -> list[str]:
     """claims_strict.json `pinned`: {document: [{phrase, count, why}]}: a phrase that states a fact without a number
     ("blind AI annotators", "OPD confirmed") must occur exactly `count` times, so rewording one occurrence fails."""
@@ -365,7 +378,8 @@ def pinned_check(cfg: dict | None = None, docs: dict[str, str] | None = None) ->
         text = docs[doc] if docs is not None and doc in docs else (
             (ROOT / doc).read_text(encoding="utf-8") if (ROOT / doc).exists() else None)
         if text is None:
-            errs.append(f"pinned: document {doc} missing")
+            if not _outside_skipped(doc):
+                errs.append(f"pinned: document {doc} missing")
             continue
         for it in items:
             n = text.count(it["phrase"])
@@ -396,7 +410,8 @@ def zone_check(rows: list[dict], cfg: dict | None = None, docs: dict[str, str] |
         else:
             p = ROOT / doc
             if not p.exists():
-                errs.append(f"strict zone: document {doc} missing")
+                if not _outside_skipped(doc):
+                    errs.append(f"strict zone: document {doc} missing")
                 continue
             text = p.read_text(encoding="utf-8")
         try:
@@ -470,7 +485,8 @@ def check(rows: list[dict] | None = None) -> list[str]:
                     errs.append(f"{r['id']}: short value {r['shown']!r} in {doc} has no context")
                 elif not context_ok(docs[doc], r["shown"], phrase):
                     errs.append(f"{r['id']}: context {phrase!r} not within {CONTEXT_WINDOW} chars of {r['shown']!r} in {doc}")
-    return errs + anchor_check(rows) + zone_check(rows) + pinned_check()
+    from .claims_pins import check as pins_check
+    return errs + anchor_check(rows) + zone_check(rows) + pinned_check() + pins_check()
 
 
 STOP = {"eval", "results", "json", "report", "claims", "the", "and", "with", "arms", "strict", "counts", "publicai", "swiss",
@@ -749,7 +765,9 @@ def main(argv: list[str]) -> int:
     errs = check(rows)
     for e in errs:
         print("CLAIM FAIL", e)
-    print(f"claims: {len(rows if rows is not None else load(ROOT / 'claims.tsv'))} checked, {len(errs)} failing")
+    from .claims_pins import summary as pins_summary
+    print(f"claims: {len(rows if rows is not None else load(ROOT / 'claims.tsv'))} checked, {len(errs)} failing "
+          f"(with {pins_summary()})")
     return 1 if errs else 0
 
 

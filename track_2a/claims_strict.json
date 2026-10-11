@@ -1,5 +1,5 @@
 {
- "_doc": "Strict zones for `make claims` (gegenprobe.claims.zone_check): every numeric token in a zone must be bound to a claim whose `where` lists the document, by an anchor in claims_anchor.json that holds the claim's value at that position. Round 13: README.md, technical_report.md and docs/form_notes.md are strict end to end. A zone is {start, end} (literals; null = top/end) or a list of them. `allow` lists the non-claims literally, each with why. Round 14: `small_int_tables` lists result tables (by the start of their header row) whose integer cells below 10 must be bound too; scope words (post hoc, registered, exploratory, in-sample, held out, weighted, unweighted) must sit inside an anchor phrase or an allowlisted phrase; `pinned` phrases must occur exactly `count` times.",
+ "_doc": "Strict zones for `make claims` (gegenprobe.claims.zone_check): every numeric token in a zone must be bound to a claim whose `where` lists the document, by an anchor in claims_anchor.json that holds the claim's value at that position. Round 13: README.md, technical_report.md and docs/form_notes.md are strict end to end. A zone is {start, end} (literals; null = top/end) or a list of them. `allow` lists the non-claims literally, each with why. Round 14: `small_int_tables` lists result tables (by the start of their header row) whose integer cells below 10 must be bound too; scope words (post hoc, registered, exploratory, in-sample, held out, weighted, unweighted) must sit inside an anchor phrase or an allowlisted phrase; `pinned` phrases must occur exactly `count` times. Round 16: the repository-root README (../README.md) is strict end to end as well (skipped inside the Docker build context, checked by the host CI job with GP_CLAIMS_STRICT=1).",
  "zones": {
   "README.md": {
    "start": null,
@@ -10,6 +10,10 @@
    "end": null
   },
   "docs/form_notes.md": {
+   "start": null,
+   "end": null
+  },
+  "../README.md": {
    "start": null,
    "end": null
   }
@@ -235,6 +239,20 @@
    {
     "phrase": "P6: no registered hypothesis held",
     "why": "P6's registered result as a statement (no number)"
+   }
+  ],
+  "../README.md": [
+   {
+    "phrase": "team 444",
+    "why": "team number"
+   },
+   {
+    "phrase": "correspondence, 10 Oct\n  2026",
+    "why": "date of OPD's correspondence"
+   },
+   {
+    "phrase": "CC BY 4.0",
+    "why": "licence name and version"
    }
   ]
  },

@@ -32,6 +32,14 @@ the document kinds of `convert` (robots_disallowed, robots_unreachable, http_err
 sha_mismatch, too_large, text_timeout, ocr_failed) and invalid_record (the v0.2 model rejected the record).
 Exit 3: review mode refused because the served model is not the build θ was fitted on (as `convert`).
 
+Author roles (round 16): the record's roles are the rules' (gegenprobe.convert.roles), passed through
+gegenprobe.schema.role_consistency (a group's name over signatures with no designated first is a joint author, GUIDE_P8;
+a remaining R1-R4 inconsistency is listed in `review`). `--roles apertus` (opt-in, needs --backend) adds the frozen P10
+reader's roles under `suggestions.actors` (gegenprobe.convert.roles_review): located candidates, closed questions to
+Apertus; every entry `review: true` with its route; never written into the record. Where the reader abstains, nothing is
+suggested unless `--roles-fallback opd` offers OPD's contributor list (off by default: post hoc on P10 it added 32
+pairs on 2 affairs, none correct). The default runs no model.
+
 Document parts (tables, annexes, images): `detect_parts` below is the one adapter to the rule-based detector in
 gegenprobe.convert.parts (detect_pdf + schema_parts). A document where it ran and found nothing gets the typed reason
 `none_printed`; without that module each document's `parts` stays empty with the typed reason `not_extracted` ("this
@@ -424,11 +432,11 @@ def harmonised_type(affair: dict, opd: dict) -> tuple[dict, list[dict]]:
 
 def build(affair_id: int, row: dict, names: list, *, sources: dict | None = None, mode: str = "rules_only",
           backend=None, theta=None, question_doc: int | None = None, answer_doc: int | None = None, timeout: int = 60,
-          tries: int = 2) -> dict:
+          tries: int = 2, roles: str = "rules", role_backend=None, roles_fallback: str = "none") -> dict:
     """One affair's product row with the validated v0.2 record (see the module docstring). Raises AffairError."""
     from .affair import build as B
     from .affair_post import finalize
-    from .schema import v0_2_all, v0_2_roles
+    from .schema import role_consistency, v0_2_all, v0_2_roles
     from .schema.p8_v0_2 import schema_module
 
     a = row.get("affair")
@@ -469,8 +477,10 @@ def build(affair_id: int, row: dict, names: list, *, sources: dict | None = None
             if d.get("opd_text_status"):
                 doc["opd_text_status"] = d["opd_text_status"]
     notes = _apply_parts(rec, entry)
-    roles = v0_2_roles.extract_row("opd", entry)
-    rec = v0_2_all.with_roles(rec, roles)
+    read = v0_2_roles.extract_row("opd", entry)
+    rec = v0_2_all.with_roles(rec, read)
+    rec, _ = role_consistency.harmonise(rec)  # J1 round 16: a group over signatures is a joint author (GUIDE_P8)
+    role_flags = role_consistency.violations(rec.get("actors") or [])
     _parts_reasons(rec, notes)
     src = sources or {}
     single = src.get("single_exports") or {}
@@ -489,13 +499,28 @@ def build(affair_id: int, row: dict, names: list, *, sources: dict | None = None
     except Exception as e:  # noqa: BLE001 - pydantic.ValidationError and the model's own ValueErrors
         raise AffairError("invalid_record", f"{type(e).__name__}: {str(e)[:600]}") from e
     sugg = res.get("suggestions") or {}
+    review = list(post["review"]) + [dict(field="actors", reason=f"role_inconsistent: {v} "
+                                          "(gegenprobe.schema.role_consistency)") for v in role_flags]
+    out_rec = valid.model_dump(mode="json", exclude_none=True)
+    if roles == "apertus":
+        sugg = dict(sugg, actors=apertus_roles(out_rec, entry, meta, names, role_backend, roles_fallback))
+        review.append(dict(field="actors", reason=sugg["actors"]["review_reason"]))
     return dict(opd_affair=affair_id, status="ok", schema_version="0.2.0",
-                record=valid.model_dump(mode="json", exclude_none=True),
-                needs_review=bool(post["needs_review"] or sugg), review=post["review"], suggestions=sugg,
+                record=out_rec,
+                needs_review=bool(post["needs_review"] or sugg or review), review=review, suggestions=sugg,
                 changes=post["changes"],
                 sources=dict(src, documents=[{k: d[k] for k in ("role", "doc_id", "name", "url", "sha256", "extractor",
                                                                     "image_only")} for d in docs],
-                             answer_link_status=ls, mode=mode))
+                             answer_link_status=ls, mode=mode, roles=roles,
+                             **({"roles_fallback": roles_fallback} if roles == "apertus" else {})))
+
+
+def apertus_roles(record: dict, entry: dict, meta: dict, names, backend, fallback: str = "none") -> dict:
+    """`--roles apertus`: the frozen P10 role reader on this affair's candidates, alone unless `--roles-fallback opd`
+    (gegenprobe.convert.roles_review). Suggestions next to the record, each `review: true`; never applied."""
+    from .convert import roles_review
+
+    return roles_review.read(record, entry, meta, names, backend, fallback=fallback)
 
 
 def failure(affair_id: int, e: AffairError) -> dict:
@@ -548,7 +573,17 @@ def add_parser(sub) -> argparse.ArgumentParser:
     p.add_argument("--question-doc", type=int, metavar="OPD_DOC_ID", help="the member's text, if the pairing rule "
                    "picks another or none (single affair)")
     p.add_argument("--answer-doc", type=int, metavar="OPD_DOC_ID", help="the answer document (single affair)")
-    p.add_argument("--backend", default="gguf", help="review mode: as `convert --backend`")
+    p.add_argument("--roles", choices=["rules", "apertus"], default="rules",
+                   help="rules (default, no model): the record's author roles are the rules' | apertus (opt-in review "
+                   "route): also run the frozen P10 role reader (Apertus, closed questions on located candidates) and "
+                   "put its reading under suggestions.actors, every entry review: true; the record's printed roles are "
+                   "never overwritten. Uses --backend")
+    p.add_argument("--roles-fallback", choices=["none", "opd"], default="none",
+                   help="with --roles apertus: where the reader suggests no author, none (default: nothing is "
+                   "suggested) | opd (offer OPD's contributor list, review: true, not located in the documents; off "
+                   "by default because post hoc on P10 it added 32 pairs on 2 affairs, none correct)")
+    p.add_argument("--backend", default="gguf", help="review mode and --roles apertus: as `convert --backend` (gguf | "
+                   "openai | gateway:<model>:<tag>:<cap>)")
     p.add_argument("--theta", type=float, help="review mode: override θ (not recommended)")
     p.add_argument("--allow-build-mismatch", action="store_true", help="review mode: as `convert`")
     p.add_argument("--timeout", type=int, default=60, help="seconds per document request (default 60)")
@@ -560,13 +595,25 @@ def main_args(a) -> int:
     if len(a.opd_affair) > 1 and (a.question_doc or a.answer_doc):
         print("--question-doc / --answer-doc apply to a single --opd-affair", file=sys.stderr)
         return 2
-    be = theta = None
+    from . import gguf_guard
+
+    gguf_guard.ensure()
+    be = theta = role_be = None
     if a.mode == "review":
         from .convert import batch
 
         be, theta = batch.resolve_review(a.backend, a.theta, allow_build_mismatch=a.allow_build_mismatch)
+    if getattr(a, "roles_fallback", "none") != "none" and getattr(a, "roles", "rules") != "apertus":
+        print("--roles-fallback applies to --roles apertus", file=sys.stderr)
+        return 2
+    if getattr(a, "roles", "rules") == "apertus":
+        from .convert import batch
+
+        role_be = be if be is not None else batch.make_backend(a.backend)
     rows = run(a.opd_affair, source=a.source, rows_file=a.rows, save_rows_file=a.save_rows, mode=a.mode, backend=be,
-               theta=theta, question_doc=a.question_doc, answer_doc=a.answer_doc, timeout=a.timeout, tries=a.tries)
+               theta=theta, question_doc=a.question_doc, answer_doc=a.answer_doc, timeout=a.timeout, tries=a.tries,
+               roles=getattr(a, "roles", "rules"), role_backend=role_be,
+               roles_fallback=getattr(a, "roles_fallback", "none"))
     many = len(rows) > 1
 
     def show(r):
@@ -586,7 +633,8 @@ def main_args(a) -> int:
             for x in r["review"]:
                 print(f"affair {r['opd_affair']}: needs review ({x['field']}): {x['reason']}", file=sys.stderr)
             for k in r["suggestions"]:
-                print(f"affair {r['opd_affair']}: needs review ({k}): Apertus suggestion", file=sys.stderr)
+                if k != "actors":  # the role block's reason is in `review`
+                    print(f"affair {r['opd_affair']}: needs review ({k}): Apertus suggestion", file=sys.stderr)
     return 2 if bad else 0
 
 

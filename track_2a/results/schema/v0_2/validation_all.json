@@ -113,8 +113,8 @@
      "addressed_body": 2,
      "co_signatory": 160,
      "first_signatory": 5,
-     "joint_author": 11,
-     "sole_author": 23,
+     "joint_author": 12,
+     "sole_author": 22,
      "spokesperson": 1,
      "submitter": 10
     },
@@ -142,7 +142,7 @@
      "actor_role:co_signatory": 5,
      "actor_role:first_signatory": 5,
      "actor_role:joint_author": 3,
-     "actor_role:sole_author": 23,
+     "actor_role:sole_author": 22,
      "actor_role:spokesperson": 1,
      "empty_reasons_typed": 36,
      "instrument_function": 27,
@@ -157,8 +157,8 @@
      "rule": 407
     },
     "v02_additions_used": {
-     "actor_role:joint_author": 11,
-     "actor_role:sole_author": 23,
+     "actor_role:joint_author": 12,
+     "actor_role:sole_author": 22,
      "actor_role:spokesperson": 1,
      "date_role:lodged": 8,
      "date_role:signed": 21,
@@ -178,8 +178,8 @@
     "actor_roles": {
      "co_signatory": 151,
      "first_signatory": 5,
-     "joint_author": 11,
-     "sole_author": 15,
+     "joint_author": 12,
+     "sole_author": 14,
      "spokesperson": 18,
      "submitter": 11
     },
@@ -206,7 +206,7 @@
      "actor_role:co_signatory": 6,
      "actor_role:first_signatory": 5,
      "actor_role:joint_author": 3,
-     "actor_role:sole_author": 15,
+     "actor_role:sole_author": 14,
      "actor_role:spokesperson": 6,
      "empty_reasons_typed": 40,
      "instrument_function": 28,
@@ -221,8 +221,8 @@
      "rule": 816
     },
     "v02_additions_used": {
-     "actor_role:joint_author": 11,
-     "actor_role:sole_author": 15,
+     "actor_role:joint_author": 12,
+     "actor_role:sole_author": 14,
      "actor_role:spokesperson": 18,
      "date_role:lodged": 4,
      "date_role:signed": 23,
@@ -519,6 +519,49 @@
    "n_valid": 15,
    "records": "results/schema/v0_2/fed_records.jsonl",
    "source": "results/fed/fed_records_v0_2.jsonl (eval.fed.arms offline) + gegenprobe.schema.v0_2_parts.with_parts"
+  }
+ },
+ "role_consistency": {
+  "rules": "R1 at most one sole_author; R2 sole_author excludes joint_author; R3 a person sole_author excludes a first_signatory; R4 joint_author excludes first_signatory and needs another joint author (gegenprobe.schema.role_consistency, from eval/p8/GUIDE_P8.md section 2)",
+  "repair": "R2: every sole_author next to a joint_author becomes joint_author (GUIDE_P8: authors printed with equal standing, none designated first); names, pages, spans and rules unchanged",
+  "n_records_changed": 2,
+  "changed": {
+   "p3b:293:106111": [
+    {
+     "kind": "parliamentary_group",
+     "was": "sole_author",
+     "now": "joint_author"
+    }
+   ],
+   "p5:5192:28156": [
+    {
+     "kind": "parliamentary_group",
+     "was": "sole_author",
+     "now": "joint_author"
+    }
+   ]
+  },
+  "checked": {
+   "p3": {
+    "n_records": 29,
+    "n_violating": 0
+   },
+   "p3b": {
+    "n_records": 36,
+    "n_violating": 0
+   },
+   "p5": {
+    "n_records": 40,
+    "n_violating": 0
+   },
+   "fed": {
+    "n_records": 15,
+    "n_violating": 0
+   },
+   "p8": {
+    "n_records": 66,
+    "n_violating": 0
+   }
   }
  }
 }

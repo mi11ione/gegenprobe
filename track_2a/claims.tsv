@@ -810,6 +810,36 @@ r15.parts_rec_with	66	results/report/r15_numbers.json	parts.records_with_part	in
 r15.parts_rec_n	105	results/report/r15_numbers.json	parts.records	int	PYTHONPATH=src:. python -m report.r15_numbers	README.md,technical_report.md,docs/evaluation.md,docs/ech-onepager.md	"{""README.md"": ""66 of 105 converter records"", ""docs/ech-onepager.md"": ""in 66 of its 105 records"", ""docs/evaluation.md"": ""66 of the 105"", ""technical_report.md"": ""66 of 105 converter records""}"
 r15.parts_rule_docs	210	results/report/r15_numbers.json	parts.documents_rules	int	PYTHONPATH=src:. python -m report.r15_numbers	docs/evaluation.md	"{""docs/evaluation.md"": ""210 converter documents""}"
 r15.parts_dpi	100	results/parts/draw.json	dpi	int	PYTHONPATH=src:. python -m eval.parts.packets	docs/evaluation.md	"{""docs/evaluation.md"": ""(100 ppi)""}"
+r16a1.p10_qwen_pair_f1	0.63	results/p10/p10_qwen_check.json	agreement.qwen_vs_gold.pair_f1	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_name_f1	0.80	results/p10/p10_qwen_check.json	agreement.qwen_vs_gold.name_f1	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_role_kappa	0.57	results/p10/p10_qwen_check.json	agreement.qwen_vs_gold.role_kappa_on_names_both	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_a1a2_role_kappa	0.81	results/p10/p10_qwen_check.json	agreement.A1_vs_A2.role_kappa_on_names_both	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_packets_agree	12/40	results/p10/p10_qwen_check.json	agreement.qwen_vs_gold.packets_agreeing/agreement.qwen_vs_gold.packets	frac	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_de_pair_f1	0.40	results/p10/p10_qwen_check.json	qwen_vs_gold_by_stratum.de.pair_f1	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_fr_pair_f1	0.91	results/p10/p10_qwen_check.json	qwen_vs_gold_by_stratum.fr.pair_f1	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_gold_h3a_holm	0.20	results/p10/p10_qwen_check.json	decisions.qwen_as_gold.p_holm.H3a	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_gold_h1_verdict	confirmed	results/p10/p10_qwen_check.json	decisions.qwen_as_gold.verdicts.H1	str	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_gold_h3a_verdict	not confirmed	results/p10/p10_qwen_check.json	decisions.qwen_as_gold.verdicts.H3a	str	PYTHONPATH=src:. python -m eval.p10.qwen10 score	-	
+r16a1.p10_qwen_usd	0.04	results/p10/p10_qwen_run.json	usd	f2	PYTHONPATH=src:. python -m eval.p10.qwen10 run	-	
+r16a1.sessions_all	96	results/eval/annotation_sessions.json	overall_all.n_sessions	int	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.sessions_all_labels	1,864	results/eval/annotation_sessions.json	overall_all.label_files_total	int	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.sessions_all_in_session	1,864	results/eval/annotation_sessions.json	overall_all.label_files_mtime_in_session	int	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.sessions_new	7	results/eval/annotation_sessions.json	overall_p10_parts_fed.n_sessions	int	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.p10_lock_push	2026-10-11T18:25:40Z	results/eval/annotation_sessions.json	sets.13.commits.lock.github_push_received	str	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.p10_draw_push	2026-10-11T18:29:26Z	results/eval/annotation_sessions.json	sets.13.commits.draw.github_push_received	str	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.p10_first_session	2026-10-11T18:29:31Z	results/eval/annotation_sessions.json	sets.13.summary.first_session_start	str	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.p10_last_session	2026-10-11T18:39:51Z	results/eval/annotation_sessions.json	sets.13.summary.last_session_end	str	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.p10_labels_push	2026-10-11T18:40:07Z	results/eval/annotation_sessions.json	sets.13.commits.labels.github_push_received	str	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.p10_last_to_labels_s	16	results/eval/annotation_sessions.json	sets.13.order_checks.seconds_from_last_session_end_to_label_push	int	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.parts_draw_to_first_s	10	results/eval/annotation_sessions.json	sets.14.order_checks.seconds_from_draw_push_to_first_session	int	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16a1.parts_last_to_labels_s	22	results/eval/annotation_sessions.json	sets.14.order_checks.seconds_from_last_session_end_to_label_push	int	PYTHONPATH=src:. python -m eval.annotation_sessions	-	
+r16.root.p2_pointer_exact	53/62	results/report/p2_numbers.json	arms.pointer.exact/arms.pointer.n	frac	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	../README.md	
+r16.root.p2_bodies	15	results/report/p2_numbers.json	n_bodies	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	../README.md	"{""../README.md"": ""parliaments nobody wrote rules for""}"
+r16.root.p2_best_nomodel_exact	44/62	results/eval/baselines_dates.json	P2_unseen.latest_date_on_answer_docs_only.exact/P2_unseen.latest_date_on_answer_docs_only.n	frac	PYTHONPATH=src:. python -m eval.baselines	../README.md	
+r16.root.fed_n	15	results/fed/fed_tables.json	n	int	PYTHONPATH=src:. python -m eval.fed.score	../README.md	"{""../README.md"": ""affairs are exploratory""}"
+r16.root.night1_min	86	results/report/r7docs_numbers.json	nights.night1_min	int	PYTHONPATH=src:. python -m report.r7docs_numbers	../README.md	"{""../README.md"": ""first network night took""}"
+r16.root.night2_min	6.6	results/report/r7docs_numbers.json	nights.night2_min	f1	PYTHONPATH=src:. python -m report.r7docs_numbers	../README.md	"{""../README.md"": ""min, the next""}"
+r16.root.meaning_measured	11	site/data.json	schema.meaning_measured	int	make site	../README.md	"{""../README.md"": ""meaning is measured for the other""}"
 r2a.p2_latest_recall	22/29	results/eval/baselines_dates.json	P2_unseen.latest_printed_date.value_recall	frac	PYTHONPATH=src:. python -m eval.baselines	-	
 r2a.p2_latest_on_null	31/33	results/eval/baselines_dates.json	P2_unseen.latest_printed_date.values_on_gold_null	frac	PYTHONPATH=src:. python -m eval.baselines	-	
 r2a.p2_latest_exact	24	results/eval/baselines_dates.json	P2_unseen.latest_printed_date.exact	int	PYTHONPATH=src:. python -m eval.baselines	-	

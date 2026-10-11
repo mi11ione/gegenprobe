@@ -13,14 +13,19 @@
       suggestions). A --body outside data/convert/rules_coverage.json prints a warning and marks the row needs_review.
       --anchors FILE adds your own per-body regex anchors after the frozen rules (--anchors-review keeps their values
       flagged); --explain lists every rule/anchor tried and the cache path.
+      With --opd-doc-id (and --body) every value also gets opd_text_span, offsets into OPD's stored text, when that text
+      exists (convert/opd_store.py; --no-opd-text or GP_OPD_TEXT=off skips the lookup; --opd-text FILE names it).
       --affair-type accepts the vocabulary keys, their DE/FR/IT/EN labels and OPD's harmonised names (an unknown value
       is an error, exit 2); --queue-nulls sends a rules-only null answer date on an answer document (doc_role answer, or
       --doc-category / batch column doc_category says answer) to review with its candidates.
       Docs: docs/convert-your-own.md.
-  python -m gegenprobe affair --opd-affair <id> [--schema v0.2] [--mode rules_only|review] [--out FILE]
+  python -m gegenprobe affair --opd-affair <id> [--schema v0.2] [--mode rules_only|review] [--roles rules|apertus]
+                             [--out FILE]
       One OPD affair -> one validated schema v0.2 record: OPD's export rows (affair, events, contributors, document rows)
       plus the affair's question and answer documents, through the converter's record pipeline (affair.build,
-      affair_post, schema.v0_2_all); typed nulls, needs_review as affair_post. A typed failure exits 2.
+      affair_post, schema.v0_2_all); typed nulls, needs_review as affair_post. A typed failure exits 2. --roles apertus
+      (opt-in) adds the frozen P10 role reader's roles under suggestions.actors, each review: true; never applied;
+      --roles-fallback opd (off by default) offers OPD's contributor list where the reader suggests no author.
       Docs: docs/affair.md (gegenprobe/affair_cli.py).
   python -m gegenprobe run       the `make run` replay (same as python -m gegenprobe.run)
 """
@@ -30,7 +35,7 @@ import argparse
 import json
 import sys
 
-from . import ocrguard
+from . import gguf_guard, ocrguard
 from .convert import affair_types
 from .convert.batch import guess_lang  # noqa: F401  (re-exported: tests and older callers import it from here)
 
@@ -51,16 +56,24 @@ def _convert(a) -> int:
     be, theta = (None, None)
     if a.mode == "review":
         be, theta = batch.resolve_review(a.backend, a.theta, allow_build_mismatch=a.allow_build_mismatch)
+    opd_policy = "off" if a.no_opd_text else None  # None: GP_OPD_TEXT, default auto (convert/opd_store.py)
     if a.batch:
+        from .convert import opd_store
         from .convert.affair_types import UnknownAffairType
         try:
             inputs = batch.read_inputs(a.batch, anchors)
         except UnknownAffairType as e:
             print(str(e), file=sys.stderr)
             return 2
-        counts = batch.run_batch(inputs, a.out, mode=a.mode, backend=be, theta=theta, retry_failed=a.retry_failed,
-                                 timeout=a.timeout, tries=a.tries, anchors=anchors, explain=a.explain,
-                                 queue_nulls=a.queue_nulls, anchors_review=a.anchors_review)
+        opd_store.prefetch(inputs, opd_policy)
+        one = batch.convert_one  # rows get opd_text_span where OPD's stored text exists (round 16, J1)
+        batch.convert_one = lambda *x, **k: opd_store.annotate(one(*x, **k), opd_policy)
+        try:
+            counts = batch.run_batch(inputs, a.out, mode=a.mode, backend=be, theta=theta, retry_failed=a.retry_failed,
+                                     timeout=a.timeout, tries=a.tries, anchors=anchors, explain=a.explain,
+                                     queue_nulls=a.queue_nulls, anchors_review=a.anchors_review)
+        finally:
+            batch.convert_one = one
         summary = ", ".join(f"{k} {v}" for k, v in sorted(counts.items()))
         print(f"{len(inputs)} inputs: {summary or 'nothing to do'}" + (f" -> {a.out}" if a.out else ""), file=sys.stderr)
         if a.queue:
@@ -90,6 +103,10 @@ def _convert(a) -> int:
     if a.opd_text and row["status"] == "ok":
         from .convert import opdtext
         row["opd_text_alignment"] = opdtext.annotate(row, opdtext.load(a.opd_text))
+        row["opd_text_source"] = dict(source=f"--opd-text {a.opd_text}")
+    elif row["status"] == "ok":  # OPD's stored text by --opd-doc-id (+ --body), without a flag (convert/opd_store.py)
+        from .convert import opd_store
+        opd_store.annotate(row, opd_policy)
     json.dump(row, sys.stdout, ensure_ascii=False, indent=1)
     print()
     if a.explain and row["status"] == "ok":
@@ -105,6 +122,7 @@ def _convert(a) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     ocrguard.ensure()  # OCR fails loudly (typed ocr_failed row), also in an installed checkout without sitecustomize
+    gguf_guard.ensure()  # local 8B: weights re-hashed at load, sandboxed chat template, GP_USER_AGENT (gguf_guard.py)
     ap = argparse.ArgumentParser(prog="gegenprobe")
     sub = ap.add_subparsers(dest="cmd", required=True)
     c = sub.add_parser("convert", help="convert PDFs (path or URL, or a batch file) into rows with provenance",
@@ -124,7 +142,11 @@ def main(argv: list[str] | None = None) -> int:
     c.add_argument("--doc-category", help="OPD document category of this document (category_harmonized, e.g. "
                    "response_text, or the category label, e.g. Réponse); used by --queue-nulls")
     c.add_argument("--opd-text", metavar="FILE", help="OPD's stored text of this document (plain text, or a docs-export "
-                   "JSON row with a 'text' field): every value also gets opd_text_span, offsets into that text")
+                   "JSON row with a 'text' field): every value also gets opd_text_span, offsets into that text. Without "
+                   "it, OPD's stored text is looked up by --opd-doc-id (+ --body) in the work cache, the docs-export "
+                   "snapshots and OPD's docs export (GP_OPD_TEXT=auto|local|off; convert/opd_store.py)")
+    c.add_argument("--no-opd-text", action="store_true", help="do not look up OPD's stored text (no opd_text_span unless "
+                   "--opd-text is given)")
     c.add_argument("--mode", choices=["rules_only", "review"], default="rules_only",
                    help="rules_only (default, no model) | review (adds Apertus suggestions, needs a fitted θ)")
     c.add_argument("--lang", choices=["de", "fr", "it"], help="document language (guessed if omitted)")

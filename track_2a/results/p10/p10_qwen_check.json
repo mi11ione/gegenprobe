@@ -1,0 +1,442 @@
+{
+ "label": "EXPLORATORY (round 16; not registered in PREREG10): cross-vendor check of the P10 gold with Qwen-SEA-LION; changes no gold label and no decision",
+ "model": "aisingapore/Qwen-SEA-LION-v4-32B-IT",
+ "tag": "2a-p10-qwen",
+ "n_packets": 40,
+ "invalid_or_missing": [],
+ "agreement": {
+  "qwen_vs_gold": {
+   "packets": 40,
+   "packets_agreeing": 12,
+   "pair_f1": 0.6282,
+   "name_f1": 0.7991,
+   "names_both": 173,
+   "role_agree_on_names_both": 136,
+   "role_kappa_on_names_both": 0.574
+  },
+  "qwen_vs_A1": {
+   "packets": 40,
+   "packets_agreeing": 9,
+   "pair_f1": 0.5648,
+   "name_f1": 0.8009,
+   "names_both": 173,
+   "role_agree_on_names_both": 122,
+   "role_kappa_on_names_both": 0.464
+  },
+  "qwen_vs_A2": {
+   "packets": 40,
+   "packets_agreeing": 13,
+   "pair_f1": 0.6912,
+   "name_f1": 0.8894,
+   "names_both": 193,
+   "role_agree_on_names_both": 150,
+   "role_kappa_on_names_both": 0.56
+  },
+  "A1_vs_A2": {
+   "packets": 40,
+   "packets_agreeing": 31,
+   "pair_f1": 0.868,
+   "name_f1": 0.9746,
+   "names_both": 192,
+   "role_agree_on_names_both": 171,
+   "role_kappa_on_names_both": 0.808
+  },
+  "A1_vs_gold": {
+   "packets": 40,
+   "packets_agreeing": 36,
+   "pair_f1": 0.916,
+   "name_f1": 0.9975,
+   "names_both": 196,
+   "role_agree_on_names_both": 180,
+   "role_kappa_on_names_both": 0.858
+  },
+  "A2_vs_gold": {
+   "packets": 40,
+   "packets_agreeing": 35,
+   "pair_f1": 0.8759,
+   "name_f1": 0.9013,
+   "names_both": 178,
+   "role_agree_on_names_both": 173,
+   "role_kappa_on_names_both": 0.951
+  }
+ },
+ "qwen_vs_gold_by_stratum": {
+  "de": {
+   "packets": 24,
+   "packets_agreeing": 4,
+   "pair_f1": 0.4022,
+   "name_f1": 0.5698,
+   "names_both": 51,
+   "role_agree_on_names_both": 36,
+   "role_kappa_on_names_both": 0.569
+  },
+  "fr": {
+   "packets": 10,
+   "packets_agreeing": 4,
+   "pair_f1": 0.913,
+   "name_f1": 0.9565,
+   "names_both": 66,
+   "role_agree_on_names_both": 63,
+   "role_kappa_on_names_both": 0.845
+  },
+  "it": {
+   "packets": 6,
+   "packets_agreeing": 4,
+   "pair_f1": 0.6379,
+   "name_f1": 0.9655,
+   "names_both": 56,
+   "role_agree_on_names_both": 37,
+   "role_kappa_on_names_both": 0.298
+  }
+ },
+ "merge_with_qwen_in_place_of_A2": {
+  "A3 (tie-break exists)": 8,
+  "no tie-break: A1 or Qwen": 22,
+  "A1=Qwen": 10
+ },
+ "decisions": {
+  "registered_gold": {
+   "n_affairs": 34,
+   "gold_pairs": 141,
+   "pointer": {
+    "pairs_predicted": 96,
+    "pairs_gold": 141,
+    "matched": 50,
+    "precision": 0.5208333333333334,
+    "recall": 0.3546099290780142,
+    "f1": 0.42194092827004226,
+    "precision_wilson95": [
+     0.42203591721406514,
+     0.618027543307401
+    ],
+    "recall_wilson95": [
+     0.2804602036792119,
+     0.43647194840969084
+    ],
+    "names_precision": 0.7083333333333334,
+    "names_recall": 0.48226950354609927,
+    "affairs_exact": 14,
+    "affairs": 34,
+    "affairs_with_output": 32
+   },
+   "rules": {
+    "pairs_predicted": 55,
+    "pairs_gold": 141,
+    "matched": 17,
+    "precision": 0.3090909090909091,
+    "recall": 0.12056737588652482,
+    "f1": 0.173469387755102,
+    "precision_wilson95": [
+     0.20282124520577244,
+     0.4402883915138273
+    ],
+    "recall_wilson95": [
+     0.07665405308915482,
+     0.18460790480139597
+    ],
+    "names_precision": 0.5272727272727272,
+    "names_recall": 0.20567375886524822,
+    "affairs_exact": 9,
+    "affairs": 34,
+    "affairs_with_output": 25
+   },
+   "verdicts": {
+    "H1": "confirmed",
+    "H2": "confirmed",
+    "H3a": "not confirmed",
+    "H3b": "confirmed"
+   },
+   "p_holm": {
+    "H1": 0.031596840315968405,
+    "H2": 0.033396660333966606,
+    "H3a": 0.17488251174882513,
+    "H3b": 0.031596840315968405
+   },
+   "observed": {
+    "H1": 0.23404255319148937,
+    "H2": 0.2117424242424243,
+    "H3a": 0.11990011194351169,
+    "H3b": 0.2949568012859153
+   }
+  },
+  "qwen_replaces_A2_unresolved_to_A1": {
+   "n_affairs": 34,
+   "gold_pairs": 141,
+   "pointer": {
+    "pairs_predicted": 96,
+    "pairs_gold": 141,
+    "matched": 50,
+    "precision": 0.5208333333333334,
+    "recall": 0.3546099290780142,
+    "f1": 0.42194092827004226,
+    "precision_wilson95": [
+     0.42203591721406514,
+     0.618027543307401
+    ],
+    "recall_wilson95": [
+     0.2804602036792119,
+     0.43647194840969084
+    ],
+    "names_precision": 0.7083333333333334,
+    "names_recall": 0.48226950354609927,
+    "affairs_exact": 14,
+    "affairs": 34,
+    "affairs_with_output": 32
+   },
+   "rules": {
+    "pairs_predicted": 55,
+    "pairs_gold": 141,
+    "matched": 17,
+    "precision": 0.3090909090909091,
+    "recall": 0.12056737588652482,
+    "f1": 0.173469387755102,
+    "precision_wilson95": [
+     0.20282124520577244,
+     0.4402883915138273
+    ],
+    "recall_wilson95": [
+     0.07665405308915482,
+     0.18460790480139597
+    ],
+    "names_precision": 0.5272727272727272,
+    "names_recall": 0.20567375886524822,
+    "affairs_exact": 9,
+    "affairs": 34,
+    "affairs_with_output": 25
+   },
+   "verdicts": {
+    "H1": "confirmed",
+    "H2": "confirmed",
+    "H3a": "not confirmed",
+    "H3b": "confirmed"
+   },
+   "p_holm": {
+    "H1": 0.031596840315968405,
+    "H2": 0.033396660333966606,
+    "H3a": 0.17488251174882513,
+    "H3b": 0.031596840315968405
+   },
+   "observed": {
+    "H1": 0.23404255319148937,
+    "H2": 0.2117424242424243,
+    "H3a": 0.11990011194351169,
+    "H3b": 0.2949568012859153
+   }
+  },
+  "qwen_replaces_A2_unresolved_to_qwen": {
+   "n_affairs": 34,
+   "gold_pairs": 171,
+   "pointer": {
+    "pairs_predicted": 96,
+    "pairs_gold": 171,
+    "matched": 49,
+    "precision": 0.5104166666666666,
+    "recall": 0.28654970760233917,
+    "f1": 0.36704119850187267,
+    "precision_wilson95": [
+     0.41195862420919654,
+     0.6080731060515364
+    ],
+    "recall_wilson95": [
+     0.22405400960002597,
+     0.3584252173116472
+    ],
+    "names_precision": 0.71875,
+    "names_recall": 0.40350877192982454,
+    "affairs_exact": 7,
+    "affairs": 34,
+    "affairs_with_output": 32
+   },
+   "rules": {
+    "pairs_predicted": 55,
+    "pairs_gold": 171,
+    "matched": 16,
+    "precision": 0.2909090909090909,
+    "recall": 0.0935672514619883,
+    "f1": 0.1415929203539823,
+    "precision_wilson95": [
+     0.18771037010850328,
+     0.4214097082034393
+    ],
+    "recall_wilson95": [
+     0.05841520035979689,
+     0.1465794919788685
+    ],
+    "names_precision": 0.5272727272727272,
+    "names_recall": 0.1695906432748538,
+    "affairs_exact": 2,
+    "affairs": 34,
+    "affairs_with_output": 25
+   },
+   "verdicts": {
+    "H1": "confirmed",
+    "H2": "confirmed",
+    "H3a": "not confirmed",
+    "H3b": "confirmed"
+   },
+   "p_holm": {
+    "H1": 0.00039996000399960006,
+    "H2": 0.0071992800719928,
+    "H3a": 0.21157884211578842,
+    "H3b": 0.00039996000399960006
+   },
+   "observed": {
+    "H1": 0.19298245614035087,
+    "H2": 0.21950757575757573,
+    "H3a": 0.07613210759278172,
+    "H3b": 0.2677504183600287
+   }
+  },
+  "qwen_as_gold": {
+   "n_affairs": 34,
+   "gold_pairs": 176,
+   "pointer": {
+    "pairs_predicted": 96,
+    "pairs_gold": 176,
+    "matched": 51,
+    "precision": 0.53125,
+    "recall": 0.2897727272727273,
+    "f1": 0.37500000000000006,
+    "precision_wilson95": [
+     0.4321542477927087,
+     0.6279409429894902
+    ],
+    "recall_wilson95": [
+     0.2278076967079314,
+     0.3607190957583277
+    ],
+    "names_precision": 0.8645833333333334,
+    "names_recall": 0.4715909090909091,
+    "affairs_exact": 7,
+    "affairs": 34,
+    "affairs_with_output": 32
+   },
+   "rules": {
+    "pairs_predicted": 55,
+    "pairs_gold": 176,
+    "matched": 17,
+    "precision": 0.3090909090909091,
+    "recall": 0.09659090909090909,
+    "f1": 0.1471861471861472,
+    "precision_wilson95": [
+     0.20282124520577244,
+     0.4402883915138273
+    ],
+    "recall_wilson95": [
+     0.061182659089253855,
+     0.14923361834600024
+    ],
+    "names_precision": 0.8,
+    "names_recall": 0.25,
+    "affairs_exact": 3,
+    "affairs": 34,
+    "affairs_with_output": 25
+   },
+   "verdicts": {
+    "H1": "confirmed",
+    "H2": "confirmed",
+    "H3a": "not confirmed",
+    "H3b": "confirmed"
+   },
+   "p_holm": {
+    "H1": 0.00039996000399960006,
+    "H2": 0.004399560043995601,
+    "H3a": 0.20377962203779623,
+    "H3b": 0.00039996000399960006
+   },
+   "observed": {
+    "H1": 0.1931818181818182,
+    "H2": 0.22215909090909092,
+    "H3a": 0.07500000000000001,
+    "H3b": 0.2704703832752614
+   }
+  },
+  "consensus": {
+   "n_affairs": 9,
+   "gold_pairs": 58,
+   "pointer": {
+    "pairs_predicted": 24,
+    "pairs_gold": 58,
+    "matched": 22,
+    "precision": 0.9166666666666666,
+    "recall": 0.3793103448275862,
+    "f1": 0.5365853658536586,
+    "precision_wilson95": [
+     0.741507847985494,
+     0.9768416721570266
+    ],
+    "recall_wilson95": [
+     0.2656408890260369,
+     0.5079742826383442
+    ],
+    "names_precision": 0.9583333333333334,
+    "names_recall": 0.39655172413793105,
+    "affairs_exact": 5,
+    "affairs": 9,
+    "affairs_with_output": 9
+   },
+   "rules": {
+    "pairs_predicted": 11,
+    "pairs_gold": 58,
+    "matched": 4,
+    "precision": 0.36363636363636365,
+    "recall": 0.06896551724137931,
+    "f1": 0.11594202898550723,
+    "precision_wilson95": [
+     0.15166223614131383,
+     0.6462032231083628
+    ],
+    "recall_wilson95": [
+     0.027143807598168326,
+     0.16433894834605045
+    ],
+    "names_precision": 0.9090909090909091,
+    "names_recall": 0.1724137931034483,
+    "affairs_exact": 2,
+    "affairs": 9,
+    "affairs_with_output": 7
+   },
+   "verdicts": {
+    "H1": "inconclusive (stop rule: underpowered)",
+    "H2": "inconclusive (stop rule: underpowered)",
+    "H3a": "inconclusive (stop rule: underpowered)",
+    "H3b": "inconclusive (stop rule: underpowered)"
+   },
+   "p_holm": {
+    "H1": 0.0026997300269973002,
+    "H2": 0.00039996000399960006,
+    "H3a": 0.030796920307969204,
+    "H3b": 0.030796920307969204
+   },
+   "observed": {
+    "H1": 0.31034482758620685,
+    "H2": 0.553030303030303,
+    "H3a": 0.1865853658536586,
+    "H3b": 0.4401998236849839
+   }
+  }
+ },
+ "verdict_changes": {
+  "qwen_replaces_A2_unresolved_to_A1": [],
+  "qwen_replaces_A2_unresolved_to_qwen": [],
+  "qwen_as_gold": []
+ },
+ "any_registered_verdict_changes": {
+  "qwen_replaces_A2_unresolved_to_A1": false,
+  "qwen_replaces_A2_unresolved_to_qwen": false,
+  "qwen_as_gold": false
+ },
+ "underpowered_by_the_registered_stop_rule": {
+  "consensus": {
+   "n_affairs": 9,
+   "gold_pairs": 58,
+   "verdicts_if_the_stop_rule_were_ignored": {
+    "H1": "confirmed",
+    "H2": "confirmed",
+    "H3a": "confirmed",
+    "H3b": "confirmed"
+   }
+  }
+ },
+ "note": "Qwen's labels change no gold label and no decision; the registered P10 result stays the one in results/p10/p10_scores.json"
+}

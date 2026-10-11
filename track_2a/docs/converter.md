@@ -115,8 +115,11 @@ span and context, the chosen one marked, and Apertus' probability shares in revi
 `rule_precision` (`results/convert/rule_precision.json`, per rule on the P1 + P2 held-out rows, with its Wilson 95%
 interval and a small-sample flag below n = 10); review suggestions carry a
 `band` (strong: margin ≤ −5; weak: −5 < margin ≤ θ), measured post-hoc on P1 + P2 (`results/convert/band_precision.json`);
-recommendations carry `multiple_recommendations`; `--opd-text` adds `opd_text_span`, offsets into OPD's stored text
-(`convert/opdtext.py`). Batch: exit code 2 on any failure row (`--allow-failures` to override), `--queue` for a review
+recommendations carry `multiple_recommendations`; every value gets `opd_text_span`, offsets into OPD's stored text
+(`convert/opdtext.py`), by default whenever that text exists: with `--opd-doc-id` (and `--body`) the converter finds it in
+its work cache, the docs-export snapshots or OPD's docs export for the body (`convert/opd_store.py`, round 16; the row
+says where in `opd_text_source`, or why not in `opd_text_alignment`; `GP_OPD_TEXT=auto|local|off`, `--no-opd-text`).
+`--opd-text FILE` still names the text explicitly. Batch: exit code 2 on any failure row (`--allow-failures` to override), `--queue` for a review
 queue sorted strongest first. Rule coverage for routing: `data/convert/rules_coverage.json`. All computed by
 `python -m gegenprobe.convert.precision` from committed result rows; no new labels, no model call.
 

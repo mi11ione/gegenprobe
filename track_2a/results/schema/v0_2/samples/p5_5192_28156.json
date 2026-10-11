@@ -14,7 +14,7 @@
     "rule": "roles-2:authors:group_line",
     "value": "Partito Popolare Democratico e Generazione Giovani"
    },
-   "role": "sole_author"
+   "role": "joint_author"
   },
   {
    "kind": "person",
@@ -216,7 +216,7 @@
   "builds": [],
   "converter_version": "gegenprobe P5 rules arm (none)",
   "created": "2026-10-10T21:08:35Z",
-  "notes": "assembled as a v0.2 affair by gegenprobe.schema.v0_2_all.p5_affair from results/eval6/p5__none.json (R.records) and OPD's census export (number, body, type); no value was changed; v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 6 printed authors (0 earlier entries for the same persons replaced, 1 unconfirmed earlier rule entries dropped), 2 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 1 parts in 1 of 2 documents examined",
+  "notes": "assembled as a v0.2 affair by gegenprobe.schema.v0_2_all.p5_affair from results/eval6/p5__none.json (R.records) and OPD's census export (number, body, type); no value was changed; v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 6 printed authors (0 earlier entries for the same persons replaced, 1 unconfirmed earlier rule entries dropped), 2 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 1 parts in 1 of 2 documents examined; author roles harmonised by gegenprobe.schema.role_consistency (eval/p8/GUIDE_P8.md section 2: authors printed with equal standing, none designated first, are joint authors): parliamentary_group 'Partito Popolare Democratico e Generazione Giovani' sole_author -> joint_author",
   "schema_version": "0.2.0"
  },
  "government_recommendation": {

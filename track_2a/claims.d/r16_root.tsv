@@ -1,0 +1,8 @@
+id	shown	file	path	fmt	command	where	context
+r16.root.p2_pointer_exact	53/62	results/report/p2_numbers.json	arms.pointer.exact/arms.pointer.n	frac	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	../README.md	
+r16.root.p2_bodies	15	results/report/p2_numbers.json	n_bodies	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	../README.md	"{""../README.md"": ""parliaments nobody wrote rules for""}"
+r16.root.p2_best_nomodel_exact	44/62	results/eval/baselines_dates.json	P2_unseen.latest_date_on_answer_docs_only.exact/P2_unseen.latest_date_on_answer_docs_only.n	frac	PYTHONPATH=src:. python -m eval.baselines	../README.md	
+r16.root.fed_n	15	results/fed/fed_tables.json	n	int	PYTHONPATH=src:. python -m eval.fed.score	../README.md	"{""../README.md"": ""affairs are exploratory""}"
+r16.root.night1_min	86	results/report/r7docs_numbers.json	nights.night1_min	int	PYTHONPATH=src:. python -m report.r7docs_numbers	../README.md	"{""../README.md"": ""first network night took""}"
+r16.root.night2_min	6.6	results/report/r7docs_numbers.json	nights.night2_min	f1	PYTHONPATH=src:. python -m report.r7docs_numbers	../README.md	"{""../README.md"": ""min, the next""}"
+r16.root.meaning_measured	11	site/data.json	schema.meaning_measured	int	make site	../README.md	"{""../README.md"": ""meaning is measured for the other""}"
