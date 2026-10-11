@@ -646,8 +646,23 @@ def theta_fragility_8b(dev_rows: list[dict], argmax: dict | None = None) -> dict
     )
 
 
+P6_8B_START = 1791669410  # 2026-10-10T21:56:50Z, dispatch of CI run 38089554021 (arms-8b-p6)
+
+
+def gguf_n_ctx_p6() -> dict:
+    """The exploratory 8B run on P6 (fast scorer, n_ctx=6144): how many of its scoring prompts exceed 4,096 tokens."""
+    cache = {k: v for k, v in _cache8().items() if "n_prompt" in v and v.get("ts", 0) >= P6_8B_START}
+    nps = [v["n_prompt"] for v in cache.values()]
+    return dict(entries=len(cache), max_n_prompt=max(nps) if nps else None, n_prompt_over_4096=sum(x > 4096 for x in nps),
+                note=("These calls ran at n_ctx=6144 (GGUFFast), so every prompt fit the context used; prompts over 4,096 "
+                      "tokens would not fit the frozen 4,096-token scorer, so the P6 8B numbers are fast-scorer results only."))
+
+
 def gguf_n_ctx() -> dict:
-    cache = _cache8()
+    # scoring entries only (the P6 8B run also caches free-generation replies, which have no prompt length), and only the
+    # P1/P2 entries this finding is about: entries written before the P6 8B run (dispatched 2026-10-10T21:56Z) — the P6
+    # entries are reported separately by gguf_n_ctx_p6()
+    cache = {k: v for k, v in _cache8().items() if "n_prompt" in v and v.get("ts", 0) < P6_8B_START}
     nps = [v["n_prompt"] for v in cache.values()]
     cont_chars = len(' "DD.MM.YYYY"')
     return dict(
@@ -735,6 +750,7 @@ def eval_section(out_path: Path | None = None) -> dict:
         residue_suggestion_precision=residue_precision(),
         theta_8b=theta_fragility_8b(dev_rows, argmax),
         gguf_cache_n_ctx=gguf_n_ctx(),
+        gguf_cache_n_ctx_p6=gguf_n_ctx_p6(),
         p3b_luzern_rule=p3b_luzern(),
     )
     _write(out_path or OUT_EVAL, out)

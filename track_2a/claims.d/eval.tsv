@@ -23,14 +23,14 @@ eval.cascade.false_null	4	results/report/eval_numbers.json	arms.cascade.false_nu
 eval.cascade.misattributed	11	results/report/eval_numbers.json	arms.cascade.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.cascade.fabricated	0	results/report/eval_numbers.json	arms.cascade.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
 eval.cascade.invented_on_null	7	results/report/eval_numbers.json	arms.cascade.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
-eval.naive_plain.exact	98/154	results/report/eval_numbers.json	arms.naive_plain.exact/arms.naive_plain.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
-eval.naive_plain.exact_ci	[55.8, 70.8]	results/report/eval_numbers.json	arms.naive_plain.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
-eval.naive_plain.correct	47	results/report/eval_numbers.json	arms.naive_plain.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md
+eval.naive_plain.exact	98/154	results/report/eval_numbers.json	arms.naive_plain.exact/arms.naive_plain.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	README.md
+eval.naive_plain.exact_ci	[55.8, 70.8]	results/report/eval_numbers.json	arms.naive_plain.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	README.md
+eval.naive_plain.correct	47	results/report/eval_numbers.json	arms.naive_plain.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	-
 eval.naive_plain.correct_null	51	results/report/eval_numbers.json	arms.naive_plain.correct_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	-
 eval.naive_plain.false_null	9	results/report/eval_numbers.json	arms.naive_plain.false_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	-
-eval.naive_plain.misattributed	23	results/report/eval_numbers.json	arms.naive_plain.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
-eval.naive_plain.fabricated	24	results/report/eval_numbers.json	arms.naive_plain.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
-eval.naive_plain.invented_on_null	39	results/report/eval_numbers.json	arms.naive_plain.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
+eval.naive_plain.misattributed	23	results/report/eval_numbers.json	arms.naive_plain.misattributed	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	README.md
+eval.naive_plain.fabricated	24	results/report/eval_numbers.json	arms.naive_plain.fabricated	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	README.md
+eval.naive_plain.invented_on_null	39	results/report/eval_numbers.json	arms.naive_plain.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	README.md
 eval.naive_null.exact	134/154	results/report/eval_numbers.json	arms.naive_null.exact/arms.naive_null.n	frac	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.naive_null.exact_ci	[80.8, 91.4]	results/report/eval_numbers.json	arms.naive_null.exact_ci_pct	ci	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md,README.md
 eval.naive_null.correct	47	results/report/eval_numbers.json	arms.naive_null.correct	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	technical_report.md

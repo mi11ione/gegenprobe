@@ -119,7 +119,8 @@ def fig1(n: dict) -> None:
         ("OPD copy without text; text verified (OCR)", io_["text_verified"] + io_["fetchable"], BLUE),
         ("OPD copy without text; not read yet", io_["open"], AQUA),
         ("Answered orally (no written text expected)", x["oral"], ORANGE),
-        ("No verified answer found yet", x["open"], GRAY),
+        (f"Not found yet ({fmt(x['open_parts']['review'] + x['open_parts']['listed_unverified'])} wait for a person)",
+         x["open"], GRAY),
     ]
     assert sum(c[1] for c in cats) == x["gap"], (sum(c[1] for c in cats), x["gap"])
     fig, (a0, a1) = plt.subplots(2, 1, figsize=(6.8, 3.3), gridspec_kw=dict(height_ratios=[0.8, 5.2], hspace=0.62))
@@ -155,9 +156,17 @@ def fig1(n: dict) -> None:
 
 
 # ---------------------------------------------------------------- fig 2: feasibility matrix
-STATUS = [("metadata", RAMP["600"], "in OPD metadata"), ("mixed", RAMP["400"], "metadata for part of the affairs"),
-          ("pdf", RAMP["250"], "only in the PDF"), ("no_source", ORANGE, "no source in OPD"),
+STATUS = [("metadata", RAMP["600"], "in OPD metadata"), ("mixed", RAMP["400"], "partly (metadata for some affairs)"),
+          ("pdf", RAMP["250"], "PDF only"), ("no_source", ORANGE, "not in OPD"),
           ("n/a", GRAY_LIGHT, "not applicable / too few affairs")]
+
+
+def _where(f: dict) -> str:
+    """The field's row label in the README's words: in OPD metadata (tier feasible), PDF only (no parliament has it in
+    metadata), else partly."""
+    if f["tier"] == "feasible":
+        return "in OPD metadata"
+    return "PDF only" if f["status_counts"]["metadata"] == 0 else "partly"
 
 
 def _flabel(f: str) -> str:
@@ -181,11 +190,11 @@ def fig2(n_communes: int = 13) -> dict:
     communes = sorted((b for b in size if b not in upper), key=lambda b: -size[b])[:n_communes]
     key = lambda b: (level.get(B[b]["type"], 2), lang.get(B[b]["lang"], 3), -size[b])  # noqa: E731
     cols = sorted(upper, key=key) + sorted(communes, key=key)
-    tier_order = {"feasible": 0, "partial": 1, "fundamentally different": 2}
-    fields = sorted(meta["fields"], key=lambda f: (tier_order.get(meta["fields"][f]["tier"], 3), f))
+    where_order = {"in OPD metadata": 0, "partly": 1, "PDF only": 2}
+    fields = sorted(meta["fields"], key=lambda f: (where_order[_where(meta["fields"][f])], f))
     st = {(r["field"], r["body"]): r["status"] for r in m}
     cmap = {k: c for k, c, _ in STATUS}
-    fig, ax = plt.subplots(figsize=(6.8, 3.7))
+    fig, ax = plt.subplots(figsize=(6.8, 4.1))
     for yi, f in enumerate(fields):
         for xi, b in enumerate(cols):
             ax.add_patch(plt.Rectangle((xi, yi), 0.92, 0.88, color=cmap.get(st.get((f, b), "n/a"), GRAY_LIGHT), lw=0))
@@ -196,7 +205,7 @@ def fig2(n_communes: int = 13) -> dict:
         return nm[:14]
     ax.set_xticks([i + 0.46 for i in range(len(cols))], [lab(b) for b in cols], rotation=90, fontsize=7.5)
     ax.set_yticks([i + 0.44 for i in range(len(fields))],
-                  [f"{_flabel(f)}  [{meta['fields'][f]['tier']}]" for f in fields], fontsize=7.5)
+                  [f"{_flabel(f)}  [{_where(meta['fields'][f])}]" for f in fields], fontsize=7.5)
     ax.tick_params(length=0)
     for s in ax.spines.values():
         s.set_visible(False)
@@ -205,9 +214,10 @@ def fig2(n_communes: int = 13) -> dict:
     ax.text(split / 2, -0.6, "federal, Liechtenstein, cantons", ha="center", fontsize=7.5, color=INK2)
     ax.text(split + (len(cols) - split) / 2, -0.6, f"largest {n_communes} communal parliaments", ha="center",
             fontsize=7.5, color=INK2)
-    ax.legend(handles=[Patch(color=c, label=t) for _, c, t in STATUS], loc="upper center", bbox_to_anchor=(0.36, -0.27),
-              ncol=3, frameon=False, fontsize=7.5)
-    fig.subplots_adjust(left=0.31, right=0.995, top=0.9, bottom=0.27)
+    # the legend sits below the longest rotated parliament label (no overlap): anchored in figure coordinates
+    fig.subplots_adjust(left=0.31, right=0.995, top=0.91, bottom=0.31)
+    fig.legend(handles=[Patch(color=c, label=t) for _, c, t in STATUS], loc="lower left", bbox_to_anchor=(0.01, 0.0),
+               ncol=3, frameon=False, fontsize=7.5)
     ax.text(-0.44, 1.09, f"Where each schema field comes from, per parliament ({len(cols)} of {meta['n_bodies']}; all in "
             f"results/census/matrix.csv)", ha="left", va="bottom", fontsize=8.5, color=INK, transform=ax.transAxes)
     save(fig, "fig2_matrix")

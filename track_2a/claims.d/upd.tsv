@@ -1,5 +1,5 @@
 id	shown	file	path	fmt	command	where	context
-upd.adapters.parliaments	50	results/report/upd_numbers.json	adapters.parliaments	int	PYTHONPATH=src:. python -m report.upd_numbers	README.md,docs/form_notes.md	{"README.md": "source adapters for", "docs/form_notes.md": "Readers for"}
+upd.adapters.parliaments	50	results/report/upd_numbers.json	adapters.parliaments	int	PYTHONPATH=src:. python -m report.upd_numbers	README.md	{"README.md": "Source adapters for"}
 upd.adapters.fresh_precision	0.990	results/report/upd_numbers.json	adapters.fresh_precision	str	PYTHONPATH=src:. python -m report.upd_numbers	-	
 upd.adapters.fresh_wilson	0.971–0.997	results/report/upd_numbers.json	adapters.fresh_wilson	str	PYTHONPATH=src:. python -m report.upd_numbers	-	
 upd.adapters.fresh_yes	297/300	results/report/upd_numbers.json	adapters.fresh_yes	str	PYTHONPATH=src:. python -m report.upd_numbers	-	
@@ -18,10 +18,10 @@ upd.p5.h2_p	7.8 × 10⁻²⁹	results/report/upd_numbers.json	p5.h2_p	str	PYTHON
 upd.p5.h4_p	3.9 × 10⁻¹⁴	results/report/upd_numbers.json	p5.h4_p	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md	
 upd.p5.provenance_failures	0	results/report/upd_numbers.json	p5.provenance_failures	int	PYTHONPATH=src:. python -m report.upd_numbers	-	
 upd.p5.qwen_valid	7/40	results/report/upd_numbers.json	p5.qwen_valid	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md	
-upd.p5.dev_submitter	36/38	results/eval6/p5_posthoc.json	R_dev_vs_p5.submitter.dev.0/R_dev_vs_p5.submitter.dev.1	frac	python -m eval.gold6.posthoc6	README.md,technical_report.md	
+upd.p5.dev_submitter	36/38	results/eval6/p5_posthoc.json	R_dev_vs_p5.submitter.dev.0/R_dev_vs_p5.submitter.dev.1	frac	python -m eval.gold6.posthoc6	README.md	
 upd.p6.h1	1:4	results/report/upd_numbers.json	p6.h1	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md,technical_report.md	{"README.md": "v2 vs free prompting:", "technical_report.md": "v2 vs free prompting"}
 upd.p6.h3	5:2	results/report/upd_numbers.json	p6.h3	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md,technical_report.md	{"README.md": "v2 vs v1:", "technical_report.md": "v2 vs v1"}
-upd.p6.s3	11:0	results/report/upd_numbers.json	p6.s3	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md,technical_report.md	
+upd.p6.s3	11:0	results/report/upd_numbers.json	p6.s3	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md	
 upd.p6.s3_p	0.001	results/report/upd_numbers.json	p6.s3_p	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md	
 upd.p6.qwen_v2	60/68	results/report/upd_numbers.json	p6.qwen_v2	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md,technical_report.md	
 upd.p6.qwen_free_null	61/68	results/report/upd_numbers.json	p6.qwen_free_null	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md	

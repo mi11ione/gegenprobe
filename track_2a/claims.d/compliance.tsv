@@ -9,7 +9,7 @@ compliance.distinct_urls	14,152	results/compliance/robots_audit_all.json	totals.
 compliance.mirror_mapped	165	data/compliance/mirror_urls.json	counts.mapped	int	python -m gegenprobe.compliance.mirror match	docs/incidents.md	{"docs/incidents.md": "maps"}
 compliance.mirror_identical	144	data/compliance/mirror_urls.json	counts.sha256_match_true	int	python -m gegenprobe.compliance.mirror match	docs/incidents.md	{"docs/incidents.md": "true for"}
 compliance.mirror_null	21	data/compliance/mirror_urls.json	counts.sha256_match_null	int	python -m gegenprobe.compliance.mirror match	docs/incidents.md	{"docs/incidents.md": "null for"}
-compliance.ci_upper_bound	6,655	results/compliance/ci_repeats.json	upper_bound_total	int	python -m gegenprobe.compliance.ci_repeats	README.md,technical_report.md,docs/incidents.md	
-compliance.ci_downloads_bound	4,942	results/compliance/ci_repeats.json	upper_bound_downloads	int	python -m gegenprobe.compliance.ci_repeats	docs/incidents.md	
+compliance.ci_upper_bound	6,655	results/compliance/ci_repeats.json	upper_bound_total	int	python -m gegenprobe.compliance.ci_repeats	docs/incidents.md	
+compliance.ci_downloads_bound	4,942	results/compliance/ci_repeats.json	upper_bound_downloads	int	python -m gegenprobe.compliance.ci_repeats	docs/incidents.md,README.md,technical_report.md	
 compliance.ci_requests_bound	22,268	results/compliance/ci_repeats.json	upper_bound_requests_with_retries	int	python -m gegenprobe.compliance.ci_repeats	docs/incidents.md	
-compliance.ci_max_concurrent	8	results/compliance/ci_repeats.json	max_concurrent_fetching_steps	int	python -m gegenprobe.compliance.ci_repeats	docs/incidents.md	{"docs/incidents.md": "fetching steps ran at once"}
+compliance.ci_max_concurrent	8	results/compliance/ci_repeats.json	max_concurrent_fetching_steps	int	python -m gegenprobe.compliance.ci_repeats	docs/incidents.md,README.md,technical_report.md	{"docs/incidents.md": "fetching steps ran at once", "README.md": "ran at once", "technical_report.md": "at once"}

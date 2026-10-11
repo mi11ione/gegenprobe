@@ -55,3 +55,9 @@ What it means:
   against 62/68 for free prompting with null allowed, and 56/68 for v1.
 - Any claim that v2 was "chosen blind on DEV2" should read: "chosen by a rule written before the DEV2 labels; the
   chosen candidate's code was committed after them".
+
+## D2 (11 Oct 2026, post hoc) — context length of the exploratory 8B run on P6
+The 8B run on P6 (CI run 38089554021, dispatched 2026-10-10T21:56:50Z) used the fast scorer (GGUFFast, n_ctx = 6144). Of its
+232 scoring prompts, 3 exceed 4,096 tokens (max 4,673): every call fit the context it ran with, but those 3 would not fit the
+frozen 4,096-token scorer, so the P6 8B numbers are fast-scorer results only (`results/eval/posthoc_r4_eval.json`,
+`gguf_cache_n_ctx_p6`). The P1/P2 8B finding (302 entries, max 4,079 tokens, all within 4,096) is unchanged.

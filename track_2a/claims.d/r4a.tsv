@@ -1,7 +1,7 @@
 id	shown	file	path	fmt	command	where	context
-r4a.mult_m	9	results/eval/posthoc_r4_multiplicity.json	m	int	PYTHONPATH=src:. python -m eval.posthoc_r4 multiplicity	README.md,technical_report.md	{"README.md": "registered confirmatory tests", "technical_report.md": "registered confirmatory tests"}
+r4a.mult_m	9	results/eval/posthoc_r4_multiplicity.json	m	int	PYTHONPATH=src:. python -m eval.posthoc_r4 multiplicity	README.md	{"README.md": "registered confirmatory tests"}
 r4a.mult_registered_holds	4	results/eval/posthoc_r4_multiplicity.json	n_registered_holds	int	PYTHONPATH=src:. python -m eval.posthoc_r4 multiplicity	-	
-r4a.mult_survive_holm	4	results/eval/posthoc_r4_multiplicity.json	n_survive_holm	int	PYTHONPATH=src:. python -m eval.posthoc_r4 multiplicity	README.md,technical_report.md	{"README.md": "conclusions that", "technical_report.md": "held conclusions survive Holm"}
+r4a.mult_survive_holm	4	results/eval/posthoc_r4_multiplicity.json	n_survive_holm	int	PYTHONPATH=src:. python -m eval.posthoc_r4 multiplicity	README.md,technical_report.md	{"README.md": "conclusions that", "technical_report.md": "held conclusions of P1"}
 r4a.holm_p2h2	3.8 × 10⁻⁶	results/eval/posthoc_r4_multiplicity.json	display.P2-H2 primary.p_holm	str	PYTHONPATH=src:. python -m eval.posthoc_r4 multiplicity	README.md	
 r4a.holm_p2h1	7.2 × 10⁻⁹	results/eval/posthoc_r4_multiplicity.json	display.P2-H1.p_holm	str	PYTHONPATH=src:. python -m eval.posthoc_r4 multiplicity	README.md	
 r4a.holm_p3h3a	0.01	results/eval/posthoc_r4_multiplicity.json	display.P3-H3a.p_holm	str	PYTHONPATH=src:. python -m eval.posthoc_r4 multiplicity	README.md	{"README.md": "P3-H3a"}
@@ -20,7 +20,7 @@ r4a.p2_all_bodies_ties	7	results/eval/posthoc_r4_eval.json	p2_body_level_all_doc
 r4a.p2_all_bodies_sign_p	0.29	results/eval/posthoc_r4_eval.json	p2_body_level_all_documents.display.sign_p	str	PYTHONPATH=src:. python -m eval.posthoc_r4 eval	README.md	
 r4a.p2_all_docs_pointer_only	22	results/eval/posthoc_r4_eval.json	p2_body_level_all_documents.documents_pointer_only	int	PYTHONPATH=src:. python -m eval.posthoc_r4 eval	-	
 r4a.p2_all_docs_rules_only	4	results/eval/posthoc_r4_eval.json	p2_body_level_all_documents.documents_rules_only	int	PYTHONPATH=src:. python -m eval.posthoc_r4 eval	-	
-r4a.residue_8b	7/34	results/eval/posthoc_r4_eval.json	residue_suggestion_precision.8B.correct/residue_suggestion_precision.8B.suggestions	frac	PYTHONPATH=src:. python -m eval.posthoc_r4 eval	README.md,technical_report.md	
+r4a.residue_8b	7/34	results/eval/posthoc_r4_eval.json	residue_suggestion_precision.8B.correct/residue_suggestion_precision.8B.suggestions	frac	PYTHONPATH=src:. python -m eval.posthoc_r4 eval	README.md	
 r4a.residue_70b	9/16	results/eval/posthoc_r4_eval.json	residue_suggestion_precision.70B.correct/residue_suggestion_precision.70B.suggestions	frac	PYTHONPATH=src:. python -m eval.posthoc_r4 eval	README.md	
 r4a.residue_8b_on_answerless	23	results/eval/posthoc_r4_eval.json	residue_suggestion_precision.8B.on_answerless	int	PYTHONPATH=src:. python -m eval.posthoc_r4 eval	-	
 r4a.residue_fisher_p	0.021	results/eval/posthoc_r4_eval.json	residue_suggestion_precision.fisher_display	str	PYTHONPATH=src:. python -m eval.posthoc_r4 eval	README.md	

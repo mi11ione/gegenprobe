@@ -59,7 +59,7 @@ r4d.ci_claims	984	results/ci/docker_make_run_38076870082.json	claims.checked	int
 r4d.ci_claims_failing	0	results/ci/docker_make_run_38076870082.json	claims.failing	int	copied from CI log, run 38076870082 (job make-run)	README.md	{"README.md": "claims, 0 failing"}
 r4d.apply_rows_rule	49,810	results/repair/apply_be/apply_BE_plan.json	export_identifier_rule.follow_rule	int	python -m gegenprobe.repair.apply_be --fetch --out results/repair/apply_be	README.md	
 r4d.apply_agenda	2,421	results/repair/apply_be/apply_BE_plan.json	relink.before_parent_type.agenda	int	python -m gegenprobe.repair.apply_be --fetch --out results/repair/apply_be	README.md	
-r4d.p1_oracle_agree	37	results/eval/posthoc_r3_gold_oracle.json	splits.P1.answer_date_vs_opd_written_answer_event.agree	int	PYTHONPATH=src:. python -m eval.posthoc_r3 oracle	README.md,technical_report.md,docs/form_notes.md,docs/ech-onepager.md	{"README.md": "of 44 agree", "technical_report.md": "checkable P1 dates", "docs/form_notes.md": "OPD's own dates match", "docs/ech-onepager.md": "of 44 checkable"}
+r4d.p1_oracle_agree	37	results/eval/posthoc_r3_gold_oracle.json	splits.P1.answer_date_vs_opd_written_answer_event.agree	int	PYTHONPATH=src:. python -m eval.posthoc_r3 oracle	README.md,technical_report.md,docs/ech-onepager.md	{"README.md": "of 44 agree", "technical_report.md": "checkable P1 dates", "docs/ech-onepager.md": "of 44 checkable"}
 r4d.lenient_8b_h2_cas	5	results/eval/posthoc_r4_lenient.json	primary_tests_strict_vs_lenient.P1_H2_primary_8B.lenient.cascade_only	int	PYTHONPATH=src:. python -m eval.posthoc_r4 lenient	README.md	{"README.md": "under the lenient metric"}
 r4d.t_p2_8b_rules	33	results/eval2/p2_8b_analysis.json	profiles.8b_rules.exact	int	PYTHONPATH=src:. python -m report.p2_8b	-	
 r4d.t_p2_8b_pointer	35	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.exact	int	PYTHONPATH=src:. python -m report.p2_8b	-	
@@ -82,20 +82,20 @@ r4d.t_night_mb	198	results/report/r4d_numbers.json	night.transfer_mb	int	PYTHONP
 r4d.t_night_check	50	results/report/r4d_numbers.json	night.triple_check_min_derived	int	PYTHONPATH=src:. python -m report.r4d_numbers	-	
 r4d.t_night_rows	2,508	results/report/r4d_numbers.json	night.be_rows_checked	int	PYTHONPATH=src:. python -m report.r4d_numbers	-	
 r4d.t_night_cpu	28	results/report/r4d_numbers.json	night.cpu_min	int	PYTHONPATH=src:. python -m report.r4d_numbers	-	
-r4d.t_night_rss	2,078	results/report/r4d_numbers.json	night.peak_rss_mb	int	PYTHONPATH=src:. python -m report.r4d_numbers	technical_report.md	
+r4d.t_night_rss	2,078	results/report/r4d_numbers.json	night.peak_rss_mb	int	PYTHONPATH=src:. python -m report.r4d_numbers	-	
 r4d.t_night_alerts	0	results/report/r4d_numbers.json	night.alerts	int	PYTHONPATH=src:. python -m report.r4d_numbers	-	
-r4d.t_night_fetch	49	results/report/r4d_numbers.json	night.be_fetch	int	PYTHONPATH=src:. python -m report.r4d_numbers	technical_report.md	{"technical_report.md": "49 fetch"}
+r4d.t_night_fetch	49	results/report/r4d_numbers.json	night.be_fetch	int	PYTHONPATH=src:. python -m report.r4d_numbers	-	
 r4d.t_scale_k	569k	results/report/r4d_numbers.json	scale_8b.residue_documents_k	str	PYTHONPATH=src:. python -m report.r4d_numbers	-	
 r4d.t_scale_h	28,400	results/report/r4d_numbers.json	scale_8b.machine_hours_display	str	PYTHONPATH=src:. python -m report.r4d_numbers	-	
 r4d.t_weights	140	results/report/r4d_numbers.json	weights_70b.weights_gb	int	PYTHONPATH=src:. python -m report.r4d_numbers	-	
 r4d.t_apply_rows	49,810	results/repair/apply_be/apply_BE_plan.json	export_identifier_rule.follow_rule	int	python -m gegenprobe.repair.apply_be --fetch --out results/repair/apply_be	technical_report.md	
 r4d.t_apply_agenda	2,421	results/repair/apply_be/apply_BE_plan.json	relink.before_parent_type.agenda	int	python -m gegenprobe.repair.apply_be --fetch --out results/repair/apply_be	technical_report.md	
 r4d.f_rules135	135	results/report/eval_numbers.json	arms.rules.exact	int	python -m report.eval_numbers	-	
-r4d.f_8b_found	15	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.dates_found	int	PYTHONPATH=src:. python -m report.p2_8b	docs/form_notes.md	{"docs/form_notes.md": "it finds 15"}
-r4d.f_found_of	21	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.n_gold_value	int	PYTHONPATH=src:. python -m report.p2_8b	docs/form_notes.md	{"docs/form_notes.md": "it finds 15"}
-r4d.f_70b_found	16	results/eval2/p2_8b_analysis.json	profiles.70b_pointer.dates_found	int	PYTHONPATH=src:. python -m report.p2_8b	docs/form_notes.md	{"docs/form_notes.md": "70B: 16"}
-r4d.f_8b_null	11	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.dates_on_answerless	int	PYTHONPATH=src:. python -m report.p2_8b	docs/form_notes.md	{"docs/form_notes.md": "but dates 11"}
+r4d.f_8b_found	15	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.dates_found	int	PYTHONPATH=src:. python -m report.p2_8b	-	
+r4d.f_found_of	21	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.n_gold_value	int	PYTHONPATH=src:. python -m report.p2_8b	-	
+r4d.f_70b_found	16	results/eval2/p2_8b_analysis.json	profiles.70b_pointer.dates_found	int	PYTHONPATH=src:. python -m report.p2_8b	-	
+r4d.f_8b_null	11	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.dates_on_answerless	int	PYTHONPATH=src:. python -m report.p2_8b	-	
 r4d.f_null_of	31	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.n_answerless	int	PYTHONPATH=src:. python -m report.p2_8b	-	
-r4d.f_70b_null	4	results/eval2/p2_8b_analysis.json	profiles.70b_pointer.dates_on_answerless	int	PYTHONPATH=src:. python -m report.p2_8b	docs/form_notes.md	{"docs/form_notes.md": "70B: 4)"}
+r4d.f_70b_null	4	results/eval2/p2_8b_analysis.json	profiles.70b_pointer.dates_on_answerless	int	PYTHONPATH=src:. python -m report.p2_8b	-	
 r4d.f_p3b_c	20	results/eval/posthoc_r4_eval.json	p3b_luzern_rule.registered.C.0	int	PYTHONPATH=src:. python -m eval.posthoc_r4 eval	-	
-r4d.f_night	83	results/report/r4d_numbers.json	night.wall_min	int	PYTHONPATH=src:. python -m report.r4d_numbers	docs/form_notes.md	{"docs/form_notes.md": "One real night"}
+r4d.f_night	83	results/report/r4d_numbers.json	night.wall_min	int	PYTHONPATH=src:. python -m report.r4d_numbers	-	

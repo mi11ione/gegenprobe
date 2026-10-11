@@ -2,7 +2,7 @@ id	shown	file	path	fmt	command	where
 repair.be_linkable_breakdown_text_present	155	results/repair/be_reconcile.json	parentless_breakdown.answer text already present in OPD (other document or texts)	int	python -m gegenprobe.repair.reconcile_be	README.md
 repair.be_linkable_breakdown_no_event	24	results/repair/be_reconcile.json	parentless_breakdown.no written-answer event in OPD (not counted as missing)	int	python -m gegenprobe.repair.reconcile_be	README.md
 repair.be_parentless_not_in_list	179	results/repair/be_reconcile.json	parentless_not_in_list	int	python -m gegenprobe.repair.reconcile_be	README.md
-repair.be_linkable	3,394	results/repair/be_reconcile.json	linkable_within_opd	int	python -m gegenprobe.repair.reconcile_be	README.md,docs/form_notes.md
+repair.be_linkable	3,394	results/repair/be_reconcile.json	linkable_within_opd	int	python -m gegenprobe.repair.reconcile_be	README.md
 cost.residue_docs	97	results/report/cost.json	residue_docs	int	python -m report.cost	README.md
 cost.heldout_docs	154	results/report/cost.json	heldout_docs	int	python -m report.cost	README.md
 cost.residue_share	63%	results/report/cost.json	residue_share	pct0	python -m report.cost	-

@@ -16,7 +16,7 @@ r2w.p2_pointer_wrong	4	results/report/p2_numbers.json	error_profile.P2.pointer.w
 r2w.p2_pointer_answerless	4	results/report/p2_numbers.json	error_profile.P2.pointer.date_on_answerless	int	python -m report.p2_numbers	README.md,technical_report.md	
 r2w.p2_pointer_missed	1	results/report/p2_numbers.json	error_profile.P2.pointer.missed	int	python -m report.p2_numbers	README.md	{"README.md": "answerless documents and misses"}
 r2w.p2_cascade_wrong	6	results/report/p2_numbers.json	error_profile.P2.cascade.wrong_printed_date	int	python -m report.p2_numbers	README.md	{"README.md": "rules + Apertus are right on 51, wrong"}
-r2w.p2_cascade_answerless	4	results/report/p2_numbers.json	error_profile.P2.cascade.date_on_answerless	int	python -m report.p2_numbers	README.md,technical_report.md	
+r2w.p2_cascade_answerless	4	results/report/p2_numbers.json	error_profile.P2.cascade.date_on_answerless	int	python -m report.p2_numbers	README.md	
 r2w.p2_cascade_missed	1	results/report/p2_numbers.json	error_profile.P2.cascade.missed	int	python -m report.p2_numbers	README.md	{"README.md": "answerless 4, missed"}
 r2w.p2_cascade_rule_wrong	2	results/report/p2_numbers.json	p2_cascade_below_pointer.rule_fired_wrong_printed_date	int	python -m report.p2_numbers	README.md	{"README.md": "abstain: on"}
 r2w.p4t_items	9/9	results/eval4/p4_transfer__publicai_swiss-ai_apertus-v1.5-8b__score.json	arms.rules_only.segmentation_precision.0/arms.rules_only.segmentation_precision.1	frac	python -m eval.gold4.run_p4 score (transfer split)	README.md	{"README.md": "La Chaux-de-Fonds; items"}
@@ -31,16 +31,16 @@ r2w.dataset_columns	23	results/report/r2_numbers.json	dataset_columns	int	python
 r2w.local_transfer_bytes	0	results/monitor/run_local_exports.json	transfer_bytes	int	GP_EXPORTS_DIR=<dir> python -m gegenprobe.monitor.nightly offline	README.md	
 r2w.rules_docs_per_s	480	results/report/cost.json	rules_docs_per_second	int	python -m report.cost	README.md,technical_report.md	
 r2w.rederive_scans	22	results/report/cost_end_to_end.json	heldout_rederive_scans	int	python -m report.cost e2e	README.md	
-r2w.x10_rules_cpu_hours	5	results/report/cost_end_to_end.json	x10_rules_cpu_hours	int	python -m report.cost e2e	README.md	{"README.md": "the rules need about", "docs/form_notes.md": "processor-hours"}
+r2w.x10_rules_cpu_hours	5	results/report/cost_end_to_end.json	x10_rules_cpu_hours	int	python -m report.cost e2e	README.md	{"README.md": "the rules need about"}
 r2w.procedural_state_ambiguous	32	results/report/p2_numbers.json	procedural_state_ambiguous	int	python -m report.p2_numbers	-	
 r2w.lock2_time	2026-10-10T07:48:00Z	results/eval/lock_server_times_all.json	rows.2.github_first_run_created	str	GitHub Actions API (see file source)	-	
 r2w.labels2_time	2026-10-10T07:50:28Z	results/eval/lock_server_times_all.json	rows.3.github_first_run_created	str	GitHub Actions API (see file source)	-	
 r2w.lock34_time	2026-10-10T08:41:08Z	results/eval/lock_server_times_all.json	rows.4.github_first_run_created	str	GitHub Actions API (see file source)	-	
 r2w.labels3_time	2026-10-10T08:44:45Z	results/eval/lock_server_times_all.json	rows.6.github_first_run_created	str	GitHub Actions API (see file source)	-	
 r2w.labels4_time	2026-10-10T08:45:11Z	results/eval/lock_server_times_all.json	rows.7.github_first_run_created	str	GitHub Actions API (see file source)	-	
-r2w.ci_rules_rederived	140	results/ci/docker_make_run_38049690293.json	rederive_rules.rederived	int	copied from CI log, run 38049690293	-	{"README.md": "allowed 140 of 154", "technical_report.md": "140 of 154 rules"}
+r2w.ci_rules_rederived	140	results/ci/docker_make_run_38049690293.json	rederive_rules.rederived	int	copied from CI log, run 38049690293	-	
 r2w.ci_apertus_match	129/129	results/ci/docker_make_run_38049690293.json	rederive_apertus.P1.match/rederive_apertus.P1.recomputed	frac	copied from CI log, run 38049690293	-	
-r2w.ci_cache_miss	25	results/ci/docker_make_run_38049690293.json	rederive_apertus.P1.cache_miss	int	copied from CI log, run 38049690293	-	{"README.md": "25 prompts missed", "technical_report.md": "25 cache misses"}
+r2w.ci_cache_miss	25	results/ci/docker_make_run_38049690293.json	rederive_apertus.P1.cache_miss	int	copied from CI log, run 38049690293	-	
 r2w.local_rules	154/154	results/eval/rederive_local_rules.json	match/n	frac	python -m eval.replay_all	-	
 r2w.local_apertus_p2	62/62	results/eval/rederive_local_apertus.json	sets.P2 unseen.match/sets.P2 unseen.n	frac	python -m eval.replay_all	README.md	
 r2w.transfer_dec_agree	7/9	results/eval4/gold4_transfer_agreement.json	agreement.decision.raw/agreement.decision.n	frac	python -m eval.gold4.transfer	README.md	{"README.md": "agreed on 7/9"}

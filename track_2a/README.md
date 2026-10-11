@@ -2,64 +2,87 @@
 
 Track 2A · OpenParlData · Team 444 · **Evidence site: https://gegenprobe.mi11ion.io** · report: `technical_report.md`
 
-1. **Verdict.** The frame of a common schema is feasible: 17 fields, each a value with its source or a typed null that
-   says why it is empty, with dates kept apart by role. The *meaning* is verified across parliaments for 1 of the 17
-   fields (the government recommendation); 5 more are measured to need a role split; 11 are shared by definition,
-   untested (table below).
-2. **What OPD can apply tomorrow.** Bern: 2,421 relinks, 48 fetches and 554 `begin_date` corrections, keyed on OPD
-   ids, with a dry-run SQL plan. Beyond Bern: one list per parliament from 50 model-free source adapters.
-3. **Census.** The registered census counts **16,749** of 91,268 interventions with a written government answer
-   without answer text attached in OPD. 2,177 of them are in OPD with text under a heading the census does not
-   recognise, so **at most 14,572** lack answer text (13,150 written answers). Verified repairs are proposed for 9,720;
-   after every counted repair **92.3%** of the 91,268 have answer text.
-4. **What Apertus adds.** On parliaments nobody wrote rules for it finds answer dates the rules miss (P2: 24/29 vs
-   2/29); as a closed-set pointer every value is a printed date with page and span. It is not more accurate than the
-   same model asked freely with null allowed (P2, P6), and it still dates 4 of 33 (P2) and 5 of 34 (P6) answerless
-   documents, so its values are review suggestions a person confirms.
-5. **Not done.** Nothing runs at OPD yet (the relinks wait on OPD's hash choice); 5,007 written answers still need
-   adapters; tables, annexes and images are not extracted; unattended (the *unattended bar*: a 95% lower bound of at
-   least 0.80) only the type on whole affairs and the rules' answer date on parliaments with rules (P1: 135/154
-   [81.5, 92]) qualify, not the answer date elsewhere; every gold label comes from LLM agents (no human labelled, by design).
+**The answer in one sentence.** A common schema is feasible as a frame, but its meaning is shared only in part: the
+answer date, procedural history, type, procedural state and decision outcome differ by role between parliaments and
+must be split; the other 12 fields are shared by definition, their meaning untested.
 
-Outside services: by default none beyond OPD's exports and the parliaments' own sites (fetched politely); review mode
-adds one model endpoint the operator sets. **Which model:** evaluation used Apertus v1.5 70B weights served by Public AI
-(inferred from the served fingerprint; the endpoint name says `8b`); the real 8B was run in-process on CPU on P1, P2
-(52 documents), and its P6 run is still running.
+1. **Verdict.** 17 fields, each a value with its source or a typed null that says why it is empty, with dates kept
+   apart by role. 5 fields are measured to need a role split; meaning is tested for 0 of the 17. For the government
+   recommendation, OPD's label mapping is unambiguous (a string check); that is not a test of meaning.
+2. **Ready for OPD (awaits its hash decision for relinks).** Bern relink, fetch and `begin_date` lists keyed on OPD ids
+   with a dry-run SQL plan; a fix for the federal documents that store Fedlex's "JavaScript required" page; one checked
+   list per parliament from model-free source adapters; a list of OPD vocabulary errors.
+3. **Census.** **16,749** interventions with a recorded government answer, nearly one in five, have no answer text
+   attached in OPD (registered census). Repairs are proposed for **9,720** of them.
+4. **What Apertus adds.** As a closed-set verifier of the adapters' review queue it moves **214** answers into a tier of
+   their own; on a fresh blind test all **120/120** sampled promotions are the government's answer. Its gain is the date
+   check and stopping non-answers, not finding answers a rule cannot; it is no more accurate than a well-instructed
+   free prompt, and as a date reader it does not abstain reliably.
+5. **Not done.** Nothing runs at OPD yet; thousands of answers are not found yet; tables, annexes and images are not
+   extracted; every gold label comes from LLM agents, cross-checked by another vendor's model, not by a person.
 
-**For OPD: three lists, one command.** Direct downloads on the evidence site (box "For OPD's data team"; source
-`results/repair/`):
-- `repair_BE_relink.tsv`: 2,421 Bern answers that are in OPD but unlinked, each checked against OPD's own copy (affair
-  number, answer heading, decision date = OPD's answer event). `repair_BE_fetch.tsv`: 48 to fetch from the canton.
-  `repair_BE_review.tsv`: 39 rows for a person.
-- `repair_BE_begin_date.tsv`: 727 Bern `begin_date` values that are load timestamps (554 set from the affair's own
-  submission event, 173 to review).
-- `python -m gegenprobe.repair.apply_be --fetch --out DIR` turns them into a dry-run apply plan
-  (`apply_BE_plan.sql.txt`): before and after state per row, guarded `UPDATE` statements as text; it changes nothing in
-  OPD. Relinking changes a document's `hash` and file URL unless OPD keeps the old one (`--hash keep`).
+## Ready for OPD (awaits its hash decision for relinks)
 
-OPD confirmed the Bern bug and its root cause, and that the relink list is the workaround until its fix ships
-(correspondence, 10 Oct 2026; a published excerpt awaits OPD's consent).
+The Bern lists, the apply plan and the adapter lists are direct downloads on the evidence site (box "For OPD's data
+team"); every list is in `results/repair/`, the vocabulary list in `results/census/`. Every row is keyed on OPD ids;
+nothing below changes OPD.
 
-**Beyond Bern: source adapters for 50 parliaments** (`results/repair/adapters/adapters_<BODY>.tsv`, `docs/adapters.md`;
-27 of them yield counted rows). Verified repairs are proposed for **9,720 of the 16,749** (3,107 by the Bern lists, the
-agenda join and Curia Vista; 6,613 adapter rows); **5,007** written answers still need adapters. 2,177 of the "missing"
-answers are already in OPD with text, filed under the question's file (Zürich city alone: 1,417): the repair is a
-category on the document (`tag_answer`), not a new document. A blind audit of 200 counted rows and 60 decoys (verdict-free
-packets): Claude Opus judged 197/200 counted rows to be the executive's answer (Wilson 95.7% to 99.5%); an
-LLM audit, not a human one.
+| list | rows | how each row is checked | when |
+|---|---|---|---|
+| `repair_BE_relink.tsv` | 2,421 Bern answers in OPD but unlinked | against OPD's own copy: affair number, answer heading, decision date = OPD's answer event | after OPD's hash decision |
+| `repair_BE_fetch.tsv` | 48 answers to fetch from the canton | identity and heading, every row | now |
+| `repair_BE_review.tsv` | 39 rows for a person | failed one check | – |
+| `repair_BE_begin_date.tsv` | 554 load timestamps set to the affair's own submission event (173 more to review) | the affair's "Eingereicht" event | now |
+| `repair_CHE.tsv.gz` | 29,946 federal documents whose OPD text is Fedlex's "JavaScript required" page | citation resolved through Fedlex; a pre-set rule passed 40/50 on a sample | one-off, about 17.5 h at the polite rate |
+| `adapters/adapters_<BODY>.tsv` | 6,613 counted answers from 50 source adapters (27 yield counted rows); 214 more in the tier `promoted_by_apertus`; 917 review rows | affair number or title, answer formula, date check | per list |
+| `results/census/vocab_bugs.tsv` | 9 OPD harmonised labels wrong as published | e.g. type "Votaziun" on 9,887 affairs; "Popular initiative " with a trailing space on 1,893 | OPD's vocabulary |
 
-**Census at a glance** (OPD exports of 6 Oct 2026; `results/census/corrected.json`; open dataset of all 91,268):
-- All years: 91,268 interventions with a written government answer; the registered census counts **16,749 (18.4%)
-  without answer text attached in OPD**. 2,177 are in OPD with text under a heading the census lexicon does not
-  recognise, so **at most 14,572** lack it; 1,422 were answered orally, so **at most 13,150 of 89,846 written answers
-  (14.6%)** lack it.
-- 2024–25: the registered count is 1,855 (367 oral); 150 are in OPD under an unrecognised heading, so at most 1,338
-  written answers lack text.
-- Bern: 567 of 593 written answers from 2024–25 (96%) lack text, but 520 of them are in OPD unlinked (418 under an
-  agenda item, 102 without a parent); OPD-confirmed linking bug, relink list of 2,459 (2,421 dates verified, 38 to
-  review).
-- Coverage gaps: 31 parliaments where OPD holds interventions but records almost no written answers (cantons SZ 1,316
-  interventions / 0 answers, UR, GL, NW, GE, AI): OPD coverage, not unanswered questions.
+- **Bern counts, once.** 2,459 relink candidates = 2,421 that pass every check + 38 in review; 49 fetch candidates =
+  48 + 1 in review; the nightly job reports the candidates (2,459 + 49).
+- **The decision the relinks await.** OPD's document `hash` is sha256(body_key + parent_type + url), and all 2,421
+  relink documents are stored as `parent_type = agenda`, so relinking changes each identifier and file URL unless OPD
+  keeps the old one. `python -m gegenprobe.repair.apply_be --fetch --out DIR` writes the dry-run plan
+  (`apply_BE_plan.sql.txt`) with before and after state and both hash values (`--hash keep`).
+- **OPD confirmed the Bern bug** and its root cause, and that the relink list is the workaround until its fix ships
+  (correspondence, 10 Oct 2026; a published excerpt awaits OPD's consent).
+- **What the 9,720 are:** 9,089 checked row by row + 592 agenda joins (OPD's own agenda link, never sample-checked)
+  + 39 Bern rows in review. A blind audit of 200 counted adapter rows (verdict-free packets; blind by instruction for the
+  Claude auditor) judged 197/200 to be the executive's answer, and the date wrong or unsupported on 15/200; an LLM audit,
+  not a human one.
+- **Not found yet: 5,077** (figure 1) = 5,007 the adapters looked at without a counted row + 70 no adapter covers. Of
+  the 5,007, 943 wait for a person, not an adapter (661 review rows, 282 Jura answers matched by wording only); 4,064
+  have no verified answer yet. 530 more are OPD copies without text that nobody has read yet.
+- **Two consecutive real nights** in the recommended Docker setup (Actions run 38098822336): night 1 took 86 min and
+  streamed 6.4 GB; night 2, on night 1's state and OPD's next export, took 6.6 min (12 bodies re-scanned); 0 alerts,
+  Bern list unchanged. Nothing runs at OPD yet.
+
+## What Apertus adds
+
+The default runs no model. Where Apertus is used it never writes a value: it answers a closed question or picks one of
+the printed candidates, and code locates the span.
+
+- **A verifier for the review queue (P7, pre-registered).** For each review row of the adapter lists Apertus answers
+  two closed questions: does this document print the executive's answer to this intervention, and which printed date
+  is the answer date. A row is promoted only if both pass and the date passes the adapters' own date rule. It promotes
+  214 of 917 review rows into a separate tier, `promoted_by_apertus`, listed next to the 6,613 counted rows, never added
+  to them (`results/repair/adapters/p7/promoted.tsv`). On a fresh blind test all 120 sampled promotions are the
+  government's answer (Wilson lower bound 96.9%; H1 holds). Read that against the base rate: 86.7% of the queue's
+  rows are answers anyway. The gain is the date check: 95.8% of its promotions are answers whose own date passes the
+  rule, against 73.2% for promoting every row with a printed date equal to OPD's (+22.7 points [10.2, 34.3]; H4
+  supported).
+- **Unseen layouts (P2).** On 15 parliaments nobody wrote rules for, Apertus finds 24/29 answer dates, the rules 2/29.
+- **The submitter (P5).** Pointing at printed names doubles the rules, 12/40 → 24/40 (free generation 34/40).
+- **The sovereign 8B (P6, exploratory, 67 documents).** Reader v2 dates 5 of 34 answerless documents, v1 18/34 and the
+  free prompt 11/34; v2 is right on 51/67 (v1 48/67), and rules then v2 on 55/67 (rules alone 54/67).
+- **Limits.** No accuracy gain over a well-instructed free prompt (P2, P6; P7-H3 not supported: free generation's extra
+  rows were 28/30 right). Every null-safety test on the 70B failed (P1-H1, P2-H3, P6-H2). In P2 and P6 "answerless"
+  means no qualifying answer date: of the 53 documents with no answer at all, Apertus dated 0 (P2 pointer, P6 reader
+  v2); all its 4 (P2) and 5 (P6) dates on answerless documents fall on answers that print no qualifying date. In P1,
+  where the label is no answer, rules then Apertus date 7 of 90, 6 of them council reports.
+
+**Which model.** Apertus numbers not marked 8B come from the 70B weights that Public AI serves under the name
+`swiss-ai/apertus-v1.5-8b` (inferred from the served fingerprint, see "Which Apertus" below). The 8B is a community
+4-bit build run on CPU.
 
 ## The 17 fields: does each mean the same thing, and where does it live?
 
@@ -74,7 +97,7 @@ parliaments where OPD metadata carries it · carries it for part of the affairs 
 | type | role split | measured: 42 of 1,038 raw labels map to different types | partly: 61 · 24 · 2 · 2 |
 | procedural state | role split | measured: 32 labels ambiguous | partly: 41 · 27 · 18 · 3 |
 | decision outcome | role split | measured: 3 labels ambiguous | partly: 7 · 31 · 33 · 6 |
-| government recommendation | shared | **tested**: 0 of 183 raw labels map to different concepts | partly: 3 · 8 · 56 · 10 |
+| government recommendation | shared | untested; OPD's mapping unambiguous (string check) | partly: 3 · 8 · 56 · 10 |
 | submission date | shared | by definition, untested | **metadata**: 89 · 0 · 0 · 0 |
 | answer-link status | shared | by definition, untested | **metadata**: 54 · 0 · 0 · 0 |
 | submitter | shared | by definition, untested | partly: 23 · 61 · 5 · 0 |
@@ -90,12 +113,15 @@ parliaments where OPD metadata carries it · carries it for part of the affairs 
 So 4 fields are in OPD's metadata almost everywhere and 13 partly or only in the PDF; no field lacks a source in a
 fifth of the parliaments (5 would at a 10% threshold, `results/census/tier_sensitivity.json`). *Role split*: the
 concept is shared, but one source label covers several roles that must be kept apart before parliaments can be
-compared. Three further *concepts* are body-specific and are not fields: oral answers in question time (23.6% of
-question-time answers are oral; v0.1 types them as a null reason), executive business that answers no member's
-affair, and councils that publish only meeting documents (16 bodies, 8 with no affair at all; schema v0.1 marks
-affairs derived from them `virtual` with `derived_from`, P4). For the eCH group: `docs/ech-onepager.md`.
+compared. The recommendation's string check (0 of 183 raw labels map to two concepts) covers only the labels OPD has
+harmonised (29.1% of all events carry no harmonised id); a test of meaning would map each parliament's printed forms to
+the concept (`docs/ech-onepager.md` §6).
+Three further *concepts* are body-specific and are not fields: oral answers in question time (23.6% of question-time
+answers are oral; v0.1 types them as a null reason), executive business that answers no member's affair, and councils
+that publish only meeting documents (16 bodies, 8 with no affair at all; schema v0.1 marks affairs derived from them
+`virtual` with `derived_from`, P4). For the eCH group: `docs/ech-onepager.md`.
 
-## The seven tests, in registration order
+## The eight tests, in registration order
 
 Each froze code, prompts and θ by sha256 before any label was committed (`eval/prereg*/`).
 
@@ -104,40 +130,27 @@ Each froze code, prompts and θ by sha256 before any label was committed (`eval/
 | P1 | 154 documents, parliaments with rules | answer date: rules vs Apertus | **partial**: H3 held; H1 null safety failed (7/90); H2 Branch B | rules alone 135/154, so no model by default |
 | P2 | 62 documents, 15 parliaments without rules | rules transfer; pointer vs rules | **3 of 4 held**; H3 null safety failed (4/33) | pointer 24/29 answer dates, rules 2/29 |
 | P3 | 29 whole affairs, 10 parliaments | 7 fields: metadata, rules, Apertus | **partial**: no field unattended; Apertus recall held, precision below | feasibility study (D3-5) |
-| P3b | 36 fresh affairs, 9 parliaments | replication of P3 | **held**: replicated (S1, S2) | S2 lenient; type 35/36 unattended |
+| P3b | 36 fresh affairs, 9 parliaments | replication of P3 | **held**: replicated (S1, S2) | S2 lenient; type 35/36 unattended; addressed body 2/33 |
 | P4 | 120 agenda items, 6 sittings | affairs rebuilt from minutes | **partial**: H2, H4 held; H1, H3 failed | recall 99/120, precision 99/99 |
-| P5 | 40 fresh affairs, 10 parliaments | Q/A pairs, people, recommendation | **partial** tier (H1); H2, H4, H5 held; H3 no gain | *not yet* when parliaments are resampled; submitter by rules 12/40 |
+| P5 | 40 fresh affairs, 10 parliaments | Q/A pairs, people, recommendation | **partial** tier (H1); H2, H5 held; H4 held as rules vs free generation; H3 no gain | *not yet* when parliaments are resampled; submitter by rules 12/40 |
 | P6 | 68 fresh documents, 8 parliaments | answer-date reader v2 vs free prompting | **failed**: no hypothesis held | free prompt 62/68, v2 59/68 |
+| P7 | 478 review rows, 190 blind packets | Apertus as verifier of the adapters' review queue | **H1 holds** (120/120); H4 supported; H3 not supported | 214 of 917 review rows promoted, in a separate tier |
 
+- **Unattended** (95% lower bound ≥ 0.80, document-level intervals): the rules' answer date on parliaments with rules
+  (P1, 135/154 [81.5, 92], helped by right nulls: dates found 47/64), the type on whole affairs (P3b, 35/36), and in P5
+  the question detection (recall 167/187, precision 167/175), the reasoning span (37/40) and co-signatory precision
+  (101/103). Not the answer date elsewhere, the submitter or Q/A pairing.
 - **Default: rules, no model.** On P1 the frozen DE/FR/IT rules are right on 135/154 and pick a wrong printed date on
-  4/154. On whole affairs (P3b) the unattended default wrote a wrong answer date for 4/35 affairs, 3 of them a Luzern
-  rule that overrode OPD's correct date; the product path now keeps OPD's date in that case and flags the record.
-- **Where Apertus earns its place (P2).** On the 15 unseen parliaments (29 answer dates, from 7 of them) Apertus finds
-  24/29 answer dates, the rules 2/29. The latest printed date in each document also finds 22/29, but it dates 31 of the
-  33 documents without an answer; Apertus dates 4. Its value is finding the printed date; on answerless documents it
-  still dates some, so nulls need review. On 8 more unseen parliaments (P6), rules first and Apertus on what they leave
-  open (cascade v2) find 31 of 34 answer dates, the rules alone 20; on all 68 documents that is 11 documents won, 5
-  lost (p = 0.21), and a model-free cascade (rules, then the latest printed date on documents OPD types as answers)
-  scores 55/68 against cascade v2's 60/68.
-- **The pointer form does not beat free prompting on accuracy, and we say so** (P6, registered): reader v2 59/68, the
-  same Apertus asked freely with null allowed 62/68 (1:4 discordant, p = 0.38); v1 56/68. What the closed set gives is
-  a printed value with its page and span; the free prompt with null allowed also almost never invents a date (0, 1 and
-  0 times on P1, P2 and P6).
-- **Questions and answers, people, recommendation (P5).** Rules-only Q/A pairing reaches the *partial* tier with
-  document-level intervals (precision 0.83, recall 0.67) and *not yet* when whole parliaments are resampled; rules
-  beat paragraph order 116:5 and free generation 79:11 (the dev-fitted pairing pointer never fired). The submitter is a
-  review field: rules 12/40, the pointer over printed names 24/40, free generation 34/40.
+  4/154; the trivial baseline (latest printed date on documents OPD types as answers) is right on 131/154. On whole
+  affairs (P3b) the unattended default wrote a wrong answer date for 4/35 affairs, 3 of them a Luzern rule that
+  overrode OPD's correct date; the product path now keeps OPD's date in that case and flags the record.
 - **Gold labels checked by another vendor, and by time.** The labels come from blind Claude annotators;
-  `Qwen-SEA-LION-v4-32B` (AI Singapore) relabelled P1, P2 and P6 blind: answer dates agree with κ 0.80 (P1), 0.87 (P2)
-  and 0.86 (P6), and no registered decision changes; on P5 its labels are too noisy to confirm or overturn the verdict.
-  Lock before label is shown by time, not only by commit order: all 74 annotator sessions started after GitHub received
-  the LOCK and draw pushes and ended before it received the labels (`results/eval/annotation_sessions.json`).
-- **Sovereign path, exploratory.** Apertus v1.5 8B (community 4-bit build) runs on one CPU machine, 180 s per document
-  on 4 vCPUs. It finds 15 of 21 answer dates on the 52 P2 documents reachable from CI (the latest printed date: 14),
-  but dates 25 of 90 answerless P1 documents (70B: 7), so a reviewer rejects more of its suggestions.
-- **One real night** under systemd on a GitHub runner against OPD's live exports: 83 min, the Bern list reproduced on
-  live data (2,459 relink + 49 fetch). It is not yet running at OPD; a two-night run of the Docker setup (Actions run
-  38098822336) is running.
+  `Qwen-SEA-LION-v4-32B` (AI Singapore) relabelled P1, P2, P6 and P7 blind: answer dates agree with κ 0.80 (P1), 0.87
+  (P2) and 0.86 (P6), P7's is-answer labels on 185/190, and no registered decision changes; on P5 its labels pass the
+  verbatim quote check in only 7/40 files, so they neither confirm nor overturn the verdict. All 74 annotator sessions
+  ended before GitHub received their labels; in the eight locked sets they started after it received the LOCK and draw
+  pushes (P5 dev has no lock by design; DEV2's anchor is the commit of its written selection rule and draw;
+  `results/eval/annotation_sessions.json`, from transcripts kept on the author's machine).
 
 ![Where the registered gap is](docs/figures/fig1_funnel.png)
 
@@ -170,7 +183,8 @@ dropped and `no-new-privileges` (`Makefile`, target `run`). It exits non-zero on
 it equal to `results/census/`; replays the Bern join and its triple check; runs sample documents through the converter
 with the validator's checks; re-scores P1–P4 and P3b from the committed predictions and labels, re-runs the seven
 registered hypothesis scripts (P1–P6, P5 and P6 included) and the 8B analysis and verifies the seven LOCK files
-(locally 26/26 replay tests pass); re-derives the P1 rules arm from the
+(locally 26/26 replay tests pass; P7, registered later, recomputes with `python -m eval.p7.hypotheses8` outside
+`make run`); re-derives the P1 rules arm from the
 source PDFs (fetched by sha256) and recomputes P1 and P2 Apertus decisions from the committed model cache (cache only,
 no model call) within a time budget; and runs the claims check: each number listed in `claims.tsv` is recomputed from
 its results file, and the step fails if a document prints anything else. Locally the rules arm re-derives 154/154 and
@@ -212,6 +226,13 @@ date is offered first among the candidates (`suggested_by_letter_line`), never w
 own pdftotext/tesseract text; `--opd-text` maps them onto OPD's stored text. Tables, annexes and images are not
 extracted.
 
+Questions and answers (`python -m gegenprobe.qa_cli`) take the same per-parliament settings file (`--body KEY --anchors
+FILE`, with `confirm_rules`, closing formulae and reprint headings) and `--explain`. A trial user from Solothurn found
+the last answer running into the signature block, the reprinted member's text counted as reasoning and a false "no
+recommendation" outside rule coverage. The last answer and the reasoning now end before the closing block, the
+reasoning starts at the executive's statement, and with `--body` an uncovered recommendation is `no_rules_for_body` in
+`left_open` instead of a false typed null (`docs/qa.md`; P5's registered results are unchanged). OPD type names such as `Auftrag` are accepted as aliases (`data/convert/affair_type_aliases.json`).
+
 ## What is in the repository
 
 | Deliverable (challenge) | Where |
@@ -222,13 +243,13 @@ extracted.
 | Questions and answers, people, recommendation, reasoning (`QAItem` filled) | `src/gegenprobe/qa/` (rules, then a closed-set pointer over printed candidates), `docs/qa.md` |
 | Virtual affairs from agendas and minutes | `src/gegenprobe/virtual/` (`python -m gegenprobe.virtual derive …`), `docs/virtual-affairs.md` |
 | Validator | `src/gegenprobe/validate/` (schema, span re-check, typed-null consistency, self-deletion and distractor harnesses) |
-| Evidence: seven pre-registered evaluations | `eval/prereg/` (P1, held-out, seen parliaments), `eval/prereg2/` (P2, unseen parliaments), `eval/prereg3/` (P3, whole affairs), `eval/prereg4/` (P4, virtual affairs), `eval/prereg5/` (P3b, held-out replication of whole affairs), `eval/prereg6/` (P5, Q/A pairs), `eval/prereg7/` (P6, answer-date reader v2), each with its `DEVIATIONS*.md`; gold sets `data/gold*/` with raw annotations, `docs/gold_protocol.md` |
+| Evidence: eight pre-registered evaluations | `eval/prereg/` (P1, held-out, seen parliaments), `eval/prereg2/` (P2, unseen parliaments), `eval/prereg3/` (P3, whole affairs), `eval/prereg4/` (P4, virtual affairs), `eval/prereg5/` (P3b, held-out replication of whole affairs), `eval/prereg6/` (P5, Q/A pairs), `eval/prereg7/` (P6, answer-date reader v2), `eval/prereg8/` (P7, Apertus as verifier of the review queue; `results/p7/`), each with its `DEVIATIONS*.md`; gold sets `data/gold*/` with raw annotations, `docs/gold_protocol.md` |
 | Cross-parliament question | answer rates and answer times per parliament: `results/census/question.json`, site → Parliaments (per intervention type, CSV) |
 | Research dataset | `results/census/interventions.tsv.gz`: 91,268 interventions × 23 columns with date-trust tiers and source links (CDLA-Permissive-2.0) |
 | Census, feasibility matrix, comparability, data-quality findings with OPD's response | `src/gegenprobe/census/`, `results/census/`, `docs/census.md` |
-| Repair lists keyed on OPD ids, apply plan | `results/repair/repair_BE*.tsv`, `results/repair/apply_be/`, `docs/repair.md`, `docs/runbook.md` |
-| Source adapters for 50 parliaments, audits (blind audit v3: `audit3/`), robots.txt incident | `src/gegenprobe/repair/adapters/`, `results/repair/adapters/` (`adapters_<BODY>.tsv`, `adapters_summary.json`, `tiers.json`, `canary.json`, `audit/`, `audit3/`), `results/repair/MANIFEST.json`, `docs/adapters.md`, `docs/incidents.md` |
-| Nightly job (systemd timer + container, alerts), one real night | `src/gegenprobe/monitor/`, `deploy/nightly/`, `docs/nightly.md`, `results/monitor/night_real_38062530586/` |
+| Repair lists keyed on OPD ids, apply plan, OPD vocabulary errors | `results/repair/repair_BE*.tsv`, `results/repair/repair_CHE.tsv.gz`, `results/repair/apply_be/`, `results/census/vocab_bugs.tsv`, `docs/repair.md`, `docs/runbook.md` |
+| Source adapters for 50 parliaments, audits (blind audit v3: `audit3/`), robots.txt incident | `src/gegenprobe/repair/adapters/`, `results/repair/adapters/` (`adapters_<BODY>.tsv`, `adapters_summary.json`, `tiers.json`, `canary.json`, `canary_runs/`, `audit/`, `audit3/`, `p7/promoted.tsv`), `results/repair/MANIFEST.json`, `docs/adapters.md`, `docs/incidents.md` |
+| Nightly job (systemd timer + container, alerts), one real night and two consecutive Docker nights | `src/gegenprobe/monitor/`, `deploy/nightly/`, `docs/nightly.md`, `results/monitor/night_real_38062530586/`, `results/monitor/two_nights_docker_38098822336/` |
 
 ## Schema v0.1 and where values live
 
@@ -260,6 +281,13 @@ answers OPD barely covers (among the cantons SZ, UR, GL, AI, NW and GE) as a cov
 unanswered questions, and filters to cantons. Cantons are named by their official name in the language of their
 majority (Ticino, Vaud, Genève, Valais, Fribourg; Graubünden, Bern, Luzern), cities and communes by OPD's name.
 
+**Census at a glance** (OPD exports of 6 Oct 2026; `results/census/corrected.json`; open dataset of all 91,268).
+2024–25: the registered count is 1,855 (367 oral); 150 are in OPD under an unrecognised heading, so at most 1,338
+written answers lack text. Bern: 567 of 593 written answers from 2024–25 (96%) lack text, but 520 of them are in OPD
+unlinked (418 under an agenda item, 102 without a parent). Coverage gaps: 31 parliaments where OPD holds interventions
+but records almost no written answers (canton SZ: 1,316 interventions, 0 answers): OPD coverage, not unanswered
+questions. After every counted repair 92.3% of the 91,268 have answer text.
+
 ## Repair lists for OPD (`docs/repair.md`, `docs/runbook.md`)
 
 - **Bern.** Of the 3,532 answers the canton publishes, OPD attaches 229 (6.5%) to their affair; 3,394 (96.1%) are
@@ -287,7 +315,8 @@ majority (Ticino, Vaud, Genève, Valais, Fribourg; Graubünden, Bern, Luzern), c
   `opd_group`), the two groups OPD described; 554 get the date of their own "Eingereicht" event, 173
   go to review (`repair_BE_begin_date.tsv`).
 - **Coverage.** Before the source adapters, deterministic routes (Bern relinks and fetches, agenda joins, federal Curia
-  Vista) proposed repairs for 3,107 of the 16,749 without answer text; with them, 9,720 (next bullet). The retype list holds 1,008 Valais answers, confirmed by the exact text
+  Vista) proposed repairs for 3,107 of the 16,749 without answer text; with them, 9,720 (next bullet: 9,089 checked
+  row by row, 592 agenda joins never sample-checked, 39 Bern rows in review). The retype list holds 1,008 Valais answers, confirmed by the exact text
   rule, that were given orally and filed as a stub: they are retyped as oral, not searched for (the length proxy finds
   1,016 such stubs; `results/census/vs_reconcile.json`). For 1,350 affairs whose answer OPD holds only as an image, a probe ran German+French+Italian OCR on 15
   image-only answers: all 15/15 gave text passing our usability check (≥ 200 characters, an answer heading, a parseable
@@ -303,8 +332,9 @@ majority (Ticino, Vaud, Genève, Valais, Fribourg; Graubünden, Bern, Luzern), c
   Verification tiers: 5,161 whose own date equals an OPD event; 1,056 where a printed date equals an OPD answer
   event and the document's own date, if read, lies within 30 days of one (rows more than 30 days off go to review);
   396 within the parliament's documented window (at most 15 days in Zürich city, 120 in Valais). Listed separately and **not counted**: 282 Jura answers that match by
-  identity and wording only (OPD's Jura answer events carry no date), and 917 rows that wait for a person.
-  **Verified repairs are proposed for 9,720 of the 16,749; 5,007 written answers still need adapters.**
+  identity and wording only (OPD's Jura answer events carry no date), and 917 rows that wait for a person (214 of them
+  promoted by Apertus into the separate tier `promoted_by_apertus`, P7). **Repairs are proposed for 9,720 of the
+  16,749; the adapters looked at 5,007 more without a counted row, 943 of which wait for a person.**
   2,177 of the answers the census counts as missing are already in OPD with text, filed under the question's file and
   worded in a way our frozen census lexicon does not list (Zürich city alone: 1,417, "Der Stadtrat beantwortet die
   Anfrage wie folgt"): the repair is a category on the document (`tag_answer`), not a new document. The registered
@@ -313,8 +343,10 @@ majority (Ticino, Vaud, Genève, Valais, Fribourg; Graubünden, Bern, Luzern), c
   could not tell from an answer: 34 non-answers among 511 verified rows. The filters written from it catch all 34 and
   remove none of the sample's 713 answers (a design-sample check, not a precision estimate). **Blind audit v3**
   (`results/repair/adapters/audit3/`, prompt `PROMPT.md`): 200 counted rows, stratified by tier and route, and 60
-  decoys from the review and failed lists, shuffled into packets that carry no outcome, reason or proposed action; the
-  hash of the key was committed before judging. Claude Opus judged **197/200** counted rows to be the executive's
+  decoys from the review and failed lists, shuffled into packets that carry no outcome, reason or proposed action. The
+  packets do carry the text's sha256, which joins to the committed lists. The audit is therefore blind for Qwen, which
+  saw only the prompt, and blind by instruction for Claude, which ran in a checkout. The key's hash reached GitHub at
+  00:56:16 UTC on 11 Oct (commit `ce416a8`), before the Claude verdicts were finished and before any scoring. Claude Opus judged **197/200** counted rows to be the executive's
   answer (Wilson 95.7% to 99.5%; a plain proportion over a stratified sample), and the date wrong or unsupported on 15.
   It rejected 60% of the failed decoys but only 1.5% of the counted rows, and called 77% of the review decoys answers:
   the pipeline errs on the side of review. A second auditor from another vendor, Qwen-SEA-LION, accepted 200/200 but
@@ -323,7 +355,9 @@ majority (Ticino, Vaud, Genève, Valais, Fribourg; Graubünden, Bern, Luzern), c
   layer checked robots.txt with Python's `urllib.robotparser`, which applies the first matching rule; RFC 9309
   requires the longest. www4.ti.ch (Canton Ticino) lists `Allow: /` before its `Disallow` lines, so between 9 and 11
   Oct 2026 the project requested 147 distinct URLs on paths it disallows, 133 of them downloads, mostly by the gold-set
-  samplers that fetched the parliament's URL OPD records; CI runs repeated at most 6,655 requests before the fix. An
+  samplers that fetched the parliament's URL OPD records; CI runs repeated at most 4,942 downloads before the fix
+  (counted per executed fetching step of all 112 runs; each process kept 1.2 s between its requests, and at most 8
+  ran at once). An
   audit of all 14,152 URLs the project fetched found no other host affected. Since 11 Oct one RFC 9309 matcher
   (`src/gegenprobe/robots9309.py`) judges every fetch, and every fetch path requests a mapped URL from OPD's own copy
   on files.openparldata.ch instead (`data/compliance/mirror_urls.json`); 126 of the 130 evaluation documents are
@@ -332,17 +366,19 @@ majority (Ticino, Vaud, Genève, Valais, Fribourg; Graubünden, Bern, Luzern), c
 
 ![Bern before and after](docs/figures/fig3_be_before_after.png)
 
-## Evaluation: seven pre-registrations
+## Evaluation: eight pre-registrations
 
 **Locks.** Every test froze code, prompts and θ by sha256 before any label was committed: the LOCK commit precedes the
 commit adding its labels by 6 min 0 s (P1), 2 min 28 s (P2), 3 min 37 s (P3) and 4 min 3 s (P4) by commit date
 (`results/eval/posthoc_r3_gold_oracle.json`), an order GitHub's clock confirms
 (`results/eval/lock_server_times_all.json`; rewritten SHAs in `docs/commit-map.md`); P3b's LOCK5 (commit 43a9012), P5's
-LOCK6 (db339eb) and P6's LOCK7 (dfd1e72) precede their draws and labels. **Session times, not only commit order:** the
-annotator agents' own transcripts date every labelling session. Across 10 label sets (P1 to P6, the P4 transfer cell,
-P5 dev and DEV2), 74 annotator sessions wrote 996 label files, and all 996 carry a write time inside their own session.
-In every set the first session started after GitHub received the push of the LOCK (and of the draw, where it is a
-separate commit), and the last session ended before GitHub received the label commit: the P6 annotators started 26 s
+LOCK6 (db339eb), P6's LOCK7 (dfd1e72) and P7's LOCK8 (73954c3) precede their draws and labels. **Session times, not
+only commit order:** the annotator agents' own transcripts date every labelling session. Across 10 label sets (P1 to P6,
+the P4 transfer cell, P5 dev and DEV2), 74 annotator sessions wrote 996 label files, and all 996 carry a write time
+inside their own session. In every set the last session ended before GitHub received the label commit. In the eight
+locked sets the first session started after GitHub received the push of the LOCK (and of the draw, where it is a
+separate commit); P5 dev has no lock by design, and DEV2's anchor is the commit of its written selection rule and draw,
+not a LOCK. The transcripts are not committed and their times come from the author's clock. The P6 annotators started 26 s
 after the draw was pushed and finished 10 s before the labels were pushed; for P5 the gap after the draw was 7 s; for
 P1 the gap after the LOCK was 95 s. The short gaps are real: each set was split over 2 to 18 parallel sessions lasting
 20 s to 7 minutes (`results/eval/annotation_sessions.json`; the transcripts stay on the author's machine because they
@@ -390,8 +426,8 @@ independent, so we also resample whole parliaments (percentile bootstrap, 10,000
 `results/eval/posthoc_r6_cluster.json`); the intervals are given with P2, P5 and P6 below.
 
 **Which Apertus.** Evaluation used Apertus v1.5 70B weights served by Public AI (inferred from the served fingerprint;
-the endpoint name says `8b`); the real 8B was run in-process on CPU on P1, P2 (52 documents), and its P6 run is still
-running. Apertus numbers not marked 8B come from the 70B weights, which Public AI serves under the name
+the endpoint name says `8b`); the real 8B was run in-process on CPU on P1, P2 (52 documents) and P6 (67 documents).
+Apertus numbers not marked 8B come from the 70B weights, which Public AI serves under the name
 `swiss-ai/apertus-v1.5-8b`. That is inferred, not documented by Public AI: the served fingerprint (`tp8-pp2-…`, a
 tensor-parallel 8 × pipeline-parallel 2 deployment) and the behaviour (report §3: 760/792 greedy outputs
 byte-identical to the `-70b` name; MMLU 84.4% vs 70.8% for the v1 8B route) point to the 70B. We use that name because
@@ -409,7 +445,8 @@ review, on P2 (D2-6).
 - **The 8B is the measured sovereign option** (exploratory): one CPU machine, no document text leaves it. On the 52
   reachable P2 documents it finds nearly as many answer dates as the 70B (15 vs 16 of 21) but proposes a date for 11
   of 31 answerless documents (70B: 4), and on P1's residue its suggestions are right 7/34 times (70B: 9/16, p = 0.021), so a reviewer rejects
-  far more of them. Cost: 180 s per document on 4 vCPUs.
+  far more of them. On P6 the reader v2 restrains it: 5 of 34 answerless documents dated, against 18/34 for v1 (below).
+  Cost: 180 s per document on 4 vCPUs.
 - **The 70B is the accuracy option**, on infrastructure the operator chooses: all positive Apertus evidence on unseen
   parliaments is the 70B. Its bf16 weights alone are about 140 GB (e.g. two 80 GB GPUs; arithmetic, not measured by
   us); the Public AI service we evaluated on may route outside Switzerland.
@@ -419,7 +456,7 @@ review, on P2 (D2-6).
 protocol (seeded draw; labels after the lock). The rules and the sample entered in one commit (`da26116`), so commit
 order does not prove the rules predate the draw (D12); P2 is the clean out-of-sample test of the rules.
 
-| arm | exact [95% CI] | dates found | wrong printed date | fabricated | values on the 90 answerless |
+| arm | exact [95% CI] | answered: dates found /64 | wrong printed date | fabricated | answerless: values on the 90 |
 |---|---|---|---|---|---|
 | **rules only (default mode)** | **135/154 [81.5, 92]** | 47/64 | 4 | 0 | 2 |
 | Apertus pointer on every document | 130/154 [77.9, 89.3] | 46/64 | 16 | 0 | 6 |
@@ -430,6 +467,8 @@ order does not prove the rules predate the draw (D12); P2 is the clean out-of-sa
 | ↳ null-allowed, re-parsed (post hoc, D5) | 133/154 [80.1, 90.9] | 47/64 | 13 | 0 | 4 |
 | naive free generation, plain prompt | 98/154 [55.8, 70.8] | 47/64 | 23 | 24 | 39 |
 | ↳ plain, re-parsed (post hoc, D5) | 103/154 [59.1, 73.8] | 54/64 | 26 | 24 | 41 |
+| *trivial: latest printed date on documents OPD types as answers (post hoc)* | *131/154 [78.6, 89.8]* | *44/64* | *16* | *0* | *3* |
+| *trivial: latest printed date, ungated (post hoc)* | *50/154 [25.6, 40.2]* | *46/64* | *104* | *0* | *86* |
 
 **The 8B rows** (`python -m eval.gguf_8b_analysis` → `results/eval/gguf_8b_analysis.json`): its rules arm is the same
 (154/154 identical decisions), and every value it returns is a printed date (0 fabricated of 85 cascade values). Against
@@ -487,7 +526,8 @@ parliaments; against the free prompt that may return null, the pointer is ahead 
 [-0.04, 0.09]: no difference. **Against simple baselines** (post hoc): the latest
 printed date in the document finds 22/29 answer dates, nearly as many as the pointer (on the answered documents 3 vs 1,
 p = 0.63), but it dates 31 of the 33 answerless documents, where the pointer dates 4. Apertus's value is finding the
-printed date; it still dates 4 answerless documents, so nulls need review. Against the latest date gated by OPD's document type (null on documents OPD types as member
+printed date. Its 4 dates on answerless documents all fall on documents that contain an answer but print no qualifying
+answer date; of the 25 P2 documents with no answer at all it dates none (`results/report/r7docs_numbers.json`). Against the latest date gated by OPD's document type (null on documents OPD types as member
 texts), the pointer is right on 10 documents the baseline gets wrong and the baseline on 1 (p = 0.012), 6 parliaments
 to 0 (p = 0.031; this comparison was chosen after the results, D2-5). Asked freely with a null-allowed prompt, Apertus
 scores about the same as the pointer (52 vs 53 of 62; re-parsed 54); the pointer adds provenance by construction, not
@@ -587,21 +627,23 @@ style and recommendation agreed in 40/40 affairs).
   rule gives *not yet*. The result depends on which parliaments were drawn; French is the weak language (recall
   10/30), and Valais got 0/11. The "unattended" bar is missed either way.
 - **H2:** the rules beat a paragraph-order baseline, 116:5 discordant answers (one-sided p = 7.8 × 10⁻²⁹).
-- **H4:** rules-only pairing beats free generation, 79:11 (p = 3.9 × 10⁻¹⁴); the registered arm is rules + pointer,
-  but the pointer never fired (H3), so this compares the rules with free generation. Free-generation Apertus with null
+- **H4, read as rules vs free generation:** 79:11 (p = 3.9 × 10⁻¹⁴). The registered arm is rules + pointer, but the
+  pointer never fired (H3), so H4 credits the rules, not the pointer. Free-generation Apertus with null
   allowed pairs 50/176 answers at precision 50/113, and 87 of its quoted values are in no document.
 - **H5:** zero provenance failures: every span re-checks (517 rule values). **H3:** the dev-fitted pairing pointer
   abstained on all 36 residue answers (no measurable gain).
 - **Verdict as registered: supported, at the partial tier** (document-level intervals; *not yet* under parliament
-  resampling). Questions are found 167/187, the reasoning span matches
-  37/40, the recommendation is right 34/40 by rules and 36/40 with the pointer.
+  resampling). By the same tiers, question detection (recall 167/187, precision 167/175), the reasoning span (37/40)
+  and co-signatory precision (101/103) reach the unattended bar with document-level intervals; the recommendation is
+  right 34/40 by rules and 36/40 with the pointer.
 - **What did not transfer, said plainly.** Rules-only submitter detection reached 36/38 on dev (in-sample) but 12/40 on
   P5. The pointer over printed names doubles it to 24/40, and free generation finds the submitter best (34/40); the
   submitter stays a review field. Post hoc, pairing transfers where answers number or repeat the questions (Riehen
   21/22, Wädenswil 20/24, Lugano 17/20) and fails where they do not (Valais 0/11).
 - **Independent labels.** Qwen-SEA-LION's own labels pass the verbatim quote check in only 7/40 files and match the gold's
-  answer spans in 96/176; with them as gold H1 would fall to *not yet* (65/116 recall, 65/105 precision). The check from
-  another vendor is too noisy to confirm or to overturn the verdict; both readings are reported.
+  answer spans in 96/176; with them as gold H1 would fall to *not yet* (65/116 recall, 65/105 precision). The
+  disagreements were not adjudicated, so this check neither confirms nor overturns the verdict, and the recommendation
+  count (34/40) rests on the Claude gold alone; both readings are reported.
 
 **P6 — answer-date reader v2: 68 fresh documents from 8 parliaments in no earlier set** (`eval/prereg7/`, LOCK7 at
 dfd1e72 before the draw; 55 German, 13 French, no Italian document because no unseen Italian-language parliament was
@@ -612,7 +654,7 @@ P6 the frozen v2 decided 34 of 68 documents by guided generation, 31 by its pres
 pick. It was chosen on a development set by a rule written before its labels; its code was committed after them
 (DEVIATIONS7 D1).
 
-| arm (strict) | exact | dates found | answerless dated | printed nowhere |
+| arm (strict) | exact | answered: dates found | answerless dated | printed nowhere |
 |---|---|---|---|---|
 | free prompt, null allowed | **62/68** | 32/34 | 4/34 | 0 |
 | free prompt with v2's instructions | 61/68 | 32/34 | 5/34 | 0 |
@@ -621,7 +663,9 @@ pick. It was chosen on a development set by a rule written before its labels; it
 | v1 pointer (θ = 10.40) | 56/68 | 29/34 | 7/34 | 0 |
 | rules only | 54/68 | 20/34 | 0/34 | 0 |
 | free prompt, plain | 54/68 | 33/34 | 13/34 | 5 |
-| *latest printed date* | *29/68* | *27/34* | *32/34* | *0* |
+| *trivial: latest printed date on documents OPD types as answers* | *51/68* | *25/34* | *8/34* | *0* |
+| *model-free cascade: rules, then that baseline (post hoc)* | *55/68* | | | *0* |
+| *trivial: latest printed date* | *29/68* | *27/34* | *32/34* | *0* |
 
 **No registered hypothesis holds.** H1 (primary), v2 vs free prompting: 1:4 discordant documents (p = 0.38). H2: v2
 dates 5/34 answerless documents (Wilson upper bound 30.1%, bar 15%). H3, v2 vs v1: 5:2 (p = 0.45). Registered
@@ -633,7 +677,10 @@ then the latest printed date on documents OPD types as answers) scores 55/68, ca
 null allowed 62/68; cascade v2 is ahead of the model-free cascade on 5 documents and behind on 0 (p = 0.06). Qwen-SEA-LION relabelled P6 blind: presence κ 0.91, date κ 0.86; under its labels no
 registered decision changes (v2 60/68, free prompt 61/68). Post hoc (`results/p6/posthoc7.json`): 4 of v2's 9 errors
 are Interlaken answers its presence gate stopped (presence AUROC 0.93), 4 are Lyss documents the gold calls answerless.
-The real 8B on P6 is still running (exploratory); no number is reported. **Non-LLM checks of the P6 gold**
+**The real 8B on P6** (exploratory, CI run 38089554021, 67 of 68 documents,
+`results/p6/hypotheses7__gguf_apertus-v1.5-8b-text-q4_k_m.json`): v2 51/67, v1 48/67, the free prompt with null
+allowed 54/67, rules 54/67, rules then v2 55/67; answerless documents dated: v2 5/34, v1 18/34, free prompt 11/34. The
+two-step reader restrains the small model where v1's margin does not. **Non-LLM checks of the P6 gold**
 (`results/eval/posthoc_r6_p6_oracle.json`): OPD's written-answer event matches the gold date on 10/10 documents that
 have one; every gold quote occurs on its stated page and yields the gold date (34/34); OPD's document type agrees with
 the answer/no-answer label on 58/68; 20/34 dated gold documents have at least one non-LLM date source.
@@ -642,15 +689,19 @@ the answer/no-answer label on 58/68; 20/34 dated gold documents have at least on
 rules miss: on parliaments nobody wrote rules for (P2: 24/29 answer dates where the rules find 2/29, 22:4 documents on
 all 62), for the answer date of whole affairs (P3: 22/27 → 27/27; P3b on fresh affairs: 20/35 → 31/35), and by
 doubling submitter extraction over the rules (P5: 12/40 → 24/40). **It does not abstain reliably:** every registered
-null-safety test failed (P1-H1, P2-H3, P6-H2), so a person reviews its nulls and values alike. On P1 the rules alone are as accurate as rules +
+null-safety test on the 70B failed (P1-H1, P2-H3, P6-H2), so a person reviews its nulls and values alike. As a
+verifier of the adapters' review queue (P7) it is precise (120/120 sampled promotions are answers), but 86.7% of that
+queue are answers anyway; its gain there is the date check (+22.7 points of dated precision over a trivial date
+match). On P1 the rules alone are as accurate as rules +
 Apertus (registered H2: Branch B), so the default runs no model, and in Bulle's minutes (P4) Apertus added no
 significant decisions. Neither means the rules are complete: P1 rule recall is 47/64 and P4 recall 99/120. **Accuracy
 is not the pointer's argument:** the same Apertus asked freely with a null-allowed prompt is as accurate (P2: 54/62
 re-parsed vs 53/62; discordant 1 vs 0, p = 1; both right on the same 24 of 29 answer dates; P6: 62 vs 59). **Provenance:** no arm
 that picks from printed dates returned a date printed nowhere, on P1, P2 or P6. The fair comparator is the free prompt
 that may return null: it did so 0, 1 and 0 times on P1, P2 and P6; the plain free prompt, which must always return a
-date, did so 24, 4 and 5 times. So free prompting with a null option already almost never invents a date; the closed
-set's advantage is that every value it returns is a printed date with a location (32/32 on P2), and a margin that orders
+date, did so 24, 4 and 5 times. So free prompting with a null option already almost never invents a date, and a
+printed-date filter on it would give the same guarantee; what the closed set adds is a location for every value (32/32
+on P2) and a margin that orders
 the review queue (suggestions in the strong band right 26/33, weak band 3/11, post hoc); the free prompt gives a
 verbatim quote containing its date for 17/32 values. Writing the gold guide's decision-before-letter-date rule into the
 prompt lifted every Apertus arm on P1 dev (in-sample; free prompt with null allowed 116/127 → 125/127).
@@ -659,15 +710,18 @@ prompt lifted every Apertus arm on P1 dev (in-sample; free prompt with null allo
 
 ## Use of Apertus
 
-- **Where:** only in the converter, as a closed-set pointer: forced choice over the dates (or enum labels, or OPD affair
+- **Where:** in the converter and, since P7, on the adapters' review queue, always in closed form. In the converter it
+  is a closed-set pointer: forced choice over the dates (or enum labels, or OPD affair
   numbers) printed in the document, plus null; summed log-probabilities; null if the margin exceeds θ, fitted per build
   on dev documents and frozen (θ = 10.40 for the Public AI build). In `src/gegenprobe/qa/` the same form picks which
   numbered question an answer paragraph replies to, which printed sentence states the recommendation and which printed
   name is the submitter. Free generation is run only as the naive baseline.
-- **What it adds, measured:** finding answer dates the rules miss on unseen parliaments (P2 22:4; P6 11:5 on all 68
-  documents, p = 0.21) and doubling submitter detection over the rules (P5: 12/40 → 24/40; free generation 34/40), every
-  value a printed one with its location. Not accuracy over the same model asked freely with null allowed (P2 and P6,
-  registered), and not reliable abstention (P1-H1, P2-H3, P6-H2 failed).
+- **What it adds, measured:** the date check as a closed-set verifier of the adapters' review queue (P7: 214 rows
+  promoted into a separate tier, 120/120 sampled are answers; +22.7 points of dated precision over a trivial date
+  match), finding answer dates the rules miss on unseen parliaments (P2 22:4; P6 11:5 on all 68 documents, p = 0.21)
+  and doubling submitter detection over the rules (P5: 12/40 → 24/40; free generation 34/40), every value a printed one
+  with its location. Not accuracy over the same model asked freely with null allowed (P2 and P6,
+  registered; P7-H3), and not reliable abstention (P1-H1, P2-H3, P6-H2 failed).
 - **Why a pointer:** asked freely when the government answered, Apertus writes a precise date for 15/15 (local 8B) and
   14/15 (70B) Bern interventions that have no answer, often the "Letzte Bearbeitung" footer (earlier spikes, cited); a
   null-allowed prompt fixes this on the 70B but not on the local 8B (still 14/15).
@@ -714,8 +768,19 @@ from a dated snapshot. Every request carries `GP_USER_AGENT`; a network night wa
 - **Two consecutive nights in the recommended Docker setup** (`.github/workflows/nightly-real-docker.yml`): the workflow
   builds the image, installs the Docker unit with `install.sh`, runs night 1, waits for OPD's next export and runs
   night 2 on night 1's persisted state, so the index diff, the ledger, retries, outbox redelivery and the drop/trend
-  alerts run against a real previous night. The first run (Actions run 38098822336) is running; no result is reported
-  yet.
+  alerts run against a real previous night. Actions run 38098822336
+  (`results/monitor/two_nights_docker_38098822336/`): night 1 took 86 min and streamed 6.4 GB; night 2, on night 1's
+  state and OPD's next export, took 6.6 min, re-scanned the 12 bodies whose exports changed and streamed 1.19 GB; 0
+  alerts, the Bern list unchanged (2,459 relink + 49 fetch). Both nights ran on a GitHub runner, not on Swiss hosting.
+- **Operator-facing details.** The recommended Docker unit bind-mounts `GP_EXPORTS_DIR` read-only at the same path; CI
+  runs a network-mode night that way inside the image, on a root-owned, read-only fixture export directory with
+  `--network none`. The adapter canaries are on by default (`GP_ADAPTER_CANARY=1` in the template); the live run of 11
+  Oct verified 7 of 7 with no alert in 67.6 s (`results/repair/adapters/canary_runs/2026-10-11.json`).
+  Development-only folders (exploration spikes, the developer's budget gateway) come from `GP_SPIKES_DIR` and
+  `GP_GATEWAY_DIR`; nothing an operator runs reads either, and the second adapter auditor runs against any
+  OpenAI-compatible server (`audit3 qwen --backend openai`). Fetching is fail-closed once the guard is loaded
+  (sitecustomize, the installed .pth, or `ensure()` in every unlocked fetching module); `python -S`, or `python -I`
+  without the installed .pth, bypasses it.
 - **Designed to run inside OPD.** Pointed at the export directory (`GP_EXPORTS_DIR`), a night with no changed export
   files took 96.8 s wall on a copied snapshot with 0 bytes of export transfer (`results/monitor/run_local_exports.json`);
   a night that re-scans the files OPD changed over three days (80.6% of the docs bytes) is about 21.8 min (derived;
@@ -759,19 +824,20 @@ the documents (about 2.1 s each) dominates, not the rules.
   document `hash` (keep or change) or its staging fix, and the acceptance test counts 2,459 of 2,459 still unlinked on
   the 6 Oct snapshot. Nightly job: deployable prototype; CI runs `systemd-analyze verify` and the security gate on the
   units and three offline nights in the read-only container on fixture exports, and one real network night ran under
-  systemd on a CI runner (83 min, Bern list reproduced on live data); a two-night Docker run (38098822336) is
-  running; not yet running at OPD. Source-adapter lists: audited prototype (blind audit v3: 197/200 counted rows are
-  the executive's answer, by an LLM auditor; the 917 review rows and the identity-only Jura rows need a person).
+  systemd on a CI runner (83 min, Bern list reproduced on live data), and two consecutive real nights in the Docker
+  setup (86 min, then 6.6 min on night 1's state, 0 alerts); not yet running at OPD. Source-adapter lists: audited prototype (blind audit v3: 197/200 counted rows are
+  the executive's answer, by an LLM auditor; 214 of the 917 review rows are promoted by Apertus into a separate tier
+  (P7), the rest and the identity-only Jura rows need a person).
   Converter, rules-only mode: tested prototype (154 held-out + 62 unseen documents). Review mode with Apertus:
   feasibility study with a reviewer gate. Whole affairs: feasibility study, replicated on held-out affairs (P3b; only
   the type reaches the unattended bar). Q/A pairs, people, recommendation, reasoning: tested prototype at the partial
   tier (P5). Virtual affairs: feasibility study (one commune). Schema v0.1: draft for the eCH
   group (`docs/ech-onepager.md`).
 - **Limitations:** answer dates are the field evaluated in depth, Q/A pairs on 40 affairs (P5); tables, annexes and
-  images are not extracted; 5,007 missing written answers still need per-parliament adapters (some hosts are
+  images are not extracted; 5,077 answers are not found yet (943 of them wait for a person; some hosts are
   unreachable from our network, some answers exist only in session minutes); no federal documents in any gold set, and
-  no Italian document in P6; the 8B was not run on P3/P3b/P5, on P2 only 52 of 62 documents were reachable from CI, and
-  its P6 run is still running; gold labels and adapter audits are made by LLM agents and cross-checked by another
+  no Italian document in P6; the 8B was not run on P3/P3b/P5/P7, and on P2 only 52 of 62 documents were reachable from
+  CI; gold labels and adapter audits are made by LLM agents and cross-checked by another
   vendor's model, not by a person; the P5 tier depends on the interval (*partial* per document, *not yet* when
   parliaments are resampled); spans index our own pdftotext/tesseract text, though `--opd-text` maps values
   onto OPD's stored text.
@@ -782,6 +848,7 @@ the documents (about 2.1 s each) dominates, not the rules.
 
 ## Licences
 
-Code: Apache-2.0 (`../LICENSE`). Report: CC-BY-4.0 (`docs/LICENSE-report.txt`). Data in `data/`: CDLA-Permissive-2.0
-(`data/LICENSE`): identifiers, URLs, hashes, counts, labels and short quotations only — no full document texts and no
-personal contact data.
+Code: Apache-2.0 (`../LICENSE`). Report: CC-BY-4.0 (`docs/LICENSE-report.txt`). Data in `data/` and generated
+results in `results/`: CDLA-Permissive-2.0 (`data/LICENSE`, `results/LICENSE`): identifiers, URLs, hashes, counts,
+labels and short quotations only, with no full document texts and no personal contact data. Derived from
+OpenParlData.ch, which publishes its data under CC BY 4.0; attribution: "Source: OpenParlData.ch".

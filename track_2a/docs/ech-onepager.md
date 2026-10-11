@@ -6,19 +6,20 @@ with `$id` and version 0.1.0: `results/schema/*.schema.json`; field guide: `docs
 Ntoso, Parla-CLARIN and OParl: `docs/mapping.md`.
 
 **In one line:** the frame is feasible (17 fields, each a value with provenance or a typed null, dates kept apart by
-role); the meaning is verified across parliaments for 1 of the 17 fields, measured as a role split for 5, and assumed
-for 11, which need the test plan in §6.
+role); the meaning is measured as a role split for 5 fields (answer date, procedural history, type, procedural state,
+decision outcome) and assumed for the other 12, which need the test plan in §6. Meaning is tested for 0 of the 17: for
+the government recommendation, OPD's label mapping is unambiguous (a string check), which is not a test of meaning.
 
 ## 1. Three classes (by meaning, from OPD's own vocabularies)
 
 | class | fields and concepts | what it means for a standard |
 |---|---|---|
-| **shared** (12 of 17) | submission date, submitter, co-signatories, addressed body, government recommendation, decision date, dispatch date, Q/A pairing, related affairs, language, usable text, answer-link status | one definition by design; the meaning is tested across parliaments for 1 (the government recommendation: 0 of 183 raw labels map to different concepts), the other 11 are shared by definition, untested; *where* the value lives (metadata, PDF, or not in OPD) is measured |
+| **shared** (12 of 17) | submission date, submitter, co-signatories, addressed body, government recommendation, decision date, dispatch date, Q/A pairing, related affairs, language, usable text, answer-link status | one definition by design, meaning untested across parliaments; for the government recommendation OPD's label mapping is unambiguous (0 of 183 raw labels map to different concepts; a string check over OPD's harmonised labels only); *where* the value lives (metadata, PDF, or not in OPD) is measured |
 | **shared with a role split** (5 of 17) | answer date, procedural history, type, procedural state, decision outcome | one source label covers several roles that must be kept apart before parliaments can be compared; all 5 are measured |
 | **body-specific** (3 concepts, not among the 17 fields) | oral answers in question time; executive business that answers no member's affair; councils that publish only meeting documents | needs its own construct, not a field: v0.1 types oral answers as a null reason and marks affairs rebuilt from minutes `virtual` with `derived_from` |
 
-Of the 17 fields, 12 are shared: the meaning of 1 is tested across parliaments, the other 11 are shared by definition,
-untested. 5 are shared but need their roles kept apart, and all 5 are measured. The 3 body-specific concepts are not
+Of the 17 fields, 12 are shared by definition, their meaning untested (the recommendation's unambiguous OPD mapping
+is a string check, not a semantic test). 5 are shared but need their roles kept apart, and all 5 are measured. The 3 body-specific concepts are not
 fields; they need constructs of their own. Evidence:
 `results/census/comparability.json`, classes and the `meaning_tested` flag in `data/schema/field_verdict_classes.json`. Separately, *where*
 the value lives (`results/census/matrix.json`): 4 fields are in OPD's metadata almost everywhere, 13 partly; no field
@@ -75,6 +76,8 @@ recomputed by `make run`).
 Adopt date roles, typed nulls and the three classes as the frame; standardise the role split for the answer date first
 (it decides every answer-time comparison); treat oral answers, executive-own business and minutes-only councils as
 named constructs; take `QAItem` (measured, P5), the five gaps and a `not_extracted` null reason into v0.2. Test plan for
-the 11 fields shared by definition: map each parliament's raw labels or printed forms to the shared concept, as done
-for the government recommendation (`results/census/comparability.json`), and report the share that maps elsewhere. Gegenprobe (Hack Apertus,
+the 12 fields shared by definition: map each parliament's raw labels or printed forms to the shared concept (for the
+government recommendation OPD's harmonised labels pass a string check, `results/census/comparability.json`, but the
+printed forms are not yet mapped), and report the share that maps elsewhere. OPD vocabulary errors found on the way
+(e.g. the harmonised type "Votaziun", Romansh for a vote, on 9,887 affairs) are listed in `results/census/vocab_bugs.tsv`. Gegenprobe (Hack Apertus,
 Track 2A, team 444): https://gegenprobe.mi11ion.io.

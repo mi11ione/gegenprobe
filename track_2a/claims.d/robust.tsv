@@ -46,7 +46,7 @@ robust.type_raw_labels	1,038	results/census/comparability.json	type.raw_labels	i
 robust.dates_ambiguous	35	results/census/comparability.json	dates_with_roles.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	README.md
 robust.decision_ambiguous	3	results/census/comparability.json	decision_outcome.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	-
 robust.events_unharmonised	29.1%	results/census/comparability.json	dates_with_roles.unharmonised_share	pct1	PYTHONPATH=src:. python -m gegenprobe.census.comparability	-
-robust.tier_fu10_fundamental	5	results/census/tier_sensitivity.json	grid.3.counts.fundamentally different	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md,docs/ech-onepager.md
+robust.tier_fu10_fundamental	5	results/census/tier_sensitivity.json	grid.3.counts.fundamentally different	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	docs/ech-onepager.md
 robust.tier_fe90_feasible	3	results/census/tier_sensitivity.json	grid.7.counts.feasible	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	-
 robust.days_all	68	results/census/answer_days_robust.json	all_eligible_bodies.median_days	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	-
 robust.days_no_same_day	69	results/census/answer_days_robust.json	excluding_same_day_bodies.median_days	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	-

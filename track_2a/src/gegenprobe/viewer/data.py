@@ -1211,7 +1211,12 @@ def p6() -> dict | None:
             for k in order if k in h["arms"]}
     d = lambda x: dict(a=x["a_only"], b=x["b_only"], p=x["p"])  # noqa: E731
     qs = q["hypotheses_under_qwen_gold"]["qwen_strict"]
-    return dict(n=h["n"], answered=h["n_answered"], answerless=h["n_answerless"], bodies=h["n_bodies"], order=order,
+    g8 = RESULTS / "p6" / "hypotheses7__gguf_apertus-v1.5-8b-text-q4_k_m.json"  # the real 8B on CPU (exploratory)
+    h8 = json.loads(g8.read_text()) if g8.exists() else None
+    gguf = (dict(n=h8["n"], arms={k: dict(exact=h8["arms"][k]["exact"], answerless=h8["arms"][k]["dated_answerless"])
+                                  for k in ("v2", "v1", "free_null", "cascade_v2", "rules") if k in h8["arms"]})
+            if h8 else None)
+    return dict(n=h["n"], answered=h["n_answered"], answerless=h["n_answerless"], bodies=h["n_bodies"], order=order, gguf=gguf,
                 arms=arms, h1=dict(d(h["H1_v2_vs_free_null"]["doc_level"]), holds=h["H1_v2_vs_free_null"]["holds"]),
                 h2=dict(v2=h["H2_answerless"]["v2"], upper=h["H2_answerless"]["wilson95"][1], holds=h["H2_answerless"]["holds"]),
                 h3=dict(d(h["H3_v2_vs_v1"]["doc_level"]), holds=h["H3_v2_vs_v1"]["holds"]),
@@ -1295,6 +1300,43 @@ def schema_view() -> dict:
                     gold_answer_date=gold["answer_date"], gold_quote=gold.get("answer_date_quote"),
                     gold_page=gold.get("answer_date_page")),
     )
+
+
+def p7() -> dict | None:
+    """P7 (eval/prereg8, LOCK8): Apertus as a closed-set verifier of the adapters' review queue (results/p7,
+    results/repair/adapters/p7). The promoted tier is listed next to the counted rows, never inside them."""
+    hp = RESULTS / "p7" / "p7_hypotheses.json"
+    if not hp.exists():
+        return None
+    h = json.loads(hp.read_text())
+    post = _j("p7/p7_posthoc.json")
+    q = _j("repair/adapters/p7/queue_summary.json")
+    a = h["arms"]
+    arm = lambda k: dict(promoted=_j("p7/test_sample.json")["arms_on_frame"][k],  # noqa: E731
+                         precision=a[k]["precision"]["estimate"], dated=a[k]["precision_dated"]["estimate"],
+                         recall=a[k]["recall_attainable"]["estimate"])
+    return dict(frame=_j("p7/test_sample.json")["frame"], packets=h["packets"],
+                h1=dict(correct=h["H1"]["correct"], n=h["H1"]["n"], wilson=h["H1"]["wilson95"], holds=h["H1"]["holds"]),
+                h3=dict(correct=h["H3"]["correct"], n=h["H3"]["n"], supported=h["H3"]["supported"]),
+                h4=dict(diff=h["H4"]["difference_precision_dated_p7_minus_trivial"]["estimate"],
+                        ci=h["H4"]["difference_precision_dated_p7_minus_trivial"]["ci95"], supported=h["H4"]["supported"]),
+                arms={k: arm(k) for k in ("p7", "free", "trivial")},
+                base_rate=post["base_rate"]["yes"], base_rate_dated=post["base_rate"]["yes_dated"],
+                qwen=dict(agree=h["qwen_check"]["agree"], n=h["qwen_check"]["n"]),
+                review_rows=q["review_rows"], eligible=q["eligible"], promoted=q["promoted"], counted=h["headline"]["counted"],
+                by_reason=q["promoted_by_reason"], by_tier=q["promoted_by_date_tier"])
+
+
+def nights() -> dict | None:
+    """The two consecutive real nights in the recommended Docker setup (Actions run 38098822336)."""
+    p = RESULTS / "monitor" / "two_nights_docker_38098822336" / "two_nights.json"
+    if not p.exists():
+        return None
+    d = json.loads(p.read_text())
+    n1, n2 = d["night1"], d["night2"]
+    return dict(run="38098822336", night1_s=n1["wall_s"], night1_bytes=n1["bytes"]["total"], night2_s=n2["wall_s"],
+                night2_bytes=n2["bytes"]["total"], night2_bodies=n2["rescanned_bodies"], alerts=n1["alerts"] + n2["alerts"],
+                relink=n2["be_repair"]["relink"], fetch=n2["be_repair"]["fetch"])
 
 
 def method() -> dict:
@@ -1405,6 +1447,7 @@ def collect(full_text: bool = False) -> dict:
     ev["p4"] = p4()
     ev["p5"] = p5()
     ev["p6"] = p6()
+    ev["p7"] = p7()
     return _finite(
         dict(
             generated=_git("log", "-1", "--format=%h %cI"),
@@ -1416,5 +1459,6 @@ def collect(full_text: bool = False) -> dict:
             schema=schema_view(),
             downloads=downloads(),
             adapters=adapters(),
+            nights=nights(),
         )
     )

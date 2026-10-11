@@ -991,6 +991,12 @@
   "n_prompt_over_4096_minus_continuation": 0,
   "bound": "a date continuation ' \"DD.MM.YYYY\"' is 13 characters, so at most 13 tokens; the frozen scorer evaluates the prompt plus all but the last continuation token: max 4079 + 12 = 4091 <= 4096, so every 8B call would also fit the frozen scorer's 4096-token context; n_ctx only sizes the KV cache and does not change the logits of a sequence that fits"
  },
+ "gguf_cache_n_ctx_p6": {
+  "entries": 232,
+  "max_n_prompt": 4673,
+  "n_prompt_over_4096": 3,
+  "note": "These calls ran at n_ctx=6144 (GGUFFast), so every prompt fit the context used; prompts over 4,096 tokens would not fit the frozen 4,096-token scorer, so the P6 8B numbers are fast-scorer results only."
+ },
  "p3b_luzern_rule": {
   "rule": "lu_antrag (src/gegenprobe/convert/rules.py, LOCK-frozen): 'Antrag Regierungsrat:' then the first date within 300 characters. In these Luzern answer documents pdftotext prints the header labels (Nummer / Eröffnet / Antrag Regierungsrat / Protokoll-Nr.) as one column and the values as the next, so the first date after the label is the 'Eröffnet' (submission) value; the decision date is the next line.",
   "why_c_used_it": "arm C takes answer_date from the document rules whenever a rule fires (src/gegenprobe/affair/build.py: answer_date is a document-route field) and falls back to OPD metadata only when none fires, so the rule's value replaced OPD's correct answer event.",
