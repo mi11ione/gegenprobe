@@ -1,0 +1,44 @@
+1059/331059 m_yes=17.86 m_none=13.19 258.0s
+191/5945 m_yes=16.82 m_none=22.90 637.6s
+191/96124 m_yes=17.71 m_none=21.86 369.2s
+261/12464 m_yes=38.44 m_none=26.42 623.4s
+261/100987 m_yes=37.04 m_none=-16.28 593.3s
+261/101046 m_yes=31.64 m_none=-4.37 788.7s
+2829/281211 m_yes=16.49 m_none=-4.97 253.7s
+2829/281458 m_yes=19.90 m_none=16.23 212.1s
+2829/281635 m_yes=23.71 m_none=12.27 857.7s
+2829/282148 m_yes=23.84 m_none=3.69 258.0s
+2829/282181 m_yes=25.57 m_none=19.74 1023.9s
+296/16573 m_yes=10.32 m_none=12.42 334.4s
+4001/272712 m_yes=30.61 m_none=27.98 659.7s
+4001/272716 m_yes=24.28 m_none=12.06 474.2s
+4001/295669 m_yes=32.08 m_none=17.73 729.9s
+4001/312644 m_yes=25.70 m_none=23.51 216.6s
+4566/25265 m_yes=32.36 m_none=7.53 494.1s
+4566/25343 m_yes=21.80 m_none=1.04 876.2s
+4566/116097 m_yes=26.10 m_none=23.74 519.2s
+4566/116104 m_yes=6.22 m_none=23.48 931.3s
+{"label": "EXPLORATORY (PREREG8, added after LOCK8; not pre-registered): real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P7's closed-set verifier; frozen prompts a2/b1 and date rule; \u03b8_A/\u03b8_B fitted for this build on P7 dev by the rule of eval/p7/tune.py; scored against the committed P7 test gold with the estimators of eval/p7/hypotheses8.py", "build": "gguf:apertus-v1.5-8b-text-q4_k_m", "split": "dev", "shard": "0/4", "assigned": 20, "scored": 20, "scored_now": 20, "theta_sha256": null, "wall_s": 11111.2, "s_per_row": 555.6, "n_ctx": 8192} not scored: []
+	Command being timed: "python -m eval.p7.run_8b features --split dev --shard 0/4"
+	User time (seconds): 44164.41
+	System time (seconds): 5.26
+	Percent of CPU this job got: 397%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 3:05:11
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9563220
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 125706
+	Voluntary context switches: 2081
+	Involuntary context switches: 6904071
+	Swaps: 0
+	File system inputs: 1184
+	File system outputs: 912
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

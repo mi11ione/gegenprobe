@@ -1,0 +1,66 @@
+TI/173726 m_yes=28.21 m_none=17.59 781.2s
+TI/173826 m_yes=29.98 m_none=25.02 869.7s
+TI/173827 m_yes=30.74 m_none=27.02 474.9s
+TI/173851 m_yes=32.96 m_none=25.55 884.0s
+TI/173863 m_yes=28.09 m_none=25.92 817.2s
+TI/173879 m_yes=25.03 m_none=22.24 155.2s
+TI/173922 m_yes=3.44 m_none=15.17 895.4s
+TI/173947 m_yes=33.21 m_none=15.68 546.8s
+TI/174117 m_yes=18.61 m_none=24.82 173.9s
+TI/174780 m_yes=29.28 m_none=20.47 684.6s
+TI/174784 m_yes=29.21 m_none=13.23 263.4s
+TI/174795 m_yes=29.28 m_none=22.12 280.0s
+VD/225989 m_yes=34.83 m_none=-10.88 695.8s
+VD/226629 m_yes=23.23 m_none=6.47 950.7s
+VD/226696 m_yes=33.40 m_none=-2.05 963.5s
+VS/86743 m_yes=32.86 m_none=17.20 313.1s
+VS/86828 m_yes=31.63 m_none=5.02 375.8s
+VS/86879 m_yes=34.30 m_none=19.31 196.7s
+VS/86893 m_yes=11.45 m_none=6.86 588.2s
+VS/87111 m_yes=35.06 m_none=16.70 348.9s
+VS/87209 m_yes=30.23 m_none=13.67 298.8s
+VS/87230 m_yes=32.15 m_none=15.69 237.7s
+VS/87251 m_yes=33.23 m_none=17.97 429.9s
+VS/87290 m_yes=30.47 m_none=-13.49 225.8s
+VS/87299 m_yes=33.00 m_none=-2.78 207.0s
+VS/87302 m_yes=26.61 m_none=8.46 302.2s
+VS/87321 m_yes=32.03 m_none=6.41 148.9s
+VS/87351 m_yes=32.28 m_none=4.78 273.5s
+VS/87384 m_yes=29.05 m_none=15.57 486.8s
+VS/87386 m_yes=30.92 m_none=21.59 252.2s
+VS/87460 m_yes=34.06 m_none=-6.71 326.7s
+VS/87469 m_yes=28.91 m_none=-5.98 177.8s
+VS/87553 m_yes=28.81 m_none=14.90 279.2s
+VS/87588 m_yes=31.88 m_none=16.45 316.5s
+VS/87625 m_yes=31.92 m_none=21.22 250.1s
+VS/87643 m_yes=32.36 m_none=25.11 445.7s
+VS/87660 m_yes=35.07 m_none=17.00 262.5s
+VS/87730 m_yes=25.41 m_none=9.75 174.9s
+VS/87827 m_yes=30.99 m_none=11.78 289.1s
+VS/89020 m_yes=25.36 m_none=-25.02 261.0s
+VS/176827 m_yes=31.63 m_none=21.16 412.5s
+VS/176836 m_yes=32.56 m_none=23.77 417.7s
+{"label": "EXPLORATORY (PREREG8, added after LOCK8; not pre-registered): real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P7's closed-set verifier; frozen prompts a2/b1 and date rule; \u03b8_A/\u03b8_B fitted for this build on P7 dev by the rule of eval/p7/tune.py; scored against the committed P7 test gold with the estimators of eval/p7/hypotheses8.py", "build": "gguf:apertus-v1.5-8b-text-q4_k_m", "split": "test", "shard": "4/6", "assigned": 80, "scored": 42, "scored_now": 42, "theta_sha256": "82b61a058f46c0e5e0811f5066fe6321bad65c4d9f50cfa92f6dbeb6e46d3983", "wall_s": 17735.9, "s_per_row": 422.3, "n_ctx": 8192} not scored: ['VS/177013', 'VS/177020', 'VS/177215', 'VS/177391', 'VS/177402', 'VS/177441', 'VS/177460', 'VS/177512', 'VS/177518', 'VS/177523', 'VS/177601', 'VS/177655', 'VS/177698', 'VS/177733', 'VS/177861', 'VS/177956', 'VS/178935', 'VS/260179', 'VS/260188', 'VS/260294', 'VS/260307', 'VS/260329', 'VS/297511', 'VS/297563', 'VS/327824', 'VS/327825', 'VS/327827', 'VS/327832', 'VS/327839', 'VS/327848', 'VS/331873', 'VS/331874', 'VS/331878', 'VS/332076', 'VS/332094', 'VS/332100', 'VS/332196', 'VS/332197']
+	Command being timed: "python -m eval.p7.run_8b features --split test --shard 4/6"
+	User time (seconds): 70426.92
+	System time (seconds): 8.01
+	Percent of CPU this job got: 397%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 4:55:36
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9563108
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 127618
+	Voluntary context switches: 5366
+	Involuntary context switches: 10412647
+	Swaps: 0
+	File system inputs: 1192
+	File system outputs: 1496
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

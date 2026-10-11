@@ -1,0 +1,530 @@
+{
+ "H1_8b_frame": {
+  "by_stratum": {},
+  "lower_bound_at_least_0_90": false,
+  "precision": {
+   "ci95": [
+    null,
+    null
+   ],
+   "estimate": null
+  },
+  "precision_dated": {
+   "ci95": [
+    null,
+    null
+   ],
+   "estimate": null
+  },
+  "promoted_annotated": 0,
+  "promoted_in_frame": 0
+ },
+ "H1_8b_on_p7_sample": {
+  "bar": "Wilson 95% lower bound >= 0.9 with >= 40 promoted rows judged (PREREG8 H1, applied here as a yardstick, not a test)",
+  "correct": 0,
+  "date_hit": 0,
+  "errors": [],
+  "meets_h1_bar": false,
+  "precision": null,
+  "precision_dated": null,
+  "promoted_8b": 0,
+  "registered_70b": {
+   "correct": 120,
+   "n": 120
+  },
+  "same_date_as_70b": 0,
+  "sampled_p7_rows": 120,
+  "scored_8b": 47,
+  "wilson95": [
+   0.0,
+   1.0
+  ]
+ },
+ "H4_8b": {
+  "difference_precision_dated_8b_minus_trivial": {
+   "ci95": [
+    null,
+    null
+   ],
+   "estimate": null
+  },
+  "statement": "PREREG8 H4 with the 8B in place of p7: the stratified bootstrap 95% interval excludes 0 above",
+  "supported_analogue": false
+ },
+ "agreement_on_scored_frame_rows": {
+  "70b_no__8b_no": 229,
+  "70b_yes__8b_no": 53
+ },
+ "arms": {
+  "gate_rule_any_8b": {
+   "correct_dated_rows_in_frame": {
+    "ci95": [
+     0,
+     0
+    ],
+    "estimate": 0
+   },
+   "correct_rows_in_frame": {
+    "ci95": [
+     0,
+     0
+    ],
+    "estimate": 0
+   },
+   "precision": {
+    "ci95": [
+     null,
+     null
+    ],
+    "estimate": null
+   },
+   "precision_dated": {
+    "ci95": [
+     null,
+     null
+    ],
+    "estimate": null
+   },
+   "promoted_annotated": 0,
+   "promoted_in_frame": 0,
+   "recall_all": {
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "estimate": 0.0
+   },
+   "recall_attainable": {
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "estimate": 0.0
+   },
+   "what": "8B is_answer gate (m_yes > θ_A) + some printed date of the view passes the date rule"
+  },
+  "p7": {
+   "correct_dated_rows_in_frame": {
+    "ci95": [
+     123.75,
+     133.875
+    ],
+    "estimate": 129.375
+   },
+   "correct_rows_in_frame": {
+    "ci95": [
+     135.0,
+     135.0
+    ],
+    "estimate": 135.0
+   },
+   "precision": {
+    "ci95": [
+     1.0,
+     1.0
+    ],
+    "estimate": 1.0
+   },
+   "precision_dated": {
+    "ci95": [
+     0.9167,
+     0.9917
+    ],
+    "estimate": 0.9583
+   },
+   "promoted_annotated": 120,
+   "promoted_in_frame": 135,
+   "recall_all": {
+    "ci95": [
+     0.2991,
+     0.3599
+    ],
+    "estimate": 0.3257
+   },
+   "recall_attainable": {
+    "ci95": [
+     0.5643,
+     0.7773
+    ],
+    "estimate": 0.6622
+   },
+   "what": "registered P7 (70B weights via Public AI; committed decisions)"
+  },
+  "p7_8b": {
+   "correct_dated_rows_in_frame": {
+    "ci95": [
+     0,
+     0
+    ],
+    "estimate": 0
+   },
+   "correct_rows_in_frame": {
+    "ci95": [
+     0,
+     0
+    ],
+    "estimate": 0
+   },
+   "precision": {
+    "ci95": [
+     null,
+     null
+    ],
+    "estimate": null
+   },
+   "precision_dated": {
+    "ci95": [
+     null,
+     null
+    ],
+    "estimate": null
+   },
+   "promoted_annotated": 0,
+   "promoted_in_frame": 0,
+   "recall_all": {
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "estimate": 0.0
+   },
+   "recall_attainable": {
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "estimate": 0.0
+   },
+   "what": "the same frozen system on the local 8B GGUF with its own θ_A/θ_B"
+  },
+  "rule_any_view": {
+   "correct_dated_rows_in_frame": {
+    "ci95": [
+     153.5833,
+     196.9167
+    ],
+    "estimate": 172.4917
+   },
+   "correct_rows_in_frame": {
+    "ci95": [
+     190.8083,
+     261.9667
+    ],
+    "estimate": 223.8417
+   },
+   "precision": {
+    "ci95": [
+     0.971,
+     1.0
+    ],
+    "estimate": 0.9888
+   },
+   "precision_dated": {
+    "ci95": [
+     0.6548,
+     0.8782
+    ],
+    "estimate": 0.762
+   },
+   "promoted_annotated": 157,
+   "promoted_in_frame": 217,
+   "recall_all": {
+    "ci95": [
+     0.4564,
+     0.6332
+    ],
+    "estimate": 0.5401
+   },
+   "recall_attainable": {
+    "ci95": [
+     0.7714,
+     1.0
+    ],
+    "estimate": 0.8829
+   },
+   "what": "no model (ablation, eval/p7/posthoc_r8.py): some printed date of the view passes the date rule"
+  },
+  "trivial": {
+   "correct_dated_rows_in_frame": {
+    "ci95": [
+     140.7833,
+     186.0833
+    ],
+    "estimate": 160.9583
+   },
+   "correct_rows_in_frame": {
+    "ci95": [
+     183.775,
+     260.45
+    ],
+    "estimate": 219.9333
+   },
+   "precision": {
+    "ci95": [
+     1.0,
+     1.0
+    ],
+    "estimate": 1.0
+   },
+   "precision_dated": {
+    "ci95": [
+     0.6186,
+     0.8569
+    ],
+    "estimate": 0.7319
+   },
+   "promoted_annotated": 146,
+   "promoted_in_frame": 206,
+   "recall_all": {
+    "ci95": [
+     0.4431,
+     0.628
+    ],
+    "estimate": 0.5306
+   },
+   "recall_attainable": {
+    "ci95": [
+     0.7109,
+     0.9312
+    ],
+    "estimate": 0.8239
+   },
+   "what": "no model: some printed date equals an OPD answer event"
+  }
+ },
+ "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+ "checks": {
+  "registered_70b_arm_reproduced": true,
+  "registered_h4_reproduced": true
+ },
+ "coverage": {
+  "annotated": 190,
+  "annotated_scored": 88,
+  "frame": 478,
+  "not_scored": {
+   "2829/282358": "deadline",
+   "2829/282360": "deadline",
+   "2829/282387": "deadline",
+   "2829/282406": "deadline",
+   "2829/282469": "deadline",
+   "2829/295518": "deadline",
+   "2829/327414": "deadline",
+   "296/16552": "deadline",
+   "296/16637": "deadline",
+   "4001/279963": "deadline",
+   "4001/297074": "deadline",
+   "4001/297779": "deadline",
+   "4001/334016": "deadline",
+   "4001/335830": "deadline",
+   "4001/336597": "deadline",
+   "4566/116088": "deadline",
+   "4566/116090": "deadline",
+   "4566/116092": "deadline",
+   "4566/116095": "deadline",
+   "4566/116098": "deadline",
+   "4566/116111": "deadline",
+   "4566/116113": "deadline",
+   "4566/116118": "deadline",
+   "4566/116119": "deadline",
+   "4566/116120": "deadline",
+   "4566/116121": "deadline",
+   "4566/116127": "deadline",
+   "4566/116130": "deadline",
+   "4566/116132": "deadline",
+   "4566/116140": "deadline",
+   "4566/116147": "deadline",
+   "4566/116150": "deadline",
+   "4566/116151": "deadline",
+   "4566/116152": "deadline",
+   "4566/116153": "deadline",
+   "4566/116154": "deadline",
+   "4566/116158": "deadline",
+   "4566/116161": "deadline",
+   "4566/116164": "deadline",
+   "4566/116166": "deadline",
+   "4566/116169": "deadline",
+   "4566/116175": "deadline",
+   "4566/116183": "deadline",
+   "4566/116190": "deadline",
+   "4566/116191": "deadline",
+   "4566/116192": "deadline",
+   "4566/116194": "deadline",
+   "4566/116195": "deadline",
+   "4566/116196": "deadline",
+   "4566/116197": "deadline",
+   "4566/116215": "deadline",
+   "4566/116216": "deadline",
+   "4566/116222": "deadline",
+   "4566/116226": "deadline",
+   "4566/116237": "deadline",
+   "4566/19518": "deadline",
+   "4566/19602": "deadline",
+   "4566/19707": "deadline",
+   "4566/21687": "deadline",
+   "4566/22135": "deadline",
+   "4566/25160": "deadline",
+   "4566/25203": "deadline",
+   "4566/25227": "deadline",
+   "4566/25232": "deadline",
+   "4566/25239": "deadline",
+   "4566/25243": "deadline",
+   "4566/25244": "deadline",
+   "4566/25246": "deadline",
+   "4566/25248": "deadline",
+   "4566/25252": "deadline",
+   "4566/25261": "deadline",
+   "4566/25266": "deadline",
+   "4566/25267": "deadline",
+   "4566/25269": "deadline",
+   "4566/25274": "deadline",
+   "4566/25275": "deadline",
+   "4566/25276": "deadline",
+   "4566/25277": "deadline",
+   "4566/25281": "deadline",
+   "4566/25282": "deadline",
+   "4566/25285": "deadline",
+   "4566/25370": "deadline",
+   "4566/25376": "deadline",
+   "4566/25377": "deadline",
+   "4566/283882": "deadline",
+   "4566/283883": "deadline",
+   "4566/283884": "deadline",
+   "4566/283885": "deadline",
+   "4566/283886": "deadline",
+   "4566/283887": "deadline",
+   "4566/283888": "deadline",
+   "4566/295645": "deadline",
+   "4566/295646": "deadline",
+   "5002/254879": "deadline",
+   "5002/254899": "deadline",
+   "5002/254911": "deadline",
+   "5113/117038": "deadline",
+   "5113/117039": "deadline",
+   "5113/117041": "deadline",
+   "5113/117046": "deadline",
+   "5113/117048": "deadline",
+   "5113/117049": "deadline",
+   "5113/117052": "deadline",
+   "5113/117055": "deadline",
+   "5113/117060": "deadline",
+   "5113/117061": "deadline",
+   "5113/117064": "deadline",
+   "5113/117070": "deadline",
+   "5113/117080": "deadline",
+   "5113/117082": "deadline",
+   "5113/117084": "deadline",
+   "5113/117086": "deadline",
+   "5113/117089": "deadline",
+   "5586/120639": "deadline",
+   "5586/120643": "deadline",
+   "5586/251857": "deadline",
+   "5586/280213": "deadline",
+   "5586/289520": "deadline",
+   "5586/338050": "deadline",
+   "JU/242842": "deadline",
+   "JU/242843": "deadline",
+   "JU/244369": "deadline",
+   "JU/245564": "deadline",
+   "NE/216495": "deadline",
+   "NE/216606": "deadline",
+   "NE/216619": "deadline",
+   "NE/337437": "deadline",
+   "TG/331577": "deadline",
+   "TG/331580": "deadline",
+   "TG/331582": "deadline",
+   "TG/331585": "deadline",
+   "TG/331758": "deadline",
+   "TG/331759": "deadline",
+   "TG/331767": "deadline",
+   "TI/173433": "deadline",
+   "TI/173545": "deadline",
+   "TI/173601": "deadline",
+   "TI/173612": "deadline",
+   "TI/173624": "deadline",
+   "TI/77351": "deadline",
+   "TI/83122": "deadline",
+   "TI/83293": "deadline",
+   "TI/83344": "deadline",
+   "TI/83348": "deadline",
+   "TI/83366": "deadline",
+   "TI/83452": "deadline",
+   "TI/83461": "deadline",
+   "TI/83467": "deadline",
+   "TI/83605": "deadline",
+   "TI/83775": "deadline",
+   "TI/83809": "deadline",
+   "TI/83857": "deadline",
+   "TI/83904": "deadline",
+   "TI/84013": "deadline",
+   "TI/84641": "deadline",
+   "TI/84717": "deadline",
+   "VS/177013": "deadline",
+   "VS/177020": "deadline",
+   "VS/177215": "deadline",
+   "VS/177391": "deadline",
+   "VS/177402": "deadline",
+   "VS/177441": "deadline",
+   "VS/177460": "deadline",
+   "VS/177512": "deadline",
+   "VS/177518": "deadline",
+   "VS/177523": "deadline",
+   "VS/177601": "deadline",
+   "VS/177655": "deadline",
+   "VS/177698": "deadline",
+   "VS/177733": "deadline",
+   "VS/177861": "deadline",
+   "VS/177956": "deadline",
+   "VS/178935": "deadline",
+   "VS/260179": "deadline",
+   "VS/260188": "deadline",
+   "VS/260294": "deadline",
+   "VS/260307": "deadline",
+   "VS/260329": "deadline",
+   "VS/297511": "deadline",
+   "VS/297563": "deadline",
+   "VS/327824": "deadline",
+   "VS/327825": "deadline",
+   "VS/327827": "deadline",
+   "VS/327832": "deadline",
+   "VS/327839": "deadline",
+   "VS/327848": "deadline",
+   "VS/331873": "deadline",
+   "VS/331874": "deadline",
+   "VS/331878": "deadline",
+   "VS/332076": "deadline",
+   "VS/332094": "deadline",
+   "VS/332100": "deadline",
+   "VS/332196": "deadline",
+   "VS/332197": "deadline",
+   "ZH/270964": "deadline",
+   "ZH/271042": "deadline"
+  },
+  "note": "a row the 8B could not score (document unreachable or changed, prompt too long, deadline) counts as not promoted",
+  "scored": 282,
+  "text_identical": 234
+ },
+ "label": "EXPLORATORY (PREREG8, added after LOCK8; not pre-registered): real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P7's closed-set verifier; frozen prompts a2/b1 and date rule; θ_A/θ_B fitted for this build on P7 dev by the rule of eval/p7/tune.py; scored against the committed P7 test gold with the estimators of eval/p7/hypotheses8.py",
+ "method": "eval/p7/hypotheses8.py unchanged (load, est, _ratio, _recall, _total, boot: B = 10,000, seed 20261014) on the committed key, decisions and gold (hash-checked against results/p7/test_sample.json); gold date checks from data/p7/date_rule_outcomes.jsonl; the ablation from data/p7/rule_any_outcomes.jsonl",
+ "precision_dated_8b_minus_70b": {
+  "ci95": [
+   null,
+   null
+  ],
+  "estimate": null
+ },
+ "theta": {
+  "date": "b1",
+  "dev": {
+   "correct": 0,
+   "date_hit": null,
+   "precision": null,
+   "promoted": 0,
+   "recall_all": null,
+   "recall_attainable": null,
+   "wilson": null
+  },
+  "is_answer": "a2",
+  "theta_a": null,
+  "theta_b": null
+ }
+}

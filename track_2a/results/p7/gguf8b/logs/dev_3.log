@@ -1,0 +1,44 @@
+VD/224023 m_yes=34.86 m_none=-18.02 801.5s
+VD/224942 m_yes=32.96 m_none=-10.20 750.8s
+VS/87360 m_yes=30.58 m_none=17.53 429.4s
+VS/87490 m_yes=28.16 m_none=-0.45 280.0s
+VS/177911 m_yes=32.44 m_none=17.87 224.7s
+VS/260462 m_yes=33.15 m_none=0.01 245.2s
+VS/332093 m_yes=29.58 m_none=23.15 151.7s
+VS/332098 m_yes=22.67 m_none=8.94 492.8s
+VS/332456 m_yes=33.35 m_none=-9.07 296.9s
+VS/332498 m_yes=26.30 m_none=11.80 146.1s
+VS/332527 m_yes=33.12 m_none=-7.06 236.5s
+VS/332623 m_yes=32.91 m_none=-4.97 207.3s
+ZH/255351 m_yes=22.72 m_none=18.82 428.3s
+ZH/262385 m_yes=26.81 m_none=22.22 549.0s
+ZH/266749 m_yes=30.56 m_none=9.35 463.7s
+ZH/267315 m_yes=31.29 m_none=9.17 690.9s
+ZH/267948 m_yes=33.10 m_none=15.26 567.0s
+ZH/268401 m_yes=34.13 m_none=9.90 298.2s
+ZH/269695 m_yes=-18.19 m_none=27.77 658.7s
+ZH/271106 m_yes=32.11 m_none=16.86 500.4s
+{"label": "EXPLORATORY (PREREG8, added after LOCK8; not pre-registered): real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P7's closed-set verifier; frozen prompts a2/b1 and date rule; \u03b8_A/\u03b8_B fitted for this build on P7 dev by the rule of eval/p7/tune.py; scored against the committed P7 test gold with the estimators of eval/p7/hypotheses8.py", "build": "gguf:apertus-v1.5-8b-text-q4_k_m", "split": "dev", "shard": "3/4", "assigned": 20, "scored": 20, "scored_now": 20, "theta_sha256": null, "wall_s": 8419.2, "s_per_row": 421.0, "n_ctx": 8192} not scored: []
+	Command being timed: "python -m eval.p7.run_8b features --split dev --shard 3/4"
+	User time (seconds): 33354.89
+	System time (seconds): 5.13
+	Percent of CPU this job got: 396%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:20:19
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9563596
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 124514
+	Voluntary context switches: 1092
+	Involuntary context switches: 4823372
+	Swaps: 0
+	File system inputs: 1192
+	File system outputs: 904
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

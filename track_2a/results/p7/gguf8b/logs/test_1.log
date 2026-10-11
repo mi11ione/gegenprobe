@@ -1,0 +1,49 @@
+4566/25287 m_yes=29.90 m_none=-14.19 609.5s
+4566/25298 m_yes=32.82 m_none=-7.78 736.9s
+4566/25302 m_yes=31.04 m_none=-20.36 591.1s
+4566/25304 m_yes=30.37 m_none=-7.90 611.9s
+4566/25306 m_yes=27.01 m_none=-10.55 815.1s
+4566/25311 m_yes=25.25 m_none=-8.20 849.2s
+4566/25313 m_yes=28.40 m_none=-4.76 316.8s
+4566/25314 m_yes=22.80 m_none=-11.63 899.5s
+4566/25316 m_yes=25.35 m_none=-0.57 1019.4s
+4566/25317 m_yes=30.97 m_none=-9.56 356.1s
+4566/25318 m_yes=25.21 m_none=-5.38 902.4s
+4566/25320 m_yes=28.90 m_none=-22.58 956.4s
+4566/25321 m_yes=8.61 m_none=-2.42 874.3s
+4566/25324 m_yes=32.47 m_none=-21.56 292.7s
+4566/25327 m_yes=27.49 m_none=-16.99 786.9s
+4566/25329 m_yes=-14.38 m_none=13.43 900.0s
+4566/25331 m_yes=25.46 m_none=-21.51 952.9s
+4566/25334 m_yes=32.09 m_none=-5.64 751.3s
+4566/25341 m_yes=26.96 m_none=-20.39 280.1s
+4566/25345 m_yes=27.85 m_none=-2.98 899.0s
+4566/25347 m_yes=33.58 m_none=-5.68 920.0s
+4566/25355 m_yes=31.17 m_none=-3.46 534.4s
+4566/25358 m_yes=30.47 m_none=-8.41 468.2s
+4566/25365 m_yes=29.07 m_none=-13.21 342.3s
+4566/25368 m_yes=18.81 m_none=8.76 948.0s
+{"label": "EXPLORATORY (PREREG8, added after LOCK8; not pre-registered): real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P7's closed-set verifier; frozen prompts a2/b1 and date rule; \u03b8_A/\u03b8_B fitted for this build on P7 dev by the rule of eval/p7/tune.py; scored against the committed P7 test gold with the estimators of eval/p7/hypotheses8.py", "build": "gguf:apertus-v1.5-8b-text-q4_k_m", "split": "test", "shard": "1/6", "assigned": 80, "scored": 25, "scored_now": 25, "theta_sha256": "82b61a058f46c0e5e0811f5066fe6321bad65c4d9f50cfa92f6dbeb6e46d3983", "wall_s": 17614.7, "s_per_row": 704.6, "n_ctx": 8192} not scored: ['4566/116088', '4566/116090', '4566/116092', '4566/116095', '4566/116098', '4566/116111', '4566/116113', '4566/116118', '4566/116119', '4566/116120', '4566/116121', '4566/116127', '4566/116130', '4566/116132', '4566/116140', '4566/116147', '4566/116150', '4566/116151', '4566/116152', '4566/116153', '4566/116154', '4566/116158', '4566/116161', '4566/116164', '4566/116166', '4566/116169', '4566/116175', '4566/116183', '4566/116190', '4566/116191', '4566/116192', '4566/116194', '4566/116195', '4566/116196', '4566/116197', '4566/116215', '4566/116216', '4566/116222', '4566/116226', '4566/116237', '4566/25370', '4566/25376', '4566/25377', '4566/283882', '4566/283883', '4566/283884', '4566/283885', '4566/283886', '4566/283887', '4566/283888', '4566/295645', '4566/295646', '5002/254879', '5002/254899', '5002/254911']
+	Command being timed: "python -m eval.p7.run_8b features --split test --shard 1/6"
+	User time (seconds): 69998.86
+	System time (seconds): 7.69
+	Percent of CPU this job got: 397%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 4:53:35
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9562144
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 126922
+	Voluntary context switches: 5755
+	Involuntary context switches: 10308102
+	Swaps: 0
+	File system inputs: 1184
+	File system outputs: 1048
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

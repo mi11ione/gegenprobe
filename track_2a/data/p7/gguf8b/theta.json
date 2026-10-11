@@ -1,0 +1,27 @@
+{
+ "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+ "date": "b1",
+ "dev": {
+  "correct": 0,
+  "date_hit": null,
+  "precision": null,
+  "promoted": 0,
+  "recall_all": null,
+  "recall_attainable": null,
+  "wilson": null
+ },
+ "dev_not_scored": [],
+ "dev_scored": 80,
+ "dev_text_identical": 64,
+ "features_sha256": "4e0740969bfae91e8712e85deeb38226151a06fb7bb57d3d07b04f35caf95c1e",
+ "is_answer": "a2",
+ "label": "EXPLORATORY (PREREG8, added after LOCK8; not pre-registered): real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P7's closed-set verifier; frozen prompts a2/b1 and date rule; \u03b8_A/\u03b8_B fitted for this build on P7 dev by the rule of eval/p7/tune.py; scored against the committed P7 test gold with the estimators of eval/p7/hypotheses8.py",
+ "no_theta_note": "no grid value satisfies the rule for any \u03b8_B: the 8B promotes nothing",
+ "reference_70b": {
+  "theta_a": 8.0,
+  "theta_b": 10.0
+ },
+ "rule": "eval/p7/tune.py unchanged: per \u03b8_B in tune.THETA_B, \u03b8_A = the smallest tune.GRID value with no promoted dev row gold no/unclear/disputed (tune.rule_theta); chosen: most correct promotions at its \u03b8_A, ties the smaller \u03b8_B (the is_answer prompt is fixed at the frozen a2)",
+ "theta_a": null,
+ "theta_b": null
+}
