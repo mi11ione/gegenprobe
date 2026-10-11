@@ -9,8 +9,8 @@ claims.tsv, `check` fails (exit 1) when
     phrase is not found within CONTEXT_WINDOW characters of a token match of `shown` in that document, or
   * an anchor (claims_anchor.json: {claim id: {document: [phrase, ...]}}) is not found in its document, does not contain
     the claim's `shown` value as a whole token, or names a document the claim's `where` does not list, or
-  * a numeric token inside a strict zone (claims_strict.json: the README's headline block up to its first "## " and its
-    results tables, the report's summary up to "## 2.", the form notes entirely) is not bound to a claim: no anchor of a
+  * a numeric token inside a strict zone (claims_strict.json: since round 13 the README, the technical report and the
+    form notes, each end to end) is not bound to a claim: no anchor of a
     claim whose `where` lists that document covers that exact token, i.e. no occurrence of an anchor phrase holds the
     claim's `shown` value at the token's position. Numeric tokens: integers >= 10, every decimal, percentage, ratio
     (120/120) and interval ([96.9, 100]); integers below 10 are free. Non-claims (team number, dates, the form's character

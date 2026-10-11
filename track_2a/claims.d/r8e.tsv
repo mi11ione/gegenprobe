@@ -1,8 +1,8 @@
 id	shown	file	path	fmt	command	where	context
 r8e.p7_queue_promoted	214	results/p7/p7_posthoc_r8.json	without_frauenfeld.queue_promotions.all	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
-r8e.p7_queue_frauenfeld	109	results/p7/p7_posthoc_r8.json	without_frauenfeld.queue_promotions.frauenfeld	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	technical_report.md,docs/evaluation.md	
+r8e.p7_queue_frauenfeld	109	results/p7/p7_posthoc_r8.json	without_frauenfeld.queue_promotions.frauenfeld	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_judged_frauenfeld	72	results/p7/p7_posthoc_r8.json	without_frauenfeld.h1.frauenfeld_only.n	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
-r8e.p7_nf_h1	48/48	results/p7/p7_posthoc_r8.json	without_frauenfeld.h1.correct/without_frauenfeld.h1.n	frac	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	technical_report.md,README.md,docs/evaluation.md	
+r8e.p7_nf_h1	48/48	results/p7/p7_posthoc_r8.json	without_frauenfeld.h1.correct/without_frauenfeld.h1.n	frac	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	README.md,docs/evaluation.md	
 r8e.p7_nf_h1_ci	[92.6, 100]	results/p7/p7_posthoc_r8.json	display.nf_h1_wilson_pct	ci	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_parliaments_judged	9	results/p7/p7_posthoc_r8.json	cluster.n_parliaments_with_p7_rows	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_parliament_unit_ci	[70.1, 100]	results/p7/p7_posthoc_r8.json	display.parliament_unit_wilson_pct	ci	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	

@@ -1,0 +1,23 @@
+{
+ "n": 154,
+ "rederived": 154,
+ "match": 154,
+ "mismatches": [],
+ "unreachable": [],
+ "skipped_no_ocr": 0,
+ "not_reached_budget": 0,
+ "ocr_failed": [],
+ "tesseract": "5.5.3",
+ "poppler": "26.02.0",
+ "ocr": {
+  "ok": true,
+  "reason": "",
+  "dir": ".work/tessdata (TESSDATA_PREFIX; the four pinned tessdata_fast models, sha256-verified)",
+  "pinned": true,
+  "unpinned": [],
+  "tessdata_commit": "87416418657359cb625c412a48b6e1d6d41c29bd"
+ },
+ "secs": 0.6,
+ "note": "local measurement with the pinned OCR models (gegenprobe.ocrguard.TESSDATA_SHA256): TESSDATA_PREFIX=.work/tessdata python -m eval.rederive; OCR results of the scans were produced by the pinned models (the guard redoes any cached OCR recorded with other models); `make run` writes out/rederive.json",
+ "scans": 22
+}

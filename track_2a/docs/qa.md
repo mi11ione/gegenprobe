@@ -89,8 +89,6 @@ affairs blind with the same guide and the same packets.
   question documents are the French versions. The frozen rule accepts bare numbers only where the answer reprints
   question n in the member's words, which cannot happen across languages (see "Question and answer in different
   languages" below; pairing by number alone finds 11/11, post hoc). Basel-Landschaft was 14/31, with precision 14/30.
-  *Corrected in round 13; until then this line said that the Valais answers discuss the questions without marking
-  them, which holds only for the two affairs without scored answers.*
 - **Rules-only submitter detection does not transfer:** 12/40 on P5, against 36/38 on dev. There were 14 affairs
   without a value and 14 with the wrong person. The pointer over printed names raises it to 24/40. Free generation names
   the right printed person in 34/40, but without a span or a closed set. Submitter detection stays a review field.

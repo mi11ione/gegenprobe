@@ -116,7 +116,8 @@
   "docs/ech-onepager.md": "4 fields are in"
  },
  "matrix.fields_partial": {
-  "docs/ech-onepager.md": "13 partly"
+  "docs/ech-onepager.md": "13 partly",
+  "technical_report.md": "13 partly or only"
  },
  "opd.be_begin_2024_10_28": {
   "docs/operations.md": "affairs carry a load timestamp:"
@@ -145,14 +146,15 @@
  },
  "opd.virtual_bodies": {
   "README.md": "meeting documents",
-  "docs/evaluation.md": "publish only meeting documents ("
+  "docs/evaluation.md": "publish only meeting documents (",
+  "technical_report.md": "16 bodies; v0.1"
  },
  "opd.virtual_no_affairs": {
   "docs/evaluation.md": "with no affair at all"
  },
  "p2.bodies": {
   "README.md": "parliaments nobody wrote rules for",
-  "docs/form_notes.md": "answer dates on 15 unseen"
+  "docs/form_notes.md": "15 parliaments nobody wrote rules for"
  },
  "p2.bodies_scope": {
   "docs/evaluation.md": "parliaments without rules"
@@ -171,7 +173,8 @@
  },
  "p2.n": {
   "README.md": "15 parliaments without rules",
-  "docs/evaluation.md": "parliaments absent from every dev and held-out"
+  "docs/evaluation.md": "parliaments absent from every dev and held-out",
+  "technical_report.md": "| P2 | 62 documents"
  },
  "p2.n_null": {
   "docs/evaluation.md": "absent from every dev and held-out set**"
@@ -190,7 +193,8 @@
  },
  "p3.n_affairs": {
   "README.md": "whole affairs",
-  "docs/evaluation.md": "P3 — whole affairs:"
+  "docs/evaluation.md": "P3 — whole affairs:",
+  "technical_report.md": "| P3 | 29 whole affairs"
  },
  "p3.n_bodies": {
   "docs/evaluation.md": "affairs (58 PDFs) from"
@@ -200,6 +204,9 @@
  },
  "p4.dates": {
   "docs/evaluation.md": "meeting date"
+ },
+ "p4.derived": {
+  "technical_report.md": "P4: 99 of 120"
  },
  "p4.dev_items": {
   "docs/virtual-affairs.md": "dev meetings:"
@@ -316,29 +323,29 @@
  "p8.meaning_measured_total": {
   "README.md": "measured for 11 of the 17 fields",
   "docs/census.md": "meaning is measured for 11 of the 17",
-  "docs/ech-onepager.md": "Meaning is now measured for 11 of the 17",
+  "docs/ech-onepager.md": "measured for 11 of the 17 fields",
   "docs/evaluation.md": "**Meaning tested for 11 of 17 fields.**",
   "technical_report.md": "Meaning is measured for 11 of 17 fields (Table 1)"
  },
  "p8.meaning_tested": {
-  "../README.md": "**5 of 7**",
-  "README.md": "**5 of 7**",
+  "../README.md": "meaning test of 7 fields (P8",
+  "README.md": "test of 7 fields on the documents",
   "docs/evaluation.md": "what 7 fields v0.1 defines once",
-  "docs/form_notes.md": "fields v0.1 defines once",
-  "technical_report.md": "meaning of 7 fields v0.1 defines once"
+  "docs/form_notes.md": "test of 7 fields on 66",
+  "technical_report.md": "meaning of 7 fields in the documents"
  },
  "p8.n": {
   "../README.md": "(P8: 66 affairs, 11 parliaments)",
   "README.md": "On 66 fresh affairs from",
-  "docs/ech-onepager.md": "66 fresh affairs from 11 parliaments (P8) finds roles",
+  "docs/ech-onepager.md": "fields on 66 fresh affairs",
   "docs/evaluation.md": "| P8 | 66 fresh affairs, 11 parliaments |",
-  "docs/form_notes.md": "test on 66 affairs from",
-  "technical_report.md": "meaning test on 66 affairs from"
+  "docs/form_notes.md": "on 66 affairs from 11 parliaments",
+  "technical_report.md": "on 66 affairs from 11 parliaments"
  },
  "p8.parliaments": {
   "../README.md": "(P8: 66 affairs, 11 parliaments)",
   "README.md": "affairs from 11 parliaments, labelled blind",
-  "docs/ech-onepager.md": "fresh affairs from 11 parliaments (P8)",
+  "docs/ech-onepager.md": "11 parliaments (P8) finds roles",
   "docs/evaluation.md": "| P8 | 66 fresh affairs, 11 parliaments |",
   "docs/form_notes.md": "66 affairs from 11 parliaments (P8)",
   "technical_report.md": "66 affairs from 11 parliaments (P8)"
@@ -348,8 +355,7 @@
   "technical_report.md": "(18 affairs)"
  },
  "p8.robust_n": {
-  "../README.md": "**5 of 7**",
-  "README.md": "**5 of 7**",
+  "README.md": "5 robust under both checks",
   "docs/evaluation.md": "5 robust under both checks",
   "technical_report.md": "5 robust; meaning measured"
  },
@@ -402,14 +408,103 @@
   "docs/evaluation.md": "| type | **role split** |"
  },
  "question.bodies": {
-  "docs/ech-onepager.md": "In 7 of"
+  "docs/ech-onepager.md": "In 7 of",
+  "technical_report.md": "in 7 of 54 bodies"
  },
  "question.median_days_question_time": {},
  "question.same_day_bodies": {
   "README.md": "in 7 parliaments",
   "docs/ech-onepager.md": "of 54 bodies",
-  "docs/form_notes.md": "in 7 parliaments",
+  "docs/form_notes.md": "parliaments mostly the submission date",
   "technical_report.md": "parliaments OPD's"
+ },
+ "r13.at_min_n": {
+  "README.md": "with at least 20",
+  "technical_report.md": "with at least 20"
+ },
+ "r13.at_vs_after": {
+  "README.md": "in 61 of its 163",
+  "technical_report.md": "in 61 of its 163"
+ },
+ "r13.at_vs_rows": {
+  "README.md": "in 61 of its 163",
+  "technical_report.md": "in 61 of its 163"
+ },
+ "r13.conv_affairs": {
+  "README.md": "of the 105 converter affairs"
+ },
+ "r13.conv_authors": {
+  "README.md": "75 of its 105 records",
+  "docs/form_notes.md": "75 of its 105 records",
+  "technical_report.md": "75 of its 105 records"
+ },
+ "r13.conv_function": {
+  "README.md": "78 the instrument's function"
+ },
+ "r13.conv_language_all": {
+  "README.md": "all 105 the language",
+  "technical_report.md": "all 105 the language"
+ },
+ "r13.fed_n": {
+  "README.md": "On 15 Federal Council answers",
+  "docs/form_notes.md": "15 Federal Council answers",
+  "technical_report.md": "15 Federal Council answers"
+ },
+ "r13.ocr_scans": {
+  "README.md": "22 Ticino scans",
+  "technical_report.md": "22 Ticino scans"
+ },
+ "r13.p7_hit_pct": {
+  "../README.md": "answer date on 113/120",
+  "README.md": "answer date on 113/120",
+  "docs/form_notes.md": "gold answer date in 113/120",
+  "technical_report.md": "gold answer date in 113/120"
+ },
+ "r13.p7_rule_pct": {
+  "README.md": "127/157 (81%)"
+ },
+ "r13.p7_trivial_pct": {
+  "../README.md": "127/146 (87%)",
+  "README.md": "127/146 (87%)",
+  "docs/form_notes.md": "127/146 (87%)",
+  "technical_report.md": "127/146 (87%)"
+ },
+ "r13.pg_begin": {
+  "README.md": "554\n  `begin_date` corrections"
+ },
+ "r13.pg_review": {
+  "README.md": "of the 173 review rows"
+ },
+ "r13.ranked": {
+  "README.md": "17 parliaments with at least",
+  "docs/form_notes.md": "14th of 17",
+  "technical_report.md": "17 parliaments with at least"
+ },
+ "r13.tagged_docs": {
+  "README.md": "of the 130 tagged"
+ },
+ "r13.v02_fed_affairs": {
+  "README.md": "186 affairs from",
+  "technical_report.md": "186 affairs from"
+ },
+ "r13.v02_fed_parliaments": {
+  "README.md": "from 26 parliaments",
+  "technical_report.md": "from 26 parliaments"
+ },
+ "r13.vs_median_doc": {
+  "README.md": "14th (100 days)",
+  "technical_report.md": "14th (100 days)"
+ },
+ "r13.xl_first_pair_cross": {
+  "README.md": "in 214 of 1,999",
+  "docs/form_notes.md": "(214 of 1,999",
+  "technical_report.md": "(214 of 1,999"
+ },
+ "r13.xl_gr": {
+  "README.md": "Graubünden 148"
+ },
+ "r13.xl_vs": {
+  "README.md": "Valais 63"
  },
  "r2a.p2_bodies_pointer": {
   "docs/evaluation.md": "on answered documents the pointer is ahead in"
@@ -465,6 +560,7 @@
   "technical_report.md": "null-allowed, re-parsed (D2-4)"
  },
  "r3w3.coverage_gap_bodies": {
+  "README.md": "31 parliaments where OPD holds",
   "docs/operations.md": "parliaments whose",
   "technical_report.md": "parliaments with almost no answers in OPD"
  },
@@ -485,6 +581,15 @@
  "r3w4.ci_claims_failing": {
   "README.md": "claims were checked with",
   "technical_report.md": "claims were checked,"
+ },
+ "r4d.f_8b_found": {
+  "technical_report.md": "finds 15 of 21"
+ },
+ "r4d.f_found_of": {
+  "technical_report.md": "15 of 21 answer dates"
+ },
+ "r4d.t_p2_found_70": {
+  "technical_report.md": "(70B 16)"
  },
  "r5a.audit_calls": {
   "docs/evaluation.md": "calls, USD"
@@ -572,8 +677,7 @@
   "docs/evaluation.md": "parliaments with a judged"
  },
  "r8e.p7_queue_frauenfeld": {
-  "docs/evaluation.md": "supplies",
-  "technical_report.md": "Without Frauenfeld"
+  "docs/evaluation.md": "supplies"
  },
  "r8e.p7_queue_promoted": {
   "docs/evaluation.md": "of the 214"
@@ -611,12 +715,13 @@
  },
  "repair.be_attached": {
   "README.md": "OPD attaches",
-  "docs/form_notes.md": "In Bern, OPD attaches",
+  "docs/form_notes.md": "OPD attaches 229 of the",
   "docs/operations.md": "answers the canton publishes, OPD attaches",
   "docs/repair.md": "of them are attached to their affair,",
   "technical_report.md": "OPD attaches"
  },
  "repair.be_fetch": {
+  "README.md": "and 49 fetch",
   "docs/operations.md": "fetch candidates",
   "docs/repair.md": "canton lists an answer OPD lacks |"
  },
@@ -680,7 +785,15 @@
  "report.bilanz_bodies": {},
  "report.heldout_n": {
   "README.md": "parliaments with rules",
-  "docs/form_notes.md": "right on"
+  "docs/form_notes.md": "right on",
+  "technical_report.md": "| P1 | 154 documents"
+ },
+ "report.heldout_null": {
+  "README.md": "of the 90 answerless",
+  "technical_report.md": "7 of 90 answerless"
+ },
+ "report.heldout_value": {
+  "README.md": "47 of 64 answer dates"
  },
  "report.oracle_match": {
   "technical_report.md": "OPD's event matches"
@@ -706,7 +819,8 @@
   "technical_report.md": "at a 10% threshold"
  },
  "robust.type_ambiguous": {
-  "README.md": "raw type labels"
+  "README.md": "raw type labels",
+  "technical_report.md": "42 of 1,038 raw labels"
  },
  "schema.event_titles": {
   "docs/schema.md": "| distinct harmonised event titles |"

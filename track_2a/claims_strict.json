@@ -1,27 +1,13 @@
 {
- "_doc": "Strict zones for `make claims` (gegenprobe.claims.zone_check): every numeric token in a zone must be bound to a claim whose `where` lists the document, by an anchor in claims_anchor.json that holds the claim's value at that position. A zone is {start, end} (literals; null = top/end) or a list of them. `allow` lists the non-claims literally, each with why.",
+ "_doc": "Strict zones for `make claims` (gegenprobe.claims.zone_check): every numeric token in a zone must be bound to a claim whose `where` lists the document, by an anchor in claims_anchor.json that holds the claim's value at that position. Round 13: README.md, technical_report.md and docs/form_notes.md are strict end to end. A zone is {start, end} (literals; null = top/end) or a list of them. `allow` lists the non-claims literally, each with why.",
  "zones": {
-  "README.md": [
-   {
-    "start": null,
-    "end": "\n## "
-   },
-   {
-    "start": "| list | rows | how each row is checked | applies |",
-    "end": "\n\n"
-   },
-   {
-    "start": "| field | class | meaning tested |",
-    "end": "\n\n"
-   },
-   {
-    "start": "| test | n | what it tests | registered result | key number |",
-    "end": "\n\n"
-   }
-  ],
+  "README.md": {
+   "start": null,
+   "end": null
+  },
   "technical_report.md": {
    "start": null,
-   "end": "\n## 2."
+   "end": null
   },
   "docs/form_notes.md": {
    "start": null,
@@ -37,6 +23,62 @@
    {
     "phrase": "Wilson 95%",
     "why": "confidence level of the interval, not a result"
+   },
+   {
+    "phrase": "10 Oct 2026",
+    "why": "date of OPD's correspondence"
+   },
+   {
+    "phrase": "6 Oct 2026",
+    "why": "date of the OPD export snapshot"
+   },
+   {
+    "phrase": "CC BY 4.0",
+    "why": "licence name and version"
+   },
+   {
+    "phrase": "95% lower bound",
+    "why": "confidence level of the registered bar, not a result"
+   },
+   {
+    "phrase": "12 Oct 00:30 UTC",
+    "why": "start time of OPD's next nightly export"
+   },
+   {
+    "phrase": "HTTP 404",
+    "why": "an HTTP status code"
+   },
+   {
+    "phrase": "2024–25",
+    "why": "a period (calendar years)"
+   },
+   {
+    "phrase": "BBl 2014 9657",
+    "why": "an example Fedlex citation (Federal Gazette year and page)"
+   },
+   {
+    "phrase": "per 1,000",
+    "why": "the unit of a cost (per 1,000 residue documents)"
+   },
+   {
+    "phrase": "2025 (",
+    "why": "a calendar year (the year whose answers are counted)"
+   },
+   {
+    "phrase": "registered 0.80 bar",
+    "why": "the registered threshold, fixed before the labels"
+   },
+   {
+    "phrase": "from 10 up",
+    "why": "the claims checker's own threshold (integers from 10 are checked)"
+   },
+   {
+    "phrase": "below 10 are not checked",
+    "why": "the claims checker's own threshold"
+   },
+   {
+    "phrase": "1.2 s apart",
+    "why": "a setting: the minimum interval between requests to one host"
    }
   ],
   "technical_report.md": [
@@ -55,6 +97,86 @@
    {
     "phrase": "12 Oct 00:30 UTC",
     "why": "dispatch time of the nightly re-run"
+   },
+   {
+    "phrase": "6 Oct 2026",
+    "why": "date of the OPD export snapshot"
+   },
+   {
+    "phrase": "CC BY 4.0",
+    "why": "licence name and version"
+   },
+   {
+    "phrase": "95% lower bound",
+    "why": "confidence level of the registered bar, not a result"
+   },
+   {
+    "phrase": "style=\"width:86%",
+    "why": "figure width (layout)"
+   },
+   {
+    "phrase": "style=\"width:90%",
+    "why": "figure width (layout)"
+   },
+   {
+    "phrase": "first 12,000 characters",
+    "why": "a frozen setting of the pointer (characters read)"
+   },
+   {
+    "phrase": "600 s",
+    "why": "a setting: the per-PDF time cap"
+   },
+   {
+    "phrase": "Actions run 38098822336",
+    "why": "a GitHub Actions run id"
+   },
+   {
+    "phrase": "per 1,000",
+    "why": "the unit of a cost (per 1,000 residue documents)"
+   },
+   {
+    "phrase": "in 2025",
+    "why": "a calendar year (the year whose answers are counted)"
+   },
+   {
+    "phrase": "[95% CI]",
+    "why": "confidence level in a column header"
+   },
+   {
+    "phrase": "95% interval",
+    "why": "confidence level of the intervals, not a result"
+   },
+   {
+    "phrase": "≥ 0.80",
+    "why": "the registered bar, fixed before the labels"
+   },
+   {
+    "phrase": "vs 10%",
+    "why": "P1-H1's registered bound, fixed before the labels"
+   },
+   {
+    "phrase": "vs 15%",
+    "why": "P6-H2's registered bound, fixed before the labels"
+   },
+   {
+    "phrase": "≥ 0.90",
+    "why": "P7-H1's registered bar, fixed before the labels"
+   },
+   {
+    "phrase": "below 10 and listed",
+    "why": "the claims checker's own threshold"
+   },
+   {
+    "phrase": "θ_B = 10",
+    "why": "a frozen setting of the verifier (date margin)"
+   },
+   {
+    "phrase": "≥ 1.2 s per host",
+    "why": "a setting: the minimum interval between requests to one host"
+   },
+   {
+    "phrase": "50 MB",
+    "why": "a setting: the per-PDF size cap"
    }
   ],
   "docs/form_notes.md": [
@@ -71,8 +193,8 @@
     "why": "date of OPD's correspondence"
    },
    {
-    "phrase": "12 Oct 00:30 UTC",
-    "why": "dispatch time of the nightly re-run"
+    "phrase": "from 10 up",
+    "why": "the claims checker's own threshold (integers from 10 are checked)"
    }
   ]
  }

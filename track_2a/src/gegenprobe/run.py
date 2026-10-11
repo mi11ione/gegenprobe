@@ -22,8 +22,8 @@ steps that need the network or a model endpoint and cannot reach them; the repla
               (no request leaves the machine); FAIL only if a cache hit gives a different decision
   9 claims    every claimed number recomputed from its results file and found where it is printed (token-bounded; short
               values need context); every anchor found at its position (claims_anchor.json); in the strict zones
-              (README top and results tables, report summary, form notes; claims_strict.json) every number token must
-              be bound to its claim by an anchor
+              (README, technical report, form notes, each end to end; claims_strict.json) every number token must
+              be bound to its claim by an anchor or be a listed non-claim
 The last lines: the P1 (and P2) Apertus replay coverage, e.g. "Apertus replay: P1 132/154 decisions re-derived from the
 model cache, 132 match (22 cache misses)", then "RESULT PASS in 537 s"; when a step skipped, the RESULT line names it:
 "RESULT PASS (offline: 3 steps skipped: convert, rederive, rederive_apertus) in 868 s".

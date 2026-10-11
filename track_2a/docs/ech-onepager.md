@@ -6,15 +6,17 @@ with `$id` and version 0.1.0: `results/schema/*.schema.json`; v0.2 with P8's rol
 JSON Schema `results/schema/v0_2/affair.schema.json`; field guide: `docs/schema.md`; mappings to Popolo, Akoma
 Ntoso, Parla-CLARIN and OParl: `docs/mapping.md`.
 
-**In one line:** a common schema works if its fields carry roles, and not only for dates. Of the 17 fields, 10 need
-roles (8 robust, 2 fragile), 1 is body-specific, and 6 are defined once in v0.1 (their meaning is
-the next test). "Answer date" is the government's decision in some parliaments, the letter or registration date in
-others and in 7 bodies mostly the submission date; v0.1 makes the role explicit on every date. A pre-registered test on
-66 fresh affairs from 11 parliaments (P8) finds roles in fields v0.1 defined once: authorship (sole author, first
-signatory, joint authors, parliamentary group), signatories, the instrument behind a harmonised type, and the date a
-submission really carries; §2 turns each finding into a recommendation. Meaning is now measured for 11 of the 17
-fields. **v0.2 ships P8's roles and validates 171 affairs**: the converter's own records for P3 (29), P3b (36) and P5
-(40) and the 66 P8 affairs; the v0.1 samples upgrade losslessly (`results/schema/v0_2/validation_all.json`).
+**In one line:** a common schema works if its fields carry roles, and not only for dates. The 17 fields: 10 need
+roles (8 robust, 2 fragile), 1 body-specific, 6 defined once in v0.1 (meaning is the next test). "Answer date" is the
+government's decision in some parliaments, the letter or registration date in others and in 7 bodies mostly the
+submission date; v0.1 makes the role explicit on every date. A pre-registered test of 7 fields on 66 fresh affairs
+from 11 parliaments (P8) finds roles in authorship (sole author, first signatory, joint authors, parliamentary group),
+signatories, the instrument behind a harmonised type, the language (a text's language, OPD's tag and the affair's
+language can differ), and the date a submission really carries; §2 turns each finding into a recommendation. Meaning
+is now measured for 11 of the 17 fields. **v0.2 ships P8's roles, the converter fills them, and 171 affairs
+validate**: the converter's own records for P3 (29), P3b (36) and P5 (40) and the 66 P8 affairs, every empty list
+with a typed reason; the v0.1 samples upgrade losslessly (`results/schema/v0_2/validation_all.json`). An exploratory
+federal cell adds 15 Federal Council answers whose v0.2 records validate as well (`results/fed/fed_tables.json`).
 
 ## 1. Classes (by meaning, measured on OPD's labels and on the documents)
 

@@ -32,8 +32,15 @@ the document and closed set for a model's document-level classification (a revie
   validated on 171 affairs in four sets (`results/schema/v0_2/validation_all.json`, `make schema-v02`). 105 are the
   converter's own records: P3 (29) and P3b (36) product records after `affair_post`, carried to v0.2 with
   `qa[].answering_body` as the typed null `not_extracted`, and P5 (40) rules-arm records (Q/A items, people,
-  recommendation) with OPD's identification metadata. The other 66 are P8's gold records. Converter-made samples:
-  `results/schema/v0_2/samples/` (Bern, Valais in French, Graubünden in Italian).
+  recommendation) with OPD's identification metadata. The other 66 are P8's gold records. The converter fills v0.2's
+  roles in its 105 records from the documents (`src/gegenprobe/convert/roles.py`, `gegenprobe.schema.v0_2_roles`):
+  printed authors with their role, the instrument named and its function, printed submission dates (signed, lodged)
+  and `language_of_text` on every document, with `language_of_text_method` recording the detector; the score against
+  the P8 gold is in `results/schema/v0_2/converter_roles.json` (exploratory). `empty_reasons`: every empty list
+  (title, languages, actors, dates, qa, related_affairs, documents, body.languages, documents.*.language_of_text,
+  documents.*.parts, qa.*.items) carries a typed reason (the null reasons plus `none_printed` and
+  `carried_from_v0_1`); a reason on a filled list is invalid. Converter-made samples, chosen by a written rule:
+  `results/schema/v0_2/samples/` (Bern in German, Vernier in French, Lugano in Italian).
 - Validator: `src/gegenprobe/validate/` (see the end of this page)
 
 ## 1. Three design rules

@@ -1,4 +1,4 @@
-"""Rounds 11-12 (J5): the strict zones of `make claims`. A wrong number printed next to a right one must fail, and so must
+"""Rounds 11-13 (J5): the strict zones of `make claims`. A wrong number printed next to a right one must fail, and so must
 a number swapped for another valid claim of the same document (round 12: binding by anchor)."""
 import pytest
 
@@ -62,14 +62,15 @@ def test_wrong_number_next_to_a_right_one_fails(rows, cfg):
     assert len(errs) == 1 and "'93.1%'" in errs[0], errs
 
 
-def test_altered_report_summary_fails_but_body_is_outside_the_zone(rows, cfg):
+def test_altered_report_fails_in_the_summary_and_in_the_body(rows, cfg):
+    """Round 13: the whole report is a strict zone (round 12 stopped at "## 2.")."""
     t = _text("technical_report.md")
     head, sep, body = t.partition("\n## 2.")
-    assert sep
-    in_zone = head.replace("**120/120**", "**119/120**", 1) + sep + body
-    assert any("'119/120'" in e for e in claims.zone_check(rows, cfg, docs={"technical_report.md": in_zone}))
-    out_of_zone = head + sep + body + "\nA stray 12.34% after the summary.\n"
-    assert claims.zone_check(rows, cfg, docs={"technical_report.md": out_of_zone}) == []
+    assert sep and "**120/120**" in head
+    in_summary = head.replace("**120/120**", "**119/120**", 1) + sep + body
+    assert any("'119/120'" in e for e in claims.zone_check(rows, cfg, docs={"technical_report.md": in_summary}))
+    stray = head + sep + body + "\nA stray 12.34% after the summary.\n"
+    assert any("'12.34%'" in e for e in claims.zone_check(rows, cfg, docs={"technical_report.md": stray}))
 
 
 def test_allowlist_exempts_only_inside_its_phrase(rows, cfg):
@@ -93,14 +94,14 @@ def test_check_includes_the_anchor_check(monkeypatch, rows):
 # ---- round 12 (J5's missed mutations): a swap between two valid claims of the same document must fail
 
 def test_m3_readme_headline_swap_between_valid_claims_fails(rows, cfg):
-    """M3: 24/29 -> 22/29 in the README headline. 22/29 is a valid claim for README.md (the free prompt, as
-    registered), so a value-set check passed it; the anchor binds 24/29 to its position."""
+    """M3 (round 12, headline re-cut in round 13): 53/62 -> 54/62 in the README headline. 54/62 is a valid claim for
+    README.md (the re-parsed free prompt), so a value-set check would pass it; the anchor binds 53/62 to its position."""
     t = _text("README.md")
-    assert "| **24/29** | answer dates Apertus finds" in t
-    assert any(r["shown"] == "22/29" and "README.md" in r["where"] for r in rows)
-    bad = t.replace("| **24/29** | answer dates Apertus finds", "| **22/29** | answer dates Apertus finds", 1)
+    assert "| **53/62** | documents exact" in t
+    assert any(r["shown"] == "54/62" and "README.md" in r["where"] for r in rows)
+    bad = t.replace("| **53/62** | documents exact", "| **54/62** | documents exact", 1)
     errs = claims.zone_check(rows, cfg, docs={"README.md": bad})
-    assert any("README.md:" in e and "'22/29'" in e for e in errs), errs
+    assert any("README.md:" in e and "'54/62'" in e for e in errs), errs
 
 
 def test_m5_report_body_change_with_the_value_elsewhere_fails(rows):
@@ -132,13 +133,11 @@ def test_swapped_staging_shares_in_the_report_summary_fail(rows, cfg):
     assert any("'88.3%'" in e for e in errs) and any("'85.6%'" in e for e in errs), errs
 
 
-def test_readme_results_tables_are_strict_zones(cfg):
-    t = _text("README.md")
-    zones = claims.zones_of(t, cfg["zones"]["README.md"])
-    assert len(zones) == 4
-    for head in ("| list | rows |", "| field | class | meaning tested |", "| test | n | what it tests |"):
-        i = t.index(head)
-        assert any(lo <= i < hi for lo, hi in zones), head
+def test_readme_report_and_form_notes_are_strict_end_to_end(cfg):
+    """Round 13: every numeric token of the README, the report and the form notes is in a strict zone."""
+    for doc in ("README.md", "technical_report.md", "docs/form_notes.md"):
+        t = _text(doc)
+        assert claims.zones_of(t, cfg["zones"][doc]) == [(0, len(t))], doc
 
 
 def test_anchor_must_hold_the_value_and_name_a_listed_document(rows):

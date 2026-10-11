@@ -4,7 +4,7 @@ robust.always_null_rate	58.4%	results/eval/robustness.json	always_null_baseline.
 robust.apertus_precision	9/16	results/eval/robustness.json	apertus_decided_values.correct/apertus_decided_values.n	frac	PYTHONPATH=src:. python -m eval.robustness all	-
 robust.apertus_on_null	5	results/eval/robustness.json	apertus_decided_values.on_gold_null	int	PYTHONPATH=src:. python -m eval.robustness all	-
 robust.rule_precision	47/51	results/eval/robustness.json	rule_decided_values.correct/rule_decided_values.n	frac	PYTHONPATH=src:. python -m eval.robustness all	-
-robust.recall_rules	47/64	results/eval/robustness.json	arms.rules.value_recall/arms.rules.n_gold_value	frac	PYTHONPATH=src:. python -m eval.robustness all	-
+robust.recall_rules	47/64	results/eval/robustness.json	arms.rules.value_recall/arms.rules.n_gold_value	frac	PYTHONPATH=src:. python -m eval.robustness all	technical_report.md
 robust.recall_cascade	56/64	results/eval/robustness.json	arms.cascade.value_recall/arms.cascade.n_gold_value	frac	PYTHONPATH=src:. python -m eval.robustness all	docs/evaluation.md
 robust.recall_pointer	46/64	results/eval/robustness.json	arms.pointer.value_recall/arms.pointer.n_gold_value	frac	PYTHONPATH=src:. python -m eval.robustness all	docs/evaluation.md
 robust.recall_naive_null	47/64	results/eval/robustness.json	arms.naive_null.value_recall/arms.naive_null.n_gold_value	frac	PYTHONPATH=src:. python -m eval.robustness all	-
@@ -41,7 +41,7 @@ robust.lock_server_time	2026-10-09T19:38:07Z	results/eval/lock_server_times.json
 robust.labels_server_time	2026-10-09T19:44:06Z	results/eval/lock_server_times.json	labels_server_time	str	see results/eval/lock_server_times.json	-
 robust.rederive_match	154/154	results/eval/rederive_local.json	match/n	frac	PYTHONPATH=src:. python -m eval.rederive results/eval/rederive_local.json	docs/evaluation.md,docs/operations.md
 robust.rederive_secs	727	results/eval/rederive_local.json	secs	int	PYTHONPATH=src:. python -m eval.rederive results/eval/rederive_local.json	docs/operations.md
-robust.type_ambiguous	42	results/census/comparability.json	type.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	README.md
+robust.type_ambiguous	42	results/census/comparability.json	type.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	README.md,technical_report.md
 robust.type_raw_labels	1,038	results/census/comparability.json	type.raw_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md,README.md,docs/evaluation.md
 robust.dates_ambiguous	35	results/census/comparability.json	dates_with_roles.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	docs/evaluation.md,technical_report.md,README.md
 robust.decision_ambiguous	3	results/census/comparability.json	decision_outcome.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	README.md

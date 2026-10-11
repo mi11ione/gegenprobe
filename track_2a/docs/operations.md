@@ -134,9 +134,9 @@ source PDFs (fetched by sha256) and recomputes P1 and P2 Apertus decisions from 
 no model call) within a time budget; and runs the claims check: each number listed in `claims.tsv` is recomputed from
 its results file, and the step fails if a document a claim lists does not print the claimed value (short values within
 120 characters of their context phrase), if an anchor (`claims_anchor.json`: a phrase that holds a claim's value with
-the words that name it) is not found in its document, or if a number in the strict zones (the README's top and its
-results tables, the report's summary, the form notes; `claims_strict.json`) is not bound to a claim by an anchor at
-its position, so that a number swapped for another valid claim of the same document fails. Locally the rules arm re-derives 154/154 and
+the words that name it) is not found in its document, or if a numeric token in the strict zones (the README, the technical report and the form
+notes, each end to end; `claims_strict.json`; integers below 10 and listed non-claims such as dates aside) is not
+bound to a claim by an anchor at its position, so that a number swapped for another valid claim of the same document fails. Locally the rules arm re-derives 154/154 and
 the Apertus decisions 154/154 (P1) and 62/62 (P2) identically. A CI run on main whose jobs all passed (run
 38076870082, commit 15dd077, `results/ci/docker_make_run_38076870082.json`) ran `make run` in this hardened container
 before P5 and P6 joined the replay: 22/22 replay tests (P1–P4, P3b, the 8B analysis, 5 locks), 141 of 154 rules re-derivations within the budget, all identical;

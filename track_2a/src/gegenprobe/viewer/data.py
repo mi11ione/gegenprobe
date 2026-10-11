@@ -1369,6 +1369,9 @@ def p7() -> dict | None:
                 arms={k: arm(k) for k in ("p7", "free", "trivial")},
                 base_rate=post["base_rate"]["yes"], base_rate_dated=post["base_rate"]["yes_dated"],
                 qwen=dict(agree=h["qwen_check"]["agree"], n=h["qwen_check"]["n"]),
+                date_hit={k: dict(hit=v["annotated"]["date_hit"], n=v["annotated"]["n"])  # post hoc, judged sample
+                          for k, v in _j("p7/p7_posthoc_r8.json")["ablation"]["arms"].items()
+                          if k in ("p7", "trivial", "rule_any_view")},
                 review_rows=q["review_rows"], eligible=q["eligible"], promoted=q["promoted"], counted=h["headline"]["counted"],
                 by_reason=q["promoted_by_reason"], by_tier=q["promoted_by_date_tier"])
 
@@ -1429,12 +1432,25 @@ def method() -> dict:
     )
 
 
+def _pg_check() -> dict | None:
+    """The Bern plan applied on PostgreSQL (repair/apply_be_pg.py): rows changed, server version, all checks passed."""
+    if not (RESULTS / "repair" / "apply_be" / "apply_BE_pg_check.json").exists():
+        return None
+    g = _j("repair/apply_be/apply_BE_pg_check.json")
+    return dict(rows=g["expected_rows_changed"], server=g["server"], ok=g["ok"])
+
+
 def _p2_answer_typed() -> dict | None:
     p = RESULTS / "eval" / "baselines_dates.json"
     if not p.exists():
         return None
     b = json.loads(p.read_text())["P2_unseen"]["latest_date_on_answer_docs_only"]
-    return dict(exact=b["exact"], n=b["n"], found=b["value_recall"], answerless_dated=b["values_on_gold_null"])
+    out = dict(exact=b["exact"], n=b["n"], found=b["value_recall"], answerless_dated=b["values_on_gold_null"])
+    pp = RESULTS / "eval" / "posthoc_r3_paired.json"  # post hoc: pointer vs this baseline, paired, documents and parliaments
+    if pp.exists():
+        c = json.loads(pp.read_text())["splits"]["P2"]["comparisons"]["pointer~latest_date_on_answer_docs_only"]
+        out.update(p_mcnemar=c["all"]["p_str"], p_cluster=c["bodies"]["cluster_permutation_p_str"])
+    return out
 
 
 def _rows(p) -> int:
@@ -1461,6 +1477,8 @@ def headline(par: dict, ev: dict) -> dict:
         rules_on_null=ev["arms"]["rules"]["invented_on_null"],
         n_null=ev["arms"]["rules"]["n_gold_null"],
         naive_fab=ev["arms"]["naive_plain"]["fabricated"],
+        # the Bern plan applied on PostgreSQL (repair/apply_be_pg.py): rows changed, server version
+        pg=_pg_check(),
         p2=(dict(pointer=ev["p2"]["recall"]["pointer"], rules=ev["p2"]["recall"]["rules"], bodies=len(ev["p2"]["bodies"]),
                  p=ev["p2"]["h2"]["p"]) if ev.get("p2") else None),
         periods={k: dict(written=v["written"], missing=v["written"] - v["attached"], oral=v["oral"],
