@@ -1,0 +1,328 @@
+{
+ "note": "post hoc, not registered; changes no registered result",
+ "qwen_vs_gold_confusion": {
+  "submitter": {
+   "joint_person -> author_person": 18,
+   "group -> author_person": 4,
+   "author_person -> invalid": 3,
+   "group -> cosigner_person": 2,
+   "author_person -> cosigner_person": 1
+  },
+  "co_signatories": {
+   "joint_authors -> cosigners": 13,
+   "n/a -> cosigners": 5,
+   "n/a -> supporters": 3,
+   "n/a -> invalid": 2,
+   "joint_authors -> includes_author_of_record": 2,
+   "signing_for_group -> cosigners": 1,
+   "cosigners -> joint_authors": 1,
+   "cosigners -> invalid": 1,
+   "n/a -> cosigners_and_supporters": 1,
+   "signing_for_group -> includes_author_of_record": 1
+  },
+  "date_submission": {
+   "undeterminable -> unprinted_differs": 4,
+   "cited -> lodged": 4,
+   "lodged -> undeterminable": 2,
+   "lodged -> invalid": 2,
+   "lodged -> unprinted_differs": 2,
+   "lodged -> answer_or_decision": 1,
+   "lodged -> cited": 1,
+   "other_printed -> invalid": 1
+  },
+  "addressed_body": {
+   "undeterminable -> executive": 5,
+   "executive -> invalid": 3,
+   "parliament -> executive": 2,
+   "undeterminable -> parliament": 1
+  },
+  "language": {
+   "undeterminable -> invalid": 2,
+   "text_language -> other_language": 1,
+   "text_language -> invalid": 1
+  },
+  "government_recommendation": {
+   "on_fulfilment -> undeterminable": 3,
+   "n/a -> invalid": 2,
+   "on_fulfilment -> on_referral": 2,
+   "on_referral -> on_fulfilment": 1,
+   "on_referral -> undeterminable": 1,
+   "on_referral -> invalid": 1
+  },
+  "type": {
+   "conforms -> invalid": 3,
+   "direct_decision -> conforms": 3,
+   "conforms -> mandate": 2,
+   "undeterminable -> conforms": 2,
+   "conforms -> examine_report": 2,
+   "examine_report -> conforms": 2,
+   "questions -> conforms": 1,
+   "conforms -> direct_decision": 1
+  }
+ },
+ "verdicts_on_qwen_labels": {
+  "submitter": {
+   "verdict": "role_split",
+   "deviating": [
+    "VS",
+    "VD",
+    "GR"
+   ],
+   "pooled": 0.815
+  },
+  "co_signatories": {
+   "verdict": "role_split",
+   "deviating": [
+    "TG",
+    "VS",
+    "351",
+    "261",
+    "VD",
+    "FR",
+    "GR"
+   ],
+   "pooled": 0.529
+  },
+  "date_submission": {
+   "verdict": "body_specific",
+   "deviating": [
+    "VD",
+    "5586",
+    "6643",
+    "5002",
+    "GR"
+   ],
+   "pooled": 0.627
+  },
+  "addressed_body": {
+   "verdict": "role_split",
+   "deviating": [
+    "VD"
+   ],
+   "pooled": 0.924
+  },
+  "language": {
+   "verdict": "role_split",
+   "deviating": [
+    "FR",
+    "GR"
+   ],
+   "pooled": 0.889
+  },
+  "government_recommendation": {
+   "verdict": "shared",
+   "deviating": [],
+   "pooled": 0.933
+  },
+  "type": {
+   "verdict": "role_split",
+   "deviating": [
+    "VS",
+    "VD",
+    "5002"
+   ],
+   "pooled": 0.833
+  }
+ },
+ "submission_date_not_printed": [
+  {
+   "id": "P8-001",
+   "body": "VD",
+   "opd_date": "2018-09-18",
+   "offset_days": null,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-002",
+   "body": "5192",
+   "opd_date": "2021-04-07",
+   "offset_days": 1,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-004",
+   "body": "6643",
+   "opd_date": "2024-12-19",
+   "offset_days": 3,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-006",
+   "body": "6643",
+   "opd_date": "2022-10-05",
+   "offset_days": 7,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-010",
+   "body": "6643",
+   "opd_date": "2021-11-10",
+   "offset_days": null,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-013",
+   "body": "6643",
+   "opd_date": "2024-01-17",
+   "offset_days": 3,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-018",
+   "body": "VS",
+   "opd_date": "2008-10-23",
+   "offset_days": 169,
+   "opd_events_that_day": [
+    "2008.11_MO_1.241_Bonus-Malus-System Motorfahrzeugsteuer_BEH",
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-025",
+   "body": "6643",
+   "opd_date": "2020-08-26",
+   "offset_days": 3,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-027",
+   "body": "5586",
+   "opd_date": "2024-12-03",
+   "offset_days": 14,
+   "opd_events_that_day": [
+    "Eingereicht",
+    "Überwiesen"
+   ]
+  },
+  {
+   "id": "P8-029",
+   "body": "VD",
+   "opd_date": "2016-11-15",
+   "offset_days": null,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-033",
+   "body": "5002",
+   "opd_date": "2024-07-06",
+   "offset_days": 1,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-034",
+   "body": "VD",
+   "opd_date": "2018-12-18",
+   "offset_days": null,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-043",
+   "body": "5002",
+   "opd_date": "2016-10-13",
+   "offset_days": null,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-044",
+   "body": "351",
+   "opd_date": "2020-10-15",
+   "offset_days": -4,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-045",
+   "body": "5002",
+   "opd_date": "2025-05-21",
+   "offset_days": null,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-048",
+   "body": "5586",
+   "opd_date": "2020-11-24",
+   "offset_days": 27,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-059",
+   "body": "5586",
+   "opd_date": "2021-05-11",
+   "offset_days": null,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-061",
+   "body": "GR",
+   "opd_date": "2025-12-10",
+   "offset_days": null,
+   "opd_events_that_day": [
+    ""
+   ]
+  },
+  {
+   "id": "P8-062",
+   "body": "5586",
+   "opd_date": "2021-03-09",
+   "offset_days": 28,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-064",
+   "body": "6643",
+   "opd_date": "2022-01-25",
+   "offset_days": 2,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  },
+  {
+   "id": "P8-065",
+   "body": "5002",
+   "opd_date": "2018-05-15",
+   "offset_days": null,
+   "opd_events_that_day": [
+    "Eingereicht"
+   ]
+  }
+ ],
+ "bern_city_printed_first_signatories_per_affair": {
+  "P8-008": 2,
+  "P8-012": 2,
+  "P8-039": 2,
+  "P8-044": 2,
+  "P8-050": 2,
+  "P8-060": 4
+ }
+}

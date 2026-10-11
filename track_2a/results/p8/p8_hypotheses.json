@@ -1,0 +1,1652 @@
+{
+ "prereg": "eval/prereg9/PREREG9.md",
+ "X": 0.9,
+ "K": 3,
+ "min_parliaments": 6,
+ "n_affairs": 66,
+ "n_parliaments": 11,
+ "fields": {
+  "submitter": {
+   "evaluable": [
+    "TG",
+    "VS",
+    "351",
+    "261",
+    "VD",
+    "FR",
+    "5586",
+    "6643",
+    "5192",
+    "5002",
+    "GR"
+   ],
+   "n_evaluable": 11,
+   "deviating": [
+    "TG",
+    "VS",
+    "261",
+    "FR",
+    "6643",
+    "5192",
+    "GR"
+   ],
+   "pooled_share_E": 0.538,
+   "deviation_kind": {
+    "TG": "systematic",
+    "VS": "systematic",
+    "261": "systematic",
+    "FR": "systematic",
+    "6643": "systematic",
+    "5192": "systematic",
+    "GR": "systematic"
+   },
+   "roles_in_deviating": {
+    "TG": {
+     "outside_E": {
+      "joint_person": 4
+     },
+     "repeated_roles": [
+      "joint_person"
+     ]
+    },
+    "VS": {
+     "outside_E": {
+      "group": 5,
+      "joint_person": 1
+     },
+     "repeated_roles": [
+      "group"
+     ]
+    },
+    "261": {
+     "outside_E": {
+      "joint_person": 4,
+      "group": 1
+     },
+     "repeated_roles": [
+      "joint_person"
+     ]
+    },
+    "FR": {
+     "outside_E": {
+      "joint_person": 4
+     },
+     "repeated_roles": [
+      "joint_person"
+     ]
+    },
+    "6643": {
+     "outside_E": {
+      "joint_person": 4,
+      "group": 1
+     },
+     "repeated_roles": [
+      "joint_person"
+     ]
+    },
+    "5192": {
+     "outside_E": {
+      "joint_person": 2,
+      "group": 1
+     },
+     "repeated_roles": [
+      "joint_person"
+     ]
+    },
+    "GR": {
+     "outside_E": {
+      "cosigner_person": 2
+     },
+     "repeated_roles": [
+      "cosigner_person"
+     ]
+    }
+   },
+   "other_meaning_test": {
+    "category": "joint_person",
+    "evaluable": 11,
+    "pooled": 0.292,
+    "passes": false
+   },
+   "verdict": "role_split",
+   "consequence": "moves to class shared_with_role_split; the roles to keep apart are the categories named in the deviating parliaments",
+   "pooled": {
+    "parliaments": 11,
+    "n": 65,
+    "n_E": 35,
+    "share": 0.538,
+    "cluster_ci": [
+     0.333,
+     0.75
+    ],
+    "wilson": [
+     0.419,
+     0.654
+    ]
+   },
+   "verdict_agreed_only": "role_split",
+   "per_parliament": {
+    "TG": {
+     "n_det": 6,
+     "n_E": 2,
+     "share_E": 0.333,
+     "wilson": [
+      0.097,
+      0.7
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "joint_person": 4,
+      "author_person": 2
+     }
+    },
+    "VS": {
+     "n_det": 6,
+     "n_E": 0,
+     "share_E": 0.0,
+     "wilson": [
+      0.0,
+      0.39
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "group": 5,
+      "joint_person": 1
+     }
+    },
+    "351": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "author_person": 6
+     }
+    },
+    "261": {
+     "n_det": 6,
+     "n_E": 1,
+     "share_E": 0.167,
+     "wilson": [
+      0.03,
+      0.564
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "joint_person": 4,
+      "group": 1,
+      "author_person": 1
+     }
+    },
+    "VD": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "author_person": 6
+     }
+    },
+    "FR": {
+     "n_det": 6,
+     "n_E": 2,
+     "share_E": 0.333,
+     "wilson": [
+      0.097,
+      0.7
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "joint_person": 4,
+      "author_person": 2
+     }
+    },
+    "5586": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "author_person": 6
+     }
+    },
+    "6643": {
+     "n_det": 6,
+     "n_E": 1,
+     "share_E": 0.167,
+     "wilson": [
+      0.03,
+      0.564
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "author_person": 1,
+      "joint_person": 4,
+      "group": 1
+     }
+    },
+    "5192": {
+     "n_det": 6,
+     "n_E": 3,
+     "share_E": 0.5,
+     "wilson": [
+      0.188,
+      0.812
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "joint_person": 2,
+      "author_person": 3,
+      "group": 1
+     }
+    },
+    "5002": {
+     "n_det": 5,
+     "n_E": 4,
+     "share_E": 0.8,
+     "wilson": [
+      0.376,
+      0.964
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "author_person": 4,
+      "group": 1
+     }
+    },
+    "GR": {
+     "n_det": 6,
+     "n_E": 4,
+     "share_E": 0.667,
+     "wilson": [
+      0.3,
+      0.903
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "cosigner_person": 2,
+      "author_person": 4
+     }
+    }
+   }
+  },
+  "co_signatories": {
+   "evaluable": [
+    "TG",
+    "VS",
+    "351",
+    "261",
+    "FR",
+    "5586",
+    "6643",
+    "5192",
+    "GR"
+   ],
+   "n_evaluable": 9,
+   "deviating": [
+    "TG",
+    "VS",
+    "351",
+    "261",
+    "FR",
+    "6643",
+    "5192",
+    "GR"
+   ],
+   "pooled_share_E": 0.244,
+   "deviation_kind": {
+    "TG": "systematic",
+    "VS": "systematic",
+    "351": "systematic",
+    "261": "systematic",
+    "FR": "systematic",
+    "6643": "systematic",
+    "5192": "systematic",
+    "GR": "systematic"
+   },
+   "roles_in_deviating": {
+    "TG": {
+     "outside_E": {
+      "joint_authors": 4
+     },
+     "repeated_roles": [
+      "joint_authors"
+     ]
+    },
+    "VS": {
+     "outside_E": {
+      "signing_for_group": 4,
+      "joint_authors": 1
+     },
+     "repeated_roles": [
+      "signing_for_group"
+     ]
+    },
+    "351": {
+     "outside_E": {
+      "includes_author_of_record": 6
+     },
+     "repeated_roles": [
+      "includes_author_of_record"
+     ]
+    },
+    "261": {
+     "outside_E": {
+      "joint_authors": 4
+     },
+     "repeated_roles": [
+      "joint_authors"
+     ]
+    },
+    "FR": {
+     "outside_E": {
+      "joint_authors": 4
+     },
+     "repeated_roles": [
+      "joint_authors"
+     ]
+    },
+    "6643": {
+     "outside_E": {
+      "joint_authors": 4
+     },
+     "repeated_roles": [
+      "joint_authors"
+     ]
+    },
+    "5192": {
+     "outside_E": {
+      "joint_authors": 2
+     },
+     "repeated_roles": [
+      "joint_authors"
+     ]
+    },
+    "GR": {
+     "outside_E": {
+      "includes_author_of_record": 2
+     },
+     "repeated_roles": [
+      "includes_author_of_record"
+     ]
+    }
+   },
+   "other_meaning_test": {
+    "category": "joint_authors",
+    "evaluable": 9,
+    "pooled": 0.463,
+    "passes": false
+   },
+   "verdict": "role_split",
+   "consequence": "moves to class shared_with_role_split; the roles to keep apart are the categories named in the deviating parliaments",
+   "pooled": {
+    "parliaments": 9,
+    "n": 41,
+    "n_E": 10,
+    "share": 0.244,
+    "cluster_ci": [
+     0.068,
+     0.463
+    ],
+    "wilson": [
+     0.138,
+     0.393
+    ]
+   },
+   "verdict_agreed_only": "role_split",
+   "per_parliament": {
+    "TG": {
+     "n_det": 5,
+     "n_E": 1,
+     "share_E": 0.2,
+     "wilson": [
+      0.036,
+      0.624
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "joint_authors": 4,
+      "cosigners": 1
+     }
+    },
+    "VS": {
+     "n_det": 5,
+     "n_E": 0,
+     "share_E": 0.0,
+     "wilson": [
+      0.0,
+      0.434
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "signing_for_group": 4,
+      "joint_authors": 1
+     }
+    },
+    "351": {
+     "n_det": 6,
+     "n_E": 0,
+     "share_E": 0.0,
+     "wilson": [
+      0.0,
+      0.39
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "includes_author_of_record": 6
+     }
+    },
+    "261": {
+     "n_det": 4,
+     "n_E": 0,
+     "share_E": 0.0,
+     "wilson": [
+      0.0,
+      0.49
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "joint_authors": 4
+     }
+    },
+    "VD": {
+     "n_det": 0,
+     "n_E": 0,
+     "share_E": null,
+     "wilson": null,
+     "evaluable": false,
+     "conforms": false,
+     "counts": {}
+    },
+    "FR": {
+     "n_det": 4,
+     "n_E": 0,
+     "share_E": 0.0,
+     "wilson": [
+      0.0,
+      0.49
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "joint_authors": 4
+     }
+    },
+    "5586": {
+     "n_det": 3,
+     "n_E": 3,
+     "share_E": 1.0,
+     "wilson": [
+      0.438,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "cosigners": 3
+     }
+    },
+    "6643": {
+     "n_det": 4,
+     "n_E": 0,
+     "share_E": 0.0,
+     "wilson": [
+      0.0,
+      0.49
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "joint_authors": 4
+     }
+    },
+    "5192": {
+     "n_det": 5,
+     "n_E": 3,
+     "share_E": 0.6,
+     "wilson": [
+      0.231,
+      0.882
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "joint_authors": 2,
+      "cosigners": 3
+     }
+    },
+    "5002": {
+     "n_det": 0,
+     "n_E": 0,
+     "share_E": null,
+     "wilson": null,
+     "evaluable": false,
+     "conforms": false,
+     "counts": {}
+    },
+    "GR": {
+     "n_det": 5,
+     "n_E": 3,
+     "share_E": 0.6,
+     "wilson": [
+      0.231,
+      0.882
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "includes_author_of_record": 2,
+      "cosigners": 3
+     }
+    }
+   }
+  },
+  "date_submission": {
+   "evaluable": [
+    "TG",
+    "VS",
+    "351",
+    "261",
+    "VD",
+    "FR",
+    "5586",
+    "6643",
+    "5192",
+    "5002",
+    "GR"
+   ],
+   "n_evaluable": 11,
+   "deviating": [
+    "5586",
+    "6643"
+   ],
+   "pooled_share_E": 0.772,
+   "deviation_kind": {
+    "5586": "unnamed",
+    "6643": "unnamed"
+   },
+   "roles_in_deviating": {
+    "5586": {
+     "outside_E": {
+      "unprinted_differs": 3
+     },
+     "repeated_roles": []
+    },
+    "6643": {
+     "outside_E": {
+      "unprinted_differs": 5
+     },
+     "repeated_roles": []
+    }
+   },
+   "other_meaning_test": {
+    "category": "unprinted_differs",
+    "evaluable": 11,
+    "pooled": 0.211,
+    "passes": false
+   },
+   "verdict": "body_specific",
+   "consequence": "moves to class body_specific for the deviating parliaments' meaning; the schema needs the body's own vocabulary there",
+   "pooled": {
+    "parliaments": 11,
+    "n": 57,
+    "n_E": 44,
+    "share": 0.772,
+    "cluster_ci": [
+     0.571,
+     0.918
+    ],
+    "wilson": [
+     0.648,
+     0.862
+    ]
+   },
+   "verdict_agreed_only": "body_specific",
+   "per_parliament": {
+    "TG": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "cited": 4,
+      "lodged": 2
+     }
+    },
+    "VS": {
+     "n_det": 6,
+     "n_E": 5,
+     "share_E": 0.833,
+     "wilson": [
+      0.436,
+      0.97
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "lodged": 5,
+      "unprinted_differs": 1
+     }
+    },
+    "351": {
+     "n_det": 6,
+     "n_E": 5,
+     "share_E": 0.833,
+     "wilson": [
+      0.436,
+      0.97
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "lodged": 5,
+      "unprinted_differs": 1
+     }
+    },
+    "261": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "lodged": 6
+     }
+    },
+    "VD": {
+     "n_det": 3,
+     "n_E": 2,
+     "share_E": 0.667,
+     "wilson": [
+      0.208,
+      0.939
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "lodged": 2,
+      "other_printed": 1
+     }
+    },
+    "FR": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "lodged": 6
+     }
+    },
+    "5586": {
+     "n_det": 5,
+     "n_E": 2,
+     "share_E": 0.4,
+     "wilson": [
+      0.118,
+      0.769
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "unprinted_differs": 3,
+      "lodged": 2
+     }
+    },
+    "6643": {
+     "n_det": 5,
+     "n_E": 0,
+     "share_E": 0.0,
+     "wilson": [
+      0.0,
+      0.434
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "unprinted_differs": 5
+     }
+    },
+    "5192": {
+     "n_det": 6,
+     "n_E": 5,
+     "share_E": 0.833,
+     "wilson": [
+      0.436,
+      0.97
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "unprinted_differs": 1,
+      "lodged": 5
+     }
+    },
+    "5002": {
+     "n_det": 3,
+     "n_E": 2,
+     "share_E": 0.667,
+     "wilson": [
+      0.208,
+      0.939
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "cited": 1,
+      "unprinted_differs": 1,
+      "lodged": 1
+     }
+    },
+    "GR": {
+     "n_det": 5,
+     "n_E": 5,
+     "share_E": 1.0,
+     "wilson": [
+      0.566,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "lodged": 5
+     }
+    }
+   }
+  },
+  "addressed_body": {
+   "evaluable": [
+    "TG",
+    "VS",
+    "351",
+    "261",
+    "VD",
+    "FR",
+    "5586",
+    "6643",
+    "5192",
+    "5002",
+    "GR"
+   ],
+   "n_evaluable": 11,
+   "deviating": [
+    "5002"
+   ],
+   "pooled_share_E": 0.95,
+   "deviation_kind": {
+    "5002": "systematic"
+   },
+   "roles_in_deviating": {
+    "5002": {
+     "outside_E": {
+      "parliament": 2
+     },
+     "repeated_roles": [
+      "parliament"
+     ]
+    }
+   },
+   "other_meaning_test": {
+    "category": "parliament",
+    "evaluable": 11,
+    "pooled": 0.05,
+    "passes": false
+   },
+   "verdict": "role_split",
+   "consequence": "moves to class shared_with_role_split; the roles to keep apart are the categories named in the deviating parliaments",
+   "pooled": {
+    "parliaments": 11,
+    "n": 60,
+    "n_E": 57,
+    "share": 0.95,
+    "cluster_ci": [
+     0.87,
+     1.0
+    ],
+    "wilson": [
+     0.863,
+     0.983
+    ]
+   },
+   "verdict_agreed_only": "shared",
+   "per_parliament": {
+    "TG": {
+     "n_det": 4,
+     "n_E": 4,
+     "share_E": 1.0,
+     "wilson": [
+      0.51,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "executive": 4
+     }
+    },
+    "VS": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "executive": 6
+     }
+    },
+    "351": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "executive": 6
+     }
+    },
+    "261": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "executive": 6
+     }
+    },
+    "VD": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "executive": 6
+     }
+    },
+    "FR": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "executive": 6
+     }
+    },
+    "5586": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "executive": 6
+     }
+    },
+    "6643": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "executive": 6
+     }
+    },
+    "5192": {
+     "n_det": 6,
+     "n_E": 5,
+     "share_E": 0.833,
+     "wilson": [
+      0.436,
+      0.97
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "executive": 5,
+      "parliament": 1
+     }
+    },
+    "5002": {
+     "n_det": 4,
+     "n_E": 2,
+     "share_E": 0.5,
+     "wilson": [
+      0.15,
+      0.85
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "parliament": 2,
+      "executive": 2
+     }
+    },
+    "GR": {
+     "n_det": 4,
+     "n_E": 4,
+     "share_E": 1.0,
+     "wilson": [
+      0.51,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "executive": 4
+     }
+    }
+   }
+  },
+  "language": {
+   "evaluable": [
+    "VS",
+    "351",
+    "FR",
+    "5586",
+    "6643",
+    "GR"
+   ],
+   "n_evaluable": 6,
+   "deviating": [
+    "FR"
+   ],
+   "pooled_share_E": 0.944,
+   "deviation_kind": {
+    "FR": "systematic"
+   },
+   "roles_in_deviating": {
+    "FR": {
+     "outside_E": {
+      "other_language": 2
+     },
+     "repeated_roles": [
+      "other_language"
+     ]
+    }
+   },
+   "other_meaning_test": {
+    "category": "other_language",
+    "evaluable": 6,
+    "pooled": 0.056,
+    "passes": false
+   },
+   "verdict": "role_split",
+   "consequence": "moves to class shared_with_role_split; the roles to keep apart are the categories named in the deviating parliaments",
+   "pooled": {
+    "parliaments": 6,
+    "n": 36,
+    "n_E": 34,
+    "share": 0.944,
+    "cluster_ci": [
+     0.833,
+     1.0
+    ],
+    "wilson": [
+     0.819,
+     0.985
+    ]
+   },
+   "verdict_agreed_only": "role_split",
+   "per_parliament": {
+    "TG": {
+     "n_det": 0,
+     "n_E": 0,
+     "share_E": null,
+     "wilson": null,
+     "evaluable": false,
+     "conforms": false,
+     "counts": {}
+    },
+    "VS": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "text_language": 6
+     }
+    },
+    "351": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "text_language": 6
+     }
+    },
+    "261": {
+     "n_det": 0,
+     "n_E": 0,
+     "share_E": null,
+     "wilson": null,
+     "evaluable": false,
+     "conforms": false,
+     "counts": {}
+    },
+    "VD": {
+     "n_det": 0,
+     "n_E": 0,
+     "share_E": null,
+     "wilson": null,
+     "evaluable": false,
+     "conforms": false,
+     "counts": {}
+    },
+    "FR": {
+     "n_det": 6,
+     "n_E": 4,
+     "share_E": 0.667,
+     "wilson": [
+      0.3,
+      0.903
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "text_language": 4,
+      "other_language": 2
+     }
+    },
+    "5586": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "text_language": 6
+     }
+    },
+    "6643": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "text_language": 6
+     }
+    },
+    "5192": {
+     "n_det": 0,
+     "n_E": 0,
+     "share_E": null,
+     "wilson": null,
+     "evaluable": false,
+     "conforms": false,
+     "counts": {}
+    },
+    "5002": {
+     "n_det": 0,
+     "n_E": 0,
+     "share_E": null,
+     "wilson": null,
+     "evaluable": false,
+     "conforms": false,
+     "counts": {}
+    },
+    "GR": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "text_language": 6
+     }
+    }
+   }
+  },
+  "government_recommendation": {
+   "evaluable": [
+    "TG",
+    "VS",
+    "351",
+    "261",
+    "FR",
+    "6643",
+    "5192",
+    "5002",
+    "GR"
+   ],
+   "n_evaluable": 9,
+   "deviating": [
+    "6643"
+   ],
+   "pooled_share_E": 0.912,
+   "deviation_kind": {
+    "6643": "systematic"
+   },
+   "roles_in_deviating": {
+    "6643": {
+     "outside_E": {
+      "on_fulfilment": 3
+     },
+     "repeated_roles": [
+      "on_fulfilment"
+     ]
+    }
+   },
+   "other_meaning_test": {
+    "category": "on_fulfilment",
+    "evaluable": 9,
+    "pooled": 0.088,
+    "passes": false
+   },
+   "verdict": "role_split",
+   "consequence": "moves to class shared_with_role_split; the roles to keep apart are the categories named in the deviating parliaments",
+   "pooled": {
+    "parliaments": 9,
+    "n": 34,
+    "n_E": 31,
+    "share": 0.912,
+    "cluster_ci": [
+     0.719,
+     1.0
+    ],
+    "wilson": [
+     0.77,
+     0.97
+    ]
+   },
+   "verdict_agreed_only": "role_split",
+   "per_parliament": {
+    "TG": {
+     "n_det": 3,
+     "n_E": 3,
+     "share_E": 1.0,
+     "wilson": [
+      0.438,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "on_referral": 3
+     }
+    },
+    "VS": {
+     "n_det": 4,
+     "n_E": 4,
+     "share_E": 1.0,
+     "wilson": [
+      0.51,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "on_referral": 4
+     }
+    },
+    "351": {
+     "n_det": 4,
+     "n_E": 4,
+     "share_E": 1.0,
+     "wilson": [
+      0.51,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "on_referral": 4
+     }
+    },
+    "261": {
+     "n_det": 4,
+     "n_E": 4,
+     "share_E": 1.0,
+     "wilson": [
+      0.51,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "on_referral": 4
+     }
+    },
+    "VD": {
+     "n_det": 0,
+     "n_E": 0,
+     "share_E": null,
+     "wilson": null,
+     "evaluable": false,
+     "conforms": false,
+     "counts": {}
+    },
+    "FR": {
+     "n_det": 4,
+     "n_E": 4,
+     "share_E": 1.0,
+     "wilson": [
+      0.51,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "on_referral": 4
+     }
+    },
+    "5586": {
+     "n_det": 2,
+     "n_E": 0,
+     "share_E": 0.0,
+     "wilson": [
+      0.0,
+      0.658
+     ],
+     "evaluable": false,
+     "conforms": false,
+     "counts": {
+      "on_fulfilment": 2
+     }
+    },
+    "6643": {
+     "n_det": 3,
+     "n_E": 0,
+     "share_E": 0.0,
+     "wilson": [
+      0.0,
+      0.562
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "on_fulfilment": 3
+     }
+    },
+    "5192": {
+     "n_det": 4,
+     "n_E": 4,
+     "share_E": 1.0,
+     "wilson": [
+      0.51,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "on_referral": 4
+     }
+    },
+    "5002": {
+     "n_det": 4,
+     "n_E": 4,
+     "share_E": 1.0,
+     "wilson": [
+      0.51,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "on_referral": 4
+     }
+    },
+    "GR": {
+     "n_det": 4,
+     "n_E": 4,
+     "share_E": 1.0,
+     "wilson": [
+      0.51,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "on_referral": 4
+     }
+    }
+   }
+  },
+  "type": {
+   "evaluable": [
+    "TG",
+    "VS",
+    "351",
+    "261",
+    "VD",
+    "FR",
+    "5586",
+    "6643",
+    "5192",
+    "5002",
+    "GR"
+   ],
+   "n_evaluable": 11,
+   "deviating": [
+    "VS",
+    "FR",
+    "5192",
+    "5002"
+   ],
+   "pooled_share_E": 0.859,
+   "deviation_kind": {
+    "VS": "systematic",
+    "FR": "scattered",
+    "5192": "scattered",
+    "5002": "systematic"
+   },
+   "roles_in_deviating": {
+    "VS": {
+     "outside_E": {
+      "mandate": 2
+     },
+     "repeated_roles": [
+      "mandate"
+     ]
+    },
+    "FR": {
+     "outside_E": {
+      "questions": 1,
+      "examine_report": 1
+     },
+     "repeated_roles": []
+    },
+    "5192": {
+     "outside_E": {
+      "examine_report": 1,
+      "direct_decision": 1
+     },
+     "repeated_roles": []
+    },
+    "5002": {
+     "outside_E": {
+      "direct_decision": 2
+     },
+     "repeated_roles": [
+      "direct_decision"
+     ]
+    }
+   },
+   "other_meaning_test": {
+    "category": "direct_decision",
+    "evaluable": 11,
+    "pooled": 0.047,
+    "passes": false
+   },
+   "verdict": "role_split",
+   "consequence": "moves to class shared_with_role_split; the roles to keep apart are the categories named in the deviating parliaments",
+   "pooled": {
+    "parliaments": 11,
+    "n": 64,
+    "n_E": 55,
+    "share": 0.859,
+    "cluster_ci": [
+     0.762,
+     0.953
+    ],
+    "wilson": [
+     0.754,
+     0.924
+    ]
+   },
+   "verdict_agreed_only": "role_split",
+   "per_parliament": {
+    "TG": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "conforms": 6
+     }
+    },
+    "VS": {
+     "n_det": 6,
+     "n_E": 4,
+     "share_E": 0.667,
+     "wilson": [
+      0.3,
+      0.903
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "mandate": 2,
+      "conforms": 4
+     }
+    },
+    "351": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "conforms": 6
+     }
+    },
+    "261": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "conforms": 6
+     }
+    },
+    "VD": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "conforms": 6
+     }
+    },
+    "FR": {
+     "n_det": 6,
+     "n_E": 4,
+     "share_E": 0.667,
+     "wilson": [
+      0.3,
+      0.903
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "conforms": 4,
+      "questions": 1,
+      "examine_report": 1
+     }
+    },
+    "5586": {
+     "n_det": 6,
+     "n_E": 5,
+     "share_E": 0.833,
+     "wilson": [
+      0.436,
+      0.97
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "conforms": 5,
+      "mandate": 1
+     }
+    },
+    "6643": {
+     "n_det": 6,
+     "n_E": 6,
+     "share_E": 1.0,
+     "wilson": [
+      0.61,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "conforms": 6
+     }
+    },
+    "5192": {
+     "n_det": 6,
+     "n_E": 4,
+     "share_E": 0.667,
+     "wilson": [
+      0.3,
+      0.903
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "conforms": 4,
+      "examine_report": 1,
+      "direct_decision": 1
+     }
+    },
+    "5002": {
+     "n_det": 5,
+     "n_E": 3,
+     "share_E": 0.6,
+     "wilson": [
+      0.231,
+      0.882
+     ],
+     "evaluable": true,
+     "conforms": false,
+     "counts": {
+      "direct_decision": 2,
+      "conforms": 3
+     }
+    },
+    "GR": {
+     "n_det": 5,
+     "n_E": 5,
+     "share_E": 1.0,
+     "wilson": [
+      0.566,
+      1.0
+     ],
+     "evaluable": true,
+     "conforms": true,
+     "counts": {
+      "conforms": 5
+     }
+    }
+   }
+  }
+ },
+ "summary": {
+  "role_split": 6,
+  "body_specific": 1
+ },
+ "meaning_tested": 7
+}

@@ -1,0 +1,55 @@
+{
+ "model": "aisingapore/Qwen-SEA-LION-v4-32B-IT",
+ "tag": "2a-p8-qwen",
+ "n_packets": 66,
+ "invalid_or_missing": [
+  "P8-020",
+  "P8-056",
+  "P8-063"
+ ],
+ "fields": {
+  "submitter": {
+   "n": 66,
+   "agree": 38,
+   "kappa": 0.244,
+   "gold_in_E_vs_qwen_in_E": 40
+  },
+  "co_signatories": {
+   "n": 66,
+   "agree": 36,
+   "kappa": 0.452,
+   "gold_in_E_vs_qwen_in_E": 45
+  },
+  "date_submission": {
+   "n": 66,
+   "agree": 49,
+   "kappa": 0.585,
+   "gold_in_E_vs_qwen_in_E": 59
+  },
+  "addressed_body": {
+   "n": 66,
+   "agree": 55,
+   "kappa": 0.168,
+   "gold_in_E_vs_qwen_in_E": 56
+  },
+  "language": {
+   "n": 66,
+   "agree": 62,
+   "kappa": 0.891,
+   "gold_in_E_vs_qwen_in_E": 64
+  },
+  "government_recommendation": {
+   "n": 66,
+   "agree": 56,
+   "kappa": 0.764,
+   "gold_in_E_vs_qwen_in_E": 61
+  },
+  "type": {
+   "n": 66,
+   "agree": 50,
+   "kappa": 0.193,
+   "gold_in_E_vs_qwen_in_E": 50
+  }
+ },
+ "note": "Qwen's labels change no gold label and no decision"
+}
