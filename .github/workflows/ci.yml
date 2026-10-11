@@ -33,8 +33,8 @@ jobs:
           PY
       - name: claims.tsv recomputed from results files
         run: GP_CLAIMS_STRICT=1 PYTHONPATH=src:. python -m gegenprobe.claims check
-      - name: data/ stays under the 100 MB limit
-        run: test $(du -sm data | cut -f1) -le 100
+      - name: data/ stays under the 100 MB limit (content size; small cache files would otherwise count as 4 KB blocks)
+        run: test $(du -s --apparent-size --block-size=1M data | cut -f1) -le 100
   make-run:
     # the judges' path: clean checkout, Docker, CPU, no secrets
     runs-on: ubuntu-24.04
