@@ -10,7 +10,7 @@
                    they wait on OPD's hash rule for relinked documents
       fetch        answers not in OPD (or in OPD without text) whose copy at the parliament we fetched and checked: still to
                    be fetched into OPD (adapters, Bern fetch, Curia Vista)
-    with the cumulative share of the 91,268 interventions with a written government answer after each step;
+    with the cumulative share of the 91,268 interventions with a recorded government answer after each step;
   * 81.6% (text attached, the registered count) vs 82.3% (also counting answers filed under an agenda item of the
     affair), and the repairs beyond the 82.3% (the 592 agenda joins are in both the 82.3% and the 9,720).
 

@@ -130,7 +130,7 @@ Transfer depends on where the job runs.
   CPU core (Python, parsing-bound; measured in the spike). An external deployment is a 20 GB CPU VPS job. Measured on
   4-vCPU GitHub runners: first nights took 83 and 86 min, and the following night on the next export took 6.6 min (14
   files changed overnight; `results/monitor/two_nights_docker_38098822336/`). A night after several days of changes
-  lies in between. Nothing has been measured on a Swiss VPS yet.
+  lies in between. The job needs only a standard Linux host; nothing in it is tied to one provider.
 
 The `index_diff.json` numbers come from `python -m gegenprobe.monitor.nightly index`, one request to the index.
 
@@ -189,7 +189,7 @@ the night's 198,074,501 bytes) into `results/monitor/night_real_bytes.json`. Eve
 `census.scan` reads each file through a counter (`<part>/stream_bytes.json`) and run.json carries `bytes`
 (`single_exports`, `docs_texts_streamed`, `docs_texts_declared`, `index`, `be_ogd`, `total`, `over_network`).
 `transfer_bytes` keeps its old meaning (single exports only) for compatibility. It tests the install and the job on a
-GitHub-hosted runner, not Swiss hosting; the job is not yet running at OPD.
+standard GitHub-hosted runner: provider-independent, the same unit runs on any Linux host.
 
 `.github/workflows/nightly-real-docker.yml` (manual) runs **two consecutive real nights in the recommended Docker
 setup**: it builds the image and installs the Docker unit with `install.sh`, runs night 1 under systemd, optionally waits

@@ -1,4 +1,4 @@
-"""`make run` replay of all pre-registrations (P1-P7), from committed files only, plus re-derivation of Apertus decisions.
+"""`make run` replay of all pre-registrations (P1-P8), from committed files only, plus re-derivation of Apertus decisions.
 
 Step `replay` (FAIL on any difference; no network, no model):
   P1  results/eval/{dev,heldout}__*.json   per-document predictions re-scored with eval/score.py and eval.arms.score_rec
@@ -25,6 +25,12 @@ Step `replay` (FAIL on any difference; no network, no model):
               code checks against results/p7/test_sample.json; dev key + features; gold; the adapters' date-rule outcomes
               per (parliament, affair, gold date)); both outputs byte-identical to the committed files; LOCK8 verified on
               the repository files and the dev key copy (WORK inputs where present). Added 11 Oct 2026, round 8
+  P8          eval.p8.score and eval.p8.hypotheses9 re-run from the committed merged gold (data/p8/p8_gold.jsonl) into a
+              scratch tree; p8_tables.json and p8_hypotheses.json byte-identical to the committed files; LOCK9 verified on
+              the repository files, the WORK keys through their committed copies (data/p7/*_key.jsonl,
+              results/repair/adapters/audit3/key.jsonl) and the adapter-audit globs where WORK has them
+  P7 post hoc eval/p7/offline.py: posthoc8, posthoc_r8 and cluster_r9 (not registered) re-run on the committed copies in
+              data/p7/ (rule_any_outcomes.jsonl replaces the extracted texts); outputs byte-identical. Added round 10
 
 Step `rederive_apertus` (PASS / WARN / SKIP; FAIL only if a decision recomputed from a cache HIT disagrees):
   For the P1 held-out and P2 documents whose PDF can be fetched and sha256-verified within the time budget, extract
@@ -324,6 +330,62 @@ def replay_p7() -> list[dict]:
     return replay8.replay()
 
 
+def replay_p7_posthoc() -> list[dict]:
+    """P7 post hoc (not registered): posthoc8, posthoc_r8 and cluster_r9 re-run on the committed copies in data/p7/
+    (eval/p7/offline.py), each output byte-identical to results/p7/."""
+    from eval.p7 import offline
+    return offline.check()
+
+
+# committed copies of LOCK9's single-file WORK inputs (identical bytes; a clean checkout has no WORK)
+LOCK9_COPIES = {"WORK/p7dev/key.jsonl": DATA / "p7" / "dev_key.jsonl", "WORK/p7test/key.jsonl": DATA / "p7" / "test_key.jsonl",
+                "WORK/adapters/audit3/key.jsonl": RESULTS / "repair" / "adapters" / "audit3" / "key.jsonl"}
+
+
+def lock9() -> dict:
+    """LOCK9 on what a checkout has: every frozen repository file; the WORK keys through their committed copies; the
+    adapter-audit globs where WORK has them."""
+    import hashlib
+    from eval.prereg9 import lock9 as L9
+    lk = json.loads(L9.LOCK9.read_text())
+    bad = [f for f, h in lk["p8_files"].items() if not (L9.ROOT / f).exists() or L9.digest(f) != h]
+    checked = 0
+    for k, h in lk["work_inputs"].items():
+        if k in LOCK9_COPIES:
+            checked += 1
+            if hashlib.sha256(LOCK9_COPIES[k].read_bytes()).hexdigest() != h:
+                bad.append(f"{LOCK9_COPIES[k].relative_to(L9.ROOT)} != LOCK9 work_inputs {k}")
+    from gegenprobe.paths import WORK
+    globs = [k for k in lk["work_inputs"] if k not in LOCK9_COPIES]
+    present = []
+    for k in globs:  # "WORK/<dir>/*.jsonl", hashed as eval.p8.common.work_inputs does
+        files = sorted((WORK / k[len("WORK/"):-len("/*.jsonl")]).glob("*.jsonl"))
+        if not files:
+            continue
+        present.append(k)
+        h = hashlib.sha256()
+        for f in files:
+            h.update(f.name.encode() + b"\0" + f.read_bytes())
+        if h.hexdigest() != lk["work_inputs"][k]:
+            bad.append(k)
+    return dict(test=f"LOCK9 (P8): {len(lk['p8_files'])} files, {checked} WORK keys via committed copies, "
+                     f"{len(present)}/{len(globs)} audit globs present", ok=not bad, detail=bad[:8])
+
+
+def replay_p8() -> list[dict]:
+    """P8: the frozen scorer (eval.p8.score) and decision script (eval.p8.hypotheses9) re-run from the committed merged
+    gold (data/p8/p8_gold.jsonl) into a scratch tree; both outputs byte-identical to results/p8/; LOCK9 verified."""
+    from eval.p8 import hypotheses9, score
+    tmp = Path(tempfile.mkdtemp())
+    score.main(out=tmp / "p8_tables.json")
+    hypotheses9.main(tables_path=tmp / "p8_tables.json", out_path=tmp / "p8_hypotheses.json")
+    return [lock9(),
+            _bytes_check("P8 tables (eval.p8.score, byte-identical)", RESULTS / "p8" / "p8_tables.json",
+                         tmp / "p8_tables.json"),
+            _bytes_check("P8 H1-H7 verdicts (eval.p8.hypotheses9, byte-identical)", RESULTS / "p8" / "p8_hypotheses.json",
+                         tmp / "p8_hypotheses.json")]
+
+
 def replay_locks() -> list[dict]:
     import importlib
     out = []
@@ -339,7 +401,7 @@ def replay_locks() -> list[dict]:
 def replay() -> dict:
     t0 = time.time()
     tests = (replay_p1_p2() + replay_p3() + replay_p4() + replay_hypotheses() + replay_p3b() + replay_8b() + replay_p5()
-             + replay_p6() + replay_locks() + replay_p7())
+             + replay_p6() + replay_locks() + replay_p7() + replay_p8() + replay_p7_posthoc())
     fails = [t for t in tests if not t["ok"]]
     return dict(tests=tests, n=len(tests), failing=len(fails), secs=round(time.time() - t0, 1))
 
@@ -349,8 +411,8 @@ def main(ctx: dict | None = None) -> dict:
     for t in r["tests"]:
         print(f"    {'PASS' if t['ok'] else 'FAIL'}  {t['test']}" + ("" if t["ok"] else f"  {t['detail'][:3]}"), flush=True)
     s = (f"{r['n'] - r['failing']}/{r['n']} replay tests pass "
-         "(P1-P4 and P3b re-scored from committed labels, 8 hypotheses scripts incl. P5, P6 and P7, the P7 dev table, "
-         "the 8B analysis, 8 locks)")
+         "(P1-P4 and P3b re-scored from committed labels, 9 hypotheses scripts incl. P5-P8, the P7 dev table, "
+         "the P8 tables, the P7 post-hoc files, the 8B analysis, 9 locks)")
     return dict(status="FAIL" if r["failing"] else "PASS", summary=s, tests=r["tests"])
 
 

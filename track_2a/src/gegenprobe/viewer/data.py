@@ -1463,6 +1463,9 @@ DOWNLOADS = (
      "batch for a reviewer"),
     ("Apertus-promoted tier (P7)", "results/repair/adapters/p7/promoted.tsv",
      "the same rows as the registered P7 output (P7's own columns)"),
+    ("Spot-check kit", "results/opd_spotcheck/spotcheck.csv",
+     "30 gold labels (answer dates, P7 promotions, P8 submitter and type) with link, page, span and quote, for anyone to "
+     "verify in about an hour; scored by python -m eval.spotcheck score"),
 )
 
 

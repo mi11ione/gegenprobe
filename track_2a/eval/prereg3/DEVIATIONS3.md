@@ -40,3 +40,9 @@ held-out P3 needs fresh affairs drawn after a new lock with the extractor unchan
 decision vs publication); vs publisher titles 6/6; submission dates vs OPD submission events 15/21 (4 within a week, 2 by
 9 and 14 days: Vernier letter dates vs OPD deposit dates); vs Bern OGD 3/3. Arm C reads OPD metadata, so this checks the
 gold, not the extractor.
+
+## D3-6 (11 Oct 2026, round-10 jury): the PREREG3 header predates the lock
+`PREREG3.md` line 1 still reads "(DRAFT)" (noted in D3-4). The header was written before the lock and was not updated
+when P3 was locked; the file is hashed in `LOCK3`, so it is left unchanged to keep the lock verifiable. Its status line
+reads "FROZEN (LOCK3)", and `LOCK3` is the record: P3 was locked before any P3 label, and its registered content is the
+hashed text.

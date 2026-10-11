@@ -7,7 +7,7 @@ commands for an operator: `docs/runbook.md`; the lists themselves: `docs/repair.
 ## The census in detail
 
 The census streams OPD's exports once and gives every in-scope affair an answer-link status (`attached | agenda |
-parentless | absent | image_only | oral`). Of 91,268 interventions whose events record a written government answer,
+parentless | absent | image_only | oral`). Of 91,268 interventions whose events record a government answer,
 16,749 (18.4%) have no answer text attached in OPD (the registered count; 2,177 of them are in OPD with text under a
 heading the census lexicon does not recognise, so at most 14,572 lack it). 1,422 of them were answered orally in the sitting (1,016 Valais oral-answer
 stubs, 406 question-time answers; Graubünden's *Fragestunde* accounts for 367 of those), so no written text is expected.
@@ -113,7 +113,7 @@ with the 3,621 repairs from what OPD already holds (agenda joins, category tags,
 ## Running it: `make run`
 
 ```bash
-make run              # Docker, CPU, clean checkout: replays P1-P6, re-derives the rules arm, checks claims.tsv
+make run              # Docker, CPU, clean checkout: replays P1-P8, re-derives the rules arm, checks claims.tsv
 make census-replay    # recompute census, link status and feasibility matrix from data/census only (host Python 3.11)
 make test             # unit tests (pip install -e .[dev])
 ```
@@ -124,10 +124,11 @@ caller's uid, or uid 10001 when the caller is root, with a read-only root filesy
 dropped and `no-new-privileges` (`Makefile`, target `run`). It exits non-zero on any failure and writes
 `out/site/index.html`, the same evidence viewer as https://gegenprobe.mi11ion.io. It recomputes the census and asserts
 it equal to `results/census/`; replays the Bern join and its triple check; runs sample documents through the converter
-with the validator's checks; re-scores P1–P4 and P3b from the committed predictions and labels, re-runs the seven
-registered hypothesis scripts (P1–P6, P5 and P6 included) and the 8B analysis and verifies the seven LOCK files
-(P7 replays from the committed copies in `data/p7/` through `eval/p7/replay8.py`: LOCK8, the frozen hypotheses
-script and the dev table, byte-identical); re-derives the P1 rules arm from the
+with the validator's checks; re-scores P1–P4 and P3b from the committed predictions and labels, re-runs the nine
+registered hypothesis scripts (P1–P8) and the 8B analysis and verifies the nine LOCK files (P7 replays from the
+committed copies in `data/p7/` through `eval/p7/replay8.py`: LOCK8, the frozen hypotheses script and the dev table,
+byte-identical, and its post-hoc files through `eval/p7/offline.py`; P8 re-runs its frozen scorer and decision script
+from `data/p8/p8_gold.jsonl`, byte-identical, with LOCK9); re-derives the P1 rules arm from the
 source PDFs (fetched by sha256) and recomputes P1 and P2 Apertus decisions from the committed model cache (cache only,
 no model call) within a time budget; and runs the claims check: each number listed in `claims.tsv` is recomputed from
 its results file, and the step fails if a document prints anything else. Locally the rules arm re-derives 154/154 and
@@ -205,7 +206,7 @@ from a dated snapshot. Every request carries `GP_USER_AGENT`; a network night wa
   2,078 MB. It raised no alert; as a first night it had no previous state, so the drop and trend alerts could not fire.
   From round 5 on, every night counts the bytes it streams (`run.json` `bytes`). On live data it reproduced the Bern list (2,459 relink, 49 fetch); the triple check passed
   2,468 rows and sent 40 to review (the committed lists of the 6 Oct snapshot: 2,421 + 48 pass, 39 to review). This
-  tests the install and the job; the next step is the same night on OPD's side or on Swiss hosting.
+  tests the install and the job on a standard runner; the same unit runs on any Linux host.
 - **Two consecutive nights in the recommended Docker setup** (`.github/workflows/nightly-real-docker.yml`): the workflow
   builds the image, installs the Docker unit with `install.sh`, runs night 1, waits for OPD's next export and runs
   night 2 on night 1's persisted state, so the index diff, the ledger, retries, outbox redelivery and the drop/trend
@@ -214,7 +215,8 @@ from a dated snapshot. Every request carries `GP_USER_AGENT`; a network night wa
   state and OPD's next export, took 6.6 min, re-scanned the 12 bodies whose exports changed and streamed 1.19 GB; 0
   alerts, the Bern list unchanged (2,459 relink + 49 fetch). Night 2 also exposed a ledger-status bug (rows seen again
   lost their stored check verdict); it is fixed and covered by a two-night test (`tests/test_ledger_two_nights.py`;
-  `results/monitor/two_nights_docker_38098822336/README.md`). Both nights ran on a GitHub runner.
+  `results/monitor/two_nights_docker_38098822336/README.md`), and the real two-night re-run of the fixed code is
+  scheduled. Both nights ran on a standard GitHub runner; nothing in the job is tied to one host.
 - **Operator-facing details.** The recommended Docker unit bind-mounts `GP_EXPORTS_DIR` read-only at the same path; CI
   runs a network-mode night that way inside the image, on a root-owned, read-only fixture export directory with
   `--network none`. The adapter canaries are on by default (`GP_ADAPTER_CANARY=1` in the template); the live run of 11

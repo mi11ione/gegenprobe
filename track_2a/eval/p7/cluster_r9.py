@@ -3,6 +3,7 @@ decision changes): a parliament-cluster interval for the date-choice gain that r
 the registered row-level (stratified) bootstrap only.
 
     PYTHONPATH=src:. python -m eval.p7.cluster_r9     -> results/p7/p7_cluster_r9.json
+    (without WORK/p7test, e.g. a clean checkout, it runs on the committed copies in data/p7/: eval/p7/offline.py)
 
 Same inputs, rows and estimators as eval.p7.posthoc_r8 (its frame_rows and cluster_vals are reused unchanged); the point
 estimates are asserted equal to the round-8 file before anything is written. Statistics, on date-checked precision (the
@@ -83,4 +84,7 @@ def main() -> dict:
 
 
 if __name__ == "__main__":
+    from eval.p7 import offline
+    if offline.needed():  # clean checkout: no WORK/p7test; run on the committed copies in data/p7/ (eval/p7/offline.py)
+        raise SystemExit(offline.run(__spec__.name))
     print(json.dumps(main(), indent=1))

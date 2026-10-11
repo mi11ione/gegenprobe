@@ -9,9 +9,10 @@ steps that need the network or a model endpoint and cannot reach them; the repla
   4 convert   sample documents through the cascade (metadata -> rules -> Apertus pointer); span / typed-null /
               footer-distractor / self-deletion checks; live scores compared with the committed cache within tolerance
   5 eval      re-score the cached P1 arm results on the frozen gold set; print the scoreboard
-  6 replay    all five pre-registrations re-scored from the committed label files (P1-P4, P3b), the five hypotheses
-              scripts re-run and compared with their committed outputs, the 8B analysis re-run offline and compared, the
-              five LOCK files verified (FAIL on any difference)
+  6 replay    all nine pre-registered tests from committed files (P1-P8, P3b): P1-P4 and P3b re-scored from the
+              committed label files, the nine hypotheses scripts re-run and compared with their committed outputs (P5-P8
+              byte-identical), the P7 dev table, the P8 tables, the P7 post-hoc files (eval/p7/offline.py) and the 8B
+              analysis re-run offline and compared, the nine LOCK files verified (FAIL on any difference)
   7 rederive  the P1 rules arm re-derived from the source PDFs (sha256-verified); WARN, never FAIL
   8 rederive_apertus  P1 + P2 pointer and cascade decisions recomputed from the committed model cache, cache-only
               (no request leaves the machine); FAIL only if a cache hit gives a different decision
@@ -37,7 +38,7 @@ STEPS = [
     ("repair", "gegenprobe.repair.demo", "main"),
     ("convert", "gegenprobe.convert.demo", "main"),
     ("eval", "eval.replay", "main"),
-    ("replay", "eval.replay_all", "main"),  # P1-P4, P3b, 8B analysis + hypotheses + locks, committed files (FAIL on any diff)
+    ("replay", "eval.replay_all", "main"),  # P1-P8, 8B analysis + hypotheses + nine locks, committed files (FAIL on any diff)
     ("rederive", "eval.rederive", "main"),  # rules arm re-derived from the source PDFs (non-fatal: PASS / WARN / SKIP)
     ("rederive_apertus", "eval.replay_all", "main_rederive"),  # pointer/cascade from the model cache (cache-only)
     ("claims", "gegenprobe.claims_step", "main"),

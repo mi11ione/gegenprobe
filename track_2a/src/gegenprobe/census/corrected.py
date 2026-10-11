@@ -1,7 +1,7 @@
 """Derived census layer (round 6): what the registered census gap is, once the repair routes have looked.
 
 The registered census (census/defs.py, tables.py, funnel.py; LOCKed) stays exactly as registered: 16,749 interventions
-whose events record a written government answer have no answer text attached in OPD (1,855 for 2024-25). This module does
+whose events record a government answer have no answer text attached in OPD (1,855 for 2024-25). This module does
 not change that count. It adds one derived layer on top, from committed results only (no network, no model):
 
   results/census/interventions.tsv.gz      one row per written-answer intervention, with the census link_status

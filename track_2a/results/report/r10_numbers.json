@@ -1,0 +1,177 @@
+{
+ "note": "derived from committed files only (report/r10_numbers.py); see the module docstring",
+ "ops": {
+  "answers_2025": 6655,
+  "busiest_month": "2025-11",
+  "busiest_month_answers": 859,
+  "corpus_documents": 902754,
+  "fetch_hours_outside_opd": 527,
+  "fetch_s_per_doc": 2.1,
+  "label": "estimate: OPD answer events per calendar day (2025) x held-out residue share x measured 8B time; not measured on a real night",
+  "nightly_busiest": {
+   "answers_per_night": 28.6,
+   "h_8b": 0.9,
+   "min_8b": 54,
+   "residue_docs": 18.0,
+   "usd_70b": 0.0106
+  },
+  "nightly_mean": {
+   "answers_per_night": 18.2,
+   "h_8b": 0.57,
+   "min_8b": 34,
+   "residue_docs": 11.5,
+   "usd_70b": 0.0068
+  },
+  "residue_share": 0.63
+ },
+ "p7": {
+  "h1_wilson_pct": [
+   96.9,
+   100.0
+  ]
+ },
+ "p8": {
+  "assumption": "11 evaluable parliaments with 6 determinable affairs each; labels wrong at random with probability q; before the systematic condition",
+  "deviating": {
+   "addressed_body": {
+    "gold": 1,
+    "gold_names": [
+     "Bellinzona"
+    ],
+    "qwen": 1,
+    "qwen_names": [
+     "Vaud"
+    ],
+    "verdict_gold": "role_split",
+    "verdict_qwen": "role_split"
+   },
+   "co_signatories": {
+    "gold": 8,
+    "gold_names": [
+     "Thurgau",
+     "Valais",
+     "Bern city",
+     "Zürich city",
+     "Fribourg",
+     "Vernier",
+     "Lugano",
+     "Graubünden"
+    ],
+    "qwen": 7,
+    "qwen_names": [
+     "Thurgau",
+     "Valais",
+     "Bern city",
+     "Zürich city",
+     "Vaud",
+     "Fribourg",
+     "Graubünden"
+    ],
+    "verdict_gold": "role_split",
+    "verdict_qwen": "role_split"
+   },
+   "date_submission": {
+    "gold": 2,
+    "gold_names": [
+     "Lausanne",
+     "Vernier"
+    ],
+    "qwen": 5,
+    "qwen_names": [
+     "Vaud",
+     "Lausanne",
+     "Vernier",
+     "Bellinzona",
+     "Graubünden"
+    ],
+    "verdict_gold": "body_specific",
+    "verdict_qwen": "body_specific"
+   },
+   "government_recommendation": {
+    "gold": 1,
+    "gold_names": [
+     "Vernier"
+    ],
+    "qwen": 0,
+    "qwen_names": [],
+    "verdict_gold": "role_split",
+    "verdict_qwen": "shared"
+   },
+   "language": {
+    "gold": 1,
+    "gold_names": [
+     "Fribourg"
+    ],
+    "qwen": 2,
+    "qwen_names": [
+     "Fribourg",
+     "Graubünden"
+    ],
+    "verdict_gold": "role_split",
+    "verdict_qwen": "role_split"
+   },
+   "submitter": {
+    "gold": 7,
+    "gold_names": [
+     "Thurgau",
+     "Valais",
+     "Zürich city",
+     "Fribourg",
+     "Vernier",
+     "Lugano",
+     "Graubünden"
+    ],
+    "qwen": 3,
+    "qwen_names": [
+     "Valais",
+     "Vaud",
+     "Graubünden"
+    ],
+    "verdict_gold": "role_split",
+    "verdict_qwen": "role_split"
+   },
+   "type": {
+    "gold": 4,
+    "gold_names": [
+     "Valais",
+     "Fribourg",
+     "Lugano",
+     "Bellinzona"
+    ],
+    "qwen": 3,
+    "qwen_names": [
+     "Valais",
+     "Vaud",
+     "Bellinzona"
+    ],
+    "verdict_gold": "role_split",
+    "verdict_qwen": "role_split"
+   }
+  },
+  "false_split": {
+   "q2": {
+    "per_field": 0.0608,
+    "per_field_pct": 6.1,
+    "per_parliament": 0.0057,
+    "per_parliament_pct": 0.6
+   },
+   "q3": {
+    "per_field": 0.1288,
+    "per_field_pct": 12.9,
+    "per_parliament": 0.0125,
+    "per_parliament_pct": 1.2
+   },
+   "q5": {
+    "per_field": 0.3069,
+    "per_field_pct": 30.7,
+    "per_parliament": 0.0328,
+    "per_parliament_pct": 3.3
+   }
+  },
+  "language_fribourg": {
+   "in_E": 4,
+   "n": 6,
+   "outside_E": 2
+  }
+ }
+}

@@ -1,4 +1,4 @@
-"""Research dataset: one row per in-scope intervention whose events record a written government answer (the census funnel's
+"""Research dataset: one row per in-scope intervention whose events record a government answer (the census funnel's
 denominator, 91,268 on the 2026-10-06 snapshot), plus a per-body date-trust table. NEW outputs only; the asserted census
 results (funnel, summary, matrix, question …) are not touched.
 

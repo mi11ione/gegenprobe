@@ -1,8 +1,8 @@
-# interventions.tsv.gz — one row per intervention with a written government answer
+# interventions.tsv.gz — one row per intervention with a recorded government answer
 
 Built by `python -m gegenprobe.census.interventions` from the vendored census tables (`data/census/`, OpenParlData exports
 of 2026-10-06). Scope: affairs of harmonised type Interpellation, Motion, Postulate, Question or Question time whose events
-record a written government answer (the census funnel's denominator: 91,268 rows). Tab-separated, UTF-8, gzip.
+record a government answer (the census funnel's denominator: 91,268 rows). Tab-separated, UTF-8, gzip.
 Licence: CDLA-Permissive-2.0 (see `data/LICENSE`); derived from OpenParlData.ch, which publishes material the parliaments
 themselves publish.
 
@@ -38,7 +38,7 @@ bodies.
 
 Built by `make site` (`python -m gegenprobe.viewer collect`, `viewer/data.py:write_csv`) from the census results and this
 dataset. Column groups `all_*`, `since2015_*`, `y2425_*` repeat per period (by the year in the affair number, else its
-`begin_date`). One denominator: `written` = interventions whose events record a written government answer.
+`begin_date`). One denominator: `written` = interventions whose events record a government answer.
 
 | column (per period) | meaning |
 |---|---|

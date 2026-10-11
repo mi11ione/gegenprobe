@@ -113,7 +113,13 @@ nothing):
 | government recommendation | role split, **fragile** | 31/34 = 91.2% [71.9%, 100.0%] | 9 | Vernier 0/3: a report on a motion already adopted (approve and write off), not a recommendation at referral | role split | shared | 1.00 | 0.76 |
 
 Five verdicts hold under both checks: submitter, co-signatories, language and type split by role, and the submission
-date is body-specific. The addressed body and the recommendation split on the gold; the addressed body is shared on
+date is body-specific. The verdicts hold; the parliament lists are softer: on Qwen's labels the submitter deviates in 3
+parliaments (Valais, Vaud, Graubünden) instead of 7, the submission date in 5 (Vaud, Lausanne, Vernier, Bellinzona,
+Graubünden) instead of 2, and the language split rests on 2 Fribourg affairs (4/6 in E). The rule's chance of a false
+split (PREREG9 §7, recomputed in `results/report/r10_numbers.json`): if 5% of labels were wrong at random, a parliament
+with 6 affairs deviates with probability 3.3%, so a field with 11 such parliaments shows at least one deviating
+parliament with probability 30.7% (2% wrong: 6.1%), before the registered condition that a split needs two affairs in
+the same named category. The addressed body and the recommendation split on the gold; the addressed body is shared on
 agreed labels only and the recommendation on Qwen's labels, so both are recorded as role splits marked fragile
 (`data/schema/field_verdict_classes.json`).
 
@@ -184,7 +190,9 @@ addendum gives the annotation timing from local file times (about two minutes pe
 annotators (Claude Opus and Sonnet) label each document, a third breaks ties (in P2 with the order randomised), quotes
 are verified by code, and the raw A1, A2 and A3 files are committed for every set, P6 and DEV2 included
 (`data/p6/annotations/`), so every label and every κ recomputes; the committed
-labels are the record (rerunning the agents need not reproduce them). Because all three are Claude models, an annotator
+labels are the record (rerunning the agents need not reproduce them). A 30-row kit lets anyone, OPD included, verify
+the gold in about an hour (`results/opd_spotcheck/`: link, page, span and quote per label; `python -m eval.spotcheck
+score` reports the agreement with a Wilson interval). Because all three are Claude models, an annotator
 from another vendor and model family, `Qwen-SEA-LION-v4-32B-IT` (AI Singapore, Qwen family; neither Anthropic nor
 Apertus), labelled all 216 P1 and P2 documents blind from the same guide and the same text (post hoc, D14/D2-7; 216
 calls, USD 0.14; `results/eval/posthoc_r5_independent_gold.json`). Answer present: P1 146/154 (κ 0.89), P2 60/62
@@ -192,8 +200,7 @@ calls, USD 0.14; `results/eval/posthoc_r5_independent_gold.json`). Answer presen
 one of its listed alternatives in 54/54 P1 documents, and the gold date in 25/29 P2 documents. No registered decision
 changes under either reading, only the documents where both vendors agree or Qwen's labels wherever they differ: P2-H2
 is 22 vs 0 under the gold, 21 vs 0 and 23 vs 1; the P1 cascade is exact on 139/154, 127/134 and 133/154. Limits: Qwen
-reads the same extracted text, so OCR errors stay invisible to both, and this is a check across model families, not a
-human audit; the 21 P1 and 8 P2 disagreements are listed with both values in the JSON and were not adjudicated. P1-H1
+reads the same extracted text, so OCR errors stay invisible to both, and this is a check across model families; the 21 P1 and 8 P2 disagreements are listed with both values in the JSON and were not adjudicated. P1-H1
 (null safety) fails as registered (7/90) and rests on contested documents: 6 of the 7 values fall on documents OPD
 types as reports (council reports that quote the executive's decision). Without the 24 reports it is 1/72 (upper bound
 7.5%), on the documents where both vendors agree 2/84, under Sonnet's labels 5/88, under Qwen's 11/94.
@@ -481,8 +488,8 @@ all 62), for the answer date of whole affairs (P3: 22/27 → 27/27; P3b on fresh
 submitters, where both model routes beat the rules (P5: pointer 24/40, free generation 34/40, rules 12/40). **Null safety:** every registered
 null-safety test on the 70B failed (P1-H1, P2-H3, P6-H2), so its values and nulls go to a reviewer. As a
 verifier of the adapters' review queue (P7) it is precise (120/120 sampled promotions are answers), but 86.7% of that
-queue are answers anyway; its gain there is the choice of date (+19.6 points of date-checked precision over the
-no-model date rule, parliament-cluster [0.9, 42.8], post hoc; registered H4: +22.7 points over a trivial date match). On P1 the rules alone are as accurate as rules +
+queue are answers anyway; its registered gain there is the date check (H4: +22.7 points over a trivial date match,
+[10.2, 34.3]); post hoc, a no-model date rule recovers more rows with less precision (below). On P1 the rules alone are as accurate as rules +
 Apertus (registered H2: Branch B), so the default runs no model, and in Bulle's minutes (P4) Apertus added no
 significant decisions. Neither means the rules are complete: P1 rule recall is 47/64 and P4 recall 99/120. **Accuracy
 close to free prompting, provenance by construction:** the same Apertus asked freely with a null-allowed prompt is about as accurate (P2: 54/62
@@ -503,17 +510,21 @@ Sonnet. H1 (primary): promotion precision 120/120, Wilson lower bound 96.9%: hol
 printed-date filter adds are 28/30 right: not supported. Applied to the whole queue, 214 of 917 review rows go to the
 tier `promoted_by_apertus`.
 
-**What the model adds in P7 (post hoc, round 8; `results/p7/p7_posthoc_r8.json`, DEVIATIONS8 D2).** The adapters' date
-rule, run without a model on every printed date of the text Apertus reads, would promote 217 of the 478 frame rows; 98.9%
-are answers, but only 76.2% carry a gold answer date that passes the rule, and the first passing date is the gold date
-for 70.2%. P7's promotions reach 95.8% and 94.2%: +19.6 points [8.4, 30.9] date-checked and +23.9 points [12.7, 34.7]
-on the date itself. Keeping Apertus's yes/no gate but dropping its date choice, 172 rows reach 74.9%: the date choice
-alone is worth +20.9 points [5.2, 33.1], the yes/no question 1.1 points [0, 2.9] on is-answer. With whole parliaments
-resampled (post hoc, round 9, `eval/p7/cluster_r9.py` → `results/p7/p7_cluster_r9.json`; 15 parliaments, B = 10,000)
-the gain over the no-model rule is [0.9, 42.8] and the date choice [0, 47.4]: the gain is concentrated in a few
-parliaments, and without Frauenfeld it is larger (+28.5 and +36.4 points). A date match without a
-model is also right on is-answer (146/146) and also stops all 10 gold-no rows, so Apertus's value in P7 is choosing which
-printed date is the answer date. H4 as registered is weighted to the frame; unweighted over the judged rows it is
+**What the model adds in P7 (post hoc, round 8; `results/p7/p7_posthoc_r8.json`, DEVIATIONS8 D2).** *Date-checked*
+(the registered `correct_dated`) asks whether a promoted row is the executive's answer and some gold answer date passes
+the adapters' date rule: it measures how often a promotion is date-checkable, not whether the date the arm picked is
+right. The date rule, run without a model on every printed date of the text Apertus reads, would promote 217 of the 478
+frame rows; 98.9% are answers, 76.2% date-checked. P7's promotions reach 95.8%: +19.6 points [8.4, 30.9]. On the date
+itself, Apertus's chosen date is the gold date in 113/120 judged promotions, the rule's first passing date in 127/157
+(+23.9 points [12.7, 34.7]). The rule recovers more rows with less precision: attainable recall 88% against P7's 66%,
+and 369 of the 863 eligible queue rows against 214. Keeping Apertus's yes/no gate and letting the rule accept any
+printed date, 172 rows reach 74.9% (P7 +20.9 points [5.2, 33.1]); the yes/no question adds 1.1 points [0, 2.9] on
+is-answer. With whole parliaments resampled (post hoc, round 9, `eval/p7/cluster_r9.py` → `results/p7/p7_cluster_r9.json`;
+15 parliaments, B = 10,000) the gap to the no-model rule is [0.9, 42.8] and to the gated rule [0, 47.4]: it is
+concentrated in a few parliaments, and without Frauenfeld it is larger (+28.5 and +36.4 points). A date match without a
+model is also right on is-answer (146/146) and also stops all 10 gold-no rows. So Apertus's selection makes the
+promoted tier date-checkable; a no-model rule recovers more rows with less precision. These scripts replay from a clean
+checkout on the committed `data/p7/` copies (`eval/p7/offline.py`, part of `make run`). H4 as registered is weighted to the frame; unweighted over the judged rows it is
 115/120 vs 129/146 (88.4%), +7.5 points [3.4, 12.2], the gap coming from the `rest` stratum (2/8 trivial promotions
 there carry a passing gold date); with parliaments resampled the registered gap is [5.5, 49.6]. Frauenfeld supplies 109
 of the 214 promotions and 72 of the 120 judged ones; without it 48/48 promotions are answers (Wilson [92.6, 100]) and

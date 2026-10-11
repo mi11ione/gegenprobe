@@ -1,6 +1,7 @@
 """P7 post-hoc descriptives (NOT registered; written after the test gold was read): context for H1-H4.
 
     PYTHONPATH=src:. python -m eval.p7.posthoc8     -> results/p7/p7_posthoc.json
+    (without WORK/p7test, e.g. a clean checkout, it runs on the committed copies in data/p7/: eval/p7/offline.py)
 
   base_rate        weighted share of gold-yes (and of gold-yes with a gold date passing the date rule) over the test
                    frame: the precision of promoting every eligible review row
@@ -23,6 +24,8 @@ import json
 from eval.p7 import hypotheses8 as H
 from gegenprobe.paths import RESULTS
 from gegenprobe.stats import auroc, wilson
+
+OUT = RESULTS / "p7" / "p7_posthoc.json"
 
 
 def earlier_audits() -> dict:
@@ -75,9 +78,12 @@ def main() -> dict:
         rest_decisions=dict(collections.Counter(r["p7_why"] for r in rows if r["stratum"] == "rest")),
     )
     res["earlier_audits"] = earlier_audits()
-    (RESULTS / "p7" / "p7_posthoc.json").write_text(json.dumps(res, indent=1, sort_keys=True) + "\n")
+    OUT.write_text(json.dumps(res, indent=1, sort_keys=True) + "\n")
     return res
 
 
 if __name__ == "__main__":
+    from eval.p7 import offline
+    if offline.needed():  # clean checkout: no WORK/p7test; run on the committed copies in data/p7/ (eval/p7/offline.py)
+        raise SystemExit(offline.run(__spec__.name))
     print(json.dumps(main(), indent=1))

@@ -6,7 +6,7 @@ with `$id` and version 0.1.0: `results/schema/*.schema.json`; field guide: `docs
 Ntoso, Parla-CLARIN and OParl: `docs/mapping.md`.
 
 **In one line:** a common schema works if it carries roles, and not only for dates: authorship (sole author, first
-signatory, joint authors, parliamentary group, spokesperson), signatories, the instrument behind a harmonised type, and
+signatory, joint authors, parliamentary group), signatories, the instrument behind a harmonised type, and
 the date a submission really carries. "Answer date" is the government's decision in some parliaments, the letter or
 registration date in others and in 7 bodies mostly the submission date; v0.1 makes the role explicit on every date. A
 pre-registered test on 66 fresh affairs from 11 parliaments (P8) finds the same for the fields v0.1 defined once; §2
@@ -16,7 +16,7 @@ turns each finding into a recommendation. Meaning is now measured for 11 of the 
 
 | class | fields and concepts | what it means for a standard |
 |---|---|---|
-| **shared with a role split** (10 of 17) | answer date, procedural history, type, procedural state, decision outcome (from OPD's labels; all 5 are measured); submitter, co-signatories, language, addressed body, government recommendation (P8; type splits there too) | one label covers several roles that must be kept apart before parliaments can be compared; the roles are named in §2 and in `data/schema/field_verdict_classes.json` |
+| **shared with a role split** (10 of 17) | answer date, procedural history, type, procedural state, decision outcome (from OPD's labels; all 5 are measured); submitter, co-signatories, language (P8; type splits there too); addressed body and government recommendation (P8, *fragile, to confirm*: split on the gold, not under both checks) | one label covers several roles that must be kept apart before parliaments can be compared; the roles are named in §2 and in `data/schema/field_verdict_classes.json` |
 | **shared** (7 of 17) | submission date (body-specific in Vernier and Lausanne, P8), decision date, dispatch date, Q/A pairing, related affairs, usable text, answer-link status | one definition in v0.1; the six without a test are the next candidates for the same test; *where* the value lives (metadata, PDF, or not in OPD) is measured |
 | **body-specific** (3 concepts, not among the 17 fields) | oral answers in question time; executive business that answers no member's affair; councils that publish only meeting documents | needs its own construct, not a field: v0.1 types oral answers as a null reason and marks affairs rebuilt from minutes `virtual` with `derived_from` |
 
@@ -41,8 +41,8 @@ tolerated); a parliament that departs systematically names a role. Share in v0.1
   print a sole author or designated first signatory; Zürich city, Thurgau, Fribourg and Vernier print joint authors
   with none designated first, and OPD's "submitter" is whichever is listed first; in Valais the author of record is a
   parliamentary group. *Recommend:* `Actor.role` ∈ {sole_author, first_signatory, joint_author, co_signatory,
-  supporter, spokesperson} with `kind` ∈ {person, group, committee}. *v0.2 candidates:* `joint_author`, `supporter`,
-  `spokesperson` (v0.1 has `submitter`, `first_signatory`, `co_signatory`, `on_behalf_of_group`).
+  supporter, spokesperson} with `kind` ∈ {person, group, committee}. *v0.2 candidates:* `joint_author` (found), with `supporter` and
+  `spokesperson` as registered categories without a verdict of their own (v0.1 has `submitter`, `first_signatory`, `co_signatory`, `on_behalf_of_group`).
 - **Co-signatories: the printed role of each person, not a derived list** (role split; 10/41 [6.8%, 46.3%]). Bern
   city prints two to four first signatories ("Erstunterzeichnende"), so OPD's co-signatory list includes authors of
   record; elsewhere the list holds joint authors (Zürich city, Thurgau, Fribourg, Vernier) or persons signing for a
@@ -59,7 +59,7 @@ tolerated); a parliament that departs systematically names a role. Share in v0.1
   2 to 28 days after the lodging date they print. *Recommend:* give the submission date a role and a source like every
   other date. *v0.2 candidates:* `DateRole` values for lodged, registered and announced in session (v0.1 has
   `submitted`).
-- **Addressed body and recommendation: candidates to confirm.** Both split on the gold but not under both registered
+- **Addressed body and recommendation: fragile, to confirm.** Both split on the gold but not under both registered
   checks (the addressed body is shared on agreed labels only, the recommendation on Qwen's labels). Addressed body:
   the executive in 10 of 11 parliaments (one exception allowed); Bellinzona's direct-decision instruments address the council itself, which
   `instrument_function` already captures. Recommendation: "accept" at referral and "approve the report and write off"

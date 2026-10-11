@@ -3,6 +3,7 @@ decision changes). Asked for by the round-8 jury (J2, J5): how much of P7's resu
 date rule, the queue's base rate and one dominant parliament.
 
     PYTHONPATH=src:. python -m eval.p7.posthoc_r8     -> results/p7/p7_posthoc_r8.json
+    (without WORK/p7test, e.g. a clean checkout, it runs on the committed copies in data/p7/: eval/p7/offline.py)
 
 Inputs as eval.p7.hypotheses8 (WORK/p7test key, arm decisions and merged gold, hash-checked), the Qwen check
 (WORK/p7test/ann/qwen.jsonl), the raw A1/A2 files, the extracted texts and OPD targets (for the no-model ablation), and
@@ -429,6 +430,9 @@ def main() -> dict:
 
 
 if __name__ == "__main__":
+    from eval.p7 import offline
+    if offline.needed():  # clean checkout: no WORK/p7test; run on the committed copies in data/p7/ (eval/p7/offline.py)
+        raise SystemExit(offline.run(__spec__.name))
     r = main()
     print(json.dumps(dict(without_frauenfeld=r["without_frauenfeld"]["h1"], cluster=r["cluster"],
                           ablation={a: (r["ablation"]["promoted_in_frame"][a], r["ablation"]["arms"][a]["precision"],
