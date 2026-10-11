@@ -143,8 +143,8 @@ adds the always-null baseline (90/154), dates found per arm (of 64) and the prec
   "18. November 2014" (it agrees with the blind gold label); empty fields are typed nulls with their reason
   (`government_recommendation: not_applicable`, `decision: not_in_corpus`); the Apertus suggestion for the addressed body
   is shown apart, as a review suggestion without a span (document-level choice). The whole record is in a `<details>`.
-  Below it, the 17 fields with their meaning class (12 shared, 5 shared with a role split; the field-to-class map is the
-  README table, `viewer/data.py:FIELD_CLASS`; definitions `data/schema/field_verdict_classes.json`), the tier, where the
+  Below it, the 17 fields with their meaning class (7 shared, 10 shared with a role split after P8; the field-to-class
+  map is the README table, `viewer/data.py:FIELD_CLASS`; definitions `data/schema/field_verdict_classes.json`), the tier, where the
   value lives (metadata · partly · only in the PDF · not in OPD's data, counted over the parliaments where the field
   applies) and the evidence (`results/census/comparability.json`), then the three body-specific concepts (oral answers in
   question time, councils that publish only meeting documents, executive business answering no member's affair).
@@ -214,8 +214,11 @@ adds the always-null baseline (90/154), dates found per arm (of 64) and the prec
   2,379 of 2,379 by the publisher's title). `make census-replay` still matches.
 - **"Meaning tested?" in the schema table.** `data/schema/field_verdict_classes.json` lists per field `meaning_tested`
   (`measured` + the `comparability.json` key, or `by definition, untested`); `schema_view` adds `tested`, `tested_in`,
-  `tested_counts`. Of the 12 shared fields 1 is measured (government recommendation, 0 of 183 labels ambiguous), 11 are
-  shared by definition; all 5 role-split fields are measured.
+  `tested_counts`. Of the 12 shared fields 1 was measured (government recommendation, 0 of 183 labels ambiguous), 11 were
+  shared by definition; all 5 role-split fields were measured. Round 9 (P8, `eval/prereg9/`): seven fields carry
+  `measured (P8)` or a `p8` block with the registered verdict; five move to the role-split class, so the table now
+  shows 7 shared (6 of them by definition, untested; the submission date body-specific in two parliaments) and 10 with
+  a role split; `schema_view` adds `meaning_measured` (11 of 17) and the evaluation view a P8 table.
 - **Answer times by date tier.** `census/days_by_trust.py` → `results/census/answer_days_by_trust.json`: the pooled 68
   days split by what OPD's "answer" date is (verified 112 days, 2 bodies; sitting day 79, 24; mixed 62, 14; diffuse 39, 7;
   same day 0, 7) and by type; run by `make census`.

@@ -3,11 +3,14 @@
 Track 2A · OpenParlData (OPD) · Team 444 · **Evidence site: https://gegenprobe.mi11ion.io** · technical report:
 [`technical_report.md`](technical_report.md) (PDF `444_Report.pdf`)
 
-**The answer.** A common schema for the business of Swiss parliaments works if it carries roles. "Answer date" is the
-government's decision in some parliaments, the letter or registration date in others and the submission date in a few;
-schema v0.1 gives every date its role, every value its source (page and character span, or the OPD record) and every
-empty field a typed reason. Built on that schema, Gegenprobe measures where OPD's answers are, hands OPD checked repair
-lists keyed on its own ids, and uses Apertus as a closed-set reader: every value it extracts is printed in the document.
+**The answer.** A common schema for the business of Swiss parliaments works if it carries roles, and not only for
+dates. "Answer date" is the government's decision in some parliaments, the letter or registration date in others and
+the submission date in a few. A pre-registered meaning test (P8) finds the same for authorship (sole author, joint
+authors, first signatory, parliamentary group), signatories, the instrument behind a harmonised type and the date a
+submission really carries. Schema v0.1 gives every date its role, every value its source (page and character span, or
+the OPD record) and every empty field a typed reason; P8's roles are the v0.2 candidates for the eCH group. Built on
+that schema, Gegenprobe measures where OPD's answers are, hands OPD checked repair lists keyed on its own ids, and uses
+Apertus as a closed-set reader: every value it extracts is printed in the document.
 
 | | |
 |---|---|
@@ -15,12 +18,13 @@ lists keyed on its own ids, and uses Apertus as a closed-set reader: every value
 | **9,720** | answers with a repair proposed to OPD, keyed on OPD ids, with a dry-run apply plan for Bern |
 | **+19.6 points** | date-checked precision when Apertus chooses the printed answer date, over the no-model date rule (P7: 95.8% vs 76.2%; parliament-cluster 95% interval [0.9, 42.8]); it fills a tier of 214 review-queue answers for OPD's review step |
 | **24/29** | answer dates Apertus finds in 15 parliaments nobody wrote rules for (P2), as many as a free prompt (re-parsed), every value a printed date; the latest printed date finds 22 but dates 31 of the 33 answerless documents, Apertus 4 |
+| **5 of 7** | fields v0.1 defines once split by role or by parliament under every check (P8: 66 affairs, 11 parliaments): submitter, co-signatories, type and language by role; in Vernier and Lausanne OPD's submission date is mostly one the documents do not print |
 
 - **Ready for OPD:** Bern relinks, fetches and `begin_date` corrections with dry-run SQL; per-parliament adapter lists;
   a vocabulary error list; a Fedlex resolver for the federal placeholder documents ([below](#ready-for-opd)).
 - **Auditable by construction:** every value Apertus extracts is a date or phrase printed in the document, located by
   code; its yes/no answers (P7) and category labels are judgements a person reviews. The default runs no model.
-- **Pre-registered:** eight tests, each frozen by hash before its labels; every measured number in this README, the
+- **Pre-registered:** nine tests, each frozen by hash before its labels; every measured number in this README, the
   report and the form notes is recomputed from its results file by `make claims`.
 
 ```bash
@@ -80,7 +84,9 @@ Detail, per list and per check: [`docs/operations.md`](docs/operations.md), [`do
 
 ### 1. The schema: shared concepts, explicit roles
 
-Five fields are measured to need a role split, and schema v0.1 encodes each split explicitly:
+A common schema works if it carries roles, not only for dates. Meaning is now measured for 11 of the 17 fields: 5
+from OPD's own labels and 7 from the documents in P8 (type both ways). v0.1 encodes the five label splits; P8 names the
+roles v0.2 adds.
 
 - **Answer date.** OPD's "answer" event is the government's decision in some parliaments, the dispatch or registration
   date in others, and in 7 parliaments mostly the submission date. Median answer times differ by what the date is:
@@ -90,25 +96,36 @@ Five fields are measured to need a role split, and schema v0.1 encodes each spli
 - **Procedural history, type, procedural state, decision outcome.** One source label covers several roles: 35 event
   labels carry different date roles, 42 of 1,038 raw type labels map to different types, 32 state labels and 3 outcome
   labels are ambiguous (`results/census/comparability.json`).
+- **Authorship, signatories, instrument, language (P8).** On 66 fresh affairs from 11 parliaments, labelled blind
+  against categories fixed in advance (`eval/prereg9/`), none of the seven fields v0.1 defines once passes the
+  registered test of meaning the same thing everywhere. The submitter is a sole author or designated first signatory
+  in Bern city, Vaud and Lausanne, one of several joint authors with none designated first in Zürich city, Thurgau,
+  Fribourg and Vernier, and a parliamentary group in Valais: 35/65 affairs carry the one meaning v0.1 gives it. Bern
+  city prints several first signatories, so OPD's co-signatory list includes authors of record (co-signatories in
+  their v0.1 meaning: 10/41). Two Bellinzona "Motions" propose a decision the council takes itself; two Valais
+  "Postulate" mandate the executive to act. In Fribourg, OPD's language tag names the other official language in 2
+  of 6 affairs.
+- **Submission date (P8).** In 9 of 11 parliaments OPD's date is the printed lodging date (one exception allowed). In Vernier (0/5) and
+  Lausanne (2/5) it is mostly printed nowhere in the documents, 2 to 28 days after the lodging date they print: a
+  standard records which event the date is. These five verdicts hold on agreed labels only and on another vendor's
+  labels (details and the two fragile splits: [`docs/evaluation.md`](docs/evaluation.md#p8-what-the-shared-fields-mean)).
 
-The other 12 fields (submitter, submission date, addressed body, …) are defined once in v0.1; for the government
-recommendation OPD's harmonised labels map unambiguously (0 of 183 raw labels map to two concepts). Mapping each
-parliament's printed forms to these concepts is the next step for the eCH group (test plan:
-[`docs/ech-onepager.md`](docs/ech-onepager.md) §6); P8 (`eval/prereg9/`) sets out that test for seven of the shared
-fields, on fresh affairs from twelve parliaments, with its categories and decision rules fixed in advance.
-
-| field | class | where it lives (metadata · mixed · PDF only · none) |
-|---|---|---|
-| answer date | role split, measured | **metadata**: 53 · 1 · 0 · 0 |
-| procedural history | role split, measured | **metadata**: 78 · 9 · 1 · 1 |
-| type | role split, measured | partly: 61 · 24 · 2 · 2 |
-| procedural state | role split, measured | partly: 41 · 27 · 18 · 3 |
-| decision outcome | role split, measured | partly: 7 · 31 · 33 · 6 |
-| government recommendation | shared; OPD labels unambiguous | partly: 3 · 8 · 56 · 10 |
-| submission date · answer-link status | shared by definition | **metadata**: 89 · 0 · 0 · 0 and 54 · 0 · 0 · 0 |
-| submitter · addressed body · decision date | shared by definition | partly |
-| Q/A pairing · language · usable text | shared by definition | partly |
-| co-signatories · dispatch date · related affairs | shared by definition | PDF only, mostly |
+| field | class | meaning tested | where it lives (metadata · mixed · PDF only · none) |
+|---|---|---|---|
+| answer date | role split | OPD labels | **metadata**: 53 · 1 · 0 · 0 |
+| procedural history | role split | OPD labels | **metadata**: 78 · 9 · 1 · 1 |
+| type | role split | OPD labels; P8: the instrument behind it | partly: 61 · 24 · 2 · 2 |
+| procedural state | role split | OPD labels | partly: 41 · 27 · 18 · 3 |
+| decision outcome | role split | OPD labels | partly: 7 · 31 · 33 · 6 |
+| submitter | role split | P8: sole, joint or group author | partly: 23 · 61 · 5 · 0 |
+| co-signatories | role split | P8: co-signers or authors of record | PDF only: 0 · 2 · 72 · 12 |
+| language | role split | P8: tag names the other language | partly: 14 · 53 · 20 · 2 |
+| addressed body | role split, fragile | P8: Bellinzona, the council itself | partly: 12 · 10 · 54 · 10 |
+| government recommendation | role split, fragile | P8: Vernier, write-off reports | partly: 3 · 8 · 56 · 10 |
+| submission date | shared; body-specific in 2 | P8: Vernier, Lausanne | **metadata**: 89 · 0 · 0 · 0 |
+| answer-link status | shared by definition | next | **metadata**: 54 · 0 · 0 · 0 |
+| decision date · Q/A pairing · usable text | shared by definition | next | partly |
+| dispatch date · related affairs | shared by definition | next | PDF only |
 
 Three further concepts are body-specific and get constructs of their own: oral answers in question time (a null
 reason), executive business that answers no member's affair, and councils that publish only meeting documents
@@ -188,7 +205,7 @@ answer PDFs ──► OPD metadata ──► frozen DE/FR/IT rules ──► Ape
 
 ## Evaluation summary
 
-Eight tests, each with code, prompts and θ frozen by sha256 before any label was committed (`eval/prereg*/`). Gold
+Nine tests, each with code, prompts and θ frozen by sha256 before any label was committed (`eval/prereg*/`). Gold
 labels come from blind agent annotators by design (below). Full tables, deviations and statistics:
 [`docs/evaluation.md`](docs/evaluation.md).
 
@@ -202,16 +219,19 @@ labels come from blind agent annotators by design (below). Full tables, deviatio
 | P5 | 40 fresh affairs, 10 parliaments | Q/A pairs, people, recommendation | partial tier (H1); H2, H5 held; H3 no gain | submitter 12/40 → 24/40 |
 | P6 | 68 fresh documents, 8 parliaments | answer-date reader v2 vs free prompting | no hypothesis held | free prompt 62/68, v2 59/68 |
 | P7 | 478 review rows, 190 blind packets | Apertus as verifier of the review queue | H1 holds (120/120); H4 supported; H3 not supported | 214 of 917 review rows promoted |
+| P8 | 66 fresh affairs, 11 parliaments | meaning of 7 fields v0.1 defines once | none uniform: 6 role split, 1 body-specific; 5 robust under every check | meaning measured for 11 of 17 fields |
 
 - **Above the registered 0.80 bar** (95% lower bound): on P1 the rules are exact on 135/154 documents [81.5, 92],
   finding 47 of 64 answer dates and dating 2 of the 90 answerless documents (latest printed date on answer-typed
   documents: 131/154); the type of whole affairs (P3b, 35/36); in P5 question detection, the reasoning span and
   co-signatory precision.
 - **Gold labels, no human labelling by design.** Two blind agent annotators (Claude Opus and Sonnet) label each
-  document, a third breaks ties, quotes are verified by code, and every labelling session is timed against the lock
-  and label commits. Another vendor's model (`Qwen-SEA-LION-v4-32B`, AI Singapore) relabelled
-  P1, P2, P6 and P7 blind: κ 0.80–0.93 on P1 and P2, and no registered decision changes. Non-LLM sources agree: OPD's
-  written-answer events match 37/44 checkable P1 dates, and publishers' titles that name the decision date 20/20.
+  document, a third breaks ties, quotes are verified by code, and every labelling session of P1–P7 is timed against
+  the lock and label commits. Another vendor's model (`Qwen-SEA-LION-v4-32B`, AI Singapore) relabelled
+  P1, P2, P6 and P7 blind: κ 0.80–0.93 on P1 and P2, and no registered decision changes. On P8 its labels give the
+  same verdict for the five robust fields; its low κ on the submitter (0.24) is mostly an interpretive difference: it
+  calls the first of several equal authors the "first signatory". Non-LLM sources agree: OPD's written-answer events
+  match 37/44 checkable P1 dates, and publishers' titles that name the decision date 20/20.
 - **Statistics.** Holm over all 20 registered confirmatory tests of P1–P7: the 9 that held as registered all survive
   (`results/eval/posthoc_r8_multiplicity.json`); documents are also resampled by whole parliament.
 
@@ -220,9 +240,9 @@ labels come from blind agent annotators by design (below). Full tables, deviatio
 ## Operations
 
 - **`make run`** (Docker, CPU, clean checkout) recomputes the census and asserts it equal to `results/census/`,
-  replays the Bern join, runs sample documents through the converter and validator, re-scores the pre-registered tests
-  from committed predictions and labels and re-runs their hypothesis scripts, P7 included (all eight LOCK files
-  verified; P7 byte-identical from the committed `data/p7/` copies), re-derives the P1 rules arm from the source PDFs,
+  replays the Bern join, runs sample documents through the converter and validator, re-scores P1–P7 from
+  committed predictions and labels and re-runs their hypothesis scripts (eight LOCK files verified; P7 byte-identical
+  from the committed `data/p7/` copies; P8's results files are committed with its labels), re-derives the P1 rules arm from the source PDFs,
   and recomputes every number in `claims.tsv`, failing if a document prints anything else. Detail:
   [`docs/operations.md`](docs/operations.md).
 - **Sovereignty.** No third-party processors. At runtime Gegenprobe makes read-only requests to public sources, at
@@ -259,9 +279,11 @@ stops on a served build its θ was not fitted on.
 
 ## Limitations and next steps
 
-- **Schema.** The five role splits are measured; the field-by-field meaning test for the other twelve is the next step
-  (P8, `eval/prereg9/`), with the eCH group ([`docs/ech-onepager.md`](docs/ech-onepager.md) §6). Tables, annexes and
-  images inside answers are the next extraction target.
+- **Schema.** Meaning is measured for 11 of 17 fields; the other six (decision and dispatch dates, Q/A pairing,
+  related affairs, usable text, answer-link status) and the P8 roles as v0.2 fields are the next step with the eCH
+  group ([`docs/ech-onepager.md`](docs/ech-onepager.md)). P8 has no Ticino affair: its robots.txt disallows the
+  documents, and our fetch guard refused them. Tables, annexes and images inside answers are the next extraction
+  target.
 - **At OPD.** The lists are ready to apply as dry-run plans keyed on OPD ids; the relinks wait on one decision, OPD's
   hash rule. 5,077 answers remain to be found, 943 of them already waiting for a person.
 - **Apertus as a date reader** is used with a reviewer, as the registered null-safety tests (P1, P2, P6) indicate; P6
@@ -277,7 +299,7 @@ stops on a served build its θ was not fitted on.
 | Converter: prompts + code, provenance per value | `src/gegenprobe/convert/`, prompts `src/prompts/{de,fr,it}/`, `docs/converter.md`, `docs/convert-your-own.md` |
 | Whole affairs, Q/A pairs, people, recommendation, virtual affairs | `src/gegenprobe/affair/`, `src/gegenprobe/qa/`, `src/gegenprobe/virtual/`, `docs/affair.md`, `docs/qa.md`, `docs/virtual-affairs.md` |
 | Validator | `src/gegenprobe/validate/` (schema, span re-check, typed-null consistency) |
-| Evidence: eight pre-registrations | `eval/prereg*/` (each with `DEVIATIONS*.md`), gold sets `data/gold*/`, `docs/gold_protocol.md`, `docs/evaluation.md` |
+| Evidence: nine pre-registrations | `eval/prereg*/` (each with `DEVIATIONS*.md`), gold sets `data/gold*/`, `docs/gold_protocol.md`, `docs/evaluation.md` |
 | Census, feasibility matrix, comparability, research dataset | `src/gegenprobe/census/`, `results/census/`, `docs/census.md` |
 | Repair lists, apply plan, source adapters, vocabulary errors | `results/repair/`, `results/census/vocab_bugs.tsv`, `docs/repair.md`, `docs/adapters.md` |
 | Nightly job and operations | `src/gegenprobe/monitor/`, `deploy/nightly/`, `docs/nightly.md`, `docs/runbook.md`, `docs/operations.md` |

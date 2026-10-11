@@ -550,7 +550,7 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
   <div class="grid sec-head">
     <div class="idx"><div class="label">03 · Pre-registered</div></div>
     <div class="work">
-      <h2 id="h-eval">Eight pre-registered tests, each frozen before any label was committed</h2>
+      <h2 id="h-eval">Nine pre-registered tests, each frozen before any label was committed</h2>
       <p id="evalIntro"></p>
     </div>
   </div>
@@ -616,6 +616,12 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
       <div style="overflow-x:auto"><table class="board" id="p7board"></table></div>
       <p class="why" id="p7why"></p>
       <div class="hyp" id="p7hyp" style="margin-top:18px"></div></div>
+  </div>
+  <div class="grid" style="margin-top:46px" id="p8">
+    <div class="idx"><div class="label">P8 · what the shared fields mean</div><p class="small" id="p8Note"></p></div>
+    <div class="work"><p id="p8Intro" style="margin:0 0 14px;max-width:70ch"></p>
+      <div style="overflow-x:auto"><table class="board" id="p8board"></table></div>
+      <p class="why" id="p8why"></p></div>
   </div>
   <div class="grid" style="margin-top:34px">
     <div class="idx"><div class="label">Order of events</div><p class="small">From git history of this repository.</p></div>
@@ -748,7 +754,7 @@ const GLOSS = [
   ['Closed set', 'The only answers Apertus may give for a document: one of the dates printed in it, or null. A date that is not printed cannot be chosen.'],
   ['Pointer', 'Apertus used as a selector over the closed set: it points at a printed date, with page and characters, instead of writing one.'],
   ['θ · margin band', 'Null margin: how much more likely “no answer date” is than all printed dates together, in nats. Above θ the value is null; near θ a reviewer looks.'],
-  ['P1–P7 · P3b', 'Eight tests frozen by hash before any label was committed: P1 known layouts, P2 15 unseen parliaments, P3 whole affairs field by field, P3b its replication on fresh affairs from 9 other parliaments, P4 affairs from minutes, P5 questions paired with their answers (eval/prereg6), P6 an answer-date reader v2 against free prompting (eval/prereg7), P7 Apertus as a closed-set verifier of the adapters’ review queue (eval/prereg8).'],
+  ['P1–P8 · P3b', 'Nine tests frozen by hash before any label was committed: P1 known layouts, P2 15 unseen parliaments, P3 whole affairs field by field, P3b its replication on fresh affairs from 9 other parliaments, P4 affairs from minutes, P5 questions paired with their answers (eval/prereg6), P6 an answer-date reader v2 against free prompting (eval/prereg7), P7 Apertus as a closed-set verifier of the adapters’ review queue (eval/prereg8), P8 what the shared fields mean in each parliament (eval/prereg9).'],
 ];
 $('#gloss').append(...GLOSS.map(([t, d]) => el('div', {}, el('dt', {}, t), el('dd', {}, d))));
 /* schema v0.1: one real converter record + the 17 fields with their class (always visible, under the steps) */
@@ -788,13 +794,12 @@ function renderSchemaTop() {
     el('details', { class: 'json' }, el('summary', {}, 'The whole record · JSON (schema v0.1)'), el('pre', {}, JSON.stringify(R, null, 1))));
   const n = SV.counts, tc = SV.tier_counts;
   $('#schemaNote').textContent = `Schema v0.1: dates with roles, typed nulls, spans. The converter fills it from OPD metadata first, then frozen rules; Apertus only suggests, for a reviewer.`;
-  const tt = SV.tested_counts || {}, ms = c => (tt[c] || {}).measured || 0;
-  $('#schemaClassNote').textContent = `Class: does the field mean the same thing everywhere? ${n.shared_with_role_split || 0} fields are shared with a role split (one source label covers several roles that must be kept apart), all ${ms('shared_with_role_split')} measured. ${n.shared || 0} are shared, defined once in schema v0.1; for the government recommendation OPD’s harmonised labels map unambiguously (a string check), and a field-by-field meaning test of the shared fields is the next step with the eCH group. Three further concepts are body-specific and get constructs of their own. A common schema works if it carries these roles explicitly. ` +
-    `“Meaning tested?” names the measurement (raw labels OPD maps to different harmonised concepts, results/census/comparability.json). Where the value lives is a separate question, counted over the parliaments where the field applies: in OPD metadata, partly, only in the PDF, or not in OPD’s data (docs/census.md §3). Classes: data/schema/field_verdict_classes.json.`;
+  $('#schemaClassNote').textContent = `Class: does the field mean the same thing everywhere? Meaning is measured for ${SV.meaning_measured} of the 17 fields: from OPD’s own labels (raw labels mapped to different harmonised concepts) and, for ${SV.meaning_p8} fields, from the documents in the pre-registered test P8. ${n.shared_with_role_split || 0} fields are shared with a role split (one label covers several roles that must be kept apart): who authored (sole, joint, first signatory, group), who signed, which instrument stands behind a harmonised type, which language a tag names, and every date's role. ${n.shared || 0} are shared; the submission date among them is body-specific in Vernier and Lausanne, where OPD's date is mostly printed nowhere in the documents. Three further concepts are body-specific and get constructs of their own. A common schema works if it carries these roles explicitly. ` +
+    `Where the value lives is a separate question, counted over the parliaments where the field applies: in OPD metadata, partly, only in the PDF, or not in OPD’s data (docs/census.md §3). Classes: data/schema/field_verdict_classes.json; P8: results/p8/p8_hypotheses.json.`;
   const head = el('thead', {}, el('tr', {}, ['Field', 'Class', 'Meaning tested?', 'Where it lives', 'Metadata', 'Partly', 'Only in PDF', 'Not in OPD’s data', 'Evidence'].map(x => el('th', {}, x))));
   const tb2 = el('tbody', {}, SV.fields.map((f, i) => el('tr', { class: i && SV.fields[i - 1].cls !== f.cls ? 'grp' : '' }, el('td', { class: 'code' }, f.name),
       el('td', {}, el('span', { class: 'cls c-' + f.cls, title: SV.classes[f.cls].definition }, CLS[f.cls])),
-      el('td', { class: 'small' }, f.tested === 'measured' && f.cls === 'shared' ? el('span', { class: 'muted', title: f.tested_in || '' }, 'OPD’s labels map unambiguously (string check)') : f.tested === 'measured' ? el('span', { title: f.tested_in || '' }, 'measured · ', el('span', { class: 'code muted' }, (f.tested_in || '').replace('results/census/comparability.json ', 'comparability: '))) : el('span', { class: 'muted' }, /^by definition/.test(f.tested || '') ? 'defined once in v0.1; field test next' : (f.tested || '—'))),
+      el('td', { class: 'small' }, f.tested === 'measured' ? el('span', { title: f.tested_in || '' }, 'measured · OPD labels', f.p8 ? ' + P8' : '') : f.tested === 'measured (P8)' ? el('span', { title: f.tested_in || '' }, 'measured · P8', f.p8 && !f.p8.robust ? el('span', { class: 'muted' }, ' (fragile)') : '') : el('span', { class: 'muted' }, /^by definition/.test(f.tested || '') ? 'defined once in v0.1; field test next' : (f.tested || '—'))),
       el('td', { class: 'code' }, f.tier === 'feasible' ? 'in OPD metadata' : f.metadata === 0 ? 'PDF only' : 'partly'),
       el('td', { class: 'code num' }, f.metadata), el('td', { class: 'code num' }, f.mixed), el('td', { class: 'code num' }, f.pdf),
       el('td', { class: 'code num' + (f.no_source ? ' red' : '') }, f.no_source), el('td', { class: 'ev' }, f.evidence || (f.key === 'co_signatories' ? 'parliaments often print them on the member’s text or list them on their own pages' : '')))),
@@ -1372,6 +1377,7 @@ function renderEval() {
   renderP5();
   renderP6();
   renderP7();
+  renderP8();
 }
 
 function renderP2() {
@@ -1586,6 +1592,20 @@ function renderP7() {
     card('P7-H1', P.h1.holds ? 'HOLDS' : 'FAIL', 'Promotions are the executive’s answer', `${P.h1.correct}/${P.h1.n}; Wilson lower bound ${pct(P.h1.wilson[0])} against 90%`),
     card('P7-H3', P.h3.supported ? 'SUPPORTED' : 'NOT SUPPORTED', 'Free generation’s extra rows are imprecise', `${P.h3.correct}/${P.h3.n} right`),
     card('P7-H4', P.h4.supported ? 'SUPPORTED' : 'FAIL', 'The date check beats a trivial date match', `+${(100 * P.h4.diff).toFixed(1)} points of dated precision [${(100 * P.h4.ci[0]).toFixed(1)}, ${(100 * P.h4.ci[1]).toFixed(1)}]`));
+}
+
+function renderP8() {
+  const P = D.evaluation.p8; if (!P) { $('#p8').hidden = true; return; }
+  const V = { role_split: 'role split', body_specific: 'body-specific', shared: 'shared', shared_other_meaning: 'shared (other meaning)', inconclusive: 'inconclusive' };
+  $('#p8Intro').textContent = `Does a field that every parliament has mean the same thing in each? ${P.n} fresh affairs from ${P.parliaments} parliaments, both documents OPD links (the member's text and the executive's answer), labelled blind by two Claude annotators against categories fixed in advance (eval/prereg9, LOCK9). A field is shared when every parliament with at least 3 determinable affairs keeps it in its one meaning (one exception per parliament tolerated), at least 6 parliaments are evaluable and the pooled share is at least 90%; a parliament that departs systematically names a role. Result: none of the seven is uniform. A common schema works if it carries roles, and P8 names them: who authored (sole, joint, first signatory, group), who signed, which instrument stands behind a harmonised type, and which date a submission really carries.`;
+  $('#p8Note').textContent = `Gold: blind annotators A1 (Opus) and A2 (Sonnet), A3 (Opus) on ${P.a3_fields} disputed fields in ${P.a3_packets} affairs. Independent check: ${P.qwen_model} (USD ${P.qwen_usd}), changes no gold label and no decision. Ticino is not in the sample: its robots.txt disallows the documents and the fetch guard refused them. Meaning is now measured for ${D.schema.meaning_measured} of the 17 fields.`;
+  $('#p8board').replaceChildren(el('thead', {}, el('tr', {}, ['Field', 'Registered verdict', 'In the one meaning (pooled)', 'Where it splits', 'Agreed labels only', 'On Qwen’s labels'].map(x => el('th', {}, x)))),
+    el('tbody', {}, P.fields.map(f => el('tr', { class: f.robust ? 'default' : '' },
+      el('td', { class: 'armname' }, f.name, el('small', {}, f.robust ? 'robust' : 'fragile')), el('td', {}, el('b', {}, V[f.verdict] || f.verdict)),
+      el('td', { class: 'num' }, `${f.n_E}/${f.n} [${(100 * f.ci[0]).toFixed(1)}, ${(100 * f.ci[1]).toFixed(1)}]`),
+      el('td', { class: 'small' }, f.where), el('td', {}, V[f.agreed_only] || f.agreed_only), el('td', {}, V[f.qwen_verdict] || f.qwen_verdict)))));
+  const sub = P.fields.find(f => f.key === 'submitter') || {};
+  $('#p8why').textContent = `Robust: submitter, co-signatories, type and language split by role and the submission date is body-specific under the registered rule, on agreed labels only and on Qwen's labels. Addressed body and recommendation split on the gold but not on both checks, so they are marked fragile. Qwen's agreement on the submitter is low (κ ${(+sub.kappa_qwen).toFixed(2)}): in ${P.joint_as_first} affairs it calls the first of several equal authors the “first signatory” where the annotation guide and both Claude annotators say joint author: mostly an interpretive difference, and the verdict is unchanged.`;
 }
 
 /* ---------------- 04 METHOD ---------------- */

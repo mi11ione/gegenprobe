@@ -1105,12 +1105,13 @@ def p4() -> dict | None:
 
 # The meaning class of each of the 17 schema fields (README "Is a common schema feasible?"; class definitions in
 # data/schema/field_verdict_classes.json; evidence from results/census/comparability.json and matrix.json).
-FIELD_CLASS = {
-    "date_submission": "shared", "submitter": "shared", "co_signatories": "shared", "addressed_body": "shared",
-    "government_recommendation": "shared", "date_decision": "shared", "date_dispatch": "shared", "qa_pairing": "shared",
-    "related_affairs": "shared", "language": "shared", "documents_usable_text": "shared", "answer_link_status": "shared",
+FIELD_CLASS = {  # P8 (eval/prereg9, results/p8) moved submitter, co-signatories, language, addressed body and recommendation
+    "date_submission": "shared", "date_decision": "shared", "date_dispatch": "shared", "qa_pairing": "shared",
+    "related_affairs": "shared", "documents_usable_text": "shared", "answer_link_status": "shared",
     "date_answer": "shared_with_role_split", "procedural_history": "shared_with_role_split", "type": "shared_with_role_split",
     "procedural_state": "shared_with_role_split", "decision_outcome": "shared_with_role_split",
+    "submitter": "shared_with_role_split", "co_signatories": "shared_with_role_split", "language": "shared_with_role_split",
+    "addressed_body": "shared_with_role_split", "government_recommendation": "shared_with_role_split",
 }
 FIELD_NAME = {
     "date_submission": "submission date", "submitter": "submitter", "co_signatories": "co-signatories",
@@ -1249,8 +1250,14 @@ def schema_view() -> dict:
                                      f"{cmp_['government_recommendation']['raw_labels']:,} raw labels map to different "
                                      "harmonised recommendations",
     }
+    # P8 (eval/prereg9, LOCK9; results/p8/p8_hypotheses.json): where the field's meaning splits, from the documents
+    for c in classes.values():
+        for x in c.get("fields", []):
+            if x.get("p8"):
+                ev[x["key"]] = (ev[x["key"]] + "; P8: " if x["key"] in ev else "P8: ") + x["p8"]["where"]
     # whether the field's MEANING was tested across parliaments (data/schema/field_verdict_classes.json `fields`): measured
-    # = a statistic in results/census/comparability.json; otherwise shared by definition, untested (J1, round 5)
+    # = a statistic in results/census/comparability.json; measured (P8) = the pre-registered meaning test on documents
+    # (results/p8/p8_hypotheses.json); otherwise shared by definition, untested (J1, round 5)
     tested = {x["key"]: x for c in classes.values() for x in c.get("fields", [])}
     assert set(tested) == set(FIELD_CLASS) and all(FIELD_CLASS[k] == c["key"] for c in classes.values()
                                                    for k in (x["key"] for x in c.get("fields", []))), "classes out of sync"
@@ -1260,7 +1267,9 @@ def schema_view() -> dict:
         fields.append(dict(key=k, name=FIELD_NAME.get(k, k.replace("_", " ")), cls=FIELD_CLASS[k], tier=f["tier"],
                            route=f["extraction_route"], eligible=f["eligible_bodies"], metadata=sc["metadata"],
                            mixed=sc["mixed"], pdf=sc["pdf"], no_source=sc["no_source"], evidence=ev.get(k, ""),
-                           tested=tested[k]["meaning_tested"], tested_in=tested[k]["evidence"]))
+                           tested=tested[k]["meaning_tested"], tested_in=tested[k]["evidence"],
+                           p8=(dict(verdict=tested[k]["p8"]["verdict"], robust=tested[k]["p8"]["robust"],
+                                    roles=tested[k]["p8"]["roles"]) if tested[k].get("p8") else None)))
     order = {"shared": 0, "shared_with_role_split": 1}
     fields.sort(key=lambda f: (order[f["cls"]], -f["metadata"], f["key"]))
     body_specific = [
@@ -1294,6 +1303,8 @@ def schema_view() -> dict:
         counts=dict(collections.Counter(FIELD_CLASS[k] for k in m["fields"])),
         tested_counts={c: dict(collections.Counter(f["tested"] for f in fields if f["cls"] == c))
                        for c in ("shared", "shared_with_role_split")},
+        meaning_measured=sum(f["tested"].startswith("measured") for f in fields),
+        meaning_p8=sum(bool(f["p8"]) for f in fields),
         sample=dict(record=rec, suggestions=x.get("suggestions", {}), body_label=label, test="P3b",
                     omitted=post["omitted"], changes=post["changes"],
                     source="results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json",
@@ -1325,6 +1336,37 @@ def p7() -> dict | None:
                 qwen=dict(agree=h["qwen_check"]["agree"], n=h["qwen_check"]["n"]),
                 review_rows=q["review_rows"], eligible=q["eligible"], promoted=q["promoted"], counted=h["headline"]["counted"],
                 by_reason=q["promoted_by_reason"], by_tier=q["promoted_by_date_tier"])
+
+
+P8_BODY = {"TG": "Thurgau", "VS": "Valais", "351": "Bern city", "261": "Zürich city", "VD": "Vaud", "FR": "Fribourg",
+           "5586": "Lausanne", "6643": "Vernier", "5192": "Lugano", "5002": "Bellinzona", "GR": "Graubünden"}
+
+
+def p8() -> dict | None:
+    """P8 (eval/prereg9, LOCK9): does a 'shared' field mean the same thing in every parliament? 66 affairs, 11
+    parliaments; registered verdicts, the agreed-labels sensitivity check and the Qwen check (results/p8)."""
+    hp = RESULTS / "p8" / "p8_hypotheses.json"
+    if not hp.exists():
+        return None
+    h, q, post, ag = _j("p8/p8_hypotheses.json"), _j("p8/p8_qwen.json"), _j("p8/p8_posthoc.json"), _j("p8/p8_agreement.json")
+    classes = {x["key"]: x for c in json.loads((DATA / "schema" / "field_verdict_classes.json").read_text())
+               for x in c.get("fields", [])}
+    fields = []
+    for k, f in h["fields"].items():
+        dev = [P8_BODY.get(b, b) for b, r in f["per_parliament"].items() if r["evaluable"] and not r["conforms"]]
+        fields.append(dict(key=k, name=FIELD_NAME.get(k, k), verdict=f["verdict"], agreed_only=f["verdict_agreed_only"],
+                           qwen_verdict=post["verdicts_on_qwen_labels"][k]["verdict"], n_E=f["pooled"]["n_E"],
+                           n=f["pooled"]["n"], ci=f["pooled"]["cluster_ci"], evaluable=f["n_evaluable"], deviating=dev,
+                           kappa_a1a2=ag["fields"][k]["kappa"], kappa_qwen=q["fields"][k]["kappa"],
+                           robust=classes[k]["p8"]["robust"], where=classes[k]["p8"]["where"],
+                           n_conform=sum(bool(r["evaluable"] and r["conforms"]) for r in f["per_parliament"].values()),
+                           n_none=sum(r["n_det"] == 0 for r in f["per_parliament"].values())))
+    return dict(n=h["n_affairs"], parliaments=h["n_parliaments"], meaning_tested=h["meaning_tested"],
+                n_robust=sum(f["robust"] for f in fields),
+                summary=h["summary"], fields=fields, qwen_model=q["model"],
+                qwen_usd=_j("p8/p8_qwen_run.json")["usd"], a3_packets=ag["disputed_packets"],
+                a3_fields=ag["disputed_fields"],
+                joint_as_first=post["qwen_vs_gold_confusion"]["submitter"]["joint_person -> author_person"])
 
 
 def nights() -> dict | None:
@@ -1462,6 +1504,7 @@ def collect(full_text: bool = False) -> dict:
     ev["p5"] = p5()
     ev["p6"] = p6()
     ev["p7"] = p7()
+    ev["p8"] = p8()
     return _finite(
         dict(
             generated=_git("log", "-1", "--format=%h %cI"),

@@ -1,11 +1,11 @@
-# Evaluation in detail: eight pre-registered tests
+# Evaluation in detail: nine pre-registered tests
 
 The full record behind the evaluation summary in [`../README.md`](../README.md) and the technical report. Paths are
 relative to `track_2a/`. Every number here is listed in `claims.tsv` and recomputed by `make claims`. Each test froze
 code, prompts and θ by sha256 before any label was committed (`eval/prereg*/`); failed hypotheses are reported as
 registered, next to the ones that held.
 
-## The eight tests, in registration order
+## The nine tests, in registration order
 
 Each froze code, prompts and θ by sha256 before any label was committed (`eval/prereg*/`).
 
@@ -19,6 +19,7 @@ Each froze code, prompts and θ by sha256 before any label was committed (`eval/
 | P5 | 40 fresh affairs, 10 parliaments | Q/A pairs, people, recommendation | **partial** tier (H1); H2, H5 held; H4 held as rules vs free generation; H3 no gain | *not yet* when parliaments are resampled; submitter by rules 12/40 |
 | P6 | 68 fresh documents, 8 parliaments | answer-date reader v2 vs free prompting | **failed**: no hypothesis held | free prompt 62/68, v2 59/68 |
 | P7 | 478 review rows, 190 blind packets | Apertus as verifier of the adapters' review queue | **H1 holds** (120/120); H4 supported; H3 not supported | 214 of 917 review rows promoted, in a separate tier |
+| P8 | 66 fresh affairs, 11 parliaments | what 7 fields v0.1 defines once mean in each parliament | **none uniform**: 6 role split, 1 body-specific; 5 robust under both checks | meaning measured for 11 of 17 fields ([below](#p8-what-the-shared-fields-mean)) |
 
 - **Unattended** (95% lower bound ≥ 0.80, document-level intervals): the rules' answer date on parliaments with rules
   (P1, 135/154 [81.5, 92], helped by right nulls: dates found 47/64), the type on whole affairs (P3b, 35/36), and in P5
@@ -31,7 +32,7 @@ Each froze code, prompts and θ by sha256 before any label was committed (`eval/
 - **Gold labels checked by another vendor, and by time.** The labels come from blind Claude annotators;
   `Qwen-SEA-LION-v4-32B` (AI Singapore) relabelled P1, P2, P6 and P7 blind: answer dates agree with κ 0.80 (P1), 0.87
   (P2) and 0.86 (P6), P7's is-answer labels on 185/190, and no registered decision changes; on P5 its labels pass the
-  verbatim quote check in only 7/40 files, so they neither confirm nor overturn the verdict. All 84 annotator sessions
+  verbatim quote check in only 7/40 files, so they neither confirm nor overturn the verdict. All 84 annotator sessions of P1–P7
   ended before GitHub received their labels; in the nine locked sets they started after it received the LOCK and draw
   pushes (P5 dev and P7 dev have no lock by design; DEV2's anchor is the commit of its written selection rule and draw;
   `results/eval/annotation_sessions.json`, from transcripts kept on the author's machine).
@@ -46,19 +47,19 @@ parliaments where OPD metadata carries it · carries it for part of the affairs 
 |---|---|---|---|
 | answer date | role split | measured: decided, dispatched or registered; in 7 of 54 bodies mostly the submission date | **metadata**: 53 · 1 · 0 · 0 |
 | procedural history | role split | measured: 35 event labels carry different date roles | **metadata**: 78 · 9 · 1 · 1 |
-| type | role split | measured: 42 of 1,038 raw labels map to different types | partly: 61 · 24 · 2 · 2 |
+| type | role split | measured: 42 of 1,038 raw labels map to different types; P8: instrument | partly: 61 · 24 · 2 · 2 |
 | procedural state | role split | measured: 32 labels ambiguous | partly: 41 · 27 · 18 · 3 |
 | decision outcome | role split | measured: 3 labels ambiguous | partly: 7 · 31 · 33 · 6 |
-| government recommendation | shared | OPD's labels map unambiguously (string check) | partly: 3 · 8 · 56 · 10 |
-| submission date | shared | defined once in v0.1; field test next | **metadata**: 89 · 0 · 0 · 0 |
+| submitter | role split | P8: sole author, joint authors or a group | partly: 23 · 61 · 5 · 0 |
+| co-signatories | role split | P8: co-signers, authors of record, joint authors | PDF only: 0 · 2 · 72 · 12 |
+| language | role split | P8: a tag that names the other language | partly: 14 · 53 · 20 · 2 |
+| addressed body | role split, fragile | P8: the council itself in Bellinzona | partly: 12 · 10 · 54 · 10 |
+| government recommendation | role split, fragile | P8: by stage; OPD labels unambiguous | partly: 3 · 8 · 56 · 10 |
+| submission date | shared | P8: body-specific in Vernier and Lausanne | **metadata**: 89 · 0 · 0 · 0 |
 | answer-link status | shared | defined once in v0.1; field test next | **metadata**: 54 · 0 · 0 · 0 |
-| submitter | shared | defined once in v0.1; field test next | partly: 23 · 61 · 5 · 0 |
-| addressed body | shared | defined once in v0.1; field test next | partly: 12 · 10 · 54 · 10 |
 | decision date | shared | defined once in v0.1; field test next | partly: 7 · 30 · 34 · 6 |
 | Q/A pairing | shared | defined once in v0.1; field test next | partly: 22 · 25 · 4 · 3 |
-| language | shared | defined once in v0.1; field test next | partly: 14 · 53 · 20 · 2 |
 | usable text | shared | defined once in v0.1; field test next | partly: 41 · 42 · 0 · 6 |
-| co-signatories | shared | defined once in v0.1; field test next | PDF only: 0 · 2 · 72 · 12 |
 | dispatch date | shared | defined once in v0.1; field test next | PDF only: 0 · 0 · 47 · 7 |
 | related affairs | shared | defined once in v0.1; field test next | PDF only: 0 · 0 · 76 · 13 |
 
@@ -66,8 +67,8 @@ So 4 fields are in OPD's metadata almost everywhere and 13 partly or only in the
 fifth of the parliaments (5 would at a 10% threshold, `results/census/tier_sensitivity.json`). *Role split*: the
 concept is shared, but one source label covers several roles that must be kept apart before parliaments can be
 compared. The recommendation's string check (0 of 183 raw labels map to two concepts) covers only the labels OPD has
-harmonised (29.1% of all events carry no harmonised id); a test of meaning would map each parliament's printed forms to
-the concept (`docs/ech-onepager.md` §6).
+harmonised (29.1% of all events carry no harmonised id); P8 tested the printed forms and found the split by procedural
+stage (below).
 Three further *concepts* are body-specific and are not fields: oral answers in question time (23.6% of question-time
 answers are oral; v0.1 types them as a null reason), executive business that answers no member's affair, and councils
 that publish only meeting documents (16 bodies, 8 with no affair at all; schema v0.1 marks affairs derived from them
@@ -82,6 +83,61 @@ means the value is *not in OPD's data* for that parliament (neither metadata nor
 publish it), not a different concept.
 
 ![Feasibility matrix](figures/fig2_matrix.png)
+
+## P8: what the shared fields mean
+
+**Design** (`eval/prereg9/PREREG9.md`, LOCK9 committed before the draw; draw 4d8a228, labels c0a2f91). 66 fresh whole
+affairs from 11 parliaments (Thurgau, Valais, Bern city, Zürich city, Vaud, Fribourg, Lausanne, Vernier, Lugano,
+Bellinzona, Graubünden), 6 each, none in an earlier gold set. For each affair the two documents OPD links (the member's
+text and the executive's answer) and OPD's metadata; blind annotators label what the value of seven fields denotes,
+against categories fixed in advance, and code derives whether the carried value falls in the one meaning v0.1 gives
+it (E). A parliament with at least 3 determinable affairs conforms when at most one falls outside E; a field is
+**shared** when at least 6 parliaments are evaluable, none deviates and the pooled share is at least 90%. A deviating
+parliament with a repeated named category makes a **role split**; one whose affairs fall mostly outside every named
+category makes the field **body-specific** there. Ticino was registered as the twelfth parliament; its robots.txt
+disallows every candidate document (1,493 affairs), our fetch guard refused them (`data/p8/p8_fetch_log.jsonl`), so P8
+has 11 parliaments.
+
+**Results** (`results/p8/p8_hypotheses.json`; pooled share in E with a parliament-cluster bootstrap 95% interval; the
+verdict re-derived on the affairs A1 and A2 labelled alike, and on Qwen's labels, both registered as checks that decide
+nothing):
+
+| field | registered verdict | in E, pooled [cluster CI] | evaluable | where it splits, and into what | agreed labels only | Qwen's labels | κ A1–A2 | κ Qwen |
+|---|---|---|---|---|---|---|---|---|
+| submitter | **role split** | 35/65 = 53.8% [33.3%, 75.0%] | 11 | Zürich city 1/6, Thurgau 2/6, Fribourg 2/6, Vernier 1/6, Lugano 3/6: joint authors, none designated first; Valais 0/6: a parliamentary group; Graubünden: OPD's first author a co-signer. Bern city, Vaud, Lausanne 6/6 | role split | role split | 0.93 | 0.24 |
+| co-signatories | **role split** | 10/41 = 24.4% [6.8%, 46.3%] | 9 | Bern city 0/6: two to four printed first signatories, so OPD's list includes authors of record; Zürich city 0/4 and Fribourg, Vernier, Thurgau, Lugano: joint authors; Graubünden 3/5: authors of record; Valais: persons signing for a group. Lausanne 3/3 | role split | role split | 0.96 | 0.45 |
+| submission date | **body-specific** | 44/57 = 77.2% [57.1%, 91.8%] | 11 | Vernier 0/5, Lausanne 2/5: OPD's date printed nowhere, 2 to 28 days after the printed lodging date; 9 parliaments conform | body-specific | body-specific | 0.97 | 0.58 |
+| language | **role split** | 34/36 = 94.4% [83.3%, 100.0%] | 6 | Fribourg 4/6: the tag names the other official language; 5 of 11 parliaments tag no document | role split | role split | 1.00 | 0.89 |
+| type | **role split** | 55/64 = 85.9% [76.2%, 95.3%] | 11 | Bellinzona 3/5: "Motions" that propose a decision the council takes itself; Valais 4/6: "Postulate" that mandate the executive; Lugano and Fribourg 4/6, scattered | role split | role split | 0.95 | 0.19 |
+| addressed body | role split, **fragile** | 57/60 = 95.0% [87.0%, 100.0%] | 11 | Bellinzona 2/4: the council itself; the executive in 10 parliaments (one exception allowed) | shared | role split | 0.76 | 0.17 |
+| government recommendation | role split, **fragile** | 31/34 = 91.2% [71.9%, 100.0%] | 9 | Vernier 0/3: a report on a motion already adopted (approve and write off), not a recommendation at referral | role split | shared | 1.00 | 0.76 |
+
+Five verdicts hold under both checks: submitter, co-signatories, language and type split by role, and the submission
+date is body-specific. The addressed body and the recommendation split on the gold; the addressed body is shared on
+agreed labels only and the recommendation on Qwen's labels, so both are recorded as role splits marked fragile
+(`data/schema/field_verdict_classes.json`).
+
+**Gold and checks.** A1 (Claude Opus) and A2 (Claude Sonnet) labelled all 66 affairs blind; A3 (Opus) decided 11
+disputed fields in 7 affairs (`results/p8/p8_agreement.json`). The registered Qwen check
+(`aisingapore/Qwen-SEA-LION-v4-32B-IT`, USD 0.0856, `results/p8/p8_qwen.json`) changes no gold label and no decision.
+Its agreement with the gold is high on language (κ 0.89) and recommendation (0.76) and low on submitter (0.24), type
+(0.19) and addressed body (0.17). The submitter gap is mostly interpretive (post hoc, `results/p8/p8_posthoc.json`): in 18
+affairs Qwen calls the first of several equal authors the "first signatory", where the annotation guide and both Claude
+annotators call them joint authors. On Qwen's labels the registered rule still gives role split for submitter,
+co-signatories, language, type and addressed body and body-specific for the date; only the recommendation becomes
+shared. Every gold label comes from LLM agents, cross-checked by another vendor's model, by design.
+
+**OPD's metadata against the documents** (agreement, not meaning; `results/p8/p8_tables.json`). Submitter: OPD's
+first author is the printed author of record in 33/63 affairs. Co-signatories: identical surname sets in 23/40 OPD
+lists (mean Jaccard 0.73). Submission date: OPD's date equals the printed lodging date in 36/52 (within 1 day: 39/52).
+Addressed body: OPD names a lead department in 22 affairs; the documents address the executive as a body in 20 of
+them. Recommendation: OPD carries a value in 4 affairs, all Vernier, and it equals the printed value in 0/4. Type: the
+printed instrument name equals OPD's harmonised type in 62/66.
+
+**Meaning tested for 11 of 17 fields.** PREREG9 §8 states N = 5 (role splits from OPD's labels) + the P8 fields with a
+verdict, which is 12; type is in both, so the docs count distinct fields: 11 (DEVIATIONS9 D9-1). Scope as designed: 6
+affairs per parliament (recommendation: 3 to 4), categories judged from the two documents OPD links, one exception per
+parliament tolerated by the rule.
 
 ## What the converter returns, and a glossary
 

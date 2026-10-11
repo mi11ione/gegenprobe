@@ -64,14 +64,29 @@ def test_meaning_tested_per_field():
     f = {x["key"]: x for c in cls for x in c.get("fields", [])}
     assert len(f) == 17
     measured = {k for k, x in f.items() if x["meaning_tested"] == "measured"}
-    assert measured == {"type", "date_answer", "procedural_history", "procedural_state", "decision_outcome",
-                        "government_recommendation"}
+    assert measured == {"type", "date_answer", "procedural_history", "procedural_state", "decision_outcome"}
     cmp_ = json.loads((RES / "comparability.json").read_text())
     for k in measured:  # every 'measured' cites a key that exists in comparability.json
         for key in f[k]["evidence"].split(" ", 1)[1].split(", "):
             assert key in cmp_, (k, key)
-    s = _site()["schema"]["tested_counts"]
-    assert s["shared"] == {"measured": 1, "by definition, untested": 11} and s["shared_with_role_split"] == {"measured": 5}
+    # P8 (eval/prereg9): the seven fields tested on documents carry the registered verdict from results/p8
+    h = json.loads((RES.parent / "p8" / "p8_hypotheses.json").read_text())["fields"]
+    p8 = {k for k, x in f.items() if x.get("p8")}
+    assert p8 == set(h) == {"submitter", "co_signatories", "date_submission", "addressed_body", "language",
+                            "government_recommendation", "type"}
+    for k in p8:
+        assert f[k]["p8"]["verdict"] == h[k]["verdict"], k
+        assert f[k]["p8"]["evidence"] == f"results/p8/p8_hypotheses.json fields.{k}"
+    assert {k for k in p8 if not f[k]["p8"]["robust"]} == {"addressed_body", "government_recommendation"}
+    qv = json.loads((RES.parent / "p8" / "p8_posthoc.json").read_text())["verdicts_on_qwen_labels"]
+    for k in p8:  # robust = the registered verdict also on agreed labels only and on Qwen's labels
+        assert f[k]["p8"]["robust"] == (h[k]["verdict_agreed_only"] == h[k]["verdict"] == qv[k]["verdict"]), k
+    assert {k for k in p8 if h[k]["verdict"] == "role_split"} <= {x["key"] for c in cls if c["key"] == "shared_with_role_split"
+                                                                 for x in c["fields"]}
+    s = _site()["schema"]
+    assert s["tested_counts"]["shared"] == {"measured (P8)": 1, "by definition, untested": 6}
+    assert s["tested_counts"]["shared_with_role_split"] == {"measured": 5, "measured (P8)": 5}
+    assert s["meaning_measured"] == 11 and s["meaning_p8"] == 7  # type is measured both ways
 
 
 def test_answer_days_by_trust_tier():

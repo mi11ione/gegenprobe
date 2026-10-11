@@ -5,30 +5,73 @@ What a common schema for the business of Swiss parliaments needs, measured on Op
 with `$id` and version 0.1.0: `results/schema/*.schema.json`; field guide: `docs/schema.md`; mappings to Popolo, Akoma
 Ntoso, Parla-CLARIN and OParl: `docs/mapping.md`.
 
-**In one line:** a common schema works if it carries roles. "Answer date" is the government's decision in some
-parliaments, the letter or registration date in others and in 7 bodies mostly the submission date; v0.1 makes the role
-explicit on every date. 17 fields, each a value with provenance or a typed null; 5 of them (answer date, procedural
-history, type, procedural state, decision outcome) are measured to need a role split and v0.1 encodes it; the other 12
-are defined once, and §6 gives the field-by-field meaning test that is the next step for this group.
+**In one line:** a common schema works if it carries roles, and not only for dates: authorship (sole author, first
+signatory, joint authors, parliamentary group, spokesperson), signatories, the instrument behind a harmonised type, and
+the date a submission really carries. "Answer date" is the government's decision in some parliaments, the letter or
+registration date in others and in 7 bodies mostly the submission date; v0.1 makes the role explicit on every date. A
+pre-registered test on 66 fresh affairs from 11 parliaments (P8) finds the same for the fields v0.1 defined once; §2
+turns each finding into a recommendation. Meaning is now measured for 11 of the 17 fields.
 
-## 1. Three classes (by meaning, from OPD's own vocabularies)
+## 1. Three classes (by meaning, measured on OPD's labels and on the documents)
 
 | class | fields and concepts | what it means for a standard |
 |---|---|---|
-| **shared** (12 of 17) | submission date, submitter, co-signatories, addressed body, government recommendation, decision date, dispatch date, Q/A pairing, related affairs, language, usable text, answer-link status | one definition in v0.1, to be confirmed field by field (§6); for the government recommendation OPD's harmonised labels map unambiguously (0 of 183 raw labels map to different concepts, a string check); *where* the value lives (metadata, PDF, or not in OPD) is measured |
-| **shared with a role split** (5 of 17) | answer date, procedural history, type, procedural state, decision outcome | one source label covers several roles that must be kept apart before parliaments can be compared; all 5 are measured |
+| **shared with a role split** (10 of 17) | answer date, procedural history, type, procedural state, decision outcome (from OPD's labels; all 5 are measured); submitter, co-signatories, language, addressed body, government recommendation (P8; type splits there too) | one label covers several roles that must be kept apart before parliaments can be compared; the roles are named in §2 and in `data/schema/field_verdict_classes.json` |
+| **shared** (7 of 17) | submission date (body-specific in Vernier and Lausanne, P8), decision date, dispatch date, Q/A pairing, related affairs, usable text, answer-link status | one definition in v0.1; the six without a test are the next candidates for the same test; *where* the value lives (metadata, PDF, or not in OPD) is measured |
 | **body-specific** (3 concepts, not among the 17 fields) | oral answers in question time; executive business that answers no member's affair; councils that publish only meeting documents | needs its own construct, not a field: v0.1 types oral answers as a null reason and marks affairs rebuilt from minutes `virtual` with `derived_from` |
 
-Of the 17 fields, 5 are shared but need their roles kept apart, all 5 measured; 12 are defined once in v0.1, with the
-recommendation's OPD labels mapping unambiguously (a string check) and a meaning test planned for all twelve (§6). The 3 body-specific concepts are not
-fields; they need constructs of their own. Evidence:
-`results/census/comparability.json`, classes and the `meaning_tested` flag in `data/schema/field_verdict_classes.json`. Separately, *where*
-the value lives (`results/census/matrix.json`): 4 fields are in OPD's metadata almost everywhere, 13 partly; no field
-lacks a written source in a fifth of the parliaments (5 would at a 10% threshold). That threshold measures coverage, not
-meaning; the classes above are the finding. Tables, annexes and images inside answer documents are the next extraction
-target, and with them their structure in the schema.
+For the government recommendation OPD's harmonised labels map unambiguously (0 of 183 raw labels map to different
+concepts, a string check); the documents show the split P8 found, by procedural stage. Evidence:
+`results/census/comparability.json`, `results/p8/p8_hypotheses.json`, classes and the `meaning_tested` flag in
+`data/schema/field_verdict_classes.json`. Separately, *where* the value lives (`results/census/matrix.json`):
+4 fields are in OPD's metadata almost everywhere, 13 partly; no field lacks a written source in a fifth of the
+parliaments (5 would at a 10% threshold). That threshold measures coverage, not meaning; the classes above are the finding. Tables,
+annexes and images inside answer documents are the next extraction target, and with them their structure in the schema.
 
-## 2. The answer date is three dates
+## 2. Roles a standard needs: per-field recommendations (P8)
+
+P8 (`eval/prereg9/PREREG9.md`, frozen by LOCK9 before the draw) took 66 fresh affairs from 11 parliaments, cantons and
+communes in German, French and Italian, read the two documents OPD links to each (the member's text and the
+executive's answer) and had blind annotators label what each field's value denotes, against categories fixed in
+advance. A field is shared when every parliament with enough affairs keeps it in its one meaning (one exception
+tolerated); a parliament that departs systematically names a role. Share in v0.1's meaning, pooled over parliaments
+(parliament-cluster 95% interval), and the recommendation:
+
+- **Submitter: a role per author, not a slot** (role split; 35/65 [33.3%, 75.0%]). Bern city, Vaud and Lausanne
+  print a sole author or designated first signatory; Zürich city, Thurgau, Fribourg and Vernier print joint authors
+  with none designated first, and OPD's "submitter" is whichever is listed first; in Valais the author of record is a
+  parliamentary group. *Recommend:* `Actor.role` ∈ {sole_author, first_signatory, joint_author, co_signatory,
+  supporter, spokesperson} with `kind` ∈ {person, group, committee}. *v0.2 candidates:* `joint_author`, `supporter`,
+  `spokesperson` (v0.1 has `submitter`, `first_signatory`, `co_signatory`, `on_behalf_of_group`).
+- **Co-signatories: the printed role of each person, not a derived list** (role split; 10/41 [6.8%, 46.3%]). Bern
+  city prints two to four first signatories ("Erstunterzeichnende"), so OPD's co-signatory list includes authors of
+  record; elsewhere the list holds joint authors (Zürich city, Thurgau, Fribourg, Vernier) or persons signing for a
+  group (Valais). *Recommend:* derive no co-signatory tail from an author list; carry each person with the role above.
+- **Type: the instrument behind the harmonised value** (role split; 55/64 [76.2%, 95.3%]). Two Bellinzona "Motions"
+  propose a decision the council takes itself; two Valais "Postulate" mandate the executive to act. *Recommend:* carry
+  the operative request next to the harmonised type. *v0.2 candidate:* `instrument_function` ∈ {mandate,
+  examine_and_report, questions, direct_decision}.
+- **Language: the text's language, apart from the source's tag** (role split; 34/36 [83.3%, 100.0%]). In Fribourg 2 of
+  6 tags name the other official language; 5 of 11 parliaments tag no document. *Recommend:* record the language
+  determined from the text and, separately, the tag the source carries.
+- **Submission date: the event and its source** (body-specific; 44/57 [57.1%, 91.8%]). In 9 of 11 parliaments OPD's
+  date is the printed lodging date (one exception allowed); in Vernier (0/5) and Lausanne (2/5) it is mostly printed nowhere in the documents,
+  2 to 28 days after the lodging date they print. *Recommend:* give the submission date a role and a source like every
+  other date. *v0.2 candidates:* `DateRole` values for lodged, registered and announced in session (v0.1 has
+  `submitted`).
+- **Addressed body and recommendation: candidates to confirm.** Both split on the gold but not under both registered
+  checks (the addressed body is shared on agreed labels only, the recommendation on Qwen's labels). Addressed body:
+  the executive in 10 of 11 parliaments (one exception allowed); Bellinzona's direct-decision instruments address the council itself, which
+  `instrument_function` already captures. Recommendation: "accept" at referral and "approve the report and write off"
+  on a motion already adopted (Vernier) are different acts; *v0.2 candidate:* a procedural `stage` next to the value
+  (v0.1's enum has `accept_and_write_off` but no stage).
+
+Labels: two blind Claude annotators (Opus, Sonnet), a third on 11 disputed fields; another vendor's model
+(Qwen-SEA-LION) gives the same verdict for the five robust fields above. Every outcome, the tables per parliament and
+the agreement checks: `results/p8/`, [`docs/evaluation.md`](evaluation.md#p8-what-the-shared-fields-mean). Ticino is not
+in the sample: its robots.txt disallows the documents, and our fetch guard refused them.
+
+## 3. The answer date is three dates
 
 "Answer date" in OPD can be the date the government **decided** (Regierungsratsbeschluss), the date the answer was
 **dispatched**, or the date parliament **registered** it. In 7 of 54 bodies OPD's "answer" event is mostly the
@@ -38,7 +81,7 @@ Ticino. v0.1 therefore carries a `DateRole` on every date (`answer_decided`, `an
 `submitted`, `scheduled`, `debated`, … in `data/schema/date_roles.json`), and a date-trust tier per parliament in the
 research dataset (`results/census/interventions.tsv.gz`, `results/census/date_trust.json`).
 
-## 3. No bare nulls
+## 4. No bare nulls
 
 Every extractable field is either a value with provenance (`basis`: extracted, normalised, metadata or inferred; the
 deciding `route`; for document values page and character span) or a **typed null** that says why it is empty:
@@ -53,7 +96,7 @@ reason for "not attempted", so the product post-processing (`gegenprobe.affair_p
 (`omitted`), and an interpellation's `decision` is `not_applicable`, not `not_in_corpus`. A v0.2 candidate: a
 `not_extracted` reason, so that a record can be complete and honest at once.
 
-## 4. Question by question: `QAItem`
+## 5. Question by question: `QAItem`
 
 Interpellations and written questions ask numbered questions, and the answer replies to each. `QAItem` pairs question
 *n* with the answer to question *n*, both sides with a span or a typed null (an answer that replies to all at once is
@@ -65,20 +108,21 @@ answer numbers or repeats the questions ("Zu Frage 2", "Réponse à la question 
 0/11). For a standard this argues for asking executives to number their answers; a v0.2 candidate is a `QAItem` field for
 an answer that replies to several questions at once (the converter tracks it internally as `joint_with`).
 
-## 5. Five gaps for v0.2 (cited evidence)
+## 6. Five gaps for v0.2 (cited evidence)
 
 An inventory of what the answers state, over 12 bodies, left 45.9% of statements without a schema account; five gaps
 recur across bodies and languages: **person roles; comparison amounts; dates and laws of other polities; dates of
 other affairs; entry-into-force and deadline dates** (`docs/census.md`, `data/census/cited_evidence.json`; cited, not
 recomputed by `make run`).
 
-## 6. Proposal
+## 7. Proposal
 
 Adopt date roles, typed nulls and the three classes as the frame; standardise the role split for the answer date first
 (it decides every answer-time comparison); treat oral answers, executive-own business and minutes-only councils as
-named constructs; take `QAItem` (measured, P5), the five gaps and a `not_extracted` null reason into v0.2. Test plan for
-the 12 fields shared by definition: map each parliament's raw labels or printed forms to the shared concept (for the
-government recommendation OPD's harmonised labels pass a string check, `results/census/comparability.json`, but the
-printed forms are not yet mapped), and report the share that maps elsewhere. OPD vocabulary errors found on the way
+named constructs. For v0.2: the P8 roles of §2 (author roles `joint_author`, `supporter`, `spokesperson`; an
+`instrument_function` next to the type; the language from the text apart from the tag; submission-date roles; a
+recommendation `stage`), `QAItem` (measured, P5), the five gaps and a `not_extracted` null reason. Test plan for the
+six fields still shared by definition (decision and dispatch dates, Q/A pairing, related affairs, usable text,
+answer-link status): the same P8 protocol, with Ticino's documents once its robots.txt permits them. OPD vocabulary errors found on the way
 (e.g. the harmonised type "Votaziun", Romansh for a vote, on 9,887 affairs) are listed in `results/census/vocab_bugs.tsv`. Gegenprobe (Hack Apertus,
 Track 2A, team 444): https://gegenprobe.mi11ion.io.

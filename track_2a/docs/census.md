@@ -110,7 +110,11 @@ raw labels ambiguous; answer date and procedural history via the date-role label
 OPD-event-vs-printed check 37/44; procedural state 32; decision outcome 3) and one shared field, the government
 recommendation (0 of 183). The other **11 shared fields are shared by definition, untested** (submission, decision and
 dispatch dates, submitter, co-signatories, addressed body, Q/A pairing, related affairs, language, usable text,
-answer-link status). "12 shared" therefore means 1 tested + 11 by definition.
+answer-link status). "12 shared" therefore meant 1 tested + 11 by definition. Since P8 (`eval/prereg9/`,
+`results/p8/`) seven fields are measured on documents: submitter, co-signatories, language, addressed body and
+recommendation move to the role-split class, type stays there, and the submission date stays shared but is
+body-specific in Vernier and Lausanne. The class table now holds 7 shared fields: 1 measured (the submission date,
+P8) and 6 by definition, untested; meaning is measured for 11 of the 17.
 
 Answer times (round 5): the pooled cross-parliament median (68 days, `question.json`) mixes date roles and types;
 `results/census/answer_days_by_trust.json` (`python -m gegenprobe.census.days_by_trust`) splits it by date-trust tier and

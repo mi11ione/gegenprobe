@@ -11,8 +11,8 @@ r4c.ti_missing	776	site/parliaments.csv	row:key=TI;col:all_no_answer_text	int	ma
 r4c.ti_question_median	76	site/parliaments.csv	row:key=TI;col:all_median_days_main_type	int	make site	docs/viewer.md	{"docs/viewer.md": "Ticino: questions"}
 r4c.lugano_list_page	201	site/parliaments.csv	row:key=5192;col:all_no_answer_text	int	make site	docs/viewer.md	{"docs/viewer.md": "Lugano"}
 r4c.p3b_answer_lost	3	site/data.json	evaluation.p3b.answer_date_lost.n	int	make site	docs/viewer.md	{"docs/viewer.md": "Luzern affairs"}
-r4c.schema_shared	12	site/data.json	schema.counts.shared	int	make site	docs/viewer.md,docs/ech-onepager.md	{"docs/ech-onepager.md": "**shared** (12 of 17)", "docs/viewer.md": "12 shared"}
-r4c.schema_role_split	5	site/data.json	schema.counts.shared_with_role_split	int	make site	docs/viewer.md,docs/ech-onepager.md	{"docs/ech-onepager.md": "role split** (5 of 17)", "docs/viewer.md": "with a role split"}
+r4c.schema_shared	7	site/data.json	schema.counts.shared	int	make site	docs/viewer.md,docs/ech-onepager.md	{"docs/ech-onepager.md": "**shared** (7 of 17)", "docs/viewer.md": "the 17 fields with their meaning class"}
+r4c.schema_role_split	10	site/data.json	schema.counts.shared_with_role_split	int	make site	docs/viewer.md,docs/ech-onepager.md	{"docs/ech-onepager.md": "role split** (10 of 17)", "docs/viewer.md": "shared with a role split after P8"}
 r4c.sample_char_start	177	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	per_affair.21.affair.qa.0.answer_date.char_start	int	python -m eval.gold5.run_p3b	docs/viewer.md	{"docs/viewer.md": "characters"}
 r4c.sample_char_end	194	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	per_affair.21.affair.qa.0.answer_date.char_end	int	python -m eval.gold5.run_p3b	docs/viewer.md	{"docs/viewer.md": "characters"}
 r4c.sample_affair	301273	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	per_affair.21.affair_id	str	python -m eval.gold5.run_p3b	docs/viewer.md	

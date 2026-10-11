@@ -11,28 +11,23 @@
   "fields": [
    {
     "key": "date_submission",
-    "meaning_tested": "by definition, untested",
-    "evidence": null
-   },
-   {
-    "key": "submitter",
-    "meaning_tested": "by definition, untested",
-    "evidence": null
-   },
-   {
-    "key": "co_signatories",
-    "meaning_tested": "by definition, untested",
-    "evidence": null
-   },
-   {
-    "key": "addressed_body",
-    "meaning_tested": "by definition, untested",
-    "evidence": null
-   },
-   {
-    "key": "government_recommendation",
-    "meaning_tested": "measured",
-    "evidence": "results/census/comparability.json government_recommendation"
+    "meaning_tested": "measured (P8)",
+    "evidence": "results/p8/p8_hypotheses.json fields.date_submission",
+    "p8": {
+     "verdict": "body_specific",
+     "robust": true,
+     "roles": [
+      "lodging date printed on the text",
+      "a date the documents do not print"
+     ],
+     "where": "Vernier and Lausanne: OPD's date is mostly printed nowhere in the documents, 2 to 28 days after the printed lodging date; 9 parliaments conform",
+     "evidence": "results/p8/p8_hypotheses.json fields.date_submission",
+     "test": "P8 (eval/prereg9/PREREG9.md, LOCK9): 66 affairs, 11 parliaments"
+    },
+    "body_specific_in": [
+     "6643",
+     "5586"
+    ]
    },
    {
     "key": "date_decision",
@@ -51,11 +46,6 @@
    },
    {
     "key": "related_affairs",
-    "meaning_tested": "by definition, untested",
-    "evidence": null
-   },
-   {
-    "key": "language",
     "meaning_tested": "by definition, untested",
     "evidence": null
    },
@@ -94,7 +84,20 @@
    {
     "key": "type",
     "meaning_tested": "measured",
-    "evidence": "results/census/comparability.json type"
+    "evidence": "results/census/comparability.json type",
+    "p8": {
+     "verdict": "role_split",
+     "robust": true,
+     "roles": [
+      "mandate to the executive",
+      "examine and report",
+      "questions",
+      "decision the council takes itself"
+     ],
+     "where": "Bellinzona: 'Motions' that propose a decision the council takes itself; Valais: 'Postulate' that mandate the executive to act",
+     "evidence": "results/p8/p8_hypotheses.json fields.type",
+     "test": "P8 (eval/prereg9/PREREG9.md, LOCK9): 66 affairs, 11 parliaments"
+    }
    },
    {
     "key": "procedural_state",
@@ -105,6 +108,91 @@
     "key": "decision_outcome",
     "meaning_tested": "measured",
     "evidence": "results/census/comparability.json decision_outcome"
+   },
+   {
+    "key": "submitter",
+    "meaning_tested": "measured (P8)",
+    "evidence": "results/p8/p8_hypotheses.json fields.submitter",
+    "p8": {
+     "verdict": "role_split",
+     "robust": true,
+     "roles": [
+      "sole author or designated first signatory",
+      "joint authors without a designated first",
+      "parliamentary group as author of record",
+      "co-signer listed first by OPD"
+     ],
+     "where": "joint authors without a designated first in Zürich city, Thurgau, Fribourg, Vernier and Lugano; a parliamentary group as author of record in Valais; in Graubünden OPD's first author is a co-signer",
+     "evidence": "results/p8/p8_hypotheses.json fields.submitter",
+     "test": "P8 (eval/prereg9/PREREG9.md, LOCK9): 66 affairs, 11 parliaments"
+    }
+   },
+   {
+    "key": "co_signatories",
+    "meaning_tested": "measured (P8)",
+    "evidence": "results/p8/p8_hypotheses.json fields.co_signatories",
+    "p8": {
+     "verdict": "role_split",
+     "robust": true,
+     "roles": [
+      "co-signers",
+      "several first signatories (authors of record)",
+      "joint authors",
+      "persons signing for a group"
+     ],
+     "where": "OPD's co-signatory list includes authors of record in Bern city (which prints two to four first signatories) and Graubünden; joint authors in Zürich city, Thurgau, Fribourg, Vernier and Lugano; persons signing for a group in Valais",
+     "evidence": "results/p8/p8_hypotheses.json fields.co_signatories",
+     "test": "P8 (eval/prereg9/PREREG9.md, LOCK9): 66 affairs, 11 parliaments"
+    }
+   },
+   {
+    "key": "addressed_body",
+    "meaning_tested": "measured (P8)",
+    "evidence": "results/p8/p8_hypotheses.json fields.addressed_body",
+    "p8": {
+     "verdict": "role_split",
+     "robust": false,
+     "roles": [
+      "executive",
+      "the council itself"
+     ],
+     "where": "Bellinzona: interventions that ask the council itself to decide; fragile: shared on agreed labels only",
+     "evidence": "results/p8/p8_hypotheses.json fields.addressed_body",
+     "test": "P8 (eval/prereg9/PREREG9.md, LOCK9): 66 affairs, 11 parliaments"
+    }
+   },
+   {
+    "key": "government_recommendation",
+    "meaning_tested": "measured (P8)",
+    "evidence": "results/p8/p8_hypotheses.json fields.government_recommendation",
+    "p8": {
+     "verdict": "role_split",
+     "robust": false,
+     "roles": [
+      "recommendation at referral",
+      "report on a motion already adopted (approve and write off)"
+     ],
+     "where": "Vernier: the executive's document reports on a motion already adopted; fragile: shared on Qwen's labels",
+     "evidence": "results/p8/p8_hypotheses.json fields.government_recommendation",
+     "test": "P8 (eval/prereg9/PREREG9.md, LOCK9): 66 affairs, 11 parliaments"
+    },
+    "labels_check": "results/census/comparability.json government_recommendation (0 of 183 raw labels map to two concepts)"
+   },
+   {
+    "key": "language",
+    "meaning_tested": "measured (P8)",
+    "evidence": "results/p8/p8_hypotheses.json fields.language",
+    "p8": {
+     "verdict": "role_split",
+     "robust": true,
+     "roles": [
+      "language of the text",
+      "the other official language"
+     ],
+     "where": "Fribourg: in 2 of 6 affairs OPD's tag names the other official language; 5 of 11 parliaments tag no document",
+     "evidence": "results/p8/p8_hypotheses.json fields.language",
+     "test": "P8 (eval/prereg9/PREREG9.md, LOCK9): 66 affairs, 11 parliaments"
+    }
    }
   ]
  },

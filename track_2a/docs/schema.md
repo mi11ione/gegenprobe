@@ -114,6 +114,12 @@ The second half of this list exists because a rule-based reading of 94 documents
 person roles that a submitter/co-signatory model cannot hold. Person mentions had the highest unbooked ("suspense") rate of
 any atom type (`data/census/cited_evidence.json`, copied from the pre-registered Bilanz spike).
 
+P8 (`eval/prereg9/`, `results/p8/`) names the authorship roles a standard needs beyond this list: joint authors with
+none designated first (Zürich city, Thurgau, Fribourg, Vernier, Lugano), a parliamentary group as author of record with
+persons signing for it (Valais), and several first signatories (Bern city). v0.2 candidates: `joint_author`,
+`supporter` and `spokesperson` (an author of record that is a group is already expressible: `ActorKind` has
+`parliamentary_group` and `committee`; `docs/ech-onepager.md` §2).
+
 ### Procedural state, decision, government recommendation
 
 - **`procedural_state`** (12 values): `submitted`, `pending_answer`, `answered`, `scheduled`, `in_committee`, `debated`,
@@ -199,6 +205,10 @@ fill it yet; it makes answers comparable question by question once it does.
 `data/schema/field_verdict_classes.json`: `shared` (one concept, same meaning everywhere; where the value lives may
 differ), `shared_with_role_split` (shared, but one source label covers several roles that must be kept apart, e.g.
 "answer date" = decided / dispatched / registered), `body_specific` (no common meaning; only the body's own vocabulary).
+Each field carries `meaning_tested`: `measured` (from OPD's labels, `results/census/comparability.json`), `measured (P8)`
+(from the documents in the pre-registered test P8) or `by definition, untested`. A field tested in P8 carries a `p8`
+block with the registered verdict, whether it is robust (the same verdict on agreed labels only and on Qwen's labels),
+the roles found and where they occur; the submission date also lists `body_specific_in` (Vernier, Lausanne).
 
 ## Virtual affairs (v0.1 addition, 10 Oct 2026)
 
