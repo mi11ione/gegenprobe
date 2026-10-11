@@ -1,0 +1,151 @@
+{
+ "arms_on_frame": {
+  "free": 163,
+  "p7": 135,
+  "trivial": 206
+ },
+ "blind": "packets carry id, affair number, title, type, OPD answer event dates and the text path only; strata, arm outputs and parliaments stay in WORK until the gold labels are in",
+ "calls": 3484,
+ "caps": {
+  "free_only": 30,
+  "p7": 120,
+  "rest": 40
+ },
+ "config": {
+  "chosen_on": "P7 dev (80 review rows, blind labels data/p7/dev_annotations/gold.jsonl): theta_A by the rule fixed in eval/p7/tune.py before the labels (smallest grid value with no promoted dev row gold no/unclear/disputed); is_answer variant and theta_B chosen after the labels (most correct promotions at that theta_A; ties a1, then smaller theta_B): results/p7/dev_table.json",
+  "counted_classes": [
+   "eq",
+   "eq_gov",
+   "window",
+   "anywhere"
+  ],
+  "date": "b1",
+  "dev": {
+   "correct": 16,
+   "promoted": 16,
+   "recall_all": "16/70",
+   "recall_attainable": "15/25"
+  },
+  "ineligible": [
+   "opd_doc_ambiguous",
+   "no_answer_event",
+   "resolution_reply",
+   "wrong_affair"
+  ],
+  "is_answer": "a2",
+  "max_dates": 25,
+  "model": "swiss-ai/apertus-v1.5-8b (Public AI; serves the 70B weights) via the budget gateway",
+  "name": "p7",
+  "prompt_ids": {
+   "date": "p7/b1@f5917b89a260",
+   "free": "p7/free@c07134177c28",
+   "is_answer": "p7/a2@02f7e82b18bf"
+  },
+  "theta_a": 8.0,
+  "theta_b": 10.0,
+  "view": {
+   "head": 9000,
+   "tail": 3000
+  }
+ },
+ "decisions_sha256": "5ce77a95c3d5497575a84970131129323f26085bf68eaf61417402b11e35927d",
+ "frame": 478,
+ "guide_sha256": "a843e6140a2901a79b18a2b3b6af8ffb1263c13e4ebcd86060d9a9d1430508d4",
+ "key_sha256": "39c279ee26abff5fe36834e54015deb9b29fb7f1fc5ca3c03109887ebb3fb29b",
+ "packets": 190,
+ "report": {
+  "audits": {
+   "audit2": 300,
+   "audit3": 260,
+   "design": 796
+  },
+  "excluded_other": 80,
+  "frame": 478,
+  "in_audit": 305,
+  "ineligible:no_answer_event": 18,
+  "ineligible:opd_doc_ambiguous": 9,
+  "ineligible:resolution_reply": 23,
+  "ineligible:wrong_affair": 4,
+  "review_rows": 917
+ },
+ "rest_allocation": {
+  "allocation": {
+   "date_mismatch: anywhere_conflict": 7,
+   "date_mismatch: differs": 9,
+   "date_mismatch: near": 7,
+   "date_mismatch: none": 8,
+   "heading_fail": 9
+  },
+  "by_body": {
+   "date_mismatch: anywhere_conflict": {
+    "4566": 1,
+    "JU": 1,
+    "TI": 1,
+    "VS": 4
+   },
+   "date_mismatch: differs": {
+    "191": 1,
+    "261": 1,
+    "2829": 1,
+    "4566": 1,
+    "5113": 1,
+    "JU": 1,
+    "VD": 1,
+    "VS": 1,
+    "ZH": 1
+   },
+   "date_mismatch: near": {
+    "2829": 1,
+    "5586": 3,
+    "ZH": 3
+   },
+   "date_mismatch: none": {
+    "261": 1,
+    "2829": 2,
+    "4001": 1,
+    "5002": 1,
+    "5113": 1,
+    "5586": 1,
+    "TI": 1
+   },
+   "heading_fail": {
+    "296": 1,
+    "5002": 1,
+    "5113": 3,
+    "TI": 1,
+    "VS": 2,
+    "ZH": 1
+   }
+  },
+  "floor": 6,
+  "frame": {
+   "date_mismatch: anywhere_conflict": 32,
+   "date_mismatch: differs": 78,
+   "date_mismatch: near": 34,
+   "date_mismatch: none": 76,
+   "heading_fail": 85
+  },
+  "n": 40,
+  "seed": 20261014
+ },
+ "seed": 20261014,
+ "served": [
+  "swiss-ai/apertus-v1.5-8b"
+ ],
+ "split": "test",
+ "strata_N": {
+  "free_only": 38,
+  "p7": 135,
+  "rest": 305
+ },
+ "strata_n": {
+  "free_only": 30,
+  "p7": 120,
+  "rest": 40
+ },
+ "weights": {
+  "free_only": 1.2666666666666666,
+  "p7": 1.125,
+  "rest": 7.625
+ }
+}
