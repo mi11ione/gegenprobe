@@ -3,11 +3,12 @@
 Gegenprobe, Track 2A OpenParlData, team 444. Evidence site: https://gegenprobe.mi11ion.io. `make claims` recomputes
 every number here from its results file and fails on any mismatch, or on a number or scope word not bound to its claim.
 
-- **Answer.** Can one schema hold Swiss parliamentary business? Yes, if its fields carry roles. Shared: one schema of
+- **Answer.** Can one schema hold Swiss parliamentary business? Yes, if its fields carry roles (asked of interventions,
+  OPD's five intervention types: 198,594 of its 325,691 affairs). Shared: one schema of
   17 fields for communal, cantonal and federal business, every value with its role and source, every gap with a typed
   reason. Needs roles: 10 fields; "answer date" is the government's decision, its letter or, in 7 parliaments, mostly
-  the submission date. Body-specific: 1 field and 3 constructs (the submission date in Vernier and Lausanne; oral
-  answers, executive business, minutes-only councils). Untested: 6 fields, defined once in v0.1.
+  the submission date. Body-specific: 1 field and 2 constructs (the submission date in Vernier and Lausanne; oral
+  answers, minutes-only councils). Untested: 6 fields, defined once in v0.1.
 - **Delivered.** Repairs for 9,720 answers keyed on OpenParlData (OPD) ids, every one from model-free rules; schema
   v0.2 with the roles; a converter that gives every value its page and span; a nightly job. Apertus only picks values
   printed in the document, and code locates them.
@@ -16,7 +17,8 @@ every number here from its results file and fails on any mismatch, or on a numbe
   Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation. In 15 parliaments
   nobody wrote rules for, Apertus is exact on 53/62 documents, the best no-model baseline on 44/62 (P2, post hoc;
   McNemar p = 0.012); in 14 such parliaments it reads 50/141 author roles right, the rules 17/141, at precision 0.52
-  vs 0.31, every name printed and located by code (P10, registered: recall +23.4 points, Holm p = 0.032). 186 affairs from 26 parliaments, communal, cantonal and federal, validate in schema v0.2 (the
+  vs 0.31 (P10, registered: recall +23.4 points, Holm p = 0.032); OPD's own contributor list gets 37/141, not
+  significantly different (Holm p = 0.17). 186 affairs from 26 parliaments, communal, cantonal and federal, validate in schema v0.2 (the
   15 federal ones exploratory).
 - **Schema.** A pre-registered test of 7 fields on 66 affairs from 11 parliaments (P8) finds roles in authorship,
   signatories, the instrument behind a harmonised type and the language. The converter fills v0.2's roles: on 5
@@ -44,5 +46,5 @@ every number here from its results file and fails on any mismatch, or on a numbe
 - **Labels without human labelling, by design.** Two blind AI annotators label, a third settles ties; Qwen-SEA-LION
   (AI Singapore) relabelled P1, P2, P6 and P7 blind: dates agree with κ 0.80, 0.87 and 0.86.
 - **Operations.** `make run` (Docker, CPU) recomputes the census, re-derives the rules arm from the PDFs, replays
-  P1–P8 and checks every number. We found, audited and fixed our own robots.txt bug; every fetch now fails closed.
+  P1–P8 and P10 and checks every number. We found, audited and fixed our own robots.txt bug; every fetch now fails closed.
   Claude Code agents wrote the code and labels.

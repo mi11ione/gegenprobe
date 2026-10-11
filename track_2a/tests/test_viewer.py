@@ -187,7 +187,8 @@ def test_r4_p3b_schema_and_cantons():
     assert f["affair_type"]["arms"]["C"] == [35, 36] and f["affair_type"]["tier"] == "extractable unattended"
     sv = d["schema"]
     assert len(sv["fields"]) == 17 and {x["cls"] for x in sv["fields"]} == {"shared", "shared_with_role_split"}
-    assert len(sv["body_specific"]) == 3
+    assert len(sv["body_specific"]) == 2  # round 16: executive business moved outside the tested scope
+    assert [x["name"] for x in sv["outside_scope"]] == ["executive business that answers no member’s affair"]
     qa = sv["sample"]["record"]["qa"][0]["answer_date"]
     assert qa["page"] and qa["char_end"] > qa["char_start"] and qa["quote"]
     assert sv["sample"]["record"]["government_recommendation"]["null_reason"]
@@ -199,6 +200,7 @@ def test_r4_p3b_schema_and_cantons():
     m = json.loads((SITE / "missing.json").read_text(encoding="utf-8"))
     assert all(x[5] == 1 for x in m["5192"]["rows"]), "Lugano's affairs point at one list page"
     html = (SITE / "index.html").read_text(encoding="utf-8")
-    assert "Nine pre-registered tests" in html and "Eight pre-registered" not in html and "Five pre-registered" not in html
+    assert "Ten pre-registered tests" in html and "Nine pre-registered" not in html and "Five pre-registered" not in html
+    assert "validated against schema v0.1:" not in html and "(schema v0.1, below)" not in html
     for s in ("Tessin (canton)", "newsroom", "which OCR recovers"):
         assert s not in html, s

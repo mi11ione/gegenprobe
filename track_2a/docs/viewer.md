@@ -147,8 +147,9 @@ adds the always-null baseline (90/154), dates found per arm (of 64) and the prec
   Below it, the 17 fields with their meaning class (7 shared, 10 shared with a role split after P8; the field-to-class
   map is the README table, `viewer/data.py:FIELD_CLASS`; definitions `data/schema/field_verdict_classes.json`), the tier, where the
   value lives (metadata · partly · only in the PDF · not in OPD's data, counted over the parliaments where the field
-  applies) and the evidence (`results/census/comparability.json`), then the three body-specific concepts (oral answers in
-  question time, councils that publish only meeting documents, executive business answering no member's affair).
+  applies) and the evidence (`results/census/comparability.json`), then the two body-specific concepts (oral answers in
+  question time, councils that publish only meeting documents) and executive business answering no member's affair,
+  outside the tested scope.
 - **Five tests everywhere.** Evaluation heading, intro and glossary name P1, P2, P3, P3b, P4. New P3b section
   (`viewer/data.py:p3b`, from `results/eval5/{hypotheses_p3b__…,p3b__…,gold5_agreement,annotation_audit}.json`): the
   verdict by the registered criteria (replicated: S1 14/16, S2 one of five fields below, the answer date), the per-field

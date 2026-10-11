@@ -105,7 +105,7 @@
     "why": "table header"
    },
    {
-    "phrase": "the P7 post-hoc files included",
+    "phrase": "the P7\n  post-hoc files",
     "why": "names the committed P7 post-hoc files"
    },
    {
@@ -119,6 +119,14 @@
    {
     "phrase": "(default 30)",
     "why": "a setting's default, not a result"
+   },
+   {
+    "phrase": "```json\n{\n \"schema_version\": \"0.2.0\",\n \"ref\": {\"body_key\": \"BE\", \"number\": \"2021.RRGR.388\", \"opd_id\": 39369, \"virtual\": false},\n \"actors\": [\n  {\"role\": \"joint_author\", \"kind\": \"person\",\n   \"name\": {\"kind\": \"value\", \"value\": \"Ruchti\", \"basis\": \"extracted\", \"route\": \"rule\",\n            \"rule\": \"roles-2:authors:table:eingereicht_von\", \"doc\": \"opd:23227\", \"page\": 1,\n            \"char_start\": 231, \"char_end\": 237, \"quote_sha256\": \"94cbc0329ffdf881…\"}}\n ],\n \"qa\": [{\n  \"answer_date\": {\"kind\": \"value\", \"value\": \"2022-05-18\", \"basis\": \"normalised\", \"route\": \"rule\",\n                  \"rule\": \"opd_event_date_in_document\", \"doc\": \"opd:656633\", \"page\": 1,\n                  \"char_start\": 466, \"char_end\": 477, \"quote\": \"18 mai 2022\"},\n  \"answering_body\": {\"kind\": \"null\", \"null_reason\": \"not_extracted\", \"route\": \"rule\",\n                     \"evidence\": \"the answering body is not extracted by converter gegenprobe-0.1.0+affair\"}\n }],\n \"documents\": [\n  {\"doc_id\": \"opd:656633\", \"role\": \"answer\", \"language_tag\": \"de\", \"language_of_text\": [\"fr\"]}\n ]\n}\n```",
+    "why": "verbatim excerpt of the committed sample record results/schema/v0_2/samples/p3_BE_39369.json (ids, offsets, dates); tests/test_readme_sample.py checks it against the file"
+   },
+   {
+    "phrase": "export (0.47 GB for Bern)",
+    "why": "size of OPD's docs_BE export as streamed on 11 Oct 2026 (docs/affair.md), an operating note, not a result"
    }
   ],
   "technical_report.md": [
@@ -195,11 +203,11 @@
     "why": "a setting: the minimum interval between requests to one host"
    },
    {
-    "phrase": "style=\"width:52%;",
+    "phrase": "style=\"width:48%;",
     "why": "figure width in the PDF layout, not a result"
    },
    {
-    "phrase": "style=\"width:60%;",
+    "phrase": "style=\"width:55%;",
     "why": "figure width in the PDF layout, not a result"
    },
    {

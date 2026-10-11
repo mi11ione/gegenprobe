@@ -1281,9 +1281,13 @@ def schema_view() -> dict:
         dict(name="councils that publish only meeting documents",
              evidence=f"{va['n_bodies']} bodies, {va['n_bodies_no_affairs']} of them with no affair at all: affairs derived "
                       "from agenda and minutes are marked ‘virtual’ with ‘derived_from’ (test P4)"),
+    ]
+    # round 16 (J2): executive business is not specific to a body (every parliament has it); it lies outside the tested
+    # scope, which is interventions
+    outside_scope = [
         dict(name="executive business that answers no member’s affair",
-             evidence="government credits, reports and ordinances filed as affairs in some parliaments; kept in the "
-                      "parliament’s own vocabulary"),
+             evidence="government credits, reports and ordinances filed as affairs in some parliaments; the census and "
+                      "every test sample interventions (OPD’s five intervention types), so it is outside the tested scope"),
     ]
     res = _j("eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json")
     x = next(a for a in res["per_affair"] if a["affair_id"] == SAMPLE_AFFAIR)
@@ -1304,7 +1308,8 @@ def schema_view() -> dict:
     bk = rec["ref"]["body_key"]
     label, _ = label_of(bk, names.get(bk, ""), meta.get(bk, {}).get("type"))
     return dict(
-        fields=fields, body_specific=body_specific, tier_counts=m["tier_counts"], n_bodies=m["n_bodies"],
+        fields=fields, body_specific=body_specific, outside_scope=outside_scope, tier_counts=m["tier_counts"],
+        n_bodies=m["n_bodies"],
         classes={k: dict(label=v["labels"]["en"], definition=v["definition"]) for k, v in classes.items()},
         counts=dict(collections.Counter(FIELD_CLASS[k] for k in m["fields"])),
         tested_counts={c: dict(collections.Counter(f["tested"] for f in fields if f["cls"] == c))
@@ -1415,7 +1420,18 @@ def p10() -> dict | None:
     p = RESULTS / "report" / "r15_numbers.json"
     if not p.exists():
         return None
-    return json.loads(p.read_text(encoding="utf-8"))["p10"]
+    out = json.loads(p.read_text(encoding="utf-8"))["p10"]
+    p16 = RESULTS / "report" / "r16_numbers.json"   # round 16: sample against plan, concentration, shipped route (post hoc)
+    if p16.exists():
+        out["r16"] = json.loads(p16.read_text(encoding="utf-8"))["p10"]
+    return out
+
+
+def scope() -> dict:
+    """What the headline question was asked of (round 16, J2): OPD's five intervention types (results/census/summary.json)
+    among all of OPD's affairs (results/schema/vocab_summary.json)."""
+    return dict(interventions=_j("census/summary.json")["national"]["n"],
+                opd_affairs=_j("schema/vocab_summary.json")["affairs"])
 
 
 def parts_check() -> dict | None:
@@ -1641,6 +1657,7 @@ def collect(full_text: bool = False) -> dict:
             adapters=adapters(),
             nights=nights(),
             tiles=tiles(),
+            scope=scope(),
             coverage=converter_coverage(),
         )
     )

@@ -1,0 +1,20 @@
+id	shown	file	path	fmt	command	where	context
+r16.p10_opd_right_of	37/141	results/report/r15_numbers.json	p10.primary.arms.opd_first.right/p10.primary.arms.opd_first.gold	frac	PYTHONPATH=src:. python -m report.r15_numbers	README.md,technical_report.md,docs/form_notes.md,../README.md,docs/evaluation.md	
+r16.p10_opd_right	37	results/report/r15_numbers.json	p10.primary.arms.opd_first.right	int	PYTHONPATH=src:. python -m report.r15_numbers	-	
+r16.p10_it_opd_f1	0.62	results/report/r15_numbers.json	p10.secondary_it.arms.opd_first.f1	str	PYTHONPATH=src:. python -m report.r15_numbers	README.md,technical_report.md,docs/evaluation.md	
+r16.p10_planned	38	results/report/r16_numbers.json	p10.sample.planned_primary	int	PYTHONPATH=src:. python -m report.r16_numbers	README.md,technical_report.md,docs/evaluation.md	
+r16.p10_scored	34	results/report/r16_numbers.json	p10.sample.scored_primary	int	PYTHONPATH=src:. python -m report.r16_numbers	docs/evaluation.md	
+r16.p10_gain	33	results/report/r16_numbers.json	p10.concentration.gain_pairs	int	PYTHONPATH=src:. python -m report.r16_numbers	docs/evaluation.md	
+r16.p10_top2_gain	25	results/report/r16_numbers.json	p10.concentration.top2_gain	int	PYTHONPATH=src:. python -m report.r16_numbers	docs/evaluation.md	
+r16.p10_horw_ptr	15	results/report/r16_numbers.json	p10.concentration.top2.0.pointer	int	PYTHONPATH=src:. python -m report.r16_numbers	docs/evaluation.md	
+r16.p10_ne_gold	62	results/report/r16_numbers.json	p10.concentration.largest.gold	int	PYTHONPATH=src:. python -m report.r16_numbers	docs/evaluation.md	
+r16.p10_wo_ne_ptr	33	results/report/r16_numbers.json	p10.concentration.without_largest.pointer	int	PYTHONPATH=src:. python -m report.r16_numbers	README.md,technical_report.md,../README.md,docs/evaluation.md	
+r16.p10_wo_ne_opd	34	results/report/r16_numbers.json	p10.concentration.without_largest.opd_first	int	PYTHONPATH=src:. python -m report.r16_numbers	README.md,technical_report.md,../README.md,docs/evaluation.md	
+r16.p10_wo_ne_gold	79	results/report/r16_numbers.json	p10.concentration.without_largest.gold	int	PYTHONPATH=src:. python -m report.r16_numbers	README.md,technical_report.md,../README.md,docs/evaluation.md	
+r16.route_fired	2	results/report/r16_numbers.json	p10.review_route.fallback_fired	int	PYTHONPATH=src:. python -m report.r16_numbers	docs/evaluation.md	
+r16.route_added	32	results/report/r16_numbers.json	p10.review_route.fallback_pairs_added	int	PYTHONPATH=src:. python -m report.r16_numbers	README.md,technical_report.md,docs/evaluation.md	
+r16.route_added_right	0	results/report/r16_numbers.json	p10.review_route.fallback_pairs_right	int	PYTHONPATH=src:. python -m report.r16_numbers	-	
+r16.route_alone	50/96	results/report/r16_numbers.json	p10.review_route.reader_alone.right/p10.review_route.reader_alone.printed	frac	PYTHONPATH=src:. python -m report.r16_numbers	docs/evaluation.md	
+r16.route_fb_precision	0.39	results/report/r16_numbers.json	p10.review_route.with_opd_fallback.precision	str	PYTHONPATH=src:. python -m report.r16_numbers	docs/evaluation.md	
+r16.route_fb_f1	0.37	results/report/r16_numbers.json	p10.review_route.with_opd_fallback.f1	str	PYTHONPATH=src:. python -m report.r16_numbers	docs/evaluation.md	
+r16.role_consistency_changed	2	results/schema/v0_2/validation_all.json	role_consistency.n_records_changed	int	make schema-v02	-	

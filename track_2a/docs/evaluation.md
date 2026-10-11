@@ -33,10 +33,29 @@ Each froze code, prompts and θ by sha256 before any label was committed (`eval/
 - **Gold labels checked by another vendor, and by time.** The labels come from blind Claude annotators;
   `Qwen-SEA-LION-v4-32B` (AI Singapore) relabelled P1, P2, P6 and P7 blind: answer dates agree with κ 0.80 (P1), 0.87
   (P2) and 0.86 (P6), P7's is-answer labels on 185/190, and no registered decision changes; on P5 its labels pass the
-  verbatim quote check in only 7/40 files, so they neither confirm nor overturn the verdict. All 84 annotator sessions of P1–P7
-  ended before GitHub received their labels; in the nine locked sets they started after it received the LOCK and draw
-  pushes (P5 dev and P7 dev have no lock by design; DEV2's anchor is the commit of its written selection rule and draw;
-  `results/eval/annotation_sessions.json`, from transcripts kept on the author's machine).
+  verbatim quote check in only 7/40 files, so they neither confirm nor overturn the verdict. All 96 annotator sessions
+  (P1–P8 and P10 with their development sets, the document-parts check and the federal cell; 1,864 label files, each
+  written inside its session) ended before GitHub received their labels; in every set with a lock or a draw they
+  started after GitHub received it (P5 dev and P7 dev have no lock by design, the document-parts check only a draw;
+  DEV2's anchor is the commit of its written selection rule and draw; `results/eval/annotation_sessions.json`, from
+  transcripts kept on the author's machine).
+
+## Which folder is which test
+
+Each test's registration, deviations and lock live in one folder. The folders are numbered in the order they were
+created, so the folder number and the test number differ from P3b on:
+
+| folder | test | lock | folder | test | lock |
+|---|---|---|---|---|---|
+| `eval/prereg/` | P1 | `LOCK` | `eval/prereg6/` | P5 | `LOCK6` |
+| `eval/prereg2/` | P2 | `LOCK2` | `eval/prereg7/` | P6 | `LOCK7` |
+| `eval/prereg3/` | P3 | `LOCK3` | `eval/prereg8/` | P7 | `LOCK8` |
+| `eval/prereg4/` | P4 | `LOCK4` | `eval/prereg9/` | P8 | `LOCK9` |
+| `eval/prereg5/` | P3b | `LOCK5` | `eval/prereg10/` | P10 | `LOCK10` |
+
+The federal cell (exploratory) lives in `eval/fed/` with `LOCKFED`. The titles of `PREREG3.md` ("DRAFT") and
+`PREREG4.md` ("DRAFT, not locked") were written before their locks and frozen unchanged: LOCK3 and LOCK4 hash the files
+with those titles (`eval/prereg4/DEVIATIONS4.md` D4-1). `make run` verifies all ten locks and LOCKFED.
 
 ## The 17 fields in detail
 
@@ -67,13 +86,17 @@ parliaments where OPD metadata carries it · carries it for part of the affairs 
 So 4 fields are in OPD's metadata almost everywhere and 13 partly or only in the PDF; no field lacks a source in a
 fifth of the parliaments (5 would at a 10% threshold, `results/census/tier_sensitivity.json`). *Role split*: the
 concept is shared, but one source label covers several roles that must be kept apart before parliaments can be
-compared. The recommendation's string check (0 of 183 raw labels map to two concepts) covers only the labels OPD has
+compared. Of the 10 role splits, 4 come from parliamentary practice (decision outcome, submitter, co-signatories,
+addressed body), 4 partly from OPD's tagging as well (answer date, type, language, recommendation: OPD can correct its
+part) and 2 are open, where the labels cannot tell practice from harmonisation (procedural history, procedural state;
+technical report, Table 1). The recommendation's string check (0 of 183 raw labels map to two concepts) covers only the labels OPD has
 harmonised (29.1% of all events carry no harmonised id); P8 tested the printed forms and found the split by procedural
 stage (below).
-Three further *concepts* are body-specific and are not fields: oral answers in question time (23.6% of question-time
-answers are oral; v0.1 types them as a null reason), executive business that answers no member's affair, and councils
-that publish only meeting documents (16 bodies, 8 with no affair at all; schema v0.1 marks affairs derived from them
-`virtual` with `derived_from`, P4). For the eCH group: `docs/ech-onepager.md`.
+Two further *concepts* are body-specific and are not fields: oral answers in question time (23.6% of question-time
+answers are oral; v0.1 types them as a null reason) and councils that publish only meeting documents (16 bodies, 8 with
+no affair at all; schema v0.1 marks affairs derived from them `virtual` with `derived_from`, P4). Executive business that
+answers no member's affair is outside the tested scope: the census and every test sample interventions (OPD's five
+intervention types, 198,594 of its 325,691 affairs). For the eCH group: `docs/ech-onepager.md`.
 
 Schema v0.1 adds date roles, typed nulls and `QAItem` (question *n* paired with the answer to question *n*; filled with
 spans by `src/gegenprobe/qa/`, tested in P5); the 17-field verdict is the table at the top. The Pydantic models are
@@ -153,8 +176,8 @@ f5abc5b8, arms and scores 7677a6d0; deviation D1 in `eval/prereg10/DEVIATIONS10.
 commands on files it was allowed to read; blindness unaffected). Frame: German, French and Italian parliaments outside
 every rule set (not the 15 the converter's rules were written on, not P8's 12, not the parliaments of P3, P3b, P5 and
 P5 dev, not the federal parliament), each with robots-allowed documents. Primary cell: 34 fresh affairs, 24 German from
-12 parliaments and 10 French from 2 (Neuchâtel 9, Fribourg city 1; the French stratum came out 4 short of its 14 by
-the registered fill rule; the stop rule needs 30 affairs and 60 gold pairs). Secondary cell, outside the family:
+12 parliaments and 10 French from 2 (Neuchâtel 9, Fribourg city 1): 34 of the 38 planned, the French stratum 4 short
+of its 14 by the registered fill rule (the stop rule needs 30 affairs and 60 gold pairs). Secondary cell, outside the family:
 6 affairs from Lugano, whose layouts roles-2 was written on, so the rules are in-sample there.
 
 **Arms.** (a) The Apertus role reader (`src/gegenprobe/convert/role_candidates.py`, `roles_pointer.py`): code lists every
@@ -189,7 +212,20 @@ Hypotheses (one-sided, paired parliament-cluster bootstrap, 10,000 resamples, Ho
 - **H3b, confirmed:** F1 over the same candidates with a trivial role, observed +0.29, Holm p = 0.032.
 
 Per parliament, Apertus reads more pairs right than the rules in 9 of the 14, fewer in 1, as many in 4. The candidate
-finder offers 87 of the 141 gold names (111 candidates), which bounds recall.
+finder offers 87 of the 141 gold names (111 candidates), which bounds recall. Post hoc, per parliament: 25 of the 33
+pairs Apertus finds beyond the rules come from 2 of the 14 parliaments (Horw 15 vs 1, Neuchâtel 17 vs 6); Neuchâtel
+holds 62 of the 141 gold pairs, and without it Apertus and OPD's list are level (33 vs 34 of 79 pairs).
+
+**Cross-check of the gold by another vendor** (exploratory; `results/p10/p10_qwen_check.json`). Qwen-SEA-LION
+relabelled the 40 packets blind: pair F1 0.63 against the gold (A1 against A2: 0.868), and with its labels as the gold no
+registered verdict changes (H3a still not confirmed, Holm p = 0.20); on the packets where Qwen agrees with the gold the
+test is inconclusive, because they fall below the registered minimum of 30 affairs and 60 pairs.
+
+**Shipped route** (`python -m gegenprobe affair --opd-affair <id> --roles apertus`, `docs/affair.md`): the reader
+alone, its roles next to the record and never in it, every entry marked for review; the default `--roles rules` runs no
+model. On P10's arms (post hoc, `results/report/r16_numbers.json`) the reader alone gets 50/96 pairs right (F1 0.42); a
+fallback to OPD's list where the reader suggests no author fired on 2 of 34 affairs and added 32 pairs, none right
+(precision 0.39, F1 0.37), so it is opt-in (`--roles-fallback opd`).
 
 **Development against test.** The prompts, thresholds and composition rule were chosen on P8's 6 development
 parliaments (36 affairs, 208 gold pairs; `results/p10/dev10.json`): there the reader reaches pair F1 0.80 (in-sample),
@@ -202,6 +238,8 @@ the rules, written on those parliaments, 0.97. On the 14 unseen parliaments of t
 | **Apertus role reader** | **33/46/56** | 0.72 | 0.59 | **0.65** |
 | frozen rules (roles-2) | 0/2/56 | 0.00 | 0.00 | 0.00 |
 | OPD's list: first author + co-signers | 35/56/56 | 0.62 | 0.62 | 0.62 |
+
+In Lugano Apertus (F1 0.65) and OPD's list (0.62) are close; the rules, in-sample there, find none of the 56 pairs.
 
 Re-scored offline from the committed arm outputs and gold: `PYTHONPATH=src:. python -m eval.p10.score` (byte-identical).
 
@@ -674,7 +712,8 @@ is-answer variant and θ_B.
   promoted into a separate tier, 120/120 sampled are answers; +22.7 points of dated precision over a trivial date
   match), finding answer dates the rules miss on unseen parliaments (P2 22:4; P6 11:5 on all 68 documents, p = 0.21)
   and doubling submitter detection over the rules (P5: 12/40 → 24/40; free generation 34/40), reading author roles
-  where nobody wrote rules (P10: 50/141 pairs right, the rules 17/141, at precision 0.52 vs 0.31), every extracted value
+  where nobody wrote rules (P10: 50/141 pairs right, the rules 17/141, OPD's contributor list 37/141, at precision 0.52
+  vs 0.31 for the rules; over OPD's list not significant, H3a), every extracted value
   a printed one with its location. Accuracy is close to the same model asked freely with null allowed (P2 and P6,
   registered; P7-H3), and a printed-date filter on the free prompt gives the same no-invention guarantee; null safety is left to the reviewer (P1-H1, P2-H3, P6-H2 failed).
 - **Why a pointer:** asked freely when the government answered, Apertus writes a precise date for 15/15 (local 8B) and
@@ -687,6 +726,9 @@ is-answer variant and θ_B.
   fit, and the first response from another fingerprint stops the run (exit 3) before any suggestion from it is attached
   (`--allow-build-mismatch` continues and marks each suggestion). `docs/runbook.md` "Review mode in operation" gives the
   refit commands, the owner and the cost per 1,000 residue documents.
+- **Local 8B, committed results** (exploratory, in-process on CPU): P1, P2 (52 documents) and P6 (67 documents), under
+  "Which Apertus" and "Which size to deploy" above. The 70B weights served by Public AI produced every other Apertus
+  number, P2's 53/62 and P10's 50/141 among them.
 - **Builds:** θ does not transfer between builds, so each gets its own; the 70B results above carry θ = 10.40, the
   real 8B θ = 16.73 (dev AUROC 0.90; 97 dev documents, D3). The shipped review mode keeps the v1 reader: P6 found v2
   right on 5 documents v1 missed and wrong on 2 (p = 0.45), not enough to switch.

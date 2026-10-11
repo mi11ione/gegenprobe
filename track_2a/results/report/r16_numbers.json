@@ -1,0 +1,65 @@
+{
+ "label": "round-16 display numbers from committed files (report/r16_numbers.py); concentration and the review route are post hoc",
+ "p10": {
+  "sample": {
+   "planned_primary": 38,
+   "scored_primary": 34,
+   "short": 4
+  },
+  "concentration": {
+   "gain_pairs": 33,
+   "parliaments": 14,
+   "top2": [
+    {
+     "body": "1058",
+     "name": "Horw",
+     "pointer": 15,
+     "rules": 1,
+     "gain": 14
+    },
+    {
+     "body": "NE",
+     "name": "Neuchâtel",
+     "pointer": 17,
+     "rules": 6,
+     "gain": 11
+    }
+   ],
+   "top2_gain": 25,
+   "largest": {
+    "body": "NE",
+    "name": "Neuchâtel",
+    "gold": 62,
+    "pointer": 17,
+    "opd_first": 3
+   },
+   "without_largest": {
+    "gold": 79,
+    "pointer": 33,
+    "opd_first": 34
+   }
+  },
+  "review_route": {
+   "affairs": 34,
+   "reader_alone": {
+    "right": 50,
+    "printed": 96,
+    "gold": 141,
+    "precision": "0.52",
+    "recall": "0.35",
+    "f1": "0.42"
+   },
+   "with_opd_fallback": {
+    "right": 50,
+    "printed": 128,
+    "gold": 141,
+    "precision": "0.39",
+    "recall": "0.35",
+    "f1": "0.37"
+   },
+   "fallback_fired": 2,
+   "fallback_pairs_added": 32,
+   "fallback_pairs_right": 0
+  }
+ }
+}

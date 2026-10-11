@@ -294,11 +294,12 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
 .banner span { color: var(--ink-2); }
 .banner b, .banner span { min-width: 0; overflow-wrap: anywhere; }
 .hero .label { overflow-wrap: anywhere; }
-/* narrow screens: the section tabs stay one row and scroll sideways instead of wrapping */
+/* narrow screens: the four section tabs as a 2 x 2 grid, all visible without scrolling */
 @media (max-width: 600px) {
-  nav.tabs { flex-wrap: nowrap; overflow-x: auto; width: 100%; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-  nav.tabs::-webkit-scrollbar { display: none; }
-  nav.tabs a { white-space: nowrap; flex: 0 0 auto; }
+  nav.tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+  nav.tabs a { white-space: nowrap; text-align: center; border-bottom: 1px solid var(--rule-strong); }
+  nav.tabs a:nth-child(2n) { border-right: 0; }
+  nav.tabs a:nth-child(n+3) { border-bottom: 0; }
   .mast-meta { min-width: 0; }
 }
 
@@ -308,6 +309,10 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
 .hero .delivered { margin: 14px 0 0; font-size: clamp(15px, 1.25vw, 17px); line-height: 1.45; color: var(--ink-2); max-width: 70ch; }
 .hero .delivered b { color: var(--ink); font-weight: 650; }
 .hero .factnote { margin: 10px 0 0; font-size: 12px; color: var(--ink-3); max-width: 110ch; }
+.hero .bigcap { margin: 10px 0 0; font-family: var(--mono); font-size: clamp(12.5px, 1.05vw, 14px); line-height: 1.4; color: var(--ink-2); max-width: 62ch; }
+.hero .scope { margin: 8px 0 0; font-size: 13.5px; color: var(--ink-2); max-width: 86ch; }
+.hero .next { margin: 12px 0 0; padding: 8px 12px; border-left: 2px solid var(--ink); background: var(--paper-2); font-size: 14px; line-height: 1.45; max-width: 86ch; }
+.hero .next b { font-weight: 650; }
 .banner-m { display: none; }
 /* phones: the hero comes first; the caveat and the period switch sit under the hero sentence */
 @media (max-width: 900px) { .hero .hero-main { order: -1; } .hero { padding-block: 26px 30px; row-gap: 14px; } }
@@ -316,11 +321,6 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
   .banner-m { display: flex; grid-column: auto; margin-top: 14px; }
   .hero .big { font-size: clamp(64px, 21vw, 96px); }
   .hero h1 { margin-top: 12px; }
-}
-/* narrow screens: a fade on the right edge says the section tabs scroll sideways */
-@media (max-width: 600px) {
-  nav.tabs { -webkit-mask-image: linear-gradient(to right, #000 82%, transparent); mask-image: linear-gradient(to right, #000 82%, transparent); }
-  nav.tabs.at-end { -webkit-mask-image: none; mask-image: none; }
 }
 /* converter coverage per parliament */
 .covsec { padding-block: 26px 30px; border-bottom: 1px solid var(--rule); row-gap: 14px; }
@@ -490,8 +490,11 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
   </div>
   <div class="work hero-main">
     <p class="big" id="heroBig"></p>
+    <p class="bigcap" id="heroBigCap"></p>
     <h1 id="heroLine"></h1>
+    <p class="scope" id="heroScope"></p>
     <p class="delivered" id="heroDelivered"></p>
+    <p class="next" id="heroNext"><b>What OPD does next:</b> run the Bern plan (<a href="#bern-numbers">Bern numbers</a>), import the lists keyed on your ids (<a href="#opdDownloads">downloads</a>), and decide the hash rule for relinked documents.</p>
     <div class="banner banner-m" role="note"><b>Not in OpenParlData ≠ not published by the parliament.</b><span>Counts describe OPD's copy.</span></div>
     <div class="perrow" id="heroPeriod"></div>
     <div class="facts three" id="facts"></div>
@@ -599,7 +602,7 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
   <div class="grid sec-head">
     <div class="idx"><div class="label">03 · Pre-registered</div></div>
     <div class="work">
-      <h2 id="h-eval">Nine pre-registered tests, each frozen before any label was committed</h2>
+      <h2 id="h-eval">Ten pre-registered tests, each frozen before any label was committed</h2>
       <p id="evalIntro"></p>
     </div>
   </div>
@@ -706,7 +709,7 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
       <h2 id="h-method">Deterministic first; Apertus only points, and only on the residue</h2>
       <p>The census and every repair route run without a model. The converter reads OPD metadata, then frozen German, French and Italian rules,
         and offers the documents the rules leave open to Apertus, which may pick one printed date or null. Every output is validated against
-        schema v0.1: spans re-checked against the text, typed nulls instead of blanks.</p>
+        the schema (v0.1 for one document, v0.2 for a whole affair): spans re-checked against the text, typed nulls instead of blanks.</p>
     </div>
   </div>
   <div class="flow rulebox" id="flow" style="padding:18px"></div>
@@ -767,8 +770,12 @@ function drawHero() {
   const V = D.schema.verdict;
   // the one lead sentence (README, report, form notes, site): the schema verdict plus the repair result
   $('#heroBig').textContent = am && am.after_repair != null ? pct(am.after_repair) : fmt(x.missing);
+  $('#heroBigCap').textContent = am && am.after_repair != null
+    ? `of answered interventions${period === 'all' ? '' : ` (${PERW[period]})`} would have answer text after the repairs; ${pct(1 - x.missing / x.written)} today`
+    : `answered interventions${period === 'all' ? '' : ` (${PERW[period]})`} without answer text in OpenParlData`;
   // the plain answer first (README, report, form notes and site share it), then what was delivered
   $('#heroLine').textContent = 'Can one schema hold Swiss parliamentary business? Yes, if its fields carry roles.';
+  $('#heroScope').textContent = D.scope ? `Asked of interventions, OPD's five intervention types: ${fmt(D.scope.interventions)} of its ${fmt(D.scope.opd_affairs)} affairs.` : '';
   const T = D.tiles, all = period === 'all';
   $('#heroDelivered').replaceChildren(el('b', {}, 'Delivered: '), am && am.after_repair != null ?
     `repairs for ${fmt(D.parliaments.corrected.national.all.repaired)} answers keyed on OPD ids, every one from model-free rules. Once applied, ${pct(am.after_repair)} of interventions with a recorded government answer${all ? '' : ` (${PERW[period]})`} have answer text, up from ${pct(1 - x.missing / x.written)} today` +
@@ -792,21 +799,20 @@ const facts = [
           : [fmt(V2 ? V2.n_valid : 0), 'affairs validate in schema v0.2.'],
 ];
 const factsApertus = [
-  H.p2 && P2E && P2E.arms && P2E.arms.pointer ? [`${P2E.arms.pointer.exact}/${P2E.arms.pointer.n}`, (() => { const b = D.evaluation.baselines.p2_answer_typed; return `documents exact in ${H.p2.bodies} parliaments nobody wrote rules for when Apertus picks the answer date among the printed dates, against ${b.exact}/${b.n} for the best no-model baseline.`; })()]
+  H.p2 && P2E && P2E.arms && P2E.arms.pointer ? [`${P2E.arms.pointer.exact}/${P2E.arms.pointer.n}`, (() => { const b = D.evaluation.baselines.p2_answer_typed; return `documents exact where nobody wrote rules (${H.p2.bodies} parliaments): Apertus picks the answer date among printed dates; best no-model baseline ${b.exact}/${b.n}.`; })()]
        : [`${H.rules_exact}/${H.heldout}`, `held-out documents exact with the default converter (rules, no model).`],
-  P10 ? [`${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs}`, `author roles (who lodged or co-signed, in which role) read right in ${P10.primary.parliaments} parliaments nobody wrote rules for when Apertus answers closed questions about the names the documents print, about three times the rules' ${P10.primary.arms.rules.right}/${P10.primary.gold_pairs}, at higher precision (${P10.primary.arms.pointer.precision} vs ${P10.primary.arms.rules.precision}); code finds and locates every name.`] : null,
+  P10 ? [`${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs}`, `author roles Apertus reads right where nobody wrote rules (${P10.primary.parliaments} parliaments): about three times the rules (${P10.primary.arms.rules.right}), ahead of OPD's contributor list (${P10.primary.arms.opd_first.right}; not significant).`] : null,
 ];
 $('#facts').append(...facts.filter(Boolean).map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
 $('#factsApertus').append(...factsApertus.filter(Boolean).map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
 { const b = D.evaluation.baselines && D.evaluation.baselines.p2_answer_typed;
   $('#factNote').textContent = `Sources: 92.3% and ${fmt(D.parliaments.corrected.national.all.repaired)} from the census and the repair lists (no model); ${V.need_roles} of ${V.fields} from OPD's labels and P8 (pre-registered)` +
     (b ? `; ${P2E.arms.pointer.exact}/${P2E.arms.pointer.n} from P2, post hoc (McNemar p = ${b.p_mcnemar}, parliament-cluster p = ${b.p_cluster})` : '') +
-    (P10 ? `; ${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs} from P10, registered (recall +${P10.hypotheses.H1.points} points over the rules, Holm p = ${P10.hypotheses.H1.p_holm})` : '') +
+    (P10 ? `; ${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs} from P10, registered (recall +${P10.hypotheses.H1.points} points over the rules, Holm p = ${P10.hypotheses.H1.p_holm}; over OPD's list Holm p = ${P10.hypotheses.H3a.p_holm_2}` +
+      (P10.r16 ? `, level without ${P10.r16.concentration.largest.name}: ${P10.r16.concentration.without_largest.pointer} vs ${P10.r16.concentration.without_largest.opd_first} of ${P10.r16.concentration.without_largest.gold} pairs, post hoc` : '') + ')' : '') +
     (D.tiles ? `; ${fmt(D.tiles.v02_affairs)} from P3, P3b, P5, P8 and the federal cell, whose ${D.tiles.federal} affairs are exploratory` : '') +
-    '. P1–P8 and P10 are the ten tests (P3b replicates P3), each frozen by hash before its labels.'; }
-/* the section tabs scroll sideways on phones: drop the edge fade once the strip is scrolled to its end */
-{ const nt = document.querySelector('nav.tabs'); const upd = () => nt.classList.toggle('at-end', nt.scrollLeft + nt.clientWidth >= nt.scrollWidth - 2);
-  nt.addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd(); }
+    '. P1–P8 and P10 are the ten tests (P3b replicates P3), each frozen by hash before its labels.' +
+    (b && P10 ? ` Which model: ${P2E.arms.pointer.exact}/${P2E.arms.pointer.n} and ${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs} come from Apertus v1.5 70B weights, which Public AI serves under the name swiss-ai/apertus-v1.5-8b; local 8B results: 03 Evaluation.` : ''); }
 /* converter coverage per parliament (results/convert/coverage_by_parliament.json) */
 if (D.coverage) {
   const C = D.coverage, S = C.summary, ST = ['frozen rules', 'source adapter', 'metadata only'];
@@ -829,7 +835,7 @@ const RS = D.parliaments.research || {};
 const STEPS = [
   ['Apply the Bern lists', `${fmt(H.relink)} answers are already in OPD without a parent (${fmt(H.relink_ready)} ready, ${fmt(H.relink - H.relink_ready)} for review): relink them by the canton’s own document id once OPD has decided whether a relinked document keeps its hash. ${fmt(H.fetch)} more to fetch from the canton (${fmt(H.fetch_ready)} ready, ${fmt(H.fetch - H.fetch_ready)} for review). Both lists are keyed on OPD ids; download them, the dry-run apply plan and the JSON Schemas below.`, '#bern-numbers'],
   ['Fix the rest by cause', 'Open a parliament’s row: every affair without answer text, with its cause and the fix it needs (agenda join, relink, re-take a text version, OCR, fetch from the parliament), linked to OPD and to the parliament’s own page, as CSV. Source adapters for 50 parliaments add verified lists (results/repair/adapters/).', '#adapters'],
-  ['Take the data', `All ${fmt(RS.rows)} interventions as one file with a column dictionary (CDLA-Permissive-2.0), the table as CSV, and the converter’s output format (schema v0.1, below).`, '#dataset'],
+  ['Take the data', `All ${fmt(RS.rows)} interventions as one file with a column dictionary (CDLA-Permissive-2.0), the table as CSV, and the converter’s output format (schema v0.2, below).`, '#dataset'],
 ];
 $('#howtoNote').textContent = 'What to fix and which lists to apply, in three steps; six terms the rest of the page uses. Journalists: each parliament’s row has a “safe to say” sentence with its caveat. Not in OPD ≠ not published by the parliament.';
 /* direct downloads (site/downloads/, copied by `viewer collect`) and the repository */
@@ -894,7 +900,7 @@ function renderSchemaTop() {
     el('details', { class: 'json' }, el('summary', {}, `The whole record · JSON (schema v${R.schema_version}; it validates as a whole)`), el('pre', {}, JSON.stringify(R, null, 1))));
   const n = SV.counts, tc = SV.tier_counts;
   $('#schemaNote').textContent = `Schema v0.2 (v0.1 plus P8's roles): dates with roles, typed nulls, spans. The converter fills it from OPD metadata first, then frozen rules; Apertus only suggests, for a reviewer.` + (SV.v02 ? ` ${fmt(SV.v02.n_valid)} affairs validate in v0.2, ${fmt(SV.v02.converter_valid)} of them the converter's own records (results/schema/v0_2/validation_all.json).` : '');
-  $('#schemaClassNote').textContent = `Class: does the field mean the same thing everywhere? Meaning is measured for ${SV.meaning_measured} of the 17 fields: from OPD’s own labels (raw labels mapped to different harmonised concepts) and, for ${SV.meaning_p8} fields, from the documents in the pre-registered test P8. ${n.shared_with_role_split || 0} fields are shared with a role split (one label covers several roles that must be kept apart): who authored (sole, joint, first signatory, group), who signed, which instrument stands behind a harmonised type, which language a tag names, and every date's role. ${SV.verdict.need_roles_robust} of them robust, ${SV.verdict.need_roles_fragile} fragile. ${SV.verdict.body_specific} is body-specific: the submission date, in Vernier and Lausanne, where OPD's date is mostly printed nowhere in the documents. ${SV.verdict.defined_once} are defined once in v0.1; their meaning is the next test. Three further concepts are body-specific and get constructs of their own. A common schema works if it carries these roles explicitly. ` +
+  $('#schemaClassNote').textContent = `Class: does the field mean the same thing everywhere? Meaning is measured for ${SV.meaning_measured} of the 17 fields: from OPD’s own labels (raw labels mapped to different harmonised concepts) and, for ${SV.meaning_p8} fields, from the documents in the pre-registered test P8. ${n.shared_with_role_split || 0} fields are shared with a role split (one label covers several roles that must be kept apart): who authored (sole, joint, first signatory, group), who signed, which instrument stands behind a harmonised type, which language a tag names, and every date's role. ${SV.verdict.need_roles_robust} of them robust, ${SV.verdict.need_roles_fragile} fragile. ${SV.verdict.body_specific} is body-specific: the submission date, in Vernier and Lausanne, where OPD's date is mostly printed nowhere in the documents. ${SV.verdict.defined_once} are defined once in v0.1; their meaning is the next test. Two further concepts are body-specific and get constructs of their own; executive business that answers no member's affair is outside the tested scope, which is interventions. A common schema works if it carries these roles explicitly. ` +
     `Where the value lives is a separate question, counted over the parliaments where the field applies: in OPD metadata, partly, only in the PDF, or not in OPD’s data (docs/census.md §3). Classes: data/schema/field_verdict_classes.json; P8: results/p8/p8_hypotheses.json.`;
   const head = el('thead', {}, el('tr', {}, ['Field', 'Class', 'Meaning tested?', 'Where it lives', 'Metadata', 'Partly', 'Only in PDF', 'Not in OPD’s data', 'Evidence'].map(x => el('th', {}, x))));
   const tb2 = el('tbody', {}, SV.fields.map((f, i) => el('tr', { class: i && SV.fields[i - 1].cls !== f.cls ? 'grp' : '' }, el('td', { class: 'code' }, f.name),
@@ -905,6 +911,9 @@ function renderSchemaTop() {
       el('td', { class: 'code num' + (f.no_source ? ' red' : '') }, f.no_source), el('td', { class: 'ev' }, f.evidence || (f.key === 'co_signatories' ? 'parliaments often print them on the member’s text or list them on their own pages' : '')))),
     SV.body_specific.map((b, i) => el('tr', { class: i === 0 ? 'grp' : '' }, el('td', { class: 'code' }, b.name),
       el('td', {}, el('span', { class: 'cls c-body_specific', title: SV.classes.body_specific.definition }, CLS.body_specific)), el('td', { class: 'code muted', colspan: 6 }, 'a concept, not a field'),
+      el('td', { class: 'ev' }, b.evidence))),
+    (SV.outside_scope || []).map((b, i) => el('tr', { class: i === 0 ? 'grp' : '' }, el('td', { class: 'code' }, b.name),
+      el('td', {}, el('span', { class: 'cls' }, 'outside the tested scope')), el('td', { class: 'code muted', colspan: 6 }, 'not sampled: the tests read interventions'),
       el('td', { class: 'ev' }, b.evidence))));
   $('#schemaTop').replaceChildren(head, tb2);
 }
@@ -1740,7 +1749,7 @@ let methodDone = false;
 function renderMethod() {
   methodDone = true;
   const boxes = [['CENSUS', 'OPD exports, 89 bodies', 'every missing answer', 'gets a typed cause'], ['REPAIR', 'deterministic routes', 'relink · agenda · OCR', 'triple check each one'],
-    ['CONVERT', 'metadata, then rules', 'then Apertus points:', 'a printed date or null'], ['VALIDATE', 'schema v0.1', 'span re-check', 'typed nulls, no blanks']];
+    ['CONVERT', 'metadata, then rules', 'then Apertus points:', 'a printed date or null'], ['VALIDATE', 'schema v0.1 · v0.2', 'span re-check', 'typed nulls, no blanks']];
   const W = 1000, pad = 2, bw = 226, gap = (W - 2 * pad - 4 * bw) / 3;
   const svg = `<svg viewBox="0 0 ${W} 150" role="img" aria-label="pipeline">${boxes.map((b, i) => { const x = pad + i * (bw + gap);
     return `<rect x="${x + .5}" y="14.5" width="${bw}" height="118" fill="none" stroke="var(--ink)"/>

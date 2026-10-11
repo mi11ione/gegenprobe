@@ -1,5 +1,5 @@
 id	shown	file	path	fmt	command	where	context
-r6c.sessions_n	84	results/eval/annotation_sessions.json	overall.n_sessions	int	python -m eval.annotation_sessions	technical_report.md,docs/evaluation.md	
+r6c.sessions_n	84	results/eval/annotation_sessions.json	overall.n_sessions	int	python -m eval.annotation_sessions	docs/evaluation.md	
 r6c.sessions_sets	12	results/eval/annotation_sessions.json	overall.n_sets_with_sessions	int	python -m eval.annotation_sessions	docs/evaluation.md	
 r6c.label_files	1,546	results/eval/annotation_sessions.json	overall.label_files_total	int	python -m eval.annotation_sessions	-	
 r6c.label_files_in_session	1,546	results/eval/annotation_sessions.json	overall.label_files_mtime_in_session	int	python -m eval.annotation_sessions	-	

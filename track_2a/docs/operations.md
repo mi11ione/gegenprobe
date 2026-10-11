@@ -125,10 +125,13 @@ dropped and `no-new-privileges` (`Makefile`, target `run`). It exits non-zero on
 `out/site/index.html`, the same evidence viewer as https://gegenprobe.mi11ion.io. It recomputes the census and asserts
 it equal to `results/census/`; replays the Bern join and its triple check; runs sample documents through the converter
 with the validator's checks; re-scores P1–P4 and P3b from the committed predictions and labels, re-runs the nine
-registered hypothesis scripts (P1–P8) and the 8B analysis and verifies the nine LOCK files (P7 replays from the
+registered hypothesis scripts (P1–P8) and the 8B analysis and verifies the nine LOCK files LOCK–LOCK9 (P7 replays from the
 committed copies in `data/p7/` through `eval/p7/replay8.py`: LOCK8, the frozen hypotheses script and the dev table,
 byte-identical, and its post-hoc files through `eval/p7/offline.py`; P8 re-runs its frozen scorer and decision script
-from `data/p8/p8_gold.jsonl`, byte-identical, with LOCK9); re-derives schema v0.2 for the converter's own P3, P3b and
+from `data/p8/p8_gold.jsonl`, byte-identical, with LOCK9); replays P10 and the federal cell (step `replay_p10`,
+`eval/replay_p10.py`: the P10 gold merged again from the committed A1/A2/A3 files, the arms joined and H1–H3b
+re-scored, the Qwen-SEA-LION check and the federal tables re-scored, each byte-identical) and verifies LOCK10 and
+LOCKFED on every committed file they hash, so all ten pre-registration locks and LOCKFED are checked; re-derives schema v0.2 for the converter's own P3, P3b and
 P5 records and the P8 gold (171 affairs, all must validate, byte-identical); re-derives the P1 rules arm from the
 source PDFs (fetched by sha256) and recomputes P1 and P2 Apertus decisions from the committed model cache (cache only,
 no model call) within a time budget; and runs the claims check: each number listed in `claims.tsv` is recomputed from
@@ -205,7 +208,7 @@ the running system. The evidence site is static files only and makes no third-pa
 OFL); its links to OPD and to the parliaments' own pages are followed only when clicked. With `GP_GGUF=1` no document
 text leaves the machine; Public AI was used for development and evaluation only (it may route outside Switzerland).
 OPD's API robots.txt disallows `/v1/`; we use the nightly bulk exports, which also makes every number reproducible
-from a dated snapshot. Every request carries `GP_USER_AGENT`; a network night warns when it names no contact.
+from a dated snapshot. Every request Gegenprobe sends carries `GP_USER_AGENT`: document and export fetches and robots.txt (`gegenprobe.net`), the OCR model download, the model endpoint (`llm.py`, `roles_pointer.py`), the GGUF download and the alert webhook. The one exception is the development budget gateway (`gw.py`, outside this repository), which sends the default `hackapertus-research/0.1` and is not a runtime route; `compliance/ci_repeats.py` sends no request (it judges past CI runs under the default User-Agent they sent). A network night warns when the User-Agent names no contact.
 
 - **One real night** (`results/monitor/night_real_38062530586/`, `report/r4d_numbers.py`). The nightly job, installed
   with `deploy/nightly/install.sh --venv` on a GitHub-hosted 4-vCPU runner and started by systemd, ran one network

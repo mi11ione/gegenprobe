@@ -3,16 +3,24 @@
 Track 2A · OpenParlData (OPD) · Team 444 · **Evidence site: https://gegenprobe.mi11ion.io** · technical report:
 [`technical_report.md`](technical_report.md) (PDF `444_Report.pdf`)
 
-**Can one schema hold Swiss parliamentary business? Yes, if its fields carry roles.**
+**For OPD, in three lines** (detail: [Ready for OPD](#ready-for-opd)):
+1. **Apply now:** repair lists keyed on your ids, as dry-run plans; 3,621 repairs need neither a decision nor a fetch.
+2. **Needs one decision:** your hash rule for relinked documents, which the 2,421 ready Bern relinks follow.
+3. **Research:** schema v0.2 and the converter's roles (drafts for the eCH group); Apertus as a reviewer's aid.
+
+**Can one schema hold Swiss parliamentary business? Yes, if its fields carry roles.** Asked of interventions, OPD's
+five intervention types (interpellation, motion, postulate, question, question time): 198,594 of its 325,691 affairs.
 
 - **Shared:** one schema of 17 fields for communal, cantonal and federal business; every value carries its role and
   source (page and span, or the OPD record), every gap a typed reason.
 - **Needs roles: 10 fields** (2 of them fragile: the split holds under one of P8's two checks): one label covers
   several roles; "answer date" is the government's decision, its letter or, in 7 parliaments, mostly the submission date.
-- **Body-specific: 1 field and 3 constructs:** the submission date (Vernier and Lausanne print theirs nowhere); oral
-  answers, executive business without a member's affair, councils that publish only minutes.
+- **Body-specific: 1 field and 2 constructs:** the submission date (Vernier and Lausanne print theirs nowhere); oral
+  answers, councils that publish only minutes. Executive business that answers no member's affair is outside the
+  tested scope.
 - **Untested: 6 fields,** defined once in v0.1; whether each means the same everywhere is the next test. Meaning is
-  measured for the other 11: 5 on OPD's labels, 7 on the documents of 66 affairs from 11 parliaments (P8; the type both).
+  measured for the other 11: 4 on OPD's labels, 6 on the documents of 66 affairs from 11 parliaments (P8), 1 (type) on
+  both.
 
 **Delivered:** repairs for 9,720 answers keyed on OPD ids, every one from model-free rules; schema v0.2 with the roles;
 a converter that gives every value its page and span; a nightly job. Apertus only picks values printed in the document,
@@ -24,15 +32,18 @@ and code locates them (70B weights via the Public AI gateway; local 8B on CPU).
 | **9,720** | answers with a model-free repair proposed to OPD, keyed on OPD ids; the Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation |
 | **10 of 17** | fields are shared once their roles are explicit; 1 is body-specific; 6 are not yet tested for meaning |
 | **53/62** | documents exact in 15 parliaments nobody wrote rules for when Apertus picks the answer date among the printed dates, against 44/62 for the best no-model baseline |
-| **50/141** | author roles (who lodged or co-signed, in which role) read right in 14 parliaments nobody wrote rules for when Apertus answers closed questions about the names the documents print, about three times the rules' 17/141, at higher precision (0.52 vs 0.31); code finds and locates every name |
+| **50/141** | author roles Apertus reads right where nobody wrote rules (14 parliaments): about three times the rules (17/141) and ahead of OPD's own contributor list (37/141; not significant); code offers 87 of the 141 gold names, each located |
 | **186** | affairs from 26 parliaments, communal, cantonal and federal, validate in schema v0.2 |
 
 <sub>Sources: 92.3% and 9,720 from the census and the repair lists (no model); 10 of 17 from OPD's labels and P8
 (pre-registered); 53/62 from P2, post hoc (McNemar p = 0.012, parliament-cluster p = 0.031); 50/141 from P10,
-registered (recall +23.4 points over the rules, Holm p = 0.032); 186 from P3, P3b, P5, P8 and the federal cell, whose
-15 affairs are exploratory. Codes: P1–P8 and P10 are the ten tests (P3b replicates P3), each frozen by hash before its
-labels; D-numbers are logged deviations from them (`eval/prereg*/DEVIATIONS*.md`); θ is the
-frozen margin above which Apertus answers null; post hoc means analysed after the labels.</sub>
+registered (recall +23.4 points over the rules, Holm p = 0.032; over OPD's list Holm p = 0.17, and level without
+Neuchâtel: 33 vs 34 of 79 pairs, post hoc); 186 from P3, P3b, P5, P8 and the federal cell, whose 15 affairs are
+exploratory. **Which model:** 53/62 and 50/141 come from Apertus v1.5 70B weights, which Public AI serves under the name
+`swiss-ai/apertus-v1.5-8b` (inferred from the served fingerprint); local 8B results: [Evaluation](docs/evaluation.md#use-of-apertus).
+Codes: P1–P8 and P10 are the ten tests (P3b replicates P3), each frozen by hash before its labels; D-numbers are logged
+deviations from them (`eval/prereg*/DEVIATIONS*.md`, [which folder is which test](docs/evaluation.md#which-folder-is-which-test));
+θ is the frozen margin above which Apertus answers null; post hoc means analysed after the labels.</sub>
 
 > **Where a common schema breaks**
 > - **Submission date:** in Vernier (0/5) and Lausanne (2/5) OPD's date is mostly printed nowhere in the documents, 2
@@ -41,13 +52,13 @@ frozen margin above which Apertus answers null; post hoc means analysed after th
 >   city, Thurgau, Fribourg, Vernier) or a parliamentary group (Valais); Bern city's co-signatory list holds authors of
 >   record.
 > - **Oral answers** in question time have no written text: a typed null, not a missing answer.
-> - **Executive business** answers no member's affair, and 16 councils publish only meeting documents: affairs rebuilt
->   from minutes are marked `virtual`.
+> - **Minutes-only councils:** 16 councils publish only meeting documents: affairs rebuilt from minutes are marked
+>   `virtual`.
 > - **Federal answers** print no answer date and no author: the date exists only in OPD's events (federal cell,
 >   exploratory).
 
-**For OPD.** Every list is a dry-run plan keyed on your ids; the one open decision is your hash rule for relinked
-documents (keep the old identifier or issue a new one).
+**For OPD: the files.** Every list is a dry-run plan keyed on your ids; the one open decision is your hash rule for
+relinked documents (keep the old identifier or issue a new one).
 
 | file | what it is | how to run |
 |---|---|---|
@@ -67,10 +78,37 @@ documents (keep the old identifier or issue a new one).
 - **Pre-registered:** ten tests, each frozen by hash before its labels (P1's hypothesis script followed its labels and
   its rules entered with its sample, both logged: D4, D12). `make claims` recomputes every number in this README, the
   report and the form from its results file and fails on any mismatch, or on a number or scope word (post hoc,
-  registered, exploratory, in-sample, held out, weighted) not bound to its claim.
+  registered, exploratory, in-sample, held out, weighted), verdict, multiplier or safety sentence not bound to its claim.
 
 ```bash
 make run    # Docker, CPU, clean checkout: census, Bern join, converter samples, test replays, claims check, evidence site
+```
+
+One record, trimmed ([`results/schema/v0_2/samples/p3_BE_39369.json`](results/schema/v0_2/samples/p3_BE_39369.json);
+hash shortened). Every value has its document, page, span and rule; an empty field says why. The Bern answer is French
+although OPD tags it German.
+
+```json
+{
+ "schema_version": "0.2.0",
+ "ref": {"body_key": "BE", "number": "2021.RRGR.388", "opd_id": 39369, "virtual": false},
+ "actors": [
+  {"role": "joint_author", "kind": "person",
+   "name": {"kind": "value", "value": "Ruchti", "basis": "extracted", "route": "rule",
+            "rule": "roles-2:authors:table:eingereicht_von", "doc": "opd:23227", "page": 1,
+            "char_start": 231, "char_end": 237, "quote_sha256": "94cbc0329ffdf881…"}}
+ ],
+ "qa": [{
+  "answer_date": {"kind": "value", "value": "2022-05-18", "basis": "normalised", "route": "rule",
+                  "rule": "opd_event_date_in_document", "doc": "opd:656633", "page": 1,
+                  "char_start": 466, "char_end": 477, "quote": "18 mai 2022"},
+  "answering_body": {"kind": "null", "null_reason": "not_extracted", "route": "rule",
+                     "evidence": "the answering body is not extracted by converter gegenprobe-0.1.0+affair"}
+ }],
+ "documents": [
+  {"doc_id": "opd:656633", "role": "answer", "language_tag": "de", "language_of_text": ["fr"]}
+ ]
+}
 ```
 
 ![Where the registered gap is](docs/figures/fig1_funnel.png)
@@ -146,8 +184,8 @@ Detail, per list and per check: [`docs/operations.md`](docs/operations.md), [`do
 
 ### 1. The schema: shared concepts, explicit roles
 
-A common schema works if it carries roles, not only for dates. Meaning is now measured for 11 of the 17 fields: 5
-from OPD's own labels and 7 from the documents in P8 (type both ways). v0.1 encodes the five label splits; v0.2
+A common schema works if it carries roles, not only for dates. Meaning is now measured for 11 of the 17 fields: 4
+on OPD's own labels, 6 on the documents in P8 and 1 (type) on both. v0.1 encodes the five label splits; v0.2
 (`schema/gegenprobe_schema_v0_2.py`) adds P8's roles: author roles (sole author, joint author, first signatory,
 co-signatory, supporter, group, committee, spokesperson), the instrument's function next to the harmonised type, the
 text's language apart from the source's tag, submission-date roles (signed, lodged, received, announced, later step)
@@ -155,6 +193,10 @@ and the recommendation's stage (on adoption, on fulfilment). 171 affairs validat
 records for P3 (29), P3b (36) and P5 (40), and the 66 P8 affairs; the v0.1 samples upgrade losslessly
 (`results/schema/v0_2/validation_all.json`, `make schema-v02`). Three converter-made v0.2 records, chosen by a written
 rule (Bern in German, Vernier in French, Lugano in Italian), are the samples: `results/schema/v0_2/samples/`.
+Author roles are checked for consistency (`src/gegenprobe/schema/role_consistency.py`): a sole author never sits next to
+joint authors, and a joint author never next to a designated first signatory. The 2 records where the rules printed a
+group's name over signatures as the sole author now list the group as one joint author among the signers, as P8's
+guide defines it; all 186 v0.2 records pass the check, P8's 66 gold records among them.
 
 **The converter fills the roles** (`src/gegenprobe/convert/roles.py`, fixed rules, no model; exploratory, written after
 P8's lock). Of its 105 records, 75 carry printed authors with their role, 78 the instrument's function and all 105 the
@@ -244,9 +286,11 @@ sampled), 54 appear in at least one test and 26 have affairs among the validated
 | decision date · Q/A pairing · usable text | shared by definition | next | partly |
 | dispatch date · related affairs | shared by definition | next | PDF only |
 
-Three further concepts are body-specific and get constructs of their own: oral answers in question time (a null
-reason), executive business that answers no member's affair, and councils that publish only meeting documents
-(16 bodies; v0.1 marks affairs rebuilt from minutes `virtual`, tested in P4). The full table and evidence:
+Of the 10 role splits, 4 come from parliamentary practice, 4 partly from OPD's tagging (which OPD can correct) and 2
+are open: the labels cannot tell practice from harmonisation (technical report, Table 1). Two further concepts are
+body-specific and get constructs of their own: oral answers in question time (a null reason) and councils that publish
+only meeting documents (16 bodies; v0.1 marks affairs rebuilt from minutes `virtual`, tested in P4). Executive business
+that answers no member's affair is outside the tested scope, which is interventions. The full table and evidence:
 [`docs/evaluation.md`](docs/evaluation.md#the-17-fields-in-detail).
 
 ### 2. The census: where the answers are
@@ -286,10 +330,16 @@ dates or phrases printed in the document, and code locates the page and span.
   24/29 (null allowed) and 25/29 (plain) once its answers are re-parsed (D2-4).
 - **Author roles where nobody wrote rules (P10, pre-registered).** Code lists every person or body the two documents
   print, each with its span; Apertus answers closed true/false questions about each (did it lodge or co-sign this
-  intervention, is it the designated first signatory); code composes the role. On 34 fresh affairs from 14 German- and
-  French-speaking parliaments outside every rule set, it reads 50 of 141 gold (name, role) pairs right, the rules 17,
-  at precision 0.52 against 0.31; it is ahead of the rules in 9 of the 14 parliaments and behind in 1. Registered,
-  Holm-corrected: recall over the rules +23.4 points (H1, p = 0.032), precision non-inferior (H2, observed +0.21).
+  intervention, is it the designated first signatory); code composes the role. On 34 fresh affairs (of 38 planned;
+  the French stratum 4 short under the registered fill rule) from 14 German- and French-speaking parliaments outside
+  every rule set, it reads 50 of 141 gold (name, role) pairs right, the rules 17, at precision 0.52 against 0.31; it
+  is ahead of the rules in 9 of the 14 parliaments and behind in 1. Registered, Holm-corrected: recall over the rules
+  +23.4 points (H1, p = 0.032), precision non-inferior (H2, observed +0.21). OPD's own contributor list, read as first
+  author and co-signers, gets 37/141: Apertus is not significantly better (H3a, Holm p = 0.17), and without Neuchâtel
+  the two are level (33 vs 34 of 79 pairs, post hoc). The reader ships as a review route:
+  `python -m gegenprobe affair --opd-affair <id> --roles apertus` puts its roles next to the record, never into it,
+  each marked for review. A fallback to OPD's list where the reader suggests no author is opt-in
+  (`--roles-fallback opd`): on P10's arms it added 32 pairs, none right (post hoc).
 - **A precision verifier of the review queue (P7, pre-registered).** On the adapters' review queue Apertus answers two
   closed questions: is this the executive's answer to this intervention, and which printed date is the answer date.
   Blind AI annotators judged 120/120 of its sampled promotions the government's answer (H1, registered, Wilson 95%
@@ -328,7 +378,10 @@ answer PDFs ──► OPD metadata ──► frozen DE/FR/IT rules ──► Ape
 - **Converter** (`src/gegenprobe/convert/`, `qa/`, `affair/`): `python -m gegenprobe convert <pdf-or-url> --body SG`
   returns JSON in which every value has its page, character span and rule (or OPD record), and every gap a typed null.
   A parliament with no rules gets `no_rules_for_body` and `needs_review: true`; a settings file adds its own anchors
-  without forking the rules. Guide: [`docs/convert-your-own.md`](docs/convert-your-own.md).
+  without forking the rules. Given OPD's document id, a value found in OPD's own stored text also carries its span there
+  (`opd_text_span`), so OPD's workbench can highlight it without re-mapping; the first lookup can stream a body's docs
+  export (0.47 GB for Bern), then the text is cached ([`docs/converter.md`](docs/converter.md)). Guide:
+  [`docs/convert-your-own.md`](docs/convert-your-own.md).
 - **Schema** (`src/gegenprobe/schema/schema_v0_1.py`, normative Pydantic; JSON Schema in `results/schema/`): date roles,
   typed nulls, `QAItem` (question *n* paired with the answer to question *n*). v0.2 (`schema/gegenprobe_schema_v0_2.py`,
   JSON Schema in `results/schema/v0_2/`) extends it with P8's roles; the v0.1 samples upgrade to it losslessly. Mappings to Popolo, Akoma Ntoso,
@@ -338,7 +391,8 @@ answer PDFs ──► OPD metadata ──► frozen DE/FR/IT rules ──► Ape
 
 ## Evaluation summary
 
-Ten tests, each with code, prompts and θ frozen by sha256 before any label was committed (`eval/prereg*/`). Gold
+Ten tests, each with code, prompts and θ frozen by sha256 before any label was committed (`eval/prereg*/`; [which
+folder is which test](docs/evaluation.md#which-folder-is-which-test)). Gold
 labels come from blind agent annotators by design (below). Full tables, deviations and statistics:
 [`docs/evaluation.md`](docs/evaluation.md).
 
@@ -353,7 +407,7 @@ labels come from blind agent annotators by design (below). Full tables, deviatio
 | P6 | 68 fresh documents, 8 parliaments | answer-date reader v2 vs free prompting | no hypothesis held | free prompt 62/68, v2 59/68 |
 | P7 | 478 review rows, 190 blind packets | Apertus as verifier of the review queue | H1 holds (120/120); H4 supported; H3 not supported | 214 of 917 review rows promoted |
 | P8 | 66 fresh affairs, 11 parliaments | meaning of 7 fields in the documents | none uniform: 6 role split, 1 body-specific; 5 robust under both checks | meaning measured for 11 of 17 fields |
-| P10 | 34 fresh affairs, 14 parliaments without rules | author roles: Apertus reader vs rules and OPD's contributor list | 3 of 4 held: H1 recall, H2 precision, H3b; H3a (over OPD's list) not | (name, role) pairs right 50/141, rules 17/141 |
+| P10 | 34 fresh affairs, 14 parliaments without rules | author roles: Apertus reader vs rules and OPD's contributor list | 3 of 4 held: H1 recall, H2 precision, H3b; H3a (over OPD's list) not | (name, role) pairs right 50/141, rules 17/141, OPD's list 37/141 |
 
 - **Above the registered 0.80 bar** (95% lower bound): on P1 the rules are exact on 135/154 documents [81.5, 92],
   finding 47 of 64 answer dates and dating 2 of the 90 answerless documents; the type of whole affairs (P3b, 35/36);
@@ -367,10 +421,12 @@ labels come from blind agent annotators by design (below). Full tables, deviatio
   list read as first author and co-signers 0.36, 0.26, 0.30. H3a, F1 over the stronger OPD reading, is not confirmed
   (+0.12, Holm p = 0.17): where OPD lists the authors, its order is a strong baseline. On P8's 6 development
   parliaments, where the prompts and thresholds were chosen, F1 is 0.80 (in-sample); on the 14 unseen ones 0.42. In
-  Lugano (Italian, outside the family; the rules in-sample) Apertus reaches F1 0.65, the rules 0/56 pairs.
+  Lugano (Italian, outside the family; the rules in-sample) Apertus reaches F1 0.65, OPD's list 0.62, the rules 0/56
+  pairs.
 - **Gold labels, no human labelling by design.** Two blind agent annotators (Claude Opus and Sonnet) label each
-  document, a third breaks ties, quotes are verified by code, and every labelling session of P1–P7 is timed against
-  the lock and label commits. Another vendor's model (`Qwen-SEA-LION-v4-32B`, AI Singapore) relabelled
+  document, a third breaks ties, quotes are verified by code, and all 96 annotator sessions (P1–P8, P10, the
+  document-parts check and the federal cell) ended before GitHub received their labels and started after GitHub
+  received the set's lock or draw, where it has one (`results/eval/annotation_sessions.json`). Another vendor's model (`Qwen-SEA-LION-v4-32B`, AI Singapore) relabelled
   P1, P2, P6 and P7 blind: κ 0.80–0.93 on P1 and P2, and no registered decision changes. On P8 its labels give the
   same verdict for the five robust fields; its low κ on the submitter (0.24) is mostly an interpretive difference: it
   calls the first of several equal authors the "first signatory". Non-LLM sources agree: OPD's written-answer events
@@ -386,9 +442,10 @@ Operator sheet (data protection under the nDSG, hardware, external hosts, exit c
 [`docs/runbook.md`](docs/runbook.md#operator-sheet).
 
 - **`make run`** (Docker, CPU, clean checkout) recomputes the census and asserts it equal to `results/census/`,
-  replays the Bern join, runs sample documents through the converter and validator, re-scores P1–P8 from
-  committed predictions and labels and re-runs their hypothesis scripts (nine LOCK files verified; P7 and P8
-  byte-identical from the committed `data/p7/` and `data/p8/` copies, the P7 post-hoc files included), re-derives the
+  replays the Bern join, runs sample documents through the converter and validator, re-scores P1–P8 and P10 from
+  committed predictions and labels and re-runs their hypothesis scripts (the ten pre-registration locks and LOCKFED
+  verified; P7, P8 and P10 byte-identical from the committed `data/p7/`, `data/p8/` and `data/p10/` copies, the P7
+  post-hoc files, P10's gold merge and the federal cell's tables included; step `replay_p10`), re-derives the
   P1 rules arm from the source PDFs, regenerates the summary-number files the claims read and asserts them
   byte-identical, and recomputes every number in `claims.tsv` from its results file. It fails if a document a claim
   lists does not print the claimed value; if a numeric token in this README, the technical report or the form notes
@@ -422,8 +479,11 @@ Operator sheet (data protection under the nDSG, hardware, external hosts, exit c
   | the webhook or SMTP relay the operator sets (`GP_ALERT_*`), or none | the night's alerts | nightly alerts |
 
   With the local 8B no document text leaves the machine. The evidence site is static and makes no third-party
-  request. Every request carries `GP_USER_AGENT`: the default names no contact and a network night warns until the
-  operator sets one with a contact URL; a value carrying an e-mail address is refused before any request.
+  request. Every request Gegenprobe sends carries `GP_USER_AGENT`: document and export fetches, robots.txt, the
+  model endpoint, the GGUF download and the alert webhook; the one exception is the development budget gateway
+  (`gw.py`, outside this repository), which is not a runtime route. The default names no contact and a network night
+  warns until the operator sets one with a contact URL; a value carrying an e-mail address is refused before any
+  request.
 - **Hardened.** The container runs as a non-root uid, read-only, with all capabilities dropped; PDFs are capped in
   size and time; CI gates the systemd units' security exposure and pins every Action by SHA.
 - **Cost** (one core, no GPU). Outside OPD, fetching and checking takes about 2.1 s per document, about 527 hours for

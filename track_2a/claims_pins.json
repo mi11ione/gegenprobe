@@ -398,10 +398,20 @@
    "polarity": "neg",
    "docs": {
     "README.md": [
-     "H3a, F1 over the stronger OPD reading, is not confirmed"
+     "H3a, F1 over the stronger OPD reading, is not confirmed",
+     "(37/141; not significant)",
+     "Apertus is not significantly better (H3a, Holm p = 0.17)"
     ],
     "technical_report.md": [
-     "Not confirmed: H3a, over OPD's list"
+     "Not confirmed: H3a, over OPD's list",
+     "(37/141; not significant)",
+     "Apertus is not significantly better than it (H3a)"
+    ],
+    "docs/form_notes.md": [
+     "not\n  significantly different (Holm p = 0.17)"
+    ],
+    "../README.md": [
+     "(37/141; not significant)"
     ]
    }
   },
@@ -502,13 +512,13 @@
    ],
    "docs": {
     "README.md": [
-     "about three times the rules' 17/141"
+     "about three times the rules (17/141)"
     ],
     "technical_report.md": [
-     "about three times the rules' 17/141"
+     "about three times the rules (17/141)"
     ],
     "../README.md": [
-     "about three times the rules' 17/141"
+     "about three times the rules (17/141)"
     ]
    }
   },
@@ -620,7 +630,8 @@
      "every value has its page, span and quote hash",
      "every value a printed",
      "with a page and span for every value",
-     "every value has its page, character span and rule"
+     "every value has its page, character span and rule",
+     "Every value has its document, page, span and rule; an empty field says why."
     ],
     "technical_report.md": [
      "every value carries its role and source",

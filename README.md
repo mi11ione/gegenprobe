@@ -1,13 +1,19 @@
 # Gegenprobe — Hack Apertus, Track 2A (OpenParlData), team 444
 
-**Can one schema hold Swiss parliamentary business? Yes, if its fields carry roles.**
+**For OPD, in three lines:**
+1. **Apply now:** repair lists keyed on your ids, as dry-run plans; 3,621 repairs need neither a decision nor a fetch.
+2. **Needs one decision:** your hash rule for relinked documents, which the 2,421 ready Bern relinks follow.
+3. **Research:** schema v0.2 and the converter's roles (drafts for the eCH group); Apertus as a reviewer's aid.
+
+**Can one schema hold Swiss parliamentary business? Yes, if its fields carry roles.** Asked of interventions, OPD's
+five intervention types (interpellation, motion, postulate, question, question time): 198,594 of its 325,691 affairs.
 
 - **Shared:** one schema of 17 fields for communal, cantonal and federal business; every value carries its role and
   source, every gap a typed reason.
 - **Needs roles: 10 fields:** "answer date" is the government's decision, its letter or, in 7 parliaments, mostly the
   submission date.
-- **Body-specific: 1 field and 3 constructs:** the submission date in Vernier and Lausanne; oral answers, executive
-  business, councils that publish only minutes.
+- **Body-specific: 1 field and 2 constructs:** the submission date in Vernier and Lausanne; oral answers, councils
+  that publish only minutes. Executive business that answers no member's affair is outside the tested scope.
 - **Untested: 6 fields,** defined once in v0.1; meaning is measured for the other 11 (OPD's labels and P8: 66 affairs,
   11 parliaments).
 
@@ -21,13 +27,15 @@ and code locates them (70B weights via the Public AI gateway; local 8B on CPU).
 | **9,720** | answers with a model-free repair proposed to OPD, keyed on OPD ids; the Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation |
 | **10 of 17** | fields are shared once their roles are explicit; 1 is body-specific; 6 are not yet tested for meaning |
 | **53/62** | documents exact in 15 parliaments nobody wrote rules for when Apertus picks the answer date among the printed dates, against 44/62 for the best no-model baseline |
-| **50/141** | author roles (who lodged or co-signed, in which role) read right in 14 parliaments nobody wrote rules for when Apertus answers closed questions about the names the documents print, about three times the rules' 17/141, at higher precision (0.52 vs 0.31); code finds and locates every name |
+| **50/141** | author roles Apertus reads right where nobody wrote rules (14 parliaments): about three times the rules (17/141) and ahead of OPD's own contributor list (37/141; not significant); code offers 87 of the 141 gold names, each located |
 | **186** | affairs from 26 parliaments, communal, cantonal and federal, validate in schema v0.2 |
 
 <sub>Sources: 92.3% and 9,720 from the census and the repair lists (no model); 10 of 17 from OPD's labels and P8
 (pre-registered); 53/62 from P2, post hoc (McNemar p = 0.012, parliament-cluster p = 0.031); 50/141 from P10,
-registered (recall +23.4 points over the rules, Holm p = 0.032); 186 from P3, P3b, P5, P8 and the federal cell, whose
-15 affairs are exploratory. P1–P8 and P10 are the ten pre-registered tests (P3b replicates P3).</sub>
+registered (recall +23.4 points over the rules, Holm p = 0.032; over OPD's list Holm p = 0.17, and level without
+Neuchâtel: 33 vs 34 of 79 pairs, post hoc); 186 from P3, P3b, P5, P8 and the federal cell, whose 15 affairs are
+exploratory. 53/62 and 50/141 come from Apertus v1.5 70B weights, which Public AI serves under the name
+`swiss-ai/apertus-v1.5-8b`. P1–P8 and P10 are the ten pre-registered tests (P3b replicates P3).</sub>
 
 - **Ready for OPD:** Bern relinks, fetches and `begin_date` corrections (OPD confirmed the bug; correspondence, 10 Oct
   2026), per-parliament lists from 50 model-free source adapters, a vocabulary error list and a Fedlex resolver for
