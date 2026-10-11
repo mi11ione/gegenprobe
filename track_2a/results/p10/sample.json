@@ -1,0 +1,164 @@
+{
+ "attempts": 73,
+ "blind": "packets carry an opaque id and the two documents only; no OPD metadata, parliament key, stratum, candidate list or arm output",
+ "by_body": {
+  "1024": 2,
+  "1058": 2,
+  "121": 2,
+  "131": 2,
+  "2196": 1,
+  "2937": 2,
+  "306": 2,
+  "3427": 2,
+  "4001": 2,
+  "4289": 2,
+  "5192": 6,
+  "AR": 2,
+  "NE": 9,
+  "SG": 2,
+  "ZG": 2
+ },
+ "by_cell": {
+  "primary": 34,
+  "secondary_it": 6
+ },
+ "by_stratum": {
+  "de": 24,
+  "fr": 10,
+  "it": 6
+ },
+ "by_type": {
+  "Interpellation": 17,
+  "Motion": 4,
+  "Postulate": 3,
+  "Question": 16
+ },
+ "exclusions": {
+  "affairs": 2517,
+  "docs": 1154,
+  "from_existing_gold_sets": {
+   "affairs": 833,
+   "docs": 1022
+  },
+  "from_p7_and_audits": 1603,
+  "p8_and_fed_affairs": 81
+ },
+ "filled": 0,
+ "key_sha256": "841b7eecf0dd9591267a70566f0c69680718f91894494d273cdaa9affa2b18e9",
+ "n": 40,
+ "packets": 40,
+ "packets_sha256": "117e51165fd9565cce5d07309c60c106186f7e62d41f7b0b30a21a1600c4f7e7",
+ "quotas": [
+  [
+   "1024",
+   "de",
+   2,
+   "primary"
+  ],
+  [
+   "1058",
+   "de",
+   2,
+   "primary"
+  ],
+  [
+   "121",
+   "de",
+   2,
+   "primary"
+  ],
+  [
+   "131",
+   "de",
+   2,
+   "primary"
+  ],
+  [
+   "2937",
+   "de",
+   2,
+   "primary"
+  ],
+  [
+   "306",
+   "de",
+   2,
+   "primary"
+  ],
+  [
+   "3427",
+   "de",
+   2,
+   "primary"
+  ],
+  [
+   "4001",
+   "de",
+   2,
+   "primary"
+  ],
+  [
+   "4289",
+   "de",
+   2,
+   "primary"
+  ],
+  [
+   "AR",
+   "de",
+   2,
+   "primary"
+  ],
+  [
+   "SG",
+   "de",
+   2,
+   "primary"
+  ],
+  [
+   "ZG",
+   "de",
+   2,
+   "primary"
+  ],
+  [
+   "2196",
+   "fr",
+   2,
+   "primary"
+  ],
+  [
+   "NE",
+   "fr",
+   12,
+   "primary"
+  ],
+  [
+   "5192",
+   "it",
+   6,
+   "secondary_it"
+  ]
+ ],
+ "rejected": 33,
+ "seed": 20261100,
+ "shortfalls": [
+  {
+   "body": "2196",
+   "cell": "primary",
+   "pool": 4,
+   "shortfall": 1
+  },
+  {
+   "body": "NE",
+   "cell": "primary",
+   "pool": 35,
+   "shortfall": 3
+  },
+  {
+   "cell": "primary",
+   "shortfall_after_fill": 4,
+   "stratum": "fr"
+  }
+ ]
+}
