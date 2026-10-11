@@ -1,0 +1,135 @@
+name: arms-8b-p7
+# EXPLORATORY (PREREG8, added after LOCK8; not pre-registered): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU, the
+# fast scorer that cleared the D2 gate) as P7's closed-set verifier of the adapters' review queue (eval/p7/run_8b.py).
+# Frozen P7 prompts (a2, b1) and date rule; only θ_A/θ_B are fitted for this build, on P7 dev, by eval/p7/tune.py's rule.
+#   dev    four shards of the 80 P7 dev rows: rebuild each text (committed recipe data/p7/gguf8b/rows.jsonl; OPD docs export
+#          or the row's adapter fetch, robots.txt respected, OPD copy as fallback, byte-checked), 8B answers
+#   fit    θ_A/θ_B on the dev answers + the committed dev gold -> data/p7/gguf8b/theta.json (no model)
+#   shard  six shards of the 478-row P7 test frame, after the fit: rebuild texts, 8B answers
+#   merge  decisions on the frame + analysis against the committed blind P7 test gold with eval/p7/hypotheses8.py's
+#          estimators -> results/p7/gguf8b/hypotheses.json
+# Document texts never leave the runner: artifacts carry answers, decisions, θ and the hash-keyed model cache (log-probs).
+# Commit the artifact `p7-8b` after review.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+defaults:
+  run:
+    working-directory: track_2a
+env:
+  GP_WORK: ${{ github.workspace }}/work
+  PYTHONPATH: src:.
+  GP_USER_AGENT: "hackapertus-research/0.1 (+https://github.com/mi11ione/gegenprobe)"
+  GP_P7_8B_DEADLINE_S: "17400"  # stop starting rows after 290 min of scoring (job timeout 340); the rest is reported
+jobs:
+  dev:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix: {i: [0, 1, 2, 3]}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with: {python-version: "3.11"}
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita
+      - run: |
+          pip install --require-hashes -r requirements.lock   # same pins as requirements.txt, sha256-verified
+          pip install --only-binary=:all: --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu llama-cpp-python==0.3.35 \
+            || CMAKE_ARGS="-DGGML_NATIVE=ON" pip install llama-cpp-python==0.3.35
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with: {path: "${{ github.workspace }}/work/models", key: model-cache-apertus-8b-gguf-v1}
+      - run: python -c "from gegenprobe import llm; print(llm.fetch_gguf('apertus-v1.5-8b-text-q4_k_m'))"   # sha256-verified
+      - run: mkdir -p out && python -m eval.prereg8.lock8 check
+      - run: python -m eval.p7.run_8b fetch --split dev --shard ${{ matrix.i }}/4
+      - run: |
+          set -o pipefail
+          /usr/bin/time -v python -m eval.p7.run_8b features --split dev --shard ${{ matrix.i }}/4 2>&1 | tee out/dev_${{ matrix.i }}.log
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: p7-8b-dev-${{ matrix.i }}
+          path: |
+            track_2a/out/
+            track_2a/results/p7/gguf8b/shards/
+            track_2a/data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m/
+  fit:
+    needs: dev
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with: {python-version: "3.11"}
+      - run: pip install --require-hashes -r requirements.lock
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with: {pattern: "p7-8b-dev-*", merge-multiple: true, path: track_2a}
+      - run: python -m eval.prereg8.lock8 check
+      - run: |
+          python -m eval.p7.run_8b fit
+          test -f data/p7/gguf8b/theta.json
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: p7-8b-fit
+          path: |
+            track_2a/data/p7/gguf8b/theta.json
+            track_2a/results/p7/gguf8b/dev_table.json
+            track_2a/results/p7/gguf8b/features_dev.jsonl
+  shard:
+    needs: fit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix: {i: [0, 1, 2, 3, 4, 5]}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with: {python-version: "3.11"}
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita
+      - run: |
+          pip install --require-hashes -r requirements.lock
+          pip install --only-binary=:all: --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu llama-cpp-python==0.3.35 \
+            || CMAKE_ARGS="-DGGML_NATIVE=ON" pip install llama-cpp-python==0.3.35
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with: {path: "${{ github.workspace }}/work/models", key: model-cache-apertus-8b-gguf-v1}
+      - run: python -c "from gegenprobe import llm; print(llm.fetch_gguf('apertus-v1.5-8b-text-q4_k_m'))"
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with: {name: p7-8b-fit, path: track_2a}
+      - run: mkdir -p out && python -m eval.prereg8.lock8 check && test -f data/p7/gguf8b/theta.json
+      - run: python -m eval.p7.run_8b fetch --split test --shard ${{ matrix.i }}/6
+      - run: |
+          set -o pipefail
+          /usr/bin/time -v python -m eval.p7.run_8b features --split test --shard ${{ matrix.i }}/6 2>&1 | tee out/test_${{ matrix.i }}.log
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: p7-8b-test-${{ matrix.i }}
+          path: |
+            track_2a/out/
+            track_2a/results/p7/gguf8b/shards/
+            track_2a/data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m/
+  merge:
+    needs: [fit, shard]
+    if: always() && needs.fit.result == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with: {python-version: "3.11"}
+      - run: pip install --require-hashes -r requirements.lock
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with: {pattern: "p7-8b-*", merge-multiple: true, path: track_2a}
+      - run: python -m eval.prereg8.lock8 check
+      - run: python -m eval.p7.run_8b merge
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: p7-8b
+          path: |
+            track_2a/results/p7/gguf8b/
+            track_2a/data/p7/gguf8b/theta.json
+            track_2a/data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m/
+            track_2a/out/
