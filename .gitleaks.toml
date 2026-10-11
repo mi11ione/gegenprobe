@@ -1,0 +1,8 @@
+# Default gitleaks rules, plus one allowlist: bare sha256 digests (hash locks, sample-key digests, file pins) are
+# integrity values of committed or local files, not credentials.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "sha256 digests of files (hash locks, key digests), not secrets"
+regexes = ['''^[0-9a-f]{64}$''']
