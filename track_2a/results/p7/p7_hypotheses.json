@@ -1,0 +1,239 @@
+{
+ "H1": {
+  "census": false,
+  "correct": 120,
+  "date_hit": 113,
+  "errors": [],
+  "gold": {
+   "yes": 120
+  },
+  "holds": true,
+  "min_n": 40,
+  "n": 120,
+  "precision": 1.0,
+  "precision_dated": 0.9583,
+  "threshold_lb": 0.9,
+  "wilson95": [
+   0.969,
+   1.0
+  ]
+ },
+ "H2": {
+  "method": "queue promotions x test precision (Wilson 95% of the p7 stratum)",
+  "queue_eligible": 863,
+  "queue_promoted": 214,
+  "recovered_ci95": [
+   207.4,
+   214.0
+  ],
+  "recovered_dated_ci95": [
+   193.9,
+   210.2
+  ],
+  "recovered_dated_estimate": 205.1,
+  "recovered_estimate": 214.0
+ },
+ "H3": {
+  "correct": 28,
+  "n": 30,
+  "precision": 0.9333,
+  "statement": "the rows free generation + printed-date filter promotes beyond p7 are below 0.90 precision",
+  "supported": false,
+  "threshold_ub": 0.9,
+  "wilson95": [
+   0.7868,
+   0.9815
+  ]
+ },
+ "H4": {
+  "difference_precision_dated_p7_minus_trivial": {
+   "ci95": [
+    0.1024,
+    0.343
+   ],
+   "estimate": 0.2265
+  },
+  "supported": true
+ },
+ "arms": {
+  "free": {
+   "correct_dated_rows_in_frame": {
+    "ci95": [
+     143.4583,
+     161.1833
+    ],
+    "estimate": 152.7417
+   },
+   "correct_rows_in_frame": {
+    "ci95": [
+     152.325,
+     167.2333
+    ],
+    "estimate": 160.3417
+   },
+   "precision": {
+    "ci95": [
+     0.9608,
+     1.0
+    ],
+    "estimate": 0.9844
+   },
+   "precision_dated": {
+    "ci95": [
+     0.8989,
+     0.9757
+    ],
+    "estimate": 0.9378
+   },
+   "promoted_in_frame": 163,
+   "recall_all": {
+    "ci95": [
+     0.3514,
+     0.431
+    ],
+    "estimate": 0.3869
+   },
+   "recall_attainable": {
+    "ci95": [
+     0.6661,
+     0.9207
+    ],
+    "estimate": 0.7818
+   }
+  },
+  "p7": {
+   "correct_dated_rows_in_frame": {
+    "ci95": [
+     123.75,
+     133.875
+    ],
+    "estimate": 129.375
+   },
+   "correct_rows_in_frame": {
+    "ci95": [
+     135.0,
+     135.0
+    ],
+    "estimate": 135.0
+   },
+   "precision": {
+    "ci95": [
+     1.0,
+     1.0
+    ],
+    "estimate": 1.0
+   },
+   "precision_dated": {
+    "ci95": [
+     0.9167,
+     0.9917
+    ],
+    "estimate": 0.9583
+   },
+   "promoted_in_frame": 135,
+   "recall_all": {
+    "ci95": [
+     0.2991,
+     0.3599
+    ],
+    "estimate": 0.3257
+   },
+   "recall_attainable": {
+    "ci95": [
+     0.5643,
+     0.7773
+    ],
+    "estimate": 0.6622
+   }
+  },
+  "rules_only": {
+   "precision": null,
+   "promoted_in_frame": 0,
+   "recall_all": 0.0,
+   "recall_attainable": 0.0
+  },
+  "trivial": {
+   "correct_dated_rows_in_frame": {
+    "ci95": [
+     140.7833,
+     186.0833
+    ],
+    "estimate": 160.9583
+   },
+   "correct_rows_in_frame": {
+    "ci95": [
+     183.775,
+     260.45
+    ],
+    "estimate": 219.9333
+   },
+   "precision": {
+    "ci95": [
+     1.0,
+     1.0
+    ],
+    "estimate": 1.0
+   },
+   "precision_dated": {
+    "ci95": [
+     0.6186,
+     0.8569
+    ],
+    "estimate": 0.7319
+   },
+   "promoted_in_frame": 206,
+   "recall_all": {
+    "ci95": [
+     0.4431,
+     0.628
+    ],
+    "estimate": 0.5306
+   },
+   "recall_attainable": {
+    "ci95": [
+     0.7109,
+     0.9312
+    ],
+    "estimate": 0.8239
+   }
+  }
+ },
+ "headline": {
+  "counted": 6613,
+  "note": "the promoted tier is reported separately next to the counted total, never merged",
+  "promoted_by_apertus": 214
+ },
+ "labels": {
+  "no": 10,
+  "yes": 180
+ },
+ "p7_by_reason": {
+  "date_mismatch: anywhere_conflict": {
+   "correct": 79
+  },
+  "date_mismatch: differs": {
+   "correct": 6
+  },
+  "heading_fail": {
+   "correct": 35
+  }
+ },
+ "packets": 190,
+ "qwen_check": {
+  "agree": 185,
+  "kappa": 0.655,
+  "n": 190,
+  "note": "independent check; changes no gold label and no decision",
+  "p7_rows_qwen_not_yes": []
+ },
+ "strata_N": {
+  "free_only": 38,
+  "p7": 135,
+  "rest": 305
+ },
+ "strata_n": {
+  "free_only": 30,
+  "p7": 120,
+  "rest": 40
+ }
+}

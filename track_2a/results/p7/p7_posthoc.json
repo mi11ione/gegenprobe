@@ -1,0 +1,186 @@
+{
+ "annotated": {
+  "free": {
+   "correct": 139,
+   "correct_dated": 133,
+   "n": 141,
+   "wilson95": [
+    0.9498,
+    0.9961
+   ]
+  },
+  "p7": {
+   "correct": 120,
+   "correct_dated": 115,
+   "n": 120,
+   "wilson95": [
+    0.969,
+    1.0
+   ]
+  },
+  "trivial": {
+   "correct": 146,
+   "correct_dated": 129,
+   "n": 146,
+   "wilson95": [
+    0.9744,
+    1.0
+   ]
+  }
+ },
+ "auroc_m_yes": 0.9872,
+ "base_rate": {
+  "yes": 0.8671,
+  "yes_dated": 0.4087
+ },
+ "earlier_audits": {
+  "audit3_review_decoys_claude": {
+   "not_promoted/no": 7,
+   "not_promoted/yes": 18,
+   "promoted/yes": 5
+  },
+  "design_audit_review_rows": {
+   "not_promoted/no": 5,
+   "not_promoted/unclear": 21,
+   "not_promoted/yes": 211,
+   "promoted/yes": 47
+  }
+ },
+ "gold_by_stratum": {
+  "free_only/no": 2,
+  "free_only/yes": 28,
+  "p7/yes": 120,
+  "rest/no": 8,
+  "rest/yes": 32
+ },
+ "gold_no": [
+  {
+   "free": false,
+   "id": "P7T-014",
+   "m_yes": -25.37,
+   "p7": "is_answer_below_theta",
+   "reason": "heading_fail",
+   "stratum": "rest",
+   "trivial": false
+  },
+  {
+   "free": true,
+   "id": "P7T-029",
+   "m_yes": 3.07,
+   "p7": "is_answer_below_theta",
+   "reason": "heading_fail",
+   "stratum": "free_only",
+   "trivial": false
+  },
+  {
+   "free": false,
+   "id": "P7T-030",
+   "m_yes": -25.87,
+   "p7": "is_answer_below_theta",
+   "reason": "heading_fail",
+   "stratum": "rest",
+   "trivial": false
+  },
+  {
+   "free": false,
+   "id": "P7T-053",
+   "m_yes": 3.38,
+   "p7": "is_answer_below_theta",
+   "reason": "date_mismatch: near",
+   "stratum": "rest",
+   "trivial": false
+  },
+  {
+   "free": false,
+   "id": "P7T-072",
+   "m_yes": -13.87,
+   "p7": "is_answer_below_theta",
+   "reason": "heading_fail",
+   "stratum": "rest",
+   "trivial": false
+  },
+  {
+   "free": false,
+   "id": "P7T-081",
+   "m_yes": -24.37,
+   "p7": "is_answer_below_theta",
+   "reason": "heading_fail",
+   "stratum": "rest",
+   "trivial": false
+  },
+  {
+   "free": false,
+   "id": "P7T-104",
+   "m_yes": -21.75,
+   "p7": "is_answer_below_theta",
+   "reason": "date_mismatch: none",
+   "stratum": "rest",
+   "trivial": false
+  },
+  {
+   "free": false,
+   "id": "P7T-139",
+   "m_yes": -24.5,
+   "p7": "is_answer_below_theta",
+   "reason": "heading_fail",
+   "stratum": "rest",
+   "trivial": false
+  },
+  {
+   "free": false,
+   "id": "P7T-150",
+   "m_yes": 4.41,
+   "p7": "is_answer_below_theta",
+   "reason": "date_mismatch: differs",
+   "stratum": "rest",
+   "trivial": false
+  },
+  {
+   "free": true,
+   "id": "P7T-159",
+   "m_yes": -2.99,
+   "p7": "is_answer_below_theta",
+   "reason": "date_mismatch: differs",
+   "stratum": "free_only",
+   "trivial": false
+  }
+ ],
+ "note": "post hoc, not registered: written after the P7 test gold was read",
+ "p7_date_classes": {
+  "eq": 111,
+  "window": 9
+ },
+ "p7_not_dated": [
+  {
+   "date_class": "eq",
+   "id": "P7T-002",
+   "reason": "heading_fail"
+  },
+  {
+   "date_class": "eq",
+   "id": "P7T-018",
+   "reason": "heading_fail"
+  },
+  {
+   "date_class": "eq",
+   "id": "P7T-039",
+   "reason": "heading_fail"
+  },
+  {
+   "date_class": "eq",
+   "id": "P7T-089",
+   "reason": "heading_fail"
+  },
+  {
+   "date_class": "eq",
+   "id": "P7T-130",
+   "reason": "heading_fail"
+  }
+ ],
+ "packets": 190,
+ "rest_decisions": {
+  "date_rule_fails": 22,
+  "is_answer_below_theta": 17,
+  "no_date_chosen": 1
+ }
+}

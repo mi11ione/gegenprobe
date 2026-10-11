@@ -1,0 +1,65 @@
+{
+ "calls": 5503,
+ "config": {
+  "date": "b1",
+  "is_answer": "a2",
+  "name": "p7",
+  "theta_a": 8.0,
+  "theta_b": 10.0
+ },
+ "counted": false,
+ "decisions": {
+  "date_rule_fails": 341,
+  "is_answer_below_theta": 269,
+  "no_date_chosen": 39,
+  "promoted": 214
+ },
+ "eligible": 863,
+ "eligible_by_reason": {
+  "date_mismatch: anywhere_conflict": 211,
+  "date_mismatch: differs": 178,
+  "date_mismatch: near": 62,
+  "date_mismatch: none": 142,
+  "heading_fail": 270
+ },
+ "ineligible": {
+  "no_answer_event": 18,
+  "opd_doc_ambiguous": 9,
+  "resolution_reply": 23,
+  "wrong_affair": 4
+ },
+ "note": "promoted rows are listed in their own tier and are not part of any counted total unless the registered hypothesis P7-H1 holds (results/p7/p7_hypotheses.json)",
+ "promoted": 214,
+ "promoted_by_body": {
+  "131": 17,
+  "261": 1,
+  "296": 1,
+  "4001": 4,
+  "4566": 109,
+  "5002": 5,
+  "5113": 11,
+  "FR": 1,
+  "NE": 7,
+  "TG": 5,
+  "TI": 30,
+  "VD": 2,
+  "VS": 20,
+  "ZH": 1
+ },
+ "promoted_by_date_tier": {
+  "date_window": 16,
+  "exact_any_printed_date": 2,
+  "exact_doc_date": 196
+ },
+ "promoted_by_reason": {
+  "date_mismatch: anywhere_conflict": 127,
+  "date_mismatch: differs": 6,
+  "date_mismatch: none": 5,
+  "heading_fail": 76
+ },
+ "review_rows": 917,
+ "served": [
+  "swiss-ai/apertus-v1.5-8b"
+ ],
+ "tier": "promoted_by_apertus"
+}
