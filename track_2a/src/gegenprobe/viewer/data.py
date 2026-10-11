@@ -364,6 +364,68 @@ def coverage_of(n_in_scope: int, written: int) -> str:
     return "coverage_gap" if n_in_scope >= COVERAGE_MIN and written < COVERAGE_SHARE * n_in_scope else "few"
 
 
+def _are(n: int, one: str = "was", many: str = "were") -> str:
+    return one if n == 1 else many
+
+
+def where_they_are(c: dict, src: dict | None = None) -> list[str]:
+    """Where a period's written answers without attached text are, from the derived layer (census/corrected.py), largest
+    first. Never says 'not in OpenParlData' for an answer an adapter found in OPD."""
+    g = c.get
+    parts = []
+    el = c["agenda"] + c["parentless"]
+    if el:
+        parts.append((el, f"{el:,} {_are(el, 'is', 'are')} in OpenParlData with text but not linked to their intervention "
+                      "(an aggregator issue, not the parliament's)"))
+    if g("unrecognised"):
+        u = c["unrecognised"]
+        parts.append((u, f"{u:,} {_are(u, 'is', 'are')} in OpenParlData with text on the intervention, under a heading the "
+                      "census does not recognise (OPD only has to mark them as the answer)"))
+    img = g("opd_image_only", c["image_only"])
+    if img:
+        tv, ocr, rest = g("img_text_verified", 0), g("img_ocr", 0), g("img_open", img)
+        det = []
+        if tv and ocr == tv:
+            det.append(f"OCR of OPD's own copies would recover {ocr:,} of them (run and checked by affair and date; "
+                       "machine-read text, not the official wording)")
+        elif tv:
+            det.append(f"reading OPD's own copies would recover {tv:,} of them (text layer or OCR, checked by affair and "
+                       "date" + (f"; {ocr:,} by OCR, machine-read text" if ocr else "") + ")")
+        if g("img_fetchable"):
+            det.append(f"the parliament publishes a text copy of {c['img_fetchable']:,}")
+        if rest and det:
+            det.append(f"the other {rest:,} still need OCR or the text version the parliament publishes")
+        parts.append((img, f"{img:,} {_are(img, 'is', 'are')} in OpenParlData only as a copy without text"
+                      + (": " + ", ".join(det) if det else ", to be read by OCR or replaced by the text version the "
+                         "parliament publishes")))
+    if g("fetchable"):
+        fe = c["fetchable"]
+        parts.append((fe, f"{fe:,} {_are(fe, 'is', 'are')} not in OpenParlData but the parliament publishes "
+                      f"{'it' if fe == 1 else 'them'} (a "
+                      "verified fetch list)"))
+    op = g("still_open", c["absent"])
+    if op:
+        src = src or {}
+        them = "it" if op == 1 else "them"
+        rv, ls = g("open_review", 0), g("open_listed", 0)
+        rest = op - rv - ls
+        if rest == op and (g("open_no_adapter", op) == op or not src.get("reads_parliament")):
+            s = (f"{op:,} {_are(op, 'is', 'are')} not in OpenParlData; whether the parliament publishes {them} elsewhere "
+                 "was not checked")
+        else:
+            notes = [f"{rv:,} with a candidate document for a person to check"] if rv else []
+            notes += [f"{ls:,} matched by identity and wording only, listed but not counted"] if ls else []
+            if rest and src.get("reads_parliament"):
+                hosts = ", ".join(h for h in src["hosts"] if h != "files.openparldata.ch")
+                notes.append(f"{rest:,} found neither in OpenParlData nor on the parliament's site that was read ({hosts})")
+            elif rest:
+                notes.append(f"{rest:,} not found in OpenParlData, and whether the parliament publishes "
+                             f"{'it' if rest == 1 else 'them'} elsewhere was not checked")
+            s = f"{op:,} {_are(op, 'has', 'have')} no verified answer yet: " + ", ".join(notes)
+        parts.append((op, s))
+    return [s for _, s in sorted(parts, key=lambda p: -p[0])]
+
+
 def safe_say(r: dict) -> str:
     """One sentence a journalist can quote, with its caveat, generated from the row (never typed by hand)."""
     a, n = r["periods"]["all"], r["periods"]["y2425"]
@@ -385,15 +447,26 @@ def safe_say(r: dict) -> str:
     allw = f"over all years OPD holds ({yrs[0]}–{yrs[1]})" if yrs else "over all years"
     what = "an oral-answer note filed in place of a text" if r["key"] == "VS" else "question time"
 
+    def unrec(c: dict) -> str:
+        # the derived layer: answers in OPD with text on the affair under a heading the census lexicon misses
+        u, wl, iw = c.get("unrecognised", 0), c.get("written_lack_text_at_most", c["written_missing"]), c["in_writing"]
+        if not u:
+            return ""
+        if not wl:
+            return f", but all {u:,} are in OpenParlData with text under a heading the census does not recognise"
+        return (f", but {u:,} of these {_are(u, 'is', 'are')} in OpenParlData with text under a heading the census does not "
+                f"recognise, so at most {wl:,} ({_pc(wl, iw)}) lack answer text")
+
     def lead(c: dict, when: str) -> str:
         wm, iw = c["written_missing"], c["in_writing"]
         if not c["oral"]:
             return (f"{when}, {wm:,} of {iw:,} written government answers ({_pc(wm, iw)}) have no answer text attached in "
-                    "OpenParlData")
+                    "OpenParlData" + unrec(c))
         return (f"{when}, OPD records {c['written']:,} interventions with a government answer; {c['oral']:,} of them were "
                 f"answered orally in the sitting ({what}), so no written text is expected and they are not missing; "
                 + ("every answer given in writing has its text attached" if wm == 0 else
-                   f"of the {iw:,} answered in writing, {wm:,} ({_pc(wm, iw)}) have no answer text attached in OpenParlData"))
+                   f"of the {iw:,} answered in writing, {wm:,} ({_pc(wm, iw)}) have no answer text attached in OpenParlData"
+                   + unrec(c)))
 
     share = lambda c: c["written_missing"] / c["in_writing"] if c["in_writing"] else 0.0  # noqa: E731
     if n["written"] >= 20:
@@ -405,21 +478,10 @@ def safe_say(r: dict) -> str:
         out.append(lead(a, allw[0].upper() + allw[1:]) + "; 2024–25 has too few to compare")
     if pick is n and not n["oral"] and a["oral"] >= 20:
         out.append(f"{allw}, {a['oral']:,} answers were given orally in the sitting and are not counted as missing")
-    m = max(1, a["written_missing"])
-    if m < 20:
-        pass
-    elif a["parentless"] + a["agenda"] > 0.5 * m:
-        out.append(
-            "most of the missing written answers are in OpenParlData but not linked to their intervention, an aggregator "
-            "issue that OPD has confirmed, not the parliament's"
-        )
-    elif a["image_only"] > 0.3 * m:
-        out.append("most of the missing written answers are documents whose copy in OPD has no text: OCR would recover them "
-                   "(not yet run on all of them), and where the parliament publishes a text PDF or a Word file, OPD can "
-                   "re-take that instead")
-    elif a["absent"] > 0.5 * m:
-        out.append("the missing written answers are not in OpenParlData; whether the parliament publishes them elsewhere was "
-                   "not checked")
+    m = a["written_missing"]
+    if m >= 20:
+        out.append(f"of the {m:,} written answers without attached text over all years, "
+                   + "; ".join(where_they_are(a, r.get("adapter"))))
     if r["median"]["flag"] == "same_day":
         out.append("its 'answer' dates in OPD mostly equal submission dates, so answer times cannot be computed")
     return "; ".join(out) + "."
@@ -440,7 +502,8 @@ def parliaments() -> dict:
         cells[c["body"]][c["field"]] = dict(st=c["status"], r=c["route"], meta=c["meta"], doc=c["doc"], n=c["n"])
     _, per_affair = funnel.compute()
     part = _partition(per_affair)
-    fetch = {b: rep.get(b, {}).get("fetch", 0) for b in rep}
+    corr = _j("census/corrected.json")  # derived layer over the registered census (census/corrected.py)
+    adsum = _j("repair/adapters/summary.json")["bodies"]
     rows = []
     for k in sorted(set(s["by_body"]) | set(cells)):
         bm = bodies_meta.get(k, {})
@@ -456,11 +519,29 @@ def parliaments() -> dict:
             c["in_writing"] = c["written"] - c["oral"]
             c["written_missing_share"] = c["written_missing"] / c["in_writing"] if c["in_writing"] else None
             c["with_text"] = c["attached"] / c["written"] if c["written"] else None
-            # repair routes that put text back: agenda join, BE parentless relink, BE fetch from the canton (its 49 absent
-            # answers are all on the canton's list); OCR candidates and oral retypes are typed, not counted as text
-            f = min(fetch.get(k, 0), c["absent"]) if p == "all" else (c["absent"] if k == "BE" else 0)
-            c["fetchable"] = f
-            c["after_repair"] = (c["attached"] + c["agenda"] + c["parentless"] + f) / c["written"] if c["written"] else None
+            # the derived layer (results/census/corrected.json): where each registered gap row is once the repair routes
+            # looked; adapter rows count only in the counted verification tiers. Registered columns above stay as they are.
+            x = (corr["by_body"].get(k) or {}).get(p)
+            if x:
+                assert (x["written"], x["gap"], x["oral"]) == (c["written"], c["missing"], c["oral"]), (k, p)
+            x = x or dict(unrecognised=0, image_only=0, image_only_parts=dict(text_verified=0, fetchable=0, open=0),
+                          image_only_ocr=0, fetchable=0, open=0, open_parts=dict(listed_unverified=0, review=0),
+                          opd_elsewhere=c["agenda"] + c["parentless"], repaired=c["agenda"] + c["parentless"])
+            ip = x["image_only_parts"]
+            c["unrecognised"] = x["unrecognised"]  # in OPD with text on the affair, heading the census lexicon misses
+            c["opd_image_only"] = x["image_only"]  # in OPD only as a copy without usable text
+            c["img_text_verified"], c["img_ocr"] = ip["text_verified"], x["image_only_ocr"]
+            c["img_fetchable"], c["img_open"] = ip["fetchable"], ip["open"]
+            c["fetchable"] = x["fetchable"]  # not in OPD; verified fetch row from the parliament
+            c["still_open"] = x["open"]  # not in OPD, not found yet
+            c["open_listed"], c["open_review"] = x["open_parts"]["listed_unverified"], x["open_parts"]["review"]
+            c["open_no_adapter"] = x["open_parts"].get("no_adapter", 0)
+            c["lack_text_at_most"] = c["missing"] - c["unrecognised"]
+            c["written_lack_text_at_most"] = c["written_missing"] - c["unrecognised"]
+            c["repaired"] = x["repaired"]
+            # after every counted repair: agenda join, Bern relink, tag_answer, verified text of OPD's own image-only
+            # copies, verified fetches (adapters, Bern, Curia Vista); oral answers are typed, not counted as text
+            c["after_repair"] = (c["attached"] + c["repaired"]) / c["written"] if c["written"] else None
             periods[p] = c
         flag = "same_day" if k in same_day else ("few" if qq.get("n_durations", 0) < 20 else None)
         rows.append(
@@ -484,6 +565,8 @@ def parliaments() -> dict:
                     flag=flag,
                 ),
                 repair=rep.get(k, {}),
+                adapter=corr["adapter_sources"].get(k),
+                adapter_counted=adsum.get(k, {}).get("counted_by_action", {}),  # adapter rows in the counted tiers
                 fields=cells.get(k, {}),
                 in_scope=k in s["by_body"],
             )
@@ -499,8 +582,8 @@ def parliaments() -> dict:
         r["years"] = ex.get("years")  # [first, last] year of the body's written-answer interventions in OPD
         r["main_type"] = ex.get("main_type", {}) if r["median"]["flag"] != "same_day" else {}
         for c in r["periods"].values():
-            c["after_ocr"] = ((c["attached"] + c["agenda"] + c["parentless"] + c["fetchable"] + c["image_only"]) / c["written"]
-                              if c["written"] else None)
+            # + OCR: if the image-only copies with no verified text yet were also read (not done; a separate state)
+            c["after_ocr"] = (c["attached"] + c["repaired"] + c["img_open"]) / c["written"] if c["written"] else None
         r["safe_say"] = safe_say(r)
         r["safe_say_period"] = "2024–25 and all years" if r["periods"]["y2425"]["written"] >= 20 else "all years"
     rows.sort(key=lambda r: (-r["periods"]["all"]["written"], -r["n"]))
@@ -564,6 +647,8 @@ def parliaments() -> dict:
         tier_counts=m["tier_counts"],
         criteria=m["criteria"],
         repair=_j("repair/summary.json")["by_action"],
+        corrected=dict(national=corr["national"], sentences=corr["sentences"], listed_unverified=corr["listed_unverified"],
+                       tag_answer_by_tier=corr["tag_answer_by_tier"], report=corr["report"], categories=corr["categories"]),
         findings=findings,
         attribution=fj.get("opd_attribution"),
         bern=bern,
@@ -745,6 +830,13 @@ def write_csv(par: dict, path) -> None:
         ("written_missing", "written_missing"),
         ("written_missing_share", "written_missing_share"),
         ("with_text", "with_text"),
+        # derived layer (results/census/corrected.json): where the written answers without attached text are
+        ("unrecognised", "in_opd_unrecognised_heading"),
+        ("opd_image_only", "in_opd_image_only"),
+        ("img_text_verified", "image_only_text_verified"),
+        ("fetchable", "fetchable_verified"),
+        ("still_open", "still_open"),
+        ("written_lack_text_at_most", "written_lack_text_at_most"),
         ("after_repair", "after_repair"),
     ]
     slug = {t: t.lower().replace(" ", "_") for t in TYPE_ORDER}
@@ -1041,8 +1133,13 @@ def adapters() -> dict | None:
     design = dsum["total"]
     fresh = json.loads((base / "audit" / "fresh_audit_precision.json").read_text())
     rob = json.loads((base / "robots_audit.json").read_text()).get("totals", {})
-    bodies = sorted(({"key": k, "name": b["label"], "verified": b["verified"], "targets": b["targets"],
-                      "review": b["review"], "tag_answer": b["counted_by_action"].get("tag_answer", 0)}
+    # per parliament: counted rows only (tiers exact_date, date_window), by action; the Jura identity + wording tier is
+    # listed separately (not_counted), never inside "verified"
+    bodies = sorted(({"key": k, "name": b["label"], "verified": sum(b["counted_by_action"].values()),
+                      "not_counted": b["tiers"].get("identity_wording_only", 0), "targets": b["targets"],
+                      "review": b["review"], "tag_answer": b["counted_by_action"].get("tag_answer", 0),
+                      "extract_tag": b["counted_by_action"].get("extract_tag", 0),
+                      "fetch": b["counted_by_action"].get("fetch", 0)}
                      for k, b in s["bodies"].items() if b["verified"]), key=lambda b: -b["verified"])
     return dict(coverage=s["coverage"], n_bodies=len(s["bodies"]),
                 tiers={k: dict(n=v["n"], absent=v["absent"], image_only=v["image_only"], counted=v["counted"])
@@ -1227,6 +1324,10 @@ def headline(par: dict, ev: dict) -> dict:
         periods={k: dict(written=v["written"], missing=v["written"] - v["attached"], oral=v["oral"],
                          written_missing=v["written"] - v["attached"] - v["oral"], in_writing=v["written"] - v["oral"])
                  for k, v in par["national_periods"].items()},
+        # derived layer: the registered gap minus the answers in OPD with text under an unrecognised heading
+        at_most={k: dict(lack_text=v["lack_text_on_affair_at_most"], written=v["written_lack_text_at_most"],
+                         unrecognised=v["unrecognised"], after_repair=v["after_repair"])
+                 for k, v in par["corrected"]["national"].items()},
     )
 
 
@@ -1274,7 +1375,22 @@ def downloads() -> dict:
                 rows = sum(1 for line in f if line.strip()) - 1
         files.append(dict(group=group, name=p.name, href=f"downloads/{p.name}", bytes=p.stat().st_size, rows=rows,
                           what=what, source=rel))
-    return dict(repo=REPO_URL, files=files)
+    return dict(repo=REPO_URL, files=files, adapter_lists=adapter_lists())
+
+
+def adapter_lists() -> dict | None:
+    """The adapter repair lists the OPD box links (site/downloads/adapters_<BODY>.tsv, written by `viewer collect` via
+    census/corrected.write_lists): per parliament the file, rows and counted rows; the manifest says which list wins."""
+    from ..census.corrected import MANIFEST
+
+    p = ROOT / "site" / "downloads" / MANIFEST
+    if not p.exists():
+        return None
+    m = json.loads(p.read_text(encoding="utf-8"))
+    files = sorted(m["files"], key=lambda f: -f["counted"])
+    return dict(manifest=f"downloads/{MANIFEST}", note=m["note"], precedence=m["precedence"], totals=m["totals"],
+                files=[dict(body=f["body"], label=f["label"], href=f"downloads/{f['file']}", rows=f["rows"],
+                            counted=f["counted"], not_counted=f["not_counted_verified"]) for f in files])
 
 
 def collect(full_text: bool = False) -> dict:

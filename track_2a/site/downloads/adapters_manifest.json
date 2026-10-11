@@ -1,0 +1,754 @@
+{
+ "note": "Apply the rows with counted=true: action tag_answer (set the category of OPD document opd_doc_id), extract_tag (extract the text of OPD document opd_doc_id, tag it), fetch (fetch source_url, attach). verified=true with counted=false is the identity + wording tier (Jura: no date check), for a person or OPD to confirm. action=review rows are for a person. Every row's check_detail carries the route, identity and date class, the sha256 of the document read, the extractor and a quote of at most 200 characters.",
+ "source": "results/repair/adapters/repair_<BODY>.tsv (python -m gegenprobe.repair.adapters.run --write); derived columns from python -m gegenprobe.census.corrected",
+ "precedence": "Where two lists name the same affair, the adapter list wins over the older OCR candidate lists (results/repair/repair_<BODY>.tsv, action=ocr). The Bern lists (relink, fetch, review, begin_date) and the Valais retype_oral list have no adapter counterpart and stay as they are.",
+ "counted_tiers": [
+  "exact_date",
+  "date_window"
+ ],
+ "files": [
+  {
+   "body": "1059",
+   "label": "Kriens (city)",
+   "file": "adapters_1059.tsv",
+   "rows": 73,
+   "by_action": {
+    "tag_answer": 71,
+    "review": 2
+   },
+   "counted": 71,
+   "counted_by_action": {
+    "tag_answer": 71
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": null
+  },
+  {
+   "body": "131",
+   "label": "Adliswil (city)",
+   "file": "adapters_131.tsv",
+   "rows": 22,
+   "by_action": {
+    "review": 20,
+    "extract_tag": 2
+   },
+   "counted": 2,
+   "counted_by_action": {
+    "extract_tag": 2
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_131.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "191",
+   "label": "Dübendorf (city)",
+   "file": "adapters_191.tsv",
+   "rows": 34,
+   "by_action": {
+    "extract_tag": 17,
+    "review": 17
+   },
+   "counted": 17,
+   "counted_by_action": {
+    "extract_tag": 17
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_191.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "261",
+   "label": "Zürich (city)",
+   "file": "adapters_261.tsv",
+   "rows": 1438,
+   "by_action": {
+    "tag_answer": 1417,
+    "review": 21
+   },
+   "counted": 1417,
+   "counted_by_action": {
+    "tag_answer": 1417
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "www.gemeinderat-zuerich.ch"
+   ],
+   "route": [
+    "OPD's own text on the affair: Stadtrat minutes extract 'beantwortet die Anfrage wie folgt'; text-less copies fetched from the URL OPD stores"
+   ],
+   "supersedes": null
+  },
+  {
+   "body": "2829",
+   "label": "Liestal (city)",
+   "file": "adapters_2829.tsv",
+   "rows": 63,
+   "by_action": {
+    "review": 63
+   },
+   "counted": 0,
+   "counted_by_action": {},
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": null
+  },
+  {
+   "body": "2831",
+   "label": "Pratteln (city)",
+   "file": "adapters_2831.tsv",
+   "rows": 15,
+   "by_action": {
+    "review": 15
+   },
+   "counted": 0,
+   "counted_by_action": {},
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_2831.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "296",
+   "label": "Illnau-Effretikon (city)",
+   "file": "adapters_296.tsv",
+   "rows": 39,
+   "by_action": {
+    "extract_tag": 30,
+    "review": 9
+   },
+   "counted": 30,
+   "counted_by_action": {
+    "extract_tag": 30
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_296.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "351",
+   "label": "Bern (city)",
+   "file": "adapters_351.tsv",
+   "rows": 5,
+   "by_action": {
+    "tag_answer": 3,
+    "review": 2
+   },
+   "counted": 3,
+   "counted_by_action": {
+    "tag_answer": 3
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": null
+  },
+  {
+   "body": "4001",
+   "label": "Aarau (city)",
+   "file": "adapters_4001.tsv",
+   "rows": 87,
+   "by_action": {
+    "fetch": 70,
+    "tag_answer": 4,
+    "review": 13
+   },
+   "counted": 74,
+   "counted_by_action": {
+    "fetch": 70,
+    "tag_answer": 4
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "www.aarau.ch",
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "in-OPD first; else the yearly Anfragen page: the 'Antwort Stadtrat' link next to the question asset OPD holds"
+   ],
+   "supersedes": null
+  },
+  {
+   "body": "4289",
+   "label": "Zofingen (city)",
+   "file": "adapters_4289.tsv",
+   "rows": 27,
+   "by_action": {
+    "review": 21,
+    "tag_answer": 5,
+    "extract_tag": 1
+   },
+   "counted": 6,
+   "counted_by_action": {
+    "tag_answer": 5,
+    "extract_tag": 1
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_4289.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "4401",
+   "label": "Arbon (city)",
+   "file": "adapters_4401.tsv",
+   "rows": 21,
+   "by_action": {
+    "tag_answer": 21
+   },
+   "counted": 21,
+   "counted_by_action": {
+    "tag_answer": 21
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": null
+  },
+  {
+   "body": "4566",
+   "label": "Frauenfeld (city)",
+   "file": "adapters_4566.tsv",
+   "rows": 163,
+   "by_action": {
+    "tag_answer": 131,
+    "review": 18,
+    "extract_tag": 14
+   },
+   "counted": 145,
+   "counted_by_action": {
+    "tag_answer": 131,
+    "extract_tag": 14
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": null
+  },
+  {
+   "body": "4671",
+   "label": "Kreuzlingen (city)",
+   "file": "adapters_4671.tsv",
+   "rows": 4,
+   "by_action": {
+    "review": 4
+   },
+   "counted": 0,
+   "counted_by_action": {},
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_4671.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "5002",
+   "label": "Bellinzona (city)",
+   "file": "adapters_5002.tsv",
+   "rows": 49,
+   "by_action": {
+    "review": 49
+   },
+   "counted": 0,
+   "counted_by_action": {},
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_5002.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "5113",
+   "label": "Locarno (city)",
+   "file": "adapters_5113.tsv",
+   "rows": 225,
+   "by_action": {
+    "tag_answer": 64,
+    "extract_tag": 63,
+    "review": 98
+   },
+   "counted": 127,
+   "counted_by_action": {
+    "tag_answer": 64,
+    "extract_tag": 63
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_5113.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "5192",
+   "label": "Lugano (city)",
+   "file": "adapters_5192.tsv",
+   "rows": 7,
+   "by_action": {
+    "tag_answer": 2,
+    "review": 5
+   },
+   "counted": 2,
+   "counted_by_action": {
+    "tag_answer": 2
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": null
+  },
+  {
+   "body": "5586",
+   "label": "Lausanne (city)",
+   "file": "adapters_5586.tsv",
+   "rows": 65,
+   "by_action": {
+    "review": 61,
+    "tag_answer": 4
+   },
+   "counted": 4,
+   "counted_by_action": {
+    "tag_answer": 4
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_5586.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "581",
+   "label": "Interlaken (city)",
+   "file": "adapters_581.tsv",
+   "rows": 14,
+   "by_action": {
+    "review": 14
+   },
+   "counted": 0,
+   "counted_by_action": {},
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_581.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "6153",
+   "label": "Monthey (city)",
+   "file": "adapters_6153.tsv",
+   "rows": 33,
+   "by_action": {
+    "tag_answer": 29,
+    "review": 4
+   },
+   "counted": 29,
+   "counted_by_action": {
+    "tag_answer": 29
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": null
+  },
+  {
+   "body": "BL",
+   "label": "Basel-Landschaft (canton)",
+   "file": "adapters_BL.tsv",
+   "rows": 2,
+   "by_action": {
+    "tag_answer": 2
+   },
+   "counted": 2,
+   "counted_by_action": {
+    "tag_answer": 2
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_BL.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "BS",
+   "label": "Basel-Stadt (canton)",
+   "file": "adapters_BS.tsv",
+   "rows": 1,
+   "by_action": {
+    "tag_answer": 1
+   },
+   "counted": 1,
+   "counted_by_action": {
+    "tag_answer": 1
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_BS.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "FR",
+   "label": "Fribourg (canton)",
+   "file": "adapters_FR.tsv",
+   "rows": 7,
+   "by_action": {
+    "extract_tag": 7
+   },
+   "counted": 7,
+   "counted_by_action": {
+    "extract_tag": 7
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_FR.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "JU",
+   "label": "Jura (canton)",
+   "file": "adapters_JU.tsv",
+   "rows": 382,
+   "by_action": {
+    "extract_tag": 281,
+    "review": 25,
+    "tag_answer": 76
+   },
+   "counted": 75,
+   "counted_by_action": {
+    "tag_answer": 75
+   },
+   "not_counted_verified": 282,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_JU.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "LU",
+   "label": "Luzern (canton)",
+   "file": "adapters_LU.tsv",
+   "rows": 105,
+   "by_action": {
+    "fetch": 104,
+    "review": 1
+   },
+   "counted": 104,
+   "counted_by_action": {
+    "fetch": 104
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "www.lu.ch"
+   ],
+   "route": [
+    "lu.ch affair page (OPD url_external) -> link 'Antwort/Stellungnahme des Regierungsrates' -> cdws document"
+   ],
+   "supersedes": null
+  },
+  {
+   "body": "NE",
+   "label": "Neuchâtel (canton)",
+   "file": "adapters_NE.tsv",
+   "rows": 251,
+   "by_action": {
+    "tag_answer": 239,
+    "review": 12
+   },
+   "counted": 239,
+   "counted_by_action": {
+    "tag_answer": 239
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": null
+  },
+  {
+   "body": "SG",
+   "label": "St. Gallen (canton)",
+   "file": "adapters_SG.tsv",
+   "rows": 1014,
+   "by_action": {
+    "fetch": 1012,
+    "review": 2
+   },
+   "counted": 1012,
+   "counted_by_action": {
+    "fetch": 1012
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "www.ratsinfo.sg.ch"
+   ],
+   "route": [
+    "RIS JSON API /api/businesses/<external_id>/published_documents -> document type 'Antwort'/'Stellungnahme'"
+   ],
+   "supersedes": "results/repair/repair_SG.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "SO",
+   "label": "Solothurn (canton)",
+   "file": "adapters_SO.tsv",
+   "rows": 211,
+   "by_action": {
+    "fetch": 210,
+    "review": 1
+   },
+   "counted": 210,
+   "counted_by_action": {
+    "fetch": 210
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "ratsinfo.so.ch"
+   ],
+   "route": [
+    "RIS JSON API /api/businesses/<external_id>/published_documents -> document type 'Antwort'/'Stellungnahme'"
+   ],
+   "supersedes": "results/repair/repair_SO.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "TG",
+   "label": "Thurgau (canton)",
+   "file": "adapters_TG.tsv",
+   "rows": 49,
+   "by_action": {
+    "extract_tag": 33,
+    "tag_answer": 1,
+    "review": 15
+   },
+   "counted": 34,
+   "counted_by_action": {
+    "extract_tag": 33,
+    "tag_answer": 1
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_TG.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "TI",
+   "label": "Ticino (canton)",
+   "file": "adapters_TI.tsv",
+   "rows": 765,
+   "by_action": {
+    "extract_tag": 729,
+    "review": 36
+   },
+   "counted": 729,
+   "counted_by_action": {
+    "extract_tag": 729
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": "results/repair/repair_TI.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "VD",
+   "label": "Vaud (canton)",
+   "file": "adapters_VD.tsv",
+   "rows": 104,
+   "by_action": {
+    "tag_answer": 95,
+    "review": 9
+   },
+   "counted": 95,
+   "counted_by_action": {
+    "tag_answer": 95
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "files.openparldata.ch"
+   ],
+   "route": [
+    "OPD's own documents on the affair: an answer formula in OPD's text (tag_answer); an answer-named file without text is fetched and extracted (extract_tag)"
+   ],
+   "supersedes": null
+  },
+  {
+   "body": "VS",
+   "label": "Valais (canton)",
+   "file": "adapters_VS.tsv",
+   "rows": 282,
+   "by_action": {
+    "fetch": 195,
+    "review": 87
+   },
+   "counted": 195,
+   "counted_by_action": {
+    "fetch": 195
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 0,
+   "hosts": [
+    "parlement.vs.ch"
+   ],
+   "route": [
+    "parlement.vs.ch /api/fe/v1/entity?id=<external_id> -> member '_ANT'/'_REP' -> /api/fe/v1/document -> PDF"
+   ],
+   "supersedes": "results/repair/repair_VS.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  },
+  {
+   "body": "ZH",
+   "label": "Zürich (canton)",
+   "file": "adapters_ZH.tsv",
+   "rows": 2255,
+   "by_action": {
+    "tag_answer": 152,
+    "fetch": 2029,
+    "review": 73,
+    "extract_tag": 1
+   },
+   "counted": 2182,
+   "counted_by_action": {
+    "tag_answer": 152,
+    "fetch": 2029,
+    "extract_tag": 1
+   },
+   "not_counted_verified": 0,
+   "tag_or_extract_without_opd_doc_id": 153,
+   "hosts": [
+    "parlzhcdws.cmicloud.ch"
+   ],
+   "route": [
+    "Kantonsrat CDWS search by KR-Nr. -> step 'Antwort Regierungsrat' document -> Files/<id>/1/pdf"
+   ],
+   "supersedes": "results/repair/repair_ZH.tsv: its action=ocr candidate rows (no text, unverified) for the same affairs; for any other affair that list still stands"
+  }
+ ],
+ "totals": {
+  "rows": 7812,
+  "counted": 6833,
+  "counted_by_action": {
+   "tag_answer": 2316,
+   "extract_tag": 897,
+   "fetch": 3620
+  },
+  "not_counted_verified": 282
+ }
+}

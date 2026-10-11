@@ -2,7 +2,8 @@
 
     python -m gegenprobe.viewer collect            results + cached texts + model cache -> site/data.json, parliaments.csv,
                                                    missing.json, interventions.tsv.gz (+ README) copied from results/census/,
-                                                   and site/downloads/ (Bern lists, apply plan, JSON Schemas)
+                                                   and site/downloads/ (Bern lists, apply plan, JSON Schemas, the
+                                                   adapter lists per parliament + adapters_manifest.json)
     python -m gegenprobe.viewer build [--out DIR]   site/data.json + template -> DIR/index.html (default: site/)
     python -m gegenprobe.viewer build --full-text --out DIR   collect with full page texts into DIR only (never committed)
 
@@ -30,7 +31,8 @@ DOWNLOADS = "downloads"  # the OPD box's direct downloads (Bern lists, apply pla
 
 
 def copy_downloads(dest: Path) -> list[Path]:
-    """Copy the files viewer.data.DOWNLOADS names into dest/downloads/ (and drop files no longer listed)."""
+    """Copy the files viewer.data.DOWNLOADS names into dest/downloads/, write the adapter lists there, and drop files no
+    longer listed."""
     from .data import DOWNLOADS as LIST
 
     d = dest / DOWNLOADS
@@ -40,6 +42,11 @@ def copy_downloads(dest: Path) -> list[Path]:
         src = ROOT / rel
         (d / src.name).write_bytes(src.read_bytes())
         out.append(d / src.name)
+    # the adapter repair lists, one TSV per parliament + manifest (census/corrected.py adds tier, counted and category)
+    from ..census.corrected import MANIFEST, write_lists
+
+    man = write_lists(d)
+    out += [d / f["file"] for f in man["files"]] + [d / MANIFEST]
     for f in d.iterdir():
         if f.is_file() and f not in out:
             f.unlink()
@@ -83,8 +90,9 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--full-text", action="store_true")
     a = ap.parse_args(argv)
     if a.cmd == "collect":
-        d = collect()
         SITE.mkdir(parents=True, exist_ok=True)
+        copy_downloads(SITE)  # first: the OPD box lists the adapter lists from the manifest this writes
+        d = collect()
         (SITE / "missing.json").write_text(
             json.dumps(d["parliaments"].pop("missing"), ensure_ascii=False, separators=(",", ":")), encoding="utf-8"
         )
@@ -96,7 +104,6 @@ def main(argv: list[str]) -> int:
         from .data import write_csv
 
         write_csv(d["parliaments"], SITE / "parliaments.csv")
-        copy_downloads(SITE)
         print(SITE / "data.json", f"{(SITE / 'data.json').stat().st_size // 1024} KB", "+", ", ".join(SHIPPED))
         return 0
     out = Path(a.out) if a.out else SITE

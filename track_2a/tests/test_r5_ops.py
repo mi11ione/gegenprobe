@@ -232,12 +232,16 @@ def test_site_downloads_are_the_committed_files_and_the_opd_box_links_them(tmp_p
     relink = next(f for f in d["files"] if f["name"] == "repair_BE_relink.tsv")
     assert relink["rows"] == 2421 and relink["href"] == "downloads/repair_BE_relink.tsv"
     copied = viewer.copy_downloads(tmp_path)
-    assert sorted(p.name for p in copied) == sorted(names)
+    # + the adapter lists (one TSV per parliament) and their manifest (census/corrected.write_lists, round 6)
+    lists = {f["href"].split("/")[-1] for f in d["adapter_lists"]["files"]} | {"adapters_manifest.json"}
+    assert sorted(p.name for p in copied) == sorted(names | lists)
     for f in d["files"]:  # byte-identical to the results files
         assert (tmp_path / f["href"]).read_bytes() == (ROOT / f["source"]).read_bytes()
     site = ROOT / "site"
     if (site / "downloads").is_dir():  # the committed site ships them next to index.html
-        assert sorted(p.name for p in (site / "downloads").iterdir()) == sorted(names)
+        assert sorted(p.name for p in (site / "downloads").iterdir()) == sorted(names | lists)
+        for n in lists:  # the committed lists are what write_lists produces from the committed results
+            assert (site / "downloads" / n).read_bytes() == (tmp_path / "downloads" / n).read_bytes(), n
     t = (ROOT / "src" / "gegenprobe" / "viewer" / "template.html").read_text()
     assert 'id="opdDownloads"' in t and "DL.repo" in t
     # a build into another directory (make run's out/) carries the downloads too

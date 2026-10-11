@@ -1,6 +1,6 @@
 # Gegenprobe (Track 2A, OpenParlData). Judges: `make run` (Docker, CPU, clean checkout).
 # Development targets run on the host with .venv (python 3.11); every target is re-runnable and writes under results/.
-.PHONY: site deploy-site figures run test lint claims census census-scan census-replay census-hash repair repair-network nightly-offline nightly-smoke nightly-notify-test convert eval report install-nightly docker-build
+.PHONY: site deploy-site figures run test lint claims census census-corrected census-scan census-replay census-hash repair repair-network nightly-offline nightly-smoke nightly-notify-test convert eval report install-nightly docker-build
 
 PY ?= .venv/bin/python
 IMAGE ?= gegenprobe:latest
@@ -49,6 +49,11 @@ census-scan:
 
 census-replay:
 	$(PY) -m gegenprobe.census.replay
+
+# census-corrected: the derived layer over the registered census (results/census/corrected.json): where each of the 16,749
+#                   registered gap rows is once the repair routes looked (census/corrected.py); no network, no model
+census-corrected:
+	$(PY) -m gegenprobe.census.corrected
 
 census-hash:  # network: two small docs exports; tests OPD's hash identifier rule
 	$(PY) -m gegenprobe.census.hash_check
