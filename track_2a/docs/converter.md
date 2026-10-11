@@ -112,7 +112,8 @@ build (`--allow-build-mismatch` continues and marks each suggestion `build_misma
 
 **Review aids (round 2).** Every answer-date field carries `candidates` (the closed set: every printed date with page,
 span and context, the chosen one marked, and Apertus' probability shares in review mode); rule values carry
-`rule_precision` (`results/convert/rule_precision.json`, per rule on the P1 + P2 held-out rows); review suggestions carry a
+`rule_precision` (`results/convert/rule_precision.json`, per rule on the P1 + P2 held-out rows, with its Wilson 95%
+interval and a small-sample flag below n = 10); review suggestions carry a
 `band` (strong: margin ≤ −5; weak: −5 < margin ≤ θ), measured post-hoc on P1 + P2 (`results/convert/band_precision.json`);
 recommendations carry `multiple_recommendations`; `--opd-text` adds `opd_text_span`, offsets into OPD's stored text
 (`convert/opdtext.py`). Batch: exit code 2 on any failure row (`--allow-failures` to override), `--queue` for a review

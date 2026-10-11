@@ -154,8 +154,10 @@ proposed). `action` is what to do: `set_begin_date` (554) or `review` (173).
 `repair_BE_relink.tsv` and `repair_BE_begin_date.tsv` into an apply plan: `apply_BE_relink_plan.csv` (per document the
 before-state read from the export, i.e. `parent_type`, `affair_id`, `agenda_id`, `meeting_id`, `hash`, `url_oparl`, and
 the after-state), `apply_BE_begin_date_plan.csv` (before = the list's value, or the current one with
-`--affairs-export affairs.ndjson.gz`), `apply_BE_plan.sql.txt` (guarded `UPDATE` statements as text: each one changes a
-row only if it is still in its before-state) and `apply_BE_plan.json`. Without `--out` it prints the summary and writes
+`--affairs-export affairs.ndjson.gz`), `apply_BE_plan.sql.txt` (PostgreSQL, guarded `UPDATE` statements as text: each
+one changes a row only if it is still in its before-state, and the plan checks itself: every statement records how many
+rows it changed, and before `COMMIT` a `DO` block raises unless each of the 2,975 statements changed exactly 1 row, so
+the transaction rolls back and nothing is applied) and `apply_BE_plan.json` (with `expected_rows_changed`). Without `--out` it prints the summary and writes
 nothing. It never connects to OPD.
 
 **Re-parenting changes OPD's document identifier.** OPD's `hash` is sha256(body_key + parent_type + url). In the

@@ -136,8 +136,10 @@ Example: an answer letter that starts "Collombey-Muraz, le 15 juillet 2019" has 
   chosen. In review mode each candidate also carries Apertus' probability `share` (and the field has a `null_share`).
   A reviewer can pick the right date from this list without opening the PDF.
 - **`rule_precision`** on every rule-decided value: how often that rule was right on the pre-registered held-out
-  documents, e.g. `ti_header_date_head` 13/13, `place_date_head` 10/11, `rrb_vom` 3/5, `datum_rr_sitzung` 0/2
-  (`results/convert/rule_precision.json`; small counts, read them as a warning light, not a guarantee).
+  documents, with its Wilson 95% interval, e.g. `ti_header_date_head` 13/13 [77.2, 100], `place_date_head` 10/11,
+  `rrb_vom` 3/5 [23.1, 88.2], `datum_rr_sitzung` 0/2 (`results/convert/rule_precision.json`). A rule that fired fewer
+  than 10 times there is flagged "small sample" (`rule_precision_small_sample: true`, with `rule_precision_n` and
+  `rule_precision_ci` next to it).
 - **`band`** on every review suggestion, from Apertus' null margin: `strong` (margin ≤ −5: the model clearly preferred
   a printed date) or `weak` (−5 < margin ≤ θ: it leaned toward null but stayed under θ). Measured on the two
   pre-registered tests (post-hoc): strong suggestions were correct 26/33, weak ones 3/11

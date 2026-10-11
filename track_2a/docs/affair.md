@@ -30,8 +30,10 @@ stay unchanged. What OPD would load runs through an unlocked post-processing ste
 - `qa[].answering_body`: the frozen assembly writes a typed null `present_unanchored` with evidence "not extracted in
   P3", which claims that candidates were present but none anchored, when in fact nobody looked. Schema v0.1 has no null
   reason for "not attempted" (`data/schema/null_reasons.json`) and the field is required, so the product record leaves
-  the field out and lists it under `omitted` with that note. Such a record is not schema-valid as a whole until the
-  field is extracted or v0.2 adds a reason; `affair_post.validate` checks everything else.
+  the field out and lists it under `omitted` with that note; `affair_post.validate` checks everything else against
+  v0.1. Schema v0.2 adds the reason, `not_extracted`: carried to v0.2 with it, all 65 P3 and P3b product records
+  validate as a whole (`python -m gegenprobe.schema.v0_2_all` → `results/schema/v0_2/p3_records.jsonl`,
+  `p3b_records.jsonl`, `validation_all.json`).
 - `decision`: for an interpellation, a written question or question time, on which parliament takes no decision, a
   metadata null `not_in_corpus` becomes `not_applicable` (route metadata, the type as evidence). A decision OPD records
   is kept.
@@ -45,7 +47,7 @@ stay unchanged. What OPD would load runs through an unlocked post-processing ste
 --measure` → `results/eval5/affair_post_check.json`): the answer-date guard fires on 3 of the 36 P3b affairs, all three
 in Luzern, and OPD's kept date equals the gold label in all three; it fires on none of the 29 P3 affairs.
 `answering_body` is left out in all 65 records, and `decision` becomes `not_applicable` in 12 P3 and 9 P3b records. The
-evidence site's sample record is the post-processed one.
+evidence site's sample record is the post-processed one, carried to schema v0.2.
 
 **Metadata vs document values.** In every `Affair` instance, a value taken from OPD metadata has `route: metadata`,
 `basis: metadata`, a `source` naming the OPD record (e.g. `opd:events/…`) and no span. A value read from a document

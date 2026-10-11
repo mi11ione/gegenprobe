@@ -4,6 +4,17 @@ The operations guide for a two- or three-person data team; the tables are the qu
 model-free. The converter's optional Apertus review mode is the one part that uses a model; "Review mode in operation"
 below covers its refit procedure, owner and cost.
 
+## Operator sheet
+
+| | |
+|---|---|
+| **Hardware** | Nightly job: Linux, systemd, Docker or a Python 3.11 venv; one core most of the run, ceilings 4 GB memory and 2 CPU (peak 2,077.6 MB), state under 1 GB, 20 GB disk; no GPU, no model. Optional local Apertus 8B (review mode only): 9.3 GB peak memory, 180 s per document on 4 vCPUs. |
+| **Time** | First network night 83 and 86 min on 4-vCPU GitHub runners, the incremental next night 6.6 min; inside OPD with `GP_EXPORTS_DIR` and no changed export, 96.8 s. `TimeoutStartSec=4h`. |
+| **External hosts** | files.openparldata.ch (GET of the exports; none with `GP_EXPORTS_DIR`) · ogd.parl.apps.be.ch, rrgr-service.apps.be.ch (GET; an affair number) · fedlex.data.admin.ch, www.fedlex.admin.ch (a citation such as "BBl 2014 9657") · the document hosts OPD lists and the parliaments' sites (GET of public pages, PDFs and robots.txt; one canary per adapter source each network night) · huggingface.co only with `GP_GGUF=1` (the pinned GGUF, once) · the LLM endpoint you set (`LLM_BASE_URL`: text of public documents, review mode only) · your webhook or SMTP relay (`GP_ALERT_*`: the night's alerts). Every request carries `GP_USER_AGENT`, keeps 1.2 s per host and obeys robots.txt (RFC 9309, fail-closed). |
+| **Exit codes** | 0 quiet night · 3 alerts delivered (`GP_ALERT_EXIT`) · 1 job or delivery failure (undelivered alerts stay in `work/nightly/outbox.json` and go out the next night) · 2 nothing to work on yet · 137 killed for memory. Review mode exits 3 on a served build its θ was not fitted on. |
+| **Alerts** | to the webhook or SMTP relay in `/etc/gegenprobe/alerts.env`; the systemd failure notifier posts on exit 1 or 2, a crash, a timeout or an OOM kill ([Alerts](#alerts)); `python -m gegenprobe.monitor.notify test` checks the channel. |
+| **Licences** | code Apache-2.0; data and results CDLA-Permissive-2.0, derived from OpenParlData.ch (CC BY 4.0, "Source: OpenParlData.ch"); report CC-BY-4.0; Apertus 8B and its GGUF chain Apache-2.0 ([Checked in CI](#checked-in-ci)); Python dependencies installed with `--require-hashes` from `requirements.lock`. |
+
 ## Where it runs
 
 | option | when | cost |

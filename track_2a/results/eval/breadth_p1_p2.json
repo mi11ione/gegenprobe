@@ -1,0 +1,721 @@
+{
+ "label": "POST HOC (not pre-registered): P1/P2 answer-date results per stratum, re-scored from committed predictions",
+ "command": "PYTHONPATH=src:. python -m eval.breadth",
+ "attributes": {
+  "language": "stratum cell prefix (ocr_ti = Italian)",
+  "level": "stratum cell suffix (ocr_ti = canton)",
+  "scanned": "extractor tesseract and image_only true (= stratum ocr_ti)"
+ },
+ "sets": {
+  "P1": {
+   "results": "results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json",
+   "docs": "data/gold/heldout_docs.jsonl",
+   "cells": {
+    "ALL": {
+     "n": 154,
+     "n_answered": 64,
+     "n_answerless": 90,
+     "rules": {
+      "exact": 135,
+      "found": 47,
+      "answerless_dated": 2
+     },
+     "pointer": {
+      "exact": 130,
+      "found": 46,
+      "answerless_dated": 6
+     },
+     "cascade": {
+      "exact": 139,
+      "found": 56,
+      "answerless_dated": 7
+     },
+     "bodies": [
+      "230",
+      "261",
+      "3203",
+      "5192",
+      "5254",
+      "5586",
+      "6152",
+      "6621",
+      "BE",
+      "BS",
+      "GE",
+      "JU",
+      "LU",
+      "TI",
+      "VS",
+      "ZH"
+     ],
+     "n_parliaments": 16
+    },
+    "de_canton": {
+     "n": 22,
+     "n_answered": 9,
+     "n_answerless": 13,
+     "rules": {
+      "exact": 17,
+      "found": 6,
+      "answerless_dated": 2
+     },
+     "pointer": {
+      "exact": 19,
+      "found": 7,
+      "answerless_dated": 1
+     },
+     "cascade": {
+      "exact": 20,
+      "found": 9,
+      "answerless_dated": 2
+     },
+     "language": "DE",
+     "level": "canton",
+     "source": "born-digital",
+     "bodies": [
+      "BE",
+      "BS",
+      "LU",
+      "ZH"
+     ],
+     "n_parliaments": 4
+    },
+    "de_commune": {
+     "n": 22,
+     "n_answered": 8,
+     "n_answerless": 14,
+     "rules": {
+      "exact": 20,
+      "found": 6,
+      "answerless_dated": 0
+     },
+     "pointer": {
+      "exact": 16,
+      "found": 6,
+      "answerless_dated": 4
+     },
+     "cascade": {
+      "exact": 17,
+      "found": 7,
+      "answerless_dated": 4
+     },
+     "language": "DE",
+     "level": "commune",
+     "source": "born-digital",
+     "bodies": [
+      "230",
+      "261",
+      "3203"
+     ],
+     "n_parliaments": 3
+    },
+    "fr_canton": {
+     "n": 22,
+     "n_answered": 9,
+     "n_answerless": 13,
+     "rules": {
+      "exact": 19,
+      "found": 6,
+      "answerless_dated": 0
+     },
+     "pointer": {
+      "exact": 18,
+      "found": 5,
+      "answerless_dated": 0
+     },
+     "cascade": {
+      "exact": 20,
+      "found": 7,
+      "answerless_dated": 0
+     },
+     "language": "FR",
+     "level": "canton",
+     "source": "born-digital",
+     "bodies": [
+      "BE",
+      "GE",
+      "JU",
+      "VS"
+     ],
+     "n_parliaments": 4
+    },
+    "fr_commune": {
+     "n": 22,
+     "n_answered": 8,
+     "n_answerless": 14,
+     "rules": {
+      "exact": 19,
+      "found": 5,
+      "answerless_dated": 0
+     },
+     "pointer": {
+      "exact": 19,
+      "found": 6,
+      "answerless_dated": 1
+     },
+     "cascade": {
+      "exact": 19,
+      "found": 6,
+      "answerless_dated": 1
+     },
+     "language": "FR",
+     "level": "commune",
+     "source": "born-digital",
+     "bodies": [
+      "5586",
+      "6152",
+      "6621"
+     ],
+     "n_parliaments": 3
+    },
+    "it_canton": {
+     "n": 22,
+     "n_answered": 9,
+     "n_answerless": 13,
+     "rules": {
+      "exact": 21,
+      "found": 8,
+      "answerless_dated": 0
+     },
+     "pointer": {
+      "exact": 21,
+      "found": 8,
+      "answerless_dated": 0
+     },
+     "cascade": {
+      "exact": 21,
+      "found": 8,
+      "answerless_dated": 0
+     },
+     "language": "IT",
+     "level": "canton",
+     "source": "born-digital",
+     "bodies": [
+      "TI"
+     ],
+     "n_parliaments": 1
+    },
+    "it_commune": {
+     "n": 22,
+     "n_answered": 9,
+     "n_answerless": 13,
+     "rules": {
+      "exact": 18,
+      "found": 5,
+      "answerless_dated": 0
+     },
+     "pointer": {
+      "exact": 20,
+      "found": 7,
+      "answerless_dated": 0
+     },
+     "cascade": {
+      "exact": 21,
+      "found": 8,
+      "answerless_dated": 0
+     },
+     "language": "IT",
+     "level": "commune",
+     "source": "born-digital",
+     "bodies": [
+      "5192",
+      "5254"
+     ],
+     "n_parliaments": 2
+    },
+    "ocr_ti": {
+     "n": 22,
+     "n_answered": 12,
+     "n_answerless": 10,
+     "rules": {
+      "exact": 21,
+      "found": 11,
+      "answerless_dated": 0
+     },
+     "pointer": {
+      "exact": 17,
+      "found": 7,
+      "answerless_dated": 0
+     },
+     "cascade": {
+      "exact": 21,
+      "found": 11,
+      "answerless_dated": 0
+     },
+     "language": "IT",
+     "level": "canton",
+     "source": "scanned (OCR)",
+     "bodies": [
+      "TI"
+     ],
+     "n_parliaments": 1
+    }
+   },
+   "by": {
+    "language": {
+     "DE": {
+      "n": 44,
+      "n_answered": 17,
+      "n_answerless": 27,
+      "rules": {
+       "exact": 37,
+       "found": 12,
+       "answerless_dated": 2
+      },
+      "pointer": {
+       "exact": 35,
+       "found": 13,
+       "answerless_dated": 5
+      },
+      "cascade": {
+       "exact": 37,
+       "found": 16,
+       "answerless_dated": 6
+      }
+     },
+     "FR": {
+      "n": 44,
+      "n_answered": 17,
+      "n_answerless": 27,
+      "rules": {
+       "exact": 38,
+       "found": 11,
+       "answerless_dated": 0
+      },
+      "pointer": {
+       "exact": 37,
+       "found": 11,
+       "answerless_dated": 1
+      },
+      "cascade": {
+       "exact": 39,
+       "found": 13,
+       "answerless_dated": 1
+      }
+     },
+     "IT": {
+      "n": 66,
+      "n_answered": 30,
+      "n_answerless": 36,
+      "rules": {
+       "exact": 60,
+       "found": 24,
+       "answerless_dated": 0
+      },
+      "pointer": {
+       "exact": 58,
+       "found": 22,
+       "answerless_dated": 0
+      },
+      "cascade": {
+       "exact": 63,
+       "found": 27,
+       "answerless_dated": 0
+      }
+     }
+    },
+    "level": {
+     "canton": {
+      "n": 88,
+      "n_answered": 39,
+      "n_answerless": 49,
+      "rules": {
+       "exact": 78,
+       "found": 31,
+       "answerless_dated": 2
+      },
+      "pointer": {
+       "exact": 75,
+       "found": 27,
+       "answerless_dated": 1
+      },
+      "cascade": {
+       "exact": 82,
+       "found": 35,
+       "answerless_dated": 2
+      }
+     },
+     "commune": {
+      "n": 66,
+      "n_answered": 25,
+      "n_answerless": 41,
+      "rules": {
+       "exact": 57,
+       "found": 16,
+       "answerless_dated": 0
+      },
+      "pointer": {
+       "exact": 55,
+       "found": 19,
+       "answerless_dated": 5
+      },
+      "cascade": {
+       "exact": 57,
+       "found": 21,
+       "answerless_dated": 5
+      }
+     }
+    },
+    "source": {
+     "born-digital": {
+      "n": 132,
+      "n_answered": 52,
+      "n_answerless": 80,
+      "rules": {
+       "exact": 114,
+       "found": 36,
+       "answerless_dated": 2
+      },
+      "pointer": {
+       "exact": 113,
+       "found": 39,
+       "answerless_dated": 6
+      },
+      "cascade": {
+       "exact": 118,
+       "found": 45,
+       "answerless_dated": 7
+      }
+     },
+     "scanned (OCR)": {
+      "n": 22,
+      "n_answered": 12,
+      "n_answerless": 10,
+      "rules": {
+       "exact": 21,
+       "found": 11,
+       "answerless_dated": 0
+      },
+      "pointer": {
+       "exact": 17,
+       "found": 7,
+       "answerless_dated": 0
+      },
+      "cascade": {
+       "exact": 21,
+       "found": 11,
+       "answerless_dated": 0
+      }
+     }
+    }
+   }
+  },
+  "P2": {
+   "results": "results/eval2/p2__publicai_swiss-ai_apertus-v1.5-8b.json",
+   "docs": "data/gold2/p2_docs.jsonl",
+   "cells": {
+    "ALL": {
+     "n": 62,
+     "n_answered": 29,
+     "n_answerless": 33,
+     "rules": {
+      "exact": 35,
+      "found": 2,
+      "answerless_dated": 0
+     },
+     "pointer": {
+      "exact": 53,
+      "found": 24,
+      "answerless_dated": 4
+     },
+     "cascade": {
+      "exact": 51,
+      "found": 22,
+      "answerless_dated": 4
+     },
+     "bodies": [
+      "1061",
+      "2196",
+      "247",
+      "5002",
+      "62",
+      "6266",
+      "6421",
+      "6643",
+      "AR",
+      "GL",
+      "NW",
+      "OW",
+      "SH",
+      "SZ",
+      "VD"
+     ],
+     "n_parliaments": 15
+    },
+    "de_canton": {
+     "n": 23,
+     "n_answered": 12,
+     "n_answerless": 11,
+     "rules": {
+      "exact": 11,
+      "found": 0,
+      "answerless_dated": 0
+     },
+     "pointer": {
+      "exact": 19,
+      "found": 8,
+      "answerless_dated": 0
+     },
+     "cascade": {
+      "exact": 17,
+      "found": 6,
+      "answerless_dated": 0
+     },
+     "language": "DE",
+     "level": "canton",
+     "source": "born-digital",
+     "bodies": [
+      "AR",
+      "GL",
+      "NW",
+      "OW",
+      "SH",
+      "SZ"
+     ],
+     "n_parliaments": 6
+    },
+    "de_commune": {
+     "n": 10,
+     "n_answered": 1,
+     "n_answerless": 9,
+     "rules": {
+      "exact": 9,
+      "found": 0,
+      "answerless_dated": 0
+     },
+     "pointer": {
+      "exact": 10,
+      "found": 1,
+      "answerless_dated": 0
+     },
+     "cascade": {
+      "exact": 10,
+      "found": 1,
+      "answerless_dated": 0
+     },
+     "language": "DE",
+     "level": "commune",
+     "source": "born-digital",
+     "bodies": [
+      "1061",
+      "247",
+      "62"
+     ],
+     "n_parliaments": 3
+    },
+    "fr_canton": {
+     "n": 8,
+     "n_answered": 8,
+     "n_answerless": 0,
+     "rules": {
+      "exact": 0,
+      "found": 0,
+      "answerless_dated": 0
+     },
+     "pointer": {
+      "exact": 8,
+      "found": 8,
+      "answerless_dated": 0
+     },
+     "cascade": {
+      "exact": 8,
+      "found": 8,
+      "answerless_dated": 0
+     },
+     "language": "FR",
+     "level": "canton",
+     "source": "born-digital",
+     "bodies": [
+      "VD"
+     ],
+     "n_parliaments": 1
+    },
+    "fr_commune": {
+     "n": 15,
+     "n_answered": 3,
+     "n_answerless": 12,
+     "rules": {
+      "exact": 14,
+      "found": 2,
+      "answerless_dated": 0
+     },
+     "pointer": {
+      "exact": 10,
+      "found": 2,
+      "answerless_dated": 4
+     },
+     "cascade": {
+      "exact": 10,
+      "found": 2,
+      "answerless_dated": 4
+     },
+     "language": "FR",
+     "level": "commune",
+     "source": "born-digital",
+     "bodies": [
+      "2196",
+      "6266",
+      "6421",
+      "6643"
+     ],
+     "n_parliaments": 4
+    },
+    "it_commune": {
+     "n": 6,
+     "n_answered": 5,
+     "n_answerless": 1,
+     "rules": {
+      "exact": 1,
+      "found": 0,
+      "answerless_dated": 0
+     },
+     "pointer": {
+      "exact": 6,
+      "found": 5,
+      "answerless_dated": 0
+     },
+     "cascade": {
+      "exact": 6,
+      "found": 5,
+      "answerless_dated": 0
+     },
+     "language": "IT",
+     "level": "commune",
+     "source": "born-digital",
+     "bodies": [
+      "5002"
+     ],
+     "n_parliaments": 1
+    }
+   },
+   "by": {
+    "language": {
+     "DE": {
+      "n": 33,
+      "n_answered": 13,
+      "n_answerless": 20,
+      "rules": {
+       "exact": 20,
+       "found": 0,
+       "answerless_dated": 0
+      },
+      "pointer": {
+       "exact": 29,
+       "found": 9,
+       "answerless_dated": 0
+      },
+      "cascade": {
+       "exact": 27,
+       "found": 7,
+       "answerless_dated": 0
+      }
+     },
+     "FR": {
+      "n": 23,
+      "n_answered": 11,
+      "n_answerless": 12,
+      "rules": {
+       "exact": 14,
+       "found": 2,
+       "answerless_dated": 0
+      },
+      "pointer": {
+       "exact": 18,
+       "found": 10,
+       "answerless_dated": 4
+      },
+      "cascade": {
+       "exact": 18,
+       "found": 10,
+       "answerless_dated": 4
+      }
+     },
+     "IT": {
+      "n": 6,
+      "n_answered": 5,
+      "n_answerless": 1,
+      "rules": {
+       "exact": 1,
+       "found": 0,
+       "answerless_dated": 0
+      },
+      "pointer": {
+       "exact": 6,
+       "found": 5,
+       "answerless_dated": 0
+      },
+      "cascade": {
+       "exact": 6,
+       "found": 5,
+       "answerless_dated": 0
+      }
+     }
+    },
+    "level": {
+     "canton": {
+      "n": 31,
+      "n_answered": 20,
+      "n_answerless": 11,
+      "rules": {
+       "exact": 11,
+       "found": 0,
+       "answerless_dated": 0
+      },
+      "pointer": {
+       "exact": 27,
+       "found": 16,
+       "answerless_dated": 0
+      },
+      "cascade": {
+       "exact": 25,
+       "found": 14,
+       "answerless_dated": 0
+      }
+     },
+     "commune": {
+      "n": 31,
+      "n_answered": 9,
+      "n_answerless": 22,
+      "rules": {
+       "exact": 24,
+       "found": 2,
+       "answerless_dated": 0
+      },
+      "pointer": {
+       "exact": 26,
+       "found": 8,
+       "answerless_dated": 4
+      },
+      "cascade": {
+       "exact": 26,
+       "found": 8,
+       "answerless_dated": 4
+      }
+     }
+    },
+    "source": {
+     "born-digital": {
+      "n": 62,
+      "n_answered": 29,
+      "n_answerless": 33,
+      "rules": {
+       "exact": 35,
+       "found": 2,
+       "answerless_dated": 0
+      },
+      "pointer": {
+       "exact": 53,
+       "found": 24,
+       "answerless_dated": 4
+      },
+      "cascade": {
+       "exact": 51,
+       "found": 22,
+       "answerless_dated": 4
+      }
+     }
+    }
+   }
+  }
+ }
+}

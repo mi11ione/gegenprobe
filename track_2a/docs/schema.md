@@ -28,6 +28,12 @@ the document and closed set for a model's document-level classification (a revie
 - Vocabularies with DE/FR/IT/EN labels, OPD harmonised ids and corpus counts: `data/schema/*.json`
   (`python -m gegenprobe.schema.vocab`)
 - Samples: `results/schema/samples/*.json` (`python -m gegenprobe.schema.samples`)
+- **v0.2** (P8's roles, `schema/gegenprobe_schema_v0_2.py`, JSON Schema `results/schema/v0_2/affair.schema.json`):
+  validated on 171 affairs in four sets (`results/schema/v0_2/validation_all.json`, `make schema-v02`). 105 are the
+  converter's own records: P3 (29) and P3b (36) product records after `affair_post`, carried to v0.2 with
+  `qa[].answering_body` as the typed null `not_extracted`, and P5 (40) rules-arm records (Q/A items, people,
+  recommendation) with OPD's identification metadata. The other 66 are P8's gold records. Converter-made samples:
+  `results/schema/v0_2/samples/` (Bern, Valais in French, Graubünden in Italian).
 - Validator: `src/gegenprobe/validate/` (see the end of this page)
 
 ## 1. Three design rules

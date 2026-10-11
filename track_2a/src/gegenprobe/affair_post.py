@@ -7,8 +7,9 @@ corrects what the frozen assembly states wrongly or cannot know, and says so:
   1. qa[].answering_body  build.py writes a typed null `present_unanchored` ("candidate values present but none is
      anchored") with evidence "not extracted in P3". Nobody looked, so that reason is false. Schema v0.1's null reasons
      (data/schema/null_reasons.json) have none for "not attempted", and the field is required, so the field is LEFT OUT of
-     the product record and listed in `omitted` with that note. (The record is then not schema-valid as a whole; `validate`
-     checks everything else.)
+     the product record and listed in `omitted` with that note. (The record is then not v0.1-valid as a whole; `validate`
+     checks everything else. Schema v0.2 has the reason `not_extracted`; gegenprobe.schema.v0_2_all.carry_v0_1 carries
+     the record to v0.2 with it, and all 65 P3/P3b records validate.)
   2. decision  for an interpellation, a written question or question time (types on which parliament takes no decision;
      the same three types make the recommendation not_applicable, convert/affair_types.py), a metadata null
      `not_in_corpus` ("no record holding the value exists") becomes `not_applicable`, route metadata, with the type as

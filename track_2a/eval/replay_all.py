@@ -515,7 +515,10 @@ def main_rederive(ctx: dict | None = None) -> dict:
     summary = ("Apertus pointer + cascade decisions recomputed from the committed model cache (cache-only, frozen code): "
                + "; ".join(parts))
     status = "FAIL" if n_mis else ("SKIP" if n_re == 0 else ("WARN" if n_miss else "PASS"))
-    return dict(status=status, summary=summary, rederived=n_re, mismatches=n_mis, cache_miss=n_miss, secs=r["secs"])
+    coverage = {name: {k: s.get(k, 0) for k in ("n", "rederived", "match", "cache_miss", "unreachable", "not_reached_budget",
+                                                "skipped_no_ocr")} for name, s in r["sets"].items()}
+    return dict(status=status, summary=summary, rederived=n_re, mismatches=n_mis, cache_miss=n_miss, coverage=coverage,
+                secs=r["secs"])
 
 
 if __name__ == "__main__":

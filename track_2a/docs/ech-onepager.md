@@ -6,21 +6,23 @@ with `$id` and version 0.1.0: `results/schema/*.schema.json`; v0.2 with P8's rol
 JSON Schema `results/schema/v0_2/affair.schema.json`; field guide: `docs/schema.md`; mappings to Popolo, Akoma
 Ntoso, Parla-CLARIN and OParl: `docs/mapping.md`.
 
-**In one line:** a common schema works if it carries roles, and not only for dates: authorship (sole author, first
-signatory, joint authors, parliamentary group), signatories, the instrument behind a harmonised type, and
-the date a submission really carries. "Answer date" is the government's decision in some parliaments, the letter or
-registration date in others and in 7 bodies mostly the submission date; v0.1 makes the role explicit on every date. A
-pre-registered test on 66 fresh affairs from 11 parliaments (P8) finds the same for the fields v0.1 defined once; §2
-turns each finding into a recommendation. Meaning is now measured for 11 of the 17 fields. **v0.2 ships P8's roles;
-all 66 P8 affairs validate** as v0.2 records, and the v0.1 samples upgrade losslessly
-(`results/schema/v0_2/p8_validation.json`).
+**In one line:** a common schema works if its fields carry roles, and not only for dates. Of the 17 fields, 10 need
+roles (8 robust, 2 fragile), 1 is body-specific, and 6 are defined once in v0.1 (their meaning is
+the next test). "Answer date" is the government's decision in some parliaments, the letter or registration date in
+others and in 7 bodies mostly the submission date; v0.1 makes the role explicit on every date. A pre-registered test on
+66 fresh affairs from 11 parliaments (P8) finds roles in fields v0.1 defined once: authorship (sole author, first
+signatory, joint authors, parliamentary group), signatories, the instrument behind a harmonised type, and the date a
+submission really carries; §2 turns each finding into a recommendation. Meaning is now measured for 11 of the 17
+fields. **v0.2 ships P8's roles and validates 171 affairs**: the converter's own records for P3 (29), P3b (36) and P5
+(40) and the 66 P8 affairs; the v0.1 samples upgrade losslessly (`results/schema/v0_2/validation_all.json`).
 
-## 1. Three classes (by meaning, measured on OPD's labels and on the documents)
+## 1. Classes (by meaning, measured on OPD's labels and on the documents)
 
 | class | fields and concepts | what it means for a standard |
 |---|---|---|
-| **shared with a role split** (10 of 17) | answer date, procedural history, type, procedural state, decision outcome (from OPD's labels; all 5 are measured); submitter, co-signatories, language (P8; type splits there too); addressed body and government recommendation (P8, *fragile, to confirm*: split on the gold, not under both checks) | one label covers several roles that must be kept apart before parliaments can be compared; the roles are named in §2 and in `data/schema/field_verdict_classes.json` |
-| **shared** (7 of 17) | submission date (body-specific in Vernier and Lausanne, P8), decision date, dispatch date, Q/A pairing, related affairs, usable text, answer-link status | one definition in v0.1; the six without a test are the next candidates for the same test; *where* the value lives (metadata, PDF, or not in OPD) is measured |
+| **shared with a role split** (10 of 17: 8 robust, 2 fragile) | answer date, procedural history, type, procedural state, decision outcome (from OPD's labels; all 5 are measured); submitter, co-signatories, language (P8; type splits there too); addressed body and government recommendation (P8, *fragile, to confirm*: split on the gold, not under both checks) | one label covers several roles that must be kept apart before parliaments can be compared; the roles are named in §2 and in `data/schema/field_verdict_classes.json` |
+| **body-specific** (1 of 17) | submission date: in Vernier and Lausanne OPD's date is mostly printed nowhere in the documents (P8, under both checks) | a standard records which event the date is |
+| **defined once in v0.1** (6 of 17) | decision date, dispatch date, Q/A pairing, related affairs, usable text, answer-link status | one definition in v0.1; their meaning is the next test (the same test as P8); *where* the value lives (metadata, PDF, or not in OPD) is measured |
 | **body-specific** (3 concepts, not among the 17 fields) | oral answers in question time; executive business that answers no member's affair; councils that publish only meeting documents | needs its own construct, not a field: v0.1 types oral answers as a null reason and marks affairs rebuilt from minutes `virtual` with `derived_from` |
 
 For the government recommendation OPD's harmonised labels map unambiguously (0 of 183 raw labels map to different
@@ -122,13 +124,12 @@ recomputed by `make run`).
 
 ## 7. Proposal
 
-Adopt date roles, typed nulls and the three classes as the frame; standardise the role split for the answer date first
+Adopt date roles, typed nulls and the classes of §1 as the frame; standardise the role split for the answer date first
 (it decides every answer-time comparison); treat oral answers, executive-own business and minutes-only councils as
 named constructs. v0.2 ships the P8 roles of §2 (author roles, `instrument_function` next to the type, the language
 from the text apart from the tag, submission-date roles, the recommendation's `stage`) and a `not_extracted` null
-reason; all 66 P8 affairs validate in it. Next for v0.3: a `QAItem` field for joint answers (measured, P5) and the
-five gaps. Test plan for the
-six fields still shared by definition (decision and dispatch dates, Q/A pairing, related affairs, usable text,
+reason; 171 affairs validate in it, 105 of them the converter's own records (P3, P3b, P5). Next for v0.3: a `QAItem`
+field for joint answers (measured, P5) and the five gaps. Test plan for the six fields defined once (decision and dispatch dates, Q/A pairing, related affairs, usable text,
 answer-link status): the same P8 protocol, with Ticino's documents once its robots.txt permits them. OPD vocabulary errors found on the way
 (e.g. the harmonised type "Votaziun", Romansh for a vote, on 9,887 affairs) are listed in `results/census/vocab_bugs.tsv`. Gegenprobe (Hack Apertus,
 Track 2A, team 444): https://gegenprobe.mi11ion.io.

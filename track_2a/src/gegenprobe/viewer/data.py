@@ -894,6 +894,8 @@ def evaluation() -> dict:
             a: dict(correct=v["strict"]["ALL"]["correct"], of=v["strict"]["ALL"]["n_gold_value"]) for a, v in res["arms"].items()
         },
         suggestions=dict(right=sugg_ok, of=len(sugg), on_answerless=sum(r["gold"] is None for r in sugg)),
+        # P2's best no-model baseline (post hoc): the latest printed date on documents OPD types as answers
+        p2_answer_typed=_p2_answer_typed(),
     )
     return dict(
         baselines=baselines,
@@ -1288,7 +1290,11 @@ def schema_view() -> dict:
     from ..affair_post import finalize  # product post-processing: no false typed null in the showcase (J1, round 5)
 
     post = finalize(x["affair"])
-    rec = post["affair"]
+    # the converter's product record carried to schema v0.2 (answering_body typed `not_extracted`), validated as a whole
+    from ..schema.v0_2_all import carry_v0_1
+    from ..schema.p8_v0_2 import schema_module
+
+    rec = schema_module().validate_affair(carry_v0_1(post["affair"])).model_dump(mode="json", exclude_none=True)
     ad = rec["qa"][0]["answer_date"]
     assert ad["kind"] == "value" and ad.get("page") and ad.get("char_start") is not None, "sample must carry a span"
     assert rec["government_recommendation"]["kind"] == "null", "sample must carry a typed null"
@@ -1305,12 +1311,40 @@ def schema_view() -> dict:
                        for c in ("shared", "shared_with_role_split")},
         meaning_measured=sum(f["tested"].startswith("measured") for f in fields),
         meaning_p8=sum(bool(f["p8"]) for f in fields),
+        # the headline verdict: 10 need roles (robust under both P8 checks or measured on OPD's labels, or fragile),
+        # 1 body-specific, the rest defined once in v0.1 with their meaning not yet tested
+        verdict=_verdict(fields),
+        v02=_v02(),
         sample=dict(record=rec, suggestions=x.get("suggestions", {}), body_label=label, test="P3b",
-                    omitted=post["omitted"], changes=post["changes"],
+                    omitted=[], changes=post["changes"], schema_version=rec["schema_version"],
                     source="results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json",
                     gold_answer_date=gold["answer_date"], gold_quote=gold.get("answer_date_quote"),
                     gold_page=gold.get("answer_date_page")),
     )
+
+
+def _v02() -> dict | None:
+    """Schema v0.2 validation over every set (results/schema/v0_2/validation_all.json, make schema-v02)."""
+    p = RESULTS / "schema" / "v0_2" / "validation_all.json"
+    if not p.exists():
+        return None
+    d = json.loads(p.read_text())
+    return dict(n_affairs=d["n_affairs"], n_valid=d["n_valid"], n_parliaments=d["n_parliaments"],
+                converter_valid=d["converter_made"]["n_valid"], converter_n=d["converter_made"]["n_affairs"],
+                sets={k: dict(n=v["n_affairs"], valid=v["n_valid"]) for k, v in d["sets"].items()})
+
+
+def _verdict(fields: list[dict]) -> dict:
+    split = [f for f in fields if f["cls"] == "shared_with_role_split"]
+    fragile = [f for f in split if f["p8"] and not f["p8"]["robust"]]
+    shared = [f for f in fields if f["cls"] == "shared"]
+    body = [f for f in shared if f["p8"] and f["p8"]["verdict"] == "body_specific"]
+    once = [f for f in shared if not f["p8"]]
+    assert len(split) + len(body) + len(once) == len(fields)
+    return dict(fields=len(fields), need_roles=len(split), need_roles_robust=len(split) - len(fragile),
+                need_roles_fragile=len(fragile), body_specific=len(body), defined_once=len(once),
+                fragile_fields=[f["key"] for f in fragile], body_specific_fields=[f["key"] for f in body],
+                defined_once_fields=[f["key"] for f in once])
 
 
 def p7() -> dict | None:
@@ -1395,6 +1429,19 @@ def method() -> dict:
     )
 
 
+def _p2_answer_typed() -> dict | None:
+    p = RESULTS / "eval" / "baselines_dates.json"
+    if not p.exists():
+        return None
+    b = json.loads(p.read_text())["P2_unseen"]["latest_date_on_answer_docs_only"]
+    return dict(exact=b["exact"], n=b["n"], found=b["value_recall"], answerless_dated=b["values_on_gold_null"])
+
+
+def _rows(p) -> int:
+    with open(p, encoding="utf-8") as f:
+        return sum(1 for line in f if line.strip()) - 1
+
+
 def headline(par: dict, ev: dict) -> dict:
     nat = par["national"]
     be = _j("repair/summary.json")["by_action"]
@@ -1404,6 +1451,10 @@ def headline(par: dict, ev: dict) -> dict:
         gap_share=par["gap_share"],
         relink=be["relink"],
         fetch=be["fetch"],
+        # the labelled split shown everywhere: relink candidates = ready (every check passes; repair_BE_relink.tsv) +
+        # for review; the same for the fetch rows (repair_BE_fetch.tsv)
+        relink_ready=_rows(RESULTS / "repair" / "repair_BE_relink.tsv"),
+        fetch_ready=_rows(RESULTS / "repair" / "repair_BE_fetch.tsv"),
         bodies=len(par["rows"]),
         heldout=ev["n"],
         rules_exact=ev["arms"]["rules"]["exact"],

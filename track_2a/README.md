@@ -3,41 +3,47 @@
 Track 2A · OpenParlData (OPD) · Team 444 · **Evidence site: https://gegenprobe.mi11ion.io** · technical report:
 [`technical_report.md`](technical_report.md) (PDF `444_Report.pdf`)
 
-> **For OPD.** Verdict: a common schema is feasible once its fields carry roles. Of the 17 fields, 10 need roles, 6 keep
-> one definition and 1, the submission date, is body-specific in 2 parliaments ([the 17 fields](#1-the-schema-shared-concepts-explicit-roles)).
-> Schema v0.2 ships P8's roles, and all 66 P8 affairs validate in it. The repair lists are ready as dry-run plans keyed on your ids.
-> The one open decision: your hash rule for relinked documents (keep the old identifier or issue a new one).
-> Files: [`docs/ech-onepager.md`](docs/ech-onepager.md) (per-field recommendation for the eCH group),
-> [`schema/gegenprobe_schema.py`](schema/gegenprobe_schema.py) (schema v0.1, one file, pydantic only) with
-> [`schema/gegenprobe_schema_v0_2.py`](schema/gegenprobe_schema_v0_2.py) (v0.2: P8's roles) and
-> [`results/repair/apply_be/apply_BE_plan.sql.txt`](results/repair/apply_be/apply_BE_plan.sql.txt) (guarded Bern plan, dry run).
-> Spot-check kit: [`results/opd_spotcheck/`](results/opd_spotcheck/), 30 gold labels with link, page and quote that anyone, OPD included, can verify in about an hour (`python -m eval.spotcheck score`).
+**A common schema for Swiss parliamentary business works if its fields carry roles, and the proposed repairs, keyed on
+OpenParlData (OPD) ids, would raise the share of interventions with a recorded government answer that have answer text
+from 81.6% to 92.3%.** Of the 17 fields, 10 need roles (8 robust, 2 fragile), 1 is body-specific,
+and 6 are defined once in v0.1 (their meaning is the next test) ([the 17 fields](#1-the-schema-shared-concepts-explicit-roles)).
+"Answer date" is the government's decision in some parliaments, the letter or registration date in others and the
+submission date in a few; a pre-registered meaning test (P8) finds roles in authorship, signatories, the instrument
+behind a harmonised type and the date a submission carries. Schema v0.1 gives every value its role and source (page and
+character span, or the OPD record) and every empty field a typed reason; schema v0.2 adds P8's roles and validates
+171 affairs, 105 of them the converter's own records. Apertus is a closed-set reader: every value it extracts is
+printed in the document.
 
-**The answer.** A common schema for the business of Swiss parliaments works if it carries roles, and not only for
-dates. "Answer date" is the government's decision in some parliaments, the letter or registration date in others and
-the submission date in a few. A pre-registered meaning test (P8) finds the same for authorship (sole author, joint
-authors, first signatory, parliamentary group), signatories, the instrument behind a harmonised type and the date a
-submission really carries. Schema v0.1 gives every date its role, every value its source (page and character span, or
-the OPD record) and every empty field a typed reason; schema v0.2 adds P8's roles, and all 66 P8 affairs validate in it. Built on
-that schema, Gegenprobe measures where OPD's answers are, hands OPD checked repair lists keyed on its own ids, and uses
-Apertus as a closed-set reader: every value it extracts is printed in the document.
+> **For OPD.** The repair lists are dry-run plans keyed on your ids; the one open decision is your hash rule for
+> relinked documents (keep the old identifier or issue a new one). Files: [`docs/ech-onepager.md`](docs/ech-onepager.md)
+> (per-field recommendation for the eCH group), [`schema/gegenprobe_schema.py`](schema/gegenprobe_schema.py) (v0.1, one
+> file, pydantic only) with [`schema/gegenprobe_schema_v0_2.py`](schema/gegenprobe_schema_v0_2.py) (v0.2: P8's roles),
+> [`results/repair/apply_be/apply_BE_plan.sql.txt`](results/repair/apply_be/apply_BE_plan.sql.txt) (Bern plan, dry run:
+> rolls back unless every statement changes exactly one row). Spot-check kit:
+> [`results/opd_spotcheck/`](results/opd_spotcheck/), 30 gold labels with link, page and quote that anyone, OPD
+> included, can verify in about an hour (`python -m eval.spotcheck score`).
 
 | | |
 |---|---|
-| **92.3%** | of interventions with a recorded government answer would have answer text once the proposed repairs are applied, up from 81.6% attached today: 85.6% from what OPD already holds, 88.3% after its hash decision for the Bern relinks, 92.3% once the checked fetches are loaded |
-| **9,720** | answers with a repair proposed to OPD, keyed on OPD ids, with a dry-run apply plan for Bern |
-| **120/120** | sampled Apertus promotions judged the government's answer by blind AI annotators in a pre-registered test (P7-H1, Wilson 95% [96.9, 100]); 95.8% are answers whose printed answer date passes the date check, +22.7 points over a trivial date match, weighted, as registered (H4, [10.2, 34.3]; unweighted +7.5); a tier of 214 review-queue answers for OPD's review step |
-| **24/29** | answer dates Apertus finds in 15 parliaments nobody wrote rules for (P2), every value a printed date; on the 33 answerless documents it puts a date on 4, the latest printed date on 31 (which finds 22); a free prompt finds 22/29 as registered, 24/29 null-allowed and 25/29 plain once re-parsed |
-| **5 of 7** | fields v0.1 defines once depart from one meaning under both checks (P8: 66 affairs, 11 parliaments): submitter, co-signatories, type and language split by role; the submission date is body-specific (in Vernier and Lausanne mostly a date the documents do not print); schema v0.2 carries these roles |
+| **92.3%** | of interventions with a recorded government answer would have answer text once the proposed repairs are applied, up from 81.6% attached today ([staged](#ready-for-opd)) |
+| **9,720** | answers with a repair proposed to OPD, keyed on OPD ids, with a self-checking dry-run SQL plan for Bern |
+| **5 of 7** | fields v0.1 defines once depart from one meaning under both checks (P8: 66 affairs, 11 parliaments); schema v0.2 carries their roles |
+| **+22.7** | points for Apertus as review-queue verifier: the right answer with a checkable date, over a no-model date match (P7-H4, weighted as registered; unweighted +7.5); 120/120 promotions are answers (H1) |
+| **24/29** | answer dates Apertus finds in 15 parliaments nobody wrote rules for (P2), where the rules find 2/29; exact on 53/62 documents, against 44/62 for the best no-model baseline (post hoc) |
 
 - **Ready for OPD:** Bern relinks, fetches and `begin_date` corrections with dry-run SQL; per-parliament adapter lists;
   a vocabulary error list; a Fedlex resolver for the federal placeholder documents ([below](#ready-for-opd)).
 - **Auditable by construction:** every value Apertus extracts is a date or phrase printed in the document, located by
   code; its yes/no answers (P7) and category labels are judgements a person reviews. The default runs no model.
+- **Sovereign and cheap to run:** the default runs no model and only reads public sources (OPD's exports, Bern's open
+  data, Fedlex, the parliaments' sites); Apertus runs through the Public AI gateway or locally (8B GGUF, CPU). A first
+  network night took 86 min on a GitHub runner, the next 6.6 min; at ten times OPD's volume the rules need about 5
+  CPU-hours ([Operations](#operations)).
 - **Pre-registered:** nine tests, each frozen by hash before its labels (P1's hypothesis script followed its labels and
   its rules entered with its sample, both logged: D4, D12). `make claims` recomputes every claimed number from its
-  results file and checks it where it appears; in this headline block, the report's summary and the form notes it
-  checks every number token by token.
+  results file and checks that it is printed where listed; in the headline blocks (this one, the report's summary,
+  the form notes) and the README's results tables, every number must be bound to its claim by an anchor phrase at its
+  position.
 
 ```bash
 make run    # Docker, CPU, clean checkout: census, Bern join, converter samples, test replays, claims check, evidence site
@@ -61,7 +67,8 @@ the evidence site (box "For OPD's data team"). The apply plan is a dry run: we c
 | `repair_CHE.tsv.gz` | 29,946 federal documents whose OPD text is Fedlex's "JavaScript required" page | resolver fetches each text through Fedlex; pre-set rule 40/50 on a sample | one-off run, about 17.5 h at the polite rate |
 
 - **Bern.** OPD attaches 229 of the 3,532 answers the canton publishes (6.5%), yet 96.1% are already in OPD and
-  linkable without a model. OPD confirmed the linking bug and its root cause, and that the relink list is the
+  linkable without a model: 2,459 relink candidates = 2,421 ready (every check passes) + 38 for review, and 49 fetch
+  rows = 48 ready + 1 for review. OPD confirmed the linking bug and its root cause, and that the relink list is the
   workaround until its fix ships (correspondence, 10 Oct 2026).
 - **The one open decision.** OPD's document `hash` is sha256(body_key + parent_type + url), so relinking changes each
   identifier unless OPD keeps the old one. `python -m gegenprobe.repair.apply_be --fetch --out DIR` writes the plan with
@@ -87,7 +94,7 @@ the evidence site (box "For OPD's data team"). The apply plan is a dry run: we c
   the recommended Docker setup on a GitHub runner: 86 min for the first, 6.6 min for the incremental second (12
   bodies re-scanned). Night 2 exposed a ledger bug (it reset night 1's per-row verdicts to `unchecked`); it is fixed,
   a row that is not re-checked now keeps its stored verdict, two-night tests guard it, and the real two-night re-run of
-  the fixed code is dispatched tonight (`results/monitor/two_nights_docker_38098822336/README.md`).
+  the fixed code was dispatched 12 Oct 00:30 UTC (run in progress; `results/monitor/two_nights_docker_38098822336/README.md`).
 
 Detail, per list and per check: [`docs/operations.md`](docs/operations.md), [`docs/repair.md`](docs/repair.md),
 [`docs/adapters.md`](docs/adapters.md), [`docs/runbook.md`](docs/runbook.md).
@@ -101,14 +108,17 @@ from OPD's own labels and 7 from the documents in P8 (type both ways). v0.1 enco
 (`schema/gegenprobe_schema_v0_2.py`) adds P8's roles: author roles (sole author, joint author, first signatory,
 co-signatory, supporter, group, committee, spokesperson), the instrument's function next to the harmonised type, the
 text's language apart from the source's tag, submission-date roles (signed, lodged, received, announced, later step)
-and the recommendation's stage (on adoption, on fulfilment). All 66 P8 affairs validate as v0.2 records and the v0.1
-samples upgrade losslessly (`results/schema/v0_2/p8_validation.json`, `make schema-v02`).
+and the recommendation's stage (on adoption, on fulfilment). 171 affairs validate as v0.2 records: the converter's own
+records for P3 (29), P3b (36) and P5 (40), and the 66 P8 affairs; the v0.1 samples upgrade losslessly
+(`results/schema/v0_2/validation_all.json`, `make schema-v02`). Three converter-made v0.2 records (Bern in German,
+Valais in French, Graubünden in Italian, with per-question Q/A items) are the samples: `results/schema/v0_2/samples/`.
 
 - **Answer date.** OPD's "answer" event is the government's decision in some parliaments, the dispatch or registration
-  date in others, and in 7 parliaments mostly the submission date. Median answer times differ by what the date is:
-  112 days where it is the verified decision date (Bern, Ticino), 79 where it falls on a government's weekly sitting,
-  39 where it is a diffuse, publication-like date (`results/census/answer_days_by_trust.json`). v0.1 carries a
-  `DateRole` on every date and a date-trust tier per parliament.
+  date in others, and in 7 parliaments mostly the submission date. Median answer times, described per group of
+  parliaments (different parliaments in each group, so not an effect of the date's role alone): 112 days where the date
+  is the verified decision date (Bern, Ticino), 79 where it falls on a government's weekly sitting, 39 where it is a
+  diffuse, publication-like date (`results/census/answer_days_by_trust.json`). v0.1 carries a `DateRole` on every date
+  and a date-trust tier per parliament.
 - **Procedural history, type, procedural state, decision outcome.** One source label covers several roles: 35 event
   labels carry different date roles, 42 of 1,038 raw type labels map to different types, 32 state labels and 3 outcome
   labels are ambiguous (`results/census/comparability.json`).
@@ -175,18 +185,20 @@ the answer text is, the OPD and parliament pages and the date-trust tier (CDLA-P
 The default (`rules_only`) runs no model. Where Apertus runs, it answers a closed question or picks one of the dates
 or phrases printed in the document, and code locates the page and span.
 
-- **A precise verifier of the review queue (P7, pre-registered).** On the adapters' review queue Apertus answers two
-  closed questions: is this the executive's answer to this intervention, and which printed date is the answer date.
-  On a fresh test the blind AI annotators judged 120/120 sampled promotions the government's answer (H1, Wilson 95%
-  [96.9, 100]; 48/48 without its largest parliament, Frauenfeld), and 95.8% are answers whose printed answer date
-  passes the date check, +22.7 points over a trivial date match, weighted, as registered (H4, [10.2, 34.3]; unweighted
-  +7.5 [3.4, 12.2]). The tier it fills holds 214 of
-  917 review rows. Post-hoc ablations, among them a model-free date rule that recovers more rows with less precision,
-  are in [`docs/evaluation.md`](docs/evaluation.md#protocol-gold-labels-and-every-test).
+- **A verifier of the review queue (P7, pre-registered).** On the adapters' review queue Apertus answers two closed
+  questions: is this the executive's answer to this intervention, and which printed date is the answer date. The
+  registered result only Apertus produces is the right answer with the right kind of date: 95.8% of its promotions are
+  answers whose printed answer date passes the date check, +22.7 points over a no-model date match (H4, [10.2, 34.3],
+  weighted, as registered; unweighted +7.5 [3.4, 12.2]). Blind AI annotators judged 120/120 sampled promotions the
+  government's answer (H1, Wilson 95% [96.9, 100]; 48/48 without its largest parliament, Frauenfeld). Post hoc, the
+  date Apertus picks is the gold answer date in 113/120 promotions, against 127/157 for a no-model rule that takes the
+  first printed date passing the date check. The tier it fills holds 214 of 917 review rows. Further post-hoc
+  ablations are in [`docs/evaluation.md`](docs/evaluation.md#protocol-gold-labels-and-every-test).
 - **New layouts (P2).** In 15 parliaments nobody wrote rules for, it finds 24/29 answer dates, every value a printed
-  date, and puts a date on 4 of the 33 answerless documents, where the latest printed date (22/29 found) dates 31; the
-  rules, written for other layouts, find 2/29. A free prompt finds 22/29 as registered, 24/29 (null allowed) and 25/29
-  (plain) once its answers are re-parsed (D2-4).
+  date, where the rules, written for other layouts, find 2/29. On all 62 documents it is exact on 53/62, against 44/62
+  for the best no-model baseline, the latest date on documents OPD types as answers (post hoc). It puts a date on 4 of
+  the 33 answerless documents, where the latest printed date (22/29 found) dates 31. A free prompt finds 22/29 as
+  registered, 24/29 (null allowed) and 25/29 (plain) once its answers are re-parsed (D2-4).
 - **People (P5).** Both model routes beat the rules on submitters: pointing at printed names doubles extraction over
   the rules (12/40 → 24/40), and free generation finds 34/40.
 - **Provenance by construction.** No closed-set arm returned a date printed nowhere (P1, P2, P6). On the 53 P2/P6
@@ -196,10 +208,12 @@ or phrases printed in the document, and code locates the page and span.
   with a page and span for every value and a margin that orders the review queue.
 - **Suggestions go to a reviewer; rules run unattended.** By design, Apertus values arrive with `needs_review: true`
   for OPD's existing manual-review step.
-- **Sovereign option.** The Apertus 8B runs locally on CPU (a community 4-bit build). On the unseen parliaments of P2
-  it reproduces the registered result over the rules (right on 13 documents where the rules are wrong, the reverse on
-  0; 52 reachable documents), and its two-step
-  reader cuts dates on answerless documents from 18/34 to 5/34 (P6). Both runs are exploratory.
+- **Sovereign option.** The Apertus 8B runs locally on CPU (a community 4-bit build, sha256-pinned; 9.3 GB peak
+  memory, 180 s per document on 4 vCPUs). On the unseen parliaments of P2 it reproduces the registered result over the
+  rules (right on 13 documents where the rules are wrong, the reverse on 0; 52 reachable documents), and its two-step
+  reader cuts dates on answerless documents from 18/34 to 5/34 (P6); both runs are exploratory. On P1 its cascade dates
+  25 of the 90 answerless documents, the 70B's 7: on the local route, as on the gateway, every model value goes to a
+  reviewer.
 
 ## How it works
 
@@ -256,13 +270,17 @@ labels come from blind agent annotators by design (below). Full tables, deviatio
 
 ## Operations
 
+Operator sheet (hardware, external hosts, exit codes and alerts, licences, on one screen):
+[`docs/runbook.md`](docs/runbook.md#operator-sheet).
+
 - **`make run`** (Docker, CPU, clean checkout) recomputes the census and asserts it equal to `results/census/`,
   replays the Bern join, runs sample documents through the converter and validator, re-scores P1–P8 from
   committed predictions and labels and re-runs their hypothesis scripts (nine LOCK files verified; P7 and P8
   byte-identical from the committed `data/p7/` and `data/p8/` copies, the P7 post-hoc files included), re-derives the P1 rules arm from the source PDFs,
   and recomputes every number in `claims.tsv` from its results file. It fails if a document a claim lists does not
-  print the claimed value, or if any number in the headline blocks (this README's top, the report's summary, the form
-  notes) is not a claim (`claims_strict.json`). Detail:
+  print the claimed value, or if a number in the strict zones (this README's top and its results tables, the report's
+  summary, the form notes; `claims_strict.json`) is not bound to a claim by an anchor: a phrase recorded for that
+  claim that contains the number at that position (`claims_anchor.json`). Detail:
   [`docs/operations.md`](docs/operations.md).
 - **Sovereignty.** The default nightly job uses no third-party processor. At runtime Gegenprobe makes read-only
   requests to public sources, at least 1.2 s apart per host; an optional review model runs where the operator chooses

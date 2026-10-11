@@ -1,0 +1,228 @@
+{
+ "schema_version": "0.2.0",
+ "command": "PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_all",
+ "sources": {
+  "p3": "results/eval3/p3__publicai_swiss-ai_apertus-v1.5-8b.json",
+  "p3b": "results/eval5/p3b__none.json",
+  "p5": "results/eval6/p5__none.json (R.records) + data/census/affairs.tsv.gz, bodies.tsv.gz + data/gold6/p5_affairs.jsonl",
+  "p8": "results/schema/v0_2/p8_records.jsonl (gegenprobe.schema.p8_v0_2, P8 gold labels)"
+ },
+ "record_makers": {
+  "p3": "converter (rules_only product record) + affair_post.finalize + gegenprobe.schema.v0_2_all.carry_v0_1",
+  "p3b": "converter (rules_only product record) + affair_post.finalize + gegenprobe.schema.v0_2_all.carry_v0_1",
+  "p5": "converter P5 rules arm + gegenprobe.schema.v0_2_all.p5_affair",
+  "p8": "P8 gold labels (route annotator)"
+ },
+ "n_affairs": 171,
+ "n_valid": 171,
+ "n_invalid": 0,
+ "n_parliaments": 25,
+ "converter_made": {
+  "n_affairs": 105,
+  "n_valid": 105,
+  "sets": [
+   "p3",
+   "p3b",
+   "p5"
+  ],
+  "n_parliaments": 22
+ },
+ "product_records": {
+  "n_affairs": 65,
+  "n_valid": 65,
+  "sets": [
+   "p3",
+   "p3b"
+  ]
+ },
+ "sets": {
+  "p3": {
+   "n_affairs": 29,
+   "n_valid": 29,
+   "n_invalid": 0,
+   "invalid": [],
+   "n_parliaments": 10,
+   "counts": {
+    "actor_roles": {
+     "addressed_body": 4,
+     "co_signatory": 16,
+     "submitter": 29
+    },
+    "date_roles": {
+     "answered": 23,
+     "submitted": 29
+    },
+    "null_reasons": {
+     "not_applicable": 25,
+     "not_extracted": 29,
+     "not_in_corpus": 11,
+     "not_in_document": 2,
+     "present_unanchored": 48
+    },
+    "qa_items": {
+     "none": 29
+    },
+    "routes": {
+     "metadata": 157,
+     "rule": 127
+    },
+    "v02_additions_used": {}
+   }
+  },
+  "p3b": {
+   "n_affairs": 36,
+   "n_valid": 36,
+   "n_invalid": 0,
+   "invalid": [],
+   "n_parliaments": 9,
+   "counts": {
+    "actor_roles": {
+     "addressed_body": 2,
+     "co_signatory": 175,
+     "submitter": 36
+    },
+    "date_roles": {
+     "answered": 19,
+     "submitted": 36
+    },
+    "null_reasons": {
+     "not_applicable": 18,
+     "not_extracted": 36,
+     "not_in_corpus": 23,
+     "present_unanchored": 74
+    },
+    "qa_items": {
+     "none": 36
+    },
+    "routes": {
+     "metadata": 341,
+     "rule": 144
+    },
+    "v02_additions_used": {}
+   }
+  },
+  "p5": {
+   "n_affairs": 40,
+   "n_valid": 40,
+   "n_invalid": 0,
+   "invalid": [],
+   "n_parliaments": 10,
+   "counts": {
+    "actor_roles": {
+     "co_signatory": 103,
+     "submitter": 26
+    },
+    "date_roles": {},
+    "null_reasons": {
+     "not_extracted": 200,
+     "not_in_document": 10,
+     "present_unanchored": 31
+    },
+    "qa_items": {
+     "none": 7,
+     "with_items": 33
+    },
+    "routes": {
+     "metadata": 80,
+     "rule": 639
+    },
+    "v02_additions_used": {
+     "quote_sha256": 283
+    }
+   }
+  },
+  "p8": {
+   "n_affairs": 66,
+   "n_valid": 66,
+   "n_invalid": 0,
+   "invalid": [],
+   "n_parliaments": 11,
+   "counts": {
+    "actor_roles": {
+     "co_signatory": 200,
+     "first_signatory": 34,
+     "joint_author": 70,
+     "other": 2,
+     "sole_author": 27,
+     "spokesperson": 12
+    },
+    "date_roles": {
+     "answered": 77,
+     "later_step": 30,
+     "lodged": 18,
+     "other": 19,
+     "signed": 46,
+     "submitted": 66
+    },
+    "null_reasons": {
+     "not_applicable": 29,
+     "not_extracted": 132,
+     "not_in_document": 1,
+     "present_unanchored": 2
+    },
+    "qa_items": {
+     "none": 66
+    },
+    "routes": {
+     "annotator": 865,
+     "metadata": 66
+    },
+    "v02_additions_used": {
+     "actor_role:joint_author": 70,
+     "actor_role:sole_author": 27,
+     "actor_role:spokesperson": 12,
+     "date_role:later_step": 30,
+     "date_role:lodged": 18,
+     "date_role:signed": 46,
+     "instrument_function": 66,
+     "language_of_text": 66,
+     "quote_sha256": 527,
+     "recommendation_stage": 36
+    }
+   }
+  }
+ },
+ "v02_additions": {
+  "all": [
+   "actor_role:sole_author",
+   "actor_role:joint_author",
+   "actor_role:supporter",
+   "actor_role:spokesperson",
+   "actor_role:group",
+   "date_role:signed",
+   "date_role:lodged",
+   "date_role:received",
+   "date_role:announced",
+   "date_role:later_step",
+   "instrument_function",
+   "recommendation_stage",
+   "language_of_text",
+   "quote_sha256"
+  ],
+  "used_in_converter_records": [
+   "quote_sha256"
+  ],
+  "used_only_in_p8": [
+   "actor_role:joint_author",
+   "actor_role:sole_author",
+   "actor_role:spokesperson",
+   "date_role:later_step",
+   "date_role:lodged",
+   "date_role:signed",
+   "instrument_function",
+   "language_of_text",
+   "recommendation_stage"
+  ],
+  "used_nowhere": [
+   "actor_role:group",
+   "actor_role:supporter",
+   "date_role:announced",
+   "date_role:received"
+  ]
+ },
+ "samples": [
+  "results/schema/v0_2/samples/p3_BE_39369.json",
+  "results/schema/v0_2/samples/p5_VS_295461.json",
+  "results/schema/v0_2/samples/p5_GR_288671.json"
+ ]
+}

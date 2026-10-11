@@ -133,6 +133,10 @@ def test_rule_value_carries_its_measured_precision_and_alternatives():
     f = row["fields"]["answer_date"]
     assert f["value"] == "2019-12-03" and f["rule_id"] == "rrb_vom"
     assert f["rule_precision"].startswith("3/5")
+    # J1: the held-out precision carries its Wilson interval and a small-sample flag (n = 5 < 10)
+    assert f["rule_precision"] == "3/5 correct on held-out documents (P1+P2), Wilson 95% [23.1, 88.2]; small sample, n < 10"
+    assert f["rule_precision_n"] == 5 and f["rule_precision_small_sample"] is True
+    assert f["rule_precision_ci"] == [0.231, 0.882]
     vals = [c["value"] for c in f["candidates"]]
     assert vals == ["2019-12-03", "2019-12-04"] and f["candidates"][0]["chosen"] and "chosen" not in f["candidates"][1]
 
@@ -150,3 +154,15 @@ def test_multiple_recommendation_phrases_are_flagged():
              "Le Conseil-exécutif propose au Grand Conseil d'adopter les points 2 et 3 de la motion.\n"]
     rp = output.recommendation_phrases(pages)
     assert rp["multiple"] == (len(rp["labels"]) > 1)
+
+
+def test_rule_precision_small_sample_flag_only_below_ten():
+    from gegenprobe.convert import output, precision
+    rules = precision.committed_rule_precision()["answer_date"]
+    big = next(r for r, v in rules.items() if v["n"] >= 10)
+    small = next(r for r, v in rules.items() if v["n"] < 10)
+    assert "small sample" not in output.rule_precision_of("answer_date", big)
+    assert output.rule_precision_stats("answer_date", big)["rule_precision_small_sample"] is False
+    assert output.rule_precision_of("answer_date", small).endswith("; small sample, n < 10")
+    assert "Wilson 95% [" in output.rule_precision_of("answer_date", big)
+    assert output.rule_precision_stats("answer_date", "no_such_rule") == {}

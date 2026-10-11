@@ -68,20 +68,54 @@ def test_relink_statuses_and_recomputed_identifier(tmp_path):
 def test_statements_are_guarded_by_the_before_state(tmp_path):
     out, rows, _ = _run(tmp_path)
     sql = (out / "apply_BE_plan.sql.txt").read_text().splitlines()
-    ups = [s for s in sql if s.startswith("UPDATE")]
+    ups = [s for s in sql if s.startswith("WITH u AS (UPDATE")]
     assert len(ups) == 1 + 2  # one relink (doc 1), two begin dates (affairs 10, 12)
     doc = next(s for s in ups if "UPDATE docs" in s)
     assert f"hash = '{rows[1]['after_hash']}'" in doc and f"AND hash = '{rows[1]['before_hash']}'" in doc
     assert "WHERE id = 1 AND body_key = 'BE' AND parent_type = 'agenda' AND affair_id IS NULL" in doc
-    assert sql[4] == "BEGIN;" and sql[-1] == "COMMIT;"
+    assert "BEGIN;" in sql and sql[-1] == "COMMIT;"
     assert all("begin_date::date = '2024-10-28'" in s for s in ups if "UPDATE affairs" in s)
+
+
+def test_plan_checks_itself_and_rolls_back_unless_every_statement_changed_one_row(tmp_path):
+    """J3: before COMMIT the plan aborts unless exactly the expected number of rows changed (one per statement)."""
+    import re
+    out, _, _ = _run(tmp_path)
+    sql = (out / "apply_BE_plan.sql.txt").read_text().splitlines()
+    ups = [s for s in sql if s.startswith("WITH u AS (UPDATE")]
+    n = len(ups)
+    assert n == 3 and f"-- expected_rows_changed: {n}" in sql
+    assert sql.index("BEGIN;") + 1 == sql.index(next(s for s in sql if s.startswith("CREATE TEMP TABLE")))
+    # every UPDATE records its own row count under a distinct statement number
+    nums = [int(re.search(r"INSERT INTO gp_apply_be_changed SELECT (\d+), count\(\*\) FROM u;", s).group(1)) for s in ups]
+    assert nums == list(range(1, n + 1)) and all(" RETURNING 1) " in s for s in ups)
+    # no bare UPDATE escapes the counter
+    assert not [s for s in sql if s.lstrip().upper().startswith("UPDATE")]
+    # the DO block sits between the last UPDATE and COMMIT and compares against n
+    do = sql.index("DO $$")
+    assert sql.index(ups[-1]) < do < sql.index("COMMIT;") == len(sql) - 1
+    block = "\n".join(sql[do:])
+    assert f"IF total <> {n} OR stmts <> {n} OR off <> 0 THEN" in block and "RAISE EXCEPTION" in block
+    summary = json.loads((out / "apply_BE_plan.json").read_text())
+    assert summary["statements"] == summary["expected_rows_changed"] == n
+
+
+def test_committed_plan_is_self_checking():
+    from gegenprobe.paths import RESULTS
+    d = RESULTS / "repair" / "apply_be"
+    sql = (d / "apply_BE_plan.sql.txt").read_text().splitlines()
+    s = json.loads((d / "apply_BE_plan.json").read_text())
+    n = apply_be.guarded_count(sql)
+    assert n == s["statements"] == s["expected_rows_changed"] == s["relink"]["by_status"]["apply"] + \
+        s["begin_date"]["by_status"]["apply"]
+    assert f"  IF total <> {n} OR stmts <> {n} OR off <> 0 THEN" in sql
 
 
 def test_keep_hash_mode(tmp_path):
     out, rows, _ = _run(tmp_path, "--hash", "keep")
     assert rows[1]["after_hash"] == rows[1]["before_hash"] and rows[1]["identifier_changes"] == "false"
     assert rows[5]["status"] == "apply"  # keeping the identifier does not need the rule
-    doc = [s for s in (out / "apply_BE_plan.sql.txt").read_text().splitlines() if s.startswith("UPDATE docs")]
+    doc = [s for s in (out / "apply_BE_plan.sql.txt").read_text().splitlines() if s.startswith("WITH u AS (UPDATE docs")]
     assert len(doc) == 2 and all("SET parent_type = 'affair', affair_id =" in s and ", hash =" not in s for s in doc)
 
 

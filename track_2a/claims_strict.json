@@ -1,10 +1,24 @@
 {
- "_doc": "Strict zones for `make claims` (gegenprobe.claims.zone_check): every numeric token in a zone must be the shown value of a claim whose `where` lists the document. `allow` lists the non-claims literally, each with why.",
+ "_doc": "Strict zones for `make claims` (gegenprobe.claims.zone_check): every numeric token in a zone must be bound to a claim whose `where` lists the document, by an anchor in claims_anchor.json that holds the claim's value at that position. A zone is {start, end} (literals; null = top/end) or a list of them. `allow` lists the non-claims literally, each with why.",
  "zones": {
-  "README.md": {
-   "start": null,
-   "end": "\n## "
-  },
+  "README.md": [
+   {
+    "start": null,
+    "end": "\n## "
+   },
+   {
+    "start": "| list | rows | how each row is checked | applies |",
+    "end": "\n\n"
+   },
+   {
+    "start": "| field | class | meaning tested |",
+    "end": "\n\n"
+   },
+   {
+    "start": "| test | n | what it tests | registered result | key number |",
+    "end": "\n\n"
+   }
+  ],
   "technical_report.md": {
    "start": null,
    "end": "\n## 2."
@@ -37,6 +51,10 @@
    {
     "phrase": "10 Oct 2026",
     "why": "date of OPD's correspondence"
+   },
+   {
+    "phrase": "12 Oct 00:30 UTC",
+    "why": "dispatch time of the nightly re-run"
    }
   ],
   "docs/form_notes.md": [
@@ -51,6 +69,10 @@
    {
     "phrase": "10 Oct 2026",
     "why": "date of OPD's correspondence"
+   },
+   {
+    "phrase": "12 Oct 00:30 UTC",
+    "why": "dispatch time of the nightly re-run"
    }
   ]
  }

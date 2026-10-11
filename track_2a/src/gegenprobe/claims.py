@@ -7,11 +7,22 @@ claims.tsv, `check` fails (exit 1) when
     e.g. "459" inside "2,459", "4" inside "4.5" or "10" in "10⁻⁷", does not count), or
   * the `shown` string has 3 characters or fewer and the claim carries no `context` for that document, or the context
     phrase is not found within CONTEXT_WINDOW characters of a token match of `shown` in that document, or
-  * a numeric token inside a strict zone (claims_strict.json: the README's headline block up to its first "## ", the
-    report's summary up to "## 2.", the form notes entirely) is not the `shown` value of a claim whose `where` lists that
-    document. Numeric tokens: integers >= 10, every decimal, percentage, ratio (120/120) and interval ([96.9, 100]);
-    integers below 10 are free. Non-claims (team number, dates, the form's character limit) are listed one by one in
-    claims_strict.json as literal phrases; a token is exempt only inside an occurrence of such a phrase.
+  * an anchor (claims_anchor.json: {claim id: {document: [phrase, ...]}}) is not found in its document, does not contain
+    the claim's `shown` value as a whole token, or names a document the claim's `where` does not list, or
+  * a numeric token inside a strict zone (claims_strict.json: the README's headline block up to its first "## " and its
+    results tables, the report's summary up to "## 2.", the form notes entirely) is not bound to a claim: no anchor of a
+    claim whose `where` lists that document covers that exact token, i.e. no occurrence of an anchor phrase holds the
+    claim's `shown` value at the token's position. Numeric tokens: integers >= 10, every decimal, percentage, ratio
+    (120/120) and interval ([96.9, 100]); integers below 10 are free. Non-claims (team number, dates, the form's character
+    limit) are listed one by one in claims_strict.json as literal phrases; a token is exempt only inside an occurrence of
+    such a phrase.
+
+Binding by anchor is positional: an anchor phrase is the number together with the words that name its claim ("24/29**
+| answer dates Apertus finds", "Claude Opus judged 197/200"), so swapping two numbers that are both valid claims for the
+document (24/29 <-> 22/29) breaks the anchor and leaves the swapped token unbound. `python -m gegenprobe.claims anchors`
+proposes an anchor for every unbound token (the claim whose words best match the token's surroundings, and the token
+with its neighbouring words on the same line) and prints them; `--write` adds them to claims_anchor.json for review in
+the diff. A token no claim carries is listed as such: it needs a claim, not an anchor.
 
 Short values ("4", "13", "0.9") occur all over a report, so a bare match proves nothing: the context pins the claim to one
 place in each document (for a table cell, the phrase is the row label: it pins the row, not the column). Contexts come
@@ -46,6 +57,7 @@ SHORT = 3            # shown strings of at most this many characters need a cont
 CONTEXT_WINDOW = 120  # the context phrase must sit within this many characters of the value
 CONTEXT_FILE = ROOT / "claims_context.json"
 STRICT_NAME = "claims_strict.json"  # at ROOT; read at call time
+ANCHOR_NAME = "claims_anchor.json"  # at ROOT; read at call time
 SUPERSCRIPT = "⁰¹²³⁴⁵⁶⁷⁸⁹⁻"
 
 
@@ -107,10 +119,10 @@ def token_spans(text: str, shown: str) -> list[tuple[int, int]]:
     out = []
     for m in re.finditer(re.escape(shown), text):
         i, j = m.start(), m.end()
-        prev = text[i - 1] if i > 0 else ""
-        prev2 = text[i - 2] if i > 1 else ""
-        nxt = text[j] if j < len(text) else ""
-        nxt2 = text[j + 1] if j + 1 < len(text) else ""
+        prev = text[i - 1] if i > 0 else " "  # never "": "" is in every string ("" in SUPERSCRIPT is True)
+        prev2 = text[i - 2] if i > 1 else " "
+        nxt = text[j] if j < len(text) else " "
+        nxt2 = text[j + 1] if j + 1 < len(text) else " "
         if shown[:1].isalnum() and (prev.isalnum() or prev == "_"):
             continue
         if shown[:1].isdigit() and ((prev in ".,'" and prev2.isdigit()) or prev == "\u2212"):
@@ -208,6 +220,11 @@ def strict_config() -> dict:
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
 
 
+def zones_of(text: str, spec) -> list[tuple[int, int]]:
+    """A document's strict zones: one spec {start, end} or a list of them."""
+    return [zone_of(text, sp) for sp in (spec if isinstance(spec, list) else [spec])]
+
+
 def zone_of(text: str, spec: dict) -> tuple[int, int]:
     """[start, end) of a strict zone: from `start` (a literal, default the top) up to `end` (a literal, default the end)."""
     lo = 0
@@ -227,11 +244,80 @@ def _norm(tok: str) -> str:
     return re.sub(r"\s+", " ", tok.replace("−", "-")).replace(" %", "%")
 
 
-def zone_check(rows: list[dict], cfg: dict | None = None, docs: dict[str, str] | None = None) -> list[str]:
-    """Every numeric token in each strict zone equals the `shown` value of a claim whose `where` lists that document,
-    or sits inside an allowlisted literal phrase of that document. A token with a leading '+' may match the unsigned
-    value; a leading minus must be claimed with its sign."""
+def anchor_config() -> dict[str, dict[str, list[str]]]:
+    p = ROOT / ANCHOR_NAME
+    return json.loads(p.read_text(encoding="utf-8")).get("anchors", {}) if p.exists() else {}
+
+
+def _where(row: dict) -> list[str]:
+    return [w.strip() for w in row["where"].split(",") if w.strip() and w.strip() != "-"]
+
+
+def anchor_spans(rows: list[dict], anchors: dict, doc: str, text: str, errs: list[str] | None = None) -> set:
+    """{(start, end, normalised shown)}: every position in `text` where an anchor of a claim listing `doc` holds the
+    claim's shown value. With `errs`, report anchors that are not found, do not contain the value, or name a document
+    the claim does not list."""
+    by_id = {r["id"]: r for r in rows}
+    out = set()
+    for cid, per_doc in anchors.items():
+        phrases = per_doc.get(doc)
+        if not phrases:
+            continue
+        r = by_id.get(cid)
+        if r is None:
+            if errs is not None:
+                errs.append(f"anchor {cid}: no such claim")
+            continue
+        if doc not in _where(r):
+            if errs is not None:
+                errs.append(f"anchor {cid}: {doc} is not in the claim's where")
+            continue
+        for ph in phrases:
+            inner = token_spans(ph, r["shown"])
+            if not inner:
+                if errs is not None:
+                    errs.append(f"anchor {cid}: {ph!r} does not contain {r['shown']!r} as a whole token")
+                continue
+            hits = [m.start() for m in re.finditer(re.escape(ph), text)]
+            if not hits and errs is not None:
+                errs.append(f"anchor {cid}: {ph!r} not found in {doc}")
+            for h in hits:
+                for i, j in inner:
+                    out.add((h + i, h + j, _norm(r["shown"])))
+    return out
+
+
+def anchor_check(rows: list[dict], anchors: dict | None = None, docs: dict[str, str] | None = None) -> list[str]:
+    """Every anchor is found in its document, holds its claim's value and names a document the claim lists."""
+    anchors = anchor_config() if anchors is None else anchors
+    errs: list[str] = []
+    for doc in sorted({d for per in anchors.values() for d in per}):
+        text = docs[doc] if docs is not None and doc in docs else (
+            (ROOT / doc).read_text(encoding="utf-8") if (ROOT / doc).exists() else None)
+        if text is None:
+            if doc.startswith("../") and not os.environ.get("GP_CLAIMS_STRICT"):
+                continue
+            errs.append(f"anchor: document {doc} missing")
+            continue
+        anchor_spans(rows, anchors, doc, text, errs)
+    return errs
+
+
+def _bound(spans: set, i: int, j: int, tok: str) -> bool:
+    t = _norm(tok)
+    if (i, j, t) in spans:
+        return True
+    return t.startswith("+") and (i + 1, j, t[1:]) in spans  # "+22.7" bound by a claim shown "22.7"
+
+
+def zone_check(rows: list[dict], cfg: dict | None = None, docs: dict[str, str] | None = None,
+               anchors: dict | None = None) -> list[str]:
+    """Every numeric token in each strict zone is bound to a claim whose `where` lists that document (an anchor phrase
+    of that claim holds the claim's shown value at exactly that position), or sits inside an allowlisted literal phrase
+    of that document. A token with a leading '+' may be bound by the unsigned value; a leading minus must be claimed
+    with its sign."""
     cfg = strict_config() if cfg is None else cfg
+    anchors = anchor_config() if anchors is None else anchors
     errs = []
     for doc, spec in (cfg.get("zones") or {}).items():
         if docs is not None and doc in docs:
@@ -242,10 +328,8 @@ def zone_check(rows: list[dict], cfg: dict | None = None, docs: dict[str, str] |
                 errs.append(f"strict zone: document {doc} missing")
                 continue
             text = p.read_text(encoding="utf-8")
-        shown = {_norm(r["shown"]) for r in rows
-                 if doc in [w.strip() for w in r["where"].split(",")]}
         try:
-            lo, hi = zone_of(text, spec)
+            zones = zones_of(text, spec)
         except ValueError as e:
             errs.append(f"strict zone {doc}: {e}")
             continue
@@ -255,15 +339,17 @@ def zone_check(rows: list[dict], cfg: dict | None = None, docs: dict[str, str] |
             if not hits:
                 errs.append(f"strict zone {doc}: allowlisted phrase {a['phrase']!r} not found (remove it)")
             allowed += hits
-        for i, j, tok in numeric_tokens(text[lo:hi]):
-            i, j = i + lo, j + lo
-            if any(a <= i and j <= b for a, b in allowed):
-                continue
-            t = _norm(tok)
-            if t in shown or (t.startswith("+") and t[1:] in shown):
-                continue
-            line = text.count("\n", 0, i) + 1
-            errs.append(f"strict zone {doc}:{line}: {tok!r} is not the shown value of any claim for {doc}")
+        spans = anchor_spans(rows, anchors, doc, text)
+        for lo, hi in zones:
+            for i, j, tok in numeric_tokens(text[lo:hi]):
+                i, j = i + lo, j + lo
+                if any(a <= i and j <= b for a, b in allowed):
+                    continue
+                if _bound(spans, i, j, tok):
+                    continue
+                line = text.count("\n", 0, i) + 1
+                errs.append(f"strict zone {doc}:{line}: {tok!r} is not bound to a claim for {doc} "
+                            "(no anchor of a claim with this value covers it)")
     return errs
 
 
@@ -298,7 +384,7 @@ def check(rows: list[dict] | None = None) -> list[str]:
                     errs.append(f"{r['id']}: short value {r['shown']!r} in {doc} has no context")
                 elif not context_ok(docs[doc], r["shown"], phrase):
                     errs.append(f"{r['id']}: context {phrase!r} not within {CONTEXT_WINDOW} chars of {r['shown']!r} in {doc}")
-    return errs + zone_check(rows)
+    return errs + anchor_check(rows) + zone_check(rows)
 
 
 STOP = {"eval", "results", "json", "report", "claims", "the", "and", "with", "arms", "strict", "counts", "publicai", "swiss",
@@ -412,8 +498,98 @@ def backfill() -> dict:
     return report
 
 
+def _anchor_phrase(text: str, i: int, j: int, prev_end: int, next_start: int) -> str:
+    """The token with its neighbouring words on the same line: up to 5 words after it (stopping before the next numeric
+    token), and, when fewer than 2 words follow, up to 5 words before it as well."""
+    ls = text.rfind("\n", 0, i) + 1
+    le = text.find("\n", j)
+    le = len(text) if le < 0 else le
+    end = j
+    for n, m in enumerate(re.finditer(r"\S+", text[j:min(le, next_start)])):
+        if n == 5:
+            break
+        end = j + m.end()
+    start = i
+    starts = [ls + m.start() for m in re.finditer(r"\S+", text[ls:i])]
+    if len(re.findall(r"[A-Za-zÀ-ÿ]{2,}", text[j:end])) < 2:
+        seg = [k for k in starts if k >= prev_end]
+        if seg:
+            start = seg[-5] if len(seg) >= 5 else seg[0]
+    # extend to the left (same line) until the phrase is unique in the document, so that it names one position
+    left = [k for k in starts if k < start]
+    while text.count(text[start:end]) > 1 and left:
+        start = left.pop()
+    return text[start:end]
+
+
+def propose_anchors(rows: list[dict] | None = None, write: bool = False) -> dict:
+    rows = rows if rows is not None else load(ROOT / "claims.tsv")
+    cfg, anchors = strict_config(), anchor_config()
+    side = contexts()
+    report = dict(added=[], no_claim=[], ambiguous=[])
+    for doc, spec in (cfg.get("zones") or {}).items():
+        text = (ROOT / doc).read_text(encoding="utf-8")
+        allowed = []
+        for a in (cfg.get("allow") or {}).get(doc, []):
+            allowed += [(m.start(), m.end()) for m in re.finditer(re.escape(a["phrase"]), text)]
+        spans = anchor_spans(rows, anchors, doc, text)
+        cands_by_val: dict[str, list[dict]] = {}
+        for r in rows:
+            if doc in _where(r):
+                cands_by_val.setdefault(_norm(r["shown"]), []).append(r)
+        for lo, hi in zones_of(text, spec):
+            toks = [(a + lo, b + lo, t) for a, b, t in numeric_tokens(text[lo:hi])]
+            for k, (i, j, tok) in enumerate(toks):
+                if any(a <= i and j <= b for a, b in allowed) or _bound(spans, i, j, tok):
+                    continue
+                t = _norm(tok)
+                cands = cands_by_val.get(t) or (cands_by_val.get(t[1:]) if t.startswith("+") else None)
+                line = text.count("\n", 0, i) + 1
+                if not cands:
+                    report["no_claim"].append(f"{doc}:{line}: {tok!r}")
+                    continue
+                low = text.lower()
+                ls_, le_ = text.rfind("\n", 0, i) + 1, text.find("\n", j)
+                in_table = text[ls_:i].lstrip().startswith("|")
+                win = low[ls_:le_] if in_table else low[max(0, i - 100): j + 100]
+
+                def score(r, doc=doc, win=win):
+                    ctx = context_of(r, side).get(doc, "").lower()
+                    return (3 * (bool(ctx) and ctx in win) + 2 * sum(w in win for w in _synonyms(r))
+                            + sum(w in win for w in _keywords(r)))
+                ranked = sorted(cands, key=lambda r: (-score(r), r["id"]))
+                best = ranked[0]
+                if in_table and score(best) == 0:
+                    report["no_claim"].append(f"{doc}:{line}: {tok!r} (table cell; no claim whose words match its row)")
+                    continue
+                if len(ranked) > 1 and score(ranked[1]) == score(best) and ranked[1]["path"] != best["path"]:
+                    report["ambiguous"].append(f"{doc}:{line}: {tok!r} -> {best['id']} (tie with {ranked[1]['id']})")
+                prev_end = toks[k - 1][1] if k else lo
+                next_start = toks[k + 1][0] if k + 1 < len(toks) else hi
+                ph = _anchor_phrase(text, i + (1 if t.startswith("+") and _norm(best["shown"]) == t[1:] else 0), j,
+                                    prev_end, next_start)
+                anchors.setdefault(best["id"], {}).setdefault(doc, [])
+                if ph not in anchors[best["id"]][doc]:
+                    anchors[best["id"]][doc].append(ph)
+                spans |= {(i, j, t)}
+                report["added"].append(f"{doc}:{line}: {tok!r} -> {best['id']}: {ph!r}")
+    if write:
+        p = ROOT / ANCHOR_NAME
+        cur = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+        cur.setdefault("_doc", "Anchors for `make claims`: {claim id: {document: [phrase, ...]}}. A phrase holds the "
+                               "claim's shown value with the words that name it; in a strict zone every numeric token "
+                               "must sit inside such a phrase at its position (gegenprobe.claims.zone_check).")
+        cur["anchors"] = {k: {d: sorted(v) for d, v in sorted(anchors[k].items())} for k in sorted(anchors)}
+        p.write_text(json.dumps(cur, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    return report
+
+
 def main(argv: list[str]) -> int:
     cmd = argv[0] if argv else "check"
+    if cmd == "anchors":
+        rep = propose_anchors(merge(), write="--write" in argv)
+        print(json.dumps(rep, indent=1, ensure_ascii=False))
+        return 0
     if cmd == "context":
         rep = backfill()
         print(json.dumps(rep, indent=1, ensure_ascii=False))

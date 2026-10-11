@@ -1,0 +1,16 @@
+id	shown	file	path	fmt	command	where	context
+schema.v02.all_n	171	results/schema/v0_2/validation_all.json	n_affairs	int	make schema-v02	-	
+schema.v02.all_valid	171	results/schema/v0_2/validation_all.json	n_valid	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,../README.md,docs/ech-onepager.md	{"../README.md": "validates", "README.md": "validates", "docs/ech-onepager.md": "validates", "docs/form_notes.md": "validates", "technical_report.md": "validates"}
+schema.v02.all_frac	171/171	results/schema/v0_2/validation_all.json	n_valid/n_affairs	frac	make schema-v02	-	
+schema.v02.all_parliaments	25	results/schema/v0_2/validation_all.json	n_parliaments	int	make schema-v02	-	
+schema.v02.conv_n	105	results/schema/v0_2/validation_all.json	converter_made.n_affairs	int	make schema-v02	-	
+schema.v02.conv_valid	105	results/schema/v0_2/validation_all.json	converter_made.n_valid	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,../README.md,docs/ech-onepager.md	{"../README.md": "converter's own records", "README.md": "converter's own records", "docs/ech-onepager.md": "converter's own records", "docs/form_notes.md": "converter's own records", "technical_report.md": "converter's own records"}
+schema.v02.conv_frac	105/105	results/schema/v0_2/validation_all.json	converter_made.n_valid/converter_made.n_affairs	frac	make schema-v02	-	
+schema.v02.conv_parliaments	22	results/schema/v0_2/validation_all.json	converter_made.n_parliaments	int	make schema-v02	-	
+schema.v02.product_valid	65	results/schema/v0_2/validation_all.json	product_records.n_valid	int	make schema-v02	-	
+schema.v02.product_frac	65/65	results/schema/v0_2/validation_all.json	product_records.n_valid/product_records.n_affairs	frac	make schema-v02	-	
+schema.v02.p3_frac	29/29	results/schema/v0_2/validation_all.json	sets.p3.n_valid/sets.p3.n_affairs	frac	make schema-v02	-	
+schema.v02.p3b_frac	36/36	results/schema/v0_2/validation_all.json	sets.p3b.n_valid/sets.p3b.n_affairs	frac	make schema-v02	-	
+schema.v02.p5_valid	40	results/schema/v0_2/validation_all.json	sets.p5.n_valid	int	make schema-v02	-	
+schema.v02.p5_frac	40/40	results/schema/v0_2/validation_all.json	sets.p5.n_valid/sets.p5.n_affairs	frac	make schema-v02	-	
+schema.v02.p8_frac	66/66	results/schema/v0_2/validation_all.json	sets.p8.n_valid/sets.p8.n_affairs	frac	make schema-v02	-	

@@ -44,9 +44,12 @@ claims:
 	$(PY) -m gegenprobe.claims check
 
 # schema-v02: schema/gegenprobe_schema_v0_2.py (P8's roles) -> results/schema/v0_2/: JSON Schema, the 66 P8 gold affairs as
-#             v0.2 records and p8_validation.json (all valid; v0.1 samples upgraded losslessly). No network, no model.
+#             v0.2 records and p8_validation.json (all valid; v0.1 samples upgraded losslessly); then the converter's own
+#             P3, P3b and P5 records carried to v0.2 ({p3,p3b,p5}_records.jsonl, samples/) and validation_all.json over
+#             all four sets. No network, no model.
 schema-v02:
 	$(PY) -m gegenprobe.schema.p8_v0_2
+	$(PY) -m gegenprobe.schema.v0_2_all
 
 # ---- census (owner: census workstream)
 # census:        re-extract data/census from the full exports in GP_OPD_RAW / GP_DOCS_META (if present) and recompute results/census
@@ -162,6 +165,7 @@ arms:
 eval:  # no model: re-score every committed evaluation file, recompute H1-H4, matrix accuracy and cost
 	$(PY) -m eval.replay
 	$(PY) -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b
+	$(PY) -m eval.breadth  # post hoc: P1/P2 by language x level x born-digital/scanned -> results/eval/breadth_p1_p2.json
 	$(PY) -m report.matrix_accuracy
 
 report:  # technical_report.md -> 444_Report.pdf (needs the [report] extra and Chrome/Chromium; CHROME=... to override)

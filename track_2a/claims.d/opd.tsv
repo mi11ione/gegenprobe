@@ -2,7 +2,7 @@ id	shown	file	path	fmt	command	where
 opd.be_begin_flagged	727	results/repair/repair_BE_begin_date.json	summary.flagged	int	python -m gegenprobe.repair.be_begin_date	docs/operations.md
 opd.be_begin_2024_10_28	557	results/repair/repair_BE_begin_date.json	summary.by_group.load_2024_10_28	int	python -m gegenprobe.repair.be_begin_date	docs/operations.md
 opd.be_begin_later_loads	170	results/repair/repair_BE_begin_date.json	summary.later_loads	int	python -m gegenprobe.repair.be_begin_date	docs/operations.md
-opd.be_begin_set	554	results/repair/repair_BE_begin_date.json	summary.by_action.set_begin_date	int	python -m gegenprobe.repair.be_begin_date	docs/operations.md,technical_report.md,README.md,docs/form_notes.md
+opd.be_begin_set	554	results/repair/repair_BE_begin_date.json	summary.by_action.set_begin_date	int	python -m gegenprobe.repair.be_begin_date	docs/operations.md,technical_report.md,README.md
 opd.be_begin_review	173	results/repair/repair_BE_begin_date.json	summary.by_action.review	int	python -m gegenprobe.repair.be_begin_date	docs/operations.md,README.md
 opd.virtual_bodies	16	results/census/virtual_affairs.json	n_bodies	int	python -m gegenprobe.census.virtual	docs/evaluation.md,README.md
 opd.virtual_no_affairs	8	results/census/virtual_affairs.json	n_bodies_no_affairs	int	python -m gegenprobe.census.virtual	docs/evaluation.md

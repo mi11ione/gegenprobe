@@ -35,6 +35,7 @@ import urllib.error
 from .. import net, pdftext
 from gegenprobe.compliance import fetchguard
 from . import lattice, pointer, precision, rules
+from ..stats import wilson, wilson_pct
 
 fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
@@ -119,6 +120,7 @@ def flat_field(rec_field: dict | None, record_field: dict | None, pages: list[st
         out["rule_id"] = rec_field["rule"]
         if out.get("route") in ("rule", "ocr+rule"):
             out["rule_precision"] = rule_precision_of(field, rec_field["rule"])
+            out.update(rule_precision_stats(field, rec_field["rule"]))
     if rec_field.get("number"):
         out["decision_number"] = rec_field["number"]
     if rec_field.get("page") is not None:
@@ -167,12 +169,35 @@ def pointer_shares(p) -> dict:
     return out
 
 
+SMALL_SAMPLE = 10  # below this many held-out firings a rule's precision is flagged as a small sample
+
+
 def rule_precision_of(field: str, rule_id: str | None) -> str | None:
-    """'47/51'-style precision of a rule on the pre-registered held-out sets, or None if the rule never fired there."""
+    """'3/5 correct on held-out documents (P1+P2), Wilson 95% [23.1, 88.2]' (plus '; small sample, n < 10' when the rule
+    fired fewer than 10 times there), or a 'not measured' note if the rule never fired on the held-out sets."""
     if not rule_id:
         return None
     r = precision.committed_rule_precision().get(field, {}).get(rule_id)
-    return f"{r['shown']} correct on held-out documents (P1+P2)" if r else "not measured (rule did not fire on held-out sets)"
+    if not r:
+        return "not measured (rule did not fire on held-out sets)"
+    lo, hi = wilson_pct(int(r["correct"]), int(r["n"]))
+    small = f"; small sample, n < {SMALL_SAMPLE}" if int(r["n"]) < SMALL_SAMPLE else ""
+    return f"{r['shown']} correct on held-out documents (P1+P2), Wilson 95% [{_pct(lo)}, {_pct(hi)}]{small}"
+
+
+def rule_precision_stats(field: str, rule_id: str | None) -> dict:
+    """Machine-readable companion of rule_precision_of: {rule_precision_n, rule_precision_ci (Wilson 95%, fractions),
+    rule_precision_small_sample (n < 10)}; {} when the rule was not measured."""
+    r = precision.committed_rule_precision().get(field, {}).get(rule_id) if rule_id else None
+    if not r:
+        return {}
+    lo, hi = wilson(int(r["correct"]), int(r["n"]))
+    return dict(rule_precision_n=int(r["n"]), rule_precision_ci=[round(lo, 3), round(hi, 3)],
+                rule_precision_small_sample=int(r["n"]) < SMALL_SAMPLE)
+
+
+def _pct(v: float) -> str:
+    return "100" if v == 100 else f"{v:.1f}"
 
 
 def band_info(margin: float | None, theta: float | None) -> dict | None:

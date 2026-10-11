@@ -13,14 +13,19 @@ steps that need the network or a model endpoint and cannot reach them; the repla
               committed label files, the nine hypotheses scripts re-run and compared with their committed outputs (P5-P8
               byte-identical), the P7 dev table, the P8 tables, the P7 post-hoc files (eval/p7/offline.py) and the 8B
               analysis re-run offline and compared, the nine LOCK files verified (FAIL on any difference)
-  6b schema_v02  schema v0.2 re-derived from the committed P8 gold (66 affairs validate) and the v0.1 samples upgraded
-              losslessly, compared with results/schema/v0_2/ (FAIL on any difference)
+  6b schema_v02  schema v0.2 re-derived from committed files and compared with results/schema/v0_2/ (FAIL on any
+              difference or invalid record): the converter's own P3, P3b and P5 records carried to v0.2 (105 affairs), the
+              P8 gold (66 affairs) and the v0.1 samples upgraded losslessly
   7 rederive  the P1 rules arm re-derived from the source PDFs (sha256-verified); WARN, never FAIL
   8 rederive_apertus  P1 + P2 pointer and cascade decisions recomputed from the committed model cache, cache-only
               (no request leaves the machine); FAIL only if a cache hit gives a different decision
   9 claims    every claimed number recomputed from its results file and found where it is printed (token-bounded; short
-              values need context); in the strict zones (README top, report summary, form notes) every number token
-              must be a claim (claims_strict.json)
+              values need context); every anchor found at its position (claims_anchor.json); in the strict zones
+              (README top and results tables, report summary, form notes; claims_strict.json) every number token must
+              be bound to its claim by an anchor
+The last lines: the P1 (and P2) Apertus replay coverage, e.g. "Apertus replay: P1 132/154 decisions re-derived from the
+model cache, 132 match (22 cache misses)", then "RESULT PASS in 537 s"; when a step skipped, the RESULT line names it:
+"RESULT PASS (offline: 3 steps skipped: convert, rederive, rederive_apertus) in 868 s".
 Re-derivation budgets (seconds): GP_REDERIVE_BUDGET (rules, default 240) + GP_REDERIVE_APERTUS_BUDGET (default 180, per set:
 P1 and P2 each get it, so P2 is always attempted; worst case 240 + 2 x 180 s).
 """
@@ -43,11 +48,12 @@ STEPS = [
     ("convert", "gegenprobe.convert.demo", "main"),
     ("eval", "eval.replay", "main"),
     ("replay", "eval.replay_all", "main"),  # P1-P8, 8B analysis + hypotheses + nine locks, committed files (FAIL on any diff)
-    ("schema_v02", "gegenprobe.schema.p8_v0_2", "step"),  # schema v0.2: 66 P8 gold affairs + v0.1 samples (FAIL on a diff)
+    ("schema_v02", "gegenprobe.schema.v0_2_all", "step"),  # v0.2: 105 converter records + 66 P8 gold affairs (FAIL on a diff)
     ("rederive", "eval.rederive", "main"),  # rules arm re-derived from the source PDFs (non-fatal: PASS / WARN / SKIP)
     ("rederive_apertus", "eval.replay_all", "main_rederive"),  # pointer/cascade from the model cache (cache-only)
     ("claims", "gegenprobe.claims_step", "main"),
 ]
+P1_DOCS = 154  # P1 held-out documents (data/gold/heldout_docs.jsonl)
 os.environ.setdefault("GP_REDERIVE_BUDGET", "240")
 os.environ.setdefault("GP_REDERIVE_APERTUS_BUDGET", "180")  # per set (P1, P2)
 
@@ -72,6 +78,49 @@ def model_step() -> dict:
         return dict(status="PASS", backend="openai", model=os.environ["LLM_NAME"])
     return dict(status="SKIP", backend=None,
                 reason="no LLM_BASE_URL/LLM_NAME and GP_GGUF!=1: model outputs replayed from data/model_cache")
+
+
+def skipped_steps(report: dict) -> list[str]:
+    """Steps of STEPS that reported SKIP (the model step is not one of them: replaying the model cache is the default)."""
+    return [k for k, _, _ in STEPS if (report["steps"].get(k) or {}).get("status") == "SKIP"]
+
+
+def replay_coverage(report: dict) -> dict:
+    """P1 / P2 Apertus decisions re-derived from the committed model cache (step rederive_apertus), per set."""
+    st = report["steps"].get("rederive_apertus") or {}
+    return dict(status=st.get("status"), sets=st.get("coverage") or {})
+
+
+def coverage_line(report: dict) -> str:
+    """One line: how many P1 Apertus decisions this run re-derived from the model cache, and why the rest were not."""
+    cov = replay_coverage(report)
+    p1 = next((v for k, v in cov["sets"].items() if k.startswith("P1")), None)
+    if p1 is None:
+        why = "offline" if report.get("online") is False else f"step rederive_apertus {cov['status'] or 'not run'}"
+        return (f"Apertus replay: P1 0/{P1_DOCS} decisions re-derived from the model cache ({why}); the stored decisions "
+                "were re-scored by step eval")
+    rest = [f"{p1.get(k, 0)} {lab}" for k, lab in (("cache_miss", "cache misses"), ("unreachable", "unreachable"),
+                                                    ("not_reached_budget", "over budget")) if p1.get(k)]
+    line = (f"Apertus replay: P1 {p1.get('rederived', 0)}/{p1['n']} decisions re-derived from the model cache, "
+            f"{p1.get('match', 0)} match" + (f" ({', '.join(rest)})" if rest else ""))
+    p2 = next((v for k, v in cov["sets"].items() if k.startswith("P2")), None)
+    if p2 is not None:
+        line += f"; P2 {p2.get('rederived', 0)}/{p2['n']}, {p2.get('match', 0)} match"
+    return line
+
+
+def result_line(report: dict) -> str:
+    """`RESULT PASS in 537 s`, or with skipped steps `RESULT PASS (offline: 3 steps skipped: convert, rederive,
+    rederive_apertus) in 868 s`: a PASS never hides that a live check did not run."""
+    fails = [k for k, v in report["steps"].items() if v["status"] == "FAIL"]
+    skipped = skipped_steps(report)
+    note = ""
+    if skipped:
+        n = len(skipped)
+        note = (f" ({'offline: ' if report.get('online') is False else ''}{n} step{'s' if n != 1 else ''} skipped: "
+                f"{', '.join(skipped)})")
+    return (f"RESULT {'FAIL' if fails else 'PASS'}{note} in {report['secs']} s"
+            + (f"  failing: {', '.join(fails)}" if fails else ""))
 
 
 def main() -> int:
@@ -103,8 +152,11 @@ def main() -> int:
     report["secs"] = round(time.time() - t0, 1)
     fails = [k for k, v in report["steps"].items() if v["status"] == "FAIL"]
     report["result"] = "FAIL" if fails else "PASS"
+    report["skipped"] = skipped_steps(report)
+    report["apertus_replay"] = replay_coverage(report)
     (OUT / "run_report.json").write_text(json.dumps(report, indent=1, ensure_ascii=False, default=str))
-    print(f"\nRESULT {report['result']} in {report['secs']} s" + (f"  failing: {', '.join(fails)}" if fails else ""))
+    print("\n" + coverage_line(report))
+    print(result_line(report))
     print(f"Full report: {OUT / 'run_report.json'}")
     if str(report.get("site", "")).endswith("index.html"):
         print("Evidence viewer: open out/site/index.html")

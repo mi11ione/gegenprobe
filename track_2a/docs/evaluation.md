@@ -358,6 +358,31 @@ dates; what it lacks is restraint: on all 52 documents it is 13 vs 11
 against the rules, 10 vs 10 against the latest-date baseline (the 70B: 9 vs 1, p = 0.021), and 2 vs 10 against the 70B
 (p = 0.039, pointer and cascade alike).
 
+**Breadth by stratum: P1 and P2 by language × level × born-digital or scanned** (post hoc, from committed predictions;
+`python -m eval.breadth` → `results/eval/breadth_p1_p2.json`). The frozen scorer re-scores each stratum from the
+committed per-document values, and the counts equal the per-cell counts the results files carry. Language and level are
+the stratum of the seeded draw (OPD's language tag is empty on most documents); a document is scanned when its text
+comes from OCR (`extractor` tesseract and `image_only` true), which in both sets is exactly P1's Ticino scan stratum.
+P2 has no scanned document and no Italian canton. Cells: exact answer date per document (strict); for P2, answer dates
+found in brackets. Parliaments per stratum: P1 · P2 (Bern and Ticino each sit in two P1 strata).
+
+| stratum | P1 rules | P1 pointer | P1 cascade | P2 rules (found) | P2 pointer (found) | parliaments |
+|---|---|---|---|---|---|---|
+| DE canton | 17/22 | 19/22 | 20/22 | 11/23 (0/12) | 19/23 (8/12) | 4 · 6 |
+| DE commune | 20/22 | 16/22 | 17/22 | 9/10 (0/1) | 10/10 (1/1) | 3 · 3 |
+| FR canton | 19/22 | 18/22 | 20/22 | 0/8 (0/8) | 8/8 (8/8) | 4 · 1 |
+| FR commune | 19/22 | 19/22 | 19/22 | 14/15 (2/3) | 10/15 (2/3) | 3 · 4 |
+| IT canton, born-digital | 21/22 | 21/22 | 21/22 | none drawn | none drawn | 1 · 0 |
+| IT commune | 18/22 | 20/22 | 21/22 | 1/6 (0/5) | 6/6 (5/5) | 2 · 1 |
+| IT canton, scanned (Ticino, OCR) | 21/22 | 17/22 | 21/22 | none drawn | none drawn | 1 · 0 |
+| all | 135/154 | 130/154 | 139/154 | 35/62 (2/29) | 53/62 (24/29) | 16 · 15 |
+
+The rules are exact on between 17/22 and 21/22 documents in every P1 stratum, scanned Ticino answers included (21/22;
+answer dates found through OCR 11/12); the pointer is weakest on the scans (17/22, found 7/12), and the cascade keeps
+the rules' 21/22 there. On P2's unseen parliaments the pointer finds answer dates in every language and level where
+the rules find almost none (by language, pointer DE 9/13, FR 10/11, IT 5/5; rules DE 0/13, FR 2/11, IT 0/5); its one
+weaker stratum is French communes (10/15 exact), where it dates 4 answerless documents that the rules leave empty.
+
 **P3 — whole affairs: 29 affairs (58 PDFs) from 10 parliaments, 5 with rules and 5 without, DE/FR/IT.** A feasibility
 study: the extractor, its prompts and the sample entered in one commit and P3 had no development set (D3-5); its labels
 were committed after the lock. Arms: OPD metadata only (M), rules only (R), the default metadata + rules (C), and C plus
@@ -519,11 +544,10 @@ frame rows; 98.9% are answers, 76.2% date-checked. P7's promotions reach 95.8%: 
 itself, Apertus's chosen date is the gold date in 113/120 judged promotions, the rule's first passing date in 127/157
 (+23.9 points [12.7, 34.7]). The rule recovers more rows with less precision: attainable recall 88% against P7's 66%,
 and 369 of the 863 eligible queue rows against 214. Keeping Apertus's yes/no gate and letting the rule accept any
-printed date, 172 rows reach 74.9% (P7 +20.9 points [5.2, 33.1]); the yes/no question adds 1.1 points [0, 2.9] on
-is-answer. With whole parliaments resampled (post hoc, round 9, `eval/p7/cluster_r9.py` → `results/p7/p7_cluster_r9.json`;
+printed date, 172 rows reach 74.9% (P7 +20.9 points [5.2, 33.1]). With whole parliaments resampled (post hoc, round 9, `eval/p7/cluster_r9.py` → `results/p7/p7_cluster_r9.json`;
 15 parliaments, B = 10,000) the gap to the no-model rule is [0.9, 42.8] and to the gated rule [0, 47.4]: it is
-concentrated in a few parliaments, and without Frauenfeld it is larger (+28.5 and +36.4 points). A date match without a
-model is also right on is-answer (146/146) and also stops all 10 gold-no rows. So Apertus's selection makes the
+concentrated in a few parliaments, and without Frauenfeld it is larger (+28.5 and +36.4 points). On is-answer, the no-model comparison: a date match without a
+model is also right (146/146) and also stops all 10 gold-no rows; Apertus's yes/no question adds 1.1 points [0, 2.9]. So Apertus's selection makes the
 promoted tier date-checkable; a no-model rule recovers more rows with less precision. These scripts replay from a clean
 checkout on the committed `data/p7/` copies (`eval/p7/offline.py`, part of `make run`). H4 as registered is weighted to the frame; unweighted over the judged rows it is
 115/120 vs 129/146 (88.4%), +7.5 points [3.4, 12.2], the gap coming from the `rest` stratum (2/8 trivial promotions

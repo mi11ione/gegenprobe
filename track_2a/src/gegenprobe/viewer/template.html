@@ -85,7 +85,8 @@ button.theme { font: inherit; font-family: var(--mono); font-size: 11px; letter-
   line-height: .82; letter-spacing: -.045em; color: var(--red); margin: 0; font-variant-numeric: tabular-nums; }
 .hero h1 { font-weight: 500; font-size: clamp(20px, 2.3vw, 30px); line-height: 1.18; letter-spacing: -.01em; margin: 18px 0 0;
   max-width: 30ch; text-wrap: balance; }
-.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); margin-top: 36px; }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); margin-top: 36px; }
+@media (max-width: 1100px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } .fact:nth-child(2) { border-right: 0; } .fact:nth-child(3) { padding-left: 0; } }
 .fact { padding: 14px 16px 6px 0; border-right: 1px solid var(--rule); min-width: 0; }
 .fact + .fact { padding-left: 16px; }
 .fact:last-child { border-right: 0; }
@@ -450,7 +451,7 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
 
 <section class="grid hero" aria-label="Summary">
   <div class="idx">
-    <div class="label">Written government answers<br>without answer text in OpenParlData, at most</div>
+    <div class="label">Interventions with a recorded government answer<br>that would have answer text once the proposed repairs are applied</div>
     <div class="code muted" style="margin-top:10px" id="heroSrc"></div>
     <div class="perrow" id="heroPeriod"></div>
   </div>
@@ -471,7 +472,7 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
 </section>
 
 <section class="grid schemasec" id="schema-top" aria-labelledby="h-schema">
-  <div class="idx"><div class="label">Schema v0.1 · what the converter writes</div><p class="small" style="margin:8px 0 0;max-width:32ch" id="schemaNote"></p></div>
+  <div class="idx"><div class="label">Schema v0.2 · what the converter writes</div><p class="small" style="margin:8px 0 0;max-width:32ch" id="schemaNote"></p></div>
   <div class="work">
     <h2 id="h-schema" style="margin:0 0 6px;font-size:clamp(22px,2.4vw,30px);letter-spacing:-.015em;line-height:1.1">One affair, as the converter writes it: every value with its source, every gap with its reason</h2>
     <div id="sampleRec"></div>
@@ -497,7 +498,7 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
   <div class="tablewrap"><table class="dense" id="parTable"></table></div>
   <div class="grid parnotes">
     <div class="idx"><div class="label">How to read it</div></div>
-    <div class="work"><p class="small" id="parDefs"></p><p class="small" id="parFoot"></p></div>
+    <div class="work"><p class="small" id="heroDetail"></p><p class="small" id="parDefs"></p><p class="small" id="parFoot"></p></div>
   </div>
   <div class="grid" style="margin-top:34px" id="bern-numbers">
     <div class="idx"><div class="label">Bern · every number in one place</div><p class="small" id="bernNote"></p></div>
@@ -703,31 +704,38 @@ const H = D.headline;
 function drawHero() {
   const x = H.periods[period];
   const am = (H.at_most || {})[period];
-  $('#heroBig').textContent = fmt(am && am.written != null ? am.written : x.missing);
-  $('#heroLine').innerHTML = am && am.written != null ?
-    `written answers at most lack answer text on their intervention in OpenParlData, ${PERW[period]} (${pct(am.written / x.in_writing)} of the ${fmt(x.in_writing)} answered in writing), each typed by cause. ` +
-    (am.after_repair != null ? `After every counted repair (the Bern relinks once OPD decides its hash rule, the checked fetches once loaded), <b>${pct(am.after_repair)}</b> of the ${fmt(x.written)} interventions with a recorded government answer have answer text. ` : '') +
-    (am.unrecognised ? `${fmt(am.unrecognised)} of the ${fmt(x.missing)} the registered census counts were in OPD all along, under a heading the census does not recognise; ` : '') +
-    (x.oral != null ? `${fmt(x.oral)} were answered orally in the sitting.` : '') :
-    `of ${fmt(x.written)} interventions with a recorded government answer, ${PERW[period]}, have no answer text attached in OpenParlData by the registered census rule (${pct(x.missing / x.written)}), typed by cause for every one. ` +
-    (x.oral != null ? `${fmt(x.oral)} were answered orally in the sitting, so no text is expected; the other <b>${fmt(x.written_missing)}</b> are written answers missing from OPD (${pct(x.written_missing / x.in_writing)} of the ${fmt(x.in_writing)} answered in writing).` : '');
+  const V = D.schema.verdict;
+  // the one lead sentence (README, report, form notes, site): the schema verdict plus the repair result
+  $('#heroBig').textContent = am && am.after_repair != null ? pct(am.after_repair) : fmt(x.missing);
+  $('#heroLine').innerHTML = (am && am.after_repair != null ?
+    `A common schema for Swiss parliamentary business works if its fields carry roles, and the proposed repairs, keyed on OpenParlData (OPD) ids, would raise the share of interventions with a recorded government answer that have answer text from ${pct(1 - x.missing / x.written)} to ${pct(am.after_repair)}${period === 'all' ? '' : ` (${PERW[period]})`}. ` +
+    `Today at most <b>${fmt(am.written)}</b> written answers lack answer text on their intervention, each typed by cause.` :
+    `of ${fmt(x.written)} interventions with a recorded government answer, ${PERW[period]}, have no answer text attached in OpenParlData by the registered census rule (${pct(x.missing / x.written)}), typed by cause for every one.`);
+  $('#heroDetail').textContent = am && am.written != null ?
+    `Headline, ${PERW[period]}: at most ${fmt(am.written)} written answers lack answer text on their intervention in OpenParlData (${pct(am.written / x.in_writing)} of the ${fmt(x.in_writing)} answered in writing). ` +
+    `The registered census rule counts ${fmt(x.missing)} of the ${fmt(x.written)} interventions with a recorded government answer without attached answer text (${pct(x.missing / x.written)}); ` +
+    (am.unrecognised ? `${fmt(am.unrecognised)} of them were in OPD all along, under a heading the census lexicon does not list, ` : '') +
+    (x.oral != null ? `and ${fmt(x.oral)} were answered orally in the sitting, so no text is expected. ` : '') +
+    (am.after_repair != null ? `After every counted repair (the Bern relinks once OPD decides its hash rule, the checked fetches once loaded), ${pct(am.after_repair)} have answer text.` : '') : '';
   $('#heroSrc').textContent = `results/census/summary.json (registered count) · results/census/corrected.json (after the repair routes looked) · period: ${D.parliaments.periods[period]}, the same as the table`;
 }
 $('#heroPeriod').append(periodSeg('Period · applies to the whole page'));
 drawHero();
+const V = D.schema.verdict, V2 = D.schema.v02, P7 = D.evaluation.p7, P2E = D.evaluation.p2;
 const facts = [
-  [fmt(H.relink), el('span', {}, `Bern answers already in OPD without a parent, relinkable by the canton's own document id. Plus ${fmt(H.fetch)} to fetch. `, el('a', { class: 'bernlink', href: '#bern-numbers' }, 'All Bern numbers →'))],
-  H.p2 ? [`${H.p2.pointer.correct}/${H.p2.pointer.of}`, `answer dates Apertus found in ${H.p2.bodies} parliaments the rules were never written for (the 29 dated answers come from 7 of them; Apertus is ahead in 6 of those, the rules in none, sign test p = 0.031); the rules found ${H.p2.rules.correct}. The latest printed date in each document also finds 22, but dates 31 of the 33 documents without an answer date; Apertus dates 4, all of them documents that contain an answer but print no qualifying date, and none of the 25 with no answer at all.`]
-       : [`${H.rules_exact}/${H.heldout}`, `held-out documents exact with the default converter (rules, no model), which wrote a date on ${H.rules_on_null} of ${H.n_null} documents without an answer.`],
-  D.evaluation.p7 ? [fmt(D.evaluation.p7.promoted), `review-queue answers Apertus recovered as a closed-set verifier (P7): on a fresh pre-registered test ${D.evaluation.p7.h1.correct}/${D.evaluation.p7.h1.n} sampled promotions are judged the government's answer by blind AI annotators (H1), and ${pct(D.evaluation.p7.arms.p7.dated)} are answers whose printed answer date passes the date check, ${D.evaluation.p7.h4 ? `+${(100 * D.evaluation.p7.h4.diff).toFixed(1)} points over a trivial date match, weighted, as registered (H4, [${(100 * D.evaluation.p7.h4.ci[0]).toFixed(1)}, ${(100 * D.evaluation.p7.h4.ci[1]).toFixed(1)}]; unweighted +${D.evaluation.p7.h4.unweighted.toFixed(1)})` : 'more than for a trivial date match'}.`]
-    : [fmt(H.naive_fab), `answer dates invented outright by free-generation Apertus on the 154 held-out documents. The pointer only picks a date printed in the document, or null; it can still pick the wrong printed date.`],
+  [`${V.need_roles} of ${V.fields}`, `fields need roles (${V.need_roles_robust} robust, ${V.need_roles_fragile} fragile), ${V.body_specific} is body-specific, and ${V.defined_once} are defined once in v0.1 (their meaning is the next test).` + (V2 ? ` Schema v0.2 carries the roles and validates ${fmt(V2.n_valid)} affairs, ${fmt(V2.converter_valid)} of them the converter's own records.` : '')],
+  [fmt(H.relink), el('span', {}, `Bern answers already in OPD without a parent: ${fmt(H.relink_ready)} ready to relink (every check passes), ${fmt(H.relink - H.relink_ready)} for review. Plus ${fmt(H.fetch)} to fetch (${fmt(H.fetch_ready)} ready, ${fmt(H.fetch - H.fetch_ready)} for review). `, el('a', { class: 'bernlink', href: '#bern-numbers' }, 'All Bern numbers →'))],
+  P7 && P7.h4 ? [`+${(100 * P7.h4.diff).toFixed(1)}`, `points over a no-model date match: as verifier of the review queue (P7, pre-registered H4), ${pct(P7.arms.p7.dated)} of Apertus's promotions are the government's answer with a checkable answer date (weighted, as registered; unweighted +${P7.h4.unweighted.toFixed(1)}). ${P7.h1.correct}/${P7.h1.n} promotions are answers (H1); ${fmt(P7.promoted)} go to OPD's review step.`]
+    : [fmt(H.naive_fab), `answer dates invented outright by free-generation Apertus on the 154 held-out documents.`],
+  H.p2 ? [`${H.p2.pointer.correct}/${H.p2.pointer.of}`, `answer dates Apertus finds in ${H.p2.bodies} parliaments the rules were never written for (P2); the rules find ${H.p2.rules.correct}.` + (P2E && P2E.arms && P2E.arms.pointer ? ` On all ${P2E.arms.pointer.n} documents: ${P2E.arms.pointer.exact}/${P2E.arms.pointer.n} exact, against ${D.evaluation.baselines.p2_answer_typed ? `${D.evaluation.baselines.p2_answer_typed.exact}/${D.evaluation.baselines.p2_answer_typed.n}` : ''} for the best no-model baseline (post hoc).` : '')]
+       : [`${H.rules_exact}/${H.heldout}`, `held-out documents exact with the default converter (rules, no model).`],
 ];
 $('#facts').append(...facts.map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
 
 /* where to look (3 steps) + glossary */
 const RS = D.parliaments.research || {};
 const STEPS = [
-  ['Apply the Bern lists', `${fmt(H.relink)} answers are already in OPD without a parent: relink them by the canton’s own document id once OPD has decided whether a relinked document keeps its hash. ${fmt(H.fetch)} more to fetch from the canton. Both lists are keyed on OPD ids; download them, the dry-run apply plan and the JSON Schemas below.`, '#bern-numbers'],
+  ['Apply the Bern lists', `${fmt(H.relink)} answers are already in OPD without a parent (${fmt(H.relink_ready)} ready, ${fmt(H.relink - H.relink_ready)} for review): relink them by the canton’s own document id once OPD has decided whether a relinked document keeps its hash. ${fmt(H.fetch)} more to fetch from the canton (${fmt(H.fetch_ready)} ready, ${fmt(H.fetch - H.fetch_ready)} for review). Both lists are keyed on OPD ids; download them, the dry-run apply plan and the JSON Schemas below.`, '#bern-numbers'],
   ['Fix the rest by cause', 'Open a parliament’s row: every affair without answer text, with its cause and the fix it needs (agenda join, relink, re-take a text version, OCR, fetch from the parliament), linked to OPD and to the parliament’s own page, as CSV. Source adapters for 50 parliaments add verified lists (results/repair/adapters/).', '#adapters'],
   ['Take the data', `All ${fmt(RS.rows)} interventions as one file with a column dictionary (CDLA-Permissive-2.0), the table as CSV, and the converter’s output format (schema v0.1, below).`, '#dataset'],
 ];
@@ -745,7 +753,7 @@ if (DL) {
       el('p', { class: 'small code', style: 'margin:0;max-width:96ch;line-height:1.7' }, ...DL.adapter_lists.files.flatMap((f, i) => [i ? ' · ' : '', el('a', { href: f.href, download: '', title: `${f.label}: ${f.rows} rows, ${f.counted} counted` }, f.body), ` ${fmt(f.counted)}`]))) : null,
     el('p', { class: 'repo' }, 'Code, tests and every results file: ', el('a', { href: DL.repo }, DL.repo.replace('https://', '')),
       ' · how the lists are built and checked: docs/repair.md · the apply plan is a dry run, never executed by us'),
-    D.nights ? el('p', { class: 'small', style: 'margin:6px 0 0;max-width:80ch' }, `Nightly job: two consecutive real nights in the recommended Docker setup (GitHub Actions run ${D.nights.run}, results/monitor/two_nights_docker_${D.nights.run}/): night 1 took ${Math.round(D.nights.night1_s / 60)} min and streamed ${(D.nights.night1_bytes / 1e9).toFixed(1)} GB; night 2, on night 1’s state and OPD’s next export, took ${(D.nights.night2_s / 60).toFixed(1)} min and re-scanned the ${D.nights.night2_bodies} bodies whose exports changed; ${D.nights.alerts} alerts, the Bern list unchanged (${fmt(D.nights.relink)} relink + ${fmt(D.nights.fetch)} fetch). Night 2 exposed a ledger bug (per-row verdicts reset to unchecked); it is fixed and guarded by two-night tests, and its real two-night re-run is dispatched tonight. Ready for OPD's side: the same unit reads a local export directory (GP_EXPORTS_DIR).`) : null);
+    D.nights ? el('p', { class: 'small', style: 'margin:6px 0 0;max-width:80ch' }, `Nightly job: two consecutive real nights in the recommended Docker setup (GitHub Actions run ${D.nights.run}, results/monitor/two_nights_docker_${D.nights.run}/): night 1 took ${Math.round(D.nights.night1_s / 60)} min and streamed ${(D.nights.night1_bytes / 1e9).toFixed(1)} GB; night 2, on night 1’s state and OPD’s next export, took ${(D.nights.night2_s / 60).toFixed(1)} min and re-scanned the ${D.nights.night2_bodies} bodies whose exports changed; ${D.nights.alerts} alerts, the Bern list unchanged (${fmt(D.nights.relink)} relink and ${fmt(D.nights.fetch)} fetch candidates). Night 2 exposed a ledger bug (per-row verdicts reset to unchecked); it is fixed and guarded by two-night tests, and its real two-night re-run was dispatched 12 Oct 00:30 UTC (run in progress). Ready for OPD's side: the same unit reads a local export directory (GP_EXPORTS_DIR).`) : null);
 }
 $('#steps').append(...STEPS.map(([w, t, h], i) => el('div', {}, el('div', { class: 'n' }, String(i + 1)), el('div', { class: 'w' }, el('a', { href: h }, w)), el('p', {}, t))));
 const GLOSS = [
@@ -791,10 +799,10 @@ function renderSchemaTop() {
       el('span', {}, `“${(R.title && (R.title.de || R.title.fr || R.title.it)) || ''}”`), el('span', {}, `test ${S.test} · ${R.extraction.converter_version}`)),
     el('p', { class: 'small', style: 'margin:10px 0 8px;max-width:86ch' }, `A real record from the held-out ${S.test} run (${S.source}), not a hand-made example. A value is either OPD metadata with the OPD record it came from, or text from a document with page, character span and quote (highlighted); an empty field is a typed null with its reason. The answer date the rules read on page ${qa.answer_date ? qa.answer_date.page : '—'} ${ok ? 'agrees with' : 'differs from'} the blind annotators’ label (${dmy(S.gold_answer_date) || 'null'}).`),
     tb,
-    el('details', { class: 'json' }, el('summary', {}, 'The whole record · JSON (schema v0.1)'), el('pre', {}, JSON.stringify(R, null, 1))));
+    el('details', { class: 'json' }, el('summary', {}, `The whole record · JSON (schema v${R.schema_version}; it validates as a whole)`), el('pre', {}, JSON.stringify(R, null, 1))));
   const n = SV.counts, tc = SV.tier_counts;
-  $('#schemaNote').textContent = `Schema v0.1: dates with roles, typed nulls, spans. The converter fills it from OPD metadata first, then frozen rules; Apertus only suggests, for a reviewer.`;
-  $('#schemaClassNote').textContent = `Class: does the field mean the same thing everywhere? Meaning is measured for ${SV.meaning_measured} of the 17 fields: from OPD’s own labels (raw labels mapped to different harmonised concepts) and, for ${SV.meaning_p8} fields, from the documents in the pre-registered test P8. ${n.shared_with_role_split || 0} fields are shared with a role split (one label covers several roles that must be kept apart): who authored (sole, joint, first signatory, group), who signed, which instrument stands behind a harmonised type, which language a tag names, and every date's role. ${n.shared || 0} are shared; the submission date among them is body-specific in Vernier and Lausanne, where OPD's date is mostly printed nowhere in the documents. Three further concepts are body-specific and get constructs of their own. A common schema works if it carries these roles explicitly. ` +
+  $('#schemaNote').textContent = `Schema v0.2 (v0.1 plus P8's roles): dates with roles, typed nulls, spans. The converter fills it from OPD metadata first, then frozen rules; Apertus only suggests, for a reviewer.` + (SV.v02 ? ` ${fmt(SV.v02.n_valid)} affairs validate in v0.2, ${fmt(SV.v02.converter_valid)} of them the converter's own records (results/schema/v0_2/validation_all.json).` : '');
+  $('#schemaClassNote').textContent = `Class: does the field mean the same thing everywhere? Meaning is measured for ${SV.meaning_measured} of the 17 fields: from OPD’s own labels (raw labels mapped to different harmonised concepts) and, for ${SV.meaning_p8} fields, from the documents in the pre-registered test P8. ${n.shared_with_role_split || 0} fields are shared with a role split (one label covers several roles that must be kept apart): who authored (sole, joint, first signatory, group), who signed, which instrument stands behind a harmonised type, which language a tag names, and every date's role. ${SV.verdict.need_roles_robust} of them robust, ${SV.verdict.need_roles_fragile} fragile. ${SV.verdict.body_specific} is body-specific: the submission date, in Vernier and Lausanne, where OPD's date is mostly printed nowhere in the documents. ${SV.verdict.defined_once} are defined once in v0.1; their meaning is the next test. Three further concepts are body-specific and get constructs of their own. A common schema works if it carries these roles explicitly. ` +
     `Where the value lives is a separate question, counted over the parliaments where the field applies: in OPD metadata, partly, only in the PDF, or not in OPD’s data (docs/census.md §3). Classes: data/schema/field_verdict_classes.json; P8: results/p8/p8_hypotheses.json.`;
   const head = el('thead', {}, el('tr', {}, ['Field', 'Class', 'Meaning tested?', 'Where it lives', 'Metadata', 'Partly', 'Only in PDF', 'Not in OPD’s data', 'Evidence'].map(x => el('th', {}, x))));
   const tb2 = el('tbody', {}, SV.fields.map((f, i) => el('tr', { class: i && SV.fields[i - 1].cls !== f.cls ? 'grp' : '' }, el('td', { class: 'code' }, f.name),

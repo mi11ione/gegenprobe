@@ -28,7 +28,7 @@ p7.posthoc.base_rate_dated	40.9%	results/p7/p7_posthoc.json	base_rate.yes_dated	
 p7.posthoc.trivial_annotated	146/146	results/p7/p7_posthoc.json	annotated.trivial.correct/annotated.trivial.n	frac	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8; python -m eval.p7.posthoc8	-	
 p7.posthoc.auroc	0.99	results/p7/p7_posthoc.json	auroc_m_yes	f2	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8; python -m eval.p7.posthoc8	-	
 p7.queue.eligible	863	results/repair/adapters/p7/queue_summary.json	eligible	int	python -m gegenprobe.repair.adapters.adjudicate apply	-	
-p7.queue.promoted	214	results/repair/adapters/p7/queue_summary.json	promoted	int	python -m gegenprobe.repair.adapters.adjudicate apply	README.md,technical_report.md,docs/evaluation.md,docs/operations.md,docs/form_notes.md,../README.md	
+p7.queue.promoted	214	results/repair/adapters/p7/queue_summary.json	promoted	int	python -m gegenprobe.repair.adapters.adjudicate apply	README.md,technical_report.md,docs/evaluation.md,docs/operations.md,docs/form_notes.md
 p7.h2.recovered_lo	207	results/p7/p7_hypotheses.json	H2.recovered_ci95.0	int	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	-	
 p7.h2.recovered_dated	205	results/p7/p7_hypotheses.json	H2.recovered_dated_estimate	int	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	-	
 p7.h2.recovered_dated_lo	194	results/p7/p7_hypotheses.json	H2.recovered_dated_ci95.0	int	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	-	

@@ -148,8 +148,14 @@ def test_post_check_on_p3_and_p3b_matches_the_committed_file():
 
 
 def test_showcase_uses_the_post_processed_record():
+    """Round 12: the showcase is the post-processed product record carried to schema v0.2, where the field nobody
+    extracted carries the typed null `not_extracted` and the record validates as a whole (nothing is left out)."""
+    from gegenprobe.schema.p8_v0_2 import schema_module
     from gegenprobe.viewer import data
 
     s = data.schema_view()["sample"]
-    assert "answering_body" not in s["record"]["qa"][0] and s["omitted"]
+    ab = s["record"]["qa"][0]["answering_body"]
+    assert ab["kind"] == "null" and ab["null_reason"] == "not_extracted" and not s["omitted"]
+    assert s["record"]["schema_version"] == s["schema_version"] == "0.2.0"
     assert s["record"]["decision"]["null_reason"] == "not_applicable"
+    schema_module().validate_affair(s["record"])

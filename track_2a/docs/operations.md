@@ -128,11 +128,15 @@ with the validator's checks; re-scores P1–P4 and P3b from the committed predic
 registered hypothesis scripts (P1–P8) and the 8B analysis and verifies the nine LOCK files (P7 replays from the
 committed copies in `data/p7/` through `eval/p7/replay8.py`: LOCK8, the frozen hypotheses script and the dev table,
 byte-identical, and its post-hoc files through `eval/p7/offline.py`; P8 re-runs its frozen scorer and decision script
-from `data/p8/p8_gold.jsonl`, byte-identical, with LOCK9); re-derives the P1 rules arm from the
+from `data/p8/p8_gold.jsonl`, byte-identical, with LOCK9); re-derives schema v0.2 for the converter's own P3, P3b and
+P5 records and the P8 gold (171 affairs, all must validate, byte-identical); re-derives the P1 rules arm from the
 source PDFs (fetched by sha256) and recomputes P1 and P2 Apertus decisions from the committed model cache (cache only,
 no model call) within a time budget; and runs the claims check: each number listed in `claims.tsv` is recomputed from
-its results file, and the step fails if a document a claim lists does not print the claimed value, or if any number
-in the headline blocks (the README's top, the report's summary, the form notes; `claims_strict.json`) is not a claim. Locally the rules arm re-derives 154/154 and
+its results file, and the step fails if a document a claim lists does not print the claimed value (short values within
+120 characters of their context phrase), if an anchor (`claims_anchor.json`: a phrase that holds a claim's value with
+the words that name it) is not found in its document, or if a number in the strict zones (the README's top and its
+results tables, the report's summary, the form notes; `claims_strict.json`) is not bound to a claim by an anchor at
+its position, so that a number swapped for another valid claim of the same document fails. Locally the rules arm re-derives 154/154 and
 the Apertus decisions 154/154 (P1) and 62/62 (P2) identically. A CI run on main whose jobs all passed (run
 38076870082, commit 15dd077, `results/ci/docker_make_run_38076870082.json`) ran `make run` in this hardened container
 before P5 and P6 joined the replay: 22/22 replay tests (P1–P4, P3b, the 8B analysis, 5 locks), 141 of 154 rules re-derivations within the budget, all identical;
@@ -141,6 +145,11 @@ extracts slightly different text) and 49/49 (P2; 8 hosts unreachable from CI; re
 claims, 0 failing. Later commits add documentation and claims rows; each push re-runs the same job. Optional: `LLM_NAME` / `LLM_BASE_URL` / `LLM_API_KEY` for a live Apertus slice. `make run GGUF=1` loads Apertus v1.5 8B
 (GGUF Q4_K_M, sha256-pinned) in-process on CPU and scores a few demo documents with the frozen scorer; the 8B numbers
 below come from CI runs with the fast scorer and are replayed, not recomputed, by `make run`.
+
+The run ends with two lines: the Apertus replay coverage ("Apertus replay: P1 132/154 decisions re-derived from the
+model cache, 132 match (22 cache misses); P2 54/62, 54 match") and the result. A step that skipped is named on the
+result line: offline, `RESULT PASS (offline: 3 steps skipped: convert, rederive, rederive_apertus) in … s`, and the
+coverage line reads "P1 0/154 … (offline)"; the full report is `out/run_report.json` (`skipped`, `apertus_replay`).
 
 ## Convert your own PDFs
 

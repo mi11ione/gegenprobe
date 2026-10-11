@@ -1,0 +1,802 @@
+{
+ "_doc": "Anchors for `make claims`: {claim id: {document: [phrase, ...]}}. A phrase holds the claim's shown value with the words that name it; in a strict zone every numeric token must sit inside such a phrase at its position (gegenprobe.claims.zone_check).",
+ "anchors": {
+  "census.written_answer_events": {
+   "docs/form_notes.md": [
+    "91,268 interventions with a recorded government"
+   ],
+   "technical_report.md": [
+    "Of 91,268 interventions with a recorded government"
+   ]
+  },
+  "docs.be_linked_after_share": {
+   "docs/form_notes.md": [
+    "96.1% are already in OPD:"
+   ]
+  },
+  "docs.be_linked_before_share": {
+   "docs/form_notes.md": [
+    "answers the canton publishes (6.5%), yet"
+   ]
+  },
+  "eval.rules.exact": {
+   "README.md": [
+    "135/154, so the default runs"
+   ],
+   "docs/form_notes.md": [
+    "135/154, so by default no"
+   ]
+  },
+  "opd.be_begin_review": {
+   "README.md": [
+    "173 to review) | the affair's"
+   ]
+  },
+  "opd.be_begin_set": {
+   "README.md": [
+    "554 load timestamps set to the"
+   ],
+   "technical_report.md": [
+    "554 Bern `begin_date` corrections; per-parliament lists"
+   ]
+  },
+  "p2.bodies": {
+   "README.md": [
+    "finds in 15 parliaments nobody wrote rules for (P2)",
+    "| 62 documents, 15 parliaments without rules |"
+   ],
+   "docs/form_notes.md": [
+    "answer dates on 15 unseen"
+   ]
+  },
+  "p2.h3_k": {
+   "README.md": [
+    "H3 null safety failed (4/33) | pointer"
+   ]
+  },
+  "p2.n": {
+   "README.md": [
+    "| P2 | 62 documents,"
+   ]
+  },
+  "p2.pointer.exact": {
+   "technical_report.md": [
+    "53/62 documents, against"
+   ]
+  },
+  "p2.pointer_found": {
+   "README.md": [
+    "24/29 answer dates, rules",
+    "| **24/29** | answer dates Apertus finds"
+   ],
+   "docs/form_notes.md": [
+    "24/29 answer dates (rules",
+    "24/29 answer dates on"
+   ],
+   "technical_report.md": [
+    "24/29 answer dates (P2; rules"
+   ]
+  },
+  "p2.rules_found": {
+   "README.md": [
+    "2/29; exact on",
+    "answer dates, rules 2/29 |"
+   ],
+   "technical_report.md": [
+    "2/29) and is exact on"
+   ]
+  },
+  "p3.answer_date.C": {
+   "README.md": [
+    "precision below | answer date 22/27 →"
+   ]
+  },
+  "p3.answer_date.CA": {
+   "README.md": [
+    "27/27 with Apertus |"
+   ]
+  },
+  "p3.n_affairs": {
+   "README.md": [
+    "29 whole affairs,"
+   ]
+  },
+  "p4.precision": {
+   "README.md": [
+    "H1, H3 failed | precision 99/99, recall"
+   ]
+  },
+  "p4.recall": {
+   "README.md": [
+    "recall 99/120 |"
+   ]
+  },
+  "p7.h1.correct": {
+   "README.md": [
+    "H1 holds (120/120); H4 supported",
+    "unweighted +7.5); 120/120 promotions are answers (H1)"
+   ],
+   "docs/form_notes.md": [
+    "120/120 sampled promotions are answers (H1,",
+    "120/120). P8: of 7 fields"
+   ],
+   "technical_report.md": [
+    "120/120** sampled promotions the government's"
+   ]
+  },
+  "p7.queue.promoted": {
+   "README.md": [
+    "214 review rows verified by Apertus,",
+    "supported; H3 not supported | 214 of"
+   ],
+   "docs/form_notes.md": [
+    "214 answers for"
+   ],
+   "technical_report.md": [
+    "214** review-queue answers. In"
+   ]
+  },
+  "p7.qwen.agree": {
+   "docs/form_notes.md": [
+    "P7 185/190."
+   ]
+  },
+  "p7.test.frame": {
+   "README.md": [
+    "478 review rows,"
+   ]
+  },
+  "p7.test.packets": {
+   "README.md": [
+    "190 blind packets | Apertus as"
+   ]
+  },
+  "p8.meaning_measured_total": {
+   "README.md": [
+    "checks | meaning measured for 11 of"
+   ],
+   "technical_report.md": [
+    "nowhere. Meaning is measured for 11 of"
+   ]
+  },
+  "p8.n": {
+   "README.md": [
+    "(P8: 66 affairs,",
+    "| P8 | 66 fresh affairs,"
+   ],
+   "docs/form_notes.md": [
+    "66 affairs from"
+   ],
+   "technical_report.md": [
+    "66 affairs from"
+   ]
+  },
+  "p8.parliaments": {
+   "README.md": [
+    "66 affairs, 11 parliaments); schema v0.2",
+    "66 fresh affairs, 11 parliaments | meaning of 7"
+   ],
+   "docs/form_notes.md": [
+    "11 parliaments (P8) finds roles in"
+   ],
+   "technical_report.md": [
+    "11 parliaments (P8) finds roles in"
+   ]
+  },
+  "r10.p7_date_hit_p7": {
+   "technical_report.md": [
+    "113/120 promotions, against"
+   ]
+  },
+  "r10.p7_date_hit_rule": {
+   "technical_report.md": [
+    "127/157 for a no-model rule. It"
+   ]
+  },
+  "r10.p7_h1_wilson": {
+   "docs/form_notes.md": [
+    "[96.9, 100]). Post hoc, the date"
+   ],
+   "technical_report.md": [
+    "[96.9, 100]); post hoc, the date"
+   ]
+  },
+  "r10.p7_h4_ci": {
+   "docs/form_notes.md": [
+    "[10.2, 34.3], weighted, as registered;"
+   ]
+  },
+  "r10.p7_h4_pts": {
+   "README.md": [
+    "22.7** | points for Apertus"
+   ],
+   "docs/form_notes.md": [
+    "22.7 points over a no-model date"
+   ]
+  },
+  "r11.adapters_with_counted": {
+   "README.md": [
+    "27 with counted repairs;"
+   ],
+   "docs/form_notes.md": [
+    "model-free source adapters, 27"
+   ],
+   "technical_report.md": [
+    "27 with counted repairs (judged by"
+   ]
+  },
+  "r11.p7_h4_unweighted": {
+   "README.md": [
+    "weighted as registered; unweighted +7.5);"
+   ],
+   "docs/form_notes.md": [
+    "unweighted +7.5), and"
+   ],
+   "technical_report.md": [
+    "7.5), and blind AI annotators"
+   ]
+  },
+  "r11.schema_fields": {
+   "README.md": [
+    "17 fields](#1-the-schema-shared-concepts-explicit-roles)).",
+    "Of the 17 fields,",
+    "of 17 fields |"
+   ],
+   "docs/form_notes.md": [
+    "Of the 17 fields,"
+   ],
+   "technical_report.md": [
+    "17 fields (Table 1). Schema v0.2",
+    "Of the 17 fields,"
+   ]
+  },
+  "r11.schema_role_split": {
+   "README.md": [
+    "10 need roles (8 robust"
+   ],
+   "docs/form_notes.md": [
+    "10 need roles (8 robust"
+   ],
+   "technical_report.md": [
+    "10 need roles (8 robust"
+   ]
+  },
+  "r11.spotcheck_rows": {
+   "README.md": [
+    "30 gold labels with link, page"
+   ]
+  },
+  "r12.p1_h1_frac": {
+   "README.md": [
+    "H1 null safety failed (7/90); H2 Branch B |"
+   ]
+  },
+  "r12.p2_best_nomodel_exact": {
+   "README.md": [
+    "44/62 for the best no-model baseline"
+   ],
+   "docs/form_notes.md": [
+    "44/62 for the best no-model baseline"
+   ],
+   "technical_report.md": [
+    "44/62 for the best no-model baseline"
+   ]
+  },
+  "r12.p2_pointer_exact": {
+   "README.md": [
+    "exact on 53/62 documents, against"
+   ],
+   "docs/form_notes.md": [
+    "and is exact on 53/62"
+   ]
+  },
+  "r12.p2_rules_found": {
+   "docs/form_notes.md": [
+    "2/29) and is exact on"
+   ]
+  },
+  "r12.p3_bodies": {
+   "README.md": [
+    "10 parliaments | 7 fields: metadata,"
+   ]
+  },
+  "r12.p4_items": {
+   "README.md": [
+    "120 agenda items, 6 sittings |"
+   ]
+  },
+  "r12.p5_bodies": {
+   "README.md": [
+    "10 parliaments | Q/A pairs, people,"
+   ]
+  },
+  "r12.p7_date_hit_p7": {
+   "docs/form_notes.md": [
+    "113/120 promotions, against"
+   ]
+  },
+  "r12.p7_date_hit_rule": {
+   "docs/form_notes.md": [
+    "127/157 for a no-model rule. It"
+   ]
+  },
+  "r12.readme.matrix.addressed_body.metadata": {
+   "README.md": [
+    "the council itself | partly: 12 ·"
+   ]
+  },
+  "r12.readme.matrix.addressed_body.mixed": {
+   "README.md": [
+    "the council itself | partly: 12 · 10 ·"
+   ]
+  },
+  "r12.readme.matrix.addressed_body.no_source": {
+   "README.md": [
+    "partly: 12 · 10 · 54 · 10 |"
+   ]
+  },
+  "r12.readme.matrix.addressed_body.pdf": {
+   "README.md": [
+    "· 54 ·"
+   ]
+  },
+  "r12.readme.matrix.co_signatories.no_source": {
+   "README.md": [
+    "· 12 |"
+   ]
+  },
+  "r12.readme.matrix.co_signatories.pdf": {
+   "README.md": [
+    "only: 0 · 2 · 72 ·"
+   ]
+  },
+  "r12.readme.matrix.date_answer.metadata": {
+   "README.md": [
+    "| OPD labels | **metadata**: 53 · 1 · 0 ·"
+   ]
+  },
+  "r12.readme.matrix.language.metadata": {
+   "README.md": [
+    "the other language | partly: 14 ·"
+   ]
+  },
+  "r12.readme.matrix.language.mixed": {
+   "README.md": [
+    "· 53 ·"
+   ]
+  },
+  "r12.readme.matrix.language.pdf": {
+   "README.md": [
+    "· 20 · 2 |"
+   ]
+  },
+  "r12.readme.matrix.submitter.metadata": {
+   "README.md": [
+    "or group author | partly: 23 ·"
+   ]
+  },
+  "r12.readme.matrix.submitter.mixed": {
+   "README.md": [
+    "· 61 · 5 · 0 |"
+   ]
+  },
+  "r12.relink_candidates": {
+   "docs/form_notes.md": [
+    "ready relinks (of 2,459 candidates,"
+   ]
+  },
+  "r12.relink_review": {
+   "docs/form_notes.md": [
+    "candidates, 38 for"
+   ],
+   "technical_report.md": [
+    "38 for review) and"
+   ]
+  },
+  "r5a.p1_date_kappa": {
+   "docs/form_notes.md": [
+    "blind: dates agree with κ 0.80,"
+   ]
+  },
+  "r5a.p2_date_kappa": {
+   "docs/form_notes.md": [
+    "0.87 and"
+   ]
+  },
+  "r6c.sessions_n": {
+   "docs/form_notes.md": [
+    "third settles ties, and all 84"
+   ]
+  },
+  "r6d.repaired": {
+   "README.md": [
+    "9,720** | answers with a"
+   ],
+   "docs/form_notes.md": [
+    "9,720 answers, keyed on OPD ids."
+   ],
+   "technical_report.md": [
+    "9,720** answers, keyed on OPD"
+   ]
+  },
+  "r6d.report_after_all_counted": {
+   "README.md": [
+    "92.3%** | of interventions with"
+   ],
+   "docs/form_notes.md": [
+    "92.3% with the"
+   ],
+   "technical_report.md": [
+    "92.3%** with the checked fetches."
+   ]
+  },
+  "r6d.unrecognised": {
+   "docs/form_notes.md": [
+    "2,177 \"missing\" answers were in OPD"
+   ]
+  },
+  "r6d.written_lack_text_at_most": {
+   "technical_report.md": [
+    "13,150 written answers lack text on"
+   ]
+  },
+  "r6docs.audit3_claude_counted": {
+   "docs/form_notes.md": [
+    "197/200 to be the answer), 9"
+   ],
+   "technical_report.md": [
+    "197/200 are the executive's answer, the",
+    "Claude Opus judged 197/200"
+   ]
+  },
+  "r6docs.audit3_date_no": {
+   "technical_report.md": [
+    "15); 9 OPD vocabulary labels"
+   ]
+  },
+  "r6docs.matrix.answer_link_status.metadata": {
+   "README.md": [
+    "definition | next | **metadata**: 54 · 0 · 0 ·"
+   ]
+  },
+  "r6docs.matrix.date_submission.metadata": {
+   "README.md": [
+    "P8: Vernier, Lausanne | **metadata**: 89 · 0 · 0 ·"
+   ]
+  },
+  "r6docs.matrix.decision_outcome.mixed": {
+   "README.md": [
+    "labels | partly: 7 · 31 ·"
+   ]
+  },
+  "r6docs.matrix.decision_outcome.pdf": {
+   "README.md": [
+    "· 33 · 6 |"
+   ]
+  },
+  "r6docs.matrix.government_recommendation.no_source": {
+   "README.md": [
+    "56 · 10 |"
+   ]
+  },
+  "r6docs.matrix.government_recommendation.pdf": {
+   "README.md": [
+    "partly: 3 · 8 · 56 ·"
+   ]
+  },
+  "r6docs.matrix.procedural_history.metadata": {
+   "README.md": [
+    "| OPD labels | **metadata**: 78 · 9 · 1 ·"
+   ]
+  },
+  "r6docs.matrix.procedural_state.metadata": {
+   "README.md": [
+    "| OPD labels | partly: 41 ·"
+   ]
+  },
+  "r6docs.matrix.procedural_state.mixed": {
+   "README.md": [
+    "· 27 ·"
+   ]
+  },
+  "r6docs.matrix.procedural_state.pdf": {
+   "README.md": [
+    "· 18 · 3 |"
+   ]
+  },
+  "r6docs.matrix.type.metadata": {
+   "README.md": [
+    "instrument behind it | partly: 61 ·"
+   ]
+  },
+  "r6docs.matrix.type.mixed": {
+   "README.md": [
+    "· 24 · 2 · 2 |"
+   ]
+  },
+  "r7docs.attached_share": {
+   "technical_report.md": [
+    "81.6% have answer text attached today,",
+    "that have answer text from 81.6% to"
+   ]
+  },
+  "r7docs.che_hours": {
+   "README.md": [
+    "17.5 h at the polite rate"
+   ]
+  },
+  "r7docs.che_placeholder": {
+   "README.md": [
+    "29,946 federal documents whose OPD text"
+   ],
+   "docs/form_notes.md": [
+    "29,946 federal placeholder documents."
+   ],
+   "technical_report.md": [
+    "29,946 federal documents that store Fedlex's"
+   ]
+  },
+  "r7docs.che_sample": {
+   "README.md": [
+    "40/50 on a sample | one-off"
+   ]
+  },
+  "r7docs.night1_min": {
+   "README.md": [
+    "86 min on a GitHub runner,"
+   ],
+   "docs/form_notes.md": [
+    "86 min, the next"
+   ],
+   "technical_report.md": [
+    "86 min, the next"
+   ]
+  },
+  "r7docs.night2_min": {
+   "README.md": [
+    "6.6 min; at ten times OPD's"
+   ],
+   "docs/form_notes.md": [
+    "6.6 min; at ten times OPD's"
+   ],
+   "technical_report.md": [
+    "6.6 min; at ten times OPD's"
+   ]
+  },
+  "r7docs.p7_h4_points": {
+   "technical_report.md": [
+    "22.7 points** over a no-model date"
+   ]
+  },
+  "r7docs.p7_h4_points_ci": {
+   "technical_report.md": [
+    "[10.2, 34.3], weighted, as registered; unweighted"
+   ]
+  },
+  "r7docs.p7_review_rows": {
+   "README.md": [
+    "917 review rows promoted |"
+   ]
+  },
+  "r7docs.vocab_votaziun": {
+   "README.md": [
+    "9,887 affairs | OPD's vocabulary |"
+   ],
+   "technical_report.md": [
+    "9,887 affairs); a Fedlex resolver for"
+   ]
+  },
+  "r8e.mult_m": {
+   "docs/form_notes.md": [
+    "20 tests. Null safety failed on"
+   ]
+  },
+  "r9p.p2_bodies": {
+   "docs/form_notes.md": [
+    "15 parliaments nobody wrote rules for"
+   ],
+   "technical_report.md": [
+    "15 parliaments nobody wrote rules for"
+   ]
+  },
+  "r9p.p7_dated": {
+   "docs/form_notes.md": [
+    "95.8% of its promotions are the"
+   ],
+   "technical_report.md": [
+    "passes the date check in 95.8%, **"
+   ]
+  },
+  "r9p.share_after_hash": {
+   "docs/form_notes.md": [
+    "88.3% after its hash decision for"
+   ],
+   "technical_report.md": [
+    "88.3% after its hash decision for"
+   ]
+  },
+  "r9p.share_all": {
+   "README.md": [
+    "92.3%.** Of the"
+   ],
+   "docs/form_notes.md": [
+    "92.3%. Of the"
+   ],
+   "technical_report.md": [
+    "92.3%.** Of the"
+   ]
+  },
+  "r9p.share_attached": {
+   "README.md": [
+    "81.6% attached today ([staged](#ready-for-opd)) |",
+    "from 81.6% to"
+   ],
+   "docs/form_notes.md": [
+    "81.6% have answer text attached today,",
+    "that have answer text from 81.6% to"
+   ]
+  },
+  "r9p.share_now": {
+   "docs/form_notes.md": [
+    "have answer text attached today, 85.6%"
+   ],
+   "technical_report.md": [
+    "today, 85.6% with the repairs from what"
+   ]
+  },
+  "repair.all_fetch_triple": {
+   "README.md": [
+    "48 answers to fetch from the"
+   ],
+   "docs/form_notes.md": [
+    "48 ready fetches, with a self-checking"
+   ],
+   "technical_report.md": [
+    "48 ready fetches with a self-checking"
+   ]
+  },
+  "repair.all_relink_date_v2": {
+   "README.md": [
+    "2,421 Bern answers already in OPD,"
+   ],
+   "docs/form_notes.md": [
+    "2,421 ready relinks (of"
+   ],
+   "technical_report.md": [
+    "2,421 ready relinks (of"
+   ]
+  },
+  "repair.all_relink_n": {
+   "technical_report.md": [
+    "ready relinks (of 2,459 candidates;"
+   ]
+  },
+  "repair.be_attached": {
+   "docs/form_notes.md": [
+    "229 of the"
+   ]
+  },
+  "repair.be_source_answered": {
+   "docs/form_notes.md": [
+    "of the 3,532"
+   ]
+  },
+  "report.heldout_n": {
+   "README.md": [
+    "154 documents, parliaments with rules |"
+   ]
+  },
+  "schema.v02.all_valid": {
+   "README.md": [
+    "171 affairs,"
+   ],
+   "docs/form_notes.md": [
+    "adds P8's roles and validates 171"
+   ],
+   "technical_report.md": [
+    "ships P8's roles and validates 171 affairs,"
+   ]
+  },
+  "schema.v02.conv_valid": {
+   "README.md": [
+    "105 of them the converter's own"
+   ],
+   "docs/form_notes.md": [
+    "105 of them the converter's own"
+   ],
+   "technical_report.md": [
+    "105 of them the converter's own"
+   ]
+  },
+  "u1.adapter_rows_counted": {
+   "README.md": [
+    "6,613 counted answers from"
+   ]
+  },
+  "u1.tag_answer": {
+   "README.md": [
+    "2,177 of them a category on"
+   ],
+   "technical_report.md": [
+    "2,177 of the \"missing\" answers were"
+   ]
+  },
+  "u2.p5.freegen.submitter": {
+   "technical_report.md": [
+    "free generation 34/40)"
+   ]
+  },
+  "u2.p5.pointer.submitter": {
+   "README.md": [
+    "→ 24/40 |"
+   ],
+   "technical_report.md": [
+    "(P5: rules 12/40, pointer 24/40, free generation"
+   ]
+  },
+  "u2.p5.rules.submitter": {
+   "README.md": [
+    "H3 no gain | submitter 12/40 →"
+   ],
+   "technical_report.md": [
+    "beat the rules (P5: rules 12/40, pointer"
+   ]
+  },
+  "u3.p6.free_null.exact": {
+   "README.md": [
+    "hypothesis held | free prompt 62/68, v2"
+   ]
+  },
+  "u3.p6.n": {
+   "README.md": [
+    "68 fresh documents, 8 parliaments |"
+   ]
+  },
+  "u3.p6.qwen.date_kappa": {
+   "docs/form_notes.md": [
+    "and 0.86, P7"
+   ]
+  },
+  "u3.p6.v2.exact": {
+   "README.md": [
+    "v2 59/68 |"
+   ]
+  },
+  "upd.adapters.parliaments": {
+   "README.md": [
+    "50 model-free source adapters,"
+   ],
+   "docs/form_notes.md": [
+    "50 model-free source adapters,"
+   ],
+   "technical_report.md": [
+    "50 model-free source adapters,"
+   ]
+  },
+  "upd.p5.n": {
+   "README.md": [
+    "40 fresh affairs,"
+   ]
+  },
+  "upd.p5.precision": {
+   "docs/form_notes.md": [
+    "P5: Q/A pairing at precision 0.83, recall"
+   ]
+  },
+  "upd.p5.recall": {
+   "docs/form_notes.md": [
+    "0.67 (partial tier). P6:"
+   ]
+  },
+  "w5.p3b.n": {
+   "README.md": [
+    "36 fresh affairs, 9 parliaments |"
+   ]
+  },
+  "w5.p3b.type": {
+   "README.md": [
+    "replicated (S1, S2) | type 35/36 unattended |"
+   ]
+  }
+ }
+}

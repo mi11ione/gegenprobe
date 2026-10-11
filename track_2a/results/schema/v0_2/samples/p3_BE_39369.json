@@ -1,0 +1,163 @@
+{
+ "actors": [
+  {
+   "kind": "person",
+   "name": {
+    "basis": "metadata",
+    "kind": "value",
+    "route": "metadata",
+    "source": "opd:contributors/20548",
+    "value": "Fritz Ruchti"
+   },
+   "role": "submitter"
+  },
+  {
+   "kind": "person",
+   "name": {
+    "basis": "metadata",
+    "kind": "value",
+    "route": "metadata",
+    "source": "opd:contributors/496950",
+    "value": "Peter Gerber"
+   },
+   "role": "co_signatory"
+  }
+ ],
+ "answer_link_status": "attached",
+ "body": {
+  "key": "BE",
+  "languages": [
+   "de"
+  ],
+  "level": "cantonal"
+ },
+ "dates": [
+  {
+   "date": {
+    "basis": "metadata",
+    "kind": "value",
+    "route": "metadata",
+    "source": "opd:events/333218",
+    "value": "2021-12-08"
+   },
+   "role": "submitted"
+  },
+  {
+   "date": {
+    "basis": "metadata",
+    "kind": "value",
+    "route": "metadata",
+    "source": "opd:events/333247",
+    "value": "2022-05-18"
+   },
+   "label": "OPD answer event",
+   "role": "answered"
+  }
+ ],
+ "decision": {
+  "evidence": "affair type interpellation (Interpellation): parliament takes no decision on it",
+  "kind": "null",
+  "null_reason": "not_applicable",
+  "route": "metadata"
+ },
+ "documents": [
+  {
+   "doc_id": "opd:23227",
+   "extractor": "pdftotext-26.02.0",
+   "image_only": false,
+   "language": "de",
+   "language_of_text": [],
+   "language_tag": "de",
+   "n_pages": 2,
+   "parts": [],
+   "role": "question",
+   "source": "opd",
+   "url": "https://ogd.parl.apps.be.ch/pdf-upload/e9f25f930292403ca8287c1060567006-332.pdf"
+  },
+  {
+   "doc_id": "opd:656633",
+   "extractor": "pdftotext-26.02.0",
+   "image_only": false,
+   "language": "de",
+   "language_of_text": [],
+   "language_tag": "de",
+   "n_pages": 3,
+   "parts": [],
+   "role": "answer",
+   "source": "opd",
+   "url": "https://ogd.parl.apps.be.ch/pdf-upload/afb41251635b452493a91ec5a4e77199-332.pdf"
+  }
+ ],
+ "extraction": {
+  "builds": [],
+  "converter_version": "gegenprobe-0.1.0+affair",
+  "created": "2026-10-10T08:43:29.097587Z",
+  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it)",
+  "schema_version": "0.2.0"
+ },
+ "government_recommendation": {
+  "doc": "opd:656633",
+  "evidence": "affair_type",
+  "kind": "null",
+  "null_reason": "not_applicable",
+  "route": "rule"
+ },
+ "languages": [
+  "de"
+ ],
+ "procedural_state": {
+  "basis": "metadata",
+  "kind": "value",
+  "route": "metadata",
+  "source": "opd:events/673640",
+  "value": "scheduled"
+ },
+ "qa": [
+  {
+   "answer_date": {
+    "basis": "normalised",
+    "char_end": 477,
+    "char_start": 466,
+    "doc": "opd:656633",
+    "kind": "value",
+    "page": 1,
+    "quote": "18 mai 2022",
+    "route": "rule",
+    "rule": "opd_event_date_in_document",
+    "value": "2022-05-18"
+   },
+   "answer_doc": "opd:656633",
+   "answer_identifier": {
+    "evidence": "decision number carried on answer_date.decision_number",
+    "kind": "null",
+    "null_reason": "present_unanchored",
+    "route": "rule"
+   },
+   "answering_body": {
+    "evidence": "the answering body is not extracted by converter gegenprobe-0.1.0+affair",
+    "kind": "null",
+    "null_reason": "not_extracted",
+    "route": "rule"
+   },
+   "items": [],
+   "link_status": "attached",
+   "question_doc": "opd:23227"
+  }
+ ],
+ "ref": {
+  "body_key": "BE",
+  "number": "2021.RRGR.388",
+  "opd_id": 39369,
+  "virtual": false
+ },
+ "related_affairs": [],
+ "schema_version": "0.2.0",
+ "title": {
+  "de": "Nachhaltige Bewirtschaftung im Berner Wald",
+  "fr": "Gestion durable de la forêt bernoise"
+ },
+ "type": {
+  "harmonised": "interpellation",
+  "source_label": "Interpellation"
+ }
+}
