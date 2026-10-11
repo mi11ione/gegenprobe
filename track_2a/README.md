@@ -288,19 +288,17 @@ labels come from blind agent annotators by design (below). Full tables, deviatio
 call). The 8B is a community 4-bit GGUF of `swiss-ai/Apertus-v1.5-8B`, sha256-pinned, run in-process on CPU. Review mode
 stops on a served build its θ was not fitted on.
 
-## Limitations and next steps
+## Next steps
 
-- **Schema.** Meaning is measured for 11 of 17 fields; the other six (decision and dispatch dates, Q/A pairing,
-  related affairs, usable text, answer-link status) and the P8 roles as v0.2 fields are the next step with the eCH
-  group ([`docs/ech-onepager.md`](docs/ech-onepager.md)). P8 has no Ticino affair: its robots.txt disallows the
-  documents, and our fetch guard refused them. Tables, annexes and images inside answers are the next extraction
-  target.
-- **At OPD.** The lists are ready to apply as dry-run plans keyed on OPD ids; the relinks wait on one decision, OPD's
-  hash rule. 5,077 answers remain to be found, 943 of them already waiting for a person.
-- **Apertus as a date reader** is used with a reviewer, as the registered null-safety tests (P1, P2, P6) indicate; P6
-  confirmed that the shipped reader v1 stays.
-- **Gold.** Labels are produced reproducibly by blind multi-annotator agents, cross-checked by another vendor's model
-  and by non-LLM sources; a 30-row kit lets anyone, OPD included, verify the gold in about an hour
+- **Schema with the eCH group.** Meaning is measured for 11 of 17 fields; next come the other six (decision and
+  dispatch dates, Q/A pairing, related affairs, usable text, answer-link status) and P8's roles as v0.2 fields
+  ([`docs/ech-onepager.md`](docs/ech-onepager.md)), then tables, annexes and images inside answers.
+- **At OPD.** The lists apply as dry-run plans keyed on OPD ids; the relinks take one decision, OPD's hash rule. Of the
+  next 5,077 answers to find, 943 are already queued for a person.
+- **Apertus with a reviewer.** Apertus reads dates and a person confirms them, the design the registered null-safety
+  tests (P1, P2, P6) support; P6 kept the shipped reader v1.
+- **Gold anyone can check.** Labels come from blind multi-annotator agents, cross-checked by another vendor's model and
+  by non-LLM sources; a 30-row kit lets anyone, OPD included, verify the gold in about an hour
   ([`results/opd_spotcheck/`](results/opd_spotcheck/README.md)).
 
 ## What is in the repository
