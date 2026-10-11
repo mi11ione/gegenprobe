@@ -8,6 +8,13 @@ letter_line_date  A common Swiss letter layout of a government answer: an addres
                   this layout it is never tried. Addressees that name an executive in some places (Gemeinderat, Stadtrat,
                   Conseil communal / municipal) are not used, and nor is "An den Regierungsrat" (a member's own text,
                   dated on submission).
+qa_lexicon_recommendation
+                  The Q/A extractor's recommendation rule (src/gegenprobe/qa/rec.py, LOCK6, the rule `qa_cli` uses
+                  first): sentences of the answer with a proposal verb ("beantragen wir Ihnen", "propose", "invita") and
+                  an outcome word, decided when all of them agree (`lexicon_reject`, ...). `convert` uses it only on a
+                  body outside data/convert/rules_coverage.json, after its own frozen rules and your anchors found
+                  nothing, and always flags the value for review (unless the rule is listed in confirm_rules), so that
+                  convert and qa_cli report the same recommendation for the same answer document.
 """
 from __future__ import annotations
 
@@ -47,6 +54,23 @@ def letter_line_date(pages: list[str]) -> dict | None:
                     return dict(value=v, page=pi, char_start=s, char_end=e, quote=re.sub(r"\s+", " ", ln.strip())[:200],
                                 address=re.sub(r"\s+", " ", a.group(0).strip()))
     return None
+
+
+def qa_lexicon_recommendation(pages: list[str]) -> dict | None:
+    """-> {value, rule, page, char_start, char_end, quote} for the sentence the Q/A lexicon rule decides on, or None (no
+    proposal sentence, or sentences with conflicting labels). The span is the sentence on its first page, as in qa_cli."""
+    from ..qa import rec as qrec
+    from ..qa.text import Doc
+
+    a = Doc("answer", "answer", pages)
+    val, ev, rule = qrec.decide_rules(qrec.candidates(a))
+    if val is None or ev is None:
+        return None
+    p0, c0 = a.loc(ev.g0)
+    p1, c1 = a.loc(ev.g1)
+    if p1 != p0:
+        c1 = len(pages[p0 - 1].rstrip())
+    return dict(value=val, rule=rule, page=p0, char_start=c0, char_end=c1, quote=re.sub(r"\s+", " ", pages[p0 - 1][c0:c1]))
 
 
 def check() -> dict:

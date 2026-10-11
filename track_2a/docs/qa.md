@@ -135,8 +135,21 @@ same cache. Either document may be left out.
   listed for review: the tool cannot know whether the layout was understood.
 - **`--anchors FILE`** is the per-parliament settings file shared with `convert --anchors` (docs/convert-your-own.md,
   "One settings file per parliament"). `qa_cli` uses its `recommendation` phrases (same format, labels and
-  `(?P<phrase>…)` span), its `affair_types`, its `confirm_rules` and two keys of its own: `closing` (lines that open the
-  closing block) and `reprint_headings` (headings of the reprinted member's text), both lists of regular expressions.
+  `(?P<phrase>…)` span), its `affair_types` and its `confirm_rules`. It also reads four keys that only it uses:
+  `closing` (lines that open the closing block), `reprint_headings` (headings of the reprinted member's text),
+  `questions_end` (lines that end the member's question list, on top of the built-in "Begründung" / "Motivation" /
+  "Motivazione" / "Exposé des motifs" / co-signature table headings), all lists of regular expressions, and
+  `prefer_answer_title` (`true`: the people come from the answer's title line). Example for the Grosser Rat Thurgau:
+
+  ```json
+  {"bodies": {"TG": {
+    "recommendation": [{"id": "tg_nicht_erheblich", "label": "reject",
+                        "pattern": "beantragen wir Ihnen[^.]{0,160}?(?P<phrase>nicht erheblich zu erkl(ä|a)ren)"}],
+    "closing":        ["^\\s*(Der|Die) Pr(ä|a|\\.)[^\\n]{0,40}$"],
+    "questions_end":  ["^\\s*Mitunterzeichnerinnen"],
+    "prefer_answer_title": true,
+    "confirm_rules":  ["heading_frage", "answer_title"]}}}
+  ```
 - **`--explain`** prints, per field, the frozen rule that decided, every post step tried (below) with what it did, and
   each anchor tried (stderr; `--json` adds an `explain` key).
 - **A typed null is printed as one.** The report says `recommendation: null (no_rules_for_body: …)` or
@@ -155,25 +168,37 @@ same cache. Either document may be left out.
 ### What `qa_cli` adds on top of the frozen extractor
 
 The extractor in `src/gegenprobe/qa/` is frozen by LOCK6, and the P5 numbers above are its numbers. `qa_cli` runs it and
-then an unlocked post-processing layer, `src/gegenprobe/qa_post.py`, that fixes what a Solothurn developer met in
-round 7. The layer reads the frozen result and the original text; it never calls a model, and every value it writes is a
+then an unlocked post-processing layer, `src/gegenprobe/qa_post.py`. It fixes what a Solothurn developer met in round 7
+and a Thurgau developer met in round 8. The layer reads the frozen result and the original text; it never calls a model, and every value it writes is a
 span of the original text that re-checks. Steps, in order:
 
 | step | what it does | rule id |
 |---|---|---|
+| questions end | The member's question list ends at the reasoning heading ("Begründung", "Begründung:", "Motivation", "Motivazione", "Exposé des motifs", "Développement"), at a co-signature table heading ("Mitunterzeichnerinnen und Mitunterzeichner", "Name / Vorname", "Unterschriften") or at a line matching the settings file's `questions_end`. The heading must come after the first question. A question that runs into it is cut before it, and a numbered item after it is not a question. A heading that further questions with "?" follow (a reason printed under each question) does not end the list. A trailing item of a question list with no "?", under 60 characters and with characters no printed text has (`^ < > \| ~ { }`, or fewer than 70% letters) is a garbled signature-table row and is dropped ("7. BreniicT M^rho" on a Thurgau scan). | `…+post_questions_end` |
 | section-number headings | "3.1 Zu Frage 1:" on one line (OPD's stored text, some PDFs) is split before the frozen rules run, by replacing the one space with a line break. Offsets do not move. | (frozen `heading_zu_frage`) |
 | motion demand | A motion's or postulate's demand whose points are dash bullets is **one** item: the request paragraph through its last bullet, answered by the whole reply. Points numbered `1.` `2.` or `a)` `b)` stay separate items. | `…+post_one_demand`, `post_single_demand_whole_reply` |
 | reasoning start | The reasoning starts after the reprinted member's text: a reprint heading ("Vorstosstext", "Auftragstext", "Wortlaut des Vorstosses", "Begründung (Vorstosstext)", "Texte de l'interpellation", "Testo dell'interpellanza") followed by the executive's heading ("Stellungnahme des Regierungsrates", "Réponse du Conseil d'Etat", "Risposta del Consiglio di Stato"). Without a heading, only a reprint of the member's **whole** text at the start is skipped. A single question repeated before its answer stays part of the reply, as the P5 labels have it. | `…+post_after_reprint` |
 | closing block | The reasoning and the last answer end before the closing block: a signature (a name line over "Staatsschreiber", "Landschreiberin", "Le chancelier", "Il Cancelliere", "Präsident", …), a distribution list ("Verteiler", "Mitteilung an", "Copie à", "Vorberatende Kommission", …), a closing formula ("Im Namen des Regierungsrates", "Namens der Regierung", "Le Conseil d'Etat", "Per il Consiglio di Stato", …) or the recommendation section ("4. Antrag des Regierungsrates", "Proposition du Conseil d'Etat"). The list is generic, not per parliament. | `…+post_closing` |
-| repeated question | An answer that still opens with the end of its question (the frozen alignment stopped at a word hyphenated over a line, "Behör- den beeinflussen?") loses that fragment, if the question document contains it word for word. | `…+post_question_tail` |
+| repeated question | An answer that still opens with the end of its question (the frozen alignment stopped at a word hyphenated over a line, "Behör- den beeinflussen?") loses that fragment, if the question document contains it word for word. The same holds if the fragment repeats a whole question except for an OCR slip: at least 40 characters and a similarity of at least 0.92 ("lindern" in the answer, "lindem" in the scanned question). | `…+post_question_tail` |
 | people | A labelled signature list ("Unterschriften:", "Signataires :", "Firmatari:") is parsed. Labels, counts "(9)" and numbering "1." are not part of a name. A name broken over a line ("Markus⏎Dick") is joined, and its span keeps the line break. In a numbered list ("1. Beat Künzli, 2. …, 3. …, Richard Aschberger, …") the numbered names come first and no. 1 is the submitter; otherwise the first name is. If a title line or an author cue already named the submitter, the list only supplies the co-signatories. | `post_signature_list`, `post_signature_list_numbered` |
-| recommendation | When the frozen rules found no recommendation sentence (`not_in_document`) or conflicting ones, the layer tries, in order: your `--anchors` recommendation phrases for the body, `convert`'s frozen recommendation rules, and a phrase printed under an "Antrag des Regierungsrates" / "Proposition du Conseil d'Etat" / "Proposta del Consiglio di Stato" heading (lexicon: Nichterheblicherklärung → reject, Erheblicherklärung → accept, … und Abschreibung → accept_and_write_off, als Postulat → convert, teilweise → partial). A qualified phrase ("mit geändertem Wortlaut", "im Sinne der Erwägungen") is flagged, as in `convert`. A value picked over conflicting frozen candidates is flagged too. A frozen `accept` read off "Nichterheblicherklärung" (the frozen lexicon matches "erheblicherkl" inside it) becomes `reject`. | `user_anchor:<id>`, `convert_rec_<label>`, `post_antrag_heading`, `…+post_nichterheblich` |
+| answer title | If the frozen rule read the people from a signature block, and that block is OCR-garbled, the submitter and co-signatories come from the answer's title line instead ("Einfache Anfrage von A, B und C vom …", "Interpellation de …", "Interrogazione di …"; the frozen title patterns). Garbled means a name line, or one of the six lines above it, has characters a printed name does not have (`^ < > / \| ~ { } [ ]`, a digit inside a word: "Didi 1-euerle"). With `prefer_answer_title: true` in the settings file, the answer's title line is used whenever it names people, over a question title line or a signature list too. A title that names only the submitter ("… et consorts") keeps the clean co-signatories read before. The names are spans in the answer document. | `answer_title` |
+| recommendation | When the frozen rules found no recommendation sentence (`not_in_document`) or conflicting ones, the layer tries, in order: your `--anchors` recommendation phrases for the body, `convert`'s frozen recommendation rules, and a phrase printed under an "Antrag des Regierungsrates" / "Proposition du Conseil d'Etat" / "Proposta del Consiglio di Stato" heading (lexicon: Nichterheblicherklärung → reject, Erheblicherklärung → accept, … und Abschreibung → accept_and_write_off, als Postulat → convert, teilweise → partial). A qualified phrase ("mit geändertem Wortlaut", "im Sinne der Erwägungen") is flagged, as in `convert`. A value picked over conflicting frozen candidates is flagged too. A frozen `accept` read off "Nichterheblicherklärung" (the frozen lexicon matches "erheblicherkl" inside it) becomes `reject`. On a body outside the rule coverage, a matching `--anchors` phrase replaces a frozen lexicon value, as in `convert`. A value of a different label than the one `convert`'s frozen rules read from the same answer is flagged (docs/convert-your-own.md, "convert and qa_cli"). | `user_anchor:<id>`, `convert_rec_<label>`, `post_antrag_heading`, `…+post_nichterheblich` |
 
 **Post-hoc check, not registered.** The layer was run over the P5 dev and P5 affairs and scored with the P5 scorer
 (`eval/gold6/score6.py`). It changes none of the counts in the table above. Reasoning spans got slightly closer to the
 labels, because the closing block is cut, and every value re-checks against its span. A first version also skipped a
 leading repeated question that had no reprint heading. On three P5 affairs that cut text the labels count as reasoning,
-so the layer now skips only a reprint of the member's whole text.
+so the layer now skips only a reprint of the member's whole text. Round 8 adds the questions end, the answer title and
+the fuzzy repeated question, and the counts are still unchanged on both sets. Questions end changes nothing on P5 dev or
+P5. The answer title replaced two garbled signature blocks on P5 dev (two VD Grand Conseil affairs), keeping the
+submitter's surname. The fuzzy repeated question cut one more answer opening on P5 (Lausanne 120219), which now starts
+where the label starts.
+Every value re-checks: 555 on P5 dev, 517 on P5.
+
+**convert and qa_cli agree on the recommendation.** On a body outside the rule coverage, `convert` now falls back to
+the same Q/A lexicon rule (`lexicon_reject`, …) with the same sentence span, after its own rules and your anchors. In
+`qa_cli` your anchors now beat the lexicon, as they do in `convert`. Where the two rule sets still read different
+labels, both tools flag the field. The full table is in docs/convert-your-own.md, "convert and qa_cli".
 
 **Confirming rules for a parliament.** On a body outside the rule coverage every rule value is flagged. Once you have
 checked a rule on a sample (run with `--explain`: each field names its rule id, e.g. `heading_zu_frage` or

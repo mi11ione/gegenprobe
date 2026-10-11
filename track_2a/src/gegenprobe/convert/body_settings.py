@@ -11,12 +11,22 @@ The file is the --anchors format (docs/convert-your-own.md) with optional extra 
       "affair_types":     {"Auftrag": "motion"},             # your spelling -> vocabulary key (data/schema/affair_types.json)
       "closing":          ["^\\s*Für\\s+den\\s+Regierungsrat"],   # qa_cli: lines that open the closing block
       "reprint_headings": ["^\\s*Vorstosstext"],               # qa_cli: headings of the reprinted member's text
+      "questions_end":    ["^\\s*Begründung\\s*$"],          # qa_cli: lines after which no question starts
+      "prefer_answer_title": true,                          # qa_cli: people from the answer's title line
       "note": "..."}}}
 
 confirm_rules: a value decided by a listed frozen rule on this body is not flagged needs_review only because the body
 is outside data/convert/rules_coverage.json (or outside the Q/A dev bodies). Everything else stays as without the file:
 a rule that is not listed is still flagged, nulls stay `no_rules_for_body`. List a rule only after you have checked its
 values on a sample of this parliament's documents (e.g. with --explain and --anchors-review).
+
+questions_end: regular expressions for lines that end the member's question list (matched per line, case-insensitive),
+on top of the built-in headings (Begründung, Motivation, Motivazione, Exposé des motifs, Développement, a co-signature
+table heading). A question that runs into such a line is cut before it; a numbered item after it is not a question.
+
+prefer_answer_title: true -> the submitter and co-signatories come from the answer's title line ("<Typ> von A, B und C
+vom ...", "Interpellation de ...", "Interrogazione di ...") whenever the answer prints one, instead of the question
+document's title line or signature block.
 """
 from __future__ import annotations
 
@@ -28,7 +38,7 @@ from pathlib import Path
 
 from . import affair_types, overlay
 
-EXTRA = ("confirm_rules", "affair_types", "closing", "reprint_headings")
+EXTRA = ("confirm_rules", "affair_types", "closing", "reprint_headings", "questions_end", "prefer_answer_title")
 
 
 def _rx(p, where: str) -> re.Pattern:
@@ -41,7 +51,8 @@ def _rx(p, where: str) -> re.Pattern:
 
 
 def load(path: str) -> dict:
-    """-> the frozen loader's dict {file, bodies} plus confirm_rules / affair_types / closing / reprint_headings per body.
+    """-> the frozen loader's dict {file, bodies} plus confirm_rules / affair_types / closing / reprint_headings /
+    questions_end / prefer_answer_title per body.
     Raises overlay.AnchorError (exit 2 in both CLIs) for a malformed file."""
     p = Path(path)
     try:
@@ -73,7 +84,12 @@ def load(path: str) -> dict:
                                           f"({', '.join(affair_types.KEYS)}) or a known label")
             amap[affair_types._norm(str(k))] = key
         extra["affair_types"][b] = amap
-        for k in ("closing", "reprint_headings"):
+        pat = spec.get("prefer_answer_title", False)
+        if not isinstance(pat, bool):
+            raise overlay.AnchorError(f"--anchors: bodies.{body}.prefer_answer_title must be true or false")
+        if "prefer_answer_title" in spec:
+            extra["prefer_answer_title"][b] = pat
+        for k in ("closing", "reprint_headings", "questions_end"):
             lst = spec.get(k) or []
             if not isinstance(lst, list):
                 raise overlay.AnchorError(f"--anchors: bodies.{body}.{k} must be a list of regular expressions")
@@ -109,6 +125,12 @@ def type_aliases(settings: dict | None, body) -> dict[str, str]:
     out = dict(_for(settings, "affair_types", "*") or {})
     out.update(_for(settings, "affair_types", body) or {})
     return out
+
+
+def flag(settings: dict | None, key: str, body) -> bool:
+    """A boolean key (prefer_answer_title) for this body; the body's own entry beats the '*' entry."""
+    own = _for(settings, key, body)
+    return bool(own if own is not None else _for(settings, key, "*"))
 
 
 def patterns(settings: dict | None, key: str, body) -> list[re.Pattern]:

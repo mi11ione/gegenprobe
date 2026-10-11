@@ -229,7 +229,9 @@ def test_explain_row_carries_cache_path_and_traces(monkeypatch, capsys):
     row = conv([SG_923254], body="SG", affair_type="Motion", explain=True)
     ex = row["explain"]
     assert ex["cache"]["work"] == str(paths.WORK) and ex["cache"]["pdf_cache"] == str(paths.PDF_CACHE)
-    assert ex["answer_date"][-1]["step"] == "heading proximity" and ex["recommendation"][-1]["step"] == "no_anchor"
+    # SG is outside the rule coverage: after the frozen trace (ending at no_anchor) the Q/A lexicon is tried (round 8)
+    steps = [s["step"] for s in ex["recommendation"]]
+    assert ex["answer_date"][-1]["step"] == "heading proximity" and steps[-2:] == ["no_anchor", "Q/A lexicon (qa_cli's rule)"]
     monkeypatch.setattr(batch, "convert_one", lambda src, inp, **kw: conv([SG_923254], explain=kw["explain"], **inp))
     assert main(["convert", "x.pdf", "--body", "SG", "--explain"]) == 0
     err = capsys.readouterr().err

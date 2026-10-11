@@ -231,6 +231,9 @@ def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: boo
                                            "(--anchors-review: values from user anchors stay flagged until you have "
                                            "measured the anchors)")
             rec["fields"]["recommendation"] = fr = hit
+    if cov["status"] in ("not_covered", "user_anchors") and fr is not None:
+        _qa_lexicon(pages, fr, rec, cov, anchors, afile, flags, traces)
+        fr = rec["fields"]["recommendation"]
     if cov["status"] in ("not_covered", "user_anchors"):
         for name in ("answer_date", "recommendation"):
             f = rec["fields"].get(name)
@@ -310,6 +313,45 @@ def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: boo
     if explain:
         row["explain"] = dict(cache=overlay.cache_info(), rules_coverage=cov, **traces)
     return row
+
+
+def _qa_lexicon(pages: list[str], fr: dict, rec: dict, cov: dict, anchors: dict | None, afile, flags: dict,
+                traces: dict) -> None:
+    """Body outside the rule coverage: the recommendation qa_cli reports for the same answer document (the Q/A extractor's
+    lexicon rule, hints.qa_lexicon_recommendation). An open field (convert's frozen rules and your anchors found nothing)
+    is filled with it and flagged for review unless the rule is in confirm_rules; a value of a different label is flagged
+    as a disagreement. docs/convert-your-own.md, "convert and qa_cli"."""
+    q = hints.qa_lexicon_recommendation(pages)
+    tr = traces.setdefault("recommendation", [])
+    if q is None:
+        tr.append(dict(step="Q/A lexicon (qa_cli's rule)", result="no proposal sentence, or sentences with conflicting labels"))
+        return
+    where = f"p{q['page']}[{q['char_start']}:{q['char_end']}]"
+    if fr.get("value") is None and fr.get("null_reason") == "present_unanchored":
+        hit = dict(value=q["value"], role=None, route="rule", page=q["page"], char_start=q["char_start"],
+                   char_end=q["char_end"], quote=q["quote"], rule=q["rule"])
+        rec["fields"]["recommendation"] = hit
+        tr.append(dict(step="Q/A lexicon (qa_cli's rule)", result=f"{q['rule']} -> {q['value']} at {where} (filled: "
+                                                                  "convert's rules and your anchors found nothing)"))
+        if not body_settings.is_confirmed(anchors, cov["body"], q["rule"]):
+            flags["recommendation"] = (
+                f"body {cov['body']} is outside the rule coverage; convert's own rules found no recommendation, the Q/A "
+                f"extractor's lexicon rule {q['rule']} (the rule qa_cli uses) reads {q['value']} from the sentence at "
+                f"{where}: check it (list {q['rule']} under confirm_rules once checked)")
+        for rx, why in overlay.REVIEW_Q:
+            if rx.search(q["quote"]):
+                flags.setdefault("recommendation", f"the {q['value']} sentence is qualified: {why}")
+                break
+        return
+    if fr.get("value") is not None and fr["value"] != q["value"]:
+        flags.setdefault("recommendation", (
+            f"convert says {fr['value']} ({fr.get('rule')}), the Q/A extractor's lexicon rule {q['rule']} (qa_cli) says "
+            f"{q['value']} at {where}: the two tools disagree, read the document"))
+        tr.append(dict(step="Q/A lexicon (qa_cli's rule)", result=f"{q['rule']} -> {q['value']} at {where}: disagrees, "
+                                                                  "flagged"))
+    else:
+        tr.append(dict(step="Q/A lexicon (qa_cli's rule)", result=f"{q['rule']} -> {q['value']} at {where}"
+                       + (": agrees" if fr.get("value") is not None else ": not used (the field is not open)")))
 
 
 def _promote_heading_candidate(cands: list[dict], h: dict, pages: list[str]) -> None:

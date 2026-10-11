@@ -7,14 +7,32 @@ anywhere except the request for the PDF itself.
 
 ## Install
 
-Locally (Python 3.11, poppler and tesseract with `deu`, `fra`, `ita` installed), from the hash-pinned lock, so you get
-exactly the versions that were tested (`requirements.txt` only lists the top-level names):
+Locally (Python 3.11, poppler, and tesseract with the `deu`, `fra` and `ita` language packs), from the hash-pinned lock,
+so you get exactly the versions that were tested (`requirements.txt` only lists the top-level names):
 
 ```bash
 cd track_2a
 python3.11 -m venv .venv && .venv/bin/pip install --require-hashes -r requirements.lock
 export PYTHONPATH=src:.
 ```
+
+Without `python3.11` on your PATH, [uv](https://docs.astral.sh/uv/) fetches the interpreter for you (about 5 s from the
+lock):
+
+```bash
+cd track_2a
+uv venv -p 3.11 && uv pip install --require-hashes -r requirements.lock
+export PYTHONPATH=src:.
+```
+
+**OCR needs the language packs.** Scans without a text layer are read with tesseract `deu+fra+ita`. Check with
+`tesseract --list-langs`. If one is missing, install it (Debian/Ubuntu: `apt install tesseract-ocr-deu tesseract-ocr-fra
+tesseract-ocr-ita`; Homebrew: `brew install tesseract-lang`). If none of the three is installed, tesseract refuses to
+run. The scan's pages then come out empty, and every field is a typed null for an empty text. If only some are
+missing, tesseract warns and reads with the packs it has, and the text gets worse. Either result is cached, so after
+installing the packs, delete `<GP_WORK>/text/<sha256>.tesseract-*.json` for the affected PDFs. PDFs that have a text layer
+(born-digital, or scans with an OCR layer) are read with pdftotext and do not need tesseract. The Docker image ships
+all three packs.
 
 `PYTHONPATH=src` also loads `src/sitecustomize.py`, which installs the RFC 9309 robots.txt matcher before anything is
 fetched. If you would rather not set `PYTHONPATH`, install the checkout in editable mode:
@@ -170,7 +188,10 @@ and seven communes). For any other `--body`:
 - a field the rules left open gets `null_reason: no_rules_for_body` instead of `present_unanchored`. "No rule knows this
   layout" is not the same statement as "the document is ambiguous";
 - a value a frozen rule did find is kept, but flagged `needs_review` (the rule was never measured on that layout);
-- the row is `needs_review: true`, so `--queue` picks it up.
+- the row is `needs_review: true`, so `--queue` picks it up;
+- a recommendation that convert's own rules and your anchors left open is read with the Q/A extractor's lexicon rule,
+  the rule `qa_cli` uses (`rule_id` `lexicon_reject`, `lexicon_accept`, …, below "convert and qa_cli"). The value has
+  the sentence as its span and is flagged `needs_review`.
 
 Four ways forward: read the `candidates` (the right date is usually among them, with context), run `--mode review`,
 write your own anchors, or, once you have checked a frozen rule on a sample of your parliament's documents, confirm it
@@ -241,7 +262,37 @@ reads the same file (docs/qa.md). Next to `answer_date` and `recommendation`, ea
   measured them.
 - **`affair_types`**: your spelling → a vocabulary key (`motion`, `interpellation`, …), for `--affair-type` and the
   batch column `affair_type` of rows with this `body`. An unknown key in the file exits 2.
-- `closing` and `reprint_headings` (regular expressions) are read only by `qa_cli` (docs/qa.md).
+- `closing`, `reprint_headings` and `questions_end` (lists of regular expressions) and `prefer_answer_title` (true/false)
+  are read only by `qa_cli` (docs/qa.md).
+
+## convert and qa_cli: the same recommendation
+
+Both tools report a recommendation for the same answer document, and they should agree. They use different frozen rule
+sets: convert has `convert/rules.py` (LOCK1–5), measured on the P1/P2 bodies, and qa_cli has the Q/A lexicon
+`qa/rec.py` (LOCK6). The lexicon reads a sentence with a proposal verb ("beantragen wir Ihnen", "propose", "invita")
+and an outcome word ("nicht erheblich zu erklären"). Neither rule set is changed. On a body outside
+`rules_coverage.json` the two are lined up like this:
+
+| step | convert | qa_cli |
+|---|---|---|
+| 1 | its own frozen rules (`rec_reject`, …) | the frozen Q/A lexicon (`lexicon_reject`, …) |
+| 2 | your `--anchors` recommendation phrases, if step 1 found nothing | your `--anchors` phrases, which **replace** a step-1 value (as in convert, where an anchor fills before the lexicon is tried) |
+| 3 | the Q/A lexicon, if steps 1–2 found nothing: the same rule id and the same sentence span as qa_cli | convert's frozen rules, the "Antrag des Regierungsrates" heading, if steps 1–2 found nothing |
+| check | a step-1 value of a different label than the lexicon's is flagged ("the two tools disagree") | a value of a different label than convert's frozen rules read is flagged |
+
+Every value from steps 1 and 3 is flagged `needs_review` on such a body, unless its rule id is in `confirm_rules`
+(`lexicon_reject` works in both tools). Example: Thurgau's motion 24/MO 30/227 ("… beantragen wir Ihnen … die Motion
+nicht erheblich zu erklären") was `null (no_rules_for_body)` in convert and `reject` (`lexicon_reject`) in qa_cli. It
+is now `reject` from `lexicon_reject` in both tools, at p4:1829-1979, flagged in both. With an anchor it is `reject` from
+`user_anchor:tg_nicht_erheblich` in both tools, at p4:1951-1978.
+
+They can still differ in two cases, and each case is flagged, never silent:
+
+- **Covered bodies.** convert keeps its measured behaviour, and the lexicon is not tried there: the P1/P2 precision
+  figures stay valid. qa_cli's value comes from the lexicon. If convert's rules find nothing on such a document, convert
+  reports a null where qa_cli has a value.
+- **Conflicting rule sets.** convert's rules and the lexicon read different labels from the same document. convert keeps
+  its own rule's value (a frozen rule still outranks your anchors), qa_cli keeps the lexicon's, and both flag the field.
 
 A malformed entry (a `confirm_rules` that is not a list, an unknown vocabulary key, a bad regex) exits 2 with the entry
 named, as for the anchors.

@@ -7,6 +7,12 @@ a registered result. Rules only, no model.
                    break instead of the space, so the frozen heading rules see "Zu Frage 1:" at a line start. Offsets do
                    not move (one character replaced by one); every quote is cut from the original text.
   apply(...)       after the frozen extractor, in this order:
+    questions end  the question list ends at the reasoning heading ("Begründung", "Begründung:", "Motivation",
+                   "Motivazione", "Exposé des motifs", "Développement") or a co-signature table heading
+                   ("Mitunterzeichnerinnen und Mitunterzeichner", "Name / Vorname", "Unterschriften"), plus the settings
+                   file's `questions_end` patterns: a question that runs into it is cut before it, a numbered item after
+                   it is not a question. A trailing item of a question list that is an OCR-garbled table row (no "?",
+                   short, non-name characters: "7. BreniicT M^rho") is dropped too.
     demand         a motion's / postulate's demand whose points are dash bullets is ONE item (docs/qa.md): the request
                    paragraph through its last bullet, answered by the whole reply. Numbered demands (1. 2., a) b))
                    stay separate items.
@@ -22,12 +28,18 @@ a registered result. Rules only, no model.
     people         a labelled signature list ("Unterschriften:", "Signataires :", "Firmatari:") is parsed: labels,
                    counts "(9)" and numbering "1." are not part of a name, names wrapped over a line are joined, and a
                    numbered list ("1. Beat Künzli, 2. ...") names the submitter first. Every name is a span.
+    answer title   the submitter and co-signatories come from the answer's title line ("Einfache Anfrage von A, B und
+                   C vom ...", "Interpellation de ...", "Interrogazione di ...") instead of a signature block when the
+                   signature block is OCR-garbled (non-name characters such as ^ < / | or a digit inside a word on the
+                   signature lines), or always with `prefer_answer_title: true` in the settings file.
     recommendation the frozen rules found no recommendation sentence (not_in_document) or conflicting ones: your
                    --anchors recommendation phrases for the body, then convert's frozen recommendation rules, then a
                    recommendation printed under an "Antrag des Regierungsrates" / "Proposition du Conseil d'Etat" /
                    "Proposta del Consiglio di Stato" heading. A frozen "accept" read off "Nichterheblicherklärung" becomes
                    reject. A not_in_document null that stands on a body outside the rule coverage is no_rules_for_body
-                   (with --body) or flagged for review (without --body).
+                   (with --body) or flagged for review (without --body). On a body outside the rule coverage your
+                   --anchors recommendation phrase beats the frozen lexicon (as in convert, where anchors fill before
+                   the Q/A lexicon), and a value that convert's frozen rules contradict is flagged.
     coverage       --body outside data/convert/rules_coverage.json: every rule value is flagged needs_review (as in
                    convert), unless its rule is listed in the settings file's confirm_rules for the body.
 """
@@ -126,6 +138,16 @@ LEAD_JUNK = re.compile(rf"^(?:\s*{LABEL.pattern}\s*|\s*\d{{1,2}}\.\s+)+", re.I)
 TAIL_JUNK = re.compile(r"(?:\s*\(\s*\d{1,3}\s*\)|\s*[;,]|(?<!\b[A-ZÄÖÜ])\.)+\s*$")  # an initial keeps its dot
 
 
+# the member's question list ends here (after the first question)
+QEND = re.compile(r"^\s*(?:[IVX\d]{1,3}\.?\s+)?(?:Begr[üu]ndung|Begruendung|Motivation|Motivazioni?|Expos[ée]\s+des\s+"
+                  r"motifs|D[ée]veloppement)\s*(?::.*)?$", re.I)
+SIGTABLE = re.compile(r"^\s*(?:Mitunterzeichn\w*|Name\s*/\s*Vorname|Vorname\s*/\s*Name|Nom\s*/\s*pr[ée]nom|"
+                      r"Cognome\s*/?\s*nome|Unterschriften?\s*:?\s*$|Unterschriften\s*:|Signatures?\s*:?\s*$|"
+                      r"Firm[ae]\s*:?\s*$|Firmatari\w*\s*:?\s*$)", re.I)
+# OCR damage on a signature line or table row: characters no printed name contains, or a digit inside a word
+GARBLED = re.compile(r"[\^<>\\|~{}\[\]@#%*=_€£§]|[^\W\d_]\d|\d[^\W\d_]|\d-[^\W\d_]|/[^\s\d]")
+
+
 # ---------------------------------------------------------------------------------------------- helpers
 def _lines_in(d: Doc, g0: int, g1: int):
     for i, ln in enumerate(d.lines):
@@ -172,6 +194,146 @@ def _span(d: Doc, g0: int, g1: int) -> dict:
 
 
 # ---------------------------------------------------------------------------------------------- steps
+def _garbled_row(t: str) -> bool:
+    t = t.strip()
+    letters = sum(c.isalpha() for c in t)
+    vis = sum(not c.isspace() for c in t)
+    return bool(t) and (bool(re.search(r"[\^<>\\|~{}\[\]@#%*=_€£§]", t)) or vis > 0 and letters / vis < 0.7)
+
+
+def _questions_end(view, rules, q: Doc | None, extra_rx, log) -> list[int]:
+    """-> the numbers of the items dropped. Cuts the question list at its end (QEND / SIGTABLE / settings questions_end)
+    and drops trailing OCR-garbled table rows."""
+    qs = view["questions"]
+    if q is None or not qs:
+        return []
+    skip = boilerplate_lines(q)
+    first_line_end = q.lines[q.line_at(qs[0]["span"]["g_start"])].g1
+    last_end = max(x["span"]["g_end"] for x in qs)
+    end, why = None, None
+    for i, ln in enumerate(q.lines):
+        if ln.g0 < first_line_end or i in skip:
+            continue
+        if ln.g0 >= last_end:
+            break
+        t = ln.text
+        if len(t) < 200 and QEND.match(t):
+            why = f"reasoning heading '{t.strip()[:40]}'"
+        elif len(t) < 120 and SIGTABLE.match(t):
+            why = f"signature table heading '{t.strip()[:40]}'"
+        elif any(rx.search(t) for rx in extra_rx):
+            why = f"questions_end (settings file) at '{t.strip()[:40]}'"
+        else:
+            continue
+        end = ln.g0
+        break
+    if end is not None and any(x["span"]["g_start"] >= end and "?" in q.text[x["span"]["g_start"]:x["span"]["g_end"]]
+                               for x in qs):
+        # a question follows the heading (a layout with a reason under each question): not the end of the list
+        log.append(dict(field="questions", step="questions end", result=f"{why} is followed by further questions: "
+                                                                        "not the end of the list"))
+        end, why = None, None
+    kept, cut = [], 0
+    for x in qs:
+        sp = x["span"]
+        if end is not None and sp["g_start"] >= end:
+            continue
+        if end is not None and sp["g_end"] > end:
+            e = _trim_tail(q, sp["g_start"], end, skip)
+            if e <= sp["g_start"]:
+                continue
+            x = dict(x, span=_span(q, sp["g_start"], e))
+            cut += 1
+        kept.append(x)
+    dropped_end = [x["n"] for x in qs if x not in kept and not any(k["n"] == x["n"] for k in kept)]
+    # trailing rows of a numbered signature table read as list items ("7. BreniicT M^rho")
+    garbled = []
+    asks = sum("?" in q.text[x["span"]["g_start"]:x["span"]["g_end"]] for x in kept)
+    while len(kept) > 1 and asks * 2 >= len(kept):
+        sp = kept[-1]["span"]
+        body = re.sub(r"^\s*\d{1,2}\s*[.)]", "", q.text[sp["g_start"]:sp["g_end"]])
+        if "?" in body or len(body.strip()) >= 60 or not _garbled_row(body):
+            break
+        garbled.append(kept.pop()["n"])
+    dropped = dropped_end + garbled[::-1]
+    if not dropped and not cut:
+        log.append(dict(field="questions", step="questions end", result="the question list does not run past its end"
+                        + (f" ({why})" if why else "")))
+        return []
+    keep_n = {x["n"] for x in kept}
+    view["questions"] = kept
+    view["answers"] = [dict(a, joint_with=[j for j in a.get("joint_with", []) if j in keep_n]) for a in view["answers"]
+                       if a["n"] in keep_n]
+    rules["questions"] = f"{rules['questions']}+post_questions_end"
+    parts = []
+    if end is not None and (cut or dropped_end):
+        parts.append(f"list ends before the {why}" + (f": {cut} question(s) cut" if cut else "")
+                     + (f", item(s) {', '.join(map(str, dropped_end))} after it dropped" if dropped_end else ""))
+    if garbled:
+        parts.append(f"item(s) {', '.join(map(str, garbled[::-1]))} dropped: OCR-garbled table row(s), not questions")
+    log.append(dict(field="questions", step="questions end", result="; ".join(parts)))
+    return dropped
+
+
+def _garbled_signature(q: Doc, view) -> str | None:
+    """The first OCR-garbled line in the signature block the frozen rule read the names from (the name lines and the
+    lines just above them), or None."""
+    xs = [x for x in [view.get("submitter")] + list(view.get("co_signatories") or [])
+          if x and x["span"]["doc"] == "question"]
+    if not xs:
+        return None
+    i0 = q.line_at(min(x["span"]["g_start"] for x in xs))
+    i1 = q.line_at(max(x["span"]["g_end"] for x in xs))
+    for i in range(max(0, i0 - 6), min(len(q.lines), i1 + 3)):
+        t = q.lines[i].text.strip()
+        if t and len(t) < 80 and GARBLED.search(t):
+            return t[:40]
+    return None
+
+
+def answer_title_names(a: Doc) -> list[tuple[str, int, int]]:
+    """Names in the answer's title line, by the frozen rules' title patterns (people.TITLE, people.ANSWER_TITLE)."""
+    head = a.text[:3000]
+    for rx in [P.TITLE] + P.ANSWER_TITLE:
+        m = rx.search(head)
+        if m:
+            ns = P._split_names(a, m.start("names"), m.group("names"))
+            if ns:
+                return ns
+    return []
+
+
+def _answer_title(view, rules, q: Doc | None, a: Doc | None, prefer: bool, log) -> None:
+    if a is None or rules.get("people") == "answer_title":
+        return
+    why = None
+    if prefer:
+        why = "prefer_answer_title in the settings file"
+    elif rules.get("people") == "signature_block" and q is not None:
+        bad = _garbled_signature(q, view)
+        if bad:
+            why = f"the signature block is OCR-garbled ('{bad}')"
+    if not why:
+        return
+    ns = answer_title_names(a)
+    if not ns:
+        log.append(dict(field="people", step="answer title", result=f"{why}, but the answer prints no title line with "
+                                                                    "names; names unchanged"))
+        return
+    old = (view.get("submitter") or {}).get("name")
+    keys = {w.lower() for n, _, _ in ns for w in n.split() if len(w) > 2}
+    # a title with the submitter only ("Interpellation de A et consorts") keeps the clean co-signatories read before
+    kept = [] if len(ns) > 1 else [c for c in view.get("co_signatories") or [] if not GARBLED.search(c["name"]) and
+                                   not keys & {w.lower() for w in c["name"].split() if len(w) > 2}]
+    view["submitter"] = dict(name=ns[0][0], span=_span(a, ns[0][1], ns[0][2]), rule="answer_title")
+    view["co_signatories"] = [dict(name=n, span=_span(a, s, e), rule="answer_title") for n, s, e in ns[1:]] + kept
+    prev = rules.get("people")
+    rules["people"] = "answer_title"
+    log.append(dict(field="people", step="answer title", result=f"{why}: {len(ns)} name(s) from the answer's title line "
+                                                                f"(submitter {ns[0][0]}; was {old or 'null'}, rule {prev})"
+                                                                + (f"; {len(kept)} co-signator(ies) kept" if kept else "")))
+
+
 def _demand(view, rules, q: Doc | None, qi: bool, affair_type, log) -> bool:
     if q is None or qi or not str(rules.get("questions") or "").startswith("marker_chain_bul") or len(view["questions"]) < 2:
         return False
@@ -325,13 +487,23 @@ def _norm_words(t: str) -> str:
     return " ".join(re.findall(r"\w+", fold(t)))
 
 
+def _near_question(frag: str, qtexts: list[str]) -> bool:
+    """The fragment repeats a whole question but for an OCR slip or two ('lindem' for 'lindern'): >= 40 characters and a
+    similarity ratio >= 0.92 to the question's text."""
+    import difflib
+
+    return len(frag) >= 40 and any(difflib.SequenceMatcher(None, frag, t).ratio() >= 0.92 for t in qtexts if t)
+
+
 def _repeated_tail(view, q: Doc | None, a: Doc, log) -> None:
     """An answer that still opens with the end of its question (the frozen alignment stopped at a hyphenated word,
     'Behör- den beeinflussen? Wie in Ziff. ...'): the fragment up to the first '?' is cut when the question document
-    contains it word for word."""
+    contains it word for word, or when it repeats a whole question but for an OCR slip (_near_question)."""
     if q is None:
         return
     qn = _norm_words(q.text)
+    qtexts = [re.sub(r"^\d{1,2} ", "", _norm_words(q.text[x["span"]["g_start"]:x["span"]["g_end"]]))
+              for x in view["questions"] if x["span"]["doc"] == "question"]
     n = 0
     for x in view["answers"]:
         sp = x["span"]
@@ -342,7 +514,7 @@ def _repeated_tail(view, q: Doc | None, a: Doc, log) -> None:
         if not m:
             continue
         frag = _norm_words(head[:m.start()])
-        if len(frag) < 10 or frag not in qn:
+        if len(frag) < 10 or frag not in qn and not _near_question(frag, qtexts):
             continue
         g0 = sp["g_start"] + m.end()
         g0, g1 = a.trim(g0, sp["g_end"])
@@ -487,10 +659,29 @@ def _recommendation(view, rules, records, a: Doc | None, a_pages, affair_type, b
         return res
     open_null = v == "none" and sp is None
     conflict = v is None
+    specs = overlay.anchors_for(settings, body).get("recommendation") if settings else None
     if not (open_null or conflict):
+        if specs and cov["status"] in ("not_covered", "user_anchors"):
+            # outside the rule coverage your measured phrase beats the frozen lexicon (as in convert)
+            h, tr = overlay.apply_rec_anchors(a_pages, specs, (settings or {}).get("file"))
+            for t in tr:
+                log.append(dict(field="recommendation", step=t["step"], result=t["result"]))
+            if h:
+                g0 = a.starts[h["page"] - 1] + h["char_start"]
+                view["recommendation"] = h["value"]
+                view["recommendation_span"] = _span(a, g0, a.starts[h["page"] - 1] + h["char_end"])
+                res.update(route="user_anchor", rule=h["rule"])
+                log.append(dict(field="recommendation", step="anchor over lexicon", result=(
+                    f"body {cov['body']} is outside the rule coverage: your anchor {h['rule']} -> {h['value']} replaces "
+                    f"the frozen {rules.get('recommendation')} -> {v}")))
+                rules["recommendation"] = h["rule"]
+                if h.get("needs_review"):
+                    review.append(dict(field="recommendation", reason=h.get("review_reason")))
+                if h["value"] != v:
+                    review.append(dict(field="recommendation", reason=f"your anchor says {h['value']}, the frozen "
+                                                                      f"lexicon says {v}: read the document"))
         return res
     hit = None
-    specs = overlay.anchors_for(settings, body).get("recommendation") if settings else None
     if specs:
         h, tr = overlay.apply_rec_anchors(a_pages, specs, (settings or {}).get("file"))
         for t in tr:
@@ -547,6 +738,21 @@ def _recommendation(view, rules, records, a: Doc | None, a_pages, affair_type, b
     return res
 
 
+def _convert_check(view, a_pages, affair_type, cov, log, review) -> None:
+    """Outside the rule coverage: convert's frozen recommendation rules run first in convert. When they read a different
+    label from the same answer document than qa_cli reports, the two tools would disagree: flag it."""
+    v = view["recommendation"]
+    if a_pages is None or v in (None, "not_applicable") or cov["status"] not in ("not_covered", "user_anchors"):
+        return
+    from .convert import rules as CR
+    r = CR.recommendation(a_pages, affair_type)
+    if r.get("status") == "value" and r["value"] != v:
+        review.append(dict(field="recommendation", reason=f"convert's frozen rule {r['rule']} reads {r['value']} "
+                                                          f"(p{r['span']['page']}), qa_cli reports {v}: read the document"))
+        log.append(dict(field="recommendation", step="convert check", result=f"convert's {r['rule']} -> {r['value']}: "
+                                                                              "disagrees, flagged"))
+
+
 # ---------------------------------------------------------------------------------------------- apply
 def apply(out: dict, q_pages, a_pages, *, affair_type=None, body=None, settings=None, q_id="question",
           a_id="answer", prepared: int = 0) -> dict:
@@ -566,6 +772,12 @@ def apply(out: dict, q_pages, a_pages, *, affair_type=None, body=None, settings=
                         result=f"{prepared} heading(s) like '3.1 Zu Frage 1:' put on their own line (offsets unchanged)"))
     rec_rules = {it["n"]: it["answer"].get("rule") for it in out["records"]["qa_items"]}
     qi = view["recommendation"] == "not_applicable" and rules.get("recommendation") == "type_interpellation_or_question"
+    if _questions_end(view, rules, q, body_settings.patterns(settings, "questions_end", body), log):
+        open_n = sum(x["span"] is None for x in view["answers"])
+        if open_n and residue.get("pair"):
+            residue["pair"] = open_n
+        else:
+            residue.pop("pair", None)
     collapsed = _demand(view, rules, q, qi, affair_type, log)
     if collapsed:
         residue.pop("pair", None)
@@ -584,8 +796,10 @@ def apply(out: dict, q_pages, a_pages, *, affair_type=None, body=None, settings=
         if view["reasoning"]:
             view["answer_style"] = "per_question" if k == len(view["answers"]) else ("mixed" if k else "global")
     _people(view, rules, q, log)
+    _answer_title(view, rules, q, a, body_settings.flag(settings, "prefer_answer_title", body), log)
     cov = overlay.coverage(body, settings)
     rec = _recommendation(view, rules, out["records"], a, a_pages, affair_type, body, settings, cov, log, review)
+    _convert_check(view, a_pages, affair_type, cov, log, review)
     if view["submitter"] is not None:
         residue.pop("submitter", None)
     if view["recommendation"] is not None:
