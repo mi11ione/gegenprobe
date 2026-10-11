@@ -13,7 +13,10 @@ import urllib.error
 import urllib.parse
 
 from ... import net, robots9309
+from gegenprobe.compliance import fetchguard
 from ...robots9309 import decide, parse  # the shared matcher (also used by the tests under these names)
+
+fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
 robots9309.install()
 _rules: dict[str, list[tuple[bool, str]] | None] = {}

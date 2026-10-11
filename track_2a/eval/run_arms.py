@@ -36,6 +36,8 @@ def _no_spikes() -> None:
 def fetch(split: str) -> None:
     """Fetch every PDF, verified against its committed sha256. Short timeout and 2 tries: some hosts never answer CI IPs."""
     from gegenprobe import net
+    from gegenprobe.compliance import fetchguard
+    fetchguard.ensure()
     from gegenprobe.paths import PDF_CACHE
     PDF_CACHE.mkdir(parents=True, exist_ok=True)
     for line in open(DATA / "gold" / f"{split}_docs.jsonl"):

@@ -24,7 +24,10 @@ import time
 from pathlib import Path
 
 from .. import net
+from gegenprobe.compliance import fetchguard
 from . import defs
+
+fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
 INDEX = "https://files.openparldata.ch/exports/index.json"
 

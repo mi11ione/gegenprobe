@@ -32,9 +32,12 @@ import urllib.parse
 from pathlib import Path
 
 from .. import net, pdftext
+from gegenprobe.compliance import fetchguard
 from ..paths import DATA, PDF_CACHE, WORK
 from ..stats import wilson_pct
 from .common import OUT, dump, iter_docs_meta, write_rows
+
+fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
 SPARQL = "https://fedlex.data.admin.ch/sparqlendpoint"
 LANG = {"de": "DEU", "fr": "FRA", "it": "ITA"}

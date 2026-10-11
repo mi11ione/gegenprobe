@@ -55,7 +55,10 @@ import urllib.robotparser
 from pathlib import Path
 
 from .. import net, robots9309
+from gegenprobe.compliance import fetchguard
 from ..paths import DATA, DOCS_META, RESULTS, ROOT, WORK
+
+fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
 OUT = RESULTS / "compliance" / "robots_audit_all.json"
 ROBOTS_DIR = DATA / "compliance" / "robots"

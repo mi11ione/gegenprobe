@@ -46,6 +46,8 @@ def backend():
 def fetch() -> list[int]:
     from eval import run_arms
     from gegenprobe import net, pdftext
+    from gegenprobe.compliance import fetchguard
+    fetchguard.ensure()
 
     run_arms.fetch("dev")
     PDF_CACHE.mkdir(parents=True, exist_ok=True)

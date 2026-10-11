@@ -50,9 +50,12 @@ import unicodedata
 from pathlib import Path
 
 from ... import net, pdftext
+from gegenprobe.compliance import fetchguard
 from ...paths import WORK
 from ..common import ANSWER_HEADING, parse_dates
 from . import filters
+
+fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
 ADIR = WORK / "adapters"
 DATE_NEAR = 14  # days; a document date this close to OPD's event (but not equal) goes to review, never verified

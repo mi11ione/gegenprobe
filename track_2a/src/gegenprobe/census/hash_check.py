@@ -16,7 +16,10 @@ import json
 from pathlib import Path
 
 from .. import net
+from gegenprobe.compliance import fetchguard
 from ..paths import DOCS_META, RESULTS
+
+fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
 BASE = "https://files.openparldata.ch/exports/docs/{}.ndjson.gz"
 KEEP = ("id", "body_key", "parent_type", "url", "hash", "affair_id", "meeting_id", "agenda_id", "news_id", "external_id")

@@ -37,9 +37,12 @@ import sys
 from pathlib import Path
 
 from .. import net, pdftext
+from gegenprobe.compliance import fetchguard
 from ..paths import DATA, PDF_CACHE, RESULTS, WORK
 from ..stats import wilson_pct
 from .common import ANSWER_HEADING, OUT, canton_uid, dump, iso_date, iter_docs_meta, iter_ndjson, norm_ws, write_rows
+
+fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
 OGD_DIR = WORK / "be_ogd"
 OGD_URLS = {

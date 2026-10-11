@@ -16,6 +16,13 @@ python3.11 -m venv .venv && .venv/bin/pip install --require-hashes -r requiremen
 export PYTHONPATH=src:.
 ```
 
+`PYTHONPATH=src` also loads `src/sitecustomize.py`, which installs the RFC 9309 robots.txt matcher before anything is
+fetched. If you would rather not set `PYTHONPATH`, install the checkout in editable mode:
+`.venv/bin/pip install --no-deps -e .`. That puts `gegenprobe-robots9309.pth` into the venv, and it does the same at
+every start. Use the editable install: the package reads its data from the checkout. Either way, fetching is fail-closed:
+if the matcher is not active, no request is made, and every URL ends as a `robots_matcher_inactive` failure row.
+`.venv/bin/python -m pytest -q` runs the tests from `track_2a` without `PYTHONPATH` (`tests/conftest.py` sets it up).
+
 Or with the Docker image that `make run` builds (everything included; it runs as an unprivileged user, so pass your own
 uid when it writes into a mounted directory):
 
@@ -276,7 +283,8 @@ extractor and its version are in `record.doc.extractor`). They do not index Open
 
 `{"status": <kind>, "reason": "...", "input": {...}}` with kind `robots_disallowed` (the host's robots.txt disallows the
 path for our User-Agent; we never fetch it), `robots_unreachable` (the host's robots.txt answered 5xx/429 or could not be
-reached, so nothing is fetched from that host in this run; RFC 9309 §2.3.1.4), `http_error`, `timeout`, `network_error`,
+reached, so nothing is fetched from that host in this run; RFC 9309 §2.3.1.4), `robots_matcher_inactive` (the RFC 9309
+matcher is not active in this Python process, so nothing is fetched; see Install), `http_error`, `timeout`, `network_error`,
 `not_a_pdf` (the URL returns an HTML page: a document viewer or a dead-link landing page), `sha_mismatch`,
 `file_not_found`, `text_failed`, `too_large` or `text_timeout`.
 

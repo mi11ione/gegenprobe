@@ -13,6 +13,8 @@ Failure rows carry {"status": kind, "reason": "...", "input": {...}} and nothing
   robots_disallowed  the host's robots.txt disallows this path for our User-Agent (we never fetch it)
   robots_unreachable the host's robots.txt could not be read (5xx, 429, DNS, timeout): fail-closed per RFC 9309
                      §2.3.1.4; a 4xx on robots.txt (403, 404, ...) means "no restrictions" (§2.3.1.3) and is fetched
+  robots_matcher_inactive  the RFC 9309 robots.txt matcher is not active in this process (installation problem), so
+                     nothing is fetched (compliance/fetchguard.py)
   http_error         the server answered with an HTTP error (404, 403, 500, ...)
   timeout            no answer in time (after the polite retries)
   network_error      DNS / connection failure
@@ -31,15 +33,20 @@ import socket
 import urllib.error
 
 from .. import net, pdftext
+from gegenprobe.compliance import fetchguard
 from . import lattice, pointer, precision, rules
 
-FAILURE_KINDS = ("robots_disallowed", "robots_unreachable", "http_error", "timeout", "network_error", "not_a_pdf",
-                 "sha_mismatch", "file_not_found", "text_failed", "too_large", "text_timeout")
+fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
+
+FAILURE_KINDS = ("robots_disallowed", "robots_unreachable", "robots_matcher_inactive", "http_error", "timeout",
+                 "network_error", "not_a_pdf", "sha_mismatch", "file_not_found", "text_failed", "too_large", "text_timeout")
 
 
 def classify(exc: BaseException) -> tuple[str, str]:
     """Map an exception raised while getting a document to (kind, one-line reason)."""
     if isinstance(exc, net.Disallowed):
+        if getattr(exc, "kind", None) == fetchguard.KIND:
+            return fetchguard.KIND, str(exc)
         if getattr(exc, "kind", None) == "robots_unreachable":
             return "robots_unreachable", (f"robots.txt of the host could not be read, so nothing is fetched from it "
                                           f"(fail-closed, RFC 9309 2.3.1.4): {exc}")

@@ -16,8 +16,11 @@ import sys
 import time
 
 from ... import net
+from gegenprobe.compliance import fetchguard
 from ...paths import WORK
 from . import targets
+
+fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
 DOCS_URL = "https://files.openparldata.ch/exports/docs/docs_{body}.ndjson.gz"
 CACHE = WORK / "adapters" / "opd_docs"

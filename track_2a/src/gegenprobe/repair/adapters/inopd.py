@@ -18,8 +18,11 @@ import re
 import urllib.parse
 
 from ... import net
+from gegenprobe.compliance import fetchguard
 from . import robots
 from .base import Adapter, Candidate, flatten
+
+fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
 EXEC_DE = r"(?:Stadtrat|Gemeinderat|Regierungsrat|Regierung|Kleine Rat|Stadtregierung|Gemeindevorstand|Stadtpräsident)"
 EXEC_FR = (r"(?:Conseil communal|Conseil d.[ÉEée]tat|Municipalit[ée]|Conseil municipal|Gouvernement|Conseil administratif|"

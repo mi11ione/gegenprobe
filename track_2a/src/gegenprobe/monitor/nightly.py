@@ -74,7 +74,10 @@ import time
 from pathlib import Path
 
 from .. import hardening, net
+from gegenprobe.compliance import fetchguard
 from ..paths import DOCS_META, OPD_RAW, RESULTS, ROOT, WORK
+
+fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
 INDEX = "https://files.openparldata.ch/exports/index.json"
 NIGHT = WORK / "nightly"

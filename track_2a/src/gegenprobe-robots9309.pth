@@ -1,0 +1,1 @@
+import importlib.util as u, os; s = u.find_spec("gegenprobe"); f = s and os.path.join(list(s.submodule_search_locations)[0], "compliance", "fetchguard.py"); m = f and os.path.exists(f) and u.spec_from_file_location("_gegenprobe_fetchguard", f); g = m and u.module_from_spec(m); g and (m.loader.exec_module(g), g.boot_from_site())

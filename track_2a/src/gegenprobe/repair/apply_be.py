@@ -48,7 +48,10 @@ import sys
 from pathlib import Path
 
 from .. import net
+from gegenprobe.compliance import fetchguard
 from .common import OUT
+
+fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
 EXPORT_URL = "https://files.openparldata.ch/exports/docs/docs_BE.ndjson.gz"
 DOC_URL = "https://files.openparldata.ch/doc/{body}/{hash}"

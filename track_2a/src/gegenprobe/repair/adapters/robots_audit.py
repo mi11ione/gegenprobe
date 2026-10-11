@@ -30,8 +30,11 @@ import urllib.request
 import urllib.robotparser
 
 from ... import net, robots9309
+from gegenprobe.compliance import fetchguard
 from ...paths import RESULTS
 from . import base
+
+fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
 OUT = RESULTS / "repair" / "adapters" / "robots_audit.json"
 ENDPOINTS = [

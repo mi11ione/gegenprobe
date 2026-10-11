@@ -102,6 +102,38 @@ python -m eval.gold6.posthoc6                                                   
 python -m eval.gold6.qwen6_run && python -m eval.gold6.qwen6 analyse               # independent Qwen check
 ```
 
+## Run it on your own affair
+
+```
+python -m gegenprobe.qa_cli --question Q.pdf --answer A.pdf [--affair-type TYPE] [--lang de|fr|it] [--json]
+python -m gegenprobe.qa_cli --opd-text-question Q.txt --opd-text-answer A.json [--affair-type TYPE] [--json]
+```
+
+Each document is a PDF (a local path or a URL) or OPD's stored text (`--opd-text-question` / `--opd-text-answer`). The
+stored text can be plain text or a docs-export JSON row with a `text` field; the row's `id` becomes the document id
+`opd:<id>`. A URL is fetched the same way as by `convert`: politely, with robots.txt matched under RFC 9309, into the
+same cache. Either document may be left out.
+
+- **OPD's stored text has no page breaks.** OPD extracts the whole PDF into one string, so the stored text is read as
+  **one page**. Every span then says page 1, and its character offsets are offsets into the stored text as given. If the
+  text contains form feeds (`\f`), they are taken as page breaks. The output says which case applies, per document.
+- **Rules only.** No model is called (`model_calls` is 0). Whatever the rules leave open is listed under "left open" (in
+  `--json`: `left_open`): answers that no heading or reprinted question ties to a question, a submitter no rule found,
+  conflicting recommendation sentences. The pointer arm is run only by `eval/gold6/run6.py`; its θ is fitted to one
+  served build.
+- **`--affair-type`** takes the same values as `convert` (a vocabulary key, a DE/FR/IT/EN label, or OPD's harmonised
+  name). Interpellation, Question and Question time make the recommendation `not_applicable` when the question document
+  does not name its type itself. An unknown value is an error.
+- **Pairing needs the question document.** Without it there are no numbered questions to pair, so the answer comes out
+  as one reply (`answer_style` `global`).
+- **Output.** The default output is a short report: each question and its answer with page:character spans, the
+  submitter and co-signatories, the recommendation with its evidence sentence, and the reasoning span. `--json` adds the
+  flat view, the validated schema v0.1 records (`QAItem`, `Actor`, the recommendation, the reasoning), the rules that
+  decided and `left_open`.
+- **Exit codes.** 0: extracted. 2: bad input. That covers an unknown `--affair-type`, no document, a file that is not a
+  PDF (the message points to `--opd-text-*`), and a document that could not be fetched or read. The last case prints the
+  same typed kinds as `convert` (`file_not_found`, `robots_disallowed`, `not_a_pdf`, …).
+
 To use it in code: `from gegenprobe.qa.extract import extract; extract(question_pages, answer_pages, "de")` returns
 `view` (flat spans), `records` (validated `QAItem` / `Actor` / recommendation / reasoning values) and `pointer`. The
 `pointer` entry is a log of every model call, with its closed-set size, margin, θ and prompt id.

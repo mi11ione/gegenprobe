@@ -68,6 +68,21 @@ through `Environment=PYTHONPATH=/opt/gegenprobe/track_2a/src`. **Keep that line 
 To check a host, from the checkout: `PYTHONPATH=src python -c 'import urllib.robotparser as r; print(r.RobotFileParser.can_fetch.__module__)'`
 prints `_gegenprobe_robots9309`. If it prints `urllib.robotparser` instead, the patch is not active. The OPD-copy routing:
 `PYTHONPATH=src python -c 'import sys; from gegenprobe import net; print(sys.modules["_gegenprobe_mirror"].installed(net))'`
+prints `True`.
+
+**Fail-closed since round 6.** Before, a matcher that could not be installed printed a warning, and fetching went on
+under `urllib.robotparser`'s first match. Now every request checks, at request time, that the RFC 9309 matcher is
+active, and is refused before any byte is sent when it is not (`net.Disallowed`, kind `robots_matcher_inactive`; a
+`convert` row gets that status). The check lives in `src/gegenprobe/compliance/fetchguard.py`, which wraps
+`gegenprobe.net`'s `open_url` and `allowed` (`net.py` stays locked). It reaches every start-up path:
+- `src/sitecustomize.py` (`src/` on `PYTHONPATH`, as above);
+- `gegenprobe-robots9309.pth`, which `pip install -e .` (and `pip install .`) puts into site-packages (`setup.py`), so
+  an installed checkout needs no `PYTHONPATH`;
+- `fetchguard.ensure()`, called at import by every unlocked module that fetches (adapters, repair, census, monitor,
+  `convert`, the eval drivers; `tests/test_fetchguard.py` fails if one is missing).
+
+The locked samplers and `pdftext.fetch_pdf` are covered by the first two. To check the guard:
+`PYTHONPATH=src python -c 'import sys; from gegenprobe import net; print(sys.modules["_gegenprobe_fetchguard"].installed(net))'`
 prints `True`. Re-run the project-wide audit with `python -m gegenprobe.compliance.audit --offline` (stored robots.txt
 copies) or `--refresh` (one robots.txt request per host).
 
@@ -303,7 +318,8 @@ documents at the held-out residue share (97/154; not measured on the corpus mix)
 failure notifier, prints and gates both units' `systemd-analyze security` exposure (thresholds above, "Sandboxing"),
 then starts the failure notifier under real systemd behind two stand-in units (one exits 3, one exits 1)
 and checks that exactly one webhook post with valid JSON arrives; job `test` and job `nightly-smoke` (inside the built image)
-assert that robots.txt is matched under RFC 9309 (`src/sitecustomize.py`, see Operator settings); job `nightly-smoke` builds
+assert that robots.txt is matched under RFC 9309 and that a process without the matcher fetches nothing
+(`src/sitecustomize.py`, `tests/test_fetchguard.py`, see Operator settings); job `nightly-smoke` builds
 the image and runs three offline nights on fixture exports inside it with the unit's container flags and no network (`docs/nightly.md` "Verified
 in CI"). `.github/workflows/nightly-real.yml` (manual: `gh workflow run nightly-real.yml`) installs the venv variant with
 `install.sh --venv` on a GitHub-hosted Ubuntu runner and runs one real network night under systemd, with a contact

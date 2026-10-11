@@ -111,6 +111,8 @@ def build() -> dict:
     import time
 
     from .. import net
+    from gegenprobe.compliance import fetchguard
+    fetchguard.ensure()
     from ..paths import DOCS_META, RESULTS
     from .audit import OUT as AUDIT
 

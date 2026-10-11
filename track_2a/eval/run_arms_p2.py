@@ -64,6 +64,8 @@ def reachable(doc: dict) -> bool:
 
 def fetch() -> list[int]:
     from gegenprobe import net
+    from gegenprobe.compliance import fetchguard
+    fetchguard.ensure()
     PDF_CACHE.mkdir(parents=True, exist_ok=True)
     failed = []
     for d in _jsonl(P2_DOCS):

@@ -27,6 +27,9 @@ from email.message import EmailMessage
 from pathlib import Path
 
 from .. import net
+from gegenprobe.compliance import fetchguard
+
+fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
 
 def write_json_atomic(path: Path, obj) -> None:

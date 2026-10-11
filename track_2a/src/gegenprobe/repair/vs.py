@@ -25,9 +25,12 @@ import sys
 import time
 
 from .. import net
+from gegenprobe.compliance import fetchguard
 from ..paths import DATA, WORK
 from ..stats import wilson_pct
 from .common import OUT, dump, iter_ndjson, write_rows
+
+fetchguard.ensure()  # fail-closed: no fetch without the RFC 9309 matcher (compliance/fetchguard.py)
 
 URL = "https://files.openparldata.ch/exports/docs/docs_VS.ndjson.gz"
 SCAN = WORK / "vs_ant_docs.jsonl.gz"

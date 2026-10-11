@@ -31,6 +31,8 @@ def persons_fields(root: Path = CENSUS, fetch: bool = False) -> list[str] | None
     if not fetch:
         return None
     from .. import net
+    from gegenprobe.compliance import fetchguard
+    fetchguard.ensure()
 
     url = "https://files.openparldata.ch/exports/persons.ndjson.gz"
     for line in net.stream_ndjson_gz(url):
