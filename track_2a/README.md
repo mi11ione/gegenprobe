@@ -94,7 +94,7 @@ the evidence site (box "For OPD's data team"). The apply plan is a dry run: we c
   the recommended Docker setup on a GitHub runner: 86 min for the first, 6.6 min for the incremental second (12
   bodies re-scanned). Night 2 exposed a ledger bug (it reset night 1's per-row verdicts to `unchecked`); it is fixed,
   a row that is not re-checked now keeps its stored verdict, two-night tests guard it, and the real two-night re-run of
-  the fixed code was dispatched 12 Oct 00:30 UTC (run in progress; `results/monitor/two_nights_docker_38098822336/README.md`).
+  the fixed code starts with OPD's next nightly export, 12 Oct 00:30 UTC (first run: `results/monitor/two_nights_docker_38098822336/README.md`).
 
 Detail, per list and per check: [`docs/operations.md`](docs/operations.md), [`docs/repair.md`](docs/repair.md),
 [`docs/adapters.md`](docs/adapters.md), [`docs/runbook.md`](docs/runbook.md).

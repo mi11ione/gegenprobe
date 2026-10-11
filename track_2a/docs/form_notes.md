@@ -44,5 +44,5 @@ every number here from its results file and binds each one to its claim by an an
   P6 and P7 blind: dates agree with κ 0.80, 0.87 and 0.86, P7 185/190.
 - **Operations.** `make run` (Docker, CPU) recomputes the census, re-derives the rules arm from the PDFs, replays
   P1–P8 and checks every number. Two consecutive real nights in Docker on a GitHub runner, 0 alerts; night 2 exposed a
-  ledger bug, now fixed and tested (real re-run dispatched 12 Oct 00:30 UTC, in progress). We found, audited and fixed
+  ledger bug, now fixed and tested (real re-run starts with OPD's next nightly export, 12 Oct 00:30 UTC). We found, audited and fixed
   our own robots.txt bug; every fetch now fails closed. Claude Code agents wrote the code and labels.

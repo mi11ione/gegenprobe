@@ -4,7 +4,7 @@
 
 | maturity | components |
 |---|---|
-| *ready to apply* · *ready to deploy* | census and Bern repair lists (relinks: one OPD decision, its hash rule) · nightly job (three real nights on standard GitHub runners; the ledger fix's real two-night re-run dispatched 12 Oct 00:30 UTC, run in progress) |
+| *ready to apply* · *ready to deploy* | census and Bern repair lists (relinks: one OPD decision, its hash rule) · nightly job (three real nights on standard GitHub runners; the ledger fix's real two-night re-run starts with OPD's next nightly export, 12 Oct 00:30 UTC) |
 | *audited* · *tested prototype* | source-adapter lists · rules-only converter |
 | *feasibility study* · *drafts for the eCH group* | review mode, whole and virtual affairs · schema v0.1 and v0.2 (P8's roles) |
 
