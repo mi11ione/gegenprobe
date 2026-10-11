@@ -1,0 +1,349 @@
+{
+ "agreement": {
+  "counted_both_yes": 197,
+  "counted_either_no": 3,
+  "is_answer_equal": 252,
+  "n": 260,
+  "pairs_claude_qwen": {
+   "no/no": 20,
+   "no/yes": 8,
+   "yes/yes": 232
+  }
+ },
+ "auditors": {
+  "claude": {
+   "by_stratum": {
+    "date_window/fetch": {
+     "date_no": 12,
+     "date_yes": 2,
+     "frame": 124,
+     "no": 2,
+     "quote_found": 14,
+     "wilson": [
+      0.6006,
+      0.9599
+     ],
+     "yes": 12
+    },
+    "date_window/tag_answer": {
+     "date_yes": 16,
+     "frame": 240,
+     "quote_found": 14,
+     "quote_not_found": 2,
+     "wilson": [
+      0.8064,
+      1.0
+     ],
+     "yes": 16
+    },
+    "exact_any_printed_date/extract_tag": {
+     "date_yes": 24,
+     "frame": 718,
+     "quote_found": 24,
+     "wilson": [
+      0.862,
+      1.0
+     ],
+     "yes": 24
+    },
+    "exact_any_printed_date/fetch": {
+     "date_yes": 13,
+     "frame": 59,
+     "no": 1,
+     "quote_found": 13,
+     "wilson": [
+      0.6669,
+      0.9863
+     ],
+     "yes": 12
+    },
+    "exact_any_printed_date/tag_answer": {
+     "date_yes": 14,
+     "frame": 160,
+     "quote_found": 14,
+     "wilson": [
+      0.7847,
+      1.0
+     ],
+     "yes": 14
+    },
+    "exact_doc_date/extract_tag": {
+     "date_yes": 13,
+     "frame": 51,
+     "quote_found": 13,
+     "wilson": [
+      0.7719,
+      1.0
+     ],
+     "yes": 13
+    },
+    "exact_doc_date/fetch": {
+     "date_no": 3,
+     "date_yes": 64,
+     "frame": 3255,
+     "quote_found": 67,
+     "wilson": [
+      0.9458,
+      1.0
+     ],
+     "yes": 67
+    },
+    "exact_doc_date/tag_answer": {
+     "date_yes": 39,
+     "frame": 1602,
+     "quote_found": 39,
+     "wilson": [
+      0.9103,
+      1.0
+     ],
+     "yes": 39
+    }
+   },
+   "counted": {
+    "date_ok_no": 15,
+    "date_ok_unclear": 0,
+    "date_ok_yes": 185,
+    "invalid": 0,
+    "missing": 0,
+    "n": 200,
+    "no": 3,
+    "quote_found": 198,
+    "quote_not_found": 2,
+    "quote_short": 0,
+    "unclear": 0,
+    "unweighted_wilson": [
+     0.9568,
+     0.9949
+    ],
+    "yes": 197
+   },
+   "date_ok": {
+    "ci95": [
+     0.9129,
+     0.9713
+    ],
+    "estimate": 0.9594,
+    "method": "stratified (N_h/N weights); 95% interval: Jeffreys posteriors per stratum, Monte Carlo 20,000 draws, seed 20261212"
+   },
+   "decoys": {
+    "decoy/failed": {
+     "date_no": 11,
+     "date_unclear": 2,
+     "date_yes": 17,
+     "no": 18,
+     "quote_found": 26,
+     "quote_not_found": 1,
+     "quote_short": 3,
+     "yes": 12
+    },
+    "decoy/review": {
+     "date_no": 15,
+     "date_unclear": 1,
+     "date_yes": 14,
+     "no": 7,
+     "quote_found": 29,
+     "quote_not_found": 1,
+     "yes": 23
+    }
+   },
+   "decoys_yes_share": {
+    "decoy/failed": 0.4,
+    "decoy/review": 0.767
+   },
+   "precision": {
+    "ci95": [
+     0.9637,
+     0.9948
+    ],
+    "estimate": 0.9964,
+    "method": "stratified (N_h/N weights); 95% interval: Jeffreys posteriors per stratum, Monte Carlo 20,000 draws, seed 20261212"
+   },
+   "precision_decided_only": {
+    "ci95": [
+     0.9637,
+     0.9948
+    ],
+    "estimate": 0.9964,
+    "method": "stratified (N_h/N weights); 95% interval: Jeffreys posteriors per stratum, Monte Carlo 20,000 draws, seed 20261212"
+   },
+   "verdicts": 260
+  },
+  "qwen": {
+   "by_stratum": {
+    "date_window/fetch": {
+     "date_no": 7,
+     "date_yes": 7,
+     "frame": 124,
+     "quote_found": 13,
+     "quote_not_found": 1,
+     "wilson": [
+      0.7847,
+      1.0
+     ],
+     "yes": 14
+    },
+    "date_window/tag_answer": {
+     "date_no": 2,
+     "date_yes": 14,
+     "frame": 240,
+     "quote_found": 16,
+     "wilson": [
+      0.8064,
+      1.0
+     ],
+     "yes": 16
+    },
+    "exact_any_printed_date/extract_tag": {
+     "date_yes": 24,
+     "frame": 718,
+     "quote_found": 22,
+     "quote_not_found": 2,
+     "wilson": [
+      0.862,
+      1.0
+     ],
+     "yes": 24
+    },
+    "exact_any_printed_date/fetch": {
+     "date_yes": 13,
+     "frame": 59,
+     "quote_found": 9,
+     "quote_not_found": 4,
+     "wilson": [
+      0.7719,
+      1.0
+     ],
+     "yes": 13
+    },
+    "exact_any_printed_date/tag_answer": {
+     "date_yes": 14,
+     "frame": 160,
+     "quote_found": 14,
+     "wilson": [
+      0.7847,
+      1.0
+     ],
+     "yes": 14
+    },
+    "exact_doc_date/extract_tag": {
+     "date_yes": 13,
+     "frame": 51,
+     "quote_found": 12,
+     "quote_not_found": 1,
+     "wilson": [
+      0.7719,
+      1.0
+     ],
+     "yes": 13
+    },
+    "exact_doc_date/fetch": {
+     "date_no": 3,
+     "date_yes": 64,
+     "frame": 3255,
+     "quote_found": 60,
+     "quote_not_found": 7,
+     "wilson": [
+      0.9458,
+      1.0
+     ],
+     "yes": 67
+    },
+    "exact_doc_date/tag_answer": {
+     "date_yes": 39,
+     "frame": 1602,
+     "quote_found": 35,
+     "quote_not_found": 3,
+     "quote_short": 1,
+     "wilson": [
+      0.9103,
+      1.0
+     ],
+     "yes": 39
+    }
+   },
+   "counted": {
+    "date_ok_no": 12,
+    "date_ok_unclear": 0,
+    "date_ok_yes": 188,
+    "invalid": 0,
+    "missing": 0,
+    "n": 200,
+    "no": 0,
+    "quote_found": 181,
+    "quote_not_found": 18,
+    "quote_short": 1,
+    "unclear": 0,
+    "unweighted_wilson": [
+     0.9812,
+     1.0
+    ],
+    "yes": 200
+   },
+   "date_ok": {
+    "ci95": [
+     0.914,
+     0.9749
+    ],
+    "estimate": 0.9617,
+    "method": "stratified (N_h/N weights); 95% interval: Jeffreys posteriors per stratum, Monte Carlo 20,000 draws, seed 20261212"
+   },
+   "decoys": {
+    "decoy/failed": {
+     "date_no": 6,
+     "date_unclear": 9,
+     "date_yes": 15,
+     "no": 13,
+     "quote_found": 26,
+     "quote_not_found": 3,
+     "quote_short": 1,
+     "yes": 17
+    },
+    "decoy/review": {
+     "date_no": 8,
+     "date_unclear": 6,
+     "date_yes": 16,
+     "no": 7,
+     "quote_found": 28,
+     "quote_not_found": 2,
+     "yes": 23
+    }
+   },
+   "decoys_yes_share": {
+    "decoy/failed": 0.567,
+    "decoy/review": 0.767
+   },
+   "precision": {
+    "ci95": [
+     0.9669,
+     0.9973
+    ],
+    "estimate": 1.0,
+    "method": "stratified (N_h/N weights); 95% interval: Jeffreys posteriors per stratum, Monte Carlo 20,000 draws, seed 20261212"
+   },
+   "precision_decided_only": {
+    "ci95": [
+     0.9669,
+     0.9973
+    ],
+    "estimate": 1.0,
+    "method": "stratified (N_h/N weights); 95% interval: Jeffreys posteriors per stratum, Monte Carlo 20,000 draws, seed 20261212"
+   },
+   "verdicts": 260
+  }
+ },
+ "packets": 260,
+ "seed": 20261212,
+ "headline": {
+  "note": "Headline figures for the docs: plain proportion of counted rows judged the executive's answer, Wilson 95%. The stratified estimate is reported under auditors.*.precision; its Monte Carlo Jeffreys interval shrinks toward the middle and need not contain the weighted point estimate when nearly every stratum is 100%.",
+  "claude_counted": "197/200",
+  "claude_wilson95": [
+   0.9568,
+   0.9949
+  ],
+  "claude_no_share_counted": 0.015,
+  "claude_no_share_failed_decoys": 0.6,
+  "claude_yes_share_review_decoys": 0.767,
+  "qwen_counted": "200/200",
+  "agreement": "252/260"
+ }
+}
