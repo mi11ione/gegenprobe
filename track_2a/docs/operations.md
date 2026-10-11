@@ -27,7 +27,10 @@ majority (Ticino, Vaud, Genève, Valais, Fribourg; Graubünden, Bern, Luzern), c
 written answers lack text. Bern: 567 of 593 written answers from 2024–25 (96%) lack text, but 520 of them are in OPD
 unlinked (418 under an agenda item, 102 without a parent). Coverage gaps: 31 parliaments where OPD holds interventions
 but records almost no written answers (canton SZ: 1,316 interventions, 0 answers): OPD coverage, not unanswered
-questions. After every counted repair 92.3% of the 91,268 have answer text.
+questions. After every counted repair 92.3% of the 91,268 have answer text, up from 81.6% attached today: 85.6%
+with the 3,621 repairs from what OPD already holds (agenda joins, category tags, verified text of its own copies),
+88.3% after OPD's hash decision for the 2,459 Bern relinks, 92.3% once the 3,640 checked fetches are loaded
+(`results/report/r9_numbers.json`). The 554 `begin_date` corrections are a separate field, not among the 9,720.
 
 ## Repair lists for OPD (`docs/repair.md`, `docs/runbook.md`)
 
@@ -181,6 +184,7 @@ reasoning starts at the executive's statement, and with `--body` an uncovered re
 | ogd.parl.apps.be.ch, rrgr-service.apps.be.ch (canton Bern) | GET; an affair number for the per-affair route | Bern repair |
 | fedlex.data.admin.ch (SPARQL), www.fedlex.admin.ch (filestore) | a citation such as "BBl 2014 9657" | federal placeholder repair |
 | document hosts listed in OPD | GET of a public PDF (and its robots.txt) | conversion, triple check |
+| the parliaments' sites the source adapters read; one canary per source each network night (on by default) | GET of a public page or PDF (and its robots.txt) | adapter lists, canaries |
 | huggingface.co, only with `GP_GGUF=1` | GET of the pinned GGUF (once) | local 8B |
 | the LLM endpoint the operator sets (`LLM_BASE_URL`) — or none | text of public parliamentary documents | review mode |
 | the webhook or SMTP relay the operator sets (`GP_ALERT_*`) — or none | the night's alerts | nightly alerts |

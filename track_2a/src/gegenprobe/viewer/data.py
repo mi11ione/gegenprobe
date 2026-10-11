@@ -1407,6 +1407,9 @@ DOWNLOADS = (
      "plan summary: rows by status, the export identifier rule and the hash/URL side effect"),
     ("JSON Schemas (v0.1)", "results/schema/affair.schema.json", "Affair: one parliamentary affair with its documents"),
     ("JSON Schemas (v0.1)", "results/schema/doc_extraction.schema.json", "DocExtraction: what the converter writes per document"),
+    ("Workbench schema (v0.1)", "schema/gegenprobe_schema.py",
+     "schema v0.1 as one Python file for OPD's workbench: pydantic only, no imports from gegenprobe, no I/O; its JSON "
+     "Schemas are tested equal to the two above"),
     ("Federal (Fedlex) list", "results/repair/repair_CHE.tsv.gz",
      "placeholder_replace: federal answers whose OPD document is a placeholder; a work queue (source_url resolved and "
      "verified on a minority of rows; the rest by repair.che backlog)"),

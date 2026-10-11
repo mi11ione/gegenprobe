@@ -174,7 +174,9 @@ from 97 dev documents (pre-registered exploratory arms, DEVIATIONS D2/D3), on th
 review, on P2 (D2-6).
 
 **Which size to deploy.** `rules_only` (no model) unattended, the default. For review suggestions, two options:
-- **The 8B is the measured sovereign option** (exploratory): one CPU machine, no document text leaves it. On the 52
+- **The 8B is the measured sovereign option** (exploratory; a community 4-bit build of the official weights, not an
+  official Swiss AI release): one CPU machine, no document text leaves it. On P1 its rules + suggestions dated 25 of
+  90 answerless documents (70B: 7), so its suggestions rely on the reviewer even more. On the 52
   reachable P2 documents it finds nearly as many answer dates as the 70B (15 vs 16 of 21) but proposes a date for 11
   of 31 answerless documents (70B: 4), and on P1's residue its suggestions are right 7/34 times (70B: 9/16, p = 0.021), so a reviewer rejects
   far more of them. On P6 the reader v2 restrains it: 5 of 34 answerless documents dated, against 18/34 for v1 (below).
@@ -419,15 +421,15 @@ the answer/no-answer label on 58/68; 20/34 dated gold documents have at least on
 
 **What the tests say together.** Apertus earns its place where layout varies and no rule exists, by finding what the
 rules miss: on parliaments nobody wrote rules for (P2: 24/29 answer dates where the rules find 2/29, 22:4 documents on
-all 62), for the answer date of whole affairs (P3: 22/27 → 27/27; P3b on fresh affairs: 20/35 → 31/35), and by
-doubling submitter extraction over the rules (P5: 12/40 → 24/40). **Null safety:** every registered
+all 62), for the answer date of whole affairs (P3: 22/27 → 27/27; P3b on fresh affairs: 20/35 → 31/35), and on
+submitters, where both model routes beat the rules (P5: pointer 24/40, free generation 34/40, rules 12/40). **Null safety:** every registered
 null-safety test on the 70B failed (P1-H1, P2-H3, P6-H2), so its values and nulls go to a reviewer. As a
 verifier of the adapters' review queue (P7) it is precise (120/120 sampled promotions are answers), but 86.7% of that
-queue are answers anyway; its gain there is the date check (+22.7 points of dated precision over a trivial date
-match). On P1 the rules alone are as accurate as rules +
+queue are answers anyway; its gain there is the choice of date (+19.6 points of date-checked precision over the
+no-model date rule, parliament-cluster [0.9, 42.8], post hoc; registered H4: +22.7 points over a trivial date match). On P1 the rules alone are as accurate as rules +
 Apertus (registered H2: Branch B), so the default runs no model, and in Bulle's minutes (P4) Apertus added no
 significant decisions. Neither means the rules are complete: P1 rule recall is 47/64 and P4 recall 99/120. **Accuracy
-equals free prompting, provenance is guaranteed:** the same Apertus asked freely with a null-allowed prompt is as accurate (P2: 54/62
+close to free prompting, provenance by construction:** the same Apertus asked freely with a null-allowed prompt is about as accurate (P2: 54/62
 re-parsed vs 53/62; discordant 1 vs 0, p = 1; both right on the same 24 of 29 answer dates; P6: 62 vs 59). **Provenance:** no arm
 that picks from printed dates returned a date printed nowhere, on P1, P2 or P6. The fair comparator is the free prompt
 that may return null: it did so 0, 1 and 0 times on P1, P2 and P6; the plain free prompt, which must always return a
@@ -450,7 +452,10 @@ rule, run without a model on every printed date of the text Apertus reads, would
 are answers, but only 76.2% carry a gold answer date that passes the rule, and the first passing date is the gold date
 for 70.2%. P7's promotions reach 95.8% and 94.2%: +19.6 points [8.4, 30.9] date-checked and +23.9 points [12.7, 34.7]
 on the date itself. Keeping Apertus's yes/no gate but dropping its date choice, 172 rows reach 74.9%: the date choice
-alone is worth +20.9 points [5.2, 33.1], the yes/no question 1.1 points [0, 2.9] on is-answer. A date match without a
+alone is worth +20.9 points [5.2, 33.1], the yes/no question 1.1 points [0, 2.9] on is-answer. With whole parliaments
+resampled (post hoc, round 9, `eval/p7/cluster_r9.py` → `results/p7/p7_cluster_r9.json`; 15 parliaments, B = 10,000)
+the gain over the no-model rule is [0.9, 42.8] and the date choice [0, 47.4]: the gain is concentrated in a few
+parliaments, and without Frauenfeld it is larger (+28.5 and +36.4 points). A date match without a
 model is also right on is-answer (146/146) and also stops all 10 gold-no rows, so Apertus's value in P7 is choosing which
 printed date is the answer date. H4 as registered is weighted to the frame; unweighted over the judged rows it is
 115/120 vs 129/146 (88.4%), +7.5 points [3.4, 12.2], the gap coming from the `rest` stratum (2/8 trivial promotions
@@ -467,8 +472,8 @@ recall [51.2, 81.2]; P5-H2 [42.3, 79] points; P5-H4 [22.4, 55.7] points; P6-H1 (
 
 **Documents with no answer at all (post hoc, `results/eval/posthoc_r8_noanswer.json`; DEVIATIONS2 D2-8, DEVIATIONS7
 D3).** In P2 and P6 "answerless" means no qualifying answer date. Split after the results by the gold's `answer_present`
-field: on the 53 documents with no answer at all (25 in P2, 28 in P6) the 70B closed-set arms (P2 pointer, P6 v2) dated
-0/53 (Wilson [0, 6.8]); the free prompt with null allowed dated 1. All 9 of their dates on answerless documents fall on
+field: on the 53 documents with no answer at all (25 in P2, 28 in P6) the P2 pointer and P6's v2 dated 0/53
+(Wilson [0, 6.8]); the shipped reader v1 dated 1 of P6's 28, and the free prompt with null allowed 1. All 9 of their dates on answerless documents fall on
 the 14 documents that contain an answer printing no qualifying date (9/14). The registered null-safety tests (P2-H3,
 P6-H2) failed and still fail. The 8B v2 dated 1/28 P6 no-answer documents. On the 8B in P6 the free prompt with v2's
 instructions is right on 55/67 and dates 7/34 answerless documents (v2 vs it: 2 vs 6 discordant documents).
@@ -488,13 +493,14 @@ is-answer variant and θ_B.
   numbers) printed in the document, plus null; summed log-probabilities; null if the margin exceeds θ, fitted per build
   on dev documents and frozen (θ = 10.40 for the Public AI build). In `src/gegenprobe/qa/` the same form picks which
   numbered question an answer paragraph replies to, which printed sentence states the recommendation and which printed
-  name is the submitter. Free generation is run only as the naive baseline.
+  name is the submitter. Free generation runs only as a contrast arm in the evaluations (P1, P2, P6,
+  P7), never in the product path.
 - **What it adds, measured:** the date check as a closed-set verifier of the adapters' review queue (P7: 214 rows
   promoted into a separate tier, 120/120 sampled are answers; +22.7 points of dated precision over a trivial date
   match), finding answer dates the rules miss on unseen parliaments (P2 22:4; P6 11:5 on all 68 documents, p = 0.21)
-  and doubling submitter detection over the rules (P5: 12/40 → 24/40; free generation 34/40), every value a printed one
-  with its location. Accuracy equals the same model asked freely with null allowed (P2 and P6,
-  registered; P7-H3); null safety is left to the reviewer (P1-H1, P2-H3, P6-H2 failed).
+  and doubling submitter detection over the rules (P5: 12/40 → 24/40; free generation 34/40), every extracted value a
+  printed one with its location. Accuracy is close to the same model asked freely with null allowed (P2 and P6,
+  registered; P7-H3), and a printed-date filter on the free prompt gives the same no-invention guarantee; null safety is left to the reviewer (P1-H1, P2-H3, P6-H2 failed).
 - **Why a pointer:** asked freely when the government answered, Apertus writes a precise date for 15/15 (local 8B) and
   14/15 (70B) Bern interventions that have no answer, often the "Letzte Bearbeitung" footer (earlier spikes, cited); a
   null-allowed prompt fixes this on the 70B but not on the local 8B (still 14/15).

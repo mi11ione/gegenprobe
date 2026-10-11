@@ -7,18 +7,18 @@ and every empty field a typed reason.
 
 | | |
 |---|---|
-| **92.3%** | of interventions with a written government answer have answer text once the counted repairs are applied |
+| **92.3%** | of interventions with a written government answer have answer text after every counted repair, up from 81.6% attached today (85.6% from what OPD already holds, 88.3% after its hash decision for the Bern relinks) |
 | **9,720** | answers with a repair proposed to OpenParlData (OPD), keyed on OPD ids, with a dry-run apply plan for Bern |
-| **214** | review-queue answers Apertus recovers as a closed-set verifier; all 120/120 sampled are the government's answer |
-| **24/29** | answer dates Apertus finds in parliaments nobody wrote rules for; the rules find 2/29 |
+| **+19.6 points** | date-checked precision when Apertus chooses the printed answer date, over the no-model date rule (P7: 95.8% vs 76.2%; parliament-cluster 95% interval [0.9, 42.8]); it fills a tier of 214 review-queue answers |
+| **24/29** | answer dates Apertus finds in 15 parliaments nobody wrote rules for, as many as a free prompt, every value a printed date; the latest printed date finds 22 but dates 31 of 33 answerless documents |
 
 - **Ready for OPD:** Bern relinks, fetches and `begin_date` corrections (OPD confirmed the bug; correspondence, 10 Oct
   2026), per-parliament lists from 50 model-free source adapters, a vocabulary error list and a Fedlex resolver for
   29,946 federal documents. The only open decision is OPD's hash rule for relinks.
-- **Auditable by construction:** every Apertus value is a date or phrase printed in the document, with page and span;
-  the default runs no model, and Apertus suggestions go to a reviewer.
-- **Pre-registered:** eight tests, each frozen by hash before its labels; every number in the documents is recomputed
-  from its results file by `make claims`.
+- **Auditable by construction:** every value Apertus extracts is a date or phrase printed in the document, with page
+  and span; its yes/no answers and category labels are judgements a person reviews. The default runs no model.
+- **Pre-registered:** eight tests, each frozen by hash before its labels; every measured number in the README, the
+  report and the form notes is recomputed from its results file by `make claims`.
 
 The eCH expert group's page: [`track_2a/docs/ech-onepager.md`](track_2a/docs/ech-onepager.md).
 

@@ -1,0 +1,68 @@
+{
+ "date_choice": {
+  "baseline": 0.7491,
+  "cluster_ci95": [
+   0.0,
+   0.4742
+  ],
+  "cluster_excludes_0": false,
+  "cluster_undefined_resamples": 0,
+  "display": {
+   "baseline_pct": 74.9,
+   "cluster_ci": [
+    0.0,
+    47.4
+   ],
+   "p7_pct": 95.8,
+   "pts": 20.9,
+   "row_ci": [
+    5.2,
+    33.1
+   ],
+   "without_frauenfeld_pts": 36.4
+  },
+  "estimate": 0.2092,
+  "p7": 0.9583,
+  "row_ci95": [
+   0.0517,
+   0.3314
+  ],
+  "share_of_cluster_resamples_above_0": 0.8842,
+  "without_frauenfeld": 0.3643
+ },
+ "label": "POST HOC (11 Oct 2026, round 9; not pre-registered): written after the P7 test gold was read; no model call; no registered decision depends on this file",
+ "method": "parliaments (bodies) of the 190 annotated rows resampled with replacement, each with all its annotated rows and their sampling-stratum weights; B = 10,000, seed 20261014, percentile 95% (eval.p7.posthoc_r8.cluster_vals)",
+ "n_parliaments": 15,
+ "n_rows": 190,
+ "vs_no_model": {
+  "baseline": 0.762,
+  "cluster_ci95": [
+   0.0095,
+   0.4277
+  ],
+  "cluster_excludes_0": true,
+  "cluster_undefined_resamples": 0,
+  "display": {
+   "baseline_pct": 76.2,
+   "cluster_ci": [
+    0.9,
+    42.8
+   ],
+   "p7_pct": 95.8,
+   "pts": 19.6,
+   "row_ci": [
+    8.4,
+    30.9
+   ],
+   "without_frauenfeld_pts": 28.5
+  },
+  "estimate": 0.1964,
+  "p7": 0.9583,
+  "row_ci95": [
+   0.0841,
+   0.3086
+  ],
+  "share_of_cluster_resamples_above_0": 0.9901,
+  "without_frauenfeld": 0.2849
+ }
+}

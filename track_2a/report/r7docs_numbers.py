@@ -102,7 +102,10 @@ def nights() -> dict:
 def vocab_bugs() -> dict:
     """One row per OPD harmonised label that is wrong as published, with the affairs (census table) or the label's own
     entity it occurs on. Sources: data/schema/opd_label_issues.json (mistranslations found while building the
-    vocabularies) and the harmonised type values of data/census/affairs.tsv.gz (a trailing space)."""
+    vocabularies) and the harmonised type values of data/census/affairs.tsv.gz (a trailing space). Column
+    census_snapshot: generated_at of the OPD export index the census was built from (data/census/meta.json), i.e. the
+    snapshot the affairs_in_census counts belong to (round 8: the counts carried no date)."""
+    snap = json.loads((DATA / "census" / "meta.json").read_text())["inputs"]["index.json"]["generated_at"]
     with gzip.open(DATA / "census" / "affairs.tsv.gz", "rt", encoding="utf-8") as f:
         types = collections.Counter(r["type_h"] for r in csv.DictReader(f, delimiter="\t"))
     rows = []
@@ -114,7 +117,9 @@ def vocab_bugs() -> dict:
         if t and t != t.strip():
             rows.append(dict(kind="whitespace", entity="affairs", opd_id="", field="type_harmonized_en", opd_value=t,
                              de="", should_read=t.strip(), affairs_in_census=k))
-    cols = ["kind", "entity", "opd_id", "field", "opd_value", "de", "should_read", "affairs_in_census"]
+    for r in rows:
+        r["census_snapshot"] = snap
+    cols = ["kind", "entity", "opd_id", "field", "opd_value", "de", "should_read", "affairs_in_census", "census_snapshot"]
     with open(VOCAB, "w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, cols, delimiter="\t", lineterminator="\n")
         w.writeheader()

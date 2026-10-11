@@ -1,0 +1,41 @@
+{
+ "coverage": {
+  "after_hash": 2459,
+  "after_hash_relink": 2421,
+  "after_hash_review": 38,
+  "agenda": 592,
+  "attached": 74519,
+  "definitions": {
+   "after_hash": "+ the Bern answers OPD holds without a parent (relink + review rows): after OPD's hash rule for relinks",
+   "all": "+ the answers fetched and checked from the parliaments, still to be fetched into OPD",
+   "attached": "text attached to the intervention in OPD (the registered census count)",
+   "now": "+ answers OPD holds with text under an unrecognised heading (tag_answer) and the verified text of OPD's own copies (extract_tag): no OPD decision and no fetch needed",
+   "with_agenda": "also counting answers OPD files under an agenda item of the same affair (census link_status agenda); these 592 are also among the 9,720 counted repairs"
+  },
+  "fetch": 3640,
+  "now": 3621,
+  "now_text_verified": 852,
+  "now_unrecognised": 2177,
+  "parts": {
+   "fetchable/adapter": 3560,
+   "fetchable/be_fetch": 47,
+   "fetchable/che_curia": 7,
+   "image_only/fetchable": 26,
+   "image_only/text_verified": 852,
+   "opd_elsewhere/agenda": 592,
+   "opd_elsewhere/parentless": 2459,
+   "unrecognised": 2177
+  },
+  "repaired": 9720,
+  "repaired_beyond_agenda": 9128,
+  "share": {
+   "after_hash": "88.3%",
+   "all": "92.3%",
+   "attached": "81.6%",
+   "now": "85.6%",
+   "with_agenda": "82.3%"
+  },
+  "written": 91268
+ },
+ "note": "derived from results/census/corrected.json via census/corrected.place and the Bern lists; report/r9_numbers.py"
+}

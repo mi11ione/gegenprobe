@@ -229,7 +229,9 @@ def test_site_downloads_are_the_committed_files_and_the_opd_box_links_them(tmp_p
             "apply_BE_plan.sql.txt", "apply_BE_relink_plan.csv", "apply_BE_begin_date_plan.csv", "apply_BE_plan.json",
             "affair.schema.json", "doc_extraction.schema.json",
             # round 8 (J1): the Fedlex list, the OPD vocabulary errors and the P7 tier were not downloadable
-            "repair_CHE.tsv.gz", "vocab_bugs.tsv", "promoted_by_apertus.tsv", "promoted.tsv"} == names
+            "repair_CHE.tsv.gz", "vocab_bugs.tsv", "promoted_by_apertus.tsv", "promoted.tsv",
+            # round 9 (J1): the standalone workbench schema the README points OPD to
+            "gegenprobe_schema.py"} == names
     assert d["repo"] == "https://github.com/mi11ione/gegenprobe"
     relink = next(f for f in d["files"] if f["name"] == "repair_BE_relink.tsv")
     assert relink["rows"] == 2421 and relink["href"] == "downloads/repair_BE_relink.tsv"
