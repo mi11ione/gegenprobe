@@ -582,6 +582,15 @@ def _hyp_inner(dec_path: Path, out: Path, theta_path: Path) -> None:
 
 
 # ------------------------------------------------------------------------------------------------ cli
+def lockcheck() -> list[str]:
+    """LOCK8's committed files, hash by hash (eval/prereg8/lock8.py also hashes local WORK inputs, absent on runners)."""
+    d = json.loads((ROOT / "eval" / "prereg8" / "LOCK8").read_text())
+    bad = [f for f, h in d["p7_files"].items()
+           if not (ROOT / f).exists() or hashlib.sha256((ROOT / f).read_bytes()).hexdigest() != h]
+    print(f"LOCK8: {len(d['p7_files'])} committed files " + ("intact" if not bad else "changed: " + ", ".join(bad)))
+    return bad
+
+
 def main(argv: list[str] | None = None) -> int:
     argv = sys.argv[1:] if argv is None else argv
     if argv[:1] == ["_fit"]:
@@ -591,10 +600,12 @@ def main(argv: list[str] | None = None) -> int:
         _hyp_inner(Path(argv[1]), Path(argv[2]), Path(argv[3]))
         return 0
     ap = argparse.ArgumentParser(description="EXPLORATORY: the local Apertus 8B on P7")
-    ap.add_argument("cmd", choices=["export", "fetch", "features", "fit", "merge", "hypotheses"])
+    ap.add_argument("cmd", choices=["lockcheck", "export", "fetch", "features", "fit", "merge", "hypotheses"])
     ap.add_argument("--split", choices=["dev", "test"], default="test")
     ap.add_argument("--shard", default="0/1")
     a = ap.parse_args(argv)
+    if a.cmd == "lockcheck":
+        return 1 if lockcheck() else 0
     if a.cmd == "export":
         export()
     elif a.cmd == "fetch":

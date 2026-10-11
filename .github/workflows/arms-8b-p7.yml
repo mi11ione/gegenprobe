@@ -41,7 +41,7 @@ jobs:
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with: {path: "${{ github.workspace }}/work/models", key: model-cache-apertus-8b-gguf-v1}
       - run: python -c "from gegenprobe import llm; print(llm.fetch_gguf('apertus-v1.5-8b-text-q4_k_m'))"   # sha256-verified
-      - run: mkdir -p out && python -m eval.prereg8.lock8 check
+      - run: mkdir -p out && python -m eval.p7.run_8b lockcheck
       - run: python -m eval.p7.run_8b fetch --split dev --shard ${{ matrix.i }}/4
       - run: |
           set -o pipefail
@@ -65,7 +65,7 @@ jobs:
       - run: pip install --require-hashes -r requirements.lock
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with: {pattern: "p7-8b-dev-*", merge-multiple: true, path: track_2a}
-      - run: python -m eval.prereg8.lock8 check
+      - run: python -m eval.p7.run_8b lockcheck
       - run: |
           python -m eval.p7.run_8b fit
           test -f data/p7/gguf8b/theta.json
@@ -97,7 +97,7 @@ jobs:
       - run: python -c "from gegenprobe import llm; print(llm.fetch_gguf('apertus-v1.5-8b-text-q4_k_m'))"
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with: {name: p7-8b-fit, path: track_2a}
-      - run: mkdir -p out && python -m eval.prereg8.lock8 check && test -f data/p7/gguf8b/theta.json
+      - run: mkdir -p out && python -m eval.p7.run_8b lockcheck && test -f data/p7/gguf8b/theta.json
       - run: python -m eval.p7.run_8b fetch --split test --shard ${{ matrix.i }}/6
       - run: |
           set -o pipefail
@@ -122,7 +122,7 @@ jobs:
       - run: pip install --require-hashes -r requirements.lock
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with: {pattern: "p7-8b-*", merge-multiple: true, path: track_2a}
-      - run: python -m eval.prereg8.lock8 check
+      - run: python -m eval.p7.run_8b lockcheck
       - run: python -m eval.p7.run_8b merge
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
