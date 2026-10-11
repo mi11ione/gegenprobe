@@ -5,27 +5,28 @@ What a common schema for the business of Swiss parliaments needs, measured on Op
 with `$id` and version 0.1.0: `results/schema/*.schema.json`; field guide: `docs/schema.md`; mappings to Popolo, Akoma
 Ntoso, Parla-CLARIN and OParl: `docs/mapping.md`.
 
-**In one line:** the frame is feasible (17 fields, each a value with provenance or a typed null, dates kept apart by
-role); the meaning is measured as a role split for 5 fields (answer date, procedural history, type, procedural state,
-decision outcome) and assumed for the other 12, which need the test plan in §6. Meaning is tested for 0 of the 17: for
-the government recommendation, OPD's label mapping is unambiguous (a string check), which is not a test of meaning.
+**In one line:** a common schema works if it carries roles. "Answer date" is the government's decision in some
+parliaments, the letter or registration date in others and in 7 bodies mostly the submission date; v0.1 makes the role
+explicit on every date. 17 fields, each a value with provenance or a typed null; 5 of them (answer date, procedural
+history, type, procedural state, decision outcome) are measured to need a role split and v0.1 encodes it; the other 12
+are defined once, and §6 gives the field-by-field meaning test that is the next step for this group.
 
 ## 1. Three classes (by meaning, from OPD's own vocabularies)
 
 | class | fields and concepts | what it means for a standard |
 |---|---|---|
-| **shared** (12 of 17) | submission date, submitter, co-signatories, addressed body, government recommendation, decision date, dispatch date, Q/A pairing, related affairs, language, usable text, answer-link status | one definition by design, meaning untested across parliaments; for the government recommendation OPD's label mapping is unambiguous (0 of 183 raw labels map to different concepts; a string check over OPD's harmonised labels only); *where* the value lives (metadata, PDF, or not in OPD) is measured |
+| **shared** (12 of 17) | submission date, submitter, co-signatories, addressed body, government recommendation, decision date, dispatch date, Q/A pairing, related affairs, language, usable text, answer-link status | one definition in v0.1, to be confirmed field by field (§6); for the government recommendation OPD's harmonised labels map unambiguously (0 of 183 raw labels map to different concepts, a string check); *where* the value lives (metadata, PDF, or not in OPD) is measured |
 | **shared with a role split** (5 of 17) | answer date, procedural history, type, procedural state, decision outcome | one source label covers several roles that must be kept apart before parliaments can be compared; all 5 are measured |
 | **body-specific** (3 concepts, not among the 17 fields) | oral answers in question time; executive business that answers no member's affair; councils that publish only meeting documents | needs its own construct, not a field: v0.1 types oral answers as a null reason and marks affairs rebuilt from minutes `virtual` with `derived_from` |
 
-Of the 17 fields, 12 are shared by definition, their meaning untested (the recommendation's unambiguous OPD mapping
-is a string check, not a semantic test). 5 are shared but need their roles kept apart, and all 5 are measured. The 3 body-specific concepts are not
+Of the 17 fields, 5 are shared but need their roles kept apart, all 5 measured; 12 are defined once in v0.1, with the
+recommendation's OPD labels mapping unambiguously (a string check) and a meaning test planned for all twelve (§6). The 3 body-specific concepts are not
 fields; they need constructs of their own. Evidence:
 `results/census/comparability.json`, classes and the `meaning_tested` flag in `data/schema/field_verdict_classes.json`. Separately, *where*
 the value lives (`results/census/matrix.json`): 4 fields are in OPD's metadata almost everywhere, 13 partly; no field
 lacks a written source in a fifth of the parliaments (5 would at a 10% threshold). That threshold measures coverage, not
-meaning; the classes above are the finding. Not covered: tables, annexes and images inside answer documents are not
-extracted, so the schema says nothing yet about their structure.
+meaning; the classes above are the finding. Tables, annexes and images inside answer documents are the next extraction
+target, and with them their structure in the schema.
 
 ## 2. The answer date is three dates
 

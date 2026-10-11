@@ -9,11 +9,11 @@ convert.shape_a_theta	4.9	results/convert/spike_replay.json	shape.a_json_null.th
 convert.shape_a_be_loo	20/20	results/convert/spike_replay.json	shape.a_json_null.BE_loo.correct/shape.a_json_null.BE_loo.n	frac	python -m eval.replay_spikes	-
 convert.shape_a_zhbs_kept_correct	10/10	results/convert/spike_replay.json	shape.a_json_null.ctrl_kept_correct/shape.a_json_null.ctrl_n	frac	python -m eval.replay_spikes	-
 convert.shape_a_be_answered_date_ok	2/5	results/convert/spike_replay.json	shape.a_json_null.BE_answered_date_correct/shape.a_json_null.BE_answered_n	frac	python -m eval.replay_spikes	-
-convert.naive8b_plain_invented	15/15	results/convert/spike_replay.json	naive.round7_dwq_8b|plain.invented_on_null_docs/naive.round7_dwq_8b|plain.n_gold_null	frac	python -m eval.replay_spikes	README.md,technical_report.md
+convert.naive8b_plain_invented	15/15	results/convert/spike_replay.json	naive.round7_dwq_8b|plain.invented_on_null_docs/naive.round7_dwq_8b|plain.n_gold_null	frac	python -m eval.replay_spikes	technical_report.md,docs/evaluation.md,docs/operations.md
 convert.naive8b_plain_fabricated	7	results/convert/spike_replay.json	naive.round7_dwq_8b|plain.fabricated	int	python -m eval.replay_spikes	-
-convert.naive8b_null_invented	14/15	results/convert/spike_replay.json	naive.round7_dwq_8b|null.invented_on_null_docs/naive.round7_dwq_8b|null.n_gold_null	frac	python -m eval.replay_spikes	README.md,technical_report.md
+convert.naive8b_null_invented	14/15	results/convert/spike_replay.json	naive.round7_dwq_8b|null.invented_on_null_docs/naive.round7_dwq_8b|null.n_gold_null	frac	python -m eval.replay_spikes	technical_report.md,docs/evaluation.md
 convert.naive8b_null_receipt_pass	10/15	results/convert/spike_replay.json	naive.round7_dwq_8b|null.invented_passing_receipt_check/naive.round7_dwq_8b|null.n_gold_null	frac	python -m eval.replay_spikes	-
-convert.naive_live_plain_invented	14/15	results/convert/spike_replay.json	naive.live_publicai_70b_via_8b_name|plain.invented_on_null_docs/naive.live_publicai_70b_via_8b_name|plain.n_gold_null	frac	python -m eval.replay_spikes	README.md,technical_report.md
+convert.naive_live_plain_invented	14/15	results/convert/spike_replay.json	naive.live_publicai_70b_via_8b_name|plain.invented_on_null_docs/naive.live_publicai_70b_via_8b_name|plain.n_gold_null	frac	python -m eval.replay_spikes	technical_report.md,docs/evaluation.md
 convert.naive_live_null_invented	0/15	results/convert/spike_replay.json	naive.live_publicai_70b_via_8b_name|null.invented_on_null_docs/naive.live_publicai_70b_via_8b_name|null.n_gold_null	frac	python -m eval.replay_spikes	-
 convert.live_null_margin_auroc	1.00	results/convert/spike_replay.json	live.null.auroc	f2	python -m eval.replay_spikes	-
 convert.rules_dev_exact	126/127	results/convert/rules_dev.json	strict.ALL.exact/strict.ALL.n	frac	python -m eval.dev_rules	-

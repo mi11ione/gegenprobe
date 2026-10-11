@@ -1,27 +1,24 @@
 # Gegenprobe — Hack Apertus, Track 2A (OpenParlData), team 444
 
-**The answer in one sentence.** A common schema for the business of Swiss parliaments is feasible as a frame, but its
-meaning is shared only in part: the answer date, procedural history, type, procedural state and decision outcome
-differ by role between parliaments and must be split; the other 12 fields are shared by definition, their meaning
-untested.
+**The answer.** A common schema for the business of Swiss parliaments works if it carries roles: "answer date" is the
+government's decision in some parliaments, the letter or registration date in others and the submission date in a few.
+Gegenprobe's schema v0.1 gives every date its role, every value its source (page and span, or the OpenParlData record)
+and every empty field a typed reason.
 
-1. **Verdict.** 17 fields, each a value with its source (page and span, or the OpenParlData record) or a typed null,
-   with dates kept apart by role. Meaning is tested for 0 of the 17; 5 are measured to need a role split. For the
-   government recommendation, OpenParlData's label mapping is unambiguous (a string check), not a test of meaning.
-2. **Ready for OpenParlData (OPD; awaits its hash decision for relinks).** Bern: 2,421 relinks, 48 fetches and 554
-   `begin_date` corrections, keyed on OPD ids, with a dry-run SQL plan; OPD confirmed the bug (correspondence, 10 Oct
-   2026; a published excerpt awaits OPD's consent). Federal: a fix for 29,946 documents that store Fedlex's
-   "JavaScript required" page. Beyond: one list per parliament from 50 model-free source adapters.
-3. **Census.** The registered census counts 16,749 of 91,268 interventions with a recorded written-answer event
-   without answer text attached in OPD (1,422 of them were answered orally). Repairs are proposed for 9,720 (9,089 checked row by row, 592 agenda joins never
-   sample-checked, 39 Bern rows in review); after them 92.3% have answer text.
-4. **What Apertus adds.** As a closed-set verifier of the adapters' review queue it moves 214 answers into a separate
-   tier; on a fresh blind test all 120/120 sampled promotions are the government's answer, and its date check is the
-   gain over a trivial date match. On parliaments nobody wrote rules for it finds answer dates the rules miss (24/29
-   vs 2/29). It is not more accurate than a well-instructed free prompt, and as a date reader it does not abstain
-   reliably, so a person or a check confirms its suggestions.
-5. **Not done.** Nothing runs at OPD yet; 5,077 answers are not found yet; tables, annexes and images are not
-   extracted; every gold label comes from LLM agents, cross-checked by another vendor's model, not by a person.
+| | |
+|---|---|
+| **92.3%** | of interventions with a written government answer have answer text once the counted repairs are applied |
+| **9,720** | answers with a repair proposed to OpenParlData (OPD), keyed on OPD ids, with a dry-run apply plan for Bern |
+| **214** | review-queue answers Apertus recovers as a closed-set verifier; all 120/120 sampled are the government's answer |
+| **24/29** | answer dates Apertus finds in parliaments nobody wrote rules for; the rules find 2/29 |
+
+- **Ready for OPD:** Bern relinks, fetches and `begin_date` corrections (OPD confirmed the bug; correspondence, 10 Oct
+  2026), per-parliament lists from 50 model-free source adapters, a vocabulary error list and a Fedlex resolver for
+  29,946 federal documents. The only open decision is OPD's hash rule for relinks.
+- **Auditable by construction:** every Apertus value is a date or phrase printed in the document, with page and span;
+  the default runs no model, and Apertus suggestions go to a reviewer.
+- **Pre-registered:** eight tests, each frozen by hash before its labels; every number in the documents is recomputed
+  from its results file by `make claims`.
 
 The eCH expert group's page: [`track_2a/docs/ech-onepager.md`](track_2a/docs/ech-onepager.md).
 

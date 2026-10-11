@@ -1,5 +1,5 @@
 id	shown	file	path	fmt	command	where	context
-upd.adapters.parliaments	50	results/report/upd_numbers.json	adapters.parliaments	int	PYTHONPATH=src:. python -m report.upd_numbers	README.md	{"README.md": "Source adapters for"}
+upd.adapters.parliaments	50	results/report/upd_numbers.json	adapters.parliaments	int	PYTHONPATH=src:. python -m report.upd_numbers	docs/operations.md,technical_report.md,README.md,docs/form_notes.md,../README.md	{"docs/operations.md": "Source adapters for", "technical_report.md": "model-free source adapters", "README.md": "model-free source adapters", "docs/form_notes.md": "model-free source adapters", "../README.md": "model-free source adapters"}
 upd.adapters.fresh_precision	0.990	results/report/upd_numbers.json	adapters.fresh_precision	str	PYTHONPATH=src:. python -m report.upd_numbers	-	
 upd.adapters.fresh_wilson	0.971–0.997	results/report/upd_numbers.json	adapters.fresh_wilson	str	PYTHONPATH=src:. python -m report.upd_numbers	-	
 upd.adapters.fresh_yes	297/300	results/report/upd_numbers.json	adapters.fresh_yes	str	PYTHONPATH=src:. python -m report.upd_numbers	-	
@@ -7,25 +7,25 @@ upd.adapters.fresh_yes_n	297	results/report/upd_numbers.json	adapters.fresh_yes_
 upd.adapters.fresh_no	0	results/report/upd_numbers.json	adapters.fresh_no	int	PYTHONPATH=src:. python -m report.upd_numbers	-	
 upd.adapters.fresh_unclear	3	results/report/upd_numbers.json	adapters.fresh_unclear	int	PYTHONPATH=src:. python -m report.upd_numbers	-	
 upd.adapters.fig_image_only_open	530	results/report/figure_numbers.json	adapters.image_only_open	int	python -m report.figures	-	
-upd.p5.n	40	results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json	n_affairs	int	python -m eval.gold6.hypotheses6	README.md	{"README.md": "fresh affairs from 10"}
-upd.p5.precision	0.83	results/report/upd_numbers.json	p5.precision	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md,technical_report.md,docs/form_notes.md,docs/ech-onepager.md	{"README.md": "precision", "technical_report.md": "precision", "docs/form_notes.md": "precision", "docs/ech-onepager.md": "precision"}
-upd.p5.recall	0.67	results/report/upd_numbers.json	p5.recall	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md,technical_report.md,docs/form_notes.md,docs/ech-onepager.md	{"README.md": "recall", "technical_report.md": "recall", "docs/form_notes.md": "recall", "docs/ech-onepager.md": "recall"}
+upd.p5.n	40	results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json	n_affairs	int	python -m eval.gold6.hypotheses6	docs/evaluation.md,README.md	{"docs/evaluation.md": "fresh affairs from 10", "README.md": "fresh affairs, 10"}
+upd.p5.precision	0.83	results/report/upd_numbers.json	p5.precision	str	PYTHONPATH=src:. python -m report.upd_numbers	technical_report.md,docs/form_notes.md,docs/ech-onepager.md,docs/evaluation.md	{"technical_report.md": "precision", "docs/form_notes.md": "precision", "docs/ech-onepager.md": "precision"}
+upd.p5.recall	0.67	results/report/upd_numbers.json	p5.recall	str	PYTHONPATH=src:. python -m report.upd_numbers	technical_report.md,docs/form_notes.md,docs/ech-onepager.md,docs/evaluation.md	{"technical_report.md": "recall", "docs/form_notes.md": "recall", "docs/ech-onepager.md": "recall"}
 upd.p5.precision_ci	0.75–0.88	results/report/upd_numbers.json	p5.precision_ci	str	PYTHONPATH=src:. python -m report.upd_numbers	-	
 upd.p5.recall_ci	0.60–0.74	results/report/upd_numbers.json	p5.recall_ci	str	PYTHONPATH=src:. python -m report.upd_numbers	-	
-upd.p5.h2	116:5	results/report/upd_numbers.json	p5.h2	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md,technical_report.md	
-upd.p5.h4	79:11	results/report/upd_numbers.json	p5.h4	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md,technical_report.md	
-upd.p5.h2_p	7.8 × 10⁻²⁹	results/report/upd_numbers.json	p5.h2_p	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md	
-upd.p5.h4_p	3.9 × 10⁻¹⁴	results/report/upd_numbers.json	p5.h4_p	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md	
+upd.p5.h2	116:5	results/report/upd_numbers.json	p5.h2	str	PYTHONPATH=src:. python -m report.upd_numbers	technical_report.md,docs/evaluation.md	
+upd.p5.h4	79:11	results/report/upd_numbers.json	p5.h4	str	PYTHONPATH=src:. python -m report.upd_numbers	technical_report.md,docs/evaluation.md	
+upd.p5.h2_p	7.8 × 10⁻²⁹	results/report/upd_numbers.json	p5.h2_p	str	PYTHONPATH=src:. python -m report.upd_numbers	docs/evaluation.md	
+upd.p5.h4_p	3.9 × 10⁻¹⁴	results/report/upd_numbers.json	p5.h4_p	str	PYTHONPATH=src:. python -m report.upd_numbers	docs/evaluation.md	
 upd.p5.provenance_failures	0	results/report/upd_numbers.json	p5.provenance_failures	int	PYTHONPATH=src:. python -m report.upd_numbers	-	
-upd.p5.qwen_valid	7/40	results/report/upd_numbers.json	p5.qwen_valid	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md	
-upd.p5.dev_submitter	36/38	results/eval6/p5_posthoc.json	R_dev_vs_p5.submitter.dev.0/R_dev_vs_p5.submitter.dev.1	frac	python -m eval.gold6.posthoc6	README.md	
-upd.p6.h1	1:4	results/report/upd_numbers.json	p6.h1	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md,technical_report.md	{"README.md": "v2 vs free prompting:", "technical_report.md": "v2 vs free prompting"}
-upd.p6.h3	5:2	results/report/upd_numbers.json	p6.h3	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md,technical_report.md	{"README.md": "v2 vs v1:", "technical_report.md": "v2 vs v1"}
-upd.p6.s3	11:0	results/report/upd_numbers.json	p6.s3	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md	
-upd.p6.s3_p	0.001	results/report/upd_numbers.json	p6.s3_p	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md	
-upd.p6.qwen_v2	60/68	results/report/upd_numbers.json	p6.qwen_v2	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md,technical_report.md	
-upd.p6.qwen_free_null	61/68	results/report/upd_numbers.json	p6.qwen_free_null	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md	
+upd.p5.qwen_valid	7/40	results/report/upd_numbers.json	p5.qwen_valid	str	PYTHONPATH=src:. python -m report.upd_numbers	docs/evaluation.md	
+upd.p5.dev_submitter	36/38	results/eval6/p5_posthoc.json	R_dev_vs_p5.submitter.dev.0/R_dev_vs_p5.submitter.dev.1	frac	python -m eval.gold6.posthoc6	docs/evaluation.md	
+upd.p6.h1	1:4	results/report/upd_numbers.json	p6.h1	str	PYTHONPATH=src:. python -m report.upd_numbers	technical_report.md,docs/evaluation.md	{"technical_report.md": "v2 vs free prompting", "docs/evaluation.md": "v2 vs free prompting:"}
+upd.p6.h3	5:2	results/report/upd_numbers.json	p6.h3	str	PYTHONPATH=src:. python -m report.upd_numbers	technical_report.md,docs/evaluation.md	{"technical_report.md": "v2 vs v1", "docs/evaluation.md": "v2 vs v1:"}
+upd.p6.s3	11:0	results/report/upd_numbers.json	p6.s3	str	PYTHONPATH=src:. python -m report.upd_numbers	docs/evaluation.md	
+upd.p6.s3_p	0.001	results/report/upd_numbers.json	p6.s3_p	str	PYTHONPATH=src:. python -m report.upd_numbers	docs/evaluation.md	
+upd.p6.qwen_v2	60/68	results/report/upd_numbers.json	p6.qwen_v2	str	PYTHONPATH=src:. python -m report.upd_numbers	technical_report.md,docs/evaluation.md	
+upd.p6.qwen_free_null	61/68	results/report/upd_numbers.json	p6.qwen_free_null	str	PYTHONPATH=src:. python -m report.upd_numbers	docs/evaluation.md	
 upd.p6.qwen_decisions_changed	0	results/report/upd_numbers.json	p6.qwen_decisions_changed	int	PYTHONPATH=src:. python -m report.upd_numbers	-	
-upd.p2.h2_all	22:4	results/report/upd_numbers.json	p2.h2_all	str	PYTHONPATH=src:. python -m report.upd_numbers	README.md	
-upd.p6dev.free_null	116/127	results/p6/dev_variants__dev.json	variants.naive_null_reparsed.exact.0/variants.naive_null_reparsed.exact.1	frac	python -m eval.p6.dev	README.md	
-upd.p6dev.free_guided	125/127	results/p6/dev_variants__dev.json	variants.naive_guided_reparsed.exact.0/variants.naive_guided_reparsed.exact.1	frac	python -m eval.p6.dev	README.md	
+upd.p2.h2_all	22:4	results/report/upd_numbers.json	p2.h2_all	str	PYTHONPATH=src:. python -m report.upd_numbers	docs/evaluation.md	
+upd.p6dev.free_null	116/127	results/p6/dev_variants__dev.json	variants.naive_null_reparsed.exact.0/variants.naive_null_reparsed.exact.1	frac	python -m eval.p6.dev	docs/evaluation.md	
+upd.p6dev.free_guided	125/127	results/p6/dev_variants__dev.json	variants.naive_guided_reparsed.exact.0/variants.naive_guided_reparsed.exact.1	frac	python -m eval.p6.dev	docs/evaluation.md	

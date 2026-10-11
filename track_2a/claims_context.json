@@ -3,16 +3,18 @@
   "docs/census.md": "sampled documents found"
  },
  "cost.calls_per_doc": {
-  "README.md": "held-out documents):"
+  "docs/operations.md": "held-out documents):",
+  "technical_report.md": "billed prompt tokens"
  },
  "cost.heldout_docs": {
-  "README.md": "Re-deriving the"
+  "docs/operations.md": "Re-deriving the"
  },
  "cost.residue_docs": {
-  "README.md": "held-out documents):"
+  "docs/operations.md": "held-out documents):"
  },
  "cost.rules_cpu_hours": {
-  "README.md": "documents per second, about",
+  "README.md": "CPU-hours",
+  "docs/operations.md": "documents per second, about",
   "technical_report.md": "CPU-hours for all"
  },
  "eval.cascade.correct": {
@@ -22,18 +24,18 @@
   "technical_report.md": "| cascade | 139/154"
  },
  "eval.cascade.invented_on_null": {
-  "README.md": "rules + Apertus suggestions, all accepted |",
+  "docs/evaluation.md": "rules + Apertus suggestions, all accepted |",
   "technical_report.md": "| cascade | 139/154"
  },
  "eval.cascade.misattributed": {
-  "README.md": "rules + Apertus suggestions, all accepted |",
+  "docs/evaluation.md": "rules + Apertus suggestions, all accepted |",
   "technical_report.md": "| cascade | 139/154"
  },
  "eval.h1.max_cell": {
   "technical_report.md": "in one cell)."
  },
  "eval.h1.pooled": {
-  "README.md": "answerless documents get a value",
+  "docs/evaluation.md": "answerless documents get a value",
   "technical_report.md": "the cascade dates"
  },
  "eval.h2.branch": {
@@ -46,13 +48,13 @@
   "technical_report.md": "rules alone on"
  },
  "eval.h4.n": {
-  "README.md": "Apertus-decided French/Italian"
+  "docs/evaluation.md": "Apertus-decided French/Italian"
  },
  "eval.h4.wrong": {
-  "README.md": "on the registered length-matched set);"
+  "docs/evaluation.md": "on the registered length-matched set);"
  },
  "eval.n_gold_value": {
-  "README.md": "rules + Apertus suggestions, all accepted |"
+  "docs/evaluation.md": "rules + Apertus suggestions, all accepted |"
  },
  "eval.naive_null.correct": {
   "technical_report.md": "naive, null-allowed | 134/154 [80.8, 91.4] |"
@@ -61,26 +63,26 @@
   "technical_report.md": "[80.8, 91.4] | 47 | 11 |"
  },
  "eval.naive_null.invented_on_null": {
-  "README.md": "| 47/64 | 11 | 0 |",
+  "docs/evaluation.md": "| 47/64 | 11 | 0 |",
   "technical_report.md": "| 47 | 11 | 0 |"
  },
  "eval.naive_null.misattributed": {
-  "README.md": "| 134/154 [80.8, 91.4] | 47/64 |",
+  "docs/evaluation.md": "| 134/154 [80.8, 91.4] | 47/64 |",
   "technical_report.md": "| 134/154 [80.8, 91.4] | 47 |"
  },
  "eval.naive_plain.correct": {
   "technical_report.md": "naive, plain | 98/154 [55.8, 70.8] |"
  },
  "eval.naive_plain.fabricated": {
-  "README.md": "[55.8, 70.8] | 47/64 | 23 |",
+  "docs/evaluation.md": "[55.8, 70.8] | 47/64 | 23 |",
   "technical_report.md": "[55.8, 70.8] | 47 | 23 |"
  },
  "eval.naive_plain.invented_on_null": {
-  "README.md": "| 47/64 | 23 | 24 |",
+  "docs/evaluation.md": "| 47/64 | 23 | 24 |",
   "technical_report.md": "| 47 | 23 | 24 |"
  },
  "eval.naive_plain.misattributed": {
-  "README.md": "| 98/154 [55.8, 70.8] | 47/64 |",
+  "docs/evaluation.md": "| 98/154 [55.8, 70.8] | 47/64 |",
   "technical_report.md": "| 98/154 [55.8, 70.8] | 47 |"
  },
  "eval.pointer.correct": {
@@ -90,11 +92,11 @@
   "technical_report.md": "[77.9, 89.3] | 46 | 16 |"
  },
  "eval.pointer.invented_on_null": {
-  "README.md": "| Apertus pointer on every document |",
+  "docs/evaluation.md": "| Apertus pointer on every document |",
   "technical_report.md": "| 46 | 16 | 0 |"
  },
  "eval.pointer.misattributed": {
-  "README.md": "| Apertus pointer on every document |",
+  "docs/evaluation.md": "| Apertus pointer on every document |",
   "technical_report.md": "| 130/154 [77.9, 89.3] | 46 |"
  },
  "eval.rules.correct": {
@@ -104,11 +106,11 @@
   "technical_report.md": "| **rules only (default)** | **135/154"
  },
  "eval.rules.invented_on_null": {
-  "README.md": "| **rules only (default mode)** |",
+  "docs/evaluation.md": "| **rules only (default mode)** |",
   "technical_report.md": "| **rules only (default)** | **135/154"
  },
  "eval.rules.misattributed": {
-  "README.md": "| **rules only (default mode)** |",
+  "docs/evaluation.md": "| **rules only (default mode)** |",
   "technical_report.md": "| **rules only (default)** | **135/154"
  },
  "matrix.fields_feasible": {
@@ -118,20 +120,24 @@
   "docs/ech-onepager.md": "13 partly"
  },
  "opd.be_begin_2024_10_28": {
-  "README.md": "affairs carry a load timestamp:"
+  "docs/operations.md": "affairs carry a load timestamp:"
  },
  "opd.be_begin_flagged": {
-  "README.md": "affairs carry a load timestamp",
+  "docs/operations.md": "affairs carry a load timestamp",
   "technical_report.md": "A second list corrects"
  },
  "opd.be_begin_later_loads": {
-  "README.md": "from later loads (column"
+  "docs/operations.md": "from later loads (column"
  },
  "opd.be_begin_review": {
-  "README.md": "go to review (`repair_BE_begin_date.tsv`)."
+  "README.md": "to review",
+  "docs/operations.md": "go to review (`repair_BE_begin_date.tsv`)."
  },
  "opd.be_begin_set": {
-  "README.md": "get the date of their own \"Eingereicht\""
+  "README.md": "load timestamps",
+  "docs/form_notes.md": "corrected start",
+  "docs/operations.md": "get the date of their own \"Eingereicht\"",
+  "technical_report.md": "`begin_date` corrections"
  },
  "opd.doc_duplicate_rows": {
   "docs/census.md": "another row's body, parent and URL |"
@@ -140,55 +146,65 @@
   "docs/census.md": "| recomputed | explained |"
  },
  "opd.virtual_bodies": {
-  "README.md": "publish only meeting documents ("
+  "README.md": "meeting documents",
+  "docs/evaluation.md": "publish only meeting documents ("
  },
  "opd.virtual_no_affairs": {
-  "README.md": "with no affair at all"
+  "docs/evaluation.md": "with no affair at all"
+ },
+ "p2.bodies": {
+  "README.md": "parliaments nobody wrote rules for",
+  "docs/form_notes.md": "unseen parliaments"
  },
  "p2.bodies_scope": {
-  "README.md": "parliaments without rules"
+  "docs/evaluation.md": "parliaments without rules"
  },
  "p2.bodies_without_rules": {
-  "README.md": "parliaments without rules"
+  "docs/evaluation.md": "parliaments without rules"
  },
  "p2.gold_kappa": {
-  "README.md": "an annotator from another vendor agrees on"
+  "docs/evaluation.md": "an annotator from another vendor agrees on"
  },
  "p2.h2_pointer_only": {
-  "README.md": "are right only with the pointer"
+  "docs/evaluation.md": "are right only with the pointer"
  },
  "p2.h2nb_pointer_only": {
-  "README.md": "one rule happens to match,"
+  "docs/evaluation.md": "one rule happens to match,"
  },
  "p2.n": {
-  "README.md": "parliaments absent from every dev and held-out"
+  "README.md": "15 parliaments without rules",
+  "docs/evaluation.md": "parliaments absent from every dev and held-out"
  },
  "p2.n_null": {
-  "README.md": "absent from every dev and held-out set**"
+  "docs/evaluation.md": "absent from every dev and held-out set**"
  },
  "p2.n_value": {
-  "README.md": "with an answer date, from"
+  "docs/evaluation.md": "with an answer date, from"
  },
  "p2.naive_null_fab": {
-  "README.md": "| 22/29 [57.9, 87.8] | 7 |"
+  "docs/evaluation.md": "| 22/29 [57.9, 87.8] | 7 |"
  },
  "p3.bodies_seen": {
-  "README.md": "with rules and 5 without"
+  "docs/evaluation.md": "with rules and 5 without"
  },
  "p3.min_raw_agree": {
-  "README.md": "(CA). Annotators agreed on at least"
+  "docs/evaluation.md": "(CA). Annotators agreed on at least"
  },
  "p3.n_affairs": {
-  "README.md": "P3 — whole affairs:"
+  "README.md": "whole affairs",
+  "docs/evaluation.md": "P3 — whole affairs:"
  },
  "p3.n_bodies": {
-  "README.md": "affairs (58 PDFs) from"
+  "docs/evaluation.md": "affairs (58 PDFs) from"
  },
  "p3.n_pdfs": {
-  "README.md": "— whole affairs:"
+  "docs/evaluation.md": "— whole affairs:"
  },
  "p4.dates": {
-  "README.md": "meeting date"
+  "docs/evaluation.md": "meeting date"
+ },
+ "p4.derived": {
+  "docs/form_notes.md": "affairs rebuilt"
  },
  "p4.dev_items": {
   "docs/virtual-affairs.md": "dev meetings:"
@@ -197,26 +213,30 @@
   "docs/virtual-affairs.md": "spans re-checked against the PDF text"
  },
  "p4.h3_review_only": {
-  "README.md": "Apertus added"
+  "docs/evaluation.md": "Apertus added"
  },
  "p4.items": {
-  "README.md": "agenda items.** Deterministic parsing"
+  "docs/evaluation.md": "agenda items.** Deterministic parsing"
  },
  "p4.meetings": {
-  "README.md": "meeting date"
+  "docs/evaluation.md": "meeting date"
  },
  "p7.queue.promoted": {
-  "../README.md": "answers into a separate",
+  "../README.md": "review-queue answers",
   "README.md": "promoted_by_apertus",
-  "docs/form_notes.md": "Apertus moves",
+  "docs/evaluation.md": "promoted_by_apertus",
+  "docs/form_notes.md": "recovers",
+  "docs/operations.md": "promoted_by_apertus",
   "technical_report.md": "promoted_by_apertus"
  },
  "p7.test.frame": {
   "README.md": "| P7 |",
+  "docs/evaluation.md": "| P7 |",
   "technical_report.md": "| P7 |"
  },
  "p7.test.packets": {
   "README.md": "blind packets",
+  "docs/evaluation.md": "blind packets",
   "technical_report.md": "blind packets"
  },
  "question.bodies": {
@@ -224,72 +244,76 @@
  },
  "question.median_days_question_time": {},
  "question.same_day_bodies": {
+  "README.md": "in 7 parliaments",
   "docs/ech-onepager.md": "of 54 bodies",
-  "technical_report.md": "parliaments the \"answer\" is"
+  "docs/form_notes.md": "in 7 parliaments",
+  "technical_report.md": "parliaments OPD's"
  },
  "r2a.p2_bodies_pointer": {
-  "README.md": "on answered documents the pointer is ahead in"
+  "docs/evaluation.md": "on answered documents the pointer is ahead in"
  },
  "r2a.p2_bodies_rules": {
-  "README.md": "the rules in 0, 1 tie"
+  "docs/evaluation.md": "the rules in 0, 1 tie"
  },
  "r2a.p3_h3_wo_addr_precision": {
-  "README.md": "related affairs (rules) precision"
+  "docs/evaluation.md": "related affairs (rules) precision"
  },
  "r2a.p3_h3_wo_addr_recall": {
-  "README.md": "evidence is thin,"
+  "docs/evaluation.md": "evidence is thin,"
  },
  "r2a.p3_related_precision": {
-  "README.md": "related affairs (rules) precision"
- },
- "r2w.dataset_columns": {
-  "README.md": "columns with date-trust tiers and source links"
+  "docs/evaluation.md": "related affairs (rules) precision"
  },
  "r2w.local_transfer_bytes": {
-  "README.md": "bytes of export transfer"
+  "docs/operations.md": "bytes of export transfer"
  },
  "r2w.p2_cascade_answerless": {
-  "README.md": ", answerless 4, missed 1",
+  "docs/evaluation.md": ", answerless 4, missed 1",
   "technical_report.md": "| cascade | 51/62"
  },
  "r2w.p2_pointer_answerless": {
-  "README.md": "| **Apertus pointer** |",
+  "docs/evaluation.md": "| **Apertus pointer** |",
   "technical_report.md": "answerless dated"
  },
  "r2w.p2_pointer_wrong": {
-  "README.md": "picks a wrong printed date on",
+  "docs/evaluation.md": "picks a wrong printed date on",
   "technical_report.md": "answerless dated"
  },
  "r2w.p2_rules_answerless": {
   "technical_report.md": "answerless dated"
  },
+ "r2w.procedural_state_ambiguous": {
+  "README.md": "state labels",
+  "technical_report.md": "labels ambiguous"
+ },
  "r2w.rederive_scans": {
-  "README.md": "of them scans) took"
+  "docs/operations.md": "of them scans) took"
  },
  "r2w.rules_docs_per_s": {
-  "README.md": "the rules themselves",
+  "README.md": "documents",
+  "docs/operations.md": "the rules themselves",
   "technical_report.md": "the rules process"
  },
  "r3w1.P2_naive_null_reparsed_misattributed": {
-  "README.md": "null-allowed, re-parsed (post hoc, D2-4)",
+  "docs/evaluation.md": "null-allowed, re-parsed (post hoc, D2-4)",
   "technical_report.md": "null-allowed, re-parsed (D2-4)"
  },
  "r3w1.P2_naive_null_reparsed_on_null": {
-  "README.md": "null-allowed, re-parsed (post hoc, D2-4)",
+  "docs/evaluation.md": "null-allowed, re-parsed (post hoc, D2-4)",
   "technical_report.md": "null-allowed, re-parsed (D2-4)"
  },
  "r3w3.coverage_gap_bodies": {
-  "README.md": "parliaments whose",
+  "docs/operations.md": "parliaments whose",
   "technical_report.md": "parliaments with almost no answers in OPD"
  },
  "r3w4.P1_oracle_checkable": {
-  "README.md": "can be checked against",
   "docs/ech-onepager.md": "checkable documents",
+  "docs/evaluation.md": "can be checked against",
   "technical_report.md": "checkable P1 dates"
  },
  "r3w4.P1_oracle_within_week": {
-  "README.md": "of the other 7 are",
   "docs/ech-onepager.md": "1–5 days apart",
+  "docs/evaluation.md": "of the other 7 are",
   "technical_report.md": "of the other 7 are"
  },
  "r3w4.ci_claims_checked": {
@@ -301,34 +325,113 @@
   "technical_report.md": "claims were checked,"
  },
  "r5a.audit_calls": {
-  "README.md": "calls, USD"
+  "docs/evaluation.md": "calls, USD"
  },
  "r5a.h1_n_reports": {
-  "README.md": "Without the 24 reports"
+  "docs/evaluation.md": "Without the 24 reports"
  },
  "r5a.p2_h2_agree_pointer_only": {
-  "README.md": "under the gold,"
+  "docs/evaluation.md": "under the gold,"
  },
  "r5a.p2_h2_agree_rules_only": {
-  "README.md": "under the gold,"
+  "docs/evaluation.md": "under the gold,"
  },
  "r5a.p2_h2_replaced_pointer_only": {
-  "README.md": "under the gold,"
+  "docs/evaluation.md": "under the gold,"
  },
  "r5a.p2_h2_replaced_rules_only": {
-  "README.md": "under the gold,"
+  "docs/evaluation.md": "under the gold,"
  },
  "r5a.p2t_8b_vs_latest_8b_only": {
-  "README.md": "the ungated latest printed date 14"
+  "docs/evaluation.md": "the ungated latest printed date 14"
  },
  "r5a.p2t_8b_vs_latest_latest_only": {
-  "README.md": "the ungated latest printed date 14"
+  "docs/evaluation.md": "the ungated latest printed date 14"
  },
  "r5a.p2t_ptr_vs_latest_latest_only": {
-  "README.md": "nearly as many as the pointer"
+  "docs/evaluation.md": "nearly as many as the pointer"
  },
  "r5a.p2t_ptr_vs_latest_ptr_only": {
-  "README.md": "nearly as many as the pointer"
+  "docs/evaluation.md": "nearly as many as the pointer"
+ },
+ "r8e.mult_holds": {
+  "docs/evaluation.md": "held as registered"
+ },
+ "r8e.mult_m": {
+  "README.md": "registered confirmatory tests",
+  "docs/evaluation.md": "registered",
+  "docs/form_notes.md": "tests.",
+  "technical_report.md": "registered confirmatory tests"
+ },
+ "r8e.mult_survive": {
+  "README.md": "held as registered",
+  "docs/evaluation.md": "held as registered",
+  "docs/form_notes.md": "held results",
+  "technical_report.md": "held survive"
+ },
+ "r8e.noans_docs": {
+  "README.md": "no answer at all",
+  "docs/evaluation.md": "no answer at all"
+ },
+ "r8e.noans_free_null": {
+  "docs/evaluation.md": "null allowed dated"
+ },
+ "r8e.noans_p2": {
+  "docs/evaluation.md": "in P2"
+ },
+ "r8e.noans_p6": {
+  "docs/evaluation.md": "in P6"
+ },
+ "r8e.p6_8b_v2_vs_guided_a": {
+  "docs/evaluation.md": "discordant"
+ },
+ "r8e.p6_8b_v2_vs_guided_b": {
+  "docs/evaluation.md": "discordant"
+ },
+ "r8e.p7_frame": {
+  "docs/evaluation.md": "frame rows"
+ },
+ "r8e.p7_gate_rule_frame": {
+  "docs/evaluation.md": "rows reach"
+ },
+ "r8e.p7_gold_no": {
+  "docs/evaluation.md": "gold-no rows"
+ },
+ "r8e.p7_h4_unweighted": {
+  "docs/evaluation.md": "judged rows"
+ },
+ "r8e.p7_judged_frauenfeld": {
+  "docs/evaluation.md": "judged ones"
+ },
+ "r8e.p7_minus_rule_is_answer": {
+  "README.md": "gate itself adds",
+  "docs/evaluation.md": "yes/no question",
+  "technical_report.md": "yes/no gate"
+ },
+ "r8e.p7_parliaments_judged": {
+  "docs/evaluation.md": "parliaments with a judged"
+ },
+ "r8e.p7_queue_frauenfeld": {
+  "docs/evaluation.md": "supplies",
+  "technical_report.md": "without Frauenfeld"
+ },
+ "r8e.p7_queue_promoted": {
+  "docs/evaluation.md": "of the 214"
+ },
+ "r8e.p7_rule_frame": {
+  "docs/evaluation.md": "would promote"
+ },
+ "r8e.p7_sessions_dev": {
+  "docs/evaluation.md": "P7 dev labels"
+ },
+ "r8e.p7_sessions_test": {
+  "docs/evaluation.md": "annotator sessions"
+ },
+ "r8e.p7_trivial_stops": {
+  "docs/evaluation.md": "stops all"
+ },
+ "r8e.sessions_total": {
+  "docs/evaluation.md": "annotator sessions"
  },
  "repair.agenda_join": {
   "docs/repair.md": "| OPD's own `agendas.item_affair_id`; not sample-verified |"
@@ -337,32 +440,37 @@
   "docs/repair.md": "copy OPD stores, fetched and checked (`repair.verify_all`,"
  },
  "repair.all_fetch_triple": {
-  "README.md": "in `repair_BE_fetch.tsv`",
-  "docs/repair.md": "| canton OGD; every row checked"
+  "README.md": "answers to fetch",
+  "docs/form_notes.md": "fetches and",
+  "docs/operations.md": "in `repair_BE_fetch.tsv`",
+  "docs/repair.md": "| canton OGD; every row checked",
+  "technical_report.md": "fetches and"
  },
  "repair.be_absent": {
   "docs/repair.md": "canton's document uid in their URL, and"
  },
  "repair.be_attached": {
-  "README.md": "answers the canton publishes, OPD attaches",
+  "README.md": "OPD attaches",
   "docs/form_notes.md": "In Bern, OPD attaches",
-  "docs/repair.md": "of them are attached to their affair,"
+  "docs/operations.md": "answers the canton publishes, OPD attaches",
+  "docs/repair.md": "of them are attached to their affair,",
+  "technical_report.md": "OPD attaches"
  },
  "repair.be_fetch": {
-  "README.md": "fetch candidates",
+  "docs/operations.md": "fetch candidates",
   "docs/repair.md": "canton lists an answer OPD lacks |"
  },
  "repair.be_linkable_breakdown_no_event": {
-  "README.md": "affairs already have the text,"
+  "docs/operations.md": "affairs already have the text,"
  },
  "repair.be_linkable_breakdown_text_present": {
-  "README.md": "affairs already have the text,"
+  "docs/operations.md": "affairs already have the text,"
  },
  "repair.be_parentless_not_in_list": {
-  "README.md": "parentless answers are not missing"
+  "docs/operations.md": "parentless answers are not missing"
  },
  "repair.be_via_agenda": {
-  "README.md": "linkable within OPD without any model",
+  "docs/operations.md": "linkable within OPD without any model",
   "docs/repair.md": "of them are attached to their affair,"
  },
  "repair.begin_event_ids": {
@@ -375,9 +483,11 @@
   "docs/repair.md": "are short documents (one-page decrees under"
  },
  "repair.che_s_per_doc": {
-  "README.md": "fetching politely, extracting and",
+  "README.md": "per document",
   "docs/nightly.md": "s per document at ≥",
-  "docs/repair.md": "conservative; the backlog run needs"
+  "docs/operations.md": "fetching politely, extracting and",
+  "docs/repair.md": "conservative; the backlog run needs",
+  "technical_report.md": "per document plus"
  },
  "repair.nightly_new_rows": {
   "docs/nightly.md": "second run on the same inputs reports"
@@ -389,8 +499,8 @@
   "docs/repair.md": "accented characters against"
  },
  "repair.ocr_s_per_page": {
-  "README.md": "s per page where OCR is needed;",
   "docs/nightly.md": "s per page ≈",
+  "docs/operations.md": "s per page where OCR is needed;",
   "docs/repair.md": "pages, which matters for quoting spans. Cost:",
   "technical_report.md": "per OCR page"
  },
@@ -398,7 +508,7 @@
   "docs/repair.md": "VS oral-answer pointers that have a text"
  },
  "repair.review_after_check": {
-  "README.md": "holds those",
+  "docs/operations.md": "holds those",
   "docs/repair.md": "rows sent to `review` by the per-row"
  },
  "repair.vs_pas_de_reponse_docs": {
@@ -408,6 +518,10 @@
   "docs/repair.md": "documents), i.e. no answer by procedure, and"
  },
  "report.bilanz_bodies": {},
+ "report.heldout_n": {
+  "README.md": "parliaments with rules",
+  "docs/form_notes.md": "right on"
+ },
  "report.oracle_match": {
   "technical_report.md": "OPD's event matches"
  },
@@ -415,16 +529,24 @@
   "technical_report.md": "5 of the other 7"
  },
  "robust.dates_ambiguous": {
-  "README.md": "event labels carry different date roles"
+  "README.md": "event",
+  "docs/evaluation.md": "event labels carry different date roles",
+  "technical_report.md": "event labels carry"
  },
  "robust.days_no_same_day": {},
  "robust.days_question_time": {},
+ "robust.decision_ambiguous": {
+  "README.md": "outcome"
+ },
  "robust.rederive_secs": {
-  "README.md": "of them scans) took"
+  "docs/operations.md": "of them scans) took"
  },
  "robust.tier_fu10_fundamental": {
   "docs/ech-onepager.md": "would at a 10% threshold",
   "technical_report.md": "at a 10% threshold"
+ },
+ "robust.type_ambiguous": {
+  "README.md": "raw type labels"
  },
  "schema.event_titles": {
   "docs/schema.md": "| distinct harmonised event titles |"
@@ -439,11 +561,11 @@
   "docs/schema.md": "| affairs with a harmonised state |"
  },
  "u3.p6.free_plain.fabricated": {
-  "README.md": "| free prompt, plain |",
+  "docs/evaluation.md": "| free prompt, plain |",
   "technical_report.md": "| free prompt, plain |"
  },
  "u3.p6.v2.fabricated": {
-  "README.md": "| v2 | 59/68",
+  "docs/evaluation.md": "| v2 | 59/68",
   "technical_report.md": "| v2 | 59/68"
  }
 }

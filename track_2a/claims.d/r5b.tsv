@@ -7,7 +7,7 @@ r5b.review_8b_h_1k	49.9	results/report/cost_end_to_end.json	review_8b_wall_h_per
 r5b.review_8b_s_doc	179.6	results/report/cost_end_to_end.json	review_8b_wall_s_per_doc	f1	python -m report.cost e2e	docs/runbook.md	
 r5b.review_tokens_doc	5,905	results/report/cost_end_to_end.json	review_70b_billed_prompt_tokens_per_residue_doc	int	python -m report.cost e2e	docs/runbook.md	
 r5b.letter_hint_docs	313	results/convert/letter_hint_check.json	documents_total	int	PYTHONPATH=src:. python -m gegenprobe.convert.hints check	docs/convert-your-own.md	{"docs/convert-your-own.md": "committed gold documents"}
-r5b.post_p3b_guard	3	results/eval5/affair_post_check.json	tests.P3b.guard_fired	int	PYTHONPATH=src:. python -m gegenprobe.affair_post --measure	docs/affair.md,README.md	{"README.md": "it fires on", "docs/affair.md": "guard fires on"}
+r5b.post_p3b_guard	3	results/eval5/affair_post_check.json	tests.P3b.guard_fired	int	PYTHONPATH=src:. python -m gegenprobe.affair_post --measure	docs/affair.md,docs/evaluation.md	{"docs/affair.md": "guard fires on", "docs/evaluation.md": "it fires on"}
 r5b.post_p3b_kept_correct	3	results/eval5/affair_post_check.json	tests.P3b.guard_kept_correct	int	PYTHONPATH=src:. python -m gegenprobe.affair_post --measure	docs/affair.md	{"docs/affair.md": "all three"}
 r5b.post_p3_decision_na	12	results/eval5/affair_post_check.json	tests.P3.decision_not_applicable	int	PYTHONPATH=src:. python -m gegenprobe.affair_post --measure	docs/affair.md	{"docs/affair.md": "not_applicable"}
 r5b.post_p3b_decision_na	9	results/eval5/affair_post_check.json	tests.P3b.decision_not_applicable	int	PYTHONPATH=src:. python -m gegenprobe.affair_post --measure	docs/affair.md	{"docs/affair.md": "P3b records"}
