@@ -1407,6 +1407,17 @@ DOWNLOADS = (
      "plan summary: rows by status, the export identifier rule and the hash/URL side effect"),
     ("JSON Schemas (v0.1)", "results/schema/affair.schema.json", "Affair: one parliamentary affair with its documents"),
     ("JSON Schemas (v0.1)", "results/schema/doc_extraction.schema.json", "DocExtraction: what the converter writes per document"),
+    ("Federal (Fedlex) list", "results/repair/repair_CHE.tsv.gz",
+     "placeholder_replace: federal answers whose OPD document is a placeholder; a work queue (source_url resolved and "
+     "verified on a minority of rows; the rest by repair.che backlog)"),
+    ("OPD vocabulary errors", "results/census/vocab_bugs.tsv",
+     "harmonised labels that are wrong as published, with the affairs carrying them and the census snapshot they were "
+     "counted on"),
+    ("Apertus-promoted tier (P7)", "results/repair/adapters/p7/promoted_by_apertus.tsv",
+     "review rows Apertus promotes, in the adapter-list columns (tier promoted_by_apertus, counted=false): a pre-sorted "
+     "batch for a reviewer"),
+    ("Apertus-promoted tier (P7)", "results/repair/adapters/p7/promoted.tsv",
+     "the same rows as the registered P7 output (P7's own columns)"),
 )
 
 

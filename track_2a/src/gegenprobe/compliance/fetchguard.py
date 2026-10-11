@@ -20,6 +20,11 @@ active, and refuses otherwise:
     in a process where neither sitecustomize nor the .pth ran it installs the matcher, the guard and the mirror routing
     on first import. It never raises; a failure leaves the guard refusing.
 
+User-Agent (round 8): a GP_USER_AGENT that contains an e-mail address (or a mailto: link) is refused the same way, at
+request time: open_url raises net.Disallowed(kind="user_agent_email") and allowed() returns False before any byte is
+requested. The contact in the User-Agent must be a URL (e.g. opd-gegenprobe/0.1 (+https://example.org/contact)): the
+string is sent to every host and lands in their logs, and a personal address is personal data (docs/runbook.md).
+
 Stdlib only and free of package-relative imports: sitecustomize and the .pth load this file by path, before the
 gegenprobe package exists (its __init__ installs the I/O hardening and would pull in the converter at every start).
 """
@@ -29,10 +34,15 @@ import importlib.abc
 import importlib.machinery
 import importlib.util
 import os
+import re
 import sys
 import urllib.robotparser
 
 KIND = "robots_matcher_inactive"
+UA_KIND = "user_agent_email"
+# an e-mail address (local@domain.tld) or a mailto: link anywhere in the User-Agent; an "@" without a dotted domain after
+# it is not an address and passes
+EMAIL = re.compile(r"(?i)mailto:|[A-Z0-9._%+-]+@[A-Z0-9-]+(?:\.[A-Z0-9-]+)*\.[A-Z]{2,}")
 _MARK = "_gegenprobe_fetchguard"
 _RFC9309_MARK = "_gegenprobe_rfc9309"  # robots9309._MARK, set on the patched RobotFileParser methods
 _HERE = os.path.dirname(os.path.abspath(__file__))
@@ -43,6 +53,19 @@ _errors: list[str] = []
 def matcher_active() -> bool:
     """RobotFileParser.can_fetch is robots9309's RFC 9309 version in this process (checked at every request)."""
     return bool(getattr(urllib.robotparser.RobotFileParser.can_fetch, _RFC9309_MARK, False))
+
+
+def ua_problem(ua: str | None) -> str | None:
+    """Why this User-Agent is refused, or None. Contacts must be a URL, never an e-mail address."""
+    if ua and EMAIL.search(ua):
+        return (f"GP_USER_AGENT {ua!r} contains an e-mail address; refused (fail-closed, nothing fetched). Put a contact "
+                "URL in the User-Agent instead, e.g. GP_USER_AGENT='opd-gegenprobe/0.1 (+https://example.org/contact)' "
+                "(docs/runbook.md, User-Agent)")
+    return None
+
+
+def _ua(net) -> str:
+    return getattr(net, "UA", None) or os.environ.get("GP_USER_AGENT", "")
 
 
 def _chain(f):
@@ -82,8 +105,12 @@ def patch_net(net) -> None:
         orig_open = net.open_url
 
         def open_url(url, *a, **kw):
-            if not _is_local(net, url) and not matcher_active():
-                raise net.Disallowed(_refusal(url), kind=KIND)
+            if not _is_local(net, url):
+                if not matcher_active():
+                    raise net.Disallowed(_refusal(url), kind=KIND)
+                bad = ua_problem(_ua(net))
+                if bad:
+                    raise net.Disallowed(f"{url} (not fetched: {bad})", kind=UA_KIND)
             return orig_open(url, *a, **kw)
 
         for k, v in vars(orig_open).items():
@@ -97,7 +124,7 @@ def patch_net(net) -> None:
         orig_allowed = net.allowed
 
         def allowed(url):
-            if not _is_local(net, url) and not matcher_active():
+            if not _is_local(net, url) and (not matcher_active() or ua_problem(_ua(net))):
                 return False
             return orig_allowed(url)
 

@@ -34,7 +34,8 @@ One night =
 Bytes (run.json `bytes`): single exports downloaded, docs/texts streamed by census.scan (counted as they are read), index,
 canton tables, total, and what of it went over the network. `transfer_bytes` (the older field) is the single exports only.
 Outputs (GP_MONITOR_OUT, default results/monitor): rates.json, alerts.json, run.json; repair_BE_new.tsv (tonight's new rows)
-and repair_BE_ledger.tsv (every row ever proposed: first_seen, last_seen, status pending | review | resolved | dropped).
+and repair_BE_ledger.tsv (every row ever proposed: first_seen, last_seen, status pending | review | unchecked | resolved |
+dropped; a row seen again and not re-checked keeps its stored verdict, carry_verdicts / update_ledger).
 
 Local exports: with GP_EXPORTS_DIR set (a mirror of files.openparldata.ch/exports, e.g. OPD's own export directory), every
 exports URL is read from disk (net.local_exports); single exports are read in place and only changed docs/texts files are
@@ -54,7 +55,8 @@ usage:
 Exit codes: 0 quiet night, GP_ALERT_EXIT (default 3) alerts, 1 job or delivery failure, 2 nothing to work on yet (empty
 cache: the message names the command to run first).
 User-Agent: GP_USER_AGENT (net.py; default hackapertus-research/0.1). An operator sets its own product token and a contact
-(URL or mail); a network night without a contact in the User-Agent says so on stderr and in run.json (`user_agent`).
+URL; a network night without a contact URL says so on stderr and in run.json (`user_agent`). A User-Agent with an e-mail
+address is refused (compliance/fetchguard.ua_problem): the night exits 1 before its first request.
   python -m gegenprobe.monitor.nightly cost       results/monitor/night_cost.json: what the measured 96.8 s night covered,
                                                   the cited full docs/texts rescan time and the changed-files estimate
                                                   (no network; reads run_local_exports.json and index_diff.json)
@@ -260,6 +262,7 @@ def verify_new(rows_: list[dict], events_path: Path | None = None) -> None:
         except Exception as e:  # typed: fetch_error rows are retried on the next night (transient), others stay in review
             kind = getattr(e, "kind", None) or type(e).__name__
             r["checks"], r["verified"] = dict(fetch_error=f"{kind}: {str(e)[:120]}"), False
+        r["checked_tonight"] = True
         if not r["verified"]:
             r["action"] = "review"
 
@@ -302,20 +305,47 @@ def _status(verified) -> str:
     return "pending" if v == "True" else "review" if v == "False" else "unchecked"  # unchecked: offline night, no PDF read
 
 
+def checked_tonight(r: dict) -> bool:
+    """True when verify_new ran on this row tonight. Rows straight from be.join carry checks=None and verified=None: that
+    means "not checked tonight", never "check result: none" (the round-8 ledger bug, see carry_verdicts)."""
+    return bool(r.get("checked_tonight")) or isinstance(r.get("checks"), dict)
+
+
+def carry_verdicts(rows_: list[dict], ledger: dict[str, dict]) -> int:
+    """Rows seen on an earlier night and not re-checked tonight keep that night's verdict: a row whose check failed stays
+    action `review` (its proposed action in `proposed_action`), so it is never handed on again as a relink/fetch.
+    Returns the number of rows carried as review. be.join emits every row with verified=None; before round 8 that value
+    overwrote the stored verdict, so night 2 of the two Docker nights (run 38098822336) showed all 2,508 rows `unchecked`."""
+    n = 0
+    for r in rows_:
+        if checked_tonight(r):
+            continue
+        old = ledger.get(_row_key(r))
+        if old and str(old.get("verified")) == "False":
+            r["proposed_action"] = r.get("proposed_action") or r["action"]
+            r["action"] = "review"
+            n += 1
+    return n
+
+
 def update_ledger(ledger: dict[str, dict], rows_: list[dict], aff: dict, today: str) -> dict[str, dict]:
-    """Every row ever proposed. In tonight's list: pending (verified) / review (check failed) / unchecked (offline night).
-    Gone from the list: resolved (the affair's answer is reachable in OPD now) / dropped (still unanswered)."""
+    """Every row ever proposed. In tonight's list: pending (verified) / review (check failed) / unchecked (never checked:
+    seen only on offline nights). A row checked on an earlier night and not re-checked tonight keeps that verdict and its
+    check summary. Gone from the list: resolved (the affair's answer is reachable in OPD now) / dropped (still unanswered)."""
     cur = {}
     for r in rows_:
         k = _row_key(r)
         old = ledger.get(k, {})
+        if checked_tonight(r):
+            verified, summary = r.get("verified"), _summary(r.get("checks"))
+        else:  # not checked tonight (be.join's verified=None, or an offline night): the stored verdict stands
+            verified, summary = old.get("verified", ""), old.get("check_summary", "")
         cur[k] = dict(
             key=k, affair_id=r["affair_id"], affair_number=r.get("affair_number", ""),
             action=r.get("proposed_action") or r["action"], opd_doc_id=r.get("opd_doc_id") or "",
             source_doc_uid=r.get("source_doc_uid", ""), source_url=r.get("source_url", ""),
-            verified=r["verified"] if "verified" in r else old.get("verified", ""),
-            check_summary=_summary(r.get("checks")) or old.get("check_summary", ""),
-            status=_status(r.get("verified", old.get("verified", ""))),
+            verified="" if verified is None else verified, check_summary=summary,
+            status=_status(verified),
             first_seen=old.get("first_seen", today), last_seen=today,
         )
     for k, old in ledger.items():
@@ -429,17 +459,23 @@ def _check_ogd(ogd: Path) -> None:
 
 
 def user_agent() -> dict:
-    """The User-Agent every request carries, and whether it names a contact (URL or mail)."""
+    """The User-Agent every request carries, and whether it names a contact URL (an e-mail address is refused by the
+    fetch guard, compliance/fetchguard.ua_problem)."""
     ua = net.UA
-    return dict(value=ua, has_contact=bool(re.search(r"https?://|mailto:|@", ua)),
+    return dict(value=ua, has_contact=bool(re.search(r"https?://", ua)),
                 source="GP_USER_AGENT" if os.environ.get("GP_USER_AGENT") else "default")
+
+
+class BadUserAgent(RuntimeError):
+    """GP_USER_AGENT contains an e-mail address: the night stops before its first request (exit 1, no traceback)."""
 
 
 def ua_note(ua: dict) -> str | None:
     if ua["has_contact"]:
         return None
     return (f"note: requests carry the User-Agent '{ua['value']}', which names no contact. Set GP_USER_AGENT to your own "
-            "product token and a contact URL or mail (e.g. GP_USER_AGENT=opd-gegenprobe/0.1 (+https://example.org/contact) "
+            "product token and a contact URL, not an e-mail address "
+            "(e.g. GP_USER_AGENT=opd-gegenprobe/0.1 (+https://example.org/contact) "
             "in /etc/gegenprobe/alerts.env), so the hosts we fetch from can reach you.")
 
 
@@ -502,6 +538,9 @@ def night(offline: bool) -> dict:
         opd, meta = offline_inputs()
         _check_ogd(Path(os.environ.get("GP_BE_OGD") or _be_ogd_dir()))
     else:
+        bad = fetchguard.ua_problem(ua["value"])
+        if bad:
+            raise BadUserAgent(bad)
         if ua_note(ua):
             print(ua_note(ua), file=sys.stderr, flush=True)
         opd = Path(local) if local else NIGHT / "opd"
@@ -595,6 +634,7 @@ def night(offline: bool) -> dict:
         t["adapter_canary_s"] = round(time.time() - t5, 1)
     t["total_s"] = round(time.time() - t0, 1)
     today = dt.date.today().isoformat()
+    carried_review = carry_verdicts(rep, ledger)
     ledger = update_ledger(ledger, rep, aff, today)
     OUT.mkdir(parents=True, exist_ok=True)
     from ..repair.common import write_rows
@@ -623,6 +663,7 @@ def night(offline: bool) -> dict:
         be_repair=rep_counts,
         be_repair_new_since_last_night=len(new),
         be_repair_retried=len(retry),
+        be_repair_carried_review=carried_review,  # seen before, check failed then, not re-checked tonight: still review
         adapter_canary=canary,
         ledger=dict(collections.Counter(r["status"] for r in ledger.values())),
         robots_unreadable=net.robots_report(),
@@ -726,6 +767,9 @@ def main(argv: list[str]) -> int:
         except NotReady as e:
             print(str(e), file=sys.stderr)
             return 2
+        except BadUserAgent as e:
+            print(str(e), file=sys.stderr)
+            return 1
         al = run.pop("_alerts")
         print(run)
         if run.get("notify_error"):

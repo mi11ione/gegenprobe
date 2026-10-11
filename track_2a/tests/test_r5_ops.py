@@ -227,7 +227,9 @@ def test_site_downloads_are_the_committed_files_and_the_opd_box_links_them(tmp_p
     names = {f["name"] for f in d["files"]}
     assert {"repair_BE_relink.tsv", "repair_BE_fetch.tsv", "repair_BE_review.tsv", "repair_BE_begin_date.tsv",
             "apply_BE_plan.sql.txt", "apply_BE_relink_plan.csv", "apply_BE_begin_date_plan.csv", "apply_BE_plan.json",
-            "affair.schema.json", "doc_extraction.schema.json"} == names
+            "affair.schema.json", "doc_extraction.schema.json",
+            # round 8 (J1): the Fedlex list, the OPD vocabulary errors and the P7 tier were not downloadable
+            "repair_CHE.tsv.gz", "vocab_bugs.tsv", "promoted_by_apertus.tsv", "promoted.tsv"} == names
     assert d["repo"] == "https://github.com/mi11ione/gegenprobe"
     relink = next(f for f in d["files"] if f["name"] == "repair_BE_relink.tsv")
     assert relink["rows"] == 2421 and relink["href"] == "downloads/repair_BE_relink.tsv"
@@ -247,3 +249,18 @@ def test_site_downloads_are_the_committed_files_and_the_opd_box_links_them(tmp_p
     # a build into another directory (make run's out/) carries the downloads too
     viewer.render(json.loads((site / "data.json").read_text()), tmp_path / "out")
     assert (tmp_path / "out" / "downloads" / "repair_BE_relink.tsv").exists()
+    assert {f["name"] for f in json.loads((site / "data.json").read_text())["downloads"]["files"]} == names
+
+
+def test_site_answers_missing_paths_with_404():
+    """J1 round 8: Cloudflare's single-page-application fallback answered every missing download with the index page and
+    HTTP 200. The config serves site/404.html with HTTP 404 instead; the viewer routes by #hash only."""
+    from gegenprobe.viewer import __main__ as viewer
+
+    cfg = (ROOT / "deploy" / "site" / "wrangler.jsonc").read_text()
+    body = "\n".join(line for line in cfg.splitlines() if not line.lstrip().startswith("//"))
+    assert re.search(r'"not_found_handling":\s*"404-page"', body) and "single-page-application" not in body
+    assert (ROOT / "site" / "404.html").read_bytes() == viewer.NOT_FOUND.read_bytes()
+    assert "404.html" in viewer.SHIPPED
+    t = (ROOT / "src" / "gegenprobe" / "viewer" / "template.html").read_text()
+    assert "pushState" not in t and "location.hash" in t

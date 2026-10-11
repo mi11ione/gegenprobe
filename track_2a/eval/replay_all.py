@@ -1,4 +1,4 @@
-"""`make run` replay of all pre-registrations (P1-P6), from committed files only, plus re-derivation of Apertus decisions.
+"""`make run` replay of all pre-registrations (P1-P7), from committed files only, plus re-derivation of Apertus decisions.
 
 Step `replay` (FAIL on any difference; no network, no model):
   P1  results/eval/{dev,heldout}__*.json   per-document predictions re-scored with eval/score.py and eval.arms.score_rec
@@ -20,6 +20,11 @@ Step `replay` (FAIL on any difference; no network, no model):
               file is not replayed: it was written before LOCK6 by an earlier version of the script (no H3 fields)
   P6          eval.p6.hypotheses7 re-run into a scratch file from results/p6/p6__*.json and data/p6/p6_labels.jsonl; output
               must be byte-identical to the committed file; LOCK7 verified (P5/P6 added 11 Oct 2026, round 6)
+  P7          eval.p7.replay8: the frozen eval.p7.hypotheses8 and eval.p7.tune.table re-run in a subprocess on a scratch
+              WORK laid out from the committed copies in data/p7/ (test key + arm decisions, whose sha256 the frozen
+              code checks against results/p7/test_sample.json; dev key + features; gold; the adapters' date-rule outcomes
+              per (parliament, affair, gold date)); both outputs byte-identical to the committed files; LOCK8 verified on
+              the repository files and the dev key copy (WORK inputs where present). Added 11 Oct 2026, round 8
 
 Step `rederive_apertus` (PASS / WARN / SKIP; FAIL only if a decision recomputed from a cache HIT disagrees):
   For the P1 held-out and P2 documents whose PDF can be fetched and sha256-verified within the time budget, extract
@@ -313,6 +318,12 @@ def replay_p6(build: str = BUILD) -> list[dict]:
     return [_bytes_check("P6 H1-H3 + secondaries (eval.p6.hypotheses7, byte-identical)", committed, got)]
 
 
+def replay_p7() -> list[dict]:
+    """P7: LOCK8, the committed WORK copies' hashes, hypotheses8 and the dev table, byte-identical (eval/p7/replay8.py)."""
+    from eval.p7 import replay8
+    return replay8.replay()
+
+
 def replay_locks() -> list[dict]:
     import importlib
     out = []
@@ -328,7 +339,7 @@ def replay_locks() -> list[dict]:
 def replay() -> dict:
     t0 = time.time()
     tests = (replay_p1_p2() + replay_p3() + replay_p4() + replay_hypotheses() + replay_p3b() + replay_8b() + replay_p5()
-             + replay_p6() + replay_locks())
+             + replay_p6() + replay_locks() + replay_p7())
     fails = [t for t in tests if not t["ok"]]
     return dict(tests=tests, n=len(tests), failing=len(fails), secs=round(time.time() - t0, 1))
 
@@ -338,7 +349,8 @@ def main(ctx: dict | None = None) -> dict:
     for t in r["tests"]:
         print(f"    {'PASS' if t['ok'] else 'FAIL'}  {t['test']}" + ("" if t["ok"] else f"  {t['detail'][:3]}"), flush=True)
     s = (f"{r['n'] - r['failing']}/{r['n']} replay tests pass "
-         "(P1-P4 and P3b re-scored from committed labels, 7 hypotheses scripts incl. P5 and P6, the 8B analysis, 7 locks)")
+         "(P1-P4 and P3b re-scored from committed labels, 8 hypotheses scripts incl. P5, P6 and P7, the P7 dev table, "
+         "the 8B analysis, 8 locks)")
     return dict(status="FAIL" if r["failing"] else "PASS", summary=s, tests=r["tests"])
 
 

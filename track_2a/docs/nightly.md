@@ -20,6 +20,10 @@ with a diff against the previous night (`WORK/nightly/state.json`).
 7. `results/monitor/repair_BE_ledger.tsv`: every row ever proposed, keyed by affair + action + canton document, with
    `first_seen`, `last_seen` and a status (`pending`, `review`, `unchecked`, `resolved` = OPD has the answer now,
    `dropped` = left the list unanswered). The nightly TSV says what is new; the ledger says what is still open.
+   A row seen again on a later night and not re-checked keeps its stored verdict and check summary (only `last_seen`
+   moves); a row whose check failed stays `review` and is not handed on again as a relink/fetch (`run.json`
+   `be_repair_carried_review`). Until round 8, `be.join`'s `verified=None` overwrote the stored verdict, so every second
+   night showed all rows `unchecked` (two Docker nights, run 38098822336; `results/monitor/two_nights_docker_38098822336/README.md`).
 8. `results/monitor/alerts.json`, then delivery (below), then the night's state. Exit code: 0 = quiet night,
    `GP_ALERT_EXIT` (default 3) = alerts, 1 = the job itself or the alert delivery failed, 2 = nothing to work on yet.
 
@@ -32,7 +36,7 @@ then the last network night's `work/nightly/opd` + `work/nightly/docs_meta`. It 
 exit 2, without a traceback.
 
 **User-Agent.** Every request carries `GP_USER_AGENT` (default `hackapertus-research/0.1`). Set it to your own product
-token and a contact (URL or mail), e.g. `GP_USER_AGENT=opd-gegenprobe/0.1 (+https://openparldata.ch)` in
+token and a contact URL (never an e-mail address: such a value is refused, every fetch fails closed), e.g. `GP_USER_AGENT=opd-gegenprobe/0.1 (+https://openparldata.ch)` in
 `/etc/gegenprobe/alerts.env`. The default names no contact, so a network night with it prints a note on stderr, and every
 `run.json` records `user_agent` (`value`, `has_contact`, `source`). No personal data is hard-coded.
 
@@ -123,8 +127,10 @@ Transfer depends on where the job runs.
 - **Outside OPD** the exports have to be downloaded. They are full dumps regenerated every night, not deltas. Between the
   2026-10-06 and 2026-10-09 snapshots, 68/116 docs/texts files changed size (5.0 of 6.2 GB), so the per-body skip in
   step 3 saves little over three days. The single-file exports are 137 MB. Parsing a full docs scan is about 25 min of one
-  CPU core (Python, parsing-bound; measured in the spike). An external deployment is a 20 GB CPU VPS job of roughly 30–40
-  minutes a night, not 5.
+  CPU core (Python, parsing-bound; measured in the spike). An external deployment is a 20 GB CPU VPS job. Measured on
+  4-vCPU GitHub runners: first nights took 83 and 86 min, and the following night on the next export took 6.6 min (14
+  files changed overnight; `results/monitor/two_nights_docker_38098822336/`). A night after several days of changes
+  lies in between. Nothing has been measured on a Swiss VPS yet.
 
 The `index_diff.json` numbers come from `python -m gegenprobe.monitor.nightly index`, one request to the index.
 

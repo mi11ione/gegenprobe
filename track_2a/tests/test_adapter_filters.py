@@ -230,13 +230,20 @@ def test_write_never_redraws_an_existing_audit_sample(monkeypatch, tmp_path):
     (tmp_path / "X.jsonl").write_text("judged\n")
     called = []
     monkeypatch.setattr(run, "audit", lambda body, recs: called.append(body))
+    # both output roots: run.OUT (body json) and lists.OUT (lists.path -> adapters_<body>.tsv). Before round 8 only
+    # run.OUT was redirected and every pytest run rewrote results/repair/adapters/adapters_X.tsv (header only)
     monkeypatch.setattr(run, "OUT", tmp_path / "out")
+    monkeypatch.setattr(run.lists, "OUT", tmp_path / "out")
     monkeypatch.setattr(run, "load_state", lambda body: {})
     monkeypatch.setattr(run, "write_summary", lambda: {})
     monkeypatch.setattr(run.registry, "get", lambda body: inopd.InOPD("X"))
     monkeypatch.setattr(run, "snapshot", lambda body: "snap")
+    committed = run.lists.RESULTS / "repair" / "adapters" / "adapters_X.tsv"
+    before = committed.stat().st_mtime_ns if committed.exists() else None
     run.write("X")
     assert called == [] and (tmp_path / "X.jsonl").read_text() == "judged\n"
+    assert (tmp_path / "out" / "adapters_X.tsv").exists()  # written to the scratch tree
+    assert (committed.stat().st_mtime_ns if committed.exists() else None) == before  # the committed tree untouched
 
 
 def test_fresh_audit_is_proportional_with_a_floor_and_excludes_the_first_audit(monkeypatch, tmp_path):

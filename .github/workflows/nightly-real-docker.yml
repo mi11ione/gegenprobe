@@ -108,13 +108,19 @@ jobs:
                   bytes=run.get("bytes"), transfer_bytes=run.get("transfer_bytes"), alerts=run.get("alerts"),
                   alert_kinds=run.get("alert_kinds"), be_repair=run.get("be_repair"),
                   be_repair_new_since_last_night=run.get("be_repair_new_since_last_night"),
-                  be_repair_retried=run.get("be_repair_retried"), ledger=run.get("ledger"),
+                  be_repair_retried=run.get("be_repair_retried"),
+                  be_repair_carried_review=run.get("be_repair_carried_review"), ledger=run.get("ledger"),
+                  adapter_canary=run.get("adapter_canary"), user_agent=run.get("user_agent"),
                   notified=run.get("notified"), notify_error=run.get("notify_error"), peak_rss_mb=run.get("peak_rss_mb"))
           a, b = out.get("night1", {}), out.get("night2", {})
           out["night2_had_previous_state"] = json.loads((d / "night2" / "night.json").read_text()).get("state_before") \
               if (d / "night2" / "night.json").exists() else None
           out["index_changed_between_nights"] = (a.get("index_generated_at") != b.get("index_generated_at")
                                                  if a.get("index_generated_at") and b.get("index_generated_at") else None)
+          # round 8: a row checked on night 1 keeps its verdict on night 2 (before the fix every row became `unchecked`)
+          la, lb = a.get("ledger") or {}, b.get("ledger") or {}
+          out["night2_kept_night1_verdicts"] = (lb.get("unchecked", 0) <= la.get("unchecked", 0)
+                                                if la and lb else None)
           out["alert_posts_received"] = sum(1 for x in open("/tmp/posts") if x.strip())
           out["install_and_build"] = open("/tmp/install_s.txt").read().strip()
           (d / "two_nights.json").write_text(json.dumps(out, indent=1))
@@ -130,3 +136,7 @@ jobs:
             s=$(python3 -c "import json; print(json.load(open('$GITHUB_WORKSPACE/nights/night$n/night.json'))['exit_status'])")
             echo "night $n: exit status $s"; test "$s" = 0 || test "$s" = 3
           done
+      - name: night 2 keeps night 1's ledger verdicts (round-8 ledger fix)
+        run: |
+          k=$(python3 -c "import json; print(json.load(open('$GITHUB_WORKSPACE/nights/two_nights.json')).get('night2_kept_night1_verdicts'))")
+          echo "night2_kept_night1_verdicts: $k"; test "$k" = True

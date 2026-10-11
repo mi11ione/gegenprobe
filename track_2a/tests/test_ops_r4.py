@@ -111,9 +111,11 @@ def test_user_agent_contact_note(monkeypatch):
     assert ua == dict(value="hackapertus-research/0.1", has_contact=False, source="default")
     assert "GP_USER_AGENT" in nightly.ua_note(ua)
     monkeypatch.setenv("GP_USER_AGENT", "x")
-    for v in ("hackapertus-research/0.1 (+https://github.com/mi11ione/gegenprobe)", "opd/1.0 (data@example.org)"):
-        monkeypatch.setattr(net, "UA", v)
-        assert nightly.user_agent()["has_contact"] and nightly.ua_note(nightly.user_agent()) is None
+    monkeypatch.setattr(net, "UA", "hackapertus-research/0.1 (+https://github.com/mi11ione/gegenprobe)")
+    assert nightly.user_agent()["has_contact"] and nightly.ua_note(nightly.user_agent()) is None
+    # round 8: an e-mail address is not a contact; the fetch guard refuses it (tests/test_ua_guard.py)
+    monkeypatch.setattr(net, "UA", "opd/1.0 (data@example.org)")
+    assert not nightly.user_agent()["has_contact"]
 
 
 # ------------------------------------------------------------------------------------------------ CI supply chain

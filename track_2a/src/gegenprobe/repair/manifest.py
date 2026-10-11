@@ -11,7 +11,10 @@ Lists:
   Bern lists      repair_BE_begin_date.tsv (repair.be_begin_date) and apply_be/ (repair.apply_be: the guarded SQL plan
                   built from repair_BE_relink.tsv and repair_BE_begin_date.tsv)
   adapter lists   results/repair/adapters/adapters_<BODY>.tsv  python -m gegenprobe.repair.adapters.run --write (tier,
-                  counted, opd_doc_id, target_category, text_sha256; repair/adapters/lists.py)
+                  counted, opd_doc_id, target_category, text_sha256; repair/adapters/lists.py). adapters_X.tsv is a
+                  header-only test artefact (TEST_ARTEFACTS), not a parliament's list
+  P7 tier         results/repair/adapters/p7/promoted.tsv (registered P7 output) and promoted_by_apertus.tsv (the same
+                  rows in adapter-list columns, repair/adapters/promoted_list.py); counted=false
 """
 from __future__ import annotations
 
@@ -67,8 +70,23 @@ def _sha(p: Path) -> str:
     return hashlib.sha256(p.read_bytes()).hexdigest()
 
 
+# results/repair/adapters/adapters_X.tsv: header only, written by a test (tests/test_adapter_filters.py) before round 8
+# redirected it to a scratch tree. Kept because LOCK8 hashes every adapters_*.tsv; it is not a parliament's list.
+TEST_ARTEFACTS = {"adapters_X.tsv"}
+P7_DIR = ADAPTERS / "p7"
+
+
 def _kind(p: Path) -> tuple[str, str]:
     n = p.name
+    if p.parent == ADAPTERS and n in TEST_ARTEFACTS:
+        return ("test artefact (header only, no rows; not a parliament's list: body X is the test fixture's; kept because "
+                "LOCK8 hashes every adapters_*.tsv)", "pytest tests/test_adapter_filters.py before round 8")
+    if p.parent == P7_DIR:
+        if n == "promoted.tsv":
+            return ("P7 promoted tier (registered output; P7 columns; tier promoted_by_apertus, counted=false)",
+                    "python -m gegenprobe.repair.adapters.adjudicate apply")
+        return ("P7 promoted tier in adapter-list columns (same 214 rows; tier promoted_by_apertus, counted=false, "
+                "action review, proposed_action set)", "python -m gegenprobe.repair.adapters.promoted_list")
     if p.parent == ADAPTERS:
         return "adapter list", "python -m gegenprobe.repair.adapters.run --write"
     if p.parent.name == "apply_be":
@@ -84,6 +102,7 @@ def _kind(p: Path) -> tuple[str, str]:
 def list_files() -> list[Path]:
     fs = sorted(REPAIR.glob("repair_*.tsv")) + sorted(REPAIR.glob("repair_*.tsv.gz"))
     fs += sorted((REPAIR / "apply_be").glob("*.csv")) + sorted(ADAPTERS.glob("adapters_*.tsv"))
+    fs += [P7_DIR / n for n in ("promoted.tsv", "promoted_by_apertus.tsv") if (P7_DIR / n).exists()]
     return fs
 
 
@@ -91,7 +110,7 @@ def same_names() -> dict[str, list[str]]:
     """Basenames that occur more than once under results/repair (excluding the audit folders' verdict files)."""
     seen = collections.defaultdict(list)
     for p in REPAIR.rglob("*"):
-        if p.is_file():
+        if p.is_file() and not any(part.startswith("audit") for part in p.relative_to(REPAIR).parts[:-1]):
             seen[p.name].append(str(p.relative_to(ROOT)))
     return {k: v for k, v in sorted(seen.items()) if len(v) > 1}
 
@@ -100,6 +119,8 @@ def overlaps() -> list[dict]:
     """Per body with an adapter list and a combined route list: the affairs both name, by (route action, adapter tier)."""
     out = []
     for a in sorted(ADAPTERS.glob("adapters_*.tsv")):
+        if a.name in TEST_ARTEFACTS:
+            continue
         body = a.stem[len("adapters_"):]
         r = REPAIR / f"repair_{body}.tsv"
         if not r.exists():
@@ -139,7 +160,7 @@ def build() -> dict:
         act = collections.Counter(r.get("action") or "" for r in rs)
         e = dict(file=str(p.relative_to(ROOT)), kind=kind, command=cmd, rows=len(rs), by_action=dict(sorted(act.items())),
                  sha256=_sha(p))
-        if kind == "adapter list":
+        if kind == "adapter list" or kind.startswith(("test artefact", "P7 promoted")):
             e["by_tier"] = dict(sorted(collections.Counter(r["tier"] for r in rs).items()))
             e["counted"] = sum(r["counted"] == "true" for r in rs)
         rows.append(e)

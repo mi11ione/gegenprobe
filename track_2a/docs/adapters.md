@@ -245,6 +245,34 @@ a different OPD document than the candidate, the one whose text verified), and a
 stays the only row. Agenda joins and Valais' `retype_oral` rows have no adapter counterpart. No two files under
 `results/repair` share a name (the adapter lists were `repair_<BODY>.tsv` and `repair_<BODY>_review.tsv` until 11 Oct
 2026; the review subset is now `tier=review`, and the summary is `adapters_summary.json`).
+`adapters_X.tsv` is not a parliament's list: it is a header-only file that a test wrote into this folder until round 8.
+It stays because LOCK8 hashes every `adapters_*.tsv`, and `MANIFEST.json` marks it as a test artefact.
+
+**Applying the tag rows.** `python -m gegenprobe.repair.apply_tags --exports-dir DIR --out PLAN` (or `--fetch`) reads
+OPD's `docs_<BODY>` exports. For every `counted=true` row with action `tag_answer` or `extract_tag`, it writes a
+before-state CSV, a JSON summary and guarded `UPDATE docs SET category_harmonized = 'response_text'` statements as text.
+It is a dry run like `repair.apply_be` and never connects to OPD. Every statement checks the document id, `body_key`,
+`affair_id` and `category_harmonized IS NULL`. The rest of the guard depends on the row:
+- A `tag_answer` row checked on OPD's own text adds `sha256(text) = text_sha256`.
+- A row checked on our extraction of the same file (Zürich canton: pdftotext of the PDF that OPD links) adds the URL and
+  the hash of OPD's text in that export.
+- An `extract_tag` row adds "the document still has no text, same URL". Its `text_sha256` is the hash of our tesseract
+  output, so it cannot guard OPD's own OCR text.
+
+A document that already has another category is listed as `category_set` and gets no statement.
+
+**Scraper-set categories can overwrite hand-set ones.** Several scrapers write `category_harmonized` themselves; in the
+target bodies, for example, NE sets `recording_video` and TI sets `protocol`. A value set by an import can therefore be
+overwritten on the next scrape. Apply the tag rows as a **protected override** (a field the scraper does not overwrite),
+as for the Bern relinks (`docs/runbook.md`), or fix the scraper's mapping first.
+
+**The P7 tier in the same columns.** `results/repair/adapters/p7/promoted_by_apertus.tsv`
+(`python -m gegenprobe.repair.adapters.promoted_list`) holds the 214 rows of the registered P7 output
+`results/repair/adapters/p7/promoted.tsv`, laid out in the adapter-list columns. Each row is its parliament's
+`tier=review` row, joined on affair, OPD document and text hash, so `source_url`, `target_category` and `text_sha256`
+are filled. On every row `tier` is `promoted_by_apertus`, `counted` and `verified` are `false`, `action` is `review`,
+`proposed_action` is set, and P7's own columns follow with the prefix `p7_`. The apply filter stays `counted=true`: this
+tier is a pre-sorted batch for a reviewer.
 
 ## Robots.txt: RFC 9309 in every process (incident of 10 Oct 2026)
 

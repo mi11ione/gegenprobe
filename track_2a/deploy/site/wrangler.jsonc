@@ -1,9 +1,12 @@
 // Evidence viewer on Cloudflare (static assets only, no Worker code, no data processing).
 // Deploy: CLOUDFLARE_API_TOKEN=... npx wrangler@4.149.0 deploy   (from this directory)
+// not_found_handling "404-page": a path that is not a file gets site/404.html with HTTP 404 (until round 8 it was
+// "single-page-application", which answered every typo or missing download with the index page and HTTP 200). The viewer
+// routes by #hash only, so no path besides / needs the index page.
 {
   "name": "gegenprobe",
   "compatibility_date": "2026-09-01",
-  "assets": { "directory": "../../site", "not_found_handling": "single-page-application" },
+  "assets": { "directory": "../../site", "not_found_handling": "404-page" },
   "workers_dev": true,
   "routes": [{ "pattern": "gegenprobe.mi11ion.io", "custom_domain": true }]
 }

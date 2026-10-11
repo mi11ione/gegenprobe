@@ -2,7 +2,7 @@
 
     python -m gegenprobe.viewer collect            results + cached texts + model cache -> site/data.json, parliaments.csv,
                                                    missing.json, interventions.tsv.gz (+ README) copied from results/census/,
-                                                   and site/downloads/ (Bern lists, apply plan, JSON Schemas, the
+                                                   404.html, and site/downloads/ (Bern lists, apply plan, JSON Schemas, the
                                                    adapter lists per parliament + adapters_manifest.json)
     python -m gegenprobe.viewer build [--out DIR]   site/data.json + template -> DIR/index.html (default: site/)
     python -m gegenprobe.viewer build --full-text --out DIR   collect with full page texts into DIR only (never committed)
@@ -24,7 +24,9 @@ SITE = ROOT / "site"
 TEMPLATE = Path(__file__).with_name("template.html")
 # files served next to index.html: the table as CSV, the per-body lists of missing affairs (loaded when a row is opened),
 # and the research dataset with its column dictionary (copied from results/census/)
-SHIPPED = ("parliaments.csv", "missing.json", "interventions.tsv.gz", "interventions_README.md")
+# and the 404 page Cloudflare serves (HTTP 404) for any path that is not a file (deploy/site/wrangler.jsonc)
+SHIPPED = ("parliaments.csv", "missing.json", "interventions.tsv.gz", "interventions_README.md", "404.html")
+NOT_FOUND = Path(__file__).with_name("404.html")
 DATASET = ("interventions.tsv.gz", "interventions_README.md")
 FONTS = "fonts"
 DOWNLOADS = "downloads"  # the OPD box's direct downloads (Bern lists, apply plan, JSON Schemas; viewer.data.DOWNLOADS)
@@ -98,6 +100,7 @@ def main(argv: list[str]) -> int:
         )
         for f in DATASET:
             (SITE / f).write_bytes((ROOT / "results" / "census" / f).read_bytes())
+        (SITE / NOT_FOUND.name).write_bytes(NOT_FOUND.read_bytes())
         (SITE / "data.json").write_text(
             json.dumps(d, ensure_ascii=False, separators=(",", ":"), allow_nan=False), encoding="utf-8"
         )

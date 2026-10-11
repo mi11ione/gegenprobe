@@ -1130,8 +1130,8 @@
   },
   {
    "file": "results/repair/adapters/adapters_X.tsv",
-   "kind": "adapter list",
-   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "kind": "test artefact (header only, no rows; not a parliament's list: body X is the test fixture's; kept because LOCK8 hashes every adapters_*.tsv)",
+   "command": "pytest tests/test_adapter_filters.py before round 8",
    "rows": 0,
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
@@ -1156,6 +1156,34 @@
     "review": 83
    },
    "counted": 2172
+  },
+  {
+   "file": "results/repair/adapters/p7/promoted.tsv",
+   "kind": "P7 promoted tier (registered output; P7 columns; tier promoted_by_apertus, counted=false)",
+   "command": "python -m gegenprobe.repair.adapters.adjudicate apply",
+   "rows": 214,
+   "by_action": {
+    "": 214
+   },
+   "sha256": "08ef195e75ee75fee0baeb22a81306cb44f573cf56fbbe96501124611a5a5df4",
+   "by_tier": {
+    "promoted_by_apertus": 214
+   },
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/p7/promoted_by_apertus.tsv",
+   "kind": "P7 promoted tier in adapter-list columns (same 214 rows; tier promoted_by_apertus, counted=false, action review, proposed_action set)",
+   "command": "python -m gegenprobe.repair.adapters.promoted_list",
+   "rows": 214,
+   "by_action": {
+    "review": 214
+   },
+   "sha256": "9769ee1b303340c05cfbfa22be62331dd07940db4cef1d1ab609abfc81b2b08f",
+   "by_tier": {
+    "promoted_by_apertus": 214
+   },
+   "counted": 0
   }
  ],
  "overlaps": [
@@ -1545,6 +1573,7 @@
   "repair_BE_fetch.tsv": true,
   "repair_BE_relink.tsv": true,
   "repair_BE_review.tsv": true,
+  "repair_CHE.tsv.gz": true,
   "apply_BE_begin_date_plan.csv": true,
   "apply_BE_relink_plan.csv": true,
   "adapters_1059.tsv": true,
@@ -1578,6 +1607,8 @@
   "adapters_TI.tsv": true,
   "adapters_VD.tsv": true,
   "adapters_VS.tsv": true,
-  "adapters_ZH.tsv": true
+  "adapters_ZH.tsv": true,
+  "promoted.tsv": true,
+  "promoted_by_apertus.tsv": true
  }
 }

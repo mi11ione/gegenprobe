@@ -10,6 +10,16 @@ the document and closed set for a model's document-level classification (a revie
 - Public import for integrators: `from gegenprobe.schema.public import Affair, DocExtraction, Document, TypedNull, …`
   (every model and vocabulary type, plus `validate_affair`, `validate_doc_extraction`, `json_schema`;
   `src/gegenprobe/schema/public.py`). `gegenprobe.schema` itself keeps its original, shorter export list.
+- **Workbench import without the package: `schema/gegenprobe_schema.py`.** Importing `gegenprobe.schema.public` loads
+  the `gegenprobe` package, and the package's `__init__` installs the I/O hardening. `pip install` of the package also
+  adds a `.pth` file to site-packages. A workbench only needs the models, so it can copy this single file instead. The
+  file contains the frozen `schema_v0_1.py` byte for byte, plus `json_schema`, `validate_affair` and
+  `validate_doc_extraction`. It needs only `pydantic>=2`, imports nothing from `gegenprobe`, and reads and writes
+  nothing. Use it as `from gegenprobe_schema import Affair, DocExtraction, TypedNull, json_schema`.
+  `python -m gegenprobe.schema.standalone` regenerates the file, and `--check` reports whether the committed copy is
+  current. `tests/test_standalone_schema.py` loads the file in an isolated interpreter and checks three things: no
+  `gegenprobe` module is imported, both JSON Schemas equal `gegenprobe.schema.public.json_schema` and the committed
+  `results/schema/*.schema.json`, and the sample affairs validate to the same values.
 - JSON Schema for OPD's Pydantic-based extraction workbench: `results/schema/affair.schema.json` and
   `results/schema/doc_extraction.schema.json` (`python -m gegenprobe.schema.public`). Each file starts with `$schema`
   (draft 2020-12), a stable `$id`
