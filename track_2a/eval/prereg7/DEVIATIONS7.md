@@ -61,3 +61,13 @@ The 8B run on P6 (CI run 38089554021, dispatched 2026-10-10T21:56:50Z) used the 
 232 scoring prompts, 3 exceed 4,096 tokens (max 4,673): every call fit the context it ran with, but those 3 would not fit the
 frozen 4,096-token scorer, so the P6 8B numbers are fast-scorer results only (`results/eval/posthoc_r4_eval.json`,
 `gguf_cache_n_ctx_p6`). The P1/P2 8B finding (302 entries, max 4,079 tokens, all within 4,096) is unchanged.
+
+## D3 (11 Oct 2026, post hoc, round 8) — the "no answer at all" split of the answerless documents
+The README's "of the 53 documents with no answer at all, Apertus dated 0" uses a split defined on 11 Oct 2026, after the
+P6 results were known (`report/r7docs_numbers.py`). PREREG7 does not register it; H2 (v2 dates 5/34 answerless documents,
+Wilson upper bound 30.1% > 15%, and more than free_null's 4) failed as registered and still fails.
+Definition (from `data/p6/p6_labels.jsonl`): of the 34 answerless documents (gold `answer_date` null), 28 have no answer at
+all (`answer_present` = no: 25, oral: 3) and 6 contain an answer that prints no qualifying date (`answer_present` = yes).
+70B: v2 dates 0 of the 28 and 5 of the 6; free_null 1 of the 28, free_guided 1, free_plain 8. With P2 (DEVIATIONS2 D2-8):
+0 of 53 [Wilson 0, 6.8%], and the 9 dates the two arms put on answerless documents are all wrong under the registered scorer.
+8B (exploratory): v2 1 of 28, v1 13, free_null 6, free_guided 1. `results/eval/posthoc_r8_noanswer.json`.

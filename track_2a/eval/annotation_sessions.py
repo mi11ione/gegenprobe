@@ -1,12 +1,15 @@
-"""POST HOC (11 Oct 2026, round 6): when did each annotator session run, relative to the server-side times of the LOCK, draw
-and label commits? Asked for by the round-6 jury (J2: "lock-before-label order is shown by commit order only").
+"""POST HOC (11 Oct 2026, round 6; P7 added in round 8): when did each annotator session run, relative to the server-side
+times of the LOCK, draw and label commits? Asked for by the round-6 jury (J2: "lock-before-label order is shown by commit
+order only").
 
 Sources (none committed; this script runs only on the author's machine, its output is the evidence):
   * the Claude Code transcripts of the annotator agent sessions (JSONL, one per sub-agent) under TRANSCRIPTS. A session is
     an annotator session when its first user message starts "You are annotator A1|A2" or "You are tie-break annotator A3".
     Read: the timestamps of every transcript line, the model of every assistant turn, the output directory named in the
     prompt (.work/<set>/ann/<A>/ or .work/gold4/transfer/ann/<A>/) and the document ids the prompt assigns. No document
-    text and no prompt text is copied into the output.
+    text and no prompt text is copied into the output. P7 (round 8): the sessions start "You are blind annotator A1|A2"
+    or "You are tie-break annotator A3" and write one JSONL file each (.work/p7dev|p7test/ann/<A>[_partN].jsonl); a
+    label there is a line of that file, and its time is the file's mtime.
   * the label files the session wrote (.work/<set>/ann/<A>/<id>.json): count, and how many have a file mtime inside the
     session window (first transcript line - 5 s, last + 5 s).
   * GitHub, server side: `gh api repos/<repo>/activity` (push events with GitHub's timestamp; a commit's server time is the
@@ -60,14 +63,20 @@ SETS = [
          note="'lock' here is 6810ee5: the written selection rule (eval/p6/DEV2_SELECTION.md) and the DEV2 draw; candidate "
               "C's code was first committed in dfd1e72, after the labels (DEVIATIONS7)"),
     dict(set="P6", work="p6", commits=dict(lock="dfd1e72", draw="6faf8ac", labels="75167ac")),
+    dict(set="P7 dev (development set, no lock by design)", work="p7dev", commits=dict(labels="6c9a3fa"),
+         note="the P7 dev labels chose theta_A, the is_answer variant and theta_B (PREREG8); LOCK8 (73954c3) came after them"),
+    dict(set="P7", work="p7test", commits=dict(lock="73954c3", draw="6e4420c", labels="432cd74"),
+         note="'draw' is 6e4420c: every arm run on the 478-row test frame, decisions and key hashes recorded, packets drawn"),
 ]
 QWEN = [  # scripted checks through the gateway (no agent session): ledger tag -> set, commit that added the labels
     dict(set="Qwen check P1 + P2 (post hoc)", tag="2a-qwen-audit", commit="15dd077"),
     dict(set="Qwen check P5", tag="2a-p5-qwen", commit="b6aaf7a"),
     dict(set="Qwen check P6", tag="2a-p6-qwen", commit="cc44e27"),
+    dict(set="Qwen check P7", tag="2a-p7-qwen", commit="db3f3ed"),
 ]
-ROLE_RX = re.compile(r"You are (tie-break annotator A3|annotator A[12])\b")
+ROLE_RX = re.compile(r"You are (tie-break annotator A3|annotator A[12]|blind annotator A[12])\b")
 OUT_RX = re.compile(r"\.work/([\w./-]+?)/ann/(A[123])/")
+OUT_RX_JSONL = re.compile(r"\.work/(p7\w+)/ann/((A[123])(?:_part\d)?)\.jsonl")  # P7: one JSONL file per session
 ID_RX = re.compile(r"\b(\d{4}-\d{2}-\d{2}|\d{3,7})\b")
 
 
@@ -97,17 +106,26 @@ def sessions() -> list[dict]:
         if not m:
             continue
         o = OUT_RX.search(prompt)
-        if not o or "gegenprobe" not in prompt:
+        oj = None if o else OUT_RX_JSONL.search(prompt)
+        if not (o or oj) or "gegenprobe" not in prompt:
             continue
-        work, role = o.group(1), o.group(2)
         ts = sorted(_utc(d["timestamp"]) for d in lines if d.get("timestamp"))
         models = sorted({d["message"].get("model") for d in lines if d.get("type") == "assistant" and d.get("message")}
                         - {None, "<synthetic>"})
-        ann = WORK / work / "ann" / role
-        on_disk = {p.stem: p for p in ann.glob("*.json")} if ann.exists() else {}
-        assigned = sorted(set(ID_RX.findall(prompt)) & set(on_disk))
         lo, hi = ts[0] - dt.timedelta(seconds=SLACK_S), ts[-1] + dt.timedelta(seconds=SLACK_S)
-        mt = {k: dt.datetime.fromtimestamp(on_disk[k].stat().st_mtime, dt.timezone.utc) for k in assigned}
+        if o:
+            work, role = o.group(1), o.group(2)
+            ann = WORK / work / "ann" / role
+            on_disk = {p.stem: p for p in ann.glob("*.json")} if ann.exists() else {}
+            assigned = sorted(set(ID_RX.findall(prompt)) & set(on_disk))
+            mt = {k: dt.datetime.fromtimestamp(on_disk[k].stat().st_mtime, dt.timezone.utc) for k in assigned}
+        else:
+            work, role = oj.group(1), oj.group(3)
+            fp = WORK / work / "ann" / f"{oj.group(2)}.jsonl"
+            ids = [json.loads(x)["id"] for x in open(fp, encoding="utf-8") if x.strip()] if fp.exists() else []
+            assigned = sorted(ids)
+            t = dt.datetime.fromtimestamp(fp.stat().st_mtime, dt.timezone.utc) if fp.exists() else None
+            mt = {k: t for k in assigned}
         out.append(dict(agent=Path(f).stem, session=Path(f).parts[-3] if "workflows" not in f else Path(f).parts[-5],
                         role=role, role_prompt=m.group(1), models=models, work=work,
                         first=_iso(ts[0]), last=_iso(ts[-1]), minutes=round((ts[-1] - ts[0]).total_seconds() / 60, 1),
@@ -251,6 +269,15 @@ def main() -> dict:
             label_files_mtime_in_session=sum(s["summary"]["label_files_mtime_in_session"] for s in sets if s["sessions"]),
             all_order_checks_hold=all(v for s in sets for k, v in (s.get("order_checks") or {}).items()
                                       if not k.startswith("seconds")),
+        ),
+        # the round-6 scope (P1-P6, before P7 existed), kept so that the round-6 figures stay traceable
+        overall_p1_p6=dict(
+            n_sessions=sum(len(s["sessions"]) for s in sets if not s["set"].startswith("P7")),
+            n_sets_with_sessions=sum(1 for s in sets if s["sessions"] and not s["set"].startswith("P7")),
+            label_files_total=sum(s["summary"]["label_files_total"] for s in sets
+                                  if s["sessions"] and not s["set"].startswith("P7")),
+            label_files_mtime_in_session=sum(s["summary"]["label_files_mtime_in_session"] for s in sets
+                                             if s["sessions"] and not s["set"].startswith("P7")),
         ),
     )
     OUT.write_text(json.dumps(out, indent=1, ensure_ascii=False))

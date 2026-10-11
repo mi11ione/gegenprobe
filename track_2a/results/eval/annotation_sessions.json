@@ -1,6 +1,6 @@
 {
  "label": "POST HOC (11 Oct 2026, round 6): session times from the annotator agents' own transcripts and GitHub's server times of the commits; no registered decision depends on this file",
- "method": "(none committed; this script runs only on the author's machine, its output is the evidence):\n  * the Claude Code transcripts of the annotator agent sessions (JSONL, one per sub-agent) under TRANSCRIPTS. A session is\n    an annotator session when its first user message starts \"You are annotator A1|A2\" or \"You are tie-break annotator A3\".\n    Read: the timestamps of every transcript line, the model of every assistant turn, the output directory named in the\n    prompt (.work/<set>/ann/<A>/ or .work/gold4/transfer/ann/<A>/) and the document ids the prompt assigns. No document\n    text and no prompt text is copied into the output.\n  * the label files the session wrote (.work/<set>/ann/<A>/<id>.json): count, and how many have a file mtime inside the\n    session window (first transcript line - 5 s, last + 5 s).\n  * GitHub, server side: `gh api repos/<repo>/activity` (push events with GitHub's timestamp; a commit's server time is the\n    first push whose head contains it), the first Actions run created for the commit (`actions/runs?head_sha=`), and\n    `commits/<sha>` -> commit.committer.date (client clock, for comparison). Original SHAs from before the message-only\n    history rewrite of 10 Oct (docs/commit-map.md) resolve on GitHub and locally.\n  * the budget gateway's append-only ledger (~/.config/hackapertus/ledger.jsonl: time, tag, model per call) for the\n    scripted Qwen checks, which ran without an agent session.",
+ "method": "(none committed; this script runs only on the author's machine, its output is the evidence):\n  * the Claude Code transcripts of the annotator agent sessions (JSONL, one per sub-agent) under TRANSCRIPTS. A session is\n    an annotator session when its first user message starts \"You are annotator A1|A2\" or \"You are tie-break annotator A3\".\n    Read: the timestamps of every transcript line, the model of every assistant turn, the output directory named in the\n    prompt (.work/<set>/ann/<A>/ or .work/gold4/transfer/ann/<A>/) and the document ids the prompt assigns. No document\n    text and no prompt text is copied into the output. P7 (round 8): the sessions start \"You are blind annotator A1|A2\"\n    or \"You are tie-break annotator A3\" and write one JSONL file each (.work/p7dev|p7test/ann/<A>[_partN].jsonl); a\n    label there is a line of that file, and its time is the file's mtime.\n  * the label files the session wrote (.work/<set>/ann/<A>/<id>.json): count, and how many have a file mtime inside the\n    session window (first transcript line - 5 s, last + 5 s).\n  * GitHub, server side: `gh api repos/<repo>/activity` (push events with GitHub's timestamp; a commit's server time is the\n    first push whose head contains it), the first Actions run created for the commit (`actions/runs?head_sha=`), and\n    `commits/<sha>` -> commit.committer.date (client clock, for comparison). Original SHAs from before the message-only\n    history rewrite of 10 Oct (docs/commit-map.md) resolve on GitHub and locally.\n  * the budget gateway's append-only ledger (~/.config/hackapertus/ledger.jsonl: time, tag, model per call) for the\n    scripted Qwen checks, which ran without an agent session.",
  "transcripts_root": "~/.claude/projects/-Users-mi11ion-Desktop-hackapertus-FINAL",
  "sets": [
   {
@@ -1909,6 +1909,298 @@
     "last_session_end_before_label_push": true,
     "seconds_from_last_session_end_to_label_push": 10
    }
+  },
+  {
+   "set": "P7 dev (development set, no lock by design)",
+   "work_dir": ".work/p7dev/ann/",
+   "note": "the P7 dev labels chose theta_A, the is_answer variant and theta_B (PREREG8); LOCK8 (73954c3) came after them",
+   "commits": {
+    "labels": {
+     "sha": "6c9a3fa9dd049797f5cb3f0779df61aac138c1a7",
+     "rewritten_twin": null,
+     "subject": "P7 dev labels (80 review-queue rows): blind A1 Opus / A2 Sonnet, A3 Opus on 7 disputed rows (X/Y order randomised); raw ",
+     "committer_date_client": "2026-10-11T01:51:10Z",
+     "github_push_received": "2026-10-11T01:51:12Z",
+     "github_first_actions_run": "2026-10-11T01:51:14Z",
+     "role": "labels"
+    }
+   },
+   "sessions": [
+    {
+     "agent": "agent-a358f223361d6c130",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "blind annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-11T01:45:56Z",
+     "last": "2026-10-11T01:49:40Z",
+     "minutes": 3.7,
+     "n_assigned": 40,
+     "label_files_on_disk": 40,
+     "label_files_mtime_in_session": 40,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a5c9e96e869cd34f0",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "blind annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-11T01:46:00Z",
+     "last": "2026-10-11T01:48:51Z",
+     "minutes": 2.9,
+     "n_assigned": 40,
+     "label_files_on_disk": 40,
+     "label_files_mtime_in_session": 40,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a6b03ac8379684a7d",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "blind annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-11T01:46:03Z",
+     "last": "2026-10-11T01:48:55Z",
+     "minutes": 2.9,
+     "n_assigned": 40,
+     "label_files_on_disk": 40,
+     "label_files_mtime_in_session": 40,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a802b46cc00311b4e",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "blind annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-11T01:46:07Z",
+     "last": "2026-10-11T01:48:45Z",
+     "minutes": 2.6,
+     "n_assigned": 40,
+     "label_files_on_disk": 40,
+     "label_files_mtime_in_session": 40,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a76ceb37040c1c636",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A3",
+     "role_prompt": "tie-break annotator A3",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-11T01:49:57Z",
+     "last": "2026-10-11T01:51:00Z",
+     "minutes": 1.1,
+     "n_assigned": 7,
+     "label_files_on_disk": 7,
+     "label_files_mtime_in_session": 7,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    }
+   ],
+   "summary": {
+    "n_sessions": 5,
+    "sessions_per_role": {
+     "A1": 2,
+     "A2": 2,
+     "A3": 1
+    },
+    "models_per_role": {
+     "A1": [
+      "claude-opus-5-5"
+     ],
+     "A2": [
+      "claude-sonnet-5-5"
+     ],
+     "A3": [
+      "claude-opus-5-5"
+     ]
+    },
+    "first_session_start": "2026-10-11T01:45:56Z",
+    "last_session_end": "2026-10-11T01:51:00Z",
+    "label_files": {
+     "A1": 80,
+     "A2": 80,
+     "A3": 7
+    },
+    "label_files_mtime_in_session": 167,
+    "label_files_total": 167
+   },
+   "order_checks": {
+    "last_session_end_before_label_push": true,
+    "seconds_from_last_session_end_to_label_push": 12
+   }
+  },
+  {
+   "set": "P7",
+   "work_dir": ".work/p7test/ann/",
+   "note": "'draw' is 6e4420c: every arm run on the 478-row test frame, decisions and key hashes recorded, packets drawn",
+   "commits": {
+    "lock": {
+     "sha": "73954c3d77aba6150c34155b1b4c39070b5f8655",
+     "rewritten_twin": null,
+     "subject": "PRE-REGISTRATION P7: Apertus as a closed-set verifier for the adapter review queue (LOCK8); dev: 16/16 promotions correc",
+     "committer_date_client": "2026-10-11T02:04:07Z",
+     "github_push_received": "2026-10-11T02:04:10Z",
+     "github_first_actions_run": "2026-10-11T02:04:12Z",
+     "role": "lock"
+    },
+    "draw": {
+     "sha": "6e4420c610194810ef92fde35545d37b989859c9",
+     "rewritten_twin": null,
+     "subject": "P7 test: all arms run on the 478-row frame before any packet or label (P7 promotes 135, free generation + filter 163, tr",
+     "committer_date_client": "2026-10-11T02:43:14Z",
+     "github_push_received": "2026-10-11T02:43:18Z",
+     "github_first_actions_run": "2026-10-11T02:43:20Z",
+     "role": "draw"
+    },
+    "labels": {
+     "sha": "432cd743e49f5831455c93e8f710d80dc91bbe8d",
+     "rewritten_twin": null,
+     "subject": "P7 test labels (190 packets): blind A1 Opus / A2 Sonnet agree on is_answer for 187; A3 Opus decided 3; raw annotator fil",
+     "committer_date_client": "2026-10-11T02:49:38Z",
+     "github_push_received": "2026-10-11T02:49:40Z",
+     "github_first_actions_run": "2026-10-11T02:49:43Z",
+     "role": "labels"
+    }
+   },
+   "sessions": [
+    {
+     "agent": "agent-a45f2d4df958ddf06",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "blind annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-11T02:43:23Z",
+     "last": "2026-10-11T02:48:30Z",
+     "minutes": 5.1,
+     "n_assigned": 95,
+     "label_files_on_disk": 95,
+     "label_files_mtime_in_session": 95,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a97b04e61466055c3",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "blind annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-11T02:43:27Z",
+     "last": "2026-10-11T02:47:39Z",
+     "minutes": 4.2,
+     "n_assigned": 95,
+     "label_files_on_disk": 95,
+     "label_files_mtime_in_session": 95,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-ad6fe5c204166f060",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "blind annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-11T02:43:30Z",
+     "last": "2026-10-11T02:48:24Z",
+     "minutes": 4.9,
+     "n_assigned": 95,
+     "label_files_on_disk": 95,
+     "label_files_mtime_in_session": 95,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a09d159da9e6d27fc",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "blind annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-11T02:43:33Z",
+     "last": "2026-10-11T02:47:28Z",
+     "minutes": 3.9,
+     "n_assigned": 95,
+     "label_files_on_disk": 95,
+     "label_files_mtime_in_session": 95,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-ae3360fb05954a021",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A3",
+     "role_prompt": "tie-break annotator A3",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-11T02:48:41Z",
+     "last": "2026-10-11T02:49:31Z",
+     "minutes": 0.8,
+     "n_assigned": 3,
+     "label_files_on_disk": 3,
+     "label_files_mtime_in_session": 3,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    }
+   ],
+   "summary": {
+    "n_sessions": 5,
+    "sessions_per_role": {
+     "A1": 2,
+     "A2": 2,
+     "A3": 1
+    },
+    "models_per_role": {
+     "A1": [
+      "claude-opus-5-5"
+     ],
+     "A2": [
+      "claude-sonnet-5-5"
+     ],
+     "A3": [
+      "claude-opus-5-5"
+     ]
+    },
+    "first_session_start": "2026-10-11T02:43:23Z",
+    "last_session_end": "2026-10-11T02:49:31Z",
+    "label_files": {
+     "A1": 190,
+     "A2": 190,
+     "A3": 3
+    },
+    "label_files_mtime_in_session": 383,
+    "label_files_total": 383
+   },
+   "order_checks": {
+    "lock_push_before_first_session": true,
+    "seconds_from_lock_push_to_first_session": 2353,
+    "draw_push_before_first_session": true,
+    "seconds_from_draw_push_to_first_session": 5,
+    "last_session_end_before_label_push": true,
+    "seconds_from_last_session_end_to_label_push": 9
+   }
   }
  ],
  "qwen_checks": [
@@ -1980,6 +2272,29 @@
     "github_first_actions_run": "2026-10-10T22:08:02Z"
    },
    "calls_before_label_commit_push": true
+  },
+  {
+   "set": "Qwen check P7",
+   "agent_session": "none: a script called the model through the budget gateway",
+   "gateway_ledger": {
+    "tag": "2a-p7-qwen",
+    "models": [
+     "aisingapore/Qwen-SEA-LION-v4-32B-IT"
+    ],
+    "n_calls": 190,
+    "first_call": "2026-10-11T02:50:23Z",
+    "last_call": "2026-10-11T03:10:42Z",
+    "clock": "author's machine (gateway ledger), UTC"
+   },
+   "label_commit": {
+    "sha": "db3f3edef8e0203b659148050b54df1747c54d27",
+    "rewritten_twin": null,
+    "subject": "P7 results: H1 holds (120/120 sampled Apertus promotions are the executive's answer, Wilson 0.969-1.000), H4 supported (",
+    "committer_date_client": "2026-10-11T03:35:16Z",
+    "github_push_received": "2026-10-11T03:35:19Z",
+    "github_first_actions_run": "2026-10-11T03:35:21Z"
+   },
+   "calls_before_label_commit_push": true
   }
  ],
  "not_covered": {
@@ -1987,10 +2302,16 @@
   "transcripts_not_committed": "the transcripts contain the full document text the annotators read and the prompts; they stay on the author's machine. Timestamps are written by the Claude Code client (author's clock), GitHub times by GitHub's servers"
  },
  "overall": {
+  "n_sessions": 84,
+  "n_sets_with_sessions": 12,
+  "label_files_total": 1546,
+  "label_files_mtime_in_session": 1546,
+  "all_order_checks_hold": true
+ },
+ "overall_p1_p6": {
   "n_sessions": 74,
   "n_sets_with_sessions": 10,
   "label_files_total": 996,
-  "label_files_mtime_in_session": 996,
-  "all_order_checks_hold": true
+  "label_files_mtime_in_session": 996
  }
 }

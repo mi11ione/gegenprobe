@@ -1,0 +1,1635 @@
+{
+ "ablation": {
+  "arms": {
+   "all_rows": {
+    "annotated": {
+     "correct": 180,
+     "correct_dated": 142,
+     "gold_no": 10,
+     "n": 190
+    },
+    "precision": {
+     "ci95": [
+      0.7847,
+      0.9442
+     ],
+     "estimate": 0.8671
+    },
+    "precision_dated": {
+     "ci95": [
+      0.3479,
+      0.4805
+     ],
+     "estimate": 0.4087
+    },
+    "recall_all": 1.0,
+    "recall_attainable": 1.0
+   },
+   "free": {
+    "annotated": {
+     "correct": 139,
+     "correct_dated": 133,
+     "date_hit": 132,
+     "gold_no": 2,
+     "n": 141
+    },
+    "precision": {
+     "ci95": [
+      0.9608,
+      1.0
+     ],
+     "estimate": 0.9844
+    },
+    "precision_date_hit": {
+     "ci95": [
+      0.8897,
+      0.9691
+     ],
+     "estimate": 0.9309
+    },
+    "precision_dated": {
+     "ci95": [
+      0.8989,
+      0.9757
+     ],
+     "estimate": 0.9378
+    },
+    "recall_all": 0.3869,
+    "recall_attainable": 0.7818
+   },
+   "gate_only": {
+    "annotated": {
+     "correct": 144,
+     "correct_dated": 117,
+     "gold_no": 0,
+     "n": 144
+    },
+    "precision": {
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "estimate": 1.0
+    },
+    "precision_dated": {
+     "ci95": [
+      0.3767,
+      0.533
+     ],
+     "estimate": 0.4437
+    },
+    "recall_all": 0.7519,
+    "recall_attainable": 0.7077
+   },
+   "gate_rule_any": {
+    "annotated": {
+     "correct": 126,
+     "correct_dated": 116,
+     "date_hit": 104,
+     "gold_no": 0,
+     "n": 126
+    },
+    "precision": {
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "estimate": 1.0
+    },
+    "precision_date_hit": {
+     "ci95": [
+      0.5551,
+      0.8124
+     ],
+     "estimate": 0.6717
+    },
+    "precision_dated": {
+     "ci95": [
+      0.6266,
+      0.8923
+     ],
+     "estimate": 0.7491
+    },
+    "recall_all": 0.4208,
+    "recall_attainable": 0.6687
+   },
+   "p7": {
+    "annotated": {
+     "correct": 120,
+     "correct_dated": 115,
+     "date_hit": 113,
+     "gold_no": 0,
+     "n": 120
+    },
+    "precision": {
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "estimate": 1.0
+    },
+    "precision_date_hit": {
+     "ci95": [
+      0.8917,
+      0.9833
+     ],
+     "estimate": 0.9417
+    },
+    "precision_dated": {
+     "ci95": [
+      0.9167,
+      0.9917
+     ],
+     "estimate": 0.9583
+    },
+    "recall_all": 0.3257,
+    "recall_attainable": 0.6622
+   },
+   "rule_any_full": {
+    "annotated": {
+     "correct": 156,
+     "correct_dated": 139,
+     "gold_no": 2,
+     "n": 158
+    },
+    "precision": {
+     "ci95": [
+      0.972,
+      1.0
+     ],
+     "estimate": 0.9892
+    },
+    "precision_dated": {
+     "ci95": [
+      0.6292,
+      0.8548
+     ],
+     "estimate": 0.7371
+    },
+    "recall_all": 0.5585,
+    "recall_attainable": 0.8829
+   },
+   "rule_any_view": {
+    "annotated": {
+     "correct": 155,
+     "correct_dated": 139,
+     "date_hit": 127,
+     "gold_no": 2,
+     "n": 157
+    },
+    "precision": {
+     "ci95": [
+      0.971,
+      1.0
+     ],
+     "estimate": 0.9888
+    },
+    "precision_date_hit": {
+     "ci95": [
+      0.5966,
+      0.8161
+     ],
+     "estimate": 0.7023
+    },
+    "precision_dated": {
+     "ci95": [
+      0.6548,
+      0.8782
+     ],
+     "estimate": 0.762
+    },
+    "recall_all": 0.5401,
+    "recall_attainable": 0.8829
+   },
+   "trivial": {
+    "annotated": {
+     "correct": 146,
+     "correct_dated": 129,
+     "date_hit": 127,
+     "gold_no": 0,
+     "n": 146
+    },
+    "precision": {
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "estimate": 1.0
+    },
+    "precision_date_hit": {
+     "ci95": [
+      0.6086,
+      0.8462
+     ],
+     "estimate": 0.7216
+    },
+    "precision_dated": {
+     "ci95": [
+      0.6186,
+      0.8569
+     ],
+     "estimate": 0.7319
+    },
+    "recall_all": 0.5306,
+    "recall_attainable": 0.8239
+   }
+  },
+  "differences": {
+   "gate_rule_any_minus_rule_any_view_precision": {
+    "ci95": [
+     0.0,
+     0.029
+    ],
+    "estimate": 0.0112
+   },
+   "p7_minus_gate_rule_any_precision_dated": {
+    "ci95": [
+     0.0517,
+     0.3314
+    ],
+    "estimate": 0.2092
+   },
+   "p7_minus_rule_any_view_date_hit": {
+    "ci95": [
+     0.1269,
+     0.3468
+    ],
+    "estimate": 0.2393
+   },
+   "p7_minus_rule_any_view_precision": {
+    "ci95": [
+     0.0,
+     0.029
+    ],
+    "estimate": 0.0112
+   },
+   "p7_minus_rule_any_view_precision_dated": {
+    "ci95": [
+     0.0841,
+     0.3086
+    ],
+    "estimate": 0.1964
+   },
+   "p7_minus_trivial_date_hit": {
+    "ci95": [
+     0.0949,
+     0.3357
+    ],
+    "estimate": 0.22
+   }
+  },
+  "first_passing_date_hits_gold": [
+   127,
+   157
+  ],
+  "frame": 478,
+  "note": "p7 promotes only rows where its chosen printed date passes the rule, so every p7 promotion is also a rule_any_view row; the difference between the two arms is what Apertus's is_answer gate and date choice add",
+  "p7_inside_rule_any_view": {
+   "frame": 135,
+   "p7": 135
+  },
+  "promoted_in_frame": {
+   "all_rows": 478,
+   "free": 163,
+   "gate_only": 320,
+   "gate_rule_any": 172,
+   "p7": 135,
+   "rule_any_full": 220,
+   "rule_any_view": 217,
+   "trivial": 206
+  },
+  "queue": {
+   "by_parliament": {
+    "1059": {
+     "eligible": 4,
+     "p7_promoted": 0,
+     "rule_any_full": 3,
+     "rule_any_view": 3
+    },
+    "131": {
+     "eligible": 20,
+     "p7_promoted": 17,
+     "rule_any_full": 20,
+     "rule_any_view": 20
+    },
+    "191": {
+     "eligible": 32,
+     "p7_promoted": 0,
+     "rule_any_full": 16,
+     "rule_any_view": 16
+    },
+    "261": {
+     "eligible": 21,
+     "p7_promoted": 1,
+     "rule_any_full": 1,
+     "rule_any_view": 1
+    },
+    "2829": {
+     "eligible": 63,
+     "p7_promoted": 0,
+     "rule_any_full": 0,
+     "rule_any_view": 0
+    },
+    "2831": {
+     "eligible": 15,
+     "p7_promoted": 0,
+     "rule_any_full": 0,
+     "rule_any_view": 0
+    },
+    "296": {
+     "eligible": 9,
+     "p7_promoted": 1,
+     "rule_any_full": 3,
+     "rule_any_view": 3
+    },
+    "351": {
+     "eligible": 2,
+     "p7_promoted": 0,
+     "rule_any_full": 0,
+     "rule_any_view": 0
+    },
+    "4001": {
+     "eligible": 16,
+     "p7_promoted": 4,
+     "rule_any_full": 4,
+     "rule_any_view": 4
+    },
+    "4289": {
+     "eligible": 22,
+     "p7_promoted": 0,
+     "rule_any_full": 1,
+     "rule_any_view": 1
+    },
+    "4566": {
+     "eligible": 147,
+     "p7_promoted": 109,
+     "rule_any_full": 131,
+     "rule_any_view": 126
+    },
+    "4671": {
+     "eligible": 4,
+     "p7_promoted": 0,
+     "rule_any_full": 0,
+     "rule_any_view": 0
+    },
+    "5002": {
+     "eligible": 49,
+     "p7_promoted": 5,
+     "rule_any_full": 6,
+     "rule_any_view": 6
+    },
+    "5113": {
+     "eligible": 103,
+     "p7_promoted": 11,
+     "rule_any_full": 22,
+     "rule_any_view": 22
+    },
+    "5192": {
+     "eligible": 6,
+     "p7_promoted": 0,
+     "rule_any_full": 1,
+     "rule_any_view": 1
+    },
+    "5586": {
+     "eligible": 38,
+     "p7_promoted": 0,
+     "rule_any_full": 0,
+     "rule_any_view": 0
+    },
+    "581": {
+     "eligible": 14,
+     "p7_promoted": 0,
+     "rule_any_full": 12,
+     "rule_any_view": 12
+    },
+    "6153": {
+     "eligible": 4,
+     "p7_promoted": 0,
+     "rule_any_full": 0,
+     "rule_any_view": 0
+    },
+    "FR": {
+     "eligible": 1,
+     "p7_promoted": 1,
+     "rule_any_full": 1,
+     "rule_any_view": 1
+    },
+    "JU": {
+     "eligible": 10,
+     "p7_promoted": 0,
+     "rule_any_full": 3,
+     "rule_any_view": 3
+    },
+    "LU": {
+     "eligible": 1,
+     "p7_promoted": 0,
+     "rule_any_full": 0,
+     "rule_any_view": 0
+    },
+    "NE": {
+     "eligible": 14,
+     "p7_promoted": 7,
+     "rule_any_full": 7,
+     "rule_any_view": 7
+    },
+    "SG": {
+     "eligible": 1,
+     "p7_promoted": 0,
+     "rule_any_full": 1,
+     "rule_any_view": 1
+    },
+    "SO": {
+     "eligible": 1,
+     "p7_promoted": 0,
+     "rule_any_full": 0,
+     "rule_any_view": 0
+    },
+    "TG": {
+     "eligible": 17,
+     "p7_promoted": 5,
+     "rule_any_full": 17,
+     "rule_any_view": 17
+    },
+    "TI": {
+     "eligible": 46,
+     "p7_promoted": 30,
+     "rule_any_full": 37,
+     "rule_any_view": 37
+    },
+    "VD": {
+     "eligible": 13,
+     "p7_promoted": 2,
+     "rule_any_full": 4,
+     "rule_any_view": 3
+    },
+    "VS": {
+     "eligible": 119,
+     "p7_promoted": 20,
+     "rule_any_full": 74,
+     "rule_any_view": 74
+    },
+    "ZH": {
+     "eligible": 71,
+     "p7_promoted": 1,
+     "rule_any_full": 11,
+     "rule_any_view": 11
+    }
+   },
+   "total": {
+    "eligible": 863,
+    "p7_promoted": 214,
+    "rule_any_full": 375,
+    "rule_any_view": 369
+   }
+  },
+  "rows_with_one_passing_date": 130,
+  "rows_with_several_passing_dates": 27,
+  "what": {
+   "all_rows": "promote every eligible review row (the base rate)",
+   "free": "free generation (yes + a printed date passing the same date rule)",
+   "gate_only": "Apertus is_answer gate alone (m_yes > theta_A, cached), no date check",
+   "gate_rule_any": "Apertus is_answer gate (m_yes > theta_A, cached) + some printed date of the view passes the date rule (no date choice)",
+   "p7": "the frozen P7 configuration (Apertus is_answer gate + Apertus date choice + the adapters' date rule)",
+   "rule_any_full": "no model: some printed date of the full text passes the date rule",
+   "rule_any_view": "no model: some printed date of the model's view (p7's closed set, at most 25) passes the date rule",
+   "trivial": "no model: some printed date equals an OPD answer event"
+  }
+ },
+ "base_rate": {
+  "arms": {
+   "all_rows": {
+    "dated_lift_over_base_points": -0.0,
+    "lift_over_base_points": 0.0,
+    "precision": 0.8671,
+    "precision_dated": 0.4087,
+    "promoted_in_frame": 478
+   },
+   "free": {
+    "dated_lift_over_base_points": 52.9,
+    "lift_over_base_points": 11.7,
+    "precision": 0.9844,
+    "precision_dated": 0.9378,
+    "promoted_in_frame": 163
+   },
+   "gate_only": {
+    "dated_lift_over_base_points": 3.5,
+    "lift_over_base_points": 13.3,
+    "precision": 1.0,
+    "precision_dated": 0.4437,
+    "promoted_in_frame": 320
+   },
+   "gate_rule_any": {
+    "dated_lift_over_base_points": 34.0,
+    "lift_over_base_points": 13.3,
+    "precision": 1.0,
+    "precision_dated": 0.7491,
+    "promoted_in_frame": 172
+   },
+   "p7": {
+    "dated_lift_over_base_points": 55.0,
+    "lift_over_base_points": 13.3,
+    "precision": 1.0,
+    "precision_dated": 0.9583,
+    "promoted_in_frame": 135
+   },
+   "rule_any_full": {
+    "dated_lift_over_base_points": 32.8,
+    "lift_over_base_points": 12.2,
+    "precision": 0.9892,
+    "precision_dated": 0.7371,
+    "promoted_in_frame": 220
+   },
+   "rule_any_view": {
+    "dated_lift_over_base_points": 35.3,
+    "lift_over_base_points": 12.2,
+    "precision": 0.9888,
+    "precision_dated": 0.762,
+    "promoted_in_frame": 217
+   },
+   "trivial": {
+    "dated_lift_over_base_points": 32.3,
+    "lift_over_base_points": 13.3,
+    "precision": 1.0,
+    "precision_dated": 0.7319,
+    "promoted_in_frame": 206
+   }
+  },
+  "h1_bar": 0.9,
+  "h1_bar_minus_base_points": 3.3,
+  "note": "'yes' is is_answer only; 'yes_dated' also needs a gold answer date that passes the adapters' rule (the registered correct_dated); precision of promoting every row equals the base rate by construction",
+  "yes": 0.8671,
+  "yes_dated": 0.4087
+ },
+ "cluster": {
+  "h1_parliament_as_unit": {
+   "k": 9,
+   "n": 9,
+   "note": "the most conservative reading: each parliament with a judged p7 promotion counts as ONE observation (all its promotions correct or not)",
+   "wilson95": [
+    0.7008,
+    1.0
+   ]
+  },
+  "h1_precision": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "estimate": 1.0,
+   "note": "every judged p7 promotion is correct, so every resample is 1.0: the cluster bootstrap cannot widen a 100% rate; see parliament_as_unit",
+   "undefined_resamples": 0
+  },
+  "h4": {
+   "ci95": [
+    0.0552,
+    0.4962
+   ],
+   "estimate": 0.2265,
+   "excludes_0": true,
+   "undefined_resamples": 0
+  },
+  "method": "parliaments (bodies) of the 190 annotated rows resampled with replacement, each with all its annotated rows and their sampling-stratum weights; B = 10,000, seed 20261014, percentile 95%; resamples without a p7 row (H1) or without an arm's promotion (ratios) are undefined and dropped",
+  "n_parliaments": 15,
+  "n_parliaments_with_p7_rows": 9,
+  "p7_precision_dated": {
+   "ci95": [
+    0.759,
+    1.0
+   ],
+   "estimate": 0.9583,
+   "undefined_resamples": 0
+  }
+ },
+ "config": {
+  "is_answer": "a2",
+  "theta_a": 8.0,
+  "theta_b": 10.0
+ },
+ "display": {
+  "a1_a2_kappa": "0.826",
+  "bar_minus_base_pts": 3.3,
+  "date_choice_pts": 20.9,
+  "date_choice_pts_ci": [
+   5.2,
+   33.1
+  ],
+  "h4_cluster_pts": [
+   5.5,
+   49.6
+  ],
+  "h4_nf_pts": 30.2,
+  "h4_nf_pts_ci": [
+   10.4,
+   46.8
+  ],
+  "h4_unweighted_pts": 7.5,
+  "h4_unweighted_pts_ci": [
+   3.4,
+   12.2
+  ],
+  "h4_without_rest_pts": 4.2,
+  "nf_h1_wilson_pct": [
+   92.6,
+   100.0
+  ],
+  "p7_minus_rule_date_hit_pts": 23.9,
+  "p7_minus_rule_date_hit_pts_ci": [
+   12.7,
+   34.7
+  ],
+  "p7_minus_rule_dated_pts": 19.6,
+  "p7_minus_rule_dated_pts_ci": [
+   8.4,
+   30.9
+  ],
+  "p7_minus_rule_is_answer_pts": 1.1,
+  "p7_minus_rule_is_answer_pts_ci": [
+   0.0,
+   2.9
+  ],
+  "parliament_unit_wilson_pct": [
+   70.1,
+   100.0
+  ],
+  "qwen_kappa": "0.655",
+  "qwen_pabak": "0.947"
+ },
+ "frame": 478,
+ "h4_unweighted": {
+  "registered_weighted": {
+   "ci95": [
+    0.1024,
+    0.343
+   ],
+   "estimate": 0.2265,
+   "p7": 0.9583,
+   "trivial": 0.7319
+  },
+  "trivial_by_stratum": {
+   "free_only": {
+    "correct_dated": 20,
+    "promoted": 26,
+    "weight": 1.267
+   },
+   "p7": {
+    "correct_dated": 107,
+    "promoted": 112,
+    "weight": 1.125
+   },
+   "rest": {
+    "correct_dated": 2,
+    "promoted": 8,
+    "weight": 7.625
+   }
+  },
+  "unweighted": {
+   "difference": 0.0748,
+   "note": "plain counts over the 190 annotated rows, every row weight 1; describes the sample, not the frame: p7-stratum rows are sampled at 120/135, rest rows at 40/305",
+   "p7": [
+    115,
+    120
+   ],
+   "p7_rate": 0.9583,
+   "row_bootstrap95": [
+    0.0341,
+    0.1215
+   ],
+   "trivial": [
+    129,
+    146
+   ],
+   "trivial_rate": 0.8836
+  },
+  "weight_sensitivity": {
+   "free_only": {
+    "p7": [
+     115,
+     120
+    ],
+    "trivial": [
+     109,
+     120
+    ],
+    "weighted_difference_without": 0.2331
+   },
+   "rest": {
+    "p7": [
+     115,
+     120
+    ],
+    "trivial": [
+     127,
+     138
+    ],
+    "weighted_difference_without": 0.0415
+   }
+  },
+  "why": "the trivial match promotes rest-stratum rows (weight 7.625) whose own gold date fails the date rule; the weighted figure counts each such row 7.6 times, as the registered frame estimator requires"
+ },
+ "inputs": {
+  "decisions_sha256": "5ce77a95c3d5497575a84970131129323f26085bf68eaf61417402b11e35927d",
+  "key_sha256": "39c279ee26abff5fe36834e54015deb9b29fb7f1fc5ca3c03109887ebb3fb29b"
+ },
+ "label": "POST HOC (11 Oct 2026, round 8; not pre-registered): written after the P7 test gold was read; no model call; no registered decision depends on this file",
+ "packets": 190,
+ "per_parliament": {
+  "191": {
+   "annotated": 1,
+   "by_stratum": {
+    "rest": 1
+   },
+   "frame": {
+    "free": 0,
+    "p7": 0,
+    "rows": 5,
+    "rule_any_view": 0,
+    "trivial": 0
+   },
+   "gold_no": 0,
+   "gold_yes": 1,
+   "gold_yes_dated": 0,
+   "p7_correct": 0,
+   "p7_correct_dated": 0,
+   "p7_precision_wilson95": [
+    null,
+    null
+   ],
+   "p7_promoted_judged": 0,
+   "weighted_recall": {
+    "p7": 0.0,
+    "rule_any_view": 0.0,
+    "trivial": 0.0
+   },
+   "weighted_recall_attainable": {
+    "p7": null,
+    "trivial": null
+   }
+  },
+  "261": {
+   "annotated": 3,
+   "by_stratum": {
+    "p7": 1,
+    "rest": 2
+   },
+   "frame": {
+    "free": 1,
+    "p7": 1,
+    "rows": 11,
+    "rule_any_view": 1,
+    "trivial": 0
+   },
+   "gold_no": 0,
+   "gold_yes": 3,
+   "gold_yes_dated": 1,
+   "p7_correct": 1,
+   "p7_correct_dated": 1,
+   "p7_precision_wilson95": [
+    0.2065,
+    1.0
+   ],
+   "p7_promoted_judged": 1,
+   "weighted_recall": {
+    "p7": 0.0687,
+    "rule_any_view": 0.0687,
+    "trivial": 0.0
+   },
+   "weighted_recall_attainable": {
+    "p7": 1.0,
+    "trivial": 0.0
+   }
+  },
+  "2829": {
+   "annotated": 4,
+   "by_stratum": {
+    "rest": 4
+   },
+   "frame": {
+    "free": 0,
+    "p7": 0,
+    "rows": 29,
+    "rule_any_view": 0,
+    "trivial": 0
+   },
+   "gold_no": 1,
+   "gold_yes": 3,
+   "gold_yes_dated": 0,
+   "p7_correct": 0,
+   "p7_correct_dated": 0,
+   "p7_precision_wilson95": [
+    null,
+    null
+   ],
+   "p7_promoted_judged": 0,
+   "weighted_recall": {
+    "p7": 0.0,
+    "rule_any_view": 0.0,
+    "trivial": 0.0
+   },
+   "weighted_recall_attainable": {
+    "p7": null,
+    "trivial": null
+   }
+  },
+  "296": {
+   "annotated": 2,
+   "by_stratum": {
+    "p7": 1,
+    "rest": 1
+   },
+   "frame": {
+    "free": 1,
+    "p7": 1,
+    "rows": 2,
+    "rule_any_view": 1,
+    "trivial": 1
+   },
+   "gold_no": 1,
+   "gold_yes": 1,
+   "gold_yes_dated": 1,
+   "p7_correct": 1,
+   "p7_correct_dated": 1,
+   "p7_precision_wilson95": [
+    0.2065,
+    1.0
+   ],
+   "p7_promoted_judged": 1,
+   "weighted_recall": {
+    "p7": 1.0,
+    "rule_any_view": 1.0,
+    "trivial": 1.0
+   },
+   "weighted_recall_attainable": {
+    "p7": 1.0,
+    "trivial": 1.0
+   }
+  },
+  "4001": {
+   "annotated": 1,
+   "by_stratum": {
+    "rest": 1
+   },
+   "frame": {
+    "free": 1,
+    "p7": 1,
+    "rows": 6,
+    "rule_any_view": 1,
+    "trivial": 1
+   },
+   "gold_no": 0,
+   "gold_yes": 1,
+   "gold_yes_dated": 0,
+   "p7_correct": 0,
+   "p7_correct_dated": 0,
+   "p7_precision_wilson95": [
+    null,
+    null
+   ],
+   "p7_promoted_judged": 0,
+   "weighted_recall": {
+    "p7": 0.0,
+    "rule_any_view": 0.0,
+    "trivial": 0.0
+   },
+   "weighted_recall_attainable": {
+    "p7": null,
+    "trivial": null
+   }
+  },
+  "4566": {
+   "annotated": 82,
+   "by_stratum": {
+    "free_only": 8,
+    "p7": 72,
+    "rest": 2
+   },
+   "frame": {
+    "free": 91,
+    "p7": 81,
+    "rows": 103,
+    "rule_any_view": 92,
+    "trivial": 93
+   },
+   "gold_no": 0,
+   "gold_yes": 82,
+   "gold_yes_dated": 79,
+   "p7_correct": 72,
+   "p7_correct_dated": 72,
+   "p7_precision_wilson95": [
+    0.9493,
+    1.0
+   ],
+   "p7_promoted_judged": 72,
+   "weighted_recall": {
+    "p7": 0.7614,
+    "rule_any_view": 0.8567,
+    "trivial": 0.9072
+   },
+   "weighted_recall_attainable": {
+    "p7": 0.9013,
+    "trivial": 0.975
+   }
+  },
+  "5002": {
+   "annotated": 4,
+   "by_stratum": {
+    "p7": 2,
+    "rest": 2
+   },
+   "frame": {
+    "free": 2,
+    "p7": 2,
+    "rows": 16,
+    "rule_any_view": 2,
+    "trivial": 2
+   },
+   "gold_no": 0,
+   "gold_yes": 4,
+   "gold_yes_dated": 2,
+   "p7_correct": 2,
+   "p7_correct_dated": 2,
+   "p7_precision_wilson95": [
+    0.3424,
+    1.0
+   ],
+   "p7_promoted_judged": 2,
+   "weighted_recall": {
+    "p7": 0.1286,
+    "rule_any_view": 0.1286,
+    "trivial": 0.1286
+   },
+   "weighted_recall_attainable": {
+    "p7": 1.0,
+    "trivial": 1.0
+   }
+  },
+  "5113": {
+   "annotated": 18,
+   "by_stratum": {
+    "free_only": 5,
+    "p7": 8,
+    "rest": 5
+   },
+   "frame": {
+    "free": 15,
+    "p7": 9,
+    "rows": 81,
+    "rule_any_view": 18,
+    "trivial": 18
+   },
+   "gold_no": 3,
+   "gold_yes": 15,
+   "gold_yes_dated": 15,
+   "p7_correct": 8,
+   "p7_correct_dated": 8,
+   "p7_precision_wilson95": [
+    0.6756,
+    1.0
+   ],
+   "p7_promoted_judged": 8,
+   "weighted_recall": {
+    "p7": 0.2943,
+    "rule_any_view": 0.5014,
+    "trivial": 0.5014
+   },
+   "weighted_recall_attainable": {
+    "p7": 0.2943,
+    "trivial": 0.5014
+   }
+  },
+  "5586": {
+   "annotated": 4,
+   "by_stratum": {
+    "rest": 4
+   },
+   "frame": {
+    "free": 0,
+    "p7": 0,
+    "rows": 28,
+    "rule_any_view": 0,
+    "trivial": 0
+   },
+   "gold_no": 2,
+   "gold_yes": 2,
+   "gold_yes_dated": 0,
+   "p7_correct": 0,
+   "p7_correct_dated": 0,
+   "p7_precision_wilson95": [
+    null,
+    null
+   ],
+   "p7_promoted_judged": 0,
+   "weighted_recall": {
+    "p7": 0.0,
+    "rule_any_view": 0.0,
+    "trivial": 0.0
+   },
+   "weighted_recall_attainable": {
+    "p7": null,
+    "trivial": null
+   }
+  },
+  "JU": {
+   "annotated": 2,
+   "by_stratum": {
+    "rest": 2
+   },
+   "frame": {
+    "free": 0,
+    "p7": 0,
+    "rows": 4,
+    "rule_any_view": 1,
+    "trivial": 1
+   },
+   "gold_no": 0,
+   "gold_yes": 2,
+   "gold_yes_dated": 0,
+   "p7_correct": 0,
+   "p7_correct_dated": 0,
+   "p7_precision_wilson95": [
+    null,
+    null
+   ],
+   "p7_promoted_judged": 0,
+   "weighted_recall": {
+    "p7": 0.0,
+    "rule_any_view": 0.5,
+    "trivial": 0.5
+   },
+   "weighted_recall_attainable": {
+    "p7": null,
+    "trivial": null
+   }
+  },
+  "TG": {
+   "annotated": 5,
+   "by_stratum": {
+    "free_only": 5
+   },
+   "frame": {
+    "free": 7,
+    "p7": 1,
+    "rows": 7,
+    "rule_any_view": 7,
+    "trivial": 7
+   },
+   "gold_no": 0,
+   "gold_yes": 5,
+   "gold_yes_dated": 0,
+   "p7_correct": 0,
+   "p7_correct_dated": 0,
+   "p7_precision_wilson95": [
+    null,
+    null
+   ],
+   "p7_promoted_judged": 0,
+   "weighted_recall": {
+    "p7": 0.0,
+    "rule_any_view": 1.0,
+    "trivial": 1.0
+   },
+   "weighted_recall_attainable": {
+    "p7": null,
+    "trivial": null
+   }
+  },
+  "TI": {
+   "annotated": 25,
+   "by_stratum": {
+    "free_only": 2,
+    "p7": 20,
+    "rest": 3
+   },
+   "frame": {
+    "free": 22,
+    "p7": 21,
+    "rows": 34,
+    "rule_any_view": 27,
+    "trivial": 27
+   },
+   "gold_no": 0,
+   "gold_yes": 25,
+   "gold_yes_dated": 25,
+   "p7_correct": 20,
+   "p7_correct_dated": 20,
+   "p7_precision_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "p7_promoted_judged": 20,
+   "weighted_recall": {
+    "p7": 0.4696,
+    "rule_any_view": 0.8408,
+    "trivial": 0.8408
+   },
+   "weighted_recall_attainable": {
+    "p7": 0.4696,
+    "trivial": 0.8408
+   }
+  },
+  "VD": {
+   "annotated": 3,
+   "by_stratum": {
+    "free_only": 1,
+    "p7": 1,
+    "rest": 1
+   },
+   "frame": {
+    "free": 2,
+    "p7": 1,
+    "rows": 3,
+    "rule_any_view": 2,
+    "trivial": 2
+   },
+   "gold_no": 0,
+   "gold_yes": 3,
+   "gold_yes_dated": 2,
+   "p7_correct": 1,
+   "p7_correct_dated": 1,
+   "p7_precision_wilson95": [
+    0.2065,
+    1.0
+   ],
+   "p7_promoted_judged": 1,
+   "weighted_recall": {
+    "p7": 0.1123,
+    "rule_any_view": 0.2388,
+    "trivial": 0.2388
+   },
+   "weighted_recall_attainable": {
+    "p7": 0.4704,
+    "trivial": 1.0
+   }
+  },
+  "VS": {
+   "annotated": 26,
+   "by_stratum": {
+    "free_only": 5,
+    "p7": 14,
+    "rest": 7
+   },
+   "frame": {
+    "free": 14,
+    "p7": 16,
+    "rows": 91,
+    "rule_any_view": 58,
+    "trivial": 47
+   },
+   "gold_no": 2,
+   "gold_yes": 24,
+   "gold_yes_dated": 12,
+   "p7_correct": 14,
+   "p7_correct_dated": 9,
+   "p7_precision_wilson95": [
+    0.7847,
+    1.0
+   ],
+   "p7_promoted_judged": 14,
+   "weighted_recall": {
+    "p7": 0.216,
+    "rule_any_view": 0.6863,
+    "trivial": 0.5744
+   },
+   "weighted_recall_attainable": {
+    "p7": 0.7271,
+    "trivial": 0.4141
+   }
+  },
+  "ZH": {
+   "annotated": 10,
+   "by_stratum": {
+    "free_only": 4,
+    "p7": 1,
+    "rest": 5
+   },
+   "frame": {
+    "free": 7,
+    "p7": 1,
+    "rows": 54,
+    "rule_any_view": 7,
+    "trivial": 7
+   },
+   "gold_no": 1,
+   "gold_yes": 9,
+   "gold_yes_dated": 5,
+   "p7_correct": 1,
+   "p7_correct_dated": 1,
+   "p7_precision_wilson95": [
+    0.2065,
+    1.0
+   ],
+   "p7_promoted_judged": 1,
+   "weighted_recall": {
+    "p7": 0.0307,
+    "rule_any_view": 0.1687,
+    "trivial": 0.1687
+   },
+   "weighted_recall_attainable": {
+    "p7": 0.1817,
+    "trivial": 1.0
+   }
+  }
+ },
+ "qwen": {
+  "a1_vs_a2": {
+   "agree": 187,
+   "confusion": {
+    "no|no": 7,
+    "no|unclear": 1,
+    "no|yes": 1,
+    "yes|unclear": 1,
+    "yes|yes": 180
+   },
+   "expected_agreement": 0.909,
+   "kappa": 0.826,
+   "n": 190,
+   "pabak": 0.976
+  },
+  "disagreements": [
+   {
+    "gold": "no",
+    "id": "P7T-029",
+    "qwen": "yes",
+    "stratum": "free_only"
+   },
+   {
+    "gold": "no",
+    "id": "P7T-053",
+    "qwen": "yes",
+    "stratum": "rest"
+   },
+   {
+    "gold": "no",
+    "id": "P7T-072",
+    "qwen": "yes",
+    "stratum": "rest"
+   },
+   {
+    "gold": "no",
+    "id": "P7T-150",
+    "qwen": "yes",
+    "stratum": "rest"
+   },
+   {
+    "gold": "no",
+    "id": "P7T-159",
+    "qwen": "yes",
+    "stratum": "free_only"
+   }
+  ],
+  "gold_prevalence_yes": 0.9474,
+  "note": "kappa is low at high agreement because 180 of 190 gold labels are yes (expected agreement is high); PABAK is the prevalence-adjusted figure. Qwen-SEA-LION-v4-32B-IT saw the same packets as the annotators, including OPD's answer-event dates",
+  "qwen_vs_gold": {
+   "agree": 185,
+   "confusion": {
+    "no|no": 5,
+    "no|yes": 5,
+    "yes|yes": 180
+   },
+   "expected_agreement": 0.924,
+   "kappa": 0.655,
+   "n": 190,
+   "pabak": 0.947
+  },
+  "qwen_vs_gold_p7_stratum": {
+   "n": 120,
+   "qwen_yes": 120
+  }
+ },
+ "strata_N": {
+  "free_only": 38,
+  "p7": 135,
+  "rest": 305
+ },
+ "strata_n": {
+  "free_only": 30,
+  "p7": 120,
+  "rest": 40
+ },
+ "trivial": {
+  "annotated_is_answer": [
+   146,
+   146
+  ],
+  "annotated_is_answer_wilson95": [
+   0.9744,
+   1.0
+  ],
+  "gold_no": 10,
+  "gold_no_stopped": {
+   "free": 8,
+   "gate_only": 10,
+   "p7": 10,
+   "rule_any_view": 8,
+   "trivial": 10
+  },
+  "overlap_annotated": {
+   "both": 112,
+   "p7_only": 8,
+   "trivial_only": 34
+  },
+  "overlap_frame": {
+   "both": 126,
+   "p7_only": 9,
+   "trivial_only": 80
+  },
+  "p7_annotated_is_answer": [
+   120,
+   120
+  ],
+  "p7_date_hit": [
+   113,
+   120
+  ],
+  "promoted_in_frame": {
+   "p7": 135,
+   "trivial": 206
+  }
+ },
+ "weights": {
+  "free_only": 1.2666666666666666,
+  "p7": 1.125,
+  "rest": 7.625
+ },
+ "without_frauenfeld": {
+  "annotated": {
+   "all": 190,
+   "frauenfeld": 82,
+   "without": 108
+  },
+  "arms": {
+   "all_rows": {
+    "annotated": {
+     "correct": 98,
+     "correct_dated": 63,
+     "gold_no": 10,
+     "n": 108
+    },
+    "precision": {
+     "ci95": [
+      0.723,
+      0.9282
+     ],
+     "estimate": 0.829
+    },
+    "precision_dated": {
+     "ci95": [
+      0.2061,
+      0.3758
+     ],
+     "estimate": 0.2839
+    },
+    "recall_all": 1.0,
+    "recall_attainable": 1.0
+   },
+   "free": {
+    "annotated": {
+     "correct": 59,
+     "correct_dated": 54,
+     "date_hit": 53,
+     "gold_no": 2,
+     "n": 61
+    },
+    "precision": {
+     "ci95": [
+      0.9103,
+      1.0
+     ],
+     "estimate": 0.9647
+    },
+    "precision_date_hit": {
+     "ci95": [
+      0.7724,
+      0.9335
+     ],
+     "estimate": 0.8607
+    },
+    "precision_dated": {
+     "ci95": [
+      0.7946,
+      0.947
+     ],
+     "estimate": 0.8764
+    },
+    "recall_all": 0.2246,
+    "recall_attainable": 0.596
+   },
+   "gate_only": {
+    "annotated": {
+     "correct": 70,
+     "correct_dated": 45,
+     "gold_no": 0,
+     "n": 70
+    },
+    "precision": {
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "estimate": 1.0
+    },
+    "precision_dated": {
+     "ci95": [
+      0.1955,
+      0.3653
+     ],
+     "estimate": 0.2659
+    },
+    "recall_all": 0.6991,
+    "recall_attainable": 0.5428
+   },
+   "gate_rule_any": {
+    "annotated": {
+     "correct": 54,
+     "correct_dated": 44,
+     "date_hit": 41,
+     "gold_no": 0,
+     "n": 54
+    },
+    "precision": {
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "estimate": 1.0
+    },
+    "precision_date_hit": {
+     "ci95": [
+      0.3522,
+      0.7199
+     ],
+     "estimate": 0.4954
+    },
+    "precision_dated": {
+     "ci95": [
+      0.3825,
+      0.7678
+     ],
+     "estimate": 0.5315
+    },
+    "recall_all": 0.3031,
+    "recall_attainable": 0.4705
+   },
+   "p7": {
+    "annotated": {
+     "correct": 48,
+     "correct_dated": 43,
+     "date_hit": 41,
+     "gold_no": 0,
+     "n": 48
+    },
+    "precision": {
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "estimate": 1.0
+    },
+    "precision_date_hit": {
+     "ci95": [
+      0.75,
+      0.9375
+     ],
+     "estimate": 0.8542
+    },
+    "precision_dated": {
+     "ci95": [
+      0.7917,
+      0.9792
+     ],
+     "estimate": 0.8958
+    },
+    "recall_all": 0.1753,
+    "recall_attainable": 0.4585
+   },
+   "rule_any_full": {
+    "annotated": {
+     "correct": 75,
+     "correct_dated": 60,
+     "gold_no": 2,
+     "n": 77
+    },
+    "precision": {
+     "ci95": [
+      0.9504,
+      1.0
+     ],
+     "estimate": 0.9813
+    },
+    "precision_dated": {
+     "ci95": [
+      0.4627,
+      0.7916
+     ],
+     "estimate": 0.6109
+    },
+    "recall_all": 0.4308,
+    "recall_attainable": 0.7832
+   },
+   "rule_any_view": {
+    "annotated": {
+     "correct": 75,
+     "correct_dated": 60,
+     "date_hit": 57,
+     "gold_no": 2,
+     "n": 77
+    },
+    "precision": {
+     "ci95": [
+      0.9504,
+      1.0
+     ],
+     "estimate": 0.9813
+    },
+    "precision_date_hit": {
+     "ci95": [
+      0.4371,
+      0.7639
+     ],
+     "estimate": 0.586
+    },
+    "precision_dated": {
+     "ci95": [
+      0.4627,
+      0.7916
+     ],
+     "estimate": 0.6109
+    },
+    "recall_all": 0.4308,
+    "recall_attainable": 0.7832
+   },
+   "trivial": {
+    "annotated": {
+     "correct": 67,
+     "correct_dated": 52,
+     "date_hit": 50,
+     "gold_no": 0,
+     "n": 67
+    },
+    "precision": {
+     "ci95": [
+      1.0,
+      1.0
+     ],
+     "estimate": 1.0
+    },
+    "precision_date_hit": {
+     "ci95": [
+      0.4192,
+      0.7704
+     ],
+     "estimate": 0.576
+    },
+    "precision_dated": {
+     "ci95": [
+      0.4353,
+      0.7927
+     ],
+     "estimate": 0.5942
+    },
+    "recall_all": 0.4006,
+    "recall_attainable": 0.6952
+   }
+  },
+  "base_rate_yes": 0.829,
+  "frame_p7_promotions": {
+   "all": 135,
+   "frauenfeld": 81
+  },
+  "frame_rows": {
+   "all": 478,
+   "frauenfeld": 103
+  },
+  "h1": {
+   "correct": 48,
+   "frauenfeld_only": {
+    "correct": 72,
+    "n": 72
+   },
+   "n": 48,
+   "precision": 1.0,
+   "registered_rule_met": true,
+   "wilson95": [
+    0.9259,
+    1.0
+   ]
+  },
+  "h4": {
+   "ci95": [
+    0.1043,
+    0.4682
+   ],
+   "estimate": 0.3016
+  },
+  "name": "Frauenfeld",
+  "p7_precision_dated": {
+   "k": 43,
+   "n": 48
+  },
+  "parliament": "4566",
+  "queue_promotions": {
+   "all": 214,
+   "frauenfeld": 109,
+   "without": 105
+  }
+ }
+}

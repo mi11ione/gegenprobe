@@ -100,3 +100,14 @@ the date for only 17 of its 32 values. A quote check would pass 3 of its 8 wrong
     the baseline finds 14/21 (8B pointer 15/21, 70B pointer 16/21; 8B vs. baseline 4 vs 3).
   - Apertus does not find many more dates than the latest printed date. Its edge is finding them **and** abstaining: on
     all 62 it beats the type-gated latest date 10 vs 1 (D2-5). That contrast was chosen after the results.
+
+## D2-8 (11 Oct 2026, POST HOC, round-8 jury): the "no answer at all" split of the answerless documents
+The README's "of the 53 documents with no answer at all, Apertus dated 0" uses a split defined on 11 Oct 2026, after the
+P2 and P6 results were known (`report/r7docs_numbers.py`). PREREG2 does not register it; P2-H3 (cascade values on 4/33
+gold-null documents, Wilson upper bound above 15%) failed as registered and still fails.
+Definition (from the gold labels, `data/gold2/p2_labels.jsonl`): of the 33 answerless documents (gold `answer_date` null),
+25 have `answer_present` = no ("no answer at all") and 8 have `answer_present` = yes (the document contains the answer but
+prints no date the guide accepts). The pointer's 4 dates on answerless documents all fall on the 8; on the 25 it dates
+none. The free prompt with null allowed also dates none of the 25; the plain free prompt dates 2. All 4 pointer dates are
+still wrong under the registered scorer. Recomputed in `results/eval/posthoc_r8_noanswer.json`
+(`python -m eval.posthoc_r8 noanswer`); P6 in DEVIATIONS7 D3.

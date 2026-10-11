@@ -1,8 +1,8 @@
 id	shown	file	path	fmt	command	where	context
-r6c.sessions_n	74	results/eval/annotation_sessions.json	overall.n_sessions	int	python -m eval.annotation_sessions	README.md,technical_report.md,docs/form_notes.md	{"README.md": "annotator sessions", "docs/form_notes.md": "labelling sessions", "technical_report.md": "annotator sessions"}
-r6c.sessions_sets	10	results/eval/annotation_sessions.json	overall.n_sets_with_sessions	int	python -m eval.annotation_sessions	README.md	{"README.md": "label sets"}
-r6c.label_files	996	results/eval/annotation_sessions.json	overall.label_files_total	int	python -m eval.annotation_sessions	-	
-r6c.label_files_in_session	996	results/eval/annotation_sessions.json	overall.label_files_mtime_in_session	int	python -m eval.annotation_sessions	-	
+r6c.sessions_n	74	results/eval/annotation_sessions.json	overall_p1_p6.n_sessions	int	python -m eval.annotation_sessions	README.md,technical_report.md,docs/form_notes.md	{"README.md": "annotator sessions", "docs/form_notes.md": "labelling sessions", "technical_report.md": "annotator sessions"}
+r6c.sessions_sets	10	results/eval/annotation_sessions.json	overall_p1_p6.n_sets_with_sessions	int	python -m eval.annotation_sessions	README.md	{"README.md": "label sets"}
+r6c.label_files	996	results/eval/annotation_sessions.json	overall_p1_p6.label_files_total	int	python -m eval.annotation_sessions	-	
+r6c.label_files_in_session	996	results/eval/annotation_sessions.json	overall_p1_p6.label_files_mtime_in_session	int	python -m eval.annotation_sessions	-	
 r6c.p1_lock_to_first_s	95	results/eval/annotation_sessions.json	sets.0.order_checks.seconds_from_lock_push_to_first_session	int	python -m eval.annotation_sessions	README.md	{"README.md": "gap after the LOCK"}
 r6c.p5_draw_to_first_s	7	results/eval/annotation_sessions.json	sets.7.order_checks.seconds_from_draw_push_to_first_session	int	python -m eval.annotation_sessions	README.md	{"README.md": "for P5 the gap"}
 r6c.dev2_rule_to_first_s	26	results/eval/annotation_sessions.json	sets.8.order_checks.seconds_from_lock_push_to_first_session	int	python -m eval.annotation_sessions	-	

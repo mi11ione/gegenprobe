@@ -1,0 +1,926 @@
+{
+ "label": "POST HOC (11 Oct 2026, round 8; not pre-registered): no registered decision depends on this file",
+ "method": "family = the 9 tests of eval.posthoc_r4.multiplicity (P1-P4, P3b; recomputed, same rules) + P5 (H1, H2,\n                H3a, H3b, H4), P6 (H1, H2, H3) and P7 (H1, H3, H4): m = 20. Interval rules -> the p-value of the test the\n                interval inverts (Wilson: score test; P7-H4's percentile bootstrap: 2 x the share of replicates on the far\n                side of 0, (count + 1) / (B + 1)); conjunctions (P5-H1 tier, P6-H2) -> intersection-union p (the largest\n                component p; a deterministic component that fails makes p = 1). Holm and Benjamini-Hochberg at 0.05.",
+ "m": 20,
+ "tests": [
+  {
+   "id": "P1-H1 pooled",
+   "prereg": "eval/prereg/PREREG.md",
+   "what": "cascade values on gold-null documents 7/90",
+   "registered_rule": "Wilson 95% upper bound <= 10% (plus <= 1 per cell, a count rule without a test)",
+   "p": 0.4822250447560399,
+   "registered_outcome": "fails",
+   "source": "results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json H1.pooled",
+   "p_kind": "CI inversion (score test)",
+   "detail": {
+    "z": 0.7027283689263067,
+    "p_one_sided": 0.24111252237801994,
+    "p_equiv_two_sided": 0.4822250447560399,
+    "exact_binomial_one_sided": 0.31148696856296243
+   },
+   "p_holm": 1.0,
+   "p_bh": 0.7142857142857143,
+   "holds_after_holm": false,
+   "holds_after_bh": false,
+   "p_holm_m9_round4": 1.0
+  },
+  {
+   "id": "P1-H2 primary",
+   "prereg": "eval/prereg/PREREG.md",
+   "what": "cascade vs rules, FR+IT+OCR, discordant 5-1",
+   "registered_rule": "exact two-sided McNemar, alpha 0.05, cascade > rules",
+   "p": 0.21875,
+   "registered_outcome": "fails",
+   "source": "results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json H2.primary_fr_it_ocr",
+   "p_kind": "exact McNemar",
+   "p_holm": 1.0,
+   "p_bh": 0.4375,
+   "holds_after_holm": false,
+   "holds_after_bh": false,
+   "p_holm_m9_round4": 1.0
+  },
+  {
+   "id": "P2-H1",
+   "prereg": "eval/prereg2/PREREG2.md",
+   "what": "rules value recall P1 47/64 vs P2 2/29",
+   "registered_rule": "95% Newcombe interval of P1 - P2 excludes 0",
+   "p": 7.998359752292572e-10,
+   "registered_outcome": "holds",
+   "source": "results/eval2/hypotheses2__publicai_swiss-ai_apertus-v1.5-8b.json subsets.all.H1_rules_value_recall",
+   "p_kind": "CI inversion (Newcombe)",
+   "p_holm": 1.439704755412663e-08,
+   "p_bh": 5.332239834861714e-09,
+   "holds_after_holm": true,
+   "holds_after_bh": true,
+   "p_holm_m9_round4": 7.198523777063315e-09
+  },
+  {
+   "id": "P2-H2 primary",
+   "prereg": "eval/prereg2/PREREG2.md",
+   "what": "pointer vs rules on gold-value documents, discordant 22-0",
+   "registered_rule": "exact two-sided McNemar, alpha 0.05, pointer > rules",
+   "p": 4.76837158203125e-07,
+   "registered_outcome": "holds",
+   "source": "results/eval2/hypotheses2__publicai_swiss-ai_apertus-v1.5-8b.json subsets.all.theta_10_40.H2_pointer_vs_rules",
+   "p_kind": "exact McNemar",
+   "p_holm": 8.106231689453125e-06,
+   "p_bh": 2.384185791015625e-06,
+   "holds_after_holm": true,
+   "holds_after_bh": true,
+   "p_holm_m9_round4": 3.814697265625e-06
+  },
+  {
+   "id": "P2-H3",
+   "prereg": "eval/prereg2/PREREG2.md",
+   "what": "cascade values on gold-null documents 4/33",
+   "registered_rule": "Wilson 95% upper bound <= 15%",
+   "p": 0.6432645921033024,
+   "registered_outcome": "fails",
+   "source": "results/eval2/hypotheses2__publicai_swiss-ai_apertus-v1.5-8b.json subsets.all.theta_10_40.H3_cascade_values_on_null",
+   "p_kind": "CI inversion (score test)",
+   "detail": {
+    "z": 0.46313920194718255,
+    "p_one_sided": 0.3216322960516512,
+    "p_equiv_two_sided": 0.6432645921033024,
+    "exact_binomial_one_sided": 0.43551774867890913
+   },
+   "p_holm": 1.0,
+   "p_bh": 0.8167095777498743,
+   "holds_after_holm": false,
+   "holds_after_bh": false,
+   "p_holm_m9_round4": 1.0
+  },
+  {
+   "id": "P3-H3a",
+   "prereg": "eval/prereg3/PREREG3.md",
+   "what": "Apertus on the residue, recall 25/32",
+   "registered_rule": "Wilson 95% lower bound >= 0.50",
+   "p": 0.0014627165866811787,
+   "registered_outcome": "holds",
+   "source": "results/eval3/hypotheses3__publicai_swiss-ai_apertus-v1.5-8b.json H3.recall",
+   "p_kind": "CI inversion (score test)",
+   "detail": {
+    "z": 3.181980515339464,
+    "p_one_sided": 0.0007313582933405893,
+    "p_equiv_two_sided": 0.0014627165866811787,
+    "exact_binomial_one_sided": 0.0010512007866054773
+   },
+   "p_holm": 0.019015315626855323,
+   "p_bh": 0.0036567914667029466,
+   "holds_after_holm": true,
+   "holds_after_bh": true,
+   "p_holm_m9_round4": 0.01023901610676825
+  },
+  {
+   "id": "P3-H3b",
+   "prereg": "eval/prereg3/PREREG3.md",
+   "what": "Apertus on the residue, precision 25/34",
+   "registered_rule": "Wilson 95% lower bound >= 0.70",
+   "p": 0.6533676621998994,
+   "registered_outcome": "fails",
+   "source": "results/eval3/hypotheses3__publicai_swiss-ai_apertus-v1.5-8b.json H3.precision",
+   "p_kind": "CI inversion (score test)",
+   "detail": {
+    "z": 0.44908871313907306,
+    "p_one_sided": 0.3266838310999497,
+    "p_equiv_two_sided": 0.6533676621998994,
+    "exact_binomial_one_sided": 0.4061183674838746
+   },
+   "p_holm": 1.0,
+   "p_bh": 0.8167095777498743,
+   "holds_after_holm": false,
+   "holds_after_bh": false,
+   "p_holm_m9_round4": 1.0
+  },
+  {
+   "id": "P4-H3 primary",
+   "prereg": "eval/prereg4/PREREG4.md",
+   "what": "review vs rules_only decision recall, discordant 2-0; invented 0/36",
+   "registered_rule": "exact McNemar alpha 0.05 (review > rules_only) AND invented Wilson upper <= 15%; intersection-union test: p = max of the two component p-values",
+   "p": 0.5,
+   "registered_outcome": "fails",
+   "source": "results/eval4/hypotheses4__publicai_swiss-ai_apertus-v1.5-8b.json H3",
+   "p_kind": "intersection-union (McNemar, CI inversion)",
+   "components": {
+    "mcnemar_p": 0.5,
+    "invented_bound_p": 0.01171868559976863
+   },
+   "p_holm": 1.0,
+   "p_bh": 0.7142857142857143,
+   "holds_after_holm": false,
+   "holds_after_bh": false,
+   "p_holm_m9_round4": 1.0
+  },
+  {
+   "id": "P3b-S1 primary",
+   "prereg": "eval/prereg5/PREREG5.md",
+   "what": "primary H3 recall 14/16",
+   "registered_rule": "Wilson 95% lower bound >= 0.50",
+   "p": 0.002699796063260207,
+   "registered_outcome": "holds",
+   "source": "results/eval5/hypotheses_p3b__publicai_swiss-ai_apertus-v1.5-8b.json H3_primary.recall",
+   "p_kind": "CI inversion (score test)",
+   "detail": {
+    "z": 3.0,
+    "p_one_sided": 0.0013498980316301035,
+    "p_equiv_two_sided": 0.002699796063260207,
+    "exact_binomial_one_sided": 0.0020904541015625
+   },
+   "p_holm": 0.03239755275912248,
+   "p_bh": 0.005999546807244904,
+   "holds_after_holm": true,
+   "holds_after_bh": true,
+   "p_holm_m9_round4": 0.01619877637956124
+  },
+  {
+   "id": "P5-H1 primary",
+   "prereg": "eval/prereg6/PREREG6.md",
+   "what": "rules Q/A pairing, precision 118/143, recall 118/176 (tier 'partial')",
+   "registered_rule": "tier not 'not yet': precision Wilson LB >= 0.70 and recall Wilson LB >= 0.40; intersection-union test: p = max of the two score-test p-values",
+   "p": 0.001089069179803781,
+   "registered_outcome": "holds",
+   "source": "results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json H1",
+   "p_kind": "intersection-union (CI inversion, score test)",
+   "components": {
+    "precision_p": 0.001089069179803781,
+    "recall_p": 2.4069635173873394e-13
+   },
+   "p_holm": 0.015246968517252935,
+   "p_bh": 0.003111626228010803,
+   "holds_after_holm": true,
+   "holds_after_bh": true
+  },
+  {
+   "id": "P5-H2",
+   "prereg": "eval/prereg6/PREREG6.md",
+   "what": "rules vs paragraph-order pairing, discordant 116-5",
+   "registered_rule": "exact one-sided McNemar, alpha 0.05, rules better",
+   "p": 7.80841836984561e-29,
+   "registered_outcome": "holds",
+   "source": "results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json H2",
+   "p_kind": "exact McNemar (one-sided, as registered)",
+   "p_holm": 1.561683673969122e-27,
+   "p_bh": 1.561683673969122e-27,
+   "holds_after_holm": true,
+   "holds_after_bh": true
+  },
+  {
+   "id": "P5-H3a",
+   "prereg": "eval/prereg6/PREREG6.md",
+   "what": "pointer on the residue, recall 0/36",
+   "registered_rule": "Wilson 95% lower bound >= 0.50",
+   "p": 1.0,
+   "registered_outcome": "fails",
+   "source": "results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json H3.residue_recall",
+   "p_kind": "CI inversion (score test)",
+   "detail": {
+    "z": -6.0,
+    "p_one_sided": 0.9999999990134123,
+    "p_equiv_two_sided": 1.0,
+    "exact_binomial_one_sided": 1.0
+   },
+   "registered_verdict": "no measurable gain",
+   "p_holm": 1.0,
+   "p_bh": 1.0,
+   "holds_after_holm": false,
+   "holds_after_bh": false
+  },
+  {
+   "id": "P5-H3b",
+   "prereg": "eval/prereg6/PREREG6.md",
+   "what": "pointer suggestion precision 0/0 (no suggestion made)",
+   "registered_rule": "Wilson 95% lower bound >= 0.70",
+   "p": 1.0,
+   "registered_outcome": "fails",
+   "source": "results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json H3.suggestion_precision",
+   "p_kind": "untestable (0 suggestions): p = 1, kept in the family so that m is not reduced after the result",
+   "p_holm": 1.0,
+   "p_bh": 1.0,
+   "holds_after_holm": false,
+   "holds_after_bh": false
+  },
+  {
+   "id": "P5-H4",
+   "prereg": "eval/prereg6/PREREG6.md",
+   "what": "closed-set pointer vs free generation, discordant 79-11",
+   "registered_rule": "exact one-sided McNemar, alpha 0.05, pointer better",
+   "p": 3.886880384756633e-14,
+   "registered_outcome": "holds",
+   "source": "results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json H4",
+   "p_kind": "exact McNemar (one-sided, as registered)",
+   "p_holm": 7.385072731037602e-13,
+   "p_bh": 3.886880384756633e-13,
+   "holds_after_holm": true,
+   "holds_after_bh": true
+  },
+  {
+   "id": "P6-H1 primary",
+   "prereg": "eval/prereg7/PREREG7.md",
+   "what": "v2 vs free_null exact accuracy, discordant 1-4",
+   "registered_rule": "exact two-sided McNemar, alpha 0.05, v2 right on more",
+   "p": 0.375,
+   "registered_outcome": "fails",
+   "source": "results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json H1_v2_vs_free_null",
+   "p_kind": "exact McNemar",
+   "p_holm": 1.0,
+   "p_bh": 0.6818181818181818,
+   "holds_after_holm": false,
+   "holds_after_bh": false
+  },
+  {
+   "id": "P6-H2",
+   "prereg": "eval/prereg7/PREREG7.md",
+   "what": "v2 dates 5/34 answerless documents (v1 7, free_null 4)",
+   "registered_rule": "Wilson 95% upper bound <= 15% AND v2 <= v1 AND v2 <= free_null; intersection-union: a failed count condition makes p = 1",
+   "p": 1.0,
+   "registered_outcome": "fails",
+   "source": "results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json H2_answerless",
+   "p_kind": "intersection-union (CI inversion + count conditions)",
+   "components": {
+    "bound_p": 0.9616929627377773,
+    "v2_le_v1": true,
+    "v2_le_free_null": false
+   },
+   "p_holm": 1.0,
+   "p_bh": 1.0,
+   "holds_after_holm": false,
+   "holds_after_bh": false
+  },
+  {
+   "id": "P6-H3",
+   "prereg": "eval/prereg7/PREREG7.md",
+   "what": "v2 vs v1 exact accuracy, discordant 5-2",
+   "registered_rule": "exact two-sided McNemar, alpha 0.05, v2 right on more",
+   "p": 0.453125,
+   "registered_outcome": "fails",
+   "source": "results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json H3_v2_vs_v1",
+   "p_kind": "exact McNemar",
+   "p_holm": 1.0,
+   "p_bh": 0.7142857142857143,
+   "holds_after_holm": false,
+   "holds_after_bh": false
+  },
+  {
+   "id": "P7-H1 primary",
+   "prereg": "eval/prereg8/PREREG8.md",
+   "what": "promotion precision 120/120",
+   "registered_rule": "Wilson 95% lower bound >= 0.90 with >= 40 judged (the count condition holds)",
+   "p": 0.0002607296328553943,
+   "registered_outcome": "holds",
+   "source": "results/p7/p7_hypotheses.json H1",
+   "p_kind": "CI inversion (score test)",
+   "detail": {
+    "z": 3.651483716701107,
+    "p_one_sided": 0.00013036481642769715,
+    "p_equiv_two_sided": 0.0002607296328553943,
+    "exact_binomial_one_sided": 3.2292460179985636e-06
+   },
+   "p_holm": 0.004171674125686309,
+   "p_bh": 0.0010429185314215772,
+   "holds_after_holm": true,
+   "holds_after_bh": true
+  },
+  {
+   "id": "P7-H3",
+   "prereg": "eval/prereg8/PREREG8.md",
+   "what": "free generation's extra promotions 28/30",
+   "registered_rule": "Wilson 95% upper bound < 0.90 ('supported')",
+   "p": 1.0,
+   "registered_outcome": "fails",
+   "source": "results/p7/p7_hypotheses.json H3",
+   "p_kind": "CI inversion (score test)",
+   "detail": {
+    "z": -0.6085806194501845,
+    "p_one_sided": 0.7285987731213134,
+    "p_equiv_two_sided": 1.0,
+    "exact_binomial_one_sided": 0.8163049808073963
+   },
+   "p_holm": 1.0,
+   "p_bh": 1.0,
+   "holds_after_holm": false,
+   "holds_after_bh": false
+  },
+  {
+   "id": "P7-H4",
+   "prereg": "eval/prereg8/PREREG8.md",
+   "what": "precision_dated p7 - trivial 0.2265 [0.1024, 0.343]",
+   "registered_rule": "stratified bootstrap 95% interval lower bound > 0",
+   "p": 0.00039996000399960006,
+   "registered_outcome": "holds",
+   "source": "results/p7/p7_hypotheses.json H4",
+   "p_kind": "bootstrap inversion: 2 x (replicates on the far side of 0 + 1) / (B + 1)",
+   "detail": {
+    "replicates": 10000,
+    "at_or_below_0": 1,
+    "at_or_above_0": 9999,
+    "p": 0.00039996000399960006,
+    "ci95": [
+     0.1024,
+     0.343
+    ]
+   },
+   "p_holm": 0.005999400059994001,
+   "p_bh": 0.001333200013332,
+   "holds_after_holm": true,
+   "holds_after_bh": true
+  }
+ ],
+ "n_registered_holds": 9,
+ "registered_holds": [
+  "P2-H1",
+  "P2-H2 primary",
+  "P3-H3a",
+  "P3b-S1 primary",
+  "P5-H1 primary",
+  "P5-H2",
+  "P5-H4",
+  "P7-H1 primary",
+  "P7-H4"
+ ],
+ "survive_holm": [
+  "P2-H1",
+  "P2-H2 primary",
+  "P3-H3a",
+  "P3b-S1 primary",
+  "P5-H1 primary",
+  "P5-H2",
+  "P5-H4",
+  "P7-H1 primary",
+  "P7-H4"
+ ],
+ "n_survive_holm": 9,
+ "lost_after_holm": [],
+ "survive_bh": [
+  "P2-H1",
+  "P2-H2 primary",
+  "P3-H3a",
+  "P3b-S1 primary",
+  "P5-H1 primary",
+  "P5-H2",
+  "P5-H4",
+  "P7-H1 primary",
+  "P7-H4"
+ ],
+ "by_id": {
+  "P1-H1 pooled": {
+   "p": 0.4822250447560399,
+   "p_holm": 1.0,
+   "p_bh": 0.7142857142857143,
+   "registered_outcome": "fails",
+   "holds_after_holm": false
+  },
+  "P1-H2 primary": {
+   "p": 0.21875,
+   "p_holm": 1.0,
+   "p_bh": 0.4375,
+   "registered_outcome": "fails",
+   "holds_after_holm": false
+  },
+  "P2-H1": {
+   "p": 7.998359752292572e-10,
+   "p_holm": 1.439704755412663e-08,
+   "p_bh": 5.332239834861714e-09,
+   "registered_outcome": "holds",
+   "holds_after_holm": true
+  },
+  "P2-H2 primary": {
+   "p": 4.76837158203125e-07,
+   "p_holm": 8.106231689453125e-06,
+   "p_bh": 2.384185791015625e-06,
+   "registered_outcome": "holds",
+   "holds_after_holm": true
+  },
+  "P2-H3": {
+   "p": 0.6432645921033024,
+   "p_holm": 1.0,
+   "p_bh": 0.8167095777498743,
+   "registered_outcome": "fails",
+   "holds_after_holm": false
+  },
+  "P3-H3a": {
+   "p": 0.0014627165866811787,
+   "p_holm": 0.019015315626855323,
+   "p_bh": 0.0036567914667029466,
+   "registered_outcome": "holds",
+   "holds_after_holm": true
+  },
+  "P3-H3b": {
+   "p": 0.6533676621998994,
+   "p_holm": 1.0,
+   "p_bh": 0.8167095777498743,
+   "registered_outcome": "fails",
+   "holds_after_holm": false
+  },
+  "P4-H3 primary": {
+   "p": 0.5,
+   "p_holm": 1.0,
+   "p_bh": 0.7142857142857143,
+   "registered_outcome": "fails",
+   "holds_after_holm": false
+  },
+  "P3b-S1 primary": {
+   "p": 0.002699796063260207,
+   "p_holm": 0.03239755275912248,
+   "p_bh": 0.005999546807244904,
+   "registered_outcome": "holds",
+   "holds_after_holm": true
+  },
+  "P5-H1 primary": {
+   "p": 0.001089069179803781,
+   "p_holm": 0.015246968517252935,
+   "p_bh": 0.003111626228010803,
+   "registered_outcome": "holds",
+   "holds_after_holm": true
+  },
+  "P5-H2": {
+   "p": 7.80841836984561e-29,
+   "p_holm": 1.561683673969122e-27,
+   "p_bh": 1.561683673969122e-27,
+   "registered_outcome": "holds",
+   "holds_after_holm": true
+  },
+  "P5-H3a": {
+   "p": 1.0,
+   "p_holm": 1.0,
+   "p_bh": 1.0,
+   "registered_outcome": "fails",
+   "holds_after_holm": false
+  },
+  "P5-H3b": {
+   "p": 1.0,
+   "p_holm": 1.0,
+   "p_bh": 1.0,
+   "registered_outcome": "fails",
+   "holds_after_holm": false
+  },
+  "P5-H4": {
+   "p": 3.886880384756633e-14,
+   "p_holm": 7.385072731037602e-13,
+   "p_bh": 3.886880384756633e-13,
+   "registered_outcome": "holds",
+   "holds_after_holm": true
+  },
+  "P6-H1 primary": {
+   "p": 0.375,
+   "p_holm": 1.0,
+   "p_bh": 0.6818181818181818,
+   "registered_outcome": "fails",
+   "holds_after_holm": false
+  },
+  "P6-H2": {
+   "p": 1.0,
+   "p_holm": 1.0,
+   "p_bh": 1.0,
+   "registered_outcome": "fails",
+   "holds_after_holm": false
+  },
+  "P6-H3": {
+   "p": 0.453125,
+   "p_holm": 1.0,
+   "p_bh": 0.7142857142857143,
+   "registered_outcome": "fails",
+   "holds_after_holm": false
+  },
+  "P7-H1 primary": {
+   "p": 0.0002607296328553943,
+   "p_holm": 0.004171674125686309,
+   "p_bh": 0.0010429185314215772,
+   "registered_outcome": "holds",
+   "holds_after_holm": true
+  },
+  "P7-H3": {
+   "p": 1.0,
+   "p_holm": 1.0,
+   "p_bh": 1.0,
+   "registered_outcome": "fails",
+   "holds_after_holm": false
+  },
+  "P7-H4": {
+   "p": 0.00039996000399960006,
+   "p_holm": 0.005999400059994001,
+   "p_bh": 0.001333200013332,
+   "registered_outcome": "holds",
+   "holds_after_holm": true
+  }
+ },
+ "display": {
+  "P1-H1 pooled": {
+   "p": "0.48",
+   "p_holm": "1",
+   "p_bh": "0.71"
+  },
+  "P1-H2 primary": {
+   "p": "0.22",
+   "p_holm": "1",
+   "p_bh": "0.44"
+  },
+  "P2-H1": {
+   "p": "8.0 × 10⁻¹⁰",
+   "p_holm": "1.4 × 10⁻⁸",
+   "p_bh": "5.3 × 10⁻⁹"
+  },
+  "P2-H2 primary": {
+   "p": "4.8 × 10⁻⁷",
+   "p_holm": "8.1 × 10⁻⁶",
+   "p_bh": "2.4 × 10⁻⁶"
+  },
+  "P2-H3": {
+   "p": "0.64",
+   "p_holm": "1",
+   "p_bh": "0.82"
+  },
+  "P3-H3a": {
+   "p": "0.0015",
+   "p_holm": "0.019",
+   "p_bh": "0.0037"
+  },
+  "P3-H3b": {
+   "p": "0.65",
+   "p_holm": "1",
+   "p_bh": "0.82"
+  },
+  "P4-H3 primary": {
+   "p": "0.5",
+   "p_holm": "1",
+   "p_bh": "0.71"
+  },
+  "P3b-S1 primary": {
+   "p": "0.0027",
+   "p_holm": "0.032",
+   "p_bh": "0.006"
+  },
+  "P5-H1 primary": {
+   "p": "0.0011",
+   "p_holm": "0.015",
+   "p_bh": "0.0031"
+  },
+  "P5-H2": {
+   "p": "7.8 × 10⁻²⁹",
+   "p_holm": "1.6 × 10⁻²⁷",
+   "p_bh": "1.6 × 10⁻²⁷"
+  },
+  "P5-H3a": {
+   "p": "1",
+   "p_holm": "1",
+   "p_bh": "1"
+  },
+  "P5-H3b": {
+   "p": "1",
+   "p_holm": "1",
+   "p_bh": "1"
+  },
+  "P5-H4": {
+   "p": "3.9 × 10⁻¹⁴",
+   "p_holm": "7.4 × 10⁻¹³",
+   "p_bh": "3.9 × 10⁻¹³"
+  },
+  "P6-H1 primary": {
+   "p": "0.38",
+   "p_holm": "1",
+   "p_bh": "0.68"
+  },
+  "P6-H2": {
+   "p": "1",
+   "p_holm": "1",
+   "p_bh": "1"
+  },
+  "P6-H3": {
+   "p": "0.45",
+   "p_holm": "1",
+   "p_bh": "0.71"
+  },
+  "P7-H1 primary": {
+   "p": "2.6 × 10⁻⁴",
+   "p_holm": "0.0042",
+   "p_bh": "0.001"
+  },
+  "P7-H3": {
+   "p": "1",
+   "p_holm": "1",
+   "p_bh": "1"
+  },
+  "P7-H4": {
+   "p": "4.0 × 10⁻⁴",
+   "p_holm": "0.006",
+   "p_bh": "0.0013"
+  }
+ },
+ "smallest_margin": {
+  "id": "P3b-S1 primary",
+  "p_holm": 0.03239755275912248
+ },
+ "conclusion": "9 of the 20 registered confirmatory tests of P1-P7 held as registered; all 9 survive Holm over all 20 (smallest margin P3b-S1 primary, Holm p = 0.032). No failed test turns into a pass.",
+ "not_in_family": [
+  {
+   "id": "P1-H3",
+   "rule": "AUROC of the pointer null margin >= 0.80 (point estimate; no test registered)",
+   "value": 0.96875,
+   "registered_outcome": "holds"
+  },
+  {
+   "id": "P1-H4",
+   "rule": "count trigger (> 1 wrong Apertus FR/IT value -> publish a post-hoc θ curve)",
+   "value": "3 of 8",
+   "registered_outcome": "triggered"
+  },
+  {
+   "id": "P2-H4",
+   "rule": "AUROC >= 0.80 (point estimate; no test registered)",
+   "value": 0.9833147942157954,
+   "registered_outcome": "holds"
+  },
+  {
+   "id": "P3-H1, P3-H2, P3-H4",
+   "rule": "registered as descriptive (per-field tiers, metadata agreement, coverage)"
+  },
+  {
+   "id": "P4-H1",
+   "rule": "rules item recall >= 0.90 (point estimate)",
+   "value": [
+    99,
+    120
+   ],
+   "registered_outcome": "fails"
+  },
+  {
+   "id": "P4-H2",
+   "rule": "rules type accuracy >= 0.85 (point estimate)",
+   "value": [
+    91,
+    99
+   ],
+   "registered_outcome": "holds"
+  },
+  {
+   "id": "P4-H4",
+   "rule": "meeting date matches gold on every held-out meeting (deterministic)",
+   "value": [
+    6,
+    6
+   ],
+   "registered_outcome": "holds"
+  },
+  {
+   "id": "P3b H3(b), S2",
+   "rule": "H3(b) reported against P3 without a verdict; S2 is a below/within/above classification against P3's interval, no test"
+  },
+  {
+   "id": "8B arms (P1)",
+   "rule": "exploratory by registration (PREREG 'Exploratory'); reported separately below"
+  },
+  {
+   "id": "P5-H5",
+   "rule": "0 provenance re-check failures (deterministic count)",
+   "registered_outcome": "holds"
+  },
+  {
+   "id": "P5 S1/S2 verdict",
+   "rule": "derived from H1 and H2"
+  },
+  {
+   "id": "P6 secondary (S1-S7) and the 8B run",
+   "rule": "registered without a decision / exploratory"
+  },
+  {
+   "id": "P7-H2",
+   "rule": "an estimate (queue promotions x H1 precision), no test"
+  }
+ ],
+ "clusters": {
+  "method": "percentile bootstrap resampling parliaments with replacement, B = 10,000 (P5/P6: seed 20261011 as in eval.posthoc_r6; P7: seed 20261014, each parliament keeping its annotated rows and stratum weights)",
+  "p5_h1": {
+   "precision": {
+    "k": 118,
+    "n": 143,
+    "rate": 0.8251748251748252,
+    "doc_level_wilson95": [
+     0.754647868281688,
+     0.8786876442706133
+    ],
+    "parliament_cluster95": [
+     0.6643823642111313,
+     0.9659921400992828
+    ],
+    "affair_cluster95": [
+     0.6357142857142857,
+     0.9534883720930233
+    ]
+   },
+   "recall": {
+    "k": 118,
+    "n": 176,
+    "rate": 0.6704545454545454,
+    "doc_level_wilson95": [
+     0.5980175808980439,
+     0.7356093441293134
+    ],
+    "parliament_cluster95": [
+     0.5123916549082845,
+     0.8116902215431627
+    ],
+    "affair_cluster95": [
+     0.49668648916520247,
+     0.8235294117647058
+    ]
+   },
+   "registered_tier": {
+    "rule": "PREREG6 H1: partial if precision lower bound >= 0.70 and recall lower bound >= 0.40 (unattended: 0.85/0.60)",
+    "with_wilson": "partial",
+    "with_parliament_cluster": "not yet",
+    "with_affair_cluster": "not yet"
+   },
+   "n_parliaments": 10
+  },
+  "p5_paired": {
+   "P5-H2 R vs B_order": {
+    "n_gold_answers": 176,
+    "a_correct": 118,
+    "b_correct": 7,
+    "recall_difference": 0.6306818181818182,
+    "parliament_cluster95": [
+     0.4228137983381272,
+     0.7900060975609755
+    ],
+    "n_parliaments": 10,
+    "excludes_0": true,
+    "parliaments_a_better": 9,
+    "parliaments_b_better": 1,
+    "parliaments_tied": 0,
+    "parliament_sign_test_p": 0.021484375
+   },
+   "P5-H4 RA vs G": {
+    "n_gold_answers": 176,
+    "a_correct": 118,
+    "b_correct": 50,
+    "recall_difference": 0.38636363636363635,
+    "parliament_cluster95": [
+     0.2242133137467141,
+     0.5567567567567567
+    ],
+    "n_parliaments": 10,
+    "excludes_0": true,
+    "parliaments_a_better": 9,
+    "parliaments_b_better": 1,
+    "parliaments_tied": 0,
+    "parliament_sign_test_p": 0.021484375
+   }
+  },
+  "p6_h1": {
+   "n": 68,
+   "a_only": 1,
+   "b_only": 4,
+   "mcnemar_exact_p": 0.375,
+   "accuracy_difference": -0.04411764705882353,
+   "cluster_bootstrap95": [
+    -0.13333333333333333,
+    0.015873015873015872
+   ],
+   "n_parliaments": 8,
+   "cluster_interval_excludes_0": false,
+   "parliaments_a_better": 1,
+   "parliaments_b_better": 3,
+   "parliaments_tied": 4,
+   "parliament_sign_test_p": 0.625,
+   "note": "8 parliaments: a cluster bootstrap with 8 clusters is coarse (few distinct resamples); read the interval as 'how much the headline depends on which parliaments were drawn', not as an exact 95% coverage"
+  },
+  "p6_h3": {
+   "n": 68,
+   "a_only": 5,
+   "b_only": 2,
+   "mcnemar_exact_p": 0.453125,
+   "accuracy_difference": 0.04411764705882353,
+   "cluster_bootstrap95": [
+    -0.057692307692307696,
+    0.12345679012345678
+   ],
+   "n_parliaments": 8,
+   "cluster_interval_excludes_0": false,
+   "parliaments_a_better": 4,
+   "parliaments_b_better": 1,
+   "parliaments_tied": 3,
+   "parliament_sign_test_p": 0.375
+  },
+  "p7_h1": {
+   "k": 120,
+   "n": 120,
+   "wilson95": [
+    0.969,
+    1.0
+   ],
+   "parliament_cluster95": [
+    1.0,
+    1.0
+   ],
+   "parliament_as_unit": {
+    "k": 9,
+    "n": 9,
+    "note": "the most conservative reading: each parliament with a judged p7 promotion counts as ONE observation (all its promotions correct or not)",
+    "wilson95": [
+     0.7008,
+     1.0
+    ]
+   },
+   "without_frauenfeld": {
+    "correct": 48,
+    "frauenfeld_only": {
+     "correct": 72,
+     "n": 72
+    },
+    "n": 48,
+    "precision": 1.0,
+    "registered_rule_met": true,
+    "wilson95": [
+     0.9259,
+     1.0
+    ]
+   }
+  },
+  "p7_h4": {
+   "estimate": 0.2265,
+   "stratified95": [
+    0.1024,
+    0.343
+   ],
+   "parliament_cluster95": [
+    0.0552,
+    0.4962
+   ],
+   "excludes_0": true,
+   "without_frauenfeld": {
+    "ci95": [
+     0.1043,
+     0.4682
+    ],
+    "estimate": 0.3016
+   }
+  }
+ },
+ "summary_display": {
+  "smallest_margin_holm": "0.032",
+  "p7_h1_holm": "0.0042",
+  "p6_h1_cluster_pts": [
+   -13.3,
+   1.6
+  ],
+  "p5_h2_cluster_pts": [
+   42.3,
+   79.0
+  ],
+  "p5_h4_cluster_pts": [
+   22.4,
+   55.7
+  ],
+  "p5_h1_precision_cluster_pct": [
+   66.4,
+   96.6
+  ],
+  "p5_h1_recall_cluster_pct": [
+   51.2,
+   81.2
+  ],
+  "p7_h4_cluster_pts": [
+   5.5,
+   49.6
+  ]
+ }
+}
