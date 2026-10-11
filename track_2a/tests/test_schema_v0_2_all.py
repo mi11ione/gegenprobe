@@ -20,7 +20,7 @@ def val(files):
 
 
 def test_committed_files_are_current(files):
-    """The committed files are this render with the document-parts overlay (gegenprobe.schema.v0_2_parts, round 14);
+    """The committed files are this render with the document-parts overlay (gegenprobe.schema.v0_2_parts);
     tests/test_schema_v0_2_parts.py checks that stripping the overlay gives this render's records back exactly."""
     from gegenprobe.schema import v0_2_parts
 
@@ -103,7 +103,7 @@ def test_samples_are_converter_records_that_validate(val):
 
 
 def test_converter_records_carry_the_roles(val):
-    """Round 13 (J1, J2): the converter's own records carry v0.2's roles read from the documents, and every empty list
+    """The converter's own records carry v0.2's roles read from the documents, and every empty list
     has a typed reason."""
     for k in ("p3", "p3b", "p5"):
         rc = val["sets"][k]["counts"]["records_carrying"]
@@ -132,7 +132,7 @@ def test_samples_follow_the_rule(files, val):
 
 
 def test_bern_sample_reads_the_document_not_the_tag():
-    """J1 round 13: the Bern answer is French although OPD tags it 'de'; the document prints 'Eingereicht von: Ruchti
+    """the Bern answer is French although OPD tags it 'de'; the document prints 'Eingereicht von: Ruchti
     (Sprecher/in), Gerber' (joint authors, no co-signatory)."""
     rec = json.loads((OUT / "samples" / "p3_BE_39369.json").read_text(encoding="utf-8"))
     roles = {a["name"]["value"]: a["role"] for a in rec["actors"]}

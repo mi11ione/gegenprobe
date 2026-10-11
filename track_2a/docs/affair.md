@@ -63,7 +63,7 @@ Pydantic model validates it.
 - **Document parts.** `detect_parts` in `affair_cli.py` is the one adapter to the rule-based detector
   `gegenprobe.convert.parts` (`detect_pdf` + `schema_parts`). A document where the detector found nothing gets the
   typed reason `none_printed`. Without the detector, `parts` stays empty with `not_extracted`.
-- **Author roles (round 16).** The record's roles are the rules' (`gegenprobe.convert.roles`), passed through
+- **Author roles.** The record's roles are the rules' (`gegenprobe.convert.roles`), passed through
   `gegenprobe.schema.role_consistency`: where the rules print a group as `sole_author` next to persons as
   `joint_author` (a group's name over signatures, no "for the group"), the group becomes a joint author, by GUIDE_P8's
   definition (several authors of equal standing, none designated first). A remaining inconsistency (R1-R4 in that
@@ -89,7 +89,7 @@ Pydantic model validates it.
   (exports of 11 Oct 2026; `GP_AFFAIR_LIVE_EXPORTS=1` reads the live exports) and fetches the documents. It then
   compares each record with its sample. It is skipped offline.
 
-**Product records (`gegenprobe.affair_post`, round 5).** The scored results above are the frozen assembly's output and
+**Product records (`gegenprobe.affair_post`).** The scored results above are the frozen assembly's output and
 stay unchanged. What OPD would load runs through an unlocked post-processing step (`src/gegenprobe/affair_post.py`;
 `affair/` itself is hash-locked by LOCK3/LOCK5):
 

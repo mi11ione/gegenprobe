@@ -21,7 +21,11 @@ Inputs, all public:
                  pairing rule (eval.gold3.sample.pair_type: document name, category and the P1 type guess; among several,
                  the one with OPD text in P3's length band, then the lowest OPD id) unless --question-doc / --answer-doc
                  name them. Fetched through pdftext.fetch_pdf (robots.txt, size cap, OPD's own copy where the original's
-                 robots.txt disallows the path) into GP_WORK/pdf, text in GP_WORK/text (OCR for scans, ocrguard).
+                 robots.txt disallows the path) into GP_WORK/pdf, text in GP_WORK/text (OCR for scans, ocrguard). When
+                 the source fails (HTTP 4xx/5xx, unreachable, timeout, no longer a PDF, robots.txt), the document is read
+                 from OPD's own copy (files.openparldata.ch/doc/<body>/<hash>, `url_oparl` in the docs export) and
+                 `sources.documents[].fetched_from` says `opd_copy` with the source's error; without a copy the affair
+                 is the typed failure `source_gone`.
 
 Output (stdout or --out): {"opd_affair", "status": "ok", "schema_version": "0.2.0", "record": <v0.2 record>,
 "needs_review", "review", "suggestions", "changes", "sources"}; --record-only prints the record alone. Several
@@ -29,10 +33,16 @@ Output (stdout or --out): {"opd_affair", "status": "ok", "schema_version": "0.2.
 Typed failures ({"opd_affair", "status": <kind>, "reason"}, exit 2): affair_not_found, no_documents,
 document_not_in_affair, exports_* (the exports could not be read: exports_robots_unreachable, exports_network_error, ...),
 the document kinds of `convert` (robots_disallowed, robots_unreachable, http_error, timeout, network_error, not_a_pdf,
-sha_mismatch, too_large, text_timeout, ocr_failed) and invalid_record (the v0.2 model rejected the record).
+sha_mismatch, too_large, text_timeout, ocr_failed), source_gone (the source failed and OPD's copy could not stand in),
+over_budget (make run step only: the step's time budget ran out) and invalid_record (the v0.2 model rejected the record).
 Exit 3: review mode refused because the served model is not the build θ was fitted on (as `convert`).
 
-Author roles (round 16): the record's roles are the rules' (gegenprobe.convert.roles), passed through
+Q/A pairing: `qa[0].items` (question n -> answer n, each with its page and span; an answer the reply does not mark is a
+typed null) by the P5 pairing rules (gegenprobe.schema.v0_2_qa.pair over gegenprobe.qa.extract; rules only, no model),
+as in the committed P3, P3b and P5 records. No question printed: the empty list's reason is none_printed; several
+questions in running text without markers: present_unanchored.
+
+Author roles: the record's roles are the rules' (gegenprobe.convert.roles), passed through
 gegenprobe.schema.role_consistency (a group's name over signatures with no designated first is a joint author, GUIDE_P8;
 a remaining R1-R4 inconsistency is listed in `review`). `--roles apertus` (opt-in, needs --backend) adds the frozen P10
 reader's roles under `suggestions.actors` (gegenprobe.convert.roles_review): located candidates, closed questions to
@@ -46,7 +56,10 @@ gegenprobe.convert.parts (detect_pdf + schema_parts). A document where it ran an
 converter version does not detect document parts"), as in the committed records.
 
 `make run` step: `step(ctx)` runs the command on the affairs of the three committed v0.2 samples (Bern, Vernier, Lugano;
-results/schema/v0_2/samples/) and compares each record with its sample field by field.
+results/schema/v0_2/samples/) and compares each record with its sample field by field. Time budget GP_AFFAIR_CLI_BUDGET
+(default 240 s) under gegenprobe.deadline, each request capped at GP_REQUEST_TIMEOUT (default 30 s), 2 tries. A document
+read from OPD's copy must have the sample's sha256; otherwise, and when no source is reachable, the affair SKIPs with
+its typed reason (source_gone, over_budget, network kinds), never FAILs.
 """
 from __future__ import annotations
 
@@ -74,9 +87,15 @@ SAMPLE_ROWS = ROOT / "data" / "affair_cli" / "opd_rows_samples.json"
 LEVEL = {"canton": "canton", "city": "commune", "municipality": "commune", "country": "federal"}
 CONVERTER = "gegenprobe.affair_cli"
 PARTS_NOT_EXTRACTED = "this converter version does not detect document parts"
-# document kinds that mean "the network or the host is not reachable now" (make-run step: SKIP, not FAIL)
+# document kinds that mean "the network or the host is not reachable now", or that the source has gone and OPD's own copy
+# could not stand in for it (make-run step: SKIP with the reason, not FAIL)
 UNREACHABLE = ("robots_unreachable", "network_error", "timeout", "exports_robots_unreachable", "exports_network_error",
-               "exports_timeout", "exports_http_error")
+               "exports_timeout", "exports_http_error", "source_gone", "over_budget")
+# a source document that fails with one of these is read from OPD's own copy (files.openparldata.ch/doc/<body>/<hash>,
+# `url_oparl` in the docs export), as compliance/mirror.py does for originals robots.txt disallows
+FALLBACK = ("http_error", "network_error", "timeout", "robots_unreachable", "robots_disallowed", "not_a_pdf")
+GONE = ("http_error", "not_a_pdf")  # the host answers but no longer serves the document
+OPD_COPY_PREFIX = "https://files.openparldata.ch/doc/"
 
 _FIRST_ID = re.compile(r'\s*\{\s*"id"\s*:\s*(\d+)')
 _AFFAIR_ID = re.compile(r'"affair_id"\s*:\s*(\d+)')
@@ -227,7 +246,10 @@ def _read_docs(out: dict, found: set, bodies: set, source: str, sources: dict) -
             d = json.loads(line)
             if d.get("affair_id") in found and d["id"] not in seen:
                 seen.add(d["id"])
-                out[d["affair_id"]]["docs"].append(scan.doc_row(d, b)[0])
+                row = scan.doc_row(d, b)[0]
+                if str(d.get("url_oparl") or "").startswith(OPD_COPY_PREFIX):
+                    row["url_oparl"] = d["url_oparl"]  # OPD's own copy: the fallback when the source has gone
+                out[d["affair_id"]]["docs"].append(row)
     for v in out.values():
         v["docs"].sort(key=lambda d: d["id"])
 
@@ -288,24 +310,80 @@ def pick_docs(docs: list[dict], affair_type: str | None, question_doc: int | Non
     return out
 
 
-def fetch_doc(role: str, d: dict, timeout: int = 60, tries: int = 2) -> dict:
-    """Fetch and extract one OPD document (pdftext.fetch_pdf through convert.batch.get_document; OCR for a scan) ->
-    the document entry affair.build expects. Raises AffairError with the `convert` failure kinds."""
+_copies: dict[tuple[str, int], str | None] = {}
+
+
+def opd_copy_url(d: dict) -> str | None:
+    """OPD's own copy of a document row: its `url_oparl` (exports read by this command keep it), else looked up once in
+    the body's docs export (files.openparldata.ch, through gegenprobe.net). None when OPD keeps no copy."""
+    u = d.get("url_oparl")
+    if isinstance(u, str) and u.startswith(OPD_COPY_PREFIX):
+        return u
+    body, did = str(d.get("b") or ""), d.get("id")
+    if not body or did is None:
+        return None
+    if (body, did) not in _copies:
+        found = None
+        try:
+            for line in _lines(f"docs/docs_{body}.ndjson.gz", "exports"):
+                m = _FIRST_ID.match(line)
+                if m and int(m.group(1)) != did:
+                    continue
+                x = json.loads(line)
+                if x.get("id") == did:
+                    found = x.get("url_oparl")
+                    break
+        except (OSError, net.Disallowed, ValueError, EOFError):
+            found = None
+        _copies[(body, did)] = found if isinstance(found, str) and found.startswith(OPD_COPY_PREFIX) else None
+    return _copies[(body, did)]
+
+
+def _fetch_text(url: str, timeout: int, tries: int):
     from . import pdftext
     from .convert import batch
 
+    sha, path = batch.get_document(url, timeout=timeout, tries=tries)
+    return sha, pdftext.extract(sha, path, ocr=True)
+
+
+def fetch_doc(role: str, d: dict, timeout: int = 60, tries: int = 2) -> dict:
+    """Fetch and extract one OPD document (pdftext.fetch_pdf through convert.batch.get_document; OCR for a scan) ->
+    the document entry affair.build expects. When the source fails with one of FALLBACK (gone: HTTP 4xx/5xx, unreachable,
+    no longer a PDF, or robots.txt), the document is read from OPD's own copy (opd_copy_url) and the entry says so
+    (fetched_from, copy_url, source_error). When OPD's copy fails too, or there is none and the source answered without
+    the document (GONE), AffairError("source_gone"); without a copy, robots.txt and network failures keep their kind.
+    Other failures raise AffairError with the `convert` failure kinds."""
+    copy_url = source_error = None
     try:
-        sha, path = batch.get_document(d["url"], timeout=timeout, tries=tries)
-        t = pdftext.extract(sha, path, ocr=True)
+        sha, t = _fetch_text(d["url"], timeout, tries)
     except Exception as e:  # noqa: BLE001 - every fetch/extract failure is typed (convert/output.classify)
         kind, reason = _classify(e)
-        raise AffairError(kind, f"{role} document opd:{d['id']} ({d['url']}): {reason}") from e
+        if kind not in FALLBACK:
+            raise AffairError(kind, f"{role} document opd:{d['id']} ({d['url']}): {reason}") from e
+        source_error = f"{kind} ({reason[:160]})"
+        # without a usable copy: a source that answers but no longer serves the document is `source_gone`; robots.txt
+        # and network kinds keep their own kind (both SKIP in the make run step, never FAIL)
+        gone = "source_gone" if kind in GONE else kind
+        copy_url = opd_copy_url(d)
+        if not copy_url:
+            raise AffairError(gone, f"{role} document opd:{d['id']} ({d['url']}): {kind}: {reason[:200]}; OPD keeps no "
+                              "copy of it in the docs export") from e
+        try:
+            sha, t = _fetch_text(copy_url, timeout, tries)
+        except Exception as e2:  # noqa: BLE001
+            k2, r2 = _classify(e2)
+            raise AffairError("source_gone", f"{role} document opd:{d['id']} ({d['url']}): {kind}: {reason[:200]}; "
+                              f"OPD's copy {copy_url}: {k2}: {r2[:200]}") from e2
     chars = sum(len(p) for p in t["pages"])
     if not chars:
         raise AffairError("text_failed", f"{role} document opd:{d['id']}: no text after extraction")
-    return dict(role=role, doc_id=d["id"], name=d.get("name"), url=d["url"], opd_text_status=d.get("st"),
-                opd_chars=d.get("n"), sha256=sha, pages=len(t["pages"]), chars=chars, extractor=t["extractor"],
-                image_only=bool(t["image_only"]))
+    out = dict(role=role, doc_id=d["id"], name=d.get("name"), url=d["url"], opd_text_status=d.get("st"),
+               opd_chars=d.get("n"), sha256=sha, pages=len(t["pages"]), chars=chars, extractor=t["extractor"],
+               image_only=bool(t["image_only"]), fetched_from="opd_copy" if copy_url else "source")
+    if copy_url:
+        out.update(copy_url=copy_url, source_error=source_error)
+    return out
 
 
 # ------------------------------------------------------------------------------------------------ document parts hook
@@ -375,6 +453,29 @@ def _parts_reasons(rec: dict, notes: list[dict]) -> None:
                                                       "signature) in this document")
         elif n["note"] != PARTS_NOT_EXTRACTED:
             rec["empty_reasons"][key] = dict(reason="not_extracted", route="rule", evidence=n["note"])
+
+
+# ------------------------------------------------------------------------------------------------ Q/A pairing
+def _apply_qa(rec: dict, entry: dict) -> tuple[dict, str | None]:
+    """qa[0].items from the fetched documents by the P5 pairing rules (gegenprobe.schema.v0_2_qa.pair: question n ->
+    answer n with spans; rules only, no model), as in the committed P3/P3b/P5 records. Without an answer document, or
+    when a text is not cached, the record keeps its typed empty reason; returns (record, why not paired)."""
+    from .schema import v0_2_qa
+    from .schema.v0_2_roles import pages_of
+
+    if not rec.get("qa"):
+        return rec, None
+    got = {}
+    for d in entry["docs"]:
+        pg = pages_of(d["sha256"], bool(d.get("image_only")))
+        if pg is None:
+            return rec, f"Q/A pairing not run: the {d['role']} text is not cached"
+        got[d["role"]] = (pg[0], f"opd:{d['doc_id']}", pg[1])
+    q = rec["qa"][0]
+    if "answer" not in got or q.get("answer_doc") != got["answer"][1] or (
+            "question" in got and q.get("question_doc") != got["question"][1]):
+        return rec, None
+    return v0_2_qa.with_qa(rec, v0_2_qa.pair(got.get("question"), got["answer"], entry.get("lang"))), None
 
 
 # ------------------------------------------------------------------------------------------------ the record
@@ -479,7 +580,8 @@ def build(affair_id: int, row: dict, names: list, *, sources: dict | None = None
     notes = _apply_parts(rec, entry)
     read = v0_2_roles.extract_row("opd", entry)
     rec = v0_2_all.with_roles(rec, read)
-    rec, _ = role_consistency.harmonise(rec)  # J1 round 16: a group over signatures is a joint author (GUIDE_P8)
+    rec, _ = role_consistency.harmonise(rec)  # a group over signatures is a joint author (GUIDE_P8)
+    rec, qa_note = _apply_qa(rec, entry)
     role_flags = role_consistency.violations(rec.get("actors") or [])
     _parts_reasons(rec, notes)
     src = sources or {}
@@ -491,7 +593,10 @@ def build(affair_id: int, row: dict, names: list, *, sources: dict | None = None
             "affair's documents (" + ", ".join(f"{d['role']} opd:{d['doc_id']}" for d in docs) + "); answer-link status "
             f"{ls} from this affair's rows; document parts: "
             + (f"{sum(len(rec['documents'][n['index']].get('parts') or []) for n in ran)} by {ran[0]['note']}" if ran
-               else notes[0]["note"] if notes else PARTS_NOT_EXTRACTED))
+               else notes[0]["note"] if notes else PARTS_NOT_EXTRACTED)
+            + "".join(f"; {d['role']} opd:{d['doc_id']} read from OPD's own copy ({d['copy_url']}): the source "
+                      f"returned {d['source_error']}" for d in docs if d.get("fetched_from") == "opd_copy")
+            + (f"; {qa_note}" if qa_note else ""))
     ex = rec["extraction"]
     ex["notes"] = f"{ex['notes']}; {note}" if ex.get("notes") else note
     try:
@@ -510,7 +615,8 @@ def build(affair_id: int, row: dict, names: list, *, sources: dict | None = None
                 needs_review=bool(post["needs_review"] or sugg or review), review=review, suggestions=sugg,
                 changes=post["changes"],
                 sources=dict(src, documents=[{k: d[k] for k in ("role", "doc_id", "name", "url", "sha256", "extractor",
-                                                                    "image_only")} for d in docs],
+                                                                    "image_only", "fetched_from", "copy_url",
+                                                                    "source_error") if k in d} for d in docs],
                              answer_link_status=ls, mode=mode, roles=roles,
                              **({"roles_fallback": roles_fallback} if roles == "apertus" else {})))
 
@@ -528,8 +634,15 @@ def failure(affair_id: int, e: AffairError) -> dict:
 
 
 def run(affair_ids: list[int], *, source: str = "auto", rows_file: str | None = None, save_rows_file: str | None = None,
-        **kw) -> list[dict]:
-    """Rows for the affairs (one pass over the exports), then one product row or typed failure per affair."""
+        budget_s: float | None = None, **kw) -> list[dict]:
+    """Rows for the affairs (one pass over the exports), then one product row or typed failure per affair. With
+    `budget_s`, each affair runs under gegenprobe.deadline (the rest of the budget); an affair cut off, and every affair
+    after it, is the typed failure `over_budget`."""
+    import time
+
+    from .deadline import DeadlineExceeded, deadline
+
+    t0 = time.time()
     try:
         rows = load_rows(Path(rows_file)) if rows_file else read_rows(affair_ids, source)
     except AffairError as e:
@@ -544,10 +657,15 @@ def run(affair_ids: list[int], *, source: str = "auto", rows_file: str | None = 
     for aid in affair_ids:
         row = rows["affairs"].get(aid) or dict(affair=None)
         body = (row.get("affair") or {}).get("body_key")
+        left = None if budget_s is None else budget_s - (time.time() - t0)
         try:
-            out.append(build(aid, row, rows["names"].get(body, []), sources=rows.get("sources"), **kw))
+            with deadline(left):
+                out.append(build(aid, row, rows["names"].get(body, []), sources=rows.get("sources"), **kw))
         except AffairError as e:
             out.append(failure(aid, e))
+        except DeadlineExceeded:
+            out.append(failure(aid, AffairError("over_budget", f"not finished within the {budget_s:.0f} s budget "
+                                                "(GP_AFFAIR_CLI_BUDGET)")))
     return out
 
 
@@ -693,11 +811,56 @@ def compare(rec: dict, sample: dict) -> dict:
 
     def docs(r):
         return {d["role"]: (d["doc_id"], tuple(d.get("language_of_text") or [])) for d in r.get("documents") or []}
+
+    def qa(r):  # Q/A items: (questions, answer passages located)
+        items = [i for q in r.get("qa") or [] for i in q.get("items") or []]
+        return [len(items), sum(i["answer"].get("kind") == "value" for i in items)]
+
+    def extractors(r):
+        return {d["doc_id"]: d.get("extractor") for d in r.get("documents") or []}
     checks = dict(documents=docs(rec) == docs(sample), language_of_text=docs(rec) == docs(sample))
     if ans(sample) is not None:
         checks["answer_date"] = ans(rec) == ans(sample)
+    # the pairing's spans depend on the text extractor: compared where both texts come from the same pdftotext/tesseract
+    if qa(sample)[0] and extractors(rec) == extractors(sample):
+        checks["qa_items"] = qa(rec) == qa(sample)
     return dict(compared=len(both), equal=len(both) - len(diff), differ=diff, checks=checks,
-                answer_date=ans(rec), sample_answer_date=ans(sample))
+                answer_date=ans(rec), sample_answer_date=ans(sample), qa_items=qa(rec), sample_qa_items=qa(sample))
+
+
+def expected_sha(sample: dict) -> dict[str, str]:
+    """doc_id -> sha256 of the document the committed sample was made from: the sample's own `sha256`, else the test's
+    document row (data/gold3, gold5, gold6: the P3, P3b and P5 affairs, gegenprobe.schema.v0_2_roles.SETS)."""
+    from .schema.v0_2_roles import SETS
+
+    out: dict[str, str] = {}
+    ids = {d["doc_id"] for d in sample.get("documents") or []}
+    for _, path in SETS:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line.strip() and str(sample["ref"]["opd_id"]) in line:
+                row = json.loads(line)
+                for d in row.get("docs") or []:
+                    k = f"opd:{d['doc_id']}"
+                    if k in ids and d.get("sha256"):
+                        out.setdefault(k, d["sha256"])
+    out.update({d["doc_id"]: d["sha256"] for d in sample.get("documents") or [] if d.get("sha256")})
+    return out
+
+
+def _copies_match(r: dict, sample: dict) -> dict:
+    """A document read from OPD's copy must be the committed sample's document (sha256); else the source is gone and
+    no copy matches: the typed failure source_gone (SKIP), never a comparison against another file."""
+    want = expected_sha(sample)
+    bad = []
+    for d in ((r.get("sources") or {}).get("documents") or []):
+        w = want.get(f"opd:{d['doc_id']}")
+        if d.get("fetched_from") == "opd_copy" and w != d["sha256"]:
+            bad.append(f"{d['role']} opd:{d['doc_id']}: OPD's copy {d['copy_url']} has sha256 {d['sha256'][:16]}…, "
+                       + (f"the sample's document {w[:16]}…" if w else "the sample's document has no recorded sha256"))
+    if not bad:
+        return r
+    return dict(opd_affair=r["opd_affair"], status="source_gone",
+                reason="the source failed and OPD's copy differs from the committed sample: " + "; ".join(bad))
 
 
 def _samples() -> list[tuple[Path, dict]]:
@@ -708,8 +871,10 @@ def step(ctx: dict) -> dict:
     """`make run` step: the affair command on the affairs of the three committed v0.2 samples (Bern, Vernier, Lugano).
     OPD's rows: the committed slice data/affair_cli/opd_rows_samples.json (saved by --save-rows), or, with
     GP_AFFAIR_LIVE_EXPORTS=1, the live exports (about 0.7 GB streamed, BE's docs export included); the documents are
-    fetched from their sources. PASS: every reached record validates and its documents, language of each text and
-    answer date (where the sample has one) equal the committed sample's. SKIP offline or when no source is reachable."""
+    fetched from their sources (OPD's own copy where a source has gone, sha256 checked against the sample). PASS: every
+    reached record validates and its documents, language of each text, answer date (where the sample has one) and Q/A
+    items (questions and located answers, where the sample has items and the texts come from the same extractor) equal
+    the committed sample's. SKIP offline, or when no affair could be checked (each with its typed reason)."""
     if not ctx.get("online"):
         return dict(status="SKIP", summary="offline: the affair command fetches the documents from their sources")
     samples = _samples()
@@ -718,7 +883,11 @@ def step(ctx: dict) -> dict:
     ids = [s["ref"]["opd_id"] for _, s in samples]
     live = os.environ.get("GP_AFFAIR_LIVE_EXPORTS") == "1"
     rows_file = None if live or not SAMPLE_ROWS.exists() else str(SAMPLE_ROWS)
-    rows = run(ids, source="exports" if live else "auto", rows_file=rows_file)
+    from .deadline import request_timeout
+
+    budget = float(os.environ.get("GP_AFFAIR_CLI_BUDGET", "240"))
+    rows = run(ids, source="exports" if live else "auto", rows_file=rows_file, budget_s=budget,
+               timeout=request_timeout(), tries=2)
     out_dir = Path(ctx.get("out") or "out") / "affair_cli"
     out_dir.mkdir(parents=True, exist_ok=True)
     per, failed, unreachable = [], [], []
@@ -726,6 +895,8 @@ def step(ctx: dict) -> dict:
         tag = f"{sample['ref']['body_key']}:{sample['ref']['opd_id']}"
         (out_dir / f"{sample['ref']['body_key']}_{sample['ref']['opd_id']}.json").write_text(
             json.dumps(r, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        if r["status"] == "ok":
+            r = _copies_match(r, sample)
         if r["status"] != "ok":
             (unreachable if r["status"] in UNREACHABLE else failed).append(f"{tag} {r['status']}")
             per.append(dict(affair=tag, status=r["status"], reason=r["reason"][:300]))
@@ -734,21 +905,28 @@ def step(ctx: dict) -> dict:
         ok = all(c["checks"].values())
         if not ok:
             failed.append(f"{tag} differs from {p.name} in {', '.join(k for k, v in c['checks'].items() if not v)}")
+        copies = [f"{d['role']} from OPD's copy (source: {d['source_error'].split(' ', 1)[0]})"
+                  for d in ((r.get("sources") or {}).get("documents") or []) if d.get("fetched_from") == "opd_copy"]
         per.append(dict(affair=tag, sample=p.relative_to(ROOT).as_posix(), status="ok" if ok else "differs",
+                        documents_from_opd_copy=copies, qa_items=c["qa_items"], sample_qa_items=c["sample_qa_items"],
                         needs_review=r["needs_review"], answer_date=c["answer_date"],
                         sample_answer_date=c["sample_answer_date"], fields_compared=c["compared"],
                         fields_equal=c["equal"], fields_differ=c["differ"], checks=c["checks"]))
     done = [x for x in per if x["status"] in ("ok", "differs")]
     src = "committed export slice" if rows_file else "live exports"
     summary = (f"affair command on {len(samples)} sample affairs (rows: {src}; documents fetched): "
-               + "; ".join(f"{x['affair']} " + (f"valid, answer date {x['answer_date']}, {x['fields_equal']}/"
-                                                 f"{x['fields_compared']} comparable fields equal to the "
-                                                 f"{x['sample'].rsplit('/', 1)[-1].split('_', 1)[0].upper()} sample"
+               + "; ".join(f"{x['affair']} " + (f"valid, answer date {x['answer_date']}, {x['qa_items'][0]} Q/A items "
+                                                 f"({x['qa_items'][1]} answers located), "
+                                                 f"{x['fields_equal']}/{x['fields_compared']} comparable fields equal to "
+                                                 f"the {x['sample'].rsplit('/', 1)[-1].split('_', 1)[0].upper()} sample"
+                                                 + (f" ({'; '.join(x['documents_from_opd_copy'])})"
+                                                    if x["documents_from_opd_copy"] else "")
                                                  if x in done else x["status"]) for x in per))
     if failed:
         return dict(status="FAIL", summary=summary + f"; FAIL: {'; '.join(failed)}", affairs=per)
     if not done:
-        return dict(status="SKIP", summary=f"no source reachable ({'; '.join(unreachable)})", affairs=per)
+        return dict(status="SKIP", summary=f"no source reachable ({'; '.join(unreachable)})", affairs=per,
+                    reasons=[x for x in per if x["status"] in UNREACHABLE])
     return dict(status="PASS", summary=summary + (f"; unreachable: {'; '.join(unreachable)}" if unreachable else ""),
                 affairs=per)
 

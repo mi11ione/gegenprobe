@@ -1,4 +1,4 @@
-"""Round 8: a GP_USER_AGENT with an e-mail address is refused, fail-closed, before any request (contacts must be a URL)."""
+"""A GP_USER_AGENT with an e-mail address is refused, fail-closed, before any request (contacts must be a URL)."""
 import subprocess
 import sys
 import urllib.request

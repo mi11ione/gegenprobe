@@ -1,5 +1,5 @@
-"""Round 16 product fixes (no network, no model):
-  * author-role consistency in the v0.2 records (gegenprobe.schema.role_consistency; J1: a group sole_author next to
+"""Product fixes (no network, no model):
+  * author-role consistency in the v0.2 records (gegenprobe.schema.role_consistency; a group sole_author next to
     joint authors on one affair);
   * `python -m gegenprobe affair --roles apertus`: the frozen P10 reader as an opt-in review route, with a fake backend;
   * `convert` emits opd_text_span by default where OPD's stored text exists (gegenprobe.convert.opd_store);

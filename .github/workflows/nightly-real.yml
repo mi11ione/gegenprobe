@@ -39,10 +39,11 @@ jobs:
       - name: install the unit as documented (install.sh --venv) and set a User-Agent with a contact
         run: |
           set -eu
-          sudo sh /opt/gegenprobe/track_2a/deploy/nightly/install.sh --venv
+          # GP_USER_AGENT is required: install.sh writes it into /etc/gegenprobe/alerts.env (refuses without a contact URL)
+          sudo sh /opt/gegenprobe/track_2a/deploy/nightly/install.sh --venv --user-agent "$UA"
           # the timer stays installed but must not start a second night while this one runs
           sudo systemctl stop gegenprobe-nightly.timer
-          printf 'GP_USER_AGENT=%s\n' "$UA" | sudo tee -a /etc/gegenprobe/alerts.env
+          sudo grep '^GP_USER_AGENT=' /etc/gegenprobe/alerts.env
           sudo systemctl cat gegenprobe-nightly.service
       - name: one night under systemd (systemctl start blocks until the oneshot unit exits)
         run: |

@@ -31,7 +31,7 @@ the derived meeting date that P4-H4 needs, so the script reads it from the virtu
 (`V <meeting date> - <item no>`, written by the frozen `derive.py`) and compares it with the gold meeting date.
 Result as reported: 6/6.
 
-## D4-6 (11 Oct 2026, round-9 jury): the PREREG4 header predates the lock
+## D4-6 (11 Oct 2026, found in review): the PREREG4 header predates the lock
 `PREREG4.md` line 1 still reads "DRAFT, not locked". The header was written before the lock and was not updated when P4
 was locked; the file is hashed in `LOCK4`, so it is left unchanged to keep the lock verifiable. `LOCK4` is the record:
 P4 was locked before any P4 label, and its registered content is the hashed text.

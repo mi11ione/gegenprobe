@@ -1,5 +1,5 @@
-"""POST HOC (11 Oct 2026, round 6; P7 added in round 8): when did each annotator session run, relative to the server-side
-times of the LOCK, draw and label commits? Asked for by the round-6 jury (J2: "lock-before-label order is shown by commit
+"""POST HOC (11 Oct 2026; P7 added later the same day): when did each annotator session run, relative to the server-side
+times of the LOCK, draw and label commits? Proposed in review ("lock-before-label order is shown by commit
 order only").
 
 Sources (none committed; this script runs only on the author's machine, its output is the evidence):
@@ -7,7 +7,7 @@ Sources (none committed; this script runs only on the author's machine, its outp
     an annotator session when its first user message starts "You are annotator A1|A2" or "You are tie-break annotator A3".
     Read: the timestamps of every transcript line, the model of every assistant turn, the output directory named in the
     prompt (.work/<set>/ann/<A>/ or .work/gold4/transfer/ann/<A>/) and the document ids the prompt assigns. No document
-    text and no prompt text is copied into the output. P7 (round 8): the sessions start "You are blind annotator A1|A2"
+    text and no prompt text is copied into the output. P7: the sessions start "You are blind annotator A1|A2"
     or "You are tie-break annotator A3" and write one JSONL file each (.work/p7dev|p7test/ann/<A>[_partN].jsonl); a
     label there is a line of that file, and its time is the file's mtime.
   * the label files the session wrote (.work/<set>/ann/<A>/<id>.json): count, and how many have a file mtime inside the
@@ -19,7 +19,7 @@ Sources (none committed; this script runs only on the author's machine, its outp
   * the budget gateway's append-only ledger (~/.config/hackapertus/ledger.jsonl: time, tag, model per call) for the
     scripted Qwen checks, which ran without an agent session.
 
-  Round 16 (J2, J5): P10 (A1, A2 on 40 packets, A3 on the 9 tie-breaks), the document-parts blind check (A1, A2;
+  Added later: P10 (A1, A2 on 40 packets, A3 on the 9 tie-breaks), the document-parts blind check (A1, A2;
   exploratory, no lock: its draw rule, guide and scorer were committed in 4473c27f before any annotation) and the federal
   cell (exploratory, LOCKFED) are appended as sets 13-15. Their prompts read "You are annotator `A1`" (backticks) and
   assign packet ranges as "P10-001 ... P10-040" or the tie-break directory (.work/p10/a3/). `overall` and
@@ -47,8 +47,8 @@ TRANSCRIPTS = Path(os.environ.get(
     "GP_TRANSCRIPTS", Path.home() / ".claude/projects/-Users-mi11ion-Desktop-hackapertus-FINAL"))
 LEDGER = Path.home() / ".config/hackapertus/ledger.jsonl"
 OUT = RESULTS / "eval" / "annotation_sessions.json"
-LABEL = ("POST HOC (11 Oct 2026, round 6; P7 round 8; P8 and its Qwen check round 13; P10, the document-parts check and "
-         "the federal cell round 16): session times from the annotator agents' own transcripts and GitHub's server "
+LABEL = ("POST HOC (11 Oct 2026; P7, P8 and its Qwen check, P10, the document-parts check and "
+         "the federal cell added later): session times from the annotator agents' own transcripts and GitHub's server "
          "times of the commits; no registered decision depends on this file")
 SLACK_S = 5
 
@@ -74,10 +74,10 @@ SETS = [
          note="the P7 dev labels chose theta_A, the is_answer variant and theta_B (PREREG8); LOCK8 (73954c3) came after them"),
     dict(set="P7", work="p7test", commits=dict(lock="73954c3", draw="6e4420c", labels="432cd74"),
          note="'draw' is 6e4420c: every arm run on the 478-row test frame, decisions and key hashes recorded, packets drawn"),
-    # round 13 (J2): P8, the meaning test the schema headline rests on
+    # P8, the meaning test the schema headline rests on
     dict(set="P8", work="p8", commits=dict(lock="b8d1a19", draw="4d8a228", labels="c0a2f91"),
          note="LOCK9 b8d1a19, draw 4d8a228 (66 affairs, key and packet hashes), labels c0a2f91 (A1, A2 on 66, A3 on 7)"),
-    # round 16 (J2 item 4, J5 item 5): the two results added last, and the federal cell
+    # the two results added last, and the federal cell
     dict(set="P10", work="p10", commits=dict(lock="2228e4e", draw="1ba6729", labels="f5abc5b"),
          note="LOCK10 2228e4ed, draw 1ba67294 (34 primary + 6 secondary affairs, ids and hashes), labels f5abc5b8 (A1, A2 on "
               "40, A3 on the 9 tie-breaks); the arms ran after the labels (7677a6d0)"),
@@ -93,8 +93,8 @@ QWEN = [  # scripted checks through the gateway (no agent session): ledger tag -
     dict(set="Qwen check P5", tag="2a-p5-qwen", commit="b6aaf7a"),
     dict(set="Qwen check P6", tag="2a-p6-qwen", commit="cc44e27"),
     dict(set="Qwen check P7", tag="2a-p7-qwen", commit="db3f3ed"),
-    dict(set="Qwen check P8", tag="2a-p8-qwen", commit="363c548"),  # round 13 (J2)
-    dict(set="Qwen check P10 (exploratory)", tag="2a-p10-qwen", commit=None),  # round 16 (J5); labels not yet pushed
+    dict(set="Qwen check P8", tag="2a-p8-qwen", commit="363c548"),
+    dict(set="Qwen check P10 (exploratory)", tag="2a-p10-qwen", commit=None),  # labels not yet pushed
 ]
 ROLE_RX = re.compile(r"You are (tie-break annotator A3|annotator A[12]|blind annotator A[12]|annotator `A[123]`)")
 OUT_RX = re.compile(r"\.work/([\w./-]+?)/ann/(A[123])/")
@@ -313,13 +313,13 @@ def main(out_path: Path | None = None) -> dict:
                                        "prompts; they stay on the author's machine. Timestamps are written by the "
                                        "Claude Code client (author's clock), GitHub times by GitHub's servers"),
         ),
-        # P1-P7 (the scope of rounds 6-8; P8 is added below in overall_with_p8, so the round-8 figures stay traceable)
+        # P1-P7 (the earlier scope; P8 is added below in overall_with_p8, so the earlier figures stay traceable)
         overall=_overall([s for s in sets if s["set"] != "P8" and s["set"] not in NEW_SETS]),
         overall_with_p8=_overall([s for s in sets if s["set"] not in NEW_SETS]),
-        # round 16: every set, P10, the document-parts check and the federal cell included
+        # every set, P10, the document-parts check and the federal cell included
         overall_all=_overall(sets),
         overall_p10_parts_fed=_overall([s for s in sets if s["set"] in NEW_SETS]),
-        # the round-6 scope (P1-P6, before P7 existed), kept so that the round-6 figures stay traceable
+        # the first scope (P1-P6, before P7 existed), kept so that its figures stay traceable
         overall_p1_p6=dict(
             n_sessions=sum(len(s["sessions"]) for s in early),
             n_sets_with_sessions=sum(1 for s in early if s["sessions"]),

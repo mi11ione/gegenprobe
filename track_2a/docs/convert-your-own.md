@@ -186,7 +186,7 @@ Example: an answer letter that starts "Collombey-Muraz, le 15 juillet 2019" has 
   `Conseil communal`, `Conseil municipal`) and "An den Regierungsrat" (a member's own text, dated on submission) are not
   used. On the 313 committed gold documents (P1 dev and held-out, P2; 194 of them without an answer heading) the hint
   never fires (`results/convert/letter_hint_check.json`, post hoc); it was written for the Schaffhausen layout (three of
-  three answer letters in a user test, round 5).
+  three answer letters in a user test).
 - **`needs_review` and `review_reasons`**: the row needs a person when it carries an Apertus suggestion, when a field has
   `needs_review: true` (each with its `review_reason`), or when the parliament has no rules. `review_reasons` lists
   one `{field, reason}` per flag; the CLI also prints them on stderr. `--queue` collects these rows.

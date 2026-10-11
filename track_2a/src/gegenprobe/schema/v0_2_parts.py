@@ -25,10 +25,16 @@ is eval/parts): per set, the documents examined and the records and documents ca
 15 records (results/fed/fed_records_v0_2.jsonl, eval.fed.arms offline) are carried with their parts to fed_records.jsonl
 and counted there, apart from the 105 converter records.
 
-Round 16 (J1): after the parts, each record's author roles pass gegenprobe.schema.role_consistency: where the rules put
-`sole_author` next to `joint_author` (a group's name over signatures with no "for the group"), the sole author becomes a
-joint author (GUIDE_P8), with a sentence in `extraction.notes`. validation_all.json's `role_consistency` block lists the
-records changed and the R1-R4 check over every set (P8's gold included); a violation stops the render.
+Q/A pairing: after the parts, gegenprobe.schema.v0_2_qa.with_qa puts the P5 pairing rules' items (question n -> answer
+n, from the committed results/schema/v0_2/qa_pairs.jsonl; `python -m gegenprobe.schema.v0_2_qa detect` re-derives it from
+the cached texts) into the P3 and P3b records' qa[0].items; validation_all.json's `qa_pairing` block counts them, and
+`make run` checks that every committed sample whose documents print questions carries them.
+
+Author roles: after the parts and the Q/A pairing, each record's author roles pass
+gegenprobe.schema.role_consistency: where the rules put `sole_author` next to `joint_author` (a group's name over
+signatures with no "for the group"), the sole author becomes a joint author (GUIDE_P8), with a sentence in
+`extraction.notes`. validation_all.json's `role_consistency` block lists the records changed and the R1-R4 check over
+every set (P8's gold included); a violation stops the render.
 """
 from __future__ import annotations
 
@@ -41,6 +47,7 @@ from ..convert import parts as P
 from ..paths import PDF_CACHE, ROOT
 from . import role_consistency as RC
 from . import v0_2_all as V
+from . import v0_2_qa as QA
 from . import v0_2_roles
 from .p8_v0_2 import OUT, schema_module
 
@@ -224,9 +231,11 @@ def render() -> dict[str, str]:
     files = dict(base)
     val = json.loads(base["validation_all.json"])
     by_set, block, roles_changed = {}, {}, {}
+    pairs, qa_before = QA.load(), {}
     for k in CONVERTER_SETS:
-        recs = [with_roles_consistent(with_parts(json.loads(x), det, k), roles_changed, k)
-                for x in base[f"{k}_records.jsonl"].splitlines() if x.strip()]
+        base_recs = [json.loads(x) for x in base[f"{k}_records.jsonl"].splitlines() if x.strip()]
+        qa_before[k] = sum(any(q.get("items") for q in r.get("qa") or []) for r in base_recs)
+        recs = [with_roles_consistent(_with_qa(with_parts(r, det, k), pairs, k), roles_changed, k) for r in base_recs]
         st, valid = V.stats(recs, m)
         if st["n_invalid"]:
             raise ValueError(f"{k}: {st['invalid'][:2]}")
@@ -267,9 +276,15 @@ def render() -> dict[str, str]:
         fed=dict(fed_block, records="results/schema/v0_2/fed_records.jsonl",
                  source=f"{FED_IN.relative_to(ROOT).as_posix()} (eval.fed.arms offline) + {OVERLAY}"),
     )
+    val["qa_pairing"] = QA.block(by_set, qa_before)
     val["role_consistency"] = role_block(files, roles_changed)
     files["validation_all.json"] = json.dumps(val, ensure_ascii=False, indent=1) + "\n"
     return files
+
+
+def _with_qa(rec: dict, pairs: dict, set_name: str) -> dict:
+    """P3 / P3b: the committed Q/A pairing (gegenprobe.schema.v0_2_qa) in qa[0].items; P5 keeps its own."""
+    return QA.with_qa(rec, QA.for_record(rec, pairs, set_name)) if set_name in QA.SETS else rec
 
 
 # ----------------------------------------------------------------------------------------------------------- roles
@@ -320,11 +335,15 @@ def step(ctx: dict) -> dict:
     p8 = p8_v0_2.step(ctx)
     rc = v0_2_roles.check()
     pc = check_detections()
+    qc = QA.check_detections()
     files = render()
     bad = _diff(files)
     val = json.loads(files["validation_all.json"])
+    sc = QA.samples_check(files, val["samples"])
     s, dp = val["sets"], val["document_parts"]["converter_made"]
-    ok = p8["status"] == "PASS" and not bad and val["n_invalid"] == 0 and rc["status"] != "FAIL" and pc["status"] != "FAIL"
+    ok = (p8["status"] == "PASS" and not bad and val["n_invalid"] == 0 and rc["status"] != "FAIL"
+          and pc["status"] != "FAIL" and qc["status"] != "FAIL" and sc["status"] != "FAIL")
+    qa = val["qa_pairing"]["sets"]
     carry = dp["records_carrying"]
     summary_ = (f"schema v0.2: {val['n_valid']}/{val['n_affairs']} affairs valid (converter records: P3 "
                 f"{s['p3']['n_valid']}/{s['p3']['n_affairs']}, P3b {s['p3b']['n_valid']}/{s['p3b']['n_affairs']}, P5 "
@@ -335,6 +354,9 @@ def step(ctx: dict) -> dict:
                   f"{carry['table']}, budget table {carry['budget_table']}, image {carry['image']}, signature "
                   f"{carry['signature']}); "
                 + pc["summary"]
+                + "; Q/A items in " + ", ".join(f"{k.upper().replace('B', 'b')} {qa[k]['records_with_items']}/"
+                                               f"{qa[k]['n_records']}" for k in CONVERTER_SETS)
+                + f" records; {qc['summary']}; {sc['summary']}"
                 + (f"; differs: {', '.join(bad)}" if bad else "")
                 + ("" if p8["status"] == "PASS" else f"; P8: {p8['summary']}"))
     return dict(status="PASS" if ok else "FAIL", summary=summary_)

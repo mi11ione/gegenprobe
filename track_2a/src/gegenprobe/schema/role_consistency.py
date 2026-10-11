@@ -3,7 +3,7 @@
     python -m gegenprobe.schema.role_consistency FILE [FILE ...]   check v0.2 records (a record, a product row with
                                                                    `record`, or JSONL of either); exit 1 on a violation
 
-Round 16 (J1): the converter printed a group as `sole_author` and the five persons who signed under the group's name as
+The converter printed a group as `sole_author` and the five persons who signed under the group's name as
 `joint_author` on the same affair (results/schema/v0_2/samples/p5_5192_28156.json; the post-hoc branch "a group's name
 over signatures, no 'for the group'" in gegenprobe.convert.roles, frozen under the LOCK files, so the repair is applied
 here, after the rules, in the v0.2 carrier (gegenprobe.schema.v0_2_parts) and in `python -m gegenprobe affair`).

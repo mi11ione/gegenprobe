@@ -4,9 +4,12 @@ For each held-out document: fetch the PDF from its source URL and verify it agai
 (pdftext.fetch_pdf), extract the text (pdftotext; tesseract deu+fra+ita for image-only scans if tesseract is installed),
 run the frozen rules (convert/rules.py, LOCK-hashed), and compare status and value with the committed rules row
 (results/eval/heldout__none.json). Documents whose host is unreachable or forbidden by robots.txt are skipped and
-counted; a time budget (GP_REDERIVE_BUDGET seconds, default 360) stops the step with a partial count.
+counted; a time budget (GP_REDERIVE_BUDGET seconds; `make run` sets 240, default here 360) stops the step with a partial
+count. The budget is a hard ceiling: each document's fetch and extraction runs under gegenprobe.deadline with the rest of
+the budget (SIGALRM; a fetch or OCR still running at the budget is interrupted and counted `not_reached_budget`), and
+each request is capped at min(GP_REQUEST_TIMEOUT (default 30 s), the rest of the budget) with 2 tries.
 
-OCR (round 13): before the first scan, gegenprobe.ocrguard.status() checks tesseract AND its deu/fra/ita language data
+OCR: before the first scan, gegenprobe.ocrguard.status() checks tesseract AND its deu/fra/ita language data
 (and compares each model's sha256 with the measured tessdata_fast set); without them the scans are skipped and counted
 with the reason, never re-derived from empty text. A scan whose OCR fails at run time is listed as `ocr_failed`.
 
@@ -27,6 +30,7 @@ from pathlib import Path
 
 from gegenprobe import ocrguard, pdftext
 from gegenprobe.convert import rules
+from gegenprobe.deadline import DeadlineExceeded, deadline, request_timeout
 from gegenprobe.paths import DATA, RESULTS
 from gegenprobe.compliance import fetchguard
 
@@ -51,15 +55,22 @@ def run(budget_s: float | None = None) -> dict:
                ocr=dict(ok=ocr["ok"], reason=ocr["reason"], dir=ocr["dir"], pinned=ocr["pinned"],
                         unpinned=ocr["unpinned"], tessdata_commit=ocrguard.TESSDATA_COMMIT))
     for i, d in enumerate(docs):
-        if time.time() - t0 > budget_s:
+        left = budget_s - (time.time() - t0)
+        if left <= 0:
             res["not_reached_budget"] = len(docs) - i
             break
         if d.get("image_only") and not has_ocr:
             res["skipped_no_ocr"] += 1
             continue
         try:
-            sha, path = pdftext.fetch_pdf(d["url"], expect_sha256=d["sha256"])
-            t = pdftext.extract(sha, path)
+            with deadline(left):
+                sha, path = pdftext.fetch_pdf(d["url"], expect_sha256=d["sha256"], timeout=request_timeout(left),
+                                              tries=2)
+                t = pdftext.extract(sha, path)
+        except DeadlineExceeded:
+            res["not_reached_budget"] = len(docs) - i
+            res["interrupted"] = d["doc_id"]
+            break
         except pdftext.FetchError as e:
             if e.kind == ocrguard.KIND:  # a scan whose OCR did not run: counted and named, never scored as a null
                 res["ocr_failed"].append(dict(doc_id=d["doc_id"], reason=e.detail[:200]))

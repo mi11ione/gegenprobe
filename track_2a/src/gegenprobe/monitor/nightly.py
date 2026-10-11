@@ -54,9 +54,12 @@ usage:
                                                   old index is GP_OPD_RAW/index.json, else the last night's state.json)
 Exit codes: 0 quiet night, GP_ALERT_EXIT (default 3) alerts, 1 job or delivery failure, 2 nothing to work on yet (empty
 cache: the message names the command to run first).
-User-Agent: GP_USER_AGENT (net.py; default hackapertus-research/0.1). An operator sets its own product token and a contact
-URL; a network night without a contact URL says so on stderr and in run.json (`user_agent`). A User-Agent with an e-mail
-address is refused (compliance/fetchguard.ua_problem): the night exits 1 before its first request.
+User-Agent: GP_USER_AGENT (net.py; default hackapertus-research/0.1). A network night (`run`, also with GP_EXPORTS_DIR,
+which still fetches the canton's tables) refuses to start unless GP_USER_AGENT names a contact URL (http:// or https://,
+not a reserved example domain such as example.org): it exits 1 before its first request, as it does for a User-Agent with
+an e-mail address (compliance/fetchguard.ua_problem). deploy/nightly/alerts.env.example ships the line with a placeholder
+that is refused until the operator sets its own product token and contact URL. `offline` sends no request and does not
+check it.
   python -m gegenprobe.monitor.nightly cost       results/monitor/night_cost.json: what the measured 96.8 s night covered,
                                                   the cited full docs/texts rescan time and the changed-files estimate
                                                   (no network; reads run_local_exports.json and index_diff.json)
@@ -309,14 +312,14 @@ def _status(verified) -> str:
 
 def checked_tonight(r: dict) -> bool:
     """True when verify_new ran on this row tonight. Rows straight from be.join carry checks=None and verified=None: that
-    means "not checked tonight", never "check result: none" (the round-8 ledger bug, see carry_verdicts)."""
+    means "not checked tonight", never "check result: none" (the ledger bug, see carry_verdicts)."""
     return bool(r.get("checked_tonight")) or isinstance(r.get("checks"), dict)
 
 
 def carry_verdicts(rows_: list[dict], ledger: dict[str, dict]) -> int:
     """Rows seen on an earlier night and not re-checked tonight keep that night's verdict: a row whose check failed stays
     action `review` (its proposed action in `proposed_action`), so it is never handed on again as a relink/fetch.
-    Returns the number of rows carried as review. be.join emits every row with verified=None; before round 8 that value
+    Returns the number of rows carried as review. be.join emits every row with verified=None; earlier that value
     overwrote the stored verdict, so night 2 of the two Docker nights (run 38098822336) showed all 2,508 rows `unchecked`."""
     n = 0
     for r in rows_:
@@ -460,16 +463,45 @@ def _check_ogd(ogd: Path) -> None:
                        "Fetch them first (two GETs, ~23 MB): python -m gegenprobe.repair.be fetch-ogd")
 
 
+_CONTACT = re.compile(r"https?://([A-Za-z0-9.-]+)")
+# RFC 2606 / 6761 names that can reach nobody, and the template's placeholder host
+_NO_CONTACT_HOST = re.compile(r"(^|\.)(example\.(com|net|org|ch)|example|invalid|test|localhost|set-me|change-me)$", re.I)
+
+
+def contact_url(ua: str) -> str | None:
+    """The first http(s) URL in the User-Agent whose host can be reached (not a reserved example or placeholder name)."""
+    for m in _CONTACT.finditer(ua or ""):
+        host = m.group(1).rstrip(".").lower()
+        if "." in host and not _NO_CONTACT_HOST.search(host):
+            return m.group(0)
+    return None
+
+
 def user_agent() -> dict:
     """The User-Agent every request carries, and whether it names a contact URL (an e-mail address is refused by the
-    fetch guard, compliance/fetchguard.ua_problem)."""
+    fetch guard, compliance/fetchguard.ua_problem; a network night without a contact URL is refused, ua_refusal)."""
     ua = net.UA
-    return dict(value=ua, has_contact=bool(re.search(r"https?://", ua)),
+    return dict(value=ua, has_contact=contact_url(ua) is not None,
                 source="GP_USER_AGENT" if os.environ.get("GP_USER_AGENT") else "default")
 
 
 class BadUserAgent(RuntimeError):
-    """GP_USER_AGENT contains an e-mail address: the night stops before its first request (exit 1, no traceback)."""
+    """GP_USER_AGENT contains an e-mail address or names no contact URL: a network night stops before its first request
+    (exit 1, no traceback)."""
+
+
+def ua_refusal(ua: dict) -> str | None:
+    """Why a network night refuses this User-Agent, or None: an e-mail address (fetchguard), or no contact URL."""
+    bad = fetchguard.ua_problem(ua["value"])
+    if bad:
+        return bad
+    if ua["has_contact"]:
+        return None
+    return (f"GP_USER_AGENT {ua['value']!r} ({ua['source']}) names no contact URL; the network night is refused "
+            "(fail-closed, nothing fetched). Set your own product token and a contact URL that reaches you, e.g. "
+            "GP_USER_AGENT=opd-gegenprobe/0.1 (+https://www.openparldata.ch/contact) in /etc/gegenprobe/alerts.env "
+            "(docs/runbook.md, User-Agent). Reserved example domains (example.org, ...) and the template's placeholder "
+            "are refused.")
 
 
 def ua_note(ua: dict) -> str | None:
@@ -541,11 +573,9 @@ def night(offline: bool) -> dict:
         opd, meta = offline_inputs()
         _check_ogd(Path(os.environ.get("GP_BE_OGD") or _be_ogd_dir()))
     else:
-        bad = fetchguard.ua_problem(ua["value"])
+        bad = ua_refusal(ua)
         if bad:
             raise BadUserAgent(bad)
-        if ua_note(ua):
-            print(ua_note(ua), file=sys.stderr, flush=True)
         # nDSG retention: cached PDFs and texts older than GP_CACHE_MAX_AGE_DAYS (default 30; 0 = never) expire before
         # the night fetches anything (gegenprobe/cache_retention.py); a malformed setting fails the night
         from .. import cache_retention

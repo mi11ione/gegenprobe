@@ -1,4 +1,4 @@
-"""Display-ready numbers for the round-7 docs pass, derived only from committed files, so claims.tsv can trace them:
+"""Display-ready numbers for the docs pass, derived only from committed files, so claims.tsv can trace them:
 
   * the 9,720 proposed repairs split by how each row was checked: per-row verified, agenda joins (OPD's own agenda link,
     never sample-checked) and Bern rows the per-row check sent to review (census/corrected.py placement + the Bern lists);
@@ -104,7 +104,7 @@ def vocab_bugs() -> dict:
     entity it occurs on. Sources: data/schema/opd_label_issues.json (mistranslations found while building the
     vocabularies) and the harmonised type values of data/census/affairs.tsv.gz (a trailing space). Column
     census_snapshot: generated_at of the OPD export index the census was built from (data/census/meta.json), i.e. the
-    snapshot the affairs_in_census counts belong to (round 8: the counts carried no date)."""
+    snapshot the affairs_in_census counts belong to (earlier the counts carried no date)."""
     snap = json.loads((DATA / "census" / "meta.json").read_text())["inputs"]["index.json"]["generated_at"]
     with gzip.open(DATA / "census" / "affairs.tsv.gz", "rt", encoding="utf-8") as f:
         types = collections.Counter(r["type_h"] for r in csv.DictReader(f, delimiter="\t"))

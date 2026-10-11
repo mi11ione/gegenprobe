@@ -1,4 +1,4 @@
-"""Display-ready numbers for the round-15 docs pass, derived only from committed files, so claims.tsv can trace them:
+"""Display-ready numbers for the docs pass, derived only from committed files, so claims.tsv can trace them:
 
   * P10 (eval/prereg10/PREREG10.md, LOCK10; results/p10/p10_scores.json, p10_agreement.json, sample.json, dev10.json):
     Apertus as a closed-set reader of author roles on parliaments outside every rule set. The registered hypotheses in
@@ -86,7 +86,7 @@ def parts() -> dict:
 
 
 def main() -> int:
-    out = dict(label="round-15 display numbers from committed files (report/r15_numbers.py)", p10=p10(), parts=parts())
+    out = dict(label="display numbers from committed files (report/r15_numbers.py)", p10=p10(), parts=parts())
     OUT.write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps(out, indent=1, ensure_ascii=False))
     return 0

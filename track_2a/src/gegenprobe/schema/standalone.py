@@ -1,4 +1,4 @@
-"""Writes schema/gegenprobe_schema.py: schema v0.1 as one side-effect-free module for integrators (round 8, J1).
+"""Writes schema/gegenprobe_schema.py: schema v0.1 as one side-effect-free module for integrators.
 
     python -m gegenprobe.schema.standalone            write track_2a/schema/gegenprobe_schema.py
     python -m gegenprobe.schema.standalone --check    exit 1 if the committed file differs from what would be written

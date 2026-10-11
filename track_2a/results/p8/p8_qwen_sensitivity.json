@@ -1,0 +1,381 @@
+{
+ "label": "POST HOC (11 Oct 2026; proposed in review; not pre-registered): sensitivity of P8's verdicts to coder noise; never decisive; the registered verdicts stand",
+ "proposed_by": "proposed in review (an external-style review of the submission); run by the team",
+ "why": "Under P8's registered rule a single deviating parliament makes a field non-shared, so a noisier coder adds spurious deviations and can only push towards a split: agreement of the verdict on Qwen's labels cannot corroborate a split; restricting the test to affairs both coders label alike can.",
+ "n_affairs": 66,
+ "qwen_copy_matches_p8_qwen": {
+  "submitter": true,
+  "co_signatories": true,
+  "date_submission": true,
+  "addressed_body": true,
+  "language": true,
+  "government_recommendation": true,
+  "type": true
+ },
+ "fields": {
+  "submitter": {
+   "registered": "role_split",
+   "registered_deviating": [
+    "TG",
+    "VS",
+    "261",
+    "FR",
+    "6643",
+    "5192",
+    "GR"
+   ],
+   "agreed_A1_A2_only": "role_split",
+   "on_qwen_labels": "role_split",
+   "gold_and_qwen_agree": {
+    "affairs": 38,
+    "verdict": "role_split",
+    "n_evaluable": 7,
+    "deviating": [
+     "GR"
+    ],
+    "deviation_kind": {
+     "GR": "systematic"
+    },
+    "pooled_share_E": 0.9,
+    "repeated_roles": {
+     "GR": [
+      "cosigner_person"
+     ]
+    },
+    "reason": null,
+    "holds": true
+   },
+   "gold_and_qwen_agree_on_E": {
+    "affairs": 40,
+    "verdict": "role_split",
+    "n_evaluable": 8,
+    "deviating": [
+     "VS",
+     "GR"
+    ],
+    "deviation_kind": {
+     "VS": "systematic",
+     "GR": "systematic"
+    },
+    "pooled_share_E": 0.794,
+    "repeated_roles": {
+     "VS": [
+      "group"
+     ],
+     "GR": [
+      "cosigner_person"
+     ]
+    },
+    "reason": null,
+    "holds": true
+   }
+  },
+  "co_signatories": {
+   "registered": "role_split",
+   "registered_deviating": [
+    "TG",
+    "VS",
+    "351",
+    "261",
+    "FR",
+    "6643",
+    "5192",
+    "GR"
+   ],
+   "agreed_A1_A2_only": "role_split",
+   "on_qwen_labels": "role_split",
+   "gold_and_qwen_agree": {
+    "affairs": 36,
+    "verdict": "role_split",
+    "n_evaluable": 3,
+    "deviating": [
+     "351",
+     "GR"
+    ],
+    "deviation_kind": {
+     "351": "systematic",
+     "GR": "systematic"
+    },
+    "pooled_share_E": 0.385,
+    "repeated_roles": {
+     "351": [
+      "includes_author_of_record"
+     ],
+     "GR": [
+      "includes_author_of_record"
+     ]
+    },
+    "reason": null,
+    "holds": true
+   },
+   "gold_and_qwen_agree_on_E": {
+    "affairs": 45,
+    "verdict": "role_split",
+    "n_evaluable": 5,
+    "deviating": [
+     "VS",
+     "351",
+     "FR",
+     "GR"
+    ],
+    "deviation_kind": {
+     "VS": "systematic",
+     "351": "systematic",
+     "FR": "systematic",
+     "GR": "systematic"
+    },
+    "pooled_share_E": 0.263,
+    "repeated_roles": {
+     "VS": [
+      "signing_for_group"
+     ],
+     "351": [
+      "includes_author_of_record"
+     ],
+     "FR": [
+      "joint_authors"
+     ],
+     "GR": [
+      "includes_author_of_record"
+     ]
+    },
+    "reason": null,
+    "holds": true
+   }
+  },
+  "date_submission": {
+   "registered": "body_specific",
+   "registered_deviating": [
+    "5586",
+    "6643"
+   ],
+   "agreed_A1_A2_only": "body_specific",
+   "on_qwen_labels": "body_specific",
+   "gold_and_qwen_agree": {
+    "affairs": 49,
+    "verdict": "body_specific",
+    "n_evaluable": 8,
+    "deviating": [
+     "5586",
+     "6643"
+    ],
+    "deviation_kind": {
+     "5586": "unnamed",
+     "6643": "unnamed"
+    },
+    "pooled_share_E": 0.718,
+    "repeated_roles": {
+     "5586": [],
+     "6643": []
+    },
+    "reason": null,
+    "holds": true
+   },
+   "gold_and_qwen_agree_on_E": {
+    "affairs": 59,
+    "verdict": "body_specific",
+    "n_evaluable": 9,
+    "deviating": [
+     "5586",
+     "6643"
+    ],
+    "deviation_kind": {
+     "5586": "unnamed",
+     "6643": "unnamed"
+    },
+    "pooled_share_E": 0.761,
+    "repeated_roles": {
+     "5586": [],
+     "6643": []
+    },
+    "reason": null,
+    "holds": true
+   }
+  },
+  "addressed_body": {
+   "registered": "role_split",
+   "registered_deviating": [
+    "5002"
+   ],
+   "agreed_A1_A2_only": "shared",
+   "on_qwen_labels": "role_split",
+   "gold_and_qwen_agree": {
+    "affairs": 55,
+    "verdict": "shared",
+    "n_evaluable": 10,
+    "deviating": [],
+    "deviation_kind": null,
+    "pooled_share_E": 0.981,
+    "repeated_roles": {},
+    "reason": null,
+    "holds": false
+   },
+   "gold_and_qwen_agree_on_E": {
+    "affairs": 56,
+    "verdict": "shared",
+    "n_evaluable": 10,
+    "deviating": [],
+    "deviation_kind": null,
+    "pooled_share_E": 0.981,
+    "repeated_roles": {},
+    "reason": null,
+    "holds": false
+   }
+  },
+  "language": {
+   "registered": "role_split",
+   "registered_deviating": [
+    "FR"
+   ],
+   "agreed_A1_A2_only": "role_split",
+   "on_qwen_labels": "role_split",
+   "gold_and_qwen_agree": {
+    "affairs": 62,
+    "verdict": "role_split",
+    "n_evaluable": 6,
+    "deviating": [
+     "FR"
+    ],
+    "deviation_kind": {
+     "FR": "systematic"
+    },
+    "pooled_share_E": 0.941,
+    "repeated_roles": {
+     "FR": [
+      "other_language"
+     ]
+    },
+    "reason": null,
+    "holds": true
+   },
+   "gold_and_qwen_agree_on_E": {
+    "affairs": 64,
+    "verdict": "role_split",
+    "n_evaluable": 6,
+    "deviating": [
+     "FR"
+    ],
+    "deviation_kind": {
+     "FR": "systematic"
+    },
+    "pooled_share_E": 0.941,
+    "repeated_roles": {
+     "FR": [
+      "other_language"
+     ]
+    },
+    "reason": null,
+    "holds": true
+   }
+  },
+  "government_recommendation": {
+   "registered": "role_split",
+   "registered_deviating": [
+    "6643"
+   ],
+   "agreed_A1_A2_only": "role_split",
+   "on_qwen_labels": "shared",
+   "gold_and_qwen_agree": {
+    "affairs": 56,
+    "verdict": "shared",
+    "n_evaluable": 8,
+    "deviating": [],
+    "deviation_kind": null,
+    "pooled_share_E": 1.0,
+    "repeated_roles": {},
+    "reason": null,
+    "holds": false
+   },
+   "gold_and_qwen_agree_on_E": {
+    "affairs": 61,
+    "verdict": "role_split",
+    "n_evaluable": 9,
+    "deviating": [
+     "6643"
+    ],
+    "deviation_kind": {
+     "6643": "systematic"
+    },
+    "pooled_share_E": 0.903,
+    "repeated_roles": {
+     "6643": [
+      "on_fulfilment"
+     ]
+    },
+    "reason": null,
+    "holds": true
+   }
+  },
+  "type": {
+   "registered": "role_split",
+   "registered_deviating": [
+    "VS",
+    "FR",
+    "5192",
+    "5002"
+   ],
+   "agreed_A1_A2_only": "role_split",
+   "on_qwen_labels": "role_split",
+   "gold_and_qwen_agree": {
+    "affairs": 50,
+    "verdict": "role_split",
+    "n_evaluable": 10,
+    "deviating": [
+     "VS"
+    ],
+    "deviation_kind": {
+     "VS": "systematic"
+    },
+    "pooled_share_E": 0.939,
+    "repeated_roles": {
+     "VS": [
+      "mandate"
+     ]
+    },
+    "reason": null,
+    "holds": true
+   },
+   "gold_and_qwen_agree_on_E": {
+    "affairs": 50,
+    "verdict": "role_split",
+    "n_evaluable": 10,
+    "deviating": [
+     "VS"
+    ],
+    "deviation_kind": {
+     "VS": "systematic"
+    },
+    "pooled_share_E": 0.939,
+    "repeated_roles": {
+     "VS": [
+      "mandate"
+     ]
+    },
+    "reason": null,
+    "holds": true
+   }
+  }
+ },
+ "summary": {
+  "fields": 7,
+  "holds": [
+   "submitter",
+   "co_signatories",
+   "date_submission",
+   "language",
+   "type"
+  ],
+  "n_holds": 5,
+  "changes": {
+   "addressed_body": [
+    "role_split",
+    "shared"
+   ],
+   "government_recommendation": [
+    "role_split",
+    "shared"
+   ]
+  },
+  "holds_on_E_agreement": 6
+ }
+}

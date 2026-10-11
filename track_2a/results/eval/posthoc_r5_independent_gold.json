@@ -1,5 +1,5 @@
 {
- "label": "POST HOC (round 5, 10 Oct 2026; not pre-registered): independent non-Anthropic annotator (Qwen-SEA-LION-v4-32B-IT)",
+ "label": "POST HOC (10 Oct 2026; not pre-registered): independent non-Anthropic annotator (Qwen-SEA-LION-v4-32B-IT)",
  "model": "aisingapore/Qwen-SEA-LION-v4-32B-IT",
  "gateway_tag": "2a-qwen-audit",
  "method": "Blind single-pass annotation (temperature 0) with the A1-A3 guide cut to answer presence and date; packet text identical to the Claude annotators'; a Qwen date counts only if answer_present = yes, its quote occurs verbatim (whitespace-normalised) in the document; otherwise it is treated as null and listed as unverified (primary reading). The *_all_qwen_dates blocks keep unverified dates too. No adjudication.",
@@ -1568,7 +1568,7 @@
  "usd_total": 0.1396,
  "n_calls": 216,
  "p1_h1_j2_recompute": {
-  "note": "POST HOC (round 5, J2). Same H1 definition as eval/hypotheses.py: cascade values on documents whose gold answer date is null, pooled, Wilson 95% upper bound <= 10% to pass.",
+  "note": "POST HOC. Same H1 definition as eval/hypotheses.py: cascade values on documents whose gold answer date is null, pooled, Wilson 95% upper bound <= 10% to pass.",
   "committed_gold": {
    "k": 7,
    "n": 90,

@@ -1,4 +1,4 @@
-"""Round 6, census correction: the derived layer over the registered census (census/corrected.py) and its site rows."""
+"""Census correction: the derived layer over the registered census (census/corrected.py) and its site rows."""
 import csv
 import json
 

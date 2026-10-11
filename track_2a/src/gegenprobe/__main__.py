@@ -66,7 +66,7 @@ def _convert(a) -> int:
             print(str(e), file=sys.stderr)
             return 2
         opd_store.prefetch(inputs, opd_policy)
-        one = batch.convert_one  # rows get opd_text_span where OPD's stored text exists (round 16, J1)
+        one = batch.convert_one  # rows get opd_text_span where OPD's stored text exists
         batch.convert_one = lambda *x, **k: opd_store.annotate(one(*x, **k), opd_policy)
         try:
             counts = batch.run_batch(inputs, a.out, mode=a.mode, backend=be, theta=theta, retry_failed=a.retry_failed,

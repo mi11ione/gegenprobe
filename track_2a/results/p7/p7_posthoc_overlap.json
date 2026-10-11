@@ -1,0 +1,130 @@
+{
+ "label": "POST HOC (11 Oct 2026; proposed in review; not pre-registered): counts from committed P7 copies; no registered decision depends on this file",
+ "proposed_by": "proposed in review (an external-style review of the submission); counted by the team",
+ "frame": {
+  "rows": 478,
+  "promoted": {
+   "p7": 135,
+   "trivial": 206
+  },
+  "overlap": {
+   "both": 126,
+   "p7_only": 9,
+   "trivial_only": 80,
+   "neither": 263
+  }
+ },
+ "annotated": {
+  "rows": 190,
+  "p7": {
+   "promoted": 120,
+   "is_answer": 120,
+   "gold_no": 0,
+   "date_hit": 113,
+   "correct_dated": 115
+  },
+  "trivial": {
+   "promoted": 146,
+   "is_answer": 146,
+   "gold_no": 0,
+   "date_hit": 127,
+   "correct_dated": 129
+  },
+  "overlap": {
+   "both": {
+    "rows": 112,
+    "is_answer": 112,
+    "correct_dated": 107,
+    "p7_date_hit": 106,
+    "trivial_date_hit": 105
+   },
+   "p7_only": {
+    "rows": 8,
+    "is_answer": 8,
+    "correct_dated": 8,
+    "p7_date_hit": 7,
+    "trivial_date_hit": 0
+   },
+   "trivial_only": {
+    "rows": 34,
+    "is_answer": 34,
+    "correct_dated": 22,
+    "p7_date_hit": 5,
+    "trivial_date_hit": 22
+   }
+  }
+ },
+ "weighted_from_posthoc_r8": {
+  "p7": {
+   "precision": {
+    "ci95": [
+     1.0,
+     1.0
+    ],
+    "estimate": 1.0
+   },
+   "precision_dated": {
+    "ci95": [
+     0.9167,
+     0.9917
+    ],
+    "estimate": 0.9583
+   },
+   "precision_date_hit": {
+    "ci95": [
+     0.8917,
+     0.9833
+    ],
+    "estimate": 0.9417
+   }
+  },
+  "trivial": {
+   "precision": {
+    "ci95": [
+     1.0,
+     1.0
+    ],
+    "estimate": 1.0
+   },
+   "precision_dated": {
+    "ci95": [
+     0.6186,
+     0.8569
+    ],
+    "estimate": 0.7319
+   },
+   "precision_date_hit": {
+    "ci95": [
+     0.6086,
+     0.8462
+    ],
+    "estimate": 0.7216
+   }
+  },
+  "p7_minus_trivial_date_hit": {
+   "ci95": [
+    0.0949,
+    0.3357
+   ],
+   "estimate": 0.22
+  }
+ },
+ "display": {
+  "date_hit_diff_pts": 22.0,
+  "date_hit_diff_ci_pts": [
+   9.5,
+   33.6
+  ]
+ },
+ "matches_committed_posthoc_r8": {
+  "promoted_in_frame": true,
+  "overlap_frame": true,
+  "overlap_annotated": true,
+  "trivial_is_answer": true,
+  "p7_is_answer": true,
+  "p7_date_hit": true,
+  "trivial_annotated_block": true,
+  "p7_correct_dated": true
+ },
+ "all_match": true
+}

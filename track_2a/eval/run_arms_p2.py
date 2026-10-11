@@ -2,7 +2,7 @@
 eval/gold2/run_p2.py stages them (P2 docs/labels laid out under the P1 file names), with the speed-optimised GGUF scorer that
 cleared the D2 gate (src/gegenprobe/gguf_fast.py; results/eval/gguf_fast_verparity.json) and the 8B θ fitted on P1 dev
 (data/convert/theta/gguf_apertus-v1.5-8b-text-q4_k_m.json, unchanged). PREREG2 lists the 8B arms as exploratory; this run
-was added after the round-4 review (10 Oct 2026) and is labelled post-hoc in every output.
+was added after review (10 Oct 2026) and is labelled post-hoc in every output.
 
 Arms: rules, pointer, cascade (naive arms not run on the 8B, as in P1, DEVIATIONS.md D3). Runs on CI (workflow arms-8b-p2);
 nothing here runs a model unless `run` is called with the real backend.
@@ -39,7 +39,7 @@ P2_LABELS = DATA / "gold2" / "p2_labels.jsonl"
 THETA = DATA / "convert" / "theta" / f"{SLUG}.json"
 SHARDS = RESULTS / "eval2" / "shards"
 OUT = RESULTS / "eval2" / f"p2__{SLUG}.json"
-LABEL = ("POST-HOC (added 10 Oct 2026 after the round-4 review): the PREREG2 exploratory 8B arms on P2, frozen arms and "
+LABEL = ("POST-HOC (added 10 Oct 2026 after review): the PREREG2 exploratory 8B arms on P2, frozen arms and "
          "scorer, 8B θ from P1 dev")
 
 

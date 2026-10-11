@@ -84,7 +84,7 @@ prints `_gegenprobe_robots9309`. If it prints `urllib.robotparser` instead, the 
 `PYTHONPATH=src python -c 'import sys; from gegenprobe import net; print(sys.modules["_gegenprobe_mirror"].installed(net))'`
 prints `True`.
 
-**Fail-closed once the guard is loaded.** Before round 6, a matcher that could not be installed printed a warning, and
+**Fail-closed once the guard is loaded.** Earlier, a matcher that could not be installed printed a warning, and
 fetching went on under `urllib.robotparser`'s first match. Now, in a process where the guard is loaded, every request
 checks at request time that the RFC 9309 matcher is active, and is refused before any byte is sent when it is not
 (`net.Disallowed`, kind `robots_matcher_inactive`; a `convert` row gets that status). The check lives in
@@ -256,7 +256,7 @@ would trade one version gap for another, change tesseract and the whole system l
 cannot be pinned for long. We keep the digest-pinned bookworm base and the recorded versions
 (`/usr/local/share/gegenprobe-apt-versions.txt`). To reproduce the cache exactly, run `make run` outside Docker with poppler
 26.02.0. The Apertus re-derivation budget is per set (`GP_REDERIVE_APERTUS_BUDGET`, default 180 s each for P1 and P2;
-before round 3 a shared 120 s let P1 use all of it and CI reached 0 of 62 P2 documents); worst case 240 + 2 × 180 s of
+earlier a shared 120 s let P1 use all of it and CI reached 0 of 62 P2 documents); worst case 240 + 2 × 180 s of
 re-derivation on top of the replay steps.
 
 **OCR models are pinned; OCR fails loudly.** The OCR numbers in `docs/repair.md` and the scanned strata of P1/P2 were
@@ -285,7 +285,7 @@ For the venv unit, put both variables into `/etc/gegenprobe/alerts.env` (with `T
 `python -m gegenprobe.ocrguard install-pinned DIR` remains the installer the Dockerfile runs.
 OCR never fails silently. A missing language pack, a non-zero tesseract exit or a scan with no recognised text raises
 the typed failure `ocr_failed` (a `convert` failure row, a counted line in `make run`'s rederive step). Such a result is
-never cached. Until round 13, a host without the deu/fra/ita data cached empty pages and turned scans into typed nulls.
+never cached. Earlier, a host without the deu/fra/ita data cached empty pages and turned scans into typed nulls.
 Measured on the development Mac: with Homebrew's tesseract (eng/osd only), rederive now reports "22 scans skipped (OCR not
 ready: … no language data for deu+fra+ita)" instead of 22 silent differences. With the pinned models and an empty text
 cache, all 154 of 154 held-out documents re-derive, the 22 Ticino scans re-OCR'd from scratch included (313 s). The

@@ -1,4 +1,4 @@
-"""Display-ready numbers for the round-16 docs pass, derived only from committed files, so claims.tsv can trace them.
+"""Display-ready numbers for the docs pass, derived only from committed files, so claims.tsv can trace them.
 
   * P10 sample against plan (results/p10/sample.json): primary affairs planned by the registered quotas and scored;
   * P10 concentration (results/p10/p10_scores.json, per parliament; post hoc): the pointer's gain in pairs over the
@@ -87,7 +87,7 @@ def review_route() -> dict:
 
 
 def main() -> int:
-    out = dict(label="round-16 display numbers from committed files (report/r16_numbers.py); concentration and the "
+    out = dict(label="display numbers from committed files (report/r16_numbers.py); concentration and the "
                      "review route are post hoc",
                p10=dict(sample=p10_sample(), concentration=p10_concentration(), review_route=review_route()))
     OUT.write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")

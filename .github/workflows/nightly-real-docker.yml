@@ -59,12 +59,12 @@ jobs:
         run: |
           set -eu
           t0=$(date -u +%s)
-          sudo sh deploy/nightly/install.sh
+          sudo sh deploy/nightly/install.sh --user-agent "$UA"   # GP_USER_AGENT is required (contact URL)
           echo "install + image build: $(( $(date -u +%s) - t0 )) s" | tee /tmp/install_s.txt
           # the timer stays installed but must not start a night while these two run
           sudo systemctl stop gegenprobe-nightly.timer
           bridge=$(docker network inspect bridge -f '{{(index .IPAM.Config 0).Gateway}}')
-          printf 'GP_USER_AGENT=%s\nGP_ALERT_WEBHOOK=http://%s:8765/hook\n' "$UA" "$bridge" | sudo tee -a /etc/gegenprobe/alerts.env
+          printf 'GP_ALERT_WEBHOOK=http://%s:8765/hook\n' "$bridge" | sudo tee -a /etc/gegenprobe/alerts.env
           sudo systemctl cat gegenprobe-nightly.service
           docker image inspect gegenprobe:0.1.0 -f '{{.Id}} {{.Created}}'
       - name: night 1 (first night, no previous state)
@@ -117,7 +117,7 @@ jobs:
               if (d / "night2" / "night.json").exists() else None
           out["index_changed_between_nights"] = (a.get("index_generated_at") != b.get("index_generated_at")
                                                  if a.get("index_generated_at") and b.get("index_generated_at") else None)
-          # round 8: a row checked on night 1 keeps its verdict on night 2 (before the fix every row became `unchecked`)
+          # a row checked on night 1 keeps its verdict on night 2 (before the fix every row became `unchecked`)
           la, lb = a.get("ledger") or {}, b.get("ledger") or {}
           out["night2_kept_night1_verdicts"] = (lb.get("unchecked", 0) <= la.get("unchecked", 0)
                                                 if la and lb else None)
@@ -136,7 +136,7 @@ jobs:
             s=$(python3 -c "import json; print(json.load(open('$GITHUB_WORKSPACE/nights/night$n/night.json'))['exit_status'])")
             echo "night $n: exit status $s"; test "$s" = 0 || test "$s" = 3
           done
-      - name: night 2 keeps night 1's ledger verdicts (round-8 ledger fix)
+      - name: night 2 keeps night 1's ledger verdicts (ledger fix)
         run: |
           k=$(python3 -c "import json; print(json.load(open('$GITHUB_WORKSPACE/nights/two_nights.json')).get('night2_kept_night1_verdicts'))")
           echo "night2_kept_night1_verdicts: $k"; test "$k" = True

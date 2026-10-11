@@ -9,10 +9,11 @@ steps that need the network or a model endpoint and cannot reach them; the repla
   4 convert   sample documents through the cascade (metadata -> rules -> Apertus pointer); span / typed-null /
               footer-distractor / self-deletion checks; live scores compared with the committed cache within tolerance
   5 eval      re-score the cached P1 arm results on the frozen gold set; print the scoreboard
-  6 replay    all nine pre-registered tests from committed files (P1-P8, P3b): P1-P4 and P3b re-scored from the
-              committed label files, the nine hypotheses scripts re-run and compared with their committed outputs (P5-P8
-              byte-identical), the P7 dev table, the P8 tables, the P7 post-hoc files (eval/p7/offline.py) and the 8B
-              analysis re-run offline and compared, the nine LOCK files LOCK-LOCK9 verified (FAIL on any difference)
+  6 replay    the pre-registered tests P1-P8 and P3b from committed files (the tenth, P10, is step 6a): P1-P4 and P3b
+              re-scored from the committed label files, their hypotheses scripts (P1-P8, P3b) re-run and compared with
+              their committed outputs (P5-P8 byte-identical), the P7 dev table, the P8 tables, the P7 post-hoc files
+              (eval/p7/offline.py) and the 8B analysis re-run offline and compared, the lock files LOCK-LOCK9 verified
+              (FAIL on any difference)
   6a replay_p10  P10 and the federal cell from committed files (eval/replay_p10.py): the P10 gold merged again from the
               committed A1/A2/A3 annotations, the arms joined and H1-H3b re-scored (eval.p10.arms join, eval.p10.score),
               the exploratory Qwen-SEA-LION check of the P10 gold and the federal tables re-scored, each byte-identical
@@ -24,12 +25,16 @@ steps that need the network or a model endpoint and cannot reach them; the repla
               difference or invalid record): the converter's own P3, P3b and P5 records carried to v0.2 (105 affairs) with
               v0.2's roles from the committed role-rule readings (re-extracted from the texts and compared when they are
               cached) and their document parts from the committed detections (gegenprobe.schema.v0_2_parts; re-detected
-              from the cached PDFs and compared when they are cached), the P8 gold (66 affairs) and the v0.1 samples
-              upgraded losslessly
+              from the cached PDFs and compared when they are cached), the P3/P3b records' Q/A items from the committed
+              pairing (gegenprobe.schema.v0_2_qa; re-paired from the cached texts and compared when they are cached;
+              every sample whose documents print questions must carry items), the P8 gold (66 affairs) and the v0.1
+              samples upgraded losslessly
   6c affair_cli  the operator command `python -m gegenprobe affair --opd-affair <id> --schema v0.2` on the affairs of
               the three committed v0.2 samples (Bern, Vernier, Lugano): OPD's rows from the committed export slice, the
-              documents fetched from their sources; each record must validate and match its sample's documents, text
-              languages and answer date (SKIP offline or when no source is reachable)
+              documents fetched from their sources, or from OPD's own copy (files.openparldata.ch) where a source fails,
+              sha256-checked against the sample; each record must validate and match its sample's documents, text
+              languages, answer date and Q/A items (SKIP offline, or when no affair could be checked, with each typed
+              reason: source_gone, over_budget, network kinds)
   7 rederive  the P1 rules arm re-derived from the source PDFs (sha256-verified); WARN, never FAIL
   8 rederive_apertus  P1 + P2 pointer and cascade decisions recomputed from the committed model cache, cache-only
               (no request leaves the machine); FAIL only if a cache hit gives a different decision
@@ -45,8 +50,11 @@ steps that need the network or a model endpoint and cannot reach them; the repla
 The last lines: the P1 (and P2) Apertus replay coverage, e.g. "Apertus replay: P1 132/154 decisions re-derived from the
 model cache, 132 match (22 cache misses)", then "RESULT PASS in 537 s"; when a step skipped, the RESULT line names it:
 "RESULT PASS (offline: 3 steps skipped: convert, rederive, rederive_apertus) in 868 s".
-Re-derivation budgets (seconds): GP_REDERIVE_BUDGET (rules, default 240) + GP_REDERIVE_APERTUS_BUDGET (default 180, per set:
-P1 and P2 each get it, so P2 is always attempted; worst case 240 + 2 x 180 s).
+Time budgets (seconds), hard ceilings (gegenprobe.deadline: each document's fetch and extraction is interrupted at the
+budget; every request is capped at GP_REQUEST_TIMEOUT, default 30 s, 2 tries): GP_AFFAIR_CLI_BUDGET (step affair_cli,
+default 240), GP_REDERIVE_BUDGET (rules, default 240) + GP_REDERIVE_APERTUS_BUDGET (default 180, per set: P1 and P2 each
+get it, so P2 is always attempted). Worst case of the three network steps: 240 + 240 + 2 x 180 = 840 s, each step
+overrunning its budget by its own bookkeeping only (under a second).
 """
 from __future__ import annotations
 
@@ -66,7 +74,7 @@ STEPS = [
     ("repair", "gegenprobe.repair.demo", "main"),
     ("convert", "gegenprobe.convert.demo", "main"),
     ("eval", "eval.replay", "main"),
-    ("replay", "eval.replay_all", "main"),  # P1-P8, 8B analysis + hypotheses + nine locks, committed files (FAIL on any diff)
+    ("replay", "eval.replay_all", "main"),  # P1-P8 + P3b, 8B analysis, LOCK-LOCK9, committed files (FAIL on any diff)
     ("replay_p10", "eval.replay_p10", "main"),  # P10 gold, arms, H1-H3b + federal tables; LOCK10 + LOCKFED (ten locks + LOCKFED)
     ("schema_v02", "gegenprobe.schema.v0_2_parts", "step"),  # v0.2: 105 converter records (+ document parts) + 66 P8 gold
     ("affair_cli", "gegenprobe.affair_cli", "step"),  # `gegenprobe affair` on the 3 v0.2 sample affairs (network; SKIP offline)
@@ -78,6 +86,7 @@ STEPS = [
 P1_DOCS = 154  # P1 held-out documents (data/gold/heldout_docs.jsonl)
 os.environ.setdefault("GP_REDERIVE_BUDGET", "240")
 os.environ.setdefault("GP_REDERIVE_APERTUS_BUDGET", "180")  # per set (P1, P2)
+os.environ.setdefault("GP_AFFAIR_CLI_BUDGET", "240")
 
 
 def online(host: str = "files.openparldata.ch", port: int = 443, timeout: float = 5) -> bool:

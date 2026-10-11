@@ -9,7 +9,7 @@ claims.tsv, `check` fails (exit 1) when
     phrase is not found within CONTEXT_WINDOW characters of a token match of `shown` in that document, or
   * an anchor (claims_anchor.json: {claim id: {document: [phrase, ...]}}) is not found in its document, does not contain
     the claim's `shown` value as a whole token, or names a document the claim's `where` does not list, or
-  * a numeric token inside a strict zone (claims_strict.json: since round 13 the README, the technical report and the
+  * a numeric token inside a strict zone (claims_strict.json: the README, the technical report and the
     form notes, each end to end) is not bound to a claim: no anchor of a
     claim whose `where` lists that document covers that exact token, i.e. no occurrence of an anchor phrase holds the
     claim's `shown` value at the token's position. Numeric tokens: integers >= 10, every decimal, percentage, ratio
@@ -23,12 +23,12 @@ claims.tsv, `check` fails (exit 1) when
     "post hoc" to "registered" breaks the anchor, or
   * a pinned phrase (claims_strict.json `pinned`: statements without a number such as "blind AI annotators" or "OPD
     confirmed") does not occur exactly its pinned number of times, or
-  * a wording pin fails (claims_pins.json, gegenprobe.claims_pins; round 16): a verdict, multiplier or comparative bound
+  * a wording pin fails (claims_pins.json, gegenprobe.claims_pins): a verdict, multiplier or comparative bound
     to the result it states ("is not confirmed" bound to P10's H3a verdict, "about three times" to 50/17), or a safety,
     sovereignty or coding-assistant sentence, no longer occurs exactly as pinned; or a verdict, quantifier or safety
     word appears outside every pinned or allowlisted phrase.
 
-The repository-root README (../README.md) is a strict zone too (round 16). It is outside the Docker build context, so
+The repository-root README (../README.md) is a strict zone too. It is outside the Docker build context, so
 inside the image it is skipped; the host CI job sets GP_CLAIMS_STRICT=1 and checks it.
 
 Binding by anchor is positional: an anchor phrase is the number together with the words that name its claim ("24/29**

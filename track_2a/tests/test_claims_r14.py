@@ -1,4 +1,4 @@
-"""Round 14 (J5): the edits that got past `make claims` in round 13, each now caught, and the round-14 numbers.
+"""The edits that got past `make claims` in review, each now caught, and the later numbers.
 
   1 a scope word flipped ("post hoc" -> "registered") in the report, the README or the form notes
   2 a result-table cell below 10 (the P2 pointer's answerless dated 4 -> 1)
@@ -139,7 +139,7 @@ def test_r14_numbers_step_writes_nothing(tmp_path):
     assert target.read_bytes() == before and store[target.resolve()] == b"tampered"
 
 
-# ---- round-14 numbers
+# ---- later numbers
 def test_r14_numbers():
     d = json.loads((RESULTS / "report" / "r14_numbers.json").read_text(encoding="utf-8"))
     c = d["coverage"]

@@ -1,4 +1,4 @@
-"""Nightly operations (round 2): trend and staleness alerts, the cumulative ledger, the alert outbox, exit codes."""
+"""Nightly operations: trend and staleness alerts, the cumulative ledger, the alert outbox, exit codes."""
 import datetime as dt
 import json
 

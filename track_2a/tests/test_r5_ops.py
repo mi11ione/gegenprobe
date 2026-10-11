@@ -1,4 +1,4 @@
-"""Round-5 operations: streamed-byte counter, the two-night Docker workflow, the review-mode build guard, the systemd
+"""operations: streamed-byte counter, the two-night Docker workflow, the review-mode build guard, the systemd
 sandbox of both units and its CI score gate."""
 import gzip
 import json
@@ -78,7 +78,8 @@ def test_real_night_bytes_reconstructed_from_the_index_it_read():
 def test_two_night_docker_workflow_is_manual_and_runs_night_two_on_night_ones_state():
     w = (WORKFLOWS / "nightly-real-docker.yml").read_text()
     assert re.search(r"^on:\s*\n\s+workflow_dispatch:", w, re.M) and not re.search(r"^\s*(schedule|push|pull_request):", w, re.M)
-    assert "sudo sh deploy/nightly/install.sh\n" in w and "--venv" not in w  # the Docker variant, as documented
+    # the Docker variant, as documented; GP_USER_AGENT (a contact URL) is required and written by install.sh
+    assert 'sudo sh deploy/nightly/install.sh --user-agent "$UA"' in w and "--venv" not in w
     assert w.count("docker-night.sh 1") == 1 and w.count("docker-night.sh 2") == 1
     assert "two_nights.json" in w and "upload-artifact@" in w and "GP_USER_AGENT" in w
     assert "from gegenprobe import net" in w  # the index poll goes through net (robots, pacing, User-Agent)
@@ -228,19 +229,19 @@ def test_site_downloads_are_the_committed_files_and_the_opd_box_links_them(tmp_p
     assert {"repair_BE_relink.tsv", "repair_BE_fetch.tsv", "repair_BE_review.tsv", "repair_BE_begin_date.tsv",
             "apply_BE_plan.sql.txt", "apply_BE_relink_plan.csv", "apply_BE_begin_date_plan.csv", "apply_BE_plan.json",
             "affair.schema.json", "doc_extraction.schema.json",
-            # round 8 (J1): the Fedlex list, the OPD vocabulary errors and the P7 tier were not downloadable
+            # the Fedlex list, the OPD vocabulary errors and the P7 tier were not downloadable
             "repair_CHE.tsv.gz", "vocab_bugs.tsv", "promoted_by_apertus.tsv", "promoted.tsv",
-            # round 9 (J1): the standalone workbench schema the README points OPD to
+            # the standalone workbench schema the README points OPD to
             "gegenprobe_schema.py",
-            # round 10: the 30-row spot-check kit
+            # the 30-row spot-check kit
             "spotcheck.csv",
-            # round 11: schema v0.2 (P8's roles) and its P8 validation counts
+            # schema v0.2 (P8's roles) and its P8 validation counts
             "gegenprobe_schema_v0_2.py", "p8_validation.json"} == names
     assert d["repo"] == "https://github.com/mi11ione/gegenprobe"
     relink = next(f for f in d["files"] if f["name"] == "repair_BE_relink.tsv")
     assert relink["rows"] == 2421 and relink["href"] == "downloads/repair_BE_relink.tsv"
     copied = viewer.copy_downloads(tmp_path)
-    # + the adapter lists (one TSV per parliament) and their manifest (census/corrected.write_lists, round 6)
+    # + the adapter lists (one TSV per parliament) and their manifest (census/corrected.write_lists)
     lists = {f["href"].split("/")[-1] for f in d["adapter_lists"]["files"]} | {"adapters_manifest.json"}
     assert sorted(p.name for p in copied) == sorted(names | lists)
     for f in d["files"]:  # byte-identical to the results files
@@ -259,7 +260,7 @@ def test_site_downloads_are_the_committed_files_and_the_opd_box_links_them(tmp_p
 
 
 def test_site_answers_missing_paths_with_404():
-    """J1 round 8: Cloudflare's single-page-application fallback answered every missing download with the index page and
+    """Cloudflare's single-page-application fallback answered every missing download with the index page and
     HTTP 200. The config serves site/404.html with HTTP 404 instead; the viewer routes by #hash only."""
     from gegenprobe.viewer import __main__ as viewer
 

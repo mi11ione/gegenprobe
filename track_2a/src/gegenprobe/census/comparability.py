@@ -1,4 +1,4 @@
-"""Comparability axis for the schema verdict (round-1 partner review): availability (census/matrix.py) says WHERE a value
+"""Comparability axis for the schema verdict (proposed in partner review): availability (census/matrix.py) says WHERE a value
 lives; this module measures whether the same label MEANS the same thing across parliaments, from OPD's own vocabularies.
 
 Per field family (affair type; event-derived date roles, procedural state, decision outcome, government recommendation):
@@ -174,7 +174,7 @@ def tier_sensitivity() -> dict:
             )
         )
     return dict(
-        label="Tier sensitivity (post hoc, round-1 review): matrix tiers at other thresholds",
+        label="Tier sensitivity (post hoc, proposed in review): matrix tiers at other thresholds",
         frozen_thresholds=dict(feasible=TIER_FEASIBLE, fundamental=TIER_FUNDAMENTAL),
         recomputed_equals_frozen=base == {f: frozen[f] for f in base},
         share_no_source_by_field={f: round(sum(x == "no_source" for x in s) / len(s), 3) for f, s in by_field.items()},
@@ -220,7 +220,8 @@ def answer_days_robust(root=CENSUS) -> dict:
         )
 
     return dict(
-        label="Answer time robustness (post hoc, round-1 review): bodies whose answer event is mostly the submission date out",
+        label=("Answer time robustness (post hoc, proposed in review): bodies whose answer event is mostly the submission "
+               "date out"),
         same_day_bodies=sorted(same_day),
         n_bodies_eligible=len(eligible),
         all_eligible_bodies=med(ds_all),

@@ -70,7 +70,7 @@ def _sha(p: Path) -> str:
     return hashlib.sha256(p.read_bytes()).hexdigest()
 
 
-# results/repair/adapters/adapters_X.tsv: header only, written by a test (tests/test_adapter_filters.py) before round 8
+# results/repair/adapters/adapters_X.tsv: header only, written by a test (tests/test_adapter_filters.py) earlier
 # redirected it to a scratch tree. Kept because LOCK8 hashes every adapters_*.tsv; it is not a parliament's list.
 TEST_ARTEFACTS = {"adapters_X.tsv"}
 P7_DIR = ADAPTERS / "p7"
@@ -80,7 +80,7 @@ def _kind(p: Path) -> tuple[str, str]:
     n = p.name
     if p.parent == ADAPTERS and n in TEST_ARTEFACTS:
         return ("test artefact (header only, no rows; not a parliament's list: body X is the test fixture's; kept because "
-                "LOCK8 hashes every adapters_*.tsv)", "pytest tests/test_adapter_filters.py before round 8")
+                "LOCK8 hashes every adapters_*.tsv)", "pytest tests/test_adapter_filters.py (earlier version)")
     if p.parent == P7_DIR:
         if n == "promoted.tsv":
             return ("P7 promoted tier (registered output; P7 columns; tier promoted_by_apertus, counted=false)",

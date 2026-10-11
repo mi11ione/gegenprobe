@@ -23,9 +23,9 @@ package (whose __init__ installs the I/O hardening and would pull in the convert
 
 4. OCR fails loudly: the moment gegenprobe.pdftext (locked) is imported, gegenprobe/ocrguard.py wraps its OCR path, so a
    missing deu/fra/ita language pack, a non-zero tesseract exit or an empty OCR result is a typed `ocr_failed` error and
-   is never cached (round-13 finding: a scan used to become a cached page of empty text and then a typed null).
+   is never cached (found in review: a scan used to become a cached page of empty text and then a typed null).
 
-5. The local 8B path (round 16): gegenprobe/gguf_guard.py re-hashes the GGUF weights at every load, renders the GGUF's
+5. The local 8B path: gegenprobe/gguf_guard.py re-hashes the GGUF weights at every load, renders the GGUF's
    chat template in a Jinja sandbox, takes an operator's file from GP_GGUF_FILE / GP_GGUF_SHA256, and makes the model
    requests of the locked gegenprobe.llm and gegenprobe.convert.roles_pointer carry GP_USER_AGENT.
 
@@ -92,7 +92,7 @@ except Exception as e:  # never break interpreter start; ocrguard.ensure() in th
 
 
 class _GGUFHook:
-    """5. The local 8B path (gegenprobe/gguf_guard.py, round 16): after the locked gegenprobe.llm, gegenprobe.gguf_fast or
+    """5. The local 8B path (gegenprobe/gguf_guard.py): after the locked gegenprobe.llm, gegenprobe.gguf_fast or
     the locked gegenprobe.convert.roles_pointer executes, the weights are re-hashed at every load, the GGUF chat template
     is rendered in a Jinja sandbox, GP_GGUF_FILE / GP_GGUF_SHA256 select an operator's file, and their HTTP requests
     carry GP_USER_AGENT."""

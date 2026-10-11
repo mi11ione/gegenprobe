@@ -1,4 +1,4 @@
-"""OCR fails loudly (gegenprobe/ocrguard.py, round-13 juror J5): a missing language pack, a non-zero tesseract exit or
+"""OCR fails loudly (gegenprobe/ocrguard.py): a missing language pack, a non-zero tesseract exit or
 an empty OCR result is FetchError('ocr_failed'), never a cached page of empty text; the language data is checked up
 front, including the sha256 of the measured models. A fake `tesseract` on PATH stands in for the real one."""
 from __future__ import annotations

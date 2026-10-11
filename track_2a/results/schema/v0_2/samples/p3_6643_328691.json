@@ -135,11 +135,6 @@
    "reason": "none_printed",
    "route": "rule"
   },
-  "qa.0.items": {
-   "evidence": "this record's path does not pair numbered questions with answers",
-   "reason": "not_extracted",
-   "route": "rule"
-  },
   "related_affairs": {
    "evidence": "the converter's related-affair rule found no cited affair number in the documents",
    "reason": "none_printed",
@@ -150,7 +145,7 @@
   "builds": [],
   "converter_version": "gegenprobe-0.1.0+affair",
   "created": "2026-10-10T08:48:54.780283Z",
-  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it); v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 1 printed authors (1 earlier entries for the same persons replaced), 1 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 1 parts in 1 of 2 documents examined",
+  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it); v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 1 printed authors (1 earlier entries for the same persons replaced), 1 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 1 parts in 1 of 2 documents examined; Q/A pairing by gegenprobe.schema.v0_2_qa.with_qa (gegenprobe.qa.extract (the P5 rules arm, no model)): 9 questions (enumerated), 9 answer passages located",
   "schema_version": "0.2.0"
  },
  "government_recommendation": {
@@ -197,7 +192,287 @@
     "null_reason": "not_extracted",
     "route": "rule"
    },
-   "items": [],
+   "items": [
+    {
+     "answer": {
+      "basis": "extracted",
+      "char_end": 1730,
+      "char_start": 1330,
+      "context": "extent p2:1330 - p2:2138",
+      "doc": "opd:895359",
+      "kind": "value",
+      "page": 2,
+      "quote": "Le règlement du Conseil administratif de la Ville de Vernier relatif aux Contrats de quartier n’interdit pas\nformellement qu’une personne non-membre du groupe de projets puisse se présenter comme coordinateur\nou coordinatrice. À ce jour, cette situation ne s’est jamais présentée. Dans la pratique, le fait d’être membre\ndu groupe de projets est considéré comme une étape préalable à toute candidatur",
+      "role": "answer",
+      "route": "rule",
+      "rule": "reprinted_question",
+      "value": "Le règlement du Conseil administratif de la Ville de Vernier relatif aux Contrats de quartier n’interdit pas\nformellement qu’une personne non-membre du groupe de projets puisse se présenter comme coordinateur\nou coordinatrice. À ce jour, cette situation ne s’est jamais présentée. Dans la pratique, le fait d’être membre\ndu groupe de projets est considéré comme une étape préalable à toute candidatur"
+     },
+     "n": 1,
+     "question": {
+      "basis": "extracted",
+      "char_end": 1630,
+      "char_start": 1515,
+      "context": "extent p1:1515 - p1:1630",
+      "doc": "opd:879274",
+      "kind": "value",
+      "page": 1,
+      "quote": "- Une personne qui n’est pas encore membre peut-elle être nommée en tant que Coordinatrice du contrat de\nquartier ?",
+      "role": "question",
+      "route": "rule",
+      "rule": "question_item",
+      "value": "- Une personne qui n’est pas encore membre peut-elle être nommée en tant que Coordinatrice du contrat de\nquartier ?"
+     }
+    },
+    {
+     "answer": {
+      "basis": "extracted",
+      "char_end": 2667,
+      "char_start": 2267,
+      "context": "extent p2:2267 - p2:3520",
+      "doc": "opd:895359",
+      "kind": "value",
+      "page": 2,
+      "quote": "Toujours en se référant au règlement relatif aux Contrats de quartier de la Ville de Vernier, les comités de\npilotage sont constitués par des représentantes et représentants des partis politiques (nommé-e-s par le\nConseil municipal) et de la société civile (nommé-e-s par le Conseil administratif). Aucune précision relative\nà l’exigence, pour les membres du comité de pilotage, d’habiter dans le qua",
+      "role": "answer",
+      "route": "rule",
+      "rule": "reprinted_question",
+      "value": "Toujours en se référant au règlement relatif aux Contrats de quartier de la Ville de Vernier, les comités de\npilotage sont constitués par des représentantes et représentants des partis politiques (nommé-e-s par le\nConseil municipal) et de la société civile (nommé-e-s par le Conseil administratif). Aucune précision relative\nà l’exigence, pour les membres du comité de pilotage, d’habiter dans le qua"
+     },
+     "n": 2,
+     "question": {
+      "basis": "extracted",
+      "char_end": 1756,
+      "char_start": 1631,
+      "context": "extent p1:1631 - p1:1756",
+      "doc": "opd:879274",
+      "kind": "value",
+      "page": 1,
+      "quote": "- Une personne qui n’habite plus le quartier et qui n’a plus aucun intérêt avec le quartier peut-elle être membre\ndu comité ?",
+      "role": "question",
+      "route": "rule",
+      "rule": "question_item",
+      "value": "- Une personne qui n’habite plus le quartier et qui n’a plus aucun intérêt avec le quartier peut-elle être membre\ndu comité ?"
+     }
+    },
+    {
+     "answer": {
+      "basis": "extracted",
+      "char_end": 4059,
+      "char_start": 3659,
+      "context": "extent p2:3659 - p3:1456",
+      "doc": "opd:895359",
+      "kind": "value",
+      "page": 2,
+      "quote": "Chaque responsable dont le projet est validé par le comité de pilotage doit fournir un bilan qualitatif et\nfinancier à l’issue de son projet en utilisant des documents ad hoc transmis par le Service de la cohésion\nsociale. Les responsables porteurs/euses de projets doivent aussi fournir les tickets et justificatifs pour\nchacune des dépenses liées à leur projet. Dans la mesure du possible, une renc",
+      "role": "answer",
+      "route": "rule",
+      "rule": "reprinted_question",
+      "value": "Chaque responsable dont le projet est validé par le comité de pilotage doit fournir un bilan qualitatif et\nfinancier à l’issue de son projet en utilisant des documents ad hoc transmis par le Service de la cohésion\nsociale. Les responsables porteurs/euses de projets doivent aussi fournir les tickets et justificatifs pour\nchacune des dépenses liées à leur projet. Dans la mesure du possible, une renc"
+     },
+     "n": 3,
+     "question": {
+      "basis": "extracted",
+      "char_end": 1892,
+      "char_start": 1757,
+      "context": "extent p1:1757 - p1:1892",
+      "doc": "opd:879274",
+      "kind": "value",
+      "page": 1,
+      "quote": "- Le Conseil administratif peut-il assurer que l’intégralité des produits vendus dans tous les projets ont été portés\nen comptabilité ?",
+      "role": "question",
+      "route": "rule",
+      "rule": "question_item",
+      "value": "- Le Conseil administratif peut-il assurer que l’intégralité des produits vendus dans tous les projets ont été portés\nen comptabilité ?"
+     }
+    },
+    {
+     "answer": {
+      "basis": "extracted",
+      "char_end": 2004,
+      "char_start": 1701,
+      "context": "extent p3:1701 - p3:2004",
+      "doc": "opd:895359",
+      "kind": "value",
+      "page": 3,
+      "quote": "Le matériel acheté dans le cadre d’un projet Contrat de quartier doit apparaître dans le bilan financier rendu\nlors de la fin du projet. Si du matériel a été acheté avec la somme mise à disposition du projet, il doit être\nrépertorié dans une liste, et celui-ci doit être restitué à la fin des activités.",
+      "role": "answer",
+      "route": "rule",
+      "rule": "reprinted_question",
+      "value": "Le matériel acheté dans le cadre d’un projet Contrat de quartier doit apparaître dans le bilan financier rendu\nlors de la fin du projet. Si du matériel a été acheté avec la somme mise à disposition du projet, il doit être\nrépertorié dans une liste, et celui-ci doit être restitué à la fin des activités."
+     },
+     "n": 4,
+     "question": {
+      "basis": "extracted",
+      "char_end": 2136,
+      "char_start": 1893,
+      "context": "extent p1:1893 - p1:2136",
+      "doc": "opd:879274",
+      "kind": "value",
+      "page": 1,
+      "quote": "- Est-ce que les coordinateurs des contrats de quartier ont reçu une autorisation des autorités, afin de faire\ndisposer du matériel, auprès des porteurs de projets et personnes du comité, à leur escient ? - Existe-t-il une liste\nde matériels ?",
+      "role": "question",
+      "route": "rule",
+      "rule": "question_item",
+      "value": "- Est-ce que les coordinateurs des contrats de quartier ont reçu une autorisation des autorités, afin de faire\ndisposer du matériel, auprès des porteurs de projets et personnes du comité, à leur escient ? - Existe-t-il une liste\nde matériels ?"
+     }
+    },
+    {
+     "answer": {
+      "basis": "extracted",
+      "char_end": 2537,
+      "char_start": 2138,
+      "context": "extent p3:2138 - p3:2979",
+      "doc": "opd:895359",
+      "kind": "value",
+      "page": 3,
+      "quote": "2022 ? »\nDeux projets concurrents visant à gérer la patinoire synthétique sur la place du Lignon ont été présentés\npour la saison 2021-2022. Malgré les efforts de conciliation menés par le groupe de projets du Contrat de\nquartier d’Aïre-Le Lignon, aucune entente n’a pu être établie entre les différents responsables afin de\nproposer un projet commun. Partant du bilan de l’édition précédente, c’est",
+      "role": "answer",
+      "route": "rule",
+      "rule": "reprinted_question",
+      "value": "2022 ? »\nDeux projets concurrents visant à gérer la patinoire synthétique sur la place du Lignon ont été présentés\npour la saison 2021-2022. Malgré les efforts de conciliation menés par le groupe de projets du Contrat de\nquartier d’Aïre-Le Lignon, aucune entente n’a pu être établie entre les différents responsables afin de\nproposer un projet commun. Partant du bilan de l’édition précédente, c’est"
+     },
+     "n": 5,
+     "question": {
+      "basis": "extracted",
+      "char_end": 2276,
+      "char_start": 2137,
+      "context": "extent p1:2137 - p1:2276",
+      "doc": "opd:879274",
+      "kind": "value",
+      "page": 1,
+      "quote": "- Le matériel acquis par l’ancienne équipe de la patinoire a-t-il été restitué à la nouvelle équipe qui a pris le relais\nsaison 2021-2022 ?",
+      "role": "question",
+      "route": "rule",
+      "rule": "question_item",
+      "value": "- Le matériel acquis par l’ancienne équipe de la patinoire a-t-il été restitué à la nouvelle équipe qui a pris le relais\nsaison 2021-2022 ?"
+     }
+    },
+    {
+     "answer": {
+      "basis": "extracted",
+      "char_end": 3421,
+      "char_start": 3101,
+      "context": "extent p3:3101 - p3:3421",
+      "doc": "opd:895359",
+      "kind": "value",
+      "page": 3,
+      "quote": "Le projet de la patinoire du Lignon a été inauguré le 16 décembre 2023 et s’est poursuivi jusqu’au\n10 mars 2024. Le repas de remerciement des bénévoles de la patinoire du Lignon a eu lieu le samedi\n6 avril 2024. Selon la responsable, le bilan qualitatif et financier devrait être remis au groupe de projets ce\nprintemps.",
+      "role": "answer",
+      "route": "rule",
+      "rule": "reprinted_question",
+      "value": "Le projet de la patinoire du Lignon a été inauguré le 16 décembre 2023 et s’est poursuivi jusqu’au\n10 mars 2024. Le repas de remerciement des bénévoles de la patinoire du Lignon a eu lieu le samedi\n6 avril 2024. Selon la responsable, le bilan qualitatif et financier devrait être remis au groupe de projets ce\nprintemps."
+     },
+     "n": 6,
+     "question": {
+      "basis": "extracted",
+      "char_end": 2395,
+      "char_start": 2277,
+      "context": "extent p1:2277 - p1:2395",
+      "doc": "opd:879274",
+      "kind": "value",
+      "page": 1,
+      "quote": "- Le repas des bénévoles de la patinoire pour la saison 2023-2024 a-t-il eu lieu comme figurant dans la\ncomptabilité ?",
+      "role": "question",
+      "route": "rule",
+      "rule": "question_item",
+      "value": "- Le repas des bénévoles de la patinoire pour la saison 2023-2024 a-t-il eu lieu comme figurant dans la\ncomptabilité ?"
+     }
+    },
+    {
+     "answer": {
+      "basis": "extracted",
+      "char_end": 4003,
+      "char_start": 3604,
+      "context": "extent p3:3604 - p3:4320",
+      "doc": "opd:895359",
+      "kind": "value",
+      "page": 3,
+      "quote": "Si la question porte sur le groupe de projets, l’ensemble des groupes de projets sont plus que favorables\nà accueillir de nouveaux membres, notamment des jeunes (mais majeur-e-s ; cf. l’article 12, alinéa 2), ainsi\nque des idées nouvelles. Nous n’avons pas connaissance de jeunes personnes de plus de 18 ans qui\nn’auraient pas été accueillies par des groupes de projets.\nSi la question porte sur les",
+      "role": "answer",
+      "route": "rule",
+      "rule": "reprinted_question",
+      "value": "Si la question porte sur le groupe de projets, l’ensemble des groupes de projets sont plus que favorables\nà accueillir de nouveaux membres, notamment des jeunes (mais majeur-e-s ; cf. l’article 12, alinéa 2), ainsi\nque des idées nouvelles. Nous n’avons pas connaissance de jeunes personnes de plus de 18 ans qui\nn’auraient pas été accueillies par des groupes de projets.\nSi la question porte sur les"
+     },
+     "n": 7,
+     "question": {
+      "basis": "extracted",
+      "char_end": 2575,
+      "char_start": 2396,
+      "context": "extent p1:2396 - p1:2575",
+      "doc": "opd:879274",
+      "kind": "value",
+      "page": 1,
+      "quote": "- Alors qu’on demande de pouvoir amener des idées nouvelles, de nouveaux jeunes membres souhaitant rentrer\ndans le comité ont été présentés puis refusés par ce dernier, pourquoi ?",
+      "role": "question",
+      "route": "rule",
+      "rule": "question_item",
+      "value": "- Alors qu’on demande de pouvoir amener des idées nouvelles, de nouveaux jeunes membres souhaitant rentrer\ndans le comité ont été présentés puis refusés par ce dernier, pourquoi ?"
+     }
+    },
+    {
+     "answer": {
+      "basis": "extracted",
+      "char_end": 566,
+      "char_start": 166,
+      "context": "extent p4:166 - p4:821",
+      "doc": "opd:895359",
+      "kind": "value",
+      "page": 4,
+      "quote": "Tous les projets déposés auprès des six Contrats de quartier sont étudiés par les groupes de projets afin\nde définir leur intérêt pour la vie de quartier avant de les soumettre à leur comité de pilotage. Les groupes\nde projets vérifient aussi que ces projets soient réalistes au niveau des forces en présence et que les délais\nd’organisation soient raisonnables. Les groupes de projets vérifient auss",
+      "role": "answer",
+      "route": "rule",
+      "rule": "reprinted_question",
+      "value": "Tous les projets déposés auprès des six Contrats de quartier sont étudiés par les groupes de projets afin\nde définir leur intérêt pour la vie de quartier avant de les soumettre à leur comité de pilotage. Les groupes\nde projets vérifient aussi que ces projets soient réalistes au niveau des forces en présence et que les délais\nd’organisation soient raisonnables. Les groupes de projets vérifient auss"
+     },
+     "n": 8,
+     "question": {
+      "basis": "extracted",
+      "char_end": 2693,
+      "char_start": 2576,
+      "context": "extent p1:2576 - p1:2693",
+      "doc": "opd:879274",
+      "kind": "value",
+      "page": 1,
+      "quote": "- Pourquoi des nouveaux projets intergénérationnels et culturels, amenant un plus pour le quartier, ont été\nrefusés ?",
+      "role": "question",
+      "route": "rule",
+      "rule": "question_item",
+      "value": "- Pourquoi des nouveaux projets intergénérationnels et culturels, amenant un plus pour le quartier, ont été\nrefusés ?"
+     }
+    },
+    {
+     "answer": {
+      "basis": "extracted",
+      "char_end": 1202,
+      "char_start": 822,
+      "context": "extent p4:822 - p4:1202",
+      "doc": "opd:895359",
+      "kind": "value",
+      "page": 4,
+      "quote": "« Dès qu’une utilisation du kiosque de la Place du Lignon est prévue, il faut demander une\nautorisation. »\nAfin d’organiser un événement public sur la place du Lignon, une demande d’autorisation doit en effet être\ndéposée auprès du Service de l’espace public de la Ville de Vernier.\n\nLa question écrite QE 337 – 24.03 est ainsi close.\n\nMartin STAUB\nMaire\n\nVernier, le 10 juin 2024",
+      "role": "answer",
+      "route": "rule",
+      "rule": "reprinted_question",
+      "value": "« Dès qu’une utilisation du kiosque de la Place du Lignon est prévue, il faut demander une\nautorisation. »\nAfin d’organiser un événement public sur la place du Lignon, une demande d’autorisation doit en effet être\ndéposée auprès du Service de l’espace public de la Ville de Vernier.\n\nLa question écrite QE 337 – 24.03 est ainsi close.\n\nMartin STAUB\nMaire\n\nVernier, le 10 juin 2024"
+     },
+     "n": 9,
+     "question": {
+      "basis": "extracted",
+      "char_end": 2905,
+      "char_start": 2694,
+      "context": "extent p1:2694 - p1:2905",
+      "doc": "opd:879274",
+      "kind": "value",
+      "page": 1,
+      "quote": "- Dès qu’une utilisation du kiosque de la Place du Lignon est prévue, il faut demander une autorisation et ceci\navant de présenter un projet au contrat de quartier, comment pourrait-on simplifier les démarches ?",
+      "role": "question",
+      "route": "rule",
+      "rule": "question_item",
+      "value": "- Dès qu’une utilisation du kiosque de la Place du Lignon est prévue, il faut demander une autorisation et ceci\navant de présenter un projet au contrat de quartier, comment pourrait-on simplifier les démarches ?"
+     }
+    }
+   ],
    "link_status": "attached",
    "question_doc": "opd:879274"
   }

@@ -783,7 +783,7 @@ def _title_oracle() -> dict | None:
 
 
 def bern_numbers(rows: list[dict]) -> list[dict]:
-    """Every Bern number on the site and in the report with its denominator, in one place (U2/U3/J4: 'they don't match')."""
+    """Every Bern number on the site and in the report with its denominator, in one place (reviewers: 'they don't match')."""
     rc = _j("repair/be_reconcile.json")
     be = next(r for r in rows if r["key"] == "BE")
     pl, pb, rl = rc["placement"], rc["parentless_breakdown"], rc["relink_list"]
@@ -1259,7 +1259,7 @@ def schema_view() -> dict:
                 ev[x["key"]] = (ev[x["key"]] + "; P8: " if x["key"] in ev else "P8: ") + x["p8"]["where"]
     # whether the field's MEANING was tested across parliaments (data/schema/field_verdict_classes.json `fields`): measured
     # = a statistic in results/census/comparability.json; measured (P8) = the pre-registered meaning test on documents
-    # (results/p8/p8_hypotheses.json); otherwise shared by definition, untested (J1, round 5)
+    # (results/p8/p8_hypotheses.json); otherwise shared by definition, untested
     tested = {x["key"]: x for c in classes.values() for x in c.get("fields", [])}
     assert set(tested) == set(FIELD_CLASS) and all(FIELD_CLASS[k] == c["key"] for c in classes.values()
                                                    for k in (x["key"] for x in c.get("fields", []))), "classes out of sync"
@@ -1282,7 +1282,7 @@ def schema_view() -> dict:
              evidence=f"{va['n_bodies']} bodies, {va['n_bodies_no_affairs']} of them with no affair at all: affairs derived "
                       "from agenda and minutes are marked ‘virtual’ with ‘derived_from’ (test P4)"),
     ]
-    # round 16 (J2): executive business is not specific to a body (every parliament has it); it lies outside the tested
+    # executive business is not specific to a body (every parliament has it); it lies outside the tested
     # scope, which is interventions
     outside_scope = [
         dict(name="executive business that answers no member’s affair",
@@ -1291,7 +1291,7 @@ def schema_view() -> dict:
     ]
     res = _j("eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json")
     x = next(a for a in res["per_affair"] if a["affair_id"] == SAMPLE_AFFAIR)
-    from ..affair_post import finalize  # product post-processing: no false typed null in the showcase (J1, round 5)
+    from ..affair_post import finalize  # product post-processing: no false typed null in the showcase
 
     post = finalize(x["affair"])
     # the converter's product record carried to schema v0.2 (answering_body typed `not_extracted`), validated as a whole
@@ -1421,14 +1421,14 @@ def p10() -> dict | None:
     if not p.exists():
         return None
     out = json.loads(p.read_text(encoding="utf-8"))["p10"]
-    p16 = RESULTS / "report" / "r16_numbers.json"   # round 16: sample against plan, concentration, shipped route (post hoc)
+    p16 = RESULTS / "report" / "r16_numbers.json"   # sample against plan, concentration, shipped route (post hoc)
     if p16.exists():
         out["r16"] = json.loads(p16.read_text(encoding="utf-8"))["p10"]
     return out
 
 
 def scope() -> dict:
-    """What the headline question was asked of (round 16, J2): OPD's five intervention types (results/census/summary.json)
+    """What the headline question was asked of: OPD's five intervention types (results/census/summary.json)
     among all of OPD's affairs (results/schema/vocab_summary.json)."""
     return dict(interventions=_j("census/summary.json")["national"]["n"],
                 opd_affairs=_j("schema/vocab_summary.json")["affairs"])
@@ -1610,7 +1610,7 @@ def adapter_lists() -> dict | None:
 
 
 def tiles() -> dict | None:
-    """The headline tiles shared by README, report, form notes and site (round 14): the 92.3% split by how its repairs
+    """The headline tiles shared by README, report, form notes and site: the 92.3% split by how its repairs
     are checked (results/report/r14_numbers.json), schema v0.2 with the federal cell (r13_numbers.json)."""
     p14, p13 = RESULTS / "report" / "r14_numbers.json", RESULTS / "report" / "r13_numbers.json"
     if not (p14.exists() and p13.exists()):

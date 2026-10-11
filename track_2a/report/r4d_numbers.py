@@ -1,4 +1,4 @@
-"""Display-ready numbers for the round-4 docs pass, derived only from committed files, so claims.tsv can trace them:
+"""Display-ready numbers for the docs pass, derived only from committed files, so claims.tsv can trace them:
 
   * the first real network night under systemd on a GitHub-hosted runner (results/monitor/night_real_<run>/);
   * the local 8B at OPD scale (residue share and seconds per document from results/report/cost*.json);
@@ -84,7 +84,7 @@ def weights_70b() -> dict:
 
 
 def main() -> dict:
-    out = dict(label="round-4 docs pass: display numbers (night, 8B scale, 70B weights)", night=night(), scale_8b=scale_8b(),
+    out = dict(label="docs pass: display numbers (night, 8B scale, 70B weights)", night=night(), scale_8b=scale_8b(),
                weights_70b=weights_70b())
     (RESULTS / "report" / "r4d_numbers.json").write_text(json.dumps(out, indent=1, ensure_ascii=False))
     return out

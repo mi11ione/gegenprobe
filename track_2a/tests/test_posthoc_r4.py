@@ -1,4 +1,4 @@
-"""Post-hoc round-4 analyses: multiplicity helpers, CI-inversion p-values, 8B θ from committed cache keys, and the
+"""Post-hoc analyses: multiplicity helpers, CI-inversion p-values, 8B θ from committed cache keys, and the
 offline outputs reproduce the committed files (no model, no network, no texts)."""
 import json
 

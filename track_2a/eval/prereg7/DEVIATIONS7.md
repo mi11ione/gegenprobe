@@ -27,7 +27,7 @@ disputed document (329356, decided 'no answer'). One A2 session reported two sli
 showed summary fields of the other A2 session's files (same annotator role, not A1). It labelled its own 34 documents from its
 own notes. A1 and A2 disagreed on 1 of 68 documents.
 
-## D1 (11 Oct 2026, post hoc, round 6): candidate C's code was committed after the DEV2 labels
+## D1 (11 Oct 2026, post hoc): candidate C's code was committed after the DEV2 labels
 Order of the commits, with GitHub's server time of each push (`results/eval/annotation_sessions.json`):
 - **6810ee5** (pushed 21:16:30 UTC, 10 Oct): the selection rule as prose (`eval/p6/DEV2_SELECTION.md`, candidates A, B, C
   described), the DEV2 draw, `pointer_v2.py` with the presence gate and role pick (candidates A and B) and the guided
@@ -62,7 +62,7 @@ The 8B run on P6 (CI run 38089554021, dispatched 2026-10-10T21:56:50Z) used the 
 frozen 4,096-token scorer, so the P6 8B numbers are fast-scorer results only (`results/eval/posthoc_r4_eval.json`,
 `gguf_cache_n_ctx_p6`). The P1/P2 8B finding (302 entries, max 4,079 tokens, all within 4,096) is unchanged.
 
-## D3 (11 Oct 2026, post hoc, round 8) — the "no answer at all" split of the answerless documents
+## D3 (11 Oct 2026, post hoc) — the "no answer at all" split of the answerless documents
 The README's "of the 53 documents with no answer at all, Apertus dated 0" uses a split defined on 11 Oct 2026, after the
 P6 results were known (`report/r7docs_numbers.py`). PREREG7 does not register it; H2 (v2 dates 5/34 answerless documents,
 Wilson upper bound 30.1% > 15%, and more than free_null's 4) failed as registered and still fails.

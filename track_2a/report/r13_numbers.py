@@ -1,4 +1,4 @@
-"""Display-ready numbers for the round-13 docs pass, derived only from committed files, so claims.tsv can trace them:
+"""Display-ready numbers for the docs pass, derived only from committed files, so claims.tsv can trace them:
 
   * P7 (results/p7/p7_posthoc_r8.json, post hoc): the share of judged promotions whose chosen date is the gold answer
     date, for Apertus and for the two no-model rules (the exact-date match `trivial` and `rule_any_view`), unweighted
@@ -131,7 +131,7 @@ def display() -> dict:
 
 
 def main() -> int:
-    out = dict(label="round-13 display numbers from committed files (report/r13_numbers.py)", p7=p7(),
+    out = dict(label="display numbers from committed files (report/r13_numbers.py)", p7=p7(),
                converter=converter(), languages=languages(), federal=federal(), answer_times=answer_times(), ocr=ocr(),
                v02_with_federal=v02_with_federal(), display=display())
     OUT.write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")

@@ -1,4 +1,4 @@
-"""Display numbers derived from committed results files for the round-2 wording (README / report / form notes), so
+"""Display numbers derived from committed results files for the wording (README / report / form notes), so
 claims.tsv can trace every number those documents print. No model, no network.
 
     python -m report.r2_numbers   -> results/report/r2_numbers.json
@@ -17,7 +17,7 @@ def main() -> dict:
     with gzip.open(RESULTS / "census" / "interventions.tsv.gz", "rt", encoding="utf-8") as f:
         header = f.readline().rstrip("\n").split("\t")
     out = dict(
-        label="derived display numbers (round-2 wording); every value is a difference or count over a committed results file",
+        label="derived display numbers for the README, report and form wording; every value is a difference or count over a committed results file",
         bern_relink_n=v2["n"],
         bern_relink_date_registered_parser=v1["date_eq_event"],
         bern_relink_date_posthoc_parser=v2["date_eq_event"],

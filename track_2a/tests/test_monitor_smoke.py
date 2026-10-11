@@ -1,4 +1,4 @@
-"""Nightly job robustness (round 3): atomic outbox and state writes, a corrupt outbox or state file is quarantined and
+"""Nightly job robustness: atomic outbox and state writes, a corrupt outbox or state file is quarantined and
 reported instead of failing every night, and the offline fixture smoke run that CI also runs inside the Docker image."""
 import json
 import os

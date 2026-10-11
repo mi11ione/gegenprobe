@@ -1,4 +1,4 @@
-"""Display-ready numbers for the round-14 docs pass, derived only from committed files, so claims.tsv can trace them:
+"""Display-ready numbers for the docs pass, derived only from committed files, so claims.tsv can trace them:
 
   * the 92.3% split by how its repairs are checked (results/report/r9_numbers.json, r7docs_numbers.json): the share of
     the 91,268 interventions with a recorded government answer that have answer text once the row-checked repairs are
@@ -114,7 +114,7 @@ def answer_times() -> dict:
 
 
 def main() -> int:
-    out = dict(label="round-14 display numbers from committed files (report/r14_numbers.py)",
+    out = dict(label="display numbers from committed files (report/r14_numbers.py)",
                coverage=coverage_split(), p1_model_free_cascade=p1_model_free_cascade(), answer_times=answer_times())
     OUT.write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps(out, indent=1, ensure_ascii=False))

@@ -43,7 +43,7 @@ decisions (mean |Δ| 2.66 nats), as close as or closer than the spike's Metal bu
   do not answer CI runner IPs; such documents are skipped in the 8B arms and listed in
   `results/eval/shards/unreachable_{dev,heldout}.json`, so the 8B arms are evaluated on the reachable subset (n reported).
 
-## D4 (2026-10-10, found by the round-1 jury review after the frozen result; no result changes)
+## D4 (2026-10-10, found in review after the frozen result; no result changes)
 - **Stale sentence in a locked file.** `data/gold/README.md:43` (LOCK-hashed) still says "Roman adjudicates every
   disagreement". The protocol was changed to no human labels or adjudication before any held-out label existed
   (`docs/gold_protocol.md`, PREREG "Labels", commit 812030f); the README sentence was not updated before the lock and is
@@ -60,7 +60,7 @@ decisions (mean |Δ| 2.66 nats), as close as or closer than the spike's Metal bu
 - **Tie-break order not randomised.** A3 always saw A1's label as "X" and A2's as "Y"; A3 chose A1's label in 36 of 41
   tie-breaks (34 of the 41 differ only in recommendation, none vs not_applicable). Any further tie-break randomises the order.
 
-## D4 corrections (2026-10-10, found by the round-2 jury review)
+## D4 corrections (2026-10-10, found in review)
 - **Correction to "Text extraction not hashed".** The D4 sentence "Neither has changed since the lock" is wrong for
   `src/gegenprobe/pdftext.py`: commit 7dd269b (2026-10-10T09:40) changed it. The diff touches only `fetch_pdf` (typed
   `FetchError` for not-a-PDF and sha mismatch, configurable timeout/tries); `extract`, `_pdftotext_pages` and `_ocr_pages`
@@ -73,7 +73,7 @@ decisions (mean |Δ| 2.66 nats), as close as or closer than the spike's Metal bu
   `P1_H3_length_matched`, written by `eval/baselines.py`). H3 passes on every population (all 0.969; without OCR 0.972;
   length-matched 0.966).
 
-## D5 (10 Oct 2026, POST-HOC, found by the round-3 jury): the naive arms' date parser drops DD-MM-YYYY answers
+## D5 (10 Oct 2026, POST-HOC, found in review): the naive arms' date parser drops DD-MM-YYYY answers
 - **Defect in frozen code.** `eval/naive_baseline.py:to_iso` (lines 91-99, LOCK-hashed) accepts ISO dates and whatever
   `lattice.dates` reads. `lattice.dates` does not read `DD-MM-YYYY` or `DD-<month>-YYYY`, so `to_iso` returns
   `unparseable:…`, and `eval/arms.py:169` scores the answer as null. The prompts ask for `JJJJ-MM-TT` / `AAAA-MM-JJ` /
@@ -92,7 +92,7 @@ decisions (mean |Δ| 2.66 nats), as close as or closer than the spike's Metal bu
 - **Effect on conclusions:** on P1 the null-allowed naive arm stays below the cascade (133 vs 139; paired 7 vs 13 documents,
   McNemar p = 0.26, `results/eval/posthoc_r3_paired.json`). It is now level with the pointer (133 vs 130; 10 vs 7, p = 0.63).
 
-## D6 (10 Oct 2026, POST-HOC, found by the round-3 jury): the H2 Branch-B consequence as registered and as carried out
+## D6 (10 Oct 2026, POST-HOC, found in review): the H2 Branch-B consequence as registered and as carried out
 - **Registered** (PREREG H2): "otherwise **Branch B**: Apertus is kept only where it measurably adds null-safety, and the
   report says so in those words."
 - **Result:** Branch B (cascade-only 5 vs rules-only 1 on FR+IT+OCR, p = 0.22). On null safety Apertus adds nothing.
@@ -108,7 +108,7 @@ decisions (mean |Δ| 2.66 nats), as close as or closer than the spike's Metal bu
   review suggestions", not in the registered words. This entry records the registered words and the departure: Apertus is
   kept as a reviewer aid, not for null safety.
 
-## D7 (10 Oct 2026, POST-HOC, found by the round-3 jury): what the lock clock shows
+## D7 (10 Oct 2026, POST-HOC, found in review): what the lock clock shows
 The LOCK commit precedes the commit that adds the labels in every set. `lock.py write` also refuses to write a LOCK
 while a label file exists in the working tree. Gaps between the LOCK commit and the label commit (committer dates,
 `git log`; SHAs in `docs/commit-map.md`): P1 6 min 0 s (912bda2 → 6eb4d3b), P2 2 min 28 s (5b044a2 → dbf387e), P3 3 min
@@ -132,7 +132,7 @@ annotating after the lock, but they do not prove it. The correct wording is "fro
   call (an executive credit decision, not an answer to a member's affair), on which A1 and A2 disagreed. 20 P1 gold dates
   have no non-LLM source.
 
-## D9 (10 Oct 2026, POST-HOC, found by the round-4 jury): 8B scorer provenance — gate record, cache key n_ctx, θ interval
+## D9 (10 Oct 2026, POST-HOC, found in review): 8B scorer provenance — gate record, cache key n_ctx, θ interval
 - **Every 8B scorer check, in order** (`results/eval/gguf_fast_verparity.json`, written by `eval/posthoc_r4.py verparity`
   from the GitHub job logs; `results/eval/gguf_impl60.json`):
   1. Pre-registered implementation check (`gguf_check impl`, run 37975752529): llama-cpp-python agrees with bf16 on 58/60
@@ -151,7 +151,7 @@ annotating after the lock, but they do not prove it. The correct wording is "fro
 - **What the record shows.** On multi-token continuations, both scorers are equally far from bf16. On a date continuation,
   the fast scorer does not reproduce the frozen scorer (up to 4.47 nats). The 8B numbers are fast-scorer numbers, with θ
   fitted by the same scorer; they are not frozen-scorer numbers.
-- **Cache key n_ctx (the jury's claim is true).** `src/gegenprobe/gguf_fast.py` keys every entry with `n_ctx=4096`, the
+- **Cache key n_ctx (the review's claim is true).** `src/gegenprobe/gguf_fast.py` keys every entry with `n_ctx=4096`, the
   frozen scorer's key, but loads llama.cpp with `n_ctx=6144`. At the gate commit 435fc9e the load value was 8192; 69094aa
   set 6144 after the fit job ran out of memory. The key is only a lookup id. The effective context of every 8B result is
   6144 tokens.
@@ -168,7 +168,7 @@ annotating after the lock, but they do not prove it. The correct wording is "fro
   - 7 dev documents extract differently on this machine than on the CI runner. They were matched to the 7 cache entries
     no other key explains, by candidate count. The assignment used is the only one that reproduces θ, AUROC and gap exactly.
 
-## D10 (10 Oct 2026, POST-HOC, found by the round-4 jury): multiplicity, the lenient metric, served fingerprints
+## D10 (10 Oct 2026, POST-HOC, found in review): multiplicity, the lenient metric, served fingerprints
 - **Multiplicity** (`results/eval/posthoc_r4_multiplicity.json`). The family is every registered confirmatory decision of
   P1–P4 and P3b that rests on a test or an interval, m = 9.
   - Exact McNemar p-values are used as registered. Interval rules are converted to the p-value of the test the interval
@@ -198,7 +198,7 @@ annotating after the lock, but they do not prove it. The correct wording is "fro
     Matching: 129 held-out documents by key, the other 25 by their committed margin, the 97 dev documents as above. All
     are tagged `gguf_fast`.
 
-## D11 (10 Oct 2026, POST-HOC, found by the round-4 jury): three P1 gold dates before OPD's submission date
+## D11 (10 Oct 2026, POST-HOC, found in review): three P1 gold dates before OPD's submission date
 `results/eval/posthoc_r4_gold_audit.json`. No label file is changed.
 - **300277 (BE): genuine.** An RRB of 25 Aug 2010 on a credit business (Kreditgeschäft RR 2010.RRGR.1464). For government
   affairs the executive decides first and parliament receives the business later (OPD "Eingereicht" 2010-11-22).
@@ -211,7 +211,7 @@ annotating after the lock, but they do not prove it. The correct wording is "fro
 - **Sensitivity: no score changes.** No arm or build returns 2010-02-18 for 249052. Every closed-set arm returns null;
   naive_plain returns 2011-03-23. So setting the gold to 2011-02-18, or dropping the document, changes no P1 count.
 
-## D12 (10 Oct 2026, POST-HOC, found by the round-5 jury): P1 is held out by assertion, not by commit order
+## D12 (10 Oct 2026, POST-HOC, found in review): P1 is held out by assertion, not by commit order
 - **What git shows.** Commit `da26116` (original `a794883`, 2026-10-09 20:42:21 CEST; `docs/commit-map.md`) adds the
   rules (`src/gegenprobe/convert/rules.py`), the lattice, the pointer, the cascade, the prompts **and** the held-out sample
   (`data/gold/heldout_docs.jsonl`, 154 documents), its sampler and `eval/gold/SEEDS.md`, 43 min after the repository was
@@ -238,7 +238,7 @@ annotating after the lock, but they do not prove it. The correct wording is "fro
 - **Wording.** P1 is "held out by protocol (seeded draw, labels after the lock)"; it is not held out "by commit order".
   Statements that the rules were developed only on dev are the authors' assertion for P1, and are verified for P2.
 
-## D13 (10 Oct 2026, POST-HOC, found by the round-5 jury): the times in `eval/gold/SEEDS.md` are wrong
+## D13 (10 Oct 2026, POST-HOC, found in review): the times in `eval/gold/SEEDS.md` are wrong
 `eval/gold/SEEDS.md:14` dates the dev redraw "~18:40Z" and `:20` the held-out redraw "~19:20Z". The local logs show
 dev draws at 18:11:44Z and 18:18:49Z and the held-out draw and redraw at 18:35:06Z and 18:41:14Z (file mtimes as in
 D12; 20:xx CEST). The held-out file was committed at 18:42:21Z (20:42:21 CEST) and never changed, so "~19:20Z" is
@@ -247,7 +247,7 @@ describe (dev v1, dev v2, sampler change, held-out draw 1, held-out redraw) is t
 ("Written 2026-10-09T18:07:58Z") is consistent with the scaffold commit (17:59:02Z). `eval/gold/SEEDS.md` is not under
 any LOCK; a correction note is appended there, and the original lines are left unchanged.
 
-## D7 addendum (10 Oct 2026, POST-HOC, round-5 jury): "Agent annotation of a set takes minutes": the evidence
+## D7 addendum (10 Oct 2026, POST-HOC, found in review): "Agent annotation of a set takes minutes": the evidence
 The sentence in D7 was asserted. The evidence is the mtimes of the uncommitted annotation files in `.work/gold*/ann/`
 (local; not tamper-evident). P1: the batch list was written at 21:39:03 CEST, the guide copy at 21:39:28 and the 154 A1 and
 154 A2 files between 21:40:30 and 21:41:17. There were 8 batches of 19–20 documents per annotator, each batch written in one
@@ -256,13 +256,13 @@ commit (21:38:02) to the last label file: 5 min 34 s. P2: LOCK2 commit 09:47:55,
 09:48:53–09:49:12, 7 A3 files 09:49:52. The mtimes are consistent with annotation after each lock and show that it took
 about 2 minutes. They are local file times, so they support the sentence but do not prove the order.
 
-## D9 addendum (10 Oct 2026, round-5 jury): 251 → 302 8B cache entries
+## D9 addendum (10 Oct 2026, found in review): 251 → 302 8B cache entries
 D9 says "all 251 8B cache entries". After the 8B P2 run (D2-6 addendum, `962e2f7`) the committed 8B cache holds 302
 entries (`data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m/`). The regenerated `results/eval/posthoc_r4_eval.json` →
 `gguf_cache_n_ctx` reads `entries: 302`, all tagged `gguf_fast`, max `n_prompt` 4079, none over 4096. So D9's conclusion
 (no prompt exceeds the frozen scorer's 4096-token context) holds for all 302; only the count in D9 is stale.
 
-## D14 (10 Oct 2026, POST-HOC, round-5 jury): an annotator from another vendor, and the J2 null-safety recompute
+## D14 (10 Oct 2026, POST-HOC, found in review): an annotator from another vendor, and the null-safety recompute proposed in review
 - **Why.** Every gold label comes from Claude models (A1 Opus, A2 Sonnet, A3 Opus), so κ between them measures
   consistency within one model family, not validity.
 - **What.** `aisingapore/Qwen-SEA-LION-v4-32B-IT` labelled every P1 held-out document (154) and every P2 document (62).
@@ -310,7 +310,7 @@ entries (`data/model_cache/gguf_apertus-v1.5-8b-text-q4_k_m/`). The regenerated 
   - P2-H2: 22 vs 0 committed, (a) 21 vs 0, (b) 23 vs 1. P2 pointer exact: 53/62, (a) 51/56, (b) 53/62.
   - No registered decision changes, with one exception. On the subset where the two vendors agree, P1-H1's pooled
     bound would pass. P1-H1's failure therefore rests on contested documents, which are mostly OPD "report" types.
-- **J2's recompute of P1-H1** (`p1_h1_j2_recompute`).
+- **The recompute of P1-H1 proposed in review** (`p1_h1_j2_recompute`).
   - Recomputed under each annotator's labels: A2 (Sonnet) 5/88 (upper 12.6%), A1 (Opus) 9/92, Qwen 11/94 (6/89
     counting unverified dates).
   - Without the 24 documents OPD types as "report": committed gold 1/72 (upper 7.5%, pooled bound met), A2 0/71.

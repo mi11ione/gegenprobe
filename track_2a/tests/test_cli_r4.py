@@ -1,4 +1,4 @@
-"""Round-4 converter CLI: strict --affair-type, --queue-nulls with OPD's document category, the public schema exports."""
+"""converter CLI: strict --affair-type, --queue-nulls with OPD's document category, the public schema exports."""
 import json
 
 import pytest

@@ -12,25 +12,25 @@ Step `replay` (FAIL on any difference; no network, no model):
   locks       LOCK, LOCK2, LOCK3, LOCK4: every frozen file still has its registered sha256
   P3b         results/eval5/p3b__*.json re-scored (eval.gold3.score3.score_all, labels data/gold5/p3b_labels.jsonl),
               eval.gold5.hypotheses5 re-run into a scratch tree (JSON-equal to the committed file), LOCK5 verified
-              (added 10 Oct 2026, round 4)
+              (added 10 Oct 2026)
   8B          eval.gguf_8b_analysis re-run offline into a scratch tree from the committed 8B rows, θ file and CI timings;
               both outputs (gguf_8b_analysis.json, hypotheses__gguf_….json) must be JSON-equal to the committed ones
   P5          eval.gold6.hypotheses6 (split p5) re-run into a scratch tree from results/eval6/p5__*.json and
               data/gold6/p5_labels.jsonl; output must be byte-identical to the committed file; LOCK6 verified. The p5dev
               file is not replayed: it was written before LOCK6 by an earlier version of the script (no H3 fields)
   P6          eval.p6.hypotheses7 re-run into a scratch file from results/p6/p6__*.json and data/p6/p6_labels.jsonl; output
-              must be byte-identical to the committed file; LOCK7 verified (P5/P6 added 11 Oct 2026, round 6)
+              must be byte-identical to the committed file; LOCK7 verified (P5/P6 added 11 Oct 2026)
   P7          eval.p7.replay8: the frozen eval.p7.hypotheses8 and eval.p7.tune.table re-run in a subprocess on a scratch
               WORK laid out from the committed copies in data/p7/ (test key + arm decisions, whose sha256 the frozen
               code checks against results/p7/test_sample.json; dev key + features; gold; the adapters' date-rule outcomes
               per (parliament, affair, gold date)); both outputs byte-identical to the committed files; LOCK8 verified on
-              the repository files and the dev key copy (WORK inputs where present). Added 11 Oct 2026, round 8
+              the repository files and the dev key copy (WORK inputs where present). Added 11 Oct 2026
   P8          eval.p8.score and eval.p8.hypotheses9 re-run from the committed merged gold (data/p8/p8_gold.jsonl) into a
               scratch tree; p8_tables.json and p8_hypotheses.json byte-identical to the committed files; LOCK9 verified on
               the repository files, the WORK keys through their committed copies (data/p7/*_key.jsonl,
               results/repair/adapters/audit3/key.jsonl) and the adapter-audit globs where WORK has them
   P7 post hoc eval/p7/offline.py: posthoc8, posthoc_r8 and cluster_r9 (not registered) re-run on the committed copies in
-              data/p7/ (rule_any_outcomes.jsonl replaces the extracted texts); outputs byte-identical. Added round 10
+              data/p7/ (rule_any_outcomes.jsonl replaces the extracted texts); outputs byte-identical.
 
 Step `rederive_apertus` (PASS / WARN / SKIP; FAIL only if a decision recomputed from a cache HIT disagrees):
   For the P1 held-out and P2 documents whose PDF can be fetched and sha256-verified within the time budget, extract
@@ -38,7 +38,7 @@ Step `rederive_apertus` (PASS / WARN / SKIP; FAIL only if a decision recomputed 
   recompute the pointer and cascade decisions from the committed hash-keyed model cache (data/model_cache), cache-only:
   no request leaves the machine. A cache MISS means the prompt differs from the one the model saw, which happens when
   the local poppler/tesseract build extracts the text differently; misses are counted with both extractor versions.
-  Budget: GP_REDERIVE_APERTUS_BUDGET seconds (default 180) PER SET, so P2 is always attempted. Until round 3 the budget
+  Budget: GP_REDERIVE_APERTUS_BUDGET seconds (default 180) PER SET, so P2 is always attempted. Earlier the budget
   was shared (120 s) and P1 used all of it: the CI make-run of fec4029 reached 0 of the 62 P2 documents.
 
     python -m eval.replay_all [replay|rederive_apertus]
@@ -426,8 +426,9 @@ def main(ctx: dict | None = None) -> dict:
     for t in r["tests"]:
         print(f"    {'PASS' if t['ok'] else 'FAIL'}  {t['test']}" + ("" if t["ok"] else f"  {t['detail'][:3]}"), flush=True)
     s = (f"{r['n'] - r['failing']}/{r['n']} replay tests pass "
-         "(P1-P4 and P3b re-scored from committed labels, 9 hypotheses scripts incl. P5-P8, the P7 dev table, "
-         "the P8 tables, the P7 post-hoc files, the 8B analysis, 9 locks)")
+         "(P1-P4 and P3b re-scored from committed labels, the hypotheses scripts of P1-P8 and P3b, the P7 dev table, "
+         "the P8 tables, the P7 post-hoc files, the 8B analysis, LOCK-LOCK9; the tenth test P10 with LOCK10 and "
+         "LOCKFED: step replay_p10)")
     return dict(status="FAIL" if r["failing"] else "PASS", summary=s, tests=r["tests"])
 
 
@@ -448,7 +449,8 @@ def _lang(d: dict) -> str:
 def rederive_apertus(budget_s: float | None = None) -> dict:
     from gegenprobe import llm, pdftext
     from gegenprobe.convert import cascade, pointer, rules
-    # per set (P1, P2): a shared budget let P1 starve P2 (0/62 attempted in CI before round 3)
+    from gegenprobe.deadline import DeadlineExceeded, deadline, request_timeout
+    # per set (P1, P2): a shared budget let P1 starve P2 (0/62 attempted in CI earlier)
     budget_s = float(os.environ.get("GP_REDERIVE_APERTUS_BUDGET", "180")) if budget_s is None else budget_s
     t0 = time.time()
     be = _offline_backend()
@@ -462,7 +464,7 @@ def rederive_apertus(budget_s: float | None = None) -> dict:
             sets.append((name, _jsonl(docs_f), {r["doc_id"]: r for r in res["per_doc"]}, res["theta"]))
     from gegenprobe import ocrguard
     ocrguard.ensure()
-    ocr = ocrguard.status()  # tesseract AND its deu/fra/ita data (round 13: not just the binary)
+    ocr = ocrguard.status()  # tesseract AND its deu/fra/ita data (not just the binary)
     out = dict(sets={}, poppler=pdftext.poppler_version(), tesseract=pdftext.tesseract_version(),
                ocr=dict(ok=ocr["ok"], reason=ocr["reason"], pinned=ocr["pinned"]))
     has_ocr = ocr["ok"]
@@ -473,16 +475,23 @@ def rederive_apertus(budget_s: float | None = None) -> dict:
         miss_examples, mismatches = [], []
         docs = sorted(docs, key=lambda d: (d.get("image_only", False), d["doc_id"]))
         for d in docs:
-            if stop or time.time() - t_set > budget_s:
+            left = budget_s - (time.time() - t_set)
+            if stop or left <= 0:
                 stop = True
                 s["not_reached_budget"] += 1
                 continue
             if d.get("image_only") and not has_ocr:
                 s["skipped_no_ocr"] += 1
                 continue
-            try:
-                sha, path = pdftext.fetch_pdf(d["url"], expect_sha256=d["sha256"])
-                t = pdftext.extract(sha, path)
+            try:  # hard ceiling: the fetch and extraction are interrupted at the set's budget (gegenprobe.deadline)
+                with deadline(left):
+                    sha, path = pdftext.fetch_pdf(d["url"], expect_sha256=d["sha256"], timeout=request_timeout(left),
+                                                  tries=2)
+                    t = pdftext.extract(sha, path)
+            except DeadlineExceeded:
+                stop = True
+                s["not_reached_budget"] += 1
+                continue
             except pdftext.FetchError as e:
                 s["ocr_failed" if e.kind == "ocr_failed" else "unreachable"] += 1
                 continue

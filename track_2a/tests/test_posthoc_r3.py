@@ -1,4 +1,4 @@
-"""Post-hoc round-3 analyses: the corrected naive date parser and the p-value strings (no model, no cache)."""
+"""Post-hoc analyses: the corrected naive date parser and the p-value strings (no model, no cache)."""
 from eval import naive_baseline as nb
 from eval.posthoc_r3 import mcnemar_exact, pstr, to_iso_fixed
 

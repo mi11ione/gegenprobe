@@ -1,4 +1,4 @@
-"""Round 8 (J1): schema/gegenprobe_schema.py, the side-effect-free single-file schema, is equivalent to the package's."""
+"""schema/gegenprobe_schema.py, the side-effect-free single-file schema, is equivalent to the package's."""
 import json
 import subprocess
 import sys

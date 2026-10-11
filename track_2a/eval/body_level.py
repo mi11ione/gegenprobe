@@ -1,5 +1,5 @@
 """POST-HOC body-level analysis of P2-H2 (documents are nested in parliaments; the registered document-level McNemar treats
-them as independent). Asked for by the round-2 jury; labelled post-hoc everywhere.
+them as independent). Proposed in review; labelled post-hoc everywhere.
 
   per body: on gold-value documents, pointer-only correct vs rules-only correct (discordant pairs)
   sign test across bodies with a nonzero difference (two-sided, exact)

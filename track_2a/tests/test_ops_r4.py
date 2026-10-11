@@ -1,4 +1,4 @@
-"""Round-4 ops fixes: `make run` container flags and uid mapping, the failure notifier (one alert per event), the
+"""ops fixes: `make run` container flags and uid mapping, the failure notifier (one alert per event), the
 User-Agent contact note, the CI supply-chain pins, and the real-night workflow."""
 import os
 import re
@@ -113,7 +113,7 @@ def test_user_agent_contact_note(monkeypatch):
     monkeypatch.setenv("GP_USER_AGENT", "x")
     monkeypatch.setattr(net, "UA", "hackapertus-research/0.1 (+https://github.com/mi11ione/gegenprobe)")
     assert nightly.user_agent()["has_contact"] and nightly.ua_note(nightly.user_agent()) is None
-    # round 8: an e-mail address is not a contact; the fetch guard refuses it (tests/test_ua_guard.py)
+    # an e-mail address is not a contact; the fetch guard refuses it (tests/test_ua_guard.py)
     monkeypatch.setattr(net, "UA", "opd/1.0 (data@example.org)")
     assert not nightly.user_agent()["has_contact"]
 
@@ -146,7 +146,7 @@ def test_nightly_real_workflow_is_manual_polite_and_runs_under_systemd():
     w = (WORKFLOWS / "nightly-real.yml").read_text()
     assert re.search(r"^on:\s*\n\s+workflow_dispatch:\s*\n\S", w, re.M)  # manual only: no schedule, push or PR
     assert 'UA: "hackapertus-research/0.1 (+https://github.com/mi11ione/gegenprobe)"' in w
-    assert "printf 'GP_USER_AGENT=%s\\n' \"$UA\" | sudo tee -a /etc/gegenprobe/alerts.env" in w
+    assert 'install.sh --venv --user-agent "$UA"' in w  # GP_USER_AGENT is required; install.sh writes it
     assert "install.sh --venv" in w and "systemctl start gegenprobe-nightly.service" in w
     assert "--require-hashes -r" in w
     assert "run.json" in w and "journal" in w

@@ -99,7 +99,7 @@ def test_cli(work, capsys):
 
 def test_nightly_enforces_it_on_network_nights():
     src = (ROOT / "src" / "gegenprobe" / "monitor" / "nightly.py").read_text()
-    net_branch = src[src.index("        bad = fetchguard.ua_problem(ua[\"value\"])"):src.index("    transfer, idx = 0, None")]
+    net_branch = src[src.index("        bad = ua_refusal(ua)"):src.index("    transfer, idx = 0, None")]
     assert "cache_retention.enforce()" in net_branch  # before the night's first request
     assert "cache_retention=retention" in src  # reported in run.json
 

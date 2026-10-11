@@ -1,4 +1,4 @@
-"""Derived census layer (round 6): what the registered census gap is, once the repair routes have looked.
+"""Derived census layer: what the registered census gap is, once the repair routes have looked.
 
 The registered census (census/defs.py, tables.py, funnel.py; LOCKed) stays exactly as registered: 16,749 interventions
 whose events record a government answer have no answer text attached in OPD (1,855 for 2024-25). This module does

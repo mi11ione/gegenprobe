@@ -10,7 +10,7 @@ Per-attempt reasons: `data/gold5/p3b_fetch_log.jsonl`. The sample is 36 affairs 
 communes 16 / cantons 20). Nothing else changes: hypotheses, thresholds and arms are as registered; S1's
 "inconclusive (underpowered)" rule applies as registered if fewer than 10 open pairs carry a gold value.
 
-## D5-2 (10 Oct 2026, POST-HOC, found by the round-4 jury) — a Luzern rule replaced correct OPD answer dates
+## D5-2 (10 Oct 2026, POST-HOC, found in review) — a Luzern rule replaced correct OPD answer dates
 `results/eval/posthoc_r4_eval.json` → `p3b_luzern_rule`. Frozen code is not changed.
 - **Where.** In 3 of the 4 Luzern affairs (240980, 240904, 241105), arm C's answer date is the submission date. OPD's
   answer event (arm M) equals the gold in all three.

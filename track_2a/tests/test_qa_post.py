@@ -1,4 +1,4 @@
-"""Round 7: the unlocked post-processing layer of qa_cli (gegenprobe/qa_post.py) and the per-parliament settings file
+"""The unlocked post-processing layer of qa_cli (gegenprobe/qa_post.py) and the per-parliament settings file
 (convert/body_settings.py), on synthetic text modelled on the Solothurn layouts U4 met (names and texts invented).
 The frozen extractor (src/gegenprobe/qa, LOCK6) is not changed; each test says what the layer adds on top of it."""
 import json
@@ -361,8 +361,8 @@ def test_qa_confirmed_rules_clear_the_coverage_flags(capsys, so, tmp_path):
     assert rc == 0 and not r["needs_review"] and r["review_reasons"] == [] and "confirm_rules" in err
 
 
-# ---------------------------------------------------------------------------------------------- round 8: Thurgau-like layouts
-# U4 (round 8) on the Grosser Rat Thurgau: scanned question documents with a "Begründung", a handwritten signature line
+# ---- Thurgau-like layouts
+# U4 on the Grosser Rat Thurgau: scanned question documents with a "Begründung", a handwritten signature line
 # and a numbered co-signature table; born-digital answers whose title line names every signer. Names and texts invented.
 TG_Q = (
     "Anna Muster\nFDP\nBeispielstrasse 1\n8500 Frauenfeld\n\nInterpellation\nLärm an Kantonsstrassen\n\n"

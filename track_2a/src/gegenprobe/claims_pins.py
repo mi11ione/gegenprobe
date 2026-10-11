@@ -1,4 +1,4 @@
-"""Wording pins for `make claims` (round 16): the statements a reader takes away that carry no number of their own.
+"""Wording pins for `make claims`: the statements a reader takes away that carry no number of their own.
 
 The numeric check (gegenprobe.claims) binds every number and scope word; it cannot see a verdict flipped ("is not
 confirmed" -> "is confirmed"), a multiplier changed ("about three times" -> "five times"), or a safety, sovereignty or

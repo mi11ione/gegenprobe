@@ -1,5 +1,5 @@
-"""POST HOC (round 5, 10 Oct 2026): an independent, non-Anthropic annotator for the P1 held-out and P2 gold, and what the
-registered headlines become under it. Not pre-registered; asked for by the round-5 jury (J2, J5: "the gold is single-vendor
+"""POST HOC (10 Oct 2026): an independent, non-Anthropic annotator for the P1 held-out and P2 gold, and what the
+registered headlines become under it. Not pre-registered; proposed in review ("the gold is single-vendor
 LLM output").
 
   annotate p1|p2   Qwen-SEA-LION-v4-32B-IT (AI Singapore; Qwen family, not Anthropic, not Apertus) labels every document
@@ -9,7 +9,7 @@ LLM output").
                    through the budget gateway only; the served model name is checked on every call. Raw labels (no text) ->
                    data/gold_audit/qwen_p1.jsonl, qwen_p2.jsonl
   analyse          agreement with the committed gold (κ, per cell / body, every disagreement), sensitivity of the registered
-                   headlines, the J2 null-safety recompute -> results/eval/posthoc_r5_independent_gold.json
+                   headlines, the null-safety recompute proposed in review -> results/eval/posthoc_r5_independent_gold.json
   p2table          P2 table with Wilson CIs per arm + latest-printed-date baselines -> results/eval2/posthoc_r5_p2_table.json
 
     PYTHONPATH=src:. python -m eval.posthoc_r5 annotate p1      (model calls; replays from the gateway cache are free)
@@ -39,7 +39,7 @@ TAG = "2a-qwen-audit"
 TAG_CAP = 1.5
 MAX_TOKENS = 700
 BUILD = "publicai_swiss-ai_apertus-v1.5-8b"  # the 70B weights served under the -8b name (technical_report §3)
-LABEL = "POST HOC (round 5, 10 Oct 2026; not pre-registered): independent non-Anthropic annotator (Qwen-SEA-LION-v4-32B-IT)"
+LABEL = "POST HOC (10 Oct 2026; not pre-registered): independent non-Anthropic annotator (Qwen-SEA-LION-v4-32B-IT)"
 SETS = {
     "p1": dict(docs=DATA / "gold" / "heldout_docs.jsonl", labels=DATA / "gold" / "heldout_labels.jsonl",
                packets=WORK / "gold" / "packets", res=RESULTS / "eval" / f"heldout__{BUILD}.json"),
@@ -339,7 +339,7 @@ def sensitivity(s: str, strict: bool = True) -> dict:
 
 
 def h1_j2() -> dict:
-    """J2: P1-H1 (cascade values on gold-null documents) with A2's (Sonnet's) labels instead of the merged gold, and with
+    """P1-H1 (cascade values on gold-null documents) with A2's (Sonnet's) labels instead of the merged gold, and with
     documents typed 'report' excluded (dtype from data/gold/heldout_docs.jsonl)."""
     rows = json.loads(SETS["p1"]["res"].read_text())["per_doc"]
     a2 = {r["doc_id"]: r for r in map(json.loads, open(DATA / "gold" / "annotations" / "A2.jsonl"))}
@@ -361,7 +361,7 @@ def h1_j2() -> dict:
     nore = [r for r in rows if dtype[r["doc_id"]] != "report"]
     k7 = h1(rows, committed)["doc_ids"]
     return dict(
-        note="POST HOC (round 5, J2). Same H1 definition as eval/hypotheses.py: cascade values on documents whose gold "
+        note="POST HOC. Same H1 definition as eval/hypotheses.py: cascade values on documents whose gold "
              "answer date is null, pooled, Wilson 95% upper bound <= 10% to pass.",
         committed_gold=h1(rows, committed),
         a2_sonnet_labels=h1(rows, sonnet),
@@ -476,7 +476,7 @@ def p2table() -> dict:
         "70b_pointer_vs_latest_printed_date_answered_21": pair(rows52, "pointer", "latest_printed_date", True),
     }
     out = dict(
-        label="POST HOC (round 5, 10 Oct 2026): P2 table with Wilson 95% CIs per arm (percent) and the ungated latest-printed-"
+        label="POST HOC (10 Oct 2026): P2 table with Wilson 95% CIs per arm (percent) and the ungated latest-printed-"
               "date baseline; strict scoring (eval/score.py outcome), θ = 10.40, recomputed from the per-document files.",
         sources=[str(SETS["p2"]["res"].relative_to(RESULTS.parent)), f"results/eval2/p2__{b8}.json", "data/gold2/p2_docs.jsonl"],
         all_62_70b=t62, reachable_52_70b=t52, reachable_52_8b=t52_8b, comparisons=comparisons,

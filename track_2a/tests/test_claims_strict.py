@@ -1,5 +1,5 @@
-"""Rounds 11-13 (J5): the strict zones of `make claims`. A wrong number printed next to a right one must fail, and so must
-a number swapped for another valid claim of the same document (round 12: binding by anchor)."""
+"""Rounds 11-13: the strict zones of `make claims`. A wrong number printed next to a right one must fail, and so must
+a number swapped for another valid claim of the same document (binding by anchor)."""
 import pytest
 
 from gegenprobe import claims
@@ -46,7 +46,7 @@ def test_committed_documents_pass(rows, cfg):
 
 
 def test_altered_readme_fails(rows, cfg):
-    """J5's mutation: 92.3% -> 97.3% and 9,720 -> 9,920 in the headline table, each next to correct copies elsewhere."""
+    """A review mutation: 92.3% -> 97.3% and 9,720 -> 9,920 in the headline table, each next to correct copies elsewhere."""
     t = _text("README.md")
     assert "| **92.3%** |" in t and "| **9,720** |" in t
     bad = t.replace("| **92.3%** |", "| **97.3%** |").replace("| **9,720** |", "| **9,920** |")
@@ -63,7 +63,7 @@ def test_wrong_number_next_to_a_right_one_fails(rows, cfg):
 
 
 def test_altered_report_fails_in_the_summary_and_in_the_body(rows, cfg):
-    """Round 13: the whole report is a strict zone (round 12 stopped at "## 2.")."""
+    """The whole report is a strict zone (it used to stop at "## 2.")."""
     t = _text("technical_report.md")
     head, sep, body = t.partition("\n## 2.")
     assert sep and "**53/62**" in head
@@ -91,10 +91,10 @@ def test_check_includes_the_anchor_check(monkeypatch, rows):
     assert "anchor X: 'y' not found in Z" in claims.check(rows[:1])
 
 
-# ---- round 12 (J5's missed mutations): a swap between two valid claims of the same document must fail
+# ---- a swap between two valid claims of the same document must fail
 
 def test_m3_readme_headline_swap_between_valid_claims_fails(rows, cfg):
-    """M3 (round 12, headline re-cut in round 13): 53/62 -> 54/62 in the README headline. 54/62 is a valid claim for
+    """M3 (headline re-cut in review): 53/62 -> 54/62 in the README headline. 54/62 is a valid claim for
     README.md (the re-parsed free prompt), so a value-set check would pass it; the anchor binds 53/62 to its position."""
     t = _text("README.md")
     assert "| **53/62** | documents exact" in t
@@ -134,7 +134,7 @@ def test_swapped_staging_shares_in_the_report_summary_fail(rows, cfg):
 
 
 def test_readme_report_and_form_notes_are_strict_end_to_end(cfg):
-    """Round 13: every numeric token of the README, the report and the form notes is in a strict zone."""
+    """Every numeric token of the README, the report and the form notes is in a strict zone."""
     for doc in ("README.md", "technical_report.md", "docs/form_notes.md"):
         t = _text(doc)
         assert claims.zones_of(t, cfg["zones"][doc]) == [(0, len(t))], doc

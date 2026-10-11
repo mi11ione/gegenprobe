@@ -1,4 +1,4 @@
-"""Acceptance test exit codes and dated outputs (round 2)."""
+"""Acceptance test exit codes and dated outputs."""
 import datetime as dt
 import gzip
 import json

@@ -2,7 +2,7 @@
 
 The frozen rules (convert/rules.py) compare the affair type with OPD's harmonised English type names: "Interpellation",
 "Question" and "Question time" get recommendation `not_applicable` (no government recommendation is expected). Before
-round 4 any other spelling ("Question écrite", "question") was passed through unchanged and silently treated as "some
+this fix any other spelling ("Question écrite", "question") was passed through unchanged and silently treated as "some
 other type". Now every value is normalised to OPD's harmonised name, and an unknown value is an error.
 
 Accepted, case- and whitespace-insensitive:

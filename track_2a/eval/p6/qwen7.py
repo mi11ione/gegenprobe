@@ -1,5 +1,5 @@
 """P6 independent non-Anthropic gold check (registered in PREREG7 'Labels'): Qwen-SEA-LION-v4-32B-IT labels every P6
-document blind with exactly the round-5 protocol (eval/posthoc_r5.py: the guide cut to presence and date, the same packet
+document blind with exactly the earlier protocol (eval/posthoc_r5.py: the guide cut to presence and date, the same packet
 text the Claude annotators read, served model checked on every call), then the P6 hypotheses are recomputed with Qwen's
 labels as gold (sensitivity; the registered decisions use the committed gold).
 
@@ -26,7 +26,7 @@ R.TAG, R.TAG_CAP = "2a-p6-qwen", 0.5
 
 
 def analyse() -> dict:
-    out = dict(protocol="eval/posthoc_r5.py (round-5 Qwen protocol, unchanged), set p6", model=R.MODEL,
+    out = dict(protocol="eval/posthoc_r5.py (Qwen protocol, unchanged), set p6", model=R.MODEL,
                agreement_strict=R.agreement("p6", True), agreement_lenient_quote=R.agreement("p6", False))
     Q = R.qwen("p6")
     G = R.labels("p6")

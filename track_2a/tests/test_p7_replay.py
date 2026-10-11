@@ -1,4 +1,4 @@
-"""P7 from a clean checkout (round 8): the committed copies of the WORK inputs are the files the draw hashed, and the
+"""P7 from a clean checkout: the committed copies of the WORK inputs are the files the draw hashed, and the
 replay (eval/p7/replay8.py; run in full by tests/test_replay_all.py) fails when one of them changes."""
 import json
 import shutil

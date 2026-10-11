@@ -1,4 +1,4 @@
-"""Schema v0.2 (round 11): P8's roles as a schema version. schema/gegenprobe_schema_v0_2.py loads without gegenprobe, its
+"""Schema v0.2: P8's roles as a schema version. schema/gegenprobe_schema_v0_2.py loads without gegenprobe, its
 JSON Schema is the committed one, all 66 P8 gold affairs validate, and the v0.1 samples upgrade losslessly."""
 import copy
 import json
@@ -121,7 +121,7 @@ def test_span_needs_quote_or_hash(m):
 
 
 def test_every_empty_list_has_a_typed_reason(m):
-    """Round 13 (J1): an empty list field without a reason is invalid, a reason for a filled list is invalid, and a v0.1
+    """An empty list field without a reason is invalid, a reason for a filled list is invalid, and a v0.1
     record upgrades with `carried_from_v0_1` for each of its empty lists."""
     up = m.upgrade_v0_1(json.loads(SAMPLES[0].read_text(encoding="utf-8")))
     obj = up.model_dump(mode="json")

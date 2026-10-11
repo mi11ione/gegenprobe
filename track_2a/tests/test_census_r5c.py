@@ -1,4 +1,4 @@
-"""Round 5 (R5-C): census consistency on the site and in the shipped data files."""
+"""Census consistency on the site and in the shipped data files."""
 
 import csv
 import json

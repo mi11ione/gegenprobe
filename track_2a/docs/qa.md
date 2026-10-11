@@ -209,8 +209,8 @@ same cache. Either document may be left out.
 ### What `qa_cli` adds on top of the frozen extractor
 
 The extractor in `src/gegenprobe/qa/` is frozen by LOCK6, and the P5 numbers above are its numbers. `qa_cli` runs it and
-then an unlocked post-processing layer, `src/gegenprobe/qa_post.py`. It fixes what a Solothurn developer met in round 7
-and a Thurgau developer met in round 8. The layer reads the frozen result and the original text; it never calls a model, and every value it writes is a
+then an unlocked post-processing layer, `src/gegenprobe/qa_post.py`. It fixes what a Solothurn developer met in a user test
+and a Thurgau developer met in a later one. The layer reads the frozen result and the original text; it never calls a model, and every value it writes is a
 span of the original text that re-checks. Steps, in order:
 
 | step | what it does | rule id |
@@ -229,7 +229,7 @@ span of the original text that re-checks. Steps, in order:
 (`eval/gold6/score6.py`). It changes none of the counts in the table above. Reasoning spans got slightly closer to the
 labels, because the closing block is cut, and every value re-checks against its span. A first version also skipped a
 leading repeated question that had no reprint heading. On three P5 affairs that cut text the labels count as reasoning,
-so the layer now skips only a reprint of the member's whole text. Round 8 adds the questions end, the answer title and
+so the layer now skips only a reprint of the member's whole text. A later fix adds the questions end, the answer title and
 the fuzzy repeated question, and the counts are still unchanged on both sets. Questions end changes nothing on P5 dev or
 P5. The answer title replaced two garbled signature blocks on P5 dev (two VD Grand Conseil affairs), keeping the
 submitter's surname. The fuzzy repeated question cut one more answer opening on P5 (Lausanne 120219), which now starts

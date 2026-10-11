@@ -300,10 +300,10 @@ P1 the gap after the LOCK was 95 s. The short gaps are real: each set was split 
 contain the full document text). Pointer v2 (P6) was chosen by a rule written before the DEV2 labels, but its code was
 committed after them (DEVIATIONS7 D1); C won DEV2 with 29 of 31 documents against 28 and 27, within noise, and LOCK7
 froze it before the P6 draw. Post-hoc findings are logged per test
-(`eval/prereg*/DEVIATIONS*.md`); the round-4 ones in one clause each: D9, the 8B scorer's gate record, cache key and θ
+(`eval/prereg*/DEVIATIONS*.md`); the later ones in one clause each: D9, the 8B scorer's gate record, cache key and θ
 interval; D10, multiplicity, the lenient metric and the served build; D11, three P1 gold dates before OPD's submission
 date, all genuine; D2-6, P2 per parliament on all documents and the 8B on P2; D5-2, a Luzern rule that replaced
-correct OPD answer dates in P3b. Round 5: D12, P1 is held out by protocol, not by commit order (below); D13, the
+correct OPD answer dates in P3b. D12: P1 is held out by protocol, not by commit order (below); D13, the
 times in `eval/gold/SEEDS.md` were wrong (corrected there); D14 and D2-7, the annotator from another vendor; a D7
 addendum gives the annotation timing from local file times (about two minutes per set, 16 parallel agents).
 
@@ -354,7 +354,7 @@ call. Re-derived from the response cache, every P1 (1,542) and P2 (351) answer c
 (`Colby/apertus-v1.5-8b-text-Q4_K_M-GGUF`, file `apertus-v1.5-8b-text-q4_k_m.gguf`, sha256 `a037df8d…f299`, pinned in
 `src/gegenprobe/llm.py` `GGUF_PINS`); it is not an official Swiss AI release, and an operator can re-quantise from the
 official weights (`docs/runbook.md` "Supply chain"). It ran with llama.cpp on a 4-vCPU CI runner with its own θ = 16.73
-from 97 dev documents (pre-registered exploratory arms, DEVIATIONS D2/D3), on the P1 arms and, after the round-4
+from 97 dev documents (pre-registered exploratory arms, DEVIATIONS D2/D3), on the P1 arms and, after review
 review, on P2 (D2-6).
 
 **Which size to deploy.** `rules_only` (no model) unattended, the default. For review suggestions, two options:
@@ -657,7 +657,7 @@ Sonnet. H1 (primary): promotion precision 120/120, Wilson lower bound 96.9%: hol
 printed-date filter adds are 28/30 right: not supported. Applied to the whole queue, 214 of 917 review rows go to the
 tier `promoted_by_apertus`.
 
-**What the model adds in P7 (post hoc, round 8; `results/p7/p7_posthoc_r8.json`, DEVIATIONS8 D2).** *Date-checked*
+**What the model adds in P7 (post hoc; `results/p7/p7_posthoc_r8.json`, DEVIATIONS8 D2).** *Date-checked*
 (the registered `correct_dated`) asks whether a promoted row is the executive's answer and some gold answer date passes
 the adapters' date rule: it measures how often a promotion is date-checkable, not whether the date the arm picked is
 right. The date rule, run without a model on every printed date of the text Apertus reads, would promote 217 of the 478
@@ -665,7 +665,7 @@ frame rows; 98.9% are answers, 76.2% date-checked. P7's promotions reach 95.8%: 
 itself, Apertus's chosen date is the gold date in 113/120 judged promotions, the rule's first passing date in 127/157
 (+23.9 points [12.7, 34.7]). The rule recovers more rows with less precision: attainable recall 88% against P7's 66%,
 and 369 of the 863 eligible queue rows against 214. Keeping Apertus's yes/no gate and letting the rule accept any
-printed date, 172 rows reach 74.9% (P7 +20.9 points [5.2, 33.1]). With whole parliaments resampled (post hoc, round 9, `eval/p7/cluster_r9.py` → `results/p7/p7_cluster_r9.json`;
+printed date, 172 rows reach 74.9% (P7 +20.9 points [5.2, 33.1]). With whole parliaments resampled (post hoc, `eval/p7/cluster_r9.py` → `results/p7/p7_cluster_r9.json`;
 15 parliaments, B = 10,000) the gap to the no-model rule is [0.9, 42.8] and to the gated rule [0, 47.4]: it is
 concentrated in a few parliaments, and without Frauenfeld it is larger (+28.5 and +36.4 points). On is-answer, the no-model comparison: a date match without a
 model is also right (146/146) and also stops all 10 gold-no rows; Apertus's yes/no question adds 1.1 points [0, 2.9]. So Apertus's selection makes the

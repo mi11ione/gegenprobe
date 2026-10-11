@@ -78,7 +78,7 @@ def test_statements_are_guarded_by_the_before_state(tmp_path):
 
 
 def test_plan_checks_itself_and_rolls_back_unless_every_statement_changed_one_row(tmp_path):
-    """J3: before COMMIT the plan aborts unless exactly the expected number of rows changed (one per statement)."""
+    """before COMMIT the plan aborts unless exactly the expected number of rows changed (one per statement)."""
     import re
     out, _, _ = _run(tmp_path)
     sql = (out / "apply_BE_plan.sql.txt").read_text().splitlines()

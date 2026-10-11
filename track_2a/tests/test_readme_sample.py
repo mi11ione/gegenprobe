@@ -1,4 +1,4 @@
-"""The README's inline sample record is a trimmed, verbatim excerpt of the committed Bern sample (round 16, J1/J3):
+"""The README's inline sample record is a trimmed, verbatim excerpt of the committed Bern sample:
 every key it shows exists in the sample with the same value (a value ending in "…" is a shortened prefix), and every
 list item it shows is one of the sample's items. A regenerated sample that changes a shown value fails here."""
 import json

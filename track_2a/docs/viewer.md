@@ -1,6 +1,6 @@
 # Evidence viewer
 
-A static page (`site/index.html`, no server, no external scripts, no third-party requests: fonts are self-hosted) that shows the evidence a reviewer or juror needs:
+A static page (`site/index.html`, no server, no external scripts, no third-party requests: fonts are self-hosted) that shows the evidence a reviewer needs:
 
 | View | What it shows | Source files |
 |---|---|---|
@@ -17,7 +17,7 @@ python -m gegenprobe.viewer build --full-text --out .work/site   # local only: a
 ```
 `make run` renders the viewer into `out/site/index.html` as a final, non-failing step.
 
-## Downloads (OPD box, round 5)
+## Downloads (OPD box)
 
 `python -m gegenprobe.viewer collect` (part of `make site`) copies the files listed in `viewer/data.py` `DOWNLOADS`
 byte for byte into `site/downloads/`, and `build --out DIR` copies that folder next to `DIR/index.html`. The "For OPD's
@@ -31,7 +31,7 @@ data team" box lists them under the three steps, each with its row count and siz
 | JSON Schemas (v0.1) | `affair.schema.json`, `doc_extraction.schema.json` (`results/schema/`) |
 
 They add about 3.7 MB to the site (the relink TSV, the SQL text and the relink plan CSV are about 1 MB each; Cloudflare
-compresses text on the wire). The links are relative (`downloads/<file>`); before round 5, `/repair_BE_relink.tsv` was not
+compresses text on the wire). The links are relative (`downloads/<file>`); earlier, `/repair_BE_relink.tsv` was not
 served and the single-page fallback returned the index page instead. `tests/test_r5_ops.py` checks that the copies are
 byte-identical to the results files and that a build into another directory carries them.
 
@@ -108,7 +108,7 @@ adds the always-null baseline (90/154), dates found per arm (of 64) and the prec
   on 2 documents a rule fired with a wrong date, so Apertus was never asked; no document goes the other way
   (`p2.cascade_vs_pointer`, computed from the per-document rows).
 
-## v4 (round 3): newsroom fixes, self-hosted fonts
+## v4: newsroom fixes, self-hosted fonts
 
 - **No third-party requests.** Archivo (variable, wght 100–900, wdth 62–125) and IBM Plex Mono (400/500/600), latin and
   latin-ext woff2 subsets, are served from `site/fonts/` with their SIL OFL 1.1 licence texts; sources (exact
@@ -119,11 +119,11 @@ adds the always-null baseline (90/154), dates found per arm (of 64) and the prec
   no answer document in OPD are typed `oral` by the census (406; Graubünden 367 of them, `docs/census.md` §2, §4), like
   the Valais oral stubs. "Safe to say" names them separately wherever there are any in the period it quotes, and states
   the rate over answers given in writing (Graubünden 2024–25: all 62 without text are question time; every written
-  answer has its text). Since round 5 the table splits them out too (below).
+  answer has its text). The table now splits them out too (below).
 - **Answer time within one type.** The table column and the drawer show the median days to the first written-answer
   event for one intervention type at a time (selector above the table; default interpellation), in the chosen period,
   with the interquartile range; n ≥ 10 per type and period; hidden for same-day bodies. No mixed-type median is shown.
-  The CSV adds per-type medians and counts per period (`*_median_days_{type}`, `*_n_{type}`; round 5).
+  The CSV adds per-type medians and counts per period (`*_median_days_{type}`, `*_n_{type}`).
 - **Coverage gaps are a status.** A parliament for which OPD holds ≥ 20 in-scope interventions but records a written
   government answer for fewer than 20 of them and for under 10% (all years) is a `coverage gap` (31: among the cantons
   SZ, UR, GL, AI, NW, GE): a chip in the table, a strip above it, a "Coverage" filter, a generated "safe to say" ("a gap
@@ -132,7 +132,7 @@ adds the always-null baseline (90/154), dates found per arm (of 64) and the prec
 - **Cantons only.** A "Show" filter: all · cantons · cities & communes.
 
 
-## v5 (round 4): OPD's data team first, five tests, schema record near the top, Ticino
+## v5: OPD's data team first, five tests, schema record near the top, Ticino
 
 - **Audience.** The strip under the hero is addressed to OPD's data team: (1) apply the Bern lists (2,459 relinks + 49
   fetches, keyed on OPD ids), (2) fix the rest by cause, per parliament, (3) take the data. Journalists are pointed to
@@ -186,7 +186,7 @@ adds the always-null baseline (90/154), dates found per arm (of 64) and the prec
   (`results/eval/posthoc_r3_gold_oracle.json`). Bern stays `verified_by: printed`. Tier counts: verified 2, mixed 14. Only
   the `date_trust` column of the 2,386 Ticino rows of `interventions.tsv.gz` changed.
 
-## Round 5: census consistency (data desk U2, OPD partner J1)
+## Census consistency (data desk U2, OPD partner review)
 
 - **Oral answers are not "missing".** Each period carries `missing` (no answer text attached: the census gap, 16,749 all
   years, *including* oral answers), `oral`, `in_writing` (= written − oral), `written_missing` (= missing − oral = agenda
@@ -217,7 +217,7 @@ adds the always-null baseline (90/154), dates found per arm (of 64) and the prec
 - **"Meaning tested?" in the schema table.** `data/schema/field_verdict_classes.json` lists per field `meaning_tested`
   (`measured` + the `comparability.json` key, or `by definition, untested`); `schema_view` adds `tested`, `tested_in`,
   `tested_counts`. Of the 12 shared fields 1 was measured (government recommendation, 0 of 183 labels ambiguous), 11 were
-  shared by definition; all 5 role-split fields were measured. Round 9 (P8, `eval/prereg9/`): seven fields carry
+  shared by definition; all 5 role-split fields were measured. P8 (`eval/prereg9/`): seven fields carry
   `measured (P8)` or a `p8` block with the registered verdict; five move to the role-split class, so the table now
   shows 7 shared (6 of them by definition, untested; the submission date body-specific in two parliaments) and 10 with
   a role split; `schema_view` adds `meaning_measured` (11 of 17) and the evaluation view a P8 table.

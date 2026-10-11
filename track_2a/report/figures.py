@@ -159,7 +159,7 @@ def fig1(n: dict) -> None:
 STATUS = [("metadata", RAMP["600"], "in OPD metadata"), ("mixed", RAMP["400"], "partly (metadata for some affairs)"),
           ("pdf", RAMP["250"], "PDF only"), ("no_source", ORANGE, "not in OPD"),
           ("n/a", GRAY_LIGHT, "not applicable / too few affairs")]
-HATCH = {"mixed": "////"}  # "partly" is hatched so it does not rest on telling two blues apart (round 11)
+HATCH = {"mixed": "////"}  # "partly" is hatched so it does not rest on telling two blues apart
 
 
 def _where(f: dict) -> str:

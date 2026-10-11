@@ -1,4 +1,4 @@
-"""POST HOC (11 Oct 2026, round 8; not pre-registered): multiplicity across every registered confirmatory test of P1-P7,
+"""POST HOC (11 Oct 2026; not pre-registered): multiplicity across every registered confirmatory test of P1-P7,
 parliament-resampled intervals for the primary results of P5, P6 and P7, and the "no answer at all" split of P2/P6.
 No model call; committed result files only (P7: results/p7/p7_hypotheses.json and p7_posthoc_r8.json; for H4's p-value
 the registered stratified bootstrap is replayed on the WORK inputs via eval.p7.hypotheses8.load).
@@ -32,7 +32,7 @@ from eval import posthoc_r4 as R4
 from gegenprobe.paths import DATA, RESULTS
 from gegenprobe.stats import wilson
 
-LABEL = "POST HOC (11 Oct 2026, round 8; not pre-registered): no registered decision depends on this file"
+LABEL = "POST HOC (11 Oct 2026; not pre-registered): no registered decision depends on this file"
 B70, B8 = R4.B70, R4.B8
 OUT_MULT = RESULTS / "eval" / "posthoc_r8_multiplicity.json"
 OUT_NOANS = RESULTS / "eval" / "posthoc_r8_noanswer.json"
@@ -288,7 +288,7 @@ def noanswer() -> dict:
     kq = p2["arms"]["pointer"]["on_answer_without_qualifying_date"] + p6["arms"]["v2"]["on_answer_without_qualifying_date"]
     nq = p2["answer_without_qualifying_date"] + p6["answer_without_qualifying_date"]
     out = dict(
-        label=("POST HOC (11 Oct 2026, round 8): this split was defined on 11 Oct 2026 in report/r7docs_numbers.py, AFTER "
+        label=("POST HOC (11 Oct 2026): this split was defined on 11 Oct 2026 in report/r7docs_numbers.py, AFTER "
                "the P2 and P6 results were known; neither PREREG2 nor PREREG7 registers it. The registered 'answerless' "
                "outcome (P2-H3, P6-H2) is unchanged and failed."),
         definition=dict(

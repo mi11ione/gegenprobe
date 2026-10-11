@@ -173,7 +173,7 @@ def compute(snap: dict | None = None) -> dict:
         upper_bound_downloads=sum(v["downloads_max"] for v in wf.values()),
         upper_bound_requests_with_retries=sum(v["requests_max_with_retries"] for v in wf.values()),
         upper_bound_total=sum(coarse.values()),
-        upper_bound_total_note=("the round-6 bound: every run of a workflow counted at the full per-invocation fetch of "
+        upper_bound_total_note=("the earlier bound: every run of a workflow counted at the full per-invocation fetch of "
                                 "its definition (ci 96 x 43, arms-8b 6 x 261, arms-8b-par 2 x 387, fill 40, p6 147). It "
                                 "left out arms-8b-p2 and gguf-8b; both made no request to www4.ti.ch (workflows.*.why_zero), "
                                 "so it is an upper bound on downloads too, looser than upper_bound_downloads"),

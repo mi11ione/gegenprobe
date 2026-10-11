@@ -88,7 +88,7 @@ Those are judged under RFC 9309 against the stored robots.txt: dev 21, held-out 
   in all 4. `nightly-real` (1 run) read OPD's exports and Bern's sources only.
 - **Retries.** `net.open_url` retries a request after a 429, a 5xx or a timeout: up to 5 attempts per document in
   `make run`, 2 in the 8B workflows. No run logged a retry. Counting every allowed attempt gives the 22,268.
-- **The earlier bound.** Round 6 multiplied each workflow's run count by its full per-invocation fetch (6,655: ci
+- **The earlier bound.** An earlier estimate multiplied each workflow's run count by its full per-invocation fetch (6,655: ci
   4,128, `arms-8b` 6 × 261, `arms-8b-par` 2 × 387, fill 40, `arms-8b-p6` 147) and left out `arms-8b-p2` and `gguf-8b`.
   Both made no request to www4.ti.ch, so 6,655 is also an upper bound on downloads, a looser one.
 - **Local log records.** Counting each logged event once, the project made 450 requests to disallowed www4.ti.ch paths,

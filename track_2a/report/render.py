@@ -5,6 +5,7 @@ headless Chrome/Chromium `--print-to-pdf`. Set CHROME=/path/to/chrome if it is n
 """
 from __future__ import annotations
 
+import html as html_lib
 import os
 import re
 import shutil
@@ -42,13 +43,19 @@ def chrome() -> str | None:
     return None
 
 
+def title(md: str) -> str:
+    """The PDF's metadata title (Chrome takes it from <title>): the report's first heading, as printed on page 1."""
+    m = re.search(r"^#\s+(.+)$", md, re.M)
+    return m.group(1).strip() if m else "Gegenprobe technical report"
+
+
 def main(argv: list[str]) -> int:
     out = Path(argv[0]) if argv else ROOT / "444_Report.pdf"
     md = (ROOT / "technical_report.md").read_text(encoding="utf-8")
     md = re.sub(r"<!--.*?-->", "", md, flags=re.S)
     body = markdown.markdown(md, extensions=["tables", "sane_lists"])
-    html = f"<!doctype html><html><head><meta charset='utf-8'><base href='{ROOT.as_uri()}/'><style>{CSS}</style></head>" \
-           f"<body>{body}</body></html>"
+    html = f"<!doctype html><html><head><meta charset='utf-8'><title>{html_lib.escape(title(md))}</title>" \
+           f"<base href='{ROOT.as_uri()}/'><style>{CSS}</style></head><body>{body}</body></html>"
     exe = chrome()
     if exe is None:
         print("make report: no Chrome/Chromium found (set CHROME=...); HTML left in out/report.html")

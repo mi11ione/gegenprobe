@@ -61,7 +61,7 @@ in-sample numbers: the same agent wrote the rules and the dev labels. Only the h
   answer anchor is used, else the first one. The rule used is recorded.
 - **Truncation.** Documents are cut at 12,000 characters. This stands in for the spikes' 3,000 Apertus tokens (≈ 4 chars/token)
   and is recorded on every result.
-- **Prompt identity.** `answer_date_spike8a.txt` is byte-identical to the round-8 arm (a) prompt, kept for replication. The
+- **Prompt identity.** `answer_date_spike8a.txt` is byte-identical to the arm (a) prompt, kept for replication. The
   default prompts generalise it to any body and level in DE/FR/IT. θ is keyed by `prompt_id`
   (`<lang>/<file>@sha256[:12]`) and by build.
 - **One user message only.** Public AI answers the 70B name with Qwen-SEA-LION when given a system message or prefill.
@@ -110,20 +110,20 @@ build and lists the fitted builds; while it runs, `convert/build_guard.py` compa
 build (`--allow-build-mismatch` continues and marks each suggestion `build_mismatch`; refit procedure in
 `docs/runbook.md`). User guide, field glossary and null reasons in plain words: `docs/convert-your-own.md`.
 
-**Review aids (round 2).** Every answer-date field carries `candidates` (the closed set: every printed date with page,
+**Review aids.** Every answer-date field carries `candidates` (the closed set: every printed date with page,
 span and context, the chosen one marked, and Apertus' probability shares in review mode); rule values carry
 `rule_precision` (`results/convert/rule_precision.json`, per rule on the P1 + P2 held-out rows, with its Wilson 95%
 interval and a small-sample flag below n = 10); review suggestions carry a
 `band` (strong: margin ≤ −5; weak: −5 < margin ≤ θ), measured post-hoc on P1 + P2 (`results/convert/band_precision.json`);
 recommendations carry `multiple_recommendations`; every value gets `opd_text_span`, offsets into OPD's stored text
 (`convert/opdtext.py`), by default whenever that text exists: with `--opd-doc-id` (and `--body`) the converter finds it in
-its work cache, the docs-export snapshots or OPD's docs export for the body (`convert/opd_store.py`, round 16; the row
+its work cache, the docs-export snapshots or OPD's docs export for the body (`convert/opd_store.py`; the row
 says where in `opd_text_source`, or why not in `opd_text_alignment`; `GP_OPD_TEXT=auto|local|off`, `--no-opd-text`).
 `--opd-text FILE` still names the text explicitly. Batch: exit code 2 on any failure row (`--allow-failures` to override), `--queue` for a review
 queue sorted strongest first. Rule coverage for routing: `data/convert/rules_coverage.json`. All computed by
 `python -m gegenprobe.convert.precision` from committed result rows; no new labels, no model call.
 
-**Overlay after the frozen rules (round 3, `convert/overlay.py`).** The overlay is applied in `batch.convert_pages`
+**Overlay after the frozen rules (`convert/overlay.py`).** The overlay is applied in `batch.convert_pages`
 after the cascade has decided. The locked modules are not touched, and the evaluation scripts call those modules
 directly, so no registered number changes. It does five things:
 

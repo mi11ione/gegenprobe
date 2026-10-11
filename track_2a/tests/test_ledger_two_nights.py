@@ -1,6 +1,6 @@
-"""The ledger across nights with real be.join rows (round 8).
+"""The ledger across nights with real be.join rows.
 
-be.join emits every row with checks=None and verified=None. Before round 8, update_ledger took that None as tonight's
+be.join emits every row with checks=None and verified=None. Earlier, update_ledger took that None as tonight's
 check result, so on night 2 of the two Docker nights (run 38098822336) every row checked on night 1 (2,468 pending,
 40 review) became `unchecked` (2,508). These tests use rows built by the real be.join (the `verified` key present) and,
 end to end, two network nights of the real job on a local exports mirror.
@@ -121,7 +121,7 @@ def test_two_network_nights_end_to_end_keep_the_ledger(tmp_path):
     n1, n2 = runs
     assert n1["be_repair_new_since_last_night"] == 50 and n1["ledger"] == {"pending": 40, "review": 10}
     assert n2["be_repair_new_since_last_night"] == 0 and n2["be_repair_retried"] == 0
-    assert n2["ledger"] == n1["ledger"]  # before round 8: {"unchecked": 50}
+    assert n2["ledger"] == n1["ledger"]  # earlier: {"unchecked": 50}
     assert n2["be_repair_carried_review"] == 10
     for k, v in ledgers[1].items():
         assert (v["status"], v["verified"], v["check_summary"]) == (

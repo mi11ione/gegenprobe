@@ -1,6 +1,6 @@
 """The real Apertus v1.5 8B (GGUF Q4_K_M, CPU) on P2, the unseen parliaments, set against the 70B and the trivial
-baselines on the same documents. POST HOC (round 4): the 8B arms on P2 are the PREREG2 exploratory arms, run after the
-round-4 review (DEVIATIONS2 D2-6); 52 of the 62 documents were reachable from the CI runners.
+baselines on the same documents. POST HOC: the 8B arms on P2 are the PREREG2 exploratory arms, run after the
+review (DEVIATIONS2 D2-6); 52 of the 62 documents were reachable from the CI runners.
 
 Reads only committed files: results/eval2/p2__<build>.json (8B and 70B per-document rows of the frozen scorer),
 results/eval2/hypotheses2__<8B>.json (eval/gold2/hypotheses2.py, unchanged, on the 8B rows), data/gold2/p2_docs.jsonl
@@ -128,7 +128,7 @@ def main() -> dict:
         bodies[meta[d]["body"]]["docs"] += 1
         bodies[meta[d]["body"]]["answered"] += r["gold"] is not None
     out = dict(
-        label="POST HOC (round 4, 10 Oct 2026): real 8B on P2 (DEVIATIONS2 D2-6); 70B and baselines restricted to the "
+        label="POST HOC (10 Oct 2026): real 8B on P2 (DEVIATIONS2 D2-6); 70B and baselines restricted to the "
               "same documents. Strict scoring (eval/score.py outcome).",
         build_8b=B8, build_70b=B70, theta_8b=res8["theta"], theta_70b=res70["theta"],
         n_p2=len(r70_all), n_scored=len(r8), n_unreachable=len(unreach), unreachable_doc_ids=unreach,

@@ -1,4 +1,4 @@
-"""The P7 promoted tier in the adapter lists' own columns (round 8).
+"""The P7 promoted tier in the adapter lists' own columns.
 
 results/repair/adapters/p7/promoted.tsv is the registered output of the P7 queue run (adjudicate.py, frozen by LOCK8) and
 keeps its own columns. This module writes the same 214 rows in the column layout of results/repair/adapters/

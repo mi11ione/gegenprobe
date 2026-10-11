@@ -171,6 +171,7 @@ def smoke(root: Path) -> list[str]:
 
 # ---------------------------------------------------------------- local exports (GP_EXPORTS_DIR), network-mode night
 EXPORTS_URL = "https://files.openparldata.ch/exports/"
+SMOKE_UA = "gegenprobe-smoke/0.1 (+https://github.com/mi11ione/gegenprobe)"
 FIXTURE_HOST = "be-fixture.invalid"  # RFC 6761: never resolves, so the per-row checks of new BE rows fetch nothing
 
 
@@ -267,6 +268,10 @@ def local_exports(root: Path, readonly: bool = True) -> list[str]:
     for k in ("GP_ALERT_WEBHOOK", "GP_ALERT_SMTP_HOST", "GP_ALERT_EXIT", "GP_OPD_RAW", "GP_DOCS_META", "GP_BE_OGD",
               "GP_ADAPTER_CANARY"):
         env.pop(k, None)
+    from .nightly import contact_url
+
+    if not contact_url(env.get("GP_USER_AGENT", "")):  # a network-mode night needs a contact URL (nothing leaves here)
+        env["GP_USER_AGENT"] = SMOKE_UA
     p = subprocess.run([sys.executable, "-m", "gegenprobe.monitor.nightly", "run"], env=env, capture_output=True,
                        text=True, timeout=900)
     log = p.stdout[-1500:] + p.stderr[-3000:]

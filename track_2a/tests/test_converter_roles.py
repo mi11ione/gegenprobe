@@ -1,4 +1,4 @@
-"""Round 13: the converter's role rules (gegenprobe.convert.roles) on printed forms, and their exploratory score
+"""The converter's role rules (gegenprobe.convert.roles) on printed forms, and their exploratory score
 against the P8 gold (eval.converter_roles): split rule, frozen held-out rules, committed files."""
 import hashlib
 import json

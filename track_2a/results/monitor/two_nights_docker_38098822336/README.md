@@ -1,7 +1,7 @@
 # Two Docker nights, run 38098822336: a ledger bug in night 2
 
 These files are kept as they were uploaded by the workflow (`.github/workflows/nightly-real-docker.yml`, run 38098822336).
-They show a bug that was found in round 8 and has since been fixed.
+They show a bug that was found in review and has since been fixed.
 
 **The bug.** `repair.be.join` emits every relink/fetch row with `checks=None, verified=None`. Only rows that are new tonight
 (or that are retried after a transient fetch error) go through the per-row check (`monitor.nightly.verify_new`).

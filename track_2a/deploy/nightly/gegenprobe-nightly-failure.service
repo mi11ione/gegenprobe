@@ -5,7 +5,7 @@
 # a crash, a timeout, an OOM kill) it posts one line to the webhook, if configured. systemd >= 251 passes the failed unit's
 # result to OnFailure= units as MONITOR_SERVICE_RESULT / MONITOR_EXIT_STATUS; on an older systemd both are empty and the
 # unit posts on every failure. Quoting: systemd turns "$$" into "$" and C-unescapes inside quotes ("\\\"" -> "\"" for the
-# shell, which keeps the JSON quotes). Before round 4 the JSON used "\"" here, which systemd unescaped to a bare quote: the
+# shell, which keeps the JSON quotes). An earlier version used "\"" here, which systemd unescaped to a bare quote: the
 # shell then failed with a syntax error and the webhook post never left (tests/test_ops_r4.py replays systemd's unquoting).
 [Unit]
 Description=Gegenprobe nightly: failure / alert notifier

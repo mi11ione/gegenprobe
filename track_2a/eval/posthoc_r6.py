@@ -1,4 +1,4 @@
-"""POST HOC (11 Oct 2026, round 6; not pre-registered): evaluation evidence asked for by the round-6 jury (J2, J5). No model
+"""POST HOC (11 Oct 2026; not pre-registered): evaluation evidence proposed in review. No model
 call; nothing here changes a registered decision.
 
   annotations  the raw A1/A2/A3 label files of P6 and DEV2 (.work/p6{,dev}/ann/<A>/<doc>.json, written by the annotator
@@ -37,7 +37,7 @@ from gegenprobe.paths import DATA, RESULTS, WORK
 from gegenprobe.stats import cohen_kappa, wilson
 
 BUILD = "publicai_swiss-ai_apertus-v1.5-8b"
-LABEL = "POST HOC (11 Oct 2026, round 6; not pre-registered): no registered decision depends on this file"
+LABEL = "POST HOC (11 Oct 2026; not pre-registered): no registered decision depends on this file"
 B_BOOT = 10_000
 SEED = 20261011
 QUOTE_MAX = 300
@@ -352,7 +352,7 @@ def provenance() -> dict:
                                          for s in out["sets"]},
     )
     rp = RESULTS / "eval" / "posthoc_r3_naive_reparsed.json"
-    if rp.exists():  # P1/P2 free prompts under the corrected date parser (round 3)
+    if rp.exists():  # P1/P2 free prompts under the corrected date parser
         r3 = json.loads(rp.read_text())["splits"]
         out["corrected_parser_p1_p2"] = {s: {a: r3[s][a]["reparsed"]["fabricated"] for a in ("naive_null", "naive_plain")
                                              if a in r3[s]} for s in ("P1", "P2") if s in r3}

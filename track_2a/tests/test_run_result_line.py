@@ -1,5 +1,5 @@
 """`make run` result line (src/gegenprobe/run.py): a PASS names the steps that skipped, and the P1 Apertus replay
-coverage is printed (J5, round 12). No network, no model: the report dicts are built by hand."""
+coverage is printed. No network, no model: the report dicts are built by hand."""
 from gegenprobe import run
 
 

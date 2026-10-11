@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with: {python-version: "3.11"}
       - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita
-      # hash-pinned like the image: requirements.lock (runtime + pytest) and requirements-dev.lock (ruff), sha256 per file
+      # hash-pinned like the image: requirements.lock (runtime + pytest) and requirements-dev.lock (ruff + pytest), sha256 per file
       - run: pip install --require-hashes -r requirements.lock -r requirements-dev.lock
       - run: ruff check src eval tests
       - run: PYTHONPATH=src:. python -m pytest -q
@@ -168,7 +168,8 @@ jobs:
           sudo chown -R root:root "$d/exports" && sudo chmod -R a+rX,a-w "$d/exports"
           w=$(mktemp -d); r=$(mktemp -d); chmod 0777 "$w" "$r"
           envf=$(mktemp)
-          printf 'GP_EXPORTS_DIR=%s\nGP_BE_OGD_LOCAL=/fx/be_ogd\n' "$d/exports" > "$envf"
+          # a network-mode night requires a User-Agent with a contact URL (nothing leaves the container: --network none)
+          printf 'GP_EXPORTS_DIR=%s\nGP_BE_OGD_LOCAL=/fx/be_ogd\nGP_USER_AGENT=gegenprobe-ci/0.1 (+https://github.com/mi11ione/gegenprobe)\n' "$d/exports" > "$envf"
           GP_EXPORTS_DIR="$d/exports"
           # deploy/nightly/gegenprobe-nightly.service ExecStart (same flags, --env-file and read-only --mount), plus
           # --network none and the fixture's canton tables; the night is the unit's `nightly run` (network mode)

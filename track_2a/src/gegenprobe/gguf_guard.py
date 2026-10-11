@@ -1,5 +1,5 @@
 """The local Apertus 8B path, hardened at runtime WITHOUT editing the locked gegenprobe/llm.py (LOCK) or
-gegenprobe/convert/roles_pointer.py (LOCK10), the way hardening.py and ocrguard.py do it (round 16, J3).
+gegenprobe/convert/roles_pointer.py (LOCK10), the way hardening.py and ocrguard.py do it.
 
   sha256 at every load      llm.GGUF._load and gguf_fast.GGUFFast._load hash the weights file each time a model is
                             loaded and compare it with the pin (llm.GGUF_PINS, or GP_GGUF_SHA256 for an operator's file);

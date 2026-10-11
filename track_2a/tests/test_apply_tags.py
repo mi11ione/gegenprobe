@@ -1,4 +1,4 @@
-"""repair.apply_tags (round 8): the guarded plan for the adapter lists' tag rows, on a small export and list."""
+"""repair.apply_tags: the guarded plan for the adapter lists' tag rows, on a small export and list."""
 import csv
 import gzip
 import hashlib

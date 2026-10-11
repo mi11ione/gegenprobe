@@ -1,4 +1,4 @@
-"""Display-ready numbers for the round-9 precision pass, derived only from committed files, so claims.tsv can trace them:
+"""Display-ready numbers for the precision pass, derived only from committed files, so claims.tsv can trace them:
 
   * the 92.3% after every counted repair, split by what each repair still needs (census/corrected.py placement of every
     registered gap row, cross-checked against the Bern lists):

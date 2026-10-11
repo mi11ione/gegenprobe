@@ -1,4 +1,4 @@
-"""OPD's stored text of a document, found without a flag, so that `convert` emits `opd_text_span` by default (round 16, J1).
+"""OPD's stored text of a document, found without a flag, so that `convert` emits `opd_text_span` by default.
 
     find(opd_doc_id, body=None, policy=None) -> {"status": "found", "text", "source"} or {"status": <why not>, "reason"}
     annotate(row, policy=None)               -> adds opd_text_span to the row's values when OPD's text is found

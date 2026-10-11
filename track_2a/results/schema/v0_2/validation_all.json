@@ -59,18 +59,19 @@
      "submitted": 29
     },
     "empty_reasons": {
-     "none_printed": 53,
-     "not_extracted": 29
+     "none_printed": 54,
+     "present_unanchored": 2
     },
     "null_reasons": {
      "not_applicable": 25,
      "not_extracted": 29,
      "not_in_corpus": 11,
      "not_in_document": 8,
-     "present_unanchored": 48
+     "present_unanchored": 76
     },
     "qa_items": {
-     "none": 29
+     "none": 3,
+     "with_items": 26
     },
     "records_carrying": {
      "actor_role:co_signatory": 1,
@@ -88,7 +89,7 @@
     },
     "routes": {
      "metadata": 119,
-     "rule": 246
+     "rule": 546
     },
     "v02_additions_used": {
      "actor_role:joint_author": 22,
@@ -125,18 +126,19 @@
      "submitted": 36
     },
     "empty_reasons": {
-     "none_printed": 83,
-     "not_extracted": 36
+     "none_printed": 86,
+     "present_unanchored": 1
     },
     "null_reasons": {
      "not_applicable": 18,
      "not_extracted": 36,
      "not_in_corpus": 23,
-     "not_in_document": 9,
-     "present_unanchored": 74
+     "not_in_document": 15,
+     "present_unanchored": 118
     },
     "qa_items": {
-     "none": 36
+     "none": 4,
+     "with_items": 32
     },
     "records_carrying": {
      "actor_role:co_signatory": 5,
@@ -154,7 +156,7 @@
     },
     "routes": {
      "metadata": 169,
-     "rule": 407
+     "rule": 697
     },
     "v02_additions_used": {
      "actor_role:joint_author": 12,
@@ -519,6 +521,42 @@
    "n_valid": 15,
    "records": "results/schema/v0_2/fed_records.jsonl",
    "source": "results/fed/fed_records_v0_2.jsonl (eval.fed.arms offline) + gegenprobe.schema.v0_2_parts.with_parts"
+  }
+ },
+ "qa_pairing": {
+  "label": "the P5 pairing rules (gegenprobe.qa.extract, rules route, no model; held-out P5: precision 0.83, recall 0.67) applied to every converter record; on P3 and P3b these documents were not part of P5's test, so their pairs are unscored",
+  "command": "PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_qa detect (then gegenprobe.schema.v0_2_parts)",
+  "pairs": "results/schema/v0_2/qa_pairs.jsonl",
+  "sets": {
+   "p3": {
+    "n_records": 29,
+    "records_with_qa_block": 29,
+    "records_with_items": 26,
+    "items": 150,
+    "answers_located": 122,
+    "source": "results/schema/v0_2/qa_pairs.jsonl (gegenprobe.schema.v0_2_qa detect)"
+   },
+   "p3b": {
+    "n_records": 36,
+    "records_with_qa_block": 36,
+    "records_with_items": 32,
+    "items": 145,
+    "answers_located": 95,
+    "source": "results/schema/v0_2/qa_pairs.jsonl (gegenprobe.schema.v0_2_qa detect)"
+   },
+   "p5": {
+    "n_records": 40,
+    "records_with_qa_block": 40,
+    "records_with_items": 33,
+    "items": 175,
+    "answers_located": 143,
+    "source": "results/eval6/p5__none.json (R.records, the P5 rules arm)"
+   }
+  },
+  "records_with_items_before_overlay": {
+   "p3": 0,
+   "p3b": 0,
+   "p5": 33
   }
  },
  "role_consistency": {

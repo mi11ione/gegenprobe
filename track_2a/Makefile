@@ -1,6 +1,6 @@
 # Gegenprobe (Track 2A, OpenParlData). Judges: `make run` (Docker, CPU, clean checkout).
 # Development targets run on the host with .venv (python 3.11); every target is re-runnable and writes under results/.
-.PHONY: schema-v02 parts-detect dev-install gold-dev-fetch site deploy-site figures run test lint claims census census-corrected census-scan census-replay census-hash repair repair-network adapters-write adapters-canary repair-manifest nightly-offline nightly-smoke nightly-notify-test convert eval report install-nightly docker-build
+.PHONY: schema-v02 parts-detect qa-detect dev-install gold-dev-fetch site deploy-site figures run test lint claims census census-corrected census-scan census-replay census-hash repair repair-network adapters-write adapters-canary repair-manifest nightly-offline nightly-smoke nightly-notify-test convert eval report install-nightly docker-build
 
 PY ?= .venv/bin/python
 IMAGE ?= gegenprobe:latest
@@ -55,7 +55,9 @@ numbers:
 #             P3, P3b and P5 records carried to v0.2 ({p3,p3b,p5}_records.jsonl, samples/) and validation_all.json over
 #             all four sets; then each record's document parts (tables, annexes, images, scanned pages, signatures) from
 #             the committed detections (gegenprobe.schema.v0_2_parts; `make parts-detect` re-detects them from the cached
-#             PDFs) and the `document_parts` counts in validation_all.json. No network, no model.
+#             PDFs) and the `document_parts` counts in validation_all.json; then the P3/P3b records' Q/A items from the
+#             committed pairing (results/schema/v0_2/qa_pairs.jsonl; `make qa-detect` re-pairs from the cached texts) and
+#             the `qa_pairing` counts. No network, no model.
 schema-v02:
 	$(PY) -m gegenprobe.schema.p8_v0_2
 	$(PY) -m gegenprobe.schema.v0_2_all
@@ -63,6 +65,11 @@ schema-v02:
 
 parts-detect:
 	$(PY) -m gegenprobe.schema.v0_2_parts detect
+
+# qa-detect: the P5 pairing rules (gegenprobe.qa.extract, no model) over the P3 and P3b documents' cached texts ->
+#            results/schema/v0_2/qa_pairs.jsonl, which schema-v02 puts into the records' qa[0].items (gegenprobe.schema.v0_2_qa)
+qa-detect:
+	$(PY) -m gegenprobe.schema.v0_2_qa detect
 
 # ---- census (owner: census workstream)
 # census:        re-extract data/census from the full exports in GP_OPD_RAW / GP_DOCS_META (if present) and recompute results/census
@@ -202,7 +209,8 @@ report:  # technical_report.md -> 444_Report.pdf (needs the [report] extra and C
 figures:
 	$(PY) -m report.figures
 
-# ---- evidence viewer (static site; committed copy in site/ holds excerpts only, never full texts)
+# ---- evidence viewer (static site; committed copy in site/ holds excerpts only, never full texts); `build` also writes
+#      site/_headers (CSP with the inline blocks' sha256, HSTS, nosniff, referrer policy), which deploy-site ships
 site:
 	$(PY) -m gegenprobe.viewer collect
 	$(PY) -m gegenprobe.viewer build

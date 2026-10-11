@@ -104,7 +104,7 @@ type, procedural history, procedural state and decision outcome have labels that
 different bodies) and *body-specific* (oral answers in question time, executive-own business, councils that publish only
 meeting documents). The README's schema section gives the table.
 
-Which classes rest on a measurement (round 5): `field_verdict_classes.json` now says per field whether its meaning was
+Which classes rest on a measurement: `field_verdict_classes.json` now says per field whether its meaning was
 tested across parliaments. **Measured** (a statistic in `comparability.json`): the 5 role-split fields (type 42 of 1,038
 raw labels ambiguous; answer date and procedural history via the date-role labels, 35 of 14,618, plus the held-out
 OPD-event-vs-printed check 37/44; procedural state 32; decision outcome 3) and one shared field, the government
@@ -116,7 +116,7 @@ recommendation move to the role-split class, type stays there, and the submissio
 body-specific in Vernier and Lausanne. The class table now holds 7 shared fields: 1 measured (the submission date,
 P8) and 6 by definition, untested; meaning is measured for 11 of the 17.
 
-Answer times (round 5): the pooled cross-parliament median (68 days, `question.json`) mixes date roles and types;
+Answer times: the pooled cross-parliament median (68 days, `question.json`) mixes date roles and types;
 `results/census/answer_days_by_trust.json` (`python -m gegenprobe.census.days_by_trust`) splits it by date-trust tier and
 type. `site/parliaments.csv` renames the pooled per-body column to `median_days_all_types` and adds per-type medians.
 

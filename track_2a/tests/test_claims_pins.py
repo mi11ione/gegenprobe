@@ -1,5 +1,5 @@
 """Wording pins (claims_pins.json, gegenprobe.claims_pins) and the strict repository-root README: every mutation the
-round-15 skeptical juror (J5) made that `make claims` did NOT catch must now fail; the committed documents pass."""
+a skeptical reviewer made that `make claims` did NOT catch must now fail; the committed documents pass."""
 import copy
 import json
 
@@ -21,7 +21,7 @@ def test_committed_documents_pass(monkeypatch):
     assert P.check() == []
 
 
-# (document, text before, text after): J5's round-15 misses, verbatim
+# (document, text before, text after): the misses found in review, verbatim
 J5_MISSES = [
     ("README.md", "H3a, F1 over the stronger OPD reading, is not confirmed",
      "H3a, F1 over the stronger OPD reading, is confirmed"),
@@ -108,7 +108,7 @@ def test_expression_evaluator_is_closed():
 
 
 def test_root_readme_is_strict(monkeypatch):
-    """J5: '50/141' -> '55/141' at the first occurrence in ../README.md passed, because the value also occurs later."""
+    """'50/141' -> '55/141' at the first occurrence in ../README.md passed, because the value also occurs later."""
     monkeypatch.setenv("GP_CLAIMS_STRICT", "1")
     rows = C.load(ROOT / "claims.tsv")
     docs = {"../README.md": (ROOT / "../README.md").read_text(encoding="utf-8")}

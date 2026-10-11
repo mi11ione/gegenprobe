@@ -10,6 +10,7 @@ from gegenprobe.paths import PDF_CACHE
 from gegenprobe.schema import role_consistency as RC
 from gegenprobe.schema import v0_2_all as V
 from gegenprobe.schema import v0_2_parts as VP
+from gegenprobe.schema import v0_2_qa as QA
 from gegenprobe.schema.p8_v0_2 import OUT, schema_module
 
 
@@ -143,9 +144,9 @@ def test_known_documents_when_cached():
 # ----------------------------------------------------------------------------------------------------------- overlay
 def test_overlay_changes_nothing_else(base, over):
     for k in VP.CONVERTER_SETS:
-        got = [VP.strip_parts(json.loads(x)) for x in over[f"{k}_records.jsonl"].splitlines()]
-        # round 16: after the parts, the role-consistency repair (gegenprobe.schema.role_consistency) is the only
-        # other change
+        got = [QA.strip_qa(VP.strip_parts(json.loads(x))) for x in over[f"{k}_records.jsonl"].splitlines()]
+        # after the parts, the Q/A pairing (gegenprobe.schema.v0_2_qa, undone by strip_qa) and the role-consistency
+        # repair (gegenprobe.schema.role_consistency) are the only other changes
         assert got == [RC.harmonise(json.loads(x))[0] for x in base[f"{k}_records.jsonl"].splitlines()], k
     fed_in = [RC.harmonise(json.loads(x))[0] for x in VP.FED_IN.read_text(encoding="utf-8").splitlines()]
     assert [VP.strip_parts(json.loads(x)) for x in over[VP.FED_OUT].splitlines()] == fed_in
@@ -184,7 +185,7 @@ def test_counts_match_the_records(over, val):
             assert dp["sets"][k]["records_carrying"][kind] == n, (k, kind)
         total += carrying
     assert dp["converter_made"]["records_carrying"]["any"] == total
-    # round 14 (J1, J3): the converter's records carry parts (0 of 105 before)
+    # the converter's records carry parts (0 of 105 before)
     assert total >= 50 and all(dp["converter_made"]["records_carrying"][k] > 0 for k in VP.KINDS)
 
 

@@ -148,7 +148,7 @@ def test_workbench_queue_and_p2_profile():
         assert s in html, s
 
 
-# ---- round 3: self-hosted fonts, coverage gaps, answer times within one type, oral question time in "safe to say"
+# ---- self-hosted fonts, coverage gaps, answer times within one type, oral question time in "safe to say"
 def test_fonts_self_hosted(tmp_path):
     from gegenprobe.viewer.__main__ import TEMPLATE
 
@@ -177,7 +177,7 @@ def test_coverage_gaps_and_times_within_type():
     assert gr["periods"]["y2425"]["oral"] == 62 and "orally in the sitting (question time)" in gr["safe_say"]
 
 
-# ---- round 4: five tests incl. P3b, schema record near the top, canton names, Ticino date trust, list-page links
+# ---- five tests incl. P3b, schema record near the top, canton names, Ticino date trust, list-page links
 def test_r4_p3b_schema_and_cantons():
     d = json.loads((SITE / "data.json").read_text(encoding="utf-8"))
     p3b = d["evaluation"]["p3b"]
@@ -187,7 +187,7 @@ def test_r4_p3b_schema_and_cantons():
     assert f["affair_type"]["arms"]["C"] == [35, 36] and f["affair_type"]["tier"] == "extractable unattended"
     sv = d["schema"]
     assert len(sv["fields"]) == 17 and {x["cls"] for x in sv["fields"]} == {"shared", "shared_with_role_split"}
-    assert len(sv["body_specific"]) == 2  # round 16: executive business moved outside the tested scope
+    assert len(sv["body_specific"]) == 2  # executive business moved outside the tested scope
     assert [x["name"] for x in sv["outside_scope"]] == ["executive business that answers no member’s affair"]
     qa = sv["sample"]["record"]["qa"][0]["answer_date"]
     assert qa["page"] and qa["char_end"] > qa["char_start"] and qa["quote"]

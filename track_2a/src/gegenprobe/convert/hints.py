@@ -84,7 +84,7 @@ def check() -> dict:
 
     sets = (("P1 dev", DATA / "gold" / "dev_docs.jsonl"), ("P1 held-out", DATA / "gold" / "heldout_docs.jsonl"),
             ("P2", DATA / "gold2" / "p2_docs.jsonl"))
-    out = dict(label="POST-HOC (round 5): letter-line hint (convert/hints.py) on the committed gold documents; the hint "
+    out = dict(label="POST-HOC: letter-line hint (convert/hints.py) on the committed gold documents; the hint "
                      "never fills a field", sets={})
     for name, path in sets:
         r = dict(documents=0, no_text=0, no_anchor=0, fired=[])

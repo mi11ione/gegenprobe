@@ -1,4 +1,4 @@
-"""Display-ready numbers for the round-5 docs pass, derived only from committed files, so claims.tsv can trace them:
+"""Display-ready numbers for the docs pass, derived only from committed files, so claims.tsv can trace them:
 
   * the census at a glance (Bern 2024-25 answers in OPD but unlinked = agenda + parentless, from site/parliaments.csv);
   * the independent-annotator check (how many of the 7 P1-H1 values fall on documents OPD types as reports; the number of
@@ -49,7 +49,7 @@ def served() -> dict:
 
 
 def main() -> None:
-    out = dict(label="round-5 docs pass: display numbers derived from committed files (no new measurement)",
+    out = dict(label="docs pass: display numbers derived from committed files (no new measurement)",
                census=census(), gold=gold(), p2=p2(), served=served())
     p = RESULTS / "report" / "r5d_numbers.json"
     p.write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")

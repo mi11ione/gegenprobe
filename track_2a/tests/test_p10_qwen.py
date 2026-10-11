@@ -1,4 +1,4 @@
-"""P10 cross-vendor check (eval/p10/qwen10.py, exploratory) and the round-16 session-timing patterns."""
+"""P10 cross-vendor check (eval/p10/qwen10.py, exploratory) and the session-timing patterns of the later sets."""
 import json
 
 from eval import annotation_sessions as AS

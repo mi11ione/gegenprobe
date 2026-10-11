@@ -219,9 +219,9 @@ def test_invalid_record_is_a_typed_failure(texts, no_parts, monkeypatch):
 
     real = v0_2_all.with_roles
 
-    def broken(rec, roles, overrides=None):
+    def broken(rec, roles, overrides=None):  # an empty list without its typed reason is invalid in v0.2
         out = real(rec, roles, overrides)
-        out["empty_reasons"].pop("qa.0.items", None)
+        out["empty_reasons"].pop("documents.0.parts", None)
         return out
     monkeypatch.setattr(v0_2_all, "with_roles", broken)
     rows = _rows()

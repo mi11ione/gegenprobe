@@ -1,4 +1,4 @@
-"""Round-7 operations: the Docker unit mounts GP_EXPORTS_DIR, development paths come from the environment, the canary run
+"""operations: the Docker unit mounts GP_EXPORTS_DIR, development paths come from the environment, the canary run
 and template, licences over results/, the incident bound recomputed from the run snapshot. Offline."""
 import json
 import os

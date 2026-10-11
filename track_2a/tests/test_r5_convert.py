@@ -1,4 +1,4 @@
-"""Round-5 converter and product post-processing: resume re-runs rows whose options changed, --anchors-review, the
+"""Converter and product post-processing: resume re-runs rows whose options changed, --anchors-review, the
 letter-line hint, and the whole-affair post-processing (no false typed null, the Luzern submission-date guard)."""
 import json
 from pathlib import Path
@@ -148,7 +148,7 @@ def test_post_check_on_p3_and_p3b_matches_the_committed_file():
 
 
 def test_showcase_uses_the_post_processed_record():
-    """Round 12: the showcase is the post-processed product record carried to schema v0.2, where the field nobody
+    """The showcase is the post-processed product record carried to schema v0.2, where the field nobody
     extracted carries the typed null `not_extracted` and the record validates as a whole (nothing is left out)."""
     from gegenprobe.schema.p8_v0_2 import schema_module
     from gegenprobe.viewer import data

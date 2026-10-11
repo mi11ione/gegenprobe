@@ -22,7 +22,7 @@ with a diff against the previous night (`WORK/nightly/state.json`).
    `dropped` = left the list unanswered). The nightly TSV says what is new; the ledger says what is still open.
    A row seen again on a later night and not re-checked keeps its stored verdict and check summary (only `last_seen`
    moves); a row whose check failed stays `review` and is not handed on again as a relink/fetch (`run.json`
-   `be_repair_carried_review`). Until round 8, `be.join`'s `verified=None` overwrote the stored verdict, so every second
+   `be_repair_carried_review`). Earlier, `be.join`'s `verified=None` overwrote the stored verdict, so every second
    night showed all rows `unchecked` (two Docker nights, run 38098822336; `results/monitor/two_nights_docker_38098822336/README.md`).
 8. `results/monitor/alerts.json`, then delivery (below), then the night's state. Exit code: 0 = quiet night,
    `GP_ALERT_EXIT` (default 3) = alerts, 1 = the job itself or the alert delivery failed, 2 = nothing to work on yet.
@@ -80,7 +80,7 @@ configured, 1 send failed).
 the job exits `GP_ALERT_EXIT` only after its own delivery succeeded (a failed delivery exits 1). It posts to
 `GP_ALERT_WEBHOOK` only when the night failed: exit 1 or 2, a crash, a timeout, an OOM kill. It reads the failed unit's
 exit status from `MONITOR_EXIT_STATUS`, which systemd ≥ 251 passes to `OnFailure=` units (Debian 12: 252, Ubuntu 24.04:
-255); an older systemd passes nothing, and the notifier then posts on every failure. Before round 4 it posted on every
+255); an older systemd passes nothing, and the notifier then posts on every failure. Earlier it posted on every
 night with alerts, on top of the job's own message. Its JSON body was also quoted so that systemd's own unescaping
 turned it into a shell syntax error, so that post never went out. The CI job `systemd-units` now runs the notifier under
 real systemd and checks for exactly one valid post.
@@ -169,7 +169,7 @@ The `index_diff.json` numbers come from `python -m gegenprobe.monitor.nightly in
   the exports built from the smoke fixture. Index read, a `census.scan` subprocess per body, `census.extract`, rates, the
   BE join, the per-row check of all 50 new rows (the PDF fetch fails on purpose, with a typed network error), ledger and
   state. It runs in both modes: the exports read in place (`GP_EXPORTS_DIR`) and the single exports downloaded (the job
-  outside OPD). It found two bugs that would have stopped the first real night outside OPD, both fixed in round 4:
+  outside OPD). It found two bugs that would have stopped the first real night outside OPD, both fixed:
   `census.extract` needs `contributors.ndjson.gz`, which the job did not download (it now downloads the five single
   exports the extraction reads, about 198 MB instead of 137 MB). And the per-row check read OPD's answer events from
   `GP_OPD_RAW` instead of the night's own events export.

@@ -13,7 +13,7 @@ def test_quote_url_keeps_query_structure():
     assert quote_url(u) == u
 
 
-# ---- operations hardening (round 2): local exports, robots.txt fail-closed, size caps
+# ---- operations hardening: local exports, robots.txt fail-closed, size caps
 import gzip  # noqa: E402
 import io  # noqa: E402
 import urllib.error  # noqa: E402

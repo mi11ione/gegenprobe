@@ -1,4 +1,4 @@
-"""Spot-check kit (round 10): 30 gold labels that anyone, OpenParlData included, can verify against the documents in about
+"""Spot-check kit: 30 gold labels that anyone, OpenParlData included, can verify against the documents in about
 an hour, and the scorer for the filled file. The gold of every test comes reproducibly from blind multi-annotator agents
 with a cross-vendor check; the kit is sized for one sitting.
 

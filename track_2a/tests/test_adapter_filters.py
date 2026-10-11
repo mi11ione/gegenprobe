@@ -230,7 +230,7 @@ def test_write_never_redraws_an_existing_audit_sample(monkeypatch, tmp_path):
     (tmp_path / "X.jsonl").write_text("judged\n")
     called = []
     monkeypatch.setattr(run, "audit", lambda body, recs: called.append(body))
-    # both output roots: run.OUT (body json) and lists.OUT (lists.path -> adapters_<body>.tsv). Before round 8 only
+    # both output roots: run.OUT (body json) and lists.OUT (lists.path -> adapters_<body>.tsv). Earlier, only
     # run.OUT was redirected and every pytest run rewrote results/repair/adapters/adapters_X.tsv (header only)
     monkeypatch.setattr(run, "OUT", tmp_path / "out")
     monkeypatch.setattr(run.lists, "OUT", tmp_path / "out")

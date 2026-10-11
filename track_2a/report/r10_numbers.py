@@ -1,4 +1,4 @@
-"""Display-ready numbers for the round-10 precision pass, derived only from committed files, so claims.tsv can trace them:
+"""Display-ready numbers for the precision pass, derived only from committed files, so claims.tsv can trace them:
 
   * P7's registered H1 interval in percent (results/p7/p7_hypotheses.json);
   * P8's chance of a false split (PREREG9 §7 operating characteristics, recomputed): if a fraction q of gold labels were

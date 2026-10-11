@@ -3,7 +3,7 @@
 gegenprobe/pdftext.py is locked (LOCK2-5). Its `_ocr_pages` ignores tesseract's exit code, so a tesseract without the
 deu/fra/ita language data returns exit 1 and empty pages; `extract` then caches those empty pages under a tag that still
 says `tesseract-<ver>-deu+fra+ita`, and every scan downstream becomes a typed null that looks like a real reading
-(round-13 juror J5). This module fixes that at runtime WITHOUT editing the locked file, the same way hardening.py adds
+(found in review). This module fixes that at runtime WITHOUT editing the locked file, the same way hardening.py adds
 timeouts (`patch(pdftext)`; idempotent):
 
   language data checked up front   before OCR, `tesseract --list-langs` must list every requested language (deu, fra,

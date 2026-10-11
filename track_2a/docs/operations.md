@@ -217,7 +217,7 @@ from a dated snapshot. Every request Gegenprobe sends carries `GP_USER_AGENT`: d
   reconstructed from the index the night read, `results/monitor/night_real_bytes.json`) and about 50 min (by
   subtraction) the one-time triple check of all 2,508 Bern rows a first night does; 28 min of CPU, peak memory
   2,078 MB. It raised no alert; as a first night it had no previous state, so the drop and trend alerts could not fire.
-  From round 5 on, every night counts the bytes it streams (`run.json` `bytes`). On live data it reproduced the Bern list (2,459 relink, 49 fetch); the triple check passed
+  Every night now counts the bytes it streams (`run.json` `bytes`). On live data it reproduced the Bern list (2,459 relink, 49 fetch); the triple check passed
   2,468 rows and sent 40 to review (the committed lists of the 6 Oct snapshot: 2,421 + 48 pass, 39 to review). This
   tests the install and the job on a standard runner; the same unit runs on any Linux host.
 - **Two consecutive nights in the recommended Docker setup** (`.github/workflows/nightly-real-docker.yml`): the workflow

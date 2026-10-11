@@ -4,7 +4,8 @@
                                                    missing.json, interventions.tsv.gz (+ README) copied from results/census/,
                                                    404.html, and site/downloads/ (Bern lists, apply plan, JSON Schemas, the
                                                    adapter lists per parliament + adapters_manifest.json)
-    python -m gegenprobe.viewer build [--out DIR]   site/data.json + template -> DIR/index.html (default: site/)
+    python -m gegenprobe.viewer build [--out DIR]   site/data.json + template -> DIR/index.html (default: site/) and
+                                                   DIR/_headers (security headers, gegenprobe.viewer.headers)
     python -m gegenprobe.viewer build --full-text --out DIR   collect with full page texts into DIR only (never committed)
 
 The committed site (track_2a/site/) contains document text only as excerpt windows of at most 280 characters around the
@@ -76,6 +77,10 @@ def render(data: dict, out: Path) -> Path:
             for f in (SITE / FONTS).iterdir():
                 if f.is_file():
                     (out / FONTS / f.name).write_bytes(f.read_bytes())
+    # HTTP security headers (CSP with the inline blocks' sha256, HSTS, nosniff, referrer policy) for Cloudflare
+    from .headers import write as write_headers
+
+    write_headers(out)
     return p
 
 

@@ -1,6 +1,6 @@
 """`make run` step `replay_p10`: P10 and the federal cell replayed from committed files; LOCK10 and LOCKFED verified.
 
-Added in round 16 (juror fix: P10, a registered headline, was replayable by hand but outside `make run`, and its lock
+Added after review ( P10, a registered headline, was replayable by hand but outside `make run`, and its lock
 check crashed on a clean clone). No network, no model; FAIL on any difference in a committed file.
 
   P10 gold    the registered merge (eval/p10/annotate.py `merge`: A1's list where A1 and A2 agree by the frozen `agree`,

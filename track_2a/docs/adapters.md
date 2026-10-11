@@ -121,7 +121,7 @@ repairs; 23 yield none (unreachable hosts, answers only in minutes or given oral
 separately and not counted: **282** Jura answers checked by identity and wording only (OPD's Jura answer events carry no
 date). Another **917** rows are review (661 absent, 256 image-only): listed, not counted.
 
-Round 6 (11 Oct 2026, list hygiene after the judges' review) moved **220** rows from counted to review and changed no row
+List hygiene after review (11 Oct 2026) moved **220** rows from counted to review and changed no row
 the other way: **211** rows whose only date match was some printed date while the document's own date lay more than 30
 days from every OPD event (Frauenfeld 129, where the header date is the attached question's; Valais 32, Dübendorf 15,
 Ticino 10, ...), and **9** Zürich canton `tag_answer` rows whose Kantonsrat file sits on the affair in OPD twice or more
@@ -245,7 +245,7 @@ a different OPD document than the candidate, the one whose text verified), and a
 stays the only row. Agenda joins and Valais' `retype_oral` rows have no adapter counterpart. No two files under
 `results/repair` share a name (the adapter lists were `repair_<BODY>.tsv` and `repair_<BODY>_review.tsv` until 11 Oct
 2026; the review subset is now `tier=review`, and the summary is `adapters_summary.json`).
-`adapters_X.tsv` is not a parliament's list: it is a header-only file that a test wrote into this folder until round 8.
+`adapters_X.tsv` is not a parliament's list: it is a header-only file that a test wrote into this folder earlier.
 It stays because LOCK8 hashes every `adapters_*.tsv`, and `MANIFEST.json` marks it as a test artefact.
 
 **Applying the tag rows.** `python -m gegenprobe.repair.apply_tags --exports-dir DIR --out PLAN` (or `--fetch`) reads
@@ -336,7 +336,7 @@ the filters from the **6,390** that were not in the first audit, per parliament 
 5 where the pool allows (18 parliaments; Zürich canton 78, Zürich city 52, St. Gallen 38, Ticino 29). Its blind verdicts,
 not the design sample, estimate the precision of the counted tiers.
 
-**What v2 could not show** (round 6 review): its rows carried the pipeline's `outcome`, `reason` and `proposed_action`
+**What v2 could not show** (found in review): its rows carried the pipeline's `outcome`, `reason` and `proposed_action`
 next to the text, so the auditor saw the verdict it was asked to check; its inputs stayed in WORK; the sample was
 stratified by parliament but the interval treated it as simple random; there were no negative controls; and 8 of its 300
 `date_ok` answers were "no" (5 Valais rows inside the 120-day window, a Jura and a Solothurn row).

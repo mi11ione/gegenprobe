@@ -5,7 +5,7 @@ The only things replaced are the two network calls that do not go to files.openp
 so every new row takes the fetch-error path). Everything else is the real job: index read, census.scan subprocesses per
 body, census.extract, rates, the BE join, the per-row check of every new row, ledger, state.
 
-Before round 4 this night crashed twice outside OPD: census.extract needs contributors.ndjson.gz, which the job did not
+Earlier, this night crashed twice outside OPD: census.extract needs contributors.ndjson.gz, which the job did not
 download, and the per-row check read OPD's answer events from GP_OPD_RAW instead of the night's own events export.
 """
 import gzip
@@ -91,12 +91,17 @@ sys.exit(nightly.main(["run"]))
 """
 
 
+CONTACT_UA = "gegenprobe-test/0.1 (+https://github.com/mi11ione/gegenprobe)"
+
+
 def _env(tmp_path: Path, **kw) -> dict:
     env = dict(os.environ, GP_WORK=str(tmp_path / "work"), GP_MONITOR_OUT=str(tmp_path / "results"),
                PYTHONDONTWRITEBYTECODE="1", PYTHONPATH=os.pathsep.join([str(ROOT / "src"), str(ROOT)]), **kw)
     for k in ("GP_ALERT_WEBHOOK", "GP_ALERT_SMTP_HOST", "GP_ALERT_EXIT", "GP_OPD_RAW", "GP_DOCS_META", "GP_BE_OGD",
               "GP_USER_AGENT", *(() if "GP_EXPORTS_DIR" in kw else ("GP_EXPORTS_DIR",))):
-        env.pop(k, None)
+        if k not in kw:
+            env.pop(k, None)
+    env.setdefault("GP_USER_AGENT", CONTACT_UA)  # a network night needs a contact URL (nightly.ua_refusal)
     return env
 
 
@@ -134,8 +139,25 @@ def test_first_network_night_on_a_local_mirror(tmp_path, mode):
     assert run["ledger"] == {"review": 50}
     ledger = (out / "repair_BE_ledger.tsv").read_text().splitlines()
     assert all("fetch_error: network_error" in r for r in ledger[1:])
-    assert run["user_agent"]["has_contact"] is False  # the default UA; the night prints how to set one
-    assert "GP_USER_AGENT" in p.stderr
+    assert run["user_agent"] == dict(value=CONTACT_UA, has_contact=True, source="GP_USER_AGENT")
+
+
+@pytest.mark.parametrize("ua", [None, "hackapertus-research/0.1", "SET-ME/0.1 (+https://set-me.invalid/your-contact-page)",
+                                "opd/0.1 (+https://example.org/contact)", "opd/0.1 (data@example.ch)"])
+def test_network_night_without_a_contact_url_is_refused_before_any_request(tmp_path, ua):
+    """A network night (also with GP_EXPORTS_DIR) refuses to start unless GP_USER_AGENT names a contact URL: the
+    default, the template's placeholder, a reserved example domain and an e-mail address all exit 1, nothing fetched."""
+    m = build_mirror(tmp_path)
+    env = _env(tmp_path, GP_EXPORTS_DIR=str(m["exports"]))
+    env.pop("GP_USER_AGENT")
+    if ua is not None:
+        env["GP_USER_AGENT"] = ua
+    p = subprocess.run([sys.executable, "-c", DRIVER, str(m["ogd"])], env=env, capture_output=True, text=True,
+                       timeout=300, cwd=tmp_path)
+    assert p.returncode == 1, p.stdout[-1000:] + p.stderr[-2000:]
+    assert "Traceback" not in p.stderr and "GP_USER_AGENT" in p.stderr and "refused" in p.stderr
+    assert not (tmp_path / "results" / "run.json").exists()
+    assert not (tmp_path / "work" / "be_ogd").exists()  # the canton's tables were not fetched either
 
 
 def test_offline_and_index_on_an_empty_cache_say_what_to_run_first(tmp_path):

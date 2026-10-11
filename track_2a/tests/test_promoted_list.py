@@ -1,4 +1,4 @@
-"""Round 8: the P7 tier in the adapter-list columns, and adapters_X.tsv marked as a test artefact in the manifest."""
+"""The P7 tier in the adapter-list columns, and adapters_X.tsv marked as a test artefact in the manifest."""
 import csv
 import json
 

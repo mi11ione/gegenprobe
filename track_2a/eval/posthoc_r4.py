@@ -1,4 +1,4 @@
-"""POST-HOC round-4 analyses (not pre-registered; labelled as such in every output). No model call: everything is read from
+"""POST-HOC analyses (not pre-registered; labelled as such in every output). No model call: everything is read from
 the committed results files, label files, census tables and the committed hash-keyed model cache (data/model_cache).
 Frozen files are imported, never changed.
 
@@ -433,7 +433,7 @@ def residue_precision() -> dict:
 
 def _fisher(a: int, b: int, c: int, d: int) -> float:
     """Two-sided Fisher exact p, in exact integer arithmetic (one division at the end): the same float on every Python.
-    Until round 13 the float terms were summed with sum(), whose last digit changed with Python 3.12's compensated
+    Earlier, the float terms were summed with sum(), whose last digit changed with Python 3.12's compensated
     sum() (0.021430165582901877 on 3.11 vs 0.02143016558290188, the exact value; display 0.021 either way)."""
     n1, n2, k = a + b, c + d, a + c
     n = n1 + n2

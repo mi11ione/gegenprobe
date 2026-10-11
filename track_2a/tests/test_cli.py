@@ -133,7 +133,7 @@ def test_rule_value_carries_its_measured_precision_and_alternatives():
     f = row["fields"]["answer_date"]
     assert f["value"] == "2019-12-03" and f["rule_id"] == "rrb_vom"
     assert f["rule_precision"].startswith("3/5")
-    # J1: the held-out precision carries its Wilson interval and a small-sample flag (n = 5 < 10)
+    # the held-out precision carries its Wilson interval and a small-sample flag (n = 5 < 10)
     assert f["rule_precision"] == "3/5 correct on held-out documents (P1+P2), Wilson 95% [23.1, 88.2]; small sample, n < 10"
     assert f["rule_precision_n"] == 5 and f["rule_precision_small_sample"] is True
     assert f["rule_precision_ci"] == [0.231, 0.882]
