@@ -105,11 +105,41 @@ def numbers() -> dict:
     return out
 
 
+# Figures 1 and 2 sit at full text width in 444_Report.pdf: they are drawn at print size (PRINT_W inches wide, saved
+# uncropped), so a font size here is the printed size; no text is set below 7.5 pt.
+PRINT_W = 7.16  # A4 text width of report/render.py (210 mm - 2 x 14 mm = 182 mm)
+
+
+def save_print(fig, name: str) -> None:
+    OUT.mkdir(parents=True, exist_ok=True)
+    fig.savefig(OUT / f"{name}.png", dpi=220)
+    fig.savefig(OUT / f"{name}.svg")
+    plt.close(fig)
+
+
+def _axes_in(fig, x: float, y: float, w: float, h: float):
+    """Axes placed in inches from the figure's lower left corner."""
+    fw, fh = fig.get_size_inches()
+    return fig.add_axes((x / fw, y / fh, w / fw, h / fh))
+
+
+def _text_in(fig, labels: list, size: float, rotation: float = 0) -> float:
+    """The largest extent (inches) of the labels at this size: width, or height when rotated 90 degrees."""
+    r = fig.canvas.get_renderer()
+    out = 0.0
+    for s in labels:
+        t = fig.text(0, 0, s, fontsize=size, rotation=rotation)
+        bb = t.get_window_extent(r)
+        out = max(out, (bb.height if rotation else bb.width) / fig.dpi)
+        t.remove()
+    return out * 1.06  # hinting at screen dpi measures a few per cent short of the 220 dpi render
+
+
 # ---------------------------------------------------------------- fig 1: where the registered gap is (derived layer)
 def fig1(n: dict) -> None:
     """The registered 16,749 placed once each by the derived census layer (results/census/corrected.json, national.all):
     blue = a verified repair is proposed (9,720), aqua = OPD's copy without text not yet read, orange = answered orally,
-    grey = no verified answer yet. Drawn at print width (7.1 in): every label is at least 7 pt."""
+    grey = no verified answer yet. Wide and short for the report's full text width; every label is 7.5 pt or larger."""
     x = j("census/corrected.json")["national"]["all"]
     io_ = x["image_only_parts"]
     cats = [  # (label, value, colour)
@@ -123,36 +153,44 @@ def fig1(n: dict) -> None:
          x["open"], GRAY),
     ]
     assert sum(c[1] for c in cats) == x["gap"], (sum(c[1] for c in cats), x["gap"])
-    fig, (a0, a1) = plt.subplots(2, 1, figsize=(6.8, 3.3), gridspec_kw=dict(height_ratios=[0.8, 5.2], hspace=0.62))
-    a0.barh([0], [x["attached"]], color=GRAY_LIGHT, height=0.6, edgecolor=SURFACE, linewidth=2)
-    a0.barh([0], [x["gap"]], left=[x["attached"]], color=ORANGE, height=0.6, edgecolor=SURFACE, linewidth=2)
+    W, row, m = PRINT_W, 0.158, 0.02
+    H = 1.84
+    fig = plt.figure(figsize=(W, H))
+    lab = _text_in(fig, [c[0] for c in cats], 7.5) + 0.1
+    # top: all interventions with a written-answer event, split attached / registered gap (direct labels, no axis)
+    fig.text(m / W, (H - m) / H, f"{fmt(x['written'])} interventions with a written-answer event; {fmt(x['gap'])} without "
+             f"answer text attached (registered census)", ha="left", va="top", color=INK, fontsize=8.5)
+    a0 = _axes_in(fig, m, H - 0.42, W - 2 * m, 0.2)
+    a0.barh([0], [x["attached"]], color=GRAY_LIGHT, height=1, edgecolor=SURFACE, linewidth=2)
+    a0.barh([0], [x["gap"]], left=[x["attached"]], color=ORANGE, height=1, edgecolor=SURFACE, linewidth=2)
     a0.set_xlim(0, x["written"])
-    a0.set_yticks([])
-    a0.spines["left"].set_visible(False)
+    a0.set_ylim(-0.5, 0.5)
+    a0.axis("off")
     a0.text(x["attached"] / 2, 0, f"answer text attached in OPD  {fmt(x['attached'])}", ha="center", va="center", color=INK,
             fontsize=8)
     a0.text(x["attached"] + x["gap"] / 2, 0, fmt(x["gap"]), ha="center", va="center", color=INK, fontweight="bold", fontsize=8)
-    fig.subplots_adjust(left=0.40, right=0.98, top=0.9, bottom=0.17)
-    tx = -0.39 / 0.58  # axes-x of the figure's left edge: titles start at the left margin, inside the figure
-    a0.text(tx, 1.25, f"{fmt(x['written'])} interventions with a written-answer event; {fmt(x['gap'])} without "
-            f"answer text attached (registered census)", transform=a0.transAxes, ha="left", va="bottom", color=INK,
-            fontsize=8.5)
-    a0.tick_params(axis="x", labelsize=7.5)
-    a0.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: fmt(int(v))))
+    # below: where the 16,749 are, one bar per place, each with its value
+    y0 = 0.04
+    fig.text(m / W, (y0 + len(cats) * row + 0.2) / H, f"Where the {fmt(x['gap'])} are: verified repairs proposed for "
+             f"{fmt(x['repaired'])} (blue)", ha="left", va="top", color=INK, fontsize=8.5)
+    a1 = _axes_in(fig, lab, y0, W - lab - m, len(cats) * row)
     y = list(range(len(cats)))[::-1]
-    a1.barh(y, [c[1] for c in cats], color=[c[2] for c in cats], height=0.64, edgecolor=SURFACE, linewidth=1)
+    xmax = max(c[1] for c in cats) * 1.1
+    a1.barh(y, [c[1] for c in cats], color=[c[2] for c in cats], height=0.68, edgecolor=SURFACE, linewidth=1)
     for yi, (_lab, v, _c) in zip(y, cats):
-        a1.text(v + 60, yi, fmt(v), va="center", color=INK, fontsize=7.5)
+        a1.text(v + xmax * 0.01, yi, fmt(v), va="center", color=INK, fontsize=7.5)
     a1.set_yticks(y, [c[0] for c in cats], fontsize=7.5)
-    a1.set_xlim(0, max(c[1] for c in cats) * 1.1)
-    a1.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: fmt(int(v))))
-    a1.tick_params(axis="x", labelsize=7.5)
-    a1.text(tx, 1.04, f"Where the {fmt(x['gap'])} are: verified repairs proposed for {fmt(x['repaired'])} (blue)",
-            transform=a1.transAxes, ha="left", va="bottom", color=INK, fontsize=8.5)
+    a1.set_ylim(-0.5, len(cats) - 0.5)
+    a1.set_xlim(0, xmax)
+    a1.set_xticks([])
+    a1.spines["bottom"].set_visible(False)
+    a1.tick_params(axis="y", length=0, pad=4)
+    # legend in the free space right of the two shortest bars (rows 4 and 5 from the top)
     a1.legend(handles=[Patch(color=BLUE, label="verified repair proposed"), Patch(color=AQUA, label="OCR candidate"),
                        Patch(color=ORANGE, label="not missing: oral"), Patch(color=GRAY, label="still open")],
-              loc="upper left", bbox_to_anchor=(tx, -0.13), ncol=4, frameon=False, fontsize=7.5)
-    save(fig, "fig1_funnel")
+              loc="center right", bbox_to_anchor=(1.0, 2.5 / len(cats) + 0.5 / len(cats)), ncol=2, frameon=False,
+              fontsize=7.5, handlelength=1.4, columnspacing=1.2, labelspacing=0.35, borderaxespad=0)
+    save_print(fig, "fig1_funnel")
 
 
 # ---------------------------------------------------------------- fig 2: feasibility matrix
@@ -181,6 +219,7 @@ def _bodies() -> dict:
 
 
 def fig2(n_communes: int = 13) -> dict:
+    """17 fields x 41 parliaments, wide and short for the report's full text width: rows 8.5 pt apart, labels 7.5 pt."""
     m = list(csv.DictReader(open(RESULTS / "census" / "matrix.csv", encoding="utf-8")))
     meta = j("census/matrix.json")
     B = _bodies()
@@ -195,36 +234,46 @@ def fig2(n_communes: int = 13) -> dict:
     fields = sorted(meta["fields"], key=lambda f: (where_order[_where(meta["fields"][f])], f))
     st = {(r["field"], r["body"]): r["status"] for r in m}
     cmap = {k: c for k, c, _ in STATUS}
-    fig, ax = plt.subplots(figsize=(6.8, 4.1))
-    for yi, f in enumerate(fields):
-        for xi, b in enumerate(cols):
-            k = st.get((f, b), "n/a")
-            ax.add_patch(plt.Rectangle((xi, yi), 0.92, 0.88, facecolor=cmap.get(k, GRAY_LIGHT), edgecolor=SURFACE,
-                                       hatch=HATCH.get(k), lw=0))
-    ax.set_xlim(0, len(cols))
-    ax.set_ylim(len(fields), 0)
+
     def lab(b):
         nm = B[b]["name"] if B[b]["type"] in ("city", "municipality") else b
         return nm[:14]
-    ax.set_xticks([i + 0.46 for i in range(len(cols))], [lab(b) for b in cols], rotation=90, fontsize=7.5)
-    ax.set_yticks([i + 0.44 for i in range(len(fields))],
-                  [f"{_flabel(f)}  [{_where(meta['fields'][f])}]" for f in fields], fontsize=7.5)
-    ax.tick_params(length=0)
+
+    rlabels = [f"{_flabel(f)}  [{_where(meta['fields'][f])}]" for f in fields]
+    clabels = [lab(b) for b in cols]
+    W, row, m_ = PRINT_W, 8.5 / 72, 0.02
+    fig = plt.figure(figsize=(W, 3))
+    left = _text_in(fig, rlabels, 7.5) + 0.08
+    bottom = _text_in(fig, clabels, 7.5, rotation=90) + 0.1
+    top = 0.2 + 0.16  # title line, then the two column-group headers
+    H = bottom + len(fields) * row + top + m_
+    fig.set_size_inches(W, H)
+    ax = _axes_in(fig, left, bottom, W - left - m_, len(fields) * row)
+    for yi, f in enumerate(fields):
+        for xi, b in enumerate(cols):
+            k = st.get((f, b), "n/a")
+            ax.add_patch(plt.Rectangle((xi, yi), 0.92, 0.86, facecolor=cmap.get(k, GRAY_LIGHT), edgecolor=SURFACE,
+                                       hatch=HATCH.get(k), lw=0))
+    ax.set_xlim(0, len(cols))
+    ax.set_ylim(len(fields), 0)
+    ax.set_xticks([i + 0.46 for i in range(len(cols))], clabels, rotation=90, fontsize=7.5)
+    ax.set_yticks([i + 0.43 for i in range(len(fields))], rlabels, fontsize=7.5)
+    ax.tick_params(length=0, pad=3)
     for s in ax.spines.values():
         s.set_visible(False)
     split = len([b for b in cols if b in upper])
     ax.axvline(split - 0.04, color=INK2, lw=0.8)
-    ax.text(split / 2, -0.6, "federal, Liechtenstein, cantons", ha="center", fontsize=7.5, color=INK2)
-    ax.text(split + (len(cols) - split) / 2, -0.6, f"largest {n_communes} communal parliaments", ha="center",
-            fontsize=7.5, color=INK2)
-    # the legend sits below the longest rotated parliament label (no overlap): anchored in figure coordinates
-    fig.subplots_adjust(left=0.31, right=0.995, top=0.91, bottom=0.31)
+    ax.text(split / 2, -0.35, "federal, Liechtenstein, cantons", ha="center", va="bottom", fontsize=7.5, color=INK2)
+    ax.text(len(cols), -0.35, f"largest {n_communes} communal parliaments", ha="right", va="bottom", fontsize=7.5,
+            color=INK2)
+    fig.text(m_ / W, (H - m_) / H, f"Where each schema field comes from, per parliament ({len(cols)} of {meta['n_bodies']}; "
+             f"all in results/census/matrix.csv)", ha="left", va="top", fontsize=8.5, color=INK)
+    # legend under the row labels, below the short canton codes (the long commune names are further right)
+    short = _text_in(fig, [c for c, b in zip(clabels, cols) if b in upper], 7.5, rotation=90) + 0.06
     fig.legend(handles=[Patch(facecolor=c, edgecolor=SURFACE, hatch=HATCH.get(k), lw=0, label=t) for k, c, t in STATUS],
-               loc="lower left", bbox_to_anchor=(0.01, 0.0),
-               ncol=3, frameon=False, fontsize=7.5)
-    ax.text(-0.44, 1.09, f"Where each schema field comes from, per parliament ({len(cols)} of {meta['n_bodies']}; all in "
-            f"results/census/matrix.csv)", ha="left", va="bottom", fontsize=8.5, color=INK, transform=ax.transAxes)
-    save(fig, "fig2_matrix")
+               loc="upper left", bbox_to_anchor=(m_ / W, (bottom - short - 0.02) / H), ncol=2, frameon=False,
+               fontsize=7.5, handlelength=1.6, columnspacing=1.2, labelspacing=0.3, borderaxespad=0, borderpad=0)
+    save_print(fig, "fig2_matrix")
     return dict(matrix_columns=len(cols), matrix_bodies=meta["n_bodies"], matrix_fields=len(fields))
 
 

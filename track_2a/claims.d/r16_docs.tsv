@@ -1,7 +1,7 @@
 id	shown	file	path	fmt	command	where	context
 r16.p10_opd_right_of	37/141	results/report/r15_numbers.json	p10.primary.arms.opd_first.right/p10.primary.arms.opd_first.gold	frac	PYTHONPATH=src:. python -m report.r15_numbers	README.md,technical_report.md,docs/form_notes.md,../README.md,docs/evaluation.md	
 r16.p10_opd_right	37	results/report/r15_numbers.json	p10.primary.arms.opd_first.right	int	PYTHONPATH=src:. python -m report.r15_numbers	-	
-r16.p10_it_opd_f1	0.62	results/report/r15_numbers.json	p10.secondary_it.arms.opd_first.f1	str	PYTHONPATH=src:. python -m report.r15_numbers	README.md,technical_report.md,docs/evaluation.md	
+r16.p10_it_opd_f1	0.62	results/report/r15_numbers.json	p10.secondary_it.arms.opd_first.f1	str	PYTHONPATH=src:. python -m report.r15_numbers	README.md,docs/evaluation.md	
 r16.p10_planned	38	results/report/r16_numbers.json	p10.sample.planned_primary	int	PYTHONPATH=src:. python -m report.r16_numbers	README.md,technical_report.md,docs/evaluation.md	
 r16.p10_scored	34	results/report/r16_numbers.json	p10.sample.scored_primary	int	PYTHONPATH=src:. python -m report.r16_numbers	docs/evaluation.md	
 r16.p10_gain	33	results/report/r16_numbers.json	p10.concentration.gain_pairs	int	PYTHONPATH=src:. python -m report.r16_numbers	docs/evaluation.md	

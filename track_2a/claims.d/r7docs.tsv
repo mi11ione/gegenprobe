@@ -35,12 +35,12 @@ r7docs.vocab_votaziun	9,887	results/report/r7docs_numbers.json	vocab_bugs.votazi
 r7docs.vocab_popular_initiative	1,893	results/report/r7docs_numbers.json	vocab_bugs.popular_initiative_affairs	int	PYTHONPATH=src:. python -m report.r7docs_numbers	-	
 r7docs.events_unharmonised	29.1%	results/census/comparability.json	dates_with_roles.unharmonised_share	pct1	PYTHONPATH=src:. python -m gegenprobe.census.comparability	docs/evaluation.md	
 r7docs.gov_rec_labels	183	results/census/comparability.json	government_recommendation.raw_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	docs/evaluation.md	
-r7docs.night1_min	86	results/report/r7docs_numbers.json	nights.night1_min	int	PYTHONPATH=src:. python -m report.r7docs_numbers	technical_report.md,docs/operations.md,README.md,docs/form_notes.md	
+r7docs.night1_min	86	results/report/r7docs_numbers.json	nights.night1_min	int	PYTHONPATH=src:. python -m report.r7docs_numbers	docs/operations.md,README.md,docs/form_notes.md	
 r7docs.night1_gb	6.4	results/report/r7docs_numbers.json	nights.night1_gb	f1	PYTHONPATH=src:. python -m report.r7docs_numbers	docs/operations.md	
-r7docs.night2_min	6.6	results/report/r7docs_numbers.json	nights.night2_min	f1	PYTHONPATH=src:. python -m report.r7docs_numbers	docs/operations.md,technical_report.md,README.md,docs/form_notes.md	
+r7docs.night2_min	6.6	results/report/r7docs_numbers.json	nights.night2_min	f1	PYTHONPATH=src:. python -m report.r7docs_numbers	docs/operations.md,README.md,docs/form_notes.md	
 r7docs.night2_gb	1.19	results/report/r7docs_numbers.json	nights.night2_gb	f2	PYTHONPATH=src:. python -m report.r7docs_numbers	docs/operations.md	
-r7docs.night2_bodies	12	results/report/r7docs_numbers.json	nights.night2_rescanned_bodies	int	PYTHONPATH=src:. python -m report.r7docs_numbers	README.md,technical_report.md	
-r7docs.nights_alerts	0	results/report/r7docs_numbers.json	nights.alerts	int	PYTHONPATH=src:. python -m report.r7docs_numbers	technical_report.md,docs/operations.md	
+r7docs.night2_bodies	12	results/report/r7docs_numbers.json	nights.night2_rescanned_bodies	int	PYTHONPATH=src:. python -m report.r7docs_numbers	README.md	
+r7docs.nights_alerts	0	results/report/r7docs_numbers.json	nights.alerts	int	PYTHONPATH=src:. python -m report.r7docs_numbers	docs/operations.md	
 r7docs.canary_verified	7	results/repair/adapters/canary_runs/2026-10-11.json	verified	int	python -m gegenprobe.repair.adapters.canary run	docs/operations.md	
 r7docs.canary_wall	67.6	results/repair/adapters/canary_runs/2026-10-11.json	wall_s	f1	python -m gegenprobe.repair.adapters.canary run	docs/operations.md	
 r7docs.p3b_addressed_C	2/33	results/eval5/hypotheses_p3b__publicai_swiss-ai_apertus-v1.5-8b.json	H1.addressed_body.correct/H1.addressed_body.n	frac	python -m eval.gold5.hypotheses5 publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,docs/evaluation.md	

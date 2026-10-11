@@ -49,7 +49,7 @@ x1.p10.rules.f1	0.17	results/p10/p10_posthoc_baselines.json	primary.arms.rules.f
 x1.p10.rules.exact	9	results/p10/p10_posthoc_baselines.json	primary.arms.rules.affairs_exact	int	PYTHONPATH=src:. python -m eval.p10.posthoc_baselines	-	
 x1.p10.order.pointer_ahead	8	results/p10/p10_posthoc_baselines.json	primary.paired.cand_order.wins_losses_ties.by_matched_pairs.first_ahead	int	PYTHONPATH=src:. python -m eval.p10.posthoc_baselines	-	
 x1.p10.order.order_ahead	7	results/p10/p10_posthoc_baselines.json	primary.paired.cand_order.wins_losses_ties.by_matched_pairs.arm_ahead	int	PYTHONPATH=src:. python -m eval.p10.posthoc_baselines	-	
-x1.p10.order.tied	19	results/p10/p10_posthoc_baselines.json	primary.paired.cand_order.wins_losses_ties.by_matched_pairs.tie	int	PYTHONPATH=src:. python -m eval.p10.posthoc_baselines	README.md,technical_report.md	
+x1.p10.order.tied	19	results/p10/p10_posthoc_baselines.json	primary.paired.cand_order.wins_losses_ties.by_matched_pairs.tie	int	PYTHONPATH=src:. python -m eval.p10.posthoc_baselines	README.md	
 x1.p10.order.diff_precision_pts	5.2	results/p10/p10_posthoc_baselines.json	display.pointer_vs_cand_order.precision.pts	f1	PYTHONPATH=src:. python -m eval.p10.posthoc_baselines	-	
 x1.p10.order.diff_precision_ci_pts	[-7.4, 22.3]	results/p10/p10_posthoc_baselines.json	display.pointer_vs_cand_order.precision.ci_pts	ci	PYTHONPATH=src:. python -m eval.p10.posthoc_baselines	docs/evaluation.md	
 x1.p10.order.diff_precision_p	0.212	results/p10/p10_posthoc_baselines.json	display.pointer_vs_cand_order.precision.p_first_ahead	str	PYTHONPATH=src:. python -m eval.p10.posthoc_baselines	-	
@@ -116,9 +116,9 @@ x1.p2.reviewer.exact	47/62	results/eval/p2_posthoc_keyword.json	reviewer_input.k
 x1.p2.reviewer.mcnemar_p	0.24	results/eval/p2_posthoc_keyword.json	reviewer_input.pointer_vs_keyword.p_str	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_keyword	-	
 x1.p2.inputs_verified	62	results/eval/p2_posthoc_keyword.json	inputs.sha256_verified	int	PYTHONPATH=src:. python -m eval.gold2.posthoc_keyword	-	
 x1.p7.frame_rows	478	results/p7/p7_posthoc_overlap.json	frame.rows	int	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	README.md	
-x1.p7.promoted_p7	135	results/p7/p7_posthoc_overlap.json	frame.promoted.p7	int	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	README.md,technical_report.md,docs/evaluation.md	
-x1.p7.promoted_trivial	206	results/p7/p7_posthoc_overlap.json	frame.promoted.trivial	int	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	README.md,technical_report.md,docs/evaluation.md	
-x1.p7.overlap_both	126	results/p7/p7_posthoc_overlap.json	frame.overlap.both	int	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	README.md,technical_report.md,docs/evaluation.md	
+x1.p7.promoted_p7	135	results/p7/p7_posthoc_overlap.json	frame.promoted.p7	int	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	README.md,docs/evaluation.md	
+x1.p7.promoted_trivial	206	results/p7/p7_posthoc_overlap.json	frame.promoted.trivial	int	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	README.md,docs/evaluation.md	
+x1.p7.overlap_both	126	results/p7/p7_posthoc_overlap.json	frame.overlap.both	int	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	README.md,docs/evaluation.md	
 x1.p7.overlap_p7_only	9	results/p7/p7_posthoc_overlap.json	frame.overlap.p7_only	int	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	-	
 x1.p7.overlap_trivial_only	80	results/p7/p7_posthoc_overlap.json	frame.overlap.trivial_only	int	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	-	
 x1.p7.p7.is_answer	120/120	results/p7/p7_posthoc_overlap.json	annotated.p7.is_answer/annotated.p7.promoted	frac	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	README.md,technical_report.md,docs/form_notes.md,docs/evaluation.md	
@@ -153,5 +153,5 @@ x1.p8.government_recommendation.evaluable	8	results/p8/p8_qwen_sensitivity.json	
 x1.p8.type.verdict	role_split	results/p8/p8_qwen_sensitivity.json	fields.type.gold_and_qwen_agree.verdict	str	PYTHONPATH=src:. python -m eval.p8.qwen_sensitivity	-	
 x1.p8.type.affairs	50	results/p8/p8_qwen_sensitivity.json	fields.type.gold_and_qwen_agree.affairs	int	PYTHONPATH=src:. python -m eval.p8.qwen_sensitivity	-	
 x1.p8.type.evaluable	10	results/p8/p8_qwen_sensitivity.json	fields.type.gold_and_qwen_agree.n_evaluable	int	PYTHONPATH=src:. python -m eval.p8.qwen_sensitivity	-	
-x1.p7.date_hit_diff_pts	22.0	results/p7/p7_posthoc_overlap.json	display.date_hit_diff_pts	f1	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	README.md,technical_report.md,docs/evaluation.md	
-x1.p7.date_hit_diff_ci_pts	[9.5, 33.6]	results/p7/p7_posthoc_overlap.json	display.date_hit_diff_ci_pts	ci	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	README.md,technical_report.md,docs/evaluation.md	
+x1.p7.date_hit_diff_pts	22.0	results/p7/p7_posthoc_overlap.json	display.date_hit_diff_pts	f1	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	README.md,docs/evaluation.md	
+x1.p7.date_hit_diff_ci_pts	[9.5, 33.6]	results/p7/p7_posthoc_overlap.json	display.date_hit_diff_ci_pts	ci	PYTHONPATH=src:. python -m eval.p7.posthoc_overlap	README.md,docs/evaluation.md	

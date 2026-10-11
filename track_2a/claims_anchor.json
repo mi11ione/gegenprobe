@@ -1,22 +1,6 @@
 {
  "_doc": "Anchors for `make claims`: {claim id: {document: [phrase, ...]}}. A phrase holds the claim's shown value with the words that name it; in a strict zone every numeric token must sit inside such a phrase at its position (gegenprobe.claims.zone_check).",
  "anchors": {
-  "breadth.p2.lang_DE.pointer.found": {
-   "technical_report.md": [
-    "dates in every language (DE 9/13, FR"
-   ]
-  },
-  "breadth.p2.lang_FR.pointer.found": {
-   "technical_report.md": [
-    "FR 10/11, IT"
-   ]
-  },
-  "breadth.p2.lang_IT.pointer.found": {
-   "technical_report.md": [
-    "5/5). *Post hoc",
-    "IT 5/5)."
-   ]
-  },
   "census.gap": {
    "README.md": [
     "16,749 under its frozen lexicon,",
@@ -411,9 +395,9 @@
    ],
    "technical_report.md": [
     "214 of them recovered by Apertus",
-    "214 queue rows). Post hoc: the",
     "Applied to the whole queue, 214 of",
-    "supported; H3 not supported | 214 of"
+    "supported; H3 not supported | 214 of",
+    "214 queue rows)."
    ]
   },
   "p7.qwen.agree": {
@@ -656,11 +640,6 @@
     "for the exact-date match, +22.7 points"
    ]
   },
-  "r10.p7_p7_recall": {
-   "technical_report.md": [
-    "vs 66%;"
-   ]
-  },
   "r10.p7_rule_queue": {
    "README.md": [
     "recovers 369."
@@ -670,11 +649,6 @@
    ],
    "technical_report.md": [
     "369 vs"
-   ]
-  },
-  "r10.p7_rule_recall": {
-   "technical_report.md": [
-    "with less precision (attainable recall 88% vs"
    ]
   },
   "r10.residue_share": {
@@ -907,17 +881,11 @@
   "r13.at_durations": {
    "README.md": [
     "in Valais (post hoc; 6,438 durations,"
-   ],
-   "technical_report.md": [
-    "(6,438 durations,"
    ]
   },
   "r13.at_min_n": {
    "README.md": [
     "20). On the same affairs,"
-   ],
-   "technical_report.md": [
-    "20; post hoc). On the"
    ]
   },
   "r13.audit3_decoys": {
@@ -1058,7 +1026,7 @@
     "22 Ticino scans included (`results/eval/rederive_local_pinned_ocr.json`)."
    ],
    "technical_report.md": [
-    "22 Ticino scans included. On standard"
+    "22 Ticino scans included."
    ]
   },
   "r13.p1_latest_n": {
@@ -1219,17 +1187,11 @@
   "r13.pg_server": {
    "README.md": [
     "16.2 rebuild the"
-   ],
-   "technical_report.md": [
-    "16.2 and in a CI job"
    ]
   },
   "r13.ranked": {
    "README.md": [
     "17 parliaments almost identically (Spearman",
-    "17 parliaments with at least"
-   ],
-   "technical_report.md": [
     "17 parliaments with at least"
    ]
   },
@@ -1252,9 +1214,6 @@
   "r13.vs_median_doc": {
    "README.md": [
     "days in Kriens and 100"
-   ],
-   "technical_report.md": [
-    "and 100 ("
    ]
   },
   "r13.xl_evaluable": {
@@ -1286,9 +1245,6 @@
    ],
    "docs/form_notes.md": [
     "days; the answer documents give 26.5 and"
-   ],
-   "technical_report.md": [
-    "verified answer documents carry give 26.5 and"
    ]
   },
   "r14.at_rho_plain": {
@@ -1304,9 +1260,6 @@
   "r14.at_rho_same": {
    "README.md": [
     "0.99). Against OPD's plain medians"
-   ],
-   "technical_report.md": [
-    "0.99; `results/findings/answer_times.json`)."
    ]
   },
   "r14.at_rho_without": {
@@ -1680,9 +1633,6 @@
   "r15.p10_dev_f1": {
    "README.md": [
     "0.80 (in-sample); on the"
-   ],
-   "technical_report.md": [
-    "0.80 on P8's 6 development parliaments, where prompts and thresholds were chosen (in-sample)"
    ]
   },
   "r15.p10_gold": {
@@ -1774,17 +1724,11 @@
   "r15.p10_it_ptr_f1": {
    "README.md": [
     "in-sample) Apertus reaches F1 0.65"
-   ],
-   "technical_report.md": [
-    "in-sample) 0.65"
    ]
   },
   "r15.p10_it_rules": {
    "README.md": [
     "the rules 0/56"
-   ],
-   "technical_report.md": [
-    "the rules 0/56 pairs."
    ]
   },
   "r15.p10_names_found": {
@@ -1852,9 +1796,7 @@
    "technical_report.md": [
     "14 parliaments outside every rule set,",
     "14 parliaments without rules (rules",
-    "14 parliaments without rules | author",
-    "14 parliaments, behind in 1. F1",
-    "14 unseen ones; in Lugano (Italian,"
+    "14 parliaments without rules | author"
    ]
   },
   "r15.p10_pointer_f1": {
@@ -1863,8 +1805,6 @@
     "unseen ones 0.42. In"
    ],
    "technical_report.md": [
-    "(in-sample), 0.42",
-    "0.42 on the",
     "0.42), and Apertus adds precision",
     "F1 0.42), rules"
    ]
@@ -2064,9 +2004,6 @@
   },
   "r16.p10_it_opd_f1": {
    "README.md": [
-    "0.62, the rules"
-   ],
-   "technical_report.md": [
     "0.62, the rules"
    ]
   },
@@ -2820,17 +2757,11 @@
    ],
    "docs/form_notes.md": [
     "86 min, the next"
-   ],
-   "technical_report.md": [
-    "86 min, then"
    ]
   },
   "r7docs.night2_bodies": {
    "README.md": [
     "for the incremental second (12"
-   ],
-   "technical_report.md": [
-    "12 bodies re-scanned), 0 alerts; the"
    ]
   },
   "r7docs.night2_min": {
@@ -2840,9 +2771,6 @@
    ],
    "docs/form_notes.md": [
     "min, the next 6.6 min."
-   ],
-   "technical_report.md": [
-    "min, then 6.6 min ("
    ]
   },
   "r7docs.no_answer_docs": {
@@ -3095,7 +3023,7 @@
     "post hoc; the shipped reader v1\n  dated 1 of P6's 28"
    ],
    "technical_report.md": [
-    "28). **By language** (post hoc):"
+    "P6's v1 dated 1 of 28)"
    ]
   },
   "r9p.now": {
@@ -3625,7 +3553,7 @@
     "[0.8, 18.2] (one-sided p ="
    ],
    "technical_report.md": [
-    "[0.8, 18.2] (uncorrected). Apertus is ahead of",
+    "[0.8, 18.2] (uncorrected).",
     "[0.8, 18.2], uncorrected). Where rules exist"
    ]
   },
@@ -3671,7 +3599,7 @@
   },
   "x1.p10.order.f1": {
    "technical_report.md": [
-    "0.41); per affair 8 better,",
+    "0.37, F1 0.41).",
     "F1 0.41; Apertus"
    ]
   },
@@ -3722,9 +3650,6 @@
   "x1.p10.order.tied": {
    "README.md": [
     "19 tied; parliament-cluster bootstrap:"
-   ],
-   "technical_report.md": [
-    "19 tied. The gain over the"
    ]
   },
   "x1.p10.pointer.matched": {
@@ -3803,7 +3728,8 @@
     "the keyword rule on 45/62 (p ="
    ],
    "technical_report.md": [
-    "45/62 and finds"
+    "45/62 and finds",
+    "*Post hoc, proposed in review:* a generic DE/FR/IT keyword rule (answer cue, first date after a sitting cue, else the latest; answer-typed documents) is exact on 45/62"
    ]
   },
   "x1.p2.latest_answer.exact": {
@@ -3850,17 +3776,11 @@
   "x1.p7.date_hit_diff_ci_pts": {
    "README.md": [
     "points [9.5, 33.6]."
-   ],
-   "technical_report.md": [
-    "[9.5, 33.6]. Applied to the whole"
    ]
   },
   "x1.p7.date_hit_diff_pts": {
    "README.md": [
     "weighted, the difference is +22.0 points"
-   ],
-   "technical_report.md": [
-    "both); weighted date-hit difference +22.0 points"
    ]
   },
   "x1.p7.frame_rows": {
@@ -3872,9 +3792,6 @@
    "README.md": [
     "126 both, 9 Apertus only; post",
     "126 both, 9 Apertus only; post hoc"
-   ],
-   "technical_report.md": [
-    "126 both); weighted date-hit difference"
    ]
   },
   "x1.p7.p7.w_precision_dated": {
@@ -3886,17 +3803,11 @@
   "x1.p7.promoted_p7": {
    "README.md": [
     "test frame against Apertus's 135 ("
-   ],
-   "technical_report.md": [
-    "frame rows, Apertus 135 ("
    ]
   },
   "x1.p7.promoted_trivial": {
    "README.md": [
     "206 of the"
-   ],
-   "technical_report.md": [
-    "206 frame rows, Apertus"
    ]
   },
   "x1.p7.trivial.date_hit": {
@@ -3933,6 +3844,16 @@
    ],
    "technical_report.md": [
     "5/7 verdicts hold; post hoc): more"
+   ]
+  },
+  "r10.p7_p7_recall": {
+   "technical_report.md": [
+    "vs 66%;"
+   ]
+  },
+  "r10.p7_rule_recall": {
+   "technical_report.md": [
+    "with less precision (attainable recall 88% vs"
    ]
   }
  }

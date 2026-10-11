@@ -12,8 +12,8 @@ r13.fed_it_slot	37,828	results/report/r13_numbers.json	federal.it_slot_answers	i
 r13.fed_it_holds_fr	7,165	results/report/r13_numbers.json	federal.it_slot_holds_fr	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.fed_eligible	38,307	results/report/r13_numbers.json	federal.eligible_affairs	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.fed_fc_event	20,008	results/report/r13_numbers.json	federal.fc_answer_event	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
-r13.vs_median_doc	100	results/report/r13_numbers.json	answer_times.valais_median_document_date	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md,technical_report.md	
-r13.ranked	17	results/report/r13_numbers.json	answer_times.ranked_parliaments	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md,technical_report.md,docs/form_notes.md	
+r13.vs_median_doc	100	results/report/r13_numbers.json	answer_times.valais_median_document_date	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
+r13.ranked	17	results/report/r13_numbers.json	answer_times.ranked_parliaments	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md,docs/form_notes.md	
 r13.ocr_match	154/154	results/report/r13_numbers.json	ocr.match/ocr.n	frac	PYTHONPATH=src:. python -m report.r13_numbers	README.md,technical_report.md	
 r13.ocr_scans	22	results/report/r13_numbers.json	ocr.scans	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md,technical_report.md	
 r13.v02_fed_affairs	186	results/report/r13_numbers.json	v02_with_federal.valid	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
@@ -29,8 +29,8 @@ r13.xl_first_pair_cross	214	results/findings/cross_language_links.json	totals.op
 r13.xl_evaluable	1,999	results/findings/cross_language_links.json	totals.opd_tag_evaluable	int	python -m gegenprobe.findings.cross_language	README.md	
 r13.xl_gr	148	results/findings/cross_language_links.json	bodies.4.opd_tag.first_pair_cross	int	python -m gegenprobe.findings.cross_language	README.md	
 r13.xl_vs	63	results/findings/cross_language_links.json	bodies.0.opd_tag.first_pair_cross	int	python -m gegenprobe.findings.cross_language	README.md	
-r13.at_durations	6,438	results/findings/answer_times.json	headline.durations	int	python -m gegenprobe.findings.answer_times	README.md,technical_report.md	
-r13.at_min_n	20	results/findings/answer_times.json	min_n	int	python -m gegenprobe.findings.answer_times	README.md,technical_report.md	
+r13.at_durations	6,438	results/findings/answer_times.json	headline.durations	int	python -m gegenprobe.findings.answer_times	README.md	
+r13.at_min_n	20	results/findings/answer_times.json	min_n	int	python -m gegenprobe.findings.answer_times	README.md	
 r13.at_rho	0.656	results/findings/answer_times.json	headline.rho_opd_plain_vs_adapter	str	python -m gegenprobe.findings.answer_times	README.md	
 r13.at_vs_after	61	results/findings/answer_times.json	headline.vs_motions_submission_after_answer_document	int	python -m gegenprobe.findings.answer_times	README.md,technical_report.md	
 r13.at_vs_rows	163	results/findings/answer_times.json	headline.vs_counted_rows	int	python -m gegenprobe.findings.answer_times	-	
@@ -38,7 +38,7 @@ r13.pg_rows	2,975	results/repair/apply_be/apply_BE_pg_check.json	expected_rows_c
 r13.pg_relinks	2,421	results/repair/apply_be/apply_BE_pg_check.json	checks.1_apply.docs_at_after_value	int	python -m gegenprobe.repair.apply_be_pg	README.md	
 r13.pg_begin	554	results/repair/apply_be/apply_BE_pg_check.json	checks.1_apply.affairs_at_after_value	int	python -m gegenprobe.repair.apply_be_pg	README.md	
 r13.pg_review	173	results/repair/apply_be/apply_BE_pg_check.json	begin_date_review_rows	int	python -m gegenprobe.repair.apply_be_pg	README.md	
-r13.pg_server	16.2	results/repair/apply_be/apply_BE_pg_check.json	server	str	python -m gegenprobe.repair.apply_be_pg	README.md,technical_report.md	
+r13.pg_server	16.2	results/repair/apply_be/apply_BE_pg_check.json	server	str	python -m gegenprobe.repair.apply_be_pg	README.md	
 r13.p2_mcnemar	0.012	results/eval/posthoc_r3_paired.json	splits.P2.comparisons.pointer~latest_date_on_answer_docs_only.all.p_str	str	PYTHONPATH=src:. python -m eval.posthoc_r3	README.md	
 r13.p2_cluster	0.031	results/eval/posthoc_r3_paired.json	splits.P2.comparisons.pointer~latest_date_on_answer_docs_only.bodies.cluster_permutation_p_str	str	PYTHONPATH=src:. python -m eval.posthoc_r3	README.md	
 r13.p1_rules_vs_latest	0.48	results/eval/posthoc_r3_paired.json	splits.P1.comparisons.rules~latest_date_on_answer_docs_only.all.p_str	str	PYTHONPATH=src:. python -m eval.posthoc_r3	README.md,technical_report.md	
