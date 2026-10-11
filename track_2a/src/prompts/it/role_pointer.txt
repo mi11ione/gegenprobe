@@ -1,0 +1,28 @@
+Ecco degli estratti dei due documenti di un atto parlamentare di un parlamento svizzero (cantone o comune): l'inizio e la fine dell'atto così come è stato presentato, e l'inizio della risposta dell'esecutivo.
+
+<atto_inizio>
+{q_head}
+</atto_inizio>
+
+<atto_fine>
+{q_tail}
+</atto_fine>
+
+<risposta_inizio>
+{a_head}
+</risposta_inizio>
+
+Questi nomi di persone e di gruppi sono stampati nei documenti: {names}
+
+Domanda: quale ruolo ha «{name}» nella presentazione di QUESTO atto, così come i documenti lo stampano? «{name}» compare qui:
+{lines}
+
+A: autore unico: l'unica autrice o l'unico autore stampato dell'atto (una persona, un gruppo o una commissione)
+B: autore congiunto: una o uno di più autori di pari rango, nessuno dei quali è indicato come primo (p. es. «Interrogazione A, B e C», un elenco di firme senza primo firmatario indicato)
+C: primo firmatario: indicato come primo o prima fra più firmatari («primo firmatario», «X e cofirmatari», «X et consorts», «Erstunterzeichner/in»)
+D: cofirmatario: firma l'atto insieme ad altri («Cofirmatari:», le firme che seguono quella del primo firmatario, «Mitunterzeichnende»)
+E: sostegno: stampato come sostenitore dell'atto, non come cofirmatario («sostenuto da», firme raccolte per un quorum o per l'urgenza)
+F: portavoce: firma o parla a nome di un gruppo o di una commissione che è essa stessa autrice («per il gruppo PLR», «a nome della commissione»)
+G: nessun ruolo di autore di questo atto: p. es. un membro dell'esecutivo, una persona dell'amministrazione, una persona citata nel contenuto, la presidente o il presidente del consiglio, oppure non un nome di persona o di gruppo
+
+Basati esclusivamente sui documenti. Rispondi con un oggetto JSON: {"scelta": "lettera"}

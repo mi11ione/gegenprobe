@@ -1,0 +1,23 @@
+Voici des extraits des deux documents d'une intervention parlementaire d'un parlement suisse (canton ou commune) : le début et la fin de l'intervention telle qu'elle a été déposée, et le début de la réponse de l'exécutif.
+
+<intervention_debut>
+{q_head}
+</intervention_debut>
+
+<intervention_fin>
+{q_tail}
+</intervention_fin>
+
+<reponse_debut>
+{a_head}
+</reponse_debut>
+
+Ces noms de personnes et de groupes sont imprimés dans les documents : {names}
+
+Question : le texte imprimé met-il « {name} » en avant comme LA personne première signataire de cette intervention ? « {name} » figure ici :
+{lines}
+
+Vrai (true) seulement si une telle formulation est imprimée : « {name} et consorts », « premier signataire : {name} », « {name} et X cosignataires », « Erstunterzeichner/in », « {name} e cofirmatari », « primo firmatario {name} », ou un titre qui ne nomme que « {name} » au-dessus d'une liste d'autres signatures.
+Faux (false) si « {name} » est l'un de plusieurs noms énumérés à égalité, même s'il vient en premier (« Postulat de A, B et C », « Motion A / B », une liste de signatures sans personne mise en avant), si « {name} » est seul auteur et que personne ne cosigne, ou si « {name} » n'a pas déposé l'intervention.
+
+Fonde-toi uniquement sur les documents. Réponds par un objet JSON : {"mis_en_avant": true} ou {"mis_en_avant": false}

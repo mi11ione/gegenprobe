@@ -1,0 +1,23 @@
+Hier sind Auszüge aus den zwei Dokumenten eines parlamentarischen Vorstosses aus einem Schweizer Parlament (Kanton oder Gemeinde): der Anfang und der Schluss des Vorstosses, wie er eingereicht wurde, und der Anfang der Antwort der Regierung.
+
+<vorstoss_anfang>
+{q_head}
+</vorstoss_anfang>
+
+<vorstoss_schluss>
+{q_tail}
+</vorstoss_schluss>
+
+<antwort_anfang>
+{a_head}
+</antwort_anfang>
+
+Diese Namen von Personen und Gruppen stehen in den Dokumenten: {names}
+
+Frage: Hat «{name}» DIESEN Vorstoss eingereicht oder unterzeichnet, so wie die Dokumente es drucken? «{name}» steht hier:
+{lines}
+
+Ja (true) heisst: «{name}» ist als Urheberin oder Urheber, als Unterzeichnende, als Erst- oder Mitunterzeichnende oder als Unterstützerin oder Unterstützer dieses Vorstosses gedruckt, oder ist die Fraktion, Gruppe oder Kommission, die ihn selbst einreicht, oder unterschreibt oder spricht für diese.
+Nein (false) heisst: ein Mitglied der Regierung oder der Verwaltung, eine Person, die im Inhalt erwähnt wird, die Ratspräsidentin oder der Ratspräsident, eine Kommission oder Person, die nur über den Vorstoss berichtet oder ihn behandelt, die Urheberin eines anderen Vorstosses, oder ein Wort, das kein Name einer Person oder Gruppe ist.
+
+Stütze dich ausschliesslich auf die Dokumente. Antworte als JSON-Objekt: {"eingereicht": true} oder {"eingereicht": false}

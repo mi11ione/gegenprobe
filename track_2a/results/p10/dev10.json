@@ -1,0 +1,1597 @@
+{
+ "status": "development (P8's 6 development parliaments; in-sample for the rules, which were written on them)",
+ "affairs": 36,
+ "parliaments": [
+  "261",
+  "5002",
+  "5586",
+  "6643",
+  "FR",
+  "GR"
+ ],
+ "candidates": {
+  "all": {
+   "n_gold": 208,
+   "hit": 206,
+   "n_cands": 291,
+   "recall": 0.9903846153846154
+  },
+  "per_body": {
+   "6643": {
+    "n_gold": 20,
+    "hit": 20,
+    "n_cands": 21,
+    "dropped": 0
+   },
+   "261": {
+    "n_gold": 12,
+    "hit": 12,
+    "n_cands": 12,
+    "dropped": 0
+   },
+   "GR": {
+    "n_gold": 146,
+    "hit": 146,
+    "n_cands": 146,
+    "dropped": 0
+   },
+   "FR": {
+    "n_gold": 10,
+    "hit": 10,
+    "n_cands": 16,
+    "dropped": 0
+   },
+   "5002": {
+    "n_gold": 7,
+    "hit": 6,
+    "n_cands": 73,
+    "dropped": 0
+   },
+   "5586": {
+    "n_gold": 13,
+    "hit": 12,
+    "n_cands": 23,
+    "dropped": 0
+   }
+  },
+  "version": "rolecand-1"
+ },
+ "baselines": {
+  "rules": {
+   "precision": 0.995,
+   "recall": 0.9519,
+   "f1": 0.973,
+   "matched": 198,
+   "pairs_predicted": 199,
+   "pairs_gold": 208,
+   "names_recall": 0.9519,
+   "affairs_exact": 28,
+   "macro_f1": 0.8388
+  },
+  "opd_first_and_co": {
+   "precision": 0.6144,
+   "recall": 0.6971,
+   "f1": 0.6532,
+   "matched": 145,
+   "pairs_predicted": 236,
+   "pairs_gold": 208,
+   "names_recall": 0.9183,
+   "affairs_exact": 8,
+   "macro_f1": 0.2634
+  },
+  "opd_joint": {
+   "precision": 0.1653,
+   "recall": 0.1875,
+   "f1": 0.1757,
+   "matched": 39,
+   "pairs_predicted": 236,
+   "pairs_gold": 208,
+   "names_recall": 0.9183,
+   "affairs_exact": 16,
+   "macro_f1": 0.5079
+  },
+  "cand_joint": {
+   "precision": 0.1443,
+   "recall": 0.2019,
+   "f1": 0.1683,
+   "matched": 42,
+   "pairs_predicted": 291,
+   "pairs_gold": 208,
+   "names_recall": 0.976,
+   "affairs_exact": 17,
+   "macro_f1": 0.446
+  }
+ },
+ "variants": {
+  "letters_v1": {
+   "mode": "letters",
+   "prompt": "role_pointer",
+   "prompt_ids": [
+    "de/role_pointer.txt@b99f9ae8b1c3",
+    "fr/role_pointer.txt@989c306937ce",
+    "it/role_pointer.txt@20cbd9916dd4"
+   ]
+  },
+  "staged_v1": {
+   "mode": "staged",
+   "prompt": "role_author",
+   "prompt_first": "role_first",
+   "prompt_ids": [
+    "de/role_author.txt@afdbf997c7cd",
+    "de/role_first.txt@c0b93893240f",
+    "fr/role_author.txt@4be33a5ec0ee",
+    "fr/role_first.txt@8ff590e222de",
+    "it/role_author.txt@24da630cfcd8",
+    "it/role_first.txt@1c76d9ae3d60"
+   ]
+  },
+  "staged_v2": {
+   "mode": "staged",
+   "prompt": "role_author_v2",
+   "prompt_neg": "role_notauthor_v2",
+   "prompt_first": "role_first_v2",
+   "prompt_ids": [
+    "de/role_author_v2.txt@6d13ed3fe0f7",
+    "de/role_first_v2.txt@b144c7d722da",
+    "de/role_notauthor_v2.txt@0b4e0b17b9c9",
+    "fr/role_author_v2.txt@4555cb41fc5e",
+    "fr/role_first_v2.txt@0d51dedbff39",
+    "fr/role_notauthor_v2.txt@9b37ea7ece7f",
+    "it/role_author_v2.txt@b16c0ee7bd18",
+    "it/role_first_v2.txt@011e5e765a0e",
+    "it/role_notauthor_v2.txt@88bbf5d451db"
+   ]
+  },
+  "staged_v3": {
+   "mode": "staged",
+   "prompt": "role_author_v2",
+   "prompt_neg": null,
+   "prompt_first": [
+    "role_first",
+    "role_first_v2"
+   ],
+   "prompt_ids": [
+    "de/role_author_v2.txt@6d13ed3fe0f7",
+    "de/role_first.txt@c0b93893240f",
+    "de/role_first_v2.txt@b144c7d722da",
+    "fr/role_author_v2.txt@4555cb41fc5e",
+    "fr/role_first.txt@8ff590e222de",
+    "fr/role_first_v2.txt@0d51dedbff39",
+    "it/role_author_v2.txt@b16c0ee7bd18",
+    "it/role_first.txt@1c76d9ae3d60",
+    "it/role_first_v2.txt@011e5e765a0e"
+   ]
+  }
+ },
+ "selection_rule": "(written before the first sweep): among the variant runs (VARIANTS) and their knobs (letters: TAUS x\nevery subset of the coherence rules; staged: TAUS x TAUS for tau and tau_first),\nthe configuration with the highest macro pair F1 (the mean over the 6 development parliaments of each parliament's\npooled pair F1; Graubünden's signature lists hold 146 of the 208 gold pairs and would otherwise decide alone); ties ->\nhigher pooled pair F1 -> higher pooled pair precision -> larger tau -> larger tau_first -> fewer coherence rules -> variant name. Both readings of the OPD baseline ('first_and_co', 'joint') are reported; the test\ncompares with the stronger of the two in each bootstrap resample (no selection on development).",
+ "selected": {
+  "variant": "staged_v3",
+  "tau": 0.98,
+  "tau_first": 0.3,
+  "lone_first_needs_cue": true,
+  "polarity": null,
+  "macro_f1": 0.7368,
+  "precision": 0.7897,
+  "recall": 0.8125,
+  "f1": 0.8009,
+  "matched": 169,
+  "pairs_predicted": 214,
+  "pairs_gold": 208,
+  "names_recall": 0.9615,
+  "affairs_exact": 26
+ },
+ "selected_detail": {
+  "body:261": {
+   "rules": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 12,
+    "pairs_predicted": 12,
+    "pairs_gold": 12,
+    "names_recall": 1.0,
+    "affairs_exact": 6
+   },
+   "opd_first_and_co": {
+    "precision": 0.0909,
+    "recall": 0.0833,
+    "f1": 0.087,
+    "matched": 1,
+    "pairs_predicted": 11,
+    "pairs_gold": 12,
+    "names_recall": 0.9167,
+    "affairs_exact": 1
+   },
+   "opd_joint": {
+    "precision": 1.0,
+    "recall": 0.9167,
+    "f1": 0.9565,
+    "matched": 11,
+    "pairs_predicted": 11,
+    "pairs_gold": 12,
+    "names_recall": 0.9167,
+    "affairs_exact": 5
+   },
+   "cand_joint": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 12,
+    "pairs_predicted": 12,
+    "pairs_gold": 12,
+    "names_recall": 1.0,
+    "affairs_exact": 6
+   },
+   "pointer": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 12,
+    "pairs_predicted": 12,
+    "pairs_gold": 12,
+    "names_recall": 1.0,
+    "affairs_exact": 6
+   }
+  },
+  "body:5002": {
+   "rules": {
+    "precision": 1.0,
+    "recall": 0.1429,
+    "f1": 0.25,
+    "matched": 1,
+    "pairs_predicted": 1,
+    "pairs_gold": 7,
+    "names_recall": 0.1429,
+    "affairs_exact": 1
+   },
+   "opd_first_and_co": {
+    "precision": 0.3333,
+    "recall": 0.2857,
+    "f1": 0.3077,
+    "matched": 2,
+    "pairs_predicted": 6,
+    "pairs_gold": 7,
+    "names_recall": 0.5714,
+    "affairs_exact": 2
+   },
+   "opd_joint": {
+    "precision": 0.3333,
+    "recall": 0.2857,
+    "f1": 0.3077,
+    "matched": 2,
+    "pairs_predicted": 6,
+    "pairs_gold": 7,
+    "names_recall": 0.5714,
+    "affairs_exact": 2
+   },
+   "cand_joint": {
+    "precision": 0.0274,
+    "recall": 0.2857,
+    "f1": 0.05,
+    "matched": 2,
+    "pairs_predicted": 73,
+    "pairs_gold": 7,
+    "names_recall": 0.8571,
+    "affairs_exact": 2
+   },
+   "pointer": {
+    "precision": 0.2353,
+    "recall": 0.5714,
+    "f1": 0.3333,
+    "matched": 4,
+    "pairs_predicted": 17,
+    "pairs_gold": 7,
+    "names_recall": 0.5714,
+    "affairs_exact": 3
+   }
+  },
+  "body:5586": {
+   "rules": {
+    "precision": 0.9,
+    "recall": 0.6923,
+    "f1": 0.7826,
+    "matched": 9,
+    "pairs_predicted": 10,
+    "pairs_gold": 13,
+    "names_recall": 0.6923,
+    "affairs_exact": 3
+   },
+   "opd_first_and_co": {
+    "precision": 0.1667,
+    "recall": 0.0769,
+    "f1": 0.1053,
+    "matched": 1,
+    "pairs_predicted": 6,
+    "pairs_gold": 13,
+    "names_recall": 0.4615,
+    "affairs_exact": 1
+   },
+   "opd_joint": {
+    "precision": 0.1667,
+    "recall": 0.0769,
+    "f1": 0.1053,
+    "matched": 1,
+    "pairs_predicted": 6,
+    "pairs_gold": 13,
+    "names_recall": 0.4615,
+    "affairs_exact": 1
+   },
+   "cand_joint": {
+    "precision": 0.0435,
+    "recall": 0.0769,
+    "f1": 0.0556,
+    "matched": 1,
+    "pairs_predicted": 23,
+    "pairs_gold": 13,
+    "names_recall": 0.8462,
+    "affairs_exact": 1
+   },
+   "pointer": {
+    "precision": 0.7273,
+    "recall": 0.6154,
+    "f1": 0.6667,
+    "matched": 8,
+    "pairs_predicted": 11,
+    "pairs_gold": 13,
+    "names_recall": 0.7692,
+    "affairs_exact": 3
+   }
+  },
+  "body:6643": {
+   "rules": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 20,
+    "pairs_predicted": 20,
+    "pairs_gold": 20,
+    "names_recall": 1.0,
+    "affairs_exact": 6
+   },
+   "opd_first_and_co": {
+    "precision": 0.0526,
+    "recall": 0.05,
+    "f1": 0.0513,
+    "matched": 1,
+    "pairs_predicted": 19,
+    "pairs_gold": 20,
+    "names_recall": 0.85,
+    "affairs_exact": 1
+   },
+   "opd_joint": {
+    "precision": 0.8421,
+    "recall": 0.8,
+    "f1": 0.8205,
+    "matched": 16,
+    "pairs_predicted": 19,
+    "pairs_gold": 20,
+    "names_recall": 0.85,
+    "affairs_exact": 3
+   },
+   "cand_joint": {
+    "precision": 0.8571,
+    "recall": 0.9,
+    "f1": 0.878,
+    "matched": 18,
+    "pairs_predicted": 21,
+    "pairs_gold": 20,
+    "names_recall": 1.0,
+    "affairs_exact": 4
+   },
+   "pointer": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 20,
+    "pairs_predicted": 20,
+    "pairs_gold": 20,
+    "names_recall": 1.0,
+    "affairs_exact": 6
+   }
+  },
+  "body:FR": {
+   "rules": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 10,
+    "pairs_predicted": 10,
+    "pairs_gold": 10,
+    "names_recall": 1.0,
+    "affairs_exact": 6
+   },
+   "opd_first_and_co": {
+    "precision": 0.1818,
+    "recall": 0.2,
+    "f1": 0.1905,
+    "matched": 2,
+    "pairs_predicted": 11,
+    "pairs_gold": 10,
+    "names_recall": 1.0,
+    "affairs_exact": 1
+   },
+   "opd_joint": {
+    "precision": 0.8182,
+    "recall": 0.9,
+    "f1": 0.8571,
+    "matched": 9,
+    "pairs_predicted": 11,
+    "pairs_gold": 10,
+    "names_recall": 1.0,
+    "affairs_exact": 5
+   },
+   "cand_joint": {
+    "precision": 0.5625,
+    "recall": 0.9,
+    "f1": 0.6923,
+    "matched": 9,
+    "pairs_predicted": 16,
+    "pairs_gold": 10,
+    "names_recall": 1.0,
+    "affairs_exact": 4
+   },
+   "pointer": {
+    "precision": 0.6,
+    "recall": 0.6,
+    "f1": 0.6,
+    "matched": 6,
+    "pairs_predicted": 10,
+    "pairs_gold": 10,
+    "names_recall": 1.0,
+    "affairs_exact": 4
+   }
+  },
+  "body:GR": {
+   "rules": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 146,
+    "pairs_predicted": 146,
+    "pairs_gold": 146,
+    "names_recall": 1.0,
+    "affairs_exact": 6
+   },
+   "opd_first_and_co": {
+    "precision": 0.7541,
+    "recall": 0.9452,
+    "f1": 0.8389,
+    "matched": 138,
+    "pairs_predicted": 183,
+    "pairs_gold": 146,
+    "names_recall": 0.9795,
+    "affairs_exact": 2
+   },
+   "opd_joint": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "matched": 0,
+    "pairs_predicted": 183,
+    "pairs_gold": 146,
+    "names_recall": 0.9795,
+    "affairs_exact": 0
+   },
+   "cand_joint": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "matched": 0,
+    "pairs_predicted": 146,
+    "pairs_gold": 146,
+    "names_recall": 0.9863,
+    "affairs_exact": 0
+   },
+   "pointer": {
+    "precision": 0.8264,
+    "recall": 0.8151,
+    "f1": 0.8207,
+    "matched": 119,
+    "pairs_predicted": 144,
+    "pairs_gold": 146,
+    "names_recall": 0.9863,
+    "affairs_exact": 4
+   }
+  },
+  "macro_f1": {
+   "rules": 0.8388,
+   "opd_first_and_co": 0.2634,
+   "opd_joint": 0.5079,
+   "cand_joint": 0.446,
+   "pointer": 0.7368
+  },
+  "affairs": [
+   {
+    "id": "P8-004",
+    "body": "6643",
+    "gold": 1,
+    "pointer": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-005",
+    "body": "261",
+    "gold": 3,
+    "pointer": {
+     "n_pred": 3,
+     "n_gold": 3,
+     "m_role": 3,
+     "m_name": 3,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 3,
+     "n_gold": 3,
+     "m_role": 3,
+     "m_name": 3,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-006",
+    "body": "6643",
+    "gold": 3,
+    "pointer": {
+     "n_pred": 3,
+     "n_gold": 3,
+     "m_role": 3,
+     "m_name": 3,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 3,
+     "n_gold": 3,
+     "m_role": 3,
+     "m_name": 3,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-007",
+    "body": "GR",
+    "gold": 25,
+    "pointer": {
+     "n_pred": 25,
+     "n_gold": 25,
+     "m_role": 25,
+     "m_name": 25,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 25,
+     "n_gold": 25,
+     "m_role": 25,
+     "m_name": 25,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-009",
+    "body": "FR",
+    "gold": 2,
+    "pointer": {
+     "n_pred": 2,
+     "n_gold": 2,
+     "m_role": 0,
+     "m_name": 2,
+     "exact": false
+    },
+    "rules": {
+     "n_pred": 2,
+     "n_gold": 2,
+     "m_role": 2,
+     "m_name": 2,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-010",
+    "body": "6643",
+    "gold": 5,
+    "pointer": {
+     "n_pred": 5,
+     "n_gold": 5,
+     "m_role": 5,
+     "m_name": 5,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 5,
+     "n_gold": 5,
+     "m_role": 5,
+     "m_name": 5,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-013",
+    "body": "6643",
+    "gold": 2,
+    "pointer": {
+     "n_pred": 2,
+     "n_gold": 2,
+     "m_role": 2,
+     "m_name": 2,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 2,
+     "n_gold": 2,
+     "m_role": 2,
+     "m_name": 2,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-016",
+    "body": "261",
+    "gold": 2,
+    "pointer": {
+     "n_pred": 2,
+     "n_gold": 2,
+     "m_role": 2,
+     "m_name": 2,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 2,
+     "n_gold": 2,
+     "m_role": 2,
+     "m_name": 2,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-019",
+    "body": "FR",
+    "gold": 2,
+    "pointer": {
+     "n_pred": 2,
+     "n_gold": 2,
+     "m_role": 0,
+     "m_name": 2,
+     "exact": false
+    },
+    "rules": {
+     "n_pred": 2,
+     "n_gold": 2,
+     "m_role": 2,
+     "m_name": 2,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-021",
+    "body": "261",
+    "gold": 3,
+    "pointer": {
+     "n_pred": 3,
+     "n_gold": 3,
+     "m_role": 3,
+     "m_name": 3,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 3,
+     "n_gold": 3,
+     "m_role": 3,
+     "m_name": 3,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-023",
+    "body": "5002",
+    "gold": 1,
+    "pointer": {
+     "n_pred": 2,
+     "n_gold": 1,
+     "m_role": 0,
+     "m_name": 0,
+     "exact": false
+    },
+    "rules": {
+     "n_pred": 0,
+     "n_gold": 1,
+     "m_role": 0,
+     "m_name": 0,
+     "exact": false
+    }
+   },
+   {
+    "id": "P8-024",
+    "body": "FR",
+    "gold": 2,
+    "pointer": {
+     "n_pred": 2,
+     "n_gold": 2,
+     "m_role": 2,
+     "m_name": 2,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 2,
+     "n_gold": 2,
+     "m_role": 2,
+     "m_name": 2,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-025",
+    "body": "6643",
+    "gold": 4,
+    "pointer": {
+     "n_pred": 4,
+     "n_gold": 4,
+     "m_role": 4,
+     "m_name": 4,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 4,
+     "n_gold": 4,
+     "m_role": 4,
+     "m_name": 4,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-026",
+    "body": "GR",
+    "gold": 26,
+    "pointer": {
+     "n_pred": 24,
+     "n_gold": 26,
+     "m_role": 24,
+     "m_name": 24,
+     "exact": false
+    },
+    "rules": {
+     "n_pred": 26,
+     "n_gold": 26,
+     "m_role": 26,
+     "m_name": 26,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-027",
+    "body": "5586",
+    "gold": 1,
+    "pointer": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-028",
+    "body": "5586",
+    "gold": 3,
+    "pointer": {
+     "n_pred": 3,
+     "n_gold": 3,
+     "m_role": 3,
+     "m_name": 3,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 3,
+     "n_gold": 3,
+     "m_role": 3,
+     "m_name": 3,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-031",
+    "body": "FR",
+    "gold": 1,
+    "pointer": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-032",
+    "body": "FR",
+    "gold": 2,
+    "pointer": {
+     "n_pred": 2,
+     "n_gold": 2,
+     "m_role": 2,
+     "m_name": 2,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 2,
+     "n_gold": 2,
+     "m_role": 2,
+     "m_name": 2,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-033",
+    "body": "5002",
+    "gold": 1,
+    "pointer": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 0,
+     "n_gold": 1,
+     "m_role": 0,
+     "m_name": 0,
+     "exact": false
+    }
+   },
+   {
+    "id": "P8-035",
+    "body": "5002",
+    "gold": 1,
+    "pointer": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 0,
+     "n_gold": 1,
+     "m_role": 0,
+     "m_name": 0,
+     "exact": false
+    }
+   },
+   {
+    "id": "P8-037",
+    "body": "GR",
+    "gold": 25,
+    "pointer": {
+     "n_pred": 25,
+     "n_gold": 25,
+     "m_role": 0,
+     "m_name": 25,
+     "exact": false
+    },
+    "rules": {
+     "n_pred": 25,
+     "n_gold": 25,
+     "m_role": 25,
+     "m_name": 25,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-041",
+    "body": "5586",
+    "gold": 3,
+    "pointer": {
+     "n_pred": 2,
+     "n_gold": 3,
+     "m_role": 2,
+     "m_name": 2,
+     "exact": false
+    },
+    "rules": {
+     "n_pred": 2,
+     "n_gold": 3,
+     "m_role": 2,
+     "m_name": 2,
+     "exact": false
+    }
+   },
+   {
+    "id": "P8-042",
+    "body": "261",
+    "gold": 2,
+    "pointer": {
+     "n_pred": 2,
+     "n_gold": 2,
+     "m_role": 2,
+     "m_name": 2,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 2,
+     "n_gold": 2,
+     "m_role": 2,
+     "m_name": 2,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-043",
+    "body": "5002",
+    "gold": 1,
+    "pointer": {
+     "n_pred": 3,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": false
+    },
+    "rules": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-045",
+    "body": "5002",
+    "gold": 1,
+    "pointer": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 0,
+     "n_gold": 1,
+     "m_role": 0,
+     "m_name": 0,
+     "exact": false
+    }
+   },
+   {
+    "id": "P8-046",
+    "body": "261",
+    "gold": 1,
+    "pointer": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-048",
+    "body": "5586",
+    "gold": 3,
+    "pointer": {
+     "n_pred": 2,
+     "n_gold": 3,
+     "m_role": 0,
+     "m_name": 2,
+     "exact": false
+    },
+    "rules": {
+     "n_pred": 2,
+     "n_gold": 3,
+     "m_role": 2,
+     "m_name": 2,
+     "exact": false
+    }
+   },
+   {
+    "id": "P8-049",
+    "body": "261",
+    "gold": 1,
+    "pointer": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-051",
+    "body": "GR",
+    "gold": 23,
+    "pointer": {
+     "n_pred": 23,
+     "n_gold": 23,
+     "m_role": 23,
+     "m_name": 23,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 23,
+     "n_gold": 23,
+     "m_role": 23,
+     "m_name": 23,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-052",
+    "body": "FR",
+    "gold": 1,
+    "pointer": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-059",
+    "body": "5586",
+    "gold": 2,
+    "pointer": {
+     "n_pred": 2,
+     "n_gold": 2,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": false
+    },
+    "rules": {
+     "n_pred": 1,
+     "n_gold": 2,
+     "m_role": 0,
+     "m_name": 0,
+     "exact": false
+    }
+   },
+   {
+    "id": "P8-061",
+    "body": "GR",
+    "gold": 1,
+    "pointer": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-062",
+    "body": "5586",
+    "gold": 1,
+    "pointer": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 1,
+     "n_gold": 1,
+     "m_role": 1,
+     "m_name": 1,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-063",
+    "body": "GR",
+    "gold": 46,
+    "pointer": {
+     "n_pred": 46,
+     "n_gold": 46,
+     "m_role": 46,
+     "m_name": 46,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 46,
+     "n_gold": 46,
+     "m_role": 46,
+     "m_name": 46,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-064",
+    "body": "6643",
+    "gold": 5,
+    "pointer": {
+     "n_pred": 5,
+     "n_gold": 5,
+     "m_role": 5,
+     "m_name": 5,
+     "exact": true
+    },
+    "rules": {
+     "n_pred": 5,
+     "n_gold": 5,
+     "m_role": 5,
+     "m_name": 5,
+     "exact": true
+    }
+   },
+   {
+    "id": "P8-065",
+    "body": "5002",
+    "gold": 2,
+    "pointer": {
+     "n_pred": 9,
+     "n_gold": 2,
+     "m_role": 0,
+     "m_name": 0,
+     "exact": false
+    },
+    "rules": {
+     "n_pred": 0,
+     "n_gold": 2,
+     "m_role": 0,
+     "m_name": 0,
+     "exact": false
+    }
+   }
+  ],
+  "model_requests": 570,
+  "options_outside_top_k": 0,
+  "fingerprints": [
+   "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840"
+  ]
+ },
+ "grid_top": [
+  {
+   "variant": "staged_v3",
+   "tau": 0.98,
+   "tau_first": 0.3,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.7368,
+   "precision": 0.7897,
+   "recall": 0.8125,
+   "f1": 0.8009,
+   "matched": 169,
+   "pairs_predicted": 214,
+   "pairs_gold": 208,
+   "names_recall": 0.9615,
+   "affairs_exact": 26
+  },
+  {
+   "variant": "staged_v3",
+   "tau": 0.99,
+   "tau_first": 0.3,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.7351,
+   "precision": 0.8,
+   "recall": 0.8077,
+   "f1": 0.8038,
+   "matched": 168,
+   "pairs_predicted": 210,
+   "pairs_gold": 208,
+   "names_recall": 0.9567,
+   "affairs_exact": 26
+  },
+  {
+   "variant": "staged_v2",
+   "tau": 0.98,
+   "tau_first": 0.7,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.723,
+   "precision": 0.4813,
+   "recall": 0.4952,
+   "f1": 0.4882,
+   "matched": 103,
+   "pairs_predicted": 214,
+   "pairs_gold": 208,
+   "names_recall": 0.9615,
+   "affairs_exact": 27
+  },
+  {
+   "variant": "staged_v2",
+   "tau": 0.98,
+   "tau_first": 0.8,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.723,
+   "precision": 0.4813,
+   "recall": 0.4952,
+   "f1": 0.4882,
+   "matched": 103,
+   "pairs_predicted": 214,
+   "pairs_gold": 208,
+   "names_recall": 0.9615,
+   "affairs_exact": 27
+  },
+  {
+   "variant": "staged_v2",
+   "tau": 0.98,
+   "tau_first": 0.9,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.723,
+   "precision": 0.4813,
+   "recall": 0.4952,
+   "f1": 0.4882,
+   "matched": 103,
+   "pairs_predicted": 214,
+   "pairs_gold": 208,
+   "names_recall": 0.9615,
+   "affairs_exact": 27
+  },
+  {
+   "variant": "staged_v2",
+   "tau": 0.98,
+   "tau_first": 0.95,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.723,
+   "precision": 0.4813,
+   "recall": 0.4952,
+   "f1": 0.4882,
+   "matched": 103,
+   "pairs_predicted": 214,
+   "pairs_gold": 208,
+   "names_recall": 0.9615,
+   "affairs_exact": 27
+  },
+  {
+   "variant": "staged_v3",
+   "tau": 0.98,
+   "tau_first": 0.9,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.723,
+   "precision": 0.4813,
+   "recall": 0.4952,
+   "f1": 0.4882,
+   "matched": 103,
+   "pairs_predicted": 214,
+   "pairs_gold": 208,
+   "names_recall": 0.9615,
+   "affairs_exact": 27
+  },
+  {
+   "variant": "staged_v3",
+   "tau": 0.98,
+   "tau_first": 0.95,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.723,
+   "precision": 0.4813,
+   "recall": 0.4952,
+   "f1": 0.4882,
+   "matched": 103,
+   "pairs_predicted": 214,
+   "pairs_gold": 208,
+   "names_recall": 0.9615,
+   "affairs_exact": 27
+  },
+  {
+   "variant": "staged_v2",
+   "tau": 0.99,
+   "tau_first": 0.7,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.7213,
+   "precision": 0.4857,
+   "recall": 0.4904,
+   "f1": 0.488,
+   "matched": 102,
+   "pairs_predicted": 210,
+   "pairs_gold": 208,
+   "names_recall": 0.9567,
+   "affairs_exact": 27
+  },
+  {
+   "variant": "staged_v2",
+   "tau": 0.99,
+   "tau_first": 0.8,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.7213,
+   "precision": 0.4857,
+   "recall": 0.4904,
+   "f1": 0.488,
+   "matched": 102,
+   "pairs_predicted": 210,
+   "pairs_gold": 208,
+   "names_recall": 0.9567,
+   "affairs_exact": 27
+  },
+  {
+   "variant": "staged_v2",
+   "tau": 0.99,
+   "tau_first": 0.9,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.7213,
+   "precision": 0.4857,
+   "recall": 0.4904,
+   "f1": 0.488,
+   "matched": 102,
+   "pairs_predicted": 210,
+   "pairs_gold": 208,
+   "names_recall": 0.9567,
+   "affairs_exact": 27
+  },
+  {
+   "variant": "staged_v2",
+   "tau": 0.99,
+   "tau_first": 0.95,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.7213,
+   "precision": 0.4857,
+   "recall": 0.4904,
+   "f1": 0.488,
+   "matched": 102,
+   "pairs_predicted": 210,
+   "pairs_gold": 208,
+   "names_recall": 0.9567,
+   "affairs_exact": 27
+  },
+  {
+   "variant": "staged_v3",
+   "tau": 0.99,
+   "tau_first": 0.9,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.7213,
+   "precision": 0.4857,
+   "recall": 0.4904,
+   "f1": 0.488,
+   "matched": 102,
+   "pairs_predicted": 210,
+   "pairs_gold": 208,
+   "names_recall": 0.9567,
+   "affairs_exact": 27
+  },
+  {
+   "variant": "staged_v3",
+   "tau": 0.99,
+   "tau_first": 0.95,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.7213,
+   "precision": 0.4857,
+   "recall": 0.4904,
+   "f1": 0.488,
+   "matched": 102,
+   "pairs_predicted": 210,
+   "pairs_gold": 208,
+   "names_recall": 0.9567,
+   "affairs_exact": 27
+  },
+  {
+   "variant": "staged_v3",
+   "tau": 0.95,
+   "tau_first": 0.3,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.7187,
+   "precision": 0.7647,
+   "recall": 0.8125,
+   "f1": 0.7879,
+   "matched": 169,
+   "pairs_predicted": 221,
+   "pairs_gold": 208,
+   "names_recall": 0.9712,
+   "affairs_exact": 25
+  },
+  {
+   "variant": "staged_v2",
+   "tau": 0.5,
+   "tau_first": 0.7,
+   "lone_first_needs_cue": true,
+   "polarity": "both",
+   "macro_f1": 0.7187,
+   "precision": 0.48,
+   "recall": 0.4615,
+   "f1": 0.4706,
+   "matched": 96,
+   "pairs_predicted": 200,
+   "pairs_gold": 208,
+   "names_recall": 0.9183,
+   "affairs_exact": 24
+  },
+  {
+   "variant": "staged_v2",
+   "tau": 0.5,
+   "tau_first": 0.8,
+   "lone_first_needs_cue": true,
+   "polarity": "both",
+   "macro_f1": 0.7187,
+   "precision": 0.48,
+   "recall": 0.4615,
+   "f1": 0.4706,
+   "matched": 96,
+   "pairs_predicted": 200,
+   "pairs_gold": 208,
+   "names_recall": 0.9183,
+   "affairs_exact": 24
+  },
+  {
+   "variant": "staged_v2",
+   "tau": 0.5,
+   "tau_first": 0.9,
+   "lone_first_needs_cue": true,
+   "polarity": "both",
+   "macro_f1": 0.7187,
+   "precision": 0.48,
+   "recall": 0.4615,
+   "f1": 0.4706,
+   "matched": 96,
+   "pairs_predicted": 200,
+   "pairs_gold": 208,
+   "names_recall": 0.9183,
+   "affairs_exact": 24
+  },
+  {
+   "variant": "staged_v2",
+   "tau": 0.5,
+   "tau_first": 0.95,
+   "lone_first_needs_cue": true,
+   "polarity": "both",
+   "macro_f1": 0.7187,
+   "precision": 0.48,
+   "recall": 0.4615,
+   "f1": 0.4706,
+   "matched": 96,
+   "pairs_predicted": 200,
+   "pairs_gold": 208,
+   "names_recall": 0.9183,
+   "affairs_exact": 24
+  },
+  {
+   "variant": "staged_v3",
+   "tau": 0.98,
+   "tau_first": 0.4,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.7172,
+   "precision": 0.5841,
+   "recall": 0.601,
+   "f1": 0.5924,
+   "matched": 125,
+   "pairs_predicted": 214,
+   "pairs_gold": 208,
+   "names_recall": 0.9615,
+   "affairs_exact": 26
+  },
+  {
+   "variant": "staged_v2",
+   "tau": 0.95,
+   "tau_first": 0.95,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.7164,
+   "precision": 0.4706,
+   "recall": 0.5,
+   "f1": 0.4848,
+   "matched": 104,
+   "pairs_predicted": 221,
+   "pairs_gold": 208,
+   "names_recall": 0.9712,
+   "affairs_exact": 26
+  },
+  {
+   "variant": "staged_v3",
+   "tau": 0.99,
+   "tau_first": 0.4,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.7155,
+   "precision": 0.5905,
+   "recall": 0.5962,
+   "f1": 0.5933,
+   "matched": 124,
+   "pairs_predicted": 210,
+   "pairs_gold": 208,
+   "names_recall": 0.9567,
+   "affairs_exact": 26
+  },
+  {
+   "variant": "staged_v3",
+   "tau": 0.9,
+   "tau_first": 0.3,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.7133,
+   "precision": 0.7578,
+   "recall": 0.8125,
+   "f1": 0.7842,
+   "matched": 169,
+   "pairs_predicted": 223,
+   "pairs_gold": 208,
+   "names_recall": 0.9712,
+   "affairs_exact": 25
+  },
+  {
+   "variant": "staged_v2",
+   "tau": 0.9,
+   "tau_first": 0.95,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.7106,
+   "precision": 0.4664,
+   "recall": 0.5,
+   "f1": 0.4826,
+   "matched": 104,
+   "pairs_predicted": 223,
+   "pairs_gold": 208,
+   "names_recall": 0.9712,
+   "affairs_exact": 26
+  },
+  {
+   "variant": "staged_v3",
+   "tau": 0.8,
+   "tau_first": 0.3,
+   "lone_first_needs_cue": true,
+   "polarity": null,
+   "macro_f1": 0.7098,
+   "precision": 0.7545,
+   "recall": 0.8125,
+   "f1": 0.7824,
+   "matched": 169,
+   "pairs_predicted": 224,
+   "pairs_gold": 208,
+   "names_recall": 0.976,
+   "affairs_exact": 25
+  }
+ ]
+}

@@ -1,0 +1,23 @@
+Ecco degli estratti dei due documenti di un atto parlamentare di un parlamento svizzero (cantone o comune): l'inizio e la fine dell'atto così come è stato presentato, e l'inizio della risposta dell'esecutivo.
+
+<atto_inizio>
+{q_head}
+</atto_inizio>
+
+<atto_fine>
+{q_tail}
+</atto_fine>
+
+<risposta_inizio>
+{a_head}
+</risposta_inizio>
+
+Questi nomi di persone e di gruppi sono stampati nei documenti: {names}
+
+Domanda: «{name}» è fra gli autori di QUESTO atto, così come i documenti lo stampano? «{name}» compare qui:
+{lines}
+
+Gli autori di un atto compaiono in punti precisi: nel titolo o nell'intestazione dell'atto («Interrogazione di X», «Mozione X e Y concernente …»), in un campo per l'autore («Presentata da», «Primo firmatario», «Cofirmatari»), come firme alla fine dell'atto, o nel titolo della risposta («Risposta all'interrogazione di X», «Mozione X e cofirmatari»). Un gruppo o una commissione che presenta l'atto essa stessa, e chi firma per essa, ne fanno parte.
+Non ne fanno parte: i nomi in elenchi di voto, di presenza o di membri, i membri e le firme dell'esecutivo o dell'amministrazione, la presidente o il presidente del consiglio, una commissione che si limita a riferire sull'atto, le persone citate nel testo, gli autori di ALTRI atti che compaiono anche nei documenti, e le parole che non sono nomi.
+
+Basati esclusivamente sui documenti. Rispondi con un oggetto JSON: {"presentato": true} oppure {"presentato": false}

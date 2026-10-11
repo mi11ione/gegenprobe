@@ -1,0 +1,23 @@
+Voici des extraits des deux documents d'une intervention parlementaire d'un parlement suisse (canton ou commune) : le début et la fin de l'intervention telle qu'elle a été déposée, et le début de la réponse de l'exécutif.
+
+<intervention_debut>
+{q_head}
+</intervention_debut>
+
+<intervention_fin>
+{q_tail}
+</intervention_fin>
+
+<reponse_debut>
+{a_head}
+</reponse_debut>
+
+Ces noms de personnes et de groupes sont imprimés dans les documents : {names}
+
+Question : les documents désignent-ils « {name} » comme LE premier signataire (ou LA première signataire) de cette intervention, c'est-à-dire la seule personne mise en avant parmi les signataires ? « {name} » figure ici :
+{lines}
+
+Oui (true), si les documents impriment cette mise en avant : « {name} et consorts », « premier signataire : {name} », « {name} et X cosignataires », « Erstunterzeichner/in », « {name} e cofirmatari », « primo firmatario {name} », ou un titre ou un en-tête qui ne nomme que « {name} » comme auteur alors que d'autres personnes cosignent l'intervention.
+Non (false), si « {name} » n'est qu'un nom parmi plusieurs noms énumérés à égalité, même s'il vient en premier (p. ex. « Postulat de A, B et C », une liste de signatures sans mise en avant), si « {name} » est le seul auteur et que personne ne cosigne, ou si « {name} » n'a pas déposé l'intervention.
+
+Fonde-toi uniquement sur les documents. Réponds par un objet JSON : {"premier_signataire": true} ou {"premier_signataire": false}

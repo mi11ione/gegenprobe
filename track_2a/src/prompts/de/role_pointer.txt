@@ -1,0 +1,28 @@
+Hier sind Auszüge aus den zwei Dokumenten eines parlamentarischen Vorstosses aus einem Schweizer Parlament (Kanton oder Gemeinde): der Anfang und der Schluss des Vorstosses, wie er eingereicht wurde, und der Anfang der Antwort der Regierung.
+
+<vorstoss_anfang>
+{q_head}
+</vorstoss_anfang>
+
+<vorstoss_schluss>
+{q_tail}
+</vorstoss_schluss>
+
+<antwort_anfang>
+{a_head}
+</antwort_anfang>
+
+Diese Namen von Personen und Gruppen stehen in den Dokumenten: {names}
+
+Frage: Welche Rolle hat «{name}» beim Einreichen DIESES Vorstosses, so wie die Dokumente es drucken? «{name}» steht hier:
+{lines}
+
+A: alleinige Urheberschaft: die einzige gedruckte Urheberin oder der einzige Urheber des Vorstosses (eine Person, eine Fraktion oder eine Kommission)
+B: gemeinsame Urheberschaft: eine oder einer von mehreren gleichrangigen Urheberinnen und Urhebern, von denen keine als erste bezeichnet ist (z. B. «Interpellation A, B und C», eine Liste von Unterschriften ohne bezeichnete Erstunterzeichnende)
+C: Erstunterzeichnung: unter mehreren Unterzeichnenden als erste bezeichnet («Erstunterzeichner/in», «X und Mitunterzeichnende», «X et consorts», «primo firmatario»)
+D: Mitunterzeichnung: unterzeichnet den Vorstoss mit («Mitunterzeichnende:», weitere Unterschriften nach der oder dem Erstunterzeichnenden, «cofirmatari»)
+E: Unterstützung: als Unterstützerin oder Unterstützer gedruckt, nicht als Mitunterzeichnende («unterstützt von», Unterschriften für ein Quorum oder für die Dringlichkeit)
+F: Sprecherin oder Sprecher: unterschreibt oder spricht für eine Fraktion oder Kommission, die selbst Urheberin ist («im Namen der SP-Fraktion», «für die Kommission»)
+G: keine Rolle als Urheberin oder Urheber dieses Vorstosses: z. B. ein Mitglied der Regierung, eine Person der Verwaltung, eine im Inhalt erwähnte Person, die Ratspräsidentin oder der Ratspräsident, oder kein Name einer Person oder Gruppe
+
+Stütze dich ausschliesslich auf die Dokumente. Antworte als JSON-Objekt: {"wahl": "Buchstabe"}

@@ -1,0 +1,23 @@
+Hier sind Auszüge aus den zwei Dokumenten eines parlamentarischen Vorstosses aus einem Schweizer Parlament (Kanton oder Gemeinde): der Anfang und der Schluss des Vorstosses, wie er eingereicht wurde, und der Anfang der Antwort der Regierung.
+
+<vorstoss_anfang>
+{q_head}
+</vorstoss_anfang>
+
+<vorstoss_schluss>
+{q_tail}
+</vorstoss_schluss>
+
+<antwort_anfang>
+{a_head}
+</antwort_anfang>
+
+Diese Namen von Personen und Gruppen stehen in den Dokumenten: {names}
+
+Frage: Gehört «{name}» zu den Einreichenden DIESES Vorstosses, so wie die Dokumente es drucken? «{name}» steht hier:
+{lines}
+
+Die Einreichenden eines Vorstosses stehen an bestimmten Stellen: im Titel oder in der Kopfzeile des Vorstosses («Interpellation von X», «Motion X und Y betreffend …»), in einem Feld für die Urheberschaft («Eingereicht von», «Urheber/in», «Erstunterzeichner/in», «Mitunterzeichnende»), als Unterschriften am Ende des Vorstosses, oder im Titel der Antwort («Antwort auf die Interpellation von X», «Interpellation X und Mitunterzeichnende»). Eine Fraktion, Gruppe oder Kommission, die den Vorstoss selbst einreicht, und wer für sie unterschreibt, gehören dazu.
+Nicht dazu gehören: Namen in Abstimmungs-, Präsenz- oder Mitgliederlisten, Mitglieder und Unterschriften der Regierung oder der Verwaltung, die Ratspräsidentin oder der Ratspräsident, eine Kommission, die nur über den Vorstoss berichtet, Personen, die im Text erwähnt werden, die Urheberinnen und Urheber ANDERER Vorstösse, die in den Dokumenten ebenfalls vorkommen, und Wörter, die kein Name sind.
+
+Stütze dich ausschliesslich auf die Dokumente. Antworte als JSON-Objekt: {"eingereicht": true} oder {"eingereicht": false}

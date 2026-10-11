@@ -1,0 +1,26 @@
+{
+ "note": "frozen on development (results/p10/dev10.json); hashed in eval/prereg10/LOCK10",
+ "candidates_version": "rolecand-1",
+ "pointer_version": "rolepointer-2",
+ "pointer": {
+  "mode": "staged",
+  "prompt": "role_author_v2",
+  "prompt_neg": null,
+  "prompt_first": [
+   "role_first",
+   "role_first_v2"
+  ],
+  "tau": 0.98,
+  "tau_first": 0.3,
+  "lone_first_needs_cue": true,
+  "coherence": [],
+  "q_head": 2500,
+  "q_tail": 1500,
+  "a_head": 1000,
+  "max_lines": 2
+ },
+ "backend": "gateway:swiss-ai/apertus-v1.5-8b:2a-p10:2.0",
+ "dev_fingerprints": [
+  "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840"
+ ]
+}

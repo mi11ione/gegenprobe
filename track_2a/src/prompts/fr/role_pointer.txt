@@ -1,0 +1,28 @@
+Voici des extraits des deux documents d'une intervention parlementaire d'un parlement suisse (canton ou commune) : le début et la fin de l'intervention telle qu'elle a été déposée, et le début de la réponse de l'exécutif.
+
+<intervention_debut>
+{q_head}
+</intervention_debut>
+
+<intervention_fin>
+{q_tail}
+</intervention_fin>
+
+<reponse_debut>
+{a_head}
+</reponse_debut>
+
+Ces noms de personnes et de groupes sont imprimés dans les documents : {names}
+
+Question : quel rôle « {name} » a-t-il ou a-t-elle dans le dépôt de CETTE intervention, tel que les documents l'impriment ? « {name} » figure ici :
+{lines}
+
+A : auteur unique : la seule autrice ou le seul auteur imprimé de l'intervention (une personne, un groupe ou une commission)
+B : auteur conjoint : l'un ou l'une de plusieurs auteurs de rang égal, dont aucun n'est désigné comme premier (p. ex. « Interpellation A, B et C », une liste de signatures sans premier signataire désigné)
+C : premier signataire : désigné comme premier ou première parmi plusieurs signataires (« premier signataire », « X et consorts », « X und Mitunterzeichnende », « primo firmatario »)
+D : cosignataire : cosigne l'intervention (« Cosignataires : », les signatures qui suivent celle du premier signataire, les consorts nommés, « cofirmatari »)
+E : soutien : imprimé comme soutenant l'intervention, non comme cosignataire (« appuyé par », « soutenu par », signatures recueillies pour un quorum ou pour l'urgence)
+F : porte-parole : signe ou parle au nom d'un groupe ou d'une commission qui est lui-même l'auteur (« au nom du groupe socialiste », « pour la commission »)
+G : aucun rôle d'auteur de cette intervention : p. ex. un membre de l'exécutif, une personne de l'administration, une personne citée dans le contenu, la présidente ou le président du conseil, ou pas un nom de personne ou de groupe
+
+Fonde-toi uniquement sur les documents. Réponds par un objet JSON : {"choix": "lettre"}

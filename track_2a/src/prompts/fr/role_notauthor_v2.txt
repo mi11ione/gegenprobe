@@ -1,0 +1,23 @@
+Voici des extraits des deux documents d'une intervention parlementaire d'un parlement suisse (canton ou commune) : le début et la fin de l'intervention telle qu'elle a été déposée, et le début de la réponse de l'exécutif.
+
+<intervention_debut>
+{q_head}
+</intervention_debut>
+
+<intervention_fin>
+{q_tail}
+</intervention_fin>
+
+<reponse_debut>
+{a_head}
+</reponse_debut>
+
+Ces noms de personnes et de groupes sont imprimés dans les documents : {names}
+
+Question : « {name} » figure-t-il ou figure-t-elle dans les documents SEULEMENT pour une autre raison, c'est-à-dire PAS comme auteur de cette intervention ? « {name} » figure ici :
+{lines}
+
+C'est vrai (true) par exemple pour les noms figurant dans des listes de vote, de présence ou de membres, pour les membres et les signatures de l'exécutif ou de l'administration, pour la présidente ou le président du conseil, pour une commission qui ne fait que rapporter sur l'intervention, pour les personnes citées dans le texte, pour les auteurs d'AUTRES interventions et pour les mots qui ne sont pas des noms.
+C'est faux (false) si « {name} » a déposé l'intervention comme auteur, signataire, premier signataire, cosignataire ou soutien, ou est le groupe ou la commission qui la dépose lui-même, ou signe en son nom.
+
+Fonde-toi uniquement sur les documents. Réponds par un objet JSON : {"seulement_cite": true} ou {"seulement_cite": false}

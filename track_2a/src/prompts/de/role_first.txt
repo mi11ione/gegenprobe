@@ -1,0 +1,23 @@
+Hier sind Auszüge aus den zwei Dokumenten eines parlamentarischen Vorstosses aus einem Schweizer Parlament (Kanton oder Gemeinde): der Anfang und der Schluss des Vorstosses, wie er eingereicht wurde, und der Anfang der Antwort der Regierung.
+
+<vorstoss_anfang>
+{q_head}
+</vorstoss_anfang>
+
+<vorstoss_schluss>
+{q_tail}
+</vorstoss_schluss>
+
+<antwort_anfang>
+{a_head}
+</antwort_anfang>
+
+Diese Namen von Personen und Gruppen stehen in den Dokumenten: {names}
+
+Frage: Bezeichnen die Dokumente «{name}» als DIE erste Unterzeichnerin oder den ersten Unterzeichner dieses Vorstosses, also als die eine Person, die unter den Unterzeichnenden hervorgehoben ist? «{name}» steht hier:
+{lines}
+
+Ja (true), wenn die Dokumente diese Hervorhebung drucken: «Erstunterzeichner/in: {name}», «{name} und Mitunterzeichnende», «{name} und Konsorten», «{name} et consorts», «premier signataire», «{name} e cofirmatari», «primo firmatario {name}», oder ein Titel oder eine Kopfzeile, die nur «{name}» als Urheber nennt, während weitere Personen den Vorstoss mitunterzeichnen.
+Nein (false), wenn «{name}» nur einer von mehreren gleichrangig aufgezählten Namen ist, auch wenn er zuerst steht (z. B. «Motion von A, B und C», eine Liste von Unterschriften ohne Hervorhebung), wenn «{name}» die einzige Urheberin oder der einzige Urheber ist und niemand mitunterzeichnet, oder wenn «{name}» den Vorstoss nicht eingereicht hat.
+
+Stütze dich ausschliesslich auf die Dokumente. Antworte als JSON-Objekt: {"erstunterzeichnend": true} oder {"erstunterzeichnend": false}

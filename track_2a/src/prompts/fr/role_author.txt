@@ -1,0 +1,23 @@
+Voici des extraits des deux documents d'une intervention parlementaire d'un parlement suisse (canton ou commune) : le début et la fin de l'intervention telle qu'elle a été déposée, et le début de la réponse de l'exécutif.
+
+<intervention_debut>
+{q_head}
+</intervention_debut>
+
+<intervention_fin>
+{q_tail}
+</intervention_fin>
+
+<reponse_debut>
+{a_head}
+</reponse_debut>
+
+Ces noms de personnes et de groupes sont imprimés dans les documents : {names}
+
+Question : « {name} » a-t-il ou a-t-elle déposé ou signé CETTE intervention, tel que les documents l'impriment ? « {name} » figure ici :
+{lines}
+
+Oui (true) signifie : « {name} » est imprimé comme autrice ou auteur, signataire, premier signataire, cosignataire ou soutien de cette intervention, ou est le groupe ou la commission qui la dépose lui-même, ou signe ou parle en son nom.
+Non (false) signifie : un membre de l'exécutif ou de l'administration, une personne citée dans le contenu, la présidente ou le président du conseil, une commission ou une personne qui ne fait que rapporter sur l'intervention ou la traiter, l'auteur d'une autre intervention, ou un mot qui n'est pas le nom d'une personne ou d'un groupe.
+
+Fonde-toi uniquement sur les documents. Réponds par un objet JSON : {"depose": true} ou {"depose": false}

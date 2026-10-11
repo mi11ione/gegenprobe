@@ -1,0 +1,23 @@
+Ecco degli estratti dei due documenti di un atto parlamentare di un parlamento svizzero (cantone o comune): l'inizio e la fine dell'atto così come è stato presentato, e l'inizio della risposta dell'esecutivo.
+
+<atto_inizio>
+{q_head}
+</atto_inizio>
+
+<atto_fine>
+{q_tail}
+</atto_fine>
+
+<risposta_inizio>
+{a_head}
+</risposta_inizio>
+
+Questi nomi di persone e di gruppi sono stampati nei documenti: {names}
+
+Domanda: i documenti indicano «{name}» come IL primo firmatario (o LA prima firmataria) di questo atto, cioè l'unica persona messa in evidenza fra i firmatari? «{name}» compare qui:
+{lines}
+
+Sì (true), se i documenti stampano questa messa in evidenza: «primo firmatario {name}», «{name} e cofirmatari», «{name} et consorts», «Erstunterzeichner/in», oppure un titolo o un'intestazione che nomina solo «{name}» come autore mentre altre persone cofirmano l'atto.
+No (false), se «{name}» è solo uno fra più nomi elencati a pari titolo, anche se compare per primo (p. es. «Mozione di A, B e C», un elenco di firme senza messa in evidenza), se «{name}» è l'unico autore e nessuno cofirma, oppure se «{name}» non ha presentato l'atto.
+
+Basati esclusivamente sui documenti. Rispondi con un oggetto JSON: {"primo_firmatario": true} oppure {"primo_firmatario": false}

@@ -1,0 +1,23 @@
+Ecco degli estratti dei due documenti di un atto parlamentare di un parlamento svizzero (cantone o comune): l'inizio e la fine dell'atto così come è stato presentato, e l'inizio della risposta dell'esecutivo.
+
+<atto_inizio>
+{q_head}
+</atto_inizio>
+
+<atto_fine>
+{q_tail}
+</atto_fine>
+
+<risposta_inizio>
+{a_head}
+</risposta_inizio>
+
+Questi nomi di persone e di gruppi sono stampati nei documenti: {names}
+
+Domanda: «{name}» compare nei documenti SOLO per un altro motivo, cioè NON come autore di questo atto? «{name}» compare qui:
+{lines}
+
+È vero (true) per esempio per i nomi in elenchi di voto, di presenza o di membri, per i membri e le firme dell'esecutivo o dell'amministrazione, per la presidente o il presidente del consiglio, per una commissione che si limita a riferire sull'atto, per le persone citate nel testo, per gli autori di ALTRI atti e per le parole che non sono nomi.
+È falso (false) se «{name}» ha presentato l'atto come autore, firmatario, primo firmatario, cofirmatario o sostenitore, oppure è il gruppo o la commissione che lo presenta essa stessa, oppure firma per essa.
+
+Basati esclusivamente sui documenti. Rispondi con un oggetto JSON: {"solo_citato": true} oppure {"solo_citato": false}

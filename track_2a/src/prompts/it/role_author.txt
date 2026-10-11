@@ -1,0 +1,23 @@
+Ecco degli estratti dei due documenti di un atto parlamentare di un parlamento svizzero (cantone o comune): l'inizio e la fine dell'atto così come è stato presentato, e l'inizio della risposta dell'esecutivo.
+
+<atto_inizio>
+{q_head}
+</atto_inizio>
+
+<atto_fine>
+{q_tail}
+</atto_fine>
+
+<risposta_inizio>
+{a_head}
+</risposta_inizio>
+
+Questi nomi di persone e di gruppi sono stampati nei documenti: {names}
+
+Domanda: «{name}» ha presentato o firmato QUESTO atto, così come i documenti lo stampano? «{name}» compare qui:
+{lines}
+
+Sì (true) significa: «{name}» è stampato come autore o autrice, firmatario, primo firmatario, cofirmatario o sostenitore di questo atto, oppure è il gruppo o la commissione che lo presenta essa stessa, oppure firma o parla a suo nome.
+No (false) significa: un membro dell'esecutivo o dell'amministrazione, una persona citata nel contenuto, la presidente o il presidente del consiglio, una commissione o una persona che si limita a riferire sull'atto o a esaminarlo, l'autore di un altro atto, oppure una parola che non è il nome di una persona o di un gruppo.
+
+Basati esclusivamente sui documenti. Rispondi con un oggetto JSON: {"presentato": true} oppure {"presentato": false}

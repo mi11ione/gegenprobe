@@ -1,0 +1,23 @@
+Hier sind Auszüge aus den zwei Dokumenten eines parlamentarischen Vorstosses aus einem Schweizer Parlament (Kanton oder Gemeinde): der Anfang und der Schluss des Vorstosses, wie er eingereicht wurde, und der Anfang der Antwort der Regierung.
+
+<vorstoss_anfang>
+{q_head}
+</vorstoss_anfang>
+
+<vorstoss_schluss>
+{q_tail}
+</vorstoss_schluss>
+
+<antwort_anfang>
+{a_head}
+</antwort_anfang>
+
+Diese Namen von Personen und Gruppen stehen in den Dokumenten: {names}
+
+Frage: Steht «{name}» in den Dokumenten NUR aus einem anderen Grund, also NICHT als Einreichende oder Einreichender dieses Vorstosses? «{name}» steht hier:
+{lines}
+
+Wahr (true) ist das zum Beispiel für Namen in Abstimmungs-, Präsenz- oder Mitgliederlisten, für Mitglieder und Unterschriften der Regierung oder der Verwaltung, für die Ratspräsidentin oder den Ratspräsidenten, für eine Kommission, die nur über den Vorstoss berichtet, für Personen, die im Text erwähnt werden, für die Urheberinnen und Urheber ANDERER Vorstösse und für Wörter, die kein Name sind.
+Falsch (false) ist es, wenn «{name}» den Vorstoss als Urheber/in, Unterzeichner/in, Erst- oder Mitunterzeichner/in oder Unterstützer/in eingereicht hat, oder die Fraktion, Gruppe oder Kommission ist, die ihn selbst einreicht, oder für diese unterschreibt.
+
+Stütze dich ausschliesslich auf die Dokumente. Antworte als JSON-Objekt: {"nur_erwaehnt": true} oder {"nur_erwaehnt": false}

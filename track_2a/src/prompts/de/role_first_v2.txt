@@ -1,0 +1,23 @@
+Hier sind Auszüge aus den zwei Dokumenten eines parlamentarischen Vorstosses aus einem Schweizer Parlament (Kanton oder Gemeinde): der Anfang und der Schluss des Vorstosses, wie er eingereicht wurde, und der Anfang der Antwort der Regierung.
+
+<vorstoss_anfang>
+{q_head}
+</vorstoss_anfang>
+
+<vorstoss_schluss>
+{q_tail}
+</vorstoss_schluss>
+
+<antwort_anfang>
+{a_head}
+</antwort_anfang>
+
+Diese Namen von Personen und Gruppen stehen in den Dokumenten: {names}
+
+Frage: Hebt der gedruckte Wortlaut «{name}» als die EINE erstunterzeichnende Person dieses Vorstosses hervor? «{name}» steht hier:
+{lines}
+
+Wahr (true) nur, wenn ein solcher Wortlaut gedruckt ist: «Erstunterzeichner/in: {name}», «{name} und Mitunterzeichnende», «{name} und Konsorten», «{name} et consorts», «{name} e cofirmatari», «primo firmatario {name}», «premier signataire», oder ein Titel, der nur «{name}» nennt, über einer Liste weiterer Unterschriften.
+Falsch (false), wenn «{name}» einer von mehreren gleichrangig aufgezählten Namen ist, auch wenn er als erster steht («Motion von A, B und C», «Postulat A / B», eine Liste von Unterschriften ohne hervorgehobene Person), wenn «{name}» allein Urheber/in ist und niemand mitunterzeichnet, oder wenn «{name}» den Vorstoss nicht eingereicht hat.
+
+Stütze dich ausschliesslich auf die Dokumente. Antworte als JSON-Objekt: {"hervorgehoben": true} oder {"hervorgehoben": false}
