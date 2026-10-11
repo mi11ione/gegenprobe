@@ -1,0 +1,21 @@
+{
+ "files": {
+  "data/p10/body_names_p10.json": "fb3841a443d836a40cc71b3a06ef27c4bee1179938ac4007a66455d5180a05e6",
+  "data/p10/gguf8b/rows.jsonl": "b417f65691b827fb96cb0fb9d6d7ad5dcd5ea9a53fa2b247b3af56e2158ec1cf",
+  "data/p10/p10_affairs.jsonl": "1693472b16b98327b2d6451f5969d18af86f14c460d0b1237e03bee19faa5149",
+  "data/p10/p10_candidates.jsonl": "d1113c6e216035df1635c1b8148f97d691ccd687c4a44d43a7113c17d4a68b1f",
+  "data/p10/p10_gold.jsonl": "cfcd3816c71d7b5bba33027ffb5d371e70b2224c3d1c20c1ccb90aaa685769cc",
+  "data/p10/p10_key.jsonl": "841b7eecf0dd9591267a70566f0c69680718f91894494d273cdaa9affa2b18e9",
+  "data/p8/body_names_p8.json": "142fc665acac41065eefeeccd5a55ae399e37957117840b398bc971b95765ba3",
+  "data/p8/p8_affairs.jsonl": "f111abe4c8f411615801e959155e8ddab616ade8515bb4e45c53ddac55e8a70d",
+  "data/p8/p8_gold.jsonl": "7eed93eafdf897dfe2804c314f98ecbc313b185861b4690cfa667ee39ee70fa8",
+  "results/p10/p10_arms.jsonl": "f881109b390c9cd245ec748ba27a29431721f9d4f2081bd8855fd499d60d5fb8",
+  "results/p10/p10_offline.jsonl": "a5c3c6b36ff2ae1056a6d2e7d6b53f3ec1d62c84a10382fd8d6f65f79c324435",
+  "results/p10/p10_pointer.jsonl": "8ef8f86e86968caf199e60f23dafcdd3f47a44c80c748d509e4f31c5889384d2",
+  "results/p10/p10_scores.json": "04cf128c72a3473262d4d42f045baebd4869d7f2c580419914869daa425d2edc",
+  "src/gegenprobe/gguf_fast.py": "e3eb30a3f6c9978a8b45cbe71c43dbb1c0be865ea36307e89d21bff6dca68078"
+ },
+ "label": "EXPLORATORY (after LOCK10; PREREG10 \u00a74 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+ "note": "sha256 of the committed inputs the exploratory 8B arm reads; checked by `run_8b lockcheck`",
+ "registered_pointer_recomposed": "40/40"
+}
