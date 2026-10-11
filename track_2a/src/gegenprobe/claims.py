@@ -29,6 +29,7 @@ from __future__ import annotations
 import csv
 import io
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -174,6 +175,10 @@ def check(rows: list[dict] | None = None) -> list[str]:
                 p = ROOT / doc
                 docs[doc] = p.read_text(encoding="utf-8") if p.exists() else None
             if docs[doc] is None:
+                # documents outside the project (the repository-root README) are not in the Docker build context; the host
+                # CI job checks them. Anything inside the project must exist.
+                if doc.startswith("../") and not os.environ.get("GP_CLAIMS_STRICT"):
+                    continue
                 errs.append(f"{r['id']}: document {doc} missing")
                 continue
             if not token_spans(docs[doc], r["shown"]):

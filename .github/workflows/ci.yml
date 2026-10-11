@@ -32,7 +32,7 @@ jobs:
           print("RFC 9309 robots.txt matching active")
           PY
       - name: claims.tsv recomputed from results files
-        run: PYTHONPATH=src:. python -m gegenprobe.claims check
+        run: GP_CLAIMS_STRICT=1 PYTHONPATH=src:. python -m gegenprobe.claims check
       - name: data/ stays under the 100 MB limit
         run: test $(du -sm data | cut -f1) -le 100
   make-run:
