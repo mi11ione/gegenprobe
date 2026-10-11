@@ -1,0 +1,100 @@
+{
+ "allocation": {
+  "date_mismatch: anywhere_conflict": 20,
+  "date_mismatch: differs": 15,
+  "date_mismatch: near": 10,
+  "date_mismatch: none": 14,
+  "heading_fail": 21
+ },
+ "blind": "packets carry id, affair number, title, type, OPD answer event dates and the text path only",
+ "by_body": {
+  "date_mismatch: anywhere_conflict": {
+   "1059": 1,
+   "4001": 1,
+   "4566": 8,
+   "5113": 1,
+   "JU": 1,
+   "NE": 1,
+   "TI": 2,
+   "VD": 1,
+   "VS": 3,
+   "ZH": 1
+  },
+  "date_mismatch: differs": {
+   "191": 1,
+   "261": 1,
+   "2829": 2,
+   "4566": 2,
+   "5113": 1,
+   "5586": 1,
+   "JU": 1,
+   "NE": 1,
+   "VD": 1,
+   "VS": 2,
+   "ZH": 2
+  },
+  "date_mismatch: near": {
+   "261": 1,
+   "2829": 1,
+   "4001": 1,
+   "5113": 1,
+   "5586": 2,
+   "VD": 1,
+   "VS": 1,
+   "ZH": 2
+  },
+  "date_mismatch: none": {
+   "261": 1,
+   "2829": 2,
+   "4001": 1,
+   "5002": 1,
+   "5113": 2,
+   "5586": 2,
+   "JU": 1,
+   "NE": 1,
+   "TI": 1,
+   "VS": 1,
+   "ZH": 1
+  },
+  "heading_fail": {
+   "191": 1,
+   "296": 1,
+   "4001": 1,
+   "5002": 2,
+   "5113": 6,
+   "TG": 2,
+   "TI": 3,
+   "VS": 3,
+   "ZH": 2
+  }
+ },
+ "floor": 6,
+ "frame": {
+  "date_mismatch: anywhere_conflict": 154,
+  "date_mismatch: differs": 102,
+  "date_mismatch: near": 44,
+  "date_mismatch: none": 90,
+  "heading_fail": 168
+ },
+ "guide_sha256": "bc6b226ed83ecca884fe1c16443c18bd635ed06ac1e19d4c320195e8b3c2ead0",
+ "key_note": "WORK/p7dev/key.jsonl (packet id -> parliament, affair, stratum); sha256 fixed here",
+ "key_sha256": "5be0914f35f6ed088914cf263a80fb6a5327832e54679655dfece103c3962593",
+ "n": 80,
+ "packets": 80,
+ "report": {
+  "audits": {
+   "audit2": 300,
+   "audit3": 260,
+   "design": 796
+  },
+  "frame": 558,
+  "in_audit": 305,
+  "ineligible:no_answer_event": 18,
+  "ineligible:opd_doc_ambiguous": 9,
+  "ineligible:resolution_reply": 23,
+  "ineligible:wrong_affair": 4,
+  "review_rows": 917
+ },
+ "seed": 20261013,
+ "split": "dev"
+}

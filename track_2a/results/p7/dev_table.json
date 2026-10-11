@@ -1,0 +1,3433 @@
+{
+ "at_theta": {
+  "arms": {
+   "a_and_exact": {
+    "correct": 15,
+    "correct_attainable": 10,
+    "gold_yes": 15,
+    "precision": 1.0,
+    "promoted": 15,
+    "recall_all": 0.214,
+    "recall_attainable": 0.4,
+    "wilson": [
+     0.796,
+     1.0
+    ]
+   },
+   "free": {
+    "correct": 23,
+    "correct_attainable": 20,
+    "date_checked": 23,
+    "date_hit": 20,
+    "gold_no": 1,
+    "gold_unclear": 1,
+    "gold_yes": 23,
+    "precision": 0.92,
+    "promoted": 25,
+    "recall_all": 0.329,
+    "recall_attainable": 0.8,
+    "wilson": [
+     0.75,
+     0.978
+    ]
+   },
+   "oracle_date": {
+    "correct": 15,
+    "correct_attainable": 10,
+    "gold_yes": 15,
+    "precision": 1.0,
+    "promoted": 15,
+    "recall_all": 0.214,
+    "recall_attainable": 0.4,
+    "wilson": [
+     0.796,
+     1.0
+    ]
+   },
+   "p7": {
+    "correct": 10,
+    "correct_attainable": 10,
+    "date_checked": 10,
+    "date_hit": 10,
+    "gold_yes": 10,
+    "precision": 1.0,
+    "promoted": 10,
+    "recall_all": 0.143,
+    "recall_attainable": 0.4,
+    "wilson": [
+     0.722,
+     1.0
+    ]
+   },
+   "rules_only": {
+    "precision": null,
+    "recall_all": 0.0,
+    "recall_attainable": 0.0,
+    "wilson": null
+   },
+   "trivial_exact": {
+    "correct": 31,
+    "correct_attainable": 21,
+    "gold_no": 1,
+    "gold_yes": 31,
+    "precision": 0.969,
+    "promoted": 32,
+    "recall_all": 0.443,
+    "recall_attainable": 0.84,
+    "wilson": [
+     0.843,
+     0.994
+    ]
+   }
+  },
+  "attainable": 25,
+  "gold_yes": 70,
+  "promoted_ids": [
+   "P7D-008",
+   "P7D-011",
+   "P7D-014",
+   "P7D-021",
+   "P7D-031",
+   "P7D-032",
+   "P7D-052",
+   "P7D-068",
+   "P7D-071",
+   "P7D-075"
+  ],
+  "theta": 13.0
+ },
+ "by_reason": {
+  "date_mismatch: anywhere_conflict": {
+   "no": 1,
+   "yes": 19
+  },
+  "date_mismatch: differs": {
+   "no": 2,
+   "yes": 13
+  },
+  "date_mismatch: near": {
+   "no": 1,
+   "yes": 9
+  },
+  "date_mismatch: none": {
+   "yes": 14
+  },
+  "heading_fail": {
+   "no": 5,
+   "unclear": 1,
+   "yes": 15
+  }
+ },
+ "chosen": {
+  "is_answer": "a2",
+  "theta_a": 8.0,
+  "theta_b": 10.0
+ },
+ "chosen_rule": "most correct p7 promotions at the pre-fixed theta_A rule; ties: a1, then smaller theta_B",
+ "configs": [
+  {
+   "correct": 10,
+   "date_hit": 10,
+   "grid": [
+    {
+     "correct": 18,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 0.0
+    },
+    {
+     "correct": 18,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 1.0
+    },
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 2.0
+    },
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 3.0
+    },
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 4.0
+    },
+    {
+     "correct": 17,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 18,
+     "theta": 5.0
+    },
+    {
+     "correct": 17,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 18,
+     "theta": 6.0
+    },
+    {
+     "correct": 17,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 18,
+     "theta": 7.0
+    },
+    {
+     "correct": 16,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 17,
+     "theta": 8.0
+    },
+    {
+     "correct": 15,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 16,
+     "theta": 9.0
+    },
+    {
+     "correct": 15,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 16,
+     "theta": 10.0
+    },
+    {
+     "correct": 14,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 15,
+     "theta": 11.0
+    },
+    {
+     "correct": 14,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 15,
+     "theta": 12.0
+    },
+    {
+     "correct": 10,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 10,
+     "theta": 13.0
+    },
+    {
+     "correct": 8,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 8,
+     "theta": 14.0
+    }
+   ],
+   "is_answer": "a1",
+   "precision": 1.0,
+   "promoted": 10,
+   "recall_all": 0.143,
+   "recall_attainable": 0.4,
+   "theta_a": 13.0,
+   "theta_b": 0.0,
+   "wilson": [
+    0.722,
+    1.0
+   ]
+  },
+  {
+   "correct": 10,
+   "date_hit": 10,
+   "grid": [
+    {
+     "correct": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 0.0
+    },
+    {
+     "correct": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 1.0
+    },
+    {
+     "correct": 19,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 2.0
+    },
+    {
+     "correct": 19,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 3.0
+    },
+    {
+     "correct": 19,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 4.0
+    },
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 5.0
+    },
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 6.0
+    },
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 7.0
+    },
+    {
+     "correct": 17,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 18,
+     "theta": 8.0
+    },
+    {
+     "correct": 16,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 17,
+     "theta": 9.0
+    },
+    {
+     "correct": 16,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 17,
+     "theta": 10.0
+    },
+    {
+     "correct": 14,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 15,
+     "theta": 11.0
+    },
+    {
+     "correct": 14,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 15,
+     "theta": 12.0
+    },
+    {
+     "correct": 10,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 10,
+     "theta": 13.0
+    },
+    {
+     "correct": 8,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 8,
+     "theta": 14.0
+    }
+   ],
+   "is_answer": "a1",
+   "precision": 1.0,
+   "promoted": 10,
+   "recall_all": 0.143,
+   "recall_attainable": 0.4,
+   "theta_a": 13.0,
+   "theta_b": 2.0,
+   "wilson": [
+    0.722,
+    1.0
+   ]
+  },
+  {
+   "correct": 10,
+   "date_hit": 10,
+   "grid": [
+    {
+     "correct": 22,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "promoted": 24,
+     "theta": 0.0
+    },
+    {
+     "correct": 22,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "promoted": 24,
+     "theta": 1.0
+    },
+    {
+     "correct": 21,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 2.0
+    },
+    {
+     "correct": 21,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 3.0
+    },
+    {
+     "correct": 20,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 21,
+     "theta": 4.0
+    },
+    {
+     "correct": 19,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 5.0
+    },
+    {
+     "correct": 19,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 6.0
+    },
+    {
+     "correct": 19,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 7.0
+    },
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 8.0
+    },
+    {
+     "correct": 17,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 18,
+     "theta": 9.0
+    },
+    {
+     "correct": 16,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 17,
+     "theta": 10.0
+    },
+    {
+     "correct": 14,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 15,
+     "theta": 11.0
+    },
+    {
+     "correct": 14,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 15,
+     "theta": 12.0
+    },
+    {
+     "correct": 10,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 10,
+     "theta": 13.0
+    },
+    {
+     "correct": 8,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 8,
+     "theta": 14.0
+    }
+   ],
+   "is_answer": "a1",
+   "precision": 1.0,
+   "promoted": 10,
+   "recall_all": 0.143,
+   "recall_attainable": 0.4,
+   "theta_a": 13.0,
+   "theta_b": 4.0,
+   "wilson": [
+    0.722,
+    1.0
+   ]
+  },
+  {
+   "correct": 10,
+   "date_hit": 10,
+   "grid": [
+    {
+     "correct": 22,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "promoted": 24,
+     "theta": 0.0
+    },
+    {
+     "correct": 22,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "promoted": 24,
+     "theta": 1.0
+    },
+    {
+     "correct": 21,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 2.0
+    },
+    {
+     "correct": 21,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 3.0
+    },
+    {
+     "correct": 20,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 21,
+     "theta": 4.0
+    },
+    {
+     "correct": 19,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 5.0
+    },
+    {
+     "correct": 19,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 6.0
+    },
+    {
+     "correct": 19,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 7.0
+    },
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 8.0
+    },
+    {
+     "correct": 17,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 18,
+     "theta": 9.0
+    },
+    {
+     "correct": 16,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 17,
+     "theta": 10.0
+    },
+    {
+     "correct": 14,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 15,
+     "theta": 11.0
+    },
+    {
+     "correct": 14,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 15,
+     "theta": 12.0
+    },
+    {
+     "correct": 10,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 10,
+     "theta": 13.0
+    },
+    {
+     "correct": 8,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 8,
+     "theta": 14.0
+    }
+   ],
+   "is_answer": "a1",
+   "precision": 1.0,
+   "promoted": 10,
+   "recall_all": 0.143,
+   "recall_attainable": 0.4,
+   "theta_a": 13.0,
+   "theta_b": 6.0,
+   "wilson": [
+    0.722,
+    1.0
+   ]
+  },
+  {
+   "correct": 10,
+   "date_hit": 10,
+   "grid": [
+    {
+     "correct": 23,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "promoted": 25,
+     "theta": 0.0
+    },
+    {
+     "correct": 23,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "promoted": 25,
+     "theta": 1.0
+    },
+    {
+     "correct": 22,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 23,
+     "theta": 2.0
+    },
+    {
+     "correct": 22,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 23,
+     "theta": 3.0
+    },
+    {
+     "correct": 21,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 4.0
+    },
+    {
+     "correct": 20,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 21,
+     "theta": 5.0
+    },
+    {
+     "correct": 20,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 21,
+     "theta": 6.0
+    },
+    {
+     "correct": 20,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 21,
+     "theta": 7.0
+    },
+    {
+     "correct": 19,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 8.0
+    },
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 9.0
+    },
+    {
+     "correct": 16,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 17,
+     "theta": 10.0
+    },
+    {
+     "correct": 14,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 15,
+     "theta": 11.0
+    },
+    {
+     "correct": 14,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 15,
+     "theta": 12.0
+    },
+    {
+     "correct": 10,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 10,
+     "theta": 13.0
+    },
+    {
+     "correct": 8,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 8,
+     "theta": 14.0
+    }
+   ],
+   "is_answer": "a1",
+   "precision": 1.0,
+   "promoted": 10,
+   "recall_all": 0.143,
+   "recall_attainable": 0.4,
+   "theta_a": 13.0,
+   "theta_b": 8.0,
+   "wilson": [
+    0.722,
+    1.0
+   ]
+  },
+  {
+   "correct": 10,
+   "date_hit": 10,
+   "grid": [
+    {
+     "correct": 25,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "promoted": 27,
+     "theta": 0.0
+    },
+    {
+     "correct": 25,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "promoted": 27,
+     "theta": 1.0
+    },
+    {
+     "correct": 24,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 25,
+     "theta": 2.0
+    },
+    {
+     "correct": 24,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 25,
+     "theta": 3.0
+    },
+    {
+     "correct": 23,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 24,
+     "theta": 4.0
+    },
+    {
+     "correct": 22,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 23,
+     "theta": 5.0
+    },
+    {
+     "correct": 22,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 23,
+     "theta": 6.0
+    },
+    {
+     "correct": 22,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 23,
+     "theta": 7.0
+    },
+    {
+     "correct": 21,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 8.0
+    },
+    {
+     "correct": 20,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 21,
+     "theta": 9.0
+    },
+    {
+     "correct": 17,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 18,
+     "theta": 10.0
+    },
+    {
+     "correct": 15,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 16,
+     "theta": 11.0
+    },
+    {
+     "correct": 15,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 16,
+     "theta": 12.0
+    },
+    {
+     "correct": 10,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 10,
+     "theta": 13.0
+    },
+    {
+     "correct": 8,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 8,
+     "theta": 14.0
+    }
+   ],
+   "is_answer": "a1",
+   "precision": 1.0,
+   "promoted": 10,
+   "recall_all": 0.143,
+   "recall_attainable": 0.4,
+   "theta_a": 13.0,
+   "theta_b": 10.0,
+   "wilson": [
+    0.722,
+    1.0
+   ]
+  },
+  {
+   "correct": 10,
+   "date_hit": 10,
+   "grid": [
+    {
+     "correct": 25,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "promoted": 27,
+     "theta": 0.0
+    },
+    {
+     "correct": 25,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "promoted": 27,
+     "theta": 1.0
+    },
+    {
+     "correct": 24,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 25,
+     "theta": 2.0
+    },
+    {
+     "correct": 24,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 25,
+     "theta": 3.0
+    },
+    {
+     "correct": 23,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 24,
+     "theta": 4.0
+    },
+    {
+     "correct": 22,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 23,
+     "theta": 5.0
+    },
+    {
+     "correct": 22,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 23,
+     "theta": 6.0
+    },
+    {
+     "correct": 22,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 23,
+     "theta": 7.0
+    },
+    {
+     "correct": 21,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 8.0
+    },
+    {
+     "correct": 20,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 21,
+     "theta": 9.0
+    },
+    {
+     "correct": 17,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 18,
+     "theta": 10.0
+    },
+    {
+     "correct": 15,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 16,
+     "theta": 11.0
+    },
+    {
+     "correct": 15,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 16,
+     "theta": 12.0
+    },
+    {
+     "correct": 10,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 10,
+     "theta": 13.0
+    },
+    {
+     "correct": 8,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 8,
+     "theta": 14.0
+    }
+   ],
+   "is_answer": "a1",
+   "precision": 1.0,
+   "promoted": 10,
+   "recall_all": 0.143,
+   "recall_attainable": 0.4,
+   "theta_a": 13.0,
+   "theta_b": 12.0,
+   "wilson": [
+    0.722,
+    1.0
+   ]
+  },
+  {
+   "correct": 14,
+   "date_hit": 14,
+   "grid": [
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 0.0
+    },
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 1.0
+    },
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 2.0
+    },
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 3.0
+    },
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 4.0
+    },
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 5.0
+    },
+    {
+     "correct": 16,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 17,
+     "theta": 6.0
+    },
+    {
+     "correct": 14,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 15,
+     "theta": 7.0
+    },
+    {
+     "correct": 14,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 14,
+     "theta": 8.0
+    },
+    {
+     "correct": 12,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 12,
+     "theta": 9.0
+    },
+    {
+     "correct": 12,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 12,
+     "theta": 10.0
+    },
+    {
+     "correct": 11,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 11,
+     "theta": 11.0
+    },
+    {
+     "correct": 11,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 11,
+     "theta": 12.0
+    },
+    {
+     "correct": 9,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 9,
+     "theta": 13.0
+    },
+    {
+     "correct": 6,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 6,
+     "theta": 14.0
+    }
+   ],
+   "is_answer": "a2",
+   "precision": 1.0,
+   "promoted": 14,
+   "recall_all": 0.2,
+   "recall_attainable": 0.56,
+   "theta_a": 8.0,
+   "theta_b": 0.0,
+   "wilson": [
+    0.785,
+    1.0
+   ]
+  },
+  {
+   "correct": 15,
+   "date_hit": 15,
+   "grid": [
+    {
+     "correct": 20,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 21,
+     "theta": 0.0
+    },
+    {
+     "correct": 20,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 21,
+     "theta": 1.0
+    },
+    {
+     "correct": 19,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 2.0
+    },
+    {
+     "correct": 19,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 3.0
+    },
+    {
+     "correct": 19,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 4.0
+    },
+    {
+     "correct": 19,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 20,
+     "theta": 5.0
+    },
+    {
+     "correct": 17,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 18,
+     "theta": 6.0
+    },
+    {
+     "correct": 15,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 16,
+     "theta": 7.0
+    },
+    {
+     "correct": 15,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 15,
+     "theta": 8.0
+    },
+    {
+     "correct": 13,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 13,
+     "theta": 9.0
+    },
+    {
+     "correct": 12,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 12,
+     "theta": 10.0
+    },
+    {
+     "correct": 11,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 11,
+     "theta": 11.0
+    },
+    {
+     "correct": 11,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 11,
+     "theta": 12.0
+    },
+    {
+     "correct": 9,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 9,
+     "theta": 13.0
+    },
+    {
+     "correct": 6,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 6,
+     "theta": 14.0
+    }
+   ],
+   "is_answer": "a2",
+   "precision": 1.0,
+   "promoted": 15,
+   "recall_all": 0.214,
+   "recall_attainable": 0.6,
+   "theta_a": 8.0,
+   "theta_b": 2.0,
+   "wilson": [
+    0.796,
+    1.0
+   ]
+  },
+  {
+   "correct": 15,
+   "date_hit": 15,
+   "grid": [
+    {
+     "correct": 22,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 23,
+     "theta": 0.0
+    },
+    {
+     "correct": 22,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 23,
+     "theta": 1.0
+    },
+    {
+     "correct": 21,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 2.0
+    },
+    {
+     "correct": 21,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 3.0
+    },
+    {
+     "correct": 21,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 4.0
+    },
+    {
+     "correct": 20,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 21,
+     "theta": 5.0
+    },
+    {
+     "correct": 17,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 18,
+     "theta": 6.0
+    },
+    {
+     "correct": 15,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 16,
+     "theta": 7.0
+    },
+    {
+     "correct": 15,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 15,
+     "theta": 8.0
+    },
+    {
+     "correct": 13,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 13,
+     "theta": 9.0
+    },
+    {
+     "correct": 12,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 12,
+     "theta": 10.0
+    },
+    {
+     "correct": 11,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 11,
+     "theta": 11.0
+    },
+    {
+     "correct": 11,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 11,
+     "theta": 12.0
+    },
+    {
+     "correct": 9,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 9,
+     "theta": 13.0
+    },
+    {
+     "correct": 6,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 6,
+     "theta": 14.0
+    }
+   ],
+   "is_answer": "a2",
+   "precision": 1.0,
+   "promoted": 15,
+   "recall_all": 0.214,
+   "recall_attainable": 0.6,
+   "theta_a": 8.0,
+   "theta_b": 4.0,
+   "wilson": [
+    0.796,
+    1.0
+   ]
+  },
+  {
+   "correct": 15,
+   "date_hit": 15,
+   "grid": [
+    {
+     "correct": 22,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 23,
+     "theta": 0.0
+    },
+    {
+     "correct": 22,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 23,
+     "theta": 1.0
+    },
+    {
+     "correct": 21,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 2.0
+    },
+    {
+     "correct": 21,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 3.0
+    },
+    {
+     "correct": 21,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 4.0
+    },
+    {
+     "correct": 20,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 21,
+     "theta": 5.0
+    },
+    {
+     "correct": 17,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 18,
+     "theta": 6.0
+    },
+    {
+     "correct": 15,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 16,
+     "theta": 7.0
+    },
+    {
+     "correct": 15,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 15,
+     "theta": 8.0
+    },
+    {
+     "correct": 13,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 13,
+     "theta": 9.0
+    },
+    {
+     "correct": 12,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 12,
+     "theta": 10.0
+    },
+    {
+     "correct": 11,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 11,
+     "theta": 11.0
+    },
+    {
+     "correct": 11,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 11,
+     "theta": 12.0
+    },
+    {
+     "correct": 9,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 9,
+     "theta": 13.0
+    },
+    {
+     "correct": 6,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 6,
+     "theta": 14.0
+    }
+   ],
+   "is_answer": "a2",
+   "precision": 1.0,
+   "promoted": 15,
+   "recall_all": 0.214,
+   "recall_attainable": 0.6,
+   "theta_a": 8.0,
+   "theta_b": 6.0,
+   "wilson": [
+    0.796,
+    1.0
+   ]
+  },
+  {
+   "correct": 15,
+   "date_hit": 15,
+   "grid": [
+    {
+     "correct": 23,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 24,
+     "theta": 0.0
+    },
+    {
+     "correct": 23,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 24,
+     "theta": 1.0
+    },
+    {
+     "correct": 22,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 23,
+     "theta": 2.0
+    },
+    {
+     "correct": 22,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 23,
+     "theta": 3.0
+    },
+    {
+     "correct": 22,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 23,
+     "theta": 4.0
+    },
+    {
+     "correct": 21,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 22,
+     "theta": 5.0
+    },
+    {
+     "correct": 18,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 19,
+     "theta": 6.0
+    },
+    {
+     "correct": 16,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 17,
+     "theta": 7.0
+    },
+    {
+     "correct": 15,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 15,
+     "theta": 8.0
+    },
+    {
+     "correct": 13,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 13,
+     "theta": 9.0
+    },
+    {
+     "correct": 12,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 12,
+     "theta": 10.0
+    },
+    {
+     "correct": 11,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 11,
+     "theta": 11.0
+    },
+    {
+     "correct": 11,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 11,
+     "theta": 12.0
+    },
+    {
+     "correct": 9,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 9,
+     "theta": 13.0
+    },
+    {
+     "correct": 6,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 6,
+     "theta": 14.0
+    }
+   ],
+   "is_answer": "a2",
+   "precision": 1.0,
+   "promoted": 15,
+   "recall_all": 0.214,
+   "recall_attainable": 0.6,
+   "theta_a": 8.0,
+   "theta_b": 8.0,
+   "wilson": [
+    0.796,
+    1.0
+   ]
+  },
+  {
+   "correct": 16,
+   "date_hit": 15,
+   "grid": [
+    {
+     "correct": 25,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 26,
+     "theta": 0.0
+    },
+    {
+     "correct": 25,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 26,
+     "theta": 1.0
+    },
+    {
+     "correct": 24,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 25,
+     "theta": 2.0
+    },
+    {
+     "correct": 24,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 25,
+     "theta": 3.0
+    },
+    {
+     "correct": 24,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 25,
+     "theta": 4.0
+    },
+    {
+     "correct": 23,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 24,
+     "theta": 5.0
+    },
+    {
+     "correct": 20,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 21,
+     "theta": 6.0
+    },
+    {
+     "correct": 17,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 18,
+     "theta": 7.0
+    },
+    {
+     "correct": 16,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 16,
+     "theta": 8.0
+    },
+    {
+     "correct": 13,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 13,
+     "theta": 9.0
+    },
+    {
+     "correct": 12,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 12,
+     "theta": 10.0
+    },
+    {
+     "correct": 11,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 11,
+     "theta": 11.0
+    },
+    {
+     "correct": 11,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 11,
+     "theta": 12.0
+    },
+    {
+     "correct": 9,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 9,
+     "theta": 13.0
+    },
+    {
+     "correct": 6,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 6,
+     "theta": 14.0
+    }
+   ],
+   "is_answer": "a2",
+   "precision": 1.0,
+   "promoted": 16,
+   "recall_all": 0.229,
+   "recall_attainable": 0.6,
+   "theta_a": 8.0,
+   "theta_b": 10.0,
+   "wilson": [
+    0.806,
+    1.0
+   ]
+  },
+  {
+   "correct": 16,
+   "date_hit": 15,
+   "grid": [
+    {
+     "correct": 25,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 26,
+     "theta": 0.0
+    },
+    {
+     "correct": 25,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 26,
+     "theta": 1.0
+    },
+    {
+     "correct": 24,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 25,
+     "theta": 2.0
+    },
+    {
+     "correct": 24,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 25,
+     "theta": 3.0
+    },
+    {
+     "correct": 24,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 25,
+     "theta": 4.0
+    },
+    {
+     "correct": 23,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 24,
+     "theta": 5.0
+    },
+    {
+     "correct": 20,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 21,
+     "theta": 6.0
+    },
+    {
+     "correct": 17,
+     "gold_no": null,
+     "gold_unclear": 1,
+     "promoted": 18,
+     "theta": 7.0
+    },
+    {
+     "correct": 16,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 16,
+     "theta": 8.0
+    },
+    {
+     "correct": 13,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 13,
+     "theta": 9.0
+    },
+    {
+     "correct": 12,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 12,
+     "theta": 10.0
+    },
+    {
+     "correct": 11,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 11,
+     "theta": 11.0
+    },
+    {
+     "correct": 11,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 11,
+     "theta": 12.0
+    },
+    {
+     "correct": 9,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 9,
+     "theta": 13.0
+    },
+    {
+     "correct": 6,
+     "gold_no": null,
+     "gold_unclear": null,
+     "promoted": 6,
+     "theta": 14.0
+    }
+   ],
+   "is_answer": "a2",
+   "precision": 1.0,
+   "promoted": 16,
+   "recall_all": 0.229,
+   "recall_attainable": 0.6,
+   "theta_a": 8.0,
+   "theta_b": 12.0,
+   "wilson": [
+    0.806,
+    1.0
+   ]
+  }
+ ],
+ "grid": [
+  {
+   "arms": {
+    "a_and_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    },
+    "free": {
+     "correct": 23,
+     "correct_attainable": 20,
+     "date_checked": 23,
+     "date_hit": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 23,
+     "precision": 0.92,
+     "promoted": 25,
+     "recall_all": 0.329,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.75,
+      0.978
+     ]
+    },
+    "oracle_date": {
+     "correct": 33,
+     "correct_attainable": 23,
+     "gold_no": 2,
+     "gold_unclear": 1,
+     "gold_yes": 33,
+     "precision": 0.917,
+     "promoted": 36,
+     "recall_all": 0.471,
+     "recall_attainable": 0.92,
+     "wilson": [
+      0.782,
+      0.971
+     ]
+    },
+    "p7": {
+     "correct": 18,
+     "correct_attainable": 18,
+     "date_checked": 18,
+     "date_hit": 18,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 18,
+     "precision": 0.9,
+     "promoted": 20,
+     "recall_all": 0.257,
+     "recall_attainable": 0.72,
+     "wilson": [
+      0.699,
+      0.972
+     ]
+    },
+    "rules_only": {
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_attainable": 0.0,
+     "wilson": null
+    },
+    "trivial_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    }
+   },
+   "attainable": 25,
+   "gold_yes": 70,
+   "promoted_ids": [
+    "P7D-008",
+    "P7D-011",
+    "P7D-012",
+    "P7D-014",
+    "P7D-017",
+    "P7D-019",
+    "P7D-021",
+    "P7D-031",
+    "P7D-032",
+    "P7D-038",
+    "P7D-044",
+    "P7D-048",
+    "P7D-052",
+    "P7D-059",
+    "P7D-061",
+    "P7D-067",
+    "P7D-068",
+    "P7D-071",
+    "P7D-075",
+    "P7D-076"
+   ],
+   "theta": 0.0
+  },
+  {
+   "arms": {
+    "a_and_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    },
+    "free": {
+     "correct": 23,
+     "correct_attainable": 20,
+     "date_checked": 23,
+     "date_hit": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 23,
+     "precision": 0.92,
+     "promoted": 25,
+     "recall_all": 0.329,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.75,
+      0.978
+     ]
+    },
+    "oracle_date": {
+     "correct": 33,
+     "correct_attainable": 23,
+     "gold_no": 2,
+     "gold_unclear": 1,
+     "gold_yes": 33,
+     "precision": 0.917,
+     "promoted": 36,
+     "recall_all": 0.471,
+     "recall_attainable": 0.92,
+     "wilson": [
+      0.782,
+      0.971
+     ]
+    },
+    "p7": {
+     "correct": 18,
+     "correct_attainable": 18,
+     "date_checked": 18,
+     "date_hit": 18,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 18,
+     "precision": 0.9,
+     "promoted": 20,
+     "recall_all": 0.257,
+     "recall_attainable": 0.72,
+     "wilson": [
+      0.699,
+      0.972
+     ]
+    },
+    "rules_only": {
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_attainable": 0.0,
+     "wilson": null
+    },
+    "trivial_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    }
+   },
+   "attainable": 25,
+   "gold_yes": 70,
+   "promoted_ids": [
+    "P7D-008",
+    "P7D-011",
+    "P7D-012",
+    "P7D-014",
+    "P7D-017",
+    "P7D-019",
+    "P7D-021",
+    "P7D-031",
+    "P7D-032",
+    "P7D-038",
+    "P7D-044",
+    "P7D-048",
+    "P7D-052",
+    "P7D-059",
+    "P7D-061",
+    "P7D-067",
+    "P7D-068",
+    "P7D-071",
+    "P7D-075",
+    "P7D-076"
+   ],
+   "theta": 1.0
+  },
+  {
+   "arms": {
+    "a_and_exact": {
+     "correct": 29,
+     "correct_attainable": 20,
+     "gold_yes": 29,
+     "precision": 1.0,
+     "promoted": 29,
+     "recall_all": 0.414,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.883,
+      1.0
+     ]
+    },
+    "free": {
+     "correct": 23,
+     "correct_attainable": 20,
+     "date_checked": 23,
+     "date_hit": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 23,
+     "precision": 0.92,
+     "promoted": 25,
+     "recall_all": 0.329,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.75,
+      0.978
+     ]
+    },
+    "oracle_date": {
+     "correct": 31,
+     "correct_attainable": 22,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 31,
+     "precision": 0.939,
+     "promoted": 33,
+     "recall_all": 0.443,
+     "recall_attainable": 0.88,
+     "wilson": [
+      0.804,
+      0.983
+     ]
+    },
+    "p7": {
+     "correct": 18,
+     "correct_attainable": 18,
+     "date_checked": 18,
+     "date_hit": 18,
+     "gold_unclear": 1,
+     "gold_yes": 18,
+     "precision": 0.947,
+     "promoted": 19,
+     "recall_all": 0.257,
+     "recall_attainable": 0.72,
+     "wilson": [
+      0.754,
+      0.991
+     ]
+    },
+    "rules_only": {
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_attainable": 0.0,
+     "wilson": null
+    },
+    "trivial_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    }
+   },
+   "attainable": 25,
+   "gold_yes": 70,
+   "promoted_ids": [
+    "P7D-008",
+    "P7D-011",
+    "P7D-014",
+    "P7D-017",
+    "P7D-019",
+    "P7D-021",
+    "P7D-031",
+    "P7D-032",
+    "P7D-038",
+    "P7D-044",
+    "P7D-048",
+    "P7D-052",
+    "P7D-059",
+    "P7D-061",
+    "P7D-067",
+    "P7D-068",
+    "P7D-071",
+    "P7D-075",
+    "P7D-076"
+   ],
+   "theta": 2.0
+  },
+  {
+   "arms": {
+    "a_and_exact": {
+     "correct": 29,
+     "correct_attainable": 20,
+     "gold_yes": 29,
+     "precision": 1.0,
+     "promoted": 29,
+     "recall_all": 0.414,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.883,
+      1.0
+     ]
+    },
+    "free": {
+     "correct": 23,
+     "correct_attainable": 20,
+     "date_checked": 23,
+     "date_hit": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 23,
+     "precision": 0.92,
+     "promoted": 25,
+     "recall_all": 0.329,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.75,
+      0.978
+     ]
+    },
+    "oracle_date": {
+     "correct": 31,
+     "correct_attainable": 22,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 31,
+     "precision": 0.939,
+     "promoted": 33,
+     "recall_all": 0.443,
+     "recall_attainable": 0.88,
+     "wilson": [
+      0.804,
+      0.983
+     ]
+    },
+    "p7": {
+     "correct": 18,
+     "correct_attainable": 18,
+     "date_checked": 18,
+     "date_hit": 18,
+     "gold_unclear": 1,
+     "gold_yes": 18,
+     "precision": 0.947,
+     "promoted": 19,
+     "recall_all": 0.257,
+     "recall_attainable": 0.72,
+     "wilson": [
+      0.754,
+      0.991
+     ]
+    },
+    "rules_only": {
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_attainable": 0.0,
+     "wilson": null
+    },
+    "trivial_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    }
+   },
+   "attainable": 25,
+   "gold_yes": 70,
+   "promoted_ids": [
+    "P7D-008",
+    "P7D-011",
+    "P7D-014",
+    "P7D-017",
+    "P7D-019",
+    "P7D-021",
+    "P7D-031",
+    "P7D-032",
+    "P7D-038",
+    "P7D-044",
+    "P7D-048",
+    "P7D-052",
+    "P7D-059",
+    "P7D-061",
+    "P7D-067",
+    "P7D-068",
+    "P7D-071",
+    "P7D-075",
+    "P7D-076"
+   ],
+   "theta": 3.0
+  },
+  {
+   "arms": {
+    "a_and_exact": {
+     "correct": 28,
+     "correct_attainable": 19,
+     "gold_yes": 28,
+     "precision": 1.0,
+     "promoted": 28,
+     "recall_all": 0.4,
+     "recall_attainable": 0.76,
+     "wilson": [
+      0.879,
+      1.0
+     ]
+    },
+    "free": {
+     "correct": 23,
+     "correct_attainable": 20,
+     "date_checked": 23,
+     "date_hit": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 23,
+     "precision": 0.92,
+     "promoted": 25,
+     "recall_all": 0.329,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.75,
+      0.978
+     ]
+    },
+    "oracle_date": {
+     "correct": 30,
+     "correct_attainable": 21,
+     "gold_unclear": 1,
+     "gold_yes": 30,
+     "precision": 0.968,
+     "promoted": 31,
+     "recall_all": 0.429,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.838,
+      0.994
+     ]
+    },
+    "p7": {
+     "correct": 18,
+     "correct_attainable": 18,
+     "date_checked": 18,
+     "date_hit": 18,
+     "gold_unclear": 1,
+     "gold_yes": 18,
+     "precision": 0.947,
+     "promoted": 19,
+     "recall_all": 0.257,
+     "recall_attainable": 0.72,
+     "wilson": [
+      0.754,
+      0.991
+     ]
+    },
+    "rules_only": {
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_attainable": 0.0,
+     "wilson": null
+    },
+    "trivial_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    }
+   },
+   "attainable": 25,
+   "gold_yes": 70,
+   "promoted_ids": [
+    "P7D-008",
+    "P7D-011",
+    "P7D-014",
+    "P7D-017",
+    "P7D-019",
+    "P7D-021",
+    "P7D-031",
+    "P7D-032",
+    "P7D-038",
+    "P7D-044",
+    "P7D-048",
+    "P7D-052",
+    "P7D-059",
+    "P7D-061",
+    "P7D-067",
+    "P7D-068",
+    "P7D-071",
+    "P7D-075",
+    "P7D-076"
+   ],
+   "theta": 4.0
+  },
+  {
+   "arms": {
+    "a_and_exact": {
+     "correct": 27,
+     "correct_attainable": 18,
+     "gold_yes": 27,
+     "precision": 1.0,
+     "promoted": 27,
+     "recall_all": 0.386,
+     "recall_attainable": 0.72,
+     "wilson": [
+      0.875,
+      1.0
+     ]
+    },
+    "free": {
+     "correct": 23,
+     "correct_attainable": 20,
+     "date_checked": 23,
+     "date_hit": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 23,
+     "precision": 0.92,
+     "promoted": 25,
+     "recall_all": 0.329,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.75,
+      0.978
+     ]
+    },
+    "oracle_date": {
+     "correct": 29,
+     "correct_attainable": 20,
+     "gold_unclear": 1,
+     "gold_yes": 29,
+     "precision": 0.967,
+     "promoted": 30,
+     "recall_all": 0.414,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.833,
+      0.994
+     ]
+    },
+    "p7": {
+     "correct": 17,
+     "correct_attainable": 17,
+     "date_checked": 17,
+     "date_hit": 17,
+     "gold_unclear": 1,
+     "gold_yes": 17,
+     "precision": 0.944,
+     "promoted": 18,
+     "recall_all": 0.243,
+     "recall_attainable": 0.68,
+     "wilson": [
+      0.742,
+      0.99
+     ]
+    },
+    "rules_only": {
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_attainable": 0.0,
+     "wilson": null
+    },
+    "trivial_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    }
+   },
+   "attainable": 25,
+   "gold_yes": 70,
+   "promoted_ids": [
+    "P7D-008",
+    "P7D-011",
+    "P7D-014",
+    "P7D-017",
+    "P7D-019",
+    "P7D-021",
+    "P7D-031",
+    "P7D-032",
+    "P7D-038",
+    "P7D-048",
+    "P7D-052",
+    "P7D-059",
+    "P7D-061",
+    "P7D-067",
+    "P7D-068",
+    "P7D-071",
+    "P7D-075",
+    "P7D-076"
+   ],
+   "theta": 5.0
+  },
+  {
+   "arms": {
+    "a_and_exact": {
+     "correct": 27,
+     "correct_attainable": 18,
+     "gold_yes": 27,
+     "precision": 1.0,
+     "promoted": 27,
+     "recall_all": 0.386,
+     "recall_attainable": 0.72,
+     "wilson": [
+      0.875,
+      1.0
+     ]
+    },
+    "free": {
+     "correct": 23,
+     "correct_attainable": 20,
+     "date_checked": 23,
+     "date_hit": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 23,
+     "precision": 0.92,
+     "promoted": 25,
+     "recall_all": 0.329,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.75,
+      0.978
+     ]
+    },
+    "oracle_date": {
+     "correct": 29,
+     "correct_attainable": 20,
+     "gold_unclear": 1,
+     "gold_yes": 29,
+     "precision": 0.967,
+     "promoted": 30,
+     "recall_all": 0.414,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.833,
+      0.994
+     ]
+    },
+    "p7": {
+     "correct": 17,
+     "correct_attainable": 17,
+     "date_checked": 17,
+     "date_hit": 17,
+     "gold_unclear": 1,
+     "gold_yes": 17,
+     "precision": 0.944,
+     "promoted": 18,
+     "recall_all": 0.243,
+     "recall_attainable": 0.68,
+     "wilson": [
+      0.742,
+      0.99
+     ]
+    },
+    "rules_only": {
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_attainable": 0.0,
+     "wilson": null
+    },
+    "trivial_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    }
+   },
+   "attainable": 25,
+   "gold_yes": 70,
+   "promoted_ids": [
+    "P7D-008",
+    "P7D-011",
+    "P7D-014",
+    "P7D-017",
+    "P7D-019",
+    "P7D-021",
+    "P7D-031",
+    "P7D-032",
+    "P7D-038",
+    "P7D-048",
+    "P7D-052",
+    "P7D-059",
+    "P7D-061",
+    "P7D-067",
+    "P7D-068",
+    "P7D-071",
+    "P7D-075",
+    "P7D-076"
+   ],
+   "theta": 6.0
+  },
+  {
+   "arms": {
+    "a_and_exact": {
+     "correct": 26,
+     "correct_attainable": 18,
+     "gold_yes": 26,
+     "precision": 1.0,
+     "promoted": 26,
+     "recall_all": 0.371,
+     "recall_attainable": 0.72,
+     "wilson": [
+      0.871,
+      1.0
+     ]
+    },
+    "free": {
+     "correct": 23,
+     "correct_attainable": 20,
+     "date_checked": 23,
+     "date_hit": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 23,
+     "precision": 0.92,
+     "promoted": 25,
+     "recall_all": 0.329,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.75,
+      0.978
+     ]
+    },
+    "oracle_date": {
+     "correct": 28,
+     "correct_attainable": 20,
+     "gold_unclear": 1,
+     "gold_yes": 28,
+     "precision": 0.966,
+     "promoted": 29,
+     "recall_all": 0.4,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.828,
+      0.994
+     ]
+    },
+    "p7": {
+     "correct": 17,
+     "correct_attainable": 17,
+     "date_checked": 17,
+     "date_hit": 17,
+     "gold_unclear": 1,
+     "gold_yes": 17,
+     "precision": 0.944,
+     "promoted": 18,
+     "recall_all": 0.243,
+     "recall_attainable": 0.68,
+     "wilson": [
+      0.742,
+      0.99
+     ]
+    },
+    "rules_only": {
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_attainable": 0.0,
+     "wilson": null
+    },
+    "trivial_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    }
+   },
+   "attainable": 25,
+   "gold_yes": 70,
+   "promoted_ids": [
+    "P7D-008",
+    "P7D-011",
+    "P7D-014",
+    "P7D-017",
+    "P7D-019",
+    "P7D-021",
+    "P7D-031",
+    "P7D-032",
+    "P7D-038",
+    "P7D-048",
+    "P7D-052",
+    "P7D-059",
+    "P7D-061",
+    "P7D-067",
+    "P7D-068",
+    "P7D-071",
+    "P7D-075",
+    "P7D-076"
+   ],
+   "theta": 7.0
+  },
+  {
+   "arms": {
+    "a_and_exact": {
+     "correct": 25,
+     "correct_attainable": 17,
+     "gold_yes": 25,
+     "precision": 1.0,
+     "promoted": 25,
+     "recall_all": 0.357,
+     "recall_attainable": 0.68,
+     "wilson": [
+      0.867,
+      1.0
+     ]
+    },
+    "free": {
+     "correct": 23,
+     "correct_attainable": 20,
+     "date_checked": 23,
+     "date_hit": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 23,
+     "precision": 0.92,
+     "promoted": 25,
+     "recall_all": 0.329,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.75,
+      0.978
+     ]
+    },
+    "oracle_date": {
+     "correct": 27,
+     "correct_attainable": 19,
+     "gold_unclear": 1,
+     "gold_yes": 27,
+     "precision": 0.964,
+     "promoted": 28,
+     "recall_all": 0.386,
+     "recall_attainable": 0.76,
+     "wilson": [
+      0.823,
+      0.994
+     ]
+    },
+    "p7": {
+     "correct": 16,
+     "correct_attainable": 16,
+     "date_checked": 16,
+     "date_hit": 16,
+     "gold_unclear": 1,
+     "gold_yes": 16,
+     "precision": 0.941,
+     "promoted": 17,
+     "recall_all": 0.229,
+     "recall_attainable": 0.64,
+     "wilson": [
+      0.73,
+      0.99
+     ]
+    },
+    "rules_only": {
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_attainable": 0.0,
+     "wilson": null
+    },
+    "trivial_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    }
+   },
+   "attainable": 25,
+   "gold_yes": 70,
+   "promoted_ids": [
+    "P7D-008",
+    "P7D-011",
+    "P7D-014",
+    "P7D-017",
+    "P7D-019",
+    "P7D-021",
+    "P7D-031",
+    "P7D-032",
+    "P7D-038",
+    "P7D-048",
+    "P7D-052",
+    "P7D-059",
+    "P7D-067",
+    "P7D-068",
+    "P7D-071",
+    "P7D-075",
+    "P7D-076"
+   ],
+   "theta": 8.0
+  },
+  {
+   "arms": {
+    "a_and_exact": {
+     "correct": 24,
+     "correct_attainable": 17,
+     "gold_yes": 24,
+     "precision": 1.0,
+     "promoted": 24,
+     "recall_all": 0.343,
+     "recall_attainable": 0.68,
+     "wilson": [
+      0.862,
+      1.0
+     ]
+    },
+    "free": {
+     "correct": 23,
+     "correct_attainable": 20,
+     "date_checked": 23,
+     "date_hit": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 23,
+     "precision": 0.92,
+     "promoted": 25,
+     "recall_all": 0.329,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.75,
+      0.978
+     ]
+    },
+    "oracle_date": {
+     "correct": 25,
+     "correct_attainable": 18,
+     "gold_unclear": 1,
+     "gold_yes": 25,
+     "precision": 0.962,
+     "promoted": 26,
+     "recall_all": 0.357,
+     "recall_attainable": 0.72,
+     "wilson": [
+      0.811,
+      0.993
+     ]
+    },
+    "p7": {
+     "correct": 15,
+     "correct_attainable": 15,
+     "date_checked": 15,
+     "date_hit": 15,
+     "gold_unclear": 1,
+     "gold_yes": 15,
+     "precision": 0.938,
+     "promoted": 16,
+     "recall_all": 0.214,
+     "recall_attainable": 0.6,
+     "wilson": [
+      0.717,
+      0.989
+     ]
+    },
+    "rules_only": {
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_attainable": 0.0,
+     "wilson": null
+    },
+    "trivial_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    }
+   },
+   "attainable": 25,
+   "gold_yes": 70,
+   "promoted_ids": [
+    "P7D-008",
+    "P7D-011",
+    "P7D-014",
+    "P7D-017",
+    "P7D-019",
+    "P7D-021",
+    "P7D-031",
+    "P7D-032",
+    "P7D-038",
+    "P7D-048",
+    "P7D-052",
+    "P7D-059",
+    "P7D-067",
+    "P7D-068",
+    "P7D-071",
+    "P7D-075"
+   ],
+   "theta": 9.0
+  },
+  {
+   "arms": {
+    "a_and_exact": {
+     "correct": 21,
+     "correct_attainable": 15,
+     "gold_yes": 21,
+     "precision": 1.0,
+     "promoted": 21,
+     "recall_all": 0.3,
+     "recall_attainable": 0.6,
+     "wilson": [
+      0.845,
+      1.0
+     ]
+    },
+    "free": {
+     "correct": 23,
+     "correct_attainable": 20,
+     "date_checked": 23,
+     "date_hit": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 23,
+     "precision": 0.92,
+     "promoted": 25,
+     "recall_all": 0.329,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.75,
+      0.978
+     ]
+    },
+    "oracle_date": {
+     "correct": 22,
+     "correct_attainable": 16,
+     "gold_unclear": 1,
+     "gold_yes": 22,
+     "precision": 0.957,
+     "promoted": 23,
+     "recall_all": 0.314,
+     "recall_attainable": 0.64,
+     "wilson": [
+      0.79,
+      0.992
+     ]
+    },
+    "p7": {
+     "correct": 15,
+     "correct_attainable": 15,
+     "date_checked": 15,
+     "date_hit": 15,
+     "gold_unclear": 1,
+     "gold_yes": 15,
+     "precision": 0.938,
+     "promoted": 16,
+     "recall_all": 0.214,
+     "recall_attainable": 0.6,
+     "wilson": [
+      0.717,
+      0.989
+     ]
+    },
+    "rules_only": {
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_attainable": 0.0,
+     "wilson": null
+    },
+    "trivial_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    }
+   },
+   "attainable": 25,
+   "gold_yes": 70,
+   "promoted_ids": [
+    "P7D-008",
+    "P7D-011",
+    "P7D-014",
+    "P7D-017",
+    "P7D-019",
+    "P7D-021",
+    "P7D-031",
+    "P7D-032",
+    "P7D-038",
+    "P7D-048",
+    "P7D-052",
+    "P7D-059",
+    "P7D-067",
+    "P7D-068",
+    "P7D-071",
+    "P7D-075"
+   ],
+   "theta": 10.0
+  },
+  {
+   "arms": {
+    "a_and_exact": {
+     "correct": 19,
+     "correct_attainable": 13,
+     "gold_yes": 19,
+     "precision": 1.0,
+     "promoted": 19,
+     "recall_all": 0.271,
+     "recall_attainable": 0.52,
+     "wilson": [
+      0.832,
+      1.0
+     ]
+    },
+    "free": {
+     "correct": 23,
+     "correct_attainable": 20,
+     "date_checked": 23,
+     "date_hit": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 23,
+     "precision": 0.92,
+     "promoted": 25,
+     "recall_all": 0.329,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.75,
+      0.978
+     ]
+    },
+    "oracle_date": {
+     "correct": 20,
+     "correct_attainable": 14,
+     "gold_unclear": 1,
+     "gold_yes": 20,
+     "precision": 0.952,
+     "promoted": 21,
+     "recall_all": 0.286,
+     "recall_attainable": 0.56,
+     "wilson": [
+      0.773,
+      0.992
+     ]
+    },
+    "p7": {
+     "correct": 14,
+     "correct_attainable": 14,
+     "date_checked": 14,
+     "date_hit": 14,
+     "gold_unclear": 1,
+     "gold_yes": 14,
+     "precision": 0.933,
+     "promoted": 15,
+     "recall_all": 0.2,
+     "recall_attainable": 0.56,
+     "wilson": [
+      0.702,
+      0.988
+     ]
+    },
+    "rules_only": {
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_attainable": 0.0,
+     "wilson": null
+    },
+    "trivial_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    }
+   },
+   "attainable": 25,
+   "gold_yes": 70,
+   "promoted_ids": [
+    "P7D-008",
+    "P7D-011",
+    "P7D-014",
+    "P7D-017",
+    "P7D-019",
+    "P7D-021",
+    "P7D-031",
+    "P7D-032",
+    "P7D-048",
+    "P7D-052",
+    "P7D-059",
+    "P7D-067",
+    "P7D-068",
+    "P7D-071",
+    "P7D-075"
+   ],
+   "theta": 11.0
+  },
+  {
+   "arms": {
+    "a_and_exact": {
+     "correct": 19,
+     "correct_attainable": 13,
+     "gold_yes": 19,
+     "precision": 1.0,
+     "promoted": 19,
+     "recall_all": 0.271,
+     "recall_attainable": 0.52,
+     "wilson": [
+      0.832,
+      1.0
+     ]
+    },
+    "free": {
+     "correct": 23,
+     "correct_attainable": 20,
+     "date_checked": 23,
+     "date_hit": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 23,
+     "precision": 0.92,
+     "promoted": 25,
+     "recall_all": 0.329,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.75,
+      0.978
+     ]
+    },
+    "oracle_date": {
+     "correct": 20,
+     "correct_attainable": 14,
+     "gold_unclear": 1,
+     "gold_yes": 20,
+     "precision": 0.952,
+     "promoted": 21,
+     "recall_all": 0.286,
+     "recall_attainable": 0.56,
+     "wilson": [
+      0.773,
+      0.992
+     ]
+    },
+    "p7": {
+     "correct": 14,
+     "correct_attainable": 14,
+     "date_checked": 14,
+     "date_hit": 14,
+     "gold_unclear": 1,
+     "gold_yes": 14,
+     "precision": 0.933,
+     "promoted": 15,
+     "recall_all": 0.2,
+     "recall_attainable": 0.56,
+     "wilson": [
+      0.702,
+      0.988
+     ]
+    },
+    "rules_only": {
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_attainable": 0.0,
+     "wilson": null
+    },
+    "trivial_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    }
+   },
+   "attainable": 25,
+   "gold_yes": 70,
+   "promoted_ids": [
+    "P7D-008",
+    "P7D-011",
+    "P7D-014",
+    "P7D-017",
+    "P7D-019",
+    "P7D-021",
+    "P7D-031",
+    "P7D-032",
+    "P7D-048",
+    "P7D-052",
+    "P7D-059",
+    "P7D-067",
+    "P7D-068",
+    "P7D-071",
+    "P7D-075"
+   ],
+   "theta": 12.0
+  },
+  {
+   "arms": {
+    "a_and_exact": {
+     "correct": 15,
+     "correct_attainable": 10,
+     "gold_yes": 15,
+     "precision": 1.0,
+     "promoted": 15,
+     "recall_all": 0.214,
+     "recall_attainable": 0.4,
+     "wilson": [
+      0.796,
+      1.0
+     ]
+    },
+    "free": {
+     "correct": 23,
+     "correct_attainable": 20,
+     "date_checked": 23,
+     "date_hit": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 23,
+     "precision": 0.92,
+     "promoted": 25,
+     "recall_all": 0.329,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.75,
+      0.978
+     ]
+    },
+    "oracle_date": {
+     "correct": 15,
+     "correct_attainable": 10,
+     "gold_yes": 15,
+     "precision": 1.0,
+     "promoted": 15,
+     "recall_all": 0.214,
+     "recall_attainable": 0.4,
+     "wilson": [
+      0.796,
+      1.0
+     ]
+    },
+    "p7": {
+     "correct": 10,
+     "correct_attainable": 10,
+     "date_checked": 10,
+     "date_hit": 10,
+     "gold_yes": 10,
+     "precision": 1.0,
+     "promoted": 10,
+     "recall_all": 0.143,
+     "recall_attainable": 0.4,
+     "wilson": [
+      0.722,
+      1.0
+     ]
+    },
+    "rules_only": {
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_attainable": 0.0,
+     "wilson": null
+    },
+    "trivial_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    }
+   },
+   "attainable": 25,
+   "gold_yes": 70,
+   "promoted_ids": [
+    "P7D-008",
+    "P7D-011",
+    "P7D-014",
+    "P7D-021",
+    "P7D-031",
+    "P7D-032",
+    "P7D-052",
+    "P7D-068",
+    "P7D-071",
+    "P7D-075"
+   ],
+   "theta": 13.0
+  },
+  {
+   "arms": {
+    "a_and_exact": {
+     "correct": 13,
+     "correct_attainable": 8,
+     "gold_yes": 13,
+     "precision": 1.0,
+     "promoted": 13,
+     "recall_all": 0.186,
+     "recall_attainable": 0.32,
+     "wilson": [
+      0.772,
+      1.0
+     ]
+    },
+    "free": {
+     "correct": 23,
+     "correct_attainable": 20,
+     "date_checked": 23,
+     "date_hit": 20,
+     "gold_no": 1,
+     "gold_unclear": 1,
+     "gold_yes": 23,
+     "precision": 0.92,
+     "promoted": 25,
+     "recall_all": 0.329,
+     "recall_attainable": 0.8,
+     "wilson": [
+      0.75,
+      0.978
+     ]
+    },
+    "oracle_date": {
+     "correct": 13,
+     "correct_attainable": 8,
+     "gold_yes": 13,
+     "precision": 1.0,
+     "promoted": 13,
+     "recall_all": 0.186,
+     "recall_attainable": 0.32,
+     "wilson": [
+      0.772,
+      1.0
+     ]
+    },
+    "p7": {
+     "correct": 8,
+     "correct_attainable": 8,
+     "date_checked": 8,
+     "date_hit": 8,
+     "gold_yes": 8,
+     "precision": 1.0,
+     "promoted": 8,
+     "recall_all": 0.114,
+     "recall_attainable": 0.32,
+     "wilson": [
+      0.676,
+      1.0
+     ]
+    },
+    "rules_only": {
+     "precision": null,
+     "recall_all": 0.0,
+     "recall_attainable": 0.0,
+     "wilson": null
+    },
+    "trivial_exact": {
+     "correct": 31,
+     "correct_attainable": 21,
+     "gold_no": 1,
+     "gold_yes": 31,
+     "precision": 0.969,
+     "promoted": 32,
+     "recall_all": 0.443,
+     "recall_attainable": 0.84,
+     "wilson": [
+      0.843,
+      0.994
+     ]
+    }
+   },
+   "attainable": 25,
+   "gold_yes": 70,
+   "promoted_ids": [
+    "P7D-008",
+    "P7D-011",
+    "P7D-021",
+    "P7D-031",
+    "P7D-032",
+    "P7D-052",
+    "P7D-068",
+    "P7D-071"
+   ],
+   "theta": 14.0
+  }
+ ],
+ "labels": {
+  "no": 9,
+  "unclear": 1,
+  "yes": 70
+ },
+ "rule": "smallest theta on GRID with no promoted dev row gold no/unclear/disputed",
+ "theta_a": 13.0
+}
