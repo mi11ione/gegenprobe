@@ -23,6 +23,57 @@ arm's values, the pointer suggestions (with model build, θ, margin, candidate c
 instances. The evaluation design is `eval/prereg3/PREREG3_draft.md`; the annotation guide `eval/gold3/GUIDE.md`.
 θ for the new pointer fields is 0 (declared; no dev labels exist for them).
 
+## One affair from OPD: `python -m gegenprobe affair`
+
+```bash
+python -m gegenprobe affair --opd-affair 39369 --schema v0.2 [--mode rules_only|review] [--out FILE]
+```
+
+This command turns one OPD affair id into one validated schema v0.2 record (`src/gegenprobe/affair_cli.py`). It reads
+OPD's rows for the affair: the affair, its events, its contributors and the rows of its documents. The member's text
+(question) and the answer are picked by the P3 pairing rule (`eval.gold3.sample.pair_type`). Both are fetched through
+`pdftext.fetch_pdf`, which checks robots.txt (RFC 9309, fail-closed), caps the size and falls back to OPD's own copy
+where the original's path is disallowed. The record then goes through the same functions as the committed P3 and P3b
+records: `affair.build.run_affair`, `affair_post.finalize`, `schema.v0_2_all.carry_v0_1` and `with_roles`. The v0.2
+Pydantic model validates it.
+
+- **Output.** One JSON object: `record` (the v0.2 record, typed nulls included), `needs_review`, `review` (the
+  `affair_post` reasons), `suggestions` (review mode only, never inside a field), `changes` and `sources` (export
+  snapshot, documents with sha256, answer-link status). `--record-only` prints the record alone. Repeating
+  `--opd-affair` gives one JSON line per affair, from one pass over the exports.
+- **Where OPD's rows come from.** `api.openparldata.ch/v1/` is disallowed by OPD's robots.txt. The rows therefore come
+  from the nightly exports: `affairs`, `events`, `contributors` and `docs/docs_<body>`, streamed through `gegenprobe.net`.
+  With `GP_EXPORTS_DIR` they are read from disk. `--source local` reads the copies in `GP_OPD_RAW` and `GP_DOCS_META`
+  instead. `--rows FILE` reads a slice saved earlier with `--save-rows FILE`. Streaming the three single exports and
+  `docs_BE` (0.47 GB) took 66 s for three affairs on 11 Oct 2026.
+- **Failures are typed, exit 2.** `affair_not_found`, `no_documents`, `document_not_in_affair`, `exports_*` (the exports
+  could not be read), the document kinds of `convert` (`robots_disallowed`, `robots_unreachable`, `http_error`,
+  `timeout`, `not_a_pdf`, `too_large`, `ocr_failed`, ...) and `invalid_record`. `--question-doc` / `--answer-doc` name
+  the documents when the pairing rule picks none or another one. Review mode exits 3 on a build mismatch, as `convert`
+  does.
+- **Two additions to the committed records' pipeline.** (1) The frozen assembly matches OPD's harmonised English type
+  name against the vocabulary's English labels, so OPD's "Question" comes out `unknown`. The command takes the type from
+  OPD's name by the mapping the P5 records use (`v0_2_all.OPD_TYPE_NAMES`), before `affair_post`. A question's
+  `decision` then becomes `not_applicable`, and the change is listed in `changes`. (2) Each document carries the
+  fetched file's `sha256` and OPD's text status, as in the P5 records. The record also carries `body.name` and
+  `type.opd_harmonised_id` from OPD.
+- **Answer-link status** comes from this affair's own rows, by the census definitions applied to one affair:
+  `attached` (OPD links an answer document with usable text), `image_only`, then `absent` / `oral` / `not_applicable`
+  from the events.
+- **Document parts.** `detect_parts` in `affair_cli.py` is the one adapter to the rule-based detector
+  `gegenprobe.convert.parts` (`detect_pdf` + `schema_parts`). A document where the detector found nothing gets the
+  typed reason `none_printed`. Without the detector, `parts` stays empty with `not_extracted`.
+- **Scope.** The command serves affairs whose member's text and answer are PDF documents in OPD's docs export: the
+  cantonal and communal parliaments. Federal affairs keep their texts in OPD's `texts` export, which the command does
+  not read (`no_documents`).
+- **Checked.** Seven P3b affairs (LU, VS, GE, BL, GR, Lausanne, Lugano), run from the exports and compared with
+  `results/schema/v0_2/p3b_records.jsonl`, have the same documents, language of each text and answer date. Every
+  comparable field is equal except the type correction above. `make run` step: `gegenprobe.affair_cli.step` runs
+  the command on the affairs of the three committed samples (Bern, Vernier, Lugano;
+  `results/schema/v0_2/samples/`). It reads OPD's rows from the committed slice `data/affair_cli/opd_rows_samples.json`
+  (exports of 11 Oct 2026; `GP_AFFAIR_LIVE_EXPORTS=1` reads the live exports) and fetches the documents. It then
+  compares each record with its sample. It is skipped offline.
+
 **Product records (`gegenprobe.affair_post`, round 5).** The scored results above are the frozen assembly's output and
 stay unchanged. What OPD would load runs through an unlocked post-processing step (`src/gegenprobe/affair_post.py`;
 `affair/` itself is hash-locked by LOCK3/LOCK5):

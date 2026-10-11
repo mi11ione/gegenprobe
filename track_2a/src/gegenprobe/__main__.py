@@ -17,6 +17,11 @@
       is an error, exit 2); --queue-nulls sends a rules-only null answer date on an answer document (doc_role answer, or
       --doc-category / batch column doc_category says answer) to review with its candidates.
       Docs: docs/convert-your-own.md.
+  python -m gegenprobe affair --opd-affair <id> [--schema v0.2] [--mode rules_only|review] [--out FILE]
+      One OPD affair -> one validated schema v0.2 record: OPD's export rows (affair, events, contributors, document rows)
+      plus the affair's question and answer documents, through the converter's record pipeline (affair.build,
+      affair_post, schema.v0_2_all); typed nulls, needs_review as affair_post. A typed failure exits 2.
+      Docs: docs/affair.md (gegenprobe/affair_cli.py).
   python -m gegenprobe run       the `make run` replay (same as python -m gegenprobe.run)
 """
 from __future__ import annotations
@@ -150,8 +155,17 @@ def main(argv: list[str] | None = None) -> int:
     c.add_argument("-v", "--verbose", action="store_true", help="print the cache path (GP_WORK, default the repo's .work/)")
     c.add_argument("--timeout", type=int, default=60, help="seconds per HTTP request (default 60)")
     c.add_argument("--tries", type=int, default=2, help="HTTP attempts per document (default 2)")
+    from . import affair_cli
+    affair_cli.add_parser(sub)
     sub.add_parser("run", help="the make-run replay")
     a = ap.parse_args(argv)
+    if a.cmd == "affair":
+        from .convert.build_guard import BuildMismatch
+        try:
+            return affair_cli.main_args(a)
+        except BuildMismatch as e:  # review mode: the served model is not the build θ was fitted on
+            print(str(e), file=sys.stderr)
+            return 3
     if a.cmd == "convert":
         from .convert import body_settings, overlay
         from .convert.build_guard import BuildMismatch

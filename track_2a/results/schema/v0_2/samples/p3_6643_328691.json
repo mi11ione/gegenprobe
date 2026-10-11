@@ -115,7 +115,14 @@
    "language_of_text_method": "stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15)",
    "language_tag": "fr",
    "n_pages": 4,
-   "parts": [],
+   "parts": [
+    {
+     "kind": "signature",
+     "label": "image in the signature block of the last page, 3% of the page (top 64%, left 41%): a signature or a seal",
+     "page_from": 4,
+     "page_to": 4
+    }
+   ],
    "role": "answer",
    "source": "opd",
    "url": "https://www.vernier.ch/sites/default/files/council-object/2024-06/R%C3%A9ponse%20CA%20QE%20337.pdf"
@@ -123,13 +130,9 @@
  ],
  "empty_reasons": {
   "documents.0.parts": {
-   "evidence": "this converter version does not detect document parts",
-   "reason": "not_extracted",
-   "route": "rule"
-  },
-  "documents.1.parts": {
-   "evidence": "this converter version does not detect document parts",
-   "reason": "not_extracted",
+   "doc": "opd:879274",
+   "evidence": "gegenprobe.convert.parts parts-1 (annex headings and attachment lists; aligned-column tables in pdftotext -layout; embedded images >= 2% of a page outside the letterhead and footer bands; scanned pages >= 85% of a page at >= 100 ppi): the detector found no part (annex, table, image, signature) in this document",
+   "reason": "none_printed",
    "route": "rule"
   },
   "qa.0.items": {
@@ -147,7 +150,7 @@
   "builds": [],
   "converter_version": "gegenprobe-0.1.0+affair",
   "created": "2026-10-10T08:48:54.780283Z",
-  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it); v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 1 printed authors (1 earlier entries for the same persons replaced), 1 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15)",
+  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it); v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 1 printed authors (1 earlier entries for the same persons replaced), 1 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 1 parts in 1 of 2 documents examined",
   "schema_version": "0.2.0"
  },
  "government_recommendation": {

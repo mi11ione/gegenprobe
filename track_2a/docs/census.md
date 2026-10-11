@@ -262,29 +262,32 @@ affairs, and the document date.
 
 Days from submission; rank 1 = shortest median, ties share the mean rank.
 
-**Finding.**
-- The ranking on OPD's plain medians and the ranking on the documents' own dates agree only moderately: Spearman
-  ρ = 0.656 over 17 parliaments (permutation p = 0.006). Without the two same-day parliaments, ρ = 0.832 (15).
-- The largest moves are where OPD's 'answer' date is not the answer's date. **Valais** moves from fastest (median 0 days,
-  OPD's answer event falls on the submission date) to 14th of 17 (100 days). In 61 of its 163 verified answers, all
+**Finding.** OPD's plain medians mislead where the 'answer' event is the submission date (Kriens, Valais, date tier
+`same_day`): there OPD's plain median is 0 days (Kriens, 80 affairs; Valais, 2,570), the dates the verified answer
+documents carry give 26.5 (Kriens, 68) and 100 (Valais, 99). Elsewhere the ranking holds; post hoc, descriptive.
+- **Same affairs, two dates:** OPD's census date and the document date rank the 17 parliaments almost identically
+  (Spearman ρ = 0.99). The date's role matters in magnitude (Kriens 0 vs 26.5 days on the same affairs), barely in rank.
+- **Plain medians vs the document date:** ρ = 0.656 over 17 parliaments (permutation p = 0.006); without Kriens and
+  Valais, ρ = 0.832 (15).
+- **Selection.** The rest of the difference is the sample, not the date: the adapter sample is the census gap
+  (answers OPD lacks text for), with its own type mix. OPD's plain median and OPD's own date on the same affairs rank
+  the parliaments with ρ = 0.584. Vaud's 90 are postulates (median 1,156 days on both dates) and Solothurn's are mostly
+  motions (183 of 209); within one type the rankings agree: written questions ρ = 0.966 (13 parliaments),
+  interpellations 0.9 (5), postulates 1.0 (4).
+- **Valais** moves from tied fastest (median 0 days) to 14th of 17 (100 days). In 61 of its 163 verified answers, all
   motions, OPD's submission event lies after the government's answer letter (54 of them on the same day as OPD's answer
-  event), so these rows are excluded and Valais's submission date is itself not reliable in OPD. **Kriens** goes from 0 to
-  26.5 days. **Solothurn**: OPD's census date on these affairs is 36 days after the government's statement (median
-  difference; OPD's 'Beantwortet' event is the committee's, `docs/adapters.md`).
-- Part of every move is the sample, not the date. The adapter sample is the census gap (answers OPD lacks text for), with
-  its own type mix: Vaud's 90 are postulates (median 1,156 days on both dates), and Solothurn's are mostly motions (183
-  of 209). OPD's plain median and OPD's date on the same affairs rank the parliaments with ρ = 0.584. On the same affairs,
-  OPD's date and the document date rank them almost identically (ρ = 0.99). Within one type the rankings agree:
-  written questions ρ = 0.966 (13 parliaments), interpellations 0.9 (5), postulates 1.0 (4).
+  event), so these rows are excluded and Valais's submission date is itself not reliable in OPD. **Solothurn**: OPD's
+  census date on these affairs is 36 days after the government's statement (median difference; OPD's 'Beantwortet'
+  event is the committee's, `docs/adapters.md`).
 - In 13 of the 17 parliaments, OPD's census answer date equals the document's own date for at least 90% of the verified
   answers. This extends the per-affair date check of §4 (Bern, Ticino) to 11 more parliaments, for the gap affairs. It
   differs in Kriens, Monthey, Solothurn and Valais.
 
 **What this means for the schema.** A cross-parliament comparison of answer times is reliable when each answer carries a
 date with its role (the schema's `answer_decided`, `answer_dispatched`, or `answered` when the role is unknown) and the comparison holds the type fixed. Where
-OPD's date already is the government's date, the ranking holds. Where it is a submission, session or committee date
-(Valais, Kriens, Solothurn), the plain median ranks a parliament in the wrong place. These are the parliaments the
-date-tier column (`same_day`, `mixed`) already flags.
+OPD's date already is the government's date, the ranking holds. Where it is the submission date (Kriens, Valais), the
+plain median reports 0 days; where it is a committee date (Solothurn), it lies 36 days after the government's
+statement on the same affairs. These are the parliaments the date-tier column (`same_day`, `mixed`) already flags.
 
 **Limits.** The sample covers 27 parliaments and only their gap affairs, not every answer. The 'exact' tiers count a row
 only when its date equals an OPD event, so agreement with OPD on those rows partly follows from how they were verified.

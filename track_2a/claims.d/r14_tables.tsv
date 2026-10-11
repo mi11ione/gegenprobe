@@ -1,0 +1,45 @@
+id	shown	file	path	fmt	command	where	context
+r14.tbl.p1.rules_only_default.found	47	results/eval/baselines_dates.json	P1_heldout.rules.value_recall.0	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.rules_only_default.wrong	4	results/eval/baselines_dates.json	P1_heldout.rules.misattributed	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.rules_only_default.invented	0	results/eval/baselines_dates.json	P1_heldout.rules.fabricated	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.rules_only_default.answerless	2	results/eval/baselines_dates.json	P1_heldout.rules.values_on_gold_null.0	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.pointer.found	46	results/eval/baselines_dates.json	P1_heldout.pointer.value_recall.0	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.pointer.wrong	16	results/eval/baselines_dates.json	P1_heldout.pointer.misattributed	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.pointer.invented	0	results/eval/baselines_dates.json	P1_heldout.pointer.fabricated	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.pointer.answerless	6	results/eval/baselines_dates.json	P1_heldout.pointer.values_on_gold_null.0	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.cascade.found	56	results/eval/baselines_dates.json	P1_heldout.cascade.value_recall.0	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.cascade.wrong	11	results/eval/baselines_dates.json	P1_heldout.cascade.misattributed	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.cascade.invented	0	results/eval/baselines_dates.json	P1_heldout.cascade.fabricated	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.cascade.answerless	7	results/eval/baselines_dates.json	P1_heldout.cascade.values_on_gold_null.0	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.naive_null_allowed.found	47	results/eval/baselines_dates.json	P1_heldout.naive_null.value_recall.0	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.naive_null_allowed.wrong	11	results/eval/baselines_dates.json	P1_heldout.naive_null.misattributed	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.naive_null_allowed.invented	0	results/eval/baselines_dates.json	P1_heldout.naive_null.fabricated	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.naive_null_allowed.answerless	3	results/eval/baselines_dates.json	P1_heldout.naive_null.values_on_gold_null.0	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.trivial_latest_date_answer_typ.found	44	results/eval/baselines_dates.json	P1_heldout.latest_date_on_answer_docs_only.value_recall.0	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.trivial_latest_date_answer_typ.wrong	16	results/eval/baselines_dates.json	P1_heldout.latest_date_on_answer_docs_only.misattributed	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.trivial_latest_date_answer_typ.invented	0	results/eval/baselines_dates.json	P1_heldout.latest_date_on_answer_docs_only.fabricated	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.trivial_latest_date_answer_typ.answerless	3	results/eval/baselines_dates.json	P1_heldout.latest_date_on_answer_docs_only.values_on_gold_null.0	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
+r14.tbl.p1.model_free_cascade_post_hoc.found	52	results/report/r14_numbers.json	p1_model_free_cascade.arms.model_free_cascade.found.0	int	PYTHONPATH=src:. python -m report.r14_numbers	technical_report.md	
+r14.tbl.p1.model_free_cascade_post_hoc.wrong	11	results/report/r14_numbers.json	p1_model_free_cascade.arms.model_free_cascade.wrong_printed	int	PYTHONPATH=src:. python -m report.r14_numbers	technical_report.md	
+r14.tbl.p1.model_free_cascade_post_hoc.invented	0	results/report/r14_numbers.json	p1_model_free_cascade.arms.model_free_cascade.printed_nowhere	int	PYTHONPATH=src:. python -m report.r14_numbers	technical_report.md	
+r14.tbl.p1.model_free_cascade_post_hoc.answerless	4	results/report/r14_numbers.json	p1_model_free_cascade.arms.model_free_cascade.answerless_dated.0	int	PYTHONPATH=src:. python -m report.r14_numbers	technical_report.md	
+r14.tbl.p2.rules_only.wrong	2	results/eval2/posthoc_r5_p2_table.json	all_62_70b.rules.wrong_printed_date	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
+r14.tbl.p2.rules_only.invented	0	results/eval2/posthoc_r5_p2_table.json	all_62_70b.rules.fabricated	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
+r14.tbl.p2.rules_only.answerless	0	results/eval2/posthoc_r5_p2_table.json	all_62_70b.rules.values_on_answerless.0	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
+r14.tbl.p2.pointer.wrong	8	results/eval2/posthoc_r5_p2_table.json	all_62_70b.pointer.wrong_printed_date	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
+r14.tbl.p2.pointer.invented	0	results/eval2/posthoc_r5_p2_table.json	all_62_70b.pointer.fabricated	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
+r14.tbl.p2.pointer.answerless	4	results/eval2/posthoc_r5_p2_table.json	all_62_70b.pointer.values_on_answerless.0	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
+r14.tbl.p2.naive_null_allowed_re_parsed_d.wrong	7	results/eval/posthoc_r3_naive_reparsed.json	splits.P2.naive_null.reparsed.misattributed	int	PYTHONPATH=src:. python -m eval.posthoc_r3	technical_report.md	
+r14.tbl.p2.naive_null_allowed_re_parsed_d.invented	1	results/eval/posthoc_r3_naive_reparsed.json	splits.P2.naive_null.reparsed.fabricated	int	PYTHONPATH=src:. python -m eval.posthoc_r3	technical_report.md	
+r14.tbl.p2.naive_null_allowed_re_parsed_d.answerless	3	results/eval/posthoc_r3_naive_reparsed.json	splits.P2.naive_null.reparsed.invented_on_null	int	PYTHONPATH=src:. python -m eval.posthoc_r3	technical_report.md	
+r14.tbl.p2.trivial_latest_printed_date.wrong	38	results/eval2/posthoc_r5_p2_table.json	all_62_70b.latest_printed_date.wrong_printed_date	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
+r14.tbl.p2.trivial_latest_printed_date.invented	0	results/eval2/posthoc_r5_p2_table.json	all_62_70b.latest_printed_date.fabricated	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
+r14.tbl.p2.trivial_latest_printed_date.answerless	31	results/eval2/posthoc_r5_p2_table.json	all_62_70b.latest_printed_date.values_on_answerless.0	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
+r14.tbl.p2.trivial_latest_date_answer_typ.wrong	13	results/eval2/posthoc_r5_p2_table.json	all_62_70b.latest_date_on_answer_docs_only.wrong_printed_date	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
+r14.tbl.p2.trivial_latest_date_answer_typ.invented	0	results/eval2/posthoc_r5_p2_table.json	all_62_70b.latest_date_on_answer_docs_only.fabricated	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
+r14.tbl.p2.trivial_latest_date_answer_typ.answerless	7	results/eval2/posthoc_r5_p2_table.json	all_62_70b.latest_date_on_answer_docs_only.values_on_answerless.0	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
+r14.tbl.p6.free_prompt_null_allowed.printed_nowhere	0	results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json	arms.free_null.fabricated	int	python -m eval.p6.hypotheses7	technical_report.md	
+r14.tbl.p6.cascade_v2_rules_then_v2.printed_nowhere	0	results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json	arms.cascade_v2.fabricated	int	python -m eval.p6.hypotheses7	technical_report.md	
+r14.tbl.p6.v2.printed_nowhere	0	results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json	arms.v2.fabricated	int	python -m eval.p6.hypotheses7	technical_report.md	
+r14.tbl.p6.rules_only.printed_nowhere	0	results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json	arms.rules.fabricated	int	python -m eval.p6.hypotheses7	technical_report.md	
+r14.tbl.p6.trivial_latest_date_answer_typ.printed_nowhere	0	results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json	arms.latest_on_answer_typed.fabricated	int	python -m eval.p6.hypotheses7	technical_report.md	

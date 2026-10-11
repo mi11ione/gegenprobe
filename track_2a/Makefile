@@ -1,6 +1,6 @@
 # Gegenprobe (Track 2A, OpenParlData). Judges: `make run` (Docker, CPU, clean checkout).
 # Development targets run on the host with .venv (python 3.11); every target is re-runnable and writes under results/.
-.PHONY: schema-v02 dev-install gold-dev-fetch site deploy-site figures run test lint claims census census-corrected census-scan census-replay census-hash repair repair-network adapters-write adapters-canary repair-manifest nightly-offline nightly-smoke nightly-notify-test convert eval report install-nightly docker-build
+.PHONY: schema-v02 parts-detect dev-install gold-dev-fetch site deploy-site figures run test lint claims census census-corrected census-scan census-replay census-hash repair repair-network adapters-write adapters-canary repair-manifest nightly-offline nightly-smoke nightly-notify-test convert eval report install-nightly docker-build
 
 PY ?= .venv/bin/python
 IMAGE ?= gegenprobe:latest
@@ -40,16 +40,29 @@ test:
 lint:
 	$(PY) -m ruff check src eval tests
 
+# claims: every number recomputed and bound (claims.tsv, claims_anchor.json, claims_strict.json), then 444_Report.pdf
+#         checked against technical_report.md (every report anchor phrase in the PDF's text; needs pdftotext)
 claims:
 	$(PY) -m gegenprobe.claims check
+	$(PY) -m report.pdf_check
+
+# numbers: the summary-number files regenerated in memory from committed inputs and compared byte for byte (make run: step numbers)
+numbers:
+	$(PY) -m report.numbers_step
 
 # schema-v02: schema/gegenprobe_schema_v0_2.py (P8's roles) -> results/schema/v0_2/: JSON Schema, the 66 P8 gold affairs as
 #             v0.2 records and p8_validation.json (all valid; v0.1 samples upgraded losslessly); then the converter's own
 #             P3, P3b and P5 records carried to v0.2 ({p3,p3b,p5}_records.jsonl, samples/) and validation_all.json over
-#             all four sets. No network, no model.
+#             all four sets; then each record's document parts (tables, annexes, images, scanned pages, signatures) from
+#             the committed detections (gegenprobe.schema.v0_2_parts; `make parts-detect` re-detects them from the cached
+#             PDFs) and the `document_parts` counts in validation_all.json. No network, no model.
 schema-v02:
 	$(PY) -m gegenprobe.schema.p8_v0_2
 	$(PY) -m gegenprobe.schema.v0_2_all
+	$(PY) -m gegenprobe.schema.v0_2_parts
+
+parts-detect:
+	$(PY) -m gegenprobe.schema.v0_2_parts detect
 
 # ---- census (owner: census workstream)
 # census:        re-extract data/census from the full exports in GP_OPD_RAW / GP_DOCS_META (if present) and recompute results/census
@@ -126,6 +139,19 @@ nightly-notify-test:   # sends one test message through the channels configured 
 install-nightly:
 	sh deploy/nightly/install.sh
 
+# ---- operations (docs/runbook.md)
+# cache-clean: delete the cached PDFs and texts under GP_WORK (pdf/, text/) older than GP_CACHE_MAX_AGE_DAYS (default 30;
+#              0 = never expire); every network night of the nightly job does the same. DRY=1 lists without deleting.
+# ocr-models:  a host without Docker: the pinned tessdata_fast models (deu, fra, ita, eng) into TESSDATA_DIR, each sha256
+#              checked against ocrguard.TESSDATA_SHA256, tesseract checked with them; prints `export TESSDATA_PREFIX=...`
+.PHONY: cache-clean ocr-models
+TESSDATA_DIR ?= $(or $(GP_WORK),$(CURDIR)/.work)/tessdata-pinned
+cache-clean:
+	$(PY) -m gegenprobe.cache_retention $(if $(DRY),--dry-run)
+
+ocr-models:
+	$(PY) -m gegenprobe.ocr_models "$(TESSDATA_DIR)"
+
 # ---- convert (owner: convert workstream)
 #   convert           model-free: spike replay through calibrate.py, rules on the dev pool, convert tests
 #   gold-dev / gold-heldout   draw + fetch the gold documents (polite; seeds in eval/gold/SEEDS.md)
@@ -168,8 +194,9 @@ eval:  # no model: re-score every committed evaluation file, recompute H1-H4, ma
 	$(PY) -m eval.breadth  # post hoc: P1/P2 by language x level x born-digital/scanned -> results/eval/breadth_p1_p2.json
 	$(PY) -m report.matrix_accuracy
 
-report:  # technical_report.md -> 444_Report.pdf (needs the [report] extra and Chrome/Chromium; CHROME=... to override)
+report:  # technical_report.md -> 444_Report.pdf (needs the [report] extra and Chrome/Chromium; CHROME=... to override), then the PDF check
 	$(PY) -m report.render
+	$(PY) -m report.pdf_check
 
 # ---- figures (dev only; needs the [report] extra: matplotlib)
 figures:

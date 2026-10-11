@@ -1,0 +1,1385 @@
+{
+ "label": "Converter coverage per parliament (descriptive; committed files only)",
+ "definitions": {
+  "frozen rules": "the deterministic answer-date rules were written on this parliament's documents (data/convert/rules_coverage.json)",
+  "source adapter": "no frozen rules; a model-free source adapter reads its answers for the repair lists (results/repair/adapters/); the converter marks its documents no_rules_for_body and needs_review",
+  "metadata only": "no frozen rules and no adapter: the converter reads OPD's metadata; document values go to review",
+  "tests": "pre-registered tests (P1-P8) and the exploratory federal cell whose committed samples include it",
+  "v0_2_records": "its affairs are among the validated schema v0.2 records (P3, P3b, P5, P8, federal cell)"
+ },
+ "summary": {
+  "bodies": 91,
+  "bodies_in_matrix": 89,
+  "by_status": {
+   "frozen rules": 15,
+   "source adapter": 38,
+   "metadata only": 38
+  },
+  "adapters_total": 50,
+  "adapters_in_matrix": 50,
+  "tested": 54,
+  "tested_by_status": {
+   "frozen rules": 15,
+   "source adapter": 21,
+   "metadata only": 18
+  },
+  "v0_2_parliaments": 26,
+  "per_test": {
+   "P1": 16,
+   "P2": 15,
+   "P3": 10,
+   "P3b": 9,
+   "P4": 2,
+   "P5": 10,
+   "P6": 8,
+   "P7": 15,
+   "P8": 11,
+   "federal": 1
+  }
+ },
+ "by_status": {
+  "frozen rules": [
+   "230",
+   "261",
+   "5192",
+   "5254",
+   "5586",
+   "6152",
+   "6621",
+   "BE",
+   "BS",
+   "GE",
+   "JU",
+   "LU",
+   "TI",
+   "VS",
+   "ZH"
+  ],
+  "source adapter": [
+   "1059",
+   "121",
+   "131",
+   "191",
+   "198",
+   "247",
+   "2829",
+   "2831",
+   "293",
+   "296",
+   "351",
+   "4001",
+   "4289",
+   "4401",
+   "4566",
+   "4671",
+   "5002",
+   "5113",
+   "581",
+   "6153",
+   "616",
+   "6458",
+   "66",
+   "6643",
+   "743",
+   "942",
+   "AR",
+   "BL",
+   "FR",
+   "GR",
+   "LIE",
+   "NE",
+   "OW",
+   "SG",
+   "SH",
+   "SO",
+   "TG",
+   "VD"
+  ],
+  "metadata only": [
+   "1024",
+   "1058",
+   "1061",
+   "1711",
+   "2125",
+   "2196",
+   "243",
+   "2581",
+   "2703",
+   "2937",
+   "2939",
+   "3001",
+   "306",
+   "3203",
+   "329",
+   "3427",
+   "3443",
+   "361",
+   "3901",
+   "404",
+   "4045",
+   "4082",
+   "4201",
+   "53",
+   "6023",
+   "6037",
+   "62",
+   "6248",
+   "6266",
+   "6421",
+   "AG",
+   "AI",
+   "CHE",
+   "GL",
+   "NW",
+   "SZ",
+   "UR",
+   "ZG"
+  ]
+ },
+ "rows": [
+  {
+   "body": "1024",
+   "name": "Emmen",
+   "type": "city",
+   "canton": "LU",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "1058",
+   "name": "Horw",
+   "type": "city",
+   "canton": "LU",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "1059",
+   "name": "Kriens",
+   "type": "city",
+   "canton": "LU",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "1061",
+   "name": "Luzern",
+   "type": "city",
+   "canton": "LU",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P2",
+    "P5"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "121",
+   "name": "Wetzikon (ZH)",
+   "type": "city",
+   "canton": "ZH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "131",
+   "name": "Adliswil",
+   "type": "city",
+   "canton": "ZH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "1711",
+   "name": "Zug",
+   "type": "city",
+   "canton": "ZG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P6"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "191",
+   "name": "Dübendorf",
+   "type": "city",
+   "canton": "ZH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P7"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "198",
+   "name": "Uster",
+   "type": "city",
+   "canton": "ZH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "2125",
+   "name": "Bulle",
+   "type": "city",
+   "canton": "FR",
+   "lang": "FR",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P4"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "2196",
+   "name": "Fribourg",
+   "type": "city",
+   "canton": "FR",
+   "lang": "FR",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P2"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "230",
+   "name": "Winterthur",
+   "type": "city",
+   "canton": "ZH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "frozen rules",
+   "adapter": true,
+   "tests": [
+    "P1"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "243",
+   "name": "Dietikon",
+   "type": "city",
+   "canton": "ZH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "247",
+   "name": "Schlieren",
+   "type": "city",
+   "canton": "ZH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P2"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "2581",
+   "name": "Olten",
+   "type": "city",
+   "canton": "SO",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "261",
+   "name": "Zürich",
+   "type": "city",
+   "canton": "ZH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "frozen rules",
+   "adapter": true,
+   "tests": [
+    "P1",
+    "P3",
+    "P7",
+    "P8"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "2703",
+   "name": "Riehen",
+   "type": "city",
+   "canton": "BS",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P5"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "2829",
+   "name": "Liestal",
+   "type": "city",
+   "canton": "BL",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P7"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "2831",
+   "name": "Pratteln",
+   "type": "city",
+   "canton": "BL",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "293",
+   "name": "Wädenswil",
+   "type": "city",
+   "canton": "ZH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P3b",
+    "P5"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "2937",
+   "name": "Neuhausen am Rheinfall",
+   "type": "city",
+   "canton": "SH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P6"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "2939",
+   "name": "Schaffhausen",
+   "type": "city",
+   "canton": "SH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "296",
+   "name": "Illnau-Effretikon",
+   "type": "city",
+   "canton": "ZH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P7"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "3001",
+   "name": "Herisau",
+   "type": "city",
+   "canton": "AR",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "306",
+   "name": "Lyss",
+   "type": "city",
+   "canton": "BE",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P6"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "3203",
+   "name": "St. Gallen",
+   "type": "city",
+   "canton": "SG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P1"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "329",
+   "name": "Langenthal",
+   "type": "city",
+   "canton": "BE",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "3427",
+   "name": "Wil (SG)",
+   "type": "city",
+   "canton": "SG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P6"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "3443",
+   "name": "Gossau (SG)",
+   "type": "city",
+   "canton": "SG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "351",
+   "name": "Bern",
+   "type": "city",
+   "canton": "BE",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P8"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "361",
+   "name": "Zollikofen",
+   "type": "city",
+   "canton": "BE",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "3901",
+   "name": "Chur",
+   "type": "city",
+   "canton": "GR",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "4001",
+   "name": "Aarau",
+   "type": "city",
+   "canton": "AG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P7"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "404",
+   "name": "Burgdorf",
+   "type": "city",
+   "canton": "BE",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "4045",
+   "name": "Wettingen",
+   "type": "city",
+   "canton": "AG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "4082",
+   "name": "Wohlen (AG)",
+   "type": "city",
+   "canton": "AG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "4201",
+   "name": "Lenzburg",
+   "type": "city",
+   "canton": "AG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "4289",
+   "name": "Zofingen",
+   "type": "city",
+   "canton": "AG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "4401",
+   "name": "Arbon",
+   "type": "city",
+   "canton": "TG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "4566",
+   "name": "Frauenfeld",
+   "type": "city",
+   "canton": "TG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P7"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "4671",
+   "name": "Kreuzlingen",
+   "type": "city",
+   "canton": "TG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "5002",
+   "name": "Bellinzona",
+   "type": "city",
+   "canton": "TI",
+   "lang": "IT",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P2",
+    "P3",
+    "P7",
+    "P8"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "5113",
+   "name": "Locarno",
+   "type": "city",
+   "canton": "TI",
+   "lang": "IT",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P7"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "5192",
+   "name": "Lugano",
+   "type": "city",
+   "canton": "TI",
+   "lang": "IT",
+   "in_matrix": true,
+   "status": "frozen rules",
+   "adapter": true,
+   "tests": [
+    "P1",
+    "P3b",
+    "P5",
+    "P8"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "5254",
+   "name": "Mendrisio",
+   "type": "city",
+   "canton": "TI",
+   "lang": "IT",
+   "in_matrix": true,
+   "status": "frozen rules",
+   "adapter": false,
+   "tests": [
+    "P1"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "53",
+   "name": "Bülach",
+   "type": "city",
+   "canton": "ZH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "5586",
+   "name": "Lausanne",
+   "type": "city",
+   "canton": "VD",
+   "lang": "FR",
+   "in_matrix": true,
+   "status": "frozen rules",
+   "adapter": true,
+   "tests": [
+    "P1",
+    "P3b",
+    "P5",
+    "P7",
+    "P8"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "581",
+   "name": "Interlaken",
+   "type": "city",
+   "canton": "BE",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P6"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "6023",
+   "name": "Conthey",
+   "type": "municipality",
+   "canton": "VS",
+   "lang": "FR",
+   "in_matrix": false,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P6"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "6037",
+   "name": "Val de Bagnes",
+   "type": "municipality",
+   "canton": "VS",
+   "lang": "FR",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "6152",
+   "name": "Collombey-Muraz",
+   "type": "municipality",
+   "canton": "VS",
+   "lang": "FR",
+   "in_matrix": true,
+   "status": "frozen rules",
+   "adapter": true,
+   "tests": [
+    "P1",
+    "P5"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "6153",
+   "name": "Monthey",
+   "type": "city",
+   "canton": "VS",
+   "lang": "FR",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "616",
+   "name": "Münsingen",
+   "type": "city",
+   "canton": "BE",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "62",
+   "name": "Kloten",
+   "type": "city",
+   "canton": "ZH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P2"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "6248",
+   "name": "Sierre",
+   "type": "city",
+   "canton": "VS",
+   "lang": "FR",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "6266",
+   "name": "Sion",
+   "type": "city",
+   "canton": "VS",
+   "lang": "FR",
+   "in_matrix": false,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P2"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "6421",
+   "name": "La Chaux-de-Fonds",
+   "type": "city",
+   "canton": "NE",
+   "lang": "FR",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P2",
+    "P4"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "6458",
+   "name": "Neuchâtel",
+   "type": "city",
+   "canton": "NE",
+   "lang": "FR",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P6"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "66",
+   "name": "Opfikon",
+   "type": "city",
+   "canton": "ZH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "6621",
+   "name": "Genève",
+   "type": "city",
+   "canton": "GE",
+   "lang": "FR",
+   "in_matrix": true,
+   "status": "frozen rules",
+   "adapter": false,
+   "tests": [
+    "P1"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "6643",
+   "name": "Vernier",
+   "type": "city",
+   "canton": "GE",
+   "lang": "FR",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P2",
+    "P3",
+    "P3b",
+    "P8"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "743",
+   "name": "Nidau",
+   "type": "municipality",
+   "canton": "BE",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "942",
+   "name": "Thun",
+   "type": "city",
+   "canton": "BE",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "AG",
+   "name": "Aargau",
+   "type": "canton",
+   "canton": "AG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "AI",
+   "name": "Appenzell Innerrhoden",
+   "type": "canton",
+   "canton": "AI",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "AR",
+   "name": "Appenzell Ausserrhoden",
+   "type": "canton",
+   "canton": "AR",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P2"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "BE",
+   "name": "Bern",
+   "type": "canton",
+   "canton": "BE",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "frozen rules",
+   "adapter": false,
+   "tests": [
+    "P1",
+    "P3"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "BL",
+   "name": "Basel-Landschaft",
+   "type": "canton",
+   "canton": "BL",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P3b",
+    "P5"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "BS",
+   "name": "Basel-Stadt",
+   "type": "canton",
+   "canton": "BS",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "frozen rules",
+   "adapter": true,
+   "tests": [
+    "P1",
+    "P3"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "CHE",
+   "name": "Schweiz",
+   "type": "country",
+   "canton": null,
+   "lang": null,
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "federal"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "FR",
+   "name": "Freiburg",
+   "type": "canton",
+   "canton": "FR",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P8"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "GE",
+   "name": "Genf",
+   "type": "canton",
+   "canton": "GE",
+   "lang": "FR",
+   "in_matrix": true,
+   "status": "frozen rules",
+   "adapter": true,
+   "tests": [
+    "P1",
+    "P3b"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "GL",
+   "name": "Glarus",
+   "type": "canton",
+   "canton": "GL",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P2"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "GR",
+   "name": "Graubünden",
+   "type": "canton",
+   "canton": "GR",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P3b",
+    "P5",
+    "P8"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "JU",
+   "name": "Jura",
+   "type": "canton",
+   "canton": "JU",
+   "lang": "FR",
+   "in_matrix": true,
+   "status": "frozen rules",
+   "adapter": true,
+   "tests": [
+    "P1",
+    "P7"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "LIE",
+   "name": "Liechtenstein",
+   "type": "country",
+   "canton": null,
+   "lang": null,
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "LU",
+   "name": "Luzern",
+   "type": "canton",
+   "canton": "LU",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "frozen rules",
+   "adapter": true,
+   "tests": [
+    "P1",
+    "P3b"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "NE",
+   "name": "Neuenburg",
+   "type": "canton",
+   "canton": "NE",
+   "lang": "FR",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "NW",
+   "name": "Nidwalden",
+   "type": "canton",
+   "canton": "NW",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P2",
+    "P3"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "OW",
+   "name": "Obwalden",
+   "type": "canton",
+   "canton": "OW",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P2",
+    "P3"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "SG",
+   "name": "St. Gallen",
+   "type": "canton",
+   "canton": "SG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "SH",
+   "name": "Schaffhausen",
+   "type": "canton",
+   "canton": "SH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P2",
+    "P5"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "SO",
+   "name": "Solothurn",
+   "type": "canton",
+   "canton": "SO",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "SZ",
+   "name": "Schwyz",
+   "type": "canton",
+   "canton": "SZ",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P2"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "TG",
+   "name": "Thurgau",
+   "type": "canton",
+   "canton": "TG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P7",
+    "P8"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "TI",
+   "name": "Tessin",
+   "type": "canton",
+   "canton": "TI",
+   "lang": "IT",
+   "in_matrix": true,
+   "status": "frozen rules",
+   "adapter": true,
+   "tests": [
+    "P1",
+    "P3",
+    "P7"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "UR",
+   "name": "Uri",
+   "type": "canton",
+   "canton": "UR",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [],
+   "v0_2_records": false
+  },
+  {
+   "body": "VD",
+   "name": "Waadt",
+   "type": "canton",
+   "canton": "VD",
+   "lang": "FR",
+   "in_matrix": true,
+   "status": "source adapter",
+   "adapter": true,
+   "tests": [
+    "P2",
+    "P3",
+    "P7",
+    "P8"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "VS",
+   "name": "Wallis",
+   "type": "canton",
+   "canton": "VS",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "frozen rules",
+   "adapter": true,
+   "tests": [
+    "P1",
+    "P3b",
+    "P5",
+    "P7",
+    "P8"
+   ],
+   "v0_2_records": true
+  },
+  {
+   "body": "ZG",
+   "name": "Zug",
+   "type": "canton",
+   "canton": "ZG",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "metadata only",
+   "adapter": false,
+   "tests": [
+    "P6"
+   ],
+   "v0_2_records": false
+  },
+  {
+   "body": "ZH",
+   "name": "Zürich",
+   "type": "canton",
+   "canton": "ZH",
+   "lang": "DE",
+   "in_matrix": true,
+   "status": "frozen rules",
+   "adapter": true,
+   "tests": [
+    "P1",
+    "P3",
+    "P7"
+   ],
+   "v0_2_records": true
+  }
+ ],
+ "command": "PYTHONPATH=src:. python -m report.converter_coverage"
+}

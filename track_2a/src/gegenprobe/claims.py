@@ -15,7 +15,14 @@ claims.tsv, `check` fails (exit 1) when
     claim's `shown` value at the token's position. Numeric tokens: integers >= 10, every decimal, percentage, ratio
     (120/120) and interval ([96.9, 100]); integers below 10 are free. Non-claims (team number, dates, the form's character
     limit) are listed one by one in claims_strict.json as literal phrases; a token is exempt only inside an occurrence of
-    such a phrase.
+    such a phrase. In the result tables listed under `small_int_tables` (the P1, P2 and P6 arm tables of the report)
+    integers below 10 are numeric tokens too, or
+  * a scope word in a strict zone (post hoc, registered, exploratory, in-sample, held out, weighted, unweighted; not
+    "pre-registered") lies outside every anchor phrase and every allowlisted phrase: it is bound to the claim it
+    qualifies by an anchor that contains both (`python -m gegenprobe.claims scope` proposes them), so flipping
+    "post hoc" to "registered" breaks the anchor, or
+  * a pinned phrase (claims_strict.json `pinned`: statements without a number such as "blind AI annotators" or "OPD
+    confirmed") does not occur exactly its pinned number of times.
 
 Binding by anchor is positional: an anchor phrase is the number together with the words that name its claim ("24/29**
 | answer dates Apertus finds", "Claude Opus judged 197/200"), so swapping two numbers that are both valid claims for the
@@ -187,10 +194,11 @@ NUMERIC = re.compile(
     rf"|[+−-]?(?:{_N})")                        # number    9,720 | 0.83 | +22.7
 
 
-def numeric_tokens(text: str) -> list[tuple[int, int, str]]:
+def numeric_tokens(text: str, small: bool = False) -> list[tuple[int, int, str]]:
     """(start, end, token) for every numeric token that a strict zone must back with a claim: intervals, ratios,
-    percentages, decimals and integers >= 10. Skipped: numbers glued to letters or identifiers (P8, v0.1, 8B, fig1,
-    run_38098822336, #1-the-schema), power bases (10 in 10⁻⁴) and plain integers below 10."""
+    percentages, decimals and integers >= 10 (with `small`, integers below 10 as well: the cells of the result tables
+    listed under `small_int_tables`). Skipped: numbers glued to letters or identifiers (P8, v0.1, 8B, fig1,
+    run_38098822336, #1-the-schema), power bases (10 in 10⁻⁴) and, without `small`, plain integers below 10."""
     out = []
     for m in NUMERIC.finditer(text):
         i, j, tok = m.start(), m.end(), m.group(0)
@@ -209,7 +217,7 @@ def numeric_tokens(text: str) -> list[tuple[int, int, str]]:
         if nxt.isalpha() or nxt == "_" or nxt in SUPERSCRIPT:
             continue
         plain = re.fullmatch(r"[+−-]?\d+", tok.replace(",", ""))
-        if plain and abs(int(tok.lstrip("+-−").replace(",", ""))) < 10:
+        if plain and abs(int(tok.lstrip("+-−").replace(",", ""))) < 10 and not small:
             continue
         out.append((i, j, tok))
     return out
@@ -303,6 +311,69 @@ def anchor_check(rows: list[dict], anchors: dict | None = None, docs: dict[str, 
     return errs
 
 
+# Scope words: the words that say how far a result reaches. In a strict zone each must sit inside an anchor phrase (so it
+# is bound to the claim next to it: flipping "post hoc" to "registered" breaks that anchor) or inside an allowlisted
+# phrase; "pre-registered" (the design, not a result's status) is not one of them.
+SCOPE = re.compile(r"(?<![\w-])(post[ -]hoc|registered|exploratory|in-sample|held[ -]out|unweighted|weighted)(?![\w-])",
+                   re.I)
+
+
+def scope_tokens(text: str) -> list[tuple[int, int, str]]:
+    return [(m.start(), m.end(), m.group(0)) for m in SCOPE.finditer(text)]
+
+
+def table_lines(text: str, prefixes: list[str]) -> list[tuple[int, int]]:
+    """[start, end) of every body row of the markdown tables whose header row starts with one of `prefixes`."""
+    out, lines, pos = [], text.split("\n"), 0
+    starts = []
+    for ln in lines:
+        starts.append(pos)
+        pos += len(ln) + 1
+    k = 0
+    while k < len(lines):
+        if any(lines[k].startswith(px) for px in prefixes):
+            k += 2  # header + |---| separator
+            while k < len(lines) and lines[k].lstrip().startswith("|"):
+                out.append((starts[k], starts[k] + len(lines[k])))
+                k += 1
+            continue
+        k += 1
+    return out
+
+
+def anchor_extents(rows: list[dict], anchors: dict, doc: str, text: str) -> list[tuple[int, int]]:
+    """[start, end) of every occurrence of a valid anchor phrase (one that holds its claim's value) in `text`."""
+    by_id = {r["id"]: r for r in rows}
+    out = []
+    for cid, per_doc in anchors.items():
+        r = by_id.get(cid)
+        if r is None or doc not in _where(r):
+            continue
+        for ph in per_doc.get(doc) or []:
+            if not token_spans(ph, r["shown"]):
+                continue
+            out += [(m.start(), m.end()) for m in re.finditer(re.escape(ph), text)]
+    return out
+
+
+def pinned_check(cfg: dict | None = None, docs: dict[str, str] | None = None) -> list[str]:
+    """claims_strict.json `pinned`: {document: [{phrase, count, why}]}: a phrase that states a fact without a number
+    ("blind AI annotators", "OPD confirmed") must occur exactly `count` times, so rewording one occurrence fails."""
+    cfg = strict_config() if cfg is None else cfg
+    errs = []
+    for doc, items in (cfg.get("pinned") or {}).items():
+        text = docs[doc] if docs is not None and doc in docs else (
+            (ROOT / doc).read_text(encoding="utf-8") if (ROOT / doc).exists() else None)
+        if text is None:
+            errs.append(f"pinned: document {doc} missing")
+            continue
+        for it in items:
+            n = text.count(it["phrase"])
+            if n != it["count"]:
+                errs.append(f"pinned {doc}: {it['phrase']!r} occurs {n} times, pinned at {it['count']} ({it['why']})")
+    return errs
+
+
 def _bound(spans: set, i: int, j: int, tok: str) -> bool:
     t = _norm(tok)
     if (i, j, t) in spans:
@@ -340,8 +411,16 @@ def zone_check(rows: list[dict], cfg: dict | None = None, docs: dict[str, str] |
                 errs.append(f"strict zone {doc}: allowlisted phrase {a['phrase']!r} not found (remove it)")
             allowed += hits
         spans = anchor_spans(rows, anchors, doc, text)
+        extents = anchor_extents(rows, anchors, doc, text)
+        tables = table_lines(text, (cfg.get("small_int_tables") or {}).get(doc, []))
         for lo, hi in zones:
-            for i, j, tok in numeric_tokens(text[lo:hi]):
+            toks = numeric_tokens(text[lo:hi])
+            seen = {(i, j) for i, j, _ in toks}
+            for a, b in tables:  # result-table rows: integers below 10 are claims too
+                if lo <= a and b <= hi:
+                    toks += [(i + a - lo, j + a - lo, t) for i, j, t in numeric_tokens(text[a:b], small=True)
+                             if (i + a - lo, j + a - lo) not in seen]
+            for i, j, tok in sorted(toks):
                 i, j = i + lo, j + lo
                 if any(a <= i and j <= b for a, b in allowed):
                     continue
@@ -350,6 +429,13 @@ def zone_check(rows: list[dict], cfg: dict | None = None, docs: dict[str, str] |
                 line = text.count("\n", 0, i) + 1
                 errs.append(f"strict zone {doc}:{line}: {tok!r} is not bound to a claim for {doc} "
                             "(no anchor of a claim with this value covers it)")
+            for i, j, w in scope_tokens(text[lo:hi]):
+                i, j = i + lo, j + lo
+                if any(a <= i and j <= b for a, b in allowed) or any(a <= i and j <= b for a, b in extents):
+                    continue
+                line = text.count("\n", 0, i) + 1
+                errs.append(f"strict zone {doc}:{line}: scope word {w!r} is not inside an anchor phrase or an "
+                            "allowlisted phrase (bind it to the claim it qualifies)")
     return errs
 
 
@@ -384,7 +470,7 @@ def check(rows: list[dict] | None = None) -> list[str]:
                     errs.append(f"{r['id']}: short value {r['shown']!r} in {doc} has no context")
                 elif not context_ok(docs[doc], r["shown"], phrase):
                     errs.append(f"{r['id']}: context {phrase!r} not within {CONTEXT_WINDOW} chars of {r['shown']!r} in {doc}")
-    return errs + anchor_check(rows) + zone_check(rows)
+    return errs + anchor_check(rows) + zone_check(rows) + pinned_check()
 
 
 STOP = {"eval", "results", "json", "report", "claims", "the", "and", "with", "arms", "strict", "counts", "publicai", "swiss",
@@ -537,8 +623,15 @@ def propose_anchors(rows: list[dict] | None = None, write: bool = False) -> dict
         for r in rows:
             if doc in _where(r):
                 cands_by_val.setdefault(_norm(r["shown"]), []).append(r)
+        tables = table_lines(text, (cfg.get("small_int_tables") or {}).get(doc, []))
         for lo, hi in zones_of(text, spec):
             toks = [(a + lo, b + lo, t) for a, b, t in numeric_tokens(text[lo:hi])]
+            seen = {(a, b) for a, b, _ in toks}
+            for ta, tb in tables:
+                if lo <= ta and tb <= hi:
+                    toks += [(a + ta, b + ta, t) for a, b, t in numeric_tokens(text[ta:tb], small=True)
+                             if (a + ta, b + ta) not in seen]
+            toks.sort()
             for k, (i, j, tok) in enumerate(toks):
                 if any(a <= i and j <= b for a, b in allowed) or _bound(spans, i, j, tok):
                     continue
@@ -584,8 +677,66 @@ def propose_anchors(rows: list[dict] | None = None, write: bool = False) -> dict
     return report
 
 
+def propose_scope(rows: list[dict] | None = None, write: bool = False) -> dict:
+    """For every scope word in a strict zone outside an anchor or allowlisted phrase: extend the anchor of the nearest
+    bound numeric token on the same line (or the next/previous line within CONTEXT_WINDOW characters) so that it covers
+    the word: a new anchor phrase for that token's claim, from the earlier to the later of the two. Words with no bound
+    number nearby are listed (`unbound`): allowlist them with a reason or reword."""
+    rows = rows if rows is not None else load(ROOT / "claims.tsv")
+    cfg, anchors = strict_config(), anchor_config()
+    report = dict(added=[], unbound=[])
+    for doc, spec in (cfg.get("zones") or {}).items():
+        text = (ROOT / doc).read_text(encoding="utf-8")
+        allowed = []
+        for a in (cfg.get("allow") or {}).get(doc, []):
+            allowed += [(m.start(), m.end()) for m in re.finditer(re.escape(a["phrase"]), text)]
+        by_pos = {}
+        for cid, per in anchors.items():
+            r = next((x for x in rows if x["id"] == cid), None)
+            if r is None or doc not in _where(r):
+                continue
+            for ph in per.get(doc) or []:
+                for m in re.finditer(re.escape(ph), text):
+                    for i, j in token_spans(ph, r["shown"]):
+                        by_pos[(m.start() + i, m.start() + j)] = cid
+        for lo, hi in zones_of(text, spec):
+            for i, j, w in scope_tokens(text[lo:hi]):
+                i, j = i + lo, j + lo
+                ext = anchor_extents(rows, anchors, doc, text)
+                if any(a <= i and j <= b for a, b in allowed + ext):
+                    continue
+                cands = sorted(((min(abs(a - j), abs(i - b)), a, b) for (a, b) in by_pos
+                                if abs(a - j) <= CONTEXT_WINDOW or abs(i - b) <= CONTEXT_WINDOW), key=lambda x: x[0])
+                cands = [c for c in cands if text.count("\n", min(c[1], i), max(c[2], j)) <= 1]
+                line = text.count("\n", 0, i) + 1
+                if not cands:
+                    report["unbound"].append(f"{doc}:{line}: {w!r}: {text[max(0, i - 50):j + 50]!r}")
+                    continue
+                _, a, b = cands[0]
+                cid = by_pos[(a, b)]
+                st, en = min(a, i), max(b, j)
+                ph = text[st:en]
+                while text.count(ph) > 1 and st > 0 and text[st - 1] != "\n":
+                    st -= 1
+                    ph = text[st:en]
+                anchors.setdefault(cid, {}).setdefault(doc, [])
+                if ph not in anchors[cid][doc]:
+                    anchors[cid][doc].append(ph)
+                report["added"].append(f"{doc}:{line}: {w!r} -> {cid}: {ph!r}")
+    if write:
+        p = ROOT / ANCHOR_NAME
+        cur = json.loads(p.read_text(encoding="utf-8"))
+        cur["anchors"] = {k: {d: sorted(v) for d, v in sorted(anchors[k].items())} for k in sorted(anchors)}
+        p.write_text(json.dumps(cur, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    return report
+
+
 def main(argv: list[str]) -> int:
     cmd = argv[0] if argv else "check"
+    if cmd == "scope":
+        rep = propose_scope(merge(), write="--write" in argv)
+        print(json.dumps(rep, indent=1, ensure_ascii=False))
+        return 0
     if cmd == "anchors":
         rep = propose_anchors(merge(), write="--write" in argv)
         print(json.dumps(rep, indent=1, ensure_ascii=False))

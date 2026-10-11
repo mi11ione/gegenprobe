@@ -1,10 +1,10 @@
 id	shown	file	path	fmt	command	where	context
 schema.v02.all_n	171	results/schema/v0_2/validation_all.json	n_affairs	int	make schema-v02	-	
-schema.v02.all_valid	171	results/schema/v0_2/validation_all.json	n_valid	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,../README.md,docs/ech-onepager.md	{"../README.md": "all 171 records validate", "README.md": "all 171 records validate", "docs/ech-onepager.md": "and 171 affairs", "docs/form_notes.md": "All 171 records", "technical_report.md": "v0.2 records validate"}
+schema.v02.all_valid	171	results/schema/v0_2/validation_all.json	n_valid	int	make schema-v02	README.md,docs/ech-onepager.md	
 schema.v02.all_frac	171/171	results/schema/v0_2/validation_all.json	n_valid/n_affairs	frac	make schema-v02	-	
 schema.v02.all_parliaments	25	results/schema/v0_2/validation_all.json	n_parliaments	int	make schema-v02	-	
 schema.v02.conv_n	105	results/schema/v0_2/validation_all.json	converter_made.n_affairs	int	make schema-v02	-	
-schema.v02.conv_valid	105	results/schema/v0_2/validation_all.json	converter_made.n_valid	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,docs/ech-onepager.md	{"README.md": "of its 105 records", "docs/ech-onepager.md": "converter's own records", "docs/form_notes.md": "of its 105 records", "technical_report.md": "of its 105 records"}
+schema.v02.conv_valid	105	results/schema/v0_2/validation_all.json	converter_made.n_valid	int	make schema-v02	README.md,technical_report.md,docs/ech-onepager.md	
 schema.v02.conv_frac	105/105	results/schema/v0_2/validation_all.json	converter_made.n_valid/converter_made.n_affairs	frac	make schema-v02	-	
 schema.v02.conv_parliaments	22	results/schema/v0_2/validation_all.json	converter_made.n_parliaments	int	make schema-v02	-	
 schema.v02.product_valid	65	results/schema/v0_2/validation_all.json	product_records.n_valid	int	make schema-v02	-	

@@ -59,8 +59,8 @@
      "submitted": 29
     },
     "empty_reasons": {
-     "none_printed": 23,
-     "not_extracted": 87
+     "none_printed": 53,
+     "not_extracted": 29
     },
     "null_reasons": {
      "not_applicable": 25,
@@ -125,8 +125,8 @@
      "submitted": 36
     },
     "empty_reasons": {
-     "none_printed": 35,
-     "not_extracted": 108
+     "none_printed": 83,
+     "not_extracted": 36
     },
     "null_reasons": {
      "not_applicable": 18,
@@ -188,7 +188,8 @@
      "signed": 23
     },
     "empty_reasons": {
-     "not_extracted": 160,
+     "none_printed": 48,
+     "not_extracted": 80,
      "not_in_corpus": 42,
      "present_unanchored": 7
     },
@@ -351,5 +352,173 @@
   "rules": "src/gegenprobe/convert/roles.py",
   "records": "results/schema/v0_2/converter_roles_records.jsonl (gegenprobe.schema.v0_2_roles)",
   "score": "results/schema/v0_2/converter_roles.json (eval.converter_roles, exploratory)"
+ },
+ "document_parts": {
+  "label": "EXPLORATORY: rules written on these documents (no held-out test); the blind check of the detector is eval/parts (GUIDE_PARTS.md)",
+  "command": "PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_parts (after gegenprobe.schema.v0_2_all)",
+  "detector": "parts-1 (annex headings and attachment lists; aligned-column tables in pdftotext -layout; embedded images >= 2% of a page outside the letterhead and footer bands; scanned pages >= 85% of a page at >= 100 ppi)",
+  "rules": "src/gegenprobe/convert/parts.py",
+  "detections": "results/schema/v0_2/document_parts.jsonl (python -m gegenprobe.schema.v0_2_parts detect)",
+  "converter_made": {
+   "n_records": 105,
+   "n_documents": 210,
+   "documents_examined": 210,
+   "records_carrying": {
+    "any": 66,
+    "annex": 2,
+    "table": 10,
+    "budget_table": 1,
+    "image": 41,
+    "signature": 28
+   },
+   "documents_carrying": {
+    "any": 84,
+    "annex": 2,
+    "table": 10,
+    "budget_table": 1,
+    "image": 54,
+    "signature": 29
+   }
+  },
+  "sets": {
+   "p3": {
+    "n_records": 29,
+    "n_documents": 58,
+    "documents_examined": 58,
+    "records_carrying": {
+     "any": 21,
+     "annex": 1,
+     "table": 4,
+     "budget_table": 1,
+     "image": 14,
+     "signature": 9
+    },
+    "documents_carrying": {
+     "any": 28,
+     "annex": 1,
+     "table": 4,
+     "budget_table": 1,
+     "image": 19,
+     "signature": 9
+    },
+    "parts": {
+     "annex": 4,
+     "table": 5,
+     "budget_table": 4,
+     "image": 22,
+     "signature": 14
+    },
+    "parts_by_rule": {
+     "aligned_columns": 13,
+     "embedded": 7,
+     "heading": 4,
+     "scanned_page": 15,
+     "signature_block": 10
+    }
+   },
+   "p3b": {
+    "n_records": 36,
+    "n_documents": 72,
+    "documents_examined": 72,
+    "records_carrying": {
+     "any": 19,
+     "annex": 0,
+     "table": 2,
+     "budget_table": 0,
+     "image": 7,
+     "signature": 13
+    },
+    "documents_carrying": {
+     "any": 24,
+     "annex": 0,
+     "table": 2,
+     "budget_table": 0,
+     "image": 10,
+     "signature": 14
+    },
+    "parts": {
+     "annex": 0,
+     "table": 7,
+     "budget_table": 0,
+     "image": 16,
+     "signature": 14
+    },
+    "parts_by_rule": {
+     "aligned_columns": 7,
+     "embedded": 8,
+     "scanned_page": 8,
+     "signature_block": 14
+    }
+   },
+   "p5": {
+    "n_records": 40,
+    "n_documents": 80,
+    "documents_examined": 80,
+    "records_carrying": {
+     "any": 26,
+     "annex": 1,
+     "table": 4,
+     "budget_table": 0,
+     "image": 20,
+     "signature": 6
+    },
+    "documents_carrying": {
+     "any": 32,
+     "annex": 1,
+     "table": 4,
+     "budget_table": 0,
+     "image": 25,
+     "signature": 6
+    },
+    "parts": {
+     "annex": 2,
+     "table": 16,
+     "budget_table": 0,
+     "image": 27,
+     "signature": 6
+    },
+    "parts_by_rule": {
+     "aligned_columns": 16,
+     "embedded": 6,
+     "heading": 2,
+     "scanned_page": 21,
+     "signature_block": 6
+    }
+   }
+  },
+  "fed": {
+   "n_records": 15,
+   "n_documents": 30,
+   "documents_examined": 30,
+   "records_carrying": {
+    "any": 1,
+    "annex": 0,
+    "table": 1,
+    "budget_table": 0,
+    "image": 0,
+    "signature": 0
+   },
+   "documents_carrying": {
+    "any": 1,
+    "annex": 0,
+    "table": 1,
+    "budget_table": 0,
+    "image": 0,
+    "signature": 0
+   },
+   "parts": {
+    "annex": 0,
+    "table": 1,
+    "budget_table": 0,
+    "image": 0,
+    "signature": 0
+   },
+   "parts_by_rule": {
+    "html_table": 1
+   },
+   "n_valid": 15,
+   "records": "results/schema/v0_2/fed_records.jsonl",
+   "source": "results/fed/fed_records_v0_2.jsonl (eval.fed.arms offline) + gegenprobe.schema.v0_2_parts.with_parts"
+  }
  }
 }

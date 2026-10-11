@@ -16,14 +16,25 @@ steps that need the network or a model endpoint and cannot reach them; the repla
   6b schema_v02  schema v0.2 re-derived from committed files and compared with results/schema/v0_2/ (FAIL on any
               difference or invalid record): the converter's own P3, P3b and P5 records carried to v0.2 (105 affairs) with
               v0.2's roles from the committed role-rule readings (re-extracted from the texts and compared when they are
-              cached), the P8 gold (66 affairs) and the v0.1 samples upgraded losslessly
+              cached) and their document parts from the committed detections (gegenprobe.schema.v0_2_parts; re-detected
+              from the cached PDFs and compared when they are cached), the P8 gold (66 affairs) and the v0.1 samples
+              upgraded losslessly
+  6c affair_cli  the operator command `python -m gegenprobe affair --opd-affair <id> --schema v0.2` on the affairs of
+              the three committed v0.2 samples (Bern, Vernier, Lugano): OPD's rows from the committed export slice, the
+              documents fetched from their sources; each record must validate and match its sample's documents, text
+              languages and answer date (SKIP offline or when no source is reachable)
   7 rederive  the P1 rules arm re-derived from the source PDFs (sha256-verified); WARN, never FAIL
   8 rederive_apertus  P1 + P2 pointer and cascade decisions recomputed from the committed model cache, cache-only
               (no request leaves the machine); FAIL only if a cache hit gives a different decision
+  8b numbers  the summary-number files the claims read (results/report/*_numbers.json, results/convert/
+              coverage_by_parliament.json, ...) regenerated from committed inputs in memory and compared byte for byte
+              with the committed copies (FAIL on any difference; nothing is written)
   9 claims    every claimed number recomputed from its results file and found where it is printed (token-bounded; short
               values need context); every anchor found at its position (claims_anchor.json); in the strict zones
               (README, technical report, form notes, each end to end; claims_strict.json) every number token must
-              be bound to its claim by an anchor or be a listed non-claim
+              be bound to its claim by an anchor or be a listed non-claim, every scope word (post hoc, registered,
+              exploratory, in-sample, held out, weighted) must sit inside an anchor or a listed phrase, and
+              444_Report.pdf must contain every anchor phrase of technical_report.md (report/pdf_check.py)
 The last lines: the P1 (and P2) Apertus replay coverage, e.g. "Apertus replay: P1 132/154 decisions re-derived from the
 model cache, 132 match (22 cache misses)", then "RESULT PASS in 537 s"; when a step skipped, the RESULT line names it:
 "RESULT PASS (offline: 3 steps skipped: convert, rederive, rederive_apertus) in 868 s".
@@ -49,9 +60,11 @@ STEPS = [
     ("convert", "gegenprobe.convert.demo", "main"),
     ("eval", "eval.replay", "main"),
     ("replay", "eval.replay_all", "main"),  # P1-P8, 8B analysis + hypotheses + nine locks, committed files (FAIL on any diff)
-    ("schema_v02", "gegenprobe.schema.v0_2_all", "step"),  # v0.2: 105 converter records + 66 P8 gold affairs (FAIL on a diff)
+    ("schema_v02", "gegenprobe.schema.v0_2_parts", "step"),  # v0.2: 105 converter records (+ document parts) + 66 P8 gold
+    ("affair_cli", "gegenprobe.affair_cli", "step"),  # `gegenprobe affair` on the 3 v0.2 sample affairs (network; SKIP offline)
     ("rederive", "eval.rederive", "main"),  # rules arm re-derived from the source PDFs (non-fatal: PASS / WARN / SKIP)
     ("rederive_apertus", "eval.replay_all", "main_rederive"),  # pointer/cascade from the model cache (cache-only)
+    ("numbers", "report.numbers_step", "main"),  # summary-number files regenerated in memory, byte-identical (FAIL on a diff)
     ("claims", "gegenprobe.claims_step", "main"),
 ]
 P1_DOCS = 154  # P1 held-out documents (data/gold/heldout_docs.jsonl)

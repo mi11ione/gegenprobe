@@ -26,13 +26,13 @@ export PYTHONPATH=src:.
 ```
 
 **OCR needs the language packs.** Scans without a text layer are read with tesseract `deu+fra+ita`. Check with
-`tesseract --list-langs`. If one is missing, install it (Debian/Ubuntu: `apt install tesseract-ocr-deu tesseract-ocr-fra
-tesseract-ocr-ita`; Homebrew: `brew install tesseract-lang`). If none of the three is installed, tesseract refuses to
-run. The scan's pages then come out empty, and every field is a typed null for an empty text. If only some are
-missing, tesseract warns and reads with the packs it has, and the text gets worse. Either result is cached, so after
-installing the packs, delete `<GP_WORK>/text/<sha256>.tesseract-*.json` for the affected PDFs. PDFs that have a text layer
-(born-digital, or scans with an OCR layer) are read with pdftotext and do not need tesseract. The Docker image ships
-all three packs.
+`python -m gegenprobe.ocrguard` (exit 1 when tesseract or a language is missing). To install exactly the models the OCR
+numbers were measured with, run `make ocr-models` and export the `TESSDATA_PREFIX` it prints (docs/runbook.md, OCR).
+The distribution's packs also work (Debian/Ubuntu: `apt install tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita`;
+Homebrew: `brew install tesseract-lang`), with models that differ from the measured ones. A scan read without the
+language packs is the typed failure `ocr_failed` and is never cached (`src/gegenprobe/ocrguard.py`). PDFs that have a
+text layer (born-digital, or scans with an OCR layer) are read with pdftotext and do not need tesseract. The Docker image
+ships the measured models.
 
 `PYTHONPATH=src` also loads `src/sitecustomize.py`, which installs the RFC 9309 robots.txt matcher before anything is
 fetched. If you would rather not set `PYTHONPATH`, install the checkout in editable mode:
@@ -94,6 +94,19 @@ file (`affair_types`, see "One settings file per parliament"). Every value is no
 the rules see it, so `--affair-type "Question écrite"` gives recommendation `not_applicable`, like `Question`, and
 `--affair-type Auftrag` is a motion. Anything else is an error (exit 2, with the list), never silently ignored; in a batch
 the error names the line.
+
+## A whole affair from OPD (schema v0.2)
+
+```bash
+python -m gegenprobe affair --opd-affair 39369 --schema v0.2 --out affair_39369.json
+```
+
+`convert` reads one document and returns two fields. `affair` takes an OPD affair id and returns the whole affair as one
+validated schema v0.2 record. It reads OPD's export rows for the affair, then fetches the member's text and the answer
+OPD links to it, with the same polite, robots-checked fetching as `convert`. The record holds metadata values with their
+OPD source, document values with page and span, typed nulls, and `needs_review` with its reasons. The default mode uses
+no model; `--mode review` adds Apertus suggestions next to the record. A failure is a typed row and exits 2. Details,
+sources and scope: [docs/affair.md](affair.md#one-affair-from-opd-python--m-gegenprobe-affair).
 
 ## Many documents
 

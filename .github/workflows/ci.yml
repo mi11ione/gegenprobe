@@ -33,6 +33,10 @@ jobs:
           PY
       - name: claims.tsv recomputed from results files
         run: GP_CLAIMS_STRICT=1 PYTHONPATH=src:. python -m gegenprobe.claims check
+      - name: 444_Report.pdf matches technical_report.md (every report anchor phrase in the PDF's text)
+        run: PYTHONPATH=src:. python -m report.pdf_check
+      - name: summary-number files regenerate byte-identical from committed inputs
+        run: PYTHONPATH=src:. python -m report.numbers_step
       - name: data/ stays under the 100 MB limit (content size; small cache files would otherwise count as 4 KB blocks)
         run: test $(du -s --apparent-size --block-size=1M data | cut -f1) -le 100
   make-run:

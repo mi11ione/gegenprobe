@@ -175,7 +175,14 @@
    "language_of_text_method": "stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15)",
    "n_pages": 3,
    "opd_text_status": "ok",
-   "parts": [],
+   "parts": [
+    {
+     "kind": "image",
+     "label": "scanned pages: the whole page is an image (>= 300 ppi); text from the PDF's text layer",
+     "page_from": 1,
+     "page_to": 3
+    }
+   ],
    "role": "answer",
    "sha256": "e371880971f0f2772fdf65b65c48337d3f4d0c0b17b70bed6ab750c845172fb3",
    "source": "opd",
@@ -184,13 +191,9 @@
  ],
  "empty_reasons": {
   "documents.0.parts": {
-   "evidence": "this converter version does not detect document parts",
-   "reason": "not_extracted",
-   "route": "rule"
-  },
-  "documents.1.parts": {
-   "evidence": "this converter version does not detect document parts",
-   "reason": "not_extracted",
+   "doc": "opd:396630",
+   "evidence": "gegenprobe.convert.parts parts-1 (annex headings and attachment lists; aligned-column tables in pdftotext -layout; embedded images >= 2% of a page outside the letterhead and footer bands; scanned pages >= 85% of a page at >= 100 ppi): the detector found no part (annex, table, image, signature) in this document",
+   "reason": "none_printed",
    "route": "rule"
   },
   "languages": {
@@ -213,7 +216,7 @@
   "builds": [],
   "converter_version": "gegenprobe P5 rules arm (none)",
   "created": "2026-10-10T21:08:35Z",
-  "notes": "assembled as a v0.2 affair by gegenprobe.schema.v0_2_all.p5_affair from results/eval6/p5__none.json (R.records) and OPD's census export (number, body, type); no value was changed; v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 6 printed authors (0 earlier entries for the same persons replaced, 1 unconfirmed earlier rule entries dropped), 2 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15)",
+  "notes": "assembled as a v0.2 affair by gegenprobe.schema.v0_2_all.p5_affair from results/eval6/p5__none.json (R.records) and OPD's census export (number, body, type); no value was changed; v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 6 printed authors (0 earlier entries for the same persons replaced, 1 unconfirmed earlier rule entries dropped), 2 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 1 parts in 1 of 2 documents examined",
   "schema_version": "0.2.0"
  },
  "government_recommendation": {

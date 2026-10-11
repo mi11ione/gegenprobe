@@ -1,38 +1,39 @@
 # Gegenprobe — Hack Apertus, Track 2A (OpenParlData), team 444
 
-**A common schema for Swiss parliamentary business works if its fields carry roles, and the proposed repairs, keyed on
-OpenParlData (OPD) ids, would raise the share of interventions with a recorded government answer that have answer text
-from 81.6% to 92.3%.**
+**Can one schema hold Swiss parliamentary business? Yes, if its fields carry roles.**
 
-Apertus is a closed-set reader: every value it extracts is printed in the document (70B weights via the Public AI
-gateway; local 8B GGUF on CPU).
+- **Shared:** one schema of 17 fields for communal, cantonal and federal business; every value carries its role and
+  source, every gap a typed reason.
+- **Needs roles: 10 fields:** "answer date" is the government's decision, its letter or, in 7 parliaments, mostly the
+  submission date.
+- **Body-specific: 1 field and 3 constructs:** the submission date in Vernier and Lausanne; oral answers, executive
+  business, councils that publish only minutes.
+- **Untested: 6 fields,** defined once in v0.1; meaning is measured for the other 11 (OPD's labels and P8: 66 affairs,
+  11 parliaments).
+
+**Delivered:** repairs for 9,720 answers keyed on OPD ids, every one from model-free rules; schema v0.2 with the roles;
+a converter that gives every value its page and span; a nightly job. Apertus only picks values printed in the document,
+and code locates them (70B weights via the Public AI gateway; local 8B on CPU).
 
 | | |
 |---|---|
-| **92.3%** | of interventions with a recorded government answer would have answer text once the proposed repairs are applied, up from 81.6% attached today |
-| **9,720** | answers with a repair proposed to OPD, keyed on OPD ids, every one from model-free rules; the Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation |
-| **10 of 17** | fields need roles (8 robust, 2 fragile); 1 is body-specific; 6 are defined once in v0.1 (meaning is the next test); schema v0.2 carries the roles and the converter fills them |
-| **120/120** | sampled promotions are the government's answer (P7-H1, registered; judged by blind AI annotators); Apertus picks the gold answer date on 113/120 (94%), the best no-model rule on 127/146 (87%) (post hoc) |
-| **53/62** | documents exact in 15 parliaments nobody wrote rules for, against 44/62 for the best no-model baseline (P2, post hoc; McNemar p = 0.012, parliament-cluster p = 0.031); registered: 24/29 answer dates, rules 2/29 |
+| **92.3%** | of interventions with a recorded government answer would have answer text once the proposed repairs are applied, up from 81.6% today: 91.6% from row-checked repairs + 0.7 points from the 592 agenda joins and 39 review rows |
+| **9,720** | answers with a model-free repair proposed to OPD, keyed on OPD ids; the Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation |
+| **10 of 17** | fields are shared once their roles are explicit; 1 is body-specific; 6 are not yet tested for meaning |
+| **53/62** | documents exact in 15 parliaments nobody wrote rules for when Apertus picks the answer date among the printed dates, against 44/62 for the best no-model baseline |
+| **186** | affairs from 26 parliaments, communal, cantonal and federal, validate in schema v0.2 |
 
-The 17 fields: 10 need roles (8 robust, 2 fragile), 1 body-specific, 6 defined once in v0.1 (meaning is the next
-test). "Answer date" is the government's decision in some parliaments, the letter or registration date in others and
-the submission date in a few, and a pre-registered meaning test of 7 fields (P8: 66 affairs, 11 parliaments) finds
-roles in authorship (sole author, joint authors, first signatory, parliamentary group), signatories, the instrument
-behind a harmonised type, the language and the date a submission carries. Schema v0.1 gives every date its role, every
-value its source (page and span, or the OPD record) and every missing value a typed null; schema v0.2 adds P8's roles,
-the converter fills them, and all 171 records validate, every empty list with a typed reason.
+<sub>Sources: 92.3% and 9,720 from the census and the repair lists (no model); 10 of 17 from OPD's labels and P8
+(pre-registered); 53/62 from P2, post hoc (McNemar p = 0.012, parliament-cluster p = 0.031); 186 from P3, P3b, P5, P8
+and the federal cell, whose 15 affairs are exploratory. P1–P8 are the nine pre-registered tests (P3b replicates P3).</sub>
 
 - **Ready for OPD:** Bern relinks, fetches and `begin_date` corrections (OPD confirmed the bug; correspondence, 10 Oct
-  2026), per-parliament lists from 50 model-free source adapters, 27 with counted repairs, a vocabulary error list and a Fedlex resolver for
+  2026), per-parliament lists from 50 model-free source adapters, a vocabulary error list and a Fedlex resolver for
   29,946 federal documents. The only open decision is OPD's hash rule for relinks.
-- **Auditable by construction:** every value Apertus extracts is a date or phrase printed in the document, with page
-  and span; its yes/no answers and category labels are judgements a person reviews. The default runs no model.
-- **Sovereign and cheap to run:** the default only reads public sources; Apertus runs through the Public AI gateway or
-  locally. A first network night took 86 min, the next 6.6 min.
-- **Pre-registered:** nine tests, each frozen by hash before its labels (P1's hypothesis script followed its labels and
-  its rules entered with its sample, both logged: D4, D12). `make claims` recomputes every claimed number from its
-  results file and checks it where it appears.
+- **Sovereign and cheap to run:** the default runs no model and only reads public sources. A first network night took
+  86 min, the next 6.6 min.
+- **Checked:** nine tests, each frozen by hash before its labels; `make claims` recomputes every number in the README,
+  the report and the form from its results file and fails on any mismatch.
 
 The eCH expert group's page, with a per-field recommendation from P8: [`track_2a/docs/ech-onepager.md`](track_2a/docs/ech-onepager.md).
 

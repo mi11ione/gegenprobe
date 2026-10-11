@@ -56,8 +56,8 @@ def test_altered_readme_fails(rows, cfg):
 
 def test_wrong_number_next_to_a_right_one_fails(rows, cfg):
     t = _text("docs/form_notes.md")
-    assert "ids, would raise the share" in t
-    bad = t.replace("ids, would raise the share", "ids, would raise (93.1% with Jura) the share", 1)
+    assert "**Delivered.** Repairs" in t
+    bad = t.replace("**Delivered.** Repairs", "**Delivered.** (93.1% with Jura) Repairs", 1)
     errs = claims.zone_check(rows, cfg, docs={"docs/form_notes.md": bad})
     assert len(errs) == 1 and "'93.1%'" in errs[0], errs
 
@@ -66,9 +66,9 @@ def test_altered_report_fails_in_the_summary_and_in_the_body(rows, cfg):
     """Round 13: the whole report is a strict zone (round 12 stopped at "## 2.")."""
     t = _text("technical_report.md")
     head, sep, body = t.partition("\n## 2.")
-    assert sep and "**120/120**" in head
-    in_summary = head.replace("**120/120**", "**119/120**", 1) + sep + body
-    assert any("'119/120'" in e for e in claims.zone_check(rows, cfg, docs={"technical_report.md": in_summary}))
+    assert sep and "**53/62**" in head
+    in_summary = head.replace("**53/62**", "**52/62**", 1) + sep + body
+    assert any("'52/62'" in e for e in claims.zone_check(rows, cfg, docs={"technical_report.md": in_summary}))
     stray = head + sep + body + "\nA stray 12.34% after the summary.\n"
     assert any("'12.34%'" in e for e in claims.zone_check(rows, cfg, docs={"technical_report.md": stray}))
 
@@ -126,9 +126,9 @@ def test_m17_readme_results_table_swap_fails(rows, cfg):
 
 def test_swapped_staging_shares_in_the_report_summary_fail(rows, cfg):
     t = _text("technical_report.md")
-    a, b = "85.6% with the repairs", "88.3% after its hash decision"
+    a, b = "85.6% with the repairs", "88.3% after the Bern relinks"
     assert a in t and b in t
-    bad = t.replace(a, "88.3% with the repairs", 1).replace(b, "85.6% after its hash decision", 1)
+    bad = t.replace(a, "88.3% with the repairs", 1).replace(b, "85.6% after the Bern relinks", 1)
     errs = claims.zone_check(rows, cfg, docs={"technical_report.md": bad})
     assert any("'88.3%'" in e for e in errs) and any("'85.6%'" in e for e in errs), errs
 

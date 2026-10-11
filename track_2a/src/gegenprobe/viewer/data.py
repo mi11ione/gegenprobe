@@ -1575,6 +1575,29 @@ def adapter_lists() -> dict | None:
                             counted=f["counted"], not_counted=f["not_counted_verified"]) for f in files])
 
 
+def tiles() -> dict | None:
+    """The headline tiles shared by README, report, form notes and site (round 14): the 92.3% split by how its repairs
+    are checked (results/report/r14_numbers.json), schema v0.2 with the federal cell (r13_numbers.json)."""
+    p14, p13 = RESULTS / "report" / "r14_numbers.json", RESULTS / "report" / "r13_numbers.json"
+    if not (p14.exists() and p13.exists()):
+        return None
+    c = json.loads(p14.read_text(encoding="utf-8"))["coverage"]
+    v = json.loads(p13.read_text(encoding="utf-8"))["v02_with_federal"]
+    return dict(share_all=c["share_all"], share_row_checked=c["share_row_checked"], points_unchecked=c["points_unchecked"],
+                agenda=c["agenda"], review=c["review"], repaired=c["repaired"],
+                v02_affairs=v["valid"], v02_parliaments=v["parliaments"], federal=v["federal_valid"])
+
+
+def converter_coverage() -> dict | None:
+    """Converter status per parliament (results/convert/coverage_by_parliament.json, report/converter_coverage.py)."""
+    p = RESULTS / "convert" / "coverage_by_parliament.json"
+    if not p.exists():
+        return None
+    d = json.loads(p.read_text(encoding="utf-8"))
+    return dict(summary=d["summary"], rows=[dict(body=r["body"], name=r["name"], level=r["type"], status=r["status"],
+                                                 tests=r["tests"], v02=r["v0_2_records"]) for r in d["rows"]])
+
+
 def collect(full_text: bool = False) -> dict:
     par, ev = parliaments(), evaluation()
     ev["p2"] = p2()
@@ -1597,5 +1620,7 @@ def collect(full_text: bool = False) -> dict:
             downloads=downloads(),
             adapters=adapters(),
             nights=nights(),
+            tiles=tiles(),
+            coverage=converter_coverage(),
         )
     )

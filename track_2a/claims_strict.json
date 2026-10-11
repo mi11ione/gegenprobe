@@ -1,5 +1,5 @@
 {
- "_doc": "Strict zones for `make claims` (gegenprobe.claims.zone_check): every numeric token in a zone must be bound to a claim whose `where` lists the document, by an anchor in claims_anchor.json that holds the claim's value at that position. Round 13: README.md, technical_report.md and docs/form_notes.md are strict end to end. A zone is {start, end} (literals; null = top/end) or a list of them. `allow` lists the non-claims literally, each with why.",
+ "_doc": "Strict zones for `make claims` (gegenprobe.claims.zone_check): every numeric token in a zone must be bound to a claim whose `where` lists the document, by an anchor in claims_anchor.json that holds the claim's value at that position. Round 13: README.md, technical_report.md and docs/form_notes.md are strict end to end. A zone is {start, end} (literals; null = top/end) or a list of them. `allow` lists the non-claims literally, each with why. Round 14: `small_int_tables` lists result tables (by the start of their header row) whose integer cells below 10 must be bound too; scope words (post hoc, registered, exploratory, in-sample, held out, weighted, unweighted) must sit inside an anchor phrase or an allowlisted phrase; `pinned` phrases must occur exactly `count` times.",
  "zones": {
   "README.md": {
    "start": null,
@@ -69,26 +69,58 @@
     "why": "the registered threshold, fixed before the labels"
    },
    {
-    "phrase": "from 10 up",
-    "why": "the claims checker's own threshold (integers from 10 are checked)"
-   },
-   {
-    "phrase": "below 10 are not checked",
-    "why": "the claims checker's own threshold"
-   },
-   {
     "phrase": "1.2 s apart",
     "why": "a setting: the minimum interval between requests to one host"
+   },
+   {
+    "phrase": "post hoc means analysed after the labels",
+    "why": "definition of the scope word in the legend"
+   },
+   {
+    "phrase": "(federal cell,\n>   exploratory)",
+    "why": "scope of the federal cell, bound to its numbers in Findings §1"
+   },
+   {
+    "phrase": "(post hoc,\n  registered, exploratory, in-sample, held out, weighted)",
+    "why": "the list of scope words the claims check binds"
+   },
+   {
+    "phrase": "Where the registered gap is",
+    "why": "figure title: the registered census gap"
+   },
+   {
+    "phrase": "**Two findings for OPD's data** (post hoc, no model)",
+    "why": "scope of the two findings below; their numbers are bound"
+   },
+   {
+    "phrase": "passes the registered test\n  of meaning",
+    "why": "P8's registered test, named"
+   },
+   {
+    "phrase": "| registered result |",
+    "why": "table header"
+   },
+   {
+    "phrase": "the P7 post-hoc files included",
+    "why": "names the committed P7 post-hoc files"
+   },
+   {
+    "phrase": "the design the registered null-safety\n  tests (P1, P2, P6) support",
+    "why": "names the registered null-safety tests, whose results are bound in the evaluation summary"
+   },
+   {
+    "phrase": "Integers below 10 are checked in the result tables",
+    "why": "the claims check's threshold, not a result"
+   },
+   {
+    "phrase": "(default 30)",
+    "why": "a setting's default, not a result"
    }
   ],
   "technical_report.md": [
    {
     "phrase": "Team 444",
     "why": "team number"
-   },
-   {
-    "phrase": "Wilson 95%",
-    "why": "confidence level of the interval, not a result"
    },
    {
     "phrase": "10 Oct 2026",
@@ -109,14 +141,6 @@
    {
     "phrase": "95% lower bound",
     "why": "confidence level of the registered bar, not a result"
-   },
-   {
-    "phrase": "style=\"width:86%",
-    "why": "figure width (layout)"
-   },
-   {
-    "phrase": "style=\"width:90%",
-    "why": "figure width (layout)"
    },
    {
     "phrase": "first 12,000 characters",
@@ -163,10 +187,6 @@
     "why": "P7-H1's registered bar, fixed before the labels"
    },
    {
-    "phrase": "below 10 and listed",
-    "why": "the claims checker's own threshold"
-   },
-   {
     "phrase": "θ_B = 10",
     "why": "a frozen setting of the verifier (date margin)"
    },
@@ -177,6 +197,38 @@
    {
     "phrase": "50 MB",
     "why": "a setting: the per-PDF size cap"
+   },
+   {
+    "phrase": "style=\"width:58%;",
+    "why": "figure width in the PDF layout, not a result"
+   },
+   {
+    "phrase": "style=\"width:70%;",
+    "why": "figure width in the PDF layout, not a result"
+   },
+   {
+    "phrase": "every number from 10 up",
+    "why": "the claims check's threshold, not a result"
+   },
+   {
+    "phrase": "places every registered gap row",
+    "why": "the registered census gap, named"
+   },
+   {
+    "phrase": "| registered result |",
+    "why": "table header"
+   },
+   {
+    "phrase": "(post hoc, registered, exploratory, in-sample, held out, weighted)",
+    "why": "the list of scope words the claims check binds"
+   },
+   {
+    "phrase": "**Null safety** is left to the reviewer: the registered null-safety tests on the 70B failed",
+    "why": "names the registered null-safety tests, whose results are bound in Tables 2 and the P1/P2/P6 paragraphs"
+   },
+   {
+    "phrase": "default 30 days",
+    "why": "a setting's default, not a result"
    }
   ],
   "docs/form_notes.md": [
@@ -193,8 +245,103 @@
     "why": "date of OPD's correspondence"
    },
    {
-    "phrase": "from 10 up",
-    "why": "the claims checker's own threshold (integers from 10 are checked)"
+    "phrase": "P6: no registered hypothesis held",
+    "why": "P6's registered result as a statement (no number)"
+   }
+  ]
+ },
+ "small_int_tables": {
+  "technical_report.md": [
+   "| P1 arm",
+   "| P2 arm",
+   "| P6 arm"
+  ]
+ },
+ "pinned": {
+  "README.md": [
+   {
+    "phrase": "AI annotators",
+    "count": 2,
+    "why": "who labelled the gold: blind AI annotators, not people"
+   },
+   {
+    "phrase": "OPD confirmed",
+    "count": 1,
+    "why": "OPD's confirmation of the Bern bug (correspondence, 10 Oct 2026)"
+   },
+   {
+    "phrase": "printed nowhere",
+    "count": 3,
+    "why": "no closed-set arm returned a date printed nowhere"
+   },
+   {
+    "phrase": "only picks values printed in the document",
+    "count": 1,
+    "why": "what Apertus may return"
+   },
+   {
+    "phrase": "model-free",
+    "count": 5,
+    "why": "which repairs and baselines use no model"
+   },
+   {
+    "phrase": "not paired",
+    "count": 1,
+    "why": "P7's date precisions are each on their own promotions"
+   }
+  ],
+  "technical_report.md": [
+   {
+    "phrase": "AI annotators",
+    "count": 1,
+    "why": "who labelled the gold: blind AI annotators, not people"
+   },
+   {
+    "phrase": "OPD confirmed",
+    "count": 1,
+    "why": "OPD's confirmation of the Bern bug (correspondence, 10 Oct 2026)"
+   },
+   {
+    "phrase": "printed nowhere",
+    "count": 2,
+    "why": "no closed-set arm returned a date printed nowhere"
+   },
+   {
+    "phrase": "only picks values printed in the document",
+    "count": 1,
+    "why": "what Apertus may return"
+   },
+   {
+    "phrase": "model-free",
+    "count": 8,
+    "why": "which repairs and baselines use no model"
+   },
+   {
+    "phrase": "not paired",
+    "count": 1,
+    "why": "P7's date precisions are each on their own promotions"
+   }
+  ],
+  "docs/form_notes.md": [
+   {
+    "phrase": "AI annotators",
+    "count": 2,
+    "why": "who labelled the gold: blind AI annotators, not people"
+   },
+   {
+    "phrase": "OPD confirmed",
+    "count": 1,
+    "why": "OPD's confirmation of the Bern bug (correspondence, 10 Oct 2026)"
+   },
+   {
+    "phrase": "model-free",
+    "count": 3,
+    "why": "which repairs and baselines use no model"
+   },
+   {
+    "phrase": "not paired",
+    "count": 1,
+    "why": "P7's date precisions are each on their own promotions"
    }
   ]
  }

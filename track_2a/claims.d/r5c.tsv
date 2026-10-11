@@ -3,7 +3,7 @@ r5c.no_text_oral_all	1,422	site/data.json	headline.periods.all.oral	int	make sit
 r5c.written_missing_all	15,327	site/data.json	headline.periods.all.written_missing	int	make site	docs/viewer.md,docs/census.md	
 r5c.in_writing_all	89,846	site/data.json	headline.periods.all.in_writing	int	make site	docs/viewer.md,docs/census.md,README.md,docs/operations.md	
 r5c.written_missing_share_all	17.1%	site/data.json	headline.periods.all.written_missing/headline.periods.all.in_writing	pct1	make site	docs/viewer.md,docs/census.md	
-r5c.oral_y2425	367	site/data.json	headline.periods.y2425.oral	int	make site	docs/viewer.md,docs/census.md	{"docs/census.md": "367 oral", "docs/viewer.md": "2024–25: 367 oral"}
+r5c.oral_y2425	367	site/data.json	headline.periods.y2425.oral	int	make site	docs/viewer.md,docs/census.md	
 r5c.written_missing_y2425	1,488	site/data.json	headline.periods.y2425.written_missing	int	make site	docs/viewer.md,docs/census.md	
 r5c.in_writing_y2425	12,632	site/data.json	headline.periods.y2425.in_writing	int	make site	docs/viewer.md,docs/census.md	
 r5c.written_missing_share_y2425	11.8%	site/data.json	headline.periods.y2425.written_missing/headline.periods.y2425.in_writing	pct1	make site	docs/viewer.md,docs/census.md	
@@ -11,20 +11,20 @@ r5c.no_text_y2425	1,855	site/data.json	headline.periods.y2425.missing	int	make s
 r5c.vs_typed_oral	1,017	site/data.json	parliaments.oral_reconcile.vs_typed_oral	int	make site	docs/viewer.md,docs/census.md,results/census/interventions_README.md	
 r5c.vs_stub_proxy	1,016	site/data.json	parliaments.oral_reconcile.vs_stub_proxy	int	make site	docs/viewer.md,docs/census.md,results/census/interventions_README.md,docs/operations.md	
 r5c.vs_stub_exact	1,008	results/census/vs_reconcile.json	canonical.value	int	make census	docs/viewer.md,docs/census.md,results/census/interventions_README.md,docs/operations.md	
-r5c.vs_y2425_no_text	315	site/parliaments.csv	row:key=VS;col:y2425_no_answer_text	int	make site	docs/viewer.md	{"docs/viewer.md": "Valais 2024–25: 315"}
-r5c.vs_y2425_oral	305	site/parliaments.csv	row:key=VS;col:y2425_oral	int	make site	docs/viewer.md	{"docs/viewer.md": "305 oral"}
-r5c.vs_y2425_written_missing	10	site/parliaments.csv	row:key=VS;col:y2425_written_missing	int	make site	docs/viewer.md	{"docs/viewer.md": "10 written missing"}
-r5c.vs_y2425_in_writing	271	site/parliaments.csv	row:key=VS;col:y2425_in_writing	int	make site	docs/viewer.md	{"docs/viewer.md": "10 written missing of 271"}
-r5c.shared_measured	1	site/data.json	schema.tested_counts.shared.measured (P8)	int	make site	docs/census.md	{"docs/census.md": "1 measured (the submission date"}
-r5c.shared_untested	6	site/data.json	schema.tested_counts.shared.by definition, untested	int	make site	docs/viewer.md,docs/census.md	{"docs/census.md": "7 shared fields", "docs/viewer.md": "by definition, untested; the submission date"}
-r5c.role_split_measured	5	site/data.json	schema.tested_counts.shared_with_role_split.measured	int	make site	docs/census.md,docs/ech-onepager.md	{"docs/census.md": "the 5 role-split fields", "docs/ech-onepager.md": "all 5 are measured"}
-r5c.gov_rec_labels	183	results/census/comparability.json	government_recommendation.raw_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	docs/viewer.md,docs/census.md,technical_report.md,docs/ech-onepager.md,docs/evaluation.md	{"docs/viewer.md": "0 of 183", "docs/census.md": "0 of 183", "technical_report.md": "0 of 183", "docs/ech-onepager.md": "0 of 183", "docs/evaluation.md": "0 of 183"}
-r5c.days_pooled	68	results/census/answer_days_by_trust.json	pooled.median	int	python -m gegenprobe.census.days_by_trust	docs/viewer.md,docs/census.md	{"docs/census.md": "pooled cross-parliament median (68 days", "docs/viewer.md": "pooled 68"}
-r5c.days_verified	112	results/census/answer_days_by_trust.json	tiers.verified.median	int	python -m gegenprobe.census.days_by_trust	docs/viewer.md,docs/operations.md,technical_report.md,README.md	{"README.md": "verified decision date", "docs/operations.md": "the median is", "docs/viewer.md": "verified 112 days", "technical_report.md": "verified decision date"}
-r5c.days_sitting	79	results/census/answer_days_by_trust.json	tiers.sitting_day.median	int	python -m gegenprobe.census.days_by_trust	docs/viewer.md,README.md,technical_report.md,docs/operations.md	{"docs/viewer.md": "sitting day 79", "README.md": "where it falls on a", "technical_report.md": "weekly sitting", "docs/operations.md": "where it falls on a"}
-r5c.days_mixed	62	results/census/answer_days_by_trust.json	tiers.mixed.median	int	python -m gegenprobe.census.days_by_trust	docs/viewer.md,docs/operations.md	{"docs/viewer.md": "mixed 62", "docs/operations.md": "for mixed and"}
-r5c.days_diffuse	39	results/census/answer_days_by_trust.json	tiers.diffuse.median	int	python -m gegenprobe.census.days_by_trust	docs/viewer.md,technical_report.md,docs/operations.md,README.md	{"README.md": "publication-like", "docs/operations.md": "for diffuse", "docs/viewer.md": "diffuse 39", "technical_report.md": "publication-like"}
+r5c.vs_y2425_no_text	315	site/parliaments.csv	row:key=VS;col:y2425_no_answer_text	int	make site	docs/viewer.md	
+r5c.vs_y2425_oral	305	site/parliaments.csv	row:key=VS;col:y2425_oral	int	make site	docs/viewer.md	
+r5c.vs_y2425_written_missing	10	site/parliaments.csv	row:key=VS;col:y2425_written_missing	int	make site	docs/viewer.md	
+r5c.vs_y2425_in_writing	271	site/parliaments.csv	row:key=VS;col:y2425_in_writing	int	make site	docs/viewer.md	
+r5c.shared_measured	1	site/data.json	schema.tested_counts.shared.measured (P8)	int	make site	docs/census.md	
+r5c.shared_untested	6	site/data.json	schema.tested_counts.shared.by definition, untested	int	make site	docs/viewer.md,docs/census.md	
+r5c.role_split_measured	5	site/data.json	schema.tested_counts.shared_with_role_split.measured	int	make site	docs/census.md,docs/ech-onepager.md	
+r5c.gov_rec_labels	183	results/census/comparability.json	government_recommendation.raw_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	docs/viewer.md,docs/census.md,docs/ech-onepager.md,docs/evaluation.md	
+r5c.days_pooled	68	results/census/answer_days_by_trust.json	pooled.median	int	python -m gegenprobe.census.days_by_trust	docs/viewer.md,docs/census.md	
+r5c.days_verified	112	results/census/answer_days_by_trust.json	tiers.verified.median	int	python -m gegenprobe.census.days_by_trust	docs/viewer.md,docs/operations.md,README.md	
+r5c.days_sitting	79	results/census/answer_days_by_trust.json	tiers.sitting_day.median	int	python -m gegenprobe.census.days_by_trust	docs/viewer.md,README.md,docs/operations.md	
+r5c.days_mixed	62	results/census/answer_days_by_trust.json	tiers.mixed.median	int	python -m gegenprobe.census.days_by_trust	docs/viewer.md,docs/operations.md	
+r5c.days_diffuse	39	results/census/answer_days_by_trust.json	tiers.diffuse.median	int	python -m gegenprobe.census.days_by_trust	docs/viewer.md,docs/operations.md,README.md	
 r5c.days_durations	90,556	results/census/answer_days_by_trust.json	pooled.n	int	python -m gegenprobe.census.days_by_trust	docs/census.md	
-r5c.ne_pooled_days	25	site/parliaments.csv	row:key=NE;col:median_days_all_types	int	make site	results/census/interventions_README.md	{"results/census/interventions_README.md": "Neuchâtel: 25 days pooled"}
-r5c.ne_interp_2015	70	site/parliaments.csv	row:key=NE;col:since2015_median_days_interpellation	int	make site	results/census/interventions_README.md	{"results/census/interventions_README.md": "70 for interpellations since 2015"}
+r5c.ne_pooled_days	25	site/parliaments.csv	row:key=NE;col:median_days_all_types	int	make site	results/census/interventions_README.md	
+r5c.ne_interp_2015	70	site/parliaments.csv	row:key=NE;col:since2015_median_days_interpellation	int	make site	results/census/interventions_README.md	
 r5c.be_verified	2,421	results/census/date_trust.json	bern_verified.date_equal	int	python -m gegenprobe.census.interventions	docs/viewer.md	

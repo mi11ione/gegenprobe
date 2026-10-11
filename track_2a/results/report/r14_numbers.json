@@ -1,0 +1,94 @@
+{
+ "label": "round-14 display numbers from committed files (report/r14_numbers.py)",
+ "coverage": {
+  "written": 91268,
+  "attached": 74519,
+  "repaired": 9720,
+  "row_checked": 9089,
+  "agenda": 592,
+  "review": 39,
+  "share_row_checked": "91.6%",
+  "share_all": "92.3%",
+  "points_unchecked": "0.7",
+  "note": "points_unchecked = the rounded total minus the rounded row-checked share, so the two printed parts add up to the printed 92.3%"
+ },
+ "p1_model_free_cascade": {
+  "label": "POST HOC (not pre-registered): P1 model-free cascade, defined as P6's (eval/posthoc_r6.py)",
+  "arms": {
+   "model_free_cascade": {
+    "n": 154,
+    "exact": 138,
+    "found": [
+     52,
+     64
+    ],
+    "answerless_dated": [
+     4,
+     90
+    ],
+    "wrong_printed": 11,
+    "printed_nowhere": 0,
+    "exact_ci_display": "[83.8, 93.5]"
+   },
+   "apertus_cascade": {
+    "n": 154,
+    "exact": 139,
+    "found": [
+     56,
+     64
+    ],
+    "answerless_dated": [
+     7,
+     90
+    ],
+    "wrong_printed": 11,
+    "printed_nowhere": 0
+   },
+   "rules": {
+    "n": 154,
+    "exact": 135,
+    "found": [
+     47,
+     64
+    ],
+    "answerless_dated": [
+     2,
+     90
+    ],
+    "wrong_printed": 4,
+    "printed_nowhere": 0
+   }
+  },
+  "paired": {
+   "apertus_only_right": 6,
+   "model_free_only_right": 5,
+   "mcnemar_exact_p": 1.0
+  }
+ },
+ "answer_times": {
+  "same_day_parliaments": {
+   "1059": {
+    "name": "Kriens",
+    "opd_plain_median": 0.0,
+    "opd_plain_n": 80,
+    "document_median": 26.5,
+    "document_n": 68,
+    "same_day_share": 0.6625
+   },
+   "VS": {
+    "name": "Valais",
+    "opd_plain_median": 0.0,
+    "opd_plain_n": 2570,
+    "document_median": 100,
+    "document_n": 99,
+    "same_day_share": 0.886
+   }
+  },
+  "names": "Kriens and Valais",
+  "rho_plain": 0.656,
+  "rho_plain_without_same_day": 0.832,
+  "rho_same_affairs": 0.99,
+  "rho_plain_vs_same_affairs": 0.584,
+  "ranked": 17
+ }
+}

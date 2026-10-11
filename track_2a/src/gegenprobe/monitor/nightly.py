@@ -532,6 +532,7 @@ def bytes_summary(single: int, streamed: dict, index: int, ogd: int, local: bool
 def night(offline: bool) -> dict:
     t = {}
     t0 = time.time()
+    retention = None  # network nights: the cache retention result (run.json `cache_retention`)
     NIGHT.mkdir(parents=True, exist_ok=True)
     state, state_alerts = read_state(STATE)
     local = os.environ.get("GP_EXPORTS_DIR")
@@ -545,6 +546,12 @@ def night(offline: bool) -> dict:
             raise BadUserAgent(bad)
         if ua_note(ua):
             print(ua_note(ua), file=sys.stderr, flush=True)
+        # nDSG retention: cached PDFs and texts older than GP_CACHE_MAX_AGE_DAYS (default 30; 0 = never) expire before
+        # the night fetches anything (gegenprobe/cache_retention.py); a malformed setting fails the night
+        from .. import cache_retention
+
+        retention = cache_retention.enforce()
+        print(cache_retention.summary(retention), file=sys.stderr, flush=True)
         opd = Path(local) if local else NIGHT / "opd"
         meta = Path(os.environ["GP_DOCS_META"]) if os.environ.get("GP_DOCS_META") else NIGHT / "docs_meta"
     transfer, idx = 0, None
@@ -667,6 +674,7 @@ def night(offline: bool) -> dict:
         be_repair_retried=len(retry),
         be_repair_carried_review=carried_review,  # seen before, check failed then, not re-checked tonight: still review
         adapter_canary=canary,
+        cache_retention=retention,
         ledger=dict(collections.Counter(r["status"] for r in ledger.values())),
         robots_unreadable=net.robots_report(),
         user_agent=ua,

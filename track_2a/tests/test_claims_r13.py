@@ -59,11 +59,14 @@ def test_r13_new_false_sentence_in_the_body_fails(rows, cfg, doc, anchor):
     assert any("'97.5%'" in e for e in errs) and any("'412'" in e for e in errs), errs
 
 
-def test_r13_p7_lead_numbers_are_bound(rows):
-    """The P7 lead (120/120; 113/120 (94%) vs 127/146 (87%)) is anchored in README, report and form notes."""
+def test_r13_p7_numbers_are_bound(rows):
+    """Round 14: P7 left the headline tiles; its numbers (120/120; 113/120 vs 127/146; 214 vs 369 rows; 86.7%; 146/146)
+    are anchored where the body reports them, in README, report and form notes."""
     anchors = claims.anchor_config()
-    for cid in ("p7.h1.correct", "r13.p7_hit_pct", "r13.p7_trivial_hit", "r13.p7_trivial_pct"):
-        assert {"README.md", "technical_report.md", "docs/form_notes.md"} <= set(anchors[cid]), cid
+    by_id = {r["id"]: r for r in rows}
+    for doc in ("README.md", "technical_report.md", "docs/form_notes.md"):
+        bound = {by_id[c]["shown"] for c, per in anchors.items() if doc in per and c in by_id}
+        assert {"120/120", "113/120", "127/146", "369", "86.7%", "146/146"} <= bound, doc
 
 
 def test_r13_best_no_model_rule_is_the_best(rows):

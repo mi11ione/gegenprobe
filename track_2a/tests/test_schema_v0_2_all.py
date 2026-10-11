@@ -20,8 +20,14 @@ def val(files):
 
 
 def test_committed_files_are_current(files):
-    for name, text in files.items():
-        assert (OUT / name).read_text(encoding="utf-8") == text, f"run python -m gegenprobe.schema.v0_2_all ({name})"
+    """The committed files are this render with the document-parts overlay (gegenprobe.schema.v0_2_parts, round 14);
+    tests/test_schema_v0_2_parts.py checks that stripping the overlay gives this render's records back exactly."""
+    from gegenprobe.schema import v0_2_parts
+
+    over = v0_2_parts.render()
+    assert set(files) <= set(over)
+    for name, text in over.items():
+        assert (OUT / name).read_text(encoding="utf-8") == text, f"run make schema-v02 ({name})"
 
 
 def test_every_record_validates(val):

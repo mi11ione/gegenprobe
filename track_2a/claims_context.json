@@ -1,6 +1,82 @@
 {
+ "breadth.p2.de_commune.pointer.found": {
+  "docs/evaluation.md": "| DE commune |"
+ },
+ "breadth.p2.de_commune.rules.found": {
+  "docs/evaluation.md": "| DE commune |"
+ },
+ "breadth.p2.fr_canton.pointer.exact": {
+  "docs/evaluation.md": "| FR canton |"
+ },
+ "breadth.p2.fr_canton.pointer.found": {
+  "docs/evaluation.md": "| FR canton |"
+ },
+ "breadth.p2.fr_canton.rules.exact": {
+  "docs/evaluation.md": "| FR canton |"
+ },
+ "breadth.p2.fr_canton.rules.found": {
+  "docs/evaluation.md": "| FR canton |"
+ },
+ "breadth.p2.fr_commune.pointer.found": {
+  "docs/evaluation.md": "| FR commune |"
+ },
+ "breadth.p2.fr_commune.rules.found": {
+  "docs/evaluation.md": "| FR commune |"
+ },
+ "breadth.p2.it_commune.pointer.exact": {
+  "docs/evaluation.md": "| IT commune |"
+ },
+ "breadth.p2.it_commune.pointer.found": {
+  "docs/evaluation.md": "| IT commune |"
+ },
+ "breadth.p2.it_commune.rules.exact": {
+  "docs/evaluation.md": "| IT commune |"
+ },
+ "breadth.p2.it_commune.rules.found": {
+  "docs/evaluation.md": "| IT commune |"
+ },
+ "breadth.p2.lang_IT.pointer.found": {
+  "docs/evaluation.md": "by language, pointer",
+  "technical_report.md": "(DE 9/13, FR 10/11, IT"
+ },
+ "breadth.p2.lang_IT.rules.found": {
+  "docs/evaluation.md": "rules DE 0/13"
+ },
  "census.reextract_image_only": {
   "docs/census.md": "sampled documents found"
+ },
+ "compliance.ci_max_concurrent": {
+  "docs/incidents.md": "fetching steps ran at once",
+  "docs/operations.md": "ran at once"
+ },
+ "compliance.download_records": {
+  "docs/incidents.md": "of them downloads"
+ },
+ "compliance.mirror_identical": {
+  "docs/incidents.md": "true for"
+ },
+ "compliance.mirror_mapped": {
+  "docs/incidents.md": "maps"
+ },
+ "compliance.mirror_null": {
+  "docs/incidents.md": "null for"
+ },
+ "compliance.refused": {
+  "docs/incidents.md": "refused"
+ },
+ "compliance.requests_sent": {
+  "docs/incidents.md": "requests to disallowed"
+ },
+ "compliance.ti_discarded": {
+  "docs/incidents.md": "bodies read and discarded"
+ },
+ "compliance.ti_downloads": {
+  "docs/incidents.md": "downloads",
+  "docs/operations.md": "of them downloads"
+ },
+ "compliance.ti_urls": {
+  "docs/incidents.md": "distinct www4.ti.ch URLs",
+  "docs/operations.md": "distinct URLs"
  },
  "cost.calls_per_doc": {
   "docs/operations.md": "held-out documents):"
@@ -154,7 +230,7 @@
  },
  "p2.bodies": {
   "README.md": "parliaments nobody wrote rules for",
-  "docs/form_notes.md": "15 parliaments nobody wrote rules for"
+  "docs/form_notes.md": "that rolls back on any deviation. In"
  },
  "p2.bodies_scope": {
   "docs/evaluation.md": "parliaments without rules"
@@ -226,7 +302,7 @@
  "p7.queue.promoted": {
   "README.md": "promoted_by_apertus",
   "docs/evaluation.md": "promoted_by_apertus",
-  "docs/form_notes.md": "fills a tier of",
+  "docs/form_notes.md": "promotions (not paired), at lower recall",
   "docs/operations.md": "promoted_by_apertus",
   "technical_report.md": "promoted_by_apertus"
  },
@@ -325,30 +401,30 @@
   "docs/census.md": "meaning is measured for 11 of the 17",
   "docs/ech-onepager.md": "measured for 11 of the 17 fields",
   "docs/evaluation.md": "**Meaning tested for 11 of 17 fields.**",
-  "technical_report.md": "Meaning is measured for 11 of 17 fields (Table 1)"
+  "technical_report.md": "meaning is measured for the other"
  },
  "p8.meaning_tested": {
-  "../README.md": "meaning test of 7 fields (P8",
-  "README.md": "test of 7 fields on the documents",
+  "../README.md": "the government's decision, its letter or, in",
+  "README.md": "on the documents of",
   "docs/evaluation.md": "what 7 fields v0.1 defines once",
   "docs/form_notes.md": "test of 7 fields on 66",
   "technical_report.md": "meaning of 7 fields in the documents"
  },
  "p8.n": {
-  "../README.md": "(P8: 66 affairs, 11 parliaments)",
+  "../README.md": "(OPD's labels and",
   "README.md": "On 66 fresh affairs from",
   "docs/ech-onepager.md": "fields on 66 fresh affairs",
   "docs/evaluation.md": "| P8 | 66 fresh affairs, 11 parliaments |",
   "docs/form_notes.md": "on 66 affairs from 11 parliaments",
-  "technical_report.md": "on 66 affairs from 11 parliaments"
+  "technical_report.md": "on the documents of"
  },
  "p8.parliaments": {
-  "../README.md": "(P8: 66 affairs, 11 parliaments)",
+  "../README.md": "meaning is measured for the other",
   "README.md": "affairs from 11 parliaments, labelled blind",
   "docs/ech-onepager.md": "11 parliaments (P8) finds roles",
   "docs/evaluation.md": "| P8 | 66 fresh affairs, 11 parliaments |",
   "docs/form_notes.md": "66 affairs from 11 parliaments (P8)",
-  "technical_report.md": "66 affairs from 11 parliaments (P8)"
+  "technical_report.md": "meaning is measured for the other"
  },
  "p8.posthoc.qwen_joint_as_first": {
   "docs/evaluation.md": "p8_posthoc.json`): in 18",
@@ -411,39 +487,230 @@
   "docs/ech-onepager.md": "In 7 of",
   "technical_report.md": "in 7 of 54 bodies"
  },
- "question.median_days_question_time": {},
  "question.same_day_bodies": {
   "README.md": "in 7 parliaments",
   "docs/ech-onepager.md": "of 54 bodies",
-  "docs/form_notes.md": "parliaments mostly the submission date",
-  "technical_report.md": "parliaments OPD's"
+  "docs/form_notes.md": "in 7 parliaments, mostly",
+  "technical_report.md": "in 7 parliaments, mostly the submission date"
+ },
+ "r10.fetch_hours": {
+  "README.md": "hours for"
+ },
+ "r10.nightly_busiest_min_8b": {
+  "README.md": "in the busiest month)"
+ },
+ "r10.nightly_min_8b": {
+  "README.md": "minutes on the 8B",
+  "technical_report.md": "take about 34 minutes"
+ },
+ "r10.p2_pointer_answerless": {
+  "technical_report.md": "| **pointer** | **53/62**"
+ },
+ "r10.p7_p7_recall": {
+  "docs/evaluation.md": "attainable recall",
+  "src/gegenprobe/viewer/template.html": "attainable recall",
+  "technical_report.md": "attainable recall"
+ },
+ "r10.p7_queue_eligible": {
+  "docs/evaluation.md": "eligible queue rows against"
+ },
+ "r10.p7_rule_queue": {
+  "README.md": "(369 vs 214)",
+  "docs/evaluation.md": "of the 863 eligible queue rows",
+  "docs/form_notes.md": "rows). Where rules exist it adds one",
+  "technical_report.md": "vs 214 queue rows"
+ },
+ "r10.p7_rule_recall": {
+  "docs/evaluation.md": "attainable recall",
+  "src/gegenprobe/viewer/template.html": "attainable recall",
+  "technical_report.md": "attainable recall"
+ },
+ "r10.p8_fribourg_out": {
+  "docs/evaluation.md": "Fribourg affairs (4/6 in E)"
+ },
+ "r10.p8_gold_date": {
+  "docs/evaluation.md": "Graubünden) instead of"
+ },
+ "r10.p8_gold_submitter": {
+  "docs/evaluation.md": "(Valais, Vaud, Graubünden) instead of"
+ },
+ "r10.p8_qwen_date": {
+  "docs/evaluation.md": "the submission date in"
+ },
+ "r10.p8_qwen_submitter": {
+  "docs/evaluation.md": "the submitter deviates in"
+ },
+ "r11.adapters_with_counted": {
+  "../README.md": "with counted repairs",
+  "README.md": "with counted repairs",
+  "docs/form_notes.md": "with counted repairs",
+  "technical_report.md": "yield counted rows) verify"
+ },
+ "r11.p7_h4_unweighted": {
+  "README.md": "unweighted",
+  "technical_report.md": "unweighted"
+ },
+ "r11.p8_robust_role_split": {
+  "docs/form_notes.md": "4 split by"
+ },
+ "r11.schema_body_specific": {
+  "../README.md": "is body-specific",
+  "README.md": "is body-specific",
+  "docs/form_notes.md": "the submission date. Body-specific:",
+  "technical_report.md": "the submission date"
+ },
+ "r11.schema_fields": {
+  "../README.md": "fields for communal, cantonal and federal business;",
+  "README.md": "fields for communal, cantonal and federal business;",
+  "docs/form_notes.md": "fields for communal, cantonal and federal business,",
+  "technical_report.md": "fields for communal, cantonal and federal business;"
+ },
+ "r11.schema_one_definition": {
+  "../README.md": "fields,** defined once in",
+  "README.md": "fields,** defined once in",
+  "docs/form_notes.md": "answers, executive business, minutes-only councils). Untested:",
+  "technical_report.md": "fields**, defined once in"
+ },
+ "r11.schema_role_split": {
+  "../README.md": "fields:** \"answer date\" is the government's decision,",
+  "README.md": "- **Needs roles:",
+  "docs/form_notes.md": "fields; \"answer date\" is the government's decision,",
+  "technical_report.md": "every gap a typed reason. *Needs roles:*"
+ },
+ "r11.spotcheck_rows": {
+  "README.md": "gold labels with link",
+  "technical_report.md": "-row spot-check kit"
+ },
+ "r11.v02_p8_valid": {
+  "README.md": "and the 66 P8 affairs",
+  "docs/ech-onepager.md": "and the 66 P8 affairs"
+ },
+ "r12.p2_best_nomodel_answerless": {
+  "technical_report.md": "| *trivial: latest date, answer-typed docs* | *44/62*"
+ },
+ "r12.p2_best_nomodel_wrong": {
+  "technical_report.md": "| *trivial: latest date, answer-typed docs* | *44/62*"
+ },
+ "r12.p3_bodies": {
+  "README.md": "| P3 | 29 whole affairs,",
+  "technical_report.md": "29 whole affairs, 10 parliaments"
+ },
+ "r12.p4_items": {
+  "README.md": "agenda items, 6 sittings",
+  "technical_report.md": "| P4 | 120 agenda items"
+ },
+ "r12.p5_bodies": {
+  "README.md": "| P5 | 40 fresh affairs,",
+  "technical_report.md": "40 fresh affairs, 10 parliaments"
+ },
+ "r12.readme.matrix.addressed_body.metadata": {
+  "README.md": "| addressed body |"
+ },
+ "r12.readme.matrix.addressed_body.mixed": {
+  "README.md": "| addressed body |"
+ },
+ "r12.readme.matrix.addressed_body.no_source": {
+  "README.md": "| addressed body |"
+ },
+ "r12.readme.matrix.addressed_body.pdf": {
+  "README.md": "| addressed body |"
+ },
+ "r12.readme.matrix.co_signatories.metadata": {
+  "README.md": "| co-signatories |"
+ },
+ "r12.readme.matrix.co_signatories.mixed": {
+  "README.md": "| co-signatories |"
+ },
+ "r12.readme.matrix.co_signatories.no_source": {
+  "README.md": "| co-signatories |"
+ },
+ "r12.readme.matrix.co_signatories.pdf": {
+  "README.md": "| co-signatories |"
+ },
+ "r12.readme.matrix.date_answer.metadata": {
+  "README.md": "| answer date |"
+ },
+ "r12.readme.matrix.date_answer.mixed": {
+  "README.md": "| answer date |"
+ },
+ "r12.readme.matrix.language.metadata": {
+  "README.md": "| language |"
+ },
+ "r12.readme.matrix.language.mixed": {
+  "README.md": "| language |"
+ },
+ "r12.readme.matrix.language.no_source": {
+  "README.md": "| language |"
+ },
+ "r12.readme.matrix.language.pdf": {
+  "README.md": "| language |"
+ },
+ "r12.readme.matrix.submitter.metadata": {
+  "README.md": "| submitter |"
+ },
+ "r12.readme.matrix.submitter.mixed": {
+  "README.md": "| submitter |"
+ },
+ "r12.readme.matrix.submitter.no_source": {
+  "README.md": "| submitter |"
+ },
+ "r12.readme.matrix.submitter.pdf": {
+  "README.md": "| submitter |"
+ },
+ "r12.relink_review": {
+  "README.md": "for review, and 49 fetch",
+  "docs/form_notes.md": "candidates, 38",
+  "technical_report.md": "to review. The document `hash` is"
+ },
+ "r12.verdict_defined_once": {
+  "../README.md": "fields,** defined once in",
+  "README.md": "fields,** defined once in",
+  "docs/ech-onepager.md": "6 defined once in v0.1",
+  "docs/form_notes.md": "answers, executive business, minutes-only councils). Untested:",
+  "technical_report.md": "fields**, defined once in"
+ },
+ "r12.verdict_fragile": {
+  "../README.md": "fragile",
+  "README.md": "fragile",
+  "docs/ech-onepager.md": "fragile",
+  "docs/form_notes.md": "answer dates on new layouts, the rules",
+  "technical_report.md": "fragile"
+ },
+ "r12.verdict_robust": {
+  "../README.md": "robust",
+  "docs/ech-onepager.md": "robust",
+  "docs/form_notes.md": "robust"
  },
  "r13.at_min_n": {
   "README.md": "with at least 20",
   "technical_report.md": "with at least 20"
  },
  "r13.at_vs_after": {
-  "README.md": "in 61 of its 163",
-  "technical_report.md": "in 61 of its 163"
+  "README.md": "sole, joint or group author | partly:",
+  "technical_report.md": "sole, joint or group author | partly:"
  },
- "r13.at_vs_rows": {
-  "README.md": "in 61 of its 163",
-  "technical_report.md": "in 61 of its 163"
+ "r13.audit3_decoys": {
+  "technical_report.md": "60 decoys"
  },
  "r13.conv_affairs": {
   "README.md": "of the 105 converter affairs"
  },
  "r13.conv_authors": {
-  "README.md": "75 of its 105 records",
-  "docs/form_notes.md": "75 of its 105 records",
+  "README.md": "carry printed authors with their role,",
   "technical_report.md": "75 of its 105 records"
  },
  "r13.conv_function": {
   "README.md": "78 the instrument's function"
  },
  "r13.conv_language_all": {
-  "README.md": "all 105 the language",
-  "technical_report.md": "all 105 the language"
+  "README.md": "converter affairs;",
+  "technical_report.md": "records carry printed authors with their role);"
+ },
+ "r13.fed_lang_a": {
+  "README.md": "15 answer documents"
+ },
+ "r13.fed_lang_q": {
+  "README.md": "language of all 15 question"
  },
  "r13.fed_n": {
   "README.md": "On 15 Federal Council answers",
@@ -454,20 +721,17 @@
   "README.md": "22 Ticino scans",
   "technical_report.md": "22 Ticino scans"
  },
- "r13.p7_hit_pct": {
-  "../README.md": "answer date on 113/120",
-  "README.md": "answer date on 113/120",
-  "docs/form_notes.md": "gold answer date in 113/120",
-  "technical_report.md": "gold answer date in 113/120"
+ "r13.p1_latest_n": {
+  "technical_report.md": "answer-typed documents (131)"
  },
- "r13.p7_rule_pct": {
-  "README.md": "127/157 (81%)"
+ "r13.p1_rules_n": {
+  "technical_report.md": "the rules (135)"
  },
- "r13.p7_trivial_pct": {
-  "../README.md": "127/146 (87%)",
-  "README.md": "127/146 (87%)",
-  "docs/form_notes.md": "127/146 (87%)",
-  "technical_report.md": "127/146 (87%)"
+ "r13.p2_h2_p": {
+  "technical_report.md": "loses on 4 (p = 5.3"
+ },
+ "r13.p5_h4_b": {
+  "technical_report.md": "free generation: 79:11"
  },
  "r13.pg_begin": {
   "README.md": "554\n  `begin_date` corrections"
@@ -477,34 +741,247 @@
  },
  "r13.ranked": {
   "README.md": "17 parliaments with at least",
-  "docs/form_notes.md": "14th of 17",
+  "docs/form_notes.md": "fields for communal, cantonal and federal business,",
   "technical_report.md": "17 parliaments with at least"
  },
  "r13.tagged_docs": {
   "README.md": "of the 130 tagged"
  },
  "r13.v02_fed_affairs": {
+  "../README.md": "parliament-cluster p =",
   "README.md": "186 affairs from",
+  "docs/form_notes.md": "parliaments, communal, cantonal and federal, validate in",
   "technical_report.md": "186 affairs from"
  },
  "r13.v02_fed_parliaments": {
+  "../README.md": "parliaments, communal, cantonal and federal, validate in",
   "README.md": "from 26 parliaments",
+  "docs/form_notes.md": "parliaments, communal, cantonal and federal, validate in",
   "technical_report.md": "from 26 parliaments"
  },
  "r13.vs_median_doc": {
-  "README.md": "14th (100 days)",
-  "technical_report.md": "14th (100 days)"
+  "README.md": "days in Kriens and",
+  "technical_report.md": "days; the answer documents give"
  },
  "r13.xl_first_pair_cross": {
-  "README.md": "in 214 of 1,999",
-  "docs/form_notes.md": "(214 of 1,999",
-  "technical_report.md": "(214 of 1,999"
+  "README.md": "in 214 of 1,999"
  },
  "r13.xl_gr": {
   "README.md": "Graubünden 148"
  },
  "r13.xl_vs": {
   "README.md": "Valais 63"
+ },
+ "r14.at_kriens_plain_n": {
+  "docs/census.md": "affairs; Valais,"
+ },
+ "r14.at_ranked": {
+  "README.md": "parliaments with at least",
+  "docs/census.md": "by definition, untested; meaning is measured for",
+  "technical_report.md": "parliaments with at least"
+ },
+ "r14.at_valais_doc": {
+  "README.md": "days in Kriens and",
+  "docs/census.md": "Elsewhere the ranking holds; post hoc, descriptive.",
+  "docs/form_notes.md": "on the same affairs OPD's and the",
+  "technical_report.md": "days; the answer documents give"
+ },
+ "r14.cc_adapter": {
+  "README.md": "| source adapter |",
+  "docs/converter-coverage.md": "source adapter,",
+  "technical_report.md": "a source adapter but no rules"
+ },
+ "r14.cc_adapter_tested": {
+  "README.md": "| flagged for review (`no_rules_for_body`); a model-free"
+ },
+ "r14.cc_bodies": {
+  "README.md": "`results/convert/coverage_by_parliament.json`). Of",
+  "docs/converter-coverage.md": "frozen rules,",
+  "technical_report.md": "record. **Coverage per parliament** (`docs/converter-coverage.md`): of"
+ },
+ "r14.cc_matrix": {
+  "README.md": "of the feasibility matrix and"
+ },
+ "r14.cc_meta": {
+  "README.md": "| metadata only |",
+  "docs/converter-coverage.md": "source adapter,",
+  "technical_report.md": "a source adapter but no rules"
+ },
+ "r14.cc_meta_tested": {
+  "README.md": "| flagged for review (`no_rules_for_body`) |"
+ },
+ "r14.cc_rules": {
+  "README.md": "| frozen rules |",
+  "docs/converter-coverage.md": "frozen rules,",
+  "technical_report.md": "bodies, the frozen rules cover"
+ },
+ "r14.cc_rules_tested": {
+  "README.md": "| frozen rules |"
+ },
+ "r14.cc_tested": {
+  "README.md": "appear in at least one test and",
+  "docs/converter-coverage.md": "appear in at least one test,",
+  "technical_report.md": "appear in a test. **Schema and validator**"
+ },
+ "r14.cc_v02": {
+  "README.md": "parliaments (`results/fed/fed_tables.json`).",
+  "docs/converter-coverage.md": "appear in at least one test,"
+ },
+ "r14.cov_agenda": {
+  "../README.md": "agenda joins and",
+  "README.md": "agenda joins (OPD's own agenda link, not",
+  "docs/form_notes.md": "agenda joins and",
+  "technical_report.md": "answers OPD files under an agenda item"
+ },
+ "r14.cov_review": {
+  "../README.md": "agenda joins and",
+  "README.md": "Bern rows in review. In a blind",
+  "docs/form_notes.md": "agenda joins and",
+  "technical_report.md": "agenda joins and"
+ },
+ "r14.cov_unchecked_points": {
+  "../README.md": "from row-checked repairs +",
+  "README.md": "from row-checked repairs +",
+  "docs/form_notes.md": "from row-checked repairs +",
+  "technical_report.md": "from row-checked repairs +"
+ },
+ "r14.p1_mfc_found": {
+  "technical_report.md": "| *model-free cascade (post hoc)* |"
+ },
+ "r14.p1_mfc_wrong": {
+  "technical_report.md": "| *model-free cascade (post hoc)* |"
+ },
+ "r14.tbl.p1.cascade.answerless": {
+  "technical_report.md": "| cascade | 139/154 [84.6, 94] | 56 | 11 | 0 | 7 |"
+ },
+ "r14.tbl.p1.cascade.found": {
+  "technical_report.md": "| cascade | 139/154 [84.6, 94] | 56 |"
+ },
+ "r14.tbl.p1.cascade.invented": {
+  "technical_report.md": "| cascade | 139/154 [84.6, 94] | 56 | 11 | 0 |"
+ },
+ "r14.tbl.p1.cascade.wrong": {
+  "technical_report.md": "| cascade | 139/154 [84.6, 94] | 56 | 11 |"
+ },
+ "r14.tbl.p1.model_free_cascade_post_hoc.answerless": {
+  "technical_report.md": "| *model-free cascade (post hoc)* | *138/154 [83.8, 93.5]* |"
+ },
+ "r14.tbl.p1.model_free_cascade_post_hoc.found": {
+  "technical_report.md": "| *model-free cascade (post hoc)* | *138/154 [83.8, 93.5]* |"
+ },
+ "r14.tbl.p1.model_free_cascade_post_hoc.invented": {
+  "technical_report.md": "| *model-free cascade (post hoc)* | *138/154 [83.8, 93.5]* |"
+ },
+ "r14.tbl.p1.model_free_cascade_post_hoc.wrong": {
+  "technical_report.md": "| *model-free cascade (post hoc)* | *138/154 [83.8, 93.5]* |"
+ },
+ "r14.tbl.p1.naive_null_allowed.answerless": {
+  "technical_report.md": "| naive, null-allowed | 134/154 [80.8, 91.4] | 47 | 11 | 0 |"
+ },
+ "r14.tbl.p1.naive_null_allowed.found": {
+  "technical_report.md": "| naive, null-allowed | 134/154 [80.8, 91.4] | 47 |"
+ },
+ "r14.tbl.p1.naive_null_allowed.invented": {
+  "technical_report.md": "| naive, null-allowed | 134/154 [80.8, 91.4] | 47 | 11 | 0 |"
+ },
+ "r14.tbl.p1.naive_null_allowed.wrong": {
+  "technical_report.md": "| naive, null-allowed | 134/154 [80.8, 91.4] | 47 | 11 |"
+ },
+ "r14.tbl.p1.pointer.answerless": {
+  "technical_report.md": "| pointer | 130/154 [77.9, 89.3] | 46 | 16 | 0 | 6 |"
+ },
+ "r14.tbl.p1.pointer.found": {
+  "technical_report.md": "| pointer | 130/154 [77.9, 89.3] | 46 |"
+ },
+ "r14.tbl.p1.pointer.invented": {
+  "technical_report.md": "| pointer | 130/154 [77.9, 89.3] | 46 | 16 | 0 |"
+ },
+ "r14.tbl.p1.pointer.wrong": {
+  "technical_report.md": "| pointer | 130/154 [77.9, 89.3] | 46 | 16 |"
+ },
+ "r14.tbl.p1.rules_only_default.answerless": {
+  "technical_report.md": "| **rules only (default)** | **135/154 [81.5, 92]** | 47 | 4"
+ },
+ "r14.tbl.p1.rules_only_default.found": {
+  "technical_report.md": "| **rules only (default)** | **135/154 [81.5, 92]** | 47 |"
+ },
+ "r14.tbl.p1.rules_only_default.invented": {
+  "technical_report.md": "| **rules only (default)** | **135/154 [81.5, 92]** | 47 | 4"
+ },
+ "r14.tbl.p1.rules_only_default.wrong": {
+  "technical_report.md": "| **rules only (default)** | **135/154 [81.5, 92]** | 47 | 4"
+ },
+ "r14.tbl.p1.trivial_latest_date_answer_typ.answerless": {
+  "technical_report.md": "| *trivial: latest date, answer-typed docs* | *131/154 [78.6"
+ },
+ "r14.tbl.p1.trivial_latest_date_answer_typ.found": {
+  "technical_report.md": "| *trivial: latest date, answer-typed docs* | *131/154 [78.6"
+ },
+ "r14.tbl.p1.trivial_latest_date_answer_typ.invented": {
+  "technical_report.md": "| *trivial: latest date, answer-typed docs* | *131/154 [78.6"
+ },
+ "r14.tbl.p1.trivial_latest_date_answer_typ.wrong": {
+  "technical_report.md": "| *trivial: latest date, answer-typed docs* | *131/154 [78.6"
+ },
+ "r14.tbl.p2.naive_null_allowed_re_parsed_d.answerless": {
+  "technical_report.md": "| naive, null-allowed, re-parsed (D2-4) | 54/62 | 24/29 | 7 "
+ },
+ "r14.tbl.p2.naive_null_allowed_re_parsed_d.invented": {
+  "technical_report.md": "| naive, null-allowed, re-parsed (D2-4) | 54/62 | 24/29 | 7 "
+ },
+ "r14.tbl.p2.naive_null_allowed_re_parsed_d.wrong": {
+  "technical_report.md": "| naive, null-allowed, re-parsed (D2-4) | 54/62 | 24/29 | 7 "
+ },
+ "r14.tbl.p2.pointer.answerless": {
+  "technical_report.md": "| **pointer** | **53/62** [74.7, 92.2] | **24/29** [65.5, 92"
+ },
+ "r14.tbl.p2.pointer.invented": {
+  "technical_report.md": "| **pointer** | **53/62** [74.7, 92.2] | **24/29** [65.5, 92"
+ },
+ "r14.tbl.p2.pointer.wrong": {
+  "technical_report.md": "| **pointer** | **53/62** [74.7, 92.2] | **24/29** [65.5, 92"
+ },
+ "r14.tbl.p2.rules_only.answerless": {
+  "technical_report.md": "| rules only | 35/62 [44.1, 68.1] | **2/29** [1.9, 22] | 2 |"
+ },
+ "r14.tbl.p2.rules_only.invented": {
+  "technical_report.md": "| rules only | 35/62 [44.1, 68.1] | **2/29** [1.9, 22] | 2 |"
+ },
+ "r14.tbl.p2.rules_only.wrong": {
+  "technical_report.md": "| rules only | 35/62 [44.1, 68.1] | **2/29** [1.9, 22] | 2 |"
+ },
+ "r14.tbl.p2.trivial_latest_date_answer_typ.answerless": {
+  "technical_report.md": "| *trivial: latest date, answer-typed docs* | *44/62* | *18/"
+ },
+ "r14.tbl.p2.trivial_latest_date_answer_typ.invented": {
+  "technical_report.md": "| *trivial: latest date, answer-typed docs* | *44/62* | *18/"
+ },
+ "r14.tbl.p2.trivial_latest_date_answer_typ.wrong": {
+  "technical_report.md": "| *trivial: latest date, answer-typed docs* | *44/62* | *18/"
+ },
+ "r14.tbl.p2.trivial_latest_printed_date.answerless": {
+  "technical_report.md": "| *trivial: latest printed date* | *24/62* | *22/29* | *38* "
+ },
+ "r14.tbl.p2.trivial_latest_printed_date.invented": {
+  "technical_report.md": "| *trivial: latest printed date* | *24/62* | *22/29* | *38* "
+ },
+ "r14.tbl.p2.trivial_latest_printed_date.wrong": {
+  "technical_report.md": "| *trivial: latest printed date* | *24/62* | *22/29* | *38* "
+ },
+ "r14.tbl.p6.cascade_v2_rules_then_v2.printed_nowhere": {
+  "technical_report.md": "| cascade v2 (rules, then v2) | 60/68 | 31/34 | 5/34 | 0 |"
+ },
+ "r14.tbl.p6.free_prompt_null_allowed.printed_nowhere": {
+  "technical_report.md": "| free prompt, null allowed | **62/68** | 32/34 | 4/34 | 0 |"
+ },
+ "r14.tbl.p6.rules_only.printed_nowhere": {
+  "technical_report.md": "| rules only | 54/68 | 20/34 | 0/34 | 0 |"
+ },
+ "r14.tbl.p6.trivial_latest_date_answer_typ.printed_nowhere": {
+  "technical_report.md": "| *trivial: latest date, answer-typed docs* | *51/68* | *25/"
+ },
+ "r14.tbl.p6.v2.printed_nowhere": {
+  "technical_report.md": "| v2 | 59/68 | 30/34 | 5/34 | 0 |"
  },
  "r2a.p2_bodies_pointer": {
   "docs/evaluation.md": "on answered documents the pointer is ahead in"
@@ -521,16 +998,58 @@
  "r2a.p3_related_precision": {
   "docs/evaluation.md": "related affairs (rules) precision"
  },
+ "r2d1.opdtext_docs": {
+  "docs/convert-your-own.md": "held-out documents of Collombey-Muraz"
+ },
+ "r2d1.rule_datum_rr": {
+  "docs/convert-your-own.md": "`datum_rr_sitzung`"
+ },
+ "r2d1.rule_rrb_vom": {
+  "docs/convert-your-own.md": "`rrb_vom`"
+ },
+ "r2d2.alt_rows_changed": {
+  "results/census/interventions_README.md": "Changes"
+ },
+ "r2d2.sh_median_alt": {
+  "results/census/interventions_README.md": "Schaffhausen"
+ },
+ "r2d2.sh_median_census": {
+  "results/census/interventions_README.md": "Schaffhausen"
+ },
+ "r2w.bern_review": {
+  "docs/operations.md": "relink candidates = 2,421"
+ },
  "r2w.local_transfer_bytes": {
   "docs/operations.md": "bytes of export transfer"
+ },
+ "r2w.p2_baseline_misattributed": {
+  "docs/evaluation.md": "OPD types as answers (post hoc)* |"
+ },
+ "r2w.p2_baseline_on_null": {
+  "docs/evaluation.md": "OPD types as answers (post hoc)* |"
+ },
+ "r2w.p2_body_ties": {
+  "docs/evaluation.md": "the rules in 0, 1 tie"
  },
  "r2w.p2_cascade_answerless": {
   "docs/evaluation.md": ", answerless 4, missed 1",
   "technical_report.md": "| cascade | 51/62"
  },
+ "r2w.p2_cascade_missed": {
+  "docs/evaluation.md": "answerless 4, missed"
+ },
+ "r2w.p2_cascade_rule_wrong": {
+  "docs/evaluation.md": "abstain: on"
+ },
+ "r2w.p2_cascade_wrong": {
+  "docs/evaluation.md": "rules + Apertus are right on 51, wrong"
+ },
  "r2w.p2_pointer_answerless": {
   "docs/evaluation.md": "| **Apertus pointer** |",
   "technical_report.md": "answerless dated"
+ },
+ "r2w.p2_pointer_missed": {
+  "docs/evaluation.md": "answerless documents and misses"
  },
  "r2w.p2_pointer_wrong": {
   "docs/evaluation.md": "picks a wrong printed date on",
@@ -538,6 +1057,30 @@
  },
  "r2w.p2_rules_answerless": {
   "technical_report.md": "answerless dated"
+ },
+ "r2w.p2_rules_missed": {
+  "docs/evaluation.md": "answerless documents and miss"
+ },
+ "r2w.p2_rules_wrong": {
+  "docs/evaluation.md": "the rules are right on 35, pick a"
+ },
+ "r2w.p4_h3_p": {
+  "docs/evaluation.md": "decisions (p ="
+ },
+ "r2w.p4t_items": {
+  "docs/evaluation.md": "La Chaux-de-Fonds; items"
+ },
+ "r2w.p4t_review_correct": {
+  "docs/evaluation.md": "decisions, and with Apertus"
+ },
+ "r2w.p4t_review_found": {
+  "docs/evaluation.md": "decisions, and with Apertus"
+ },
+ "r2w.p4t_rules_decisions": {
+  "docs/evaluation.md": "decisions, and with Apertus"
+ },
+ "r2w.p4t_titles": {
+  "docs/evaluation.md": "but the rules find"
  },
  "r2w.procedural_state_ambiguous": {
   "README.md": "state labels",
@@ -551,6 +1094,36 @@
   "docs/operations.md": "the rules themselves",
   "technical_report.md": "the rules process"
  },
+ "r2w.transfer_dec_agree": {
+  "docs/evaluation.md": "agreed on 7/9"
+ },
+ "r2w.transfer_dec_kappa": {
+  "docs/evaluation.md": "κ 0.4"
+ },
+ "r2w.x10_rules_cpu_hours": {
+  "docs/operations.md": "the rules need about"
+ },
+ "r3w1.P1_naive_null_reparsed_fabricated": {
+  "docs/evaluation.md": "null-allowed, re-parsed (post hoc, D5)"
+ },
+ "r3w1.P1_naive_null_reparsed_misattributed": {
+  "docs/evaluation.md": "null-allowed, re-parsed (post hoc, D5)"
+ },
+ "r3w1.P1_naive_null_reparsed_on_null": {
+  "docs/evaluation.md": "null-allowed, re-parsed (post hoc, D5)"
+ },
+ "r3w1.P1_naive_plain_reparsed_misattributed": {
+  "docs/evaluation.md": "plain, re-parsed (post hoc, D5)"
+ },
+ "r3w1.P1_naive_plain_reparsed_on_null": {
+  "docs/evaluation.md": "plain, re-parsed (post hoc, D5)"
+ },
+ "r3w1.P2_gold_value_bodies": {
+  "docs/evaluation.md": "with an answer date, from"
+ },
+ "r3w1.P2_naive_null_reparsed_fabricated": {
+  "technical_report.md": "null-allowed, re-parsed (D2-4)"
+ },
  "r3w1.P2_naive_null_reparsed_misattributed": {
   "docs/evaluation.md": "null-allowed, re-parsed (post hoc, D2-4)",
   "technical_report.md": "null-allowed, re-parsed (D2-4)"
@@ -559,10 +1132,64 @@
   "docs/evaluation.md": "null-allowed, re-parsed (post hoc, D2-4)",
   "technical_report.md": "null-allowed, re-parsed (D2-4)"
  },
+ "r3w1.P2_naive_plain_reparsed_fabricated": {
+  "docs/evaluation.md": "plain, re-parsed (post hoc, D2-4)"
+ },
+ "r3w1.P2_naive_plain_reparsed_misattributed": {
+  "docs/evaluation.md": "plain, re-parsed (post hoc, D2-4)"
+ },
+ "r3w1.P2_naive_plain_reparsed_on_null": {
+  "docs/evaluation.md": "plain, re-parsed (post hoc, D2-4)"
+ },
+ "r3w1.P2_oracle_opd": {
+  "docs/evaluation.md": "exact external source ("
+ },
+ "r3w1.P2_pointer_vs_gated_a_only": {
+  "docs/evaluation.md": "documents the baseline gets wrong"
+ },
+ "r3w1.P2_pointer_vs_gated_b_only": {
+  "docs/evaluation.md": "the baseline gets wrong and the baseline on"
+ },
+ "r3w1.P2_pointer_vs_gated_bodies_a": {
+  "docs/evaluation.md": "(p = 0.012), 6 parliaments"
+ },
+ "r3w1.P2_pointer_vs_gated_bodies_b": {
+  "docs/evaluation.md": "(p = 0.012), 6 parliaments"
+ },
+ "r3w1.P2_pointer_vs_naivenull_a_only": {
+  "docs/evaluation.md": "discordant 1 vs 0"
+ },
+ "r3w1.P2_pointer_vs_naivenull_b_only": {
+  "docs/evaluation.md": "discordant 1 vs 0"
+ },
+ "r3w1.P2_pointer_vs_naivenull_p": {
+  "docs/evaluation.md": "discordant 1 vs 0"
+ },
+ "r3w1.P2_pointer_vs_rules_a_only": {
+  "docs/evaluation.md": "all 62 it is"
+ },
+ "r3w1.P2_pointer_vs_rules_b_only": {
+  "docs/evaluation.md": "all 62 it is"
+ },
  "r3w3.coverage_gap_bodies": {
   "README.md": "31 parliaments where OPD holds",
   "docs/operations.md": "parliaments whose",
   "technical_report.md": "parliaments with almost no answers in OPD"
+ },
+ "r3w3.full_rescan_cpu_min": {
+  "docs/nightly.md": "of one core",
+  "docs/operations.md": "of one core"
+ },
+ "r3w3.gap_oral_question_time": {
+  "docs/census.md": "question-time answers",
+  "docs/operations.md": "question-time answers"
+ },
+ "r3w3.gap_oral_question_time_gr": {
+  "docs/census.md": "Graubünden",
+  "docs/operations.md": "Fragestunde"
+ },
+ "r3w4.P1_gold_dates": {
+  "docs/evaluation.md": "P1 answer dates"
  },
  "r3w4.P1_oracle_checkable": {
   "docs/ech-onepager.md": "checkable documents",
@@ -574,6 +1201,9 @@
   "docs/evaluation.md": "of the other 7 are",
   "technical_report.md": "of the other 7 are"
  },
+ "r3w4.P2_oracle_checkable": {
+  "docs/evaluation.md": "of its 29 dates have"
+ },
  "r3w4.ci_claims_checked": {
   "README.md": "claims were checked",
   "technical_report.md": "claims were checked"
@@ -582,14 +1212,188 @@
   "README.md": "claims were checked with",
   "technical_report.md": "claims were checked,"
  },
+ "r4a.gold_p1_checked": {
+  "docs/evaluation.md": "checked, 0 gold errors"
+ },
+ "r4a.gold_p1_errors": {
+  "docs/evaluation.md": "gold errors"
+ },
+ "r4a.mult_m": {
+  "README.md": "registered confirmatory tests",
+  "docs/evaluation.md": "registered confirmatory tests"
+ },
+ "r4a.mult_survive_holm": {
+  "docs/evaluation.md": "conclusions that"
+ },
+ "r4a.p2_all_bodies_pointer": {
+  "docs/evaluation.md": "counting a right null as a success"
+ },
+ "r4a.p2_all_bodies_rules": {
+  "docs/evaluation.md": "counting a right null as a success"
+ },
+ "r4a.p2_all_bodies_ties": {
+  "docs/evaluation.md": "pointer dates some) and"
+ },
+ "r4a.p3b_lu_cases": {
+  "docs/evaluation.md": "and in 3 of them, all in"
+ },
+ "r4a.served_p2_entries": {
+  "docs/evaluation.md": "every P1 (1,542) and P2"
+ },
+ "r4a.theta8b_dev_flips_plus": {
+  "docs/evaluation.md": "of 97 dev decisions"
+ },
+ "r4c.70b_cascade_on_null": {
+  "docs/viewer.md": "70B:"
+ },
+ "r4c.8b_cascade_on_null": {
+  "README.md": "25 of the 90 answerless",
+  "docs/viewer.md": "answerless",
+  "technical_report.md": "119/154, 25 of 90"
+ },
+ "r4c.lugano_list_page": {
+  "docs/viewer.md": "Lugano"
+ },
+ "r4c.p3b_answer_lost": {
+  "docs/viewer.md": "Luzern affairs"
+ },
+ "r4c.sample_char_end": {
+  "docs/viewer.md": "characters"
+ },
+ "r4c.sample_char_start": {
+  "docs/viewer.md": "characters"
+ },
+ "r4c.schema_role_split": {
+  "docs/ech-onepager.md": "role split** (10 of 17",
+  "docs/viewer.md": "shared with a role split after P8"
+ },
+ "r4c.schema_shared": {
+  "docs/viewer.md": "the 17 fields with their meaning class"
+ },
+ "r4c.ti_question_median": {
+  "docs/viewer.md": "Ticino: questions"
+ },
+ "r4c.ti_wednesday": {
+  "docs/viewer.md": "Wednesday"
+ },
+ "r4c.tier_mixed": {
+  "docs/viewer.md": "mixed"
+ },
+ "r4c.tier_verified": {
+  "docs/viewer.md": "Tier counts: verified"
+ },
+ "r4d.ci_claims": {
+  "docs/operations.md": "984\nclaims"
+ },
+ "r4d.ci_claims_failing": {
+  "docs/operations.md": "claims, 0 failing"
+ },
+ "r4d.ci_p1_miss": {
+  "docs/operations.md": "25 prompts missed"
+ },
+ "r4d.ci_p2_unreach": {
+  "docs/operations.md": "8 hosts unreachable"
+ },
+ "r4d.ci_rules": {
+  "docs/operations.md": "141 of 154 rules"
+ },
  "r4d.f_8b_found": {
   "technical_report.md": "finds 15 of 21"
  },
  "r4d.f_found_of": {
   "technical_report.md": "15 of 21 answer dates"
  },
+ "r4d.lenient_8b_h2_cas": {
+  "docs/evaluation.md": "under the lenient metric"
+ },
+ "r4d.night_check_min": {
+  "docs/operations.md": "the one-time triple check of all"
+ },
+ "r4d.night_cpu_min": {
+  "docs/operations.md": "28 min of CPU"
+ },
+ "r4d.night_fetch": {
+  "docs/operations.md": "49 fetch); the triple"
+ },
+ "r4d.night_mb": {
+  "docs/operations.md": "198 MB"
+ },
+ "r4d.night_review": {
+  "docs/operations.md": "sent 40 to review"
+ },
+ "r4d.night_wall_min": {
+  "docs/operations.md": "83 min"
+ },
+ "r4d.p1_oracle_agree": {
+  "docs/ech-onepager.md": "of 44 checkable",
+  "docs/evaluation.md": "of 44 agree",
+  "technical_report.md": "checkable P1 dates"
+ },
+ "r4d.p2_70b_on_null": {
+  "docs/evaluation.md": "| 70B pointer | 43/52 | 16/21 |"
+ },
+ "r4d.p2_70b_vs_latest_a": {
+  "docs/evaluation.md": "(the 70B:"
+ },
+ "r4d.p2_70b_vs_latest_b": {
+  "docs/evaluation.md": "(the 70B: 9 vs"
+ },
+ "r4d.p2_8b_cas_on_null": {
+  "docs/evaluation.md": "| 8B rules + suggestions | 33/52 | 13/21 |"
+ },
+ "r4d.p2_8b_fabricated": {
+  "docs/evaluation.md": "| 8B pointer | 35/52 | 15/21 | 11 |"
+ },
+ "r4d.p2_8b_h2_po": {
+  "README.md": "right on 13 documents where",
+  "docs/evaluation.md": "The registered P2-H2 script on these rows gives",
+  "technical_report.md": "gives 13 vs 0"
+ },
+ "r4d.p2_8b_h2_ro": {
+  "docs/evaluation.md": "The registered P2-H2 script on these rows gives"
+ },
+ "r4d.p2_8b_on_null": {
+  "docs/evaluation.md": "| 8B pointer | 35/52 | 15/21 |"
+ },
+ "r4d.p2_8b_scored": {
+  "README.md": "reachable documents",
+  "docs/evaluation.md": "documents with 21 answer dates"
+ },
+ "r4d.p2_8b_unreach_answered": {
+  "docs/evaluation.md": "Vaud answers"
+ },
+ "r4d.p2_8b_unreachable": {
+  "docs/evaluation.md": "The hosts of"
+ },
+ "r4d.p2_8b_vs_70b_a": {
+  "docs/evaluation.md": "against the 70B"
+ },
+ "r4d.p2_8b_vs_70b_b": {
+  "docs/evaluation.md": "against the 70B"
+ },
+ "r4d.p2_8b_vs_latest_a": {
+  "docs/evaluation.md": "against the latest-date baseline"
+ },
+ "r4d.p2_8b_vs_rules_all_a": {
+  "docs/evaluation.md": "on all 52 documents it is"
+ },
+ "r4d.p2_8b_vs_rules_all_b": {
+  "docs/evaluation.md": "on all 52 documents it is 13 vs"
+ },
+ "r4d.p2_n_answerless52": {
+  "docs/evaluation.md": "values on the 31 answerless"
+ },
+ "r4d.scale_70b_usd": {
+  "docs/operations.md": "the 70B about USD"
+ },
+ "r4d.t_night_min": {
+  "technical_report.md": "83 min"
+ },
  "r4d.t_p2_found_70": {
   "technical_report.md": "(70B 16)"
+ },
+ "r4d.weights_70b_gb": {
+  "docs/evaluation.md": "140 GB"
  },
  "r5a.audit_calls": {
   "docs/evaluation.md": "calls, USD"
@@ -620,6 +1424,608 @@
  },
  "r5a.p2t_ptr_vs_latest_ptr_only": {
   "docs/evaluation.md": "nearly as many as the pointer"
+ },
+ "r5b.letter_hint_docs": {
+  "docs/convert-your-own.md": "committed gold documents"
+ },
+ "r5b.night_streamed_files": {
+  "docs/nightly.md": "files, 6.2 GB"
+ },
+ "r5b.post_p3_decision_na": {
+  "docs/affair.md": "not_applicable"
+ },
+ "r5b.post_p3b_decision_na": {
+  "docs/affair.md": "P3b records"
+ },
+ "r5b.post_p3b_guard": {
+  "docs/affair.md": "guard fires on",
+  "docs/evaluation.md": "it fires on"
+ },
+ "r5b.post_p3b_kept_correct": {
+  "docs/affair.md": "all three"
+ },
+ "r5c.days_diffuse": {
+  "README.md": "it falls on a government's weekly sitting,",
+  "docs/operations.md": "for diffuse",
+  "docs/viewer.md": "diffuse 39"
+ },
+ "r5c.days_mixed": {
+  "docs/operations.md": "for mixed and",
+  "docs/viewer.md": "mixed 62"
+ },
+ "r5c.days_pooled": {
+  "docs/census.md": "pooled cross-parliament median (68 days",
+  "docs/viewer.md": "pooled 68"
+ },
+ "r5c.days_sitting": {
+  "README.md": "where it falls on a",
+  "docs/operations.md": "where it falls on a",
+  "docs/viewer.md": "sitting day 79"
+ },
+ "r5c.days_verified": {
+  "README.md": "verified decision date",
+  "docs/operations.md": "the median is",
+  "docs/viewer.md": "verified 112 days",
+  "technical_report.md": "verified decision date"
+ },
+ "r5c.gov_rec_labels": {
+  "docs/census.md": "0 of 183",
+  "docs/ech-onepager.md": "0 of 183",
+  "docs/evaluation.md": "0 of 183",
+  "docs/viewer.md": "0 of 183",
+  "technical_report.md": "0 of 183"
+ },
+ "r5c.ne_interp_2015": {
+  "results/census/interventions_README.md": "70 for interpellations since 2015"
+ },
+ "r5c.ne_pooled_days": {
+  "results/census/interventions_README.md": "Neuchâtel: 25 days pooled"
+ },
+ "r5c.oral_y2425": {
+  "docs/census.md": "367 oral",
+  "docs/viewer.md": "2024–25: 367 oral"
+ },
+ "r5c.role_split_measured": {
+  "docs/census.md": "the 5 role-split fields",
+  "docs/ech-onepager.md": "all 5 are measured"
+ },
+ "r5c.shared_measured": {
+  "docs/census.md": "1 measured (the submission date"
+ },
+ "r5c.shared_untested": {
+  "docs/census.md": "7 shared fields",
+  "docs/viewer.md": "by definition, untested; the submission date"
+ },
+ "r5c.vs_y2425_in_writing": {
+  "docs/viewer.md": "10 written missing of 271"
+ },
+ "r5c.vs_y2425_no_text": {
+  "docs/viewer.md": "Valais 2024–25: 315"
+ },
+ "r5c.vs_y2425_oral": {
+  "docs/viewer.md": "305 oral"
+ },
+ "r5c.vs_y2425_written_missing": {
+  "docs/viewer.md": "10 written missing"
+ },
+ "r5d.be_y2425_agenda": {
+  "docs/operations.md": "under an agenda item, 102"
+ },
+ "r5d.be_y2425_in_writing": {
+  "docs/operations.md": "Bern: 567 of"
+ },
+ "r5d.be_y2425_missing": {
+  "README.md": "missing written answers",
+  "docs/operations.md": "Bern: 567 of"
+ },
+ "r5d.be_y2425_parentless": {
+  "docs/operations.md": "without a parent). Coverage"
+ },
+ "r5d.be_y2425_share": {
+  "docs/operations.md": "Bern: 567 of"
+ },
+ "r5d.be_y2425_unlinked": {
+  "README.md": "missing written answers",
+  "docs/operations.md": "of them are in OPD"
+ },
+ "r5d.h1_on_reports": {
+  "docs/evaluation.md": "of the 7 values fall on documents"
+ },
+ "r5d.night_single_mb": {
+  "docs/operations.md": "MB of single"
+ },
+ "r5d.night_streamed_gb": {
+  "docs/operations.md": "GB of docs/texts exports"
+ },
+ "r5d.p1_disagreements": {
+  "docs/evaluation.md": "P2 disagreements are listed"
+ },
+ "r5d.p2_disagreements": {
+  "docs/evaluation.md": "P2 disagreements are listed"
+ },
+ "r5d.p2_latest52_answerless": {
+  "docs/evaluation.md": "*latest printed date, ungated* |"
+ },
+ "r5d.p2_latest52_found_n": {
+  "docs/evaluation.md": "ungated latest printed date"
+ },
+ "r5d.p2_latest_answerless": {
+  "technical_report.md": "| *trivial: latest printed date* |"
+ },
+ "r5d.p2_latest_wrong": {
+  "docs/evaluation.md": "*latest printed date, ungated (post hoc)*",
+  "technical_report.md": "*22/29* | *38*"
+ },
+ "r5d.sec_docker": {
+  "docs/operations.md": "measured"
+ },
+ "r5d.sec_venv": {
+  "README.md": "apart per host",
+  "docs/operations.md": "measured",
+  "technical_report.md": "per host and process"
+ },
+ "r6c.p1_lock_to_first_s": {
+  "docs/evaluation.md": "gap after the LOCK"
+ },
+ "r6c.p2_ptr_free_a": {
+  "docs/evaluation.md": "ahead on 2 documents and behind on 1"
+ },
+ "r6c.p2_ptr_free_b": {
+  "docs/evaluation.md": "ahead on 2 documents and behind on 1"
+ },
+ "r6c.p2_ptr_rules_a": {
+  "docs/evaluation.md": "it is 22 vs 4",
+  "technical_report.md": "beats the rules on 22 and loses on 4"
+ },
+ "r6c.p2_ptr_rules_b": {
+  "docs/evaluation.md": "it is 22 vs 4",
+  "technical_report.md": "beats the rules on 22 and loses on 4"
+ },
+ "r6c.p5_draw_to_first_s": {
+  "docs/evaluation.md": "for P5 the gap"
+ },
+ "r6c.p6_c2_mfc_a": {
+  "docs/evaluation.md": "behind on 0"
+ },
+ "r6c.p6_c2_mfc_b": {
+  "docs/evaluation.md": "behind on 0"
+ },
+ "r6c.p6_c2_rules_all_a": {
+  "docs/evaluation.md": "beats the rules on 11 and loses on 5"
+ },
+ "r6c.p6_c2_rules_all_b": {
+  "docs/evaluation.md": "beats the rules on 11 and loses on 5"
+ },
+ "r6c.p6_draw_to_first_s": {
+  "docs/evaluation.md": "P6 annotators started"
+ },
+ "r6c.p6_last_to_labels_s": {
+  "docs/evaluation.md": "s before the labels"
+ },
+ "r6c.prov_null_p1": {
+  "docs/evaluation.md": "0, 1 and 0 times"
+ },
+ "r6c.prov_null_p2": {
+  "docs/evaluation.md": "0, 1 and 0 times"
+ },
+ "r6c.prov_null_p6": {
+  "docs/evaluation.md": "0, 1 and 0 times"
+ },
+ "r6c.prov_plain_p1": {
+  "docs/evaluation.md": "24, 4 and 5 times"
+ },
+ "r6c.prov_plain_p2": {
+  "docs/evaluation.md": "24, 4 and 5 times"
+ },
+ "r6c.prov_plain_p6": {
+  "docs/evaluation.md": "24, 4 and 5 times"
+ },
+ "r6c.sessions_n": {
+  "docs/evaluation.md": "annotator sessions",
+  "docs/form_notes.md": "labelling sessions",
+  "technical_report.md": "annotator sessions"
+ },
+ "r6c.sessions_sets": {
+  "docs/evaluation.md": "label sets"
+ },
+ "r6docs.audit3_counted_n": {
+  "README.md": "blind audit of",
+  "docs/operations.md": "counted rows",
+  "technical_report.md": "counted rows"
+ },
+ "r6docs.audit3_date_no": {
+  "docs/operations.md": "wrong or unsupported",
+  "technical_report.md": "wrong or unsupported"
+ },
+ "r6docs.audit3_failed_decoys_rejected": {
+  "docs/operations.md": "failed decoys",
+  "technical_report.md": "failed decoys"
+ },
+ "r6docs.audit3_review_decoys_yes": {
+  "docs/operations.md": "review decoys"
+ },
+ "r6docs.matrix.addressed_body.metadata": {
+  "docs/evaluation.md": "| addressed body |",
+  "technical_report.md": "| addressed body |"
+ },
+ "r6docs.matrix.addressed_body.mixed": {
+  "docs/evaluation.md": "| addressed body |",
+  "technical_report.md": "| addressed body |"
+ },
+ "r6docs.matrix.addressed_body.no_source": {
+  "docs/evaluation.md": "| addressed body |",
+  "technical_report.md": "| addressed body |"
+ },
+ "r6docs.matrix.addressed_body.pdf": {
+  "docs/evaluation.md": "| addressed body |",
+  "technical_report.md": "| addressed body |"
+ },
+ "r6docs.matrix.answer_link_status.metadata": {
+  "README.md": "answer-link status",
+  "docs/evaluation.md": "| answer-link status |",
+  "technical_report.md": "| answer-link status |"
+ },
+ "r6docs.matrix.answer_link_status.mixed": {
+  "docs/evaluation.md": "| answer-link status |",
+  "technical_report.md": "| answer-link status |"
+ },
+ "r6docs.matrix.answer_link_status.no_source": {
+  "docs/evaluation.md": "| answer-link status |",
+  "technical_report.md": "| answer-link status |"
+ },
+ "r6docs.matrix.answer_link_status.pdf": {
+  "docs/evaluation.md": "| answer-link status |",
+  "technical_report.md": "| answer-link status |"
+ },
+ "r6docs.matrix.co_signatories.metadata": {
+  "docs/evaluation.md": "| co-signatories |",
+  "technical_report.md": "| co-signatories |"
+ },
+ "r6docs.matrix.co_signatories.mixed": {
+  "docs/evaluation.md": "| co-signatories |",
+  "technical_report.md": "| co-signatories |"
+ },
+ "r6docs.matrix.co_signatories.no_source": {
+  "docs/evaluation.md": "| co-signatories |",
+  "technical_report.md": "| co-signatories |"
+ },
+ "r6docs.matrix.co_signatories.pdf": {
+  "docs/evaluation.md": "| co-signatories |",
+  "technical_report.md": "| co-signatories |"
+ },
+ "r6docs.matrix.date_answer.metadata": {
+  "docs/evaluation.md": "ies mostly the submission date |",
+  "technical_report.md": "bodies the submission date |"
+ },
+ "r6docs.matrix.date_answer.mixed": {
+  "docs/evaluation.md": "ies mostly the submission date |",
+  "technical_report.md": "bodies the submission date |"
+ },
+ "r6docs.matrix.date_answer.no_source": {
+  "README.md": "| answer date |",
+  "docs/evaluation.md": "| answer date |",
+  "technical_report.md": "bodies the submission date |"
+ },
+ "r6docs.matrix.date_answer.pdf": {
+  "README.md": "| answer date |",
+  "docs/evaluation.md": "| answer date |",
+  "technical_report.md": "bodies the submission date |"
+ },
+ "r6docs.matrix.date_decision.metadata": {
+  "docs/evaluation.md": "| decision date |",
+  "technical_report.md": "| decision date |"
+ },
+ "r6docs.matrix.date_decision.mixed": {
+  "docs/evaluation.md": "| decision date |",
+  "technical_report.md": "| decision date |"
+ },
+ "r6docs.matrix.date_decision.no_source": {
+  "docs/evaluation.md": "| decision date |",
+  "technical_report.md": "| decision date |"
+ },
+ "r6docs.matrix.date_decision.pdf": {
+  "docs/evaluation.md": "| decision date |",
+  "technical_report.md": "| decision date |"
+ },
+ "r6docs.matrix.date_dispatch.metadata": {
+  "docs/evaluation.md": "| dispatch date |",
+  "technical_report.md": "| dispatch date |"
+ },
+ "r6docs.matrix.date_dispatch.mixed": {
+  "docs/evaluation.md": "| dispatch date |",
+  "technical_report.md": "| dispatch date |"
+ },
+ "r6docs.matrix.date_dispatch.no_source": {
+  "docs/evaluation.md": "| dispatch date |",
+  "technical_report.md": "| dispatch date |"
+ },
+ "r6docs.matrix.date_dispatch.pdf": {
+  "docs/evaluation.md": "| dispatch date |",
+  "technical_report.md": "| dispatch date |"
+ },
+ "r6docs.matrix.date_submission.metadata": {
+  "README.md": "submission date",
+  "docs/evaluation.md": "| submission date |",
+  "technical_report.md": "| submission date |"
+ },
+ "r6docs.matrix.date_submission.mixed": {
+  "docs/evaluation.md": "| submission date |",
+  "technical_report.md": "| submission date |"
+ },
+ "r6docs.matrix.date_submission.no_source": {
+  "docs/evaluation.md": "| submission date |",
+  "technical_report.md": "| submission date |"
+ },
+ "r6docs.matrix.date_submission.pdf": {
+  "docs/evaluation.md": "| submission date |",
+  "technical_report.md": "| submission date |"
+ },
+ "r6docs.matrix.decision_outcome.metadata": {
+  "README.md": "| decision outcome |",
+  "docs/evaluation.md": "| decision outcome |",
+  "technical_report.md": "| decision outcome |"
+ },
+ "r6docs.matrix.decision_outcome.mixed": {
+  "README.md": "| decision outcome |",
+  "docs/evaluation.md": "| decision outcome |",
+  "technical_report.md": "| decision outcome |"
+ },
+ "r6docs.matrix.decision_outcome.no_source": {
+  "README.md": "| decision outcome |",
+  "docs/evaluation.md": "| decision outcome |",
+  "technical_report.md": "| decision outcome |"
+ },
+ "r6docs.matrix.decision_outcome.pdf": {
+  "README.md": "| decision outcome |",
+  "docs/evaluation.md": "| decision outcome |",
+  "technical_report.md": "| decision outcome |"
+ },
+ "r6docs.matrix.documents_usable_text.metadata": {
+  "docs/evaluation.md": "| usable text |",
+  "technical_report.md": "| usable text |"
+ },
+ "r6docs.matrix.documents_usable_text.mixed": {
+  "docs/evaluation.md": "| usable text |",
+  "technical_report.md": "| usable text |"
+ },
+ "r6docs.matrix.documents_usable_text.no_source": {
+  "docs/evaluation.md": "| usable text |",
+  "technical_report.md": "| usable text |"
+ },
+ "r6docs.matrix.documents_usable_text.pdf": {
+  "docs/evaluation.md": "| usable text |",
+  "technical_report.md": "| usable text |"
+ },
+ "r6docs.matrix.government_recommendation.metadata": {
+  "README.md": "| government recommendation |",
+  "docs/evaluation.md": "| government recommendation |",
+  "technical_report.md": "| government recommendation |"
+ },
+ "r6docs.matrix.government_recommendation.mixed": {
+  "README.md": "| government recommendation |",
+  "docs/evaluation.md": "| government recommendation |",
+  "technical_report.md": "| government recommendation |"
+ },
+ "r6docs.matrix.government_recommendation.no_source": {
+  "README.md": "| government recommendation |",
+  "docs/evaluation.md": "| government recommendation |",
+  "technical_report.md": "| government recommendation |"
+ },
+ "r6docs.matrix.government_recommendation.pdf": {
+  "README.md": "| government recommendation |",
+  "docs/evaluation.md": "| government recommendation |",
+  "technical_report.md": "| government recommendation |"
+ },
+ "r6docs.matrix.language.metadata": {
+  "docs/evaluation.md": "| language |",
+  "technical_report.md": "| language |"
+ },
+ "r6docs.matrix.language.mixed": {
+  "docs/evaluation.md": "| language |",
+  "technical_report.md": "| language |"
+ },
+ "r6docs.matrix.language.no_source": {
+  "docs/evaluation.md": "| language |",
+  "technical_report.md": "| language |"
+ },
+ "r6docs.matrix.language.pdf": {
+  "docs/evaluation.md": "| language |",
+  "technical_report.md": "| language |"
+ },
+ "r6docs.matrix.procedural_history.metadata": {
+  "README.md": "| procedural history |",
+  "docs/evaluation.md": "| procedural history |",
+  "technical_report.md": "| procedural history |"
+ },
+ "r6docs.matrix.procedural_history.mixed": {
+  "README.md": "| procedural history |",
+  "docs/evaluation.md": "| procedural history |",
+  "technical_report.md": "| procedural history |"
+ },
+ "r6docs.matrix.procedural_history.no_source": {
+  "README.md": "| procedural history |",
+  "docs/evaluation.md": "| procedural history |",
+  "technical_report.md": "| procedural history |"
+ },
+ "r6docs.matrix.procedural_history.pdf": {
+  "README.md": "| procedural history |",
+  "docs/evaluation.md": "| procedural history |",
+  "technical_report.md": "| procedural history |"
+ },
+ "r6docs.matrix.procedural_state.metadata": {
+  "README.md": "| procedural state |",
+  "docs/evaluation.md": "| procedural state |",
+  "technical_report.md": "| procedural state |"
+ },
+ "r6docs.matrix.procedural_state.mixed": {
+  "README.md": "| procedural state |",
+  "docs/evaluation.md": "| procedural state |",
+  "technical_report.md": "| procedural state |"
+ },
+ "r6docs.matrix.procedural_state.no_source": {
+  "README.md": "| procedural state |",
+  "docs/evaluation.md": "| procedural state |",
+  "technical_report.md": "| procedural state |"
+ },
+ "r6docs.matrix.procedural_state.pdf": {
+  "README.md": "| procedural state |",
+  "docs/evaluation.md": "| procedural state |",
+  "technical_report.md": "| procedural state |"
+ },
+ "r6docs.matrix.qa_pairing.metadata": {
+  "docs/evaluation.md": "| Q/A pairing |",
+  "technical_report.md": "| Q/A pairing |"
+ },
+ "r6docs.matrix.qa_pairing.mixed": {
+  "docs/evaluation.md": "| Q/A pairing |",
+  "technical_report.md": "| Q/A pairing |"
+ },
+ "r6docs.matrix.qa_pairing.no_source": {
+  "docs/evaluation.md": "| Q/A pairing |",
+  "technical_report.md": "| Q/A pairing |"
+ },
+ "r6docs.matrix.qa_pairing.pdf": {
+  "docs/evaluation.md": "| Q/A pairing |",
+  "technical_report.md": "| Q/A pairing |"
+ },
+ "r6docs.matrix.related_affairs.metadata": {
+  "docs/evaluation.md": "| related affairs |",
+  "technical_report.md": "| related affairs |"
+ },
+ "r6docs.matrix.related_affairs.mixed": {
+  "docs/evaluation.md": "| related affairs |",
+  "technical_report.md": "| related affairs |"
+ },
+ "r6docs.matrix.related_affairs.no_source": {
+  "docs/evaluation.md": "| related affairs |",
+  "technical_report.md": "| related affairs |"
+ },
+ "r6docs.matrix.related_affairs.pdf": {
+  "docs/evaluation.md": "| related affairs |",
+  "technical_report.md": "| related affairs |"
+ },
+ "r6docs.matrix.submitter.metadata": {
+  "docs/evaluation.md": "| submitter |",
+  "technical_report.md": "| submitter |"
+ },
+ "r6docs.matrix.submitter.mixed": {
+  "docs/evaluation.md": "| submitter |",
+  "technical_report.md": "| submitter |"
+ },
+ "r6docs.matrix.submitter.no_source": {
+  "docs/evaluation.md": "| submitter |",
+  "technical_report.md": "| submitter |"
+ },
+ "r6docs.matrix.submitter.pdf": {
+  "docs/evaluation.md": "| submitter |",
+  "technical_report.md": "| submitter |"
+ },
+ "r6docs.matrix.type.metadata": {
+  "README.md": "| type |",
+  "docs/evaluation.md": "| type |",
+  "technical_report.md": "| type |"
+ },
+ "r6docs.matrix.type.mixed": {
+  "README.md": "| type |",
+  "docs/evaluation.md": "| type |",
+  "technical_report.md": "| type |"
+ },
+ "r6docs.matrix.type.no_source": {
+  "README.md": "| type |",
+  "docs/evaluation.md": "| type |",
+  "technical_report.md": "| type |"
+ },
+ "r6docs.matrix.type.pdf": {
+  "README.md": "| type |",
+  "docs/evaluation.md": "| type |",
+  "technical_report.md": "| type |"
+ },
+ "r7docs.canary_verified": {
+  "docs/operations.md": "verified 7 of"
+ },
+ "r7docs.gov_rec_labels": {
+  "docs/evaluation.md": "raw labels map to two concepts",
+  "technical_report.md": "raw labels map to two concepts"
+ },
+ "r7docs.night1_gb": {
+  "docs/operations.md": "streamed",
+  "technical_report.md": "streamed"
+ },
+ "r7docs.night1_min": {
+  "README.md": "for the first",
+  "docs/form_notes.md": "first network night took",
+  "docs/operations.md": "night 1 took",
+  "technical_report.md": "in the recommended Docker setup** (Actions run"
+ },
+ "r7docs.night2_bodies": {
+  "README.md": "bodies re-scanned",
+  "technical_report.md": "bodies re-scanned"
+ },
+ "r7docs.night2_min": {
+  "README.md": "incremental second",
+  "docs/form_notes.md": "min, the next",
+  "docs/operations.md": "next export, took",
+  "technical_report.md": "bodies re-scanned),"
+ },
+ "r7docs.nights_alerts": {
+  "docs/operations.md": "alerts",
+  "technical_report.md": "alerts"
+ },
+ "r7docs.no_answer_docs": {
+  "README.md": "documents with no answer at all",
+  "docs/evaluation.md": "documents with no answer at all"
+ },
+ "r7docs.open_for_a_person": {
+  "README.md": "queued for a person",
+  "docs/operations.md": "wait for a person",
+  "technical_report.md": "already waiting for a person"
+ },
+ "r7docs.p1_trivial_answerless": {
+  "docs/evaluation.md": "latest printed date on documents OPD types as answers (post hoc)*",
+  "technical_report.md": "latest date, answer-typed docs*"
+ },
+ "r7docs.p1_trivial_found": {
+  "docs/evaluation.md": "latest printed date on documents OPD types as answers (post hoc)*",
+  "technical_report.md": "latest date, answer-typed docs*"
+ },
+ "r7docs.p1_trivial_wrong": {
+  "docs/evaluation.md": "latest printed date on documents OPD types as answers (post hoc)*",
+  "technical_report.md": "latest date, answer-typed docs*"
+ },
+ "r7docs.p1_ungated_answerless": {
+  "docs/evaluation.md": "latest printed date, ungated (post hoc)*"
+ },
+ "r7docs.p1_ungated_wrong": {
+  "docs/evaluation.md": "latest printed date, ungated (post hoc)*"
+ },
+ "r7docs.p2_no_answer_at_all": {
+  "docs/evaluation.md": "P2 documents with no answer at all",
+  "technical_report.md": "with no answer at all"
+ },
+ "r7docs.p2_ptr_on_answer_wo_date": {
+  "docs/evaluation.md": "Its 4 dates on answerless",
+  "technical_report.md": "the pointer's"
+ },
+ "r7docs.p6_v2_on_answer_wo_date": {
+  "technical_report.md": "containing an answer without"
+ },
+ "r7docs.p7_review_rows": {
+  "README.md": "review rows",
+  "docs/evaluation.md": "review rows",
+  "technical_report.md": "review rows"
+ },
+ "r7docs.repaired_agenda_unsampled": {
+  "README.md": "agenda joins",
+  "docs/operations.md": "agenda joins"
+ },
+ "r7docs.repaired_be_review": {
+  "README.md": "agenda joins",
+  "docs/operations.md": "Bern rows in review"
+ },
+ "r7docs.vocab_rows": {
+  "README.md": "OPD harmonised labels",
+  "docs/form_notes.md": "OPD vocabulary",
+  "technical_report.md": "OPD vocabulary labels"
  },
  "r8e.mult_holds": {
   "docs/evaluation.md": "held as registered"
@@ -697,6 +2103,85 @@
  "r8e.sessions_total": {
   "docs/evaluation.md": "annotator sessions"
  },
+ "r9p.8b_cascade_on_null": {
+  "docs/evaluation.md": "suggestions dated"
+ },
+ "r9p.after_hash_review": {
+  "README.md": "in review)"
+ },
+ "r9p.agenda": {
+  "README.md": "answers OPD files under an agenda item",
+  "technical_report.md": "answers OPD files under an agenda item"
+ },
+ "r9p.audit_agree": {
+  "README.md": "agree on",
+  "technical_report.md": "agreement 252 of 260"
+ },
+ "r9p.audit_date_no": {
+  "README.md": "wrong or unsupported in",
+  "technical_report.md": "**Why closed:** asked freely, Apertus dates"
+ },
+ "r9p.audit_n": {
+  "README.md": "packets",
+  "technical_report.md": "packets"
+ },
+ "r9p.cluster_parliaments": {
+  "docs/evaluation.md": "15 parliaments, B ="
+ },
+ "r9p.cost_70b_usd": {
+  "README.md": "USD"
+ },
+ "r9p.cost_x10_rules": {
+  "README.md": "the rules need about",
+  "technical_report.md": "gave Branch B (cascade alone right on"
+ },
+ "r9p.noans_n": {
+  "README.md": "On the",
+  "technical_report.md": "none of"
+ },
+ "r9p.noans_p6_n": {
+  "README.md": "of P6's",
+  "docs/evaluation.md": "of P6's",
+  "technical_report.md": "dated 1 of"
+ },
+ "r9p.noans_v1_dated": {
+  "README.md": "v1\n  dated",
+  "docs/evaluation.md": "v1 dated",
+  "technical_report.md": "v1 dated"
+ },
+ "r9p.p1_cascade_on_null_70b": {
+  "docs/evaluation.md": "answerless documents (70B:"
+ },
+ "r9p.p1_rules_found": {
+  "README.md": "finding"
+ },
+ "r9p.p1_rules_on_null": {
+  "README.md": "and dating"
+ },
+ "r9p.p2_answerless_n": {
+  "README.md": "not all. It puts a date on",
+  "technical_report.md": "answerless dated /33"
+ },
+ "r9p.p2_bodies": {
+  "../README.md": "parliaments nobody wrote rules for",
+  "README.md": "parliaments nobody wrote rules for",
+  "docs/form_notes.md": "that rolls back on any deviation. In",
+  "technical_report.md": "parliaments nobody wrote rules for"
+ },
+ "r9p.p2_latest_answerless": {
+  "README.md": "(22/29 found) dates",
+  "technical_report.md": "| *trivial: latest printed date* | *24/62*"
+ },
+ "r9p.p2_latest_found_n": {
+  "README.md": "(22/29 found) dates"
+ },
+ "r9p.p2_pointer_answerless": {
+  "README.md": "It puts a date on"
+ },
+ "r9p.p2_pointer_exact_n": {
+  "README.md": "accuracy (P2",
+  "technical_report.md": "null allowed (P2"
+ },
  "repair.agenda_join": {
   "docs/repair.md": "| OPD's own `agendas.item_affair_id`; not sample-verified |"
  },
@@ -705,7 +2190,6 @@
  },
  "repair.all_fetch_triple": {
   "README.md": "answers to fetch",
-  "docs/form_notes.md": "ready fetches",
   "docs/operations.md": "in `repair_BE_fetch.tsv`",
   "docs/repair.md": "| canton OGD; every row checked",
   "technical_report.md": "ready fetches"
@@ -715,7 +2199,6 @@
  },
  "repair.be_attached": {
   "README.md": "OPD attaches",
-  "docs/form_notes.md": "OPD attaches 229 of the",
   "docs/operations.md": "answers the canton publishes, OPD attaches",
   "docs/repair.md": "of them are attached to their affair,",
   "technical_report.md": "OPD attaches"
@@ -782,7 +2265,6 @@
  "repair.vs_urgente_docs": {
   "docs/repair.md": "documents), i.e. no answer by procedure, and"
  },
- "report.bilanz_bodies": {},
  "report.heldout_n": {
   "README.md": "parliaments with rules",
   "docs/form_notes.md": "right on",
@@ -806,8 +2288,6 @@
   "docs/evaluation.md": "event labels carry different date roles",
   "technical_report.md": "event labels, several"
  },
- "robust.days_no_same_day": {},
- "robust.days_question_time": {},
  "robust.decision_ambiguous": {
   "README.md": "outcome"
  },
@@ -834,12 +2314,359 @@
  "schema.state_harmonised_n": {
   "docs/schema.md": "| affairs with a harmonised state |"
  },
+ "schema.v02.all_valid": {
+  "../README.md": "all 171 records validate",
+  "README.md": "the recommendation's stage (on adoption, on fulfilment).",
+  "docs/ech-onepager.md": "and 171 affairs",
+  "docs/form_notes.md": "All 171 records",
+  "technical_report.md": "v0.2 records validate"
+ },
+ "schema.v02.conv_valid": {
+  "README.md": "converter affairs;",
+  "docs/ech-onepager.md": "converter's own records",
+  "docs/form_notes.md": "of its 105 records",
+  "technical_report.md": "of its 105 records"
+ },
+ "u1.adapters_with_counted": {
+  "docs/adapters.md": "adapters yield counted",
+  "technical_report.md": "yield counted"
+ },
+ "u1.adapters_without_counted": {
+  "docs/adapters.md": "yield none"
+ },
+ "u1.anywhere_conflict_review": {
+  "docs/adapters.md": "rows whose only date match"
+ },
+ "u1.audit2_bodies": {
+  "docs/adapters.md": "parliaments; Zürich canton 78"
+ },
+ "u1.audit2_n": {
+  "docs/adapters.md": "counted verified rows (exact date and date window)"
+ },
+ "u1.audit_review_no_to_failed": {
+  "docs/adapters.md": "review 'no' rows now fail"
+ },
+ "u1.audit_rows": {
+  "docs/adapters.md": "verdicts in",
+  "docs/operations.md": "design audit of"
+ },
+ "u1.audit_unclear_to_review": {
+  "docs/adapters.md": "move to review (resolution_reply)"
+ },
+ "u1.audit_verified": {
+  "docs/adapters.md": "verified rows",
+  "docs/operations.md": "verified rows"
+ },
+ "u1.audit_verified_no": {
+  "docs/adapters.md": "not, **20** unclear",
+  "docs/operations.md": "non-answers among"
+ },
+ "u1.audit_verified_no_caught": {
+  "docs/adapters.md": "verified 'no' rows now fail",
+  "docs/operations.md": "catch all"
+ },
+ "u1.audit_verified_unclear": {
+  "docs/adapters.md": "unclear"
+ },
+ "u1.audit_verified_yes": {
+  "docs/adapters.md": "judged the government's answer"
+ },
+ "u1.audit_yes_rows": {
+  "docs/adapters.md": "'yes' rows in the whole sample",
+  "docs/operations.md": "remove none of the sample's"
+ },
+ "u1.date_after_submission": {
+  "docs/adapters.md": "after_submission"
+ },
+ "u1.date_eq_gov": {
+  "docs/adapters.md": "eq_gov"
+ },
+ "u1.date_latest_in_window": {
+  "docs/adapters.md": "latest_in_window"
+ },
+ "u1.date_window": {
+  "docs/adapters.md": "documented window"
+ },
+ "u1.extract_tag": {
+  "docs/adapters.md": "extract_tag"
+ },
+ "u1.ju_exact_date": {
+  "docs/adapters.md": "Jura (canton) (JU)"
+ },
+ "u1.ju_identity_wording_only": {
+  "docs/adapters.md": "Jura (canton) (JU)",
+  "docs/operations.md": "Jura answers that match",
+  "technical_report.md": "282 Jura answers"
+ },
+ "u1.ju_verified": {
+  "docs/adapters.md": "Jura's"
+ },
+ "u1.lu_verified": {
+  "docs/adapters.md": "Luzern (canton) (LU)"
+ },
+ "u1.ne_verified": {
+  "docs/adapters.md": "Neuchâtel (canton) (NE)"
+ },
+ "u1.opd_doc_ambiguous": {
+  "docs/adapters.md": "Zürich canton `tag_answer` rows whose"
+ },
+ "u1.review": {
+  "docs/adapters.md": "rows are review",
+  "docs/operations.md": "rows that wait for a person",
+  "technical_report.md": "review rows (214"
+ },
+ "u1.review_absent": {
+  "docs/adapters.md": "absent"
+ },
+ "u1.review_image_only": {
+  "docs/adapters.md": "image-only): listed, not counted"
+ },
+ "u1.robots_fetched_not_recheckable": {
+  "docs/adapters.md": "re-checked",
+  "docs/incidents.md": "re-checked"
+ },
+ "u1.so_verified": {
+  "docs/adapters.md": "Solothurn (canton) (SO)"
+ },
+ "u1.ti_verified": {
+  "docs/adapters.md": "Ticino (canton) (TI)"
+ },
+ "u1.tier_date_window": {
+  "docs/adapters.md": "decided no row",
+  "docs/operations.md": "within the parliament's documented window",
+  "technical_report.md": "documented window 396"
+ },
+ "u1.tier_exact_any_printed_date_absent": {
+  "docs/adapters.md": "| 1,056 |"
+ },
+ "u1.tier_exact_any_printed_date_image_only": {
+  "docs/adapters.md": "| 1,056 |"
+ },
+ "u1.tier_exact_doc_date_image_only": {
+  "docs/adapters.md": "| 5,120 |"
+ },
+ "u1.tier_identity_wording_only": {
+  "docs/adapters.md": "Jura answers checked by",
+  "docs/operations.md": "Jura answers that match"
+ },
+ "u1.verified_image_only": {
+  "docs/adapters.md": "**820** of the 1,350",
+  "docs/operations.md": "820 of the 1,350"
+ },
+ "u1.vs_date_window": {
+  "docs/adapters.md": "Valais (canton) (VS)"
+ },
+ "u2.p5.h2.rules_only": {
+  "docs/evaluation.md": "paragraph-order baseline",
+  "docs/qa.md": "116 answers right only for the rules",
+  "technical_report.md": "rules beat paragraph order"
+ },
+ "u2.p5.h3.residue": {
+  "docs/evaluation.md": "residue answers",
+  "docs/qa.md": "36 residue answers"
+ },
+ "u2.p5.h4.closed_only": {
+  "docs/evaluation.md": "read as rules vs free generation",
+  "docs/qa.md": "79 answers right only for the closed-set",
+  "technical_report.md": "read as rules vs free generation"
+ },
+ "u2.p5.h4.freegen_unlocatable": {
+  "docs/evaluation.md": "of its quoted values",
+  "docs/qa.md": "87 cannot be"
+ },
+ "u2.p5.h5.pointer_values": {
+  "docs/qa.md": "the primary pointer arm: 533"
+ },
+ "u2.p5.h5.rules_values": {
+  "docs/evaluation.md": "rule values)",
+  "docs/qa.md": "rules only: 517 values"
+ },
+ "u3.p6.answered": {
+  "docs/evaluation.md": "with an answer date, 34 without",
+  "technical_report.md": "34 answered)"
+ },
+ "u3.p6.answerless": {
+  "docs/evaluation.md": "with an answer date, 34 without"
+ },
+ "u3.p6.bodies": {
+  "docs/evaluation.md": "parliaments in no earlier set"
+ },
  "u3.p6.free_plain.fabricated": {
   "docs/evaluation.md": "| free prompt, plain |",
   "technical_report.md": "| free prompt, plain |"
  },
+ "u3.p6.h1.free_only": {
+  "docs/evaluation.md": "v2 vs free prompting:",
+  "technical_report.md": "v2 vs free prompting"
+ },
+ "u3.p6.h1.v2_only": {
+  "docs/evaluation.md": "v2 vs free prompting:",
+  "technical_report.md": "v2 vs free prompting"
+ },
+ "u3.p6.h3.v1_only": {
+  "docs/evaluation.md": "v2 vs v1:",
+  "technical_report.md": "v2 vs v1"
+ },
+ "u3.p6.h3.v2_only": {
+  "docs/evaluation.md": "v2 vs v1:",
+  "technical_report.md": "v2 vs v1"
+ },
+ "u3.p6.n": {
+  "README.md": "fresh documents",
+  "docs/evaluation.md": "fresh documents from 8",
+  "technical_report.md": "| P6 | 68 fresh documents"
+ },
+ "u3.p6.s3.cascade_v2_only": {
+  "docs/evaluation.md": "rules alone on the answered documents"
+ },
+ "u3.p6.s3.rules_only": {
+  "docs/evaluation.md": "rules alone on the answered documents"
+ },
  "u3.p6.v2.fabricated": {
   "docs/evaluation.md": "| v2 | 59/68",
   "technical_report.md": "| v2 | 59/68"
+ },
+ "upd.adapters.parliaments": {
+  "../README.md": "model-free source adapters",
+  "README.md": "model-free source adapters",
+  "docs/form_notes.md": "model-free source adapters",
+  "docs/operations.md": "Source adapters for",
+  "technical_report.md": "model-free source adapters"
+ },
+ "upd.p5.n": {
+  "README.md": "fresh affairs, 10",
+  "docs/evaluation.md": "fresh affairs from 10",
+  "technical_report.md": "| P5 | 40 fresh affairs"
+ },
+ "upd.p5.precision": {
+  "docs/ech-onepager.md": "precision",
+  "docs/form_notes.md": "precision",
+  "technical_report.md": "precision"
+ },
+ "upd.p5.recall": {
+  "docs/ech-onepager.md": "recall",
+  "docs/form_notes.md": "recall",
+  "technical_report.md": "recall"
+ },
+ "upd.p6.h1": {
+  "docs/evaluation.md": "v2 vs free prompting:",
+  "technical_report.md": "v2 vs free prompting"
+ },
+ "upd.p6.h3": {
+  "docs/evaluation.md": "v2 vs v1:",
+  "technical_report.md": "v2 vs v1"
+ },
+ "w5.70b.cascade_on_null": {
+  "docs/evaluation.md": "the cascade dates"
+ },
+ "w5.70b.cascade_short": {
+  "technical_report.md": "| cascade | 139/154"
+ },
+ "w5.70b.pointer_short": {
+  "technical_report.md": "| pointer |"
+ },
+ "w5.8b.cas_only70": {
+  "docs/evaluation.md": "2 vs 22"
+ },
+ "w5.8b.cas_only8": {
+  "docs/evaluation.md": "suggestions 2 vs 22"
+ },
+ "w5.8b.cas_vs_rules_8": {
+  "docs/evaluation.md": "loses 7 vs 23"
+ },
+ "w5.8b.cas_vs_rules_r": {
+  "docs/evaluation.md": "7 vs 23"
+ },
+ "w5.8b.cascade_fabricated": {
+  "docs/evaluation.md": "0 fabricated"
+ },
+ "w5.8b.cascade_mis": {
+  "docs/evaluation.md": "8B rules + suggestions, all accepted"
+ },
+ "w5.8b.cascade_on_null": {
+  "docs/evaluation.md": "H1 fails ("
+ },
+ "w5.8b.cascade_on_null_tab": {
+  "docs/evaluation.md": "8B rules + suggestions, all accepted"
+ },
+ "w5.8b.cascade_values": {
+  "docs/evaluation.md": "cascade values"
+ },
+ "w5.8b.cpu_s_per_doc": {
+  "docs/operations.md": "CPU-seconds"
+ },
+ "w5.8b.dev_n": {
+  "docs/evaluation.md": "dev documents",
+  "docs/operations.md": "dev documents"
+ },
+ "w5.8b.fit_h": {
+  "docs/operations.md": "hours for 97 dev"
+ },
+ "w5.8b.h2_cascade_only": {
+  "docs/evaluation.md": "cascade alone on 2"
+ },
+ "w5.8b.h2_rules_only": {
+  "docs/evaluation.md": "rules alone right on 10"
+ },
+ "w5.8b.h_per_1000": {
+  "docs/operations.md": "machine-hours"
+ },
+ "w5.8b.n_answerless": {
+  "docs/evaluation.md": "H1 fails ("
+ },
+ "w5.8b.pointer_fabricated": {
+  "docs/evaluation.md": "8B pointer on every document"
+ },
+ "w5.8b.pointer_mis": {
+  "docs/evaluation.md": "8B pointer on every document"
+ },
+ "w5.8b.pointer_on_null": {
+  "docs/evaluation.md": "8B pointer on every document"
+ },
+ "w5.8b.ptr_only70": {
+  "docs/evaluation.md": "only on the 70B"
+ },
+ "w5.8b.ptr_only8": {
+  "docs/evaluation.md": "right only on the 8B"
+ },
+ "w5.8b.rss_gb": {
+  "README.md": "9.3 GB peak",
+  "docs/operations.md": "GB memory"
+ },
+ "w5.8b.scored_twice_identical": {
+  "docs/evaluation.md": "sharded run (5)"
+ },
+ "w5.8b.vcpus": {
+  "README.md": "vCPUs",
+  "docs/evaluation.md": "vCPUs",
+  "technical_report.md": "vCPUs"
+ },
+ "w5.8b.wall_s_per_doc": {
+  "README.md": "s per document",
+  "docs/evaluation.md": "s per document",
+  "docs/operations.md": "s per document",
+  "technical_report.md": "s per document"
+ },
+ "w5.p3b.answer_sugg_n": {
+  "docs/evaluation.md": "its 11"
+ },
+ "w5.p3b.bodies": {
+  "README.md": "9 parliaments",
+  "docs/evaluation.md": "9 parliaments",
+  "technical_report.md": "9 parliaments"
+ },
+ "w5.p3b.n": {
+  "README.md": "fresh",
+  "docs/evaluation.md": "fresh",
+  "technical_report.md": "fresh affairs"
+ },
+ "w5.p3b.s2_eligible": {
+  "docs/evaluation.md": "4 of 5 eligible"
+ },
+ "w5.p3b.s2_ok": {
+  "docs/evaluation.md": "4 of 5 eligible"
+ },
+ "w5.p3b.tie": {
+  "docs/evaluation.md": "field went to the tie-breaker"
  }
 }

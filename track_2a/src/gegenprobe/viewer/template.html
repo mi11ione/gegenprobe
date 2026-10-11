@@ -301,6 +301,27 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
 /* period switch in the hero */
 .hero .perrow { margin-top: 18px; }
 .hero .perrow .label { margin-bottom: 5px; }
+.hero .delivered { margin: 14px 0 0; font-size: clamp(15px, 1.25vw, 17px); line-height: 1.45; color: var(--ink-2); max-width: 70ch; }
+.hero .delivered b { color: var(--ink); font-weight: 650; }
+.hero .factnote { margin: 10px 0 0; font-size: 12px; color: var(--ink-3); max-width: 110ch; }
+.banner-m { display: none; }
+/* phones: the hero comes first; the caveat and the period switch sit under the hero sentence */
+@media (max-width: 900px) { .hero .hero-main { order: -1; } .hero { padding-block: 26px 30px; row-gap: 14px; } }
+@media (max-width: 700px) {
+  header.mast .banner { display: none; }
+  .banner-m { display: flex; grid-column: auto; margin-top: 14px; }
+  .hero .big { font-size: clamp(64px, 21vw, 96px); }
+  .hero h1 { margin-top: 12px; }
+}
+/* narrow screens: a fade on the right edge says the section tabs scroll sideways */
+@media (max-width: 600px) {
+  nav.tabs { -webkit-mask-image: linear-gradient(to right, #000 82%, transparent); mask-image: linear-gradient(to right, #000 82%, transparent); }
+  nav.tabs.at-end { -webkit-mask-image: none; mask-image: none; }
+}
+/* converter coverage per parliament */
+.covsec { padding-block: 26px 30px; border-bottom: 1px solid var(--rule); row-gap: 14px; }
+.covsec summary { cursor: pointer; font-size: 14px; }
+.covsec table { margin-top: 10px; }
 
 /* where to look + glossary */
 .howto { padding-block: 28px 30px; border-bottom: 1px solid var(--rule); row-gap: 18px; }
@@ -460,15 +481,17 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
 </header>
 
 <section class="grid hero" aria-label="Summary">
-  <div class="idx">
-    <div class="label">Interventions with a recorded government answer that would have answer text once the proposed repairs are applied</div>
-    <div class="code muted" style="margin-top:10px" id="heroSrc"></div>
-    <div class="perrow" id="heroPeriod"></div>
+  <div class="idx hero-meta">
+    <div class="code muted" id="heroSrc"></div>
   </div>
-  <div class="work">
+  <div class="work hero-main">
     <p class="big" id="heroBig"></p>
     <h1 id="heroLine"></h1>
+    <p class="delivered" id="heroDelivered"></p>
+    <div class="banner banner-m" role="note"><b>Not in OpenParlData ≠ not published by the parliament.</b><span>Counts describe OPD's copy.</span></div>
+    <div class="perrow" id="heroPeriod"></div>
     <div class="facts" id="facts"></div>
+    <p class="factnote" id="factNote"></p>
   </div>
 </section>
 
@@ -489,6 +512,15 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
     <h3 class="part" style="margin-top:30px">17 fields · does each mean the same thing in every parliament?</h3>
     <p class="small" id="schemaClassNote" style="margin:0 0 10px;max-width:86ch"></p>
     <div style="overflow-x:auto"><table class="schema" id="schemaTop"></table></div>
+  </div>
+</section>
+
+<section class="grid covsec" id="coverage" aria-labelledby="h-cov">
+  <div class="idx"><div class="label">Converter coverage · every parliament</div><p class="small" style="margin:8px 0 0;max-width:32ch" id="covNote"></p></div>
+  <div class="work">
+    <h3 class="part" id="h-cov" style="margin-top:0">Where the converter reads documents, and which test read each parliament</h3>
+    <div id="covSummary"></div>
+    <details><summary id="covSum"></summary><div style="overflow-x:auto"><table class="dense" id="covTable"></table></div></details>
   </div>
 </section>
 
@@ -717,10 +749,13 @@ function drawHero() {
   const V = D.schema.verdict;
   // the one lead sentence (README, report, form notes, site): the schema verdict plus the repair result
   $('#heroBig').textContent = am && am.after_repair != null ? pct(am.after_repair) : fmt(x.missing);
-  $('#heroLine').innerHTML = (am && am.after_repair != null ?
-    `A common schema for Swiss parliamentary business works if its fields carry roles, and the proposed repairs, keyed on OpenParlData (OPD) ids, would raise the share of interventions with a recorded government answer that have answer text from ${pct(1 - x.missing / x.written)} to ${pct(am.after_repair)}${period === 'all' ? '' : ` (${PERW[period]})`}. ` +
-    `Today at most <b>${fmt(am.written)}</b> written answers lack answer text on their intervention, each typed by cause.` :
-    `of ${fmt(x.written)} interventions with a recorded government answer, ${PERW[period]}, have no answer text attached in OpenParlData by the registered census rule (${pct(x.missing / x.written)}), typed by cause for every one.`);
+  // the plain answer first (README, report, form notes and site share it), then what was delivered
+  $('#heroLine').textContent = 'Can one schema hold Swiss parliamentary business? Yes, if its fields carry roles.';
+  const T = D.tiles, all = period === 'all';
+  $('#heroDelivered').replaceChildren(el('b', {}, 'Delivered: '), am && am.after_repair != null ?
+    `repairs for ${fmt(D.parliaments.corrected.national.all.repaired)} answers keyed on OPD ids, every one from model-free rules. Once applied, ${pct(am.after_repair)} of interventions with a recorded government answer${all ? '' : ` (${PERW[period]})`} have answer text, up from ${pct(1 - x.missing / x.written)} today` +
+    (all && T ? `: ${T.share_row_checked} from row-checked repairs + ${T.points_unchecked} points from the ${fmt(T.agenda)} agenda joins and ${fmt(T.review)} review rows.` : '.') :
+    `${fmt(x.missing)} of ${fmt(x.written)} interventions with a recorded government answer, ${PERW[period]}, have no answer text attached in OpenParlData by the registered census rule.`);
   $('#heroDetail').textContent = am && am.written != null ?
     `Headline, ${PERW[period]}: at most ${fmt(am.written)} written answers lack answer text on their intervention in OpenParlData (${pct(am.written / x.in_writing)} of the ${fmt(x.in_writing)} answered in writing). ` +
     `The registered census rule counts ${fmt(x.missing)} of the ${fmt(x.written)} interventions with a recorded government answer without attached answer text (${pct(x.missing / x.written)}); ` +
@@ -733,14 +768,38 @@ $('#heroPeriod').append(periodSeg('Period · applies to the whole page'));
 drawHero();
 const V = D.schema.verdict, V2 = D.schema.v02, P7 = D.evaluation.p7, P2E = D.evaluation.p2;
 const facts = [
-  [fmt(D.parliaments.corrected.national.all.repaired), el('span', {}, `answers with a repair proposed to OPD, keyed on OPD ids; every repair comes from model-free rules. ` + (H.pg && H.pg.ok ? `The Bern plan ran on PostgreSQL ${H.pg.server.split('.')[0]}: ${fmt(H.pg.rows)} rows in one transaction that rolls back on any deviation. ` : ''), el('a', { class: 'bernlink', href: '#bern-numbers' }, 'All Bern numbers →'))],
-  [`${V.need_roles} of ${V.fields}`, `fields need roles (${V.need_roles_robust} robust, ${V.need_roles_fragile} fragile); ${V.body_specific} is body-specific; ${V.defined_once} are defined once in v0.1 (meaning is the next test).` + (V2 ? ` Schema v0.2 carries the roles, the converter fills them, and all ${fmt(V2.n_valid)} records validate.` : '')],
-  P7 && P7.h1 ? [`${P7.h1.correct}/${P7.h1.n}`, `sampled promotions are the government's answer (P7-H1, registered; judged by blind AI annotators).` + (P7.date_hit ? ` Apertus picks the gold answer date on ${P7.date_hit.p7.hit}/${P7.date_hit.p7.n} (${Math.round(100 * P7.date_hit.p7.hit / P7.date_hit.p7.n)}%), the best no-model rule on ${P7.date_hit.trivial.hit}/${P7.date_hit.trivial.n} (${Math.round(100 * P7.date_hit.trivial.hit / P7.date_hit.trivial.n)}%) (post hoc).` : '')]
-    : [fmt(H.naive_fab), `answer dates invented outright by free-generation Apertus on the 154 held-out documents.`],
-  H.p2 && P2E && P2E.arms && P2E.arms.pointer ? [`${P2E.arms.pointer.exact}/${P2E.arms.pointer.n}`, (() => { const b = D.evaluation.baselines.p2_answer_typed; return `documents exact in ${H.p2.bodies} parliaments nobody wrote rules for, against ${b.exact}/${b.n} for the best no-model baseline (P2, post hoc; McNemar p = ${b.p_mcnemar}, parliament-cluster p = ${b.p_cluster}). Registered: ${H.p2.pointer.correct}/${H.p2.pointer.of} answer dates, rules ${H.p2.rules.correct}/${H.p2.rules.of}.`; })()]
+  [fmt(D.parliaments.corrected.national.all.repaired), el('span', {}, `answers with a model-free repair proposed to OPD, keyed on OPD ids. ` + (H.pg && H.pg.ok ? `The Bern plan ran on PostgreSQL ${H.pg.server.split('.')[0]}: ${fmt(H.pg.rows)} rows in one transaction that rolls back on any deviation. ` : ''), el('a', { class: 'bernlink', href: '#bern-numbers' }, 'All Bern numbers →'))],
+  [`${V.need_roles} of ${V.fields}`, `fields are shared once their roles are explicit; ${V.body_specific} is body-specific; ${V.defined_once} are not yet tested for meaning.`],
+  H.p2 && P2E && P2E.arms && P2E.arms.pointer ? [`${P2E.arms.pointer.exact}/${P2E.arms.pointer.n}`, (() => { const b = D.evaluation.baselines.p2_answer_typed; return `documents exact in ${H.p2.bodies} parliaments nobody wrote rules for when Apertus picks the answer date among the printed dates, against ${b.exact}/${b.n} for the best no-model baseline.`; })()]
        : [`${H.rules_exact}/${H.heldout}`, `held-out documents exact with the default converter (rules, no model).`],
+  D.tiles ? [fmt(D.tiles.v02_affairs), `affairs from ${D.tiles.v02_parliaments} parliaments, communal, cantonal and federal, validate in schema v0.2.`]
+          : [fmt(V2 ? V2.n_valid : 0), 'affairs validate in schema v0.2.'],
 ];
 $('#facts').append(...facts.map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
+{ const b = D.evaluation.baselines && D.evaluation.baselines.p2_answer_typed;
+  $('#factNote').textContent = `Sources: 92.3% and ${fmt(D.parliaments.corrected.national.all.repaired)} from the census and the repair lists (no model); ${V.need_roles} of ${V.fields} from OPD's labels and P8 (pre-registered)` +
+    (b ? `; ${P2E.arms.pointer.exact}/${P2E.arms.pointer.n} from P2, post hoc (McNemar p = ${b.p_mcnemar}, parliament-cluster p = ${b.p_cluster})` : '') +
+    (D.tiles ? `; ${fmt(D.tiles.v02_affairs)} from P3, P3b, P5, P8 and the federal cell, whose ${D.tiles.federal} affairs are exploratory` : '') +
+    '. P1–P8 are the nine tests (P3b replicates P3), each frozen by hash before its labels.'; }
+/* the section tabs scroll sideways on phones: drop the edge fade once the strip is scrolled to its end */
+{ const nt = document.querySelector('nav.tabs'); const upd = () => nt.classList.toggle('at-end', nt.scrollLeft + nt.clientWidth >= nt.scrollWidth - 2);
+  nt.addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd(); }
+/* converter coverage per parliament (results/convert/coverage_by_parliament.json) */
+if (D.coverage) {
+  const C = D.coverage, S = C.summary, ST = ['frozen rules', 'source adapter', 'metadata only'];
+  const what = { 'frozen rules': 'answer date and recommendation from the frozen DE/FR/IT rules, unattended',
+    'source adapter': 'document values flagged for review (no_rules_for_body); a model-free source adapter verifies their answers for the repair lists',
+    'metadata only': 'document values flagged for review (no_rules_for_body)' };
+  $('#covNote').textContent = `${fmt(S.bodies)} bodies: the ${fmt(S.bodies_in_matrix)} of the feasibility matrix and ${S.bodies - S.bodies_in_matrix} more a test sampled. Tests: P1–P8 and the exploratory federal cell; v0.2 = affairs among the validated schema v0.2 records.`;
+  $('#covSummary').replaceChildren(el('table', { class: 'dense' }, el('thead', {}, el('tr', {}, ['converter status', 'bodies', 'in a test', 'document values'].map(h => el('th', {}, h)))),
+    el('tbody', {}, ST.map(k => el('tr', {}, el('td', {}, k), el('td', { class: 'num' }, fmt(S.by_status[k])), el('td', { class: 'num' }, fmt(S.tested_by_status[k])), el('td', {}, what[k]))))));
+  $('#covSum').textContent = `Every parliament (${fmt(S.bodies)}), its status and the tests that read it`;
+  const order = Object.fromEntries(ST.map((k, i) => [k, i]));
+  const rows = [...C.rows].sort((a, b) => order[a.status] - order[b.status] || a.name.localeCompare(b.name));
+  $('#covTable').replaceChildren(el('thead', {}, el('tr', {}, ['body', 'name', 'level', 'status', 'tests', 'v0.2'].map(h => el('th', {}, h)))),
+    el('tbody', {}, rows.map(r => el('tr', {}, el('td', { class: 'code' }, r.body), el('td', {}, r.name), el('td', {}, r.level || ''), el('td', {}, r.status),
+      el('td', {}, r.tests.join(', ') || '—'), el('td', {}, r.v02 ? 'yes' : '—')))));
+}
 
 /* where to look (3 steps) + glossary */
 const RS = D.parliaments.research || {};
