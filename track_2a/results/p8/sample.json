@@ -1,0 +1,77 @@
+{
+ "attempts": 1589,
+ "blind": "packets carry an opaque id, the two documents and the parser's date list only; no OPD metadata, parliament key, cell or hypothesis",
+ "by_cell": {
+  "261:IQ": 2,
+  "261:MP": 4,
+  "351:IQ": 2,
+  "351:MP": 4,
+  "5002:IQ": 2,
+  "5002:MP": 4,
+  "5192:IQ": 2,
+  "5192:MP": 4,
+  "5586:IQ": 2,
+  "5586:MP": 4,
+  "6643:IQ": 2,
+  "6643:MP": 4,
+  "FR:IQ": 2,
+  "FR:MP": 4,
+  "GR:IQ": 2,
+  "GR:MP": 4,
+  "TG:IQ": 2,
+  "TG:MP": 4,
+  "VD:IQ": 4,
+  "VD:IQ:fill_for_MP": 1,
+  "VD:MP": 1,
+  "VS:IQ": 2,
+  "VS:MP": 4
+ },
+ "by_type": {
+  "Interpellation": 11,
+  "Motion": 30,
+  "Postulate": 11,
+  "Question": 14
+ },
+ "exclusions": {
+  "affairs": 2436,
+  "docs": 1022,
+  "from_existing_gold_sets": {
+   "affairs": 833,
+   "docs": 1022
+  },
+  "from_p7_and_audits": 1603
+ },
+ "key_sha256": "07da331b53ad1ce22d00676b51edf078a3323f250c809a536060a6919639d000",
+ "n": 66,
+ "packets": 66,
+ "packets_sha256": "8b5994e9b097f456f9b4def6e9feae1feeee527b0008274dacde7f99447c1adc",
+ "rejected": 1523,
+ "seed": 20261042,
+ "shortfalls": [
+  {
+   "body": "VD",
+   "cell": "MP",
+   "pool": 2,
+   "shortfall": 1
+  },
+  {
+   "body": "TI",
+   "cell": "IQ",
+   "pool": 1493,
+   "shortfall": 6
+  },
+  {
+   "body": "TI",
+   "cell": "MP:fill_for_IQ",
+   "shortfall_after_fill": 6
+  }
+ ],
+ "work_inputs": {
+  "adapters/audit/*.jsonl": "88c56a57f007f9ad6c2596efe9fb8870b615fa426011c3d1c9e267b93e8ffba7",
+  "adapters/audit2/*.jsonl": "a0aecc9b35f990540acc3f68f3daeeb6924b2004ef0d2e85f317e8326fd38dba",
+  "adapters/audit3/key.jsonl": "2164eac93fbb059dbe282627d72d2e705ee7d495120ac7418caf054e732dc644",
+  "adapters/audit_orig_backup/*.jsonl": "88c56a57f007f9ad6c2596efe9fb8870b615fa426011c3d1c9e267b93e8ffba7",
+  "p7dev/key.jsonl": "5be0914f35f6ed088914cf263a80fb6a5327832e54679655dfece103c3962593",
+  "p7test/key.jsonl": "39c279ee26abff5fe36834e54015deb9b29fb7f1fc5ca3c03109887ebb3fb29b"
+ }
+}
