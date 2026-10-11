@@ -1,0 +1,673 @@
+{
+ "label": "EXPLORATORY (PREREG7, added after LOCK7): real 8B on P6; v2 θ_presence fitted for this build on P1 dev",
+ "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+ "shard": "0_of_6",
+ "assigned": [
+  71936,
+  128559,
+  136842,
+  170950,
+  276469,
+  379118,
+  612248,
+  654476,
+  864968,
+  872284,
+  878786,
+  880665
+ ],
+ "unreachable": [],
+ "theta_v1": 16.726888806932546,
+ "theta_presence": -3.9783258373311625,
+ "per_doc": [
+  {
+   "doc_id": 276469,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "1976-10-21",
+    "1982-10-28",
+    "1982-12-16",
+    "1985-04-02",
+    "1986-01-30",
+    "1987-01-01",
+    "1994-09-01",
+    "1995-01-01",
+    "2006-03-24",
+    "2009-01-01",
+    "2017-05-05",
+    "2017-05-30"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2017-05-30",
+    "rule": "rrb_vom"
+   },
+   "latest_printed_date": {
+    "value": "2017-05-30"
+   },
+   "latest_on_answer_typed": {
+    "value": "2017-05-30"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2017-05-30",
+    "margin": -1.5415355722514583,
+    "n_cands": 12
+   },
+   "cascade_v1": {
+    "value": "2017-05-30",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2017-05-30",
+    "stage": "generation",
+    "presence_margin": -22.387615204247425,
+    "calls": 3
+   },
+   "cascade_v2": {
+    "value": "2017-05-30",
+    "route": "rule"
+   },
+   "free_guided": {
+    "value": "2017-05-30",
+    "printed": true
+   },
+   "free_null": {
+    "value": "2017-05-30",
+    "how": "iso"
+   }
+  },
+  {
+   "doc_id": 379118,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "1907-12-10",
+    "1946-06-03",
+    "2011-09-23",
+    "2015-04-01",
+    "2017-12-08",
+    "2019-05-08",
+    "2020-02-03",
+    "2020-05-11",
+    "2020-06-09"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2020-06-09",
+    "rule": "rrb_vom"
+   },
+   "latest_printed_date": {
+    "value": "2020-06-09"
+   },
+   "latest_on_answer_typed": {
+    "value": "2020-06-09"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2020-06-09",
+    "margin": 2.142962223303929,
+    "n_cands": 9
+   },
+   "cascade_v1": {
+    "value": "2020-06-09",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2020-06-09",
+    "stage": "generation",
+    "presence_margin": -12.934280395565047,
+    "calls": 3
+   },
+   "cascade_v2": {
+    "value": "2020-06-09",
+    "route": "rule"
+   },
+   "free_guided": {
+    "value": "2020-06-09",
+    "printed": true
+   },
+   "free_null": {
+    "value": "2020-06-09",
+    "how": "iso"
+   }
+  },
+  {
+   "doc_id": 170950,
+   "body": "ZG",
+   "cell": "de_canton",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2021-03-09"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2021-03-09"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": 20.11073890723938,
+    "n_cands": 1
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 17.536445665441576,
+    "calls": 2
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   },
+   "free_null": {
+    "value": null,
+    "how": "null"
+   }
+  },
+  {
+   "doc_id": 864968,
+   "body": "1711",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2024-03-26",
+    "2025-05-08",
+    "2025-05-16",
+    "2025-06-18",
+    "2025-06-24"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2025-06-24"
+   },
+   "latest_on_answer_typed": {
+    "value": "2025-06-24"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2025-06-24",
+    "margin": 4.8723829281115165,
+    "n_cands": 5
+   },
+   "cascade_v1": {
+    "value": "2025-06-24",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2025-06-24",
+    "stage": "generation",
+    "presence_margin": -12.108882904345535,
+    "calls": 3
+   },
+   "cascade_v2": {
+    "value": "2025-06-24",
+    "route": "apertus"
+   },
+   "free_guided": {
+    "value": "2025-06-24",
+    "printed": true
+   },
+   "free_null": {
+    "value": "2025-06-24",
+    "how": "iso"
+   }
+  },
+  {
+   "doc_id": 654476,
+   "body": "3427",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2015-11-05",
+    "2018-08-01",
+    "2020-09-24",
+    "2020-10-21",
+    "2020-10-28"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2020-10-28"
+   },
+   "latest_on_answer_typed": {
+    "value": "2020-10-28"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2015-11-05",
+    "margin": 7.673446690307767,
+    "n_cands": 5
+   },
+   "cascade_v1": {
+    "value": "2015-11-05",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 7.718391418177241,
+    "calls": 2
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   },
+   "free_null": {
+    "value": "2020-10-21",
+    "how": "iso"
+   }
+  },
+  {
+   "doc_id": 612248,
+   "body": "3427",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2025-09-09",
+    "2025-09-15"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2025-09-15"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2025-09-09",
+    "margin": 12.149406840891132,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": "2025-09-09",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 25.79111289558712,
+    "calls": 2
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   },
+   "free_null": {
+    "value": null,
+    "how": "null"
+   }
+  },
+  {
+   "doc_id": 872284,
+   "body": "306",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2021-01-08",
+    "2021-02-22",
+    "2021-09-13",
+    "2021-12-13"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2021-12-13"
+   },
+   "latest_on_answer_typed": {
+    "value": "2021-12-13"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2021-12-13",
+    "margin": 7.154330690775318,
+    "n_cands": 4
+   },
+   "cascade_v1": {
+    "value": "2021-12-13",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": "2021-12-13",
+    "stage": "generation",
+    "presence_margin": -9.747402191523065,
+    "calls": 3
+   },
+   "cascade_v2": {
+    "value": "2021-12-13",
+    "route": "apertus"
+   },
+   "free_guided": {
+    "value": "2021-12-13",
+    "printed": true
+   },
+   "free_null": {
+    "value": "2021-12-13",
+    "how": "iso"
+   }
+  },
+  {
+   "doc_id": 128559,
+   "body": "2937",
+   "cell": "de_commune",
+   "dtype": "answer",
+   "lang": "de",
+   "doc_dates": [
+    "2015-10-27",
+    "2015-11-10"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2015-11-10",
+    "rule": "place_date_head"
+   },
+   "latest_printed_date": {
+    "value": "2015-11-10"
+   },
+   "latest_on_answer_typed": {
+    "value": "2015-11-10"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2015-11-10",
+    "margin": 4.186007511191036,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": "2015-11-10",
+    "route": "rule"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 18.72640228277838,
+    "calls": 2
+   },
+   "cascade_v2": {
+    "value": "2015-11-10",
+    "route": "rule"
+   },
+   "free_guided": {
+    "value": "2015-11-10",
+    "printed": true
+   },
+   "free_null": {
+    "value": "2015-11-10",
+    "how": "iso"
+   }
+  },
+  {
+   "doc_id": 71936,
+   "body": "2937",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "2015-10-22",
+    "2015-10-23"
+   ],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": "2015-10-23"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2015-10-23",
+    "margin": 11.682469029765034,
+    "n_cands": 2
+   },
+   "cascade_v1": {
+    "value": "2015-10-23",
+    "route": "apertus"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 22.30945591153833,
+    "calls": 2
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "apertus"
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   },
+   "free_null": {
+    "value": null,
+    "how": "null"
+   }
+  },
+  {
+   "doc_id": 878786,
+   "body": "581",
+   "cell": "de_commune",
+   "dtype": "intervention",
+   "lang": "de",
+   "doc_dates": [
+    "1999-10-19",
+    "2016-08-16",
+    "2016-10-18",
+    "2016-12-07",
+    "2017-04-18"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2016-12-07",
+    "rule": "place_date_head"
+   },
+   "latest_printed_date": {
+    "value": "2017-04-18"
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2016-12-07",
+    "margin": 8.605191936904962,
+    "n_cands": 5
+   },
+   "cascade_v1": {
+    "value": "2016-12-07",
+    "route": "rule"
+   },
+   "v2": {
+    "value": null,
+    "stage": "presence",
+    "presence_margin": 13.682460784506517,
+    "calls": 2
+   },
+   "cascade_v2": {
+    "value": "2016-12-07",
+    "route": "rule"
+   },
+   "free_guided": {
+    "value": "2016-12-07",
+    "printed": true
+   },
+   "free_null": {
+    "value": "2016-12-07",
+    "how": "iso"
+   }
+  },
+  {
+   "doc_id": 880665,
+   "body": "6023",
+   "cell": "fr_commune",
+   "dtype": "intervention",
+   "lang": "fr",
+   "doc_dates": [],
+   "rules": {
+    "status": "abstain",
+    "value": null,
+    "rule": "no_anchor"
+   },
+   "latest_printed_date": {
+    "value": null
+   },
+   "latest_on_answer_typed": {
+    "value": null
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": null,
+    "margin": Infinity,
+    "n_cands": 0
+   },
+   "cascade_v1": {
+    "value": null,
+    "route": "rule"
+   },
+   "v2": {
+    "value": null,
+    "stage": "no_dates",
+    "presence_margin": Infinity,
+    "calls": 0
+   },
+   "cascade_v2": {
+    "value": null,
+    "route": "rule"
+   },
+   "free_guided": {
+    "value": null,
+    "printed": false
+   },
+   "free_null": {
+    "value": null,
+    "how": "null"
+   }
+  },
+  {
+   "doc_id": 136842,
+   "body": "6458",
+   "cell": "fr_commune",
+   "dtype": "answer",
+   "lang": "fr",
+   "doc_dates": [
+    "2012-03-21",
+    "2022-03-08",
+    "2022-05-09"
+   ],
+   "rules": {
+    "status": "value",
+    "value": "2022-05-09",
+    "rule": "place_date_tail"
+   },
+   "latest_printed_date": {
+    "value": "2022-05-09"
+   },
+   "latest_on_answer_typed": {
+    "value": "2022-05-09"
+   },
+   "always_null": {
+    "value": null
+   },
+   "v1": {
+    "value": "2022-05-09",
+    "margin": 7.886160648118327,
+    "n_cands": 3
+   },
+   "cascade_v1": {
+    "value": "2022-05-09",
+    "route": "rule"
+   },
+   "v2": {
+    "value": "2022-05-09",
+    "stage": "generation",
+    "presence_margin": -28.38173675536722,
+    "calls": 3
+   },
+   "cascade_v2": {
+    "value": "2022-05-09",
+    "route": "rule"
+   },
+   "free_guided": {
+    "value": "2022-05-09",
+    "printed": true
+   },
+   "free_null": {
+    "value": "2022-05-09",
+    "how": "iso"
+   }
+  }
+ ]
+}
