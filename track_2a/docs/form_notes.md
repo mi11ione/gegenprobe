@@ -1,48 +1,42 @@
 # Form notes (for the submission form, ≤ 5000 characters; jurors read these)
 
 Gegenprobe, Track 2A OpenParlData, team 444. Evidence site: https://gegenprobe.mi11ion.io. Every number is traced in
-`claims.tsv` to its file; `make run` re-checks them.
+`claims.tsv` to its results file; `make claims` recomputes them all.
 
-- **The answer.** One schema can hold the business of all Swiss parliaments if it keeps dates apart by role and says
-  why a value is missing. Of 17 fields, 12 are shared (we tested the meaning of 1; 11 by definition) and 5 need their
-  roles kept apart ("answer date" alone is three dates); 4 are in OpenParlData's (OPD) records almost everywhere, 13
-  only for some parliaments. Our tool fills what documents print, with page and position or a reason why there is
-  none: the answer date in depth, each question with its answer; only the type runs without a person.
-- **For OPD: lists and one command.** In Bern, OPD attaches 229 of the 3,532 answers the canton publishes (6.5%), yet
-  3,394 (96.1%) are already in OPD. Checked against OPD's own copy: 2,421 relinks and 48 fetches pass, 39 go to a
-  person, plus 727 wrong Bern start dates. One command turns them into a before/after plan. OPD confirmed the bug and
-  that our list is the workaround until its fix ships (correspondence, 10 Oct 2026; a published excerpt awaits OPD's
-  consent).
-- **Where answers go missing, and how to put them back.** 16,749 of 91,268 interventions with a government answer
-  (18.4%) have no answer text in OPD; 1,422 were answered orally, so 15,327 written answers (17.1%) are missing, each
-  with a cause. Readers for 50 parliaments now verify repairs for 9,720 of the 16,749 (was 3,107); 5,007 still need
-  one. A blind audit of 300 random repairs: 297 are the answer, 0 wrong, 3 unclear. We found and disclosed our own bug:
-  a standard robots.txt parser let 3 disallowed files through once; deleted, unused, fixed everywhere.
-- **Seven tests, frozen before any label was committed.** (1) On 154 documents from parliaments our rules know, rules
-  alone are right on 135, so by default no AI model runs. (2) On 62 documents from 15 parliaments no rule was written
-  for, the rules find 2/29 answer dates and Apertus 24/29, ahead in 6 parliaments, behind in none; the latest date in
-  each document finds 22/29 too but dates 31 of the 33 without an answer (Apertus 4/33). (6) On 8 more new parliaments,
-  rules then Apertus find 31/34 answer dates, rules alone 20/34. Plainly: the same Apertus asked freely is as accurate
-  (62/68 vs 59/68); our pointing form guarantees printed dates only, each with its page (32/32). A person confirms.
-- **Questions and answers (5).** On 40 affairs from 10 new parliaments, rules pair each question with its answer at
-  precision 0.83 and recall 0.67 (a person checks), far ahead of free generation (79:11); Apertus doubles finding the
-  submitter (12/40 → 24/40).
-- **Labels checked by another company's model.** Two AI annotators label blind, a third settles ties, raw labels are
-  committed. Qwen-SEA-LION (AI Singapore) relabelled blind (P1, P2 for USD 0.14): dates agree with κ 0.80, 0.87 and 0.86 (tests 1, 2, 6), no
-  registered result changes; on (5) its labels were too noisy to judge. OPD's own dates match 37 of 44 checkable test
-  dates; Ticino's titles 20/20. One registered test fails on documents the labellers dispute, council reports (1/72
-  without them).
-- **Whole affairs.** (3) On 29 affairs, OPD's records plus rules get type 27/29 and answer date 22/27; Apertus
-  suggestions fill the answer dates (27/27). (3b) A fresh replication on 36 affairs passed its registered criteria:
-  answer date 20/35 (4/35 wrong, 3 by a Luzern rule, now guarded), with Apertus
-  31/35. (4) For Bulle, rules turn 6 sittings into 99 affairs, no decision invented,
-  though only 99/120 items were found.
-- **Which model, what it costs.** The results use the 70B Apertus, which Public AI serves under the 8B's name, as its
-  server signature indicates. The 8B (a community 4-bit build) runs on one 4-core machine, 180 s per document, and
-  cannot return a date that is not printed; on new parliaments it finds 15 of 21 answer dates (70B: 16) but dates 11
-  of 31 documents without an answer (70B: 4). Advice: run without a model; for suggestions the 8B fully local, or the
+- **Verdict.** The frame of a common schema is feasible: 17 fields, each a value with its source (page and position,
+  or the OpenParlData (OPD) record) or a reason why it is empty, with dates kept apart by role ("answer date" alone is
+  three dates). Meaning is verified across parliaments for 1 of the 17 fields; 5 are measured to need a role split; 11
+  are shared by definition, untested. 4 fields are in OPD's records almost everywhere, 13 partly or only in the PDF.
+- **What OPD can apply tomorrow.** In Bern, OPD attaches 229 of the 3,532 answers the canton publishes (6.5%), yet
+  3,394 (96.1%) are already in OPD. Checked against OPD's own copy: 2,421 relinks and 48 fetches, plus 554 wrong Bern
+  start dates, as a dry-run plan with before and after state. OPD confirmed the bug (correspondence, 10 Oct 2026; a
+  published excerpt awaits OPD's consent).
+- **Census.** The registered census counts 16,749 of 91,268 interventions with a government answer without answer text
+  attached in OPD. 2,177 of them are in OPD under a heading the census does not recognise, so at most 14,572 lack text
+  (13,150 written answers). Readers for 50 parliaments and the Bern routes propose verified repairs for 9,720; after
+  them 92.3% have answer text; 5,007 still need an adapter. A blind audit (verdict-free packets with decoys) judged
+  197/200 counted repairs to be the answer; it is an LLM audit, not a human one.
+- **Seven tests, frozen before any label.** All 74 labelling sessions started after the frozen tests reached GitHub and
+  ended before the labels did. P1, 154 documents: rules alone right on 135, so by default no model runs. P2, 62
+  documents from 15 parliaments without rules: rules find 2/29 answer dates, Apertus 24/29. P3, P3b: whole affairs;
+  Apertus fills answer dates the rules miss (22/27 to 27/27). P4: 99 affairs rebuilt from one commune's minutes, none
+  invented, 99/120 found. P5, 40 affairs: rules pair each question with its answer at precision 0.83, recall 0.67
+  (partial; not yet when parliaments are resampled). P6: no registered hypothesis held.
+- **What Apertus adds, plainly.** It finds dates the rules miss on new parliaments, and every value it returns is a
+  printed date with its page. It is not more accurate than the same model asked freely with null allowed (P6: 62/68
+  free vs 59/68), which also almost never invents a date. It still dates some documents without an answer (5 of 34
+  in P6), so a person confirms every suggestion. On all 68 P6 documents rules then Apertus win 11 and lose 5
+  against rules alone (p 0.21).
+- **Labels.** Two AI annotators label blind, a third settles ties, raw files are committed. Qwen-SEA-LION (AI
+  Singapore) relabelled P1, P2 and P6 blind: dates agree with κ 0.80, 0.87 and 0.86, no registered result changes.
+  OPD's own dates match 37 of 44 checkable P1 dates and 10/10 in P6.
+- **Which model, what it costs.** Evaluation used Apertus v1.5 70B weights served by Public AI (inferred from the
+  served fingerprint; the endpoint name says 8b). The 8B (a community 4-bit build) runs on one CPU machine, 180 s per
+  document; on new parliaments it finds 15 of 21 answer dates (70B: 16) but dates 11 of 31 documents without an
+  answer (70B: 4); its P6 run is still running. Advice: run without a model; for suggestions the 8B fully local, or the
   70B on servers the operator chooses (USD 0.59 per 1,000 documents the rules leave open).
-- **Runs on ordinary machines.** `make run` re-checks the results, locked down. One real night against OPD's live data
-  took 83 min and reproduced the Bern list; a two-night run is scheduled. Outside services: only OPD and the
-  parliaments' sites; suggestions add one model service the operator sets. Claude Code agents wrote the code and the
-  labels.
+- **Operations.** `make run` (Docker, CPU) re-derives the rules arm from the PDFs and replays all seven tests (26/26
+  locally). One real night against OPD's live data took 83 min and reproduced the Bern list; a two-night Docker run is
+  running. We found and disclosed our own robots.txt bug: we fetched 147 Ticino URLs on paths its robots.txt disallows;
+  fixed, and every fetch now goes to OPD's own copy. Not done: nothing runs at OPD yet; tables and annexes are not
+  extracted. Claude Code agents wrote the code and the labels.

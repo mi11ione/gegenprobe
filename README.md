@@ -1,17 +1,22 @@
 # Gegenprobe — Hack Apertus, Track 2A (OpenParlData), team 444
 
-A common schema for the business of Swiss parliaments is feasible with date roles and typed nulls (of 17 fields, 12 are
-shared, 1 of them with its meaning tested and 11 by definition; 5 need their date or label roles kept apart; 4 are in
-OpenParlData's metadata almost everywhere, 13 partly). The converter fills what documents print: each date and rule
-value with the page and span where it is printed, or a typed null (Apertus points at one of the printed values, or says
-null, as a suggestion a person confirms); the answer date in depth, 7 fields on whole affairs, per-question Q/A pairs
-with people, recommendation and reasoning, only the type ready to run unattended. Seven pre-registered tests (P1–P6
-with P3b) measure it, including the ones it lost: the pointer form does not beat the same Apertus asked freely on
-accuracy (P6); it finds answer dates the rules miss on unseen parliaments and never returns a value that is not printed.
-The cross-parliamentary result this enables: where government answers go missing from OpenParlData, and how to put them
-back: three Bern lists and one command for OPD, and source adapters for 50 parliaments that propose repairs for 9,940
-of the 16,749 interventions without answer text (a fresh blind audit: precision 0.990). The eCH expert group's page:
-[`track_2a/docs/ech-onepager.md`](track_2a/docs/ech-onepager.md).
+1. **Verdict.** The frame of a common schema for the business of Swiss parliaments is feasible: 17 fields, each a value
+   with its source (page and span, or the OpenParlData record) or a typed null, with dates kept apart by role. Meaning
+   is verified across parliaments for 1 of the 17 fields; 5 are measured to need a role split; 11 are shared by
+   definition, untested.
+2. **What OpenParlData (OPD) can apply tomorrow.** Bern: 2,421 relinks, 48 fetches and 554 `begin_date` corrections,
+   keyed on OPD ids, with a dry-run SQL plan; OPD confirmed the bug. Beyond Bern: one list per parliament from 50
+   model-free source adapters.
+3. **Census.** The registered census counts 16,749 of 91,268 interventions with a written government answer without
+   answer text attached in OPD; 2,177 are in OPD under a heading the census does not recognise, so at most 14,572 lack
+   text. Verified repairs are proposed for 9,720; after them 92.3% have answer text.
+4. **What Apertus adds.** On parliaments nobody wrote rules for it finds answer dates the rules miss (24/29 vs 2/29),
+   each a printed date with page and span. It is not more accurate than the same model asked freely with null allowed,
+   and it still dates some answerless documents, so a person confirms its suggestions.
+5. **Not done.** Nothing runs at OPD yet; 5,007 written answers still need adapters; tables, annexes and images are not
+   extracted; every gold label comes from LLM agents, cross-checked by another vendor's model, not by a person.
+
+The eCH expert group's page: [`track_2a/docs/ech-onepager.md`](track_2a/docs/ech-onepager.md).
 
 - **Evidence site:** https://gegenprobe.mi11ion.io (also written to `track_2a/out/site/index.html` by `make run`)
 - **Project:** [`track_2a/`](track_2a/) — start with [`track_2a/README.md`](track_2a/README.md); technical report

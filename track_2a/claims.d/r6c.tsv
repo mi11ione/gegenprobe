@@ -1,58 +1,58 @@
 id	shown	file	path	fmt	command	where	context
-r6c.sessions_n	74	results/eval/annotation_sessions.json	overall.n_sessions	int	python -m eval.annotation_sessions	-	
-r6c.sessions_sets	10	results/eval/annotation_sessions.json	overall.n_sets_with_sessions	int	python -m eval.annotation_sessions	-	
+r6c.sessions_n	74	results/eval/annotation_sessions.json	overall.n_sessions	int	python -m eval.annotation_sessions	README.md,technical_report.md,docs/form_notes.md	{"README.md": "annotator sessions", "docs/form_notes.md": "labelling sessions", "technical_report.md": "annotator sessions"}
+r6c.sessions_sets	10	results/eval/annotation_sessions.json	overall.n_sets_with_sessions	int	python -m eval.annotation_sessions	README.md,technical_report.md	{"README.md": "label sets", "technical_report.md": "label sets"}
 r6c.label_files	996	results/eval/annotation_sessions.json	overall.label_files_total	int	python -m eval.annotation_sessions	-	
 r6c.label_files_in_session	996	results/eval/annotation_sessions.json	overall.label_files_mtime_in_session	int	python -m eval.annotation_sessions	-	
-r6c.p1_lock_to_first_s	95	results/eval/annotation_sessions.json	sets.0.order_checks.seconds_from_lock_push_to_first_session	int	python -m eval.annotation_sessions	-	
-r6c.p5_draw_to_first_s	7	results/eval/annotation_sessions.json	sets.7.order_checks.seconds_from_draw_push_to_first_session	int	python -m eval.annotation_sessions	-	
+r6c.p1_lock_to_first_s	95	results/eval/annotation_sessions.json	sets.0.order_checks.seconds_from_lock_push_to_first_session	int	python -m eval.annotation_sessions	README.md,technical_report.md	{"README.md": "gap after the LOCK", "technical_report.md": "after the LOCK"}
+r6c.p5_draw_to_first_s	7	results/eval/annotation_sessions.json	sets.7.order_checks.seconds_from_draw_push_to_first_session	int	python -m eval.annotation_sessions	README.md	{"README.md": "for P5 the gap"}
 r6c.dev2_rule_to_first_s	26	results/eval/annotation_sessions.json	sets.8.order_checks.seconds_from_lock_push_to_first_session	int	python -m eval.annotation_sessions	-	
 r6c.dev2_last_to_labels_s	9	results/eval/annotation_sessions.json	sets.8.order_checks.seconds_from_last_session_end_to_label_push	int	python -m eval.annotation_sessions	-	
-r6c.p6_draw_to_first_s	26	results/eval/annotation_sessions.json	sets.9.order_checks.seconds_from_draw_push_to_first_session	int	python -m eval.annotation_sessions	-	
-r6c.p6_last_to_labels_s	10	results/eval/annotation_sessions.json	sets.9.order_checks.seconds_from_last_session_end_to_label_push	int	python -m eval.annotation_sessions	-	
-r6c.p5_prec_cluster_lo	0.66	results/eval/posthoc_r6_cluster.json	p5_h1.precision.parliament_cluster95.0	f2	python -m eval.posthoc_r6 cluster	-	
-r6c.p5_prec_cluster_hi	0.97	results/eval/posthoc_r6_cluster.json	p5_h1.precision.parliament_cluster95.1	f2	python -m eval.posthoc_r6 cluster	-	
-r6c.p5_rec_cluster_lo	0.51	results/eval/posthoc_r6_cluster.json	p5_h1.recall.parliament_cluster95.0	f2	python -m eval.posthoc_r6 cluster	-	
-r6c.p5_rec_cluster_hi	0.81	results/eval/posthoc_r6_cluster.json	p5_h1.recall.parliament_cluster95.1	f2	python -m eval.posthoc_r6 cluster	-	
-r6c.p5_prec_wilson_lo	0.75	results/eval/posthoc_r6_cluster.json	p5_h1.precision.doc_level_wilson95.0	f2	python -m eval.posthoc_r6 cluster	-	
-r6c.p5_tier_cluster	not yet	results/eval/posthoc_r6_cluster.json	p5_h1.registered_tier.with_parliament_cluster	str	python -m eval.posthoc_r6 cluster	-	
-r6c.p5_tier_wilson	partial	results/eval/posthoc_r6_cluster.json	p5_h1.registered_tier.with_wilson	str	python -m eval.posthoc_r6 cluster	-	
-r6c.p5_fr_recall	10/30	results/eval/posthoc_r6_cluster.json	p5_h1.per_language.fr.recall	frac	python -m eval.posthoc_r6 cluster	-	
-r6c.p5_vs_recall	0/11	results/eval/posthoc_r6_cluster.json	p5_h1.per_parliament.VS.recall	frac	python -m eval.posthoc_r6 cluster	-	
-r6c.p2_ptr_rules_a	22	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs rules.a_only	int	python -m eval.posthoc_r6 cluster	-	
-r6c.p2_ptr_rules_b	4	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs rules.b_only	int	python -m eval.posthoc_r6 cluster	-	
-r6c.p2_ptr_rules_lo	-0.02	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs rules.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	-	
-r6c.p2_ptr_rules_hi	0.54	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs rules.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	-	
-r6c.p2_ptr_free_a	2	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs naive_null.a_only	int	python -m eval.posthoc_r6 cluster	-	
-r6c.p2_ptr_free_b	1	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs naive_null.b_only	int	python -m eval.posthoc_r6 cluster	-	
-r6c.p2_ptr_free_lo	-0.04	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs naive_null.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	-	
-r6c.p2_ptr_free_hi	0.09	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs naive_null.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	-	
-r6c.p6_c2_rules_all_a	11	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules.a_only	int	python -m eval.posthoc_r6 cluster	-	
-r6c.p6_c2_rules_all_b	5	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules.b_only	int	python -m eval.posthoc_r6 cluster	-	
-r6c.p6_c2_rules_all_p	0.21	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules.mcnemar_exact_p	f2	python -m eval.posthoc_r6 cluster	-	
-r6c.p6_c2_rules_all_lo	-0.11	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	-	
-r6c.p6_c2_rules_all_hi	0.29	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_draw_to_first_s	26	results/eval/annotation_sessions.json	sets.9.order_checks.seconds_from_draw_push_to_first_session	int	python -m eval.annotation_sessions	README.md,technical_report.md	{"README.md": "P6 annotators started", "technical_report.md": "first session"}
+r6c.p6_last_to_labels_s	10	results/eval/annotation_sessions.json	sets.9.order_checks.seconds_from_last_session_end_to_label_push	int	python -m eval.annotation_sessions	README.md	{"README.md": "s before the labels"}
+r6c.p5_prec_cluster_lo	0.66	results/eval/posthoc_r6_cluster.json	p5_h1.precision.parliament_cluster95.0	f2	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	
+r6c.p5_prec_cluster_hi	0.97	results/eval/posthoc_r6_cluster.json	p5_h1.precision.parliament_cluster95.1	f2	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	
+r6c.p5_rec_cluster_lo	0.51	results/eval/posthoc_r6_cluster.json	p5_h1.recall.parliament_cluster95.0	f2	python -m eval.posthoc_r6 cluster	README.md	
+r6c.p5_rec_cluster_hi	0.81	results/eval/posthoc_r6_cluster.json	p5_h1.recall.parliament_cluster95.1	f2	python -m eval.posthoc_r6 cluster	README.md	
+r6c.p5_prec_wilson_lo	0.75	results/eval/posthoc_r6_cluster.json	p5_h1.precision.doc_level_wilson95.0	f2	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	
+r6c.p5_tier_cluster	not yet	results/eval/posthoc_r6_cluster.json	p5_h1.registered_tier.with_parliament_cluster	str	python -m eval.posthoc_r6 cluster	README.md,technical_report.md,docs/form_notes.md,docs/ech-onepager.md	
+r6c.p5_tier_wilson	partial	results/eval/posthoc_r6_cluster.json	p5_h1.registered_tier.with_wilson	str	python -m eval.posthoc_r6 cluster	README.md,technical_report.md,docs/form_notes.md,docs/ech-onepager.md	
+r6c.p5_fr_recall	10/30	results/eval/posthoc_r6_cluster.json	p5_h1.per_language.fr.recall	frac	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	
+r6c.p5_vs_recall	0/11	results/eval/posthoc_r6_cluster.json	p5_h1.per_parliament.VS.recall	frac	python -m eval.posthoc_r6 cluster	README.md,technical_report.md,docs/ech-onepager.md	
+r6c.p2_ptr_rules_a	22	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs rules.a_only	int	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	{"README.md": "it is 22 vs 4", "technical_report.md": "beats the rules on 22 and loses on 4"}
+r6c.p2_ptr_rules_b	4	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs rules.b_only	int	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	{"README.md": "it is 22 vs 4", "technical_report.md": "beats the rules on 22 and loses on 4"}
+r6c.p2_ptr_rules_lo	-0.02	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs rules.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	
+r6c.p2_ptr_rules_hi	0.54	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs rules.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	
+r6c.p2_ptr_free_a	2	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs naive_null.a_only	int	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	{"README.md": "ahead on 2 documents and behind on 1", "technical_report.md": "ahead on 2 documents and behind on 1"}
+r6c.p2_ptr_free_b	1	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs naive_null.b_only	int	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	{"README.md": "ahead on 2 documents and behind on 1", "technical_report.md": "ahead on 2 documents and behind on 1"}
+r6c.p2_ptr_free_lo	-0.04	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs naive_null.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	README.md	
+r6c.p2_ptr_free_hi	0.09	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs naive_null.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	README.md	
+r6c.p6_c2_rules_all_a	11	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules.a_only	int	python -m eval.posthoc_r6 cluster	README.md,technical_report.md,docs/form_notes.md	{"README.md": "beats the rules on 11 and loses on 5", "docs/form_notes.md": "win 11 and lose 5", "technical_report.md": "beats the rules on 11 and loses on 5"}
+r6c.p6_c2_rules_all_b	5	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules.b_only	int	python -m eval.posthoc_r6 cluster	README.md,technical_report.md,docs/form_notes.md	{"README.md": "beats the rules on 11 and loses on 5", "docs/form_notes.md": "win 11 and lose 5", "technical_report.md": "beats the rules on 11 and loses on 5"}
+r6c.p6_c2_rules_all_p	0.21	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules.mcnemar_exact_p	f2	python -m eval.posthoc_r6 cluster	README.md,technical_report.md,docs/form_notes.md	
+r6c.p6_c2_rules_all_lo	-0.11	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	README.md	
+r6c.p6_c2_rules_all_hi	0.29	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	README.md	
 r6c.p6_c2_rules_ans_lo	0.10	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules (answered documents only).cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	-	
-r6c.p6_c2_rules_ans_hi	0.59	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules (answered documents only).cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_c2_rules_ans_hi	0.59	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules (answered documents only).cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	README.md,technical_report.md,docs/form_notes.md	
 r6c.p6_v2_rules_lo	-0.14	results/eval/posthoc_r6_cluster.json	p6.paired.v2 vs rules.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	-	
 r6c.p6_v2_rules_hi	0.30	results/eval/posthoc_r6_cluster.json	p6.paired.v2 vs rules.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	-	
 r6c.p6_free_rules_lo	-0.07	results/eval/posthoc_r6_cluster.json	p6.paired.free_null vs rules.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	-	
 r6c.p6_free_rules_hi	0.33	results/eval/posthoc_r6_cluster.json	p6.paired.free_null vs rules.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	-	
-r6c.p6_model_free_cascade	55/68	results/eval/posthoc_r6_cluster.json	p6.arms.model_free_cascade.exact	frac	python -m eval.posthoc_r6 cluster	-	
-r6c.p6_cascade_v2	60/68	results/eval/posthoc_r6_cluster.json	p6.arms.cascade_v2.exact	frac	python -m eval.posthoc_r6 cluster	-	
-r6c.p6_free_null	62/68	results/eval/posthoc_r6_cluster.json	p6.arms.free_null.exact	frac	python -m eval.posthoc_r6 cluster	-	
-r6c.p6_c2_mfc_a	5	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs model_free_cascade.a_only	int	python -m eval.posthoc_r6 cluster	-	
-r6c.p6_c2_mfc_b	0	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs model_free_cascade.b_only	int	python -m eval.posthoc_r6 cluster	-	
-r6c.p6_c2_mfc_p	0.06	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs model_free_cascade.mcnemar_exact_p	f2	python -m eval.posthoc_r6 cluster	-	
-r6c.prov_null_p1	0	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_null_allowed_printed_nowhere.P1 held-out	int	python -m eval.posthoc_r6 cluster	-	
-r6c.prov_null_p2	1	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_null_allowed_printed_nowhere.P2	int	python -m eval.posthoc_r6 cluster	-	
-r6c.prov_null_p6	0	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_null_allowed_printed_nowhere.P6	int	python -m eval.posthoc_r6 cluster	-	
-r6c.prov_plain_p1	24	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_plain_printed_nowhere.P1 held-out	int	python -m eval.posthoc_r6 cluster	-	
-r6c.prov_plain_p2	4	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_plain_printed_nowhere.P2	int	python -m eval.posthoc_r6 cluster	-	
-r6c.prov_plain_p6	5	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_plain_printed_nowhere.P6	int	python -m eval.posthoc_r6 cluster	-	
-r6c.p6o_opd_event	10/10	results/eval/posthoc_r6_p6_oracle.json	summary.opd_written_answer_event	frac	python -m eval.posthoc_r6 p6oracle	-	
-r6c.p6o_title_consistent	10/10	results/eval/posthoc_r6_p6_oracle.json	summary.title_date_consistent	frac	python -m eval.posthoc_r6 p6oracle	-	
+r6c.p6_model_free_cascade	55/68	results/eval/posthoc_r6_cluster.json	p6.arms.model_free_cascade.exact	frac	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	
+r6c.p6_cascade_v2	60/68	results/eval/posthoc_r6_cluster.json	p6.arms.cascade_v2.exact	frac	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	
+r6c.p6_free_null	62/68	results/eval/posthoc_r6_cluster.json	p6.arms.free_null.exact	frac	python -m eval.posthoc_r6 cluster	README.md,technical_report.md,docs/form_notes.md	
+r6c.p6_c2_mfc_a	5	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs model_free_cascade.a_only	int	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	{"README.md": "behind on 0", "technical_report.md": "behind on 0"}
+r6c.p6_c2_mfc_b	0	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs model_free_cascade.b_only	int	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	{"README.md": "behind on 0", "technical_report.md": "behind on 0"}
+r6c.p6_c2_mfc_p	0.06	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs model_free_cascade.mcnemar_exact_p	f2	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	
+r6c.prov_null_p1	0	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_null_allowed_printed_nowhere.P1 held-out	int	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	{"README.md": "0, 1 and 0 times", "technical_report.md": "0, 1 and 0 times"}
+r6c.prov_null_p2	1	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_null_allowed_printed_nowhere.P2	int	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	{"README.md": "0, 1 and 0 times", "technical_report.md": "0, 1 and 0 times"}
+r6c.prov_null_p6	0	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_null_allowed_printed_nowhere.P6	int	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	{"README.md": "0, 1 and 0 times", "technical_report.md": "0, 1 and 0 times"}
+r6c.prov_plain_p1	24	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_plain_printed_nowhere.P1 held-out	int	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	{"README.md": "24, 4 and 5 times", "technical_report.md": "24, 4 and 5 times"}
+r6c.prov_plain_p2	4	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_plain_printed_nowhere.P2	int	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	{"README.md": "24, 4 and 5 times", "technical_report.md": "24, 4 and 5 times"}
+r6c.prov_plain_p6	5	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_plain_printed_nowhere.P6	int	python -m eval.posthoc_r6 cluster	README.md,technical_report.md	{"README.md": "24, 4 and 5 times", "technical_report.md": "24, 4 and 5 times"}
+r6c.p6o_opd_event	10/10	results/eval/posthoc_r6_p6_oracle.json	summary.opd_written_answer_event	frac	python -m eval.posthoc_r6 p6oracle	README.md,technical_report.md,docs/form_notes.md	
+r6c.p6o_title_consistent	10/10	results/eval/posthoc_r6_p6_oracle.json	summary.title_date_consistent	frac	python -m eval.posthoc_r6 p6oracle	README.md,technical_report.md,docs/form_notes.md	
 r6c.p6o_title_exact	0/10	results/eval/posthoc_r6_p6_oracle.json	summary.title_date_exact	frac	python -m eval.posthoc_r6 p6oracle	-	
-r6c.p6o_quote	34/34	results/eval/posthoc_r6_p6_oracle.json	summary.quote_on_page_and_parses	frac	python -m eval.posthoc_r6 p6oracle	-	
-r6c.p6o_opd_type	58/68	results/eval/posthoc_r6_p6_oracle.json	summary.opd_type_agrees	frac	python -m eval.posthoc_r6 p6oracle	-	
+r6c.p6o_quote	34/34	results/eval/posthoc_r6_p6_oracle.json	summary.quote_on_page_and_parses	frac	python -m eval.posthoc_r6 p6oracle	README.md,technical_report.md	
+r6c.p6o_opd_type	58/68	results/eval/posthoc_r6_p6_oracle.json	summary.opd_type_agrees	frac	python -m eval.posthoc_r6 p6oracle	README.md	
 r6c.p6o_order	17/22	results/eval/posthoc_r6_p6_oracle.json	summary.submission_order	frac	python -m eval.posthoc_r6 p6oracle	-	
-r6c.p6o_coverage	20/34	results/eval/posthoc_r6_p6_oracle.json	summary.gold_dated_with_any_non_llm_date_source	frac	python -m eval.posthoc_r6 p6oracle	-	
+r6c.p6o_coverage	20/34	results/eval/posthoc_r6_p6_oracle.json	summary.gold_dated_with_any_non_llm_date_source	frac	python -m eval.posthoc_r6 p6oracle	README.md,technical_report.md	

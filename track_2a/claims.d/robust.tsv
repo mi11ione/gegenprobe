@@ -1,5 +1,5 @@
 id	shown	file	path	fmt	command	where
-robust.always_null_exact	90/154	results/eval/robustness.json	always_null_baseline.exact/always_null_baseline.n	frac	PYTHONPATH=src:. python -m eval.robustness all	technical_report.md,README.md
+robust.always_null_exact	90/154	results/eval/robustness.json	always_null_baseline.exact/always_null_baseline.n	frac	PYTHONPATH=src:. python -m eval.robustness all	README.md
 robust.always_null_rate	58.4%	results/eval/robustness.json	always_null_baseline.rate	pct1	PYTHONPATH=src:. python -m eval.robustness all	-
 robust.apertus_precision	9/16	results/eval/robustness.json	apertus_decided_values.correct/apertus_decided_values.n	frac	PYTHONPATH=src:. python -m eval.robustness all	-
 robust.apertus_on_null	5	results/eval/robustness.json	apertus_decided_values.on_gold_null	int	PYTHONPATH=src:. python -m eval.robustness all	-
@@ -39,15 +39,15 @@ robust.rec_boundary	36/38	results/eval/robustness_agreement.json	recommendation_
 robust.a3_picked_a1	36/41	results/eval/robustness_agreement.json	a3_picked_label_of_A1/n_A3_labels	frac	PYTHONPATH=src:. python -m eval.robustness all	-
 robust.lock_server_time	2026-10-09T19:38:07Z	results/eval/lock_server_times.json	lock_server_time	str	see results/eval/lock_server_times.json (gh api actions/runs?head_sha=)	-
 robust.labels_server_time	2026-10-09T19:44:06Z	results/eval/lock_server_times.json	labels_server_time	str	see results/eval/lock_server_times.json	-
-robust.rederive_match	154/154	results/eval/rederive_local.json	match/n	frac	PYTHONPATH=src:. python -m eval.rederive results/eval/rederive_local.json	technical_report.md,README.md
+robust.rederive_match	154/154	results/eval/rederive_local.json	match/n	frac	PYTHONPATH=src:. python -m eval.rederive results/eval/rederive_local.json	README.md
 robust.rederive_secs	727	results/eval/rederive_local.json	secs	int	PYTHONPATH=src:. python -m eval.rederive results/eval/rederive_local.json	README.md
-robust.type_ambiguous	42	results/census/comparability.json	type.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md,README.md
+robust.type_ambiguous	42	results/census/comparability.json	type.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	-
 robust.type_raw_labels	1,038	results/census/comparability.json	type.raw_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md,README.md
-robust.dates_ambiguous	35	results/census/comparability.json	dates_with_roles.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md,README.md
-robust.decision_ambiguous	3	results/census/comparability.json	decision_outcome.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	README.md,technical_report.md
-robust.events_unharmonised	29.1%	results/census/comparability.json	dates_with_roles.unharmonised_share	pct1	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md,README.md
-robust.tier_fu10_fundamental	5	results/census/tier_sensitivity.json	grid.3.counts.fundamentally different	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md,README.md,docs/ech-onepager.md
+robust.dates_ambiguous	35	results/census/comparability.json	dates_with_roles.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	README.md
+robust.decision_ambiguous	3	results/census/comparability.json	decision_outcome.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	-
+robust.events_unharmonised	29.1%	results/census/comparability.json	dates_with_roles.unharmonised_share	pct1	PYTHONPATH=src:. python -m gegenprobe.census.comparability	-
+robust.tier_fu10_fundamental	5	results/census/tier_sensitivity.json	grid.3.counts.fundamentally different	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md,docs/ech-onepager.md
 robust.tier_fe90_feasible	3	results/census/tier_sensitivity.json	grid.7.counts.feasible	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	-
-robust.days_all	68	results/census/answer_days_robust.json	all_eligible_bodies.median_days	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md
+robust.days_all	68	results/census/answer_days_robust.json	all_eligible_bodies.median_days	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	-
 robust.days_no_same_day	69	results/census/answer_days_robust.json	excluding_same_day_bodies.median_days	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	-
 robust.days_question_time	5	results/census/answer_days_robust.json	by_type_excluding_same_day_bodies.Question time.median_days	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	-

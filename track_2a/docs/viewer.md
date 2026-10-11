@@ -162,10 +162,9 @@ adds the always-null baseline (90/154), dates found per arm (of 64) and the prec
   P2/P3/P3b body lists.
 - **No text, not "scan".** The `image_only` state is labelled "OPD's copy has no text" (an answer document is attached,
   but OPD's copy has no text layer or OPD's extraction failed); "safe to say" says OCR *would* recover them and that
-  re-taking a text version the parliament publishes is cheaper. Spot check, not a count
-  (`python -m gegenprobe.census.source_formats` → `results/census/source_formats_ti.json`, 3 requests on 10 Oct 2026):
-  Ticino publishes the answer to interrogazione 100.19 as `r100.19.doc` and `r100.19.pdf`; OPD holds one copy, without
-  text.
+  re-taking a text version the parliament publishes is cheaper. The earlier Ticino spot check of the parliament's own
+  answer files is withdrawn: it read paths that www4.ti.ch's robots.txt disallows (`docs/incidents.md`), and
+  `results/census/source_formats_ti.json` now records OPD's copies only.
 - **"All years" = the years OPD holds.** Each row carries the first and last year of its written-answer interventions
   (`years`; CSV `first_year`, `last_year`): Ticino 2016–2026. "Safe to say" reads "over all years OPD holds (2016–2026)".
 - **Not in OPD's data.** The field status `no_source` reads "not in OPD's data"; for co-signatories the drawer adds "the

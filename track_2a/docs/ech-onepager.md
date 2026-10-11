@@ -5,20 +5,26 @@ What a common schema for the business of Swiss parliaments needs, measured on Op
 with `$id` and version 0.1.0: `results/schema/*.schema.json`; field guide: `docs/schema.md`; mappings to Popolo, Akoma
 Ntoso, Parla-CLARIN and OParl: `docs/mapping.md`.
 
-## 1. Three classes of field (by meaning, from OPD's own vocabularies)
+**In one line:** the frame is feasible (17 fields, each a value with provenance or a typed null, dates kept apart by
+role); the meaning is verified across parliaments for 1 of the 17 fields, measured as a role split for 5, and assumed
+for 11, which need the test plan in §6.
+
+## 1. Three classes (by meaning, from OPD's own vocabularies)
 
 | class | fields and concepts | what it means for a standard |
 |---|---|---|
 | **shared** (12 of 17) | submission date, submitter, co-signatories, addressed body, government recommendation, decision date, dispatch date, Q/A pairing, related affairs, language, usable text, answer-link status | one definition by design; the meaning is tested across parliaments for 1 (the government recommendation: 0 of 183 raw labels map to different concepts), the other 11 are shared by definition, untested; *where* the value lives (metadata, PDF, or not in OPD) is measured |
 | **shared with a role split** (5 of 17) | answer date, procedural history, type, procedural state, decision outcome | one source label covers several roles that must be kept apart before parliaments can be compared; all 5 are measured |
-| **body-specific** (3 concepts) | oral answers in question time; executive business that answers no member's affair; councils that publish only meeting documents | needs its own construct, not a field: v0.1 types oral answers as a null reason and marks affairs rebuilt from minutes `virtual` with `derived_from` |
+| **body-specific** (3 concepts, not among the 17 fields) | oral answers in question time; executive business that answers no member's affair; councils that publish only meeting documents | needs its own construct, not a field: v0.1 types oral answers as a null reason and marks affairs rebuilt from minutes `virtual` with `derived_from` |
 
-Of 17 fields, 12 are shared: we tested the meaning of 1 across parliaments, and the other 11 are shared by definition,
-untested. 5 are shared but need their roles kept apart, and all 5 are measured. Evidence:
+Of the 17 fields, 12 are shared: the meaning of 1 is tested across parliaments, the other 11 are shared by definition,
+untested. 5 are shared but need their roles kept apart, and all 5 are measured. The 3 body-specific concepts are not
+fields; they need constructs of their own. Evidence:
 `results/census/comparability.json`, classes and the `meaning_tested` flag in `data/schema/field_verdict_classes.json`. Separately, *where*
 the value lives (`results/census/matrix.json`): 4 fields are in OPD's metadata almost everywhere, 13 partly; no field
 lacks a written source in a fifth of the parliaments (5 would at a 10% threshold). That threshold measures coverage, not
-meaning; the classes above are the finding.
+meaning; the classes above are the finding. Not covered: tables, annexes and images inside answer documents are not
+extracted, so the schema says nothing yet about their structure.
 
 ## 2. The answer date is three dates
 
@@ -51,7 +57,8 @@ Interpellations and written questions ask numbered questions, and the answer rep
 *n* with the answer to question *n*, both sides with a span or a typed null (an answer that replies to all at once is
 `present_unanchored`). It is in v0.1 as an optional, additive structure, and our converter now fills it
 (`src/gegenprobe/qa/`, `docs/qa.md`). The pre-registered test P5 (40 fresh affairs from 10 parliaments, DE/FR/IT) puts
-rule-based pairing at precision 0.83 and recall 0.67: usable with a reviewer, not yet unattended. It transfers where the
+rule-based pairing at precision 0.83 and recall 0.67: usable with a reviewer, not yet unattended (the *partial*
+tier holds with document-level intervals, not when whole parliaments are resampled). It transfers where the
 answer numbers or repeats the questions ("Zu Frage 2", "Réponse à la question 2") and fails where it does not (Valais
 0/11). For a standard this argues for asking executives to number their answers; a v0.2 candidate is a `QAItem` field for
 an answer that replies to several questions at once (the converter tracks it internally as `joint_with`).
@@ -67,5 +74,7 @@ recomputed by `make run`).
 
 Adopt date roles, typed nulls and the three classes as the frame; standardise the role split for the answer date first
 (it decides every answer-time comparison); treat oral answers, executive-own business and minutes-only councils as
-named constructs; take `QAItem` (now measured, P5), the five gaps and a `not_extracted` null reason into v0.2. Gegenprobe (Hack Apertus,
+named constructs; take `QAItem` (measured, P5), the five gaps and a `not_extracted` null reason into v0.2. Test plan for
+the 11 fields shared by definition: map each parliament's raw labels or printed forms to the shared concept, as done
+for the government recommendation (`results/census/comparability.json`), and report the share that maps elsewhere. Gegenprobe (Hack Apertus,
 Track 2A, team 444): https://gegenprobe.mi11ion.io.

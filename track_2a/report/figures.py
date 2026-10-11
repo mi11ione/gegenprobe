@@ -105,50 +105,52 @@ def numbers() -> dict:
     return out
 
 
-# ---------------------------------------------------------------- fig 1: funnel with typed causes
+# ---------------------------------------------------------------- fig 1: where the registered gap is (derived layer)
 def fig1(n: dict) -> None:
-    g, ad = n["gap_parts"], n["adapters"]
-    cats = [  # (label, value, colour, group); the source adapters (results/repair/adapters/) split two causes
-        ("No answer document in OPD: verified by a source adapter", ad["absent_verified"], BLUE, "det"),
-        ("No answer document in OPD: still needs a source adapter", ad["absent_open"], GRAY, "none"),
-        ("BE: relink the parentless OPD copy by canton uid", g["be_relink"], BLUE, "det"),
-        ("Image-only answer: text copy verified by a source adapter", ad["image_only_verified"], BLUE, "det"),
-        ("Image-only answer scans: OCR (deu+fra+ita)", ad["image_only_open"], AQUA, "ocr"),
-        ("VS: retype as oral answer (not missing)", g["vs_oral"], ORANGE, "oral"),
-        ("Answer filed under an agenda item: in-corpus join", g["agenda_join"], BLUE, "det"),
-        ("Question time answered in the sitting: oral (not missing)", g["question_time_oral"], ORANGE, "oral"),
-        ("CHE: Curia Vista has only a formula or nothing", g["che_formula_or_nothing"], GRAY_LIGHT, "none"),
-        ("BE: fetch the answer from the canton", g["be_fetch"], BLUE, "det"),
-        ("Other: answer document without text", g["other_doc_no_text_rest"], GRAY_LIGHT, "none"),
-        ("CHE: substantive answer in Curia Vista", g["che_curia_substantive"], BLUE, "det"),
-        ("BE: no answer at the canton either", g["be_no_source"], GRAY_LIGHT, "none"),
+    """The registered 16,749 placed once each by the derived census layer (results/census/corrected.json, national.all):
+    blue = a verified repair is proposed (9,720), aqua = OPD's copy without text not yet read, orange = answered orally,
+    grey = no verified answer yet. Drawn at print width (7.1 in): every label is at least 7 pt."""
+    x = j("census/corrected.json")["national"]["all"]
+    io_ = x["image_only_parts"]
+    cats = [  # (label, value, colour)
+        ("In OPD with text, filed elsewhere (agenda join, Bern relink)", x["opd_elsewhere"], BLUE),
+        ("In OPD with text, heading not recognised (tag_answer)", x["unrecognised"], BLUE),
+        ("Not in OPD; verified at the parliament (fetch)", x["fetchable"], BLUE),
+        ("OPD copy without text; text verified (OCR)", io_["text_verified"] + io_["fetchable"], BLUE),
+        ("OPD copy without text; not read yet", io_["open"], AQUA),
+        ("Answered orally (no written text expected)", x["oral"], ORANGE),
+        ("No verified answer found yet", x["open"], GRAY),
     ]
-    fig, (a0, a1) = plt.subplots(2, 1, figsize=(7.2, 4.6), gridspec_kw=dict(height_ratios=[1, 5.2], hspace=0.55))
-    # context bar
-    a0.barh([0], [n["text_present"]], color=GRAY_LIGHT, height=0.6, edgecolor=SURFACE, linewidth=2)
-    a0.barh([0], [n["gap"]], left=[n["text_present"]], color=ORANGE, height=0.6, edgecolor=SURFACE, linewidth=2)
-    a0.set_xlim(0, n["written_answer_affairs"])
+    assert sum(c[1] for c in cats) == x["gap"], (sum(c[1] for c in cats), x["gap"])
+    fig, (a0, a1) = plt.subplots(2, 1, figsize=(6.8, 3.3), gridspec_kw=dict(height_ratios=[0.8, 5.2], hspace=0.62))
+    a0.barh([0], [x["attached"]], color=GRAY_LIGHT, height=0.6, edgecolor=SURFACE, linewidth=2)
+    a0.barh([0], [x["gap"]], left=[x["attached"]], color=ORANGE, height=0.6, edgecolor=SURFACE, linewidth=2)
+    a0.set_xlim(0, x["written"])
     a0.set_yticks([])
     a0.spines["left"].set_visible(False)
-    a0.text(n["text_present"] / 2, 0, f"answer text in OPD  {fmt(n['text_present'])}", ha="center", va="center", color=INK)
-    a0.text(n["text_present"] + n["gap"] / 2, 0, fmt(n["gap"]), ha="center", va="center", color=INK, fontweight="bold")
-    a0.set_title(f"{fmt(n['written_answer_affairs'])} interventions with a written-answer event; "
-                 f"{fmt(n['gap'])} have no answer text in OPD", loc="left", color=INK, fontsize=9)
-    a0.tick_params(axis="x", labelsize=7)
+    a0.text(x["attached"] / 2, 0, f"answer text attached in OPD  {fmt(x['attached'])}", ha="center", va="center", color=INK,
+            fontsize=8)
+    a0.text(x["attached"] + x["gap"] / 2, 0, fmt(x["gap"]), ha="center", va="center", color=INK, fontweight="bold", fontsize=8)
+    fig.subplots_adjust(left=0.40, right=0.98, top=0.9, bottom=0.17)
+    tx = -0.39 / 0.58  # axes-x of the figure's left edge: titles start at the left margin, inside the figure
+    a0.text(tx, 1.25, f"{fmt(x['written'])} interventions with a written-answer event; {fmt(x['gap'])} without "
+            f"answer text attached (registered census)", transform=a0.transAxes, ha="left", va="bottom", color=INK,
+            fontsize=8.5)
+    a0.tick_params(axis="x", labelsize=7.5)
     a0.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: fmt(int(v))))
-    # decomposition
     y = list(range(len(cats)))[::-1]
-    a1.barh(y, [c[1] for c in cats], color=[c[2] for c in cats], height=0.62, edgecolor=SURFACE, linewidth=1)
-    for yi, (_lab, v, _, _) in zip(y, cats):
-        a1.text(v + 120, yi, fmt(v), va="center", color=INK, fontsize=7.5)
+    a1.barh(y, [c[1] for c in cats], color=[c[2] for c in cats], height=0.64, edgecolor=SURFACE, linewidth=1)
+    for yi, (_lab, v, _c) in zip(y, cats):
+        a1.text(v + 60, yi, fmt(v), va="center", color=INK, fontsize=7.5)
     a1.set_yticks(y, [c[0] for c in cats], fontsize=7.5)
-    a1.set_xlim(0, max(c[1] for c in cats) * 1.12)
+    a1.set_xlim(0, max(c[1] for c in cats) * 1.1)
     a1.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: fmt(int(v))))
-    a1.tick_params(axis="x", labelsize=7)
-    a1.set_title(f"Where the {fmt(n['gap'])} go: typed cause and repair route", loc="left", color=INK, fontsize=9)
-    a1.legend(handles=[Patch(color=BLUE, label="deterministic repair route"), Patch(color=AQUA, label="OCR route"),
-                       Patch(color=ORANGE, label="not missing: oral answer"), Patch(color=GRAY, label="no measured route")],
-              loc="lower right", frameon=False, fontsize=7)
+    a1.tick_params(axis="x", labelsize=7.5)
+    a1.text(tx, 1.04, f"Where the {fmt(x['gap'])} are: verified repairs proposed for {fmt(x['repaired'])} (blue)",
+            transform=a1.transAxes, ha="left", va="bottom", color=INK, fontsize=8.5)
+    a1.legend(handles=[Patch(color=BLUE, label="verified repair proposed"), Patch(color=AQUA, label="OCR candidate"),
+                       Patch(color=ORANGE, label="not missing: oral"), Patch(color=GRAY, label="still open")],
+              loc="upper left", bbox_to_anchor=(tx, -0.13), ncol=4, frameon=False, fontsize=7.5)
     save(fig, "fig1_funnel")
 
 
@@ -156,6 +158,10 @@ def fig1(n: dict) -> None:
 STATUS = [("metadata", RAMP["600"], "in OPD metadata"), ("mixed", RAMP["400"], "metadata for part of the affairs"),
           ("pdf", RAMP["250"], "only in the PDF"), ("no_source", ORANGE, "no source in OPD"),
           ("n/a", GRAY_LIGHT, "not applicable / too few affairs")]
+
+
+def _flabel(f: str) -> str:
+    return f.replace("_", " ").replace("qa ", "Q/A ").replace("co sig", "co-sig")
 
 
 def _bodies() -> dict:
@@ -179,7 +185,7 @@ def fig2(n_communes: int = 13) -> dict:
     fields = sorted(meta["fields"], key=lambda f: (tier_order.get(meta["fields"][f]["tier"], 3), f))
     st = {(r["field"], r["body"]): r["status"] for r in m}
     cmap = {k: c for k, c, _ in STATUS}
-    fig, ax = plt.subplots(figsize=(7.2, 3.9))
+    fig, ax = plt.subplots(figsize=(6.8, 3.7))
     for yi, f in enumerate(fields):
         for xi, b in enumerate(cols):
             ax.add_patch(plt.Rectangle((xi, yi), 0.92, 0.88, color=cmap.get(st.get((f, b), "n/a"), GRAY_LIGHT), lw=0))
@@ -188,21 +194,22 @@ def fig2(n_communes: int = 13) -> dict:
     def lab(b):
         nm = B[b]["name"] if B[b]["type"] in ("city", "municipality") else b
         return nm[:14]
-    ax.set_xticks([i + 0.46 for i in range(len(cols))], [lab(b) for b in cols], rotation=90, fontsize=5.6)
+    ax.set_xticks([i + 0.46 for i in range(len(cols))], [lab(b) for b in cols], rotation=90, fontsize=7.5)
     ax.set_yticks([i + 0.44 for i in range(len(fields))],
-                  [f"{f.replace('_', ' ')}  [{meta['fields'][f]['tier']}]" for f in fields], fontsize=6.6)
+                  [f"{_flabel(f)}  [{meta['fields'][f]['tier']}]" for f in fields], fontsize=7.5)
     ax.tick_params(length=0)
     for s in ax.spines.values():
         s.set_visible(False)
     split = len([b for b in cols if b in upper])
     ax.axvline(split - 0.04, color=INK2, lw=0.8)
-    ax.text(split / 2, -0.6, "federal, Liechtenstein, cantons", ha="center", fontsize=6.6, color=INK2)
+    ax.text(split / 2, -0.6, "federal, Liechtenstein, cantons", ha="center", fontsize=7.5, color=INK2)
     ax.text(split + (len(cols) - split) / 2, -0.6, f"largest {n_communes} communal parliaments", ha="center",
-            fontsize=6.6, color=INK2)
-    ax.legend(handles=[Patch(color=c, label=t) for _, c, t in STATUS], loc="upper center", bbox_to_anchor=(0.5, -0.2),
-              ncol=5, frameon=False, fontsize=6.4)
-    ax.set_title(f"Where each schema field comes from, per parliament ({len(cols)} of {meta['n_bodies']} bodies; "
-                 f"all {meta['n_bodies']} in results/census/matrix.csv)", loc="left", fontsize=8.5, color=INK, pad=14)
+            fontsize=7.5, color=INK2)
+    ax.legend(handles=[Patch(color=c, label=t) for _, c, t in STATUS], loc="upper center", bbox_to_anchor=(0.36, -0.27),
+              ncol=3, frameon=False, fontsize=7.5)
+    fig.subplots_adjust(left=0.31, right=0.995, top=0.9, bottom=0.27)
+    ax.text(-0.44, 1.09, f"Where each schema field comes from, per parliament ({len(cols)} of {meta['n_bodies']}; all in "
+            f"results/census/matrix.csv)", ha="left", va="bottom", fontsize=8.5, color=INK, transform=ax.transAxes)
     save(fig, "fig2_matrix")
     return dict(matrix_columns=len(cols), matrix_bodies=meta["n_bodies"], matrix_fields=len(fields))
 
@@ -223,9 +230,9 @@ def fig3(n: dict) -> None:
                 ax.text(left + v / 2, yi, f"{lab}  {fmt(v)}", ha="center", va="center", fontsize=7, color=SURFACE if c == BLUE
                         else INK)
             left += v
-    ax.text(tot, 0.33, f"absent {fmt(pl['absent'])}: fetch from the canton", ha="right", va="bottom", fontsize=6.5, color=INK2)
+    ax.text(tot, 0.33, f"absent {fmt(pl['absent'])}: fetch from the canton", ha="right", va="bottom", fontsize=7, color=INK2)
     ax.legend(handles=[Patch(color=c, label=f"{lab} {fmt(v)}") for lab, v, c in before], loc="upper center",
-              bbox_to_anchor=(0.5, -0.32), ncol=4, frameon=False, fontsize=6.6)
+              bbox_to_anchor=(0.5, -0.32), ncol=2, frameon=False, fontsize=7.2)
     ax.set_yticks([1, 0], ["OPD today", "linkable within OPD"], fontsize=7.5)
     ax.set_xlim(0, tot)
     ax.set_ylim(-0.45, 1.45)
@@ -265,10 +272,10 @@ def fig4() -> dict:
         a.text(x, d["invented_on_null_docs"] + 0.3, f"{d['invented_on_null_docs']}/{d['n_gold_null']}", ha="center", fontsize=7.5)
         if d["invented_passing_receipt_check"]:
             a.bar([x], [d["invented_passing_receipt_check"]], color=BLUE, width=0.55, hatch="////", edgecolor=SURFACE, lw=0)
-    a.set_xticks(list(xs), [b[0] for b in bars], fontsize=6.4)
+    a.set_xticks(list(xs), [b[0] for b in bars], fontsize=7)
     hatch_label = "date backed by a quote that passes\na naive verbatim check"
     a.legend(handles=[Patch(facecolor=BLUE, hatch="////", edgecolor=SURFACE, label=hatch_label)],
-             loc="upper center", bbox_to_anchor=(0.5, -0.2), frameon=False, fontsize=6)
+             loc="upper center", bbox_to_anchor=(0.5, -0.2), frameon=False, fontsize=7)
     a.set_ylim(0, 16.5)
     a.set_yticks([0, 5, 10, 15])
     a.tick_params(axis="y", labelsize=7)
@@ -322,11 +329,11 @@ def _board(ax, d: dict, title: str, xlabel: str, xmax: float, show_labels: bool)
                 ax.barh(yi, w, left=x, color=col, hatch=hatch, edgecolor=SURFACE if not hatch else "#ffffff", linewidth=0.6,
                         height=0.62)
                 if key == "correct" and w < max(4, xmax / 30):
-                    ax.text(x + w / 2, yi + 0.45, f"{w} found", ha="left", va="bottom", fontsize=6.5, color=RAMP["600"],
+                    ax.text(x + w / 2, yi + 0.45, f"{w} found", ha="left", va="bottom", fontsize=7, color=RAMP["600"],
                             fontweight="bold")
                 elif w >= max(4, xmax / 30):
                     box = dict(boxstyle="round,pad=0.15", fc=SURFACE, ec="none") if hatch else None
-                    ax.text(x + w / 2, yi, str(w), ha="center", va="center", fontsize=6.8, bbox=box,
+                    ax.text(x + w / 2, yi, str(w), ha="center", va="center", fontsize=7, bbox=box,
                             color=INK if hatch or col not in (RAMP["600"], ORANGE) else SURFACE)
             x += w
         ax.text(x + xmax * 0.012, yi, f"{st['exact']}/{st['n']}", va="center", fontsize=7.3, color=INK, fontweight="bold")
@@ -354,7 +361,7 @@ def fig5() -> bool:
                   "documents (n = 154: 64 with an answer date, 90 without)", 178, True)
     _board(bx, d2, "P2 · 15 parliaments the rules never saw", "documents (n = 62: 29 with, 33 without)", 72, False)
     ax.legend(handles=[Patch(facecolor=c, hatch=h, edgecolor="#ffffff", label=lab) for _, lab, c, h in segs],
-              fontsize=6.4, frameon=False, loc="upper center", bbox_to_anchor=(0.82, -0.22), ncol=5, columnspacing=0.8,
+              fontsize=7, frameon=False, loc="upper center", bbox_to_anchor=(0.82, -0.24), ncol=3, columnspacing=0.8,
               handlelength=1.2)
     save(fig, "fig5_scoreboard")
     return True
