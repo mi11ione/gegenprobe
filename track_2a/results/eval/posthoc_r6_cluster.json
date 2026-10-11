@@ -1,0 +1,924 @@
+{
+ "label": "POST HOC (11 Oct 2026, round 6; not pre-registered): no registered decision depends on this file",
+ "method": {
+  "bootstrap": "percentile, resampling parliaments (bodies) with replacement; P5 also affairs",
+  "b": 10000,
+  "seed": 20261011,
+  "scorer": "eval/score.py outcome (strict) for P1/P2/P6; eval/gold6/score6.py IoU >= 0.5 for P5"
+ },
+ "p5_h1": {
+  "what": "P5-H1 (rules-only Q/A pairing, arm R): correct pairs / predicted (precision) and / gold non-null (recall)",
+  "n_affairs": 40,
+  "n_parliaments": 10,
+  "precision": {
+   "k": 118,
+   "n": 143,
+   "rate": 0.8251748251748252,
+   "doc_level_wilson95": [
+    0.754647868281688,
+    0.8786876442706133
+   ],
+   "parliament_cluster95": [
+    0.6643823642111313,
+    0.9659921400992828
+   ],
+   "affair_cluster95": [
+    0.6357142857142857,
+    0.9534883720930233
+   ]
+  },
+  "recall": {
+   "k": 118,
+   "n": 176,
+   "rate": 0.6704545454545454,
+   "doc_level_wilson95": [
+    0.5980175808980439,
+    0.7356093441293134
+   ],
+   "parliament_cluster95": [
+    0.5123916549082845,
+    0.8116902215431627
+   ],
+   "affair_cluster95": [
+    0.49668648916520247,
+    0.8235294117647058
+   ]
+  },
+  "registered_tier": {
+   "rule": "PREREG6 H1: partial if precision lower bound >= 0.70 and recall lower bound >= 0.40 (unattended: 0.85/0.60)",
+   "with_wilson": "partial",
+   "with_parliament_cluster": "not yet",
+   "with_affair_cluster": "not yet"
+  },
+  "per_language": {
+   "de": {
+    "affairs": 20,
+    "recall": [
+     83,
+     115
+    ],
+    "precision": [
+     83,
+     101
+    ]
+   },
+   "fr": {
+    "affairs": 12,
+    "recall": [
+     10,
+     30
+    ],
+    "precision": [
+     10,
+     13
+    ]
+   },
+   "it": {
+    "affairs": 8,
+    "recall": [
+     25,
+     31
+    ],
+    "precision": [
+     25,
+     29
+    ]
+   }
+  },
+  "per_parliament": {
+   "1061": {
+    "affairs": 4,
+    "recall": [
+     11,
+     13
+    ],
+    "precision": [
+     11,
+     11
+    ]
+   },
+   "2703": {
+    "affairs": 4,
+    "recall": [
+     21,
+     22
+    ],
+    "precision": [
+     21,
+     22
+    ]
+   },
+   "293": {
+    "affairs": 4,
+    "recall": [
+     20,
+     24
+    ],
+    "precision": [
+     20,
+     21
+    ]
+   },
+   "5192": {
+    "affairs": 4,
+    "recall": [
+     17,
+     20
+    ],
+    "precision": [
+     17,
+     21
+    ]
+   },
+   "5586": {
+    "affairs": 4,
+    "recall": [
+     9,
+     15
+    ],
+    "precision": [
+     9,
+     12
+    ]
+   },
+   "6152": {
+    "affairs": 4,
+    "recall": [
+     1,
+     4
+    ],
+    "precision": [
+     1,
+     1
+    ]
+   },
+   "BL": {
+    "affairs": 4,
+    "recall": [
+     14,
+     31
+    ],
+    "precision": [
+     14,
+     30
+    ]
+   },
+   "GR": {
+    "affairs": 4,
+    "recall": [
+     8,
+     11
+    ],
+    "precision": [
+     8,
+     8
+    ]
+   },
+   "SH": {
+    "affairs": 4,
+    "recall": [
+     17,
+     25
+    ],
+    "precision": [
+     17,
+     17
+    ]
+   },
+   "VS": {
+    "affairs": 4,
+    "recall": [
+     0,
+     11
+    ],
+    "precision": [
+     0,
+     0
+    ]
+   }
+  }
+ },
+ "p2": {
+  "n": 62,
+  "n_parliaments": 15,
+  "arms": {
+   "rules": {
+    "exact": [
+     35,
+     62
+    ],
+    "rate": 0.5645161290322581,
+    "doc_level_wilson95": [
+     0.4409276740746583,
+     0.6805760560898577
+    ],
+    "cluster_bootstrap95": [
+     0.3424657534246575,
+     0.8275862068965517
+    ]
+   },
+   "pointer": {
+    "exact": [
+     53,
+     62
+    ],
+    "rate": 0.8548387096774194,
+    "doc_level_wilson95": [
+     0.7465637464683084,
+     0.92170676943653
+    ],
+    "cluster_bootstrap95": [
+     0.7076923076923077,
+     0.9661016949152542
+    ]
+   },
+   "cascade": {
+    "exact": [
+     51,
+     62
+    ],
+    "rate": 0.8225806451612904,
+    "doc_level_wilson95": [
+     0.7095819851661977,
+     0.8979366656563825
+    ],
+    "cluster_bootstrap95": [
+     0.6724137931034483,
+     0.9508196721311475
+    ]
+   },
+   "naive_null": {
+    "exact": [
+     52,
+     62
+    ],
+    "rate": 0.8387096774193549,
+    "doc_level_wilson95": [
+     0.7279343069043936,
+     0.9099602764593157
+    ],
+    "cluster_bootstrap95": [
+     0.6923076923076923,
+     0.9552238805970149
+    ]
+   },
+   "naive_plain": {
+    "exact": [
+     45,
+     62
+    ],
+    "rate": 0.7258064516129032,
+    "doc_level_wilson95": [
+     0.6040722415667276,
+     0.8211908140090788
+    ],
+    "cluster_bootstrap95": [
+     0.5833333333333334,
+     0.8666911764705879
+    ]
+   }
+  },
+  "paired": {
+   "pointer vs rules": {
+    "n": 62,
+    "a_only": 22,
+    "b_only": 4,
+    "mcnemar_exact_p": 0.0005335211753845215,
+    "accuracy_difference": 0.2903225806451613,
+    "cluster_bootstrap95": [
+     -0.0175516917293233,
+     0.5441258169934639
+    ],
+    "n_parliaments": 15,
+    "cluster_interval_excludes_0": false,
+    "parliaments_a_better": 6,
+    "parliaments_b_better": 2,
+    "parliaments_tied": 7,
+    "parliament_sign_test_p": 0.2890625
+   },
+   "pointer vs naive_null": {
+    "n": 62,
+    "a_only": 2,
+    "b_only": 1,
+    "mcnemar_exact_p": 1.0,
+    "accuracy_difference": 0.016129032258064516,
+    "cluster_bootstrap95": [
+     -0.04477611940298507,
+     0.08695652173913043
+    ],
+    "n_parliaments": 15,
+    "cluster_interval_excludes_0": false,
+    "parliaments_a_better": 1,
+    "parliaments_b_better": 1,
+    "parliaments_tied": 13,
+    "parliament_sign_test_p": 1.0
+   },
+   "cascade vs rules": {
+    "n": 62,
+    "a_only": 20,
+    "b_only": 4,
+    "mcnemar_exact_p": 0.001543879508972168,
+    "accuracy_difference": 0.25806451612903225,
+    "cluster_bootstrap95": [
+     -0.021739130434782608,
+     0.5147058823529411
+    ],
+    "n_parliaments": 15,
+    "cluster_interval_excludes_0": false,
+    "parliaments_a_better": 6,
+    "parliaments_b_better": 2,
+    "parliaments_tied": 7,
+    "parliament_sign_test_p": 0.2890625
+   },
+   "cascade vs naive_null": {
+    "n": 62,
+    "a_only": 2,
+    "b_only": 3,
+    "mcnemar_exact_p": 1.0,
+    "accuracy_difference": -0.016129032258064516,
+    "cluster_bootstrap95": [
+     -0.10257352941176469,
+     0.07407407407407407
+    ],
+    "n_parliaments": 15,
+    "cluster_interval_excludes_0": false,
+    "parliaments_a_better": 1,
+    "parliaments_b_better": 2,
+    "parliaments_tied": 12,
+    "parliament_sign_test_p": 1.0
+   }
+  },
+  "arm_names": {
+   "pointer": "Apertus closed-set pointer (registered P2 arm)",
+   "naive_null": "free prompt, null allowed",
+   "naive_plain": "free prompt, plain",
+   "cascade": "rules, then pointer"
+  }
+ },
+ "p6": {
+  "n": 68,
+  "n_parliaments": 8,
+  "arms": {
+   "rules": {
+    "exact": [
+     54,
+     68
+    ],
+    "rate": 0.7941176470588235,
+    "doc_level_wilson95": [
+     0.6835749340049412,
+     0.8732055385903238
+    ],
+    "cluster_bootstrap95": [
+     0.6065573770491803,
+     0.9381475117729413
+    ]
+   },
+   "model_free_cascade": {
+    "exact": [
+     55,
+     68
+    ],
+    "rate": 0.8088235294117647,
+    "doc_level_wilson95": [
+     0.6998913522432758,
+     0.8847281439817526
+    ],
+    "cluster_bootstrap95": [
+     0.6491228070175439,
+     0.9210526315789473
+    ]
+   },
+   "v1": {
+    "exact": [
+     56,
+     68
+    ],
+    "rate": 0.8235294117647058,
+    "doc_level_wilson95": [
+     0.7163933737056788,
+     0.8960651461491128
+    ],
+    "cluster_bootstrap95": [
+     0.6666666666666666,
+     0.9285714285714286
+    ]
+   },
+   "v2": {
+    "exact": [
+     59,
+     68
+    ],
+    "rate": 0.8676470588235294,
+    "doc_level_wilson95": [
+     0.7671972303295147,
+     0.9287783604145667
+    ],
+    "cluster_bootstrap95": [
+     0.6909090909090909,
+     0.9879553930005737
+    ]
+   },
+   "cascade_v2": {
+    "exact": [
+     60,
+     68
+    ],
+    "rate": 0.8823529411764706,
+    "doc_level_wilson95": [
+     0.7846488137630566,
+     0.939165800610788
+    ],
+    "cluster_bootstrap95": [
+     0.7419056152927122,
+     0.974025974025974
+    ]
+   },
+   "free_null": {
+    "exact": [
+     62,
+     68
+    ],
+    "rate": 0.9117647058823529,
+    "doc_level_wilson95": [
+     0.8205602176535453,
+     0.958932443979826
+    ],
+    "cluster_bootstrap95": [
+     0.8,
+     0.9866666666666667
+    ]
+   },
+   "free_guided": {
+    "exact": [
+     61,
+     68
+    ],
+    "rate": 0.8970588235294118,
+    "doc_level_wilson95": [
+     0.8024187647817829,
+     0.9492348732218252
+    ],
+    "cluster_bootstrap95": [
+     0.7571428571428571,
+     0.9866666666666667
+    ]
+   },
+   "free_plain": {
+    "exact": [
+     54,
+     68
+    ],
+    "rate": 0.7941176470588235,
+    "doc_level_wilson95": [
+     0.6835749340049412,
+     0.8732055385903238
+    ],
+    "cluster_bootstrap95": [
+     0.6231884057971014,
+     0.95
+    ]
+   },
+   "latest_on_answer_typed": {
+    "exact": [
+     51,
+     68
+    ],
+    "rate": 0.75,
+    "doc_level_wilson95": [
+     0.6356122186609706,
+     0.8376511830450047
+    ],
+    "cluster_bootstrap95": [
+     0.5238095238095238,
+     0.9130434782608695
+    ]
+   }
+  },
+  "paired": {
+   "cascade_v2 vs rules": {
+    "n": 68,
+    "a_only": 11,
+    "b_only": 5,
+    "mcnemar_exact_p": 0.210113525390625,
+    "accuracy_difference": 0.08823529411764706,
+    "cluster_bootstrap95": [
+     -0.10669230769230767,
+     0.2903225806451613
+    ],
+    "n_parliaments": 8,
+    "cluster_interval_excludes_0": false,
+    "parliaments_a_better": 4,
+    "parliaments_b_better": 1,
+    "parliaments_tied": 3,
+    "parliament_sign_test_p": 0.375
+   },
+   "cascade_v2 vs rules (answered documents only)": {
+    "n": 34,
+    "a_only": 11,
+    "b_only": 0,
+    "mcnemar_exact_p": 0.0009765625,
+    "accuracy_difference": 0.3235294117647059,
+    "cluster_bootstrap95": [
+     0.09984375000000015,
+     0.59375
+    ],
+    "n_parliaments": 7,
+    "cluster_interval_excludes_0": true,
+    "parliaments_a_better": 5,
+    "parliaments_b_better": 0,
+    "parliaments_tied": 2,
+    "parliament_sign_test_p": 0.0625
+   },
+   "v2 vs rules": {
+    "n": 68,
+    "a_only": 12,
+    "b_only": 7,
+    "mcnemar_exact_p": 0.359283447265625,
+    "accuracy_difference": 0.07352941176470588,
+    "cluster_bootstrap95": [
+     -0.14285714285714285,
+     0.3
+    ],
+    "n_parliaments": 8,
+    "cluster_interval_excludes_0": false,
+    "parliaments_a_better": 3,
+    "parliaments_b_better": 2,
+    "parliaments_tied": 3,
+    "parliament_sign_test_p": 1.0
+   },
+   "free_null vs rules": {
+    "n": 68,
+    "a_only": 13,
+    "b_only": 5,
+    "mcnemar_exact_p": 0.09625244140625,
+    "accuracy_difference": 0.11764705882352941,
+    "cluster_bootstrap95": [
+     -0.06896551724137931,
+     0.3333333333333333
+    ],
+    "n_parliaments": 8,
+    "cluster_interval_excludes_0": false,
+    "parliaments_a_better": 5,
+    "parliaments_b_better": 2,
+    "parliaments_tied": 1,
+    "parliament_sign_test_p": 0.453125
+   },
+   "cascade_v2 vs model_free_cascade": {
+    "n": 68,
+    "a_only": 5,
+    "b_only": 0,
+    "mcnemar_exact_p": 0.0625,
+    "accuracy_difference": 0.07352941176470588,
+    "cluster_bootstrap95": [
+     0.01818181818181818,
+     0.11864406779661017
+    ],
+    "n_parliaments": 8,
+    "cluster_interval_excludes_0": true,
+    "parliaments_a_better": 4,
+    "parliaments_b_better": 0,
+    "parliaments_tied": 4,
+    "parliament_sign_test_p": 0.125
+   },
+   "free_null vs model_free_cascade": {
+    "n": 68,
+    "a_only": 8,
+    "b_only": 1,
+    "mcnemar_exact_p": 0.0390625,
+    "accuracy_difference": 0.10294117647058823,
+    "cluster_bootstrap95": [
+     0.057971014492753624,
+     0.15714285714285714
+    ],
+    "n_parliaments": 8,
+    "cluster_interval_excludes_0": true,
+    "parliaments_a_better": 6,
+    "parliaments_b_better": 0,
+    "parliaments_tied": 2,
+    "parliament_sign_test_p": 0.03125
+   },
+   "v2 vs free_null": {
+    "n": 68,
+    "a_only": 1,
+    "b_only": 4,
+    "mcnemar_exact_p": 0.375,
+    "accuracy_difference": -0.04411764705882353,
+    "cluster_bootstrap95": [
+     -0.13333333333333333,
+     0.015873015873015872
+    ],
+    "n_parliaments": 8,
+    "cluster_interval_excludes_0": false,
+    "parliaments_a_better": 1,
+    "parliaments_b_better": 3,
+    "parliaments_tied": 4,
+    "parliament_sign_test_p": 0.625
+   },
+   "cascade_v2 vs free_null": {
+    "n": 68,
+    "a_only": 2,
+    "b_only": 4,
+    "mcnemar_exact_p": 0.6875,
+    "accuracy_difference": -0.029411764705882353,
+    "cluster_bootstrap95": [
+     -0.0847457627118644,
+     0.024390243902439025
+    ],
+    "n_parliaments": 8,
+    "cluster_interval_excludes_0": false,
+    "parliaments_a_better": 1,
+    "parliaments_b_better": 3,
+    "parliaments_tied": 4,
+    "parliament_sign_test_p": 0.625
+   },
+   "v2 vs v1": {
+    "n": 68,
+    "a_only": 5,
+    "b_only": 2,
+    "mcnemar_exact_p": 0.453125,
+    "accuracy_difference": 0.04411764705882353,
+    "cluster_bootstrap95": [
+     -0.057692307692307696,
+     0.12345679012345678
+    ],
+    "n_parliaments": 8,
+    "cluster_interval_excludes_0": false,
+    "parliaments_a_better": 4,
+    "parliaments_b_better": 1,
+    "parliaments_tied": 3,
+    "parliament_sign_test_p": 0.375
+   }
+  },
+  "arm_names": {
+   "model_free_cascade": "rules; where they abstain, the latest printed date on answer-typed documents (no model)",
+   "cascade_v2": "rules; where they abstain, pointer v2",
+   "free_null": "free prompt, null allowed (registered H1 comparator)",
+   "latest_on_answer_typed": "latest printed date on answer-typed documents, null on interventions"
+  },
+  "rules_status_counts": {
+   "value": 21,
+   "abstain": 47
+  },
+  "note": "8 parliaments: a cluster bootstrap with 8 clusters is coarse (few distinct resamples); read the interval as 'how much the headline depends on which parliaments were drawn', not as an exact 95% coverage"
+ },
+ "provenance": {
+  "definition": "printed nowhere = a value that is neither the gold date nor any date the frozen lattice finds in the document ('fabricated' in eval/score.py); printed but wrong = 'misattributed'; dated answerless = a value on a document whose gold is null. Parser: as registered (results files).",
+  "sets": {
+   "P1 held-out": {
+    "rules": {
+     "n": 154,
+     "values": 51,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 4,
+     "dated_answerless": [
+      2,
+      90
+     ]
+    },
+    "pointer": {
+     "n": 154,
+     "values": 62,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 16,
+     "dated_answerless": [
+      6,
+      90
+     ]
+    },
+    "cascade": {
+     "n": 154,
+     "values": 67,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 11,
+     "dated_answerless": [
+      7,
+      90
+     ]
+    },
+    "naive_null": {
+     "n": 154,
+     "values": 58,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 11,
+     "dated_answerless": [
+      3,
+      90
+     ]
+    },
+    "naive_plain": {
+     "n": 154,
+     "values": 94,
+     "printed_nowhere": 24,
+     "printed_but_wrong": 23,
+     "dated_answerless": [
+      39,
+      90
+     ]
+    }
+   },
+   "P2": {
+    "rules": {
+     "n": 62,
+     "values": 4,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 2,
+     "dated_answerless": [
+      0,
+      33
+     ]
+    },
+    "pointer": {
+     "n": 62,
+     "values": 32,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 8,
+     "dated_answerless": [
+      4,
+      33
+     ]
+    },
+    "cascade": {
+     "n": 62,
+     "values": 32,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 10,
+     "dated_answerless": [
+      4,
+      33
+     ]
+    },
+    "naive_null": {
+     "n": 62,
+     "values": 30,
+     "printed_nowhere": 1,
+     "printed_but_wrong": 7,
+     "dated_answerless": [
+      3,
+      33
+     ]
+    },
+    "naive_plain": {
+     "n": 62,
+     "values": 33,
+     "printed_nowhere": 4,
+     "printed_but_wrong": 8,
+     "dated_answerless": [
+      9,
+      33
+     ]
+    }
+   },
+   "P6": {
+    "rules": {
+     "n": 68,
+     "values": 21,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 1,
+     "dated_answerless": [
+      0,
+      34
+     ]
+    },
+    "model_free_cascade": {
+     "n": 68,
+     "values": 41,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 12,
+     "dated_answerless": [
+      8,
+      34
+     ]
+    },
+    "v1": {
+     "n": 68,
+     "values": 37,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 8,
+     "dated_answerless": [
+      7,
+      34
+     ]
+    },
+    "cascade_v1": {
+     "n": 68,
+     "values": 37,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 9,
+     "dated_answerless": [
+      7,
+      34
+     ]
+    },
+    "v2": {
+     "n": 68,
+     "values": 35,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 5,
+     "dated_answerless": [
+      5,
+      34
+     ]
+    },
+    "cascade_v2": {
+     "n": 68,
+     "values": 37,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 6,
+     "dated_answerless": [
+      5,
+      34
+     ]
+    },
+    "free_null": {
+     "n": 68,
+     "values": 36,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 4,
+     "dated_answerless": [
+      4,
+      34
+     ]
+    },
+    "free_guided": {
+     "n": 68,
+     "values": 37,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 5,
+     "dated_answerless": [
+      5,
+      34
+     ]
+    },
+    "free_plain": {
+     "n": 68,
+     "values": 46,
+     "printed_nowhere": 5,
+     "printed_but_wrong": 8,
+     "dated_answerless": [
+      13,
+      34
+     ]
+    },
+    "latest_printed_date": {
+     "n": 68,
+     "values": 66,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 39,
+     "dated_answerless": [
+      32,
+      34
+     ]
+    },
+    "latest_on_answer_typed": {
+     "n": 68,
+     "values": 38,
+     "printed_nowhere": 0,
+     "printed_but_wrong": 13,
+     "dated_answerless": [
+      8,
+      34
+     ]
+    }
+   }
+  },
+  "summary": {
+   "free_prompt_null_allowed_printed_nowhere": {
+    "P1 held-out": 0,
+    "P2": 1,
+    "P6": 0
+   },
+   "free_prompt_plain_printed_nowhere": {
+    "P1 held-out": 24,
+    "P2": 4,
+    "P6": 5
+   },
+   "closed_set_arms_printed_nowhere": {
+    "P1 held-out": {
+     "pointer": 0,
+     "cascade": 0
+    },
+    "P2": {
+     "pointer": 0,
+     "cascade": 0
+    },
+    "P6": {
+     "v1": 0,
+     "cascade_v1": 0,
+     "v2": 0,
+     "cascade_v2": 0
+    }
+   }
+  },
+  "corrected_parser_p1_p2": {
+   "P1": {
+    "naive_null": 0,
+    "naive_plain": 24
+   },
+   "P2": {
+    "naive_null": 1,
+    "naive_plain": 4
+   }
+  }
+ }
+}

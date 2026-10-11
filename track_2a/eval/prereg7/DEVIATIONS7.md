@@ -26,3 +26,32 @@ disputed document (329356, decided 'no answer'). One A2 session reported two sli
 (no labels) of an A1 helper script in a scratch directory shared between sessions, and a directory listing of the A2 folder
 showed summary fields of the other A2 session's files (same annotator role, not A1). It labelled its own 34 documents from its
 own notes. A1 and A2 disagreed on 1 of 68 documents.
+
+## D1 (11 Oct 2026, post hoc, round 6): candidate C's code was committed after the DEV2 labels
+Order of the commits, with GitHub's server time of each push (`results/eval/annotation_sessions.json`):
+- **6810ee5** (pushed 21:16:30 UTC, 10 Oct): the selection rule as prose (`eval/p6/DEV2_SELECTION.md`, candidates A, B, C
+  described), the DEV2 draw, `pointer_v2.py` with the presence gate and role pick (candidates A and B) and the guided
+  free-generation call (`pointer_v2.guided`), and `eval/p6/dev.py` with its dev scoring (`pick_guided`) but no `select()`.
+- **854bb3d** (pushed 21:18:15 UTC): the DEV2 labels. The two annotator sessions ran 21:16:56–21:18:06 UTC (transcripts).
+- **dfd1e72** (pushed 21:37:32 UTC, LOCK7): the first commit of candidate C's code (`pointer_v2.generate_then_point`:
+  reading the generated date, keeping it only if it is printed, else falling back to the role pick; the `gen_then_role`
+  configuration), of `dev.select()`, of `results/p6/dev2_selection.json` and of `data/p6/v2_config.json`.
+
+So only the rule's wording, not C's implementation, provably preceded the DEV2 labels. The commit message of dfd1e72
+("candidate C chosen on DEV2 by the rule committed in 6810ee5") is true of the rule, not of the code. The gateway ledger
+shows 3,404 of the 3,439 model calls tagged for DEV2 development before the 6810ee5 push and 35 between 21:34 and 21:50
+UTC, after the DEV2 labels; the ledger does not record which candidate those 35 served.
+
+C won DEV2 with 29 of 31 documents correct, against 28 for v1 (a comparison arm, not a candidate), 27 for B and 26 for A.
+Wilson 95% intervals: C [0.79, 0.98], v1 [0.75, 0.97], B [0.71, 0.95], A [0.67, 0.93]. A gap of one or two documents out
+of 31 is within noise.
+
+What it means:
+- DEV2 does not show that C is better than A or B. It shows only that C was not worse on 31 documents. The choice of C
+  rests on the written rule's tie-free ranking of three nearly equal candidates, and C's code could have been adjusted
+  after the labels existed. Nothing in the repository rules this out.
+- P6 is unaffected as a test of the frozen v2. LOCK7 (dfd1e72) hashes `pointer_v2.py` and `v2_config.json`, and the P6
+  draw (6faf8ac, 21:56:39 UTC) and the P6 labels (75167ac, 21:59:32 UTC) came after it. P6 found no advantage for v2: 59/68
+  against 62/68 for free prompting with null allowed, and 56/68 for v1.
+- Any claim that v2 was "chosen blind on DEV2" should read: "chosen by a rule written before the DEV2 labels; the
+  chosen candidate's code was committed after them".

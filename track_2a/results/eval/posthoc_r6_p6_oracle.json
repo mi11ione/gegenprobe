@@ -1,0 +1,447 @@
+{
+ "label": "POST HOC (11 Oct 2026, round 6; not pre-registered): no registered decision depends on this file",
+ "scope": "Every P6 label was set by Claude agents (A1 Opus, A2 Sonnet, A3 Opus on 1 disagreement); no human labelled. These non-LLM sources can confirm or contradict a label; none was used to set one.",
+ "n_documents": 68,
+ "gold_dated": 34,
+ "documents_with_opd_affair": 38,
+ "answer_date_vs_opd_written_answer_event": {
+  "checked": 10,
+  "agree": 10,
+  "disagree_within_7_days": 0,
+  "disagree_more_than_7_days": 0,
+  "no_oracle": 24,
+  "disagreements": []
+ },
+ "answer_not_before_opd_submission": {
+  "checked": 22,
+  "holds": 17,
+  "no_submission_date": 12,
+  "violations": [
+   {
+    "doc_id": 611674,
+    "body": "3427",
+    "gold": "2025-02-04",
+    "opd_submitted": [
+     "2025-03-06"
+    ],
+    "opd_events": [
+     [
+      "2025-03-06",
+      1,
+      "Eingereicht"
+     ],
+     [
+      "2025-03-06",
+      24,
+      "Traktandiert"
+     ]
+    ],
+    "opd_affair_number": "2837bd91",
+    "opd_affair_number_is_title_number": false
+   },
+   {
+    "doc_id": 611909,
+    "body": "3427",
+    "gold": "2019-01-23",
+    "opd_submitted": [
+     "2019-02-07"
+    ],
+    "opd_events": [
+     [
+      "2019-02-07",
+      1,
+      "Eingereicht"
+     ],
+     [
+      "2019-02-07",
+      24,
+      "Traktandiert"
+     ]
+    ],
+    "opd_affair_number": "9a26a744",
+    "opd_affair_number_is_title_number": false
+   },
+   {
+    "doc_id": 654476,
+    "body": "3427",
+    "gold": "2020-10-28",
+    "opd_submitted": [
+     "2020-11-05"
+    ],
+    "opd_events": [
+     [
+      "2020-11-05",
+      1,
+      "Eingereicht"
+     ],
+     [
+      "2020-11-05",
+      24,
+      "Traktandiert"
+     ]
+    ],
+    "opd_affair_number": "0fc4875f",
+    "opd_affair_number_is_title_number": false
+   },
+   {
+    "doc_id": 654614,
+    "body": "3427",
+    "gold": "2012-06-20",
+    "opd_submitted": [
+     "2012-08-30"
+    ],
+    "opd_events": [
+     [
+      "2012-08-30",
+      1,
+      "Eingereicht"
+     ],
+     [
+      "2012-08-30",
+      24,
+      "Traktandiert"
+     ]
+    ],
+    "opd_affair_number": "86cd8e80",
+    "opd_affair_number_is_title_number": false
+   },
+   {
+    "doc_id": 864816,
+    "body": "1711",
+    "gold": "2025-04-01",
+    "opd_submitted": [
+     "2025-04-02"
+    ],
+    "opd_events": [
+     [
+      "2025-04-02",
+      1,
+      "Eingereicht"
+     ],
+     [
+      "2025-04-29",
+      60,
+      "Im Parlament behandelt"
+     ]
+    ],
+    "opd_affair_number": "2937 SR - 2",
+    "opd_affair_number_is_title_number": true
+   }
+  ],
+  "violations_submission_equals_agenda_event": 4,
+  "violations_opd_affair_is_the_executive_vorlage": 1,
+  "reading": "an OPD 'submission' on the same day as the agenda event (hid 24 'Traktandiert'), or the submission of an OPD affair whose number is the document's own Vorlage number (the executive's answer filed in parliament), dates the answer's arrival in parliament, not the question; such rows bound nothing"
+ },
+ "answer_date_vs_publisher_title_date": {
+  "meaning": "Lyss, Interlaken and Conthey prefix file names with the date of the parliament or council session that handled the answer; the answer letter is dated on or before it. 'consistent' = gold date on or up to 120 days before a title date; Conthey writes yyyy-mm-dd and yyyy-dd-mm, both readings are kept",
+  "checked": 10,
+  "exact": 0,
+  "consistent": 10,
+  "no_title_date": 24,
+  "rows": [
+   {
+    "doc_id": 878393,
+    "body": "581",
+    "title_kind": "ggr yyyymmdd (Interlaken: session)",
+    "title_dates": [
+     "2024-10-15"
+    ],
+    "gold": "2024-08-14",
+    "title_minus_gold_days": 62,
+    "exact": false,
+    "consistent": true
+   },
+   {
+    "doc_id": 878407,
+    "body": "581",
+    "title_kind": "ggr yyyymmdd (Interlaken: session)",
+    "title_dates": [
+     "2024-04-30"
+    ],
+    "gold": "2024-03-06",
+    "title_minus_gold_days": 55,
+    "exact": false,
+    "consistent": true
+   },
+   {
+    "doc_id": 878529,
+    "body": "581",
+    "title_kind": "ggr yyyymmdd (Interlaken: session)",
+    "title_dates": [
+     "2021-05-04"
+    ],
+    "gold": "2021-03-31",
+    "title_minus_gold_days": 34,
+    "exact": false,
+    "consistent": true
+   },
+   {
+    "doc_id": 878543,
+    "body": "581",
+    "title_kind": "ggr yyyymmdd (Interlaken: session)",
+    "title_dates": [
+     "2020-12-08"
+    ],
+    "gold": "2020-10-28",
+    "title_minus_gold_days": 41,
+    "exact": false,
+    "consistent": true
+   },
+   {
+    "doc_id": 878596,
+    "body": "581",
+    "title_kind": "ggr yyyymmdd (Interlaken: session)",
+    "title_dates": [
+     "2019-10-15"
+    ],
+    "gold": "2019-09-04",
+    "title_minus_gold_days": 41,
+    "exact": false,
+    "consistent": true
+   },
+   {
+    "doc_id": 878786,
+    "body": "581",
+    "title_kind": "ggr yyyymmdd (Interlaken: session)",
+    "title_dates": [
+     "2017-01-31"
+    ],
+    "gold": "2016-12-07",
+    "title_minus_gold_days": 55,
+    "exact": false,
+    "consistent": true
+   },
+   {
+    "doc_id": 880682,
+    "body": "6023",
+    "title_kind": "yyyy-xx-xx (Conthey: council)",
+    "title_dates": [
+     "2022-10-11",
+     "2022-11-10"
+    ],
+    "gold": "2022-09-01",
+    "title_minus_gold_days": 40,
+    "exact": false,
+    "consistent": true
+   },
+   {
+    "doc_id": 880683,
+    "body": "6023",
+    "title_kind": "yyyy-xx-xx (Conthey: council)",
+    "title_dates": [
+     "2022-10-11",
+     "2022-11-10"
+    ],
+    "gold": "2022-09-01",
+    "title_minus_gold_days": 40,
+    "exact": false,
+    "consistent": true
+   },
+   {
+    "doc_id": 880684,
+    "body": "6023",
+    "title_kind": "yyyy-xx-xx (Conthey: council)",
+    "title_dates": [
+     "2022-06-14"
+    ],
+    "gold": "2022-05-25",
+    "title_minus_gold_days": 20,
+    "exact": false,
+    "consistent": true
+   },
+   {
+    "doc_id": 880686,
+    "body": "6023",
+    "title_kind": "yyyy-xx-xx (Conthey: council)",
+    "title_dates": [
+     "2022-06-14"
+    ],
+    "gold": "2022-05-25",
+    "title_minus_gold_days": 20,
+    "exact": false,
+    "consistent": true
+   }
+  ]
+ },
+ "title_date_on_gold_null_documents": [
+  {
+   "doc_id": 869747,
+   "dtype": "intervention",
+   "title_dates": [
+    "2024-01-22"
+   ],
+   "answer_present": "no"
+  },
+  {
+   "doc_id": 871698,
+   "dtype": "answer",
+   "title_dates": [
+    "2026-03-02"
+   ],
+   "answer_present": "yes"
+  },
+  {
+   "doc_id": 872284,
+   "dtype": "answer",
+   "title_dates": [
+    "2021-12-13"
+   ],
+   "answer_present": "yes"
+  },
+  {
+   "doc_id": 872831,
+   "dtype": "intervention",
+   "title_dates": [
+    "2020-09-14"
+   ],
+   "answer_present": "oral"
+  },
+  {
+   "doc_id": 872843,
+   "dtype": "answer",
+   "title_dates": [
+    "2018-12-10"
+   ],
+   "answer_present": "yes"
+  },
+  {
+   "doc_id": 873037,
+   "dtype": "intervention",
+   "title_dates": [
+    "2016-09-12"
+   ],
+   "answer_present": "oral"
+  },
+  {
+   "doc_id": 873144,
+   "dtype": "answer",
+   "title_dates": [
+    "2018-11-05"
+   ],
+   "answer_present": "yes"
+  },
+  {
+   "doc_id": 873313,
+   "dtype": "intervention",
+   "title_dates": [
+    "2019-12-09"
+   ],
+   "answer_present": "oral"
+  },
+  {
+   "doc_id": 874347,
+   "dtype": "answer",
+   "title_dates": [
+    "2017-11-06"
+   ],
+   "answer_present": "yes"
+  },
+  {
+   "doc_id": 880630,
+   "dtype": "intervention",
+   "title_dates": [
+    "2024-09-24"
+   ],
+   "answer_present": "no"
+  },
+  {
+   "doc_id": 880648,
+   "dtype": "intervention",
+   "title_dates": [
+    "2023-03-28"
+   ],
+   "answer_present": "no"
+  },
+  {
+   "doc_id": 880665,
+   "dtype": "intervention",
+   "title_dates": [
+    "2022-10-11",
+    "2022-11-10"
+   ],
+   "answer_present": "no"
+  }
+ ],
+ "decision_number_vs_publisher_title": {
+  "gold_decision_numbers": 4,
+  "titles_with_rrb_number": 0,
+  "gold_number_found_in_title": 0,
+  "rows": [
+   {
+    "doc_id": 864233,
+    "gold": "404.24",
+    "title_rrb_number": null,
+    "gold_digits_in_title": false
+   },
+   {
+    "doc_id": 864968,
+    "gold": "307.25",
+    "title_rrb_number": null,
+    "gold_digits_in_title": false
+   },
+   {
+    "doc_id": 919318,
+    "gold": "395.26",
+    "title_rrb_number": null,
+    "gold_digits_in_title": false
+   },
+   {
+    "doc_id": 921247,
+    "gold": "409.26",
+    "title_rrb_number": null,
+    "gold_digits_in_title": false
+   }
+  ]
+ },
+ "opd_document_type_vs_gold_presence": {
+  "counts": {
+   "answer|no": 3,
+   "answer|yes": 36,
+   "intervention|no": 22,
+   "intervention|oral": 3,
+   "intervention|yes": 4
+  },
+  "agree": 58,
+  "n": 68,
+  "meaning": "OPD's own document type (from the publisher's category) vs the agents' answer_present"
+ },
+ "gold_quote_string_check": {
+  "checked": 34,
+  "quote_on_stated_page": 34,
+  "quote_in_document": 34,
+  "quote_parses_to_gold_date": 34,
+  "gold_date_printed_in_document": 34,
+  "exceptions": [],
+  "meaning": "the gold quote (whitespace-normalised) occurs on the stated page of the extracted text, the frozen date lattice reads the gold date from the quote, and the gold date is among the dates printed in the document"
+ },
+ "summary": {
+  "opd_written_answer_event": [
+   10,
+   10
+  ],
+  "submission_order": [
+   17,
+   22
+  ],
+  "title_date_exact": [
+   0,
+   10
+  ],
+  "title_date_consistent": [
+   10,
+   10
+  ],
+  "opd_type_agrees": [
+   58,
+   68
+  ],
+  "quote_on_page_and_parses": [
+   34,
+   34
+  ],
+  "gold_dated_with_any_non_llm_date_source": [
+   20,
+   34
+  ]
+ }
+}

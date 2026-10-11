@@ -1,0 +1,1996 @@
+{
+ "label": "POST HOC (11 Oct 2026, round 6): session times from the annotator agents' own transcripts and GitHub's server times of the commits; no registered decision depends on this file",
+ "method": "(none committed; this script runs only on the author's machine, its output is the evidence):\n  * the Claude Code transcripts of the annotator agent sessions (JSONL, one per sub-agent) under TRANSCRIPTS. A session is\n    an annotator session when its first user message starts \"You are annotator A1|A2\" or \"You are tie-break annotator A3\".\n    Read: the timestamps of every transcript line, the model of every assistant turn, the output directory named in the\n    prompt (.work/<set>/ann/<A>/ or .work/gold4/transfer/ann/<A>/) and the document ids the prompt assigns. No document\n    text and no prompt text is copied into the output.\n  * the label files the session wrote (.work/<set>/ann/<A>/<id>.json): count, and how many have a file mtime inside the\n    session window (first transcript line - 5 s, last + 5 s).\n  * GitHub, server side: `gh api repos/<repo>/activity` (push events with GitHub's timestamp; a commit's server time is the\n    first push whose head contains it), the first Actions run created for the commit (`actions/runs?head_sha=`), and\n    `commits/<sha>` -> commit.committer.date (client clock, for comparison). Original SHAs from before the message-only\n    history rewrite of 10 Oct (docs/commit-map.md) resolve on GitHub and locally.\n  * the budget gateway's append-only ledger (~/.config/hackapertus/ledger.jsonl: time, tag, model per call) for the\n    scripted Qwen checks, which ran without an agent session.",
+ "transcripts_root": "~/.claude/projects/-Users-mi11ion-Desktop-hackapertus-FINAL",
+ "sets": [
+  {
+   "set": "P1 held-out",
+   "work_dir": ".work/gold/ann/",
+   "note": "the LOCK commit also contains the held-out document list",
+   "commits": {
+    "lock": {
+     "sha": "812030f2af4bab7f2425f4153193105906c2604e",
+     "rewritten_twin": "912bda2",
+     "subject": "PRE-REGISTRATION LOCK: frozen rules, lattice, pointer, prompts, scorer, arms, gold sample + protocol, and dev-fitted θ (",
+     "committer_date_client": "2026-10-09T19:38:02Z",
+     "github_push_received": "2026-10-09T19:38:04Z",
+     "github_first_actions_run": "2026-10-09T19:38:07Z",
+     "role": "lock"
+    },
+    "labels": {
+     "sha": "ded00337f2af8320ecf6babe9b9d5aad16133616",
+     "rewritten_twin": "6eb4d3b",
+     "subject": "Held-out gold labels (154 docs): blind double annotation (Claude Opus A1, Sonnet A2) + Opus tie-break A3 on 41 disagreem",
+     "committer_date_client": "2026-10-09T19:44:02Z",
+     "github_push_received": "2026-10-09T19:44:04Z",
+     "github_first_actions_run": "2026-10-09T19:44:06Z",
+     "role": "labels"
+    }
+   },
+   "sessions": [
+    {
+     "agent": "agent-a4cf671263f105318",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-09T19:39:39Z",
+     "last": "2026-10-09T19:40:45Z",
+     "minutes": 1.1,
+     "n_assigned": 20,
+     "label_files_on_disk": 20,
+     "label_files_mtime_in_session": 20,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a85953a19d9a92887",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-09T19:39:43Z",
+     "last": "2026-10-09T19:40:57Z",
+     "minutes": 1.2,
+     "n_assigned": 20,
+     "label_files_on_disk": 20,
+     "label_files_mtime_in_session": 20,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-aaa9c932a4900c4ea",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-09T19:39:46Z",
+     "last": "2026-10-09T19:41:11Z",
+     "minutes": 1.4,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a4f1c5b1b62552596",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-09T19:39:50Z",
+     "last": "2026-10-09T19:40:55Z",
+     "minutes": 1.1,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-ab5a41efe036e175a",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-09T19:39:53Z",
+     "last": "2026-10-09T19:40:58Z",
+     "minutes": 1.1,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-acb3e260fd7709b94",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-09T19:39:57Z",
+     "last": "2026-10-09T19:40:47Z",
+     "minutes": 0.8,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-af343628f05f4eb7d",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-09T19:40:00Z",
+     "last": "2026-10-09T19:40:55Z",
+     "minutes": 0.9,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-abc7f91ca254762b4",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-09T19:40:04Z",
+     "last": "2026-10-09T19:41:11Z",
+     "minutes": 1.1,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a601849d49ba8932d",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-09T19:40:08Z",
+     "last": "2026-10-09T19:41:05Z",
+     "minutes": 1.0,
+     "n_assigned": 20,
+     "label_files_on_disk": 20,
+     "label_files_mtime_in_session": 20,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-aa6b5157efd5e48b9",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-09T19:40:11Z",
+     "last": "2026-10-09T19:41:12Z",
+     "minutes": 1.0,
+     "n_assigned": 20,
+     "label_files_on_disk": 20,
+     "label_files_mtime_in_session": 20,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a7d21cd6c8e83fad8",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-09T19:40:15Z",
+     "last": "2026-10-09T19:41:03Z",
+     "minutes": 0.8,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a25e6cc846a89df91",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-09T19:40:18Z",
+     "last": "2026-10-09T19:41:10Z",
+     "minutes": 0.9,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a5a573fe46c8af1f8",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-09T19:40:22Z",
+     "last": "2026-10-09T19:41:11Z",
+     "minutes": 0.8,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a592e78ed28d7d025",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-09T19:40:25Z",
+     "last": "2026-10-09T19:41:08Z",
+     "minutes": 0.7,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-af73696bb5d5f4540",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-09T19:40:29Z",
+     "last": "2026-10-09T19:41:20Z",
+     "minutes": 0.9,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a488208356e1489a4",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-09T19:40:32Z",
+     "last": "2026-10-09T19:41:24Z",
+     "minutes": 0.9,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-abd90840497718ad1",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A3",
+     "role_prompt": "tie-break annotator A3",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-09T19:41:46Z",
+     "last": "2026-10-09T19:43:46Z",
+     "minutes": 2.0,
+     "n_assigned": 21,
+     "label_files_on_disk": 21,
+     "label_files_mtime_in_session": 21,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a199736c6c68d9de2",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A3",
+     "role_prompt": "tie-break annotator A3",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-09T19:41:50Z",
+     "last": "2026-10-09T19:42:55Z",
+     "minutes": 1.1,
+     "n_assigned": 20,
+     "label_files_on_disk": 20,
+     "label_files_mtime_in_session": 20,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    }
+   ],
+   "summary": {
+    "n_sessions": 18,
+    "sessions_per_role": {
+     "A1": 8,
+     "A2": 8,
+     "A3": 2
+    },
+    "models_per_role": {
+     "A1": [
+      "claude-opus-5-5"
+     ],
+     "A2": [
+      "claude-sonnet-5-5"
+     ],
+     "A3": [
+      "claude-opus-5-5"
+     ]
+    },
+    "first_session_start": "2026-10-09T19:39:39Z",
+    "last_session_end": "2026-10-09T19:43:46Z",
+    "label_files": {
+     "A1": 154,
+     "A2": 154,
+     "A3": 41
+    },
+    "label_files_mtime_in_session": 349,
+    "label_files_total": 349
+   },
+   "order_checks": {
+    "lock_push_before_first_session": true,
+    "seconds_from_lock_push_to_first_session": 95,
+    "last_session_end_before_label_push": true,
+    "seconds_from_last_session_end_to_label_push": 18
+   }
+  },
+  {
+   "set": "P2",
+   "work_dir": ".work/gold2/ann/",
+   "note": "the LOCK2 commit also contains the document list",
+   "commits": {
+    "lock": {
+     "sha": "3dde4180620b383c60224e83d66dfbfe2c004561",
+     "rewritten_twin": "5b044a2",
+     "subject": "PRE-REGISTRATION P2 (unseen parliaments): PREREG2 + LOCK2 (frozen P1 code and theta, 62 docs from 15 bodies absent from ",
+     "committer_date_client": "2026-10-10T07:47:55Z",
+     "github_push_received": "2026-10-10T07:47:58Z",
+     "github_first_actions_run": "2026-10-10T07:48:00Z",
+     "role": "lock"
+    },
+    "labels": {
+     "sha": "2e4a9d6bc4cb5839263eb353346c9846430497b7",
+     "rewritten_twin": "dbf387e",
+     "subject": "P2 gold labels (62 docs, 15 unseen parliaments): blind A1 Opus / A2 Sonnet, A3 Opus on 7 recommendation-only disagreemen",
+     "committer_date_client": "2026-10-10T07:50:23Z",
+     "github_push_received": "2026-10-10T07:50:26Z",
+     "github_first_actions_run": "2026-10-10T07:50:28Z",
+     "role": "labels"
+    }
+   },
+   "sessions": [
+    {
+     "agent": "agent-a5a40b41e0044fb6d",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T07:48:08Z",
+     "last": "2026-10-10T07:49:01Z",
+     "minutes": 0.9,
+     "n_assigned": 16,
+     "label_files_on_disk": 16,
+     "label_files_mtime_in_session": 16,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-afbc55f6bdbc07ae0",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T07:48:11Z",
+     "last": "2026-10-10T07:49:08Z",
+     "minutes": 0.9,
+     "n_assigned": 16,
+     "label_files_on_disk": 16,
+     "label_files_mtime_in_session": 16,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a853e1db9e26eb7d6",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T07:48:15Z",
+     "last": "2026-10-10T07:49:07Z",
+     "minutes": 0.9,
+     "n_assigned": 15,
+     "label_files_on_disk": 15,
+     "label_files_mtime_in_session": 15,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-ad3955e885988f6e9",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T07:48:19Z",
+     "last": "2026-10-10T07:49:05Z",
+     "minutes": 0.8,
+     "n_assigned": 15,
+     "label_files_on_disk": 15,
+     "label_files_mtime_in_session": 15,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-abf33f447d7e9a357",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T07:48:23Z",
+     "last": "2026-10-10T07:49:06Z",
+     "minutes": 0.7,
+     "n_assigned": 16,
+     "label_files_on_disk": 16,
+     "label_files_mtime_in_session": 16,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-ace011707134cf816",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T07:48:27Z",
+     "last": "2026-10-10T07:48:59Z",
+     "minutes": 0.5,
+     "n_assigned": 16,
+     "label_files_on_disk": 16,
+     "label_files_mtime_in_session": 16,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a2e0086edf73f2db6",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T07:48:30Z",
+     "last": "2026-10-10T07:49:06Z",
+     "minutes": 0.6,
+     "n_assigned": 15,
+     "label_files_on_disk": 15,
+     "label_files_mtime_in_session": 15,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-aee0cfc42b71b8190",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T07:48:34Z",
+     "last": "2026-10-10T07:49:17Z",
+     "minutes": 0.7,
+     "n_assigned": 15,
+     "label_files_on_disk": 15,
+     "label_files_mtime_in_session": 15,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-ab79ed2ecc67f04e6",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A3",
+     "role_prompt": "tie-break annotator A3",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T07:49:30Z",
+     "last": "2026-10-10T07:49:59Z",
+     "minutes": 0.5,
+     "n_assigned": 7,
+     "label_files_on_disk": 7,
+     "label_files_mtime_in_session": 7,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    }
+   ],
+   "summary": {
+    "n_sessions": 9,
+    "sessions_per_role": {
+     "A1": 4,
+     "A2": 4,
+     "A3": 1
+    },
+    "models_per_role": {
+     "A1": [
+      "claude-opus-5-5"
+     ],
+     "A2": [
+      "claude-sonnet-5-5"
+     ],
+     "A3": [
+      "claude-opus-5-5"
+     ]
+    },
+    "first_session_start": "2026-10-10T07:48:08Z",
+    "last_session_end": "2026-10-10T07:49:59Z",
+    "label_files": {
+     "A1": 62,
+     "A2": 62,
+     "A3": 7
+    },
+    "label_files_mtime_in_session": 131,
+    "label_files_total": 131
+   },
+   "order_checks": {
+    "lock_push_before_first_session": true,
+    "seconds_from_lock_push_to_first_session": 10,
+    "last_session_end_before_label_push": true,
+    "seconds_from_last_session_end_to_label_push": 27
+   }
+  },
+  {
+   "set": "P3",
+   "work_dir": ".work/gold3/ann/",
+   "note": "the LOCK3 commit also contains the affair list",
+   "commits": {
+    "lock": {
+     "sha": "922218d4755193824a658f5ad1cd8c90cc451862",
+     "rewritten_twin": "a0e4636",
+     "subject": "PRE-REGISTRATIONS P3 (multi-field affairs: 29 affairs, 10 parliaments, LOCK3) and P4 (virtual affairs from Bulle agendas",
+     "committer_date_client": "2026-10-10T08:41:04Z",
+     "github_push_received": "2026-10-10T08:41:06Z",
+     "github_first_actions_run": "2026-10-10T08:41:08Z",
+     "role": "lock"
+    },
+    "labels": {
+     "sha": "d90bae7d70c9bd76cad233ffaec899d62f983a86",
+     "rewritten_twin": "7750b6c",
+     "subject": "P3 gold labels (29 affairs): blind A1 Opus / A2 Sonnet, A3 on 4 disputed fields (order randomised); raw annotator files ",
+     "committer_date_client": "2026-10-10T08:44:41Z",
+     "github_push_received": "2026-10-10T08:44:43Z",
+     "github_first_actions_run": "2026-10-10T08:44:45Z",
+     "role": "labels"
+    }
+   },
+   "sessions": [
+    {
+     "agent": "agent-a2e554556f4e99a52",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T08:42:12Z",
+     "last": "2026-10-10T08:43:37Z",
+     "minutes": 1.4,
+     "n_assigned": 7,
+     "label_files_on_disk": 7,
+     "label_files_mtime_in_session": 7,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a081e918187175c8b",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T08:42:15Z",
+     "last": "2026-10-10T08:43:24Z",
+     "minutes": 1.1,
+     "n_assigned": 7,
+     "label_files_on_disk": 7,
+     "label_files_mtime_in_session": 7,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a5b812c1c99003e5d",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T08:42:19Z",
+     "last": "2026-10-10T08:43:47Z",
+     "minutes": 1.5,
+     "n_assigned": 8,
+     "label_files_on_disk": 8,
+     "label_files_mtime_in_session": 8,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a46e0acd9af3de6e3",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T08:42:22Z",
+     "last": "2026-10-10T08:43:34Z",
+     "minutes": 1.2,
+     "n_assigned": 7,
+     "label_files_on_disk": 7,
+     "label_files_mtime_in_session": 7,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-acfe1d0f5288e9374",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T08:42:25Z",
+     "last": "2026-10-10T08:43:27Z",
+     "minutes": 1.0,
+     "n_assigned": 7,
+     "label_files_on_disk": 7,
+     "label_files_mtime_in_session": 7,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-abda1b8904e57be2e",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T08:42:29Z",
+     "last": "2026-10-10T08:43:16Z",
+     "minutes": 0.8,
+     "n_assigned": 7,
+     "label_files_on_disk": 7,
+     "label_files_mtime_in_session": 7,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a68bee6055058d310",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T08:42:32Z",
+     "last": "2026-10-10T08:43:34Z",
+     "minutes": 1.0,
+     "n_assigned": 8,
+     "label_files_on_disk": 8,
+     "label_files_mtime_in_session": 8,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a9934fbc1f0fcd07d",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T08:42:36Z",
+     "last": "2026-10-10T08:43:28Z",
+     "minutes": 0.9,
+     "n_assigned": 7,
+     "label_files_on_disk": 7,
+     "label_files_mtime_in_session": 7,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a4bbced8d831bbe03",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A3",
+     "role_prompt": "tie-break annotator A3",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T08:43:57Z",
+     "last": "2026-10-10T08:44:35Z",
+     "minutes": 0.6,
+     "n_assigned": 4,
+     "label_files_on_disk": 4,
+     "label_files_mtime_in_session": 4,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    }
+   ],
+   "summary": {
+    "n_sessions": 9,
+    "sessions_per_role": {
+     "A1": 4,
+     "A2": 4,
+     "A3": 1
+    },
+    "models_per_role": {
+     "A1": [
+      "claude-opus-5-5"
+     ],
+     "A2": [
+      "claude-sonnet-5-5"
+     ],
+     "A3": [
+      "claude-opus-5-5"
+     ]
+    },
+    "first_session_start": "2026-10-10T08:42:12Z",
+    "last_session_end": "2026-10-10T08:44:35Z",
+    "label_files": {
+     "A1": 29,
+     "A2": 29,
+     "A3": 4
+    },
+    "label_files_mtime_in_session": 62,
+    "label_files_total": 62
+   },
+   "order_checks": {
+    "lock_push_before_first_session": true,
+    "seconds_from_lock_push_to_first_session": 66,
+    "last_session_end_before_label_push": true,
+    "seconds_from_last_session_end_to_label_push": 8
+   }
+  },
+  {
+   "set": "P4 held-out",
+   "work_dir": ".work/gold4/ann/",
+   "note": null,
+   "commits": {
+    "lock": {
+     "sha": "922218d4755193824a658f5ad1cd8c90cc451862",
+     "rewritten_twin": "a0e4636",
+     "subject": "PRE-REGISTRATIONS P3 (multi-field affairs: 29 affairs, 10 parliaments, LOCK3) and P4 (virtual affairs from Bulle agendas",
+     "committer_date_client": "2026-10-10T08:41:04Z",
+     "github_push_received": "2026-10-10T08:41:06Z",
+     "github_first_actions_run": "2026-10-10T08:41:08Z",
+     "role": "lock"
+    },
+    "draw": {
+     "sha": "3b0d7013e76093f73955c050a27efd417420bdd8",
+     "rewritten_twin": "3a0900b",
+     "subject": "P4 held-out meetings drawn after LOCK4 (seed 20261013): 6 Bulle sittings",
+     "committer_date_client": "2026-10-10T08:41:56Z",
+     "github_push_received": "2026-10-10T08:41:59Z",
+     "github_first_actions_run": "2026-10-10T08:42:01Z",
+     "role": "draw"
+    },
+    "labels": {
+     "sha": "8a40ca1c9a210fed86f8fed994f0b86c07637e3e",
+     "rewritten_twin": "8cf32f9",
+     "subject": "P4 gold labels (6 held-out Bulle sittings): blind A1/A2, A3 on 3 disputed items (order randomised); raw annotator files ",
+     "committer_date_client": "2026-10-10T08:45:07Z",
+     "github_push_received": "2026-10-10T08:45:09Z",
+     "github_first_actions_run": "2026-10-10T08:45:11Z",
+     "role": "labels"
+    }
+   },
+   "sessions": [
+    {
+     "agent": "agent-a979fb754fd2c7987",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T08:42:41Z",
+     "last": "2026-10-10T08:43:56Z",
+     "minutes": 1.3,
+     "n_assigned": 1,
+     "label_files_on_disk": 1,
+     "label_files_mtime_in_session": 1,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a24a907fec4a30b35",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T08:42:45Z",
+     "last": "2026-10-10T08:43:55Z",
+     "minutes": 1.2,
+     "n_assigned": 1,
+     "label_files_on_disk": 1,
+     "label_files_mtime_in_session": 1,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-af9346f8ca5da0df7",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T08:42:48Z",
+     "last": "2026-10-10T08:43:40Z",
+     "minutes": 0.9,
+     "n_assigned": 1,
+     "label_files_on_disk": 1,
+     "label_files_mtime_in_session": 1,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a2ecbc610d8ab1ce5",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T08:42:52Z",
+     "last": "2026-10-10T08:43:54Z",
+     "minutes": 1.0,
+     "n_assigned": 1,
+     "label_files_on_disk": 1,
+     "label_files_mtime_in_session": 1,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a8a8b30b8c9137895",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T08:42:55Z",
+     "last": "2026-10-10T08:43:59Z",
+     "minutes": 1.1,
+     "n_assigned": 2,
+     "label_files_on_disk": 2,
+     "label_files_mtime_in_session": 2,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a9347d8a361b2ee7d",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T08:42:59Z",
+     "last": "2026-10-10T08:43:58Z",
+     "minutes": 1.0,
+     "n_assigned": 1,
+     "label_files_on_disk": 1,
+     "label_files_mtime_in_session": 1,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a58236cedd168c8b2",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T08:43:02Z",
+     "last": "2026-10-10T08:43:59Z",
+     "minutes": 1.0,
+     "n_assigned": 1,
+     "label_files_on_disk": 1,
+     "label_files_mtime_in_session": 1,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-ad016f9f33340dbad",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T08:43:05Z",
+     "last": "2026-10-10T08:43:37Z",
+     "minutes": 0.5,
+     "n_assigned": 1,
+     "label_files_on_disk": 1,
+     "label_files_mtime_in_session": 1,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a62cbc6daa6a0c135",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T08:43:09Z",
+     "last": "2026-10-10T08:44:01Z",
+     "minutes": 0.9,
+     "n_assigned": 1,
+     "label_files_on_disk": 1,
+     "label_files_mtime_in_session": 1,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-ade5bca2896b5d5f6",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T08:43:12Z",
+     "last": "2026-10-10T08:43:57Z",
+     "minutes": 0.7,
+     "n_assigned": 2,
+     "label_files_on_disk": 2,
+     "label_files_mtime_in_session": 2,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a45393731b6382307",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A3",
+     "role_prompt": "tie-break annotator A3",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T08:44:15Z",
+     "last": "2026-10-10T08:45:02Z",
+     "minutes": 0.8,
+     "n_assigned": 2,
+     "label_files_on_disk": 2,
+     "label_files_mtime_in_session": 2,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    }
+   ],
+   "summary": {
+    "n_sessions": 11,
+    "sessions_per_role": {
+     "A1": 5,
+     "A2": 5,
+     "A3": 1
+    },
+    "models_per_role": {
+     "A1": [
+      "claude-opus-5-5"
+     ],
+     "A2": [
+      "claude-sonnet-5-5"
+     ],
+     "A3": [
+      "claude-opus-5-5"
+     ]
+    },
+    "first_session_start": "2026-10-10T08:42:41Z",
+    "last_session_end": "2026-10-10T08:45:02Z",
+    "label_files": {
+     "A1": 6,
+     "A2": 6,
+     "A3": 2
+    },
+    "label_files_mtime_in_session": 14,
+    "label_files_total": 14
+   },
+   "order_checks": {
+    "lock_push_before_first_session": true,
+    "seconds_from_lock_push_to_first_session": 95,
+    "draw_push_before_first_session": true,
+    "seconds_from_draw_push_to_first_session": 42,
+    "last_session_end_before_label_push": true,
+    "seconds_from_last_session_end_to_label_push": 7
+   }
+  },
+  {
+   "set": "P4 transfer (exploratory)",
+   "work_dir": ".work/gold4/transfer/ann/",
+   "note": "the transfer cell is registered in LOCK4 without a decision; its 2 sittings were added in f4ea061",
+   "commits": {
+    "lock": {
+     "sha": "922218d4755193824a658f5ad1cd8c90cc451862",
+     "rewritten_twin": "a0e4636",
+     "subject": "PRE-REGISTRATIONS P3 (multi-field affairs: 29 affairs, 10 parliaments, LOCK3) and P4 (virtual affairs from Bulle agendas",
+     "committer_date_client": "2026-10-10T08:41:04Z",
+     "github_push_received": "2026-10-10T08:41:06Z",
+     "github_first_actions_run": "2026-10-10T08:41:08Z",
+     "role": "lock"
+    },
+    "draw": {
+     "sha": "f4ea061df6df67ce06333f5820f77babc1c57725",
+     "rewritten_twin": "d660a55",
+     "subject": "Round-2 honesty: constant + trivial date baselines, P2 body-level sign test (6/0/1, p=0.031), P3 registered set metrics,",
+     "committer_date_client": "2026-10-10T09:24:08Z",
+     "github_push_received": "2026-10-10T09:24:10Z",
+     "github_first_actions_run": "2026-10-10T09:24:12Z",
+     "role": "draw"
+    },
+    "labels": {
+     "sha": "9f9ea1f5bdcbb090ea399e4c942237412daef9e1",
+     "rewritten_twin": "c6d74dc",
+     "subject": "P4 transfer cell (La Chaux-de-Fonds, 2 sittings, 9 items): labels (blind A1/A2, A3 on 2 items, randomised) + registered ",
+     "committer_date_client": "2026-10-10T09:26:20Z",
+     "github_push_received": "2026-10-10T09:26:22Z",
+     "github_first_actions_run": "2026-10-10T09:26:24Z",
+     "role": "labels"
+    }
+   },
+   "sessions": [
+    {
+     "agent": "agent-a7e1882e114c4bbc2",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T09:24:17Z",
+     "last": "2026-10-10T09:25:06Z",
+     "minutes": 0.8,
+     "n_assigned": 1,
+     "label_files_on_disk": 1,
+     "label_files_mtime_in_session": 1,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a6446d2bba935efb2",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T09:24:21Z",
+     "last": "2026-10-10T09:25:17Z",
+     "minutes": 0.9,
+     "n_assigned": 1,
+     "label_files_on_disk": 1,
+     "label_files_mtime_in_session": 1,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a5d8ee6614e5735be",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T09:24:24Z",
+     "last": "2026-10-10T09:24:59Z",
+     "minutes": 0.6,
+     "n_assigned": 1,
+     "label_files_on_disk": 1,
+     "label_files_mtime_in_session": 1,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-ac45892e694ca087d",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T09:24:28Z",
+     "last": "2026-10-10T09:25:04Z",
+     "minutes": 0.6,
+     "n_assigned": 1,
+     "label_files_on_disk": 1,
+     "label_files_mtime_in_session": 1,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a15403d78b272af89",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A3",
+     "role_prompt": "tie-break annotator A3",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T09:25:26Z",
+     "last": "2026-10-10T09:26:13Z",
+     "minutes": 0.8,
+     "n_assigned": 1,
+     "label_files_on_disk": 1,
+     "label_files_mtime_in_session": 1,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    }
+   ],
+   "summary": {
+    "n_sessions": 5,
+    "sessions_per_role": {
+     "A1": 2,
+     "A2": 2,
+     "A3": 1
+    },
+    "models_per_role": {
+     "A1": [
+      "claude-opus-5-5"
+     ],
+     "A2": [
+      "claude-sonnet-5-5"
+     ],
+     "A3": [
+      "claude-opus-5-5"
+     ]
+    },
+    "first_session_start": "2026-10-10T09:24:17Z",
+    "last_session_end": "2026-10-10T09:26:13Z",
+    "label_files": {
+     "A1": 2,
+     "A2": 2,
+     "A3": 1
+    },
+    "label_files_mtime_in_session": 5,
+    "label_files_total": 5
+   },
+   "order_checks": {
+    "lock_push_before_first_session": true,
+    "seconds_from_lock_push_to_first_session": 2591,
+    "draw_push_before_first_session": true,
+    "seconds_from_draw_push_to_first_session": 7,
+    "last_session_end_before_label_push": true,
+    "seconds_from_last_session_end_to_label_push": 9
+   }
+  },
+  {
+   "set": "P3b",
+   "work_dir": ".work/gold5/ann/",
+   "note": null,
+   "commits": {
+    "lock": {
+     "sha": "43a90120eb13659cd080aebf8b60ae0eab596fb5",
+     "rewritten_twin": null,
+     "subject": "PRE-REGISTRATION P3b: fresh held-out replication of P3 (LOCK5); no P3b affair drawn, no P3b label",
+     "committer_date_client": "2026-10-10T13:28:29Z",
+     "github_push_received": "2026-10-10T13:28:31Z",
+     "github_first_actions_run": "2026-10-10T13:28:34Z",
+     "role": "lock"
+    },
+    "draw": {
+     "sha": "943e868c03e346a7253a0781ba62eca72c0b9b02",
+     "rewritten_twin": null,
+     "subject": "P3b sample: 36 affairs from 9 bodies drawn after LOCK5 (ids, urls, sha256, page counts; no text); shortfall reported as ",
+     "committer_date_client": "2026-10-10T13:34:16Z",
+     "github_push_received": "2026-10-10T13:34:19Z",
+     "github_first_actions_run": "2026-10-10T13:34:22Z",
+     "role": "draw"
+    },
+    "labels": {
+     "sha": "f12efa927e84ecfad8ea704dab347a4cbb9c3be4",
+     "rewritten_twin": null,
+     "subject": "P3b labels: blind A1 (Opus) and A2 (Sonnet) on 36 affairs, A3 (Opus) tie-break on 1 disputed field; blindness audit",
+     "committer_date_client": "2026-10-10T13:39:41Z",
+     "github_push_received": "2026-10-10T13:39:44Z",
+     "github_first_actions_run": "2026-10-10T13:39:46Z",
+     "role": "labels"
+    }
+   },
+   "sessions": [
+    {
+     "agent": "agent-a30255a97a9cccc0a",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T13:34:39Z",
+     "last": "2026-10-10T13:38:31Z",
+     "minutes": 3.9,
+     "n_assigned": 18,
+     "label_files_on_disk": 18,
+     "label_files_mtime_in_session": 18,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-ae38134b573e7d494",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T13:34:44Z",
+     "last": "2026-10-10T13:37:53Z",
+     "minutes": 3.2,
+     "n_assigned": 18,
+     "label_files_on_disk": 18,
+     "label_files_mtime_in_session": 18,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a83e32900cfbefa38",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T13:34:49Z",
+     "last": "2026-10-10T13:37:37Z",
+     "minutes": 2.8,
+     "n_assigned": 18,
+     "label_files_on_disk": 18,
+     "label_files_mtime_in_session": 18,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a4eca0716649bcdb5",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T13:34:53Z",
+     "last": "2026-10-10T13:37:18Z",
+     "minutes": 2.4,
+     "n_assigned": 18,
+     "label_files_on_disk": 18,
+     "label_files_mtime_in_session": 18,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-accb0ace1516a511e",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A3",
+     "role_prompt": "tie-break annotator A3",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T13:39:08Z",
+     "last": "2026-10-10T13:39:28Z",
+     "minutes": 0.3,
+     "n_assigned": 1,
+     "label_files_on_disk": 1,
+     "label_files_mtime_in_session": 1,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    }
+   ],
+   "summary": {
+    "n_sessions": 5,
+    "sessions_per_role": {
+     "A1": 2,
+     "A2": 2,
+     "A3": 1
+    },
+    "models_per_role": {
+     "A1": [
+      "claude-opus-5-5"
+     ],
+     "A2": [
+      "claude-sonnet-5-5"
+     ],
+     "A3": [
+      "claude-opus-5-5"
+     ]
+    },
+    "first_session_start": "2026-10-10T13:34:39Z",
+    "last_session_end": "2026-10-10T13:39:28Z",
+    "label_files": {
+     "A1": 36,
+     "A2": 36,
+     "A3": 1
+    },
+    "label_files_mtime_in_session": 73,
+    "label_files_total": 73
+   },
+   "order_checks": {
+    "lock_push_before_first_session": true,
+    "seconds_from_lock_push_to_first_session": 368,
+    "draw_push_before_first_session": true,
+    "seconds_from_draw_push_to_first_session": 20,
+    "last_session_end_before_label_push": true,
+    "seconds_from_last_session_end_to_label_push": 16
+   }
+  },
+  {
+   "set": "P5 dev (development set, no lock by design)",
+   "work_dir": ".work/p5dev/ann/",
+   "note": null,
+   "commits": {
+    "labels": {
+     "sha": "2b9449eb70b1d0f1b57881374f3bfcc7d3a40552",
+     "rewritten_twin": null,
+     "subject": "P5 development set (38 affairs, dev only): blind A1 Opus / A2 Sonnet labels, A3 Opus on 6 disputed fields in 5 affairs; ",
+     "committer_date_client": "2026-10-10T19:28:36Z",
+     "github_push_received": "2026-10-10T19:28:40Z",
+     "github_first_actions_run": "2026-10-10T19:28:42Z",
+     "role": "labels"
+    }
+   },
+   "sessions": [
+    {
+     "agent": "agent-a463f028e2571375c",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T19:20:24Z",
+     "last": "2026-10-10T19:26:05Z",
+     "minutes": 5.7,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-aee202d55a06adfaf",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T19:20:29Z",
+     "last": "2026-10-10T19:27:07Z",
+     "minutes": 6.6,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a323c09901e92a14e",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T19:20:34Z",
+     "last": "2026-10-10T19:24:54Z",
+     "minutes": 4.3,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a2e12bec4bd36f9f1",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T19:20:38Z",
+     "last": "2026-10-10T19:26:55Z",
+     "minutes": 6.3,
+     "n_assigned": 19,
+     "label_files_on_disk": 19,
+     "label_files_mtime_in_session": 19,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a3472a8c42c4ba895",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A3",
+     "role_prompt": "tie-break annotator A3",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T19:27:18Z",
+     "last": "2026-10-10T19:28:29Z",
+     "minutes": 1.2,
+     "n_assigned": 5,
+     "label_files_on_disk": 5,
+     "label_files_mtime_in_session": 5,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    }
+   ],
+   "summary": {
+    "n_sessions": 5,
+    "sessions_per_role": {
+     "A1": 2,
+     "A2": 2,
+     "A3": 1
+    },
+    "models_per_role": {
+     "A1": [
+      "claude-opus-5-5"
+     ],
+     "A2": [
+      "claude-sonnet-5-5"
+     ],
+     "A3": [
+      "claude-opus-5-5"
+     ]
+    },
+    "first_session_start": "2026-10-10T19:20:24Z",
+    "last_session_end": "2026-10-10T19:28:29Z",
+    "label_files": {
+     "A1": 38,
+     "A2": 38,
+     "A3": 5
+    },
+    "label_files_mtime_in_session": 81,
+    "label_files_total": 81
+   },
+   "order_checks": {
+    "last_session_end_before_label_push": true,
+    "seconds_from_last_session_end_to_label_push": 11
+   }
+  },
+  {
+   "set": "P5",
+   "work_dir": ".work/p5/ann/",
+   "note": null,
+   "commits": {
+    "lock": {
+     "sha": "db339eb2386730e375269cbc35c806b4131bb1b3",
+     "rewritten_twin": null,
+     "subject": "PRE-REGISTRATION P5: Q/A pairing, people, recommendation and reasoning with spans (LOCK6); dev results and θ committed; ",
+     "committer_date_client": "2026-10-10T20:23:48Z",
+     "github_push_received": "2026-10-10T20:23:51Z",
+     "github_first_actions_run": "2026-10-10T20:23:53Z",
+     "role": "lock"
+    },
+    "draw": {
+     "sha": "700c3a19be77a0e272b4b2613143abd7045b2f55",
+     "rewritten_twin": null,
+     "subject": "P5 sample (40 affairs from 10 parliaments, drawn after LOCK6) and all arms run before any P5 label exists",
+     "committer_date_client": "2026-10-10T21:08:35Z",
+     "github_push_received": "2026-10-10T21:08:38Z",
+     "github_first_actions_run": "2026-10-10T21:08:44Z",
+     "role": "draw"
+    },
+    "labels": {
+     "sha": "99adf31288b832e3e87de87bee247bb56db266e8",
+     "rewritten_twin": null,
+     "subject": "P5 labels: blind A1 (Opus) and A2 (Sonnet) on 40 affairs, A3 (Opus) on 2 disputed submitter fields; no annotator read pr",
+     "committer_date_client": "2026-10-10T21:16:37Z",
+     "github_push_received": "2026-10-10T21:16:39Z",
+     "github_first_actions_run": "2026-10-10T21:16:41Z",
+     "role": "labels"
+    }
+   },
+   "sessions": [
+    {
+     "agent": "agent-ad1b63c4e318ee855",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T21:08:45Z",
+     "last": "2026-10-10T21:15:01Z",
+     "minutes": 6.3,
+     "n_assigned": 20,
+     "label_files_on_disk": 20,
+     "label_files_mtime_in_session": 20,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-adf75ebfc4941be7b",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T21:08:50Z",
+     "last": "2026-10-10T21:14:29Z",
+     "minutes": 5.6,
+     "n_assigned": 20,
+     "label_files_on_disk": 20,
+     "label_files_mtime_in_session": 20,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a6da95f165e2eeaca",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T21:08:55Z",
+     "last": "2026-10-10T21:14:21Z",
+     "minutes": 5.4,
+     "n_assigned": 20,
+     "label_files_on_disk": 20,
+     "label_files_mtime_in_session": 20,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a2c807d98cc401799",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T21:09:00Z",
+     "last": "2026-10-10T21:14:41Z",
+     "minutes": 5.7,
+     "n_assigned": 20,
+     "label_files_on_disk": 20,
+     "label_files_mtime_in_session": 20,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-adc42fe80477c93f5",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A3",
+     "role_prompt": "tie-break annotator A3",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T21:15:21Z",
+     "last": "2026-10-10T21:16:03Z",
+     "minutes": 0.7,
+     "n_assigned": 2,
+     "label_files_on_disk": 2,
+     "label_files_mtime_in_session": 2,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    }
+   ],
+   "summary": {
+    "n_sessions": 5,
+    "sessions_per_role": {
+     "A1": 2,
+     "A2": 2,
+     "A3": 1
+    },
+    "models_per_role": {
+     "A1": [
+      "claude-opus-5-5"
+     ],
+     "A2": [
+      "claude-sonnet-5-5"
+     ],
+     "A3": [
+      "claude-opus-5-5"
+     ]
+    },
+    "first_session_start": "2026-10-10T21:08:45Z",
+    "last_session_end": "2026-10-10T21:16:03Z",
+    "label_files": {
+     "A1": 40,
+     "A2": 40,
+     "A3": 2
+    },
+    "label_files_mtime_in_session": 82,
+    "label_files_total": 82
+   },
+   "order_checks": {
+    "lock_push_before_first_session": true,
+    "seconds_from_lock_push_to_first_session": 2694,
+    "draw_push_before_first_session": true,
+    "seconds_from_draw_push_to_first_session": 7,
+    "last_session_end_before_label_push": true,
+    "seconds_from_last_session_end_to_label_push": 36
+   }
+  },
+  {
+   "set": "DEV2 (pointer v2 selection)",
+   "work_dir": ".work/p6dev/ann/",
+   "note": "'lock' here is 6810ee5: the written selection rule (eval/p6/DEV2_SELECTION.md) and the DEV2 draw; candidate C's code was first committed in dfd1e72, after the labels (DEVIATIONS7)",
+   "commits": {
+    "lock": {
+     "sha": "6810ee5debe42c96d78385cf28595a2238c26775",
+     "rewritten_twin": null,
+     "subject": "Pointer v2 development (P1 dev only): two-stage closed-set pointer (answer present? then decision/letter date by role), ",
+     "committer_date_client": "2026-10-10T21:16:26Z",
+     "github_push_received": "2026-10-10T21:16:30Z",
+     "github_first_actions_run": "2026-10-10T21:16:32Z",
+     "role": "lock"
+    },
+    "labels": {
+     "sha": "854bb3d085756b482ea74efb1df22768118e9738",
+     "rewritten_twin": null,
+     "subject": "DEV2 labels for pointer v2 selection: blind A1 (Opus) and A2 (Sonnet) agree on all 31 answer dates (no tie-break needed)",
+     "committer_date_client": "2026-10-10T21:18:13Z",
+     "github_push_received": "2026-10-10T21:18:15Z",
+     "github_first_actions_run": "2026-10-10T21:18:17Z",
+     "role": "labels"
+    }
+   },
+   "sessions": [
+    {
+     "agent": "agent-a2230524679fce72f",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T21:16:56Z",
+     "last": "2026-10-10T21:18:06Z",
+     "minutes": 1.2,
+     "n_assigned": 31,
+     "label_files_on_disk": 31,
+     "label_files_mtime_in_session": 31,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-adb9cd21700750430",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T21:17:01Z",
+     "last": "2026-10-10T21:17:57Z",
+     "minutes": 0.9,
+     "n_assigned": 31,
+     "label_files_on_disk": 31,
+     "label_files_mtime_in_session": 31,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    }
+   ],
+   "summary": {
+    "n_sessions": 2,
+    "sessions_per_role": {
+     "A1": 1,
+     "A2": 1
+    },
+    "models_per_role": {
+     "A1": [
+      "claude-opus-5-5"
+     ],
+     "A2": [
+      "claude-sonnet-5-5"
+     ]
+    },
+    "first_session_start": "2026-10-10T21:16:56Z",
+    "last_session_end": "2026-10-10T21:18:06Z",
+    "label_files": {
+     "A1": 31,
+     "A2": 31
+    },
+    "label_files_mtime_in_session": 62,
+    "label_files_total": 62
+   },
+   "order_checks": {
+    "lock_push_before_first_session": true,
+    "seconds_from_lock_push_to_first_session": 26,
+    "last_session_end_before_label_push": true,
+    "seconds_from_last_session_end_to_label_push": 9
+   }
+  },
+  {
+   "set": "P6",
+   "work_dir": ".work/p6/ann/",
+   "note": null,
+   "commits": {
+    "lock": {
+     "sha": "dfd1e7288bed4ecaad6d7adc83934b941de566fd",
+     "rewritten_twin": null,
+     "subject": "PRE-REGISTRATION P6: answer-date pointer v2 (candidate C chosen on DEV2 by the rule committed in 6810ee5) vs free prompt",
+     "committer_date_client": "2026-10-10T21:37:30Z",
+     "github_push_received": "2026-10-10T21:37:32Z",
+     "github_first_actions_run": "2026-10-10T21:37:34Z",
+     "role": "lock"
+    },
+    "draw": {
+     "sha": "6faf8ac5e60f43fd1e8d98f86c8b008392c7b0f5",
+     "rewritten_twin": null,
+     "subject": "P6 sample (68 docs from 8 unseen parliaments, drawn after LOCK7) and all 70B arms run before any P6 label; served-model ",
+     "committer_date_client": "2026-10-10T21:56:36Z",
+     "github_push_received": "2026-10-10T21:56:39Z",
+     "github_first_actions_run": "2026-10-10T21:56:41Z",
+     "role": "draw"
+    },
+    "labels": {
+     "sha": "75167ac7f2929d4f07392f538b33d889ff4a09a9",
+     "rewritten_twin": null,
+     "subject": "P6 labels: blind A1 (Opus) and A2 (Sonnet) on 68 documents, 1 disagreement decided by A3 (Opus); annotation slips report",
+     "committer_date_client": "2026-10-10T21:59:30Z",
+     "github_push_received": "2026-10-10T21:59:32Z",
+     "github_first_actions_run": "2026-10-10T21:59:34Z",
+     "role": "labels"
+    }
+   },
+   "sessions": [
+    {
+     "agent": "agent-a6eb71c513360742b",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T21:57:05Z",
+     "last": "2026-10-10T21:58:28Z",
+     "minutes": 1.4,
+     "n_assigned": 34,
+     "label_files_on_disk": 34,
+     "label_files_mtime_in_session": 34,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-afa3ff1cc979e28bb",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A1",
+     "role_prompt": "annotator A1",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T21:57:10Z",
+     "last": "2026-10-10T21:58:52Z",
+     "minutes": 1.7,
+     "n_assigned": 34,
+     "label_files_on_disk": 34,
+     "label_files_mtime_in_session": 34,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-adcb8a58847781e30",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T21:57:15Z",
+     "last": "2026-10-10T21:58:52Z",
+     "minutes": 1.6,
+     "n_assigned": 34,
+     "label_files_on_disk": 34,
+     "label_files_mtime_in_session": 34,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a37d98e514918cefb",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A2",
+     "role_prompt": "annotator A2",
+     "models": [
+      "claude-sonnet-5-5"
+     ],
+     "first": "2026-10-10T21:57:20Z",
+     "last": "2026-10-10T21:58:35Z",
+     "minutes": 1.3,
+     "n_assigned": 34,
+     "label_files_on_disk": 34,
+     "label_files_mtime_in_session": 34,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    },
+    {
+     "agent": "agent-a653c4c2e7dacf4c9",
+     "session": "be62bd3d-7b7f-4b9d-a7b2-ace08ab5db2e",
+     "role": "A3",
+     "role_prompt": "tie-break annotator A3",
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "first": "2026-10-10T21:59:05Z",
+     "last": "2026-10-10T21:59:22Z",
+     "minutes": 0.3,
+     "n_assigned": 1,
+     "label_files_on_disk": 1,
+     "label_files_mtime_in_session": 1,
+     "label_files_mtime_after_session": 0,
+     "label_files_mtime_before_session": 0
+    }
+   ],
+   "summary": {
+    "n_sessions": 5,
+    "sessions_per_role": {
+     "A1": 2,
+     "A2": 2,
+     "A3": 1
+    },
+    "models_per_role": {
+     "A1": [
+      "claude-opus-5-5"
+     ],
+     "A2": [
+      "claude-sonnet-5-5"
+     ],
+     "A3": [
+      "claude-opus-5-5"
+     ]
+    },
+    "first_session_start": "2026-10-10T21:57:05Z",
+    "last_session_end": "2026-10-10T21:59:22Z",
+    "label_files": {
+     "A1": 68,
+     "A2": 68,
+     "A3": 1
+    },
+    "label_files_mtime_in_session": 137,
+    "label_files_total": 137
+   },
+   "order_checks": {
+    "lock_push_before_first_session": true,
+    "seconds_from_lock_push_to_first_session": 1173,
+    "draw_push_before_first_session": true,
+    "seconds_from_draw_push_to_first_session": 26,
+    "last_session_end_before_label_push": true,
+    "seconds_from_last_session_end_to_label_push": 10
+   }
+  }
+ ],
+ "qwen_checks": [
+  {
+   "set": "Qwen check P1 + P2 (post hoc)",
+   "agent_session": "none: a script called the model through the budget gateway",
+   "gateway_ledger": {
+    "tag": "2a-qwen-audit",
+    "models": [
+     "aisingapore/Qwen-SEA-LION-v4-32B-IT"
+    ],
+    "n_calls": 216,
+    "first_call": "2026-10-10T17:30:45Z",
+    "last_call": "2026-10-10T18:31:26Z",
+    "clock": "author's machine (gateway ledger), UTC"
+   },
+   "label_commit": {
+    "sha": "15dd077fff6596a479243d824117b63c3acd3208",
+    "rewritten_twin": null,
+    "subject": "Independent non-Anthropic gold check (Qwen-SEA-LION-v4-32B via the gateway, blind, 216 documents, USD 0.14): P1 presence",
+    "committer_date_client": "2026-10-10T18:42:30Z",
+    "github_push_received": "2026-10-10T18:42:32Z",
+    "github_first_actions_run": "2026-10-10T18:42:34Z"
+   },
+   "calls_before_label_commit_push": true
+  },
+  {
+   "set": "Qwen check P5",
+   "agent_session": "none: a script called the model through the budget gateway",
+   "gateway_ledger": {
+    "tag": "2a-p5-qwen",
+    "models": [
+     "aisingapore/Qwen-SEA-LION-v4-32B-IT"
+    ],
+    "n_calls": 41,
+    "first_call": "2026-10-10T21:17:43Z",
+    "last_call": "2026-10-10T21:53:24Z",
+    "clock": "author's machine (gateway ledger), UTC"
+   },
+   "label_commit": {
+    "sha": "b6aaf7a09e13d0cc8827c118c1ddfaa0517a8d99",
+    "rewritten_twin": null,
+    "subject": "P5 results: registered verdict supported at the partial tier (rules-only Q/A pairing P 0.83, R 0.67 on 40 fresh affairs ",
+    "committer_date_client": "2026-10-10T22:03:10Z",
+    "github_push_received": "2026-10-10T22:03:13Z",
+    "github_first_actions_run": "2026-10-10T22:03:15Z"
+   },
+   "calls_before_label_commit_push": true
+  },
+  {
+   "set": "Qwen check P6",
+   "agent_session": "none: a script called the model through the budget gateway",
+   "gateway_ledger": {
+    "tag": "2a-p6-qwen",
+    "models": [
+     "aisingapore/Qwen-SEA-LION-v4-32B-IT"
+    ],
+    "n_calls": 68,
+    "first_call": "2026-10-10T22:00:20Z",
+    "last_call": "2026-10-10T22:04:11Z",
+    "clock": "author's machine (gateway ledger), UTC"
+   },
+   "label_commit": {
+    "sha": "cc44e273978044c0e46ee4545aec3b1687922caf",
+    "rewritten_twin": null,
+    "subject": "P6 results: no registered hypothesis holds (v2 59/68 vs free prompt with null allowed 62/68, p = 0.38; v2 vs v1 59 vs 56",
+    "committer_date_client": "2026-10-10T22:07:58Z",
+    "github_push_received": "2026-10-10T22:08:01Z",
+    "github_first_actions_run": "2026-10-10T22:08:02Z"
+   },
+   "calls_before_label_commit_push": true
+  }
+ ],
+ "not_covered": {
+  "p1_dev": "P1 development labels (data/gold/dev_labels.jsonl, labeller 'claude-agent', committed in da26116 before the LOCK by design) were written inside a development worker session, not by separate annotator sessions; no per-annotator transcript exists for them",
+  "transcripts_not_committed": "the transcripts contain the full document text the annotators read and the prompts; they stay on the author's machine. Timestamps are written by the Claude Code client (author's clock), GitHub times by GitHub's servers"
+ },
+ "overall": {
+  "n_sessions": 74,
+  "n_sets_with_sessions": 10,
+  "label_files_total": 996,
+  "label_files_mtime_in_session": 996,
+  "all_order_checks_hold": true
+ }
+}
