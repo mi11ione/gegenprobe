@@ -1,0 +1,1011 @@
+{
+ "source": "data/census/affairs.tsv.gz (OPD affairs export, 6 Oct 2026 census): columns type_raw, type_h",
+ "rule": "type_raw with >= 100 affairs that OPD maps to a harmonised type, >= 98% of them to one type, and >= 50% of all its affairs mapped; spellings already accepted are not repeated",
+ "generated_by": "python -m gegenprobe.convert.affair_types derive",
+ "aliases": [
+  {
+   "type_raw": "geschäft des bundesrates",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 2767,
+   "affairs_to_key": 2767,
+   "affairs_total": 2767,
+   "bodies": 1,
+   "top_bodies": [
+    "CHE"
+   ]
+  },
+  {
+   "type_raw": "sachgeschäft",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 2433,
+   "affairs_to_key": 2427,
+   "affairs_total": 2443,
+   "bodies": 6,
+   "top_bodies": [
+    "3203",
+    "351",
+    "GR"
+   ]
+  },
+  {
+   "type_raw": "weisung",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 2362,
+   "affairs_to_key": 2362,
+   "affairs_total": 2362,
+   "bodies": 2,
+   "top_bodies": [
+    "261",
+    "293"
+   ]
+  },
+  {
+   "type_raw": "question orale",
+   "key": "question",
+   "opd_harmonised": "Question",
+   "affairs_mapped": 1702,
+   "affairs_to_key": 1696,
+   "affairs_total": 1702,
+   "bodies": 3,
+   "top_bodies": [
+    "6621",
+    "VD",
+    "6153"
+   ]
+  },
+  {
+   "type_raw": "parlamentarischer vorstoss",
+   "key": "question",
+   "opd_harmonised": "Question",
+   "affairs_mapped": 1488,
+   "affairs_to_key": 1480,
+   "affairs_total": 1488,
+   "bodies": 3,
+   "top_bodies": [
+    "351",
+    "296",
+    "OW"
+   ]
+  },
+  {
+   "type_raw": "wahlen",
+   "key": "election",
+   "opd_harmonised": "Votaziun",
+   "affairs_mapped": 1458,
+   "affairs_to_key": 1458,
+   "affairs_total": 1459,
+   "bodies": 25,
+   "top_bodies": [
+    "230",
+    "AG",
+    "2831"
+   ]
+  },
+  {
+   "type_raw": "ernennung / wahl",
+   "key": "election",
+   "opd_harmonised": "Votaziun",
+   "affairs_mapped": 1164,
+   "affairs_to_key": 1164,
+   "affairs_total": 1164,
+   "bodies": 1,
+   "top_bodies": [
+    "BE"
+   ]
+  },
+  {
+   "type_raw": "auftrag",
+   "key": "motion",
+   "opd_harmonised": "Motion",
+   "affairs_mapped": 1018,
+   "affairs_to_key": 1016,
+   "affairs_total": 1863,
+   "bodies": 8,
+   "top_bodies": [
+    "SO",
+    "GR",
+    "3901"
+   ]
+  },
+  {
+   "type_raw": "botschaften",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 999,
+   "affairs_to_key": 999,
+   "affairs_total": 999,
+   "bodies": 1,
+   "top_bodies": [
+    "AG"
+   ]
+  },
+  {
+   "type_raw": "erklärung",
+   "key": "information_document",
+   "opd_harmonised": "information document",
+   "affairs_mapped": 962,
+   "affairs_to_key": 961,
+   "affairs_total": 962,
+   "bodies": 2,
+   "top_bodies": [
+    "261",
+    "293"
+   ]
+  },
+  {
+   "type_raw": "gesetz",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 940,
+   "affairs_to_key": 940,
+   "affairs_total": 1275,
+   "bodies": 8,
+   "top_bodies": [
+    "VS",
+    "FR",
+    "BE"
+   ]
+  },
+  {
+   "type_raw": "geschäft des parlaments",
+   "key": "election",
+   "opd_harmonised": "Votaziun",
+   "affairs_mapped": 915,
+   "affairs_to_key": 915,
+   "affairs_total": 915,
+   "bodies": 1,
+   "top_bodies": [
+    "CHE"
+   ]
+  },
+  {
+   "type_raw": "einzelinitiative",
+   "key": "popular_initiative",
+   "opd_harmonised": "Popular initiative",
+   "affairs_mapped": 902,
+   "affairs_to_key": 884,
+   "affairs_total": 904,
+   "bodies": 12,
+   "top_bodies": [
+    "ZH",
+    "261",
+    "198"
+   ]
+  },
+  {
+   "type_raw": "dringliches postulat",
+   "key": "postulate",
+   "opd_harmonised": "Postulate",
+   "affairs_mapped": 861,
+   "affairs_to_key": 861,
+   "affairs_total": 861,
+   "bodies": 11,
+   "top_bodies": [
+    "VS",
+    "ZH",
+    "1058"
+   ]
+  },
+  {
+   "type_raw": "iniziativa parlamentare elaborata",
+   "key": "parliamentary_initiative",
+   "opd_harmonised": "Parliamentary initiative",
+   "affairs_mapped": 860,
+   "affairs_to_key": 860,
+   "affairs_total": 860,
+   "bodies": 1,
+   "top_bodies": [
+    "TI"
+   ]
+  },
+  {
+   "type_raw": "ratschlag",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 847,
+   "affairs_to_key": 847,
+   "affairs_total": 847,
+   "bodies": 1,
+   "top_bodies": [
+    "BS"
+   ]
+  },
+  {
+   "type_raw": "botschaft",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 784,
+   "affairs_to_key": 776,
+   "affairs_total": 879,
+   "bodies": 5,
+   "top_bodies": [
+    "3901",
+    "4566",
+    "4671"
+   ]
+  },
+  {
+   "type_raw": "iniziativa parlamentare generica",
+   "key": "parliamentary_initiative",
+   "opd_harmonised": "Parliamentary initiative",
+   "affairs_mapped": 755,
+   "affairs_to_key": 755,
+   "affairs_total": 755,
+   "bodies": 1,
+   "top_bodies": [
+    "TI"
+   ]
+  },
+  {
+   "type_raw": "wahlgeschäft",
+   "key": "election",
+   "opd_harmonised": "Votaziun",
+   "affairs_mapped": 744,
+   "affairs_to_key": 744,
+   "affairs_total": 744,
+   "bodies": 3,
+   "top_bodies": [
+    "TG",
+    "SO",
+    "SH"
+   ]
+  },
+  {
+   "type_raw": "kreditgeschäft gr",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 703,
+   "affairs_to_key": 703,
+   "affairs_total": 703,
+   "bodies": 1,
+   "top_bodies": [
+    "BE"
+   ]
+  },
+  {
+   "type_raw": "sachgeschäft, einfacher beschluss",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 668,
+   "affairs_to_key": 668,
+   "affairs_total": 668,
+   "bodies": 1,
+   "top_bodies": [
+    "SO"
+   ]
+  },
+  {
+   "type_raw": "gesetzgebungsgeschäft",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 637,
+   "affairs_to_key": 637,
+   "affairs_total": 637,
+   "bodies": 1,
+   "top_bodies": [
+    "SG"
+   ]
+  },
+  {
+   "type_raw": "interrogazioni",
+   "key": "question",
+   "opd_harmonised": "Question",
+   "affairs_mapped": 541,
+   "affairs_to_key": 541,
+   "affairs_total": 541,
+   "bodies": 1,
+   "top_bodies": [
+    "5113"
+   ]
+  },
+  {
+   "type_raw": "volksinitiative (eidg. volksinitiative (ausgearbeiteter entwurf))",
+   "key": "popular_initiative",
+   "opd_harmonised": "Popular initiative",
+   "affairs_mapped": 529,
+   "affairs_to_key": 529,
+   "affairs_total": 529,
+   "bodies": 1,
+   "top_bodies": [
+    "CHE"
+   ]
+  },
+  {
+   "type_raw": "dringliche anfrage",
+   "key": "question",
+   "opd_harmonised": "Question",
+   "affairs_mapped": 496,
+   "affairs_to_key": 496,
+   "affairs_total": 496,
+   "bodies": 2,
+   "top_bodies": [
+    "ZH",
+    "CHE"
+   ]
+  },
+  {
+   "type_raw": "richterliche wahl",
+   "key": "election",
+   "opd_harmonised": "Votaziun",
+   "affairs_mapped": 491,
+   "affairs_to_key": 491,
+   "affairs_total": 491,
+   "bodies": 1,
+   "top_bodies": [
+    "FR"
+   ]
+  },
+  {
+   "type_raw": "antrag des stadtrates",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 482,
+   "affairs_to_key": 482,
+   "affairs_total": 699,
+   "bodies": 1,
+   "top_bodies": [
+    "296"
+   ]
+  },
+  {
+   "type_raw": "simple question",
+   "key": "question",
+   "opd_harmonised": "Question",
+   "affairs_mapped": 470,
+   "affairs_to_key": 470,
+   "affairs_total": 470,
+   "bodies": 1,
+   "top_bodies": [
+    "VD"
+   ]
+  },
+  {
+   "type_raw": "questions du conseil général",
+   "key": "question",
+   "opd_harmonised": "Question",
+   "affairs_mapped": 467,
+   "affairs_to_key": 467,
+   "affairs_total": 467,
+   "bodies": 1,
+   "top_bodies": [
+    "2196"
+   ]
+  },
+  {
+   "type_raw": "vorlage regierung",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 456,
+   "affairs_to_key": 456,
+   "affairs_total": 456,
+   "bodies": 1,
+   "top_bodies": [
+    "SH"
+   ]
+  },
+  {
+   "type_raw": "kredit",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 449,
+   "affairs_to_key": 449,
+   "affairs_total": 696,
+   "bodies": 3,
+   "top_bodies": [
+    "VS",
+    "351",
+    "AI"
+   ]
+  },
+  {
+   "type_raw": "mutation wahl",
+   "key": "election",
+   "opd_harmonised": "Votaziun",
+   "affairs_mapped": 439,
+   "affairs_to_key": 439,
+   "affairs_total": 439,
+   "bodies": 1,
+   "top_bodies": [
+    "SG"
+   ]
+  },
+  {
+   "type_raw": "vorlage des stadtrats",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 437,
+   "affairs_to_key": 437,
+   "affairs_total": 437,
+   "bodies": 1,
+   "top_bodies": [
+    "2939"
+   ]
+  },
+  {
+   "type_raw": "postulats",
+   "key": "postulate",
+   "opd_harmonised": "Postulate",
+   "affairs_mapped": 434,
+   "affairs_to_key": 434,
+   "affairs_total": 434,
+   "bodies": 1,
+   "top_bodies": [
+    "2196"
+   ]
+  },
+  {
+   "type_raw": "kreditantrag",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 421,
+   "affairs_to_key": 421,
+   "affairs_total": 421,
+   "bodies": 1,
+   "top_bodies": [
+    "230"
+   ]
+  },
+  {
+   "type_raw": "01 - sr antrag ohne diskussion",
+   "key": "information_document",
+   "opd_harmonised": "information document",
+   "affairs_mapped": 373,
+   "affairs_to_key": 373,
+   "affairs_total": 374,
+   "bodies": 1,
+   "top_bodies": [
+    "1711"
+   ]
+  },
+  {
+   "type_raw": "interpellationen",
+   "key": "interpellation",
+   "opd_harmonised": "Interpellation",
+   "affairs_mapped": 359,
+   "affairs_to_key": 359,
+   "affairs_total": 359,
+   "bodies": 3,
+   "top_bodies": [
+    "GL",
+    "LIE",
+    "AG"
+   ]
+  },
+  {
+   "type_raw": "frage",
+   "key": "question_time",
+   "opd_harmonised": "Question time",
+   "affairs_mapped": 326,
+   "affairs_to_key": 326,
+   "affairs_total": 326,
+   "bodies": 1,
+   "top_bodies": [
+    "VS"
+   ]
+  },
+  {
+   "type_raw": "geschäft stadtrat",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 323,
+   "affairs_to_key": 323,
+   "affairs_total": 323,
+   "bodies": 2,
+   "top_bodies": [
+    "121",
+    "4289"
+   ]
+  },
+  {
+   "type_raw": "sachgeschäfte und beschlüsse",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 311,
+   "affairs_to_key": 311,
+   "affairs_total": 311,
+   "bodies": 1,
+   "top_bodies": [
+    "SO"
+   ]
+  },
+  {
+   "type_raw": "geschäftsbericht",
+   "key": "report",
+   "opd_harmonised": "Report",
+   "affairs_mapped": 303,
+   "affairs_to_key": 302,
+   "affairs_total": 303,
+   "bodies": 3,
+   "top_bodies": [
+    "ZH",
+    "BL",
+    "3443"
+   ]
+  },
+  {
+   "type_raw": "wahl (andere)",
+   "key": "election",
+   "opd_harmonised": "Votaziun",
+   "affairs_mapped": 266,
+   "affairs_to_key": 266,
+   "affairs_total": 266,
+   "bodies": 1,
+   "top_bodies": [
+    "FR"
+   ]
+  },
+  {
+   "type_raw": "rücktritt",
+   "key": "information_document",
+   "opd_harmonised": "information document",
+   "affairs_mapped": 264,
+   "affairs_to_key": 264,
+   "affairs_total": 264,
+   "bodies": 1,
+   "top_bodies": [
+    "BS"
+   ]
+  },
+  {
+   "type_raw": "rechtsetzungsgeschäft",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 253,
+   "affairs_to_key": 253,
+   "affairs_total": 253,
+   "bodies": 1,
+   "top_bodies": [
+    "SO"
+   ]
+  },
+  {
+   "type_raw": "inpflichtnahmen",
+   "key": "information_document",
+   "opd_harmonised": "information document",
+   "affairs_mapped": 243,
+   "affairs_to_key": 243,
+   "affairs_total": 243,
+   "bodies": 1,
+   "top_bodies": [
+    "AG"
+   ]
+  },
+  {
+   "type_raw": "berichterstattung",
+   "key": "report",
+   "opd_harmonised": "Report",
+   "affairs_mapped": 230,
+   "affairs_to_key": 230,
+   "affairs_total": 232,
+   "bodies": 1,
+   "top_bodies": [
+    "SG"
+   ]
+  },
+  {
+   "type_raw": "bericht & antrag",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 226,
+   "affairs_to_key": 226,
+   "affairs_total": 226,
+   "bodies": 1,
+   "top_bodies": [
+    "2937"
+   ]
+  },
+  {
+   "type_raw": "ausgabenbericht",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 225,
+   "affairs_to_key": 225,
+   "affairs_total": 225,
+   "bodies": 1,
+   "top_bodies": [
+    "BS"
+   ]
+  },
+  {
+   "type_raw": "gesetzgebungsvorlage",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 224,
+   "affairs_to_key": 224,
+   "affairs_total": 224,
+   "bodies": 2,
+   "top_bodies": [
+    "OW",
+    "NW"
+   ]
+  },
+  {
+   "type_raw": "tätigkeitsbericht",
+   "key": "report",
+   "opd_harmonised": "Report",
+   "affairs_mapped": 217,
+   "affairs_to_key": 217,
+   "affairs_total": 217,
+   "bodies": 3,
+   "top_bodies": [
+    "FR",
+    "ZH",
+    "2831"
+   ]
+  },
+  {
+   "type_raw": "ratsmitglied",
+   "key": "election",
+   "opd_harmonised": "Votaziun",
+   "affairs_mapped": 214,
+   "affairs_to_key": 214,
+   "affairs_total": 214,
+   "bodies": 1,
+   "top_bodies": [
+    "261"
+   ]
+  },
+  {
+   "type_raw": "motion als richtlinie",
+   "key": "motion",
+   "opd_harmonised": "Motion",
+   "affairs_mapped": 212,
+   "affairs_to_key": 212,
+   "affairs_total": 212,
+   "bodies": 1,
+   "top_bodies": [
+    "351"
+   ]
+  },
+  {
+   "type_raw": "dringliche einfache anfrage",
+   "key": "question",
+   "opd_harmonised": "Question",
+   "affairs_mapped": 202,
+   "affairs_to_key": 202,
+   "affairs_total": 202,
+   "bodies": 1,
+   "top_bodies": [
+    "CHE"
+   ]
+  },
+  {
+   "type_raw": "einfaches auskunftsbegehren",
+   "key": "question",
+   "opd_harmonised": "Question",
+   "affairs_mapped": 200,
+   "affairs_to_key": 200,
+   "affairs_total": 200,
+   "bodies": 3,
+   "top_bodies": [
+    "NW",
+    "3443",
+    "361"
+   ]
+  },
+  {
+   "type_raw": "bericht und antrag stadtrat",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 198,
+   "affairs_to_key": 198,
+   "affairs_total": 198,
+   "bodies": 1,
+   "top_bodies": [
+    "4001"
+   ]
+  },
+  {
+   "type_raw": "oberaufsicht",
+   "key": "report",
+   "opd_harmonised": "Report",
+   "affairs_mapped": 198,
+   "affairs_to_key": 198,
+   "affairs_total": 198,
+   "bodies": 1,
+   "top_bodies": [
+    "NW"
+   ]
+  },
+  {
+   "type_raw": "bericht rr",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 174,
+   "affairs_to_key": 174,
+   "affairs_total": 174,
+   "bodies": 1,
+   "top_bodies": [
+    "BE"
+   ]
+  },
+  {
+   "type_raw": "interpellation écrite",
+   "key": "interpellation",
+   "opd_harmonised": "Interpellation",
+   "affairs_mapped": 173,
+   "affairs_to_key": 173,
+   "affairs_total": 173,
+   "bodies": 1,
+   "top_bodies": [
+    "6621"
+   ]
+  },
+  {
+   "type_raw": "motionen",
+   "key": "motion",
+   "opd_harmonised": "Motion",
+   "affairs_mapped": 169,
+   "affairs_to_key": 169,
+   "affairs_total": 169,
+   "bodies": 3,
+   "top_bodies": [
+    "LIE",
+    "GL",
+    "AG"
+   ]
+  },
+  {
+   "type_raw": "dringliche motion",
+   "key": "motion",
+   "opd_harmonised": "Motion",
+   "affairs_mapped": 161,
+   "affairs_to_key": 161,
+   "affairs_total": 161,
+   "bodies": 12,
+   "top_bodies": [
+    "VS",
+    "1058",
+    "4082"
+   ]
+  },
+  {
+   "type_raw": "grb",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 160,
+   "affairs_to_key": 160,
+   "affairs_total": 160,
+   "bodies": 1,
+   "top_bodies": [
+    "66"
+   ]
+  },
+  {
+   "type_raw": "délibération administrative (da)",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 158,
+   "affairs_to_key": 158,
+   "affairs_total": 158,
+   "bodies": 1,
+   "top_bodies": [
+    "6643"
+   ]
+  },
+  {
+   "type_raw": "motion interne",
+   "key": "motion",
+   "opd_harmonised": "Motion",
+   "affairs_mapped": 158,
+   "affairs_to_key": 158,
+   "affairs_total": 158,
+   "bodies": 1,
+   "top_bodies": [
+    "JU"
+   ]
+  },
+  {
+   "type_raw": "verordnung / rechtserlass",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 157,
+   "affairs_to_key": 157,
+   "affairs_total": 157,
+   "bodies": 1,
+   "top_bodies": [
+    "230"
+   ]
+  },
+  {
+   "type_raw": "empfehlung",
+   "key": "postulate",
+   "opd_harmonised": "Postulate",
+   "affairs_mapped": 139,
+   "affairs_to_key": 139,
+   "affairs_total": 139,
+   "bodies": 1,
+   "top_bodies": [
+    "CHE"
+   ]
+  },
+  {
+   "type_raw": "berichte",
+   "key": "report",
+   "opd_harmonised": "Report",
+   "affairs_mapped": 131,
+   "affairs_to_key": 131,
+   "affairs_total": 131,
+   "bodies": 1,
+   "top_bodies": [
+    "AR"
+   ]
+  },
+  {
+   "type_raw": "10 - ggr bericht und antrag stadtrat",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 127,
+   "affairs_to_key": 127,
+   "affairs_total": 127,
+   "bodies": 1,
+   "top_bodies": [
+    "1711"
+   ]
+  },
+  {
+   "type_raw": "interpellation orale",
+   "key": "interpellation",
+   "opd_harmonised": "Interpellation",
+   "affairs_mapped": 127,
+   "affairs_to_key": 127,
+   "affairs_total": 127,
+   "bodies": 1,
+   "top_bodies": [
+    "6621"
+   ]
+  },
+  {
+   "type_raw": "wahlgeschäfte",
+   "key": "election",
+   "opd_harmonised": "Votaziun",
+   "affairs_mapped": 127,
+   "affairs_to_key": 127,
+   "affairs_total": 127,
+   "bodies": 1,
+   "top_bodies": [
+    "SO"
+   ]
+  },
+  {
+   "type_raw": "beschlussantrag",
+   "key": "approval_decision",
+   "opd_harmonised": "Parliamentary approval decision",
+   "affairs_mapped": 127,
+   "affairs_to_key": 125,
+   "affairs_total": 135,
+   "bodies": 9,
+   "top_bodies": [
+    "261",
+    "230",
+    "1061"
+   ]
+  },
+  {
+   "type_raw": "budgetpostulat",
+   "key": "postulate",
+   "opd_harmonised": "Postulate",
+   "affairs_mapped": 115,
+   "affairs_to_key": 115,
+   "affairs_total": 115,
+   "bodies": 1,
+   "top_bodies": [
+    "BS"
+   ]
+  },
+  {
+   "type_raw": "kreditgeschäft rr",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 112,
+   "affairs_to_key": 112,
+   "affairs_total": 112,
+   "bodies": 1,
+   "top_bodies": [
+    "BE"
+   ]
+  },
+  {
+   "type_raw": "interpellanze",
+   "key": "interpellation",
+   "opd_harmonised": "Interpellation",
+   "affairs_mapped": 111,
+   "affairs_to_key": 111,
+   "affairs_total": 111,
+   "bodies": 1,
+   "top_bodies": [
+    "5113"
+   ]
+  },
+  {
+   "type_raw": "question urgente écrite",
+   "key": "question",
+   "opd_harmonised": "Question",
+   "affairs_mapped": 111,
+   "affairs_to_key": 111,
+   "affairs_total": 111,
+   "bodies": 1,
+   "top_bodies": [
+    "GE"
+   ]
+  },
+  {
+   "type_raw": "02 - sr antrag mit diskussion",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 108,
+   "affairs_to_key": 108,
+   "affairs_total": 108,
+   "bodies": 1,
+   "top_bodies": [
+    "1711"
+   ]
+  },
+  {
+   "type_raw": "vorlage des gemeinderats",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 108,
+   "affairs_to_key": 108,
+   "affairs_total": 108,
+   "bodies": 1,
+   "top_bodies": [
+    "2703"
+   ]
+  },
+  {
+   "type_raw": "finanz / kredite",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 107,
+   "affairs_to_key": 107,
+   "affairs_total": 107,
+   "bodies": 1,
+   "top_bodies": [
+    "AR"
+   ]
+  },
+  {
+   "type_raw": "rechtsetzungsgeschäfte",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 104,
+   "affairs_to_key": 104,
+   "affairs_total": 104,
+   "bodies": 1,
+   "top_bodies": [
+    "SO"
+   ]
+  },
+  {
+   "type_raw": "kantonsratsbeschluss",
+   "key": "government_affair",
+   "opd_harmonised": "Government affairs",
+   "affairs_mapped": 101,
+   "affairs_to_key": 101,
+   "affairs_total": 101,
+   "bodies": 2,
+   "top_bodies": [
+    "LU",
+    "OW"
+   ]
+  },
+  {
+   "type_raw": "volksmotion",
+   "key": "motion",
+   "opd_harmonised": "Motion",
+   "affairs_mapped": 100,
+   "affairs_to_key": 100,
+   "affairs_total": 101,
+   "bodies": 6,
+   "top_bodies": [
+    "FR",
+    "1061",
+    "2939"
+   ]
+  }
+ ]
+}

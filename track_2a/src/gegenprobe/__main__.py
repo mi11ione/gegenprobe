@@ -30,12 +30,12 @@ from .convert.batch import guess_lang  # noqa: F401  (re-exported: tests and old
 
 
 def _convert(a) -> int:
-    from .convert import batch, overlay
+    from .convert import batch, body_settings, overlay
 
     anchors = None
     if a.anchors:
         try:
-            anchors = overlay.load_anchors(a.anchors)
+            anchors = body_settings.load(a.anchors)
         except overlay.AnchorError as e:
             print(str(e), file=sys.stderr)
             return 2
@@ -48,7 +48,7 @@ def _convert(a) -> int:
     if a.batch:
         from .convert.affair_types import UnknownAffairType
         try:
-            inputs = batch.read_inputs(a.batch)
+            inputs = batch.read_inputs(a.batch, anchors)
         except UnknownAffairType as e:
             print(str(e), file=sys.stderr)
             return 2
@@ -121,10 +121,12 @@ def main(argv: list[str] | None = None) -> int:
     c.add_argument("--mode", choices=["rules_only", "review"], default="rules_only",
                    help="rules_only (default, no model) | review (adds Apertus suggestions, needs a fitted θ)")
     c.add_argument("--lang", choices=["de", "fr", "it"], help="document language (guessed if omitted)")
-    c.add_argument("--affair-type", type=affair_types.arg_type, metavar="TYPE",
+    c.add_argument("--affair-type", metavar="TYPE",
                    help="affair type: a vocabulary key (" + ", ".join(affair_types.KEYS) + "), one of their DE/FR/IT/EN "
                    "labels, or OPD's harmonised name (Interpellation, Question, Question time, ...); case-insensitive. "
-                   "Interpellation / Question / Question time make the recommendation not_applicable. Unknown: error")
+                   "Interpellation / Question / Question time make the recommendation not_applicable. OPD type names "
+                   "such as Auftrag are accepted (data/convert/affair_type_aliases.json), and a settings file's "
+                   "affair_types for --body. Unknown: error")
     c.add_argument("--opd-doc-id", help="OPD document id: the record's doc_id becomes opd:<id>")
     c.add_argument("--body", help="OPD body key, e.g. BE, ZH, 261 (passed through)")
     c.add_argument("--affair-number", help="affair number as printed, e.g. 2024.RRGR.91 (passed through)")
@@ -136,7 +138,9 @@ def main(argv: list[str] | None = None) -> int:
                    help="review mode: attach suggestions even when the served model/fingerprint is not the build θ was "
                    "fitted on (default: stop with exit 3); each suggestion is then marked build_mismatch")
     c.add_argument("--anchors", metavar="JSON", help="your own per-body regex anchors for the answer date and recommendation "
-                   "phrases, tried only after the frozen rules return null (route user_anchor); docs/examples/anchors_SG.json")
+                   "phrases, tried only after the frozen rules return null (route user_anchor); docs/examples/anchors_SG.json. "
+                   "The same file may list confirm_rules (frozen rule ids checked on that body: not flagged for coverage) "
+                   "and affair_types aliases; qa_cli reads it too")
     c.add_argument("--anchors-review", action="store_true", help="values from your --anchors keep needs_review true "
                    "(for anchors you have not measured yet; default: a user-anchor value is not flagged, route user_anchor)")
     c.add_argument("--explain", action="store_true", help="list every rule and anchor tried per field and why it did not "
@@ -147,7 +151,18 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("run", help="the make-run replay")
     a = ap.parse_args(argv)
     if a.cmd == "convert":
+        from .convert import body_settings, overlay
         from .convert.build_guard import BuildMismatch
+        aliases = {}
+        if a.anchors:  # the settings file's per-body affair_types apply to --affair-type (a malformed file: _convert)
+            try:
+                aliases = body_settings.type_aliases(body_settings.load(a.anchors), a.body)
+            except overlay.AnchorError:
+                pass
+        try:
+            a.affair_type = affair_types.normalize(a.affair_type, aliases)
+        except affair_types.UnknownAffairType as e:
+            c.error(f"argument --affair-type: {e}")
         try:
             return _convert(a)
         except BuildMismatch as e:  # review mode: the served model is not the build θ was fitted on

@@ -22,6 +22,10 @@
                        input only when its last row has the same hash, otherwise it converts it again and appends the new
                        row. The last row per input wins (write_queue reads only the last). A row written before
                        options were recorded is skipped and counted as such (use a fresh --out to redo it)
+  confirm_rules        a settings/--anchors file (convert/body_settings.py) may list frozen rule ids per body: a value
+                       from a listed rule on a body outside rules_coverage.json is not flagged for coverage (the field
+                       says `confirmed_by`); unlisted rules and nulls behave as before. Per-body affair_types aliases
+                       apply to --affair-type and the batch column
 
 The frozen converter (cascade, rules, pointer) is used unchanged; this module only wraps it.
 """
@@ -39,7 +43,10 @@ from pathlib import Path
 
 from .. import pdftext
 from ..paths import PDF_CACHE
-from . import cascade, hints, modes, output, overlay, pointer, rules
+from . import body_settings, cascade, hints, modes, output, overlay, pointer, rules
+from gegenprobe.compliance import fetchguard
+
+fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
 
 INPUT_KEYS = ("source", "opd_doc_id", "body", "affair_number", "affair_type", "lang", "doc_category")
 STOP = {
@@ -235,9 +242,17 @@ def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: boo
                 flags.setdefault(name, f"no frozen rules for body {cov['body']} and none of them fired: "
                                        "read the document or use review mode / --anchors")
             elif f.get("value") is not None and f.get("route") in ("rule", "ocr+rule"):
+                if body_settings.is_confirmed(anchors, cov["body"], f.get("rule")):
+                    # confirm_rules in the settings file: you checked this rule on this parliament
+                    f["confirmed_by"] = f"confirm_rules of {afile} for body {cov['body']}"
+                    traces.setdefault(name, []).append(dict(step="confirm_rules", result=(
+                        f"rule {f.get('rule', '').split('+')[0]} is confirmed for {cov['body']} in {afile}: not flagged "
+                        "for coverage")))
+                    continue
                 q = f" (overlay qualifier '{f['qualifier']['text']}' -> {f['value']})" if f.get("qualifier") else ""
                 flags.setdefault(name, f"frozen rule {f.get('rule', '').split('+')[0]} fired{q} on body {cov['body']}, "
-                                       "whose layouts the rules were never written or measured on")
+                                       "whose layouts the rules were never written or measured on (confirm it for this "
+                                       "body with confirm_rules in your --anchors file once you have checked it)")
     role = output.doc_role(pages, rec["fields"]["answer_date"])
     if queue_nulls and not suggestion and "answer_date" not in flags and rec["fields"]["answer_date"].get("value") is None:
         why = answer_doc_evidence(role, inp)
@@ -256,6 +271,9 @@ def convert_pages(pages: list[str], *, sha: str, extractor: str, image_only: boo
                                                                     suggestion["char_end"]))
     fields = {name: output.flat_field(rec["fields"].get(name), rd.get(name), pages, name)
               for name in ("answer_date", "recommendation", "related_affair") if rec["fields"].get(name) is not None}
+    for name in ("answer_date", "recommendation"):
+        if fields.get(name) is not None and rec["fields"].get(name, {}).get("confirmed_by"):
+            fields[name]["confirmed_by"] = rec["fields"][name]["confirmed_by"]
     # the closed set a reviewer chooses from, with Apertus' probability shares in review mode
     shares = None
     if mode == "review" and backend is not None and theta is not None and ad.get("residue"):
@@ -333,8 +351,9 @@ def convert_one(source: str, inp: dict | None = None, *, mode: str = "rules_only
 
 
 # --------------------------------------------------------------------------------------------------- batch
-def read_inputs(path: str) -> list[dict]:
-    """Raises affair_types.UnknownAffairType (with the line number) for an affair_type outside the vocabulary."""
+def read_inputs(path: str, settings: dict | None = None) -> list[dict]:
+    """Raises affair_types.UnknownAffairType (with the line number) for an affair_type outside the vocabulary.
+    settings: a loaded --anchors/settings file (body_settings.load); its per-body affair_types aliases apply."""
     from .affair_types import UnknownAffairType, normalize
 
     p = Path(path)
@@ -349,7 +368,8 @@ def read_inputs(path: str) -> list[dict]:
                 if not row["doc_category"]:  # OPD docs-export column names work too
                     row["doc_category"] = (r.get("category_harmonized") or r.get("category") or "").strip()
                 try:
-                    row["affair_type"] = normalize(row["affair_type"]) or ""
+                    row["affair_type"] = normalize(row["affair_type"],
+                                                  body_settings.type_aliases(settings, row.get("body"))) or ""
                 except UnknownAffairType as e:
                     raise UnknownAffairType(f"{path}, line {line_no}: {e}") from None
                 rows.append(row)

@@ -106,6 +106,7 @@ python -m eval.gold6.qwen6_run && python -m eval.gold6.qwen6 analyse            
 
 ```
 python -m gegenprobe.qa_cli --question Q.pdf --answer A.pdf [--affair-type TYPE] [--lang de|fr|it] [--json]
+                            [--body KEY] [--anchors FILE] [--explain]
 python -m gegenprobe.qa_cli --opd-text-question Q.txt --opd-text-answer A.json [--affair-type TYPE] [--json]
 ```
 
@@ -119,11 +120,28 @@ same cache. Either document may be left out.
   text contains form feeds (`\f`), they are taken as page breaks. The output says which case applies, per document.
 - **Rules only.** No model is called (`model_calls` is 0). Whatever the rules leave open is listed under "left open" (in
   `--json`: `left_open`): answers that no heading or reprinted question ties to a question, a submitter no rule found,
-  conflicting recommendation sentences. The pointer arm is run only by `eval/gold6/run6.py`; its θ is fitted to one
+  conflicting recommendation sentences, and a recommendation no rule found on a layout the rules do not cover (or whose
+  coverage was not checked). The pointer arm is run only by `eval/gold6/run6.py`; its θ is fitted to one
   served build.
-- **`--affair-type`** takes the same values as `convert` (a vocabulary key, a DE/FR/IT/EN label, or OPD's harmonised
-  name). Interpellation, Question and Question time make the recommendation `not_applicable` when the question document
-  does not name its type itself. An unknown value is an error.
+- **`--affair-type`** takes the same values as `convert`: a vocabulary key, a DE/FR/IT/EN label, OPD's harmonised
+  name, or an OPD type name that OPD maps to one harmonised type (`Auftrag` is a motion; the list is
+  `data/convert/affair_type_aliases.json`), plus the settings file's `affair_types` for `--body`. Interpellation, Question
+  and Question time make the recommendation `not_applicable` when the question document does not name its type itself.
+  An unknown value is an error.
+- **`--body KEY`** checks rule coverage as `convert` does (`rules_coverage` in `--json`). For a body outside
+  `data/convert/rules_coverage.json` the CLI prints a warning, every value a rule decided is flagged (`needs_review`,
+  `review_reasons`, and "needs review" in the report), and a recommendation no rule found is `no_rules_for_body` (listed
+  under "left open"), not `not_in_document`. Without `--body`, an open recommendation stays `not_in_document` but is
+  listed for review: the tool cannot know whether the layout was understood.
+- **`--anchors FILE`** is the per-parliament settings file shared with `convert --anchors` (docs/convert-your-own.md,
+  "One settings file per parliament"). `qa_cli` uses its `recommendation` phrases (same format, labels and
+  `(?P<phrase>…)` span), its `affair_types`, its `confirm_rules` and two keys of its own: `closing` (lines that open the
+  closing block) and `reprint_headings` (headings of the reprinted member's text), both lists of regular expressions.
+- **`--explain`** prints, per field, the frozen rule that decided, every post step tried (below) with what it did, and
+  each anchor tried (stderr; `--json` adds an `explain` key).
+- **A typed null is printed as one.** The report says `recommendation: null (no_rules_for_body: …)` or
+  `null (not_in_document: …)`; `none` is only printed for a recommendation value `none` (a write-off phrase) with its
+  evidence sentence.
 - **Pairing needs the question document.** Without it there are no numbered questions to pair, so the answer comes out
   as one reply (`answer_style` `global`).
 - **Output.** The default output is a short report: each question and its answer with page:character spans, the
@@ -134,6 +152,37 @@ same cache. Either document may be left out.
   PDF (the message points to `--opd-text-*`), and a document that could not be fetched or read. The last case prints the
   same typed kinds as `convert` (`file_not_found`, `robots_disallowed`, `not_a_pdf`, …).
 
+### What `qa_cli` adds on top of the frozen extractor
+
+The extractor in `src/gegenprobe/qa/` is frozen by LOCK6, and the P5 numbers above are its numbers. `qa_cli` runs it and
+then an unlocked post-processing layer, `src/gegenprobe/qa_post.py`, that fixes what a Solothurn developer met in
+round 7. The layer reads the frozen result and the original text; it never calls a model, and every value it writes is a
+span of the original text that re-checks. Steps, in order:
+
+| step | what it does | rule id |
+|---|---|---|
+| section-number headings | "3.1 Zu Frage 1:" on one line (OPD's stored text, some PDFs) is split before the frozen rules run, by replacing the one space with a line break. Offsets do not move. | (frozen `heading_zu_frage`) |
+| motion demand | A motion's or postulate's demand whose points are dash bullets is **one** item: the request paragraph through its last bullet, answered by the whole reply. Points numbered `1.` `2.` or `a)` `b)` stay separate items. | `…+post_one_demand`, `post_single_demand_whole_reply` |
+| reasoning start | The reasoning starts after the reprinted member's text: a reprint heading ("Vorstosstext", "Auftragstext", "Wortlaut des Vorstosses", "Begründung (Vorstosstext)", "Texte de l'interpellation", "Testo dell'interpellanza") followed by the executive's heading ("Stellungnahme des Regierungsrates", "Réponse du Conseil d'Etat", "Risposta del Consiglio di Stato"). Without a heading, only a reprint of the member's **whole** text at the start is skipped. A single question repeated before its answer stays part of the reply, as the P5 labels have it. | `…+post_after_reprint` |
+| closing block | The reasoning and the last answer end before the closing block: a signature (a name line over "Staatsschreiber", "Landschreiberin", "Le chancelier", "Il Cancelliere", "Präsident", …), a distribution list ("Verteiler", "Mitteilung an", "Copie à", "Vorberatende Kommission", …), a closing formula ("Im Namen des Regierungsrates", "Namens der Regierung", "Le Conseil d'Etat", "Per il Consiglio di Stato", …) or the recommendation section ("4. Antrag des Regierungsrates", "Proposition du Conseil d'Etat"). The list is generic, not per parliament. | `…+post_closing` |
+| repeated question | An answer that still opens with the end of its question (the frozen alignment stopped at a word hyphenated over a line, "Behör- den beeinflussen?") loses that fragment, if the question document contains it word for word. | `…+post_question_tail` |
+| people | A labelled signature list ("Unterschriften:", "Signataires :", "Firmatari:") is parsed. Labels, counts "(9)" and numbering "1." are not part of a name. A name broken over a line ("Markus⏎Dick") is joined, and its span keeps the line break. In a numbered list ("1. Beat Künzli, 2. …, 3. …, Richard Aschberger, …") the numbered names come first and no. 1 is the submitter; otherwise the first name is. If a title line or an author cue already named the submitter, the list only supplies the co-signatories. | `post_signature_list`, `post_signature_list_numbered` |
+| recommendation | When the frozen rules found no recommendation sentence (`not_in_document`) or conflicting ones, the layer tries, in order: your `--anchors` recommendation phrases for the body, `convert`'s frozen recommendation rules, and a phrase printed under an "Antrag des Regierungsrates" / "Proposition du Conseil d'Etat" / "Proposta del Consiglio di Stato" heading (lexicon: Nichterheblicherklärung → reject, Erheblicherklärung → accept, … und Abschreibung → accept_and_write_off, als Postulat → convert, teilweise → partial). A qualified phrase ("mit geändertem Wortlaut", "im Sinne der Erwägungen") is flagged, as in `convert`. A value picked over conflicting frozen candidates is flagged too. A frozen `accept` read off "Nichterheblicherklärung" (the frozen lexicon matches "erheblicherkl" inside it) becomes `reject`. | `user_anchor:<id>`, `convert_rec_<label>`, `post_antrag_heading`, `…+post_nichterheblich` |
+
+**Post-hoc check, not registered.** The layer was run over the P5 dev and P5 affairs and scored with the P5 scorer
+(`eval/gold6/score6.py`). It changes none of the counts in the table above. Reasoning spans got slightly closer to the
+labels, because the closing block is cut, and every value re-checks against its span. A first version also skipped a
+leading repeated question that had no reprint heading. On three P5 affairs that cut text the labels count as reasoning,
+so the layer now skips only a reprint of the member's whole text.
+
+**Confirming rules for a parliament.** On a body outside the rule coverage every rule value is flagged. Once you have
+checked a rule on a sample (run with `--explain`: each field names its rule id, e.g. `heading_zu_frage` or
+`reply_cue_after_reprint+post_after_reprint+post_closing`), list it under `confirm_rules` in the settings file. A
+combined id is confirmed when the whole id is listed or every `+` part is. Its values then stop being flagged. Rules you
+did not list stay flagged.
+
 To use it in code: `from gegenprobe.qa.extract import extract; extract(question_pages, answer_pages, "de")` returns
 `view` (flat spans), `records` (validated `QAItem` / `Actor` / recommendation / reasoning values) and `pointer`. The
-`pointer` entry is a log of every model call, with its closed-set size, margin, θ and prompt id.
+`pointer` entry is a log of every model call, with its closed-set size, margin, θ and prompt id. The post layer is
+`gegenprobe.qa_cli.run(question_pages, answer_pages, lang, affair_type, docs, body=..., settings=...)`; `--json` keeps the
+frozen view and rules under `frozen` for comparison.

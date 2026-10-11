@@ -66,9 +66,16 @@ stderr, and the row is marked `needs_review` (see "Parliaments without rules").
 Italian and English labels (`Interpellanza`, `Anfrage`, `Written question`, `Heure des questions`, …), OPD's harmonised
 English names (`Interpellation`, `Question`, `Question time`, `Government affairs`, …) and a few common OPD type names
 (`Question écrite`, `Schriftliche Anfrage`, `Kleine Anfrage`, `Einfache Anfrage`, `Dringliche Interpellation`,
-`Fragestunde. Frage`, `Anzug`, `Vorlage`). Every value is normalised to OPD's harmonised name before the rules see it, so
-`--affair-type "Question écrite"` gives recommendation `not_applicable`, like `Question`. Anything else is an error
-(exit 2, with the list), never silently ignored; in a batch the error names the line.
+`Fragestunde. Frage`, `Anzug`, `Vorlage`). It also accepts every OPD type name that OPD's own data maps to one
+harmonised type: `Auftrag` (Solothurn's and Graubünden's motion: OPD maps it to Motion), `Dringliches Postulat`,
+`Interpellation écrite`, `Dringliche Anfrage`, `Motion als Richtlinie`, … The list, with OPD's counts behind each name,
+is `data/convert/affair_type_aliases.json`. It is derived from the committed census table: a name with at least 100 affairs
+that OPD maps, at least 98% of them to one harmonised type, and at least half of all its affairs mapped. Regenerate it
+with `python -m gegenprobe.convert.affair_types derive`. A spelling only your parliament uses can go into the settings
+file (`affair_types`, see "One settings file per parliament"). Every value is normalised to OPD's harmonised name before
+the rules see it, so `--affair-type "Question écrite"` gives recommendation `not_applicable`, like `Question`, and
+`--affair-type Auftrag` is a motion. Anything else is an error (exit 2, with the list), never silently ignored; in a batch
+the error names the line.
 
 ## Many documents
 
@@ -165,8 +172,9 @@ and seven communes). For any other `--body`:
 - a value a frozen rule did find is kept, but flagged `needs_review` (the rule was never measured on that layout);
 - the row is `needs_review: true`, so `--queue` picks it up.
 
-Three ways forward: read the `candidates` (the right date is usually among them, with context), run `--mode review`, or
-write your own anchors.
+Four ways forward: read the `candidates` (the right date is usually among them, with context), run `--mode review`,
+write your own anchors, or, once you have checked a frozen rule on a sample of your parliament's documents, confirm it
+(`confirm_rules`, below), so that its values stop being flagged for coverage.
 
 ## Your own anchors (`--anchors FILE`)
 
@@ -207,6 +215,36 @@ recommendation anchors with different labels all match, the value is flagged too
 unknown label) exits 2 with the problem named. The anchors are yours: we have not measured them. Until you have,
 `--anchors-review` keeps every value from your anchors `needs_review: true` (reason "value from your anchor <id>
 (--anchors-review …)"), so `--queue` collects them for a spot check; drop the flag once a sample has confirmed them.
+
+## One settings file per parliament (`confirm_rules`, `affair_types`)
+
+The `--anchors` file is also the place for the other per-parliament settings. `python -m gegenprobe.qa_cli --anchors`
+reads the same file (docs/qa.md). Next to `answer_date` and `recommendation`, each body may have:
+
+```json
+{"bodies": {"SO": {
+  "answer_date":    [{"id": "so_rrb_vom", "pattern": "^\\s*Regierungsratsbeschluss\\s+vom\\s+{DATE}"}],
+  "recommendation": [{"id": "so_nichterheblich", "label": "reject",
+                      "pattern": "Antrag des Regierungsrates\\s*(?P<phrase>Nichterheblicherkl(ä|a)rung)"}],
+  "confirm_rules":  ["rrb_vom"],
+  "affair_types":   {"Auftrag": "motion"},
+  "note": "rrb_vom: who checked it, on which sample, when"}}}
+```
+
+- **`confirm_rules`**: frozen rule ids (the `rule_id` of a row, e.g. `rrb_vom`) that you have checked on this
+  parliament. A value from a listed rule is no longer flagged `needs_review` only because the body is outside
+  `rules_coverage.json`; the field says `confirmed_by`. Everything else stays as it was. A rule you did not list is still
+  flagged: on Solothurn's A 0116/2025, `be_rrb_inline` (a Bern rule) fires on a citation and returns 2005-06-27, and it
+  stays in the queue. Nulls stay `no_rules_for_body`, and your anchors still run only after the rules returned null.
+  How to confirm a rule: run a sample with `--explain` (each row names the rule that fired), check the values against
+  the documents, then list the rule. Your own anchors need no confirmation; use `--anchors-review` until you have
+  measured them.
+- **`affair_types`**: your spelling → a vocabulary key (`motion`, `interpellation`, …), for `--affair-type` and the
+  batch column `affair_type` of rows with this `body`. An unknown key in the file exits 2.
+- `closing` and `reprint_headings` (regular expressions) are read only by `qa_cli` (docs/qa.md).
+
+A malformed entry (a `confirm_rules` that is not a list, an unknown vocabulary key, a bad regex) exits 2 with the entry
+named, as for the anchors.
 
 ## `--explain`
 

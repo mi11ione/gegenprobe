@@ -2,6 +2,7 @@
 answer document.
 
   python -m gegenprobe.qa_cli --question Q.pdf --answer A.pdf [--affair-type TYPE] [--lang de|fr|it] [--json]
+                              [--body KEY] [--anchors FILE] [--explain]
   python -m gegenprobe.qa_cli --opd-text-question Q.txt --opd-text-answer A.json [...]
 
 Each document is a PDF (local path or URL; a URL is fetched politely, robots.txt under RFC 9309, into the cache) or
@@ -11,6 +12,15 @@ executive's recommendation and the reasoning span, each with page + character sp
 typed null. `--json` prints everything: the flat view, the validated schema v0.1 records (QAItem, Actor,
 recommendation, reasoning) and what the rules left open.
 
+The frozen extractor (src/gegenprobe/qa, LOCK6) decides first; an unlocked post-processing layer (gegenprobe/qa_post.py)
+then corrects what the frozen rules get wrong on unfamiliar layouts: a motion's dash-bullet demand as one item, the
+reasoning without the reprinted member's text and without the closing block (signature, distribution list), signature
+lists ("Unterschriften: 1. Name, 2. Name ... (9)"), a recommendation printed under an "Antrag des Regierungsrates"
+heading, headings like "3.1 Zu Frage 1:". `--body` checks rule coverage as `convert` does (outside it: values flagged
+needs_review, an open recommendation becomes no_rules_for_body); `--anchors FILE` is the same per-parliament file as
+`convert --anchors` (recommendation phrases, confirm_rules, affair_types, closing, reprint_headings); `--explain` lists
+the rules and post steps per field.
+
 Rules only: no model is called. (The Apertus closed-set pointer arm of P5 is run by eval/gold6/run6.py; its θ is fitted
 to one served build.) Fields the rules leave open are listed under `left_open` / "left open" for a reviewer.
 
@@ -19,7 +29,8 @@ page 1, and character offsets are offsets into OPD's stored text as given. If th
 they are taken as page breaks. The output says which applies, per document.
 
 Exit codes: 0 extracted; 2 bad input (unknown --affair-type, no document, a file that is not a PDF, a document that could
-not be fetched or read: the typed failure kind is printed, as in `python -m gegenprobe convert`).
+not be fetched or read: the typed failure kind is printed, as in `python -m gegenprobe convert`; a malformed --anchors
+file).
 Docs: docs/qa.md ("Run it on your own affair").
 """
 from __future__ import annotations
@@ -30,6 +41,9 @@ import re
 import subprocess
 import sys
 from pathlib import Path
+from gegenprobe.compliance import fetchguard
+
+fetchguard.ensure()  # fail-closed: no fetch through pdftext/net without the RFC 9309 matcher (compliance/fetchguard.py)
 
 ONE_PAGE_NOTE = ("OPD stored text has no page breaks: read as one page; spans say page 1 and character offsets are "
                  "offsets into the stored text as given")
@@ -102,10 +116,12 @@ def load_role(role: str, pdf: str | None, opd_text: str | None) -> tuple[list[st
 
 
 def left_open(out: dict) -> list[dict]:
-    """What the rules did not decide (arm R residue), phrased for a reviewer."""
+    """What the rules did not decide (arm R residue), phrased for a reviewer, plus an open recommendation the post layer
+    could not settle (no_rules_for_body, or not_in_document without --body)."""
     r = out["residue"]
     v = out["view"]
     items = []
+    rec = (out.get("records") or {}).get("recommendation") or {}
     if r.get("pair"):
         open_n = [a["n"] for a in v["answers"] if a["span"] is None]
         items.append(dict(field="answers", count=r["pair"], questions=open_n,
@@ -114,17 +130,71 @@ def left_open(out: dict) -> list[dict]:
         items.append(dict(field="submitter", count=1, reason="no rule found the submitter's printed name"))
     if r.get("recommendation"):
         items.append(dict(field="recommendation", count=1, reason="candidate recommendation sentences conflict"))
+    elif rec.get("kind") == "null" and rec.get("null_reason") == "no_rules_for_body":
+        items.append(dict(field="recommendation", count=1, reason=rec.get("evidence")))
+    elif rec.get("kind") == "null" and rec.get("null_reason") == "not_in_document" and \
+            any(x["field"] == "recommendation" for x in out.get("review") or []):
+        items.append(dict(field="recommendation", count=1, reason="no recommendation sentence found by the rules on a "
+                          "layout whose coverage was not checked (no --body): confirm the null"))
     return items
 
 
-def run(q_pages, a_pages, lang: str, affair_type: str | None, docs: dict) -> dict:
+def run(q_pages, a_pages, lang: str, affair_type: str | None, docs: dict, body: str | None = None,
+        settings: dict | None = None) -> dict:
+    from . import qa_post
     from .qa import extract as X
 
-    out = X.extract(q_pages, a_pages, lang, None, q_id=docs["question"].get("doc_id", "question"),
-                    a_id=docs["answer"].get("doc_id", "answer"), affair_type=affair_type)
-    return dict(status="ok", tool=X.VERSION, mode="rules_only", language=lang, affair_type=affair_type,
-                documents=docs, view=out["view"], records=out["records"], rules=out["rules"], left_open=left_open(out),
-                model_calls=len(out["pointer"]))
+    q_id, a_id = docs["question"].get("doc_id", "question"), docs["answer"].get("doc_id", "answer")
+    qp, nq = qa_post.prepare(q_pages) if q_pages else (q_pages, 0)
+    ap, na = qa_post.prepare(a_pages) if a_pages else (a_pages, 0)
+    out = X.extract(qp, ap, lang, None, q_id=q_id, a_id=a_id, affair_type=affair_type)
+    post = qa_post.apply(out, q_pages, a_pages, affair_type=affair_type, body=body, settings=settings, q_id=q_id,
+                         a_id=a_id, prepared=nq + na)
+    res = dict(status="ok", tool=X.VERSION, post_layer=POST_VERSION, mode="rules_only", language=lang,
+               affair_type=affair_type, body=body, documents=docs, view=post["view"], records=post["records"],
+               rules=post["rules"], left_open=left_open(post), model_calls=len(out["pointer"]),
+               rules_coverage=post["rules_coverage"], needs_review=bool(post["review"]), review_reasons=post["review"],
+               frozen=dict(view=out["view"], rules=out["rules"]))
+    res["explain"] = explain(res, out, post, settings)
+    return res
+
+
+POST_VERSION = "gegenprobe-qa-post-0.1"
+
+
+def explain(res: dict, out: dict, post: dict, settings: dict | None) -> dict:
+    """Per field: the frozen rule that decided, then every post step tried and what it did."""
+    from .convert import overlay
+
+    fields = dict(questions=("questions",), answers=("pairing",), reasoning=("reply",), people=("people",),
+                  recommendation=("recommendation",))
+    ex = dict(cache=overlay.cache_info(), rules_coverage=post["rules_coverage"],
+              settings_file=(settings or {}).get("file"), fields={})
+    for f, keys in fields.items():
+        steps = [dict(step="frozen rule (LOCK6)", result=str(out["rules"].get(keys[0])))]
+        steps += [dict(step=x["step"], result=x["result"]) for x in post["post"] if x["field"] == f or
+                  (f == "answers" and x["field"] == "answers")]
+        if post["rules"].get(keys[0]) != out["rules"].get(keys[0]):
+            steps.append(dict(step="decided by", result=str(post["rules"].get(keys[0]))))
+        ex["fields"][f] = steps
+    cov = [x for x in post["post"] if x["field"] == "coverage"]
+    if cov:
+        ex["fields"]["coverage"] = [dict(step=x["step"], result=x["result"]) for x in cov]
+    return ex
+
+
+def render_explain(ex: dict) -> str:
+    c = ex["cache"]
+    lines = [f"cache: {c['work']}  ({c['note']})"]
+    cov = ex["rules_coverage"]
+    lines.append(f"rules coverage: body={cov['body']} -> {cov['status']}: {cov['note']}")
+    if ex.get("settings_file"):
+        lines.append(f"settings/anchors file: {ex['settings_file']}")
+    for f, steps in ex["fields"].items():
+        lines.append(f"{f}:")
+        for s in steps:
+            lines.append(f"  {s['step']:<32} {s['result']}")
+    return "\n".join(lines)
 
 
 # ---------------------------------------------------------------- human-readable report
@@ -182,7 +252,11 @@ def render(res: dict, q_pages, a_pages) -> str:
         lines.append("co-signatories: " + ", ".join(c["name"] for c in v["co_signatories"]))
     rs = v.get("recommendation_span")
     ev = f"  [{rs['doc']} {_where(docs[rs['doc']], rs)}: {_snip(txt(rs), 70)}]" if rs else ""
-    rec = v["recommendation"] if v["recommendation"] is not None else "(null: left open)"
+    rr = res["records"]["recommendation"]
+    if rr.get("kind") == "null" and v["recommendation"] != "not_applicable":
+        rec = f"null ({rr.get('null_reason')}: {rr.get('evidence')})"
+    else:
+        rec = v["recommendation"]
     lines.append(f"recommendation: {rec}{ev}  rule {res['rules'].get('recommendation')}")
     r = v["reasoning"]
     lines.append(f"reasoning: {_where(docs['answer'], r)}  {_snip(txt(r), 70)}" if r else "reasoning: (null)")
@@ -192,11 +266,16 @@ def render(res: dict, q_pages, a_pages) -> str:
         for x in res["left_open"]:
             qs = f" (questions {', '.join(map(str, x['questions']))})" if x.get("questions") else ""
             lines.append(f"  {x['field']}{qs}: {x['reason']}")
+    if res.get("review_reasons"):
+        lines.append("")
+        lines.append("needs review:")
+        for x in res["review_reasons"]:
+            lines.append(f"  {x['field']}: {x['reason']}")
     return "\n".join(lines)
 
 
 def main(argv: list[str] | None = None) -> int:
-    from .convert import affair_types
+    from .convert import affair_types, body_settings, overlay
 
     ap = argparse.ArgumentParser(prog="python -m gegenprobe.qa_cli",
                                  description="Questions, answers, people, recommendation and reasoning of one affair "
@@ -206,13 +285,30 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--opd-text-question", metavar="FILE", help="instead of --question: OPD's stored text (plain text or a "
                     "docs-export JSON row with 'text'); read as one page (OPD text has no page breaks)")
     ap.add_argument("--opd-text-answer", metavar="FILE", help="instead of --answer: OPD's stored text, as above")
-    ap.add_argument("--affair-type", type=affair_types.arg_type, metavar="TYPE",
-                    help="affair type (vocabulary key, DE/FR/IT/EN label or OPD's harmonised name). Interpellation / "
-                    "Question / Question time make the recommendation not_applicable when the question document does "
-                    "not name its type itself")
+    ap.add_argument("--affair-type", metavar="TYPE",
+                    help="affair type (vocabulary key, DE/FR/IT/EN label, OPD's harmonised name, or an OPD type name such "
+                    "as Auftrag; a settings file's affair_types for --body). Interpellation / Question / Question time "
+                    "make the recommendation not_applicable when the question document does not name its type itself")
+    ap.add_argument("--body", help="OPD body key (e.g. SO, BE, 261): checks rule coverage as convert does; outside it every "
+                    "rule value is flagged needs_review and an open recommendation is no_rules_for_body")
+    ap.add_argument("--anchors", metavar="JSON", help="the per-parliament settings file shared with `convert --anchors`: "
+                    "recommendation phrases, confirm_rules, affair_types, closing, reprint_headings (docs/qa.md)")
+    ap.add_argument("--explain", action="store_true", help="list, per field, the frozen rule and every post step tried "
+                    "(stderr; --json adds an 'explain' key)")
     ap.add_argument("--lang", choices=["de", "fr", "it"], help="language (guessed from the text if omitted)")
     ap.add_argument("--json", action="store_true", help="print the full result as JSON (view, schema records, left open)")
     a = ap.parse_args(argv)
+    settings = None
+    if a.anchors:
+        try:
+            settings = body_settings.load(a.anchors)
+        except overlay.AnchorError as e:
+            print(str(e), file=sys.stderr)
+            return 2
+    try:
+        a.affair_type = affair_types.normalize(a.affair_type, body_settings.type_aliases(settings, a.body))
+    except affair_types.UnknownAffairType as e:
+        ap.error(f"argument --affair-type: {e}")
     if not (a.question or a.answer or a.opd_text_question or a.opd_text_answer):
         ap.print_usage(sys.stderr)
         print("give at least one document: --question/--opd-text-question and/or --answer/--opd-text-answer",
@@ -234,12 +330,24 @@ def main(argv: list[str] | None = None) -> int:
     else:
         from .convert.batch import guess_lang
         lang = guess_lang("\n".join((q_pages or []) + (a_pages or [])))
-    res = run(q_pages, a_pages, lang, a.affair_type, dict(question=qd, answer=ad))
+    res = run(q_pages, a_pages, lang, a.affair_type, dict(question=qd, answer=ad), body=a.body, settings=settings)
+    ex = res.pop("explain")
+    if a.explain:
+        res["explain"] = ex
     if a.json:
         json.dump(res, sys.stdout, ensure_ascii=False, indent=1)
         print()
     else:
         print(render(res, q_pages, a_pages))
+    warn = overlay.coverage_warning(res["rules_coverage"])
+    if warn:
+        print(warn.replace("Rows are marked needs_review and open fields get null_reason no_rules_for_body",
+                           "Values are flagged needs_review and an open recommendation is no_rules_for_body"),
+              file=sys.stderr)
+    elif not a.body:
+        print("note: no --body given, so rule coverage (data/convert/rules_coverage.json) was not checked", file=sys.stderr)
+    if a.explain:
+        print(render_explain(ex), file=sys.stderr)
     return 0
 
 
