@@ -1,6 +1,6 @@
 # Gegenprobe (Track 2A, OpenParlData). Judges: `make run` (Docker, CPU, clean checkout).
 # Development targets run on the host with .venv (python 3.11); every target is re-runnable and writes under results/.
-.PHONY: site deploy-site figures run test lint claims census census-corrected census-scan census-replay census-hash repair repair-network nightly-offline nightly-smoke nightly-notify-test convert eval report install-nightly docker-build
+.PHONY: site deploy-site figures run test lint claims census census-corrected census-scan census-replay census-hash repair repair-network adapters-write adapters-canary repair-manifest nightly-offline nightly-smoke nightly-notify-test convert eval report install-nightly docker-build
 
 PY ?= .venv/bin/python
 IMAGE ?= gegenprobe:latest
@@ -77,6 +77,20 @@ repair:
 	-$(PY) -m gegenprobe.repair.acceptance         # relink documents OPD has attached (6 Oct snapshot: 0; exits 1 until the fix ships)
 	$(PY) -m gegenprobe.repair.demo
 	$(PY) -m gegenprobe.repair.be_begin_date  # BE begin_date correction list (OPD-confirmed load timestamps)
+	$(PY) -m gegenprobe.repair.manifest       # results/repair/MANIFEST.json: every list, which wins on overlap
+
+# ---- source adapters (owner: repair workstream; docs/adapters.md, docs/runbook.md "Adapters: operating plan")
+# adapters-write:  rebuild results/repair/adapters/ from the WORK checkpoints (no network), then the manifest
+# adapters-canary: network (RFC 9309 robots, polite): re-check one known affair per external source; exit 3 on alerts
+adapters-write:
+	$(PY) -m gegenprobe.repair.adapters.run --write
+	$(PY) -m gegenprobe.repair.manifest
+
+adapters-canary:
+	$(PY) -m gegenprobe.repair.adapters.canary run
+
+repair-manifest:
+	$(PY) -m gegenprobe.repair.manifest
 
 repair-network:   # one-off measurements that fetch documents (polite: >= 1.2 s per host); results are committed
 	$(PY) -m gegenprobe.repair.be sample        # pre-registered: data/repair/prereg_be_relink_sample.md

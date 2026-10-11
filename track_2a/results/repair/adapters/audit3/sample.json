@@ -1,0 +1,47 @@
+{
+ "allocation": {
+  "date_window/fetch": 14,
+  "date_window/tag_answer": 16,
+  "exact_any_printed_date/extract_tag": 24,
+  "exact_any_printed_date/fetch": 13,
+  "exact_any_printed_date/tag_answer": 14,
+  "exact_doc_date/extract_tag": 13,
+  "exact_doc_date/fetch": 67,
+  "exact_doc_date/tag_answer": 39
+ },
+ "blind": "packets carry id, affair number, title, type, OPD answer event dates and the text path only",
+ "decoys": {
+  "failed": 30,
+  "review": 30
+ },
+ "floor": 12,
+ "frame": {
+  "counted": 6209,
+  "decoy_pools": {
+   "failed": 129,
+   "review": 633
+  },
+  "design_audit_excluded": 404,
+  "strata": {
+   "date_window/fetch": 124,
+   "date_window/tag_answer": 240,
+   "exact_any_printed_date/extract_tag": 718,
+   "exact_any_printed_date/fetch": 59,
+   "exact_any_printed_date/tag_answer": 160,
+   "exact_doc_date/extract_tag": 51,
+   "exact_doc_date/fetch": 3255,
+   "exact_doc_date/tag_answer": 1602
+  }
+ },
+ "key_note": "WORK/adapters/audit3/key.jsonl (packet id -> parliament, affair, stratum); committed only after both auditors' verdicts are in (`score --final`); its sha256 is fixed here",
+ "key_sha256": "2164eac93fbb059dbe282627d72d2e705ee7d495120ac7418caf054e732dc644",
+ "n_counted": 200,
+ "n_decoys": 60,
+ "packets": 260,
+ "prompt_sha256": "45c9b3a609cc5bcaa4c05f97ef3fea1ddaa395fc20f971dff9de6541efc52491",
+ "seed": 20261212,
+ "view": {
+  "head": 12000,
+  "tail": 3000
+ }
+}

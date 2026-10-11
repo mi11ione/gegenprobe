@@ -102,7 +102,11 @@ Curia Vista probe on `ws.parlament.ch`), the evaluation (Public AI, CI runners) 
 | `repair_BE_begin_date.tsv` (`set_begin_date`) | replace the load timestamp by the affair's own "Eingereicht" event (event id given) | data engineer |
 | `repair_BE_begin_date.tsv` (`review`) | no Eingereicht event, or a proposal ≥ 2 years after the number's year | data engineer |
 | `repair_VS.tsv` (`retype_oral`) | link status `oral`, not missing | data engineer |
-| `repair_<body>.tsv` (`ocr`) | OCR the scan (deu+fra+ita) and store the text | batch job, once |
+| `repair_<body>.tsv` (`ocr`) | OCR the scan (deu+fra+ita) and store the text; skip affairs the adapter list names (it wins, `results/repair/MANIFEST.json`) | batch job, once |
+| `adapters_<body>.tsv` (`counted=true`, `tag_answer`) | set `category_harmonized` of `opd_doc_id` to `target_category` (`response_text`); the text is already in OPD | data engineer (bulk; 2,177 rows) |
+| `adapters_<body>.tsv` (`counted=true`, `extract_tag`) | extract (OCR) OPD document `opd_doc_id`, check `text_sha256`, set the category | OCR batch job (852 rows) |
+| `adapters_<body>.tsv` (`counted=true`, `fetch`) | fetch `source_url` (robots.txt allows it), attach to the affair, set the category | scraper owner (3,584 rows; new sources for ZH, SG, SO, LU, VS, Aarau) |
+| `adapters_<body>.tsv` (`tier=review`, `tier=identity_wording_only`) | `review_reason` says what to check; Jura's 282 need a date | data engineer |
 
 **Acceptance test of the staging fix:** `python -m gegenprobe.repair.acceptance --fetch` (or a local `docs_BE.ndjson.gz`;
 with `GP_EXPORTS_DIR` set, `--fetch` reads the local file) counts how many of the 2,459 relink documents are attached to the
@@ -129,6 +133,10 @@ the document's `files.openparldata.ch/doc` URL; `--hash keep` plans the relink w
 | `be_ogd_answers_collapsed` | Bern's answer-document count fell to 0 or by half | the canton's OGD endpoint; do not apply new rows that night |
 | `rate_trend_drop` | a body's rate fell by > 5 points over the last 7 nights (slow drift below the nightly threshold) | that body's scraper changes over the week |
 | `exports_stale` | OPD's `index.json` is older than `GP_STALE_DAYS` (2) days | OPD's export job; the night's numbers describe old data |
+| `adapter_canary_failed` | (with `GP_ADAPTER_CANARY=1`) a known counted affair of an external source no longer verifies; `reason` says where (http_404, not_found, robots_disallowed, empty_text, date_mismatch, ...) | the adapter's owner: open the source, fix the adapter, re-run that body (operating plan below) |
+| `adapter_canary_text_changed` | the canary still verifies but its extracted text changed (file re-published, extractor update) | none unless it repeats; re-run `canary select` after the next monthly run |
+| `adapter_counted_drop` | a parliament's counted adapter rows fell by more than max(5, 2 %) since the last canary run | compare the new `adapters_summary.json` with the previous one before publishing the lists |
+| `adapter_canary_error` | the canary step itself failed (the night continues) | run `python -m gegenprobe.repair.adapters.canary run` by hand |
 | `outbox_corrupt` / `state_corrupt` | the outbox or the night-over-night state could not be parsed; moved to `work/nightly/<name>.corrupt-<UTC>` | read the quarantined file for undelivered alerts; after `state_corrupt` the next night re-scans everything once |
 | unit failed (exit 1) | the job crashed, or the alert channel failed | `journalctl -u gegenprobe-nightly`; the next night retries from scratch |
 | unit failed (exit 2) | nothing to work on yet (an `offline` / `index` run on an empty cache) | run the command the message names (a network night first) |
@@ -145,6 +153,31 @@ names the command to run first). **One alert per event:** the job delivers its a
 night that exited `GP_ALERT_EXIT` after delivering (it reads `MONITOR_EXIT_STATUS`, systemd ≥ 251; older systemd posts on
 every failure). `python -m gegenprobe.monitor.notify test` exits 0 when sent, 2 when no channel is configured,
 1 when sending failed.
+
+## Adapters: operating plan
+
+The source adapters (`docs/adapters.md`) are a batch, not part of the nightly job: they read 50 parliaments' sources
+(7 external hosts plus OPD's own copies) and write the lists OPD applies (`results/repair/adapters/adapters_<BODY>.tsv`).
+
+| what | when | who | command |
+|---|---|---|---|
+| re-run every adapter on the new targets | monthly (first week), and after an adapter change | adapter owner (data engineer, repair workstream) | `python -m gegenprobe.repair.adapters.targets`, `... opd_docs`, `... run BODY ...` (resumable, polite), then `make adapters-write` |
+| check before publishing a re-run | after every re-run | adapter owner | `make test` (list hygiene: tier, counted = verified, opd_doc_id, text_sha256, target_category); compare `adapters_summary.json` per parliament with the previous run (`adapter_counted_drop` fires on a drop); `python -m gegenprobe.repair.adapters.canary select` |
+| canaries: one known counted affair per external source, re-checked live | nightly (`GP_ADAPTER_CANARY=1` in `/etc/gegenprobe/alerts.env`), or by hand | the nightly's alert channel; first responder = adapter owner | `python -m gegenprobe.repair.adapters.canary run` (exit 3 on alerts) |
+| blind audit of the counted tiers | after a re-run that changes a tier's rule or adds an adapter | adapter owner + two auditors from different vendors | `python -m gegenprobe.repair.adapters.audit3 draw / qwen / score` |
+| robots.txt re-audit of every URL fetched | after every re-run | adapter owner | `python -m gegenprobe.repair.adapters.robots_audit` |
+
+**Canaries** (`results/repair/adapters/canary.json`, `src/gegenprobe/repair/adapters/canary.py`): Kantonsrat Zürich CDWS
+(ZH, a `fetch` row), RIS St. Gallen and RIS Solothurn, the Valais front-end API, Luzern's affair pages, Aarau's yearly
+pages, and OPD's own file copies (`files.openparldata.ch`, an `extract_tag` row through OCR). Each canary runs its
+adapter's whole path (the source's API or index, a fresh download that bypasses the URL cache, extraction, the checks) and
+compares the outcome and the text hash with the committed list; its excerpt goes to `work/canary/`, never over the run's
+own. About 45 requests and 70 seconds a night (measured live on 11 Oct 2026, robots.txt reads included: 7 of 7
+verified, no alert; Aarau's nine yearly index pages are 14 of the requests), one at a time per host, through the same RFC 9309 robots check and OPD-mirror fallback
+as every fetch. `canary check` (offline, in `make test`) asserts that every canary is a counted row of its committed list
+with the committed text hash. Offline drills: `canary run --fixtures DIR` reads `DIR/<BODY>_<affair_id>.txt` instead of
+the network. A failed canary blocks publishing that parliament's next list until the adapter is fixed and the canary
+verifies again.
 
 ## Failure modes
 

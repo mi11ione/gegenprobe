@@ -22,9 +22,9 @@ endpoint the operator sets.
 OPD confirmed the Bern bug and its root cause, and that the relink list is the workaround until its fix ships
 (correspondence, 10 Oct 2026; a published excerpt awaits OPD's consent).
 
-**Beyond Bern: source adapters for 50 parliaments** (`results/repair/adapters/repair_<BODY>.tsv`, `docs/adapters.md`).
-Deterministic routes now propose repairs for **9,940 of the 16,749** interventions without answer text (was 3,107);
-**4,818** written answers still need adapters (was 10,800). 2,316 of the "missing" answers are already in OPD with
+**Beyond Bern: source adapters for 50 parliaments** (`results/repair/adapters/adapters_<BODY>.tsv`, `docs/adapters.md`).
+Deterministic routes now propose repairs for **9,720 of the 16,749** interventions without answer text (was 3,107);
+**5,007** written answers still need adapters (was 10,800). 2,177 of the "missing" answers are already in OPD with
 text, filed under the question's file (Zürich city alone: 1,417): the repair is a category on the document
 (`tag_answer`), not a new document. A fresh blind audit of 300 random verified rows: 297 answers, 0 wrong, 3 unclear,
 precision 0.990 (Wilson 0.971–0.997).
@@ -36,7 +36,7 @@ precision 0.990 (Wilson 0.971–0.997).
 - Bern: 567 of 593 written answers from 2024–25 (96%) lack text, but 520 of them are in OPD unlinked (418 under an
   agenda item, 102 without a parent); OPD-confirmed linking bug, relink list of 2,459 (2,421 dates verified, 38 to
   review).
-- Neuchâtel: 161 of 162 answers from 2024–25 have no answer document in OPD (721 of 774 over all years). 239 of the
+- Neuchâtel: 161 of 162 answers from 2024–25 have no answer document in OPD (721 of 774 over all years). 237 of the
   721 are in OPD after all, appended to the question PDF ("Réponse écrite du Conseil d'État"); in a sample of the
   others the answer was given orally in the session (`docs/adapters.md`).
 - Coverage gaps: 31 parliaments where OPD holds interventions but records almost no written answers (cantons SZ 1,316
@@ -166,7 +166,7 @@ extracted.
 | Research dataset | `results/census/interventions.tsv.gz`: 91,268 interventions × 23 columns with date-trust tiers and source links (CDLA-Permissive-2.0) |
 | Census, feasibility matrix, comparability, data-quality findings with OPD's response | `src/gegenprobe/census/`, `results/census/`, `docs/census.md` |
 | Repair lists keyed on OPD ids, apply plan | `results/repair/repair_BE*.tsv`, `results/repair/apply_be/`, `docs/repair.md`, `docs/runbook.md` |
-| Source adapters for 50 parliaments, blind audits, robots.txt incident | `src/gegenprobe/repair/adapters/`, `results/repair/adapters/` (`repair_<BODY>.tsv`, `summary.json`, `tiers.json`, `audit/`), `docs/adapters.md`, `docs/incidents.md` |
+| Source adapters for 50 parliaments, blind audits, robots.txt incident | `src/gegenprobe/repair/adapters/`, `results/repair/adapters/` (`adapters_<BODY>.tsv`, `adapters_summary.json`, `tiers.json`, `canary.json`, `audit/`, `audit3/`), `results/repair/MANIFEST.json`, `docs/adapters.md`, `docs/incidents.md` |
 | Nightly job (systemd timer + container, alerts), one real night | `src/gegenprobe/monitor/`, `deploy/nightly/`, `docs/nightly.md`, `results/monitor/night_real_38062530586/` |
 
 ## Is a common schema feasible?
@@ -244,7 +244,7 @@ majority (Ticino, Vaud, Genève, Valais, Fribourg; Graubünden, Bern, Luzern), c
   `opd_group`), the two groups OPD described; 554 get the date of their own "Eingereicht" event, 173
   go to review (`repair_BE_begin_date.tsv`).
 - **Coverage.** Before the source adapters, deterministic routes (Bern relinks and fetches, agenda joins, federal Curia
-  Vista) proposed repairs for 3,107 of the 16,749 without answer text; with them, 9,940 (next bullet). The retype list holds 1,008 Valais answers, confirmed by the exact text
+  Vista) proposed repairs for 3,107 of the 16,749 without answer text; with them, 9,720 (next bullet). The retype list holds 1,008 Valais answers, confirmed by the exact text
   rule, that were given orally and filed as a stub: they are retyped as oral, not searched for (the length proxy finds
   1,016 such stubs; `results/census/vs_reconcile.json`). For 1,350 affairs whose answer OPD holds only as an image, a probe ran German+French+Italian OCR on 15
   image-only answers: all 15/15 gave text passing our usability check (≥ 200 characters, an answer heading, a parseable
@@ -254,15 +254,16 @@ majority (Ticino, Vaud, Genève, Valais, Fribourg; Graubünden, Bern, Luzern), c
   time).
 - **Source adapters for 50 parliaments** (`src/gegenprobe/repair/adapters/`, `docs/adapters.md`; model-free). Routes of
   their own for the parliaments with the most missing answers (Zürich canton and city, St. Gallen, Ticino, Neuchâtel,
-  Jura, Valais, Solothurn, Luzern, Aarau) and a reader of OPD's own documents for every other parliament verify 6,833
-  more answers: 5,982 of the 10,800 without an answer document and 851 of the 1,350 image-only ones. Each is checked by
+  Jura, Valais, Solothurn, Luzern, Aarau) and a reader of OPD's own documents for every other parliament verify 6,613
+  more answers: 5,793 of the 10,800 without an answer document and 820 of the 1,350 image-only ones. Each is checked by
   affair number or title, the parliament's answer formula and a date check, and typed filters reject documents that
   only look like answers (deadline extensions, commission reports, minutes, the member's own text, another affair).
-  Verification tiers: 6,437 with an exact date match to OPD's events, 396 within the parliament's documented window (at
+  Verification tiers: 5,161 whose own date equals an OPD event, 1,056 where another printed date equals an OPD answer
+  event and no document date lies more than 30 days from one, 396 within the parliament's documented window (at
   most 15 days in Zürich city, 120 in Valais). Listed separately and **not counted**: 282 Jura answers that match by
-  identity and wording only (OPD's Jura answer events carry no date), and 697 rows that wait for a person.
-  **Deterministic routes now propose repairs for 9,940 of the 16,749; 4,818 written answers still need adapters.**
-  2,316 of the answers the census counts as missing are already in OPD with text, filed under the question's file and
+  identity and wording only (OPD's Jura answer events carry no date), and 917 rows that wait for a person.
+  **Deterministic routes now propose repairs for 9,720 of the 16,749; 5,007 written answers still need adapters.**
+  2,177 of the answers the census counts as missing are already in OPD with text, filed under the question's file and
   worded in a way our frozen census lexicon does not list (Zürich city alone: 1,417, "Der Stadtrat beantwortet die
   Anfrage wie folgt"): the repair is a category on the document (`tag_answer`), not a new document. The census number
   itself is unchanged: it is a measured upper bound under a frozen lexicon.
@@ -674,7 +675,7 @@ volume** the rules need about 5 CPU-hours and review mode about USD 3,357 at tha
   the 6 Oct snapshot. Nightly job: deployable prototype; CI runs `systemd-analyze verify` and the security gate on the
   units and three offline nights in the read-only container on fixture exports, and one real network night ran under
   systemd on a CI runner (83 min, Bern list reproduced on live data); a two-night Docker run is scheduled; not yet
-  running at OPD. Source-adapter lists: audited prototype (precision 0.990 on a fresh blind sample of 300; the 697
+  running at OPD. Source-adapter lists: audited prototype (precision 0.990 on a fresh blind sample of 300; the 917
   review rows and the identity-only Jura rows need a person).
   Converter, rules-only mode: tested prototype (154 held-out + 62 unseen documents). Review mode with Apertus:
   feasibility study with a reviewer gate. Whole affairs: feasibility study, replicated on held-out affairs (P3b; only
@@ -682,7 +683,7 @@ volume** the rules need about 5 CPU-hours and review mode about USD 3,357 at tha
   tier (P5). Virtual affairs: feasibility study (one commune). Schema v0.1: draft for the eCH
   group (`docs/ech-onepager.md`).
 - **Limitations:** answer dates are the field evaluated in depth, Q/A pairs on 40 affairs (P5); tables, annexes and
-  images are not extracted; 4,818 missing written answers still need per-parliament adapters (some hosts are
+  images are not extracted; 5,007 missing written answers still need per-parliament adapters (some hosts are
   unreachable from our network, some answers exist only in session minutes); no federal documents in any gold set, and
   no Italian document in P6; the 8B was not run on P3/P3b/P5, on P2 only 52 of 62 documents were reachable from CI, and
   its P6 run is still in progress; P5 and P6 are checked by the claims step but not yet replayed by `make run`; spans index our own pdftotext/tesseract text, though `--opd-text` maps values

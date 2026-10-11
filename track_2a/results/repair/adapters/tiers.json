@@ -1,14 +1,19 @@
 {
  "counted": [
-  "exact_date",
+  "exact_doc_date",
+  "exact_any_printed_date",
   "date_window"
  ],
  "headline": {
+  "adapter_rows_counted": 6613,
+  "adapters": 50,
+  "adapters_with_counted": 27,
   "baseline_repairable_deterministic": 3107,
   "gap": 16749,
   "listed_separately_identity_wording_only": 282,
-  "needs_adapters_after": 4818,
-  "repairable_deterministic_with_adapters": 9940
+  "needs_adapters_after": 5007,
+  "repairable_deterministic_with_adapters": 9720,
+  "review": 917
  },
  "tiers": {
   "date_window": {
@@ -85,86 +90,71 @@
     "latest_in_window"
    ],
    "image_only": 4,
-   "label": "verified (date window <= N days, per parliament)",
+   "label": "verified: the document's date within the parliament's documented window",
    "n": 396
   },
-  "exact_date": {
-   "absent": 5590,
+  "exact_any_printed_date": {
+   "absent": 281,
    "by_action": {
-    "extract_tag": 897,
-    "fetch": 3480,
-    "tag_answer": 2060
+    "extract_tag": 770,
+    "fetch": 82,
+    "tag_answer": 204
    },
    "by_body": {
     "1059": {
-     "absent": 39,
-     "image_only": 0,
-     "n": 39
-    },
-    "131": {
-     "absent": 0,
-     "image_only": 2,
-     "n": 2
-    },
-    "191": {
-     "absent": 0,
-     "image_only": 17,
-     "n": 17
-    },
-    "261": {
-     "absent": 1202,
-     "image_only": 0,
-     "n": 1202
-    },
-    "296": {
-     "absent": 0,
-     "image_only": 30,
-     "n": 30
-    },
-    "351": {
-     "absent": 3,
-     "image_only": 0,
-     "n": 3
-    },
-    "4001": {
-     "absent": 74,
-     "image_only": 0,
-     "n": 74
-    },
-    "4289": {
-     "absent": 5,
-     "image_only": 1,
-     "n": 6
-    },
-    "4401": {
-     "absent": 21,
-     "image_only": 0,
-     "n": 21
-    },
-    "4566": {
-     "absent": 145,
-     "image_only": 0,
-     "n": 145
-    },
-    "5113": {
-     "absent": 124,
-     "image_only": 3,
-     "n": 127
-    },
-    "5192": {
      "absent": 2,
      "image_only": 0,
      "n": 2
     },
-    "5586": {
+    "191": {
+     "absent": 0,
+     "image_only": 1,
+     "n": 1
+    },
+    "261": {
+     "absent": 40,
+     "image_only": 0,
+     "n": 40
+    },
+    "296": {
+     "absent": 0,
+     "image_only": 1,
+     "n": 1
+    },
+    "4001": {
+     "absent": 69,
+     "image_only": 0,
+     "n": 69
+    },
+    "4289": {
+     "absent": 0,
+     "image_only": 1,
+     "n": 1
+    },
+    "4566": {
      "absent": 4,
      "image_only": 0,
      "n": 4
     },
-    "6153": {
-     "absent": 29,
+    "5113": {
+     "absent": 13,
      "image_only": 0,
-     "n": 29
+     "n": 13
+    },
+    "5192": {
+     "absent": 1,
+     "image_only": 0,
+     "n": 1
+    },
+    "5586": {
+     "absent": 3,
+     "image_only": 0,
+     "n": 3
+    },
+    "6153": {
+     "absent": 25,
+     "image_only": 0,
+     "n": 25
     },
     "BL": {
      "absent": 2,
@@ -178,13 +168,128 @@
     },
     "FR": {
      "absent": 0,
-     "image_only": 7,
-     "n": 7
+     "image_only": 6,
+     "n": 6
+    },
+    "NE": {
+     "absent": 111,
+     "image_only": 0,
+     "n": 111
+    },
+    "TG": {
+     "absent": 0,
+     "image_only": 32,
+     "n": 32
+    },
+    "TI": {
+     "absent": 0,
+     "image_only": 719,
+     "n": 719
+    },
+    "VD": {
+     "absent": 8,
+     "image_only": 0,
+     "n": 8
+    },
+    "VS": {
+     "absent": 0,
+     "image_only": 15,
+     "n": 15
+    },
+    "ZH": {
+     "absent": 2,
+     "image_only": 0,
+     "n": 2
+    }
+   },
+   "by_date_match": {
+    "anywhere": 1056
+   },
+   "counted": true,
+   "date_classes": [
+    "anywhere"
+   ],
+   "image_only": 775,
+   "label": "verified: a date printed in the document equals an OPD answer event; the document's own date was not read, or lies within 30 days of an event",
+   "n": 1056
+  },
+  "exact_doc_date": {
+   "absent": 5120,
+   "by_action": {
+    "extract_tag": 82,
+    "fetch": 3362,
+    "tag_answer": 1717
+   },
+   "by_body": {
+    "1059": {
+     "absent": 35,
+     "image_only": 0,
+     "n": 35
+    },
+    "131": {
+     "absent": 0,
+     "image_only": 2,
+     "n": 2
+    },
+    "191": {
+     "absent": 0,
+     "image_only": 1,
+     "n": 1
+    },
+    "261": {
+     "absent": 1162,
+     "image_only": 0,
+     "n": 1162
+    },
+    "296": {
+     "absent": 0,
+     "image_only": 29,
+     "n": 29
+    },
+    "351": {
+     "absent": 3,
+     "image_only": 0,
+     "n": 3
+    },
+    "4001": {
+     "absent": 2,
+     "image_only": 0,
+     "n": 2
+    },
+    "4289": {
+     "absent": 4,
+     "image_only": 0,
+     "n": 4
+    },
+    "4401": {
+     "absent": 21,
+     "image_only": 0,
+     "n": 21
+    },
+    "4566": {
+     "absent": 12,
+     "image_only": 0,
+     "n": 12
+    },
+    "5113": {
+     "absent": 106,
+     "image_only": 3,
+     "n": 109
+    },
+    "5586": {
+     "absent": 1,
+     "image_only": 0,
+     "n": 1
+    },
+    "6153": {
+     "absent": 4,
+     "image_only": 0,
+     "n": 4
     },
     "JU": {
-     "absent": 75,
+     "absent": 72,
      "image_only": 0,
-     "n": 75
+     "n": 72
     },
     "LU": {
      "absent": 104,
@@ -192,9 +297,9 @@
      "n": 104
     },
     "NE": {
-     "absent": 230,
+     "absent": 117,
      "image_only": 0,
-     "n": 230
+     "n": 117
     },
     "SG": {
      "absent": 1011,
@@ -206,46 +311,34 @@
      "image_only": 1,
      "n": 210
     },
-    "TG": {
-     "absent": 0,
-     "image_only": 34,
-     "n": 34
-    },
-    "TI": {
-     "absent": 0,
-     "image_only": 729,
-     "n": 729
-    },
     "VD": {
-     "absent": 95,
+     "absent": 83,
      "image_only": 0,
-     "n": 95
+     "n": 83
     },
     "VS": {
-     "absent": 34,
-     "image_only": 21,
-     "n": 55
+     "absent": 5,
+     "image_only": 3,
+     "n": 8
     },
     "ZH": {
-     "absent": 2181,
+     "absent": 2169,
      "image_only": 1,
-     "n": 2182
+     "n": 2170
     }
    },
    "by_date_match": {
-    "anywhere": 1267,
-    "eq": 4956,
+    "eq": 4947,
     "eq_gov": 214
    },
    "counted": true,
    "date_classes": [
     "eq",
-    "eq_gov",
-    "anywhere"
+    "eq_gov"
    ],
-   "image_only": 847,
-   "label": "verified (exact date)",
-   "n": 6437
+   "image_only": 41,
+   "label": "verified: the document's own date equals an OPD event date",
+   "n": 5161
   },
   "identity_wording_only": {
    "absent": 282,
@@ -270,6 +363,176 @@
    "image_only": 0,
    "label": "identity + wording only (no date check)",
    "n": 282
+  },
+  "review": {
+   "absent": 661,
+   "by_action": {
+    "extract_tag": 298,
+    "fetch": 209,
+    "tag_answer": 410
+   },
+   "by_body": {
+    "1059": {
+     "absent": 4,
+     "image_only": 0,
+     "n": 4
+    },
+    "131": {
+     "absent": 0,
+     "image_only": 20,
+     "n": 20
+    },
+    "191": {
+     "absent": 0,
+     "image_only": 32,
+     "n": 32
+    },
+    "261": {
+     "absent": 21,
+     "image_only": 0,
+     "n": 21
+    },
+    "2829": {
+     "absent": 63,
+     "image_only": 0,
+     "n": 63
+    },
+    "2831": {
+     "absent": 0,
+     "image_only": 15,
+     "n": 15
+    },
+    "296": {
+     "absent": 0,
+     "image_only": 9,
+     "n": 9
+    },
+    "351": {
+     "absent": 2,
+     "image_only": 0,
+     "n": 2
+    },
+    "4001": {
+     "absent": 16,
+     "image_only": 0,
+     "n": 16
+    },
+    "4289": {
+     "absent": 5,
+     "image_only": 17,
+     "n": 22
+    },
+    "4566": {
+     "absent": 147,
+     "image_only": 0,
+     "n": 147
+    },
+    "4671": {
+     "absent": 2,
+     "image_only": 2,
+     "n": 4
+    },
+    "5002": {
+     "absent": 0,
+     "image_only": 49,
+     "n": 49
+    },
+    "5113": {
+     "absent": 103,
+     "image_only": 0,
+     "n": 103
+    },
+    "5192": {
+     "absent": 6,
+     "image_only": 0,
+     "n": 6
+    },
+    "5586": {
+     "absent": 47,
+     "image_only": 14,
+     "n": 61
+    },
+    "581": {
+     "absent": 0,
+     "image_only": 14,
+     "n": 14
+    },
+    "6153": {
+     "absent": 4,
+     "image_only": 0,
+     "n": 4
+    },
+    "FR": {
+     "absent": 0,
+     "image_only": 1,
+     "n": 1
+    },
+    "JU": {
+     "absent": 28,
+     "image_only": 0,
+     "n": 28
+    },
+    "LU": {
+     "absent": 1,
+     "image_only": 0,
+     "n": 1
+    },
+    "NE": {
+     "absent": 14,
+     "image_only": 0,
+     "n": 14
+    },
+    "SG": {
+     "absent": 2,
+     "image_only": 0,
+     "n": 2
+    },
+    "SO": {
+     "absent": 1,
+     "image_only": 0,
+     "n": 1
+    },
+    "TG": {
+     "absent": 0,
+     "image_only": 17,
+     "n": 17
+    },
+    "TI": {
+     "absent": 0,
+     "image_only": 46,
+     "n": 46
+    },
+    "VD": {
+     "absent": 13,
+     "image_only": 0,
+     "n": 13
+    },
+    "VS": {
+     "absent": 105,
+     "image_only": 14,
+     "n": 119
+    },
+    "ZH": {
+     "absent": 77,
+     "image_only": 6,
+     "n": 83
+    }
+   },
+   "by_date_match": {
+    "anywhere": 71,
+    "anywhere_conflict": 236,
+    "differs": 253,
+    "eq": 76,
+    "near": 67,
+    "no_event": 18,
+    "none": 187,
+    "window": 9
+   },
+   "counted": false,
+   "date_classes": null,
+   "image_only": 256,
+   "label": "review: a person checks (not counted)",
+   "n": 917
   }
  }
 }

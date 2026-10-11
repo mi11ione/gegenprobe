@@ -52,7 +52,7 @@ def adapters() -> dict:
     """Recomputes the fresh audit from the blind verdicts themselves (audit/fresh_audit_verdicts.jsonl) and asserts that
     it equals the committed summary (audit/fresh_audit_precision.json)."""
     base = RESULTS / "repair" / "adapters"
-    s = json.loads((base / "summary.json").read_text())
+    s = json.loads((base / "adapters_summary.json").read_text())
     f = json.loads((base / "audit" / "fresh_audit_precision.json").read_text())
     v = collections.Counter(json.loads(x)["is_answer"] for x in open(base / "audit" / "fresh_audit_verdicts.jsonl"))
     n, yes = sum(v.values()), v["yes"]

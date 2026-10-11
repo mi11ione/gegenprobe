@@ -15,7 +15,7 @@ Gegenprobe, Track 2A OpenParlData, team 444. Evidence site: https://gegenprobe.m
   consent).
 - **Where answers go missing, and how to put them back.** 16,749 of 91,268 interventions with a government answer
   (18.4%) have no answer text in OPD; 1,422 were answered orally, so 15,327 written answers (17.1%) are missing, each
-  with a cause. Readers for 50 parliaments now verify repairs for 9,940 of the 16,749 (was 3,107); 4,818 still need
+  with a cause. Readers for 50 parliaments now verify repairs for 9,720 of the 16,749 (was 3,107); 5,007 still need
   one. A blind audit of 300 random repairs: 297 are the answer, 0 wrong, 3 unclear. We found and disclosed our own bug:
   a standard robots.txt parser let 3 disallowed files through once; deleted, unused, fixed everywhere.
 - **Seven tests, frozen before any label was committed.** (1) On 154 documents from parliaments our rules know, rules

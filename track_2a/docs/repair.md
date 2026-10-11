@@ -47,6 +47,52 @@ pipeline can gate on it) and keeps one dated result per check (`acceptance_<live
 directory is checked for writability before the export is streamed, exit 2 if it is not writable); the nightly
 job's ledger (`repair_BE_ledger.tsv`, see `docs/nightly.md`) marks each row `resolved` once OPD has the answer.
 
+## Which list wins: `results/repair/MANIFEST.json`
+
+`python -m gegenprobe.repair.manifest` (last step of `make repair`, and of `make adapters-write`) lists every repair list
+under `results/repair` (route lists, the Bern begin_date list and apply plan, the source-adapter lists
+`adapters/adapters_<BODY>.tsv`) with the command that writes it, its rows by action (adapter lists also by tier) and its
+sha256, checks that no two files share a name, and records where two lists name the same affair. Rules, then the
+overlaps per parliament (route action / adapter tier; "no adapter row" = the adapter looked and listed nothing, so the
+route row stands):
+
+| lists | wins | why |
+|---|---|---|
+| adapter list vs route list, action=ocr (same affair) | adapter list | the route's ocr rows are candidates (OPD holds the answer file without usable text; no text read, verified empty). The adapters ran on every one of those affairs, read or OCR'd the text and checked it: their row (tier says whether it counts) replaces the candidate. A candidate whose affair has no adapter row (the adapter failed: no usable text, identity or heading not found) stays the only row for it. |
+| adapter list vs route list, action=agenda_join or retype_oral (same affair) | no overlap | agenda joins are census link status agenda, retype_oral is Valais' oral-answer pointer; the adapters only take absent and image_only affairs. Checked on every run (overlaps below). |
+| route list repair_<BODY>.tsv vs repair_<BODY>_<action>.tsv | either (same rows) | the per-action files are the combined file split by action; apply one or the other, not both. |
+| repair_BE_relink.tsv / repair_BE_begin_date.tsv vs apply_be/apply_BE_plan.* | apply_be plan for execution | the plan is built from the two lists and guards every UPDATE with the before-state (repair.apply_be). |
+| results/ vs site/downloads/ | identical | site/downloads holds byte-identical copies of the lists it offers (sha256 below). |
+
+| parliament | route list (rows) | adapter list (rows) | same affair | route action / adapter tier |
+|---|---|---|---|---|
+| 131 | repair_131.tsv (60) | adapters_131.tsv (22) | 22 | agenda_join / no adapter row 8, ocr / exact_doc_date 2, ocr / no adapter row 30, ocr / review 20 |
+| 191 | repair_191.tsv (37) | adapters_191.tsv (34) | 34 | ocr / exact_any_printed_date 1, ocr / exact_doc_date 1, ocr / no adapter row 3, ocr / review 32 |
+| 198 | repair_198.tsv (2) | adapters_198.tsv (0) | 0 | ocr / no adapter row 2 |
+| 230 | repair_230.tsv (64) | adapters_230.tsv (0) | 0 | agenda_join / no adapter row 64 |
+| 2831 | repair_2831.tsv (16) | adapters_2831.tsv (15) | 15 | ocr / no adapter row 1, ocr / review 15 |
+| 296 | repair_296.tsv (47) | adapters_296.tsv (39) | 39 | agenda_join / no adapter row 3, ocr / exact_any_printed_date 1, ocr / exact_doc_date 29, ocr / no adapter row 5, ocr / review 9 |
+| 4289 | repair_4289.tsv (18) | adapters_4289.tsv (27) | 18 | ocr / exact_any_printed_date 1, ocr / review 17 |
+| 4671 | repair_4671.tsv (31) | adapters_4671.tsv (4) | 2 | ocr / no adapter row 29, ocr / review 2 |
+| 5002 | repair_5002.tsv (49) | adapters_5002.tsv (49) | 49 | ocr / review 49 |
+| 5113 | repair_5113.tsv (3) | adapters_5113.tsv (225) | 3 | ocr / exact_doc_date 3 |
+| 5586 | repair_5586.tsv (15) | adapters_5586.tsv (65) | 14 | ocr / no adapter row 1, ocr / review 14 |
+| 581 | repair_581.tsv (24) | adapters_581.tsv (14) | 14 | ocr / no adapter row 10, ocr / review 14 |
+| AR | repair_AR.tsv (2) | adapters_AR.tsv (0) | 0 | ocr / no adapter row 2 |
+| BL | repair_BL.tsv (56) | adapters_BL.tsv (2) | 0 | ocr / no adapter row 56 |
+| BS | repair_BS.tsv (24) | adapters_BS.tsv (1) | 0 | ocr / no adapter row 24 |
+| FR | repair_FR.tsv (9) | adapters_FR.tsv (7) | 7 | ocr / exact_any_printed_date 6, ocr / no adapter row 2, ocr / review 1 |
+| GR | repair_GR.tsv (2) | adapters_GR.tsv (0) | 0 | ocr / no adapter row 2 |
+| JU | repair_JU.tsv (1) | adapters_JU.tsv (382) | 0 | ocr / no adapter row 1 |
+| OW | repair_OW.tsv (12) | adapters_OW.tsv (0) | 0 | ocr / no adapter row 12 |
+| SG | repair_SG.tsv (1) | adapters_SG.tsv (1,014) | 1 | ocr / exact_doc_date 1 |
+| SH | repair_SH.tsv (1) | adapters_SH.tsv (0) | 0 | ocr / no adapter row 1 |
+| SO | repair_SO.tsv (1) | adapters_SO.tsv (211) | 1 | ocr / exact_doc_date 1 |
+| TG | repair_TG.tsv (50) | adapters_TG.tsv (49) | 49 | ocr / exact_any_printed_date 32, ocr / no adapter row 1, ocr / review 17 |
+| TI | repair_TI.tsv (775) | adapters_TI.tsv (765) | 765 | ocr / exact_any_printed_date 719, ocr / no adapter row 10, ocr / review 46 |
+| VS | repair_VS.tsv (1,111) | adapters_VS.tsv (282) | 36 | ocr / date_window 4, ocr / exact_any_printed_date 15, ocr / exact_doc_date 3, ocr / no adapter row 67, ocr / review 14, retype_oral / no adapter row 1,008 |
+| ZH | repair_ZH.tsv (22) | adapters_ZH.tsv (2,255) | 7 | ocr / exact_doc_date 1, ocr / no adapter row 15, ocr / review 6 |
+
 ## BE: the answers are in OPD, just not attached
 
 The canton's own OGD tables (`ogd.parl.apps.be.ch/data/dokument.csv`, `geschaeft.csv`) list a government answer for 3,532 BE

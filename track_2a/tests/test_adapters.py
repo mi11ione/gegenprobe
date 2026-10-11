@@ -2,6 +2,7 @@
 short hand-written texts and API responses shaped like the real ones; no network, no document text from any parliament."""
 
 import json
+import re
 
 import pytest
 
@@ -296,23 +297,94 @@ def test_recheck_rejudges_saved_excerpts_without_network(monkeypatch, tmp_path):
 
 # ---------------------------------------------------------------- verification tiers (docs/adapters.md)
 def test_tier_of_date_classes():
-    assert run.tier_of("eq") == run.tier_of("eq_gov") == run.tier_of("anywhere") == "exact_date"
+    assert run.tier_of("eq") == run.tier_of("eq_gov") == "exact_doc_date"
+    assert run.tier_of("anywhere") == "exact_any_printed_date"
     assert run.tier_of("window(+7d)") == run.tier_of("latest_in_window(+3d)") == "date_window"
     assert run.tier_of("after_submission(+41d)") == "identity_wording_only"
-    with pytest.raises(ValueError):
-        run.tier_of("near(5d)")
+    assert run.COUNTED == ("exact_doc_date", "exact_any_printed_date", "date_window")
+    for bad in ("near(5d)", "anywhere_conflict(-90d)"):
+        with pytest.raises(ValueError):
+            run.tier_of(bad)
+
+
+def test_any_printed_date_needs_a_document_date_within_30_days():
+    a = inopd.InOPD("X")
+    text = "Frauenfeld, 16. April 2008 ... Antwort des Stadtrates vom 17. März 2009"
+    assert a.date_check(text, None, ["2009-03-17"])[::2] == ("anywhere", True)  # no document date read
+    assert a.date_check(text, "2009-02-20", ["2009-03-17"])[::2] == ("anywhere", True)  # 25 days: counts
+    got = a.date_check(text, "2008-04-16", ["2009-03-17"])  # the document date is the question's: review
+    assert got[0] == "anywhere_conflict(335d)" and got[2] is False
+
+
+def _verified(**kw):
+    rec = dict(affair_id=7, affair_number="1/2020", body="ZH", cause="absent", type="Question", year=2020,
+               outcome="verified", reason=None, action="tag_answer", tried=[],
+               best=dict(url="https://parlzhcdws.cmicloud.ch/parlzh5/cdws/Files/" + "a" * 32 + "-332/2/pdf", title="t",
+                         origin="source", uid="a" * 32 + "-332", opd_doc_id=None,
+                         cmeta=dict(opd_holds=dict(id=11, affair_id=7, chars=900, same_affair=True)),
+                         checks=dict(date_match="eq", doc_date="2020-05-05", answer_events=["2020-05-05"])))
+    rec.update(kw)
+    return rec
+
+
+def test_classify_joins_the_opd_document_by_source_file_and_flags_two(monkeypatch):
+    run.lists._by_source_file.cache_clear()
+    one = [dict(id=11, affair_id=7, url="https://parlzhcdws.cmicloud.ch/parlzh5/cdws/Files/" + "a" * 32 + "-332/2/pdf")]
+    monkeypatch.setattr(run.lists.opd_docs, "url_index", lambda body: one)
+    c = run.classify("ZH", _verified())
+    assert (c["tier"], c["counted"], c["opd_doc_id"]) == ("exact_doc_date", True, 11)
+    run.lists._by_source_file.cache_clear()
+    two = one + [dict(id=12, affair_id=7, url="https://parlzhcdws.cmicloud.ch/parlzh5/cdws/Files/" + "a" * 32 + "-332/1/pdf")]
+    monkeypatch.setattr(run.lists.opd_docs, "url_index", lambda body: two)
+    c = run.classify("ZH", _verified())
+    assert (c["tier"], c["counted"], c["opd_doc_id"]) == ("review", False, None)
+    assert c["review_reason"].startswith("opd_doc_ambiguous") and "11 12" in c["review_reason"] and "read is 11" in c[
+        "review_reason"]
+    run.lists._by_source_file.cache_clear()
+    # Jura: identity + wording only -> listed, not counted, verified=false and action=review in the list
+    ju = _verified(body="JU", best=dict(url="u", title="t", origin="opd_text", opd_doc_id=5, checks=dict(
+        date_match="after_submission(+41d)")))
+    c = run.classify("JU", ju)
+    assert (c["tier"], c["counted"], c["opd_doc_id"]) == ("identity_wording_only", False, 5)
+    row = run.to_row(ju, "snap", registry.get("JU"), c)
+    assert (row["verified"], row["action"], row["proposed_action"], row["tier"]) == (False, "review", "tag_answer",
+                                                                                     "identity_wording_only")
+    assert row["target_category"] == "response_text" and row["target_category_note"]
 
 
 def test_committed_summary_counts_only_tiers_with_a_date_check():
-    s = json.loads((run.OUT / "summary.json").read_text())
+    s = json.loads(run.SUMMARY.read_text())
     t, c = s["tiers"], s["coverage"]
-    counted = t["exact_date"]["n"] + t["date_window"]["n"]
+    counted = sum(t[k]["n"] for k in run.COUNTED)
     assert s["totals"]["verified"] == counted and not t["identity_wording_only"]["counted"]
-    assert s["totals"]["checks_passed_all_tiers"] == counted + t["identity_wording_only"]["n"]
-    assert c["repairable_deterministic_with_adapters"] == run.BASELINE + counted
-    assert c["needs_adapters_after"] == run.NEEDS_ADAPTERS - t["exact_date"]["absent"] - t["date_window"]["absent"]
+    assert c["repairable_deterministic_with_adapters"] == run.BASELINE + counted == run.BASELINE + c["adapter_rows_counted"]
+    assert c["needs_adapters_after"] == run.NEEDS_ADAPTERS - sum(t[k]["absent"] for k in run.COUNTED)
     assert s["bodies"]["JU"]["tiers"]["identity_wording_only"] == t["identity_wording_only"]["n"]  # Jura only
+    assert s["totals"]["adapters_with_counted"] == sum(1 for b in s["bodies"].values() if b["counted"])
     tiers = json.loads((run.OUT / "tiers.json").read_text())["tiers"]
     for x in tiers["date_window"]["by_body"].values():  # every window row lies inside its parliament's window
         lo, hi = x["window_days"]
         assert lo <= x["observed_days"][0] <= x["observed_days"][1] <= hi and x["max_abs_days"] == max(-lo, hi)
+
+
+def test_committed_lists_have_the_hygiene_columns():
+    import csv
+    n = 0
+    for p in sorted(run.OUT.glob("adapters_*.tsv")):
+        with open(p, encoding="utf-8") as f:
+            rows = list(csv.DictReader(f, delimiter="\t"))
+        for r in rows:
+            n += 1
+            assert r["tier"] in run.ROW_TIERS and r["tier"] != "failed"
+            assert r["verified"] == r["counted"] == ("true" if r["tier"] in run.COUNTED else "false")
+            assert (r["action"] == r["proposed_action"]) if r["counted"] == "true" else r["action"] == "review"
+            if r["counted"] == "true":
+                assert re.fullmatch(r"[0-9a-f]{64}", r["text_sha256"]), (p.name, r["affair_id"])
+                if r["action"] in ("tag_answer", "extract_tag"):
+                    assert r["opd_doc_id"], (p.name, r["affair_id"])  # every row pointing at an OPD document names it
+                assert r["target_category"] == "response_text" and r["target_category_note"]
+            else:
+                assert r["review_reason"], (p.name, r["affair_id"])
+            if "anywhere" in r["check_detail"] and r["counted"] == "true":  # never a document date > 30 days off
+                assert "anywhere_conflict" not in r["check_detail"]
+    assert n and not list(run.OUT.glob("repair_*.tsv")) and not (run.OUT / "summary.json").exists()

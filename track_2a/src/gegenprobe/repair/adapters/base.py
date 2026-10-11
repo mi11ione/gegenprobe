@@ -56,6 +56,7 @@ from . import filters
 
 ADIR = WORK / "adapters"
 DATE_NEAR = 14  # days; a document date this close to OPD's event (but not equal) goes to review, never verified
+ANY_DATE_MAX_DAYS = 30  # days; an 'anywhere' match counts only if the document's own date (when read) is this close
 QUOTE_MAX = 200
 FILTER_RANK = {"verified": 0, "review": 1, "failed": 2}
 
@@ -315,6 +316,10 @@ class Adapter:
                 return f"window(+{inwin[0]}d)", False, True
         printed = parse_dates(text)
         if any(d in ev for d, _, _ in printed):
+            # some printed date equals an OPD event; when the document's own date was read and lies more than
+            # ANY_DATE_MAX_DAYS from every event, the two disagree: review, never verified (round 6, J5)
+            if dd and abs(delta) > ANY_DATE_MAX_DAYS:
+                return f"anywhere_conflict({delta}d)", True, False
             return "anywhere", True, True
         if not dd and hi > 0:
             ps = sorted({dt.date.fromisoformat(d) for d, _, _ in printed})

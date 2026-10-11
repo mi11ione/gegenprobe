@@ -9,10 +9,11 @@
 Checkpoint: one JSON line per affair in WORK/adapters/state/<BODY>.jsonl, appended as soon as the affair is done; a re-run
 skips finished affairs and retries those that failed for a transient reason (timeout, network, HTTP 429/5xx).
 Outputs (results/repair/adapters/):
-  <BODY>.json             per-body summary + every affair's outcome (verified / review / failed with reason)
-  repair_<BODY>.tsv       repair rows (verified and review), the columns of repair/common.py
-  repair_<BODY>_review.tsv  the rows a person checks
-  summary.json            per body: candidates, verified, review, failed by reason; coverage against the 16,749
+  <BODY>.json             per-body summary + every affair's outcome (verified / review / failed with reason) and tier
+  adapters_<BODY>.tsv     the list OPD applies: verified and review rows with tier, counted, opd_doc_id, target_category,
+                          text_sha256 (lists.py); filter tier=review for the rows a person checks
+  adapters_summary.json   per body: candidates, tiers, review, failed by reason; coverage against the 16,749
+  tiers.json              per tier: rows by cause, action, date class and parliament
   filtered.tsv            every affair a document-type filter fired on (filters.py): filter, outcome, quote
 Audit: WORK/adapters/audit/<BODY>.jsonl, a stratified sample of 30 (verified / review / failed) with excerpt paths,
 drawn once and never overwritten (auditors' verdicts refer to it).
@@ -32,7 +33,7 @@ import time
 from ... import hardening
 from ...paths import RESULTS
 from .. import common
-from . import base, opd_docs, registry, targets
+from . import base, lists, opd_docs, registry, targets
 
 OUT = RESULTS / "repair" / "adapters"
 STATE = base.ADIR / "state"
@@ -88,7 +89,7 @@ def process(ad: base.Adapter, x: dict, opd: list[dict]) -> dict:
         rec["action"] = ("tag_answer" if origin == "opd_text" else "extract_tag" if origin == "opd_file"
                          else "relink" if held else ad.action)
         if held:
-            best["opd_doc_id"] = held["id"]
+            best["opd_doc_id"] = rec["best"]["opd_doc_id"] = held["id"]
         if text:
             p = base.save_excerpt(ad.body, x["id"], text, dict(affair_id=x["id"], number=x["number"], url=best["url"],
                                                                 title=best["title"], origin=origin))
@@ -222,42 +223,85 @@ def snapshot(body: str) -> str:
     return "; ".join(p for p in parts if p)
 
 
-def to_row(rec: dict, snap: str, ad: base.Adapter) -> dict:
+def classify(body: str, rec: dict) -> dict:
+    """The row tier of one affair (docs/adapters.md "Verification tiers"): failed, review, or the tier of a verified
+    affair; a verified tag_answer / extract_tag row whose source file sits on the affair in OPD more than once
+    (lists.opd_doc) goes to review (`opd_doc_ambiguous`). counted = the tier has a date check (COUNTED)."""
+    b = rec.get("best") or {}
+    chk = b.get("checks") or {}
+    doc, ids, read = lists.opd_doc(body, rec) if rec["outcome"] != "failed" else (b.get("opd_doc_id"), [], None)
+    out = dict(opd_doc_id=doc, opd_doc_ids=ids if len(ids) > 1 else None, review_reason=None)
+    dm = chk.get("date_match")
+    if rec["outcome"] == "failed":
+        return dict(out, tier="failed", counted=False)
+    if rec["outcome"] == "review":
+        return dict(out, tier="review", counted=False,
+                    review_reason=f"{rec.get('reason')}: {dm}" if dm and rec.get("reason") == "date_mismatch"
+                    else rec.get("reason"))
+    tier = tier_of(dm)
+    if rec.get("action") in ("tag_answer", "extract_tag") and len(ids) > 1:
+        why = (f"opd_doc_ambiguous: the source file is on this affair in OPD {len(ids)} times (ids "
+               f"{' '.join(map(str, ids))}" + (f"; the version read is {read}" if read else "") + ")")
+        return dict(out, tier="review", counted=False, review_reason=why, verified_tier=tier)
+    if tier not in COUNTED:
+        out["review_reason"] = f"{tier}: {dm}"
+    return dict(out, tier=tier, counted=tier in COUNTED)
+
+
+def to_row(rec: dict, snap: str, ad: base.Adapter, cl: dict | None = None) -> dict:
+    cl = cl or classify(rec["body"], rec)
     b = rec["best"]
     chk, meta = b.get("checks") or {}, b.get("meta") or {}
     act = rec["action"]
-    verified = rec["outcome"] == "verified"
+    counted = cl["counted"]
     detail = dict(route=ad.body.lower() + ":" + (b["origin"] or ""), identity_by=chk.get("identity_by"),
                   date_match=chk.get("date_match"), date_ok=chk.get("date_ok"), sha256=meta.get("sha256"),
                   extractor=meta.get("extractor"),
                   chars=meta.get("chars"), source_typed_answer=b.get("source_typed_answer") or None,
                   gap_cause=rec["cause"], reason=rec.get("reason"), quote=chk.get("heading_quote"))
+    link, place = lists.census_cols(rec["affair_id"], dict(outcome=rec["outcome"], action=act, cause=rec["cause"],
+                                                           tier=cl["tier"], counted=counted))
+    sets = act in lists.SETS_CATEGORY
     return dict(body=rec["body"], affair_id=rec["affair_id"], affair_number=rec["affair_number"],
-                action=act if verified else "review", proposed_action=act, opd_doc_id=b.get("opd_doc_id"),
+                action=act if counted else "review", proposed_action=act, opd_doc_id=cl["opd_doc_id"],
                 source_doc_uid=b.get("uid"), source_doc_title=b.get("title"), source_url=b.get("url"), snapshot=snap,
                 check_identity=chk.get("identity"), check_heading=chk.get("heading"), check_decision_nr=None,
                 check_decision_date=chk.get("doc_date"), check_answer_event_dates=chk.get("answer_events"),
                 check_date_eq_event=chk.get("date_eq_event"),
                 check_detail="; ".join(f"{k}={common._cell(v)}" for k, v in detail.items() if v not in (None, "", [])),
-                verified=verified, note=ad.route)
+                verified=counted, tier=cl["tier"], counted=counted, review_reason=cl["review_reason"],
+                text_sha256=lists.text_sha256(rec), target_category=lists.TARGET_CATEGORY if sets else None,
+                target_category_note=lists.category_note(rec["body"]) if sets else None,
+                census_link_status=link, census_category=place)
+
+
+LIST_COLS = [c for c in common.COLS if c != "note"] + lists.EXTRA_COLS
 
 
 def _write_tsv(path, rows: list[dict]) -> None:
     with open(path, "w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, common.COLS, delimiter="\t", lineterminator="\n")
+        w = csv.DictWriter(f, LIST_COLS, delimiter="\t", lineterminator="\n")
         w.writeheader()
         for r in rows:
-            w.writerow({k: common._cell(r.get(k)) for k in common.COLS})
+            w.writerow({k: common._cell(r.get(k)) for k in LIST_COLS})
 
 
-def body_summary(recs: list[dict]) -> dict:
+def _reason_key(reason: str | None) -> str:
+    """'date_mismatch: anywhere_conflict(-335d)' -> 'date_mismatch: anywhere_conflict'; 'opd_doc_ambiguous: ...' ->
+    'opd_doc_ambiguous'."""
+    head, _, rest = (reason or "").partition(": ")
+    return f"{head}: {re.sub(r'[(].*', '', rest)}" if head == "date_mismatch" and rest else head
+
+
+def body_summary(recs: list[dict], cls: dict[int, dict]) -> dict:
     out = collections.Counter(r["outcome"] for r in recs)
     fails = collections.Counter(r["reason"] for r in recs if r["outcome"] == "failed")
     by_action = collections.Counter(r.get("action") for r in recs if r["outcome"] == "verified")
     by_cause = collections.defaultdict(collections.Counter)
     for r in recs:
         by_cause[r["cause"]][r["outcome"]] += 1
-    review_reasons = collections.Counter(r["reason"] for r in recs if r["outcome"] == "review")
+    review_reasons = collections.Counter(_reason_key(cls[r["affair_id"]]["review_reason"])
+                                         for r in recs if cls[r["affair_id"]]["tier"] == "review")
     ver = [r for r in recs if r["outcome"] == "verified"]
     date_class = collections.Counter(re.sub(r"\(.*", "", ((r.get("best") or {}).get("checks") or {}).get("date_match") or "")
                                      for r in ver)
@@ -266,7 +310,9 @@ def body_summary(recs: list[dict]) -> dict:
     cands = sum(1 for r in recs if r.get("tried"))
     filt = collections.Counter(f"{((r.get('best') or {}).get('checks') or {}).get('filter')}:{r['outcome']}" for r in recs
                                if ((r.get("best") or {}).get("checks") or {}).get("filter"))
-    return dict(targets=len(recs), with_candidate=cands, verified=out["verified"], review=out["review"],
+    row_tiers = collections.Counter(c["tier"] for c in cls.values())
+    return dict(targets=len(recs), with_candidate=cands, verified=out["verified"], review=row_tiers["review"],
+                counted=sum(row_tiers[t] for t in COUNTED), row_tiers={t: row_tiers[t] for t in ROW_TIERS},
                 filtered=dict(sorted(filt.items())),
                 failed=out["failed"], failed_by_reason=dict(fails.most_common()),
                 review_by_reason=dict(review_reasons.most_common()), verified_by_action=dict(by_action),
@@ -274,29 +320,35 @@ def body_summary(recs: list[dict]) -> dict:
                 by_cause={k: dict(v) for k, v in by_cause.items()})
 
 
-def write(body: str) -> dict:
+def write(body: str, summary: bool = True) -> dict:
     ad = registry.get(body)
     recs = sorted(load_state(body).values(), key=lambda r: r["affair_id"])
     snap = snapshot(body)
-    rows = [to_row(r, snap, ad) for r in recs if r["outcome"] in ("verified", "review")]
+    cls = {r["affair_id"]: classify(body, r) for r in recs}
+    rows = [to_row(r, snap, ad, cls[r["affair_id"]]) for r in recs if r["outcome"] in ("verified", "review")]
     OUT.mkdir(parents=True, exist_ok=True)
-    _write_tsv(OUT / f"repair_{body}.tsv", rows)
-    _write_tsv(OUT / f"repair_{body}_review.tsv", [r for r in rows if r["action"] == "review"])
-    s = body_summary(recs)
+    for old in (OUT / f"repair_{body}.tsv", OUT / f"repair_{body}_review.tsv"):  # names before round 6
+        old.unlink(missing_ok=True)
+    _write_tsv(lists.path(body), rows)
+    s = body_summary(recs, cls)
     s.update(body=body, label=ad.label, route=ad.route, hosts=list(ad.hosts), snapshot=snap)
-    slim = [dict(affair_id=r["affair_id"], number=r["affair_number"], cause=r["cause"], outcome=r["outcome"],
-                 reason=r.get("reason"), action=r.get("action"), url=(r.get("best") or {}).get("url"),
-                 sha256=((r.get("best") or {}).get("meta") or {}).get("sha256"),
-                 date_match=((r.get("best") or {}).get("checks") or {}).get("date_match"),
-                 identity_by=((r.get("best") or {}).get("checks") or {}).get("identity_by"),
-                 filter=((r.get("best") or {}).get("checks") or {}).get("filter"),
-                 filter_quote=((r.get("best") or {}).get("checks") or {}).get("filter_quote"))
-            for r in recs]
+    slim = []
+    for r in recs:
+        b = r.get("best") or {}
+        chk = b.get("checks") or {}
+        c = cls[r["affair_id"]]
+        slim.append(dict(affair_id=r["affair_id"], number=r["affair_number"], cause=r["cause"], outcome=r["outcome"],
+                         reason=r.get("reason"), action=r.get("action"), url=b.get("url"),
+                         sha256=(b.get("meta") or {}).get("sha256"), date_match=chk.get("date_match"),
+                         doc_date=chk.get("doc_date"), identity_by=chk.get("identity_by"), filter=chk.get("filter"),
+                         filter_quote=chk.get("filter_quote"), tier=c["tier"], counted=c["counted"],
+                         opd_doc_id=c["opd_doc_id"], review_reason=c["review_reason"]))
     base_json = dict(summary=s, affairs=slim)
     (OUT / f"{body}.json").write_text(json.dumps(base_json, ensure_ascii=False, indent=0, sort_keys=True))
     if not (AUDIT / f"{body}.jsonl").exists():  # drawn once: the auditors' verdicts refer to this sample
         audit(body, recs)
-    write_summary()
+    if summary:
+        write_summary()
     return s
 
 
@@ -403,17 +455,26 @@ BASELINE = 3107  # results/report/figure_numbers.json: repairable_deterministic 
 GAP = 16749
 NEEDS_ADAPTERS = 10800
 # the other files in OUT are one per body
-NOT_BODIES = ("summary.json", "tiers.json", "robots_audit.json", "audit_effect.json", "audit2_sample.json")
+SUMMARY = OUT / "adapters_summary.json"
+# the other .json files in OUT are one per body
+NOT_BODIES = ("adapters_summary.json", "tiers.json", "robots_audit.json", "audit_effect.json", "audit2_sample.json",
+              "opd_categories.json", "canary.json", "summary.json")
 
 
-# Verification tiers (docs/adapters.md "Verification tiers"): how strong the date check behind a verified row is. Only
-# the first two count as verified repairs in the coverage figures; the third is listed separately.
+# Verification tiers (docs/adapters.md "Verification tiers"): how strong the date check behind a verified row is. The first
+# three count as verified repairs in the coverage figures; identity_wording_only is listed separately. An 'anywhere'
+# match whose document date lies more than base.ANY_DATE_MAX_DAYS from every event is review (base.date_check).
 TIERS = {
-    "exact_date": ("verified (exact date)", ("eq", "eq_gov", "anywhere")),
-    "date_window": ("verified (date window <= N days, per parliament)", ("window", "latest_in_window")),
+    "exact_doc_date": ("verified: the document's own date equals an OPD event date", ("eq", "eq_gov")),
+    "exact_any_printed_date": ("verified: a date printed in the document equals an OPD answer event; the document's own "
+                               f"date was not read, or lies within {base.ANY_DATE_MAX_DAYS} days of an event",
+                               ("anywhere",)),
+    "date_window": ("verified: the document's date within the parliament's documented window",
+                    ("window", "latest_in_window")),
     "identity_wording_only": ("identity + wording only (no date check)", ("after_submission",)),
 }
-COUNTED = ("exact_date", "date_window")
+COUNTED = ("exact_doc_date", "exact_any_printed_date", "date_window")
+ROW_TIERS = (*TIERS, "review", "failed")
 
 
 def tier_of(date_match: str | None) -> str:
@@ -425,21 +486,21 @@ def tier_of(date_match: str | None) -> str:
 
 
 def body_tiers(body: str, affairs: list[dict]) -> dict:
-    """Per tier: rows by cause, action and date class; for the window tier the parliament's documented window (the
-    adapter's date_window, event - document date in days) and the offsets observed."""
+    """Per row tier (verified tiers, review): rows by cause, action and date class; for the window tier the parliament's
+    documented window (the adapter's date_window, event - document date in days) and the offsets observed."""
     out = {k: dict(n=0, absent=0, image_only=0, by_action=collections.Counter(), by_date_match=collections.Counter())
-           for k in TIERS}
+           for k in (*TIERS, "review")}
     offs = []
     for a in affairs:
-        if a["outcome"] != "verified":
+        if a["tier"] not in out:
             continue
-        t = out[tier_of(a.get("date_match"))]
+        t = out[a["tier"]]
         t["n"] += 1
         t[a["cause"]] += 1
         t["by_action"][a.get("action")] += 1
         t["by_date_match"][re.sub(r"\(.*", "", a.get("date_match") or "")] += 1
         m = re.search(r"\(\+?(-?\d+)d\)", a.get("date_match") or "")  # "window(+7d)", "window(+-61d)"
-        if m and tier_of(a.get("date_match")) == "date_window":
+        if m and a["tier"] == "date_window":
             offs.append(int(m.group(1)))
     for t in out.values():
         t["by_action"], t["by_date_match"] = dict(t["by_action"]), dict(t["by_date_match"])
@@ -458,13 +519,14 @@ def write_summary() -> dict:
         d = json.loads(p.read_text())
         per[p.stem] = d["summary"]
         tiers[p.stem] = body_tiers(p.stem, d["affairs"])
-        per[p.stem]["tiers"] = {k: v["n"] for k, v in tiers[p.stem].items()}
+        per[p.stem]["tiers"] = {k: v["n"] for k, v in tiers[p.stem].items() if k in TIERS}
         per[p.stem]["counted_by_action"] = dict(sum((collections.Counter(tiers[p.stem][k]["by_action"]) for k in COUNTED),
                                                     collections.Counter()))
     tot = {}
-    for k in TIERS:
+    for k in (*TIERS, "review"):
         rows = [t[k] for t in tiers.values()]
-        tot[k] = dict(label=TIERS[k][0], date_classes=list(TIERS[k][1]), counted=k in COUNTED,
+        tot[k] = dict(label=TIERS[k][0] if k in TIERS else "review: a person checks (not counted)",
+                      date_classes=list(TIERS[k][1]) if k in TIERS else None, counted=k in COUNTED,
                       n=sum(r["n"] for r in rows), absent=sum(r["absent"] for r in rows),
                       image_only=sum(r["image_only"] for r in rows),
                       by_action=dict(sum((collections.Counter(r["by_action"]) for r in rows), collections.Counter())),
@@ -474,8 +536,7 @@ def write_summary() -> dict:
                                for b, t in sorted(tiers.items()) if t[k]["n"]})
     ver_absent = sum(tot[k]["absent"] for k in COUNTED)
     ver_img = sum(tot[k]["image_only"] for k in COUNTED)
-    rev_absent = sum(s["by_cause"].get("absent", {}).get("review", 0) for s in per.values())
-    rev_img = sum(s["by_cause"].get("image_only", {}).get("review", 0) for s in per.values())
+    rv = tot["review"]
     by_action, by_date = collections.Counter(), collections.Counter()
     for k in COUNTED:
         by_action.update(tot[k]["by_action"])
@@ -484,40 +545,52 @@ def write_summary() -> dict:
     filtered = collections.Counter()
     for s in per.values():
         filtered.update(s.get("filtered") or {})
+    review_reasons = collections.Counter()
+    for s in per.values():
+        review_reasons.update(s.get("review_by_reason") or {})
     write_filtered()
     iw = tot["identity_wording_only"]
+    counted_bodies = sorted(b for b, s in per.items() if s["counted"])
     out = dict(
         bodies=per,
         tiers={k: {kk: v[kk] for kk in ("label", "n", "absent", "image_only", "counted")} for k, v in tot.items()},
         totals=dict(verified=ver_absent + ver_img, verified_absent=ver_absent, verified_image_only=ver_img,
-                    checks_passed_all_tiers=passed, identity_wording_only=iw["n"],
+                    counted=ver_absent + ver_img, checks_passed_all_tiers=passed, identity_wording_only=iw["n"],
                     identity_wording_only_absent=iw["absent"], identity_wording_only_image_only=iw["image_only"],
-                    review=rev_absent + rev_img, review_absent=rev_absent, review_image_only=rev_img,
+                    review=rv["n"], review_absent=rv["absent"], review_image_only=rv["image_only"],
+                    review_by_reason=dict(review_reasons.most_common()),
                     verified_by_action=dict(by_action), verified_by_date_match=dict(by_date),
                     identity_wording_only_by_date_match=iw["by_date_match"],
                     targets=sum(s["targets"] for s in per.values()),
+                    adapters=len(per), adapters_with_counted=len(counted_bodies),
+                    adapters_without_counted=len(per) - len(counted_bodies),
                     filtered=dict(sorted(filtered.items())),
                     failed_by_reason=dict(sum((collections.Counter(s["failed_by_reason"]) for s in per.values()),
                                               collections.Counter()).most_common())),
         coverage=dict(
             gap=GAP, baseline_repairable_deterministic=BASELINE,
             repairable_deterministic_with_adapters=BASELINE + ver_absent + ver_img,
+            adapter_rows_counted=ver_absent + ver_img,
             needs_adapters_before=NEEDS_ADAPTERS, needs_adapters_after=NEEDS_ADAPTERS - ver_absent,
             identity_wording_only_listed_separately=iw["n"],
-            note="adapter rows count only when verified with a date check: tier exact_date (a date in the document "
-                 "equals an OPD event date) or date_window (within the parliament's documented window); rows of tier "
-                 "identity_wording_only (Jura: OPD's answer events carry no date, the document is only dated within a "
-                 "year after submission) and review rows are listed but not counted. image_only affairs were OCR "
-                 "candidates, not counted in the baseline of 3,107; they count once a text copy verifies."),
+            note="adapter rows count only when verified with a date check: tiers exact_doc_date (the document's own "
+                 "date equals an OPD event date), exact_any_printed_date (a printed date equals an OPD answer event "
+                 "and the document's own date, if read, lies within 30 days of one) or date_window (within the "
+                 "parliament's documented window); rows of tier identity_wording_only (Jura: OPD's answer events carry "
+                 "no date) and review rows are listed but not counted. image_only affairs were OCR candidates, not "
+                 "counted in the baseline of 3,107; they count once a text copy verifies."),
     )
     OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / "summary.json").write_text(json.dumps(out, ensure_ascii=False, indent=1, sort_keys=True))
+    (OUT / "summary.json").unlink(missing_ok=True)  # name before round 6 (results/repair/summary.json is the routes')
+    SUMMARY.write_text(json.dumps(out, ensure_ascii=False, indent=1, sort_keys=True))
     (OUT / "tiers.json").write_text(json.dumps(dict(
         tiers=tot, counted=list(COUNTED),
         headline=dict(gap=GAP, baseline_repairable_deterministic=BASELINE,
                       repairable_deterministic_with_adapters=out["coverage"]["repairable_deterministic_with_adapters"],
+                      adapter_rows_counted=ver_absent + ver_img,
                       needs_adapters_after=out["coverage"]["needs_adapters_after"],
-                      listed_separately_identity_wording_only=iw["n"])),
+                      listed_separately_identity_wording_only=iw["n"], review=rv["n"],
+                      adapters=len(per), adapters_with_counted=len(counted_bodies))),
         ensure_ascii=False, indent=1, sort_keys=True))
     return out
 
@@ -540,13 +613,13 @@ def write_filtered() -> None:
 
 
 def table() -> str:
-    """The per-parliament results table of docs/adapters.md, from summary.json."""
-    s = json.loads((OUT / "summary.json").read_text())
+    """The per-parliament results table of docs/adapters.md, from adapters_summary.json."""
+    s = json.loads(SUMMARY.read_text())
     rows = sorted(s["bodies"].values(), key=lambda b: -b["targets"])
-    out = ["| parliament | targets (absent + image-only) | verified: exact date | verified: date window | of which "
-           "tag/extract (in OPD) | identity + wording only (not counted) | review | failed: top reasons | "
+    out = ["| parliament | targets (absent + image-only) | exact document date | exact printed date | date window | "
+           "of which tag/extract (in OPD) | identity + wording only (not counted) | review | failed: top reasons | "
            "moved down by document-type filters |",
-           "|---|---|---|---|---|---|---|---|---|"]
+           "|---|---|---|---|---|---|---|---|---|---|"]
     for b in rows:
         if not b["targets"]:
             continue
@@ -558,8 +631,9 @@ def table() -> str:
         for k, v in (b.get("filtered") or {}).items():
             filt[k.split(":")[0]] += v
         moved = ", ".join(f"{k} {v:,}" for k, v in sorted(filt.items(), key=lambda kv: (-kv[1], kv[0])))
-        out.append(f"| {b['label']} ({b['body']}) | {b['targets']:,} | {t['exact_date']:,} | {t['date_window']:,} | "
-                   f"{inopd:,} | {t['identity_wording_only']:,} | {b['review']:,} | {reasons or '-'} | {moved or '-'} |")
+        out.append(f"| {b['label']} ({b['body']}) | {b['targets']:,} | {t['exact_doc_date']:,} | "
+                   f"{t['exact_any_printed_date']:,} | {t['date_window']:,} | {inopd:,} | {t['identity_wording_only']:,} | "
+                   f"{b['review']:,} | {reasons or '-'} | {moved or '-'} |")
     return "\n".join(out)
 
 
@@ -594,8 +668,10 @@ def main(argv: list[str]) -> int:
             print(b, "recheck", dict(recheck(b)), flush=True)
         if a.refilter:
             print(b, "refilter", json.dumps(refilter(b)), flush=True)
-        s = write(b) if (a.write or a.recheck or a.refilter) else run_body(b, a.limit, a.cause, not a.no_retry, a.redo)
-        print(json.dumps({k: s[k] for k in ("body", "targets", "verified", "review", "failed", "failed_by_reason")}))
+        s = (write(b, summary=False) if (a.write or a.recheck or a.refilter)
+             else run_body(b, a.limit, a.cause, not a.no_retry, a.redo))
+        print(json.dumps({k: s[k] for k in ("body", "targets", "counted", "review", "failed", "failed_by_reason")}))
+    write_summary()
     return 0
 
 

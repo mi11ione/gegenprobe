@@ -24,6 +24,9 @@ One night =
        outbox_corrupt        WORK/nightly/outbox.json (state_corrupt: state.json) could not be parsed; the file is
        state_corrupt         moved to <name>.corrupt-<UTC timestamp> and the night continues (after state_corrupt: as a
                              first night)
+  7b. optional (GP_ADAPTER_CANARY=1, network nights only): the adapter canaries (repair/adapters/canary.py), one known
+     affair per external source re-checked live; alerts adapter_canary_failed, adapter_canary_text_changed,
+     adapter_counted_drop (adapter_canary_error if the step itself fails); run.json `adapter_canary`.
   8. delivery (monitor.notify): alerts go to an outbox (WORK/nightly/outbox.json, written atomically) first, then to the
      configured webhook / SMTP; the outbox is cleared only after a successful send, so an outage does not drop an alert (it
      is re-sent with the next night's alerts). State is written (atomically) after the send attempt. Exit code
@@ -574,6 +577,19 @@ def night(offline: bool) -> dict:
 
     health = _be.ogd_health()
     al += ogd_alerts(state.get("be_ogd"), health)
+    canary = None
+    if os.environ.get("GP_ADAPTER_CANARY") == "1" and not offline:  # optional: adapter canaries (repair/adapters/canary.py)
+        from ..repair.adapters import canary as _canary
+
+        t5 = time.time()
+        try:
+            res = _canary.run_all()
+            al += res["alerts"]
+            canary = dict(verified=res["verified"], expected=res["expected"], alerts=len(res["alerts"]))
+        except Exception as e:  # a broken canary step is itself an alert, never a failed night
+            al.append(dict(kind="adapter_canary_error", body="-", name="adapter canaries", message=str(e)[:300]))
+            canary = dict(error=str(e)[:300])
+        t["adapter_canary_s"] = round(time.time() - t5, 1)
     t["total_s"] = round(time.time() - t0, 1)
     today = dt.date.today().isoformat()
     ledger = update_ledger(ledger, rep, aff, today)
@@ -604,6 +620,7 @@ def night(offline: bool) -> dict:
         be_repair=rep_counts,
         be_repair_new_since_last_night=len(new),
         be_repair_retried=len(retry),
+        adapter_canary=canary,
         ledger=dict(collections.Counter(r["status"] for r in ledger.values())),
         robots_unreadable=net.robots_report(),
         user_agent=ua,

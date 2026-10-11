@@ -5,8 +5,8 @@ whose events record a written government answer have no answer text attached in 
 not change that count. It adds one derived layer on top, from committed results only (no network, no model):
 
   results/census/interventions.tsv.gz      one row per written-answer intervention, with the census link_status
-  results/repair/adapters/<BODY>.json      every adapter target with its outcome, action, cause and date class
-  results/repair/adapters/repair_<BODY>.tsv the adapter rows (for the extractor of extract_tag rows)
+  results/repair/adapters/<BODY>.json      every adapter target with its outcome, action, cause, tier and counted
+  results/repair/adapters/adapters_<BODY>.tsv the adapter rows (for the extractor of extract_tag rows)
   results/repair/repair_BE_{fetch,review}.tsv, results/repair/che_curia.json   the earlier fetch routes
 
 Every registered gap row lands in exactly one place:
@@ -25,12 +25,13 @@ Every registered gap row lands in exactly one place:
   open            not in OPD and not found yet: listed_unverified (Jura, identity + wording only), review (a person
                   checks), adapter_failed (an adapter looked and found nothing usable), no_adapter
 
-Adapter rows count only in the counted verification tiers (exact_date, date_window; repair/adapters/run.py COUNTED). The
-Jura rows of tier identity_wording_only are listed separately and stay in `open`.
+Adapter rows count only in the counted verification tiers (exact_doc_date, exact_any_printed_date, date_window;
+repair/adapters/run.py COUNTED). The Jura rows of tier identity_wording_only are listed separately and stay in `open`;
+rows of tier review (date conflicts, an ambiguous OPD document) stay in `open` (or image_only open).
 
 Upper bound: an intervention whose answer is in OPD with text on the affair under an unrecognised heading does have answer
 text attached, so `gap - unrecognised` is an upper bound on the interventions without answer text on their affair in OPD
-(16,749 - 2,316 = 14,433), and `gap - unrecognised - oral` on the written answers without it.
+(16,749 - 2,177 = 14,572), and `gap - unrecognised - oral` on the written answers without it.
 
     python -m gegenprobe.census.corrected            -> results/census/corrected.json
     python -m gegenprobe.census.corrected --check    recompute and compare with the committed file (exit 1 if different)
@@ -46,7 +47,7 @@ import sys
 from pathlib import Path
 
 from ..paths import RESULTS
-from ..repair.adapters.run import COUNTED, NOT_BODIES, TIERS, tier_of
+from ..repair.adapters.run import COUNTED, NOT_BODIES, SUMMARY, TIERS
 
 OUT = RESULTS / "census" / "corrected.json"
 ADAPTERS = RESULTS / "repair" / "adapters"
@@ -76,15 +77,15 @@ def adapter_rows() -> dict[int, dict]:
         if p.name in NOT_BODIES:
             continue
         ext = {}
-        tsv = ADAPTERS / f"repair_{p.stem}.tsv"
+        tsv = ADAPTERS / f"adapters_{p.stem}.tsv"
         if tsv.exists():
             for r in _tsv(tsv):
                 m = re.search(r"extractor=([^;]+)", r.get("check_detail") or "")
                 ext[int(r["affair_id"])] = m.group(1).strip() if m else ""
         for a in json.loads(p.read_text())["affairs"]:
-            tier = tier_of(a.get("date_match")) if a["outcome"] == "verified" else None
             out[int(a["affair_id"])] = dict(body=p.stem, outcome=a["outcome"], action=a.get("action"), cause=a["cause"],
-                                            tier=tier, counted=tier in COUNTED, extractor=ext.get(int(a["affair_id"]), ""))
+                                            tier=a["tier"], counted=a["counted"],
+                                            extractor=ext.get(int(a["affair_id"]), ""))
     return out
 
 
@@ -92,8 +93,8 @@ def adapter_sources() -> dict[str, dict]:
     """Per adapter body: the hosts its reader fetched from, and whether one of them is the parliament's own site (most
     readers look only at OPD's own documents on files.openparldata.ch: a row they do not find is not in OPD, and whether
     the parliament publishes it was not checked)."""
-    s = json.loads((ADAPTERS / "summary.json").read_text())["bodies"]
-    return {b: dict(label=v["label"], hosts=v["hosts"],
+    s = json.loads(SUMMARY.read_text())["bodies"]
+    return {b: dict(label=v["label"], hosts=v["hosts"], route=v.get("route"),
                     reads_parliament=any(h != "files.openparldata.ch" for h in v["hosts"]))
             for b, v in sorted(s.items())}
 
@@ -133,9 +134,9 @@ def place(link: str, ad: dict | None, early: str | None) -> tuple[str, str | Non
         return "fetchable", (early or "adapter")
     if ad is None:
         return "open", "no_adapter"
-    if ad["outcome"] == "verified":  # verified in a tier that does not count (Jura: identity + wording only)
+    if ad["tier"] == "identity_wording_only":  # verified in a tier that does not count (Jura: no date check)
         return "open", "listed_unverified"
-    return "open", "review" if ad["outcome"] == "review" else "adapter_failed"
+    return "open", "review" if ad["tier"] == "review" else "adapter_failed"
 
 
 def _empty() -> dict:
@@ -208,14 +209,13 @@ def compute() -> dict:
     s = json.loads((RESULTS / "census" / "summary.json").read_text())
     assert nat["all"]["gap"] == s["national"]["gap"] and nat["y2425"]["gap"] == s["national_2024_25"]["gap"]
     assert nat["all"]["oral"] == s["gap_causes"]["oral"]
-    jura = collections.Counter((a["action"], a["cause"]) for a in ad.values()
-                               if a["outcome"] == "verified" and not a["counted"])
+    jura = collections.Counter((a["action"], a["cause"]) for a in ad.values() if a["tier"] == "identity_wording_only")
     tag_tiers = collections.Counter(a["tier"] for a in ad.values() if a["counted"] and a["action"] == "tag_answer")
     res = dict(
         note=("Derived layer over the registered census (census/corrected.py). The registered count stays: "
               "'no answer text' = written-answer interventions without answer text attached in OPD (census gap). This "
               "layer places every gap row in one category from the repair results; adapter rows count only in the "
-              "counted verification tiers (exact_date, date_window)."),
+              "counted verification tiers (exact_doc_date, exact_any_printed_date, date_window)."),
         counted_tiers=list(COUNTED),
         tier_labels={k: v[0] for k, v in TIERS.items()},
         categories=dict(
@@ -231,8 +231,7 @@ def compute() -> dict:
         national=nat,
         by_body={b: per for b, per in sorted(body.items())},
         listed_unverified=dict(n=sum(jura.values()), by_action=dict(collections.Counter(k[0] for k in jura.elements())),
-                               bodies=sorted({a["body"] for a in ad.values()
-                                              if a["outcome"] == "verified" and not a["counted"]}),
+                               bodies=sorted({a["body"] for a in ad.values() if a["tier"] == "identity_wording_only"}),
                                note="tier identity_wording_only: identity and wording match, no date check (OPD's Jura "
                                     "answer events carry no date); listed for a person or OPD to confirm, not counted"),
         tag_answer_by_tier=dict(sorted(tag_tiers.items())),
@@ -279,7 +278,8 @@ def sentences(res: dict) -> dict:
         decomposition=(f"Of the registered {_f(a['gap'])}: {_f(a['oral'])} answered orally; "
                        f"{_f(a['opd_elsewhere'])} in OPD with text under an agenda item or without a parent; "
                        f"{_f(a['unrecognised'])} in OPD with text under an unrecognised heading "
-                       f"({_f(t['exact_date'])} exact date, {_f(t['date_window'])} date window); "
+                       f"({_f(t['exact_doc_date'])} exact document date, {_f(t['exact_any_printed_date'])} exact "
+                       f"printed date, {_f(t['date_window'])} date window); "
                        f"{_f(a['image_only'])} in OPD only as a copy without text "
                        f"({_f(a['image_only_parts']['text_verified'])} of them read and verified from OPD's own copy); "
                        f"{_f(a['fetchable'])} not in OPD but fetchable from the parliament (verified); "
@@ -300,68 +300,55 @@ def sentences(res: dict) -> dict:
 
 LIST_PREFIX = "adapters_"
 MANIFEST = "adapters_manifest.json"
-APPLY_NOTE = ("Apply the rows with counted=true: action tag_answer (set the category of OPD document opd_doc_id), "
-              "extract_tag (extract the text of OPD document opd_doc_id, tag it), fetch (fetch source_url, attach). "
-              "verified=true with counted=false is the identity + wording tier (Jura: no date check), for a person or OPD "
-              "to confirm. action=review rows are for a person. Every row's check_detail carries the route, identity "
-              "and date class, the sha256 of the document read, the extractor and a quote of at most 200 characters.")
+APPLY_NOTE = ("Apply the rows with counted=true (verified=true is the same; action is then the proposed action): "
+              "tag_answer (set the category of OPD document opd_doc_id to target_category), extract_tag (extract the "
+              "text of OPD document opd_doc_id, set target_category), fetch (fetch source_url, attach, set "
+              "target_category). counted=false rows have action=review: tier identity_wording_only (Jura: no date "
+              "check) and tier review (review_reason) are for a person. text_sha256 is the hash of the text the checks "
+              "read; check_detail carries the route, identity and date class, the sha256 of the document read, the "
+              "extractor and a quote of at most 200 characters.")
 
 
 def write_lists(dest: Path) -> dict:
-    """The adapter repair lists for OPD (site/downloads/): one TSV per parliament, the rows of
-    results/repair/adapters/repair_<BODY>.tsv (verified and review) without the per-row route note (it is per parliament,
-    in the manifest), plus `tier`, `counted`, `census_link_status` and `category` (this layer's place for the affair);
-    and adapters_manifest.json: per parliament the file, rows by action, counted rows, the hosts read, and which list
-    wins where an older list names the same affair."""
-    iv, ad, early = interventions(), adapter_rows(), earlier_fetch()
+    """The adapter repair lists for OPD (site/downloads/): byte-identical copies of
+    results/repair/adapters/adapters_<BODY>.tsv (verified and review rows with tier, counted, opd_doc_id,
+    target_category, text_sha256 and this layer's census_category; repair/adapters/lists.py), and adapters_manifest.json:
+    per parliament the file, rows by action and tier, counted rows, the hosts read; which list wins where an older list
+    names the same affair is in results/repair/MANIFEST.json (repair/manifest.py)."""
     src = adapter_sources()
     dest.mkdir(parents=True, exist_ok=True)
     files = []
-    for p in sorted(ADAPTERS.glob("repair_*.tsv")):
-        b = p.stem[len("repair_"):]
-        if b.endswith("_review"):
-            continue
+    for p in sorted(ADAPTERS.glob(f"{LIST_PREFIX}*.tsv")):
+        b = p.stem[len(LIST_PREFIX):]
         rows = _tsv(p)
         if not rows:
             continue
-        cols = [c for c in rows[0] if c != "note"]
-        extra = ["tier", "counted", "census_link_status", "category"]
-        notes = sorted({r.get("note") or "" for r in rows} - {""})
-        by_action, counted, missing_doc = collections.Counter(), collections.Counter(), 0
-        out = dest / f"{LIST_PREFIX}{b}.tsv"
-        with open(out, "w", encoding="utf-8", newline="") as f:
-            w = csv.writer(f, delimiter="\t", lineterminator="\n")
-            w.writerow(cols + extra)
-            for r in rows:
-                aid = int(r["affair_id"])
-                a, x = ad[aid], iv[aid]
-                cat, sub = place(x["link"], a, early.get(aid))
-                by_action[r["action"]] += 1
-                if a["counted"]:
-                    counted[r["action"]] += 1
-                    missing_doc += r["action"] in ("tag_answer", "extract_tag") and not r["opd_doc_id"]
-                w.writerow([r[c] for c in cols] + [a["tier"] or "", "true" if a["counted"] else "false", x["link"],
-                                                   f"{cat}:{sub}" if sub else cat])
-        old = RESULTS / "repair" / f"repair_{b}.tsv"
+        (dest / p.name).write_bytes(p.read_bytes())
+        counted = collections.Counter(r["action"] for r in rows if r["counted"] == "true")
         files.append(dict(
-            body=b, label=src.get(b, {}).get("label", b), file=out.name, rows=len(rows), by_action=dict(by_action),
+            body=b, label=src.get(b, {}).get("label", b), file=p.name, rows=len(rows),
+            by_action=dict(collections.Counter(r["action"] for r in rows)),
+            by_tier=dict(sorted(collections.Counter(r["tier"] for r in rows).items())),
             counted=sum(counted.values()), counted_by_action=dict(counted),
-            not_counted_verified=sum(1 for r in rows if r["verified"] == "true" and not ad[int(r["affair_id"])]["counted"]),
-            tag_or_extract_without_opd_doc_id=missing_doc, hosts=src.get(b, {}).get("hosts", []), route=notes,
-            supersedes=(f"results/repair/{old.name}: its action=ocr candidate rows (no text, unverified) for the same "
-                        "affairs; for any other affair that list still stands" if old.exists() else None)))
+            not_counted_verified=sum(r["tier"] == "identity_wording_only" for r in rows),
+            tag_or_extract_without_opd_doc_id=sum(r["counted"] == "true" and r["action"] in ("tag_answer", "extract_tag")
+                                                  and not r["opd_doc_id"] for r in rows),
+            hosts=src.get(b, {}).get("hosts", []), route=src.get(b, {}).get("route"),
+            supersedes=(f"results/repair/repair_{b}.tsv: its action=ocr candidate rows for the same affairs (MANIFEST.json)"
+                        if (RESULTS / "repair" / f"repair_{b}.tsv").exists() else None)))
     man = dict(
         note=APPLY_NOTE,
-        source="results/repair/adapters/repair_<BODY>.tsv (python -m gegenprobe.repair.adapters.run --write); "
-               "derived columns from python -m gegenprobe.census.corrected",
-        precedence=("Where two lists name the same affair, the adapter list wins over the older OCR candidate lists "
-                    "(results/repair/repair_<BODY>.tsv, action=ocr). The Bern lists (relink, fetch, review, begin_date) "
-                    "and the Valais retype_oral list have no adapter counterpart and stay as they are."),
+        source="results/repair/adapters/adapters_<BODY>.tsv (python -m gegenprobe.repair.adapters.run --write), "
+               "byte-identical",
+        precedence=("Where a list in results/repair names the same affair, the adapter list wins over the older OCR "
+                    "candidate rows (results/repair/repair_<BODY>.tsv, action=ocr); the Bern lists and the Valais "
+                    "retype_oral list have no adapter counterpart. All lists and the rule: results/repair/MANIFEST.json."),
         counted_tiers=list(COUNTED),
         files=files,
         totals=dict(rows=sum(f["rows"] for f in files), counted=sum(f["counted"] for f in files),
                     counted_by_action=dict(sum((collections.Counter(f["counted_by_action"]) for f in files),
                                                collections.Counter())),
+                    by_tier=dict(sum((collections.Counter(f["by_tier"]) for f in files), collections.Counter())),
                     not_counted_verified=sum(f["not_counted_verified"] for f in files)),
     )
     (dest / MANIFEST).write_text(json.dumps(man, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

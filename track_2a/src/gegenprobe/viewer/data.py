@@ -503,7 +503,7 @@ def parliaments() -> dict:
     _, per_affair = funnel.compute()
     part = _partition(per_affair)
     corr = _j("census/corrected.json")  # derived layer over the registered census (census/corrected.py)
-    adsum = _j("repair/adapters/summary.json")["bodies"]
+    adsum = _j("repair/adapters/adapters_summary.json")["bodies"]
     rows = []
     for k in sorted(set(s["by_body"]) | set(cells)):
         bm = bodies_meta.get(k, {})
@@ -1124,23 +1124,24 @@ def adapters() -> dict | None:
     """Source adapters (results/repair/adapters/, upgrade U1): coverage, verification tiers, the blind audits and the
     robots.txt audit; per parliament the verified count and its routes (docs/adapters.md, docs/incidents.md)."""
     base = RESULTS / "repair" / "adapters"
-    if not (base / "summary.json").exists():
+    if not (base / "adapters_summary.json").exists():
         return None
-    s = json.loads((base / "summary.json").read_text())
+    s = json.loads((base / "adapters_summary.json").read_text())
     tiers = s["tiers"]
     t = s["totals"]
     dsum = json.loads((base / "audit" / "design_audit_summary.json").read_text())
     design = dsum["total"]
     fresh = json.loads((base / "audit" / "fresh_audit_precision.json").read_text())
     rob = json.loads((base / "robots_audit.json").read_text()).get("totals", {})
-    # per parliament: counted rows only (tiers exact_date, date_window), by action; the Jura identity + wording tier is
+    # per parliament: counted rows only (tiers exact_doc_date, exact_any_printed_date, date_window), by action; the Jura tier is
     # listed separately (not_counted), never inside "verified"
     bodies = sorted(({"key": k, "name": b["label"], "verified": sum(b["counted_by_action"].values()),
                       "not_counted": b["tiers"].get("identity_wording_only", 0), "targets": b["targets"],
                       "review": b["review"], "tag_answer": b["counted_by_action"].get("tag_answer", 0),
                       "extract_tag": b["counted_by_action"].get("extract_tag", 0),
                       "fetch": b["counted_by_action"].get("fetch", 0)}
-                     for k, b in s["bodies"].items() if b["verified"]), key=lambda b: -b["verified"])
+                     for k, b in s["bodies"].items() if b["counted"] or b["tiers"].get("identity_wording_only")),
+                    key=lambda b: -b["verified"])
     return dict(coverage=s["coverage"], n_bodies=len(s["bodies"]),
                 tiers={k: dict(n=v["n"], absent=v["absent"], image_only=v["image_only"], counted=v["counted"])
                        for k, v in tiers.items()},

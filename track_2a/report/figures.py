@@ -81,7 +81,7 @@ def numbers() -> dict:
     }
     assert sum(gap.values()) == nat["gap"], (sum(gap.values()), nat["gap"])
     linked_after = pl["attached"] + pl["via_agenda"] + pl["orphan_uid"]
-    ad = j("repair/adapters/summary.json")
+    ad = j("repair/adapters/adapters_summary.json")
     adt = ad["totals"]
     assert ad["coverage"]["needs_adapters_before"] == gap["needs_adapters"], "adapter baseline differs from the census"
     adapters = dict(absent_verified=adt["verified_absent"], absent_open=gap["needs_adapters"] - adt["verified_absent"],

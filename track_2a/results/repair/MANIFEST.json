@@ -1,0 +1,1583 @@
+{
+ "note": "Every repair list under results/repair, the command that writes it and which list wins where two lists name the same affair (precedence). Adapter lists: apply rows with counted=true (verified=true is the same); tier=review rows are for a person. No two files under results/repair share a name.",
+ "precedence": [
+  {
+   "lists": "adapter list vs route list, action=ocr (same affair)",
+   "wins": "adapter list",
+   "why": "the route's ocr rows are candidates (OPD holds the answer file without usable text; no text read, verified empty). The adapters ran on every one of those affairs, read or OCR'd the text and checked it: their row (tier says whether it counts) replaces the candidate. A candidate whose affair has no adapter row (the adapter failed: no usable text, identity or heading not found) stays the only row for it."
+  },
+  {
+   "lists": "adapter list vs route list, action=agenda_join or retype_oral (same affair)",
+   "wins": "no overlap",
+   "why": "agenda joins are census link status agenda, retype_oral is Valais' oral-answer pointer; the adapters only take absent and image_only affairs. Checked on every run (overlaps below)."
+  },
+  {
+   "lists": "route list repair_<BODY>.tsv vs repair_<BODY>_<action>.tsv",
+   "wins": "either (same rows)",
+   "why": "the per-action files are the combined file split by action; apply one or the other, not both."
+  },
+  {
+   "lists": "repair_BE_relink.tsv / repair_BE_begin_date.tsv vs apply_be/apply_BE_plan.*",
+   "wins": "apply_be plan for execution",
+   "why": "the plan is built from the two lists and guards every UPDATE with the before-state (repair.apply_be)."
+  },
+  {
+   "lists": "results/ vs site/downloads/",
+   "wins": "identical",
+   "why": "site/downloads holds byte-identical copies of the lists it offers (sha256 below)."
+  }
+ ],
+ "files": [
+  {
+   "file": "results/repair/repair_131.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 60,
+   "by_action": {
+    "agenda_join": 8,
+    "ocr": 52
+   },
+   "sha256": "32ec868219b9b14a5746432efb4fc28525d470f0030e95516b8cb91a966ee4fe"
+  },
+  {
+   "file": "results/repair/repair_131_agenda_join.tsv",
+   "kind": "route list (one action, subset of the combined file)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 8,
+   "by_action": {
+    "agenda_join": 8
+   },
+   "sha256": "38f34a08b986f5a73047749041a26bbc1659344361a41bbcccca6c8723f116d4"
+  },
+  {
+   "file": "results/repair/repair_131_ocr.tsv",
+   "kind": "route list (one action, subset of the combined file)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 52,
+   "by_action": {
+    "ocr": 52
+   },
+   "sha256": "2a6caa3935eb3726e1decb2278a11f67edbc1ed11f842201d0064123ebd33e59"
+  },
+  {
+   "file": "results/repair/repair_191.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 37,
+   "by_action": {
+    "ocr": 37
+   },
+   "sha256": "5b3f9daa8c636ca5cb4ceaa8bda124379acc20b4787c566d8431abd9fec31bc5"
+  },
+  {
+   "file": "results/repair/repair_198.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 2,
+   "by_action": {
+    "ocr": 2
+   },
+   "sha256": "ee410511426351910dbe3a3d7155535c44bbc103abe2a87dbc30de87ff6c1628"
+  },
+  {
+   "file": "results/repair/repair_230.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 64,
+   "by_action": {
+    "agenda_join": 64
+   },
+   "sha256": "4615568f7eec77ff14bc348bdce7db4dcb3043e61ee6b03460a484104cb2225e"
+  },
+  {
+   "file": "results/repair/repair_2831.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 16,
+   "by_action": {
+    "ocr": 16
+   },
+   "sha256": "e955f2cb47626956c0dac4d71199d0395d36a9f5083b880a5512f4b5f9782986"
+  },
+  {
+   "file": "results/repair/repair_296.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 47,
+   "by_action": {
+    "agenda_join": 3,
+    "ocr": 44
+   },
+   "sha256": "1554bb490cac64b9d4d62f95d58522b5b6cec85a458895479150c8abc70aba19"
+  },
+  {
+   "file": "results/repair/repair_296_agenda_join.tsv",
+   "kind": "route list (one action, subset of the combined file)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 3,
+   "by_action": {
+    "agenda_join": 3
+   },
+   "sha256": "ced12ba5f62ae0ec56493601eb7784c059000ba4d4e0c73183a8123cff001f16"
+  },
+  {
+   "file": "results/repair/repair_296_ocr.tsv",
+   "kind": "route list (one action, subset of the combined file)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 44,
+   "by_action": {
+    "ocr": 44
+   },
+   "sha256": "8d44170ee7f271cb8b81bea2c411c42ea939f0c77c51ab5a16fe580c9260132b"
+  },
+  {
+   "file": "results/repair/repair_4289.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 18,
+   "by_action": {
+    "ocr": 18
+   },
+   "sha256": "d32e4578a6dd7d8be6be845380d81e3b9cf872b9f5f0f7309d2a65619b193f7b"
+  },
+  {
+   "file": "results/repair/repair_4671.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 31,
+   "by_action": {
+    "ocr": 31
+   },
+   "sha256": "045fc1dcb707dde2e8837dd635a4f790a77af94e31dab952b90070b0a15d2a8f"
+  },
+  {
+   "file": "results/repair/repair_5002.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 49,
+   "by_action": {
+    "ocr": 49
+   },
+   "sha256": "808d44e0a72bf91a493dcd6c935bd5558b14b30ea22dec05df97d87147150cc6"
+  },
+  {
+   "file": "results/repair/repair_5113.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 3,
+   "by_action": {
+    "ocr": 3
+   },
+   "sha256": "64e63947317f18f7d0c9146a3a05ebd9989fc3d10f9c0f4a523f9d039b6979d6"
+  },
+  {
+   "file": "results/repair/repair_5586.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 15,
+   "by_action": {
+    "ocr": 15
+   },
+   "sha256": "b88da1a06c4b80ec88cfe56fa134c84f39687ab901aa9bc747a27de82018a404"
+  },
+  {
+   "file": "results/repair/repair_581.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 24,
+   "by_action": {
+    "ocr": 24
+   },
+   "sha256": "b6e989365b6e324e3a0db8ba885d22c16795c3d95747d18bdd0a7ede57e6f6dd"
+  },
+  {
+   "file": "results/repair/repair_AR.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 2,
+   "by_action": {
+    "ocr": 2
+   },
+   "sha256": "88f8a83f3799c9cda58e136c0d55b1591cfe446b63a069f73dbc21e34387ebe1"
+  },
+  {
+   "file": "results/repair/repair_BE.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 3025,
+   "by_action": {
+    "agenda_join": 517,
+    "fetch": 48,
+    "relink": 2421,
+    "review": 39
+   },
+   "sha256": "89e4bf21fbb96bc106a8abcdb95099caabff7a02a187e7ff78b2aafb8d0bead9"
+  },
+  {
+   "file": "results/repair/repair_BE_agenda_join.tsv",
+   "kind": "route list (one action, subset of the combined file)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 517,
+   "by_action": {
+    "agenda_join": 517
+   },
+   "sha256": "053907503e7bbf03a1643926527ebc46fd65d71c057d008a31a20b9e3aa7f1d4"
+  },
+  {
+   "file": "results/repair/repair_BE_begin_date.tsv",
+   "kind": "Bern begin_date list",
+   "command": "python -m gegenprobe.repair.be_begin_date",
+   "rows": 727,
+   "by_action": {
+    "review": 173,
+    "set_begin_date": 554
+   },
+   "sha256": "27c4cf98e5f9634a8fdc3d57227bf279168d0dc27466d36bce7a6af2214dc21e"
+  },
+  {
+   "file": "results/repair/repair_BE_fetch.tsv",
+   "kind": "route list (one action, subset of the combined file)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 48,
+   "by_action": {
+    "fetch": 48
+   },
+   "sha256": "f4e67298e6241d2ebdea922289cf8f21d910df821e6796d71b2fc36afbd37c68"
+  },
+  {
+   "file": "results/repair/repair_BE_relink.tsv",
+   "kind": "route list (one action, subset of the combined file)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 2421,
+   "by_action": {
+    "relink": 2421
+   },
+   "sha256": "779b2ca67e35fda68095729017ae237a7a740ca52996ddbd5380deef8d831e70"
+  },
+  {
+   "file": "results/repair/repair_BE_review.tsv",
+   "kind": "route list (one action, subset of the combined file)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 39,
+   "by_action": {
+    "review": 39
+   },
+   "sha256": "b86c48161c793107fd3acd061c792b0aec6d51d60bd97e0fd70e4ca98e36780d"
+  },
+  {
+   "file": "results/repair/repair_BL.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 56,
+   "by_action": {
+    "ocr": 56
+   },
+   "sha256": "59498059cf7b5d586a1cc3d072a493d8196262cfab888fbdc6b0ecdf4a3b2499"
+  },
+  {
+   "file": "results/repair/repair_BS.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 24,
+   "by_action": {
+    "ocr": 24
+   },
+   "sha256": "cdd58460902658d913bec2d115c7fdab53da221ddfba1b6938177995f559bfd2"
+  },
+  {
+   "file": "results/repair/repair_FR.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 9,
+   "by_action": {
+    "ocr": 9
+   },
+   "sha256": "a168a9f8b90699764aebf0e95590768ab9341255ae6c4670ac737901b07dfffc"
+  },
+  {
+   "file": "results/repair/repair_GR.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 2,
+   "by_action": {
+    "ocr": 2
+   },
+   "sha256": "305c71e8563c644912d29584d1511d078ecd83ec68c95948534b3e18764caa07"
+  },
+  {
+   "file": "results/repair/repair_JU.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 1,
+   "by_action": {
+    "ocr": 1
+   },
+   "sha256": "2d4a6e89f228085f2c59920fbda3c3fb50b0c960941e3c5b8ca2d7889a1514c8"
+  },
+  {
+   "file": "results/repair/repair_OW.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 12,
+   "by_action": {
+    "ocr": 12
+   },
+   "sha256": "3dea64dc28dff5a789fc5de90291a20519c48426dc965236e1bd5ea555d306cf"
+  },
+  {
+   "file": "results/repair/repair_SG.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 1,
+   "by_action": {
+    "ocr": 1
+   },
+   "sha256": "5d615ba511c79644f1bfd99b420ade232f85877ecfafb4db94e1b3a4098abb93"
+  },
+  {
+   "file": "results/repair/repair_SH.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 1,
+   "by_action": {
+    "ocr": 1
+   },
+   "sha256": "a62d779297bb4d114567a60435572e719989b45f1f81f043d3e0e4e69f22121d"
+  },
+  {
+   "file": "results/repair/repair_SO.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 1,
+   "by_action": {
+    "ocr": 1
+   },
+   "sha256": "8b061571a9c962072d6eeb870f5762e5db4a6b17f0a5d17ffcb45f530fc8b4e4"
+  },
+  {
+   "file": "results/repair/repair_TG.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 50,
+   "by_action": {
+    "ocr": 50
+   },
+   "sha256": "f36a9020c975860119b3dca511ec33761f8b02aeac503799d0b086e8dd77a3d1"
+  },
+  {
+   "file": "results/repair/repair_TI.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 775,
+   "by_action": {
+    "ocr": 775
+   },
+   "sha256": "f9dc1ad5907ab1ade41556e76a9e7e92338d9395d46ecf885fddd3ed71465690"
+  },
+  {
+   "file": "results/repair/repair_VS.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 1111,
+   "by_action": {
+    "ocr": 103,
+    "retype_oral": 1008
+   },
+   "sha256": "811e537ebdd13ec053d59e5842fd4a0a13ead3622c837d34ef4e888c35c40544"
+  },
+  {
+   "file": "results/repair/repair_VS_ocr.tsv",
+   "kind": "route list (one action, subset of the combined file)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 103,
+   "by_action": {
+    "ocr": 103
+   },
+   "sha256": "f5676370a4a08c638c15ed1a08935cd7783b6cf94b6fde17d0e4fc0c02f8cc22"
+  },
+  {
+   "file": "results/repair/repair_VS_retype_oral.tsv",
+   "kind": "route list (one action, subset of the combined file)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 1008,
+   "by_action": {
+    "retype_oral": 1008
+   },
+   "sha256": "06a183ac34d3f595a4d217730ae8601c619afa0a12ec6b63b6a08dd65b60a9c7"
+  },
+  {
+   "file": "results/repair/repair_ZH.tsv",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 22,
+   "by_action": {
+    "ocr": 22
+   },
+   "sha256": "c60a51b1b160a540ca769cb9bc3d1f74ac9671106b473d1dae81a330767b231d"
+  },
+  {
+   "file": "results/repair/repair_CHE.tsv.gz",
+   "kind": "route list (combined)",
+   "command": "python -m gegenprobe.repair.run",
+   "rows": 29946,
+   "by_action": {
+    "placeholder_replace": 29946
+   },
+   "sha256": "d22906044e37b4fd6df30cb87209d4ed317a44877356924aa8b922d83f29c1fc"
+  },
+  {
+   "file": "results/repair/apply_be/apply_BE_begin_date_plan.csv",
+   "kind": "Bern apply plan",
+   "command": "python -m gegenprobe.repair.apply_be",
+   "rows": 727,
+   "by_action": {
+    "": 727
+   },
+   "sha256": "687e461dddeee616d70a04d037ed0f05138103320e05106f963538715d512170"
+  },
+  {
+   "file": "results/repair/apply_be/apply_BE_relink_plan.csv",
+   "kind": "Bern apply plan",
+   "command": "python -m gegenprobe.repair.apply_be",
+   "rows": 2421,
+   "by_action": {
+    "": 2421
+   },
+   "sha256": "eb6f6a67b1b716bfffb1a076f3c2e0afc1f59bb435ae1390784f28db59159604"
+  },
+  {
+   "file": "results/repair/adapters/adapters_1059.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 73,
+   "by_action": {
+    "review": 4,
+    "tag_answer": 69
+   },
+   "sha256": "686c9301bcb951a0b21bce0cd9756fa72fa2221359af25c884b713a0eb8e8ef0",
+   "by_tier": {
+    "date_window": 32,
+    "exact_any_printed_date": 2,
+    "exact_doc_date": 35,
+    "review": 4
+   },
+   "counted": 69
+  },
+  {
+   "file": "results/repair/adapters/adapters_121.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_131.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 22,
+   "by_action": {
+    "extract_tag": 2,
+    "review": 20
+   },
+   "sha256": "0333df10c644078164cc80e858fd59f1583ba5ec1d1e834aa00f18294871d583",
+   "by_tier": {
+    "exact_doc_date": 2,
+    "review": 20
+   },
+   "counted": 2
+  },
+  {
+   "file": "results/repair/adapters/adapters_191.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 34,
+   "by_action": {
+    "extract_tag": 2,
+    "review": 32
+   },
+   "sha256": "7ea7b315f819f6c414cd59f4f2d50b91240668425f29e98744190b515b295f8f",
+   "by_tier": {
+    "exact_any_printed_date": 1,
+    "exact_doc_date": 1,
+    "review": 32
+   },
+   "counted": 2
+  },
+  {
+   "file": "results/repair/adapters/adapters_198.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_230.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_247.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_261.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 1438,
+   "by_action": {
+    "review": 21,
+    "tag_answer": 1417
+   },
+   "sha256": "a395da5564baea11dc1265bd0f280b7412254a7ed89cb1c8f152b79e9b8666d0",
+   "by_tier": {
+    "date_window": 215,
+    "exact_any_printed_date": 40,
+    "exact_doc_date": 1162,
+    "review": 21
+   },
+   "counted": 1417
+  },
+  {
+   "file": "results/repair/adapters/adapters_2829.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 63,
+   "by_action": {
+    "review": 63
+   },
+   "sha256": "c26738a2e946a3c4b4a38f823672ff469e46aa83fa35f4b1eb788a10dead157b",
+   "by_tier": {
+    "review": 63
+   },
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_2831.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 15,
+   "by_action": {
+    "review": 15
+   },
+   "sha256": "f5738d00e5c7a0d39eae285ca35b3a376b9c7981b49e59446c422c3325c2d5eb",
+   "by_tier": {
+    "review": 15
+   },
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_293.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_296.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 39,
+   "by_action": {
+    "extract_tag": 30,
+    "review": 9
+   },
+   "sha256": "58fed6db89f9c1da9da9807b031b8bb940c30bcbc21f1dc418b7e670831fec3f",
+   "by_tier": {
+    "exact_any_printed_date": 1,
+    "exact_doc_date": 29,
+    "review": 9
+   },
+   "counted": 30
+  },
+  {
+   "file": "results/repair/adapters/adapters_351.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 5,
+   "by_action": {
+    "review": 2,
+    "tag_answer": 3
+   },
+   "sha256": "91c5bd080163eed7bb105daaf08c62865fdef70baa77359a5987762122dbc577",
+   "by_tier": {
+    "exact_doc_date": 3,
+    "review": 2
+   },
+   "counted": 3
+  },
+  {
+   "file": "results/repair/adapters/adapters_4001.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 87,
+   "by_action": {
+    "fetch": 67,
+    "review": 16,
+    "tag_answer": 4
+   },
+   "sha256": "7a6912a480c33ff55f99066374dde7157c3485f0e36bc95a5a6f7bea49194ea3",
+   "by_tier": {
+    "exact_any_printed_date": 69,
+    "exact_doc_date": 2,
+    "review": 16
+   },
+   "counted": 71
+  },
+  {
+   "file": "results/repair/adapters/adapters_4289.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 27,
+   "by_action": {
+    "extract_tag": 1,
+    "review": 22,
+    "tag_answer": 4
+   },
+   "sha256": "9354b343fd69434fa32165ce73a44dc475be40476af998ee55131dbe434908d3",
+   "by_tier": {
+    "exact_any_printed_date": 1,
+    "exact_doc_date": 4,
+    "review": 22
+   },
+   "counted": 5
+  },
+  {
+   "file": "results/repair/adapters/adapters_4401.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 21,
+   "by_action": {
+    "tag_answer": 21
+   },
+   "sha256": "b0c0701a926ca08dce64056ad61d75c1e35b6cf9b56aa458ae4cc678829d2101",
+   "by_tier": {
+    "exact_doc_date": 21
+   },
+   "counted": 21
+  },
+  {
+   "file": "results/repair/adapters/adapters_4566.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 163,
+   "by_action": {
+    "extract_tag": 2,
+    "review": 147,
+    "tag_answer": 14
+   },
+   "sha256": "0f5065c42ee74f8c5cb2a43547a8bfc734944d83500120576615f1a7735f19c2",
+   "by_tier": {
+    "exact_any_printed_date": 4,
+    "exact_doc_date": 12,
+    "review": 147
+   },
+   "counted": 16
+  },
+  {
+   "file": "results/repair/adapters/adapters_4671.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 4,
+   "by_action": {
+    "review": 4
+   },
+   "sha256": "e42c74f030061d243e041e0c40ddbe07caa428955c466a463fe19af03d66d5ba",
+   "by_tier": {
+    "review": 4
+   },
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_5002.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 49,
+   "by_action": {
+    "review": 49
+   },
+   "sha256": "7ea6cfddf4a4d99997fb44f804337311ea66c3f83fc762eca28f5168fadc4e50",
+   "by_tier": {
+    "review": 49
+   },
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_5113.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 225,
+   "by_action": {
+    "extract_tag": 58,
+    "review": 103,
+    "tag_answer": 64
+   },
+   "sha256": "c70e5aa86cb621c41581ec5e01444702235c698f98e67d42dac6c23e209d1237",
+   "by_tier": {
+    "exact_any_printed_date": 13,
+    "exact_doc_date": 109,
+    "review": 103
+   },
+   "counted": 122
+  },
+  {
+   "file": "results/repair/adapters/adapters_5192.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 7,
+   "by_action": {
+    "review": 6,
+    "tag_answer": 1
+   },
+   "sha256": "04188a59c13c7b8dc3fe4af53e50415a4349dccc0576c3e6712377f65b6e8198",
+   "by_tier": {
+    "exact_any_printed_date": 1,
+    "review": 6
+   },
+   "counted": 1
+  },
+  {
+   "file": "results/repair/adapters/adapters_5586.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 65,
+   "by_action": {
+    "review": 61,
+    "tag_answer": 4
+   },
+   "sha256": "ca9ef83331244ca810974b1f058eecb5fff5bc8120e0492451ef2b6115b623c3",
+   "by_tier": {
+    "exact_any_printed_date": 3,
+    "exact_doc_date": 1,
+    "review": 61
+   },
+   "counted": 4
+  },
+  {
+   "file": "results/repair/adapters/adapters_581.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 14,
+   "by_action": {
+    "review": 14
+   },
+   "sha256": "895349ba66b88702b44cd6fc690dcfba2cc737e9ab088bf7ae244439b28b4ffc",
+   "by_tier": {
+    "review": 14
+   },
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_6152.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_6153.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 33,
+   "by_action": {
+    "review": 4,
+    "tag_answer": 29
+   },
+   "sha256": "ad263a1122a6e67423b86b3cee06a742b1fd6b1ce1f6f097e436efd862909ccb",
+   "by_tier": {
+    "exact_any_printed_date": 25,
+    "exact_doc_date": 4,
+    "review": 4
+   },
+   "counted": 29
+  },
+  {
+   "file": "results/repair/adapters/adapters_616.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_6458.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_66.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_6643.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_743.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_942.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_AR.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_BL.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 2,
+   "by_action": {
+    "tag_answer": 2
+   },
+   "sha256": "6817768bab063f29794d6c07051e7336cb296094f83879e905a8262ba74f8c69",
+   "by_tier": {
+    "exact_any_printed_date": 2
+   },
+   "counted": 2
+  },
+  {
+   "file": "results/repair/adapters/adapters_BS.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 1,
+   "by_action": {
+    "tag_answer": 1
+   },
+   "sha256": "4e3cae0f750d751f93da1f58075540b9d759f4a7bc7fec48b0b15ce5b93cac93",
+   "by_tier": {
+    "exact_any_printed_date": 1
+   },
+   "counted": 1
+  },
+  {
+   "file": "results/repair/adapters/adapters_FR.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 7,
+   "by_action": {
+    "extract_tag": 6,
+    "review": 1
+   },
+   "sha256": "ba0bee9c0b178e709c349392f1cf0015403a206d8954fc8ca90d272b3b55414c",
+   "by_tier": {
+    "exact_any_printed_date": 6,
+    "review": 1
+   },
+   "counted": 6
+  },
+  {
+   "file": "results/repair/adapters/adapters_GE.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_GR.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_JU.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 382,
+   "by_action": {
+    "review": 310,
+    "tag_answer": 72
+   },
+   "sha256": "4a9f6e562e4807ed2dbf03c524b58eadb35c2c3e985e7c3b0b706914b3cae88d",
+   "by_tier": {
+    "exact_doc_date": 72,
+    "identity_wording_only": 282,
+    "review": 28
+   },
+   "counted": 72
+  },
+  {
+   "file": "results/repair/adapters/adapters_LIE.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_LU.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 105,
+   "by_action": {
+    "fetch": 104,
+    "review": 1
+   },
+   "sha256": "04df921d25a570ab3cfd2151f0ca5dc351b007a576b8da264b9e7ca44cb8dac3",
+   "by_tier": {
+    "exact_doc_date": 104,
+    "review": 1
+   },
+   "counted": 104
+  },
+  {
+   "file": "results/repair/adapters/adapters_NE.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 251,
+   "by_action": {
+    "review": 14,
+    "tag_answer": 237
+   },
+   "sha256": "9164a8de301ef0f84136a4911bdfd450b962041e8989080a77182c7bd2813bc1",
+   "by_tier": {
+    "date_window": 9,
+    "exact_any_printed_date": 111,
+    "exact_doc_date": 117,
+    "review": 14
+   },
+   "counted": 237
+  },
+  {
+   "file": "results/repair/adapters/adapters_OW.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_SG.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 1014,
+   "by_action": {
+    "fetch": 1012,
+    "review": 2
+   },
+   "sha256": "8827dfa492ce4fd7120ac450d6e9051c4c4daf5c315c873a0fb8187523052bb1",
+   "by_tier": {
+    "exact_doc_date": 1012,
+    "review": 2
+   },
+   "counted": 1012
+  },
+  {
+   "file": "results/repair/adapters/adapters_SH.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_SO.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 211,
+   "by_action": {
+    "fetch": 210,
+    "review": 1
+   },
+   "sha256": "f2ea87986e66c0284e5cc02f7d3fd867068055c482e6ee3e6aa6aa71f15a4964",
+   "by_tier": {
+    "exact_doc_date": 210,
+    "review": 1
+   },
+   "counted": 210
+  },
+  {
+   "file": "results/repair/adapters/adapters_TG.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 49,
+   "by_action": {
+    "extract_tag": 31,
+    "review": 17,
+    "tag_answer": 1
+   },
+   "sha256": "1902b2843f5a8a95ece84ab29ab214a74e779eaa46cc6a7a51f71b35a6d4139f",
+   "by_tier": {
+    "exact_any_printed_date": 32,
+    "review": 17
+   },
+   "counted": 32
+  },
+  {
+   "file": "results/repair/adapters/adapters_TI.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 765,
+   "by_action": {
+    "extract_tag": 719,
+    "review": 46
+   },
+   "sha256": "7e6bf39b4db5a7df6c3049abb0b4e43f5fdddd1894ec506d3c2aea9b2c0f4ac0",
+   "by_tier": {
+    "exact_any_printed_date": 719,
+    "review": 46
+   },
+   "counted": 719
+  },
+  {
+   "file": "results/repair/adapters/adapters_VD.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 104,
+   "by_action": {
+    "review": 13,
+    "tag_answer": 91
+   },
+   "sha256": "3fb2dd1a6e8d8e745ee528ee87787dece2b7fd338681004a3bef186d47171948",
+   "by_tier": {
+    "exact_any_printed_date": 8,
+    "exact_doc_date": 83,
+    "review": 13
+   },
+   "counted": 91
+  },
+  {
+   "file": "results/repair/adapters/adapters_VS.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 282,
+   "by_action": {
+    "fetch": 163,
+    "review": 119
+   },
+   "sha256": "0efa51fe44694e686da7ef3061ed0a901d274f36565e2abfac379257099713bb",
+   "by_tier": {
+    "date_window": 140,
+    "exact_any_printed_date": 15,
+    "exact_doc_date": 8,
+    "review": 119
+   },
+   "counted": 163
+  },
+  {
+   "file": "results/repair/adapters/adapters_X.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 0,
+   "by_action": {},
+   "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
+   "by_tier": {},
+   "counted": 0
+  },
+  {
+   "file": "results/repair/adapters/adapters_ZH.tsv",
+   "kind": "adapter list",
+   "command": "python -m gegenprobe.repair.adapters.run --write",
+   "rows": 2255,
+   "by_action": {
+    "extract_tag": 1,
+    "fetch": 2028,
+    "review": 83,
+    "tag_answer": 143
+   },
+   "sha256": "ce54305f4b0dd8e20374a8e80add6aa024259506a0d1e8f200c81009f81a5d8b",
+   "by_tier": {
+    "exact_any_printed_date": 2,
+    "exact_doc_date": 2170,
+    "review": 83
+   },
+   "counted": 2172
+  }
+ ],
+ "overlaps": [
+  {
+   "body": "131",
+   "route_list": "repair_131.tsv",
+   "adapter_list": "adapters_131.tsv",
+   "route_rows": 60,
+   "adapter_rows": 22,
+   "same_affair": 22,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "agenda_join / no adapter row": 8,
+    "ocr / exact_doc_date": 2,
+    "ocr / no adapter row": 30,
+    "ocr / review": 20
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "191",
+   "route_list": "repair_191.tsv",
+   "adapter_list": "adapters_191.tsv",
+   "route_rows": 37,
+   "adapter_rows": 34,
+   "same_affair": 34,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / exact_any_printed_date": 1,
+    "ocr / exact_doc_date": 1,
+    "ocr / no adapter row": 3,
+    "ocr / review": 32
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "198",
+   "route_list": "repair_198.tsv",
+   "adapter_list": "adapters_198.tsv",
+   "route_rows": 2,
+   "adapter_rows": 0,
+   "same_affair": 0,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / no adapter row": 2
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "230",
+   "route_list": "repair_230.tsv",
+   "adapter_list": "adapters_230.tsv",
+   "route_rows": 64,
+   "adapter_rows": 0,
+   "same_affair": 0,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "agenda_join / no adapter row": 64
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "2831",
+   "route_list": "repair_2831.tsv",
+   "adapter_list": "adapters_2831.tsv",
+   "route_rows": 16,
+   "adapter_rows": 15,
+   "same_affair": 15,
+   "opd_doc_id_differs": 1,
+   "by_route_action_and_adapter_tier": {
+    "ocr / no adapter row": 1,
+    "ocr / review": 15
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "296",
+   "route_list": "repair_296.tsv",
+   "adapter_list": "adapters_296.tsv",
+   "route_rows": 47,
+   "adapter_rows": 39,
+   "same_affair": 39,
+   "opd_doc_id_differs": 1,
+   "by_route_action_and_adapter_tier": {
+    "agenda_join / no adapter row": 3,
+    "ocr / exact_any_printed_date": 1,
+    "ocr / exact_doc_date": 29,
+    "ocr / no adapter row": 5,
+    "ocr / review": 9
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "4289",
+   "route_list": "repair_4289.tsv",
+   "adapter_list": "adapters_4289.tsv",
+   "route_rows": 18,
+   "adapter_rows": 27,
+   "same_affair": 18,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / exact_any_printed_date": 1,
+    "ocr / review": 17
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "4671",
+   "route_list": "repair_4671.tsv",
+   "adapter_list": "adapters_4671.tsv",
+   "route_rows": 31,
+   "adapter_rows": 4,
+   "same_affair": 2,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / no adapter row": 29,
+    "ocr / review": 2
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "5002",
+   "route_list": "repair_5002.tsv",
+   "adapter_list": "adapters_5002.tsv",
+   "route_rows": 49,
+   "adapter_rows": 49,
+   "same_affair": 49,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / review": 49
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "5113",
+   "route_list": "repair_5113.tsv",
+   "adapter_list": "adapters_5113.tsv",
+   "route_rows": 3,
+   "adapter_rows": 225,
+   "same_affair": 3,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / exact_doc_date": 3
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "5586",
+   "route_list": "repair_5586.tsv",
+   "adapter_list": "adapters_5586.tsv",
+   "route_rows": 15,
+   "adapter_rows": 65,
+   "same_affair": 14,
+   "opd_doc_id_differs": 1,
+   "by_route_action_and_adapter_tier": {
+    "ocr / no adapter row": 1,
+    "ocr / review": 14
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "581",
+   "route_list": "repair_581.tsv",
+   "adapter_list": "adapters_581.tsv",
+   "route_rows": 24,
+   "adapter_rows": 14,
+   "same_affair": 14,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / no adapter row": 10,
+    "ocr / review": 14
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "AR",
+   "route_list": "repair_AR.tsv",
+   "adapter_list": "adapters_AR.tsv",
+   "route_rows": 2,
+   "adapter_rows": 0,
+   "same_affair": 0,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / no adapter row": 2
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "BL",
+   "route_list": "repair_BL.tsv",
+   "adapter_list": "adapters_BL.tsv",
+   "route_rows": 56,
+   "adapter_rows": 2,
+   "same_affair": 0,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / no adapter row": 56
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "BS",
+   "route_list": "repair_BS.tsv",
+   "adapter_list": "adapters_BS.tsv",
+   "route_rows": 24,
+   "adapter_rows": 1,
+   "same_affair": 0,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / no adapter row": 24
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "FR",
+   "route_list": "repair_FR.tsv",
+   "adapter_list": "adapters_FR.tsv",
+   "route_rows": 9,
+   "adapter_rows": 7,
+   "same_affair": 7,
+   "opd_doc_id_differs": 5,
+   "by_route_action_and_adapter_tier": {
+    "ocr / exact_any_printed_date": 6,
+    "ocr / no adapter row": 2,
+    "ocr / review": 1
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "GR",
+   "route_list": "repair_GR.tsv",
+   "adapter_list": "adapters_GR.tsv",
+   "route_rows": 2,
+   "adapter_rows": 0,
+   "same_affair": 0,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / no adapter row": 2
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "JU",
+   "route_list": "repair_JU.tsv",
+   "adapter_list": "adapters_JU.tsv",
+   "route_rows": 1,
+   "adapter_rows": 382,
+   "same_affair": 0,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / no adapter row": 1
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "OW",
+   "route_list": "repair_OW.tsv",
+   "adapter_list": "adapters_OW.tsv",
+   "route_rows": 12,
+   "adapter_rows": 0,
+   "same_affair": 0,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / no adapter row": 12
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "SG",
+   "route_list": "repair_SG.tsv",
+   "adapter_list": "adapters_SG.tsv",
+   "route_rows": 1,
+   "adapter_rows": 1014,
+   "same_affair": 1,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / exact_doc_date": 1
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "SH",
+   "route_list": "repair_SH.tsv",
+   "adapter_list": "adapters_SH.tsv",
+   "route_rows": 1,
+   "adapter_rows": 0,
+   "same_affair": 0,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / no adapter row": 1
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "SO",
+   "route_list": "repair_SO.tsv",
+   "adapter_list": "adapters_SO.tsv",
+   "route_rows": 1,
+   "adapter_rows": 211,
+   "same_affair": 1,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / exact_doc_date": 1
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "TG",
+   "route_list": "repair_TG.tsv",
+   "adapter_list": "adapters_TG.tsv",
+   "route_rows": 50,
+   "adapter_rows": 49,
+   "same_affair": 49,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / exact_any_printed_date": 32,
+    "ocr / no adapter row": 1,
+    "ocr / review": 17
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "TI",
+   "route_list": "repair_TI.tsv",
+   "adapter_list": "adapters_TI.tsv",
+   "route_rows": 775,
+   "adapter_rows": 765,
+   "same_affair": 765,
+   "opd_doc_id_differs": 4,
+   "by_route_action_and_adapter_tier": {
+    "ocr / exact_any_printed_date": 719,
+    "ocr / no adapter row": 10,
+    "ocr / review": 46
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "VS",
+   "route_list": "repair_VS.tsv",
+   "adapter_list": "adapters_VS.tsv",
+   "route_rows": 1111,
+   "adapter_rows": 282,
+   "same_affair": 36,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / date_window": 4,
+    "ocr / exact_any_printed_date": 15,
+    "ocr / exact_doc_date": 3,
+    "ocr / no adapter row": 67,
+    "ocr / review": 14,
+    "retype_oral / no adapter row": 1008
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  },
+  {
+   "body": "ZH",
+   "route_list": "repair_ZH.tsv",
+   "adapter_list": "adapters_ZH.tsv",
+   "route_rows": 22,
+   "adapter_rows": 2255,
+   "same_affair": 7,
+   "opd_doc_id_differs": 0,
+   "by_route_action_and_adapter_tier": {
+    "ocr / exact_doc_date": 1,
+    "ocr / no adapter row": 15,
+    "ocr / review": 6
+   },
+   "winner": "adapter list for the same_affair rows; the route list for its other rows"
+  }
+ ],
+ "overlap_totals": {
+  "same_affair": 1076,
+  "opd_doc_id_differs": 12,
+  "by_pair": {
+   "agenda_join / no adapter row": 75,
+   "ocr / exact_doc_date": 41,
+   "ocr / no adapter row": 274,
+   "ocr / review": 256,
+   "ocr / exact_any_printed_date": 775,
+   "ocr / date_window": 4,
+   "retype_oral / no adapter row": 1008
+  }
+ },
+ "same_name": {},
+ "site_copies_identical": {
+  "repair_BE_begin_date.tsv": true,
+  "repair_BE_fetch.tsv": true,
+  "repair_BE_relink.tsv": true,
+  "repair_BE_review.tsv": true,
+  "apply_BE_begin_date_plan.csv": true,
+  "apply_BE_relink_plan.csv": true,
+  "adapters_1059.tsv": true,
+  "adapters_131.tsv": true,
+  "adapters_191.tsv": true,
+  "adapters_261.tsv": true,
+  "adapters_2829.tsv": true,
+  "adapters_2831.tsv": true,
+  "adapters_296.tsv": true,
+  "adapters_351.tsv": true,
+  "adapters_4001.tsv": true,
+  "adapters_4289.tsv": true,
+  "adapters_4401.tsv": true,
+  "adapters_4566.tsv": true,
+  "adapters_4671.tsv": true,
+  "adapters_5002.tsv": true,
+  "adapters_5113.tsv": true,
+  "adapters_5192.tsv": true,
+  "adapters_5586.tsv": true,
+  "adapters_581.tsv": true,
+  "adapters_6153.tsv": true,
+  "adapters_BL.tsv": true,
+  "adapters_BS.tsv": true,
+  "adapters_FR.tsv": true,
+  "adapters_JU.tsv": true,
+  "adapters_LU.tsv": true,
+  "adapters_NE.tsv": true,
+  "adapters_SG.tsv": true,
+  "adapters_SO.tsv": true,
+  "adapters_TG.tsv": true,
+  "adapters_TI.tsv": true,
+  "adapters_VD.tsv": true,
+  "adapters_VS.tsv": true,
+  "adapters_ZH.tsv": true
+ }
+}
