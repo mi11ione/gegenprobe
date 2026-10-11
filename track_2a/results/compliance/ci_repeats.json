@@ -1,0 +1,34 @@
+{
+ "note": "Upper bound on repeated requests to disallowed www4.ti.ch paths made by GitHub Actions runs before the RFC 9309 fix (commit 099f416, pushed 2026-10-10T22:48:05Z). Run counts from `gh run list` (all runs created before the fix, any conclusion); per-run request counts from the recorded runs in results/compliance/robots_audit_all.json. Runs that failed before their fetch step made fewer or no requests, so these are upper bounds.",
+ "fix_commit": "099f416",
+ "fix_pushed": "2026-10-10T22:48:05Z",
+ "workflows": {
+  "ci.yml (make run re-derivation)": {
+   "runs_before_fix": 96,
+   "ti_requests_per_run": 43,
+   "upper_bound": 4128
+  },
+  "arms-8b.yml": {
+   "runs_before_fix": 6,
+   "ti_requests_per_run": 261,
+   "upper_bound": 1566
+  },
+  "arms-8b-par.yml": {
+   "runs_before_fix": 2,
+   "ti_requests_per_run": 387,
+   "upper_bound": 774
+  },
+  "arms-8b-fill.yml": {
+   "runs_before_fix": 1,
+   "ti_requests_per_run": 40,
+   "upper_bound": 40
+  },
+  "arms-8b-p6.yml": {
+   "runs_before_fix": 1,
+   "ti_requests_per_run": 147,
+   "upper_bound": 147
+  }
+ },
+ "upper_bound_total": 6655,
+ "not_counted": "arms-8b-p2.yml (1 run) and gguf-8b.yml (4 runs): per-run Ticino request counts not recorded; P2 contains no www4.ti.ch document; gguf-8b fetched model files and a few demo documents"
+}

@@ -99,7 +99,7 @@ parliament's robots.txt for the paths the route needs, read under RFC 9309.
 | Bern city (351) | 106 | **partial, in OPD**: "Vortrag des Gemeinderats an den Stadtrat"; Kleine Anfragen in session minutes not built | allowed |
 | Luzern canton (LU) | 105 | **yes**: affair page (OPD url_external) -> link "Antwort/Stellungnahme des Regierungsrates" -> cdws document | allowed |
 | Kriens (1059) | 75 | **yes, in OPD**: "Begründung zum Postulat / zur Motion", "Antrag des Stadtrates" | `/route/` disallowed (not needed: OPD text) |
-| Ticino canton (TI) | 1 (+775 image-only) | **Word/PDF route blocked**: the answer files (`allegato.php`, e.g. `r100.19.doc`) are disallowed by robots.txt; the image-only answers are OCR'd from OPD's own copy on files.openparldata.ch | www4.ti.ch: `/user_librerie/php/GC/allegato.php` **disallowed** |
+| Ticino canton (TI) | 1 (+775 image-only) | **Word/PDF route blocked**: the answer files (`allegato.php`) are disallowed by robots.txt; the image-only answers are OCR'd from OPD's own copy on files.openparldata.ch | www4.ti.ch: `/user_librerie/php/GC/allegato.php` **disallowed** |
 
 Every other parliament with target affairs runs the generic in-OPD adapter (`inopd.py`).
 
@@ -211,8 +211,9 @@ and wording are not counted: no dated answer event to check against).
 9309 §2.2.2 says the **most specific (longest)** match wins and an allow wins a tie. www4.ti.ch lists `Allow: /` before
 `Disallow: /user_librerie/php/GC/allegato.php`, so `net` allowed a path the site disallows. On 10 Oct 2026, during the
 adapter run, three Ticino answer files (`allegato.php?allid=115005`, `119023`, `137701`) were fetched this way; they
-were deleted from WORK and no row uses them (Ticino's answers come from OPD's own copy on files.openparldata.ch).
-Details and timeline: `docs/incidents.md`.
+were deleted from WORK and no row uses them (Ticino's answers come from OPD's own copy on files.openparldata.ch). The
+same parser also let the gold-set samplers, `make run` and a census spot check request disallowed www4.ti.ch paths (147
+URLs in all, 9-10 Oct); the project-wide audit, the OPD-copy fallback and the timeline are in `docs/incidents.md`.
 
 The fix covers every entry point, not only the adapters. `src/gegenprobe/robots9309.py` is the one matcher (longest
 match, allow wins ties, `*` and a final `$`, groups for our product token merged, empty `Disallow` allows, percent

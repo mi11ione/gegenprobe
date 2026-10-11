@@ -117,6 +117,8 @@ def ti_net(monkeypatch):
     monkeypatch.setattr(net, "_robots_note", {})
     monkeypatch.setattr(net, "_robots_lenient", {})
     monkeypatch.setattr(net, "_wait", lambda host: None)
+    if hasattr(net.open_url, "__wrapped__"):  # OPD-copy routing off: these tests check net's own robots.txt refusal
+        monkeypatch.setitem(net.open_url.__globals__, "_map", {})
     seen = []
 
     def fake_urlopen(req, timeout=None):

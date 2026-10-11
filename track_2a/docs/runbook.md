@@ -57,14 +57,19 @@ the journal and listed in `run.json` (`robots_unreadable`); the rows it affects 
 night. `api.openparldata.ch/v1/` is refused outright (its robots.txt disallows it).
 
 Rules are matched under **RFC 9309 §2.2.2**: the longest matching path wins, an `Allow` wins a tie, `*` and a final `$` are
-wildcards. Python's `urllib.robotparser` applies the first match instead; on 10 Oct 2026 that let three Ticino files
-through (`Allow: /` before `Disallow: /user_librerie/php/GC/allegato.php` on www4.ti.ch; deleted, unused;
-`docs/incidents.md`). Since 11 Oct 2026 `src/sitecustomize.py` installs the RFC 9309 matcher
+wildcards. Python's `urllib.robotparser` applies the first match instead; until 11 Oct 2026 that let 147 requests to
+disallowed www4.ti.ch paths through (`Allow: /` before `Disallow: /user_librerie/php/GC/allegato.php`; gold samplers,
+`make run`, adapters, a census spot check; `docs/incidents.md`, `results/compliance/robots_audit_all.json`). Those
+documents are now requested from OPD's own copy on files.openparldata.ch (`data/compliance/mirror_urls.json`, applied by
+`src/sitecustomize.py` to `gegenprobe.net`). Since 11 Oct 2026 `src/sitecustomize.py` installs the RFC 9309 matcher
 (`src/gegenprobe/robots9309.py`) into `urllib.robotparser` at interpreter start. Python loads it only when `src/` is on
 `PYTHONPATH`, which both units provide: the Docker unit through the image's `ENV PYTHONPATH=/app/src:/app`, the venv unit
 through `Environment=PYTHONPATH=/opt/gegenprobe/track_2a/src`. **Keep that line if you write your own unit or wrapper.**
 To check a host, from the checkout: `PYTHONPATH=src python -c 'import urllib.robotparser as r; print(r.RobotFileParser.can_fetch.__module__)'`
-prints `_gegenprobe_robots9309`. If it prints `urllib.robotparser` instead, the patch is not active.
+prints `_gegenprobe_robots9309`. If it prints `urllib.robotparser` instead, the patch is not active. The OPD-copy routing:
+`PYTHONPATH=src python -c 'import sys; from gegenprobe import net; print(sys.modules["_gegenprobe_mirror"].installed(net))'`
+prints `True`. Re-run the project-wide audit with `python -m gegenprobe.compliance.audit --offline` (stored robots.txt
+copies) or `--refresh` (one robots.txt request per host).
 
 ## What it reads and writes
 

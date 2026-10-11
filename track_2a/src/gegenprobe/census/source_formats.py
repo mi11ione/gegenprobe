@@ -1,58 +1,62 @@
-"""Which file formats a parliament publishes an answer in, next to what OPD holds (network; polite; a spot check, not a count).
+"""Which copies of an answer OPD holds, and whether one has text (offline; OPD's records only).
 
-    python -m gegenprobe.census.source_formats [ATTO_ID ...]    -> results/census/source_formats_ti.json
+    python -m gegenprobe.census.source_formats [AFFAIR_ID ...]    -> results/census/source_formats_ti.json
 
-Ticino's Gran Consiglio lists each atto on one page (OPD's url_external, the `source ↗` link on the site) with its answer
-attachments ("Risposta del CdS del …"). Where OPD's copy of the answer has no text (census link status `image_only`), the
-parliament may still publish a text version: a second attachment of the same answer as a Word file or a text PDF. This
-module reads the atto page, lists the answer attachments and their file names (from the Content-Disposition header; the
-body is not downloaded), and puts OPD's documents for the same affair next to them (data/census/docs.tsv.gz).
-Default: atto 101174 (interrogazione 100.19, OPD affair 173406). One page + one request per attachment, >= 1.2 s apart.
+History. Until 11 Oct 2026 this module read Ticino's atto page (www4.ti.ch/poteri/gc/ricerca-messaggi-e-atti/ricerca/…)
+and opened each answer attachment (www4.ti.ch/user_librerie/php/GC/allegato.php) to read its file name. Both paths are
+disallowed by www4.ti.ch's robots.txt under RFC 9309; the first-match parser net used then let the three requests of
+10 Oct 2026 through (docs/incidents.md). Their result (the parliament's file names for interrogazione 100.19) is
+withdrawn: OPD's records do not hold the Word attachment of that answer, so it cannot be re-sourced from OPD.
+
+What it does now: for each affair, list the documents OPD records on it (data/census/docs.tsv.gz: id, name, text status,
+length) and count OPD's copies of the answer and how many have text. No network. `attos` stays empty (no parliament page
+is read), so the site prints no parliament-side spot check.
 """
 from __future__ import annotations
 
 import datetime as dt
-import html
 import json
-import re
 import sys
 
-from .. import net
 from ..paths import RESULTS
 from .tables import rows
 
-PAGE = "https://www4.ti.ch/poteri/gc/ricerca-messaggi-e-atti/ricerca/risultati/dettaglio?user_gcparlamento_pi8%5Battid%5D={atto}"
-LINK = re.compile(r'href="(https://www4\.ti\.ch/user_librerie/php/GC/allegato\.php\?allid=\d+)"[^>]*>([^<]+)</a>')
-FNAME = re.compile(r'filename="?([^";]+)"?')
 OUT = RESULTS / "census" / "source_formats_ti.json"
-DEFAULT = {101174: 173406}  # atto id -> OPD affair id (from the affair's url_external, site/missing.json)
+DEFAULT = (173406,)  # OPD affair of interrogazione 100.19 (Ticino)
+ANSWER_PREFIX = "Risposta"
+# the requests of 10 Oct 2026 whose result is withdrawn (kept so the robots.txt audit counts them)
+WITHDRAWN_REQUESTS = [
+    dict(url="https://www4.ti.ch/poteri/gc/ricerca-messaggi-e-atti/ricerca/risultati/dettaglio"
+             "?user_gcparlamento_pi8%5Battid%5D=101174", request="page_read", date="2026-10-10"),
+    dict(url="https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=131008", request="headers_only", date="2026-10-10"),
+    dict(url="https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=131009", request="headers_only", date="2026-10-10"),
+]
 
 
-def check(atto: int, affair: int | None) -> dict:
-    page = net.get(PAGE.format(atto=atto)).decode("utf-8", "replace")
-    links = [(u, html.unescape(t).strip()) for u, t in LINK.findall(page)]
-    answers = []
-    for u, t in links:
-        if not t.startswith("Risposta"):
-            continue
-        with net.open_url(u) as r:  # headers only; the body is not read
-            cd, ct = r.headers.get("Content-Disposition", ""), r.headers.get("Content-Type", "")
-        m = FNAME.search(cd)
-        answers.append(dict(url=u, title=t, filename=m.group(1) if m else None, content_type=ct.split(";")[0]))
-    opd = [dict(doc_id=int(d["id"]), name=d["name"], opd_text_status=d["status"], chars=int(d["n"] or 0))
-           for d in rows("docs") if affair is not None and d["affair"] == str(affair)]
-    return dict(atto=atto, page=PAGE.format(atto=atto), affair=affair, source_answer_files=answers, opd_documents=opd,
-                opd_answer_copies=sum(1 for d in opd if d["name"].startswith("Risposta")),
-                opd_answer_copies_with_text=sum(1 for d in opd if d["name"].startswith("Risposta")
-                                                and d["opd_text_status"] == "ok"))
+def opd_side(affair: int) -> dict:
+    docs = [dict(doc_id=int(d["id"]), name=d["name"], opd_text_status=d["status"], chars=int(d["n"] or 0))
+            for d in rows("docs") if d["affair"] == str(affair)]
+    ans = [d for d in docs if d["name"].startswith(ANSWER_PREFIX)]
+    return dict(affair=affair, opd_documents=docs, opd_answer_copies=len(ans),
+                opd_answer_copies_with_text=sum(1 for d in ans if d["opd_text_status"] == "ok"))
 
 
 def main(argv: list[str]) -> int:
-    attos = {int(a): None for a in argv} or DEFAULT
-    out = dict(label="Spot check (not a count): answer files the parliament publishes vs OPD's copies, Ticino",
-               checked=dt.date.today().isoformat(), user_agent=net.UA,
-               attos=[check(a, aff if aff is not None else DEFAULT.get(a)) for a, aff in attos.items()])
-    OUT.write_text(json.dumps(out, indent=1, ensure_ascii=False))
+    affairs = [int(a) for a in argv] or list(DEFAULT)
+    out = dict(
+        label="OPD's copies of an answer and their text status (OPD records only; no parliament page is read)",
+        checked=dt.date.today().isoformat(),
+        withdrawn=dict(
+            date="2026-10-11",
+            what="the 10 Oct 2026 spot check of Ticino's answer attachments (one atto page, two attachment headers)",
+            why="www4.ti.ch robots.txt disallows /poteri/gc/ricerca-messaggi-e-atti/ricerca/ and "
+                "/user_librerie/php/GC/allegato.php (RFC 9309 longest match); see docs/incidents.md and "
+                "results/compliance/robots_audit_all.json",
+            not_re_sourceable="OPD's records hold no Word copy of this answer; the parliament's file names are not used",
+            requests=WITHDRAWN_REQUESTS),
+        attos=[],
+        opd=[opd_side(a) for a in affairs])
+    OUT.write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n")
     print(json.dumps(out, indent=1, ensure_ascii=False))
     return 0
 

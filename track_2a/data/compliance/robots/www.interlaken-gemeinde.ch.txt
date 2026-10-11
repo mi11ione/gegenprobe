@@ -1,0 +1,34 @@
+# Cmsbox 3.0
+
+Sitemap: https://www.interlaken-gemeinde.ch/sitemap.xml
+User-agent: *
+# disallow URLs containing ?login
+Disallow: /*?login
+Disallow: /*?cart
+Disallow: /*?contact
+Disallow: /*?recommend
+Disallow: /*?search
+Disallow: /*?highlight
+Disallow: /*?intro
+Disallow: /*?cancel
+Disallow: /*?print
+Disallow: /*?newsletter
+Disallow: /*?rss*
+# system
+Disallow: /dtd/
+Disallow: /errors/
+Disallow: /language/
+Disallow: /printer/
+# upload-root
+Allow: /uploads/
+Allow: /download/
+# uploads
+Allow: /animations/
+Allow: /audio/
+Disallow: /contents/
+Allow: /documents/
+Allow: /pictures/
+Allow: /photos/
+Allow: /movies/
+Disallow: /prints/
+Disallow: /temporary/

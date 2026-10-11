@@ -1,0 +1,12 @@
+id	shown	file	path	fmt	command	where	context
+compliance.ti_urls	147	results/compliance/robots_audit_all.json	totals.project.disallowed_allowed_by_first_match	int	python -m gegenprobe.compliance.audit --offline	docs/incidents.md	{"docs/incidents.md": "distinct www4.ti.ch URLs"}
+compliance.ti_downloads	133	results/compliance/robots_audit_all.json	totals.project.disallowed_distinct_urls_by_request.download	int	python -m gegenprobe.compliance.audit --offline	docs/incidents.md	{"docs/incidents.md": "downloads"}
+compliance.ti_discarded	11	results/compliance/robots_audit_all.json	totals.project.disallowed_distinct_urls_by_request.get_discarded	int	python -m gegenprobe.compliance.audit --offline	docs/incidents.md	{"docs/incidents.md": "bodies read and discarded"}
+compliance.refused	90	results/compliance/robots_audit_all.json	totals.project.disallowed_distinct_urls_by_request.refused	int	python -m gegenprobe.compliance.audit --offline	docs/incidents.md	{"docs/incidents.md": "refused"}
+compliance.requests_sent	450	results/compliance/robots_audit_all.json	totals.project.disallowed_requests_sent	int	python -m gegenprobe.compliance.audit --offline	docs/incidents.md	{"docs/incidents.md": "requests to disallowed"}
+compliance.download_records	436	results/compliance/robots_audit_all.json	totals.project.disallowed_download_records	int	python -m gegenprobe.compliance.audit --offline	docs/incidents.md	{"docs/incidents.md": "of them downloads"}
+compliance.distinct_urls	14,152	results/compliance/robots_audit_all.json	totals.project.distinct_urls	int	python -m gegenprobe.compliance.audit --offline	docs/incidents.md	
+compliance.mirror_mapped	165	data/compliance/mirror_urls.json	counts.mapped	int	python -m gegenprobe.compliance.mirror match	docs/incidents.md	{"docs/incidents.md": "maps"}
+compliance.mirror_identical	144	data/compliance/mirror_urls.json	counts.sha256_match_true	int	python -m gegenprobe.compliance.mirror match	docs/incidents.md	{"docs/incidents.md": "true for"}
+compliance.mirror_null	21	data/compliance/mirror_urls.json	counts.sha256_match_null	int	python -m gegenprobe.compliance.mirror match	docs/incidents.md	{"docs/incidents.md": "null for"}
+compliance.ci_upper_bound	6,655	results/compliance/ci_repeats.json	upper_bound_total	int	gh run list counts × per-run requests	-	

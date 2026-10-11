@@ -1,0 +1,4768 @@
+{
+ "note": "OPD's own copy (files.openparldata.ch) of every document Gegenprobe requested from a URL that robots.txt disallows (results/compliance/robots_audit_all.json). Read by gegenprobe.compliance.mirror.patch_net: a mapped URL is requested from OPD's copy, never from the parliament. sha256_match: OPD's copy is byte-identical to the document the evaluation used (true), differs (false), or nothing was kept to compare (null: body discarded, or headers only).",
+ "built": "2026-10-11",
+ "audit": "results/compliance/robots_audit_all.json",
+ "user_agent": "hackapertus-research/0.1",
+ "counts": {
+  "urls": 167,
+  "mapped": 165,
+  "sha256_match_true": 144,
+  "sha256_match_false": 0,
+  "sha256_match_null": 21,
+  "unmapped": 2
+ },
+ "entries": [
+  {
+   "url": "https://www4.ti.ch/poteri/gc/ricerca-messaggi-e-atti/ricerca/risultati/dettaglio?user_gcparlamento_pi8%5Battid%5D=101174",
+   "doc_ids": [],
+   "modules": [
+    "census_source_formats"
+   ],
+   "requests": [
+    "page_read"
+   ],
+   "sha256_recorded": [],
+   "mirror_url": null,
+   "note": "no OPD document row with this id or URL in the docs export",
+   "sha256_local": [],
+   "sha256_match": null
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=103514",
+   "doc_ids": [
+    110165
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "216fe80df6e1d8351ff502d09ffb57f81fb31f8eb452d2d97f12195df007027a"
+   ],
+   "opd_doc_id": 110165,
+   "opd_affair_id": 83702,
+   "opd_name": "Risposta del CdS del 22.03.2016",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/74eb29b2d9f9b8961ced06fb401d534af0d573e1ff9a3feef63483c745c6c9fd",
+   "opd_format": "application/pdf",
+   "opd_size": 184314,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "216fe80df6e1d8351ff502d09ffb57f81fb31f8eb452d2d97f12195df007027a",
+   "mirror_bytes": 184314,
+   "sha256_match": true,
+   "sha256_local": [
+    "216fe80df6e1d8351ff502d09ffb57f81fb31f8eb452d2d97f12195df007027a"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=113788",
+   "doc_ids": [
+    273846
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "27acddf11aae42c4f95cf8222627496860276cef5ee1e4801a82bd4d8ace683a"
+   ],
+   "opd_doc_id": 273846,
+   "opd_affair_id": 174176,
+   "opd_name": "Risposta del CdS del 23.08.2016",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/847d0861891d995fc68d55273e94d27e3ec432346dd43d3a222f7d3de4b1887d",
+   "opd_format": "application/pdf",
+   "opd_size": 78540,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "27acddf11aae42c4f95cf8222627496860276cef5ee1e4801a82bd4d8ace683a",
+   "mirror_bytes": 78540,
+   "sha256_match": true,
+   "sha256_local": [
+    "27acddf11aae42c4f95cf8222627496860276cef5ee1e4801a82bd4d8ace683a"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=113991",
+   "doc_ids": [
+    110142
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "acbb65c1432f8b94886344b51b63b1c26d53ac1f054bcd55d60b1b8ef4d3d019"
+   ],
+   "opd_doc_id": 110142,
+   "opd_affair_id": 173608,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/675a85a559994652db753a80abf3cf6dbfbb9b64b68cbdb92e8b798076f80d06",
+   "opd_format": "application/pdf",
+   "opd_size": 19843,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "acbb65c1432f8b94886344b51b63b1c26d53ac1f054bcd55d60b1b8ef4d3d019",
+   "mirror_bytes": 19843,
+   "sha256_match": true,
+   "sha256_local": [
+    "acbb65c1432f8b94886344b51b63b1c26d53ac1f054bcd55d60b1b8ef4d3d019"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=114550",
+   "doc_ids": [
+    166950
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "8fb99e30a5fffbe6812d748453b335f49cb40dd722b52ccad28d826c59a8d649"
+   ],
+   "opd_doc_id": 166950,
+   "opd_affair_id": 174553,
+   "opd_name": "Risposta del CdS del 12.10.2016",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/97f51dfc2f3a2017cfd57f5565d6e26d54ac441f5040b464000a834226567eb5",
+   "opd_format": "application/pdf",
+   "opd_size": 279162,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "8fb99e30a5fffbe6812d748453b335f49cb40dd722b52ccad28d826c59a8d649",
+   "mirror_bytes": 279162,
+   "sha256_match": true,
+   "sha256_local": [
+    "8fb99e30a5fffbe6812d748453b335f49cb40dd722b52ccad28d826c59a8d649"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=114816",
+   "doc_ids": [
+    415384
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 415384,
+   "opd_affair_id": 173755,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/2531a0b5732e4521ad173555132729c9fdc8160654a21e020d359578643765d8",
+   "opd_format": "application/pdf",
+   "opd_size": 21198,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "1469743b8ce69636164088115e8da4c8500b159680d144f9b13c34e8623db449",
+   "mirror_bytes": 21198,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "sha256 of the parliament download not logged; WORK/pdf holds a file with the bytes of OPD's copy (kept: identical to OPD's public copy)"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=114835",
+   "doc_ids": [
+    166794
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "79c146807626be643a1dcb02c0ac2067ce7afd46ce06c7e388c5dc02663a2b8e"
+   ],
+   "opd_doc_id": 166794,
+   "opd_affair_id": 83393,
+   "opd_name": "Risposta del CdS del 26.10.2016",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/7bbcdb689f7a3f9f466f920bb2628fa289f1a683431db0a6b634e2beffbde7be",
+   "opd_format": "application/pdf",
+   "opd_size": 139610,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "79c146807626be643a1dcb02c0ac2067ce7afd46ce06c7e388c5dc02663a2b8e",
+   "mirror_bytes": 139610,
+   "sha256_match": true,
+   "sha256_local": [
+    "79c146807626be643a1dcb02c0ac2067ce7afd46ce06c7e388c5dc02663a2b8e"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=115005",
+   "doc_ids": [],
+   "modules": [
+    "adapters"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 273859,
+   "opd_affair_id": 76035,
+   "opd_name": "Risposta del CdS del 09.11.2016",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/f3aa450caf604b2ed0f9e23adc7f3fc435ad2d2c785f9a6614073072aa2cbcaf",
+   "opd_format": "application/pdf",
+   "opd_size": 69104,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "7b9333c760ba3aa2ce3624aeb9b926046f5cefb197df7d0412b27a4b89819f83",
+   "mirror_bytes": 69104,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "sha256 of the parliament download not logged; WORK/pdf holds a file with the bytes of OPD's copy (kept: identical to OPD's public copy)"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=115658",
+   "doc_ids": [
+    166793
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "cf38f1fde49102dbee76e679c4dc2389db9ce9b993ae5a6cfe01744b95f32880"
+   ],
+   "opd_doc_id": 166793,
+   "opd_affair_id": 83542,
+   "opd_name": "Risposta del CdS del 21.12.2016",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/d8253d7a8500542356ab9843b19363cb356c7784c92e6d685f7464130f7c759e",
+   "opd_format": "application/pdf",
+   "opd_size": 103236,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "cf38f1fde49102dbee76e679c4dc2389db9ce9b993ae5a6cfe01744b95f32880",
+   "mirror_bytes": 103236,
+   "sha256_match": true,
+   "sha256_local": [
+    "cf38f1fde49102dbee76e679c4dc2389db9ce9b993ae5a6cfe01744b95f32880"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=115879",
+   "doc_ids": [
+    839663
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "get_discarded"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 839663,
+   "opd_affair_id": 174032,
+   "opd_name": "Risposta del CdS del 18.01.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/8170ac9e9c1a54d572c1f3d649eb2acf1c8c45b1e13918abddb5375d1a3d0303",
+   "opd_format": null,
+   "opd_size": 59904,
+   "opd_updated_at": "2026-04-30T19:09:08",
+   "opd_url_matches": true,
+   "sha256_mirror": "061f9d399688e3634f4ce75f8d433bc1e6a548c5b1a9111c22ffc14fd19d27f5",
+   "mirror_bytes": 59904,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "body read and discarded at the time (not a PDF); nothing kept"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=115883",
+   "doc_ids": [
+    838820
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "get_discarded"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 838820,
+   "opd_affair_id": 173755,
+   "opd_name": "Risposta del CdS del 18.01.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/5e16d16999b3e1ce19d5a9766f0c8a374f46c09da0c64a80835786a1f68ad643",
+   "opd_format": null,
+   "opd_size": 68608,
+   "opd_updated_at": "2026-04-30T19:09:08",
+   "opd_url_matches": true,
+   "sha256_mirror": "120729c354e08f67ab544fe18bf43efd700c97c98d5b20b930c6e4dc4cfb66f0",
+   "mirror_bytes": 68608,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "body read and discarded at the time (not a PDF); nothing kept"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=116062",
+   "doc_ids": [
+    421916
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "d6bcc7f78ebe0c2f356347bcc496eb2839b2691da91d0fcd6f98cc717d1bc39d"
+   ],
+   "opd_doc_id": 421916,
+   "opd_affair_id": 173778,
+   "opd_name": "Risposta del CdS del 01.02.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/034d9782342a76956f089e3328356311c93e1fd4f92a3e5fb653b09a59b93e34",
+   "opd_format": "application/pdf",
+   "opd_size": 206208,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "d6bcc7f78ebe0c2f356347bcc496eb2839b2691da91d0fcd6f98cc717d1bc39d",
+   "mirror_bytes": 206208,
+   "sha256_match": true,
+   "sha256_local": [
+    "d6bcc7f78ebe0c2f356347bcc496eb2839b2691da91d0fcd6f98cc717d1bc39d"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=116071",
+   "doc_ids": [
+    838680
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 838680,
+   "opd_affair_id": 83628,
+   "opd_name": "Versione MS Word",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/8d8f83c6a07782679247e8dd0a4c0756ce5961ee9d23b2a0c0cc255501edb61e",
+   "opd_format": null,
+   "opd_size": 232618,
+   "opd_updated_at": "2026-04-30T19:09:08",
+   "opd_url_matches": true,
+   "sha256_mirror": "ad027dd4f6c247031c4c93da6e030abdf84f088926e2f9ba63ada3402b1b1406",
+   "mirror_bytes": 232618,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "non-PDF body kept only as extracted text (spike); cannot be compared byte for byte"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=116072",
+   "doc_ids": [
+    273835
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 273835,
+   "opd_affair_id": 83628,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/f48cabea01292379ea5411cde55dc7642299292f98d9beb939ea1b4c387a07a9",
+   "opd_format": "application/pdf",
+   "opd_size": 255162,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "0dccfe221f85ba3ad25c17bba63f48a16f7998b5809bfc4bd112f1c67bd38a64",
+   "mirror_bytes": 255162,
+   "sha256_match": true,
+   "sha256_local": [
+    "0dccfe221f85ba3ad25c17bba63f48a16f7998b5809bfc4bd112f1c67bd38a64"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=116143",
+   "doc_ids": [
+    50554
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 50554,
+   "opd_affair_id": 83628,
+   "opd_name": "Risposta del CdS del 08.02.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/ac86efb1e7db5e8923c6cc2f37e0166f719c7bd4df5949d9c595d275071af1ee",
+   "opd_format": "application/pdf",
+   "opd_size": 45923,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "c4489c000b62ccc93606021f3fee16d6eedb81225c9343962523d1e7fd590024",
+   "mirror_bytes": 45923,
+   "sha256_match": true,
+   "sha256_local": [
+    "c4489c000b62ccc93606021f3fee16d6eedb81225c9343962523d1e7fd590024"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=116151",
+   "doc_ids": [
+    166844
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "9d5e6d9b448ae7b33a35e19ac95a07b163b58dc99f546d47f723908e40f2fc86"
+   ],
+   "opd_doc_id": 166844,
+   "opd_affair_id": 84444,
+   "opd_name": "Risposta del CdS del 08.02.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/2ff2bee1bf67ee318aef384365c6b14b29c80136b820b6f9cf8fa3f5a0ead643",
+   "opd_format": "application/pdf",
+   "opd_size": 131096,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "9d5e6d9b448ae7b33a35e19ac95a07b163b58dc99f546d47f723908e40f2fc86",
+   "mirror_bytes": 131096,
+   "sha256_match": true,
+   "sha256_local": [
+    "9d5e6d9b448ae7b33a35e19ac95a07b163b58dc99f546d47f723908e40f2fc86"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=116326",
+   "doc_ids": [
+    424705
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "df5cc8410556ed26e6578523e1cd843d3830effb73dd73090940d1f37028ab87"
+   ],
+   "opd_doc_id": 424705,
+   "opd_affair_id": 83840,
+   "opd_name": "Risposta del CdS del 22.02.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/06ab129f6c350a448e1f13a5de7f405e579d5fb9d1689364e9d5a198dc4695cf",
+   "opd_format": "application/pdf",
+   "opd_size": 61646,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "df5cc8410556ed26e6578523e1cd843d3830effb73dd73090940d1f37028ab87",
+   "mirror_bytes": 61646,
+   "sha256_match": true,
+   "sha256_local": [
+    "df5cc8410556ed26e6578523e1cd843d3830effb73dd73090940d1f37028ab87"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=117363",
+   "doc_ids": [
+    325674
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 325674,
+   "opd_affair_id": 173989,
+   "opd_name": "Risposta del CdS del 26.04.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/346f15716c79d1a63a6898ee68e465c15c98a93d43454d7311a89d42c111a90e",
+   "opd_format": "application/pdf",
+   "opd_size": 136039,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "a39f237cc01c729851fb2a04e636597aa3d020306fd22187a597384a9531c156",
+   "mirror_bytes": 136039,
+   "sha256_match": true,
+   "sha256_local": [
+    "a39f237cc01c729851fb2a04e636597aa3d020306fd22187a597384a9531c156"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=117614",
+   "doc_ids": [
+    166845
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "a389ebb1fa3cb1283a271042411048e81d4e6d51b1caea96f79134fce0015e12"
+   ],
+   "opd_doc_id": 166845,
+   "opd_affair_id": 84449,
+   "opd_name": "Risposta del CdS del 13.03.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/8a06dbf7c71ceaa0c29f37d41f08ca712f9c51c89a56df2bf90c6c3c745b644e",
+   "opd_format": "application/pdf",
+   "opd_size": 152315,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "a389ebb1fa3cb1283a271042411048e81d4e6d51b1caea96f79134fce0015e12",
+   "mirror_bytes": 152315,
+   "sha256_match": true,
+   "sha256_local": [
+    "a389ebb1fa3cb1283a271042411048e81d4e6d51b1caea96f79134fce0015e12"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=117628",
+   "doc_ids": [
+    325719
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "6c90d65ffa842a29557e67e5eb247efc3eb53451a0f5845aff1a3fa6a8e22021"
+   ],
+   "opd_doc_id": 325719,
+   "opd_affair_id": 84441,
+   "opd_name": "Risposta del CdS del 14.03.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/e7114d7e6222f16c8f1a703a1f05015da1c67925852173692e3da4c8b9e45d77",
+   "opd_format": "application/pdf",
+   "opd_size": 205006,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "6c90d65ffa842a29557e67e5eb247efc3eb53451a0f5845aff1a3fa6a8e22021",
+   "mirror_bytes": 205006,
+   "sha256_match": true,
+   "sha256_local": [
+    "6c90d65ffa842a29557e67e5eb247efc3eb53451a0f5845aff1a3fa6a8e22021"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=117800",
+   "doc_ids": [
+    43033
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "4b875cc77b35652ea6f417ed872b35c1cb5f808af2a652cdf9104e907055fba1"
+   ],
+   "opd_doc_id": 43033,
+   "opd_affair_id": 83696,
+   "opd_name": "Risposta del CdS del 24.05.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/f4ed0173bc1a6c76effcb6aaa003ebd748914851aab07e1b4415dfecfbab1175",
+   "opd_format": "application/pdf",
+   "opd_size": 168315,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "4b875cc77b35652ea6f417ed872b35c1cb5f808af2a652cdf9104e907055fba1",
+   "mirror_bytes": 168315,
+   "sha256_match": true,
+   "sha256_local": [
+    "4b875cc77b35652ea6f417ed872b35c1cb5f808af2a652cdf9104e907055fba1"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=118039",
+   "doc_ids": [
+    839464
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "get_discarded"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 839464,
+   "opd_affair_id": 174142,
+   "opd_name": "Risposta del CdS del 07.06.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/756d0b7518246ace07d0db006f6a2dc5dfa2f3e87c8fa133b02808c0377fa01c",
+   "opd_format": null,
+   "opd_size": 167936,
+   "opd_updated_at": "2026-04-30T19:09:08",
+   "opd_url_matches": true,
+   "sha256_mirror": "13258f7090d44c36c9858b5a035cc7bb5b292e8ea51a5f8b2bfef288038196e3",
+   "mirror_bytes": 167936,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "body read and discarded at the time (not a PDF); nothing kept"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=118400",
+   "doc_ids": [
+    375503
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "5aa5bacb18370943cd81eb34e845eb4466a8c69736c80ea91a262372f02691f9"
+   ],
+   "opd_doc_id": 375503,
+   "opd_affair_id": 83818,
+   "opd_name": "Risposta del CdS del 27.06.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/22bb92129a952645a8ab31f855e70937a3842fed61f2ee9f626af1835d4c51de",
+   "opd_format": "application/pdf",
+   "opd_size": 101271,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "5aa5bacb18370943cd81eb34e845eb4466a8c69736c80ea91a262372f02691f9",
+   "mirror_bytes": 101271,
+   "sha256_match": true,
+   "sha256_local": [
+    "5aa5bacb18370943cd81eb34e845eb4466a8c69736c80ea91a262372f02691f9"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=119023",
+   "doc_ids": [],
+   "modules": [
+    "adapters"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 271935,
+   "opd_affair_id": 74219,
+   "opd_name": "Risposta del CdS del 23.08.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/1c08fe1fdc72b41c083e6687318c41781c30ec82a720becc9a8c8babc3b5c5ab",
+   "opd_format": "application/pdf",
+   "opd_size": 218534,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "3967339d867e7285750e6329192b013a031c6e4cca35b70ebba4c7f88cbaa1e9",
+   "mirror_bytes": 218534,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "sha256 of the parliament download not logged; WORK/pdf holds a file with the bytes of OPD's copy (kept: identical to OPD's public copy)"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=119047",
+   "doc_ids": [
+    272170
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "440f7db52a1580f8d8033243ad50dae213e288048157efb83762be7839698b0c"
+   ],
+   "opd_doc_id": 272170,
+   "opd_affair_id": 173477,
+   "opd_name": "Risposta del CdS del 30.08.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/c6df7caf6a9356896561672a1a240be6e5b87a2e1ae639e22278925e38d2ee3a",
+   "opd_format": "application/pdf",
+   "opd_size": 93379,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "440f7db52a1580f8d8033243ad50dae213e288048157efb83762be7839698b0c",
+   "mirror_bytes": 93379,
+   "sha256_match": true,
+   "sha256_local": [
+    "440f7db52a1580f8d8033243ad50dae213e288048157efb83762be7839698b0c"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=119156",
+   "doc_ids": [
+    273843
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "9058d991c2bd934e93c86dc03a023d47a2892c2b29e4f8e7ebdc9209d7ddb223"
+   ],
+   "opd_doc_id": 273843,
+   "opd_affair_id": 84456,
+   "opd_name": "Risposta del CdS del 19.06.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/41708e8225223a1e10a1873f64cbde767c6f94c05e07634d4388e309912dc9fa",
+   "opd_format": "application/pdf",
+   "opd_size": 13945,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "9058d991c2bd934e93c86dc03a023d47a2892c2b29e4f8e7ebdc9209d7ddb223",
+   "mirror_bytes": 13945,
+   "sha256_match": true,
+   "sha256_local": [
+    "9058d991c2bd934e93c86dc03a023d47a2892c2b29e4f8e7ebdc9209d7ddb223"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=119605",
+   "doc_ids": [
+    221073
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "923ce8ef7378b69080961d04a64c29b669eb37f6b4cbeb984e52abb5688da9ff"
+   ],
+   "opd_doc_id": 221073,
+   "opd_affair_id": 84459,
+   "opd_name": "Risposta del CdS del 04.10.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/a0bb54a28710f36bc39f3bbe9f01aa86af2db08121112a57d7c7cbda109624f8",
+   "opd_format": "application/pdf",
+   "opd_size": 161115,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "923ce8ef7378b69080961d04a64c29b669eb37f6b4cbeb984e52abb5688da9ff",
+   "mirror_bytes": 161115,
+   "sha256_match": true,
+   "sha256_local": [
+    "923ce8ef7378b69080961d04a64c29b669eb37f6b4cbeb984e52abb5688da9ff"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=119897",
+   "doc_ids": [
+    839436
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "get_discarded"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 839436,
+   "opd_affair_id": 83561,
+   "opd_name": "Risposta del CdS del 25.10.2017",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/0e23a9c763f307cd50f1549cb6442f300fab1f6792fd4b02e1058fd3443b8e0a",
+   "opd_format": null,
+   "opd_size": 68096,
+   "opd_updated_at": "2026-04-30T19:09:08",
+   "opd_url_matches": true,
+   "sha256_mirror": "393b56087c935d3f982bedc72b24e45ae2aedc24306bb5956eca74c16dc21c97",
+   "mirror_bytes": 68096,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "body read and discarded at the time (not a PDF); nothing kept"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=121395",
+   "doc_ids": [
+    166467
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "ee8ac17c3e23c2c3789d2bf3218c35c0c03d25f84380f8f047ef9be73db6ea0c"
+   ],
+   "opd_doc_id": 166467,
+   "opd_affair_id": 174124,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/d6d81768fbdab20ec2006f0fe681e476cb0aacd3d2e960f7534fc28266b80910",
+   "opd_format": "application/pdf",
+   "opd_size": 21755,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "ee8ac17c3e23c2c3789d2bf3218c35c0c03d25f84380f8f047ef9be73db6ea0c",
+   "mirror_bytes": 21755,
+   "sha256_match": true,
+   "sha256_local": [
+    "ee8ac17c3e23c2c3789d2bf3218c35c0c03d25f84380f8f047ef9be73db6ea0c"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=121539",
+   "doc_ids": [
+    375853
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "2ed3746a3c6714b9542b8e0f48dac8dd851a01a9217c559843a68eade4bb099a"
+   ],
+   "opd_doc_id": 375853,
+   "opd_affair_id": 174580,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/39c365682b36d6c42d3bed9fbb3761275072a69d6623c3af8055b32bc501a912",
+   "opd_format": "application/pdf",
+   "opd_size": 2533165,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "2ed3746a3c6714b9542b8e0f48dac8dd851a01a9217c559843a68eade4bb099a",
+   "mirror_bytes": 2533165,
+   "sha256_match": true,
+   "sha256_local": [
+    "2ed3746a3c6714b9542b8e0f48dac8dd851a01a9217c559843a68eade4bb099a"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=121969",
+   "doc_ids": [
+    839358
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "get_discarded"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 839358,
+   "opd_affair_id": 83584,
+   "opd_name": "Risposta del CdS del 21.02.2018",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/e320d809bc75ef093370c8da0e4e3ec648f4ae44fab8ab9c4757d17a68a78637",
+   "opd_format": null,
+   "opd_size": 45568,
+   "opd_updated_at": "2026-04-30T19:09:08",
+   "opd_url_matches": true,
+   "sha256_mirror": "3e6c985eda518ad718d26db16b9a2d27ac445d0e1103c0f83c31ace0a6259492",
+   "mirror_bytes": 45568,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "body read and discarded at the time (not a PDF); nothing kept"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=122141",
+   "doc_ids": [
+    325345
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "0467343a481c2cb64ccfb79a0c9ce692e39276270348a1bd5f6972701e5d5206"
+   ],
+   "opd_doc_id": 325345,
+   "opd_affair_id": 173847,
+   "opd_name": "Risposta del CdS del 07.03.2018",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/17cfde59c75c511cb16e42fdd41002ec03ef6d8beac9600f75623b2af4c48e28",
+   "opd_format": "application/pdf",
+   "opd_size": 48137,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "0467343a481c2cb64ccfb79a0c9ce692e39276270348a1bd5f6972701e5d5206",
+   "mirror_bytes": 48137,
+   "sha256_match": true,
+   "sha256_local": [
+    "0467343a481c2cb64ccfb79a0c9ce692e39276270348a1bd5f6972701e5d5206"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=122934",
+   "doc_ids": [
+    375435
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "003e0b57ee039b8a17021d358499cb6fa788be58ca889d2e62bf72f556e5c7cc"
+   ],
+   "opd_doc_id": 375435,
+   "opd_affair_id": 174022,
+   "opd_name": "Risposta del CdS del 24.04.2018",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/15bdb64c1182e235f20c75244f77717d4cba02ef13453a079ee0cf986760a783",
+   "opd_format": "application/pdf",
+   "opd_size": 132547,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "003e0b57ee039b8a17021d358499cb6fa788be58ca889d2e62bf72f556e5c7cc",
+   "mirror_bytes": 132547,
+   "sha256_match": true,
+   "sha256_local": [
+    "003e0b57ee039b8a17021d358499cb6fa788be58ca889d2e62bf72f556e5c7cc"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=123836",
+   "doc_ids": [
+    166437
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "6285af89a64155733d9c43d58e1f7e67e47d82df8a203396c14824a345e6ed71"
+   ],
+   "opd_doc_id": 166437,
+   "opd_affair_id": 174148,
+   "opd_name": "Risposta del CdS del 06.06.2018",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/8b4d07773a123b5bc8d9842c8312767f1c2567a925912d1224d3da65feb1f706",
+   "opd_format": "application/pdf",
+   "opd_size": 122293,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "6285af89a64155733d9c43d58e1f7e67e47d82df8a203396c14824a345e6ed71",
+   "mirror_bytes": 122293,
+   "sha256_match": true,
+   "sha256_local": [
+    "6285af89a64155733d9c43d58e1f7e67e47d82df8a203396c14824a345e6ed71"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=124443",
+   "doc_ids": [
+    375440
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "d196c00534589a1f5019472cad39f139c40eb196e78416f34a656577fc88639b"
+   ],
+   "opd_doc_id": 375440,
+   "opd_affair_id": 83920,
+   "opd_name": "Risposta del CdS del 11.07.2018",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/d23a9ab1215bd7af362335430d37b78471135b3e4d47a90b2db3639b6244a9aa",
+   "opd_format": "application/pdf",
+   "opd_size": 154358,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "d196c00534589a1f5019472cad39f139c40eb196e78416f34a656577fc88639b",
+   "mirror_bytes": 154358,
+   "sha256_match": true,
+   "sha256_local": [
+    "d196c00534589a1f5019472cad39f139c40eb196e78416f34a656577fc88639b"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=124575",
+   "doc_ids": [
+    105281
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "9467a2a06525a0160b611dc6da7c73a1d34b8bfb45c80758206e790f8cbaff22"
+   ],
+   "opd_doc_id": 105281,
+   "opd_affair_id": 83334,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/4a703286b641b4f2636d7cc499b3f7dd02d5c3909b9044a16d8d3ba2dd4d9dd0",
+   "opd_format": "application/pdf",
+   "opd_size": 20798,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "9467a2a06525a0160b611dc6da7c73a1d34b8bfb45c80758206e790f8cbaff22",
+   "mirror_bytes": 20798,
+   "sha256_match": true,
+   "sha256_local": [
+    "9467a2a06525a0160b611dc6da7c73a1d34b8bfb45c80758206e790f8cbaff22"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=124758",
+   "doc_ids": [
+    325340
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 325340,
+   "opd_affair_id": 173987,
+   "opd_name": "Risposta del CdS del 22.08.2018",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/58dc189956c4a72b2b22b1a197c32fa75a9596e80b289430ab313ce60387a715",
+   "opd_format": "application/pdf",
+   "opd_size": 118308,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "edc4f0c799978bb7f1a2f0a3af4b652b7559c883cf1baabaeda86f918b82359d",
+   "mirror_bytes": 118308,
+   "sha256_match": true,
+   "sha256_local": [
+    "edc4f0c799978bb7f1a2f0a3af4b652b7559c883cf1baabaeda86f918b82359d"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=124760",
+   "doc_ids": [
+    44402
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 44402,
+   "opd_affair_id": 174165,
+   "opd_name": "Risposta del CdS del 22.08.2018",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/26eec9848595e8df47e28c16bfff9c74dc9e72bc876bd6d5cfe1ede02a88069c",
+   "opd_format": "application/pdf",
+   "opd_size": 69293,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "48414b49df6077bdb213603ee36a3af3cbae06ccf4c0504d3717a07ebc044134",
+   "mirror_bytes": 69293,
+   "sha256_match": true,
+   "sha256_local": [
+    "48414b49df6077bdb213603ee36a3af3cbae06ccf4c0504d3717a07ebc044134"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=124874",
+   "doc_ids": [
+    110223
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "ff157370ea7081720fd96eed1974efaa55ca7cee821632e32733c9c9bb7df437"
+   ],
+   "opd_doc_id": 110223,
+   "opd_affair_id": 174601,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/966fce9bd645ba8bd24124e60ec2803e5c388fb95a22338041bc7663728323ae",
+   "opd_format": "application/pdf",
+   "opd_size": 99906,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "ff157370ea7081720fd96eed1974efaa55ca7cee821632e32733c9c9bb7df437",
+   "mirror_bytes": 99906,
+   "sha256_match": true,
+   "sha256_local": [
+    "ff157370ea7081720fd96eed1974efaa55ca7cee821632e32733c9c9bb7df437"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=125058",
+   "doc_ids": [
+    110218
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "0370484bfe4125c15ce5c25bc5ea50c03d750fbdfce8c3c4937b2f94baba4fef"
+   ],
+   "opd_doc_id": 110218,
+   "opd_affair_id": 84501,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/37ee2f51d36873a0bfe532f6015ec0c84cd2e4860511edee67b86856c77eb4e5",
+   "opd_format": "application/pdf",
+   "opd_size": 163602,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "0370484bfe4125c15ce5c25bc5ea50c03d750fbdfce8c3c4937b2f94baba4fef",
+   "mirror_bytes": 163602,
+   "sha256_match": true,
+   "sha256_local": [
+    "0370484bfe4125c15ce5c25bc5ea50c03d750fbdfce8c3c4937b2f94baba4fef"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=125096",
+   "doc_ids": [
+    221062
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "ba8be28c92bbe02f8630cb1ced54e5860b2308a0737e79a901f68547d5d6dcc1"
+   ],
+   "opd_doc_id": 221062,
+   "opd_affair_id": 84502,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/d80508595a75fa40ce03098ff3db1ad5440ed6d7c79a224c018111aec5dbeffa",
+   "opd_format": "application/pdf",
+   "opd_size": 84907,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "ba8be28c92bbe02f8630cb1ced54e5860b2308a0737e79a901f68547d5d6dcc1",
+   "mirror_bytes": 84907,
+   "sha256_match": true,
+   "sha256_local": [
+    "ba8be28c92bbe02f8630cb1ced54e5860b2308a0737e79a901f68547d5d6dcc1"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=125191",
+   "doc_ids": [
+    274069
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "d65cbe6f1cd6ba327a398126025cb8ec9721b85259d82db4449a8ffaed1668a7"
+   ],
+   "opd_doc_id": 274069,
+   "opd_affair_id": 85676,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/b996b444581a6bf3f192ecf5d65aca043fbd4849410f3d6d3fa7a1e2512650cb",
+   "opd_format": "application/pdf",
+   "opd_size": 19594,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "d65cbe6f1cd6ba327a398126025cb8ec9721b85259d82db4449a8ffaed1668a7",
+   "mirror_bytes": 19594,
+   "sha256_match": true,
+   "sha256_local": [
+    "d65cbe6f1cd6ba327a398126025cb8ec9721b85259d82db4449a8ffaed1668a7"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=125286",
+   "doc_ids": [
+    838849
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "get_discarded"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 838849,
+   "opd_affair_id": 80746,
+   "opd_name": "Risposta del CdS del 19.09.2018",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/208a80ef0aeeeac0c03dffb7733e6586c3251b72a3ce25075e090eaf09fe32ce",
+   "opd_format": null,
+   "opd_size": 54784,
+   "opd_updated_at": "2026-04-30T19:09:08",
+   "opd_url_matches": true,
+   "sha256_mirror": "263dbd8659364c7ffc73a65000a1887a166d576c4142cbb9f2e6a0ff16ec71a4",
+   "mirror_bytes": 54784,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "body read and discarded at the time (not a PDF); nothing kept"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=125316",
+   "doc_ids": [
+    166870
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "bf420c1b6746db98fd3ee98ec8a97aff39caa7508a8a2222c93dc0011c6e1520"
+   ],
+   "opd_doc_id": 166870,
+   "opd_affair_id": 84505,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/2abcfc63137167bc06cdec5cc54eaed68a2b48ca71dd276206f4ddb9f6a485ab",
+   "opd_format": "application/pdf",
+   "opd_size": 13115,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "bf420c1b6746db98fd3ee98ec8a97aff39caa7508a8a2222c93dc0011c6e1520",
+   "mirror_bytes": 13115,
+   "sha256_match": true,
+   "sha256_local": [
+    "bf420c1b6746db98fd3ee98ec8a97aff39caa7508a8a2222c93dc0011c6e1520"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=125759",
+   "doc_ids": [
+    265308
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "73f0fafbe67068f1249ba2c9897dea2a2ccf9375a3642e79ff93cc0fea74286b"
+   ],
+   "opd_doc_id": 265308,
+   "opd_affair_id": 83540,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/46081b942ee05ecbde4647b4212e482c438a6fbd07093aecbfec7412f0b54160",
+   "opd_format": "application/pdf",
+   "opd_size": 46585,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "73f0fafbe67068f1249ba2c9897dea2a2ccf9375a3642e79ff93cc0fea74286b",
+   "mirror_bytes": 46585,
+   "sha256_match": true,
+   "sha256_local": [
+    "73f0fafbe67068f1249ba2c9897dea2a2ccf9375a3642e79ff93cc0fea74286b"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=125761",
+   "doc_ids": [
+    220699
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "41813f2757bba08e0fbdca40b69d854d9c2b14de1a109c47c60a9404547db08f"
+   ],
+   "opd_doc_id": 220699,
+   "opd_affair_id": 83543,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/5e2d10d1352f63ab26d55aaa9c753467713d6328ba57c71e8f5f7291b80eb5b1",
+   "opd_format": "application/pdf",
+   "opd_size": 44468,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "41813f2757bba08e0fbdca40b69d854d9c2b14de1a109c47c60a9404547db08f",
+   "mirror_bytes": 44468,
+   "sha256_match": true,
+   "sha256_local": [
+    "41813f2757bba08e0fbdca40b69d854d9c2b14de1a109c47c60a9404547db08f"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=125762",
+   "doc_ids": [
+    101282
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "73d53a966ece0c30f7b6e73584f8cbb60dacaf52226959be2d23d739601d8e5e"
+   ],
+   "opd_doc_id": 101282,
+   "opd_affair_id": 83546,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/a589e629cae98510e4d58d7633421bd7bc7e02078a2fe7966209ebdda09e5ece",
+   "opd_format": "application/pdf",
+   "opd_size": 70124,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "73d53a966ece0c30f7b6e73584f8cbb60dacaf52226959be2d23d739601d8e5e",
+   "mirror_bytes": 70124,
+   "sha256_match": true,
+   "sha256_local": [
+    "73d53a966ece0c30f7b6e73584f8cbb60dacaf52226959be2d23d739601d8e5e"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=125774",
+   "doc_ids": [
+    49058
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "abaf96f47d1a6ec5e75c1ad4660abc5b58bf8577cb927b1a858036b24dbc7630"
+   ],
+   "opd_doc_id": 49058,
+   "opd_affair_id": 173694,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/25f71e8db70f62edbfdf3e2d08395f5fb26c6f1849b5d97eef69b752a715d220",
+   "opd_format": "application/pdf",
+   "opd_size": 74304,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "abaf96f47d1a6ec5e75c1ad4660abc5b58bf8577cb927b1a858036b24dbc7630",
+   "mirror_bytes": 74304,
+   "sha256_match": true,
+   "sha256_local": [
+    "abaf96f47d1a6ec5e75c1ad4660abc5b58bf8577cb927b1a858036b24dbc7630"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=125776",
+   "doc_ids": [
+    424652
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "e10adbb663c65017763ef329a7df7f11976e45157988893889da9c7545037bfd"
+   ],
+   "opd_doc_id": 424652,
+   "opd_affair_id": 173702,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/e55c513e8ca64d4dc422e42c9e51fa46951fd4b7aae6d6404815a72f2131e71c",
+   "opd_format": "application/pdf",
+   "opd_size": 47139,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "e10adbb663c65017763ef329a7df7f11976e45157988893889da9c7545037bfd",
+   "mirror_bytes": 47139,
+   "sha256_match": true,
+   "sha256_local": [
+    "e10adbb663c65017763ef329a7df7f11976e45157988893889da9c7545037bfd"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=125922",
+   "doc_ids": [
+    221259
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "cde43111f691a247e3df8c2bd2d903cbe5dfc6a93fbff15cc1e5e70e4b56b867"
+   ],
+   "opd_doc_id": 221259,
+   "opd_affair_id": 85682,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/0b46063be7e980770dc4a58d10585a2af354cec7dff0d08a9773ecfc209e1ebf",
+   "opd_format": "application/pdf",
+   "opd_size": 19812,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "cde43111f691a247e3df8c2bd2d903cbe5dfc6a93fbff15cc1e5e70e4b56b867",
+   "mirror_bytes": 19812,
+   "sha256_match": true,
+   "sha256_local": [
+    "cde43111f691a247e3df8c2bd2d903cbe5dfc6a93fbff15cc1e5e70e4b56b867"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=126269",
+   "doc_ids": [
+    44878
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "05d8bfd5e7e6ed007559a3231b4a6cd7ca80ef66a7d8fb38d43cae5eeefea3fe"
+   ],
+   "opd_doc_id": 44878,
+   "opd_affair_id": 173766,
+   "opd_name": "Risposta del CdS del 05.12.2018",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/3fe17c5e0b972d233c7426b442894adf39669acb040ef65e09cd40e3a8cc9f12",
+   "opd_format": "application/pdf",
+   "opd_size": 363733,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "05d8bfd5e7e6ed007559a3231b4a6cd7ca80ef66a7d8fb38d43cae5eeefea3fe",
+   "mirror_bytes": 363733,
+   "sha256_match": true,
+   "sha256_local": [
+    "05d8bfd5e7e6ed007559a3231b4a6cd7ca80ef66a7d8fb38d43cae5eeefea3fe"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=126319",
+   "doc_ids": [
+    49032
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 49032,
+   "opd_affair_id": 173762,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/f4f1aa6868e59f7ff3230646c2a27d59ab90301ee24d7834f6a7bdac620af6c7",
+   "opd_format": "application/pdf",
+   "opd_size": 43286,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "0148d87b17b320810e86be2cf918d04420d7d4cbba46a54bdb4e6ab09190681c",
+   "mirror_bytes": 43286,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "sha256 of the parliament download not logged; WORK/pdf holds a file with the bytes of OPD's copy (kept: identical to OPD's public copy)"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=126361",
+   "doc_ids": [
+    838577
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "get_discarded"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 838577,
+   "opd_affair_id": 173762,
+   "opd_name": "Risposta del CdS del 12.12.2018",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/164ef586353a2ed1fe3f60b59225b9fe3b3abc850575a60ba0253ff40ce0c164",
+   "opd_format": null,
+   "opd_size": 75264,
+   "opd_updated_at": "2026-04-30T19:09:08",
+   "opd_url_matches": true,
+   "sha256_mirror": "b8c025cee46871998894a5e8bb1ea9ca426bfcbad0a590364bff8439eba67918",
+   "mirror_bytes": 75264,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "body read and discarded at the time (not a PDF); nothing kept"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=127339",
+   "doc_ids": [
+    424755
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 424755,
+   "opd_affair_id": 83642,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/58e12de8f7104417c215701152bfa1c6cbc3f4e9667665569047425b68d2ad85",
+   "opd_format": "application/pdf",
+   "opd_size": 47610,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "8535b60928e3f555318dd3d9e10c9e886b0a45631c336c68000fccf8075dcba1",
+   "mirror_bytes": 47610,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "sha256 of the parliament download not logged; WORK/pdf holds a file with the bytes of OPD's copy (kept: identical to OPD's public copy)"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=127361",
+   "doc_ids": [
+    220689
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "1156c3a17382521b2712ea3f1c619b4adc9aaa7893fd476c8323a5bb53094a66"
+   ],
+   "opd_doc_id": 220689,
+   "opd_affair_id": 173767,
+   "opd_name": "Risposta del CdS del 13.02.2019",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/0ee9ea50e19bfaeb03b9da6bff865c37c2dca13a550220efd2bb7aba18075792",
+   "opd_format": "application/pdf",
+   "opd_size": 102484,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "1156c3a17382521b2712ea3f1c619b4adc9aaa7893fd476c8323a5bb53094a66",
+   "mirror_bytes": 102484,
+   "sha256_match": true,
+   "sha256_local": [
+    "1156c3a17382521b2712ea3f1c619b4adc9aaa7893fd476c8323a5bb53094a66"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=128561",
+   "doc_ids": [
+    46683
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "299748f1ce3233a8437de33f6deec8b9ed1c5524391155560ce6b6eafaac885e"
+   ],
+   "opd_doc_id": 46683,
+   "opd_affair_id": 173933,
+   "opd_name": "Risposta del CdS del 27.03.2019",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/528a9fbc31e740508525dd2867941aa1057a55b2a4aede366c67e2d1bf2f3750",
+   "opd_format": "application/pdf",
+   "opd_size": 238527,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "299748f1ce3233a8437de33f6deec8b9ed1c5524391155560ce6b6eafaac885e",
+   "mirror_bytes": 238527,
+   "sha256_match": true,
+   "sha256_local": [
+    "299748f1ce3233a8437de33f6deec8b9ed1c5524391155560ce6b6eafaac885e"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=129279",
+   "doc_ids": [
+    839394
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "get_discarded"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 839394,
+   "opd_affair_id": 174053,
+   "opd_name": "Risposta del CdS del 08.05.2019",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/54b59294511e714050e213fed590b92837f5db9f1f87ceb674d57f2fec0c8459",
+   "opd_format": null,
+   "opd_size": 56832,
+   "opd_updated_at": "2026-04-30T19:09:08",
+   "opd_url_matches": true,
+   "sha256_mirror": "39bcb12be42c6bedbf353a9ecdd9bc44bb59ed20fbd31b6ccddb6d600d8e57fd",
+   "mirror_bytes": 56832,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "body read and discarded at the time (not a PDF); nothing kept"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=129909",
+   "doc_ids": [
+    375990
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "c92ce0b197504683d6220f6106ccc87ce4bb58d4b5ad77f3c5712b3464405aea"
+   ],
+   "opd_doc_id": 375990,
+   "opd_affair_id": 84850,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/6d4853bdba95e123c491ccd63b75a02b2362ea8b7d8a9bdf13b4c898d86f95e1",
+   "opd_format": "application/pdf",
+   "opd_size": 56907,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "c92ce0b197504683d6220f6106ccc87ce4bb58d4b5ad77f3c5712b3464405aea",
+   "mirror_bytes": 56907,
+   "sha256_match": true,
+   "sha256_local": [
+    "c92ce0b197504683d6220f6106ccc87ce4bb58d4b5ad77f3c5712b3464405aea"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=129961",
+   "doc_ids": [
+    839501
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "get_discarded"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 839501,
+   "opd_affair_id": 83642,
+   "opd_name": "Risposta del CdS del 05.06.2019",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/26215c767753ccf439505ee5a959a88c48eff3ed9da77a5bc5f514c78f7a8adb",
+   "opd_format": null,
+   "opd_size": 50176,
+   "opd_updated_at": "2026-04-30T19:09:08",
+   "opd_url_matches": true,
+   "sha256_mirror": "b8cce091aaccf9a949a29e3dcc1ce2adff8f99cd5eec823e9c17e95027a876bb",
+   "mirror_bytes": 50176,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "body read and discarded at the time (not a PDF); nothing kept"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=130123",
+   "doc_ids": [
+    424788
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "9944819709fe62dbded22359d8d3265bbd2ab4b35069bc6db6548a750d80318c"
+   ],
+   "opd_doc_id": 424788,
+   "opd_affair_id": 83326,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/3f119bc173ee9f24ad44366bcdacbc0d2d5513f2d468d2cd4469f2662923179b",
+   "opd_format": "application/pdf",
+   "opd_size": 76532,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "9944819709fe62dbded22359d8d3265bbd2ab4b35069bc6db6548a750d80318c",
+   "mirror_bytes": 76532,
+   "sha256_match": true,
+   "sha256_local": [
+    "9944819709fe62dbded22359d8d3265bbd2ab4b35069bc6db6548a750d80318c"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=130561",
+   "doc_ids": [
+    273595
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 273595,
+   "opd_affair_id": 83372,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/4db46fd29962c59a3ca40c5f40c41f7d13435d5b3d64882db1aaaf667b1fb6e9",
+   "opd_format": "application/pdf",
+   "opd_size": 127417,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "59e1a2319fe89b6eeecf869d149acad4c2a29e8db9d268d9b1626532ea93f93c",
+   "mirror_bytes": 127417,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "sha256 of the parliament download not logged; WORK/pdf holds a file with the bytes of OPD's copy (kept: identical to OPD's public copy)"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=130593",
+   "doc_ids": [
+    47695
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "cd76e1e54613f025025d78da9ecadf4b9529b83760b4e5910e26720e5fbd8cf1"
+   ],
+   "opd_doc_id": 47695,
+   "opd_affair_id": 84017,
+   "opd_name": "Risposta del CdS del 10.07.2019",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/0c0cffa67fbe9491573af18c0eecfb418963f3687e46d5cb2a9617178756c331",
+   "opd_format": "application/pdf",
+   "opd_size": 116312,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "cd76e1e54613f025025d78da9ecadf4b9529b83760b4e5910e26720e5fbd8cf1",
+   "mirror_bytes": 116312,
+   "sha256_match": true,
+   "sha256_local": [
+    "cd76e1e54613f025025d78da9ecadf4b9529b83760b4e5910e26720e5fbd8cf1"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=130598",
+   "doc_ids": [
+    375546
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "364be6ecb9aaa70c7bfb4f7a11973fad4737fffc1228e9e3768ec7024429f922"
+   ],
+   "opd_doc_id": 375546,
+   "opd_affair_id": 83989,
+   "opd_name": "Risposta del CdS del 10.07.2019",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/1ec3daa79982de861ffab5685a8c5ea48cdec32481a9b241a6664783e23d69a8",
+   "opd_format": "application/pdf",
+   "opd_size": 312594,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "364be6ecb9aaa70c7bfb4f7a11973fad4737fffc1228e9e3768ec7024429f922",
+   "mirror_bytes": 312594,
+   "sha256_match": true,
+   "sha256_local": [
+    "364be6ecb9aaa70c7bfb4f7a11973fad4737fffc1228e9e3768ec7024429f922"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=130616",
+   "doc_ids": [
+    424715
+   ],
+   "modules": [
+    "ci_make_run",
+    "convert_demo",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "28f6aadc8be086046f852f71019b35dbcee8806d0d9c950bd03a8a80573437a1"
+   ],
+   "opd_doc_id": 424715,
+   "opd_affair_id": 83573,
+   "opd_name": "Risposta del CdS del 10.07.2019",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/12ad74516dd983f1619506ce903ad5b8179da4e20fa0ccd495371a849854dbaa",
+   "opd_format": "application/pdf",
+   "opd_size": 100405,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "28f6aadc8be086046f852f71019b35dbcee8806d0d9c950bd03a8a80573437a1",
+   "mirror_bytes": 100405,
+   "sha256_match": true,
+   "sha256_local": [
+    "28f6aadc8be086046f852f71019b35dbcee8806d0d9c950bd03a8a80573437a1"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=131008",
+   "doc_ids": [],
+   "modules": [
+    "census_source_formats"
+   ],
+   "requests": [
+    "headers_only"
+   ],
+   "sha256_recorded": [],
+   "mirror_url": null,
+   "note": "no OPD document row with this id or URL in the docs export",
+   "sha256_local": [],
+   "sha256_match": null
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=131009",
+   "doc_ids": [],
+   "modules": [
+    "census_source_formats"
+   ],
+   "requests": [
+    "headers_only"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 375518,
+   "opd_affair_id": 173406,
+   "opd_name": "Risposta del CdS del 21.08.2019",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/317e09f395bbc2ee01f204d3f905d0290bc0ab21890b6bea6f48c807efa3ef80",
+   "opd_format": "application/pdf",
+   "opd_size": 244865,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "mirror_error": "HTTPError: HTTP Error 404: Not Found",
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "OPD lists the document but its copy could not be read at build time (HTTPError: HTTP Error 404: Not Found)"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=131079",
+   "doc_ids": [
+    325413
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "f33866e8f1b9683840ef41efc31e5407c1515fac7b716732a953ebe7e7a33a7e"
+   ],
+   "opd_doc_id": 325413,
+   "opd_affair_id": 83504,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/c4b522e58d151ccb59108cc9623866100c85f2d0ee43f113c948e34f3d8f778f",
+   "opd_format": "application/pdf",
+   "opd_size": 778507,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "f33866e8f1b9683840ef41efc31e5407c1515fac7b716732a953ebe7e7a33a7e",
+   "mirror_bytes": 778507,
+   "sha256_match": true,
+   "sha256_local": [
+    "f33866e8f1b9683840ef41efc31e5407c1515fac7b716732a953ebe7e7a33a7e"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=131168",
+   "doc_ids": [
+    50633
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "88260adf221af99f2849650e0d3ae499b8b446832631ae3795e4c7d1ea4d4fcd"
+   ],
+   "opd_doc_id": 50633,
+   "opd_affair_id": 174611,
+   "opd_name": "Risposta del CdS del 19.11.2018",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/e275b7c422d2a10ddbc52c96f397870a505a5e05b891969340a9fb8e09d3e049",
+   "opd_format": "application/pdf",
+   "opd_size": 12383,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "88260adf221af99f2849650e0d3ae499b8b446832631ae3795e4c7d1ea4d4fcd",
+   "mirror_bytes": 12383,
+   "sha256_match": true,
+   "sha256_local": [
+    "88260adf221af99f2849650e0d3ae499b8b446832631ae3795e4c7d1ea4d4fcd"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=131290",
+   "doc_ids": [
+    839528
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 839528,
+   "opd_affair_id": 173673,
+   "opd_name": "Versione MS Word",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/49f979a37875f7d5e6082d22850c3c9650d39eb18734e38792f348bbd21548c4",
+   "opd_format": null,
+   "opd_size": 113664,
+   "opd_updated_at": "2026-04-30T19:09:08",
+   "opd_url_matches": true,
+   "sha256_mirror": "6f9627e46aeb167f72d72c54203a4a4659f34c038acd1454fdc55058dfe81ab6",
+   "mirror_bytes": 113664,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "non-PDF body kept only as extracted text (spike); cannot be compared byte for byte"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=131291",
+   "doc_ids": [
+    220802
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 220802,
+   "opd_affair_id": 173673,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/2547fce61c985693a30f1159324ce9307db9693286a4a3ed81cfa06ccbdeba65",
+   "opd_format": "application/pdf",
+   "opd_size": 52506,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "4eb465805c318d08d4066a17e307160c2d92a828d421b0095b5449b1cea383c0",
+   "mirror_bytes": 52506,
+   "sha256_match": true,
+   "sha256_local": [
+    "4eb465805c318d08d4066a17e307160c2d92a828d421b0095b5449b1cea383c0"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=131740",
+   "doc_ids": [
+    424779
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 424779,
+   "opd_affair_id": 83438,
+   "opd_name": "Risposta del CdS del 16.10.2019",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/88120503c6261b3a3ea63758ef0177a694f60220dcc0504aa18f723b94c0d554",
+   "opd_format": "application/pdf",
+   "opd_size": 134475,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "eaef89d5edce2212bcde6f098a5bec11c56ae7caf1891228f0b3479576c15ca9",
+   "mirror_bytes": 134475,
+   "sha256_match": true,
+   "sha256_local": [
+    "eaef89d5edce2212bcde6f098a5bec11c56ae7caf1891228f0b3479576c15ca9"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=131870",
+   "doc_ids": [
+    166450
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 166450,
+   "opd_affair_id": 173743,
+   "opd_name": "Risposta del CdS del 23.10.2019",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/4fd2d4de6997cf4669a6d5f0ea5a5909a5fce36dbbd9b1ca8a234cc7972190e2",
+   "opd_format": "application/pdf",
+   "opd_size": 337997,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "47f66cdb3a166b90f639a19344a0f51cd79c6937fc2dc41496272b1b7b6f9c93",
+   "mirror_bytes": 337997,
+   "sha256_match": true,
+   "sha256_local": [
+    "47f66cdb3a166b90f639a19344a0f51cd79c6937fc2dc41496272b1b7b6f9c93"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=131921",
+   "doc_ids": [
+    109883
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "8adf9cc6b785d14a27c1bec132bd258c2ee7bac745182d64197ae6cd977c7e8a"
+   ],
+   "opd_doc_id": 109883,
+   "opd_affair_id": 173801,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/0ffcdddfcef1d3ce618a9450ee21a885c9289fd7386abd6c3b707db773104635",
+   "opd_format": "application/pdf",
+   "opd_size": 134161,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "8adf9cc6b785d14a27c1bec132bd258c2ee7bac745182d64197ae6cd977c7e8a",
+   "mirror_bytes": 134161,
+   "sha256_match": true,
+   "sha256_local": [
+    "8adf9cc6b785d14a27c1bec132bd258c2ee7bac745182d64197ae6cd977c7e8a"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=131923",
+   "doc_ids": [
+    217273
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "66c47b149208c91e9e9ce854d65af41c5bab8760ed72aec1dc11bf27ab0db478"
+   ],
+   "opd_doc_id": 217273,
+   "opd_affair_id": 173804,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/a3b14023ec057afa72f98281017dd7bec809d497b694a5be7287411466adcb19",
+   "opd_format": "application/pdf",
+   "opd_size": 78631,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "66c47b149208c91e9e9ce854d65af41c5bab8760ed72aec1dc11bf27ab0db478",
+   "mirror_bytes": 78631,
+   "sha256_match": true,
+   "sha256_local": [
+    "66c47b149208c91e9e9ce854d65af41c5bab8760ed72aec1dc11bf27ab0db478"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=131964",
+   "doc_ids": [
+    325712
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "594ce0f95e4956ab00125f50fc98c3b9ab197f7a5c4c27110291f65765e49dfb"
+   ],
+   "opd_doc_id": 325712,
+   "opd_affair_id": 84554,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/fab306dc231cac9209896a3f80ab8893df33d0607a2ca4b67a190312c3c39ef0",
+   "opd_format": "application/pdf",
+   "opd_size": 87959,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "594ce0f95e4956ab00125f50fc98c3b9ab197f7a5c4c27110291f65765e49dfb",
+   "mirror_bytes": 87959,
+   "sha256_match": true,
+   "sha256_local": [
+    "594ce0f95e4956ab00125f50fc98c3b9ab197f7a5c4c27110291f65765e49dfb"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=132001",
+   "doc_ids": [
+    839378
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "get_discarded"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 839378,
+   "opd_affair_id": 83372,
+   "opd_name": "Risposta del CdS del 06.11.2019",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/b0b545e559220ce3c6d77f78db641706a4266dace1453b717b94b93b76233899",
+   "opd_format": null,
+   "opd_size": 71168,
+   "opd_updated_at": "2026-04-30T19:09:08",
+   "opd_url_matches": true,
+   "sha256_mirror": "867f5913977c9c1a3efd36741ad9b9613e23254b6c55dc1a79694d824b8fc1d5",
+   "mirror_bytes": 71168,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "body read and discarded at the time (not a PDF); nothing kept"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=132003",
+   "doc_ids": [
+    41722
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "3a12002569955181e80fa481fb4361246244b42309900ead7a0c3b9631f60bd3"
+   ],
+   "opd_doc_id": 41722,
+   "opd_affair_id": 173750,
+   "opd_name": "Risposta del CdS del 06.11.2019",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/270dfb0bc3cc3eed28e8e60d7227e84d36f824d175dc896cd440a0b2780e0ead",
+   "opd_format": "application/pdf",
+   "opd_size": 386216,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "3a12002569955181e80fa481fb4361246244b42309900ead7a0c3b9631f60bd3",
+   "mirror_bytes": 386216,
+   "sha256_match": true,
+   "sha256_local": [
+    "3a12002569955181e80fa481fb4361246244b42309900ead7a0c3b9631f60bd3"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=132007",
+   "doc_ids": [
+    273589
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 273589,
+   "opd_affair_id": 173673,
+   "opd_name": "Risposta del CdS del 06.11.2019",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/7faa04fc372d030d50ea52f134005c66ab8fcf8229071f36c8515b747d30d6ad",
+   "opd_format": "application/pdf",
+   "opd_size": 196996,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "18d015dad942163d8b3d493a4f8f2402a0a0308e23b24d916fb44d4f5b501561",
+   "mirror_bytes": 196996,
+   "sha256_match": true,
+   "sha256_local": [
+    "18d015dad942163d8b3d493a4f8f2402a0a0308e23b24d916fb44d4f5b501561"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=132142",
+   "doc_ids": [
+    109906
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "21618882e30f15bbc688699d5118cc53d264a084a551068e009f0ec4e715830f"
+   ],
+   "opd_doc_id": 109906,
+   "opd_affair_id": 83504,
+   "opd_name": "Allegato a risposta",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/6d2c2dd90c950b24bfd2e722ed40bfded8c72955ee401d7ca204d705119d5e23",
+   "opd_format": "application/pdf",
+   "opd_size": 50278,
+   "opd_updated_at": "2026-04-25T21:52:28",
+   "opd_url_matches": true,
+   "sha256_mirror": "21618882e30f15bbc688699d5118cc53d264a084a551068e009f0ec4e715830f",
+   "mirror_bytes": 50278,
+   "sha256_match": true,
+   "sha256_local": [
+    "21618882e30f15bbc688699d5118cc53d264a084a551068e009f0ec4e715830f"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=132566",
+   "doc_ids": [
+    272184
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "35b993c91aa71173461442e38e7a732770390657761ba3b9c2d5715b42686c57"
+   ],
+   "opd_doc_id": 272184,
+   "opd_affair_id": 173804,
+   "opd_name": "Risposta del CdS del 18.12.2019",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/a5eafa444b78bda3f5d085de763df9b81cf11ad3a72139dd61dcfaeabed7b62a",
+   "opd_format": "application/pdf",
+   "opd_size": 162935,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "35b993c91aa71173461442e38e7a732770390657761ba3b9c2d5715b42686c57",
+   "mirror_bytes": 162935,
+   "sha256_match": true,
+   "sha256_local": [
+    "35b993c91aa71173461442e38e7a732770390657761ba3b9c2d5715b42686c57"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=132700",
+   "doc_ids": [
+    221129
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "5375dc0afc3af698b3c0e21d42148a83aa9c99be51e111d68cd7ce747843fd00"
+   ],
+   "opd_doc_id": 221129,
+   "opd_affair_id": 174668,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/df91ca8c93be3fb1a80bf46c3e41005acf8dab49af6365edc0a429287b17c3bf",
+   "opd_format": "application/pdf",
+   "opd_size": 183336,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "5375dc0afc3af698b3c0e21d42148a83aa9c99be51e111d68cd7ce747843fd00",
+   "mirror_bytes": 183336,
+   "sha256_match": true,
+   "sha256_local": [
+    "5375dc0afc3af698b3c0e21d42148a83aa9c99be51e111d68cd7ce747843fd00"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=132728",
+   "doc_ids": [
+    50317
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "d105b7d72faab95b97ae028820603e6502b22a851b3b5dae4a81909d15e8626e"
+   ],
+   "opd_doc_id": 50317,
+   "opd_affair_id": 173801,
+   "opd_name": "Risposta del CdS del 15.01.2020",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/d3a94b1522b2a2bcf7da9b2be8567670a5bc20711ea3bedbd72c8bbf9f2cecb2",
+   "opd_format": "application/pdf",
+   "opd_size": 300438,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "d105b7d72faab95b97ae028820603e6502b22a851b3b5dae4a81909d15e8626e",
+   "mirror_bytes": 300438,
+   "sha256_match": true,
+   "sha256_local": [
+    "d105b7d72faab95b97ae028820603e6502b22a851b3b5dae4a81909d15e8626e"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=134387",
+   "doc_ids": [
+    50679
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "f2625cbf1afd395b181ac0094d54d046e6f499dd2a3e1c9c2afc6c887f8bd8c9"
+   ],
+   "opd_doc_id": 50679,
+   "opd_affair_id": 174681,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/a624842142ff5a73ba705c1c6cb466125861cadfac342e8560d911b480a3b265",
+   "opd_format": "application/pdf",
+   "opd_size": 172659,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "f2625cbf1afd395b181ac0094d54d046e6f499dd2a3e1c9c2afc6c887f8bd8c9",
+   "mirror_bytes": 172659,
+   "sha256_match": true,
+   "sha256_local": [
+    "f2625cbf1afd395b181ac0094d54d046e6f499dd2a3e1c9c2afc6c887f8bd8c9"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=134781",
+   "doc_ids": [
+    109880
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "bb70e9d2a57c08b880f4061ff92c490cfea19fc38388c3b4185d95f2de84bcfd"
+   ],
+   "opd_doc_id": 109880,
+   "opd_affair_id": 173834,
+   "opd_name": "Risposta del CdS del 15.04.2020",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/fdcab2c890e553cd6dc55cc0e01fad06b3756b070bebd353d89d5aa0ce88a169",
+   "opd_format": "application/pdf",
+   "opd_size": 240861,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "bb70e9d2a57c08b880f4061ff92c490cfea19fc38388c3b4185d95f2de84bcfd",
+   "mirror_bytes": 240861,
+   "sha256_match": true,
+   "sha256_local": [
+    "bb70e9d2a57c08b880f4061ff92c490cfea19fc38388c3b4185d95f2de84bcfd"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=134799",
+   "doc_ids": [
+    50349
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 50349,
+   "opd_affair_id": 83711,
+   "opd_name": "Risposta del CdS del 01.04.2020",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/7da9997246fcdfb5dd2829287bcf5f16a83e5bb463379cc75704d9f94c17645e",
+   "opd_format": "application/pdf",
+   "opd_size": 136411,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "00f06f3d9276bae01a82466830f3087fa25c12e2fc3709ae99c38f3676abb15f",
+   "mirror_bytes": 136411,
+   "sha256_match": true,
+   "sha256_local": [
+    "00f06f3d9276bae01a82466830f3087fa25c12e2fc3709ae99c38f3676abb15f"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=134820",
+   "doc_ids": [
+    110343
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "80d7e9eb6f1c8fc6a31e5289e0a95135b82cc2a1a76b73152cb10ef1a9f0dc6a"
+   ],
+   "opd_doc_id": 110343,
+   "opd_affair_id": 174693,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/22ab4809c55a5b1237318306dd44ca04edc7a4a1962447784dff5d4e244b17ce",
+   "opd_format": "application/pdf",
+   "opd_size": 87439,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "80d7e9eb6f1c8fc6a31e5289e0a95135b82cc2a1a76b73152cb10ef1a9f0dc6a",
+   "mirror_bytes": 87439,
+   "sha256_match": true,
+   "sha256_local": [
+    "80d7e9eb6f1c8fc6a31e5289e0a95135b82cc2a1a76b73152cb10ef1a9f0dc6a"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=134910",
+   "doc_ids": [
+    325484
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 325484,
+   "opd_affair_id": 83743,
+   "opd_name": "Risposta del CdS del 29.04.2020",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/deb76c7c5b4a2f908798a6810c082a5d40f3fe38e85c52043d9a45cd40003d03",
+   "opd_format": "application/pdf",
+   "opd_size": 147594,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "9f6897897979f0d9b0fd49ea14d229e392bf2bcea05b682354e3a9b67fa682e9",
+   "mirror_bytes": 147594,
+   "sha256_match": true,
+   "sha256_local": [
+    "9f6897897979f0d9b0fd49ea14d229e392bf2bcea05b682354e3a9b67fa682e9"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=134932",
+   "doc_ids": [
+    110287
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "bf5e4022a4ccce673b056fda1a20a824ccb3a7a1ed5b59e19607b66a216bf4d0"
+   ],
+   "opd_doc_id": 110287,
+   "opd_affair_id": 84590,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/e4da86274033b35f8b6c38fb02be14669815c6bdd5aa2db0b998c2ef289af264",
+   "opd_format": "application/pdf",
+   "opd_size": 90764,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "bf5e4022a4ccce673b056fda1a20a824ccb3a7a1ed5b59e19607b66a216bf4d0",
+   "mirror_bytes": 90764,
+   "sha256_match": true,
+   "sha256_local": [
+    "bf5e4022a4ccce673b056fda1a20a824ccb3a7a1ed5b59e19607b66a216bf4d0"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=135128",
+   "doc_ids": [
+    273944
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "84785938a295539e9a76f9d44e9283dde8ce50a9055df9f5be2da8df56b68419"
+   ],
+   "opd_doc_id": 273944,
+   "opd_affair_id": 174709,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/c5b11ce53869757cdcb3a9582dfc2ea1437cc71fcee5351cff5f620448976026",
+   "opd_format": "application/pdf",
+   "opd_size": 91621,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "84785938a295539e9a76f9d44e9283dde8ce50a9055df9f5be2da8df56b68419",
+   "mirror_bytes": 91621,
+   "sha256_match": true,
+   "sha256_local": [
+    "84785938a295539e9a76f9d44e9283dde8ce50a9055df9f5be2da8df56b68419"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=135204",
+   "doc_ids": [
+    325462
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "33686d3f557905be6c3849317891adcc9a2de8f74e072007a13a6e584261dc84"
+   ],
+   "opd_doc_id": 325462,
+   "opd_affair_id": 174036,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/7dea558f1fe04b851b15d4ad20c684b1d3027d70cd21164848bbdd08539f48bb",
+   "opd_format": "application/pdf",
+   "opd_size": 128664,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "33686d3f557905be6c3849317891adcc9a2de8f74e072007a13a6e584261dc84",
+   "mirror_bytes": 128664,
+   "sha256_match": true,
+   "sha256_local": [
+    "33686d3f557905be6c3849317891adcc9a2de8f74e072007a13a6e584261dc84"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=135208",
+   "doc_ids": [
+    375557
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "83361df4bed62d5e99734731cac56513189cb7ceee2c49fd9f75cedcdce12872"
+   ],
+   "opd_doc_id": 375557,
+   "opd_affair_id": 83913,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/67f7e04853884bd35ff3f4877b68be619b86a52c9b20ea49159d0c46f6de0f24",
+   "opd_format": "application/pdf",
+   "opd_size": 82559,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "83361df4bed62d5e99734731cac56513189cb7ceee2c49fd9f75cedcdce12872",
+   "mirror_bytes": 82559,
+   "sha256_match": true,
+   "sha256_local": [
+    "83361df4bed62d5e99734731cac56513189cb7ceee2c49fd9f75cedcdce12872"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=135252",
+   "doc_ids": [
+    166592
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "661c62390136b5dc7d5c4a0056538f536bcb67670ef1d95a94f80e56f79f99c6"
+   ],
+   "opd_doc_id": 166592,
+   "opd_affair_id": 83909,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/036c71911de35f927fd8e3731bb0304d494e0c31a7c4a89930fbf950c50924a8",
+   "opd_format": "application/pdf",
+   "opd_size": 185207,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "661c62390136b5dc7d5c4a0056538f536bcb67670ef1d95a94f80e56f79f99c6",
+   "mirror_bytes": 185207,
+   "sha256_match": true,
+   "sha256_local": [
+    "661c62390136b5dc7d5c4a0056538f536bcb67670ef1d95a94f80e56f79f99c6"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=135358",
+   "doc_ids": [
+    166588
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "7c73d414d909cb073a2a0044d68dd343ac8e7c137dc753bcc401c3d858021a74"
+   ],
+   "opd_doc_id": 166588,
+   "opd_affair_id": 174070,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/e911ca4d2f87db573821df3b97842472b838230e833bd5025fb9002809da1f2c",
+   "opd_format": "application/pdf",
+   "opd_size": 223022,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "7c73d414d909cb073a2a0044d68dd343ac8e7c137dc753bcc401c3d858021a74",
+   "mirror_bytes": 223022,
+   "sha256_match": true,
+   "sha256_local": [
+    "7c73d414d909cb073a2a0044d68dd343ac8e7c137dc753bcc401c3d858021a74"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=135438",
+   "doc_ids": [
+    50319
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 50319,
+   "opd_affair_id": 83872,
+   "opd_name": "Risposta del CdS del 17.06.2020",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/4e2a669ed5aa365f0a129360bee60ff1b5dc004fe27b9de567d42698b4de2e58",
+   "opd_format": "application/pdf",
+   "opd_size": 517697,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "a999eb77e5eadc63ef001a720c444320e828f033f8dc1886c2777a6fda5003ec",
+   "mirror_bytes": 517697,
+   "sha256_match": true,
+   "sha256_local": [
+    "a999eb77e5eadc63ef001a720c444320e828f033f8dc1886c2777a6fda5003ec"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=135504",
+   "doc_ids": [
+    375575
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "259029d1bec0fc4863eccc7fc728df743d1ccff6ff3147b0f6e6fe7415e5902e"
+   ],
+   "opd_doc_id": 375575,
+   "opd_affair_id": 83956,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/76e3ac768b3c64945b8f58ba23e1b38f750ecdfb44693db05b4081968abea1d7",
+   "opd_format": "application/pdf",
+   "opd_size": 105212,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "259029d1bec0fc4863eccc7fc728df743d1ccff6ff3147b0f6e6fe7415e5902e",
+   "mirror_bytes": 105212,
+   "sha256_match": true,
+   "sha256_local": [
+    "259029d1bec0fc4863eccc7fc728df743d1ccff6ff3147b0f6e6fe7415e5902e"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=135994",
+   "doc_ids": [
+    43862
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "9d08136adac0c38d48a731b99729385f6fe6b21104169da7a91093fdbea552e8"
+   ],
+   "opd_doc_id": 43862,
+   "opd_affair_id": 84095,
+   "opd_name": "Risposta del CdS del 26.08.2020",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/e7b988fa43ac50cb6db871b650126a8a3c8c60625e95ec7702848c5b301861e7",
+   "opd_format": "application/pdf",
+   "opd_size": 48014,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "9d08136adac0c38d48a731b99729385f6fe6b21104169da7a91093fdbea552e8",
+   "mirror_bytes": 48014,
+   "sha256_match": true,
+   "sha256_local": [
+    "9d08136adac0c38d48a731b99729385f6fe6b21104169da7a91093fdbea552e8"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=136078",
+   "doc_ids": [
+    166615
+   ],
+   "modules": [
+    "ci_make_run",
+    "convert_demo",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "f9218f2c8d4e5167ee27c7d35fa8b3982029c099896a59438930d13784012630"
+   ],
+   "opd_doc_id": 166615,
+   "opd_affair_id": 174188,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/6f99fc19900c80dfa19a9eb518812708a21eb25e1f23df780e7b8e663d229b23",
+   "opd_format": "application/pdf",
+   "opd_size": 62530,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "f9218f2c8d4e5167ee27c7d35fa8b3982029c099896a59438930d13784012630",
+   "mirror_bytes": 62530,
+   "sha256_match": true,
+   "sha256_local": [
+    "f9218f2c8d4e5167ee27c7d35fa8b3982029c099896a59438930d13784012630"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=136269",
+   "doc_ids": [
+    273945
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "ce13d5e117022230b37273b0d852ad137d6431126d4d02e919374f2c59f0a215"
+   ],
+   "opd_doc_id": 273945,
+   "opd_affair_id": 174709,
+   "opd_name": "Risposta del CdS del 25.05.2020",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/a0ac77f7e4b5510f713c1b9bb5d382ee86f8119c4bef2bf8129ff85879ac89f1",
+   "opd_format": "application/pdf",
+   "opd_size": 115509,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "ce13d5e117022230b37273b0d852ad137d6431126d4d02e919374f2c59f0a215",
+   "mirror_bytes": 115509,
+   "sha256_match": true,
+   "sha256_local": [
+    "ce13d5e117022230b37273b0d852ad137d6431126d4d02e919374f2c59f0a215"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=136365",
+   "doc_ids": [
+    166938
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "414ff09b38adf0f963703c22a335d47131f85ee955d687ef8bc4f3b6f4dc594f"
+   ],
+   "opd_doc_id": 166938,
+   "opd_affair_id": 84617,
+   "opd_name": "Risposta del CdS del 23.09.2020",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/015878f6d25d97b480b0465d571ba7ab14a21dfa76eab5b247b764abb03002aa",
+   "opd_format": "application/pdf",
+   "opd_size": 117116,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "414ff09b38adf0f963703c22a335d47131f85ee955d687ef8bc4f3b6f4dc594f",
+   "mirror_bytes": 117116,
+   "sha256_match": true,
+   "sha256_local": [
+    "414ff09b38adf0f963703c22a335d47131f85ee955d687ef8bc4f3b6f4dc594f"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=136370",
+   "doc_ids": [
+    424975
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "9b84f5fa95fc0aab14f58b1da4818fb8fbbebd6d7e4a66ab19ee23d3686e394d"
+   ],
+   "opd_doc_id": 424975,
+   "opd_affair_id": 174723,
+   "opd_name": "Risposta del CdS del 23.09.2020",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/fd21becdd6546bfb255716a4e56a1dccef9b28dc903e48708bd0f775ec838da7",
+   "opd_format": "application/pdf",
+   "opd_size": 118848,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "9b84f5fa95fc0aab14f58b1da4818fb8fbbebd6d7e4a66ab19ee23d3686e394d",
+   "mirror_bytes": 118848,
+   "sha256_match": true,
+   "sha256_local": [
+    "9b84f5fa95fc0aab14f58b1da4818fb8fbbebd6d7e4a66ab19ee23d3686e394d"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=136557",
+   "doc_ids": [
+    166587
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 166587,
+   "opd_affair_id": 174004,
+   "opd_name": "Risposta del CdS del 07.10.2020",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/edd4b2a17968dbf85389df55a6628101cc2f97a070f2d731447a78058d8e618d",
+   "opd_format": "application/pdf",
+   "opd_size": 175024,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "592e6113d99b4ed7f1a598118f47ae17b3555142122a539c84ea183cc44be176",
+   "mirror_bytes": 175024,
+   "sha256_match": true,
+   "sha256_local": [
+    "592e6113d99b4ed7f1a598118f47ae17b3555142122a539c84ea183cc44be176"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=136718",
+   "doc_ids": [
+    109960
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "1adc0793b064c1fb0f2843c965f5b1a63df89e1747d04a72711e8ba0391c88e7"
+   ],
+   "opd_doc_id": 109960,
+   "opd_affair_id": 173535,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/25ab50a1a260d250d8433aa79b8771223b40aee9331d48f996a781babe26e809",
+   "opd_format": "application/pdf",
+   "opd_size": 97847,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "1adc0793b064c1fb0f2843c965f5b1a63df89e1747d04a72711e8ba0391c88e7",
+   "mirror_bytes": 97847,
+   "sha256_match": true,
+   "sha256_local": [
+    "1adc0793b064c1fb0f2843c965f5b1a63df89e1747d04a72711e8ba0391c88e7"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=137036",
+   "doc_ids": [
+    109930
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "a5f878cd42ec36b5ebbe75a214ace4e4e17152ecd8c016d29c728a8700cf7d0a"
+   ],
+   "opd_doc_id": 109930,
+   "opd_affair_id": 83307,
+   "opd_name": "Risposta del CdS del 18.11.2020",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/b36736eebcdc7d1d8f9b0aebd74a80e371a23aef952511945ad80f11dff97c19",
+   "opd_format": "application/pdf",
+   "opd_size": 129629,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "a5f878cd42ec36b5ebbe75a214ace4e4e17152ecd8c016d29c728a8700cf7d0a",
+   "mirror_bytes": 129629,
+   "sha256_match": true,
+   "sha256_local": [
+    "a5f878cd42ec36b5ebbe75a214ace4e4e17152ecd8c016d29c728a8700cf7d0a"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=137701",
+   "doc_ids": [],
+   "modules": [
+    "adapters"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 325471,
+   "opd_affair_id": 76036,
+   "opd_name": "Risposta del CdS del 03.02.2021",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/f27a4a8e38b3bf3fb9c1044bb915b973d5d33746410f4e19d6deb4b5f31301f8",
+   "opd_format": "application/pdf",
+   "opd_size": 183692,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "198e334742e8e580f234290d5489e050428e28094138c7177775c72fda15812d",
+   "mirror_bytes": 183692,
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "sha256 of the parliament download not logged; WORK/pdf holds a file with the bytes of OPD's copy (kept: identical to OPD's public copy)"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=138519",
+   "doc_ids": [
+    375620
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 375620,
+   "opd_affair_id": 173977,
+   "opd_name": "Risposta del CdS del 21.04.2021",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/a891dda7423ed1a522e3129dab051f39af1bcd43bd2fe0603d16d464d2d75a20",
+   "opd_format": "application/pdf",
+   "opd_size": 74372,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "1f10a639a974306730250ef846d1113a24d2216fc8d419e24e972eaae4ae0fd9",
+   "mirror_bytes": 74372,
+   "sha256_match": true,
+   "sha256_local": [
+    "1f10a639a974306730250ef846d1113a24d2216fc8d419e24e972eaae4ae0fd9"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=138533",
+   "doc_ids": [
+    221219
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "9c4ab3e738ed3fb124e725cf6ae6336a63187b85bdaa2e9e44e3154e921281f0"
+   ],
+   "opd_doc_id": 221219,
+   "opd_affair_id": 174785,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/af0e76ec31b4e70fcf691b8d1339a379f15669c8bf1eac931f59e52d6b680b51",
+   "opd_format": "application/pdf",
+   "opd_size": 14708,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "9c4ab3e738ed3fb124e725cf6ae6336a63187b85bdaa2e9e44e3154e921281f0",
+   "mirror_bytes": 14708,
+   "sha256_match": true,
+   "sha256_local": [
+    "9c4ab3e738ed3fb124e725cf6ae6336a63187b85bdaa2e9e44e3154e921281f0"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=138859",
+   "doc_ids": [
+    419960
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "73fc56bf2f671e1ad1b073140ffc58121358aa86fbdc4118ce435043d5c837d4"
+   ],
+   "opd_doc_id": 419960,
+   "opd_affair_id": 83776,
+   "opd_name": "Risposta del CdS del 26.05.2021",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/1b4f3b3421b5a0375712d4e69c17b6b1709abdfcbda7bb4ae7eecc1c19379ba6",
+   "opd_format": "application/pdf",
+   "opd_size": 252519,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "73fc56bf2f671e1ad1b073140ffc58121358aa86fbdc4118ce435043d5c837d4",
+   "mirror_bytes": 252519,
+   "sha256_match": true,
+   "sha256_local": [
+    "73fc56bf2f671e1ad1b073140ffc58121358aa86fbdc4118ce435043d5c837d4"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=138944",
+   "doc_ids": [
+    325384
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "9bd2be434b092f3b619d5536a0e1b8ab80a42e9537280d84b4a8987d78de7948"
+   ],
+   "opd_doc_id": 325384,
+   "opd_affair_id": 173516,
+   "opd_name": "Risposta del CdS del 02.06.2021",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/8741818b0ba3ae81c39bbd68e46b0e4007f91b1214ce41e8915219ccc244ce09",
+   "opd_format": "application/pdf",
+   "opd_size": 483232,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "9bd2be434b092f3b619d5536a0e1b8ab80a42e9537280d84b4a8987d78de7948",
+   "mirror_bytes": 483232,
+   "sha256_match": true,
+   "sha256_local": [
+    "9bd2be434b092f3b619d5536a0e1b8ab80a42e9537280d84b4a8987d78de7948"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=139226",
+   "doc_ids": [
+    166646
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 166646,
+   "opd_affair_id": 83933,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/bf6642b25d6f5d5a3d28ff39721e8bf2c014f3e86d924120b1fa54d71173f403",
+   "opd_format": "application/pdf",
+   "opd_size": 557569,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "d47a0af9e39553ee3376b1ed5d861479fe72e82540f65c2cb2490237189fa9fc",
+   "mirror_bytes": 557569,
+   "sha256_match": true,
+   "sha256_local": [
+    "d47a0af9e39553ee3376b1ed5d861479fe72e82540f65c2cb2490237189fa9fc"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=139798",
+   "doc_ids": [
+    274108
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "0a7f2bf5701a8c3effc4d90a080dad99eb622401b11717408c2649f9630b7d88"
+   ],
+   "opd_doc_id": 274108,
+   "opd_affair_id": 85821,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/ec54878a79af0b2d1807b18352eb89cc0ce6657a702acabc11f299f8cb7d464d",
+   "opd_format": "application/pdf",
+   "opd_size": 66098,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "0a7f2bf5701a8c3effc4d90a080dad99eb622401b11717408c2649f9630b7d88",
+   "mirror_bytes": 66098,
+   "sha256_match": true,
+   "sha256_local": [
+    "0a7f2bf5701a8c3effc4d90a080dad99eb622401b11717408c2649f9630b7d88"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=140409",
+   "doc_ids": [
+    50389
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 50389,
+   "opd_affair_id": 83933,
+   "opd_name": "Risposta del CdS del 20.10.2021",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/a128cfa2fc8fdb393eea95ed5b49fca75284307294de7de8d9e7ee5b411ff79b",
+   "opd_format": "application/pdf",
+   "opd_size": 197187,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "b15382453a204319d3d04295088d1e9217338769569286c5a2513c6fbfc73331",
+   "mirror_bytes": 197187,
+   "sha256_match": true,
+   "sha256_local": [
+    "b15382453a204319d3d04295088d1e9217338769569286c5a2513c6fbfc73331"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=140671",
+   "doc_ids": [
+    424357
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 424357,
+   "opd_affair_id": 84713,
+   "opd_name": "Risposta del CdS del 27.10.2021",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/fc6031e38ef62e9ee8fc8e1147ffa996673eb0b362c16a0a73f7a5757a58411e",
+   "opd_format": "application/pdf",
+   "opd_size": 309838,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "e3b901790f55db0827ef51158197275a13de2715d3e7f790163d9f7d7e18efe4",
+   "mirror_bytes": 309838,
+   "sha256_match": true,
+   "sha256_local": [
+    "e3b901790f55db0827ef51158197275a13de2715d3e7f790163d9f7d7e18efe4"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=140789",
+   "doc_ids": [
+    424355
+   ],
+   "modules": [
+    "spike_recovery"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 424355,
+   "opd_affair_id": 174804,
+   "opd_name": "Risposta del CdS del 05.11.2021",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/6e5719b2fb8c2ab78f880c36dd8f4d02a427b53c3700efa64afae72f07f17b33",
+   "opd_format": "application/pdf",
+   "opd_size": 151438,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "5658debe709370656d645b4de97c0fbca10ce0aae233f900323512b9d81b06bc",
+   "mirror_bytes": 151438,
+   "sha256_match": true,
+   "sha256_local": [
+    "5658debe709370656d645b4de97c0fbca10ce0aae233f900323512b9d81b06bc"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=142409",
+   "doc_ids": [
+    110479
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "d907bf79828f6d5961bf33dd1675659589ec3e27d4fb062004f19c8b2cb517fd"
+   ],
+   "opd_doc_id": 110479,
+   "opd_affair_id": 175963,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/505c62c8e984c4748c4713221a5f674ad13063477435d773dd084f664b4ca533",
+   "opd_format": "application/pdf",
+   "opd_size": 19633,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "d907bf79828f6d5961bf33dd1675659589ec3e27d4fb062004f19c8b2cb517fd",
+   "mirror_bytes": 19633,
+   "sha256_match": true,
+   "sha256_local": [
+    "d907bf79828f6d5961bf33dd1675659589ec3e27d4fb062004f19c8b2cb517fd"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=142529",
+   "doc_ids": [
+    220876
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "bff04b69a29097645a226b1b4c221126066c5bc3148218bf4ef3baabfc2e810a"
+   ],
+   "opd_doc_id": 220876,
+   "opd_affair_id": 173507,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/a41539b5dbd108b04db65702ac965fa7ba1cecce7a1759e39c3d380c693d6066",
+   "opd_format": "application/pdf",
+   "opd_size": 117235,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "bff04b69a29097645a226b1b4c221126066c5bc3148218bf4ef3baabfc2e810a",
+   "mirror_bytes": 117235,
+   "sha256_match": true,
+   "sha256_local": [
+    "bff04b69a29097645a226b1b4c221126066c5bc3148218bf4ef3baabfc2e810a"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=142768",
+   "doc_ids": [
+    220840
+   ],
+   "modules": [
+    "gold_p3"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "83394af6bb13f9fa85a63d201a2b0030561a401ad963c10e2905269a02cf5f29"
+   ],
+   "opd_doc_id": 220840,
+   "opd_affair_id": 173540,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/bbaa037de96f406e46042d789c04e5b54057fc0c5dea6b2ca454cbd26963836a",
+   "opd_format": "application/pdf",
+   "opd_size": 130650,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "83394af6bb13f9fa85a63d201a2b0030561a401ad963c10e2905269a02cf5f29",
+   "mirror_bytes": 130650,
+   "sha256_match": true,
+   "sha256_local": [
+    "83394af6bb13f9fa85a63d201a2b0030561a401ad963c10e2905269a02cf5f29"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=149004",
+   "doc_ids": [
+    375941
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "1024ebce64c57372e2dc80838f40d68b57c037ce4e73a46dcd1e1a6abadb8b3c"
+   ],
+   "opd_doc_id": 375941,
+   "opd_affair_id": 174785,
+   "opd_name": "Risposta del CdS del 03.05.2021",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/4de1d5912049b6e17f8a1c76616f43856e6328a77a3fda2acf7cd1acf0de9f64",
+   "opd_format": "application/pdf",
+   "opd_size": 101604,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "1024ebce64c57372e2dc80838f40d68b57c037ce4e73a46dcd1e1a6abadb8b3c",
+   "mirror_bytes": 101604,
+   "sha256_match": true,
+   "sha256_local": [
+    "1024ebce64c57372e2dc80838f40d68b57c037ce4e73a46dcd1e1a6abadb8b3c"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=149006",
+   "doc_ids": [
+    50757
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "170204c756340b2cef5377909319856ce2a4c5f545841d1a73319f7a4a0c2880"
+   ],
+   "opd_doc_id": 50757,
+   "opd_affair_id": 174787,
+   "opd_name": "Risposta del CdS del 04.05.2021",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/2b352f8b4c8b7a4472f9b5e4fbb17480adabd5930bfe508bb1254018c6011855",
+   "opd_format": "application/pdf",
+   "opd_size": 111438,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "170204c756340b2cef5377909319856ce2a4c5f545841d1a73319f7a4a0c2880",
+   "mirror_bytes": 111438,
+   "sha256_match": true,
+   "sha256_local": [
+    "170204c756340b2cef5377909319856ce2a4c5f545841d1a73319f7a4a0c2880"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=149008",
+   "doc_ids": [
+    375932
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "2a67721f0455fe3bb867e0b374ade14ece2d8f467152ac7d6157103a23df057f"
+   ],
+   "opd_doc_id": 375932,
+   "opd_affair_id": 174790,
+   "opd_name": "Risposta del CdS del 04.05.2021",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/b033686013af797d679feae4856b16faa59be058f5ec168033a0ab6c67453046",
+   "opd_format": "application/pdf",
+   "opd_size": 103033,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "2a67721f0455fe3bb867e0b374ade14ece2d8f467152ac7d6157103a23df057f",
+   "mirror_bytes": 103033,
+   "sha256_match": true,
+   "sha256_local": [
+    "2a67721f0455fe3bb867e0b374ade14ece2d8f467152ac7d6157103a23df057f"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=151633",
+   "doc_ids": [
+    375688
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "0b61aaff2cbbc2060adeb750519f7aaa425fa3d5702b32f34a285c9c8113752b"
+   ],
+   "opd_doc_id": 375688,
+   "opd_affair_id": 174098,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/64f8484072e42d5ed1765ceee3bd23f1b1ad0949a3037454917cdd263b561876",
+   "opd_format": "application/pdf",
+   "opd_size": 58103,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "0b61aaff2cbbc2060adeb750519f7aaa425fa3d5702b32f34a285c9c8113752b",
+   "mirror_bytes": 58103,
+   "sha256_match": true,
+   "sha256_local": [
+    "0b61aaff2cbbc2060adeb750519f7aaa425fa3d5702b32f34a285c9c8113752b"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=152517",
+   "doc_ids": [
+    110047
+   ],
+   "modules": [
+    "ci_make_run",
+    "convert_demo",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "954521445fb441f3cf565dded379eb8c078eb278774c0051bd01312bb97be39c"
+   ],
+   "opd_doc_id": 110047,
+   "opd_affair_id": 174102,
+   "opd_name": "Risposta del CdS del 28.06.2022",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/fca68b4c0b9cd55d467143f6f6e471e14a61fbd1e0f624aabd10b4a286717e29",
+   "opd_format": "application/pdf",
+   "opd_size": 122061,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "954521445fb441f3cf565dded379eb8c078eb278774c0051bd01312bb97be39c",
+   "mirror_bytes": 122061,
+   "sha256_match": true,
+   "sha256_local": [
+    "954521445fb441f3cf565dded379eb8c078eb278774c0051bd01312bb97be39c"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=152904",
+   "doc_ids": [
+    220830
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "070b07f7168ff2ff773bb0e64cfa8a98f5af3abef3e3370697c6796267739f2e"
+   ],
+   "opd_doc_id": 220830,
+   "opd_affair_id": 83726,
+   "opd_name": "Risposta del CdS del 13.07.2022",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/7bdbebf84218322cb63c326a308466aaed06d834dd96238b6d7b598c9ddb041f",
+   "opd_format": "application/pdf",
+   "opd_size": 349305,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "070b07f7168ff2ff773bb0e64cfa8a98f5af3abef3e3370697c6796267739f2e",
+   "mirror_bytes": 349305,
+   "sha256_match": true,
+   "sha256_local": [
+    "070b07f7168ff2ff773bb0e64cfa8a98f5af3abef3e3370697c6796267739f2e"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=152907",
+   "doc_ids": [
+    50458
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "47eaf6b2fe9e0f32a5230a0011e33ab835cd970799cba19f66734769579baaf2"
+   ],
+   "opd_doc_id": 50458,
+   "opd_affair_id": 174098,
+   "opd_name": "Risposta del CdS del 13.07.2022",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/d1f8771eb806ad1757515f065f7f1466bb326c3aaff16e48fdeaeb68583199fe",
+   "opd_format": "application/pdf",
+   "opd_size": 361690,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "47eaf6b2fe9e0f32a5230a0011e33ab835cd970799cba19f66734769579baaf2",
+   "mirror_bytes": 361690,
+   "sha256_match": true,
+   "sha256_local": [
+    "47eaf6b2fe9e0f32a5230a0011e33ab835cd970799cba19f66734769579baaf2"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=154356",
+   "doc_ids": [
+    273693
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "90a7d2ace8726df44b90977dd2ad46e2feb2aa9bb60b584fac1ee1d81b76d8c9"
+   ],
+   "opd_doc_id": 273693,
+   "opd_affair_id": 173417,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/b91045b829a16df324645eb2617b5af4a9b3e0242d14ee431de646e2bc30ef7d",
+   "opd_format": "application/pdf",
+   "opd_size": 153207,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "90a7d2ace8726df44b90977dd2ad46e2feb2aa9bb60b584fac1ee1d81b76d8c9",
+   "mirror_bytes": 153207,
+   "sha256_match": true,
+   "sha256_local": [
+    "90a7d2ace8726df44b90977dd2ad46e2feb2aa9bb60b584fac1ee1d81b76d8c9"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=154726",
+   "doc_ids": [
+    375588
+   ],
+   "modules": [
+    "gold_p3"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "472000ab198dfc034b4af34742d94a858188f11dff1f1e8d912c421bce8b2e5f"
+   ],
+   "opd_doc_id": 375588,
+   "opd_affair_id": 173540,
+   "opd_name": "Risposta del CdS del 07.09.2022",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/3a2b5a3815dc3df3973465918b660ac3436ef365f1ab4c1848be91f339339ade",
+   "opd_format": "application/pdf",
+   "opd_size": 136974,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "472000ab198dfc034b4af34742d94a858188f11dff1f1e8d912c421bce8b2e5f",
+   "mirror_bytes": 136974,
+   "sha256_match": true,
+   "sha256_local": [
+    "472000ab198dfc034b4af34742d94a858188f11dff1f1e8d912c421bce8b2e5f"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=154981",
+   "doc_ids": [
+    110419
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "e10be7682e860a9888c3468e6b041ecb7e83d9da424ff488b8c368fa0190ef30"
+   ],
+   "opd_doc_id": 110419,
+   "opd_affair_id": 175982,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/c782cee0e84ccfcd21600c20b09d5443387b7629b568730646482532b5146b93",
+   "opd_format": "application/pdf",
+   "opd_size": 18770,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "e10be7682e860a9888c3468e6b041ecb7e83d9da424ff488b8c368fa0190ef30",
+   "mirror_bytes": 18770,
+   "sha256_match": true,
+   "sha256_local": [
+    "e10be7682e860a9888c3468e6b041ecb7e83d9da424ff488b8c368fa0190ef30"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=156784",
+   "doc_ids": [
+    110010
+   ],
+   "modules": [
+    "gold_p3"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "06b1fc3042b1df5918fb60b2345597ea10c77dee5968ef7be108bdb5f60dbb06"
+   ],
+   "opd_doc_id": 110010,
+   "opd_affair_id": 83444,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/ee9d495cde770441bd47922482987b0e36d81e2183a83e3737b3085befc2ab6d",
+   "opd_format": "application/pdf",
+   "opd_size": 16141,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "06b1fc3042b1df5918fb60b2345597ea10c77dee5968ef7be108bdb5f60dbb06",
+   "mirror_bytes": 16141,
+   "sha256_match": true,
+   "sha256_local": [
+    "06b1fc3042b1df5918fb60b2345597ea10c77dee5968ef7be108bdb5f60dbb06"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=157140",
+   "doc_ids": [
+    166468
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "f8cbf4d5a7a3e12f6034c1c8bbed8c8adb9c82e062b978e6cc39b9ebcae15d4c"
+   ],
+   "opd_doc_id": 166468,
+   "opd_affair_id": 174124,
+   "opd_name": "Risposta del CdS del 14.12.2022",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/5c443575eabef50908829b080cb6495b2f8067d6cea4898d9eac01da1b782dfa",
+   "opd_format": "application/pdf",
+   "opd_size": 461216,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "f8cbf4d5a7a3e12f6034c1c8bbed8c8adb9c82e062b978e6cc39b9ebcae15d4c",
+   "mirror_bytes": 461216,
+   "sha256_match": true,
+   "sha256_local": [
+    "f8cbf4d5a7a3e12f6034c1c8bbed8c8adb9c82e062b978e6cc39b9ebcae15d4c"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=157483",
+   "doc_ids": [
+    110077
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "10c209e91b78a7ddc0c9277932641919a1b8d8362bcf77fe3d195192d0ee7976"
+   ],
+   "opd_doc_id": 110077,
+   "opd_affair_id": 174039,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/54e1ef129e6f4ed4389998b4c872ad294a4dc2a892a47890db8e58ce95ffc9fa",
+   "opd_format": "application/pdf",
+   "opd_size": 216005,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "10c209e91b78a7ddc0c9277932641919a1b8d8362bcf77fe3d195192d0ee7976",
+   "mirror_bytes": 216005,
+   "sha256_match": true,
+   "sha256_local": [
+    "10c209e91b78a7ddc0c9277932641919a1b8d8362bcf77fe3d195192d0ee7976"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=157502",
+   "doc_ids": [
+    50492
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "00f0f324051e5e24e1cd73cee9cf315292a68d2f41f643fecf52f9385a0febca"
+   ],
+   "opd_doc_id": 50492,
+   "opd_affair_id": 83331,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/bf325e268bf4b4f910775374ab2ec4406eca124dda09d2fb563658e28f4f8ca3",
+   "opd_format": "application/pdf",
+   "opd_size": 259075,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "00f0f324051e5e24e1cd73cee9cf315292a68d2f41f643fecf52f9385a0febca",
+   "mirror_bytes": 259075,
+   "sha256_match": true,
+   "sha256_local": [
+    "00f0f324051e5e24e1cd73cee9cf315292a68d2f41f643fecf52f9385a0febca"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=158596",
+   "doc_ids": [
+    271727
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "46110aa56cdcaddd6db484a510904c43f1b3657db964b41aba57b6a32809cb5f"
+   ],
+   "opd_doc_id": 271727,
+   "opd_affair_id": 173796,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/6146c79daa539baf326612eb022ea8c6f9b3f0e467bf4fa95a3812194273e136",
+   "opd_format": "application/pdf",
+   "opd_size": 343008,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "46110aa56cdcaddd6db484a510904c43f1b3657db964b41aba57b6a32809cb5f",
+   "mirror_bytes": 343008,
+   "sha256_match": true,
+   "sha256_local": [
+    "46110aa56cdcaddd6db484a510904c43f1b3657db964b41aba57b6a32809cb5f"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=158919",
+   "doc_ids": [
+    166658
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "ac36e82315cbc3c21c8afd04f2525bae1c38638ae4c4ee602682ac71b0238191"
+   ],
+   "opd_doc_id": 166658,
+   "opd_affair_id": 83472,
+   "opd_name": "Risposta del CdS del 01.03.2023",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/7a3f682c4125b6a155d388aa79fa32565f385605e0bbd76a7db49b78acef4b0f",
+   "opd_format": "application/pdf",
+   "opd_size": 213402,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "ac36e82315cbc3c21c8afd04f2525bae1c38638ae4c4ee602682ac71b0238191",
+   "mirror_bytes": 213402,
+   "sha256_match": true,
+   "sha256_local": [
+    "ac36e82315cbc3c21c8afd04f2525bae1c38638ae4c4ee602682ac71b0238191"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=159140",
+   "doc_ids": [
+    165352
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "484dbee17193deff6f347de729fec4e0d73b022ae426870ce6af7952f0699f32"
+   ],
+   "opd_doc_id": 165352,
+   "opd_affair_id": 175544,
+   "opd_name": "RG e risposta mozionante",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/9b5799b3a70a529f1510fa056483c8b24d6d905166131b3059b09505a80841f6",
+   "opd_format": "application/pdf",
+   "opd_size": 108337,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "484dbee17193deff6f347de729fec4e0d73b022ae426870ce6af7952f0699f32",
+   "mirror_bytes": 108337,
+   "sha256_match": true,
+   "sha256_local": [
+    "484dbee17193deff6f347de729fec4e0d73b022ae426870ce6af7952f0699f32"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=159149",
+   "doc_ids": [
+    110065
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "8e0dcdb66a0315ae6aec020b65eccf5e2a6d01c12421893feb2ef53c56d6629f"
+   ],
+   "opd_doc_id": 110065,
+   "opd_affair_id": 173921,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/9c4773a8d53ed8c052d1aba583f2639ac29eee8ae0f9cf6f85e75dd24f4f2978",
+   "opd_format": "application/pdf",
+   "opd_size": 357216,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "8e0dcdb66a0315ae6aec020b65eccf5e2a6d01c12421893feb2ef53c56d6629f",
+   "mirror_bytes": 357216,
+   "sha256_match": true,
+   "sha256_local": [
+    "8e0dcdb66a0315ae6aec020b65eccf5e2a6d01c12421893feb2ef53c56d6629f"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=159216",
+   "doc_ids": [
+    110453
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "7fba7ebc337fcf57d14cba690be37318b48cad46d67f9ed1c9023602aae754ea"
+   ],
+   "opd_doc_id": 110453,
+   "opd_affair_id": 176000,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/c67f731b1235db2e8184fa4b1e90de5f88c70f7d8335c785f91eda5f925ded13",
+   "opd_format": "application/pdf",
+   "opd_size": 43503,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "7fba7ebc337fcf57d14cba690be37318b48cad46d67f9ed1c9023602aae754ea",
+   "mirror_bytes": 43503,
+   "sha256_match": true,
+   "sha256_local": [
+    "7fba7ebc337fcf57d14cba690be37318b48cad46d67f9ed1c9023602aae754ea"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=159219",
+   "doc_ids": [
+    325535
+   ],
+   "modules": [
+    "gold_p3"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "05291225dc918f1399985e77e4892ecc44630d5913229df9acb2c85499ea5ad4"
+   ],
+   "opd_doc_id": 325535,
+   "opd_affair_id": 83444,
+   "opd_name": "Risposta del CdS del 08.03.2023",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/dce71a6d687b81fdc14ef6d86979929117a93a773d90e290dea27c531698cde3",
+   "opd_format": "application/pdf",
+   "opd_size": 789470,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "05291225dc918f1399985e77e4892ecc44630d5913229df9acb2c85499ea5ad4",
+   "mirror_bytes": 789470,
+   "sha256_match": true,
+   "sha256_local": [
+    "05291225dc918f1399985e77e4892ecc44630d5913229df9acb2c85499ea5ad4"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=159357",
+   "doc_ids": [
+    325804
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "57ab0f0faa68fb68dcdcf32991c5e4d03c2e39150ac1f9935e53181882e4ea68"
+   ],
+   "opd_doc_id": 325804,
+   "opd_affair_id": 84723,
+   "opd_name": "Risposta del CdS del 22.02.2022",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/8583f79267af81cb215ef9aa30575f8860fa7d7f6a74be802ceac862af1d468c",
+   "opd_format": "application/pdf",
+   "opd_size": 103940,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "57ab0f0faa68fb68dcdcf32991c5e4d03c2e39150ac1f9935e53181882e4ea68",
+   "mirror_bytes": 103940,
+   "sha256_match": true,
+   "sha256_local": [
+    "57ab0f0faa68fb68dcdcf32991c5e4d03c2e39150ac1f9935e53181882e4ea68"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=159370",
+   "doc_ids": [
+    166977
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "13109e3ebda585f141e1afb4cf1a512646e994afb03c5e0abbf9bb7e05206bf0"
+   ],
+   "opd_doc_id": 166977,
+   "opd_affair_id": 174835,
+   "opd_name": "Risposta del CdS del 11.04.2022",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/8a4fcb1fe14416e366d4eced2cb8d0c5d820d59dc728316f77cdda5f60dd1f3a",
+   "opd_format": "application/pdf",
+   "opd_size": 100475,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "13109e3ebda585f141e1afb4cf1a512646e994afb03c5e0abbf9bb7e05206bf0",
+   "mirror_bytes": 100475,
+   "sha256_match": true,
+   "sha256_local": [
+    "13109e3ebda585f141e1afb4cf1a512646e994afb03c5e0abbf9bb7e05206bf0"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=159425",
+   "doc_ids": [
+    375225
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "f1dddf90a1ef72b98f52620007f491011d8ef79b48ad783a0bdb567c0f68ecb4"
+   ],
+   "opd_doc_id": 375225,
+   "opd_affair_id": 84749,
+   "opd_name": "Risposta del CdS del 30.05.2022",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/72e5e64f08e4a55f522da5247b1e8be595ebb0b3daaf8678702083f666f1814c",
+   "opd_format": "application/pdf",
+   "opd_size": 136979,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "f1dddf90a1ef72b98f52620007f491011d8ef79b48ad783a0bdb567c0f68ecb4",
+   "mirror_bytes": 136979,
+   "sha256_match": true,
+   "sha256_local": [
+    "f1dddf90a1ef72b98f52620007f491011d8ef79b48ad783a0bdb567c0f68ecb4"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=160017",
+   "doc_ids": [
+    166731
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "ee5b71cdf3fa1f310d65ce081dfefda8b8d18adbee975b13aeb2bf79e1d8c912"
+   ],
+   "opd_doc_id": 166731,
+   "opd_affair_id": 174039,
+   "opd_name": "Risposta del CdS del 29.03.2023",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/b285a8ceba38cb4204266bfd97ca77fe8f859e06d45683db81671ed5e6b22252",
+   "opd_format": "application/pdf",
+   "opd_size": 382119,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "ee5b71cdf3fa1f310d65ce081dfefda8b8d18adbee975b13aeb2bf79e1d8c912",
+   "mirror_bytes": 382119,
+   "sha256_match": true,
+   "sha256_local": [
+    "ee5b71cdf3fa1f310d65ce081dfefda8b8d18adbee975b13aeb2bf79e1d8c912"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=162397",
+   "doc_ids": [
+    221257
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "8e8c5147fd2ef63ded44934988eb15a886306555452934531c8f90e27d0c59fa"
+   ],
+   "opd_doc_id": 221257,
+   "opd_affair_id": 84312,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/c7d976d9acbe09584e69f59ba8229e4638f957ca8c915faafd72d4cd91e006b8",
+   "opd_format": "application/pdf",
+   "opd_size": 20971,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "8e8c5147fd2ef63ded44934988eb15a886306555452934531c8f90e27d0c59fa",
+   "mirror_bytes": 20971,
+   "sha256_match": true,
+   "sha256_local": [
+    "8e8c5147fd2ef63ded44934988eb15a886306555452934531c8f90e27d0c59fa"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=164536",
+   "doc_ids": [
+    50717
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "4cb292e99b1bb0fb29e75a6e9750b1c5918a96b585ced5049305d9fbbcb9a289"
+   ],
+   "opd_doc_id": 50717,
+   "opd_affair_id": 174912,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/00b1da0c074b7199940fefe83e315e23a68fce485ef39b2c939f9d8fdbe6d3eb",
+   "opd_format": "application/pdf",
+   "opd_size": 133029,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "4cb292e99b1bb0fb29e75a6e9750b1c5918a96b585ced5049305d9fbbcb9a289",
+   "mirror_bytes": 133029,
+   "sha256_match": true,
+   "sha256_local": [
+    "4cb292e99b1bb0fb29e75a6e9750b1c5918a96b585ced5049305d9fbbcb9a289"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=165917",
+   "doc_ids": [
+    166742
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "34ee7bd2b2564b63a69c68c7732ec24cccea14d102f12fd9b3e58d1211dfc2fb"
+   ],
+   "opd_doc_id": 166742,
+   "opd_affair_id": 83331,
+   "opd_name": "Risposta del CdS del 20.12.2023",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/648c4849866c5326e19af8c8018584baad0b75ab9186388e8ececd0d31eb9d65",
+   "opd_format": "application/pdf",
+   "opd_size": 362102,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "34ee7bd2b2564b63a69c68c7732ec24cccea14d102f12fd9b3e58d1211dfc2fb",
+   "mirror_bytes": 362102,
+   "sha256_match": true,
+   "sha256_local": [
+    "34ee7bd2b2564b63a69c68c7732ec24cccea14d102f12fd9b3e58d1211dfc2fb"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=167396",
+   "doc_ids": [
+    50549
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "d8cbc762298e4f804240c861d520a1db4781b93d243d0a12ca9bd17baa5a3a03"
+   ],
+   "opd_doc_id": 50549,
+   "opd_affair_id": 83700,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/39f2dfed3e91e73dec9c1b9c827d7bc108bf440ad3e7139f2f4a8f3f5d9b9588",
+   "opd_format": "application/pdf",
+   "opd_size": 239413,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "d8cbc762298e4f804240c861d520a1db4781b93d243d0a12ca9bd17baa5a3a03",
+   "mirror_bytes": 239413,
+   "sha256_match": true,
+   "sha256_local": [
+    "d8cbc762298e4f804240c861d520a1db4781b93d243d0a12ca9bd17baa5a3a03"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=169536",
+   "doc_ids": [
+    424973
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "5c589ea4f8c1960627bd231857e83d09de984cea7f8be726cdf4702bfe835b72"
+   ],
+   "opd_doc_id": 424973,
+   "opd_affair_id": 84828,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/d6c0d015803356dbd1d0b9923f4e7869dffb613a543aa940efafcf4a92527078",
+   "opd_format": "application/pdf",
+   "opd_size": 177955,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "5c589ea4f8c1960627bd231857e83d09de984cea7f8be726cdf4702bfe835b72",
+   "mirror_bytes": 177955,
+   "sha256_match": true,
+   "sha256_local": [
+    "5c589ea4f8c1960627bd231857e83d09de984cea7f8be726cdf4702bfe835b72"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=169621",
+   "doc_ids": [
+    110111
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "9d4771f0e437473e8efcc5b9b60e7f57da226f4b7df7bd8da81d4c2f97323e25"
+   ],
+   "opd_doc_id": 110111,
+   "opd_affair_id": 83918,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/c2ced36dce24ea411546c939c2d55ee5ba054950eb5c7a04e9bb3d508155c5ef",
+   "opd_format": "application/pdf",
+   "opd_size": 222196,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "9d4771f0e437473e8efcc5b9b60e7f57da226f4b7df7bd8da81d4c2f97323e25",
+   "mirror_bytes": 222196,
+   "sha256_match": true,
+   "sha256_local": [
+    "9d4771f0e437473e8efcc5b9b60e7f57da226f4b7df7bd8da81d4c2f97323e25"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=169657",
+   "doc_ids": [
+    166758
+   ],
+   "modules": [
+    "gold_p3"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "003b65ada3623b29471bed04d8bb14acf37012964b7adcee68aaeb8a63fc8974"
+   ],
+   "opd_doc_id": 166758,
+   "opd_affair_id": 174066,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/033a288bd6ac3c4f0f95c01ba3ad5ae1beb1d89526625a242963fb605bc0ce7e",
+   "opd_format": "application/pdf",
+   "opd_size": 221616,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "003b65ada3623b29471bed04d8bb14acf37012964b7adcee68aaeb8a63fc8974",
+   "mirror_bytes": 221616,
+   "sha256_match": true,
+   "sha256_local": [
+    "003b65ada3623b29471bed04d8bb14acf37012964b7adcee68aaeb8a63fc8974"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=170057",
+   "doc_ids": [
+    166761
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "dee2a76863126e298c6eaf27be06663cef16dae7f9f6a397e8a9076b1266de11"
+   ],
+   "opd_doc_id": 166761,
+   "opd_affair_id": 83876,
+   "opd_name": "Risposta del CdS del 03.07.2024",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/7127af1cfa3c916232e547e4f272d19551d75c2edabe916b7ac073bb44201b5b",
+   "opd_format": "application/pdf",
+   "opd_size": 1068334,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "dee2a76863126e298c6eaf27be06663cef16dae7f9f6a397e8a9076b1266de11",
+   "mirror_bytes": 1068334,
+   "sha256_match": true,
+   "sha256_local": [
+    "dee2a76863126e298c6eaf27be06663cef16dae7f9f6a397e8a9076b1266de11"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=170416",
+   "doc_ids": [
+    110091
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "ad09e3c451de1059d3ab7631e2b62a0bc0f7380e0dfa3fc2d3f8634bee85bc77"
+   ],
+   "opd_doc_id": 110091,
+   "opd_affair_id": 174141,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/ae4aa3d0f5ccf22b370f0194bec4203104d803530aa6d488b15ad03cb988a61d",
+   "opd_format": "application/pdf",
+   "opd_size": 61612,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "ad09e3c451de1059d3ab7631e2b62a0bc0f7380e0dfa3fc2d3f8634bee85bc77",
+   "mirror_bytes": 61612,
+   "sha256_match": true,
+   "sha256_local": [
+    "ad09e3c451de1059d3ab7631e2b62a0bc0f7380e0dfa3fc2d3f8634bee85bc77"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=170538",
+   "doc_ids": [
+    50511
+   ],
+   "modules": [
+    "gold_p3"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "d6cda92ad8c4c3281d740eb9f077a10df350d6c9d6bd3c8621ebf859bbac359a"
+   ],
+   "opd_doc_id": 50511,
+   "opd_affair_id": 174066,
+   "opd_name": "Risposta del CdS del 07.08.2024",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/6827742369c40b9d19eaaebedd14e6d2dca6656844c2236c996342e31b04d0ca",
+   "opd_format": "application/pdf",
+   "opd_size": 186717,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "d6cda92ad8c4c3281d740eb9f077a10df350d6c9d6bd3c8621ebf859bbac359a",
+   "mirror_bytes": 186717,
+   "sha256_match": true,
+   "sha256_local": [
+    "d6cda92ad8c4c3281d740eb9f077a10df350d6c9d6bd3c8621ebf859bbac359a"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=171881",
+   "doc_ids": [
+    424881
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "432ec8b51098849fdfaf8c9a21495d9c4430d35facf573397e192ba20324253c"
+   ],
+   "opd_doc_id": 424881,
+   "opd_affair_id": 83281,
+   "opd_name": "Risposta del CdS del 02.10.2024",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/617bc23d3e84e152b7a2cc1669460d6946f69903607722435017dc8cb4fa6291",
+   "opd_format": "application/pdf",
+   "opd_size": 178757,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "432ec8b51098849fdfaf8c9a21495d9c4430d35facf573397e192ba20324253c",
+   "mirror_bytes": 178757,
+   "sha256_match": true,
+   "sha256_local": [
+    "432ec8b51098849fdfaf8c9a21495d9c4430d35facf573397e192ba20324253c"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=174677",
+   "doc_ids": [
+    267753
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "aa4d82746e0496edf1eaf0f5fc9e6c2de695ec30494fcdc2835595632aacb8aa"
+   ],
+   "opd_doc_id": 267753,
+   "opd_affair_id": 171174,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/d28316d25562f127898a6a5a879cafe35429abc4c74e132a79e41771d5ebdaec",
+   "opd_format": "application/pdf",
+   "opd_size": 224479,
+   "opd_updated_at": "2025-03-29T06:30:41",
+   "opd_url_matches": true,
+   "sha256_mirror": "aa4d82746e0496edf1eaf0f5fc9e6c2de695ec30494fcdc2835595632aacb8aa",
+   "mirror_bytes": 224479,
+   "sha256_match": true,
+   "sha256_local": [
+    "aa4d82746e0496edf1eaf0f5fc9e6c2de695ec30494fcdc2835595632aacb8aa"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=175700",
+   "doc_ids": [
+    531011
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "9ce718436dd1365ff7cdc8229fee5d63cfe30ea3118ef70ceb59499821b152c8"
+   ],
+   "opd_doc_id": 531011,
+   "opd_affair_id": 248138,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/9a4f1b02d8fa86bb72d20e79221664338ed1c79025a2506cd8f2c1f90a169d7f",
+   "opd_format": "application/pdf",
+   "opd_size": 60640,
+   "opd_updated_at": "2025-08-15T21:42:54",
+   "opd_url_matches": true,
+   "sha256_mirror": "9ce718436dd1365ff7cdc8229fee5d63cfe30ea3118ef70ceb59499821b152c8",
+   "mirror_bytes": 60640,
+   "sha256_match": true,
+   "sha256_local": [
+    "9ce718436dd1365ff7cdc8229fee5d63cfe30ea3118ef70ceb59499821b152c8"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=176556",
+   "doc_ids": [
+    531046
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "f09eeb20191c9fb8807ddc09289868fa3b959099db63a9af56fc293be02937bf"
+   ],
+   "opd_doc_id": 531046,
+   "opd_affair_id": 173917,
+   "opd_name": "Risposta del CdS del 07.05.2025",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/f89ec822fc135861f74c7820b2e947df4d4cc9cc079c9da84c70adcb7a159ff0",
+   "opd_format": "application/pdf",
+   "opd_size": 172336,
+   "opd_updated_at": "2025-08-15T21:42:54",
+   "opd_url_matches": true,
+   "sha256_mirror": "f09eeb20191c9fb8807ddc09289868fa3b959099db63a9af56fc293be02937bf",
+   "mirror_bytes": 172336,
+   "sha256_match": true,
+   "sha256_local": [
+    "f09eeb20191c9fb8807ddc09289868fa3b959099db63a9af56fc293be02937bf"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=176636",
+   "doc_ids": [
+    531082
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "8b71228d56ed727c9433a34cd7bfcf8f62a1bfe47cf401b2ad71d4789800eff3"
+   ],
+   "opd_doc_id": 531082,
+   "opd_affair_id": 248217,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/cfa236f1ca5c88c363d710da0b733824e429a94c8ccc9189670bcdce54eb107c",
+   "opd_format": "application/pdf",
+   "opd_size": 174934,
+   "opd_updated_at": "2025-08-15T21:42:55",
+   "opd_url_matches": true,
+   "sha256_mirror": "8b71228d56ed727c9433a34cd7bfcf8f62a1bfe47cf401b2ad71d4789800eff3",
+   "mirror_bytes": 174934,
+   "sha256_match": true,
+   "sha256_local": [
+    "8b71228d56ed727c9433a34cd7bfcf8f62a1bfe47cf401b2ad71d4789800eff3"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=177159",
+   "doc_ids": [
+    530960
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "05be4f6f778103f84fd4bd838fc6c146b3c4d6679c4c81d93f110fc47d00379b"
+   ],
+   "opd_doc_id": 530960,
+   "opd_affair_id": 248162,
+   "opd_name": "Risposta del CdS del 04.06.2025",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/9a45715630cebe63530a359800fc2c5d58fd4a04203cbdd47ea038db49554cf1",
+   "opd_format": "application/pdf",
+   "opd_size": 196338,
+   "opd_updated_at": "2025-08-15T21:42:54",
+   "opd_url_matches": true,
+   "sha256_mirror": "05be4f6f778103f84fd4bd838fc6c146b3c4d6679c4c81d93f110fc47d00379b",
+   "mirror_bytes": 196338,
+   "sha256_match": true,
+   "sha256_local": [
+    "05be4f6f778103f84fd4bd838fc6c146b3c4d6679c4c81d93f110fc47d00379b"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=178628",
+   "doc_ids": [
+    543459
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "c4379f2b213d112027b70f94c992bf9de4606fc0ba11816383b7f8c93112d304"
+   ],
+   "opd_doc_id": 543459,
+   "opd_affair_id": 248182,
+   "opd_name": "Risposta del CdS del 27.08.2025",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/a598746b7b8fe258fc531e1bb55cd5841e6a0a57ae2b5fc783e26eae84633d93",
+   "opd_format": "application/pdf",
+   "opd_size": 196013,
+   "opd_updated_at": "2025-09-01T20:53:15",
+   "opd_url_matches": true,
+   "sha256_mirror": "c4379f2b213d112027b70f94c992bf9de4606fc0ba11816383b7f8c93112d304",
+   "mirror_bytes": 196013,
+   "sha256_match": true,
+   "sha256_local": [
+    "c4379f2b213d112027b70f94c992bf9de4606fc0ba11816383b7f8c93112d304"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=178879",
+   "doc_ids": [
+    557561
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "ced6e66beefb924ae3b31f28cfb5b61d26f53c2518c43a175090a298d066e14c"
+   ],
+   "opd_doc_id": 557561,
+   "opd_affair_id": 252693,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/c4b361e7c67f12bd432b44a6f35efbdb3834162490888d0851c2526f167b8f1b",
+   "opd_format": "application/pdf",
+   "opd_size": 647587,
+   "opd_updated_at": "2025-09-17T11:23:42",
+   "opd_url_matches": true,
+   "sha256_mirror": "ced6e66beefb924ae3b31f28cfb5b61d26f53c2518c43a175090a298d066e14c",
+   "mirror_bytes": 647587,
+   "sha256_match": true,
+   "sha256_local": [
+    "ced6e66beefb924ae3b31f28cfb5b61d26f53c2518c43a175090a298d066e14c"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=179497",
+   "doc_ids": [
+    576179
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "6a2ce8934505c9c3294309f4dcb21fe3b07c26410fd193b12d131f6a6824504b"
+   ],
+   "opd_doc_id": 576179,
+   "opd_affair_id": 260058,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/f9758b11c29a09236d6639b1a822af72ac85f818afae58855f72361c62d3af44",
+   "opd_format": "application/pdf",
+   "opd_size": 85058,
+   "opd_updated_at": "2025-10-07T02:32:12",
+   "opd_url_matches": true,
+   "sha256_mirror": "6a2ce8934505c9c3294309f4dcb21fe3b07c26410fd193b12d131f6a6824504b",
+   "mirror_bytes": 85058,
+   "sha256_match": true,
+   "sha256_local": [
+    "6a2ce8934505c9c3294309f4dcb21fe3b07c26410fd193b12d131f6a6824504b"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=179518",
+   "doc_ids": [
+    575933
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "368a653389100350c09301a2c21ed9a48d53e2274d9ee155e405628024bd9288"
+   ],
+   "opd_doc_id": 575933,
+   "opd_affair_id": 259029,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/5db425afbc51c47c8d685a09aa2f2db1144e5faefc89d15b319f7d333110554c",
+   "opd_format": "application/pdf",
+   "opd_size": 119908,
+   "opd_updated_at": "2025-10-03T12:17:17",
+   "opd_url_matches": true,
+   "sha256_mirror": "368a653389100350c09301a2c21ed9a48d53e2274d9ee155e405628024bd9288",
+   "mirror_bytes": 119908,
+   "sha256_match": true,
+   "sha256_local": [
+    "368a653389100350c09301a2c21ed9a48d53e2274d9ee155e405628024bd9288"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=181697",
+   "doc_ids": [
+    677313
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "f353c07171fcbf1913406a07134f8e14a5edd25e266a02e5c4110ccc3eff7a89"
+   ],
+   "opd_doc_id": 677313,
+   "opd_affair_id": 286816,
+   "opd_name": "Risposta del CdS del 04.02.2026",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/62fc01fb59480dcbf559aa3d7835a74b2f6e9e89fa9a334553fdcdd8ea9d8744",
+   "opd_format": "application/pdf",
+   "opd_size": 176947,
+   "opd_updated_at": "2026-02-08T01:45:36",
+   "opd_url_matches": true,
+   "sha256_mirror": "f353c07171fcbf1913406a07134f8e14a5edd25e266a02e5c4110ccc3eff7a89",
+   "mirror_bytes": 176947,
+   "sha256_match": true,
+   "sha256_local": [
+    "f353c07171fcbf1913406a07134f8e14a5edd25e266a02e5c4110ccc3eff7a89"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=182175",
+   "doc_ids": [
+    685278
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "cfefc4118638d553cdb101a1e775887cc5a0e009f6c8d4e640c8bb2396fb5d7a"
+   ],
+   "opd_doc_id": 685278,
+   "opd_affair_id": 285262,
+   "opd_name": "Risposta del CdS del 25.02.2026",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/3f50659bc9b10bf55bfc2018cb989fd1d570ef377bd2f13e3c1293068d3bb40e",
+   "opd_format": "application/pdf",
+   "opd_size": 171453,
+   "opd_updated_at": "2026-03-04T02:49:10",
+   "opd_url_matches": true,
+   "sha256_mirror": "cfefc4118638d553cdb101a1e775887cc5a0e009f6c8d4e640c8bb2396fb5d7a",
+   "mirror_bytes": 171453,
+   "sha256_match": true,
+   "sha256_local": [
+    "cfefc4118638d553cdb101a1e775887cc5a0e009f6c8d4e640c8bb2396fb5d7a"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=182944",
+   "doc_ids": [
+    699985
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "0076ed823c5d79afb483250b13343a8485f182534ead9556c780471d7d07f171"
+   ],
+   "opd_doc_id": 699985,
+   "opd_affair_id": 288255,
+   "opd_name": "Risposta del CdS del 01.04.2026",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/8bc9238cbb3191ba6ac59cad7a3b7c4143eae15d1fdfcf06beecc0e80d723f09",
+   "opd_format": "application/pdf",
+   "opd_size": 164913,
+   "opd_updated_at": "2026-04-04T15:26:58",
+   "opd_url_matches": true,
+   "sha256_mirror": "0076ed823c5d79afb483250b13343a8485f182534ead9556c780471d7d07f171",
+   "mirror_bytes": 164913,
+   "sha256_match": true,
+   "sha256_local": [
+    "0076ed823c5d79afb483250b13343a8485f182534ead9556c780471d7d07f171"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=183633",
+   "doc_ids": [
+    876792
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "593d693fb644e801bd2c71d76266b5577de55b76b5d6942d9c4847669c37ae5a"
+   ],
+   "opd_doc_id": 876792,
+   "opd_affair_id": 329566,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/a28cefbb8377ea83a9f07c450dc979cfbdd707ffa356a9fae7152104a0bf07ab",
+   "opd_format": "application/pdf",
+   "opd_size": 134854,
+   "opd_updated_at": "2026-05-19T02:24:39",
+   "opd_url_matches": true,
+   "sha256_mirror": "593d693fb644e801bd2c71d76266b5577de55b76b5d6942d9c4847669c37ae5a",
+   "mirror_bytes": 134854,
+   "sha256_match": true,
+   "sha256_local": [
+    "593d693fb644e801bd2c71d76266b5577de55b76b5d6942d9c4847669c37ae5a"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=184724",
+   "doc_ids": [
+    905234
+   ],
+   "modules": [
+    "gold_p5dev"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "c78e897aef0d7444da89387d677cd3f96f0708f98b0f54f70d783ad6c5f67942"
+   ],
+   "opd_doc_id": 905234,
+   "opd_affair_id": 248217,
+   "opd_name": "Risposta del CdS del 12.06.2025",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/d525795ed3da4737c26cae8430ce4f61e2af53065c5d81d1dba47a248bbad6cc",
+   "opd_format": "application/pdf",
+   "opd_size": 24911,
+   "opd_updated_at": "2026-07-22T09:53:38",
+   "opd_url_matches": true,
+   "sha256_mirror": "c78e897aef0d7444da89387d677cd3f96f0708f98b0f54f70d783ad6c5f67942",
+   "mirror_bytes": 24911,
+   "sha256_match": true,
+   "sha256_local": [
+    "c78e897aef0d7444da89387d677cd3f96f0708f98b0f54f70d783ad6c5f67942"
+   ]
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=185195",
+   "doc_ids": [
+    923474
+   ],
+   "modules": [
+    "gold_p1"
+   ],
+   "requests": [
+    "get_discarded"
+   ],
+   "sha256_recorded": [],
+   "opd_doc_id": 923474,
+   "opd_affair_id": 338528,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/b476326f22b97fdfde41a7fb5524dcebf8b7649d7ccc69dbce7280716b2b73e7",
+   "opd_format": null,
+   "opd_size": null,
+   "opd_updated_at": "2026-09-14T22:01:52",
+   "opd_url_matches": true,
+   "mirror_error": "HTTPError: HTTP Error 404: Not Found",
+   "sha256_match": null,
+   "sha256_local": [],
+   "note": "OPD lists the document but its copy could not be read at build time (HTTPError: HTTP Error 404: Not Found)"
+  },
+  {
+   "url": "https://www4.ti.ch/user_librerie/php/GC/allegato.php?allid=185305",
+   "doc_ids": [
+    923455
+   ],
+   "modules": [
+    "ci_make_run",
+    "gold_p1"
+   ],
+   "requests": [
+    "download"
+   ],
+   "sha256_recorded": [
+    "86d776a1f7069d0d23c64da3836a88563839011855a4d58760699f81dbc6ec35"
+   ],
+   "opd_doc_id": 923455,
+   "opd_affair_id": 338581,
+   "opd_name": "Versione PDF",
+   "mirror_url": "https://files.openparldata.ch/doc/TI/a11032b161c25fb0cb6413165143048a05fb79d84bc69ceb1f8f317c7f6f2353",
+   "opd_format": "application/pdf",
+   "opd_size": 346955,
+   "opd_updated_at": "2026-09-14T22:01:52",
+   "opd_url_matches": true,
+   "sha256_mirror": "86d776a1f7069d0d23c64da3836a88563839011855a4d58760699f81dbc6ec35",
+   "mirror_bytes": 346955,
+   "sha256_match": true,
+   "sha256_local": [
+    "86d776a1f7069d0d23c64da3836a88563839011855a4d58760699f81dbc6ec35"
+   ]
+  }
+ ]
+}

@@ -55,6 +55,17 @@ census.vs_oral_proxy_only	8	results/census/vs_reconcile.json	only_census	int	pyt
 census.vs_proxy_precision	99.2%	results/census/vs_reconcile.json	doc_level.proxy_precision	pct1	python -m gegenprobe.census.reconcile_vs	docs/census.md	
 census.vs_proxy_recall	100.0%	results/census/vs_reconcile.json	doc_level.proxy_recall	pct1	python -m gegenprobe.census.reconcile_vs	docs/census.md	
 census.reextract_image_only	15	results/repair/ocr_probe.json	categories.image_only	int	python -m gegenprobe.repair.ocr probe 3	docs/census.md	"{""docs/census.md"": ""sampled documents found""}"
+compliance.ti_urls	147	results/compliance/robots_audit_all.json	totals.project.disallowed_allowed_by_first_match	int	python -m gegenprobe.compliance.audit --offline	docs/incidents.md	"{""docs/incidents.md"": ""distinct www4.ti.ch URLs""}"
+compliance.ti_downloads	133	results/compliance/robots_audit_all.json	totals.project.disallowed_distinct_urls_by_request.download	int	python -m gegenprobe.compliance.audit --offline	docs/incidents.md	"{""docs/incidents.md"": ""downloads""}"
+compliance.ti_discarded	11	results/compliance/robots_audit_all.json	totals.project.disallowed_distinct_urls_by_request.get_discarded	int	python -m gegenprobe.compliance.audit --offline	docs/incidents.md	"{""docs/incidents.md"": ""bodies read and discarded""}"
+compliance.refused	90	results/compliance/robots_audit_all.json	totals.project.disallowed_distinct_urls_by_request.refused	int	python -m gegenprobe.compliance.audit --offline	docs/incidents.md	"{""docs/incidents.md"": ""refused""}"
+compliance.requests_sent	450	results/compliance/robots_audit_all.json	totals.project.disallowed_requests_sent	int	python -m gegenprobe.compliance.audit --offline	docs/incidents.md	"{""docs/incidents.md"": ""requests to disallowed""}"
+compliance.download_records	436	results/compliance/robots_audit_all.json	totals.project.disallowed_download_records	int	python -m gegenprobe.compliance.audit --offline	docs/incidents.md	"{""docs/incidents.md"": ""of them downloads""}"
+compliance.distinct_urls	14,152	results/compliance/robots_audit_all.json	totals.project.distinct_urls	int	python -m gegenprobe.compliance.audit --offline	docs/incidents.md	
+compliance.mirror_mapped	165	data/compliance/mirror_urls.json	counts.mapped	int	python -m gegenprobe.compliance.mirror match	docs/incidents.md	"{""docs/incidents.md"": ""maps""}"
+compliance.mirror_identical	144	data/compliance/mirror_urls.json	counts.sha256_match_true	int	python -m gegenprobe.compliance.mirror match	docs/incidents.md	"{""docs/incidents.md"": ""true for""}"
+compliance.mirror_null	21	data/compliance/mirror_urls.json	counts.sha256_match_null	int	python -m gegenprobe.compliance.mirror match	docs/incidents.md	"{""docs/incidents.md"": ""null for""}"
+compliance.ci_upper_bound	6,655	results/compliance/ci_repeats.json	upper_bound_total	int	gh run list counts × per-run requests	-	
 convert.f2_final_g64_plain_auroc	1.00	results/convert/spike_replay.json	f2.final|chat_plain.auroc	f2	python -m eval.replay_spikes	-	
 convert.f2_final_g64_plain_loo	20/20	results/convert/spike_replay.json	f2.final|chat_plain.loo_correct/f2.final|chat_plain.n	frac	python -m eval.replay_spikes	-	
 convert.f2_final_g64_plain_theta	-32.3	results/convert/spike_replay.json	f2.final|chat_plain.theta	f1	python -m eval.replay_spikes	-	
@@ -560,7 +571,6 @@ r4c.schema_role_split	5	site/data.json	schema.counts.shared_with_role_split	int	
 r4c.sample_char_start	177	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	per_affair.21.affair.qa.0.answer_date.char_start	int	python -m eval.gold5.run_p3b	docs/viewer.md	"{""docs/viewer.md"": ""characters""}"
 r4c.sample_char_end	194	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	per_affair.21.affair.qa.0.answer_date.char_end	int	python -m eval.gold5.run_p3b	docs/viewer.md	"{""docs/viewer.md"": ""characters""}"
 r4c.sample_affair	301273	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	per_affair.21.affair_id	str	python -m eval.gold5.run_p3b	docs/viewer.md	
-r4c.ti_word_file	r100.19.doc	results/census/source_formats_ti.json	attos.0.source_answer_files.0.filename	str	python -m gegenprobe.census.source_formats	docs/viewer.md,README.md,technical_report.md	
 r4c.70b_cascade_on_null	7	results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json	arms.cascade.strict.ALL.invented_on_null	int	python -m eval.arms run --split heldout ... ; python -m report.eval_numbers	docs/viewer.md	"{""docs/viewer.md"": ""70B:""}"
 r4c.8b_cascade_on_null	25	results/eval/gguf_8b_analysis.json	arms.cascade.dates_on_answerless	int	python -m eval.gguf_8b_analysis fetch-ci; python -m eval.gguf_8b_analysis	docs/viewer.md	"{""docs/viewer.md"": ""answerless""}"
 r4d.p2_8b_scored	52	results/eval2/p2_8b_analysis.json	n_scored	int	PYTHONPATH=src:. python -m report.p2_8b	README.md	"{""README.md"": ""documents with 21 answer dates""}"
@@ -795,6 +805,109 @@ r5d.night_streamed_gb	6.2	results/monitor/night_real_bytes.json	docs_texts_strea
 r5d.night_single_mb	198	results/monitor/night_real_bytes.json	single_exports_mb	int	PYTHONPATH=src:. python -m gegenprobe.monitor.night_bytes	README.md,technical_report.md	"{""README.md"": ""MB of single"", ""technical_report.md"": ""MB of single exports""}"
 r5d.sec_venv	1.2	results/ci/systemd_security_38073556535.json	venv.exposure	f1	gh run view 38073556535 --log (job systemd-units)	README.md	"{""README.md"": ""measured""}"
 r5d.sec_docker	3.9	results/ci/systemd_security_38073556535.json	docker.exposure	f1	gh run view 38073556535 --log (job systemd-units)	README.md	"{""README.md"": ""measured""}"
+r6c.sessions_n	74	results/eval/annotation_sessions.json	overall.n_sessions	int	python -m eval.annotation_sessions	-	
+r6c.sessions_sets	10	results/eval/annotation_sessions.json	overall.n_sets_with_sessions	int	python -m eval.annotation_sessions	-	
+r6c.label_files	996	results/eval/annotation_sessions.json	overall.label_files_total	int	python -m eval.annotation_sessions	-	
+r6c.label_files_in_session	996	results/eval/annotation_sessions.json	overall.label_files_mtime_in_session	int	python -m eval.annotation_sessions	-	
+r6c.p1_lock_to_first_s	95	results/eval/annotation_sessions.json	sets.0.order_checks.seconds_from_lock_push_to_first_session	int	python -m eval.annotation_sessions	-	
+r6c.p5_draw_to_first_s	7	results/eval/annotation_sessions.json	sets.7.order_checks.seconds_from_draw_push_to_first_session	int	python -m eval.annotation_sessions	-	
+r6c.dev2_rule_to_first_s	26	results/eval/annotation_sessions.json	sets.8.order_checks.seconds_from_lock_push_to_first_session	int	python -m eval.annotation_sessions	-	
+r6c.dev2_last_to_labels_s	9	results/eval/annotation_sessions.json	sets.8.order_checks.seconds_from_last_session_end_to_label_push	int	python -m eval.annotation_sessions	-	
+r6c.p6_draw_to_first_s	26	results/eval/annotation_sessions.json	sets.9.order_checks.seconds_from_draw_push_to_first_session	int	python -m eval.annotation_sessions	-	
+r6c.p6_last_to_labels_s	10	results/eval/annotation_sessions.json	sets.9.order_checks.seconds_from_last_session_end_to_label_push	int	python -m eval.annotation_sessions	-	
+r6c.p5_prec_cluster_lo	0.66	results/eval/posthoc_r6_cluster.json	p5_h1.precision.parliament_cluster95.0	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p5_prec_cluster_hi	0.97	results/eval/posthoc_r6_cluster.json	p5_h1.precision.parliament_cluster95.1	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p5_rec_cluster_lo	0.51	results/eval/posthoc_r6_cluster.json	p5_h1.recall.parliament_cluster95.0	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p5_rec_cluster_hi	0.81	results/eval/posthoc_r6_cluster.json	p5_h1.recall.parliament_cluster95.1	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p5_prec_wilson_lo	0.75	results/eval/posthoc_r6_cluster.json	p5_h1.precision.doc_level_wilson95.0	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p5_tier_cluster	not yet	results/eval/posthoc_r6_cluster.json	p5_h1.registered_tier.with_parliament_cluster	str	python -m eval.posthoc_r6 cluster	-	
+r6c.p5_tier_wilson	partial	results/eval/posthoc_r6_cluster.json	p5_h1.registered_tier.with_wilson	str	python -m eval.posthoc_r6 cluster	-	
+r6c.p5_fr_recall	10/30	results/eval/posthoc_r6_cluster.json	p5_h1.per_language.fr.recall	frac	python -m eval.posthoc_r6 cluster	-	
+r6c.p5_vs_recall	0/11	results/eval/posthoc_r6_cluster.json	p5_h1.per_parliament.VS.recall	frac	python -m eval.posthoc_r6 cluster	-	
+r6c.p2_ptr_rules_a	22	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs rules.a_only	int	python -m eval.posthoc_r6 cluster	-	
+r6c.p2_ptr_rules_b	4	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs rules.b_only	int	python -m eval.posthoc_r6 cluster	-	
+r6c.p2_ptr_rules_lo	-0.02	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs rules.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p2_ptr_rules_hi	0.54	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs rules.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p2_ptr_free_a	2	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs naive_null.a_only	int	python -m eval.posthoc_r6 cluster	-	
+r6c.p2_ptr_free_b	1	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs naive_null.b_only	int	python -m eval.posthoc_r6 cluster	-	
+r6c.p2_ptr_free_lo	-0.04	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs naive_null.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p2_ptr_free_hi	0.09	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs naive_null.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_c2_rules_all_a	11	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules.a_only	int	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_c2_rules_all_b	5	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules.b_only	int	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_c2_rules_all_p	0.21	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules.mcnemar_exact_p	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_c2_rules_all_lo	-0.11	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_c2_rules_all_hi	0.29	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_c2_rules_ans_lo	0.10	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules (answered documents only).cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_c2_rules_ans_hi	0.59	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs rules (answered documents only).cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_v2_rules_lo	-0.14	results/eval/posthoc_r6_cluster.json	p6.paired.v2 vs rules.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_v2_rules_hi	0.30	results/eval/posthoc_r6_cluster.json	p6.paired.v2 vs rules.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_free_rules_lo	-0.07	results/eval/posthoc_r6_cluster.json	p6.paired.free_null vs rules.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_free_rules_hi	0.33	results/eval/posthoc_r6_cluster.json	p6.paired.free_null vs rules.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_model_free_cascade	55/68	results/eval/posthoc_r6_cluster.json	p6.arms.model_free_cascade.exact	frac	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_cascade_v2	60/68	results/eval/posthoc_r6_cluster.json	p6.arms.cascade_v2.exact	frac	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_free_null	62/68	results/eval/posthoc_r6_cluster.json	p6.arms.free_null.exact	frac	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_c2_mfc_a	5	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs model_free_cascade.a_only	int	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_c2_mfc_b	0	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs model_free_cascade.b_only	int	python -m eval.posthoc_r6 cluster	-	
+r6c.p6_c2_mfc_p	0.06	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs model_free_cascade.mcnemar_exact_p	f2	python -m eval.posthoc_r6 cluster	-	
+r6c.prov_null_p1	0	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_null_allowed_printed_nowhere.P1 held-out	int	python -m eval.posthoc_r6 cluster	-	
+r6c.prov_null_p2	1	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_null_allowed_printed_nowhere.P2	int	python -m eval.posthoc_r6 cluster	-	
+r6c.prov_null_p6	0	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_null_allowed_printed_nowhere.P6	int	python -m eval.posthoc_r6 cluster	-	
+r6c.prov_plain_p1	24	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_plain_printed_nowhere.P1 held-out	int	python -m eval.posthoc_r6 cluster	-	
+r6c.prov_plain_p2	4	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_plain_printed_nowhere.P2	int	python -m eval.posthoc_r6 cluster	-	
+r6c.prov_plain_p6	5	results/eval/posthoc_r6_cluster.json	provenance.summary.free_prompt_plain_printed_nowhere.P6	int	python -m eval.posthoc_r6 cluster	-	
+r6c.p6o_opd_event	10/10	results/eval/posthoc_r6_p6_oracle.json	summary.opd_written_answer_event	frac	python -m eval.posthoc_r6 p6oracle	-	
+r6c.p6o_title_consistent	10/10	results/eval/posthoc_r6_p6_oracle.json	summary.title_date_consistent	frac	python -m eval.posthoc_r6 p6oracle	-	
+r6c.p6o_title_exact	0/10	results/eval/posthoc_r6_p6_oracle.json	summary.title_date_exact	frac	python -m eval.posthoc_r6 p6oracle	-	
+r6c.p6o_quote	34/34	results/eval/posthoc_r6_p6_oracle.json	summary.quote_on_page_and_parses	frac	python -m eval.posthoc_r6 p6oracle	-	
+r6c.p6o_opd_type	58/68	results/eval/posthoc_r6_p6_oracle.json	summary.opd_type_agrees	frac	python -m eval.posthoc_r6 p6oracle	-	
+r6c.p6o_order	17/22	results/eval/posthoc_r6_p6_oracle.json	summary.submission_order	frac	python -m eval.posthoc_r6 p6oracle	-	
+r6c.p6o_coverage	20/34	results/eval/posthoc_r6_p6_oracle.json	summary.gold_dated_with_any_non_llm_date_source	frac	python -m eval.posthoc_r6 p6oracle	-	
+r6d.registered_gap	16,749	results/census/corrected.json	national.all.gap	int	python -m gegenprobe.census.corrected	-	
+r6d.registered_oral	1,422	results/census/corrected.json	national.all.oral	int	python -m gegenprobe.census.corrected	-	
+r6d.unrecognised	2,316	results/census/corrected.json	national.all.unrecognised	int	python -m gegenprobe.census.corrected	results/census/interventions_README.md	
+r6d.unrecognised_exact_date	2,060	results/census/corrected.json	national.all.unrecognised_by_tier.exact_date	int	python -m gegenprobe.census.corrected	-	
+r6d.unrecognised_date_window	256	results/census/corrected.json	national.all.unrecognised_by_tier.date_window	int	python -m gegenprobe.census.corrected	-	
+r6d.lack_text_at_most	14,433	results/census/corrected.json	national.all.lack_text_on_affair_at_most	int	python -m gegenprobe.census.corrected	-	
+r6d.written_lack_text_at_most	13,011	results/census/corrected.json	national.all.written_lack_text_at_most	int	python -m gegenprobe.census.corrected	-	
+r6d.opd_elsewhere	3,051	results/census/corrected.json	national.all.opd_elsewhere	int	python -m gegenprobe.census.corrected	-	
+r6d.image_only	1,425	results/census/corrected.json	national.all.image_only	int	python -m gegenprobe.census.corrected	-	
+r6d.image_only_text_verified	897	results/census/corrected.json	national.all.image_only_parts.text_verified	int	python -m gegenprobe.census.corrected	-	
+r6d.image_only_ocr	860	results/census/corrected.json	national.all.image_only_ocr	int	python -m gegenprobe.census.corrected	-	
+r6d.image_only_open	499	results/census/corrected.json	national.all.image_only_parts.open	int	python -m gegenprobe.census.corrected	-	
+r6d.fetchable	3,647	results/census/corrected.json	national.all.fetchable	int	python -m gegenprobe.census.corrected	-	
+r6d.open	4,888	results/census/corrected.json	national.all.open	int	python -m gegenprobe.census.corrected	-	
+r6d.still_open_written	5,387	results/census/corrected.json	national.all.still_open	int	python -m gegenprobe.census.corrected	-	
+r6d.listed_unverified_jura	282	results/census/corrected.json	listed_unverified.n	int	python -m gegenprobe.census.corrected	-	
+r6d.repaired	9,940	results/census/corrected.json	national.all.repaired	int	python -m gegenprobe.census.corrected	-	
+r6d.y2425_gap	1,855	results/census/corrected.json	national.y2425.gap	int	python -m gegenprobe.census.corrected	-	
+r6d.y2425_oral	367	results/census/corrected.json	national.y2425.oral	int	python -m gegenprobe.census.corrected	-	
+r6d.y2425_unrecognised	158	results/census/corrected.json	national.y2425.unrecognised	int	python -m gegenprobe.census.corrected	-	
+r6d.y2425_lack_text_at_most	1,697	results/census/corrected.json	national.y2425.lack_text_on_affair_at_most	int	python -m gegenprobe.census.corrected	-	
+r6d.y2425_written_lack_text_at_most	1,330	results/census/corrected.json	national.y2425.written_lack_text_at_most	int	python -m gegenprobe.census.corrected	-	
+r6d.report_registered_share	82.3%	results/census/corrected.json	report.registered_text_share	pct1	python -m gegenprobe.census.corrected	-	
+r6d.report_after_relink	85.0%	results/census/corrected.json	report.registered_after_relink	pct1	python -m gegenprobe.census.corrected	-	
+r6d.report_after_all_counted	92.5%	results/census/corrected.json	report.after_all_counted_repairs	pct1	python -m gegenprobe.census.corrected	-	
+r6d.report_after_all_counted_in_writing	94.0%	results/census/corrected.json	report.after_all_counted_repairs_in_writing	pct1	python -m gegenprobe.census.corrected	-	
+r6d.zurich_city_unrecognised	1,417	results/census/corrected.json	by_body.261.all.unrecognised	int	python -m gegenprobe.census.corrected	-	
+r6d.zurich_city_gap	1,457	results/census/corrected.json	by_body.261.all.gap	int	python -m gegenprobe.census.corrected	-	
+r6d.zurich_city_after_repair	98.6%	results/census/corrected.json	by_body.261.all.after_repair	pct1	python -m gegenprobe.census.corrected	-	
+r6d.ticino_ocr	729	results/census/corrected.json	by_body.TI.all.image_only_parts.text_verified	int	python -m gegenprobe.census.corrected	-	
+r6d.ticino_y2425	0/352	results/census/corrected.json	by_body.TI.y2425.gap/by_body.TI.y2425.written	frac	python -m gegenprobe.census.corrected	-	
+r6d.ticino_after_repair	98.0%	results/census/corrected.json	by_body.TI.all.after_repair	pct1	python -m gegenprobe.census.corrected	-	
+r6d.frauenfeld_unrecognised	131	results/census/corrected.json	by_body.4566.all.unrecognised	int	python -m gegenprobe.census.corrected	-	
+r6d.kriens_unrecognised	71	results/census/corrected.json	by_body.1059.all.unrecognised	int	python -m gegenprobe.census.corrected	-	
+r6d.neuchatel_unrecognised	239	results/census/corrected.json	by_body.NE.all.unrecognised	int	python -m gegenprobe.census.corrected	-	
+r6d.vaud_unrecognised	95	results/census/corrected.json	by_body.VD.all.unrecognised	int	python -m gegenprobe.census.corrected	-	
+r6d.written_lack_text_share	14.5%	results/census/corrected.json	national.all.written_lack_text_at_most/national.all.in_writing	pct1	python -m gegenprobe.census.corrected	-	
+r6d.y2425_written_lack_text_share	10.5%	results/census/corrected.json	national.y2425.written_lack_text_at_most/national.y2425.in_writing	pct1	python -m gegenprobe.census.corrected	-	
+r6d.lack_text_share	15.8%	results/census/corrected.json	national.all.lack_text_on_affair_at_most/national.all.written	pct1	python -m gegenprobe.census.corrected	-	
+r6d.in_writing	89,846	results/census/corrected.json	national.all.in_writing	int	python -m gegenprobe.census.corrected	-	
+r6d.y2425_in_writing	12,632	results/census/corrected.json	national.y2425.in_writing	int	python -m gegenprobe.census.corrected	-	
+r6d.neuchatel_y2425_unrecognised	67	results/census/corrected.json	by_body.NE.y2425.unrecognised	int	python -m gegenprobe.census.corrected	-	
+r6d.neuchatel_y2425_at_most	94	results/census/corrected.json	by_body.NE.y2425.written_lack_text_at_most	int	python -m gegenprobe.census.corrected	-	
+r6d.image_only_fetchable	29	results/census/corrected.json	national.all.image_only_parts.fetchable	int	python -m gegenprobe.census.corrected	-	
+r6d.still_open_written_share	6.0%	results/census/corrected.json	national.all.still_open/national.all.in_writing	pct1	python -m gegenprobe.census.corrected	-	
+r6d.report_verified_fetches	3,676	results/census/corrected.json	report.verified_fetches	int	python -m gegenprobe.census.corrected	-	
 repair.be_relink	2,459	results/repair/summary.json	by_action.relink	int	python -m gegenprobe.repair.run	docs/repair.md,technical_report.md	
 repair.be_fetch	49	results/repair/summary.json	by_action.fetch	int	python -m gegenprobe.repair.run	docs/repair.md,technical_report.md,README.md	"{""README.md"": ""fetch candidates"", ""docs/repair.md"": ""canton lists an answer OPD lacks |"", ""technical_report.md"": ""fetch candidates""}"
 repair.agenda_join	592	results/repair/summary.json	by_action.agenda_join	int	python -m gegenprobe.repair.run	docs/repair.md	"{""docs/repair.md"": ""| OPD's own `agendas.item_affair_id`; not sample-verified |""}"

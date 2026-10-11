@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# folders
+Disallow: /typo3/
+Disallow: /typo3conf/
+Allow: /typo3conf/ext/
+Allow: /typo3temp/
+
+# parameters
+Disallow: /*?id=*               # non speaking URLs
+#Disallow: /*cHash               # no cHash
+
+
+# sitemap
+# Sitemap: https://localhost/?type=1533906435
