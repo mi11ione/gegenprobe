@@ -171,7 +171,9 @@ recommendation `reject`. *Antrag* events are proposals. The executive is usually
 
 ## 4. Deliberately out of scope in v0.1
 
-- **Content of tables, budgets and annexes.** They are referenced by `DocumentPart` page ranges. The comparison amounts
+- **Content of tables, budgets and annexes.** They are referenced by `DocumentPart` page ranges; the converter fills
+  them in v0.2's `parts` (`src/gegenprobe/convert/parts.py`; blind check in
+  [`evaluation.md`](evaluation.md#document-parts-blind-check-of-the-detector)). The comparison amounts
   that Bilanz found (prior year, budget vs actual) are not modelled.
 - **Speeches and debate transcripts.** These belong to Parla-CLARIN/TEI (see `mapping.md`).
 - **Votes and roll calls.** `roll_call_voter` exists only as a role, so that a name in a vote list is not mistaken for a

@@ -87,6 +87,10 @@ button.theme { font: inherit; font-family: var(--mono); font-size: 11px; letter-
   max-width: 30ch; text-wrap: balance; }
 .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); margin-top: 36px; }
 @media (max-width: 1100px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } .fact:nth-child(2) { border-right: 0; } .fact:nth-child(3) { padding-left: 0; } }
+.facts.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.facts.two { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 8px; }
+.factpair { margin-top: 28px; }
+@media (max-width: 700px) { .facts.three, .facts.two { grid-template-columns: 1fr; } }
 .fact { padding: 14px 16px 6px 0; border-right: 1px solid var(--rule); min-width: 0; }
 .fact + .fact { padding-left: 16px; }
 .fact:last-child { border-right: 0; }
@@ -490,7 +494,9 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
     <p class="delivered" id="heroDelivered"></p>
     <div class="banner banner-m" role="note"><b>Not in OpenParlData ≠ not published by the parliament.</b><span>Counts describe OPD's copy.</span></div>
     <div class="perrow" id="heroPeriod"></div>
-    <div class="facts" id="facts"></div>
+    <div class="facts three" id="facts"></div>
+    <div class="label factpair">Apertus where no rules exist</div>
+    <div class="facts two" id="factsApertus"></div>
     <p class="factnote" id="factNote"></p>
   </div>
 </section>
@@ -666,6 +672,18 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
       <div style="overflow-x:auto"><table class="board" id="p8board"></table></div>
       <p class="why" id="p8why"></p></div>
   </div>
+  <div class="grid" style="margin-top:46px" id="p10">
+    <div class="idx"><div class="label">P10 · author roles where no rules exist</div><p class="small" id="p10Note"></p></div>
+    <div class="work"><p id="p10Intro" style="margin:0 0 14px;max-width:70ch"></p>
+      <div style="overflow-x:auto"><table class="board" id="p10board"></table></div>
+      <p class="why" id="p10why"></p>
+      <div class="hyp" id="p10hyp" style="margin-top:18px"></div></div>
+  </div>
+  <div class="grid" style="margin-top:46px" id="parts">
+    <div class="idx"><div class="label">Document parts · blind check</div><p class="small" id="partsNote"></p></div>
+    <div class="work"><p id="partsIntro" style="margin:0 0 14px;max-width:70ch"></p>
+      <div style="overflow-x:auto"><table class="board" id="partsboard"></table></div></div>
+  </div>
   <div class="grid" style="margin-top:34px">
     <div class="idx"><div class="label">Order of events</div><p class="small">From git history of this repository.</p></div>
     <div class="work"><div class="timeline" id="timeline"></div></div>
@@ -766,21 +784,26 @@ function drawHero() {
 }
 $('#heroPeriod').append(periodSeg('Period · applies to the whole page'));
 drawHero();
-const V = D.schema.verdict, V2 = D.schema.v02, P7 = D.evaluation.p7, P2E = D.evaluation.p2;
+const V = D.schema.verdict, V2 = D.schema.v02, P7 = D.evaluation.p7, P2E = D.evaluation.p2, P10 = D.evaluation.p10;
 const facts = [
   [fmt(D.parliaments.corrected.national.all.repaired), el('span', {}, `answers with a model-free repair proposed to OPD, keyed on OPD ids. ` + (H.pg && H.pg.ok ? `The Bern plan ran on PostgreSQL ${H.pg.server.split('.')[0]}: ${fmt(H.pg.rows)} rows in one transaction that rolls back on any deviation. ` : ''), el('a', { class: 'bernlink', href: '#bern-numbers' }, 'All Bern numbers →'))],
   [`${V.need_roles} of ${V.fields}`, `fields are shared once their roles are explicit; ${V.body_specific} is body-specific; ${V.defined_once} are not yet tested for meaning.`],
-  H.p2 && P2E && P2E.arms && P2E.arms.pointer ? [`${P2E.arms.pointer.exact}/${P2E.arms.pointer.n}`, (() => { const b = D.evaluation.baselines.p2_answer_typed; return `documents exact in ${H.p2.bodies} parliaments nobody wrote rules for when Apertus picks the answer date among the printed dates, against ${b.exact}/${b.n} for the best no-model baseline.`; })()]
-       : [`${H.rules_exact}/${H.heldout}`, `held-out documents exact with the default converter (rules, no model).`],
   D.tiles ? [fmt(D.tiles.v02_affairs), `affairs from ${D.tiles.v02_parliaments} parliaments, communal, cantonal and federal, validate in schema v0.2.`]
           : [fmt(V2 ? V2.n_valid : 0), 'affairs validate in schema v0.2.'],
 ];
-$('#facts').append(...facts.map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
+const factsApertus = [
+  H.p2 && P2E && P2E.arms && P2E.arms.pointer ? [`${P2E.arms.pointer.exact}/${P2E.arms.pointer.n}`, (() => { const b = D.evaluation.baselines.p2_answer_typed; return `documents exact in ${H.p2.bodies} parliaments nobody wrote rules for when Apertus picks the answer date among the printed dates, against ${b.exact}/${b.n} for the best no-model baseline.`; })()]
+       : [`${H.rules_exact}/${H.heldout}`, `held-out documents exact with the default converter (rules, no model).`],
+  P10 ? [`${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs}`, `author roles (who lodged or co-signed, in which role) read right in ${P10.primary.parliaments} parliaments nobody wrote rules for when Apertus answers closed questions about the names the documents print, about three times the rules' ${P10.primary.arms.rules.right}/${P10.primary.gold_pairs}, at higher precision (${P10.primary.arms.pointer.precision} vs ${P10.primary.arms.rules.precision}); code finds and locates every name.`] : null,
+];
+$('#facts').append(...facts.filter(Boolean).map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
+$('#factsApertus').append(...factsApertus.filter(Boolean).map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
 { const b = D.evaluation.baselines && D.evaluation.baselines.p2_answer_typed;
   $('#factNote').textContent = `Sources: 92.3% and ${fmt(D.parliaments.corrected.national.all.repaired)} from the census and the repair lists (no model); ${V.need_roles} of ${V.fields} from OPD's labels and P8 (pre-registered)` +
     (b ? `; ${P2E.arms.pointer.exact}/${P2E.arms.pointer.n} from P2, post hoc (McNemar p = ${b.p_mcnemar}, parliament-cluster p = ${b.p_cluster})` : '') +
+    (P10 ? `; ${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs} from P10, registered (recall +${P10.hypotheses.H1.points} points over the rules, Holm p = ${P10.hypotheses.H1.p_holm})` : '') +
     (D.tiles ? `; ${fmt(D.tiles.v02_affairs)} from P3, P3b, P5, P8 and the federal cell, whose ${D.tiles.federal} affairs are exploratory` : '') +
-    '. P1–P8 are the nine tests (P3b replicates P3), each frozen by hash before its labels.'; }
+    '. P1–P8 and P10 are the ten tests (P3b replicates P3), each frozen by hash before its labels.'; }
 /* the section tabs scroll sideways on phones: drop the edge fade once the strip is scrolled to its end */
 { const nt = document.querySelector('nav.tabs'); const upd = () => nt.classList.toggle('at-end', nt.scrollLeft + nt.clientWidth >= nt.scrollWidth - 2);
   nt.addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd(); }
@@ -831,7 +854,7 @@ const GLOSS = [
   ['Closed set', 'The only answers Apertus may give for a document: one of the dates printed in it, or null. A date that is not printed cannot be chosen.'],
   ['Pointer', 'Apertus used as a selector over the closed set: it points at a printed date, with page and characters, instead of writing one.'],
   ['θ · margin band', 'Null margin: how much more likely “no answer date” is than all printed dates together, in nats. Above θ the value is null; near θ a reviewer looks.'],
-  ['P1–P8 · P3b', 'Nine tests frozen by hash before any label was committed: P1 known layouts, P2 15 unseen parliaments, P3 whole affairs field by field, P3b its replication on fresh affairs from 9 other parliaments, P4 affairs from minutes, P5 questions paired with their answers (eval/prereg6), P6 an answer-date reader v2 against free prompting (eval/prereg7), P7 Apertus as a closed-set verifier of the adapters’ review queue (eval/prereg8), P8 what the shared fields mean in each parliament (eval/prereg9).'],
+  ['P1–P8 · P3b · P10', 'Ten tests frozen by hash before any label was committed: P1 known layouts, P2 15 unseen parliaments, P3 whole affairs field by field, P3b its replication on fresh affairs from 9 other parliaments, P4 affairs from minutes, P5 questions paired with their answers (eval/prereg6), P6 an answer-date reader v2 against free prompting (eval/prereg7), P7 Apertus as a closed-set verifier of the adapters’ review queue (eval/prereg8), P8 what the shared fields mean in each parliament (eval/prereg9), P10 Apertus as a reader of author roles where nobody wrote rules (eval/prereg10).'],
 ];
 $('#gloss').append(...GLOSS.map(([t, d]) => el('div', {}, el('dt', {}, t), el('dd', {}, d))));
 /* schema v0.1: one real converter record + the 17 fields with their class (always visible, under the steps) */
@@ -1455,6 +1478,7 @@ function renderEval() {
   renderP6();
   renderP7();
   renderP8();
+  renderP10();
 }
 
 function renderP2() {
@@ -1683,6 +1707,32 @@ function renderP8() {
       el('td', { class: 'small' }, f.where), el('td', {}, V[f.agreed_only] || f.agreed_only), el('td', {}, V[f.qwen_verdict] || f.qwen_verdict)))));
   const sub = P.fields.find(f => f.key === 'submitter') || {};
   $('#p8why').textContent = `Robust: submitter, co-signatories, type and language split by role and the submission date is body-specific under the registered rule, on agreed labels only and on Qwen's labels. Addressed body and recommendation split on the gold but not on both checks, so they are marked fragile. Qwen's agreement on the submitter is low (κ ${(+sub.kappa_qwen).toFixed(2)}): in ${P.joint_as_first} affairs it calls the first of several equal authors the “first signatory” where the annotation guide and both Claude annotators say joint author: mostly an interpretive difference, and the verdict is unchanged.`;
+}
+
+function renderP10() {
+  const P = D.evaluation.p10; if (!P) { $('#p10').hidden = true; } else {
+    const A = P.primary.arms, Hy = P.hypotheses, I = P.secondary_it.arms;
+    $('#p10Intro').textContent = `Who lodged an intervention, and in which role (sole author, joint author, first signatory, co-signer, group)? Where nobody wrote rules for a parliament's layout, code lists every person or body the two documents print, each with its located span; Apertus answers closed true/false questions about each one (did it lodge or co-sign this intervention; is it the designated first signatory); code composes the role. Test: ${P.primary.affairs} fresh affairs from ${P.primary.parliaments} German- and French-speaking parliaments outside every rule set, ${P.primary.gold_pairs} gold (name, role) pairs, labelled blind by two Claude annotators (eval/prereg10, LOCK10 before the draw and the labels).`;
+    $('#p10Note').textContent = `Gold: A1 (Opus) and A2 (Sonnet) agree on ${P.gold.agreeing}/${P.gold.packets} packets (pair F1 ${P.gold.pair_f1}); A3 (Opus) decided the other ${P.gold.to_a3}. Unit: one (name, role) pair. OPD's contributor names are OPD's and not located in the documents.`;
+    const NAMES = { pointer: ['Apertus role reader', 'closed questions on printed names'], rules: ['Frozen rules (roles-2)', 'no model'], opd_first: ['OPD’s contributor list', 'first author + co-signers; no model'], opd_joint: ['OPD’s contributor list', 'all joint authors; no model'], cand_joint: ['Same names, trivial role', 'no model'] };
+    $('#p10board').replaceChildren(el('thead', {}, el('tr', {}, ['Arm', 'Pairs right / printed', 'Precision', 'Recall', 'F1'].map(x => el('th', {}, x)))),
+      el('tbody', {}, Object.keys(NAMES).map(k => { const a = A[k]; return el('tr', { class: k === 'pointer' ? 'default' : '' },
+        el('td', { class: 'armname' }, NAMES[k][0], el('small', {}, NAMES[k][1])), el('td', { class: 'num' }, `${a.right}/${a.printed}`), el('td', { class: 'num' }, a.precision),
+        el('td', { class: 'num' }, k === 'pointer' ? el('b', {}, a.recall) : a.recall), el('td', { class: 'num' }, a.f1)); })));
+    $('#p10why').textContent = `Apertus reads more pairs right than the rules in ${P.primary.parliaments_pointer_more} of the ${P.primary.parliaments} parliaments, fewer in ${P.primary.parliaments_rules_more}. H3a, F1 over the stronger reading of OPD's contributor list, is not confirmed (+${Hy.H3a.diff}, Holm p = ${Hy.H3a.p_holm_2}): where OPD lists the authors, its order is a strong baseline. On P8's ${P.development.parliaments} development parliaments, where the prompts and thresholds were chosen, F1 is ${P.development.pointer_f1} (in-sample); on the ${P.primary.parliaments} unseen ones ${P.development.test_pointer_f1}. In Lugano (Italian, outside the family; the rules in-sample) Apertus reaches F1 ${I.pointer.f1}, the rules ${I.rules.right}/${I.rules.gold} pairs.`;
+    const card = (code, v, title, fig) => el('div', {}, el('span', { class: 'stamp', style: v === 'confirmed' ? '' : 'color:var(--red)' }, `${code} · ${v.toUpperCase()}`), el('h4', {}, title), el('div', { class: 'fig' }, fig));
+    $('#p10hyp').replaceChildren(
+      card('P10-H1', Hy.H1.verdict, 'Apertus finds more author roles than the rules', `recall +${Hy.H1.points} points ${Hy.H1.ci_points}; Holm p = ${Hy.H1.p_holm}`),
+      card('P10-H2', Hy.H2.verdict, 'At precision no worse than the rules’', `+${Hy.H2.diff} (margin ${Hy.H2.margin}); Holm p = ${Hy.H2.p_holm}`),
+      card('P10-H3b', Hy.H3b.verdict, 'The roles come from Apertus, not from the name list', `F1 +${Hy.H3b.diff}; Holm p = ${Hy.H3b.p_holm}`),
+      card('P10-H3a', Hy.H3a.verdict, 'Over OPD’s contributor list', `F1 +${Hy.H3a.diff}; Holm p = ${Hy.H3a.p_holm_2}`));
+  }
+  const Q = D.evaluation.parts; if (!Q) { $('#parts').hidden = true; return; }
+  $('#partsIntro').textContent = `Tables, annexes, images, scanned pages and signatures are marked by page range in schema v0.2 (rules parts-1, no model), so a table or annex is referenced where it is, not re-extracted: ${Q.records_with_part} of ${Q.records} converter records carry at least one. Two blind Claude annotators labelled ${Q.documents} of the converter's documents page by page from the page images (${Q.pages} pages), without the detector's output.`;
+  $('#partsNote').textContent = `Exploratory: the rules were written on the ${Q.documents_rules} converter documents the checked ones come from, so the check is in-sample for the detector. The detector marks a signature when it is an image; the annotators also counted printed signatory lists. Source: results/parts/blind_check.json.`;
+  const PN = { table: 'Table', annex: 'Annex', scanned: 'Scanned page', image: 'Image', signature: 'Signature' };
+  $('#partsboard').replaceChildren(el('thead', {}, el('tr', {}, ['Part (page level)', 'Precision', 'Recall'].map(x => el('th', {}, x)))),
+    el('tbody', {}, Object.keys(PN).map(k => el('tr', {}, el('td', { class: 'armname' }, PN[k]), el('td', { class: 'num' }, Q.page_level[k].precision), el('td', { class: 'num' }, Q.page_level[k].recall)))));
 }
 
 /* ---------------- 04 METHOD ---------------- */

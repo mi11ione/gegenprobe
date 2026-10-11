@@ -17,7 +17,7 @@ r6c.p5_prec_wilson_lo	0.75	results/eval/posthoc_r6_cluster.json	p5_h1.precision.
 r6c.p5_tier_cluster	not yet	results/eval/posthoc_r6_cluster.json	p5_h1.registered_tier.with_parliament_cluster	str	python -m eval.posthoc_r6 cluster	technical_report.md,docs/ech-onepager.md,docs/evaluation.md	
 r6c.p5_tier_wilson	partial	results/eval/posthoc_r6_cluster.json	p5_h1.registered_tier.with_wilson	str	python -m eval.posthoc_r6 cluster	README.md,technical_report.md,docs/ech-onepager.md,docs/evaluation.md,docs/operations.md	
 r6c.p5_fr_recall	10/30	results/eval/posthoc_r6_cluster.json	p5_h1.per_language.fr.recall	frac	python -m eval.posthoc_r6 cluster	docs/evaluation.md	
-r6c.p5_vs_recall	0/11	results/eval/posthoc_r6_cluster.json	p5_h1.per_parliament.VS.recall	frac	python -m eval.posthoc_r6 cluster	technical_report.md,docs/ech-onepager.md,docs/evaluation.md	
+r6c.p5_vs_recall	0/11	results/eval/posthoc_r6_cluster.json	p5_h1.per_parliament.VS.recall	frac	python -m eval.posthoc_r6 cluster	docs/ech-onepager.md,docs/evaluation.md	
 r6c.p2_ptr_rules_a	22	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs rules.a_only	int	python -m eval.posthoc_r6 cluster	technical_report.md,docs/evaluation.md	
 r6c.p2_ptr_rules_b	4	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs rules.b_only	int	python -m eval.posthoc_r6 cluster	technical_report.md,docs/evaluation.md	
 r6c.p2_ptr_rules_lo	-0.02	results/eval/posthoc_r6_cluster.json	p2.paired.pointer vs rules.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	technical_report.md,docs/evaluation.md	
@@ -37,7 +37,7 @@ r6c.p6_v2_rules_lo	-0.14	results/eval/posthoc_r6_cluster.json	p6.paired.v2 vs ru
 r6c.p6_v2_rules_hi	0.30	results/eval/posthoc_r6_cluster.json	p6.paired.v2 vs rules.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	-	
 r6c.p6_free_rules_lo	-0.07	results/eval/posthoc_r6_cluster.json	p6.paired.free_null vs rules.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	-	
 r6c.p6_free_rules_hi	0.33	results/eval/posthoc_r6_cluster.json	p6.paired.free_null vs rules.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	-	
-r6c.p6_model_free_cascade	55/68	results/eval/posthoc_r6_cluster.json	p6.arms.model_free_cascade.exact	frac	python -m eval.posthoc_r6 cluster	technical_report.md,docs/evaluation.md	
+r6c.p6_model_free_cascade	55/68	results/eval/posthoc_r6_cluster.json	p6.arms.model_free_cascade.exact	frac	python -m eval.posthoc_r6 cluster	docs/evaluation.md	
 r6c.p6_cascade_v2	60/68	results/eval/posthoc_r6_cluster.json	p6.arms.cascade_v2.exact	frac	python -m eval.posthoc_r6 cluster	technical_report.md,docs/evaluation.md	
 r6c.p6_free_null	62/68	results/eval/posthoc_r6_cluster.json	p6.arms.free_null.exact	frac	python -m eval.posthoc_r6 cluster	README.md,technical_report.md,docs/evaluation.md	
 r6c.p6_c2_mfc_a	5	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs model_free_cascade.a_only	int	python -m eval.posthoc_r6 cluster	docs/evaluation.md	

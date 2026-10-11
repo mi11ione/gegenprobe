@@ -72,11 +72,11 @@ r4d.t_p2_vs70_p	0.039	results/eval2/p2_8b_analysis.json	comparisons.pointer8_vs_
 r4d.t_p2_h2_po	13	results/eval2/p2_8b_analysis.json	registered_h2_8b.pointer_only	int	PYTHONPATH=src:. python -m report.p2_8b	-	
 r4d.t_p2_h2_p	2.4 × 10⁻⁴	results/eval2/p2_8b_analysis.json	registered_h2_8b.p_str	str	PYTHONPATH=src:. python -m report.p2_8b	-	
 r4d.t_p2_found	15	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.dates_found	int	PYTHONPATH=src:. python -m report.p2_8b	-	
-r4d.t_p2_found_70	16	results/eval2/p2_8b_analysis.json	profiles.70b_pointer.dates_found	int	PYTHONPATH=src:. python -m report.p2_8b	technical_report.md	
+r4d.t_p2_found_70	16	results/eval2/p2_8b_analysis.json	profiles.70b_pointer.dates_found	int	PYTHONPATH=src:. python -m report.p2_8b	-	
 r4d.t_p2_null	11	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.dates_on_answerless	int	PYTHONPATH=src:. python -m report.p2_8b	-	
 r4d.t_p2_null_70	4	results/eval2/p2_8b_analysis.json	profiles.70b_pointer.dates_on_answerless	int	PYTHONPATH=src:. python -m report.p2_8b	-	
 r4d.t_p2_scored	52	results/eval2/p2_8b_analysis.json	n_scored	int	PYTHONPATH=src:. python -m report.p2_8b	-	
-r4d.t_night_min	83	results/report/r4d_numbers.json	night.wall_min	int	PYTHONPATH=src:. python -m report.r4d_numbers	technical_report.md	
+r4d.t_night_min	83	results/report/r4d_numbers.json	night.wall_min	int	PYTHONPATH=src:. python -m report.r4d_numbers	-	
 r4d.t_night_dl	32	results/report/r4d_numbers.json	night.download_min	int	PYTHONPATH=src:. python -m report.r4d_numbers	-	
 r4d.t_night_mb	198	results/report/r4d_numbers.json	night.transfer_mb	int	PYTHONPATH=src:. python -m report.r4d_numbers	-	
 r4d.t_night_check	50	results/report/r4d_numbers.json	night.triple_check_min_derived	int	PYTHONPATH=src:. python -m report.r4d_numbers	-	
@@ -91,8 +91,8 @@ r4d.t_weights	140	results/report/r4d_numbers.json	weights_70b.weights_gb	int	PYT
 r4d.t_apply_rows	49,810	results/repair/apply_be/apply_BE_plan.json	export_identifier_rule.follow_rule	int	python -m gegenprobe.repair.apply_be --fetch --out results/repair/apply_be	technical_report.md	
 r4d.t_apply_agenda	2,421	results/repair/apply_be/apply_BE_plan.json	relink.before_parent_type.agenda	int	python -m gegenprobe.repair.apply_be --fetch --out results/repair/apply_be	technical_report.md	
 r4d.f_rules135	135	results/report/eval_numbers.json	arms.rules.exact	int	python -m report.eval_numbers	-	
-r4d.f_8b_found	15	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.dates_found	int	PYTHONPATH=src:. python -m report.p2_8b	technical_report.md	
-r4d.f_found_of	21	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.n_gold_value	int	PYTHONPATH=src:. python -m report.p2_8b	technical_report.md	
+r4d.f_8b_found	15	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.dates_found	int	PYTHONPATH=src:. python -m report.p2_8b	-	
+r4d.f_found_of	21	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.n_gold_value	int	PYTHONPATH=src:. python -m report.p2_8b	-	
 r4d.f_70b_found	16	results/eval2/p2_8b_analysis.json	profiles.70b_pointer.dates_found	int	PYTHONPATH=src:. python -m report.p2_8b	-	
 r4d.f_8b_null	11	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.dates_on_answerless	int	PYTHONPATH=src:. python -m report.p2_8b	-	
 r4d.f_null_of	31	results/eval2/p2_8b_analysis.json	profiles.8b_pointer.n_answerless	int	PYTHONPATH=src:. python -m report.p2_8b	-	

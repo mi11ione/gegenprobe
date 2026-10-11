@@ -31,7 +31,7 @@ r13.xl_gr	148	results/findings/cross_language_links.json	bodies.4.opd_tag.first_
 r13.xl_vs	63	results/findings/cross_language_links.json	bodies.0.opd_tag.first_pair_cross	int	python -m gegenprobe.findings.cross_language	README.md	
 r13.at_durations	6,438	results/findings/answer_times.json	headline.durations	int	python -m gegenprobe.findings.answer_times	README.md,technical_report.md	
 r13.at_min_n	20	results/findings/answer_times.json	min_n	int	python -m gegenprobe.findings.answer_times	README.md,technical_report.md	
-r13.at_rho	0.656	results/findings/answer_times.json	headline.rho_opd_plain_vs_adapter	str	python -m gegenprobe.findings.answer_times	README.md,technical_report.md	
+r13.at_rho	0.656	results/findings/answer_times.json	headline.rho_opd_plain_vs_adapter	str	python -m gegenprobe.findings.answer_times	README.md	
 r13.at_vs_after	61	results/findings/answer_times.json	headline.vs_motions_submission_after_answer_document	int	python -m gegenprobe.findings.answer_times	README.md,technical_report.md	
 r13.at_vs_rows	163	results/findings/answer_times.json	headline.vs_counted_rows	int	python -m gegenprobe.findings.answer_times	-	
 r13.pg_rows	2,975	results/repair/apply_be/apply_BE_pg_check.json	expected_rows_changed	int	python -m gegenprobe.repair.apply_be_pg	README.md,technical_report.md,docs/form_notes.md,../README.md	
@@ -42,8 +42,8 @@ r13.pg_server	16.2	results/repair/apply_be/apply_BE_pg_check.json	server	str	pyt
 r13.p2_mcnemar	0.012	results/eval/posthoc_r3_paired.json	splits.P2.comparisons.pointer~latest_date_on_answer_docs_only.all.p_str	str	PYTHONPATH=src:. python -m eval.posthoc_r3	README.md,technical_report.md,docs/form_notes.md,../README.md	
 r13.p2_cluster	0.031	results/eval/posthoc_r3_paired.json	splits.P2.comparisons.pointer~latest_date_on_answer_docs_only.bodies.cluster_permutation_p_str	str	PYTHONPATH=src:. python -m eval.posthoc_r3	README.md,technical_report.md,../README.md	
 r13.p1_rules_vs_latest	0.48	results/eval/posthoc_r3_paired.json	splits.P1.comparisons.rules~latest_date_on_answer_docs_only.all.p_str	str	PYTHONPATH=src:. python -m eval.posthoc_r3	README.md,technical_report.md	
-r13.fed_null	15/15	results/fed/fed_tables.json	answer_date.arms.converter_CA.strict.ALL.correct_null/answer_date.arms.converter_CA.strict.ALL.n	frac	PYTHONPATH=src:. python -m eval.fed.score	README.md,docs/form_notes.md,technical_report.md	
-r13.fed_latest_invented	6/15	results/fed/fed_tables.json	answer_date.arms.latest_printed_date.strict.ALL.invented_on_null/answer_date.arms.latest_printed_date.strict.ALL.n	frac	PYTHONPATH=src:. python -m eval.fed.score	README.md,technical_report.md,docs/form_notes.md	
+r13.fed_null	15/15	results/fed/fed_tables.json	answer_date.arms.converter_CA.strict.ALL.correct_null/answer_date.arms.converter_CA.strict.ALL.n	frac	PYTHONPATH=src:. python -m eval.fed.score	README.md,technical_report.md	
+r13.fed_latest_invented	6/15	results/fed/fed_tables.json	answer_date.arms.latest_printed_date.strict.ALL.invented_on_null/answer_date.arms.latest_printed_date.strict.ALL.n	frac	PYTHONPATH=src:. python -m eval.fed.score	README.md,technical_report.md	
 r13.fed_n	15	results/fed/fed_tables.json	n	int	PYTHONPATH=src:. python -m eval.fed.score	README.md,technical_report.md,docs/form_notes.md	
 r13.fed_opd_event	7	results/fed/fed_tables.json	answer_date.metadata_layer.record_carries_opd_answer_event	int	PYTHONPATH=src:. python -m eval.fed.score	-	
 r13.p1_trivial_ci	[78.6, 89.8]	results/report/r13_numbers.json	display.p1_latest_answer_typed_ci	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
@@ -58,9 +58,9 @@ r13.p8_ci_subdate	[57.1%, 91.8%]	results/report/r13_numbers.json	display.p8_clus
 r13.p8_ci_type	[76.2%, 95.3%]	results/report/r13_numbers.json	display.p8_cluster.type	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
 r13.p8_ci_language	[83.3%, 100.0%]	results/report/r13_numbers.json	display.p8_cluster.language	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
 r13.p4_invented	0/36	results/eval4/hypotheses4__publicai_swiss-ai_apertus-v1.5-8b.json	H3.invented.0/H3.invented.1	frac	PYTHONPATH=src:. python -m eval.gold4.hypotheses4	technical_report.md	
-r13.valais_by_number	11/11	results/findings/cross_language_links.json	valais_pairing_by_number.by_number_right/valais_pairing_by_number.gold_answers	frac	python -m gegenprobe.findings.cross_language	technical_report.md	
+r13.valais_by_number	11/11	results/findings/cross_language_links.json	valais_pairing_by_number.by_number_right/valais_pairing_by_number.gold_answers	frac	python -m gegenprobe.findings.cross_language	-	
 r13.audit3_decoys	60	results/repair/adapters/audit3/sample.json	n_decoys	int	python -m gegenprobe.repair.adapters.audit3 sample	technical_report.md	
 r13.fed_function	15/15	results/fed/fed_tables.json	instrument_function.ALL.in_E.k/instrument_function.ALL.in_E.n	frac	PYTHONPATH=src:. python -m eval.fed.score	README.md,technical_report.md	
 r13.fed_lang_q	15	results/fed/fed_tables.json	converter_language_guess.question.ALL.correct	int	PYTHONPATH=src:. python -m eval.fed.score	README.md	
 r13.fed_lang_a	15	results/fed/fed_tables.json	converter_language_guess.answer.ALL.correct	int	PYTHONPATH=src:. python -m eval.fed.score	README.md	
-r13.p5_h4_b	11	results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json	H4.b_only	int	python -m eval.gold6.run6 p5 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p5-test:1.5; python -m eval.gold6.hypotheses6 p5 publicai_swiss-ai_apertus-v1.5-8b	technical_report.md	
+r13.p5_h4_b	11	results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json	H4.b_only	int	python -m eval.gold6.run6 p5 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p5-test:1.5; python -m eval.gold6.hypotheses6 p5 publicai_swiss-ai_apertus-v1.5-8b	-	

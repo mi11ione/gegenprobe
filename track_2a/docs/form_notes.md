@@ -15,12 +15,14 @@ every number here from its results file and fails on any mismatch, or on a numbe
   applied, up from 81.6%: 91.6% from row-checked repairs + 0.7 points from the 592 agenda joins and 39 review rows. The
   Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation. In 15 parliaments
   nobody wrote rules for, Apertus is exact on 53/62 documents, the best no-model baseline on 44/62 (P2, post hoc;
-  McNemar p = 0.012). 186 affairs from 26 parliaments, communal, cantonal and federal, validate in schema v0.2 (the
+  McNemar p = 0.012); in 14 such parliaments it reads 50/141 author roles right, the rules 17/141, at precision 0.52
+  vs 0.31, every name printed and located by code (P10, registered: recall +23.4 points, Holm p = 0.032). 186 affairs from 26 parliaments, communal, cantonal and federal, validate in schema v0.2 (the
   15 federal ones exploratory).
 - **Schema.** A pre-registered test of 7 fields on 66 affairs from 11 parliaments (P8) finds roles in authorship,
   signatories, the instrument behind a harmonised type and the language. The converter fills v0.2's roles: on 5
   parliaments its rules never saw, author (name, role) pairs reach precision 39/49 at recall 39/137, the language is
-  right on 60/60 documents.
+  right on 60/60 documents. Tables, annexes, images, scans and signatures are marked by page: blind check of 30
+  documents (exploratory, in-sample): tables precision 12/12, recall 12/15; annexes 6/6 and 6/6.
 - **Census and OPD.** 2,177 "missing" answers were in OPD all along, under an unrecognised heading. OPD confirmed
   the Bern linking bug (correspondence, 10 Oct 2026); the only open decision is its hash rule for relinks. Lists from
   50 model-free source adapters (blind AI annotators judged 197/200 to be the answer), 9 OPD vocabulary labels wrong
@@ -33,11 +35,9 @@ every number here from its results file and fails on any mismatch, or on a numbe
   its date is right on 113/120 of its promotions against 127/146 for the best no-model rule, each on its own
   promotions (not paired), at lower recall (214 vs 369 rows). Where rules exist it adds one document net (P1: 139/154
   vs a model-free cascade's 138/154, post hoc).
-- **Federal level (exploratory).** 15 Federal Council answers print no answer date: rules, pointer and converter
-  date none (15/15 right nulls); the latest printed date dates an answerless document on 6/15.
 - **Sovereign and cheap to run.** The default runs no model and only reads public sources; every model value goes
   to a reviewer. A first network night took 86 min, the next 6.6 min.
-- **Nine tests, frozen before any label** (P1's hypothesis script followed its labels, its rules came with its
+- **Ten tests, frozen before any label** (P1's hypothesis script followed its labels, its rules came with its
   sample: D4, D12). P1: rules alone right on 135/154, so by default no model runs. P6: no registered hypothesis held.
   The 9 held results of P1–P7 survive Holm over their 20 tests. Null safety failed on the 70B (P1, P2, P6), so
   Apertus only suggests.

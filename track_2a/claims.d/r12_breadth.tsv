@@ -2,7 +2,7 @@ id	shown	file	path	fmt	command	where	context
 breadth.p1.ALL.rules.exact	135/154	results/eval/breadth_p1_p2.json	sets.P1.cells.ALL.rules.exact/sets.P1.cells.ALL.n	frac	python -m eval.breadth	docs/evaluation.md	
 breadth.p1.ALL.pointer.exact	130/154	results/eval/breadth_p1_p2.json	sets.P1.cells.ALL.pointer.exact/sets.P1.cells.ALL.n	frac	python -m eval.breadth	docs/evaluation.md	
 breadth.p1.ALL.cascade.exact	139/154	results/eval/breadth_p1_p2.json	sets.P1.cells.ALL.cascade.exact/sets.P1.cells.ALL.n	frac	python -m eval.breadth	docs/evaluation.md	
-breadth.p1.de_canton.rules.exact	17/22	results/eval/breadth_p1_p2.json	sets.P1.cells.de_canton.rules.exact/sets.P1.cells.de_canton.n	frac	python -m eval.breadth	docs/evaluation.md,technical_report.md	
+breadth.p1.de_canton.rules.exact	17/22	results/eval/breadth_p1_p2.json	sets.P1.cells.de_canton.rules.exact/sets.P1.cells.de_canton.n	frac	python -m eval.breadth	docs/evaluation.md	
 breadth.p1.de_canton.pointer.exact	19/22	results/eval/breadth_p1_p2.json	sets.P1.cells.de_canton.pointer.exact/sets.P1.cells.de_canton.n	frac	python -m eval.breadth	docs/evaluation.md	
 breadth.p1.de_canton.cascade.exact	20/22	results/eval/breadth_p1_p2.json	sets.P1.cells.de_canton.cascade.exact/sets.P1.cells.de_canton.n	frac	python -m eval.breadth	docs/evaluation.md	
 breadth.p1.de_commune.rules.exact	20/22	results/eval/breadth_p1_p2.json	sets.P1.cells.de_commune.rules.exact/sets.P1.cells.de_commune.n	frac	python -m eval.breadth	docs/evaluation.md	
@@ -20,7 +20,7 @@ breadth.p1.it_canton.cascade.exact	21/22	results/eval/breadth_p1_p2.json	sets.P1
 breadth.p1.it_commune.rules.exact	18/22	results/eval/breadth_p1_p2.json	sets.P1.cells.it_commune.rules.exact/sets.P1.cells.it_commune.n	frac	python -m eval.breadth	docs/evaluation.md	
 breadth.p1.it_commune.pointer.exact	20/22	results/eval/breadth_p1_p2.json	sets.P1.cells.it_commune.pointer.exact/sets.P1.cells.it_commune.n	frac	python -m eval.breadth	docs/evaluation.md	
 breadth.p1.it_commune.cascade.exact	21/22	results/eval/breadth_p1_p2.json	sets.P1.cells.it_commune.cascade.exact/sets.P1.cells.it_commune.n	frac	python -m eval.breadth	docs/evaluation.md	
-breadth.p1.ocr_ti.rules.exact	21/22	results/eval/breadth_p1_p2.json	sets.P1.cells.ocr_ti.rules.exact/sets.P1.cells.ocr_ti.n	frac	python -m eval.breadth	docs/evaluation.md,technical_report.md	
+breadth.p1.ocr_ti.rules.exact	21/22	results/eval/breadth_p1_p2.json	sets.P1.cells.ocr_ti.rules.exact/sets.P1.cells.ocr_ti.n	frac	python -m eval.breadth	docs/evaluation.md	
 breadth.p1.ocr_ti.pointer.exact	17/22	results/eval/breadth_p1_p2.json	sets.P1.cells.ocr_ti.pointer.exact/sets.P1.cells.ocr_ti.n	frac	python -m eval.breadth	docs/evaluation.md	
 breadth.p1.ocr_ti.cascade.exact	21/22	results/eval/breadth_p1_p2.json	sets.P1.cells.ocr_ti.cascade.exact/sets.P1.cells.ocr_ti.n	frac	python -m eval.breadth	docs/evaluation.md	
 breadth.p2.ALL.rules.exact	35/62	results/eval/breadth_p1_p2.json	sets.P2.cells.ALL.rules.exact/sets.P2.cells.ALL.n	frac	python -m eval.breadth	docs/evaluation.md	
@@ -47,7 +47,7 @@ breadth.p2.it_commune.rules.exact	1/6	results/eval/breadth_p1_p2.json	sets.P2.ce
 breadth.p2.it_commune.rules.found	0/5	results/eval/breadth_p1_p2.json	sets.P2.cells.it_commune.rules.found/sets.P2.cells.it_commune.n_answered	frac	python -m eval.breadth	docs/evaluation.md	
 breadth.p2.it_commune.pointer.exact	6/6	results/eval/breadth_p1_p2.json	sets.P2.cells.it_commune.pointer.exact/sets.P2.cells.it_commune.n	frac	python -m eval.breadth	docs/evaluation.md	
 breadth.p2.it_commune.pointer.found	5/5	results/eval/breadth_p1_p2.json	sets.P2.cells.it_commune.pointer.found/sets.P2.cells.it_commune.n_answered	frac	python -m eval.breadth	docs/evaluation.md	
-breadth.p1.ocr_ti.rules.found	11/12	results/eval/breadth_p1_p2.json	sets.P1.cells.ocr_ti.rules.found/sets.P1.cells.ocr_ti.n_answered	frac	python -m eval.breadth	docs/evaluation.md,technical_report.md	
+breadth.p1.ocr_ti.rules.found	11/12	results/eval/breadth_p1_p2.json	sets.P1.cells.ocr_ti.rules.found/sets.P1.cells.ocr_ti.n_answered	frac	python -m eval.breadth	docs/evaluation.md	
 breadth.p1.ocr_ti.pointer.found	7/12	results/eval/breadth_p1_p2.json	sets.P1.cells.ocr_ti.pointer.found/sets.P1.cells.ocr_ti.n_answered	frac	python -m eval.breadth	docs/evaluation.md	
 breadth.p2.lang_DE.pointer.found	9/13	results/eval/breadth_p1_p2.json	sets.P2.by.language.DE.pointer.found/sets.P2.by.language.DE.n_answered	frac	python -m eval.breadth	docs/evaluation.md,technical_report.md	
 breadth.p2.lang_DE.rules.found	0/13	results/eval/breadth_p1_p2.json	sets.P2.by.language.DE.rules.found/sets.P2.by.language.DE.n_answered	frac	python -m eval.breadth	docs/evaluation.md	

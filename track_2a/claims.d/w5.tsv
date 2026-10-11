@@ -3,7 +3,7 @@ w5.8b.theta	16.73	results/eval/gguf_8b_analysis.json	theta	f2	python -m eval.ggu
 w5.8b.dev_auroc	0.90	results/eval/gguf_8b_analysis.json	theta_dev_auroc	f2	python -m eval.gguf_8b_analysis fetch-ci; python -m eval.gguf_8b_analysis	docs/evaluation.md	
 w5.8b.dev_n	97	results/eval/gguf_8b_analysis.json	theta_dev_n	int	python -m eval.gguf_8b_analysis fetch-ci; python -m eval.gguf_8b_analysis	docs/evaluation.md,docs/operations.md	
 w5.8b.pointer	112/154	results/eval/gguf_8b_analysis.json	arms.pointer.strict.ALL.exact/arms.pointer.strict.ALL.n	frac	python -m eval.gguf_8b_analysis fetch-ci; python -m eval.gguf_8b_analysis	docs/evaluation.md	
-w5.8b.cascade	119/154	results/eval/gguf_8b_analysis.json	arms.cascade.strict.ALL.exact/arms.cascade.strict.ALL.n	frac	python -m eval.gguf_8b_analysis fetch-ci; python -m eval.gguf_8b_analysis	technical_report.md,docs/evaluation.md	
+w5.8b.cascade	119/154	results/eval/gguf_8b_analysis.json	arms.cascade.strict.ALL.exact/arms.cascade.strict.ALL.n	frac	python -m eval.gguf_8b_analysis fetch-ci; python -m eval.gguf_8b_analysis	docs/evaluation.md	
 w5.8b.pointer_ci	[65.2, 79.1]	results/eval/gguf_8b_analysis.json	arms.pointer.strict.ALL.ci_pct	ci	python -m eval.gguf_8b_analysis fetch-ci; python -m eval.gguf_8b_analysis	docs/evaluation.md	
 w5.8b.cascade_ci	[70, 83.2]	results/eval/gguf_8b_analysis.json	arms.cascade.strict.ALL.ci_pct	ci	python -m eval.gguf_8b_analysis fetch-ci; python -m eval.gguf_8b_analysis	docs/evaluation.md	
 w5.70b.pointer_short	130	results/eval/gguf_8b_analysis.json	arms.pointer.exact_70b.0	int	python -m eval.gguf_8b_analysis fetch-ci; python -m eval.gguf_8b_analysis	technical_report.md	

@@ -1,11 +1,11 @@
-# Evaluation in detail: nine pre-registered tests
+# Evaluation in detail: ten pre-registered tests
 
 The full record behind the evaluation summary in [`../README.md`](../README.md) and the technical report. Paths are
 relative to `track_2a/`. Every number here is listed in `claims.tsv` and recomputed by `make claims`. Each test froze
 code, prompts and θ by sha256 before any label was committed (`eval/prereg*/`); failed hypotheses are reported as
 registered, next to the ones that held.
 
-## The nine tests, in registration order
+## The ten tests, in registration order
 
 Each froze code, prompts and θ by sha256 before any label was committed (`eval/prereg*/`).
 
@@ -20,6 +20,7 @@ Each froze code, prompts and θ by sha256 before any label was committed (`eval/
 | P6 | 68 fresh documents, 8 parliaments | answer-date reader v2 vs free prompting | **failed**: no hypothesis held | free prompt 62/68, v2 59/68 |
 | P7 | 478 review rows, 190 blind packets | Apertus as verifier of the adapters' review queue | **H1 holds** (120/120); H4 supported; H3 not supported | 214 of 917 review rows promoted, in a separate tier |
 | P8 | 66 fresh affairs, 11 parliaments | what 7 fields v0.1 defines once mean in each parliament | **none uniform**: 6 role split, 1 body-specific; 5 robust under both checks | meaning measured for 11 of 17 fields ([below](#p8-what-the-shared-fields-mean)) |
+| P10 | 34 fresh affairs, 14 parliaments outside every rule set | Apertus as a closed-set reader of author roles vs the rules and OPD's contributor list | **3 of 4 held**: H1 recall, H2 precision, H3b; H3a not confirmed | pairs right 50/141, rules 17/141 ([below](#p10-author-roles-where-no-rules-exist)) |
 
 - **Unattended** (95% lower bound ≥ 0.80, document-level intervals): the rules' answer date on parliaments with rules
   (P1, 135/154 [81.5, 92], helped by right nulls: dates found 47/64), the type on whole affairs (P3b, 35/36), and in P5
@@ -144,6 +145,88 @@ printed instrument name equals OPD's harmonised type in 62/66.
 verdict, which is 12; type is in both, so the docs count distinct fields: 11 (DEVIATIONS9 D9-1). Scope as designed: 6
 affairs per parliament (recommendation: 3 to 4), categories judged from the two documents OPD links, one exception per
 parliament tolerated by the rule.
+
+## P10: author roles where no rules exist
+
+**Design** (`eval/prereg10/PREREG10.md`; LOCK10 committed before the draw and before any label; draw 1ba67294, gold
+f5abc5b8, arms and scores 7677a6d0; deviation D1 in `eval/prereg10/DEVIATIONS10.md`: annotator A1 ran three read-only
+commands on files it was allowed to read; blindness unaffected). Frame: German, French and Italian parliaments outside
+every rule set (not the 15 the converter's rules were written on, not P8's 12, not the parliaments of P3, P3b, P5 and
+P5 dev, not the federal parliament), each with robots-allowed documents. Primary cell: 34 fresh affairs, 24 German from
+12 parliaments and 10 French from 2 (Neuchâtel 9, Fribourg city 1; the French stratum came out 4 short of its 14 by
+the registered fill rule; the stop rule needs 30 affairs and 60 gold pairs). Secondary cell, outside the family:
+6 affairs from Lugano, whose layouts roles-2 was written on, so the rules are in-sample there.
+
+**Arms.** (a) The Apertus role reader (`src/gegenprobe/convert/role_candidates.py`, `roles_pointer.py`): code lists every
+person or body the two documents print, each with its located span; Apertus (70B weights via Public AI) answers closed
+true/false questions about each candidate (did it lodge or co-sign this intervention; is it the designated first
+signatory), scored by log-probability after a JSON prefix; code composes the role by the P8 guide's definitions. Every
+output names a located candidate; nothing is generated. (b) The frozen rules (roles-2). (c1) OPD's contributor list
+mapped to roles, read two ways (first author + co-signers; all joint authors); these names are OPD's and are not located
+in the documents. (c2) The same candidates as (a) with a trivial role.
+
+**Gold.** A1 (Claude Opus) and A2 (Claude Sonnet) labelled all 40 packets blind with the P8 guide word for word; they
+agree on 31/40 packets (pair F1 0.868); A3 (Opus) decided the other 9 (`results/p10/p10_agreement.json`). Unit: one
+(name, role) pair; 141 gold pairs in the primary cell, 56 in Lugano.
+
+**Primary cell, registered** (`results/p10/p10_scores.json`):
+
+| arm | pairs right / printed / gold | precision | recall | F1 |
+|---|---|---|---|---|
+| **Apertus role reader** | **50/96/141** | **0.52** | **0.35** | **0.42** |
+| frozen rules (roles-2) | 17/55/141 | 0.31 | 0.12 | 0.17 |
+| OPD's list: first author + co-signers | 37/104/141 | 0.36 | 0.26 | 0.30 |
+| OPD's list: all joint authors | 18/104/141 | 0.17 | 0.13 | 0.15 |
+| same candidates, trivial role | 16/111/141 | 0.14 | 0.11 | 0.13 |
+
+Hypotheses (one-sided, paired parliament-cluster bootstrap, 10,000 resamples, Holm over four):
+
+- **H1, confirmed:** recall over the rules +23.4 points [5.9, 49.0], Holm p = 0.032; exact McNemar on the pairs only
+  one arm finds: Apertus 39, rules 6.
+- **H2, confirmed:** precision non-inferior to the rules within 0.10; observed +0.21, Holm p = 0.033.
+- **H3a, not confirmed:** F1 over the stronger OPD reading in each resample, observed +0.12, Holm p = 0.17. Where OPD
+  lists the authors, its contributor order is a strong baseline.
+- **H3b, confirmed:** F1 over the same candidates with a trivial role, observed +0.29, Holm p = 0.032.
+
+Per parliament, Apertus reads more pairs right than the rules in 9 of the 14, fewer in 1, as many in 4. The candidate
+finder offers 87 of the 141 gold names (111 candidates), which bounds recall.
+
+**Development against test.** The prompts, thresholds and composition rule were chosen on P8's 6 development
+parliaments (36 affairs, 208 gold pairs; `results/p10/dev10.json`): there the reader reaches pair F1 0.80 (in-sample),
+the rules, written on those parliaments, 0.97. On the 14 unseen parliaments of the test the reader reaches F1 0.42.
+
+**Lugano** (secondary, outside the family, the rules in-sample):
+
+| arm | pairs right / printed / gold | precision | recall | F1 |
+|---|---|---|---|---|
+| **Apertus role reader** | **33/46/56** | 0.72 | 0.59 | **0.65** |
+| frozen rules (roles-2) | 0/2/56 | 0.00 | 0.00 | 0.00 |
+| OPD's list: first author + co-signers | 35/56/56 | 0.62 | 0.62 | 0.62 |
+
+Re-scored offline from the committed arm outputs and gold: `PYTHONPATH=src:. python -m eval.p10.score` (byte-identical).
+
+## Document parts: blind check of the detector
+
+**What it does** (`src/gegenprobe/convert/parts.py`, rules parts-1, no model): it marks tables (aligned columns in the
+layout text), annexes (headings and attachment lists), embedded images, scanned pages and signature images by page
+range in v0.2's `parts`, so tables and annexes are referenced where they are, not re-extracted. 66 of the 105
+converter records carry at least one part (`results/schema/v0_2/validation_all.json`).
+
+**Blind check** (exploratory; `eval/parts/GUIDE_PARTS.md`, `results/parts/blind_check.json`). The rules were written on
+the 210 converter documents, and the 30 checked documents come from them, so the check is in-sample for the detector.
+A seeded draw per stratum of the detector's reading; A1 (Claude Opus) and A2 (Claude Sonnet) labelled every page from
+its image (100 ppi), without the detector's output; 108 pages. Page level:
+
+| part | precision | recall |
+|---|---|---|
+| table | 12/12 | 12/15 |
+| annex | 6/6 | 6/6 |
+| scanned page | 23/24 | 23/23 |
+| image | 4/8 | 4/6 |
+| signature | 5/5 | 5/23 |
+
+The detector marks a signature when it is an image; the annotators also counted printed signatory lists, which gives
+the signature recall.
 
 ## What the converter returns, and a glossary
 
@@ -590,8 +673,9 @@ is-answer variant and θ_B.
 - **What it adds, measured:** the date check as a closed-set verifier of the adapters' review queue (P7: 214 rows
   promoted into a separate tier, 120/120 sampled are answers; +22.7 points of dated precision over a trivial date
   match), finding answer dates the rules miss on unseen parliaments (P2 22:4; P6 11:5 on all 68 documents, p = 0.21)
-  and doubling submitter detection over the rules (P5: 12/40 → 24/40; free generation 34/40), every extracted value a
-  printed one with its location. Accuracy is close to the same model asked freely with null allowed (P2 and P6,
+  and doubling submitter detection over the rules (P5: 12/40 → 24/40; free generation 34/40), reading author roles
+  where nobody wrote rules (P10: 50/141 pairs right, the rules 17/141, at precision 0.52 vs 0.31), every extracted value
+  a printed one with its location. Accuracy is close to the same model asked freely with null allowed (P2 and P6,
   registered; P7-H3), and a printed-date filter on the free prompt gives the same no-invention guarantee; null safety is left to the reviewer (P1-H1, P2-H3, P6-H2 failed).
 - **Why a pointer:** asked freely when the government answered, Apertus writes a precise date for 15/15 (local 8B) and
   14/15 (70B) Bern interventions that have no answer, often the "Letzte Bearbeitung" footer (earlier spikes, cited); a

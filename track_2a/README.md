@@ -24,12 +24,14 @@ and code locates them (70B weights via the Public AI gateway; local 8B on CPU).
 | **9,720** | answers with a model-free repair proposed to OPD, keyed on OPD ids; the Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation |
 | **10 of 17** | fields are shared once their roles are explicit; 1 is body-specific; 6 are not yet tested for meaning |
 | **53/62** | documents exact in 15 parliaments nobody wrote rules for when Apertus picks the answer date among the printed dates, against 44/62 for the best no-model baseline |
+| **50/141** | author roles (who lodged or co-signed, in which role) read right in 14 parliaments nobody wrote rules for when Apertus answers closed questions about the names the documents print, about three times the rules' 17/141, at higher precision (0.52 vs 0.31); code finds and locates every name |
 | **186** | affairs from 26 parliaments, communal, cantonal and federal, validate in schema v0.2 |
 
 <sub>Sources: 92.3% and 9,720 from the census and the repair lists (no model); 10 of 17 from OPD's labels and P8
-(pre-registered); 53/62 from P2, post hoc (McNemar p = 0.012, parliament-cluster p = 0.031); 186 from P3, P3b, P5, P8
-and the federal cell, whose 15 affairs are exploratory. Codes: P1–P8 are the nine tests (P3b replicates P3), each
-frozen by hash before its labels; D-numbers are logged deviations from them (`eval/prereg*/DEVIATIONS*.md`); θ is the
+(pre-registered); 53/62 from P2, post hoc (McNemar p = 0.012, parliament-cluster p = 0.031); 50/141 from P10,
+registered (recall +23.4 points over the rules, Holm p = 0.032); 186 from P3, P3b, P5, P8 and the federal cell, whose
+15 affairs are exploratory. Codes: P1–P8 and P10 are the ten tests (P3b replicates P3), each frozen by hash before its
+labels; D-numbers are logged deviations from them (`eval/prereg*/DEVIATIONS*.md`); θ is the
 frozen margin above which Apertus answers null; post hoc means analysed after the labels.</sub>
 
 > **Where a common schema breaks**
@@ -62,7 +64,7 @@ documents (keep the old identifier or issue a new one).
 - **Sovereign and cheap to run:** the default only reads public sources (OPD's exports, Bern's open data, Fedlex, the
   parliaments' sites). A first network night took 86 min on a GitHub runner, the next 6.6 min; at ten times OPD's
   volume the rules need about 5 CPU-hours ([Operations](#operations)).
-- **Pre-registered:** nine tests, each frozen by hash before its labels (P1's hypothesis script followed its labels and
+- **Pre-registered:** ten tests, each frozen by hash before its labels (P1's hypothesis script followed its labels and
   its rules entered with its sample, both logged: D4, D12). `make claims` recomputes every number in this README, the
   report and the form from its results file and fails on any mismatch, or on a number or scope word (post hoc,
   registered, exploratory, in-sample, held out, weighted) not bound to its claim.
@@ -162,6 +164,22 @@ language of the text 60/60 documents, the instrument named 27/30 affairs, author
 and recall 39/137: on unseen layouts the author rules mostly abstain. With one layout rule per parliament added
 afterwards, all 66 P8 affairs reach pair precision 286/291 and recall 286/345 (in-sample)
 (`results/schema/v0_2/converter_roles.json`).
+
+**Tables, annexes, images, scans and signatures** (`src/gegenprobe/convert/parts.py`, rules parts-1, no model). The
+converter marks each by page range in v0.2's `parts`, so a table or annex is referenced where it is, not re-extracted:
+66 of 105 converter records carry at least one. Two blind AI annotators labelled 30 of its documents page by page
+from the page images (108 pages; exploratory, in-sample for the detector, whose rules were written on these
+documents; `results/parts/blind_check.json`):
+
+| part (page level) | precision | recall |
+|---|---|---|
+| table | 12/12 | 12/15 |
+| annex | 6/6 | 6/6 |
+| scanned page | 23/24 | 23/23 |
+| image | 4/8 | 4/6 |
+| signature | 5/5 | 5/23 |
+
+The detector marks a signature when it is an image; the annotators also counted printed signatory lists.
 
 **Where the converter reads documents** (every parliament with its tests: [`docs/converter-coverage.md`](docs/converter-coverage.md),
 `results/convert/coverage_by_parliament.json`). Of 91 bodies (the 89 of the feasibility matrix and 2 more a test
@@ -266,6 +284,12 @@ dates or phrases printed in the document, and code locates the page and span.
   the rules (P2-H2) is [-0.02, 0.54], so it sits in some parliaments, not all. It puts a date on 4 of the 33
   answerless documents, where the latest printed date (22/29 found) dates 31. A free prompt finds 22/29 as registered,
   24/29 (null allowed) and 25/29 (plain) once its answers are re-parsed (D2-4).
+- **Author roles where nobody wrote rules (P10, pre-registered).** Code lists every person or body the two documents
+  print, each with its span; Apertus answers closed true/false questions about each (did it lodge or co-sign this
+  intervention, is it the designated first signatory); code composes the role. On 34 fresh affairs from 14 German- and
+  French-speaking parliaments outside every rule set, it reads 50 of 141 gold (name, role) pairs right, the rules 17,
+  at precision 0.52 against 0.31; it is ahead of the rules in 9 of the 14 parliaments and behind in 1. Registered,
+  Holm-corrected: recall over the rules +23.4 points (H1, p = 0.032), precision non-inferior (H2, observed +0.21).
 - **A precision verifier of the review queue (P7, pre-registered).** On the adapters' review queue Apertus answers two
   closed questions: is this the executive's answer to this intervention, and which printed date is the answer date.
   Blind AI annotators judged 120/120 of its sampled promotions the government's answer (H1, registered, Wilson 95%
@@ -314,7 +338,7 @@ answer PDFs ──► OPD metadata ──► frozen DE/FR/IT rules ──► Ape
 
 ## Evaluation summary
 
-Nine tests, each with code, prompts and θ frozen by sha256 before any label was committed (`eval/prereg*/`). Gold
+Ten tests, each with code, prompts and θ frozen by sha256 before any label was committed (`eval/prereg*/`). Gold
 labels come from blind agent annotators by design (below). Full tables, deviations and statistics:
 [`docs/evaluation.md`](docs/evaluation.md).
 
@@ -329,6 +353,7 @@ labels come from blind agent annotators by design (below). Full tables, deviatio
 | P6 | 68 fresh documents, 8 parliaments | answer-date reader v2 vs free prompting | no hypothesis held | free prompt 62/68, v2 59/68 |
 | P7 | 478 review rows, 190 blind packets | Apertus as verifier of the review queue | H1 holds (120/120); H4 supported; H3 not supported | 214 of 917 review rows promoted |
 | P8 | 66 fresh affairs, 11 parliaments | meaning of 7 fields in the documents | none uniform: 6 role split, 1 body-specific; 5 robust under both checks | meaning measured for 11 of 17 fields |
+| P10 | 34 fresh affairs, 14 parliaments without rules | author roles: Apertus reader vs rules and OPD's contributor list | 3 of 4 held: H1 recall, H2 precision, H3b; H3a (over OPD's list) not | (name, role) pairs right 50/141, rules 17/141 |
 
 - **Above the registered 0.80 bar** (95% lower bound): on P1 the rules are exact on 135/154 documents [81.5, 92],
   finding 47 of 64 answer dates and dating 2 of the 90 answerless documents; the type of whole affairs (P3b, 35/36);
@@ -338,6 +363,11 @@ labels come from blind agent annotators by design (below). Full tables, deviatio
 - **P7's registered H4** (weighted, as registered): 95.8% of Apertus's promotions are answers whose printed answer
   date passes the date check, +22.7 points [10.2, 34.3] over a no-model date match; unweighted +7.5 [3.4, 12.2]. The
   no-model rule recovers more queue rows at lower precision (369 vs 214).
+- **P10 in full:** pair precision, recall and F1: Apertus 0.52, 0.35, 0.42; rules 0.31, 0.12, 0.17; OPD's contributor
+  list read as first author and co-signers 0.36, 0.26, 0.30. H3a, F1 over the stronger OPD reading, is not confirmed
+  (+0.12, Holm p = 0.17): where OPD lists the authors, its order is a strong baseline. On P8's 6 development
+  parliaments, where the prompts and thresholds were chosen, F1 is 0.80 (in-sample); on the 14 unseen ones 0.42. In
+  Lugano (Italian, outside the family; the rules in-sample) Apertus reaches F1 0.65, the rules 0/56 pairs.
 - **Gold labels, no human labelling by design.** Two blind agent annotators (Claude Opus and Sonnet) label each
   document, a third breaks ties, quotes are verified by code, and every labelling session of P1–P7 is timed against
   the lock and label commits. Another vendor's model (`Qwen-SEA-LION-v4-32B`, AI Singapore) relabelled
@@ -417,10 +447,12 @@ stops on a served build its θ was not fitted on.
 
 - **Schema with the eCH group.** Meaning is measured for 11 of 17 fields and v0.2 ships P8's roles; next come the
   other six (decision and dispatch dates, Q/A pairing, related affairs, usable text, answer-link status)
-  ([`docs/ech-onepager.md`](docs/ech-onepager.md)), then tables, annexes and images inside answers.
-- **Author roles per layout.** The converter's author rules are layout rules: on unseen parliaments they miss more
-  than they err (pair precision 39/49, recall 39/137), so each new parliament layout gets one short rule, as the
-  held-out five did.
+  ([`docs/ech-onepager.md`](docs/ech-onepager.md)), then the contents of the document parts the converter marks by
+  page (table cells, annex text) and image detection (page precision 4/8).
+- **Author roles per layout, Apertus where none exists.** The converter's author rules are layout rules: on unseen
+  parliaments they miss more than they err (pair precision 39/49, recall 39/137). Where no rule exists Apertus reads
+  the roles (P10); its name finder offers 87 of the 141 gold names on unseen layouts, so finding names is the next
+  lever, with OPD's contributor list as a further input.
 - **At OPD.** The lists are ready as dry-run plans keyed on OPD ids; the relinks take one decision, OPD's hash rule. Of the
   next 5,077 answers to find, 943 are already queued for a person.
 - **Apertus with a reviewer.** Apertus reads dates and a person confirms them, the design the registered null-safety
@@ -438,7 +470,7 @@ stops on a served build its θ was not fitted on.
 | One OPD affair to one v0.2 record (operator command) | `src/gegenprobe/affair_cli.py` (`python -m gegenprobe affair`), `docs/affair.md` |
 | Whole affairs, Q/A pairs, people, recommendation, virtual affairs | `src/gegenprobe/affair/`, `src/gegenprobe/qa/`, `src/gegenprobe/virtual/`, `docs/affair.md`, `docs/qa.md`, `docs/virtual-affairs.md` |
 | Validator | `src/gegenprobe/validate/` (schema, span re-check, typed-null consistency) |
-| Evidence: nine pre-registrations | `eval/prereg*/` (each with `DEVIATIONS*.md`), gold sets `data/gold*/`, `docs/gold_protocol.md`, `docs/evaluation.md` |
+| Evidence: ten pre-registrations | `eval/prereg*/` (each with `DEVIATIONS*.md`), gold sets `data/gold*/`, `docs/gold_protocol.md`, `docs/evaluation.md` |
 | Census, feasibility matrix, comparability, research dataset | `src/gegenprobe/census/`, `results/census/`, `docs/census.md` |
 | Repair lists, apply plan, source adapters, vocabulary errors | `results/repair/`, `results/census/vocab_bugs.tsv`, `docs/repair.md`, `docs/adapters.md` |
 | Nightly job and operations | `src/gegenprobe/monitor/`, `deploy/nightly/`, `docs/nightly.md`, `docs/runbook.md`, `docs/operations.md` |

@@ -1409,6 +1409,24 @@ def p8() -> dict | None:
                 joint_as_first=post["qwen_vs_gold_confusion"]["submitter"]["joint_person -> author_person"])
 
 
+def p10() -> dict | None:
+    """P10 (eval/prereg10, LOCK10): Apertus as a closed-set reader of author roles on parliaments outside every rule set;
+    display numbers from results/report/r15_numbers.json (report/r15_numbers.py, from results/p10/)."""
+    p = RESULTS / "report" / "r15_numbers.json"
+    if not p.exists():
+        return None
+    return json.loads(p.read_text(encoding="utf-8"))["p10"]
+
+
+def parts_check() -> dict | None:
+    """Document parts: the exploratory blind check of the parts-1 detector and the converter records carrying a part
+    (results/report/r15_numbers.json, from results/parts/blind_check.json and results/schema/v0_2/validation_all.json)."""
+    p = RESULTS / "report" / "r15_numbers.json"
+    if not p.exists():
+        return None
+    return json.loads(p.read_text(encoding="utf-8"))["parts"]
+
+
 def nights() -> dict | None:
     """The two consecutive real nights in the recommended Docker setup (Actions run 38098822336)."""
     p = RESULTS / "monitor" / "two_nights_docker_38098822336" / "two_nights.json"
@@ -1608,6 +1626,8 @@ def collect(full_text: bool = False) -> dict:
     ev["p6"] = p6()
     ev["p7"] = p7()
     ev["p8"] = p8()
+    ev["p10"] = p10()
+    ev["parts"] = parts_check()
     return _finite(
         dict(
             generated=_git("log", "-1", "--format=%h %cI"),

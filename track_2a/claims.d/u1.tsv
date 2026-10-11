@@ -12,7 +12,7 @@ u1.tag_answer	2,177	results/repair/adapters/adapters_summary.json	totals.verifie
 u1.extract_tag	852	results/repair/adapters/adapters_summary.json	totals.verified_by_action.extract_tag	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.date_eq	4,947	results/repair/adapters/adapters_summary.json	totals.verified_by_date_match.eq	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.date_eq_gov	214	results/repair/adapters/adapters_summary.json	totals.verified_by_date_match.eq_gov	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
-u1.date_anywhere	1,056	results/repair/adapters/adapters_summary.json	totals.verified_by_date_match.anywhere	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,technical_report.md,docs/operations.md	
+u1.date_anywhere	1,056	results/repair/adapters/adapters_summary.json	totals.verified_by_date_match.anywhere	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md	
 u1.date_window	301	results/repair/adapters/adapters_summary.json	totals.verified_by_date_match.window	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.date_latest_in_window	95	results/repair/adapters/adapters_summary.json	totals.verified_by_date_match.latest_in_window	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.date_after_submission	282	results/repair/adapters/adapters_summary.json	totals.identity_wording_only_by_date_match.after_submission	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
@@ -25,10 +25,10 @@ u1.ju_verified	354	results/repair/adapters/adapters_summary.json	bodies.JU.verif
 u1.vs_date_window	140	results/repair/adapters/adapters_summary.json	bodies.VS.tiers.date_window	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.so_verified	210	results/repair/adapters/adapters_summary.json	bodies.SO.counted	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.lu_verified	104	results/repair/adapters/adapters_summary.json	bodies.LU.counted	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
-u1.tier_exact_doc_date	5,161	results/repair/adapters/adapters_summary.json	tiers.exact_doc_date.n	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,technical_report.md,docs/operations.md	
+u1.tier_exact_doc_date	5,161	results/repair/adapters/adapters_summary.json	tiers.exact_doc_date.n	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md	
 u1.tier_exact_doc_date_absent	5,120	results/repair/adapters/adapters_summary.json	tiers.exact_doc_date.absent	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.tier_exact_doc_date_image_only	41	results/repair/adapters/adapters_summary.json	tiers.exact_doc_date.image_only	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
-u1.tier_exact_any_printed_date	1,056	results/repair/adapters/adapters_summary.json	tiers.exact_any_printed_date.n	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,technical_report.md,docs/operations.md	
+u1.tier_exact_any_printed_date	1,056	results/repair/adapters/adapters_summary.json	tiers.exact_any_printed_date.n	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md	
 u1.tier_exact_any_printed_date_absent	281	results/repair/adapters/adapters_summary.json	tiers.exact_any_printed_date.absent	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.tier_exact_any_printed_date_image_only	775	results/repair/adapters/adapters_summary.json	tiers.exact_any_printed_date.image_only	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.anywhere_conflict_review	211	results/repair/adapters/adapters_summary.json	totals.review_by_reason.date_mismatch: anywhere_conflict	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
@@ -36,7 +36,7 @@ u1.opd_doc_ambiguous	9	results/repair/adapters/adapters_summary.json	totals.revi
 u1.adapters_with_counted	27	results/repair/adapters/adapters_summary.json	totals.adapters_with_counted	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,technical_report.md	
 u1.adapters_without_counted	23	results/repair/adapters/adapters_summary.json	totals.adapters_without_counted	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.adapter_rows_counted	6,613	results/repair/adapters/adapters_summary.json	coverage.adapter_rows_counted	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,README.md,technical_report.md,docs/operations.md	
-u1.tier_date_window	396	results/repair/adapters/adapters_summary.json	tiers.date_window.n	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md,technical_report.md	
+u1.tier_date_window	396	results/repair/adapters/adapters_summary.json	tiers.date_window.n	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md	
 u1.tier_identity_wording_only	282	results/repair/adapters/adapters_summary.json	tiers.identity_wording_only.n	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md	
 u1.ju_exact_date	72	results/repair/adapters/adapters_summary.json	bodies.JU.tiers.exact_doc_date	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.ju_identity_wording_only	282	results/repair/adapters/adapters_summary.json	bodies.JU.tiers.identity_wording_only	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md,technical_report.md	

@@ -29,6 +29,7 @@ GENERATORS = [
     ("report.r10_numbers", "main"),
     ("report.r13_numbers", "main"),
     ("report.r14_numbers", "main"),
+    ("report.r15_numbers", "main"),
     ("report.converter_coverage", "main"),
     ("report.p2_numbers", "main"),
     ("report.p34_numbers", "main"),

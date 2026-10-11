@@ -1,0 +1,192 @@
+{
+ "label": "round-15 display numbers from committed files (report/r15_numbers.py)",
+ "p10": {
+  "primary": {
+   "affairs": 34,
+   "parliaments": 14,
+   "by_stratum_parliaments": {
+    "de": 12,
+    "fr": 2
+   },
+   "by_stratum_affairs": {
+    "de": 24,
+    "fr": 10
+   },
+   "gold_pairs": 141,
+   "arms": {
+    "pointer": {
+     "right": 50,
+     "printed": 96,
+     "gold": 141,
+     "precision": "0.52",
+     "recall": "0.35",
+     "f1": "0.42"
+    },
+    "rules": {
+     "right": 17,
+     "printed": 55,
+     "gold": 141,
+     "precision": "0.31",
+     "recall": "0.12",
+     "f1": "0.17"
+    },
+    "opd_first": {
+     "right": 37,
+     "printed": 104,
+     "gold": 141,
+     "precision": "0.36",
+     "recall": "0.26",
+     "f1": "0.30"
+    },
+    "opd_joint": {
+     "right": 18,
+     "printed": 104,
+     "gold": 141,
+     "precision": "0.17",
+     "recall": "0.13",
+     "f1": "0.15"
+    },
+    "cand_joint": {
+     "right": 16,
+     "printed": 111,
+     "gold": 141,
+     "precision": "0.14",
+     "recall": "0.11",
+     "f1": "0.13"
+    }
+   },
+   "times_rules": "2.9",
+   "parliaments_pointer_more": 9,
+   "parliaments_rules_more": 1,
+   "parliaments_tied": 4,
+   "candidates": {
+    "found": 87,
+    "gold_names": 141,
+    "candidates": 111
+   }
+  },
+  "hypotheses": {
+   "H1": {
+    "verdict": "confirmed",
+    "observed": 0.23404255319148937,
+    "p_holm": "0.032",
+    "p_holm_2": "0.03",
+    "points": "23.4",
+    "ci_points": "[5.9, 49.0]",
+    "pointer_only": 39,
+    "rules_only": 6
+   },
+   "H2": {
+    "verdict": "confirmed",
+    "observed": 0.2117424242424243,
+    "p_holm": "0.033",
+    "p_holm_2": "0.03",
+    "diff": "0.21",
+    "margin": "0.10"
+   },
+   "H3a": {
+    "verdict": "not confirmed",
+    "observed": 0.11990011194351169,
+    "p_holm": "0.175",
+    "p_holm_2": "0.17",
+    "diff": "0.12"
+   },
+   "H3b": {
+    "verdict": "confirmed",
+    "observed": 0.2949568012859153,
+    "p_holm": "0.032",
+    "p_holm_2": "0.03",
+    "diff": "0.29"
+   }
+  },
+  "secondary_it": {
+   "affairs": 6,
+   "arms": {
+    "pointer": {
+     "right": 33,
+     "printed": 46,
+     "gold": 56,
+     "precision": "0.72",
+     "recall": "0.59",
+     "f1": "0.65"
+    },
+    "rules": {
+     "right": 0,
+     "printed": 2,
+     "gold": 56,
+     "precision": "0.00",
+     "recall": "0.00",
+     "f1": "0.00"
+    },
+    "opd_first": {
+     "right": 35,
+     "printed": 56,
+     "gold": 56,
+     "precision": "0.62",
+     "recall": "0.62",
+     "f1": "0.62"
+    },
+    "opd_joint": {
+     "right": 20,
+     "printed": 56,
+     "gold": 56,
+     "precision": "0.36",
+     "recall": "0.36",
+     "f1": "0.36"
+    },
+    "cand_joint": {
+     "right": 19,
+     "printed": 61,
+     "gold": 56,
+     "precision": "0.31",
+     "recall": "0.34",
+     "f1": "0.32"
+    }
+   }
+  },
+  "development": {
+   "parliaments": 6,
+   "affairs": 36,
+   "gold_pairs": 208,
+   "pointer_f1": "0.80",
+   "rules_f1": "0.97",
+   "test_pointer_f1": "0.42"
+  },
+  "gold": {
+   "packets": 40,
+   "agreeing": 31,
+   "to_a3": 9,
+   "pair_f1": "0.868",
+   "shortfall_fr": 4
+  }
+ },
+ "parts": {
+  "documents": 30,
+  "pages": 108,
+  "page_level": {
+   "table": {
+    "precision": "12/12",
+    "recall": "12/15"
+   },
+   "annex": {
+    "precision": "6/6",
+    "recall": "6/6"
+   },
+   "scanned": {
+    "precision": "23/24",
+    "recall": "23/23"
+   },
+   "image": {
+    "precision": "4/8",
+    "recall": "4/6"
+   },
+   "signature": {
+    "precision": "5/5",
+    "recall": "5/23"
+   }
+  },
+  "records_with_part": 66,
+  "records": 105,
+  "documents_rules": 210
+ }
+}

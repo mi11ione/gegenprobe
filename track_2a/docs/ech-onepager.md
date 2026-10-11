@@ -33,7 +33,10 @@ concepts, a string check); the documents show the split P8 found, by procedural 
 `data/schema/field_verdict_classes.json`. Separately, *where* the value lives (`results/census/matrix.json`):
 4 fields are in OPD's metadata almost everywhere, 13 partly; no field lacks a written source in a fifth of the
 parliaments (5 would at a 10% threshold). That threshold measures coverage, not meaning; the classes above are the finding. Tables,
-annexes and images inside answer documents are the next extraction target, and with them their structure in the schema.
+annexes, images, scanned pages and signatures inside answer documents are referenced by page range (`DocumentPart`):
+the converter marks them in 66 of its 105 records, and in a blind check of 30 documents (exploratory, in-sample for
+the detector) tables are found at page precision 12/12 and recall 12/15, annexes at 6/6 and 6/6
+([`evaluation.md`](evaluation.md#document-parts-blind-check-of-the-detector)). Their contents are the next target.
 
 ## 2. Roles a standard needs: per-field recommendations (P8)
 
@@ -51,6 +54,9 @@ tolerated); a parliament that departs systematically names a role. Share in v0.1
   supporter, spokesperson} with `kind` ∈ {person, group, committee}. *In v0.2:* `Actor.role` adds `sole_author`,
   `joint_author`, `supporter`, `spokesperson` and `group` to v0.1's `first_signatory`, `co_signatory` and `committee`;
   groups and committees are actors (`kind`), and a spokesperson names the body it speaks for (`on_behalf_of`).
+  *Filled where nobody wrote rules (P10, registered):* on 14 parliaments outside every rule set, Apertus answering
+  closed questions about the names the documents print reads 50 of 141 gold (name, role) pairs right, the rules 17
+  ([`evaluation.md`](evaluation.md#p10-author-roles-where-no-rules-exist)).
 - **Co-signatories: the printed role of each person, not a derived list** (role split; 10/41 [6.8%, 46.3%]). Bern
   city prints two to four first signatories ("Erstunterzeichnende"), so OPD's co-signatory list includes authors of
   record; elsewhere the list holds joint authors (Zürich city, Thurgau, Fribourg, Vernier) or persons signing for a

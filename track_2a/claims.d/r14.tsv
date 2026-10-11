@@ -20,18 +20,18 @@ r14.at_valais_plain	0	results/findings/answer_times.json	per_parliament.VS.opd_p
 r14.at_kriens_plain_n	80	results/findings/answer_times.json	per_parliament.1059.opd_plain.n	int	python -m gegenprobe.findings.answer_times	docs/census.md	
 r14.at_valais_plain_n	2,570	results/findings/answer_times.json	per_parliament.VS.opd_plain.n	int	python -m gegenprobe.findings.answer_times	docs/census.md	
 r14.at_rho_same	0.99	results/findings/answer_times.json	ranking.spearman_opd_same_affairs_vs_adapter.rho	str	python -m gegenprobe.findings.answer_times	README.md,technical_report.md,docs/form_notes.md,docs/census.md	
-r14.at_rho_plain	0.656	results/findings/answer_times.json	ranking.spearman_opd_plain_vs_adapter.rho	str	python -m gegenprobe.findings.answer_times	README.md,technical_report.md,docs/census.md	
-r14.at_rho_without	0.832	results/findings/answer_times.json	ranking.spearman_opd_plain_vs_adapter_without_same_day.rho	str	python -m gegenprobe.findings.answer_times	README.md,technical_report.md,docs/census.md	
-r14.at_rho_plain_same	0.584	results/findings/answer_times.json	ranking.spearman_opd_plain_vs_opd_same_affairs.rho	str	python -m gegenprobe.findings.answer_times	README.md,technical_report.md,docs/census.md	
+r14.at_rho_plain	0.656	results/findings/answer_times.json	ranking.spearman_opd_plain_vs_adapter.rho	str	python -m gegenprobe.findings.answer_times	README.md,docs/census.md	
+r14.at_rho_without	0.832	results/findings/answer_times.json	ranking.spearman_opd_plain_vs_adapter_without_same_day.rho	str	python -m gegenprobe.findings.answer_times	README.md,docs/census.md	
+r14.at_rho_plain_same	0.584	results/findings/answer_times.json	ranking.spearman_opd_plain_vs_opd_same_affairs.rho	str	python -m gegenprobe.findings.answer_times	README.md,docs/census.md	
 r14.at_durations	6,438	results/findings/answer_times.json	sample.durations	int	python -m gegenprobe.findings.answer_times	README.md,technical_report.md,docs/census.md	
 r14.at_ranked	17	results/findings/answer_times.json	ranking.parliaments	int	python -m gegenprobe.findings.answer_times	README.md,technical_report.md,docs/census.md	
-r14.cc_bodies	91	results/convert/coverage_by_parliament.json	summary.bodies	int	PYTHONPATH=src:. python -m report.converter_coverage	README.md,technical_report.md,docs/converter-coverage.md	
+r14.cc_bodies	91	results/convert/coverage_by_parliament.json	summary.bodies	int	PYTHONPATH=src:. python -m report.converter_coverage	README.md,docs/converter-coverage.md	
 r14.cc_matrix	89	results/convert/coverage_by_parliament.json	summary.bodies_in_matrix	int	PYTHONPATH=src:. python -m report.converter_coverage	README.md	
-r14.cc_tested	54	results/convert/coverage_by_parliament.json	summary.tested	int	PYTHONPATH=src:. python -m report.converter_coverage	README.md,technical_report.md,docs/converter-coverage.md	
+r14.cc_tested	54	results/convert/coverage_by_parliament.json	summary.tested	int	PYTHONPATH=src:. python -m report.converter_coverage	README.md,docs/converter-coverage.md	
 r14.cc_v02	26	results/convert/coverage_by_parliament.json	summary.v0_2_parliaments	int	PYTHONPATH=src:. python -m report.converter_coverage	README.md,docs/converter-coverage.md	
-r14.cc_rules	15	results/convert/coverage_by_parliament.json	summary.by_status.frozen rules	int	PYTHONPATH=src:. python -m report.converter_coverage	README.md,technical_report.md,docs/converter-coverage.md	
-r14.cc_adapter	38	results/convert/coverage_by_parliament.json	summary.by_status.source adapter	int	PYTHONPATH=src:. python -m report.converter_coverage	README.md,technical_report.md,docs/converter-coverage.md	
-r14.cc_meta	38	results/convert/coverage_by_parliament.json	summary.by_status.metadata only	int	PYTHONPATH=src:. python -m report.converter_coverage	README.md,technical_report.md,docs/converter-coverage.md	
+r14.cc_rules	15	results/convert/coverage_by_parliament.json	summary.by_status.frozen rules	int	PYTHONPATH=src:. python -m report.converter_coverage	README.md,docs/converter-coverage.md	
+r14.cc_adapter	38	results/convert/coverage_by_parliament.json	summary.by_status.source adapter	int	PYTHONPATH=src:. python -m report.converter_coverage	README.md,docs/converter-coverage.md	
+r14.cc_meta	38	results/convert/coverage_by_parliament.json	summary.by_status.metadata only	int	PYTHONPATH=src:. python -m report.converter_coverage	README.md,docs/converter-coverage.md	
 r14.cc_rules_tested	15	results/convert/coverage_by_parliament.json	summary.tested_by_status.frozen rules	int	PYTHONPATH=src:. python -m report.converter_coverage	README.md	
 r14.cc_adapter_tested	21	results/convert/coverage_by_parliament.json	summary.tested_by_status.source adapter	int	PYTHONPATH=src:. python -m report.converter_coverage	README.md	
 r14.cc_meta_tested	18	results/convert/coverage_by_parliament.json	summary.tested_by_status.metadata only	int	PYTHONPATH=src:. python -m report.converter_coverage	README.md	

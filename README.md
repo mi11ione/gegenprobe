@@ -21,18 +21,20 @@ and code locates them (70B weights via the Public AI gateway; local 8B on CPU).
 | **9,720** | answers with a model-free repair proposed to OPD, keyed on OPD ids; the Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation |
 | **10 of 17** | fields are shared once their roles are explicit; 1 is body-specific; 6 are not yet tested for meaning |
 | **53/62** | documents exact in 15 parliaments nobody wrote rules for when Apertus picks the answer date among the printed dates, against 44/62 for the best no-model baseline |
+| **50/141** | author roles (who lodged or co-signed, in which role) read right in 14 parliaments nobody wrote rules for when Apertus answers closed questions about the names the documents print, about three times the rules' 17/141, at higher precision (0.52 vs 0.31); code finds and locates every name |
 | **186** | affairs from 26 parliaments, communal, cantonal and federal, validate in schema v0.2 |
 
 <sub>Sources: 92.3% and 9,720 from the census and the repair lists (no model); 10 of 17 from OPD's labels and P8
-(pre-registered); 53/62 from P2, post hoc (McNemar p = 0.012, parliament-cluster p = 0.031); 186 from P3, P3b, P5, P8
-and the federal cell, whose 15 affairs are exploratory. P1–P8 are the nine pre-registered tests (P3b replicates P3).</sub>
+(pre-registered); 53/62 from P2, post hoc (McNemar p = 0.012, parliament-cluster p = 0.031); 50/141 from P10,
+registered (recall +23.4 points over the rules, Holm p = 0.032); 186 from P3, P3b, P5, P8 and the federal cell, whose
+15 affairs are exploratory. P1–P8 and P10 are the ten pre-registered tests (P3b replicates P3).</sub>
 
 - **Ready for OPD:** Bern relinks, fetches and `begin_date` corrections (OPD confirmed the bug; correspondence, 10 Oct
   2026), per-parliament lists from 50 model-free source adapters, a vocabulary error list and a Fedlex resolver for
   29,946 federal documents. The only open decision is OPD's hash rule for relinks.
 - **Sovereign and cheap to run:** the default runs no model and only reads public sources. A first network night took
   86 min, the next 6.6 min.
-- **Checked:** nine tests, each frozen by hash before its labels; `make claims` recomputes every number in the README,
+- **Checked:** ten tests, each frozen by hash before its labels; `make claims` recomputes every number in the README,
   the report and the form from its results file and fails on any mismatch.
 
 The eCH expert group's page, with a per-field recommendation from P8: [`track_2a/docs/ech-onepager.md`](track_2a/docs/ech-onepager.md).
