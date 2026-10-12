@@ -445,9 +445,12 @@ document order reads as well (below).
   rules (right on 13 documents where the rules are wrong, the reverse on 0; 52 reachable documents), and its two-step
   reader cuts dates on answerless documents from 18/34 to 5/34 (P6); both runs are exploratory. On P1 its cascade dates
   25 of the 90 answerless documents, the 70B's 7: on the local route, as on the gateway, every model value goes to a
-  reviewer. Local 8B: date suggestions only; the review-queue verifier needs the 70B. As P7's verifier
-  (exploratory; 88 of the 190 annotated rows scored before the deadline) no θ meets the dev rule, so the 8B promotes
-  nothing (`results/p7/gguf8b/hypotheses.json`, `data/p7/gguf8b/theta.json`).
+  reviewer. Local 8B: date suggestions only; the review-queue verifier and the role reader need the 70B. As P7's
+  verifier (exploratory; 88 of the 190 annotated rows scored before the deadline) no θ meets the dev rule, so the 8B
+  promotes nothing (`results/p7/gguf8b/hypotheses.json`, `data/p7/gguf8b/theta.json`). As P10's author-role reader
+  (exploratory; 34 affairs, 141 gold pairs) the 8B reads 30/141 pairs right, more than the rules (17/141; F1 0.27
+  against 0.17), at precision 0.38 and recall 0.21; document order reaches F1 0.41 and the 70B 0.42, and thresholds
+  refitted on P8's development parliaments give 0.26 (`results/p10/gguf8b/p10_8b_scores.json`).
 
 ## How it works
 

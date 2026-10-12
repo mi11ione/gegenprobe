@@ -1232,7 +1232,7 @@
    "why": "what the report recommends to operators and public bodies",
    "docs": {
     "technical_report.md": [
-     "**Recommendation:** `rules_only` unattended; local 8B: date suggestions only, where no text may leave the machine; the review-queue verifier needs the 70B, for accuracy on infrastructure the operator chooses",
+     "**Recommendation:** `rules_only` unattended; local 8B: date suggestions only, where no text may leave the machine; the review-queue verifier and the role reader need the 70B, for accuracy on infrastructure the operator chooses",
      "for public bodies it recommends rules only or the local 8B"
     ]
    }
@@ -1562,7 +1562,7 @@
   },
   {
    "id": "ops.local_8b_dates_only",
-   "why": "the local 8B as P7's review-queue verifier: no θ meets the dev rule, it promotes nothing (exploratory; 88 of 190 annotated rows scored)",
+   "why": "the local 8B as P7's review-queue verifier: no θ meets the dev rule, it promotes nothing (exploratory; 88 of 190 annotated rows scored); as P10's role reader (exploratory) its pair F1 stays below the 70B's under both threshold variants",
    "results": [
     {
      "file": "results/p7/gguf8b/hypotheses.json",
@@ -1578,18 +1578,68 @@
      "file": "results/p7/gguf8b/hypotheses.json",
      "path": "coverage.annotated_scored",
      "is": 88
+    },
+    {
+     "file": "results/p10/gguf8b/p10_8b_scores.json",
+     "vars": {
+      "a": "variants.frozen.primary.table.all.pointer.f1",
+      "b": "variants.frozen.primary.table.all.pointer_registered.f1"
+     },
+     "expr": "a < b",
+     "is": true
+    },
+    {
+     "file": "results/p10/gguf8b/p10_8b_scores.json",
+     "vars": {
+      "a": "variants.refit_dev.primary.table.all.pointer.f1",
+      "b": "variants.refit_dev.primary.table.all.pointer_registered.f1"
+     },
+     "expr": "a < b",
+     "is": true
     }
    ],
    "docs": {
     "README.md": [
-     "Local 8B: date suggestions only; the review-queue verifier needs the 70B.",
-     "no θ meets the dev rule, so the 8B promotes\n  nothing"
+     "Local 8B: date suggestions only; the review-queue verifier and the role reader need the 70B.",
+     "no θ meets the dev rule, so the 8B\n  promotes nothing"
     ],
     "technical_report.md": [
      "no θ meets the dev rule, so the 8B promotes nothing"
     ],
     "docs/form_notes.md": [
      "(date suggestions; the queue verifier needs the 70B)"
+    ]
+   }
+  },
+  {
+   "id": "cmp.p10_8b.role_reader",
+   "why": "the local 8B as P10's role reader (exploratory): more pairs right than the rules (30 vs 17) at a higher pair F1",
+   "results": [
+    {
+     "file": "results/p10/gguf8b/p10_8b_scores.json",
+     "vars": {
+      "a": "variants.frozen.primary.table.all.pointer.matched",
+      "b": "variants.frozen.primary.table.all.rules.matched"
+     },
+     "expr": "a > b",
+     "is": true
+    },
+    {
+     "file": "results/p10/gguf8b/p10_8b_scores.json",
+     "vars": {
+      "a": "variants.frozen.primary.table.all.pointer.f1",
+      "b": "variants.frozen.primary.table.all.rules.f1"
+     },
+     "expr": "a > b",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "the 8B reads 30/141 pairs right, more than the rules"
+    ],
+    "technical_report.md": [
+     "it reads 30/141 pairs right, F1 0.27 against the rules' 0.17 (document order 0.41, the 70B 0.42)"
     ]
    }
   },

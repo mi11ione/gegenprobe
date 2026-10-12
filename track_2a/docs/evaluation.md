@@ -268,6 +268,32 @@ fallback to OPD's list where the reader suggests no author fired on 2 of 34 affa
 parliaments (36 affairs, 208 gold pairs; `results/p10/dev10.json`): there the reader reaches pair F1 0.80 (in-sample),
 the rules, written on those parliaments, 0.97. On the 14 unseen parliaments of the test the reader reaches F1 0.42.
 
+**The local Apertus 8B as role reader** (exploratory, after LOCK10: PREREG10 §4 (d), outside the family, D2 in
+`eval/prereg10/DEVIATIONS10.md`; `eval/p10/run_8b.py`, CI run 38170310013 → `results/p10/gguf8b/p10_8b_scores.json`).
+The same frozen candidates, prompts, view and composition on the community 4-bit GGUF of `swiss-ai/Apertus-v1.5-8B`
+(llama.cpp, CPU), scored with `eval.p10.score` unchanged. All 40 test affairs were fetched under the byte check (35
+with identical extracted text, candidates identical on all 40), and the registered table, candidates and hypotheses
+reproduce. Primary cell, 34 affairs, 141 gold pairs:
+
+| arm (primary cell) | pairs right / printed / gold | precision | recall | F1 |
+|---|---|---|---|---|
+| Apertus role reader, 70B (registered) | 50/96/141 | 0.52 | 0.35 | 0.42 |
+| document order, OPD's mapping (post hoc, above) | 52/111/141 | 0.47 | 0.37 | 0.41 |
+| **local 8B, frozen thresholds** (τ = 0.98, τ_first = 0.30) | **30/79/141** | **0.38** | **0.21** | **0.27** |
+| local 8B, thresholds refitted on P8's development parliaments (τ = 0.60, τ_first = 0.95) | 30/90/141 | 0.33 | 0.21 | 0.26 |
+| frozen rules (roles-2) | 17/55/141 | 0.31 | 0.12 | 0.17 |
+
+The 8B reads more pairs right than the rules, at higher precision (on the pairs only one arm finds: 8B 19, rules 6),
+and stays below document order and the 70B (F1 against the 70B -0.15, paired parliament-cluster interval [-0.42, 0.08]).
+Analogues of the registered family (same bootstrap, seed and Holm correction; exploratory, not tests of the registered
+hypotheses): H3b holds under both thresholds (F1 over the same candidates with a trivial role +0.15, Holm p = 0.017;
+refitted +0.13, Holm p < 0.001); H1, recall over the rules (+9.2 points), holds after the refit (Holm p = 0.004) and
+not under the frozen thresholds (Holm p = 0.072); H2, precision non-inferior to the rules, holds under neither (Holm
+p = 0.18 and 0.20); H3a holds under neither, as for the 70B. The refit is reported because all 36 development
+affairs were rebuilt byte-identical and fully scored (the rule D2 fixed before any 8B answer); it maximises macro F1
+over the 6 development parliaments (8B: 0.59 refitted, 0.49 frozen; pooled F1 0.42 and 0.50; the 70B 0.80).
+**Consequence:** the local 8B stays a date-suggestion route; the role reader needs the 70B build.
+
 **Lugano** (secondary, outside the family, the rules in-sample):
 
 | arm | pairs right / printed / gold | precision | recall | F1 |
@@ -487,7 +513,8 @@ independent, so we also resample whole parliaments (percentile bootstrap, 10,000
 `results/eval/posthoc_r6_cluster.json`); the intervals are given with P2, P5 and P6 below.
 
 **Which Apertus.** Gateway runs used one build, Apertus 70B by inference (the gateway labelled it 8B; the fingerprint
-check follows); the real 8B was run in-process on CPU on P1, P2 (52 documents) and P6 (67 documents).
+check follows); the real 8B was run in-process on CPU on P1, P2 (52 documents) and P6 (67 documents), as P7's
+verifier and as P10's role reader.
 Apertus numbers not marked 8B come from the 70B weights, which Public AI served under the name
 `swiss-ai/apertus-v1.5-8b` with the label `swiss-ai/apertus-v1.5-8b` and the fingerprint
 `vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840` until about 01:05 UTC on 12 Oct 2026; every committed gateway
@@ -515,7 +542,9 @@ from 97 dev documents (pre-registered exploratory arms, DEVIATIONS D2/D3), on th
   reachable P2 documents it finds nearly as many answer dates as the 70B (15 vs 16 of 21) but proposes a date for 11
   of 31 answerless documents (70B: 4), and on P1's residue its suggestions are right 7/34 times (70B: 9/16, p = 0.021), so a reviewer rejects
   far more of them. On P6 the reader v2 restrains it: 5 of 34 answerless documents dated, against 18/34 for v1 (below).
-  Cost: 180 s per document on 4 vCPUs. **Local 8B: date suggestions only; the review-queue verifier needs the 70B.**
+  Cost: 180 s per document on 4 vCPUs. **Local 8B: date suggestions only; the review-queue verifier and the role
+  reader need the 70B.** As P10's role reader (exploratory) it reads 30/141 author pairs right, F1 0.27 against the
+  rules' 0.17, below document order (0.41) and the 70B (0.42) ([P10](#p10-author-roles-where-no-rules-exist)).
   As P7's verifier (exploratory, added after LOCK8: the frozen prompts a2/b1 and date rule, θ_A/θ_B fitted for this
   build on P7 dev by the rule of `eval/p7/tune.py`), no θ meets the dev rule, so the 8B promotes nothing; 88 of the 190
   annotated rows were scored before the deadline (`results/p7/gguf8b/hypotheses.json`, `data/p7/gguf8b/theta.json`).
@@ -895,7 +924,8 @@ is-answer variant and θ_B.
   (`--allow-build-mismatch` continues and marks each suggestion). `docs/runbook.md` "Review mode in operation" gives the
   refit commands, the owner and the cost per 1,000 residue documents.
 - **Local 8B, committed results** (exploratory, in-process on CPU): P1, P2 (52 documents) and P6 (67 documents), under
-  "Which Apertus" and "Which size to deploy" above. The 70B weights served by Public AI produced every other Apertus
+  "Which Apertus" and "Which size to deploy" above; P7's verifier (promotes nothing); P10's role reader, 30/141 author
+  pairs right (F1 0.27; the rules 0.17, document order 0.41, the 70B 0.42), so date suggestions only. The 70B weights served by Public AI produced every other Apertus
   number, P2's 53/62 and P10's 50/141 among them.
 - **Builds:** θ does not transfer between builds, so each gets its own; the 70B results above carry θ = 10.40 (the
   registered gateway build, `…tp8-pp2-dd237840`; the build Public AI serves under the same name since 12 Oct 2026,

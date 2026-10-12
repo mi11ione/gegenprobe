@@ -650,11 +650,14 @@ def theta_fragility_8b(dev_rows: list[dict], argmax: dict | None = None) -> dict
 
 
 P6_8B_START = 1791669410  # 2026-10-10T21:56:50Z, dispatch of CI run 38089554021 (arms-8b-p6)
+P10_8B_START = 1791748957  # 2026-10-11T20:02:37Z, the earliest entry of the P10 8B run (CI run 38170310013)
 
 
 def gguf_n_ctx_p6() -> dict:
-    """The exploratory 8B run on P6 (fast scorer, n_ctx=6144): how many of its scoring prompts exceed 4,096 tokens."""
-    cache = {k: v for k, v in _cache8().items() if "n_prompt" in v and v.get("ts", 0) >= P6_8B_START}
+    """The exploratory 8B run on P6 (fast scorer, n_ctx=6144): how many of its scoring prompts exceed 4,096 tokens.
+    The P10 8B run's entries (written later, from P10_8B_START) are not part of it."""
+    cache = {k: v for k, v in _cache8().items()
+             if "n_prompt" in v and P6_8B_START <= v.get("ts", 0) < P10_8B_START}
     nps = [v["n_prompt"] for v in cache.values()]
     return dict(entries=len(cache), max_n_prompt=max(nps) if nps else None, n_prompt_over_4096=sum(x > 4096 for x in nps),
                 note=("These calls ran at n_ctx=6144 (GGUFFast), so every prompt fit the context used; prompts over 4,096 "
