@@ -1,0 +1,2922 @@
+{
+ "label": "EXPLORATORY P11 (eval/p11/PROTOCOL.md): descriptive counts and Wilson 95% intervals; no hypothesis test: IT cell (Italian-language interventions)",
+ "n": 12,
+ "by_stratum": {
+  "5002": 2,
+  "5254": 3,
+  "5113": 2,
+  "TI": 3,
+  "5192": 2
+ },
+ "by_type": {
+  "Motion": 3,
+  "Question": 9
+ },
+ "type_source": {
+  "opd_harmonised": 9,
+  "opd_type_name_it": 3
+ },
+ "documents_by_route": {
+  "opd_copy": 12,
+  "source": 12
+ },
+ "in_sample_for": {
+  "5002": {
+   "date_rules": false,
+   "p8_registered": true,
+   "role_reader_development": true,
+   "role_rules": true
+  },
+  "5113": {
+   "date_rules": false,
+   "p8_registered": false,
+   "role_reader_development": false,
+   "role_rules": false
+  },
+  "5192": {
+   "date_rules": true,
+   "p8_registered": true,
+   "role_reader_development": false,
+   "role_rules": true
+  },
+  "5254": {
+   "date_rules": true,
+   "p8_registered": false,
+   "role_reader_development": false,
+   "role_rules": true
+  },
+  "TI": {
+   "date_rules": true,
+   "p8_registered": true,
+   "role_reader_development": false,
+   "role_rules": true
+  }
+ },
+ "documents_as_labelled": {
+  "other|executive_answer": 3,
+  "member_text|executive_answer": 7,
+  "member_text|disputed": 2
+ },
+ "converter_status": {
+  "ok": 12
+ },
+ "answer_date": {
+  "gold": {
+   "answer_present:yes": 10,
+   "gold:printed": 10,
+   "role:decision": 5,
+   "role:dispatch": 5,
+   "answer_present:unclear": 2,
+   "gold:null": 2
+  },
+  "arms": {
+   "rules": {
+    "n": 12,
+    "strict": {
+     "5002": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 0,
+      "false_null": 2,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 0,
+      "exact_rate": 0.0,
+      "exact_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5113": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 2,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 2,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_value": 0,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5192": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 0,
+      "false_null": 2,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 0,
+      "exact_rate": 0.0,
+      "exact_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5254": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "ALL": {
+      "n": 12,
+      "correct": 6,
+      "correct_null": 2,
+      "false_null": 4,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 8,
+      "exact_rate": 0.6666666666666666,
+      "exact_ci": [
+       0.3906175873976139,
+       0.8618821601026385
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.2425007574992425
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_value": 10,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "TI": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 0,
+      "model_share": 0.0
+     }
+    },
+    "lenient": {
+     "5002": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 0,
+      "false_null": 2,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 0,
+      "exact_rate": 0.0,
+      "exact_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5113": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 2,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 2,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_value": 0,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5192": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 0,
+      "false_null": 2,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 0,
+      "exact_rate": 0.0,
+      "exact_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5254": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "ALL": {
+      "n": 12,
+      "correct": 6,
+      "correct_null": 2,
+      "false_null": 4,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 8,
+      "exact_rate": 0.6666666666666666,
+      "exact_ci": [
+       0.3906175873976139,
+       0.8618821601026385
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.2425007574992425
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_value": 10,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "TI": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 0,
+      "model_share": 0.0
+     }
+    }
+   },
+   "latest_on_answer_document": {
+    "n": 12,
+    "strict": {
+     "5002": {
+      "n": 2,
+      "correct": 2,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 2,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5113": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 2,
+      "fabricated": 0,
+      "exact": 0,
+      "exact_rate": 0.0,
+      "exact_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "invented": 2,
+      "invented_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 2,
+      "invented_on_null_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "n_gold_value": 0,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5192": {
+      "n": 2,
+      "correct": 1,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 1,
+      "fabricated": 0,
+      "exact": 1,
+      "exact_rate": 0.5,
+      "exact_ci": [
+       0.09452865480086614,
+       0.9054713451991339
+      ],
+      "invented": 1,
+      "invented_ci": [
+       0.09452865480086614,
+       0.9054713451991339
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5254": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "ALL": {
+      "n": 12,
+      "correct": 9,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 3,
+      "fabricated": 0,
+      "exact": 9,
+      "exact_rate": 0.75,
+      "exact_ci": [
+       0.46768966087934005,
+       0.9110599603710386
+      ],
+      "invented": 3,
+      "invented_ci": [
+       0.08894003962896138,
+       0.53231033912066
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 2,
+      "invented_on_null_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "n_gold_value": 10,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "TI": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 0,
+      "model_share": 0.0
+     }
+    },
+    "lenient": {
+     "5002": {
+      "n": 2,
+      "correct": 2,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 2,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5113": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 2,
+      "fabricated": 0,
+      "exact": 0,
+      "exact_rate": 0.0,
+      "exact_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "invented": 2,
+      "invented_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 2,
+      "invented_on_null_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "n_gold_value": 0,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5192": {
+      "n": 2,
+      "correct": 2,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 2,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5254": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "ALL": {
+      "n": 12,
+      "correct": 10,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 2,
+      "fabricated": 0,
+      "exact": 10,
+      "exact_rate": 0.8333333333333334,
+      "exact_ci": [
+       0.5519636426153274,
+       0.9530358523851776
+      ],
+      "invented": 2,
+      "invented_ci": [
+       0.04696414761482223,
+       0.44803635738467273
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 2,
+      "invented_on_null_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "n_gold_value": 10,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "TI": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 0,
+      "model_share": 0.0
+     }
+    }
+   },
+   "converter_record": {
+    "n": 12,
+    "strict": {
+     "5002": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 0,
+      "false_null": 2,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 0,
+      "exact_rate": 0.0,
+      "exact_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5113": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 2,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 2,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_value": 0,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5192": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 0,
+      "false_null": 2,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 0,
+      "exact_rate": 0.0,
+      "exact_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5254": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "ALL": {
+      "n": 12,
+      "correct": 6,
+      "correct_null": 2,
+      "false_null": 4,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 8,
+      "exact_rate": 0.6666666666666666,
+      "exact_ci": [
+       0.3906175873976139,
+       0.8618821601026385
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.2425007574992425
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_value": 10,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "TI": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 0,
+      "model_share": 0.0
+     }
+    },
+    "lenient": {
+     "5002": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 0,
+      "false_null": 2,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 0,
+      "exact_rate": 0.0,
+      "exact_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5113": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 2,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 2,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_value": 0,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5192": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 0,
+      "false_null": 2,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 0,
+      "exact_rate": 0.0,
+      "exact_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "5254": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "ALL": {
+      "n": 12,
+      "correct": 6,
+      "correct_null": 2,
+      "false_null": 4,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 8,
+      "exact_rate": 0.6666666666666666,
+      "exact_ci": [
+       0.3906175873976139,
+       0.8618821601026385
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.2425007574992425
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_value": 10,
+      "model_decided": 0,
+      "model_share": 0.0
+     },
+     "TI": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 0,
+      "model_share": 0.0
+     }
+    }
+   },
+   "pointer": {
+    "n": 12,
+    "strict": {
+     "5002": {
+      "n": 2,
+      "correct": 2,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 2,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 2,
+      "model_share": 1.0
+     },
+     "5113": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 2,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 2,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_value": 0,
+      "model_decided": 2,
+      "model_share": 1.0
+     },
+     "5192": {
+      "n": 2,
+      "correct": 2,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 2,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 2,
+      "model_share": 1.0
+     },
+     "5254": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 3,
+      "model_share": 1.0
+     },
+     "ALL": {
+      "n": 12,
+      "correct": 10,
+      "correct_null": 2,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 12,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.7574992425007574,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.2425007574992425
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_value": 10,
+      "model_decided": 12,
+      "model_share": 1.0
+     },
+     "TI": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 3,
+      "model_share": 1.0
+     }
+    },
+    "lenient": {
+     "5002": {
+      "n": 2,
+      "correct": 2,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 2,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 2,
+      "model_share": 1.0
+     },
+     "5113": {
+      "n": 2,
+      "correct": 0,
+      "correct_null": 2,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 2,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_value": 0,
+      "model_decided": 2,
+      "model_share": 1.0
+     },
+     "5192": {
+      "n": 2,
+      "correct": 2,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 2,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.34237195288961925,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 2,
+      "model_decided": 2,
+      "model_share": 1.0
+     },
+     "5254": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 3,
+      "model_share": 1.0
+     },
+     "ALL": {
+      "n": 12,
+      "correct": 10,
+      "correct_null": 2,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 12,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.7574992425007574,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.2425007574992425
+      ],
+      "n_gold_null": 2,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       0.6576280471103807
+      ],
+      "n_gold_value": 10,
+      "model_decided": 12,
+      "model_share": 1.0
+     },
+     "TI": {
+      "n": 3,
+      "correct": 3,
+      "correct_null": 0,
+      "false_null": 0,
+      "misattributed": 0,
+      "fabricated": 0,
+      "exact": 3,
+      "exact_rate": 1.0,
+      "exact_ci": [
+       0.43849391955098227,
+       1.0
+      ],
+      "invented": 0,
+      "invented_ci": [
+       0.0,
+       0.5615060804490177
+      ],
+      "n_gold_null": 0,
+      "invented_on_null": 0,
+      "invented_on_null_ci": [
+       0.0,
+       1.0
+      ],
+      "n_gold_value": 3,
+      "model_decided": 3,
+      "model_share": 1.0
+     }
+    }
+   }
+  },
+  "pointer_ran": true,
+  "pointer_n": 12
+ },
+ "author_roles": {
+  "arms": {
+   "ALL": {
+    "rules": {
+     "pairs_predicted": 8,
+     "pairs_gold": 70,
+     "matched": 7,
+     "precision": 0.875,
+     "recall": 0.1,
+     "f1": 0.17948717948717952,
+     "precision_wilson95": [
+      0.5291051942301386,
+      0.9775830911367038
+     ],
+     "recall_wilson95": [
+      0.04928867510614622,
+      0.19233122478768055
+     ],
+     "names_precision": 1.0,
+     "names_recall": 0.11428571428571428,
+     "affairs_exact": {
+      "k": 2,
+      "n": 12,
+      "share": 0.1667,
+      "wilson95": [
+       0.047,
+       0.448
+      ]
+     },
+     "affairs": 12,
+     "affairs_with_output": 3
+    },
+    "record": {
+     "pairs_predicted": 68,
+     "pairs_gold": 70,
+     "matched": 21,
+     "precision": 0.3088235294117647,
+     "recall": 0.3,
+     "f1": 0.3043478260869565,
+     "precision_wilson95": [
+      0.21172233668927842,
+      0.42637035612379925
+     ],
+     "recall_wilson95": [
+      0.2053645673851015,
+      0.4154453825618119
+     ],
+     "names_precision": 0.8382352941176471,
+     "names_recall": 0.8142857142857143,
+     "affairs_exact": {
+      "k": 2,
+      "n": 12,
+      "share": 0.1667,
+      "wilson95": [
+       0.047,
+       0.448
+      ]
+     },
+     "affairs": 12,
+     "affairs_with_output": 10
+    },
+    "doc_order": {
+     "pairs_predicted": 86,
+     "pairs_gold": 70,
+     "matched": 17,
+     "precision": 0.19767441860465115,
+     "recall": 0.24285714285714285,
+     "f1": 0.21794871794871792,
+     "precision_wilson95": [
+      0.12724247137709888,
+      0.2939610690763213
+     ],
+     "recall_wilson95": [
+      0.1575173261192311,
+      0.3549526095268004
+     ],
+     "names_precision": 0.7093023255813954,
+     "names_recall": 0.8714285714285714,
+     "affairs_exact": {
+      "k": 3,
+      "n": 12,
+      "share": 0.25,
+      "wilson95": [
+       0.0889,
+       0.5323
+      ]
+     },
+     "affairs": 12,
+     "affairs_with_output": 12
+    },
+    "opd_first": {
+     "pairs_predicted": 77,
+     "pairs_gold": 70,
+     "matched": 16,
+     "precision": 0.2077922077922078,
+     "recall": 0.22857142857142856,
+     "f1": 0.21768707482993196,
+     "precision_wilson95": [
+      0.13214965937388248,
+      0.3112062366004674
+     ],
+     "recall_wilson95": [
+      0.1458794018862768,
+      0.33950553018453417
+     ],
+     "names_precision": 0.8051948051948052,
+     "names_recall": 0.8857142857142857,
+     "affairs_exact": {
+      "k": 1,
+      "n": 12,
+      "share": 0.0833,
+      "wilson95": [
+       0.0149,
+       0.3539
+      ]
+     },
+     "affairs": 12,
+     "affairs_with_output": 12
+    },
+    "reader": {
+     "pairs_predicted": 21,
+     "pairs_gold": 31,
+     "matched": 3,
+     "precision": 0.14285714285714285,
+     "recall": 0.0967741935483871,
+     "f1": 0.11538461538461538,
+     "precision_wilson95": [
+      0.04980921798213492,
+      0.346364941492295
+     ],
+     "recall_wilson95": [
+      0.03346403609464399,
+      0.2490028999817704
+     ],
+     "names_precision": 1.0,
+     "names_recall": 0.6774193548387096,
+     "affairs_exact": {
+      "k": 1,
+      "n": 5,
+      "share": 0.2,
+      "wilson95": [
+       0.0362,
+       0.6245
+      ]
+     },
+     "affairs": 5,
+     "affairs_with_output": 4
+    }
+   },
+   "5002": {
+    "rules": {
+     "pairs_predicted": 0,
+     "pairs_gold": 3,
+     "matched": 0,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "precision_wilson95": null,
+     "recall_wilson95": [
+      0.0,
+      0.5615060804490177
+     ],
+     "names_precision": null,
+     "names_recall": 0.0,
+     "affairs_exact": {
+      "k": 0,
+      "n": 2,
+      "share": 0.0,
+      "wilson95": [
+       0.0,
+       0.6576
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 0
+    },
+    "record": {
+     "pairs_predicted": 1,
+     "pairs_gold": 3,
+     "matched": 0,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "precision_wilson95": [
+      0.0,
+      0.7934567085261071
+     ],
+     "recall_wilson95": [
+      0.0,
+      0.5615060804490177
+     ],
+     "names_precision": 1.0,
+     "names_recall": 0.3333333333333333,
+     "affairs_exact": {
+      "k": 0,
+      "n": 2,
+      "share": 0.0,
+      "wilson95": [
+       0.0,
+       0.6576
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 1
+    },
+    "doc_order": {
+     "pairs_predicted": 23,
+     "pairs_gold": 3,
+     "matched": 0,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "precision_wilson95": [
+      0.0,
+      0.14312112541726274
+     ],
+     "recall_wilson95": [
+      0.0,
+      0.5615060804490177
+     ],
+     "names_precision": 0.08695652173913043,
+     "names_recall": 0.6666666666666666,
+     "affairs_exact": {
+      "k": 0,
+      "n": 2,
+      "share": 0.0,
+      "wilson95": [
+       0.0,
+       0.6576
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 2
+    },
+    "opd_first": {
+     "pairs_predicted": 3,
+     "pairs_gold": 3,
+     "matched": 0,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "precision_wilson95": [
+      0.0,
+      0.5615060804490177
+     ],
+     "recall_wilson95": [
+      0.0,
+      0.5615060804490177
+     ],
+     "names_precision": 0.6666666666666666,
+     "names_recall": 0.6666666666666666,
+     "affairs_exact": {
+      "k": 0,
+      "n": 2,
+      "share": 0.0,
+      "wilson95": [
+       0.0,
+       0.6576
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 2
+    }
+   },
+   "5113": {
+    "rules": {
+     "pairs_predicted": 0,
+     "pairs_gold": 7,
+     "matched": 0,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "precision_wilson95": null,
+     "recall_wilson95": [
+      0.0,
+      0.35433884297520657
+     ],
+     "names_precision": null,
+     "names_recall": 0.0,
+     "affairs_exact": {
+      "k": 0,
+      "n": 2,
+      "share": 0.0,
+      "wilson95": [
+       0.0,
+       0.6576
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 0
+    },
+    "record": {
+     "pairs_predicted": 5,
+     "pairs_gold": 7,
+     "matched": 2,
+     "precision": 0.4,
+     "recall": 0.2857142857142857,
+     "f1": 0.3333333333333333,
+     "precision_wilson95": [
+      0.1176182311592533,
+      0.769280067791163
+     ],
+     "recall_wilson95": [
+      0.0822171657090155,
+      0.6410709098517873
+     ],
+     "names_precision": 1.0,
+     "names_recall": 0.7142857142857143,
+     "affairs_exact": {
+      "k": 0,
+      "n": 2,
+      "share": 0.0,
+      "wilson95": [
+       0.0,
+       0.6576
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 2
+    },
+    "doc_order": {
+     "pairs_predicted": 7,
+     "pairs_gold": 7,
+     "matched": 4,
+     "precision": 0.5714285714285714,
+     "recall": 0.5714285714285714,
+     "f1": 0.5714285714285714,
+     "precision_wilson95": [
+      0.2504542304090258,
+      0.8417830777373732
+     ],
+     "recall_wilson95": [
+      0.2504542304090258,
+      0.8417830777373732
+     ],
+     "names_precision": 1.0,
+     "names_recall": 1.0,
+     "affairs_exact": {
+      "k": 1,
+      "n": 2,
+      "share": 0.5,
+      "wilson95": [
+       0.0945,
+       0.9055
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 2
+    },
+    "opd_first": {
+     "pairs_predicted": 7,
+     "pairs_gold": 7,
+     "matched": 2,
+     "precision": 0.2857142857142857,
+     "recall": 0.2857142857142857,
+     "f1": 0.2857142857142857,
+     "precision_wilson95": [
+      0.0822171657090155,
+      0.6410709098517873
+     ],
+     "recall_wilson95": [
+      0.0822171657090155,
+      0.6410709098517873
+     ],
+     "names_precision": 1.0,
+     "names_recall": 1.0,
+     "affairs_exact": {
+      "k": 0,
+      "n": 2,
+      "share": 0.0,
+      "wilson95": [
+       0.0,
+       0.6576
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 2
+    }
+   },
+   "5192": {
+    "rules": {
+     "pairs_predicted": 4,
+     "pairs_gold": 15,
+     "matched": 4,
+     "precision": 1.0,
+     "recall": 0.26666666666666666,
+     "f1": 0.4210526315789474,
+     "precision_wilson95": [
+      0.5100999795960008,
+      1.0
+     ],
+     "recall_wilson95": [
+      0.1089727610318281,
+      0.5195088965768675
+     ],
+     "names_precision": 1.0,
+     "names_recall": 0.26666666666666666,
+     "affairs_exact": {
+      "k": 1,
+      "n": 2,
+      "share": 0.5,
+      "wilson95": [
+       0.0945,
+       0.9055
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 1
+    },
+    "record": {
+     "pairs_predicted": 14,
+     "pairs_gold": 15,
+     "matched": 13,
+     "precision": 0.9285714285714286,
+     "recall": 0.8666666666666667,
+     "f1": 0.896551724137931,
+     "precision_wilson95": [
+      0.6853073044604219,
+      0.9872781138877085
+     ],
+     "recall_wilson95": [
+      0.6211750079348376,
+      0.9626395301086407
+     ],
+     "names_precision": 0.9285714285714286,
+     "names_recall": 0.8666666666666667,
+     "affairs_exact": {
+      "k": 1,
+      "n": 2,
+      "share": 0.5,
+      "wilson95": [
+       0.0945,
+       0.9055
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 2
+    },
+    "doc_order": {
+     "pairs_predicted": 15,
+     "pairs_gold": 15,
+     "matched": 10,
+     "precision": 0.6666666666666666,
+     "recall": 0.6666666666666666,
+     "f1": 0.6666666666666666,
+     "precision_wilson95": [
+      0.41713125151212976,
+      0.8482389930530876
+     ],
+     "recall_wilson95": [
+      0.41713125151212976,
+      0.8482389930530876
+     ],
+     "names_precision": 0.9333333333333333,
+     "names_recall": 0.9333333333333333,
+     "affairs_exact": {
+      "k": 0,
+      "n": 2,
+      "share": 0.0,
+      "wilson95": [
+       0.0,
+       0.6576
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 2
+    },
+    "opd_first": {
+     "pairs_predicted": 15,
+     "pairs_gold": 15,
+     "matched": 10,
+     "precision": 0.6666666666666666,
+     "recall": 0.6666666666666666,
+     "f1": 0.6666666666666666,
+     "precision_wilson95": [
+      0.41713125151212976,
+      0.8482389930530876
+     ],
+     "recall_wilson95": [
+      0.41713125151212976,
+      0.8482389930530876
+     ],
+     "names_precision": 0.8666666666666667,
+     "names_recall": 0.8666666666666667,
+     "affairs_exact": {
+      "k": 0,
+      "n": 2,
+      "share": 0.0,
+      "wilson95": [
+       0.0,
+       0.6576
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 2
+    }
+   },
+   "5254": {
+    "rules": {
+     "pairs_predicted": 0,
+     "pairs_gold": 34,
+     "matched": 0,
+     "precision": null,
+     "recall": 0.0,
+     "f1": null,
+     "precision_wilson95": null,
+     "recall_wilson95": [
+      0.0,
+      0.10151790621961015
+     ],
+     "names_precision": null,
+     "names_recall": 0.0,
+     "affairs_exact": {
+      "k": 0,
+      "n": 3,
+      "share": 0.0,
+      "wilson95": [
+       0.0,
+       0.5615
+      ]
+     },
+     "affairs": 3,
+     "affairs_with_output": 0
+    },
+    "record": {
+     "pairs_predicted": 41,
+     "pairs_gold": 34,
+     "matched": 0,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "precision_wilson95": [
+      0.0,
+      0.08567044886890744
+     ],
+     "recall_wilson95": [
+      0.0,
+      0.10151790621961015
+     ],
+     "names_precision": 0.7560975609756098,
+     "names_recall": 0.9117647058823529,
+     "affairs_exact": {
+      "k": 0,
+      "n": 3,
+      "share": 0.0,
+      "wilson95": [
+       0.0,
+       0.5615
+      ]
+     },
+     "affairs": 3,
+     "affairs_with_output": 3
+    },
+    "doc_order": {
+     "pairs_predicted": 34,
+     "pairs_gold": 34,
+     "matched": 1,
+     "precision": 0.029411764705882353,
+     "recall": 0.029411764705882353,
+     "f1": 0.029411764705882353,
+     "precision_wilson95": [
+      0.00521077192559663,
+      0.1491590221634482
+     ],
+     "recall_wilson95": [
+      0.00521077192559663,
+      0.1491590221634482
+     ],
+     "names_precision": 0.9411764705882353,
+     "names_recall": 0.9411764705882353,
+     "affairs_exact": {
+      "k": 1,
+      "n": 3,
+      "share": 0.3333,
+      "wilson95": [
+       0.0615,
+       0.7923
+      ]
+     },
+     "affairs": 3,
+     "affairs_with_output": 3
+    },
+    "opd_first": {
+     "pairs_predicted": 44,
+     "pairs_gold": 34,
+     "matched": 0,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "precision_wilson95": [
+      6.938893903907228e-18,
+      0.08029831778201396
+     ],
+     "recall_wilson95": [
+      0.0,
+      0.10151790621961015
+     ],
+     "names_precision": 0.7272727272727273,
+     "names_recall": 0.9411764705882353,
+     "affairs_exact": {
+      "k": 0,
+      "n": 3,
+      "share": 0.0,
+      "wilson95": [
+       0.0,
+       0.5615
+      ]
+     },
+     "affairs": 3,
+     "affairs_with_output": 3
+    },
+    "reader": {
+     "pairs_predicted": 15,
+     "pairs_gold": 20,
+     "matched": 0,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "precision_wilson95": [
+      0.0,
+      0.20388926630434784
+     ],
+     "recall_wilson95": [
+      0.0,
+      0.16113012549493322
+     ],
+     "names_precision": 1.0,
+     "names_recall": 0.75,
+     "affairs_exact": {
+      "k": 0,
+      "n": 2,
+      "share": 0.0,
+      "wilson95": [
+       0.0,
+       0.6576
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 1
+    }
+   },
+   "TI": {
+    "rules": {
+     "pairs_predicted": 4,
+     "pairs_gold": 11,
+     "matched": 3,
+     "precision": 0.75,
+     "recall": 0.2727272727272727,
+     "f1": 0.39999999999999997,
+     "precision_wilson95": [
+      0.3006360524426366,
+      0.9544139373553637
+     ],
+     "recall_wilson95": [
+      0.09745880573921467,
+      0.5656502930102463
+     ],
+     "names_precision": 1.0,
+     "names_recall": 0.36363636363636365,
+     "affairs_exact": {
+      "k": 1,
+      "n": 3,
+      "share": 0.3333,
+      "wilson95": [
+       0.0615,
+       0.7923
+      ]
+     },
+     "affairs": 3,
+     "affairs_with_output": 2
+    },
+    "record": {
+     "pairs_predicted": 7,
+     "pairs_gold": 11,
+     "matched": 6,
+     "precision": 0.8571428571428571,
+     "recall": 0.5454545454545454,
+     "f1": 0.6666666666666665,
+     "precision_wilson95": [
+      0.48686549668097007,
+      0.9743210440510253
+     ],
+     "recall_wilson95": [
+      0.28008775568998817,
+      0.7872904245601196
+     ],
+     "names_precision": 1.0,
+     "names_recall": 0.6363636363636364,
+     "affairs_exact": {
+      "k": 1,
+      "n": 3,
+      "share": 0.3333,
+      "wilson95": [
+       0.0615,
+       0.7923
+      ]
+     },
+     "affairs": 3,
+     "affairs_with_output": 2
+    },
+    "doc_order": {
+     "pairs_predicted": 7,
+     "pairs_gold": 11,
+     "matched": 2,
+     "precision": 0.2857142857142857,
+     "recall": 0.18181818181818182,
+     "f1": 0.2222222222222222,
+     "precision_wilson95": [
+      0.0822171657090155,
+      0.6410709098517873
+     ],
+     "recall_wilson95": [
+      0.05136660067100063,
+      0.4769861375782448
+     ],
+     "names_precision": 0.8571428571428571,
+     "names_recall": 0.5454545454545454,
+     "affairs_exact": {
+      "k": 1,
+      "n": 3,
+      "share": 0.3333,
+      "wilson95": [
+       0.0615,
+       0.7923
+      ]
+     },
+     "affairs": 3,
+     "affairs_with_output": 3
+    },
+    "opd_first": {
+     "pairs_predicted": 8,
+     "pairs_gold": 11,
+     "matched": 4,
+     "precision": 0.5,
+     "recall": 0.36363636363636365,
+     "f1": 0.4210526315789474,
+     "precision_wilson95": [
+      0.21521252682444186,
+      0.7847874731755582
+     ],
+     "recall_wilson95": [
+      0.15166223614131383,
+      0.6462032231083628
+     ],
+     "names_precision": 1.0,
+     "names_recall": 0.7272727272727273,
+     "affairs_exact": {
+      "k": 1,
+      "n": 3,
+      "share": 0.3333,
+      "wilson95": [
+       0.0615,
+       0.7923
+      ]
+     },
+     "affairs": 3,
+     "affairs_with_output": 3
+    },
+    "reader": {
+     "pairs_predicted": 6,
+     "pairs_gold": 11,
+     "matched": 3,
+     "precision": 0.5,
+     "recall": 0.2727272727272727,
+     "f1": 0.3529411764705882,
+     "precision_wilson95": [
+      0.18761280689940868,
+      0.8123871931005913
+     ],
+     "recall_wilson95": [
+      0.09745880573921467,
+      0.5656502930102463
+     ],
+     "names_precision": 1.0,
+     "names_recall": 0.5454545454545454,
+     "affairs_exact": {
+      "k": 1,
+      "n": 3,
+      "share": 0.3333,
+      "wilson95": [
+       0.0615,
+       0.7923
+      ]
+     },
+     "affairs": 3,
+     "affairs_with_output": 3
+    }
+   }
+  },
+  "gold_pairs": 70,
+  "reader_ran": true,
+  "note": "pair = (name, role); P10's scorer (eval/p10/score.py: same person by convert.roles.same_person, equal role, greedy one-to-one in printed order); opd_first is a reference row (OPD's names, not located in the documents)"
+ },
+ "submitter_role": {
+  "ALL": {
+   "affairs": 12,
+   "determinable": 10,
+   "undeterminable_by_reason": {
+    "OPD's submitter is not printed": 2
+   },
+   "categories": {
+    "author_person": 3,
+    "joint_person": 4,
+    "group": 1,
+    "cosigner_person": 2
+   },
+   "in_E": {
+    "k": 3,
+    "n": 10,
+    "share": 0.3,
+    "wilson95": [
+     0.1078,
+     0.6032
+    ]
+   },
+   "E": [
+    "author_person"
+   ],
+   "decided_by_A3": 0
+  },
+  "5002": {
+   "affairs": 2,
+   "determinable": 2,
+   "undeterminable_by_reason": {},
+   "categories": {
+    "author_person": 1,
+    "joint_person": 1
+   },
+   "in_E": {
+    "k": 1,
+    "n": 2,
+    "share": 0.5,
+    "wilson95": [
+     0.0945,
+     0.9055
+    ]
+   },
+   "E": [
+    "author_person"
+   ],
+   "decided_by_A3": 0
+  },
+  "5113": {
+   "affairs": 2,
+   "determinable": 2,
+   "undeterminable_by_reason": {},
+   "categories": {
+    "joint_person": 1,
+    "cosigner_person": 1
+   },
+   "in_E": {
+    "k": 0,
+    "n": 2,
+    "share": 0.0,
+    "wilson95": [
+     0.0,
+     0.6576
+    ]
+   },
+   "E": [
+    "author_person"
+   ],
+   "decided_by_A3": 0
+  },
+  "5192": {
+   "affairs": 2,
+   "determinable": 2,
+   "undeterminable_by_reason": {},
+   "categories": {
+    "joint_person": 1,
+    "author_person": 1
+   },
+   "in_E": {
+    "k": 1,
+    "n": 2,
+    "share": 0.5,
+    "wilson95": [
+     0.0945,
+     0.9055
+    ]
+   },
+   "E": [
+    "author_person"
+   ],
+   "decided_by_A3": 0
+  },
+  "5254": {
+   "affairs": 3,
+   "determinable": 1,
+   "undeterminable_by_reason": {
+    "OPD's submitter is not printed": 2
+   },
+   "categories": {
+    "joint_person": 1
+   },
+   "in_E": {
+    "k": 0,
+    "n": 1,
+    "share": 0.0,
+    "wilson95": [
+     0.0,
+     0.7935
+    ]
+   },
+   "E": [
+    "author_person"
+   ],
+   "decided_by_A3": 0
+  },
+  "TI": {
+   "affairs": 3,
+   "determinable": 3,
+   "undeterminable_by_reason": {},
+   "categories": {
+    "author_person": 1,
+    "group": 1,
+    "cosigner_person": 1
+   },
+   "in_E": {
+    "k": 1,
+    "n": 3,
+    "share": 0.3333,
+    "wilson95": [
+     0.0615,
+     0.7923
+    ]
+   },
+   "E": [
+    "author_person"
+   ],
+   "decided_by_A3": 0
+  }
+ },
+ "instrument_function": {
+  "ALL": {
+   "affairs": 12,
+   "determinable": 12,
+   "undeterminable_by_reason": {},
+   "categories": {
+    "direct_decision": 1,
+    "conforms": 10,
+    "mandate": 1
+   },
+   "in_E": {
+    "k": 10,
+    "n": 12,
+    "share": 0.8333,
+    "wilson95": [
+     0.552,
+     0.953
+    ]
+   },
+   "E": [
+    "conforms"
+   ],
+   "decided_by_A3": 1
+  },
+  "5002": {
+   "affairs": 2,
+   "determinable": 2,
+   "undeterminable_by_reason": {},
+   "categories": {
+    "direct_decision": 1,
+    "conforms": 1
+   },
+   "in_E": {
+    "k": 1,
+    "n": 2,
+    "share": 0.5,
+    "wilson95": [
+     0.0945,
+     0.9055
+    ]
+   },
+   "E": [
+    "conforms"
+   ],
+   "decided_by_A3": 0
+  },
+  "5113": {
+   "affairs": 2,
+   "determinable": 2,
+   "undeterminable_by_reason": {},
+   "categories": {
+    "conforms": 2
+   },
+   "in_E": {
+    "k": 2,
+    "n": 2,
+    "share": 1.0,
+    "wilson95": [
+     0.3424,
+     1.0
+    ]
+   },
+   "E": [
+    "conforms"
+   ],
+   "decided_by_A3": 0
+  },
+  "5192": {
+   "affairs": 2,
+   "determinable": 2,
+   "undeterminable_by_reason": {},
+   "categories": {
+    "conforms": 2
+   },
+   "in_E": {
+    "k": 2,
+    "n": 2,
+    "share": 1.0,
+    "wilson95": [
+     0.3424,
+     1.0
+    ]
+   },
+   "E": [
+    "conforms"
+   ],
+   "decided_by_A3": 0
+  },
+  "5254": {
+   "affairs": 3,
+   "determinable": 3,
+   "undeterminable_by_reason": {},
+   "categories": {
+    "conforms": 3
+   },
+   "in_E": {
+    "k": 3,
+    "n": 3,
+    "share": 1.0,
+    "wilson95": [
+     0.4385,
+     1.0
+    ]
+   },
+   "E": [
+    "conforms"
+   ],
+   "decided_by_A3": 0
+  },
+  "TI": {
+   "affairs": 3,
+   "determinable": 3,
+   "undeterminable_by_reason": {},
+   "categories": {
+    "conforms": 2,
+    "mandate": 1
+   },
+   "in_E": {
+    "k": 2,
+    "n": 3,
+    "share": 0.6667,
+    "wilson95": [
+     0.2077,
+     0.9385
+    ]
+   },
+   "E": [
+    "conforms"
+   ],
+   "decided_by_A3": 1
+  }
+ },
+ "text_language": {
+  "ALL": {
+   "affairs": 12,
+   "determinable": 1,
+   "undeterminable_by_reason": {
+    "OPD tags no language": 11
+   },
+   "categories": {
+    "text_language": 1
+   },
+   "in_E": {
+    "k": 1,
+    "n": 1,
+    "share": 1.0,
+    "wilson95": [
+     0.2065,
+     1.0
+    ]
+   },
+   "E": [
+    "text_language"
+   ],
+   "decided_by_A3": 0
+  },
+  "5002": {
+   "affairs": 2,
+   "determinable": 0,
+   "undeterminable_by_reason": {
+    "OPD tags no language": 2
+   },
+   "categories": {},
+   "in_E": {
+    "k": 0,
+    "n": 0,
+    "share": null,
+    "wilson95": null
+   },
+   "E": [
+    "text_language"
+   ],
+   "decided_by_A3": 0
+  },
+  "5113": {
+   "affairs": 2,
+   "determinable": 0,
+   "undeterminable_by_reason": {
+    "OPD tags no language": 2
+   },
+   "categories": {},
+   "in_E": {
+    "k": 0,
+    "n": 0,
+    "share": null,
+    "wilson95": null
+   },
+   "E": [
+    "text_language"
+   ],
+   "decided_by_A3": 0
+  },
+  "5192": {
+   "affairs": 2,
+   "determinable": 0,
+   "undeterminable_by_reason": {
+    "OPD tags no language": 2
+   },
+   "categories": {},
+   "in_E": {
+    "k": 0,
+    "n": 0,
+    "share": null,
+    "wilson95": null
+   },
+   "E": [
+    "text_language"
+   ],
+   "decided_by_A3": 0
+  },
+  "5254": {
+   "affairs": 3,
+   "determinable": 1,
+   "undeterminable_by_reason": {
+    "OPD tags no language": 2
+   },
+   "categories": {
+    "text_language": 1
+   },
+   "in_E": {
+    "k": 1,
+    "n": 1,
+    "share": 1.0,
+    "wilson95": [
+     0.2065,
+     1.0
+    ]
+   },
+   "E": [
+    "text_language"
+   ],
+   "decided_by_A3": 0
+  },
+  "TI": {
+   "affairs": 3,
+   "determinable": 0,
+   "undeterminable_by_reason": {
+    "OPD tags no language": 3
+   },
+   "categories": {},
+   "in_E": {
+    "k": 0,
+    "n": 0,
+    "share": null,
+    "wilson95": null
+   },
+   "E": [
+    "text_language"
+   ],
+   "decided_by_A3": 0
+  }
+ },
+ "text_language_answer_document": {
+  "ALL": {
+   "undeterminable": 9,
+   "text_language": 3
+  },
+  "5002": {
+   "undeterminable": 2
+  },
+  "5113": {
+   "undeterminable": 2
+  },
+  "5192": {
+   "undeterminable": 2
+  },
+  "5254": {
+   "text_language": 3
+  },
+  "TI": {
+   "undeterminable": 3
+  }
+ },
+ "converter_record_fields": {
+  "instrument_function": {
+   "ALL": {
+    "n": 12,
+    "false_null": 7,
+    "correct": 4,
+    "wrong": 1,
+    "exact": {
+     "k": 4,
+     "n": 12,
+     "share": 0.3333,
+     "wilson95": [
+      0.1381,
+      0.6094
+     ]
+    }
+   },
+   "5002": {
+    "n": 2,
+    "false_null": 1,
+    "wrong": 1,
+    "exact": {
+     "k": 0,
+     "n": 2,
+     "share": 0.0,
+     "wilson95": [
+      0.0,
+      0.6576
+     ]
+    }
+   },
+   "5113": {
+    "n": 2,
+    "correct": 2,
+    "exact": {
+     "k": 2,
+     "n": 2,
+     "share": 1.0,
+     "wilson95": [
+      0.3424,
+      1.0
+     ]
+    }
+   },
+   "5192": {
+    "n": 2,
+    "correct": 1,
+    "false_null": 1,
+    "exact": {
+     "k": 1,
+     "n": 2,
+     "share": 0.5,
+     "wilson95": [
+      0.0945,
+      0.9055
+     ]
+    }
+   },
+   "5254": {
+    "n": 3,
+    "false_null": 2,
+    "correct": 1,
+    "exact": {
+     "k": 1,
+     "n": 3,
+     "share": 0.3333,
+     "wilson95": [
+      0.0615,
+      0.7923
+     ]
+    }
+   },
+   "TI": {
+    "n": 3,
+    "false_null": 3,
+    "exact": {
+     "k": 0,
+     "n": 3,
+     "share": 0.0,
+     "wilson95": [
+      0.0,
+      0.5615
+     ]
+    }
+   }
+  },
+  "instrument_named": {
+   "ALL": {
+    "n": 12,
+    "false_null": 7,
+    "correct": 5,
+    "exact": {
+     "k": 5,
+     "n": 12,
+     "share": 0.4167,
+     "wilson95": [
+      0.1933,
+      0.6805
+     ]
+    }
+   },
+   "5002": {
+    "n": 2,
+    "false_null": 1,
+    "correct": 1,
+    "exact": {
+     "k": 1,
+     "n": 2,
+     "share": 0.5,
+     "wilson95": [
+      0.0945,
+      0.9055
+     ]
+    }
+   },
+   "5113": {
+    "n": 2,
+    "correct": 2,
+    "exact": {
+     "k": 2,
+     "n": 2,
+     "share": 1.0,
+     "wilson95": [
+      0.3424,
+      1.0
+     ]
+    }
+   },
+   "5192": {
+    "n": 2,
+    "correct": 1,
+    "false_null": 1,
+    "exact": {
+     "k": 1,
+     "n": 2,
+     "share": 0.5,
+     "wilson95": [
+      0.0945,
+      0.9055
+     ]
+    }
+   },
+   "5254": {
+    "n": 3,
+    "false_null": 2,
+    "correct": 1,
+    "exact": {
+     "k": 1,
+     "n": 3,
+     "share": 0.3333,
+     "wilson95": [
+      0.0615,
+      0.7923
+     ]
+    }
+   },
+   "TI": {
+    "n": 3,
+    "false_null": 3,
+    "exact": {
+     "k": 0,
+     "n": 3,
+     "share": 0.0,
+     "wilson95": [
+      0.0,
+      0.5615
+     ]
+    }
+   }
+  },
+  "language_of_text": {
+   "ALL": {
+    "n": 24,
+    "correct": 24,
+    "exact": {
+     "k": 24,
+     "n": 24,
+     "share": 1.0,
+     "wilson95": [
+      0.862,
+      1.0
+     ]
+    }
+   },
+   "5002": {
+    "n": 4,
+    "correct": 4,
+    "exact": {
+     "k": 4,
+     "n": 4,
+     "share": 1.0,
+     "wilson95": [
+      0.5101,
+      1.0
+     ]
+    }
+   },
+   "5113": {
+    "n": 4,
+    "correct": 4,
+    "exact": {
+     "k": 4,
+     "n": 4,
+     "share": 1.0,
+     "wilson95": [
+      0.5101,
+      1.0
+     ]
+    }
+   },
+   "5192": {
+    "n": 4,
+    "correct": 4,
+    "exact": {
+     "k": 4,
+     "n": 4,
+     "share": 1.0,
+     "wilson95": [
+      0.5101,
+      1.0
+     ]
+    }
+   },
+   "5254": {
+    "n": 6,
+    "correct": 6,
+    "exact": {
+     "k": 6,
+     "n": 6,
+     "share": 1.0,
+     "wilson95": [
+      0.6097,
+      1.0
+     ]
+    }
+   },
+   "TI": {
+    "n": 6,
+    "correct": 6,
+    "exact": {
+     "k": 6,
+     "n": 6,
+     "share": 1.0,
+     "wilson95": [
+      0.6097,
+      1.0
+     ]
+    }
+   }
+  }
+ },
+ "model_arms": {
+  "ran": true,
+  "stopped": {
+   "date_pointer": null,
+   "role_reader": "served_model_mismatch at affair 119632: requested swiss-ai/apertus-v1.5-8b, served swiss-ai/Apertus-v1.5-70B (system_fingerprint vllm-0.1.dev1+g54b4292c2-tp2-bfd70257)"
+  },
+  "served_fingerprints": [],
+  "fingerprints_not_seen_in_role_reader_development": []
+ },
+ "stop_rules": {
+  "frame_check": {
+   "answer_doc_not_executive_answer": 2,
+   "n": 12,
+   "frame_invalid": false
+  }
+ }
+}

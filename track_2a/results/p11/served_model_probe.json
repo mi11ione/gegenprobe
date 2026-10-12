@@ -1,0 +1,100 @@
+{
+ "label": "P11 D1 evidence (eval/p11/DEVIATIONS_P11.md): served-label change on the -8b route",
+ "written": "2026-10-12T01:38:01Z",
+ "route": "gateway, requested swiss-ai/apertus-v1.5-8b, tag 2a-probe",
+ "frozen_build_fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+ "labels_served_live": [
+  "swiss-ai/Apertus-v1.5-70B"
+ ],
+ "labels_cached": [
+  "swiss-ai/apertus-v1.5-8b"
+ ],
+ "fingerprints_live": [
+  "vllm-0.1.dev1+g54b4292c2-tp2-bfd70257"
+ ],
+ "fingerprint_equal_to_frozen_on_every_call": false,
+ "max_abs_logprob_delta": 4.641593933105469,
+ "greedy_equal_on_every_next_top_call": false,
+ "usd": 0.000589,
+ "note": "No prompt text is stored: payload_sha256 is sha256 of the request JSON (sort_keys), cache_key the model-cache key under data/model_cache/publicai_swiss-ai_apertus-v1.5-8b/; greedy tokens are hashed.",
+ "calls": [
+  {
+   "what": "P10 role reader, affair 118394",
+   "kind": "next_top",
+   "cache_key": "5a488ae66afc696152317da29e6dfe880f720bd7b2d96fc8ffb4155a885a33b1",
+   "payload_sha256": "6372c55dc951dae042d6e53085b4c412cf8d1e9249f02f7143cd54a178731a77",
+   "requested_model": "swiss-ai/apertus-v1.5-8b",
+   "cached": {
+    "model": "swiss-ai/apertus-v1.5-8b",
+    "system_fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+    "ts": 1791744475
+   },
+   "live": {
+    "model": "swiss-ai/Apertus-v1.5-70B",
+    "system_fingerprint": "vllm-0.1.dev1+g54b4292c2-tp2-bfd70257",
+    "ts": 1791768862,
+    "usd": 0.00021
+   },
+   "greedy_cached": "3702acb916cf4a3116da7e99396b8ddc6375385677f208f7a0789253387af186",
+   "greedy_live": "6d63d5fb6626c76b3af49335dc5a320b201c93d07c4525634e50adc69f545d97",
+   "greedy_equal": false,
+   "top_k": 20,
+   "top_tokens_equal": false,
+   "top_order_equal": false,
+   "shared_tokens": 14,
+   "max_abs_logprob_delta": 4.641593933105469,
+   "mean_abs_logprob_delta": 2.1187188399157355
+  },
+  {
+   "what": "P10 role reader, affair 118394",
+   "kind": "next_top",
+   "cache_key": "ccb863ec61b89633c89e00c9a32c0ea76efa72d56788a857fbe164ba1e01ae15",
+   "payload_sha256": "80e9c2cccb3b421da87c6992ded5e4211b607fb58e5a463170341ead5fac3cd1",
+   "requested_model": "swiss-ai/apertus-v1.5-8b",
+   "cached": {
+    "model": "swiss-ai/apertus-v1.5-8b",
+    "system_fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+    "ts": 1791744476
+   },
+   "live": {
+    "model": "swiss-ai/Apertus-v1.5-70B",
+    "system_fingerprint": "vllm-0.1.dev1+g54b4292c2-tp2-bfd70257",
+    "ts": 1791768889,
+    "usd": 0.00021
+   },
+   "greedy_cached": "6d63d5fb6626c76b3af49335dc5a320b201c93d07c4525634e50adc69f545d97",
+   "greedy_live": "6d63d5fb6626c76b3af49335dc5a320b201c93d07c4525634e50adc69f545d97",
+   "greedy_equal": true,
+   "top_k": 20,
+   "top_tokens_equal": false,
+   "top_order_equal": false,
+   "shared_tokens": 17,
+   "max_abs_logprob_delta": 1.9996604919433594,
+   "mean_abs_logprob_delta": 0.5771458556512644
+  },
+  {
+   "what": "P1 held-out date pointer, doc 18431",
+   "kind": "score",
+   "cache_key": "c67fd097e46ab862a7a0d80f69fcdc7a70d693531f0db63d02173cbfd28d27a6",
+   "payload_sha256": "b931b3f243d95b5223a9c9e10b8ec79baf714f7b347c718ef99cfcc46465147d",
+   "requested_model": "swiss-ai/apertus-v1.5-8b",
+   "cached": {
+    "model": "swiss-ai/apertus-v1.5-8b",
+    "system_fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+    "ts": 1791582764
+   },
+   "live": {
+    "model": "swiss-ai/Apertus-v1.5-70B",
+    "system_fingerprint": "vllm-0.1.dev1+g54b4292c2-tp2-bfd70257",
+    "ts": 1791769081,
+    "usd": 0.000169
+   },
+   "lp_cached": -39.375,
+   "lp_live": -39.375,
+   "abs_logprob_delta": 0.0,
+   "tokens_equal": true,
+   "n_prompt_cached": 1691,
+   "n_prompt_live": 1691
+  }
+ ]
+}

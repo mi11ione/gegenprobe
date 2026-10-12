@@ -1,0 +1,1303 @@
+{
+ "label": "EXPLORATORY P11 (eval/p11/PROTOCOL.md): IT cell, Apertus arms",
+ "build": "publicai:swiss-ai/apertus-v1.5-8b",
+ "theta_answer": 10.395354058425431,
+ "role_reader_config": "data/p10/p10_config.json",
+ "served_fingerprints": [],
+ "fingerprints_not_seen_in_role_reader_development": [],
+ "stopped": {
+  "date_pointer": null,
+  "role_reader": "served_model_mismatch at affair 119632: requested swiss-ai/apertus-v1.5-8b, served swiss-ai/Apertus-v1.5-70B (system_fingerprint vllm-0.1.dev1+g54b4292c2-tp2-bfd70257)"
+ },
+ "n_date_pointer": 12,
+ "n_role_reader": 5,
+ "deviation": {
+  "id": "D1",
+  "file": "eval/p11/DEVIATIONS_P11.md",
+  "runner": "eval/p11/arms_d1.py",
+  "probe": "results/p11/served_model_probe.json",
+  "accept_relabel": false,
+  "accepted_pair": [
+   "swiss-ai/apertus-v1.5-8b",
+   "swiss-ai/Apertus-v1.5-70B"
+  ],
+  "accepted_fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+  "live_responses_checked": 1,
+  "live_responses_accepted_under_relabel": 0,
+  "served_model_mismatches": [
+   {
+    "requested": "swiss-ai/apertus-v1.5-8b",
+    "served": "swiss-ai/Apertus-v1.5-70B",
+    "system_fingerprint": "vllm-0.1.dev1+g54b4292c2-tp2-bfd70257",
+    "response_id": "chatcmpl-512ecda7-37d8-485b-9519-b29e6920f0b3"
+   }
+  ],
+  "replayed_from_cache_by_label_and_fingerprint": {
+   "swiss-ai/apertus-v1.5-8b | vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840": 145
+  }
+ },
+ "per_affair": [
+  {
+   "affair_id": 83888,
+   "body": "TI",
+   "stratum": "TI",
+   "date_pointer": {
+    "value": "2021-11-17",
+    "margin": -21.871417449994492,
+    "n_cands": 4,
+    "truncated": true
+   },
+   "role_reader": {
+    "pairs": [
+     [
+      "Samantha Bourgoin",
+      "first_signatory"
+     ],
+     [
+      "Schoenenberger - Stephani",
+      "co_signatory"
+     ]
+    ],
+    "result": {
+     "version": "rolepointer-2",
+     "prompt_ids": [
+      "it/role_author_v2.txt@b16c0ee7bd18",
+      "it/role_first.txt@1c76d9ae3d60",
+      "it/role_first_v2.txt@011e5e765a0e"
+     ],
+     "lang": "it",
+     "config": {
+      "mode": "staged",
+      "prompt": "role_author_v2",
+      "prompt_neg": null,
+      "prompt_first": [
+       "role_first",
+       "role_first_v2"
+      ],
+      "tau": 0.98,
+      "tau_first": 0.3,
+      "lone_first_needs_cue": true,
+      "coherence": [],
+      "q_head": 2500,
+      "q_tail": 1500,
+      "a_head": 1000,
+      "max_lines": 2
+     },
+     "actors": [
+      {
+       "role": "first_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Samantha Bourgoin",
+        "doc": "question",
+        "page": 3,
+        "char_start": 1466,
+        "char_end": 1483,
+        "quote_sha256": "4f200e283997d2b8f52611fe74552f514e79b39771a9bb67b080e0c41f768472",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Schoenenberger - Stephani",
+        "doc": "question",
+        "page": 3,
+        "char_start": 1519,
+        "char_end": 1544,
+        "quote_sha256": "4a1215dbdbb2b625fcba785a992e1d408a9bbf44c8746b82211637cb94a849a1",
+        "rule": "pointer:rolepointer-2"
+       }
+      }
+     ],
+     "decisions": [
+      {
+       "value": "Samantha Bourgoin",
+       "kind": "person",
+       "sources": [
+        "blocks",
+        "roster",
+        "rules"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.99929,
+       "lps_author": [
+        -11.625,
+        -18.875
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.817542,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.984094,
+        0.679179
+       ],
+       "p_author": 0.99929,
+       "role": "first_signatory"
+      },
+      {
+       "value": "Schoenenberger - Stephani",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.999643,
+       "lps_author": [
+        -9.3752,
+        -17.3127
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.099448,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.281406,
+        0.035145
+       ],
+       "p_author": 0.999643,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Gruppo Sinistra",
+       "kind": "parliamentary_group",
+       "sources": [
+        "group"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.001501,
+       "lps_author": [
+        -16.0023,
+        -9.5023
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": null,
+       "p_author_neg": null,
+       "p_author": 0.001501,
+       "role": "not_an_author"
+      }
+     ],
+     "build": "publicai:swiss-ai/apertus-v1.5-8b"
+    }
+   }
+  },
+  {
+   "affair_id": 174161,
+   "body": "TI",
+   "stratum": "TI",
+   "date_pointer": {
+    "value": "2022-02-09",
+    "margin": -20.998497666363882,
+    "n_cands": 9,
+    "truncated": false
+   },
+   "role_reader": {
+    "pairs": [
+     [
+      "Massimiliano Robbiani",
+      "sole_author"
+     ]
+    ],
+    "result": {
+     "version": "rolepointer-2",
+     "prompt_ids": [
+      "it/role_author_v2.txt@b16c0ee7bd18",
+      "it/role_first.txt@1c76d9ae3d60",
+      "it/role_first_v2.txt@011e5e765a0e"
+     ],
+     "lang": "it",
+     "config": {
+      "mode": "staged",
+      "prompt": "role_author_v2",
+      "prompt_neg": null,
+      "prompt_first": [
+       "role_first",
+       "role_first_v2"
+      ],
+      "tau": 0.98,
+      "tau_first": 0.3,
+      "lone_first_needs_cue": true,
+      "coherence": [],
+      "q_head": 2500,
+      "q_tail": 1500,
+      "a_head": 1000,
+      "max_lines": 2
+     },
+     "actors": [
+      {
+       "role": "sole_author",
+       "kind": "person",
+       "name": {
+        "value": "Massimiliano Robbiani",
+        "doc": "question",
+        "page": 1,
+        "char_start": 2040,
+        "char_end": 2061,
+        "quote_sha256": "b2909b1ce44a858b777cda0f6b7e6cacfee3572dd71b7ffb19bbdee66d6f7965",
+        "rule": "pointer:rolepointer-2"
+       }
+      }
+     ],
+     "decisions": [
+      {
+       "value": "Massimiliano Robbiani",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.999995,
+       "lps_author": [
+        -10.0,
+        -22.125
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.684371,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.999089,
+        0.468791
+       ],
+       "p_author": 0.999995,
+       "role": "sole_author"
+      }
+     ],
+     "build": "publicai:swiss-ai/apertus-v1.5-8b"
+    }
+   }
+  },
+  {
+   "affair_id": 173936,
+   "body": "TI",
+   "stratum": "TI",
+   "date_pointer": {
+    "value": "2023-03-29",
+    "margin": -22.87466417536361,
+    "n_cands": 3,
+    "truncated": false
+   },
+   "role_reader": {
+    "pairs": [
+     [
+      "Fabrizio Sirica",
+      "first_signatory"
+     ],
+     [
+      "Anna Biscossa",
+      "co_signatory"
+     ],
+     [
+      "Gruppo PS",
+      "sole_author"
+     ]
+    ],
+    "result": {
+     "version": "rolepointer-2",
+     "prompt_ids": [
+      "it/role_author_v2.txt@b16c0ee7bd18",
+      "it/role_first.txt@1c76d9ae3d60",
+      "it/role_first_v2.txt@011e5e765a0e"
+     ],
+     "lang": "it",
+     "config": {
+      "mode": "staged",
+      "prompt": "role_author_v2",
+      "prompt_neg": null,
+      "prompt_first": [
+       "role_first",
+       "role_first_v2"
+      ],
+      "tau": 0.98,
+      "tau_first": 0.3,
+      "lone_first_needs_cue": true,
+      "coherence": [],
+      "q_head": 2500,
+      "q_tail": 1500,
+      "a_head": 1000,
+      "max_lines": 2
+     },
+     "actors": [
+      {
+       "role": "first_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Fabrizio Sirica",
+        "doc": "question",
+        "page": 2,
+        "char_start": 817,
+        "char_end": 832,
+        "quote_sha256": "353b57a0c1f15670522937a6d9c6188ae918da75de6928ed624f7f4fd4e53ce0",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Anna Biscossa",
+        "doc": "question",
+        "page": 2,
+        "char_start": 835,
+        "char_end": 848,
+        "quote_sha256": "5a5f111b3df32e6ba412995f23e708d54060856b34057292c0d5785f7b35b7f8",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "sole_author",
+       "kind": "parliamentary_group",
+       "name": {
+        "value": "Gruppo PS",
+        "doc": "question",
+        "page": 2,
+        "char_start": 856,
+        "char_end": 865,
+        "quote_sha256": "487732f9640b27425e3688c8b8fd702bdcfba45019ba807c5bc460e24685913f",
+        "rule": "pointer:rolepointer-2"
+       }
+      }
+     ],
+     "decisions": [
+      {
+       "value": "Fabrizio Sirica",
+       "kind": "person",
+       "sources": [
+        "blocks",
+        "roster",
+        "rules"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.994089,
+       "lps_author": [
+        -9.8751,
+        -15.0001
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.788404,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.99859,
+        0.622459
+       ],
+       "p_author": 0.994089,
+       "role": "first_signatory"
+      },
+      {
+       "value": "Anna Biscossa",
+       "kind": "person",
+       "sources": [
+        "blocks",
+        "roster",
+        "rules"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.99593,
+       "lps_author": [
+        -10.75,
+        -16.25
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.116195,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.798187,
+        0.016915
+       ],
+       "p_author": 0.99593,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Gruppo PS",
+       "kind": "parliamentary_group",
+       "sources": [
+        "blocks",
+        "group",
+        "rules"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.999993,
+       "lps_author": [
+        -9.7501,
+        -21.5626
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": null,
+       "p_author_neg": null,
+       "p_author": 0.999993,
+       "role": "sole_author"
+      }
+     ],
+     "build": "publicai:swiss-ai/apertus-v1.5-8b"
+    }
+   }
+  },
+  {
+   "affair_id": 296828,
+   "body": "5254",
+   "stratum": "5254",
+   "date_pointer": {
+    "value": "2026-05-15",
+    "margin": -19.8724185198104,
+    "n_cands": 2,
+    "truncated": true
+   },
+   "role_reader": {
+    "pairs": [
+     [
+      "Cristina Marazzi Savoldelli",
+      "first_signatory"
+     ],
+     [
+      "Zoe Ostinelli",
+      "co_signatory"
+     ],
+     [
+      "Giampaolo Baragiola",
+      "co_signatory"
+     ],
+     [
+      "Theo Bernardi",
+      "co_signatory"
+     ],
+     [
+      "Jacopo Scacchi",
+      "co_signatory"
+     ],
+     [
+      "Davina Fitas",
+      "co_signatory"
+     ],
+     [
+      "Vera Bosshard",
+      "co_signatory"
+     ],
+     [
+      "Maria Chiara Crimaldi",
+      "co_signatory"
+     ],
+     [
+      "Gregorio Aostalli",
+      "co_signatory"
+     ],
+     [
+      "Daniele Raffa",
+      "co_signatory"
+     ],
+     [
+      "Gianluca Romanini",
+      "co_signatory"
+     ],
+     [
+      "Beatrice Engeler",
+      "co_signatory"
+     ],
+     [
+      "Cristina Mellini Spreafico",
+      "co_signatory"
+     ],
+     [
+      "Dario Engeler",
+      "co_signatory"
+     ],
+     [
+      "Gianluca Gallina",
+      "co_signatory"
+     ]
+    ],
+    "result": {
+     "version": "rolepointer-2",
+     "prompt_ids": [
+      "it/role_author_v2.txt@b16c0ee7bd18",
+      "it/role_first.txt@1c76d9ae3d60",
+      "it/role_first_v2.txt@011e5e765a0e"
+     ],
+     "lang": "it",
+     "config": {
+      "mode": "staged",
+      "prompt": "role_author_v2",
+      "prompt_neg": null,
+      "prompt_first": [
+       "role_first",
+       "role_first_v2"
+      ],
+      "tau": 0.98,
+      "tau_first": 0.3,
+      "lone_first_needs_cue": true,
+      "coherence": [],
+      "q_head": 2500,
+      "q_tail": 1500,
+      "a_head": 1000,
+      "max_lines": 2
+     },
+     "actors": [
+      {
+       "role": "first_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Cristina Marazzi Savoldelli",
+        "doc": "question",
+        "page": 3,
+        "char_start": 0,
+        "char_end": 27,
+        "quote_sha256": "23a0c0601ff229e4389de0bcbe3462fafb7df45f53f6a7de3463ff364c75b17f",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Zoe Ostinelli",
+        "doc": "question",
+        "page": 3,
+        "char_start": 80,
+        "char_end": 93,
+        "quote_sha256": "1997eab5a857b05413dd31ac73575ca779f6f35803239eb796e77f76d7eb90d9",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Giampaolo Baragiola",
+        "doc": "question",
+        "page": 3,
+        "char_start": 107,
+        "char_end": 126,
+        "quote_sha256": "0c3fd734b6391971dcbbc1015a518036431dc6d72e27c9641012c6826f386ae9",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Theo Bernardi",
+        "doc": "question",
+        "page": 3,
+        "char_start": 140,
+        "char_end": 153,
+        "quote_sha256": "99ab78a66bc851d9322f04dcccd7a0efecaeb5c168eadc85ad4a3318d0b2583a",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Jacopo Scacchi",
+        "doc": "question",
+        "page": 3,
+        "char_start": 167,
+        "char_end": 181,
+        "quote_sha256": "b3518ef7482dbe8696ce72563f034a91622b4d2ab416a1924be56519c0c85230",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Davina Fitas",
+        "doc": "question",
+        "page": 3,
+        "char_start": 195,
+        "char_end": 207,
+        "quote_sha256": "1f2b1541934bdd6fa5933035d386357b64d1a80b3b3ebe6da91854197caf89b1",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Vera Bosshard",
+        "doc": "question",
+        "page": 3,
+        "char_start": 219,
+        "char_end": 232,
+        "quote_sha256": "01a6d8b2fc1e5acdaf8db7554b64b6f2f62575c265574004b261f0e2d9725381",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Maria Chiara Crimaldi",
+        "doc": "question",
+        "page": 3,
+        "char_start": 244,
+        "char_end": 265,
+        "quote_sha256": "86d8e9d955469dacaedd2e7ec2dedcd02a5d8f047c8f90e51cc64625a2ae77d4",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Gregorio Aostalli",
+        "doc": "question",
+        "page": 3,
+        "char_start": 277,
+        "char_end": 294,
+        "quote_sha256": "99b9a443f1b012104ef7e7039193e3209263b1feaf0a29a5c5f1888ffbc1e280",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Daniele Raffa",
+        "doc": "question",
+        "page": 3,
+        "char_start": 306,
+        "char_end": 319,
+        "quote_sha256": "5ea5f076cc3d1ed7e1c7ca534ff94414162458f39e9526322513c57046af600a",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Gianluca Romanini",
+        "doc": "question",
+        "page": 3,
+        "char_start": 331,
+        "char_end": 348,
+        "quote_sha256": "61e76d224c9427d48d2857081d66faf764b8d090e3fd48253beb6ab2ed490d5e",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Beatrice Engeler",
+        "doc": "question",
+        "page": 3,
+        "char_start": 360,
+        "char_end": 376,
+        "quote_sha256": "b66692c758574709d5ab6baed18a4deb8188d38288f81b151ca0c757b835dd27",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Cristina Mellini Spreafico",
+        "doc": "question",
+        "page": 3,
+        "char_start": 404,
+        "char_end": 430,
+        "quote_sha256": "06a8f74cca69d64ee0af1be97cbda428e81c22ae27e101c237fa55aa3e7f5ef6",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Dario Engeler",
+        "doc": "question",
+        "page": 3,
+        "char_start": 458,
+        "char_end": 471,
+        "quote_sha256": "14eb5e24078261b28077cb3b73f65f5bd4e04201adf05efa85f38fb29877ac35",
+        "rule": "pointer:rolepointer-2"
+       }
+      },
+      {
+       "role": "co_signatory",
+       "kind": "person",
+       "name": {
+        "value": "Gianluca Gallina",
+        "doc": "question",
+        "page": 3,
+        "char_start": 477,
+        "char_end": 493,
+        "quote_sha256": "219a04f73a19d31cb179ae99941662768b3c95c47043f5e61f547ed65daa1bc1",
+        "rule": "pointer:rolepointer-2"
+       }
+      }
+     ],
+     "decisions": [
+      {
+       "value": "Cristina Marazzi Savoldelli",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.999374,
+       "lps_author": [
+        -11.5,
+        -18.875
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.999381,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.99986,
+        0.998901
+       ],
+       "p_author": 0.999374,
+       "role": "first_signatory"
+      },
+      {
+       "value": "Zoe Ostinelli",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.999999,
+       "lps_author": [
+        -11.125,
+        -25.25
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.003911,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.024423,
+        0.000626
+       ],
+       "p_author": 0.999999,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Giampaolo Baragiola",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.999999,
+       "lps_author": [
+        -10.875,
+        -25.0625
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.026971,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.377541,
+        0.001927
+       ],
+       "p_author": 0.999999,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Theo Bernardi",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.999993,
+       "lps_author": [
+        -10.875,
+        -22.8125
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.004795,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.053403,
+        0.000431
+       ],
+       "p_author": 0.999993,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Jacopo Scacchi",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.999997,
+       "lps_author": [
+        -10.625,
+        -23.375
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.001594,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.008062,
+        0.000315
+       ],
+       "p_author": 0.999997,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Davina Fitas",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.999971,
+       "lps_author": [
+        -10.125,
+        -20.5625
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.001749,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.009708,
+        0.000315
+       ],
+       "p_author": 0.999971,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Vera Bosshard",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.999842,
+       "lps_author": [
+        -10.6251,
+        -19.3751
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.000666,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.00461,
+        9.6e-05
+       ],
+       "p_author": 0.999842,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Maria Chiara Crimaldi",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.999982,
+       "lps_author": [
+        -10.75,
+        -21.6875
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.000457,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.008062,
+        2.6e-05
+       ],
+       "p_author": 0.999982,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Gregorio Aostalli",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.984094,
+       "lps_author": [
+        -9.6327,
+        -13.7577
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.000625,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.00629,
+        6.2e-05
+       ],
+       "p_author": 0.984094,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Daniele Raffa",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.999665,
+       "lps_author": [
+        -10.2502,
+        -18.2502
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.000223,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.002801,
+        1.8e-05
+       ],
+       "p_author": 0.999665,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Gianluca Romanini",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.99903,
+       "lps_author": [
+        -9.7505,
+        -16.688
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 9.6e-05,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.000755,
+        1.2e-05
+       ],
+       "p_author": 0.99903,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Beatrice Engeler",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.999971,
+       "lps_author": [
+        -10.125,
+        -20.5625
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.001406,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.008062,
+        0.000245
+       ],
+       "p_author": 0.999971,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Cristina Mellini Spreafico",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.999333,
+       "lps_author": [
+        -9.5003,
+        -16.8128
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.010882,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.037327,
+        0.003173
+       ],
+       "p_author": 0.999333,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Marcella Bianchi",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.975577,
+       "lps_author": [
+        -9.5142,
+        -13.2017
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.003705,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.006693,
+        0.002051
+       ],
+       "p_author": 0.975577,
+       "role": "not_an_author"
+      },
+      {
+       "value": "Dario Engeler",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.997677,
+       "lps_author": [
+        -9.6262,
+        -15.6887
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.006453,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.021615,
+        0.001927
+       ],
+       "p_author": 0.997677,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Gianluca Gallina",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.999089,
+       "lps_author": [
+        -9.6254,
+        -16.6254
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.000755,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.003377,
+        0.000169
+       ],
+       "p_author": 0.999089,
+       "role": "co_signatory"
+      },
+      {
+       "value": "Alberto Meroni",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 0.957912,
+       "lps_author": [
+        -9.4014,
+        -12.5264
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.000755,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.002323,
+        0.000245
+       ],
+       "p_author": 0.957912,
+       "role": "not_an_author"
+      }
+     ],
+     "build": "publicai:swiss-ai/apertus-v1.5-8b"
+    }
+   }
+  },
+  {
+   "affair_id": 119470,
+   "body": "5254",
+   "stratum": "5254",
+   "date_pointer": {
+    "value": "2011-12-15",
+    "margin": -19.249569032086683,
+    "n_cands": 2,
+    "truncated": false
+   },
+   "role_reader": {
+    "pairs": [],
+    "result": {
+     "version": "rolepointer-2",
+     "prompt_ids": [
+      "it/role_author_v2.txt@b16c0ee7bd18",
+      "it/role_first.txt@1c76d9ae3d60",
+      "it/role_first_v2.txt@011e5e765a0e"
+     ],
+     "lang": "it",
+     "config": {
+      "mode": "staged",
+      "prompt": "role_author_v2",
+      "prompt_neg": null,
+      "prompt_first": [
+       "role_first",
+       "role_first_v2"
+      ],
+      "tau": 0.98,
+      "tau_first": 0.3,
+      "lone_first_needs_cue": true,
+      "coherence": [],
+      "q_head": 2500,
+      "q_tail": 1500,
+      "a_head": 1000,
+      "max_lines": 2
+     },
+     "actors": [],
+     "decisions": [
+      {
+       "value": "Massimiliano Robbiani",
+       "kind": "person",
+       "sources": [
+        "roster"
+       ],
+       "coherence": [],
+       "p_author_pos": 7e-05,
+       "lps_author": [
+        -19.1876,
+        -9.6251
+       ],
+       "missing": [],
+       "method": "next_token_top20",
+       "fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+       "p_first": 0.266091,
+       "p_author_neg": null,
+       "p_first_parts": [
+        0.989013,
+        0.071591
+       ],
+       "p_author": 7e-05,
+       "role": "not_an_author"
+      }
+     ],
+     "build": "publicai:swiss-ai/apertus-v1.5-8b"
+    }
+   }
+  },
+  {
+   "affair_id": 119632,
+   "body": "5254",
+   "stratum": "5254",
+   "date_pointer": {
+    "value": "2021-11-17",
+    "margin": -21.99095807887768,
+    "n_cands": 8,
+    "truncated": false
+   }
+  },
+  {
+   "affair_id": 118527,
+   "body": "5192",
+   "stratum": "5192",
+   "date_pointer": {
+    "value": "2022-10-20",
+    "margin": -3.0000001474600353,
+    "n_cands": 5,
+    "truncated": false
+   }
+  },
+  {
+   "affair_id": 26837,
+   "body": "5192",
+   "stratum": "5192",
+   "date_pointer": {
+    "value": "2022-04-14",
+    "margin": -21.349131153508107,
+    "n_cands": 4,
+    "truncated": false
+   }
+  },
+  {
+   "affair_id": 117161,
+   "body": "5113",
+   "stratum": "5113",
+   "date_pointer": {
+    "value": null,
+    "margin": 85.31651494070772,
+    "n_cands": 1,
+    "truncated": false
+   }
+  },
+  {
+   "affair_id": 117125,
+   "body": "5113",
+   "stratum": "5113",
+   "date_pointer": {
+    "value": null,
+    "margin": 91.0572958082422,
+    "n_cands": 1,
+    "truncated": false
+   }
+  },
+  {
+   "affair_id": 255180,
+   "body": "5002",
+   "stratum": "5002",
+   "date_pointer": {
+    "value": "2018-08-16",
+    "margin": -12.24984897323884,
+    "n_cands": 1,
+    "truncated": false
+   }
+  },
+  {
+   "affair_id": 255243,
+   "body": "5002",
+   "stratum": "5002",
+   "date_pointer": {
+    "value": "2019-08-02",
+    "margin": -6.499982953211713,
+    "n_cands": 1,
+    "truncated": false
+   }
+  }
+ ]
+}
