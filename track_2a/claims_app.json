@@ -82,6 +82,18 @@
    "claim": "r15.p10_parl"
   },
   {
+   "key": "p10_precision",
+   "claim": "r15.p10_pointer_precision",
+   "fmt": "str",
+   "why": "P10 pair precision, Apertus (About)"
+  },
+  {
+   "key": "p10_rules_precision",
+   "claim": "r15.p10_rules_precision",
+   "fmt": "str",
+   "why": "P10 pair precision, the rules (About)"
+  },
+  {
    "key": "p7",
    "claim": "p7.h1.correct",
    "fmt": "frac"
@@ -116,6 +128,10 @@
   {
    "phrase": "404 ·",
    "why": "the HTTP status of the not-found page"
+  },
+  {
+   "phrase": "field and 2 constructs",
+   "why": "About, schema verdict: the two body-specific constructs (oral answers, councils that publish only minutes); bound by the wording pin schema.body_specific_constructs (claims_pins.json: len(schema.body_specific) in results/evidence/data.json is 2), which pins this phrase in app.js; the field count before it is bound.body_specific"
   }
  ],
  "rendered": [

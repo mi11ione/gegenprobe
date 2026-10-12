@@ -1139,7 +1139,7 @@
           <dt>Check</dt><dd>answer text attached? if not: where it is, which repair</dd>
           <dt>Answer text</dt><dd><b>${bd.share_today}</b> today → <b>${bd.share_after}</b> after the <b>${fmt(bd.repaired)}</b> repairs</dd>
           <dt>Repairs</dt><dd>${fmt(bd.now)} apply now · ${fmt(bd.after_hash)} after OPD’s hash decision · ${fmt(bd.fetch)} fetch · keyed on OPD ids, no model</dd>
-          <dt>Schema verdict</dt><dd>${bd.fields} fields: ${bd.need_roles} need roles · ${bd.body_specific} body-specific · ${bd.untested} untested · one schema works if each field names its value’s role</dd>
+          <dt>Schema verdict</dt><dd>${bd.fields} fields: ${bd.need_roles} need roles · body-specific: ${bd.body_specific} field and 2 constructs · ${bd.untested} untested · one schema works if each field names its value’s role</dd>
           <dt>Records</dt><dd>${fmt(bd.records)} v0.2 records validate · ${bd.record_parliaments} parliaments</dd>
           <dt>Provenance</dt><dd>document · page · character span · route (rule, metadata, model) · a missing value is a typed gap</dd>
           <dt>Apertus</dt><dd>opt-in; a reviewer confirms each value it proposes · the repairs use no model</dd>
@@ -1147,8 +1147,8 @@
         <div class="sec" data-claims="about"><p class="sl">Apertus, registered tests</p>
           <div class="tblw"><table class="dense"><thead><tr><th>Test</th><th class="r">Result</th><th>Measure</th></tr></thead><tbody>
             <tr><td>P2</td><td class="r">${bd.p2_pointer[0]}/${bd.p2_pointer[1]}</td><td>answer dates found in ${bd.p2_parliaments} parliaments without rules · rules alone ${bd.p2_rules[0]}/${bd.p2_rules[1]}</td></tr>
-            <tr><td>P10</td><td class="r">+${bd.p10_points}</td><td>points author-role recall in ${bd.p10_parliaments} parliaments without rules · precision not worse</td></tr>
-            <tr><td>P7</td><td class="r">${bd.p7[0]}/${bd.p7[1]}</td><td>sampled review-queue promotions are the government’s answer</td></tr>
+            <tr><td>P10</td><td class="r">+${bd.p10_points}</td><td>points author-role recall in ${bd.p10_parliaments} parliaments without rules · pair precision ${bd.p10_precision}, rules alone ${bd.p10_rules_precision}</td></tr>
+            <tr><td>P7</td><td class="r">${bd.p7[0]}/${bd.p7[1]}</td><td>sampled review-queue rows Apertus moved up are the government’s answer</td></tr>
           </tbody></table></div></div>
         <div class="sec"><p class="sl"><span data-claims="about">Schema fields · ${bd.fields}</span><span class="sp">verdict per field; evidence on hover</span></p>
           <div class="tblw"><table class="dense flds"><thead><tr><th>Field</th><th>Verdict</th><th>Fragile</th><th>Tested by</th><th>Evidence</th></tr></thead>

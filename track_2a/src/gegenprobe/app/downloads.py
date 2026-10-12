@@ -45,14 +45,14 @@ DOWNLOADS = (
     ("OPD vocabulary errors", "results/census/vocab_bugs.tsv",
      "harmonised labels that are wrong as published, with the affairs carrying them and the census snapshot they were "
      "counted on"),
-    ("Apertus-promoted tier (P7)", "results/repair/adapters/p7/promoted_by_apertus.tsv",
-     "review rows Apertus promotes, in the adapter-list columns (tier promoted_by_apertus, counted=false): a pre-sorted "
+    ("Rows Apertus moved up (P7)", "results/repair/adapters/p7/promoted_by_apertus.tsv",
+     "review-queue rows Apertus moved up, in the adapter-list columns (tier promoted_by_apertus, counted=false): a pre-sorted "
      "batch for a reviewer"),
-    ("Apertus-promoted tier (P7)", "results/repair/adapters/p7/promoted.tsv",
+    ("Rows Apertus moved up (P7)", "results/repair/adapters/p7/promoted.tsv",
      "the same rows as the registered P7 output (P7's own columns)"),
     ("Spot-check kit", "results/opd_spotcheck/spotcheck.csv",
-     "30 gold labels (answer dates, P7 promotions, P8 submitter and type) with link, page, span and quote, for anyone to "
-     "verify in about an hour; scored by python -m eval.spotcheck score"),
+     "30 gold labels (answer dates, P7 rows Apertus moved up, P8 submitter and type) with link, page, span and quote, for anyone "
+     "to verify in about an hour; scored by python -m eval.spotcheck score"),
 )
 
 # the research dataset, the per-parliament table and the report (not repair lists: MANIFEST.json does not track them)

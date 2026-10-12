@@ -581,6 +581,8 @@ def bound_values() -> dict:
         p2_rules=[p2["arms"]["rules"]["value_recall"], p2["arms"]["rules"]["n_gold_value"]],
         p2_parliaments=p2["n_bodies"],
         p10_points=p10["hypotheses"]["H1"]["points"], p10_parliaments=p10["primary"]["parliaments"],
+        p10_precision=p10["primary"]["arms"]["pointer"]["precision"],
+        p10_rules_precision=p10["primary"]["arms"]["rules"]["precision"],
         p7=[p7["correct"], p7["n"]],
         records=va["n_records"], record_parliaments=va["n_parliaments"],
     )
