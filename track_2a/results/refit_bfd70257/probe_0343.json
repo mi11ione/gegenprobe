@@ -1,0 +1,78 @@
+{
+ "label": "EXPLORATORY (deployment refit after the 12 Oct 2026 Public AI build switch; eval/refit_bfd70257/NOTE.md): never replaces a registered result",
+ "written": "2026-10-12T03:43:59Z",
+ "route": "gateway, requested swiss-ai/apertus-v1.5-8b, tag 2a-refit",
+ "n": 6,
+ "label_fingerprint_pairs": [
+  "swiss-ai/apertus-v1.5-8b | vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840"
+ ],
+ "calls": [
+  {
+   "utc": "03:43:45Z",
+   "payload_sha256": "db69548c0272cf536540b3750f8fc1696364cb930b26585654e4215c4336e6a2",
+   "live_label": "swiss-ai/apertus-v1.5-8b",
+   "live_fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+   "live_lp": -1.1920928244535389e-07,
+   "registered_lp": -1.1920928244535389e-07,
+   "newbuild_lp": -1.1920928244535389e-07,
+   "equals_registered": true,
+   "equals_newbuild": true
+  },
+  {
+   "utc": "03:43:48Z",
+   "payload_sha256": "57972156fbd95f97b62d8b514525ae9ea5990078838b9de8d4690936c69be05a",
+   "live_label": "swiss-ai/apertus-v1.5-8b",
+   "live_fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+   "live_lp": -3.576278118089249e-07,
+   "registered_lp": -3.576278118089249e-07,
+   "newbuild_lp": -3.576278118089249e-07,
+   "equals_registered": true,
+   "equals_newbuild": true
+  },
+  {
+   "utc": "03:43:50Z",
+   "payload_sha256": "c147f4e5fce7858b9e6f7f741adc995e941868d7c9c3580424791ddfe951960b",
+   "live_label": "swiss-ai/apertus-v1.5-8b",
+   "live_fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+   "live_lp": -2.3841855067985307e-07,
+   "registered_lp": -1.1920928244535389e-07,
+   "newbuild_lp": -1.0132738680113107e-05,
+   "equals_registered": true,
+   "equals_newbuild": false
+  },
+  {
+   "utc": "03:43:53Z",
+   "payload_sha256": "1ab34a9b4c2048612a88d6f89b913fe0447e87b8d5afd0139df43f6455b7b25a",
+   "live_label": "swiss-ai/apertus-v1.5-8b",
+   "live_fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+   "live_lp": -4.541770613286644e-05,
+   "registered_lp": -5.829164365422912e-05,
+   "newbuild_lp": -3.6954811548639555e-06,
+   "equals_registered": false,
+   "equals_newbuild": false
+  },
+  {
+   "utc": "03:43:54Z",
+   "payload_sha256": "05c9dca609afba43b5a9da31bdaeca89955be54050fc416adf926009d92cf9c7",
+   "live_label": "swiss-ai/apertus-v1.5-8b",
+   "live_fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+   "live_lp": -13.000001907348633,
+   "registered_lp": -14.000000953674316,
+   "newbuild_lp": -6.7511701583862305,
+   "equals_registered": false,
+   "equals_newbuild": false
+  },
+  {
+   "utc": "03:43:57Z",
+   "payload_sha256": "1c82fd9109b4e5fccb3b0f7ebb7220fc9ab097e6f0a03559d1dd20fbbb543c20",
+   "live_label": "swiss-ai/apertus-v1.5-8b",
+   "live_fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+   "live_lp": -31.0,
+   "registered_lp": -30.5,
+   "newbuild_lp": -28.25,
+   "equals_registered": false,
+   "equals_newbuild": false
+  }
+ ],
+ "usd": 0.000752
+}

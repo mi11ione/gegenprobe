@@ -32,9 +32,10 @@ def test_p1_coverage_from_the_rederive_apertus_step():
     r = _report(True, rederive_apertus="WARN")
     r["steps"]["rederive_apertus"]["coverage"] = {
         "P1 held-out": dict(n=154, rederived=132, match=132, cache_miss=22, unreachable=0, not_reached_budget=0),
-        "P2 unseen": dict(n=62, rederived=54, match=54, cache_miss=0, unreachable=8, not_reached_budget=0)}
+        "P2 unseen": dict(n=62, rederived=54, match=54, cache_miss=0, unreachable=8, not_reached_budget=0,
+                          unreachable_kinds={"robots_unreachable": 8})}
     assert run.coverage_line(r) == ("Apertus replay: P1 132/154 decisions re-derived from the model cache, 132 match "
-                                    "(22 cache misses); P2 54/62, 54 match")
+                                    "(22 cache misses); P2 54/62, 54 match (8 unreachable (robots_unreachable 8))")
     assert run.replay_coverage(r)["sets"]["P1 held-out"]["rederived"] == 132
 
 
@@ -42,3 +43,19 @@ def test_rederive_apertus_reports_coverage_offline_skip():
     from eval import replay_all
     res = replay_all.main_rederive({"online": False})
     assert res["status"] == "SKIP" and "coverage" not in res
+
+
+def test_p2_coverage_names_copies_and_budget():
+    r = _report(True, rederive_apertus="PASS")
+    r["steps"]["rederive_apertus"]["coverage"] = {
+        "P1 held-out": dict(n=154, rederived=154, match=154),
+        "P2 unseen": dict(n=62, rederived=29, match=29, unreachable=9, not_reached_budget=24,
+                          unreachable_kinds={"robots_unreachable": 8, "timeout": 1}, read_via={"source": 21, "opd_copy": 8})}
+    assert run.coverage_line(r) == (
+        "Apertus replay: P1 154/154 decisions re-derived from the model cache, 154 match; P2 29/62, 29 match, 8 read "
+        "from OPD's copy (sha256-checked) (9 unreachable (robots_unreachable 8, timeout 1), 24 over budget)")
+
+
+def test_offline_line_names_p2():
+    r = _report(False, rederive_apertus="SKIP")
+    assert "P2 0/62 (offline)" in run.coverage_line(r)

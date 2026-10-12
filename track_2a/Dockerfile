@@ -28,10 +28,14 @@ RUN python /usr/local/share/gegenprobe-ocrguard.py install-pinned "$TESSDATA_PRE
     && sha256sum "$TESSDATA_PREFIX"/*.traineddata >> /usr/local/share/gegenprobe-apt-versions.txt
 
 WORKDIR /app
-# Python dependencies are hash-pinned (requirements.lock: sha256 of every PyPI file of each pinned version).
+# Python dependencies are hash-pinned (requirements.lock: sha256 of every PyPI file of each pinned version; runtime only,
+# the test tools are in requirements-dev.lock, which the image does not install). The installers the base image ships
+# (pip 24.0, setuptools 79.0.1, wheel 0.45.1: known vulnerabilities, docs/licences.md) are removed once the install is
+# done; nothing in the image runs them.
 COPY requirements.lock requirements-gguf.lock ./
 RUN pip install --require-hashes -r requirements.lock \
-    && if [ "$GGUF" = "1" ]; then pip install --require-hashes --no-deps -r requirements-gguf.lock; fi
+    && if [ "$GGUF" = "1" ]; then pip install --require-hashes --no-deps -r requirements-gguf.lock; fi \
+    && pip uninstall -y -q pip setuptools wheel
 
 COPY . .
 # Never runs as root: the default user is the unprivileged `gp` (uid 10001). `make run` passes the caller's uid (--user) so

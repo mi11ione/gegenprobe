@@ -65,7 +65,7 @@ J5_MISSES = [
     ("technical_report.md", "it recommends rules only or the local 8B", "it recommends the Public AI gateway"),
     # 7. Apertus's role
     ("README.md", "Apertus as a reviewer's aid", "Apertus as the unattended extractor"),
-    ("technical_report.md", "**Apertus** earns its place choosing", "**Apertus** is essential choosing"),
+    ("README.md", "Apertus earns its place choosing", "Apertus is essential choosing"),
     # 8. a new sentence without numbers or verdict words
     ("README.md", "- **Suggestions go to a reviewer;",
      "**Apertus beats the rules on every field we tested.**\n- **Suggestions go to a reviewer;"),

@@ -99,7 +99,12 @@ stay unchanged. What OPD would load runs through an unlocked post-processing ste
   the field out and lists it under `omitted` with that note; `affair_post.validate` checks everything else against
   v0.1. Schema v0.2 adds the reason, `not_extracted`: carried to v0.2 with it, all 65 P3 and P3b product records
   validate as a whole (`python -m gegenprobe.schema.v0_2_all` → `results/schema/v0_2/p3_records.jsonl`,
-  `p3b_records.jsonl`, `validation_all.json`).
+  `p3b_records.jsonl`, `validation_all.json`). Post hoc (R19), the committed v0.2 records then take the answering body
+  from OPD's metadata (`gegenprobe.schema.v0_2_meta`, applied last in `v0_2_parts.render`): the body's
+  `executive_name` in OPD's bodies export, OPD's own answer-event actor, or the committed federal row
+  (`data/schema/body_executives.json`), each with route and basis `metadata` and the OPD record as `source`. 118 of the
+  converter's 120 records carry it; Lugano's 27657 and 27659 keep `not_extracted`, because OPD's answer event there names
+  a committee. The operator command `gegenprobe affair` (locked by LOCKP11) still writes `not_extracted`.
 - `decision`: for an interpellation, a written question or question time, on which parliament takes no decision, a
   metadata null `not_in_corpus` becomes `not_applicable` (route metadata, the type as evidence). A decision OPD records
   is kept.
@@ -112,7 +117,12 @@ stay unchanged. What OPD would load runs through an unlocked post-processing ste
 `needs_review`, `review`, `omitted`, `changes`). Post hoc on the committed records (`python -m gegenprobe.affair_post
 --measure` → `results/eval5/affair_post_check.json`): the answer-date guard fires on 3 of the 36 P3b affairs, all three
 in Luzern, and OPD's kept date equals the gold label in all three; it fires on none of the 29 P3 affairs.
-`answering_body` is left out in all 65 records, and `decision` becomes `not_applicable` in 12 P3 and 9 P3b records. The
+`answering_body` is left out in all 65 records, and `decision` becomes `not_applicable` in 12 P3 and 9 P3b records. In
+the committed v0.2 records the metadata overlay then fills the answering body, the procedural state (66 → 118 of 120)
+and OPD's decision events (10 → 19 values), and types `decision` `not_applicable` on 86 of the converter's 120, because
+it reads OPD's harmonised type id: the converter's type table had typed 33 written questions `unknown` (OPD says
+"Question", the table "written question"); now 0 (`validation_all.json` `metadata_fill`,
+`results/schema/v0_2/field_completeness.json`). The
 evidence site's sample record is the post-processed one, carried to schema v0.2.
 
 **Metadata vs document values.** In every `Affair` instance, a value taken from OPD metadata has `route: metadata`,

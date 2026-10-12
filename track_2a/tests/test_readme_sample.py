@@ -46,6 +46,8 @@ def test_readme_sample_shows_a_located_value_and_a_typed_null():
     ex = _excerpt()
     ad = ex["qa"][0]["answer_date"]
     assert ad["kind"] == "value" and ad["page"] and ad["char_end"] > ad["char_start"] and ad["quote"]
-    assert ex["qa"][0]["answering_body"]["kind"] == "null" and ex["qa"][0]["answering_body"]["null_reason"]
+    # a typed null among the shown answer fields (answering_body before the OPD-metadata overlay, answer_identifier after)
+    assert any(v.get("kind") == "null" and v.get("null_reason") for k, v in ex["qa"][0].items()
+               if k in ("answering_body", "answer_identifier"))
     doc = ex["documents"][0]
     assert doc["language_tag"] == "de" and doc["language_of_text"] == ["fr"], "the caption says: French, tagged German"

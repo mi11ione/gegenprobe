@@ -143,6 +143,8 @@ def test_known_documents_when_cached():
 
 # ----------------------------------------------------------------------------------------------------------- overlay
 def test_overlay_changes_nothing_else(base, over):
+    over_meta = over
+    over = VP.render(meta=False)  # the OPD-metadata overlay comes last; tests/test_schema_v0_2_meta.py undoes it
     for k in VP.CONVERTER_SETS:
         got = [QA.strip_qa(VP.strip_parts(json.loads(x))) for x in over[f"{k}_records.jsonl"].splitlines()]
         # after the parts, the Q/A pairing (gegenprobe.schema.v0_2_qa, undone by strip_qa) and the role-consistency
@@ -150,7 +152,7 @@ def test_overlay_changes_nothing_else(base, over):
         assert got == [RC.harmonise(json.loads(x))[0] for x in base[f"{k}_records.jsonl"].splitlines()], k
     fed_in = [RC.harmonise(json.loads(x))[0] for x in VP.FED_IN.read_text(encoding="utf-8").splitlines()]
     assert [VP.strip_parts(json.loads(x)) for x in over[VP.FED_OUT].splitlines()] == fed_in
-    b, o = json.loads(base["validation_all.json"]), json.loads(over["validation_all.json"])
+    b, o = json.loads(base["validation_all.json"]), json.loads(over_meta["validation_all.json"])
     for k in ("n_affairs", "n_valid", "n_invalid", "n_parliaments", "converter_made", "product_records", "samples"):
         assert b[k] == o[k], k
 

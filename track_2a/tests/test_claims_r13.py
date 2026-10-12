@@ -42,7 +42,7 @@ def _errs(rows, cfg, doc, old, new):
     # report numbers the earlier version left unchecked: a cascade cell, an interval, a count
     ("technical_report.md", "| cascade | 139/154 [84.6, 94] | 56 |", "| cascade | 139/154 [84.6, 94] | 58 |", "58"),
     ("technical_report.md", "**53/62** [74.7, 92.2]", "**53/62** [76.7, 92.2]", "[76.7, 92.2]"),
-    ("technical_report.md", "no decision invented (0/36)", "no decision invented (1/36)", "1/36"),
+    ("technical_report.md", "virtual affairs, precision 99/99", "virtual affairs, precision 98/99", "98/99"),
 ])
 def test_r13_single_number_edit_fails(rows, cfg, doc, old, new, token):
     errs = _errs(rows, cfg, doc, old, new)
@@ -61,14 +61,15 @@ def test_r13_new_false_sentence_in_the_body_fails(rows, cfg, doc, anchor):
 
 def test_r13_p7_numbers_are_bound(rows):
     """P7 left the headline tiles; its numbers (120/120; 113/120 vs 127/146; 214 vs 369 rows; 86.7%; 146/146)
-    are anchored where the body reports them, in README and report; the form notes (5,000 characters) keep 120/120."""
+    are anchored where the body reports them, in README and report (the report's 6 pages keep all but 369); the form
+    notes (5,000 characters) keep 120/120 and 146/146."""
     anchors = claims.anchor_config()
     by_id = {r["id"]: r for r in rows}
-    for doc in ("README.md", "technical_report.md"):
+    for doc, extra in (("README.md", {"369"}), ("technical_report.md", set())):
         bound = {by_id[c]["shown"] for c, per in anchors.items() if doc in per and c in by_id}
-        assert {"120/120", "113/120", "127/146", "369", "86.7%", "146/146"} <= bound, doc
+        assert {"120/120", "113/120", "127/146", "86.7%", "146/146"} | extra <= bound, doc
     form = {by_id[c]["shown"] for c, per in anchors.items() if "docs/form_notes.md" in per and c in by_id}
-    assert "120/120" in form
+    assert {"120/120", "146/146"} <= form
 
 
 def test_r13_best_no_model_rule_is_the_best(rows):

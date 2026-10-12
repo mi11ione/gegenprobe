@@ -203,9 +203,11 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("run", help="the make-run replay")
     a = ap.parse_args(argv)
     if a.cmd == "affair":
+        from .convert import deploy_theta
         from .convert.build_guard import BuildMismatch
         try:
-            return affair_cli.main_args(a)
+            with deploy_theta.installed():  # a deployment θ for a re-built route (data/deploy/; convert/deploy_theta.py)
+                return affair_cli.main_args(a)
         except BuildMismatch as e:  # review mode: the served model is not the build θ was fitted on
             print(str(e), file=sys.stderr)
             return 3
@@ -229,7 +231,9 @@ def main(argv: list[str] | None = None) -> int:
             from .convert import v02_pdf
             return v02_pdf.main_args(a)
         try:
-            return _convert(a)
+            from .convert import deploy_theta
+            with deploy_theta.installed():  # a deployment θ for a re-built route (data/deploy/; convert/deploy_theta.py)
+                return _convert(a)
         except BuildMismatch as e:  # review mode: the served model is not the build θ was fitted on
             print(str(e), file=sys.stderr)
             return 3

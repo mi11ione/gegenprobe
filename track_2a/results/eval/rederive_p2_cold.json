@@ -1,0 +1,82 @@
+{
+ "note": "P2 re-derivation of step rederive_apertus (eval.replay_all) measured on a cold cache (empty GP_WORK, host run, macOS, 2026-10-12): each of the 62 P2 PDFs fetched through gegenprobe.pdftext/net (RFC 9309, 1.2 s per host); sieldocs.vd.ch's 8 documents read from OPD's own copy (data/rederive/p2_opd_copies.json) because its robots.txt answered HTTP 503 (fail-closed), every copy accepted only with the committed sha256; then the pointer and cascade decisions recomputed from the committed model cache (cache-only, no model call). Before this change the same cold host fetch reached 54/62 (the 8 VD documents unreachable); J5's cold run (round 18) reached 29/62 (9 unreachable, 24 over the 180 s budget).",
+ "command": "GP_WORK=<empty dir> PYTHONPATH=src:. python -c 'from eval import replay_all as R; R.main_rederive({\"online\": True})'",
+ "poppler": "26.02.0",
+ "budget_s": 240.0,
+ "secs": 90.2,
+ "p2": {
+  "n": 62,
+  "rederived": 62,
+  "match": 62,
+  "cache_miss": 0,
+  "unreachable": 0,
+  "not_reached_budget": 0,
+  "skipped_no_ocr": 0,
+  "ocr_failed": 0
+ },
+ "read_via": {
+  "opd_copy": 8,
+  "source": 54
+ },
+ "hosts_failed": {
+  "sieldocs.vd.ch": "robots_unreachable"
+ },
+ "opd_copy_docs": [
+  {
+   "doc_id": 52086,
+   "copy_url": "https://files.openparldata.ch/doc/VD/647b4dded6c0c7aaf1753ad906349b27c220ebd5763fc5424b216955c003af12",
+   "source_failed": "robots_unreachable"
+  },
+  {
+   "doc_id": 52140,
+   "copy_url": "https://files.openparldata.ch/doc/VD/d2be468a33255db7cec25302124ed95d0f7d9ef1da745a2198c9c464fe9d8593",
+   "source_failed": "robots_unreachable"
+  },
+  {
+   "doc_id": 52151,
+   "copy_url": "https://files.openparldata.ch/doc/VD/47b08d1c0ba21ee9fa977a3b8c62c525266e370ad660c84efea73d83df25415b",
+   "source_failed": "robots_unreachable"
+  },
+  {
+   "doc_id": 52368,
+   "copy_url": "https://files.openparldata.ch/doc/VD/665909d4b0445e8c5a5dee4362495fa06d5940931c502e5e8680c4683954d436",
+   "source_failed": "robots_unreachable"
+  },
+  {
+   "doc_id": 52653,
+   "copy_url": "https://files.openparldata.ch/doc/VD/ded1a816c06c5a39682a5a2fec9129e3e2ab9ea389a10d6523e072a8d0934f76",
+   "source_failed": "robots_unreachable"
+  },
+  {
+   "doc_id": 111648,
+   "copy_url": "https://files.openparldata.ch/doc/VD/7d0de313fcdb1922ab4a48d959112bf75b17b3b2e8a8ce89887e4774048f3015",
+   "source_failed": "robots_unreachable"
+  },
+  {
+   "doc_id": 111796,
+   "copy_url": "https://files.openparldata.ch/doc/VD/99f9ac1eaa33eb57f9d4420c21afdc5fa54200ca6caa2eecf9fd11f919e46519",
+   "source_failed": "robots_unreachable"
+  },
+  {
+   "doc_id": 167939,
+   "copy_url": "https://files.openparldata.ch/doc/VD/721ab3ad88b351fd333f0975cdcfc82c659b2184883bab71ad7e46ae9c8f36ee",
+   "source_failed": "robots_unreachable"
+  }
+ ],
+ "before": {
+  "this_host": {
+   "n": 62,
+   "reached": 54,
+   "unreachable": 8,
+   "unreachable_kind": "robots_unreachable (sieldocs.vd.ch robots.txt HTTP 503)",
+   "fetch_secs": 83
+  },
+  "j5_round18": {
+   "n": 62,
+   "rederived": 29,
+   "unreachable": 9,
+   "not_reached_budget": 24,
+   "budget_s": 180
+  }
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "label": "EXPLORATORY (eval/refit_bfd70257/NOTE.md, addendum): live end-to-end check of hosted review mode after the route returned to the registered build",
+ "written": "2026-10-12T03:47:28Z",
+ "deployment_theta_file_present": false,
+ "route": "gateway, requested swiss-ai/apertus-v1.5-8b, tag 2a-refit",
+ "convert": {
+  "command": "python -m gegenprobe convert <VS answer PDF sha256 003c706d…, outside every evaluation set> --mode review --backend gateway:swiss-ai/apertus-v1.5-8b:2a-refit:3.0",
+  "exit": 0,
+  "suggestion": {
+   "value": "2014-08-28",
+   "margin": -9.750002259302697,
+   "theta": 10.395354058425431,
+   "model_build": "publicai:swiss-ai/apertus-v1.5-8b",
+   "band": "strong"
+  },
+  "answer_date_value": null,
+  "needs_review": true
+ },
+ "affair": {
+  "command": "python -m gegenprobe affair --opd-affair 39369 --schema v0.2 --mode review --roles apertus --backend gateway:swiss-ai/apertus-v1.5-8b:2a-refit:3.0",
+  "exit": 0,
+  "status": "ok",
+  "role_block": {
+   "build": "publicai:swiss-ai/apertus-v1.5-8b",
+   "same_build_as_p10": true,
+   "served": [
+    "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840"
+   ]
+  }
+ },
+ "served_fingerprints_seen": [
+  "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840"
+ ],
+ "cache_note": "the 10 live responses of this check (registered label and fingerprint) were removed from data/model_cache/publicai_swiss-ai_apertus-v1.5-8b/ afterwards, so the registered cache stays the evaluation record (17,568 responses)",
+ "not_checked_live": "exit 0 with a deployment θ on the new build, and exit 3 without it on the new build: the route no longer served bfd70257 (probes 03:43 and 03:47 UTC); covered offline by tests/test_deploy_theta.py"
+}

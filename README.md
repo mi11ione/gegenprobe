@@ -1,5 +1,8 @@
 # Gegenprobe — Hack Apertus, Track 2A (OpenParlData), team 444
 
+For management and a chancellery: [one page](track_2a/docs/decision.md) with what runs, what leaves the machine, the
+cost, OPD's one decision and who reviews.
+
 **For OPD, in three lines:**
 1. **Apply now:** repair lists keyed on your ids, as dry-run plans; 3,621 repairs need neither a decision nor a fetch.
 2. **Needs one decision:** your hash rule for relinked documents, which the 2,421 ready Bern relinks follow. OPD
@@ -41,14 +44,17 @@ OPD's volume; review mode costs USD 0.59 per 1,000 residue documents on the 70B.
 |---|---|---|
 | **24/29** answer dates on new layouts (the date test, P2; 15 parliaments) | exact on 53/62 documents against the baseline's 44/62: right on 10 where the baseline is wrong, the reverse on 1 (exact McNemar p = 0.0117; parliament-resampled interval of the difference [0.056, 0.243]; post hoc); 4 of its 7 wins on answered documents are documents OPD types as interventions, where that baseline returns nothing by construction | the latest date on answer-typed documents: 18/29 answer dates, 44/62 exact; registered: the rules 2/29 |
 | **50/141** author roles in 14 parliaments (the author test, P10) | Apertus adds precision deciding who is an author (+7.3 points, post hoc) | Rules 17/141; most of the gain comes from the model-free candidate finder (document order 52/141) |
+| **139/154** answer dates where rules exist (P1; rules, then Apertus) | about one document | a model-free cascade (post hoc): 138/154 |
+| **120/120** sampled review-queue promotions are answers (P7, registered) | the date: the gold answer date on 113/120 of its promotions, the rule's on 127/146 (post hoc, not paired) | a no-model exact-date match: answers on 146/146, 206 of the 478 frame rows promoted against Apertus's 135 (post hoc) |
 
 <sub>Sources: 92.1% and 9,580 from the census and the repair lists (no model); 186 from
 `track_2a/results/schema/v0_2/validation_all.json` (the 15 federal records from an exploratory cell); 24/29 from P2,
 registered against the rules (the baselines post hoc, proposed in review); 50/141 from P10, registered (recall +23.4
 points over the rules, Holm p = 0.032), level with OPD's contributor list
-(37/141; H3a, Holm p = 0.17). Every committed gateway response (17,568) comes from one build, Apertus 70B by inference
+(37/141; H3a, Holm p = 0.17). Every committed gateway response (17,720) comes from one build, Apertus 70B by inference
 (the gateway labelled it 8B; fingerprint check in `track_2a/docs/evaluation.md`); on 12 Oct 2026 Public AI switched
-the route to another build, and the build guard caught it live. P1–P8 and P10 are the ten pre-registered tests (P3b replicates P3).</sub>
+the route to another build and back the same night, and the build guard caught it live; review mode runs again on the
+registered build. P1–P8 and P10 are the ten pre-registered tests (P3b replicates P3).</sub>
 
 - **Ready for OPD:** Bern relinks, fetches and `begin_date` corrections, per-parliament lists from 50 model-free
   source adapters, a vocabulary error list and a Fedlex resolver for 29,946 federal documents. The only open decision

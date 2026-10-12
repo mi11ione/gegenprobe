@@ -39,7 +39,9 @@ fetched. If you would rather not set `PYTHONPATH`, install the checkout in edita
 `.venv/bin/pip install --no-deps -e .`. That puts `gegenprobe-robots9309.pth` into the venv, and it does the same at
 every start. Use the editable install: the package reads its data from the checkout. Either way, fetching is fail-closed:
 if the matcher is not active, no request is made, and every URL ends as a `robots_matcher_inactive` failure row.
-`.venv/bin/python -m pytest -q` runs the tests from `track_2a` without `PYTHONPATH` (`tests/conftest.py` sets it up).
+To run the tests, add the hash-pinned test tools (`.venv/bin/pip install --require-hashes -r requirements.lock -r
+requirements-dev.lock`; the runtime lock carries no test packages); then `.venv/bin/python -m pytest -q` runs them from
+`track_2a` without `PYTHONPATH` (`tests/conftest.py` sets it up).
 
 Or with the Docker image that `make run` builds (everything included; it runs as an unprivileged user, so pass your own
 uid when it writes into a mounted directory):
@@ -430,8 +432,9 @@ run with exit code 3 and names the fingerprint; `--allow-build-mismatch` continu
   is sent to that endpoint.
 - The Public AI build (`publicai:swiss-ai/apertus-v1.5-8b`, which served the 70B weights by inference, fingerprint
   `…tp8-pp2-dd237840`) was used for the evaluation only. It is not a runtime target: requests may be routed outside
-  Switzerland. Since 12 Oct 2026 that name answers from another build (label `swiss-ai/Apertus-v1.5-70B`), which review
-  mode refuses (exit 3) until θ is fitted for it ([runbook](runbook.md#review-mode-in-operation)).
+  Switzerland. On 12 Oct 2026 that name answered from another build for about two and a half hours (label
+  `swiss-ai/Apertus-v1.5-70B`), which review mode refused (exit 3); review mode runs again on the registered build
+  ([runbook](runbook.md#review-mode-in-operation)).
 
 ## Known limits
 

@@ -52,6 +52,9 @@ GENERATORS = [
     ("eval.gold2.posthoc_best_baseline", "main"),
     # round 19 docs pass: P11 (exploratory) display numbers and the gateway build census of the committed responses
     ("report.r19_numbers", "main"),
+    # round 19 operations pass: dependency, SBOM and audit counts, and the Swiss-hosted 70B estimate (docs/runbook.md,
+    # docs/decision.md, docs/licences.md)
+    ("report.r19c_numbers", "main"),
 ]
 
 

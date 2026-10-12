@@ -1,0 +1,70 @@
+# Debian packages the Dockerfile's apt-get layer installed (poppler-utils tesseract-ocr ca-certificates make, --no-install-recommends),
+# as apt printed them in the image build of CI run 38197201361 (job make-run, 2026-10-12, linux/amd64): 62 new, 1 upgraded.
+# source/source_version from the Debian bookworm Packages indexes; licence: an SPDX expression for the components
+# Gegenprobe runs or loads (checked in debian/copyright), else the License: short names of the package's machine-readable
+# debian/copyright (metadata.ftp-master.debian.org), else empty (free-text or not retrieved: the image's
+# /usr/share/doc/<package>/copyright holds it). Apt versions are not pinned (Dockerfile): a rebuild on another day can get newer security updates.
+suite	package	arch	version	source	source_version	licence	licence_basis
+bookworm-security/main	ca-certificates	all	20250419~deb12u1	ca-certificates	20250419~deb12u1		debian/copyright not retrieved (version no longer on metadata.ftp-master.debian.org)
+bookworm-security/main	libexpat1	amd64	2.5.0-1+deb12u4	expat	2.5.0-1+deb12u4		debian/copyright not retrieved (version no longer on metadata.ftp-master.debian.org)
+bookworm/main	libbrotli1	amd64	1.0.9-2+b6	brotli	1.0.9-2	MIT	debian/copyright License: names (DEP-5)
+bookworm-security/main	libpng16-16	amd64	1.6.39-2+deb12u6	libpng1.6	1.6.39-2+deb12u6		debian/copyright not retrieved (version no longer on metadata.ftp-master.debian.org)
+bookworm/main	libfreetype6	amd64	2.12.1+dfsg-5+deb12u4	freetype	2.12.1+dfsg-5+deb12u4	FTL | FTL and MIT | BSD-3-Clause | FSFAP | GPL-3+ | MIT | GPL-2+ | Public-Domain | BSL-1.0 | Zlib | OpenGroup-BSD-like	debian/copyright License: names (DEP-5)
+bookworm/main	fonts-dejavu-core	all	2.37-6	fonts-dejavu	2.37-6	bitstream-vera | GPL-2+	debian/copyright License: names (DEP-5)
+bookworm/main	fontconfig-config	amd64	2.14.1-4	fontconfig	2.14.1-4		free-text debian/copyright
+bookworm/main	libfontconfig1	amd64	2.14.1-4	fontconfig	2.14.1-4		free-text debian/copyright
+bookworm/main	fontconfig	amd64	2.14.1-4	fontconfig	2.14.1-4		free-text debian/copyright
+bookworm/main	libicu72	amd64	72.1-3+deb12u1	icu	72.1-3+deb12u1	MIT | GPL-3	debian/copyright License: names (DEP-5)
+bookworm/main	libxml2	amd64	2.9.14+dfsg-1.3~deb12u6	libxml2	2.9.14+dfsg-1.3~deb12u6	MIT-1 | ISC	debian/copyright License: names (DEP-5)
+bookworm-security/main	libarchive13	amd64	3.6.2-1+deb12u5	libarchive	3.6.2-1+deb12u5		debian/copyright not retrieved (version no longer on metadata.ftp-master.debian.org)
+bookworm/main	libbsd0	amd64	0.11.7-2	libbsd	0.11.7-2	BSD-3-clause | BSD-4-clause-Niels-Provos | BSD-3-clause-Regents | BSD-3-clause-Regents and BSD-2-clause-NetBSD | BSD-3-clause-author | BSD-3-clause-John-Birrell | libutil-David-Nugent | BSD-2-clause-NetBSD | BSD-2-clause | BSD-2-clause-verbatim | BSD-2-clause-author | ISC | ISC-Original | Expat | public-domain | Beerware	debian/copyright License: names (DEP-5)
+bookworm/main	libpixman-1-0	amd64	0.42.2-1	pixman	0.42.2-1		free-text debian/copyright
+bookworm/main	libxau6	amd64	1:1.0.9-1	libxau	1:1.0.9-1		free-text debian/copyright
+bookworm/main	libxdmcp6	amd64	1:1.1.2-3	libxdmcp	1:1.1.2-3		free-text debian/copyright
+bookworm/main	libxcb1	amd64	1.15-1	libxcb	1.15-1		debian/copyright not retrieved (version no longer on metadata.ftp-master.debian.org)
+bookworm/main	libx11-data	all	2:1.8.4-2+deb12u2	libx11	2:1.8.4-2+deb12u2		free-text debian/copyright
+bookworm/main	libx11-6	amd64	2:1.8.4-2+deb12u2	libx11	2:1.8.4-2+deb12u2		free-text debian/copyright
+bookworm/main	libxcb-render0	amd64	1.15-1	libxcb	1.15-1		debian/copyright not retrieved (version no longer on metadata.ftp-master.debian.org)
+bookworm/main	libxcb-shm0	amd64	1.15-1	libxcb	1.15-1		debian/copyright not retrieved (version no longer on metadata.ftp-master.debian.org)
+bookworm/main	libxext6	amd64	2:1.3.4-1+b1	libxext	2:1.3.4-1		free-text debian/copyright
+bookworm/main	libxrender1	amd64	1:0.9.10-1.1	libxrender	1:0.9.10-1.1		free-text debian/copyright
+bookworm/main	libcairo2	amd64	1.16.0-7	cairo	1.16.0-7		free-text debian/copyright
+bookworm/main	libsasl2-modules-db	amd64	2.1.28+dfsg-10	cyrus-sasl2	2.1.28+dfsg-10	BSD-4-clause | OpenSSL and SSLeay | BSD-3-clause | BSD-2-clause | GPL-3+ | GPL-3 | BSD-4-clause-UC | RSA-MD | BSD-4-clause and BSD-4-clause-KTH | BSD-4-clause and IBM-as-is | BSD-3-clause-JANET and BSD-4-clause | BSD-3-clause-PADL and MIT-OpenVision | MIT-OpenVision | OpenLDAP | FSFULLR and MIT-CMU | BSD-4-clause and MIT-Export | BSD-2-clause and MIT-CMU | BSD-2.2-clause | FSFULLR | MIT-Export | MIT-CMU | BSD-4-clause-KTH | BSD-3-clause-JANET | BSD-3-clause-PADL | IBM-as-is | OpenSSL | SSLeay	debian/copyright License: names (DEP-5)
+bookworm/main	libsasl2-2	amd64	2.1.28+dfsg-10	cyrus-sasl2	2.1.28+dfsg-10	BSD-4-clause | OpenSSL and SSLeay | BSD-3-clause | BSD-2-clause | GPL-3+ | GPL-3 | BSD-4-clause-UC | RSA-MD | BSD-4-clause and BSD-4-clause-KTH | BSD-4-clause and IBM-as-is | BSD-3-clause-JANET and BSD-4-clause | BSD-3-clause-PADL and MIT-OpenVision | MIT-OpenVision | OpenLDAP | FSFULLR and MIT-CMU | BSD-4-clause and MIT-Export | BSD-2-clause and MIT-CMU | BSD-2.2-clause | FSFULLR | MIT-Export | MIT-CMU | BSD-4-clause-KTH | BSD-3-clause-JANET | BSD-3-clause-PADL | IBM-as-is | OpenSSL | SSLeay	debian/copyright License: names (DEP-5)
+bookworm/main	libldap-2.5-0	amd64	2.5.13+dfsg-5	openldap	2.5.13+dfsg-5	OpenLDAP-2.8 | FSF-unlimited and GPL-2+ with Autoconf exception | GPL-3+ with Autoconf exception | FSF-unlimited | GPL-2+ with Libtool exception and GPL-3+ with Libtool exception and GPL-3+ | GPL-2+ with Autoconf exception | GPL-2+ | OpenLDAP-2.8 and UMich and F5 | OpenLDAP-2.8 and UMich | OpenLDAP-2.8 and JCG and UMich | OpenLDAP-2.8 and FSF-unlimited and GPL-2+ with Libtool exception | FSF-unlimited and GPL-2+ with Libtool exception | FSF-unlimited and OpenLDAP-2.8 | MIT-XC | NeoSoft-permissive | BSD-3-clause | OpenLDAP-2.8 and BSD-3-clause | OpenLDAP-2.8 and Beerware | public-domain | OpenLDAP-2.8 and BSD-4-clause-California | OpenLDAP-2.8 and BSD-3-clause-variant | OpenLDAP-2.8 and Expat-ISC | OpenLDAP-2.8 and Expat-UNM | OpenLDAP-2.8 and Expat | BSD-3-clause-California | F5 | GPL-2+ with Libtool exception | GPL-3+ | GPL-3+ with Libtool exception | JCG | UMich | Beerware | BSD-3-clause-variant | Expat-ISC | Expat-UNM | Expat | BSD-4-clause-California	debian/copyright License: names (DEP-5)
+bookworm/main	libnghttp2-14	amd64	1.52.0-1+deb12u3	nghttp2	1.52.0-1+deb12u3	Expat | all-permissive | GPL-3+ with autoconf exception | MIT | BSD-2-clause	debian/copyright License: names (DEP-5)
+bookworm/main	libpsl5	amd64	0.21.2-1	libpsl	0.21.2-1	MIT | gnulib | Chromium	debian/copyright License: names (DEP-5)
+bookworm/main	librtmp1	amd64	2.4+20151223.gitfa8646d.1-2+b2	rtmpdump	2.4+20151223.gitfa8646d.1-2		free-text debian/copyright
+bookworm-security/main	libssh2-1	amd64	1.10.0-3+deb12u1	libssh2	1.10.0-3+deb12u1		debian/copyright not retrieved (version no longer on metadata.ftp-master.debian.org)
+bookworm/main	libcurl4	amd64	7.88.1-10+deb12u15	curl	7.88.1-10+deb12u15	curl | OLDAP-2.8 | ISC | GPL-2+ with Autoconf-data exception | GPL-3+ with Autoconf-data exception | GPL-2+ with Libtool exception | BSD-3-clause | BSD-4-Clause-UC | FSFULLR | X11 | BSD-3-Clause	debian/copyright License: names (DEP-5)
+bookworm/main	libdatrie1	amd64	0.2.13-2+b1	libdatrie	0.2.13-2	LGPL-2.1+ | GPL-2+	debian/copyright License: names (DEP-5)
+bookworm/main	libdeflate0	amd64	1.14-1	libdeflate	1.14-1	Expat	debian/copyright License: names (DEP-5)
+bookworm/main	libfribidi0	amd64	1.0.8-2.1	fribidi	1.0.8-2.1	LGPL-2.1+	debian/copyright License: names (DEP-5)
+bookworm/main	libgif7	amd64	5.2.1-2.5+deb12u1	giflib	5.2.1-2.5+deb12u1	MIT | ISC	debian/copyright License: names (DEP-5)
+bookworm/main	libglib2.0-0	amd64	2.74.6-2+deb12u9	glib2.0	2.74.6-2+deb12u9	LGPL-2+ and LGPL-2.1+ and FSFULLR and CC0-1.0 and Janik-permissive and Iconv-PD and Mingw-PD and Old-GLib-Tests-permissive | LGPL-2.1+ and Expat | AFL-2.0 or LGPL-2.1+ | Unicode-DFS-2016 | Expat | GPL-2+ | GPL-2+ with Autoconf exception | LGPL-3+ | Apache-2.0 with LLVM exception | LGPL-2.1+ and Kuchling-PD and Plumb-PD | LGPL-2.1+ and BSD-3-clause-pcre | bzip2-1.0.6 | CC-BY-SA-3.0 | AFL-2.0 | BSD-3-clause-pcre | CC0-1.0 | FSFULLR | Iconv-PD | Janik-permissive | Kuchling-PD | LGPL-2+ | LGPL-2.1+ | Mingw-PD | Old-GLib-Tests-permissive | Plumb-PD	debian/copyright License: names (DEP-5)
+bookworm/main	libgomp1	amd64	12.2.0-14+deb12u1	gcc-12	12.2.0-14+deb12u1		free-text debian/copyright
+bookworm/main	libgraphite2-3	amd64	1.3.14-1+deb12u1	graphite2	1.3.14-1+deb12u1	LGPL-2.1+ or MPL-1.1 or GPL-2+ | LGPL-2.1+ | public-domain | Artistic or GPL-1+ | LGPL-2.1+ or GPL-2+ or MPL-1.1 | custom-sil-open-font-license | Artistic | GPL-1+ | GPL-2+ | MPL-1.1	debian/copyright License: names (DEP-5)
+bookworm/main	libharfbuzz0b	amd64	6.0.0+dfsg-3	harfbuzz	6.0.0+dfsg-3	MIT | Unicode | ISC | Apache-2.0 | OFL-1.1 | Monotype | CC0-1.0 | GPL-3+ | GPL-2+ with Font exception | UFL-1.0 | FSFULLR | GPL-2+ with AutoConf exception | GPL-3+ with AutoConf exception | FSFAP | LGPL-2.1+ | GPL-2+ with LibTool exception | Expat | FSFUL	debian/copyright License: names (DEP-5)
+bookworm/main	libjbig0	amd64	2.1-6.1	jbigkit	2.1-6.1	GPL-2+	debian/copyright License: names (DEP-5)
+bookworm/main	libjpeg62-turbo	amd64	1:2.1.5-2	libjpeg-turbo	1:2.1.5-2	BSD-BY-LC-NE | Zlib | BSD-3-clause | Expat | NTP | zlib	debian/copyright License: names (DEP-5)
+bookworm/main	liblcms2-2	amd64	2.14-2+deb12u1	lcms2	2.14-2+deb12u1	MIT | GPL-3 | IJG | GPL-2+	debian/copyright License: names (DEP-5)
+bookworm/main	libopenjp2-7	amd64	2.5.0-2+deb12u3	openjpeg2	2.5.0-2+deb12u3	BSD-2 | MIT | BSD-3 | public-domain | LIBPNG | ZLIB | LIBTIFF | LIBTIFF-PIXAR | LIBTIFF-GLARSON	debian/copyright License: names (DEP-5)
+bookworm/main	liblerc4	amd64	4.0.0+ds-2	lerc	4.0.0+ds-2	Apache-2.0	debian/copyright License: names (DEP-5)
+bookworm/main	libwebp7	amd64	1.2.4-0.2+deb12u1	libwebp	1.2.4-0.2+deb12u1		free-text debian/copyright
+bookworm/main	libtiff6	amd64	4.5.0-6+deb12u4	tiff	4.5.0-6+deb12u4	Hylafax	debian/copyright License: names (DEP-5)
+bookworm/main	libwebpmux3	amd64	1.2.4-0.2+deb12u1	libwebp	1.2.4-0.2+deb12u1		free-text debian/copyright
+bookworm/main	liblept5	amd64	1.82.0-3+b3	leptonlib	1.82.0-3	BSD-2-Clause	spdx (debian/copyright checked)
+bookworm/main	libnspr4	amd64	2:4.35-1	nspr	2:4.35-1	MPL-2.0	debian/copyright License: names (DEP-5)
+bookworm-security/main	libnss3	amd64	2:3.87.1-1+deb12u4	nss	2:3.87.1-1+deb12u4		debian/copyright not retrieved (version no longer on metadata.ftp-master.debian.org)
+bookworm/main	libthai-data	all	0.1.29-1	libthai	0.1.29-1	LGPL-2.1+ | GPL-2+	debian/copyright License: names (DEP-5)
+bookworm/main	libthai0	amd64	0.1.29-1	libthai	0.1.29-1	LGPL-2.1+ | GPL-2+	debian/copyright License: names (DEP-5)
+bookworm/main	libpango-1.0-0	amd64	1.50.12+ds-1	pango1.0	1.50.12+ds-1	LGPL-2+ and LGPL-2.1+ | Example | LGPL-2+ | LGPL-2+ and TCL | Unicode | LGPL-2+ and ICU | Chromium-BSD-style | Apache-2 and Bitstream-Vera and OFL-1.1 | Apache-2 | Bitstream-Vera | CC0-1.0 | GPL-2+ | ICU | LGPL-2.1+ | TCL | OFL-1.1	debian/copyright License: names (DEP-5)
+bookworm/main	libpangoft2-1.0-0	amd64	1.50.12+ds-1	pango1.0	1.50.12+ds-1	LGPL-2+ and LGPL-2.1+ | Example | LGPL-2+ | LGPL-2+ and TCL | Unicode | LGPL-2+ and ICU | Chromium-BSD-style | Apache-2 and Bitstream-Vera and OFL-1.1 | Apache-2 | Bitstream-Vera | CC0-1.0 | GPL-2+ | ICU | LGPL-2.1+ | TCL | OFL-1.1	debian/copyright License: names (DEP-5)
+bookworm/main	libpangocairo-1.0-0	amd64	1.50.12+ds-1	pango1.0	1.50.12+ds-1	LGPL-2+ and LGPL-2.1+ | Example | LGPL-2+ | LGPL-2+ and TCL | Unicode | LGPL-2+ and ICU | Chromium-BSD-style | Apache-2 and Bitstream-Vera and OFL-1.1 | Apache-2 | Bitstream-Vera | CC0-1.0 | GPL-2+ | ICU | LGPL-2.1+ | TCL | OFL-1.1	debian/copyright License: names (DEP-5)
+bookworm-security/main	libpoppler126	amd64	22.12.0-2+deb12u3	poppler	22.12.0-2+deb12u3	GPL-2.0-only OR GPL-3.0-only	spdx (debian/copyright checked)
+bookworm/main	libtesseract5	amd64	5.3.0-2	tesseract	5.3.0-2	Apache-2.0	spdx (debian/copyright checked)
+bookworm/main	make	amd64	4.3-4.1	make-dfsg	4.3-4.1	GPL-3.0-or-later	spdx (debian/copyright checked)
+bookworm-security/main	poppler-utils	amd64	22.12.0-2+deb12u3	poppler	22.12.0-2+deb12u3	GPL-2.0-only OR GPL-3.0-only	spdx (debian/copyright checked)
+bookworm/main	tesseract-ocr-eng	all	1:4.1.0-2	tesseract-lang	1:4.1.0-2	Apache-2.0	spdx (debian/copyright checked)
+bookworm/main	tesseract-ocr-osd	all	1:4.1.0-2	tesseract-lang	1:4.1.0-2	Apache-2.0	spdx (debian/copyright checked)
+bookworm/main	tesseract-ocr	amd64	5.3.0-2	tesseract	5.3.0-2	Apache-2.0	spdx (debian/copyright checked)

@@ -38,7 +38,7 @@ test:
 	$(PY) -m pytest -q
 
 lint:
-	$(PY) -m ruff check src eval tests
+	$(PY) -m ruff check src eval tests report tools
 
 # claims: every number recomputed and bound (claims.tsv, claims_anchor.json, claims_strict.json), every evaluative word
 #         pinned or listed (claims_pins.json), the evidence site's first screen against its claims (claims_site.json;
@@ -59,11 +59,20 @@ numbers:
 #             the committed detections (gegenprobe.schema.v0_2_parts; `make parts-detect` re-detects them from the cached
 #             PDFs) and the `document_parts` counts in validation_all.json; then the P3/P3b records' Q/A items from the
 #             committed pairing (results/schema/v0_2/qa_pairs.jsonl; `make qa-detect` re-pairs from the cached texts) and
-#             the `qa_pairing` counts. No network, no model.
+#             the `qa_pairing` counts; then (post hoc, R19) the fields OPD's metadata holds (gegenprobe.schema.v0_2_meta:
+#             answering body, decision, state, type; from the committed slice data/schema/v0_2_meta_slice.json, written by
+#             `python -m gegenprobe.schema.v0_2_meta vendor`) and the per-field completeness table
+#             (field_completeness.json, before/after that overlay); the out-of-sample role check on the P10, P11 and
+#             federal gold (oos_role_fit.json); and v0.2 records for P11's 15 non-intervention affairs
+#             (results/p11/ni_records_v0_2_posthoc.jsonl, ni_posthoc.json; needs the cached texts, else SKIP).
+#             No network, no model.
 schema-v02:
 	$(PY) -m gegenprobe.schema.p8_v0_2
 	$(PY) -m gegenprobe.schema.v0_2_all
 	$(PY) -m gegenprobe.schema.v0_2_parts
+	$(PY) -m gegenprobe.schema.v0_2_completeness
+	$(PY) -m gegenprobe.schema.v0_2_oos_fit
+	$(PY) -m gegenprobe.schema.v0_2_ni
 
 parts-detect:
 	$(PY) -m gegenprobe.schema.v0_2_parts detect

@@ -38,8 +38,14 @@ Step `rederive_apertus` (PASS / WARN / SKIP; FAIL only if a decision recomputed 
   recompute the pointer and cascade decisions from the committed hash-keyed model cache (data/model_cache), cache-only:
   no request leaves the machine. A cache MISS means the prompt differs from the one the model saw, which happens when
   the local poppler/tesseract build extracts the text differently; misses are counted with both extractor versions.
-  Budget: GP_REDERIVE_APERTUS_BUDGET seconds (default 180) PER SET, so P2 is always attempted. Earlier the budget
-  was shared (120 s) and P1 used all of it: the CI make-run of fec4029 reached 0 of the 62 P2 documents.
+  Budget PER SET, so P2 is always attempted: GP_REDERIVE_APERTUS_BUDGET seconds for P1 (default 180; step rederive
+  has already fetched its PDFs) and GP_REDERIVE_APERTUS_BUDGET_P2 for P2 (default 240; its 62 PDFs are fetched cold).
+  Earlier the budget was shared (120 s) and P1 used all of it: the CI make-run of fec4029 reached 0 of the 62 P2
+  documents. Sources that fail (sieldocs.vd.ch answers robots.txt with HTTP 503, so the fetch path treats it as
+  disallowed for the run; hosts that time out) are read from OPD's own copy (data/rederive/p2_opd_copies.json, built by
+  eval.rederive_copies), accepted only when its sha256 equals the committed one; a host that failed once is not asked
+  again in the run. Coverage is reported exactly per set: re-derived (read from the cache, the source or OPD's copy),
+  cache miss, unreachable by kind, over budget, no OCR (coverage_phrase).
 
     python -m eval.replay_all [replay|rederive_apertus]
 """
@@ -446,33 +452,95 @@ def _lang(d: dict) -> str:
     return arms._lang(dict(lang=d.get("lang") or {"it": "it", "fr": "fr"}.get(d["cell"][:2], "de"), cell=d["cell"]))
 
 
+# source failures after which the document is read from OPD's own copy (sha256-checked); the first group is host-wide
+# (the host's robots.txt or network failed: the rest of its documents go to OPD's copy directly, no second wait)
+HOST_FAILURES = ("robots_unreachable", "robots_disallowed", "timeout", "network_error")
+DOC_FAILURES = ("http_error", "not_a_pdf", "sha_mismatch")
+
+
+def fetch_verified(d: dict, left: float, copies: dict[int, str], host_failed: dict[str, str]) -> tuple[str, Path, str]:
+    """(sha256, cached PDF path, via) for one committed document row: the cache, else the source (gegenprobe.pdftext
+    through gegenprobe.net), else OPD's own copy (eval.rederive_copies) where the source fails with HOST_FAILURES or
+    DOC_FAILURES; `expect_sha256` makes both accept only the committed file. via: cache | source | opd_copy. A host that
+    failed once is not asked again in this run when a copy exists. Raises pdftext.FetchError(kind) on failure, kind
+    prefixed `copy_` when the copy failed too."""
+    import urllib.parse
+
+    from gegenprobe import pdftext
+    from gegenprobe.convert.output import classify
+    from gegenprobe.deadline import request_timeout
+    from gegenprobe.paths import PDF_CACHE
+
+    if (PDF_CACHE / f"{d['sha256']}.pdf").exists():
+        sha, path = pdftext.fetch_pdf(d["url"], expect_sha256=d["sha256"])
+        return sha, path, "cache"
+    copy = copies.get(int(d["doc_id"]))
+    host = urllib.parse.urlsplit(d["url"]).netloc
+    if not copy and host_failed.get(host) == "timeout":  # a host that timed out costs a full timeout per document
+        raise pdftext.FetchError("timeout", f"{host} timed out earlier in this run; not asked again (no OPD copy mapped)")
+    if not (copy and host in host_failed):
+        try:
+            sha, path = pdftext.fetch_pdf(d["url"], expect_sha256=d["sha256"], timeout=request_timeout(left),
+                                          tries=1 if copy else 2)
+            return sha, path, "source"
+        except Exception as e:  # noqa: BLE001 - typed below
+            kind, reason = classify(e)
+            if kind in HOST_FAILURES:
+                host_failed.setdefault(host, kind)
+            if not copy or kind not in HOST_FAILURES + DOC_FAILURES:
+                raise pdftext.FetchError(kind, reason[:300]) from e
+    try:
+        sha, path = pdftext.fetch_pdf(copy, expect_sha256=d["sha256"], timeout=request_timeout(left), tries=2)
+    except Exception as e:  # noqa: BLE001
+        kind, reason = classify(e)
+        raise pdftext.FetchError(f"copy_{kind}", f"source {host} failed ({host_failed.get(host, 'document')}); "
+                                                 f"OPD's copy {copy}: {reason[:200]}") from e
+    return sha, path, "opd_copy"
+
+
+def budget_split(budget_s: float | None = None) -> dict[str, float]:
+    """Seconds per set: P1 GP_REDERIVE_APERTUS_BUDGET (default 180), P2 GP_REDERIVE_APERTUS_BUDGET_P2 (default 240);
+    an explicit `budget_s` applies to both."""
+    if budget_s is not None:
+        return {"P1": budget_s, "P2": budget_s}
+    return {"P1": float(os.environ.get("GP_REDERIVE_APERTUS_BUDGET", "180")),
+            "P2": float(os.environ.get("GP_REDERIVE_APERTUS_BUDGET_P2", "240"))}
+
+
 def rederive_apertus(budget_s: float | None = None) -> dict:
+    import urllib.parse
+
+    from eval import rederive_copies
     from gegenprobe import llm, pdftext
     from gegenprobe.convert import cascade, pointer, rules
-    from gegenprobe.deadline import DeadlineExceeded, deadline, request_timeout
-    # per set (P1, P2): a shared budget let P1 starve P2 (0/62 attempted in CI earlier)
-    budget_s = float(os.environ.get("GP_REDERIVE_APERTUS_BUDGET", "180")) if budget_s is None else budget_s
+    from gegenprobe.deadline import DeadlineExceeded, deadline
+    # per set (P1, P2): a shared budget let P1 starve P2 (0/62 attempted in CI earlier). P2 has its own knob: in `make
+    # run` step rederive has already fetched the P1 PDFs (cache hits here), while P2's 62 are fetched cold
+    budgets = budget_split(budget_s)
     t0 = time.time()
     be = _offline_backend()
     sets = []
-    for name, docs_f, res_f in (
-        ("P1 held-out", DATA / "gold" / "heldout_docs.jsonl", RESULTS / "eval" / f"heldout__{BUILD}.json"),
-        ("P2 unseen", DATA / "gold2" / "p2_docs.jsonl", RESULTS / "eval2" / f"p2__{BUILD}.json"),
+    for name, docs_f, res_f, copies in (
+        ("P1 held-out", DATA / "gold" / "heldout_docs.jsonl", RESULTS / "eval" / f"heldout__{BUILD}.json", {}),
+        ("P2 unseen", DATA / "gold2" / "p2_docs.jsonl", RESULTS / "eval2" / f"p2__{BUILD}.json", rederive_copies.load()),
     ):
         if res_f.exists():
             res = json.loads(res_f.read_text())
-            sets.append((name, _jsonl(docs_f), {r["doc_id"]: r for r in res["per_doc"]}, res["theta"]))
+            sets.append((name, _jsonl(docs_f), {r["doc_id"]: r for r in res["per_doc"]}, res["theta"], copies))
     from gegenprobe import ocrguard
     ocrguard.ensure()
     ocr = ocrguard.status()  # tesseract AND its deu/fra/ita data (not just the binary)
     out = dict(sets={}, poppler=pdftext.poppler_version(), tesseract=pdftext.tesseract_version(),
                ocr=dict(ok=ocr["ok"], reason=ocr["reason"], pinned=ocr["pinned"]))
     has_ocr = ocr["ok"]
-    for name, docs, committed, theta in sets:
+    for name, docs, committed, theta, copies in sets:
+        budget_s = budgets[name[:2]]
         t_set, stop = time.time(), False
         s = collections.Counter()
         s["n"] = len(docs)
-        miss_examples, mismatches = [], []
+        miss_examples, mismatches, unreachable = [], [], []
+        via, host_failed, from_copy = collections.Counter(), {}, []
+        # order kept (image_only, doc_id): compliance/audit.py reconstructs a cold run's downloads from it
         docs = sorted(docs, key=lambda d: (d.get("image_only", False), d["doc_id"]))
         for d in docs:
             left = budget_s - (time.time() - t_set)
@@ -485,19 +553,27 @@ def rederive_apertus(budget_s: float | None = None) -> dict:
                 continue
             try:  # hard ceiling: the fetch and extraction are interrupted at the set's budget (gegenprobe.deadline)
                 with deadline(left):
-                    sha, path = pdftext.fetch_pdf(d["url"], expect_sha256=d["sha256"], timeout=request_timeout(left),
-                                                  tries=2)
+                    sha, path, how = fetch_verified(d, left, copies, host_failed)
                     t = pdftext.extract(sha, path)
             except DeadlineExceeded:
                 stop = True
                 s["not_reached_budget"] += 1
                 continue
             except pdftext.FetchError as e:
-                s["ocr_failed" if e.kind == "ocr_failed" else "unreachable"] += 1
-                continue
-            except Exception:  # unreachable, robots.txt, changed source
+                if e.kind == "ocr_failed":
+                    s["ocr_failed"] += 1
+                    continue
                 s["unreachable"] += 1
+                unreachable.append(dict(doc_id=d["doc_id"], kind=e.kind, detail=e.detail[:200]))
                 continue
+            except Exception as e:  # noqa: BLE001 - anything else while reading the document: unreachable, typed
+                s["unreachable"] += 1
+                unreachable.append(dict(doc_id=d["doc_id"], kind="other", detail=f"{type(e).__name__}: {e}"[:200]))
+                continue
+            via[how] += 1
+            if how == "opd_copy":
+                from_copy.append(dict(doc_id=d["doc_id"], copy_url=copies[int(d["doc_id"])],
+                                      source_failed=host_failed.get(urllib.parse.urlsplit(d["url"]).netloc, "document")))
             pages, lg, c = t["pages"], _lang(d), committed[d["doc_id"]]
             try:
                 p = pointer.answer_date(be, pages, lg, theta, anchors=rules.anchors(pages))
@@ -521,10 +597,36 @@ def rederive_apertus(budget_s: float | None = None) -> dict:
                 mismatches.append(dict(doc_id=d["doc_id"], pointer_committed=[want_p.get("value"), want_p.get("margin")],
                                        pointer_now=[p.value, p.margin], cascade_committed=want_c.get("value"),
                                        cascade_now=cas.get("value")))
-        out["sets"][name] = dict(s, mismatches=mismatches[:20], cache_miss_examples=miss_examples,
-                                 secs=round(time.time() - t_set, 1), budget_s=budget_s)
+        kinds = collections.Counter(u["kind"] for u in unreachable)
+        out["sets"][name] = dict(s, read_via=dict(sorted(via.items())), unreachable_kinds=dict(sorted(kinds.items())),
+                                 unreachable_docs=unreachable, opd_copy_docs=from_copy,
+                                 hosts_failed=dict(sorted(host_failed.items())), opd_copies_mapped=len(copies),
+                                 mismatches=mismatches[:20],
+                                 cache_miss_examples=miss_examples, secs=round(time.time() - t_set, 1),
+                                 budget_s=budget_s)
     out["secs"] = round(time.time() - t0, 1)
     return out
+
+
+COVERAGE_KEYS = ("n", "rederived", "match", "cache_miss", "unreachable", "not_reached_budget", "skipped_no_ocr",
+                 "ocr_failed")
+
+
+def coverage_phrase(name: str, s: dict) -> str:
+    """One set's exact coverage: every document of the set is in exactly one of re-derived (with how it was read),
+    cache miss, unreachable (by kind), over budget, no OCR, OCR failed."""
+    via = s.get("read_via") or {}
+    kinds = s.get("unreachable_kinds") or {}
+    unr = f" ({', '.join(f'{k} {n}' for k, n in sorted(kinds.items()))})" if kinds else ""
+    rest = [f"{s.get(k, 0)} {lab}" + (unr if k == "unreachable" else "")
+            for k, lab in (("cache_miss", "cache miss"), ("unreachable", "unreachable"), ("not_reached_budget", "over budget"),
+                           ("skipped_no_ocr", "no OCR"), ("ocr_failed", "OCR failed")) if s.get(k)]
+    read = (f"{s.get('cache_miss', 0) + s.get('rederived', 0)} read: "
+            + ", ".join(f"{n} {lab}" for k, lab in (("cache", "from the local cache"), ("source", "from the source"),
+                                                    ("opd_copy", "from OPD's copy, sha256-checked"))
+                        if (n := via.get(k))) if via else "")
+    return (f"{name} re-derived {s.get('rederived', 0)}/{s['n']}, {s.get('match', 0)} match"
+            + (f" ({read})" if read else "") + (f"; not re-derived: {', '.join(rest)}" if rest else ""))
 
 
 def main_rederive(ctx: dict | None = None) -> dict:
@@ -540,14 +642,12 @@ def main_rederive(ctx: dict | None = None) -> dict:
         n_re += s.get("rederived", 0)
         n_mis += len(s["mismatches"])
         n_miss += s.get("cache_miss", 0)
-        parts.append(f"{name} {s.get('match', 0)}/{s.get('rederived', 0)} match of {s['n']} "
-                     f"({s.get('cache_miss', 0)} cache miss, {s.get('unreachable', 0)} unreachable, "
-                     f"{s.get('not_reached_budget', 0)} over budget)")
+        parts.append(coverage_phrase(name, s))
     summary = ("Apertus pointer + cascade decisions recomputed from the committed model cache (cache-only, frozen code): "
                + "; ".join(parts))
     status = "FAIL" if n_mis else ("SKIP" if n_re == 0 else ("WARN" if n_miss else "PASS"))
-    coverage = {name: {k: s.get(k, 0) for k in ("n", "rederived", "match", "cache_miss", "unreachable", "not_reached_budget",
-                                                "skipped_no_ocr")} for name, s in r["sets"].items()}
+    coverage = {name: dict({k: s.get(k, 0) for k in COVERAGE_KEYS}, read_via=s.get("read_via") or {},
+                           unreachable_kinds=s.get("unreachable_kinds") or {}) for name, s in r["sets"].items()}
     return dict(status=status, summary=summary, rederived=n_re, mismatches=n_mis, cache_miss=n_miss, coverage=coverage,
                 secs=r["secs"])
 

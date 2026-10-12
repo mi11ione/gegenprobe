@@ -1,0 +1,52 @@
+{
+ "tool": "pip-audit 2.10.1 (requirements-audit.lock), PyPI vulnerability service, --strict --disable-pip",
+ "run": "2026-10-12",
+ "locks": {
+  "requirements.lock": {
+   "packages": 8,
+   "known_vulnerabilities": 0,
+   "accepted": [],
+   "failing": []
+  },
+  "requirements-dev.lock": {
+   "packages": 6,
+   "known_vulnerabilities": 0,
+   "accepted": [],
+   "failing": []
+  },
+  "requirements-audit.lock": {
+   "packages": 50,
+   "known_vulnerabilities": 0,
+   "accepted": [],
+   "failing": []
+  },
+  "requirements-gguf.lock": {
+   "packages": 2,
+   "known_vulnerabilities": 1,
+   "accepted": [
+    "diskcache 5.6.3 PYSEC-2026-2447"
+   ],
+   "failing": []
+  }
+ },
+ "removed_from_image": {
+  "base image pip, setuptools (with its vendored packages), wheel": {
+   "packages": 18,
+   "known_vulnerabilities": 9,
+   "found": [
+    "jaraco-context 5.3.0 CVE-2026-23949",
+    "pip 24.0 PYSEC-2026-1795",
+    "pip 24.0 PYSEC-2026-1796",
+    "pip 24.0 PYSEC-2026-196",
+    "pip 24.0 PYSEC-2026-2875",
+    "pip 24.0 PYSEC-2026-2876",
+    "pip 24.0 PYSEC-2026-3721",
+    "setuptools 79.0.1 PYSEC-2026-3447",
+    "wheel 0.45.1 CVE-2026-24049"
+   ]
+  }
+ },
+ "packages": 66,
+ "failing": 0,
+ "accepted": 1
+}

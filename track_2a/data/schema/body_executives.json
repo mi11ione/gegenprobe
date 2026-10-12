@@ -1,0 +1,10 @@
+{
+ "about": "The executive of a body whose row in OPD's bodies export names none (executive_name and executive_name_<lang> empty) and whose affairs' OPD events do not name it either; used by gegenprobe.schema.v0_2_meta for qa[].answering_body (route metadata, source gegenprobe:data/schema/body_executives.json#<key>). Every other body's executive comes from OPD's own bodies export (data/schema/v0_2_meta_slice.json).",
+ "bodies": {
+  "CHE": {
+   "name": "Bundesrat",
+   "names": {"de": "Bundesrat", "fr": "Conseil fédéral", "it": "Consiglio federale", "rm": "Cussegl federal"},
+   "basis": "Federal Constitution Art. 174 (the Federal Council is the supreme governing and executive authority of the Confederation); the answers to federal interventions in OPD's texts export are the Federal Council's (Curia Vista 'Antwort des Bundesrates')"
+  }
+ }
+}

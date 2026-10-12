@@ -145,7 +145,7 @@
   "builds": [],
   "converter_version": "gegenprobe-0.1.0+affair",
   "created": "2026-10-10T08:43:29.097587Z",
-  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it); v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 2 printed authors (2 earlier entries for the same persons replaced), 1 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 0 parts in 0 of 2 documents examined; Q/A pairing by gegenprobe.schema.v0_2_qa.with_qa (gegenprobe.qa.extract (the P5 rules arm, no model)): 4 questions (enumerated), 4 answer passages located",
+  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it); v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 2 printed authors (2 earlier entries for the same persons replaced), 1 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 0 parts in 0 of 2 documents examined; Q/A pairing by gegenprobe.schema.v0_2_qa.with_qa (gegenprobe.qa.extract (the P5 rules arm, no model)): 4 questions (enumerated), 4 answer passages located; OPD metadata filled by gegenprobe.schema.v0_2_meta.with_metadata: qa.0.answering_body (opd:bodies/253#executive_name) (route metadata, no value replaced)",
   "schema_version": "0.2.0"
  },
  "government_recommendation": {
@@ -187,10 +187,11 @@
     "route": "rule"
    },
    "answering_body": {
-    "evidence": "the answering body is not extracted by converter gegenprobe-0.1.0+affair",
-    "kind": "null",
-    "null_reason": "not_extracted",
-    "route": "rule"
+    "basis": "metadata",
+    "kind": "value",
+    "route": "metadata",
+    "source": "opd:bodies/253#executive_name",
+    "value": "Regierungsrat des Kantons Bern"
    },
    "items": [
     {

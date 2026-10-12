@@ -48,6 +48,7 @@ from ..paths import PDF_CACHE, ROOT
 from . import role_consistency as RC
 from . import v0_2_all as V
 from . import v0_2_qa as QA
+from . import v0_2_meta as VM
 from . import v0_2_roles
 from .p8_v0_2 import OUT, schema_module
 
@@ -223,10 +224,13 @@ def summary(recs: list[dict], det: dict, set_name: str) -> dict:
                 parts={k: pc[k] for k in KINDS}, parts_by_rule=dict(sorted(sub.items())))
 
 
-def render() -> dict[str, str]:
-    """v0_2_all's files with the parts overlay (and fed_records.jsonl); raises if a record stops validating."""
+def render(meta: bool = True) -> dict[str, str]:
+    """v0_2_all's files with the parts overlay (and fed_records.jsonl); raises if a record stops validating. meta=False
+    leaves out the OPD-metadata overlay (gegenprobe.schema.v0_2_meta): the records as before it, for the before/after
+    completeness table (gegenprobe.schema.v0_2_completeness)."""
     m = schema_module()
     det = load()
+    sl, meta_changed = (VM.load(), {}) if meta else (None, {})
     base = V.render()
     files = dict(base)
     val = json.loads(base["validation_all.json"])
@@ -235,7 +239,8 @@ def render() -> dict[str, str]:
     for k in CONVERTER_SETS:
         base_recs = [json.loads(x) for x in base[f"{k}_records.jsonl"].splitlines() if x.strip()]
         qa_before[k] = sum(any(q.get("items") for q in r.get("qa") or []) for r in base_recs)
-        recs = [with_roles_consistent(_with_qa(with_parts(r, det, k), pairs, k), roles_changed, k) for r in base_recs]
+        recs = [_with_meta(with_roles_consistent(_with_qa(with_parts(r, det, k), pairs, k), roles_changed, k), sl, k,
+                           meta_changed, meta) for r in base_recs]
         st, valid = V.stats(recs, m)
         if st["n_invalid"]:
             raise ValueError(f"{k}: {st['invalid'][:2]}")
@@ -243,7 +248,8 @@ def render() -> dict[str, str]:
         by_set[k] = valid
         files[f"{k}_records.jsonl"] = "".join(json.dumps(r, ensure_ascii=False, sort_keys=True) + "\n" for r in valid)
         block[k] = summary(valid, det, k)
-    fed = [with_roles_consistent(with_parts(json.loads(x), det, "fed"), roles_changed, "fed")
+    fed = [_with_meta(with_roles_consistent(with_parts(json.loads(x), det, "fed"), roles_changed, "fed"), sl, "fed",
+                      meta_changed, meta)
            for x in FED_IN.read_text(encoding="utf-8").splitlines() if x.strip()]
     st, valid = V.stats(fed, m)
     if st["n_invalid"]:
@@ -279,6 +285,8 @@ def render() -> dict[str, str]:
     val["qa_pairing"] = QA.block(by_set, qa_before)
     val["role_consistency"] = role_block(files, roles_changed)
     val["validated_records"] = validated_records(by_set, valid, st["n_valid"])
+    if meta:
+        val["metadata_fill"] = meta_block(meta_changed)
     files["validation_all.json"] = json.dumps(val, ensure_ascii=False, indent=1) + "\n"
     return files
 
@@ -314,6 +322,41 @@ def validated_records(by_set: dict[str, list[dict]], fed: list[dict], fed_valid:
 def _with_qa(rec: dict, pairs: dict, set_name: str) -> dict:
     """P3 / P3b: the committed Q/A pairing (gegenprobe.schema.v0_2_qa) in qa[0].items; P5 keeps its own."""
     return QA.with_qa(rec, QA.for_record(rec, pairs, set_name)) if set_name in QA.SETS else rec
+
+
+# ----------------------------------------------------------------------------------------------------------- OPD metadata
+def _with_meta(rec: dict, sl: dict | None, set_name: str, changed: dict, meta: bool) -> dict:
+    """The fields OPD's metadata fills (gegenprobe.schema.v0_2_meta), last, after parts, Q/A items and role consistency."""
+    if not meta:
+        return rec
+    rec, ch = VM.with_metadata(rec, sl, set_name)
+    if ch:
+        changed[f"{set_name}:{rec['ref']['body_key']}:{rec['ref']['opd_id']}"] = ch
+    return rec
+
+
+def meta_block(changed: dict) -> dict:
+    """validation_all.json's `metadata_fill`: per set and field, how many records the OPD-metadata overlay filled."""
+    per = collections.defaultdict(collections.Counter)
+    left = collections.Counter()
+    for key, ch in changed.items():
+        s = key.split(":", 1)[0]
+        for c in ch:
+            f = c["field"].split("[", 1)[0]
+            f = "qa.answering_body" if f.endswith("answering_body") else f
+            if c.get("now") == "unchanged":
+                left[s] += 1
+            else:
+                per[s][f"{f}:{c.get('via') or 'opd'}" if f == "qa.answering_body" else f] += 1
+    return dict(
+        label=("POST HOC: fields OPD's own metadata holds, filled in the carrier layer (route metadata, source = the OPD "
+               "record); no value replaced, no document read, no model"),
+        overlay=VM.OVERLAY, slice="data/schema/v0_2_meta_slice.json (python -m gegenprobe.schema.v0_2_meta vendor)",
+        table="data/schema/body_executives.json", n_records_changed=len(changed),
+        sets={k: dict(sorted(v.items())) for k, v in sorted(per.items())},
+        answering_body_left_open=dict(sorted(left.items())),
+        changed={k: v for k, v in sorted(changed.items())},
+    )
 
 
 # ----------------------------------------------------------------------------------------------------------- roles
@@ -356,6 +399,27 @@ def _diff(files: dict[str, str]) -> list[str]:
     return [n for n, t in files.items() if not (OUT / n).exists() or (OUT / n).read_text(encoding="utf-8") != t]
 
 
+def _completeness_check() -> dict:
+    """field_completeness.json (gegenprobe.schema.v0_2_completeness) and the P11 NI post hoc records
+    (gegenprobe.schema.v0_2_ni; SKIP when the 24 texts are not cached) re-derived and compared."""
+    from . import v0_2_completeness as FC
+    from . import v0_2_ni as NI
+
+    fc = FC.step({})
+    try:
+        nf = NI.render()
+        same = all((NI.OUT_JSON.parent / n).exists() and (NI.OUT_JSON.parent / n).read_text(encoding="utf-8") == t
+                   for n, t in nf.items())
+        v = json.loads(nf[NI.OUT_JSON.name])
+        ni = dict(status="PASS" if same else "FAIL",
+                  summary=f"P11 NI post hoc records: {v['records_valid']}/{v['n']} valid, "
+                          + ("identical to the committed files" if same else "DIFFER from the committed files"))
+    except FileNotFoundError as e:
+        ni = dict(status="SKIP", summary=f"P11 NI post hoc records not re-derived ({e})")
+    st = "FAIL" if "FAIL" in (fc["status"], ni["status"]) else "PASS"
+    return dict(status=st, summary=f"{fc['summary']}; {ni['summary']}")
+
+
 def step(ctx: dict) -> dict:
     """`make run` step schema_v02: P8 and the converter records (gegenprobe.schema.v0_2_all) with their document parts,
     re-derived and compared with results/schema/v0_2/ (FAIL on a diff or an invalid record)."""
@@ -369,9 +433,10 @@ def step(ctx: dict) -> dict:
     bad = _diff(files)
     val = json.loads(files["validation_all.json"])
     sc = QA.samples_check(files, val["samples"])
+    fc = _completeness_check()
     s, dp = val["sets"], val["document_parts"]["converter_made"]
     ok = (p8["status"] == "PASS" and not bad and val["n_invalid"] == 0 and rc["status"] != "FAIL"
-          and pc["status"] != "FAIL" and qc["status"] != "FAIL" and sc["status"] != "FAIL")
+          and pc["status"] != "FAIL" and qc["status"] != "FAIL" and sc["status"] != "FAIL" and fc["status"] != "FAIL")
     qa = val["qa_pairing"]["sets"]
     carry = dp["records_carrying"]
     summary_ = (f"schema v0.2: {val['n_valid']}/{val['n_affairs']} affairs valid (converter records: P3 "
@@ -386,6 +451,7 @@ def step(ctx: dict) -> dict:
                 + "; Q/A items in " + ", ".join(f"{k.upper().replace('B', 'b')} {qa[k]['records_with_items']}/"
                                                f"{qa[k]['n_records']}" for k in CONVERTER_SETS)
                 + f" records; {qc['summary']}; {sc['summary']}"
+                + f"; OPD metadata filled in {val['metadata_fill']['n_records_changed']} records; {fc['summary']}"
                 + (f"; differs: {', '.join(bad)}" if bad else "")
                 + ("" if p8["status"] == "PASS" else f"; P8: {p8['summary']}"))
     return dict(status="PASS" if ok else "FAIL", summary=summary_)

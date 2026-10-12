@@ -17,7 +17,8 @@ def main() -> dict:
     with gzip.open(RESULTS / "census" / "interventions.tsv.gz", "rt", encoding="utf-8") as f:
         header = f.readline().rstrip("\n").split("\t")
     out = dict(
-        label="derived display numbers for the README, report and form wording; every value is a difference or count over a committed results file",
+        label=("derived display numbers for the README, report and form wording; "
+               "every value is a difference or count over a committed results file"),
         bern_relink_n=v2["n"],
         bern_relink_date_registered_parser=v1["date_eq_event"],
         bern_relink_date_posthoc_parser=v2["date_eq_event"],

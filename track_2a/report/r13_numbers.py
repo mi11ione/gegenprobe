@@ -127,7 +127,8 @@ def display() -> dict:
                 p2_pointer_vs_rules_cluster=f"[{g[0]:.2f}, {g[1]:.2f}]",
                 p5_precision_parliament_cluster=f"[{p5[0]:.2f}, {p5[1]:.2f}]",
                 p2_h2_p_mantissa=pr.split(" ")[0],
-                p8_cluster={k: f"[{pct(v['pooled']['cluster_ci'][0])}, {pct(v['pooled']['cluster_ci'][1])}]" for k, v in p8.items()})
+                p8_cluster={k: f"[{pct(v['pooled']['cluster_ci'][0])}, {pct(v['pooled']['cluster_ci'][1])}]"
+                            for k, v in p8.items()})
 
 
 def main() -> int:

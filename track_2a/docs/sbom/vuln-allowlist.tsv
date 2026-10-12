@@ -1,0 +1,5 @@
+# Known vulnerabilities CI job sbom-audit accepts, one row each, with the reason (docs/licences.md "Vulnerability scan").
+# Only for requirements-gguf.lock (the optional local 8B, docker build --build-arg GGUF=1); every other lock must scan clean.
+# Review each row when the package publishes a fix or the use changes.
+id	lock	package	justification	reviewed
+PYSEC-2026-2447	requirements-gguf.lock	diskcache 5.6.3	CVE-2025-69872 / GHSA-w8v5-vhqr-4h9v: diskcache unpickles what it reads from its cache directory, so whoever can write that directory can run code in the reading process. No fixed version exists. diskcache is installed only because llama-cpp-python requires it; Gegenprobe never creates a diskcache (no LlamaDiskCache, no set_cache: gegenprobe.llm, gguf_fast and gguf_guard load the model and call it directly), and the image's only writable paths are GP_WORK, out/ and a private /tmp owned by the job's own uid.	2026-10-12

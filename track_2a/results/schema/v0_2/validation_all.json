@@ -63,9 +63,8 @@
      "present_unanchored": 2
     },
     "null_reasons": {
-     "not_applicable": 25,
-     "not_extracted": 29,
-     "not_in_corpus": 11,
+     "not_applicable": 35,
+     "not_in_corpus": 1,
      "not_in_document": 8,
      "present_unanchored": 76
     },
@@ -88,8 +87,8 @@
      "printed_date:signed": 8
     },
     "routes": {
-     "metadata": 119,
-     "rule": 546
+     "metadata": 148,
+     "rule": 517
     },
     "v02_additions_used": {
      "actor_role:joint_author": 22,
@@ -130,9 +129,8 @@
      "present_unanchored": 1
     },
     "null_reasons": {
-     "not_applicable": 18,
-     "not_extracted": 36,
-     "not_in_corpus": 23,
+     "not_applicable": 37,
+     "not_in_corpus": 4,
      "not_in_document": 15,
      "present_unanchored": 118
     },
@@ -155,8 +153,8 @@
      "printed_date:signed": 21
     },
     "routes": {
-     "metadata": 169,
-     "rule": 697
+     "metadata": 205,
+     "rule": 661
     },
     "v02_additions_used": {
      "actor_role:joint_author": 12,
@@ -186,17 +184,21 @@
      "submitter": 11
     },
     "date_roles": {
+     "answered": 22,
      "lodged": 4,
-     "signed": 23
+     "signed": 23,
+     "submitted": 40
     },
     "empty_reasons": {
      "none_printed": 48,
      "not_extracted": 80,
-     "not_in_corpus": 42,
+     "not_in_corpus": 28,
      "present_unanchored": 7
     },
     "null_reasons": {
-     "not_extracted": 200,
+     "not_applicable": 27,
+     "not_extracted": 60,
+     "not_in_corpus": 12,
      "not_in_document": 22,
      "present_unanchored": 31
     },
@@ -219,8 +221,8 @@
      "printed_date:signed": 23
     },
     "routes": {
-     "metadata": 80,
-     "rule": 816
+     "metadata": 202,
+     "rule": 756
     },
     "v02_additions_used": {
      "actor_role:joint_author": 12,
@@ -637,5 +639,2611 @@
   },
   "sentence": "186 v0.2 records from 26 parliaments validate: the converter's 120 (105 cantonal and communal + 15 federal, 23 parliaments) and P8's 66 gold records (11 parliaments)",
   "note": "n_affairs/n_parliaments at the top of this file count v0_2_all's sets p3, p3b, p5 and p8; this block adds the federal cell's records (fed_records.jsonl, validated here)"
+ },
+ "metadata_fill": {
+  "label": "POST HOC: fields OPD's own metadata holds, filled in the carrier layer (route metadata, source = the OPD record); no value replaced, no document read, no model",
+  "overlay": "gegenprobe.schema.v0_2_meta.with_metadata",
+  "slice": "data/schema/v0_2_meta_slice.json (python -m gegenprobe.schema.v0_2_meta vendor)",
+  "table": "data/schema/body_executives.json",
+  "n_records_changed": 120,
+  "sets": {
+   "fed": {
+    "decision": 8,
+    "procedural_state": 14,
+    "qa.answering_body:opd_events": 6,
+    "qa.answering_body:table": 9,
+    "type.harmonised": 2
+   },
+   "p3": {
+    "decision": 10,
+    "qa.answering_body:opd_bodies": 26,
+    "qa.answering_body:opd_events": 3,
+    "type.harmonised": 11
+   },
+   "p3b": {
+    "decision": 19,
+    "qa.answering_body:opd_bodies": 32,
+    "qa.answering_body:opd_events": 4,
+    "type.harmonised": 20
+   },
+   "p5": {
+    "dates": 62,
+    "decision": 40,
+    "procedural_state": 40,
+    "qa.0.answer_date": 22,
+    "qa.answering_body:opd_bodies": 38
+   }
+  },
+  "answering_body_left_open": {
+   "p5": 2
+  },
+  "changed": {
+   "fed:CHE:140335": [
+    {
+     "field": "procedural_state",
+     "was": "null not_in_corpus",
+     "now": "value closed",
+     "source": "opd:events/413664"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Bundesrat",
+     "source": "gegenprobe:data/schema/body_executives.json#CHE",
+     "via": "table"
+    }
+   ],
+   "fed:CHE:140985": [
+    {
+     "field": "procedural_state",
+     "was": "null not_in_corpus",
+     "now": "value closed",
+     "source": "opd:events/413506"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Bundesrat",
+     "source": "gegenprobe:data/schema/body_executives.json#CHE",
+     "via": "table"
+    }
+   ],
+   "fed:CHE:142904": [
+    {
+     "field": "procedural_state",
+     "was": "null not_in_corpus",
+     "now": "value closed",
+     "source": "opd:events/472392"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "value written_off",
+     "source": "opd:events/362824"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Bundesrat",
+     "source": "opd:events/341459#actor_de",
+     "via": "opd_events"
+    }
+   ],
+   "fed:CHE:146074": [
+    {
+     "field": "procedural_state",
+     "was": "null not_in_corpus",
+     "now": "value closed",
+     "source": "opd:events/289764"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Bundesrat",
+     "source": "gegenprobe:data/schema/body_executives.json#CHE",
+     "via": "table"
+    }
+   ],
+   "fed:CHE:156290": [
+    {
+     "field": "procedural_state",
+     "was": "null not_in_corpus",
+     "now": "value closed",
+     "source": "opd:events/292328"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Bundesrat",
+     "source": "gegenprobe:data/schema/body_executives.json#CHE",
+     "via": "table"
+    }
+   ],
+   "fed:CHE:157601": [
+    {
+     "field": "procedural_state",
+     "was": "null not_in_corpus",
+     "now": "value closed",
+     "source": "opd:events/469208"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "value rejected",
+     "source": "opd:events/225229"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Bundesrat",
+     "source": "opd:events/461906#actor_de",
+     "via": "opd_events"
+    }
+   ],
+   "fed:CHE:157691": [
+    {
+     "field": "procedural_state",
+     "was": "null not_in_corpus",
+     "now": "value closed",
+     "source": "opd:events/231346"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Bundesrat",
+     "source": "gegenprobe:data/schema/body_executives.json#CHE",
+     "via": "table"
+    }
+   ],
+   "fed:CHE:206864": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/206864#type_harmonized_id=12"
+    },
+    {
+     "field": "procedural_state",
+     "was": "null not_in_corpus",
+     "now": "value closed",
+     "source": "opd:events/470522"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Bundesrat",
+     "source": "gegenprobe:data/schema/body_executives.json#CHE",
+     "via": "table"
+    }
+   ],
+   "fed:CHE:208413": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/208413#type_harmonized_id=12"
+    },
+    {
+     "field": "procedural_state",
+     "was": "null not_in_corpus",
+     "now": "value closed",
+     "source": "opd:events/165187"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Bundesrat",
+     "source": "gegenprobe:data/schema/body_executives.json#CHE",
+     "via": "table"
+    }
+   ],
+   "fed:CHE:215141": [
+    {
+     "field": "procedural_state",
+     "was": "null not_in_corpus",
+     "now": "value closed",
+     "source": "opd:events/554095"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "value rejected",
+     "source": "opd:events/554101"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Bundesrat",
+     "source": "opd:events/280471#actor_de",
+     "via": "opd_events"
+    }
+   ],
+   "fed:CHE:288089": [
+    {
+     "field": "procedural_state",
+     "was": "null not_in_corpus",
+     "now": "value closed",
+     "source": "opd:events/846256"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "value withdrawn",
+     "source": "opd:events/846257"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Bundesrat",
+     "source": "opd:events/840642#actor_de",
+     "via": "opd_events"
+    }
+   ],
+   "fed:CHE:55025": [
+    {
+     "field": "procedural_state",
+     "was": "null not_in_corpus",
+     "now": "value closed",
+     "source": "opd:events/104908"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Bundesrat",
+     "source": "gegenprobe:data/schema/body_executives.json#CHE",
+     "via": "table"
+    }
+   ],
+   "fed:CHE:57189": [
+    {
+     "field": "procedural_state",
+     "was": "null not_in_corpus",
+     "now": "value closed",
+     "source": "opd:events/290560"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "value rejected",
+     "source": "opd:events/100467"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Bundesrat",
+     "source": "opd:events/463063#actor_de",
+     "via": "opd_events"
+    }
+   ],
+   "fed:CHE:70763": [
+    {
+     "field": "procedural_state",
+     "was": "null not_in_corpus",
+     "now": "value closed",
+     "source": "opd:events/348575"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Bundesrat",
+     "source": "gegenprobe:data/schema/body_executives.json#CHE",
+     "via": "table"
+    }
+   ],
+   "fed:CHE:70942": [
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "value withdrawn",
+     "source": "opd:events/892950"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Bundesrat",
+     "source": "opd:events/30754#actor_de",
+     "via": "opd_events"
+    }
+   ],
+   "p3:261:250848": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Stadtrat Zürich",
+     "source": "opd:bodies/322#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:261:250883": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/250883#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Stadtrat Zürich",
+     "source": "opd:bodies/322#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:261:335762": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/335762#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Stadtrat Zürich",
+     "source": "opd:bodies/322#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:5002:254570": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipio Bellinzona",
+     "source": "opd:bodies/382#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:5002:254745": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipio Bellinzona",
+     "source": "opd:bodies/382#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:6643:328691": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/328691#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil administratif Vernier",
+     "source": "opd:events/922573#actor_fr",
+     "via": "opd_events"
+    }
+   ],
+   "p3:6643:328935": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil administratif Vernier",
+     "source": "opd:events/922609#actor_fr",
+     "via": "opd_events"
+    }
+   ],
+   "p3:6643:328952": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/328952#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil administratif Vernier",
+     "source": "opd:events/922822#actor_fr",
+     "via": "opd_events"
+    }
+   ],
+   "p3:BE:271519": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Bern",
+     "source": "opd:bodies/253#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:BE:271530": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Bern",
+     "source": "opd:bodies/253#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:BE:39369": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Bern",
+     "source": "opd:bodies/253#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:BS:121857": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/121857#type_harmonized_id=12"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Basel-Stadt",
+     "source": "opd:bodies/255#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:BS:46346": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Basel-Stadt",
+     "source": "opd:bodies/255#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:BS:568": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Basel-Stadt",
+     "source": "opd:bodies/255#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:NW:167415": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Nidwalden",
+     "source": "opd:bodies/263#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:NW:203603": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Nidwalden",
+     "source": "opd:bodies/263#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:NW:203870": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Nidwalden",
+     "source": "opd:bodies/263#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:OW:167740": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Obwalden",
+     "source": "opd:bodies/264#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:OW:167741": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Obwalden",
+     "source": "opd:bodies/264#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:OW:294993": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Obwalden",
+     "source": "opd:bodies/264#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:TI:173540": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/173540#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Consiglio di Stato della Repubblica e Cantone Ticino",
+     "source": "opd:bodies/270#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:TI:174066": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/174066#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Consiglio di Stato della Repubblica e Cantone Ticino",
+     "source": "opd:bodies/270#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:TI:83444": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/83444#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Consiglio di Stato della Repubblica e Cantone Ticino",
+     "source": "opd:bodies/270#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:VD:223831": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil d'État du canton de Vaud",
+     "source": "opd:bodies/272#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:VD:224608": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil d'État du canton de Vaud",
+     "source": "opd:bodies/272#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:VD:224730": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil d'État du canton de Vaud",
+     "source": "opd:bodies/272#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:ZH:180017": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/180017#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Zürich",
+     "source": "opd:bodies/275#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:ZH:180608": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/180608#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Zürich",
+     "source": "opd:bodies/275#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3:ZH:90357": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/90357#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Zürich",
+     "source": "opd:bodies/275#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:293:106111": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Stadtrat Wädenswil",
+     "source": "opd:bodies/336#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:293:106234": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/106234#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Stadtrat Wädenswil",
+     "source": "opd:bodies/336#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:293:15393": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Stadtrat Wädenswil",
+     "source": "opd:bodies/336#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:293:298308": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/298308#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Stadtrat Wädenswil",
+     "source": "opd:bodies/336#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:5192:117834": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/117834#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipio Lugano",
+     "source": "opd:bodies/384#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:5192:253285": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/253285#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipio Lugano",
+     "source": "opd:bodies/384#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:5192:26811": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/26811#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipio Lugano",
+     "source": "opd:bodies/384#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:5192:26860": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/26860#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipio Lugano",
+     "source": "opd:bodies/384#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:5586:120166": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipalité Lausanne",
+     "source": "opd:bodies/392#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:5586:29363": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipalité Lausanne",
+     "source": "opd:bodies/392#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:5586:29512": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipalité Lausanne",
+     "source": "opd:bodies/392#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:5586:29824": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/29824#type_harmonized_id=12"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipalité Lausanne",
+     "source": "opd:bodies/392#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:6643:329085": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/329085#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil administratif Vernier",
+     "source": "opd:events/922848#actor_fr",
+     "via": "opd_events"
+    }
+   ],
+   "p3b:6643:329125": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/329125#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil administratif Vernier",
+     "source": "opd:events/922757#actor_fr",
+     "via": "opd_events"
+    }
+   ],
+   "p3b:6643:329153": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/329153#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil administratif Vernier",
+     "source": "opd:events/922656#actor_fr",
+     "via": "opd_events"
+    }
+   ],
+   "p3b:6643:329195": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil administratif Vernier",
+     "source": "opd:events/922865#actor_fr",
+     "via": "opd_events"
+    }
+   ],
+   "p3b:BL:131278": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Basel-Landschaft",
+     "source": "opd:bodies/254#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:BL:282912": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/282912#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Basel-Landschaft",
+     "source": "opd:bodies/254#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:BL:301273": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Basel-Landschaft",
+     "source": "opd:bodies/254#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:BL:34503": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Basel-Landschaft",
+     "source": "opd:bodies/254#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:GE:327784": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/327784#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil d'État du canton de Genève",
+     "source": "opd:bodies/257#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:GE:335202": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/335202#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil d'État du canton de Genève",
+     "source": "opd:bodies/257#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:GE:335218": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/335218#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil d'État du canton de Genève",
+     "source": "opd:bodies/257#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:GE:338009": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/338009#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil d'État du canton de Genève",
+     "source": "opd:bodies/257#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:GR:165723": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/165723#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierung des Kantons Graubünden",
+     "source": "opd:bodies/259#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:GR:165724": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/165724#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierung des Kantons Graubünden",
+     "source": "opd:bodies/259#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:GR:288663": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/288663#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierung des Kantons Graubünden",
+     "source": "opd:bodies/259#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:GR:288679": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/288679#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierung des Kantons Graubünden",
+     "source": "opd:bodies/259#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:LU:240904": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Luzern",
+     "source": "opd:bodies/261#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:LU:240980": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Luzern",
+     "source": "opd:bodies/261#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:LU:241105": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Luzern",
+     "source": "opd:bodies/261#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:LU:77052": [
+    {
+     "field": "type.harmonised",
+     "was": "unknown",
+     "now": "question",
+     "source": "opd:affairs/77052#type_harmonized_id=12"
+    },
+    {
+     "field": "decision",
+     "was": "null not_in_corpus",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Luzern",
+     "source": "opd:bodies/261#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:VS:179045": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil d'État du canton du Valais",
+     "source": "opd:bodies/273#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:VS:179362": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil d'État du canton du Valais",
+     "source": "opd:bodies/273#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:VS:247577": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil d'État du canton du Valais",
+     "source": "opd:bodies/273#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p3b:VS:89453": [
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil d'État du canton du Valais",
+     "source": "opd:bodies/273#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:1061:279839": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value submitted",
+     "source": "opd:events/774597"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2025-10-27",
+     "source": "opd:events/774597"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Stadtrat Luzern",
+     "source": "opd:bodies/280#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:1061:3921": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value scheduled",
+     "source": "opd:events/128254"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_in_corpus",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2019-02-15",
+     "source": "opd:events/374584"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Stadtrat Luzern",
+     "source": "opd:bodies/280#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:1061:3952": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value scheduled",
+     "source": "opd:events/374549"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_in_corpus",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2017-04-18",
+     "source": "opd:events/128383"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Stadtrat Luzern",
+     "source": "opd:bodies/280#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:1061:93906": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value scheduled",
+     "source": "opd:events/64962"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2023-05-23",
+     "source": "opd:events/190683"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Stadtrat Luzern",
+     "source": "opd:bodies/280#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:2703:103172": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value answered",
+     "source": "opd:events/321974"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2019-11-21",
+     "source": "opd:events/198878"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2019-11-26",
+     "source": "opd:events/321974"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2019-11-26",
+     "source": "opd:events/321974"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Gemeinderat Riehen",
+     "source": "opd:bodies/324#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:2703:105348": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value answered",
+     "source": "opd:events/9010"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2018-10-26",
+     "source": "opd:events/9011"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2018-10-30",
+     "source": "opd:events/9010"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2018-10-30",
+     "source": "opd:events/9010"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Gemeinderat Riehen",
+     "source": "opd:bodies/324#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:2703:105365": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value answered",
+     "source": "opd:events/198868"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2019-03-21",
+     "source": "opd:events/382435"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2019-03-26",
+     "source": "opd:events/198868"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2019-03-26",
+     "source": "opd:events/198868"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Gemeinderat Riehen",
+     "source": "opd:bodies/324#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:2703:105419": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value answered",
+     "source": "opd:events/73449"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2020-09-18",
+     "source": "opd:events/73450"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2020-09-22",
+     "source": "opd:events/73449"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2020-09-22",
+     "source": "opd:events/73449"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Gemeinderat Riehen",
+     "source": "opd:bodies/324#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:293:106129": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value submitted",
+     "source": "opd:events/73930"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2011-06-07",
+     "source": "opd:events/73930"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Stadtrat Wädenswil",
+     "source": "opd:bodies/336#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:293:106226": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value closed",
+     "source": "opd:events/199496"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "value written_off",
+     "source": "opd:events/199496"
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2022-10-19",
+     "source": "opd:events/322568"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Stadtrat Wädenswil",
+     "source": "opd:bodies/336#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:293:106237": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value submitted",
+     "source": "opd:events/199404"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2012-07-27",
+     "source": "opd:events/199404"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Stadtrat Wädenswil",
+     "source": "opd:bodies/336#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:293:106273": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value submitted",
+     "source": "opd:events/9630"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2013-12-04",
+     "source": "opd:events/9630"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Stadtrat Wädenswil",
+     "source": "opd:bodies/336#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:5192:251760": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value submitted",
+     "source": "opd:events/686092"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2025-06-16",
+     "source": "opd:events/686092"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipio Lugano",
+     "source": "opd:bodies/384#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:5192:27657": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value answered",
+     "source": "opd:events/143866"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_in_corpus",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2020-01-13",
+     "source": "opd:events/450531"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2020-09-14",
+     "source": "opd:events/143866"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2020-09-14",
+     "source": "opd:events/143866"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "unchanged",
+     "reason": "OPD's answer event opd:events/143866 names 'Kommission' as its actor, not the executive: the answering body is left open"
+    }
+   ],
+   "p5:5192:27659": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value answered",
+     "source": "opd:events/329521"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_in_corpus",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2020-01-22",
+     "source": "opd:events/206011"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2020-10-19",
+     "source": "opd:events/329521"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2020-10-19",
+     "source": "opd:events/329521"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "unchanged",
+     "reason": "OPD's answer event opd:events/329521 names 'Kommission' as its actor, not the executive: the answering body is left open"
+    }
+   ],
+   "p5:5192:28156": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value submitted",
+     "source": "opd:events/389853"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2016-07-04",
+     "source": "opd:events/389853"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipio Lugano",
+     "source": "opd:bodies/384#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:5586:120219": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value decided",
+     "source": "opd:events/330302"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "value adopted",
+     "source": "opd:events/330302"
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2023-10-03",
+     "source": "opd:events/81623"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2023-12-08",
+     "source": "opd:events/81646"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2023-12-08",
+     "source": "opd:events/81646"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipalité Lausanne",
+     "source": "opd:bodies/392#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:5586:120342": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value debated",
+     "source": "opd:events/17236"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_in_corpus",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2018-11-06",
+     "source": "opd:events/17571"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipalité Lausanne",
+     "source": "opd:bodies/392#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:5586:29393": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value decided",
+     "source": "opd:events/686247"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "value adopted",
+     "source": "opd:events/686247"
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2024-01-30",
+     "source": "opd:events/451110"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2025-03-07",
+     "source": "opd:events/450973"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2025-03-07",
+     "source": "opd:events/450973"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipalité Lausanne",
+     "source": "opd:bodies/392#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:5586:29520": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value debated",
+     "source": "opd:events/451081"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_in_corpus",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2019-05-21",
+     "source": "opd:events/390424"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Municipalité Lausanne",
+     "source": "opd:bodies/392#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:6152:328238": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value scheduled",
+     "source": "opd:events/900590"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_in_corpus",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2018-12-29",
+     "source": "opd:events/900589"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil municipal",
+     "source": "opd:bodies/2045#executive_name_fr",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:6152:328247": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value scheduled",
+     "source": "opd:events/900606"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_in_corpus",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2019-09-07",
+     "source": "opd:events/900605"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil municipal",
+     "source": "opd:bodies/2045#executive_name_fr",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:6152:328273": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value scheduled",
+     "source": "opd:events/900678"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_in_corpus",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2017-08-27",
+     "source": "opd:events/900677"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil municipal",
+     "source": "opd:bodies/2045#executive_name_fr",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:6152:328413": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value scheduled",
+     "source": "opd:events/900721"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_in_corpus",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2018-09-09",
+     "source": "opd:events/900720"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil municipal",
+     "source": "opd:bodies/2045#executive_name_fr",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:BL:130950": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value closed",
+     "source": "opd:events/951546"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2011-09-22",
+     "source": "opd:events/209375"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2011-11-29",
+     "source": "opd:events/395906"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2011-11-29",
+     "source": "opd:events/395906"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Basel-Landschaft",
+     "source": "opd:bodies/254#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:BL:131418": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value closed",
+     "source": "opd:events/843110"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2016-10-20",
+     "source": "opd:events/394393"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2016-11-16",
+     "source": "opd:events/148240"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2016-11-16",
+     "source": "opd:events/148240"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Basel-Landschaft",
+     "source": "opd:bodies/254#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:BL:301315": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value closed",
+     "source": "opd:events/951536"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2012-11-01",
+     "source": "opd:events/937244"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2013-01-15",
+     "source": "opd:events/937245"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2013-01-15",
+     "source": "opd:events/937245"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Basel-Landschaft",
+     "source": "opd:bodies/254#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:BL:40420": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value closed",
+     "source": "opd:events/842569"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2014-06-26",
+     "source": "opd:events/272397"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2014-09-30",
+     "source": "opd:events/396023"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2014-09-30",
+     "source": "opd:events/396023"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Basel-Landschaft",
+     "source": "opd:bodies/254#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:GR:247748": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value closed",
+     "source": "opd:events/774657"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2025-06-13",
+     "source": "opd:events/548651"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2025-08-20",
+     "source": "opd:events/965504"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2025-08-20",
+     "source": "opd:events/965504"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierung des Kantons Graubünden",
+     "source": "opd:bodies/259#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:GR:280476": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value closed",
+     "source": "opd:events/891692"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2025-10-22",
+     "source": "opd:events/774645"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2026-01-15",
+     "source": "opd:events/965427"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2026-01-15",
+     "source": "opd:events/965427"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierung des Kantons Graubünden",
+     "source": "opd:bodies/259#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:GR:288671": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value closed",
+     "source": "opd:events/958184"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2025-12-10",
+     "source": "opd:events/801602"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2026-02-26",
+     "source": "opd:events/965467"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2026-02-26",
+     "source": "opd:events/965467"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierung des Kantons Graubünden",
+     "source": "opd:bodies/259#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:GR:75591": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value closed",
+     "source": "opd:events/685245"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2025-04-24",
+     "source": "opd:events/548605"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2025-06-13",
+     "source": "opd:events/965441"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2025-06-13",
+     "source": "opd:events/965441"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierung des Kantons Graubünden",
+     "source": "opd:bodies/259#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:SH:169918": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value answered",
+     "source": "opd:events/60225"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2011-07-18",
+     "source": "opd:events/845248"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2011-07-18",
+     "source": "opd:events/845248"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2011-07-18",
+     "source": "opd:events/845248"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Schaffhausen",
+     "source": "opd:bodies/266#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:SH:79626": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value answered",
+     "source": "opd:events/308982"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2009-08-07",
+     "source": "opd:events/845229"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2009-08-07",
+     "source": "opd:events/845229"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2009-08-07",
+     "source": "opd:events/845229"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Schaffhausen",
+     "source": "opd:bodies/266#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:SH:79864": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "null not_in_corpus",
+     "source": null
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2024-12-13",
+     "source": "opd:affairs/79864#begin_date"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Schaffhausen",
+     "source": "opd:bodies/266#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:SH:79870": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "null not_in_corpus",
+     "source": null
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2025-02-11",
+     "source": "opd:affairs/79870#begin_date"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Regierungsrat des Kantons Schaffhausen",
+     "source": "opd:bodies/266#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:VS:247619": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value answered",
+     "source": "opd:events/909867"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2025-06-13",
+     "source": "opd:events/662037"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2025-06-13",
+     "source": "opd:events/861269"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2025-06-13",
+     "source": "opd:events/861269"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil d'État du canton du Valais",
+     "source": "opd:bodies/273#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:VS:252838": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value scheduled",
+     "source": "opd:events/909917"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2025-09-09",
+     "source": "opd:events/689829"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2025-09-09",
+     "source": "opd:events/899853"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2025-09-09",
+     "source": "opd:events/899853"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil d'État du canton du Valais",
+     "source": "opd:bodies/273#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:VS:295461": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value scheduled",
+     "source": "opd:events/964374"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2025-12-16",
+     "source": "opd:events/841943"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2025-12-16",
+     "source": "opd:events/964373"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2025-12-16",
+     "source": "opd:events/964373"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil d'État du canton du Valais",
+     "source": "opd:bodies/273#executive_name",
+     "via": "opd_bodies"
+    }
+   ],
+   "p5:VS:87651": [
+    {
+     "field": "procedural_state",
+     "was": "null not_extracted",
+     "now": "value answered",
+     "source": "opd:events/908889"
+    },
+    {
+     "field": "decision",
+     "was": "null not_extracted",
+     "now": "null not_applicable",
+     "source": null
+    },
+    {
+     "field": "dates[submitted]",
+     "was": "absent",
+     "now": "2023-09-03",
+     "source": "opd:events/64279"
+    },
+    {
+     "field": "dates[answered]",
+     "was": "absent",
+     "now": "2023-09-03",
+     "source": "opd:events/781755"
+    },
+    {
+     "field": "qa.0.answer_date",
+     "was": "null not_extracted",
+     "now": "2023-09-03",
+     "source": "opd:events/781755"
+    },
+    {
+     "field": "qa.0.answering_body",
+     "was": "null not_extracted",
+     "now": "Conseil d'État du canton du Valais",
+     "source": "opd:bodies/273#executive_name",
+     "via": "opd_bodies"
+    }
+   ]
+  }
  }
 }

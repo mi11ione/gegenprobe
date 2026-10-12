@@ -33,7 +33,9 @@ the document and closed set for a model's document-level classification (a revie
   parliaments) and P8's 66 gold records (11 parliaments) (`results/schema/v0_2/validation_all.json` `validated_records`,
   `make schema-v02`; its top-level count, 171, covers the four sets without the federal cell). 105 are the
   converter's own records: P3 (29) and P3b (36) product records after `affair_post`, carried to v0.2 with
-  `qa[].answering_body` as the typed null `not_extracted`, and P5 (40) rules-arm records (Q/A items, people,
+  `qa[].answering_body` as the typed null `not_extracted` (then filled from OPD's metadata where OPD names the
+  executive: 118 of the converter's 120 records, post hoc; `results/schema/v0_2/field_completeness.json`), and P5 (40)
+  rules-arm records (Q/A items, people,
   recommendation) with OPD's identification metadata. The other 66 are P8's gold records. The converter fills v0.2's
   roles in its 105 records from the documents (`src/gegenprobe/convert/roles.py`, `gegenprobe.schema.v0_2_roles`):
   printed authors with their role, the instrument named and its function, printed submission dates (signed, lodged)

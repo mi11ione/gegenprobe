@@ -90,7 +90,10 @@ def test_p5_records_keep_the_rules_arm_values():
             name = a["name"].get("value")
             assert name in kept or printed, (x["affair_id"], name)
         assert not (printed and any(a["role"] == "submitter" for a in r["actors"]))
-        assert r["qa"][0]["answer_date"]["null_reason"] == "not_extracted"
+        # the P5 path reads no answer date; OPD's answer event fills it where OPD has one (gegenprobe.schema.v0_2_meta)
+        ad = r["qa"][0]["answer_date"]
+        assert ad.get("null_reason") == "not_extracted" or (
+            ad["kind"] == "value" and ad["route"] == "metadata" and ad["source"].startswith("opd:events/"))
 
 
 def test_samples_are_converter_records_that_validate(val):

@@ -71,7 +71,7 @@ tolerated); a parliament that departs systematically names a role. Share in v0.1
   determined from the text and, separately, the tag the source carries. *In v0.2:* `Document.language_of_text` and
   `Document.language_tag`.
 - **Submission date: the event and its source** (body-specific; 44/57 [57.1%, 91.8%]). In 9 of 11 parliaments OPD's
-  date is the printed lodging date (one exception allowed); in Vernier (0/5) and Lausanne (2/5) it is mostly printed nowhere in the documents,
+  date is the printed lodging date (one exception allowed); in Vernier (5/5 affairs) and Lausanne (3/5) it is printed in neither document,
   2 to 28 days after the signing or lodging date they print. *Recommend:* give the submission date a role and a source like every
   other date. *In v0.2:* `DateRole` adds `signed`, `lodged`, `received`, `announced` and `later_step` (v0.1's
   `submitted` stays for a source's own "submitted" event).

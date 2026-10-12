@@ -50,7 +50,8 @@ def test_records_carry_the_pairs_and_stay_valid(over):
                 assert "does not pair" not in reason["evidence"]
 
 
-def test_strip_qa_undoes_the_overlay(over):
+def test_strip_qa_undoes_the_overlay():
+    over = VP.render(meta=False)  # without the OPD-metadata overlay (it fills qa[].answering_body; test_schema_v0_2_meta)
     base = {k: [json.loads(x) for x in VP.V.render()[f"{k}_records.jsonl"].splitlines()] for k in QA.SETS}
     for k in QA.SETS:
         got = [QA.strip_qa(json.loads(x)) for x in over[f"{k}_records.jsonl"].splitlines()]

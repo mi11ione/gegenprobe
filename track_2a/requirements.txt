@@ -1,4 +1,5 @@
-# Runtime pins for the Docker image (python 3.11). Generated from the dev venv; update together with pyproject.toml.
+# Runtime pins for the Docker image (python 3.11): only what the image imports. Update together with pyproject.toml and
+# requirements.lock (hash-pinned); test and lint tools: requirements-dev.lock.
 annotated-types==0.8.0
 jinja2==3.1.6
 markupsafe==3.0.4
@@ -7,8 +8,3 @@ pydantic==2.14.0
 pydantic-core==2.50.0
 typing-extensions==4.16.0
 typing-inspection==0.4.4
-pytest==9.1.1
-iniconfig==2.3.1
-packaging==26.3
-pluggy==1.6.0
-pygments==2.21.0

@@ -1566,33 +1566,33 @@
      "affairs_with_output": 12
     },
     "reader": {
-     "pairs_predicted": 21,
-     "pairs_gold": 31,
-     "matched": 3,
-     "precision": 0.14285714285714285,
-     "recall": 0.0967741935483871,
-     "f1": 0.11538461538461538,
+     "pairs_predicted": 63,
+     "pairs_gold": 70,
+     "matched": 21,
+     "precision": 0.3333333333333333,
+     "recall": 0.3,
+     "f1": 0.3157894736842105,
      "precision_wilson95": [
-      0.04980921798213492,
-      0.346364941492295
+      0.22949449812708317,
+      0.4563298986557586
      ],
      "recall_wilson95": [
-      0.03346403609464399,
-      0.2490028999817704
+      0.2053645673851015,
+      0.4154453825618119
      ],
-     "names_precision": 1.0,
-     "names_recall": 0.6774193548387096,
+     "names_precision": 0.9206349206349206,
+     "names_recall": 0.8285714285714286,
      "affairs_exact": {
-      "k": 1,
-      "n": 5,
-      "share": 0.2,
+      "k": 3,
+      "n": 12,
+      "share": 0.25,
       "wilson95": [
-       0.0362,
-       0.6245
+       0.0889,
+       0.5323
       ]
      },
-     "affairs": 5,
-     "affairs_with_output": 4
+     "affairs": 12,
+     "affairs_with_output": 11
     }
    },
    "5002": {
@@ -1696,6 +1696,35 @@
       0.5615060804490177
      ],
      "names_precision": 0.6666666666666666,
+     "names_recall": 0.6666666666666666,
+     "affairs_exact": {
+      "k": 0,
+      "n": 2,
+      "share": 0.0,
+      "wilson95": [
+       0.0,
+       0.6576
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 2
+    },
+    "reader": {
+     "pairs_predicted": 5,
+     "pairs_gold": 3,
+     "matched": 1,
+     "precision": 0.2,
+     "recall": 0.3333333333333333,
+     "f1": 0.25,
+     "precision_wilson95": [
+      0.03622316096978745,
+      0.6244717358814613
+     ],
+     "recall_wilson95": [
+      0.0614903152761605,
+      0.7923450448735121
+     ],
+     "names_precision": 0.4,
      "names_recall": 0.6666666666666666,
      "affairs_exact": {
       "k": 0,
@@ -1823,6 +1852,35 @@
      },
      "affairs": 2,
      "affairs_with_output": 2
+    },
+    "reader": {
+     "pairs_predicted": 7,
+     "pairs_gold": 7,
+     "matched": 7,
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0,
+     "precision_wilson95": [
+      0.6456611570247934,
+      1.0
+     ],
+     "recall_wilson95": [
+      0.6456611570247934,
+      1.0
+     ],
+     "names_precision": 1.0,
+     "names_recall": 1.0,
+     "affairs_exact": {
+      "k": 2,
+      "n": 2,
+      "share": 1.0,
+      "wilson95": [
+       0.3424,
+       1.0
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 2
     }
    },
    "5192": {
@@ -1930,6 +1988,35 @@
      ],
      "names_precision": 0.8666666666666667,
      "names_recall": 0.8666666666666667,
+     "affairs_exact": {
+      "k": 0,
+      "n": 2,
+      "share": 0.0,
+      "wilson95": [
+       0.0,
+       0.6576
+      ]
+     },
+     "affairs": 2,
+     "affairs_with_output": 2
+    },
+    "reader": {
+     "pairs_predicted": 15,
+     "pairs_gold": 15,
+     "matched": 10,
+     "precision": 0.6666666666666666,
+     "recall": 0.6666666666666666,
+     "f1": 0.6666666666666666,
+     "precision_wilson95": [
+      0.41713125151212976,
+      0.8482389930530876
+     ],
+     "recall_wilson95": [
+      0.41713125151212976,
+      0.8482389930530876
+     ],
+     "names_precision": 0.9333333333333333,
+     "names_recall": 0.9333333333333333,
      "affairs_exact": {
       "k": 0,
       "n": 2,
@@ -2058,33 +2145,33 @@
      "affairs_with_output": 3
     },
     "reader": {
-     "pairs_predicted": 15,
-     "pairs_gold": 20,
+     "pairs_predicted": 30,
+     "pairs_gold": 34,
      "matched": 0,
      "precision": 0.0,
      "recall": 0.0,
      "f1": 0.0,
      "precision_wilson95": [
       0.0,
-      0.20388926630434784
+      0.113517091390478
      ],
      "recall_wilson95": [
       0.0,
-      0.16113012549493322
+      0.10151790621961015
      ],
-     "names_precision": 1.0,
-     "names_recall": 0.75,
+     "names_precision": 0.9666666666666667,
+     "names_recall": 0.8529411764705882,
      "affairs_exact": {
       "k": 0,
-      "n": 2,
+      "n": 3,
       "share": 0.0,
       "wilson95": [
        0.0,
-       0.6576
+       0.5615
       ]
      },
-     "affairs": 2,
-     "affairs_with_output": 1
+     "affairs": 3,
+     "affairs_with_output": 2
     }
    },
    "TI": {
@@ -2907,9 +2994,11 @@
   "ran": true,
   "stopped": {
    "date_pointer": null,
-   "role_reader": "served_model_mismatch at affair 119632: requested swiss-ai/apertus-v1.5-8b, served swiss-ai/Apertus-v1.5-70B (system_fingerprint vllm-0.1.dev1+g54b4292c2-tp2-bfd70257)"
+   "role_reader": null
   },
-  "served_fingerprints": [],
+  "served_fingerprints": [
+   "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840"
+  ],
   "fingerprints_not_seen_in_role_reader_development": []
  },
  "stop_rules": {

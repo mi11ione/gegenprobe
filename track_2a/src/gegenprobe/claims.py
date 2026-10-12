@@ -20,10 +20,14 @@ claims.tsv, `check` fails (exit 1) when
     documents) every integer below 10 is, except structural uses (a list or heading number, §/Fig./Figure/Table n,
     code spans and HTML tags; `small_structural`): a count in prose ("4 parliamentary practice") is bound by an anchor
     like any other number, an ordinal or a setting ("night 2", "4 vCPUs") is allowlisted with its reason, or
-  * a scope word in a strict zone (post hoc, registered, exploratory, in-sample, held out, weighted, unweighted; not
+  * a scope word in a strict zone (post hoc or its plain form "after seeing the labels", registered, exploratory,
+    in-sample, held out, weighted, unweighted; not
     "pre-registered") lies outside every anchor phrase and every allowlisted phrase: it is bound to the claim it
     qualifies by an anchor that contains both (`python -m gegenprobe.claims scope` proposes them), so flipping
     "post hoc" to "registered" breaks the anchor, or
+  * a scoping qualifier ("(not sample-checked)", "post hoc", "in-sample", "uncorrected", "would", "at most", "partly",
+    ...; QUALIFIER) recorded in claims_strict.json `scoped` for the clause of a claim anchor or wording-pin phrase is
+    no longer in that clause (`python -m gegenprobe.claims scoped [--write]`), or
   * a pinned phrase (claims_strict.json `pinned`: statements without a number such as "blind AI annotators" or "OPD
     confirmed") does not occur exactly its pinned number of times, or
   * a wording pin fails (claims_pins.json, gegenprobe.claims_pins): a verdict, multiplier or comparative bound
@@ -238,7 +242,19 @@ def numeric_tokens(text: str, small: bool = False) -> list[tuple[int, int, str]]
 
 def strict_config() -> dict:
     p = ROOT / STRICT_NAME
-    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+    return with_strict_docs(json.loads(p.read_text(encoding="utf-8")) if p.exists() else {})
+
+
+def with_strict_docs(cfg: dict) -> dict:
+    """`strict_docs` is the one list of strict documents: each is a strict zone end to end (unless `zones` gives it
+    narrower zones), counts its integers below 10 (`small_int_docs`), is scanned by the wording guards
+    (gegenprobe.claims_pins.config) and has its scoping qualifiers bound (`scoped`). Adding a document is one line."""
+    for d in cfg.get("strict_docs") or []:
+        cfg.setdefault("zones", {}).setdefault(d, {"start": None, "end": None})
+        small = cfg.setdefault("small_int_docs", [])
+        if d not in small:
+            small.append(d)
+    return cfg
 
 
 def zones_of(text: str, spec) -> list[tuple[int, int]]:
@@ -327,7 +343,8 @@ def anchor_check(rows: list[dict], anchors: dict | None = None, docs: dict[str, 
 # Scope words: the words that say how far a result reaches. In a strict zone each must sit inside an anchor phrase (so it
 # is bound to the claim next to it: flipping "post hoc" to "registered" breaks that anchor) or inside an allowlisted
 # phrase; "pre-registered" (the design, not a result's status) is not one of them.
-SCOPE = re.compile(r"(?<![\w-])(post[ -]hoc|registered|exploratory|in-sample|held[ -]out|unweighted|weighted)(?![\w-])",
+SCOPE = re.compile(r"(?<![\w-])(post[ -]hoc|after\s+seeing\s+the\s+labels|registered|exploratory|in-sample|held[ -]out|"
+                   r"unweighted|weighted)(?![\w-])",
                    re.I)
 
 
@@ -373,6 +390,123 @@ def _outside_skipped(doc: str) -> bool:
     """A document outside the project (the repository-root README) that is absent: skipped inside the Docker build
     context, an error under GP_CLAIMS_STRICT (the host CI job)."""
     return doc.startswith("../") and not os.environ.get("GP_CLAIMS_STRICT")
+
+
+# Scoping qualifiers: the words and parentheticals that narrow how far a claim reaches ("(not sample-checked)", "post
+# hoc", "in-sample", "uncorrected", "would ... once", "at most", "partly", "draft"). Deleting one turns a narrow claim
+# into a broad one without touching a number, so the qualifiers in the clause of every claim anchor (claims_anchor.json)
+# and every wording-pin phrase (claims_pins.json) are recorded in claims_strict.json `scoped` ({document: {phrase:
+# {qualifier: count}}}): a qualifier that leaves the clause of a phrase that had it fails. Adding one never fails.
+# `python -m gegenprobe.claims scoped` lists the differences, `--write` records the current state (review the diff: every
+# removed qualifier must be a deliberate rewording, never a dropped caveat).
+QUALIFIER = re.compile(
+    r"(?<![\w-])(not\s+sample-checked|sample-checked|not\s+paired|not\s+(?:yet\s+)?(?:checked|verified|tested)|"
+    r"unchecked|unverified|uncorrected|one-sided|post[ -]hoc|after\s+seeing\s+the\s+labels|pre-registered|"
+    r"registered|exploratory|in-sample|"
+    r"held[ -]out|unweighted|weighted|estimated|estimates?|approximately|about|roughly|around|at\s+most|at\s+least|"
+    r"up\s+to|would|could|may|might|once|if|unless|partly|partial(?:ly)?|drafts?|provisional|proposed|preliminary|"
+    r"projected|dry[- ]run|as\s+run|by\s+definition\s+only|not\s+yet|observed|by\s+inference)(?![\w-])", re.I)
+_CLAUSE_END = re.compile(r"\n\s*\n|\n(?=[ \t]*(?:[-*+]|\d+\.)\s)|\n(?=[ \t]*\|)|(?<=\S) \| |;\s|"
+                         r"[.!?](?=\s+[A-Z0-9*(\[\"“_`<])")
+
+
+def clauses(text: str) -> list[tuple[int, int]]:
+    """[start, end) of every clause: split at blank lines, list items, table rows and cells, semicolons and sentence
+    ends (a full stop before a capital, digit, bracket or emphasis)."""
+    out, pos = [], 0
+    for m in _CLAUSE_END.finditer(text):
+        out.append((pos, m.start()))
+        pos = m.end()
+    out.append((pos, len(text)))
+    return out
+
+
+def _qnorm(q: str) -> str:
+    return re.sub(r"[\s-]+", " ", q.lower())
+
+
+def scope_phrases(doc: str, rows: list[dict] | None = None, anchors: dict | None = None) -> list[str]:
+    """The phrases whose clauses carry recorded qualifiers: every anchor of a claim listing `doc` and every wording-pin
+    phrase for `doc`."""
+    from .claims_pins import _phrases, config as pins_config
+    rows = rows if rows is not None else load(ROOT / "claims.tsv")
+    anchors = anchor_config() if anchors is None else anchors
+    by_id = {r["id"]: r for r in rows}
+    out = [ph for cid, per in anchors.items() if cid in by_id and doc in _where(by_id[cid]) for ph in per.get(doc) or []]
+    out += [ph for pin in pins_config().get("pins") or [] for ph, _ in _phrases((pin.get("docs") or {}).get(doc) or [])]
+    return sorted(set(out))
+
+
+def scope_snapshot(text: str, phrases: list[str]) -> dict[str, dict[str, int]]:
+    """{phrase: {qualifier: count}}: the qualifiers in the clauses that the occurrences of each phrase overlap."""
+    cl = clauses(text)
+    quals = [(m.start(), m.end(), _qnorm(m.group(0))) for m in QUALIFIER.finditer(text)]
+    out: dict[str, dict[str, int]] = {}
+    for ph in phrases:
+        idx = set()
+        for m in re.finditer(re.escape(ph), text):
+            idx |= {k for k, (a, b) in enumerate(cl) if a < m.end() and m.start() < b}
+        cnt: dict[str, int] = {}
+        for k in sorted(idx):
+            a, b = cl[k]
+            for i, j, q in quals:
+                if a <= i and j <= b:
+                    cnt[q] = cnt.get(q, 0) + 1
+        if cnt:
+            out[ph] = dict(sorted(cnt.items()))
+    return out
+
+
+def scoped_check(cfg: dict | None = None, docs: dict[str, str] | None = None) -> list[str]:
+    """claims_strict.json `scoped`: every qualifier recorded for a phrase is still in that phrase's clauses (at least as
+    often): removing "(not sample-checked)" or "post hoc" next to a bound claim fails, wherever the claim sits."""
+    cfg = strict_config() if cfg is None else cfg
+    errs = []
+    for doc, per in (cfg.get("scoped") or {}).items():
+        text = docs[doc] if docs is not None and doc in docs else (
+            (ROOT / doc).read_text(encoding="utf-8") if (ROOT / doc).exists() else None)
+        if text is None:
+            if not _outside_skipped(doc):
+                errs.append(f"scoped: document {doc} missing")
+            continue
+        now = scope_snapshot(text, list(per))
+        for ph, want in per.items():
+            if ph not in text:
+                errs.append(f"scoped {doc}: phrase {ph[:80]!r} not found (re-record with `python -m gegenprobe.claims "
+                            "scoped --write` once its anchor or pin is updated)")
+                continue
+            got = now.get(ph, {})
+            line = text.count("\n", 0, text.find(ph)) + 1
+            for q, n in want.items():
+                if got.get(q, 0) < n:
+                    errs.append(f"scoped {doc}:{line}: qualifier {q!r} left the clause of {ph[:80]!r} "
+                                f"({got.get(q, 0)} of {n}): a caveat was removed from a bound claim")
+    return errs
+
+
+def record_scoped(rows: list[dict] | None = None, write: bool = False) -> dict:
+    """The current `scoped` state of every strict document, with the differences from claims_strict.json."""
+    rows = rows if rows is not None else load(ROOT / "claims.tsv")
+    p = ROOT / STRICT_NAME
+    raw = json.loads(p.read_text(encoding="utf-8"))
+    cfg, anchors = with_strict_docs(json.loads(json.dumps(raw))), anchor_config()
+    old, new, diff = raw.get("scoped") or {}, {}, []
+    for doc in cfg.get("zones") or {}:
+        if not (ROOT / doc).exists():
+            continue
+        new[doc] = scope_snapshot((ROOT / doc).read_text(encoding="utf-8"), scope_phrases(doc, rows, anchors))
+        for ph in sorted(set(old.get(doc, {})) | set(new[doc])):
+            a, b = old.get(doc, {}).get(ph, {}), new[doc].get(ph, {})
+            lost = {q: n - b.get(q, 0) for q, n in a.items() if b.get(q, 0) < n}
+            if lost:
+                diff.append(f"REMOVED {doc}: {lost} from {ph[:90]!r}")
+            gained = {q: n - a.get(q, 0) for q, n in b.items() if a.get(q, 0) < n}
+            if gained:
+                diff.append(f"added {doc}: {gained} to {ph[:90]!r}")
+    if write:
+        raw["scoped"] = new
+        p.write_text(json.dumps(raw, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    return dict(differences=diff, phrases={d: len(v) for d, v in new.items()})
 
 
 def pinned_check(cfg: dict | None = None, docs: dict[str, str] | None = None) -> list[str]:
@@ -529,7 +663,7 @@ def check(rows: list[dict] | None = None, render_site: bool = False, notes: list
                     errs.append(f"{r['id']}: context {phrase!r} not within {CONTEXT_WINDOW} chars of {r['shown']!r} in {doc}")
     from .claims_pins import check as pins_check
     from .claims_site import check as site_check
-    return errs + anchor_check(rows) + zone_check(rows) + pinned_check() + pins_check() + \
+    return errs + anchor_check(rows) + zone_check(rows) + pinned_check() + scoped_check() + pins_check() + \
         site_check(rows=rows, render=None if render_site else False, notes=notes, root=ROOT)
 
 
@@ -786,6 +920,10 @@ def propose_scope(rows: list[dict] | None = None, write: bool = False) -> dict:
 
 def main(argv: list[str]) -> int:
     cmd = argv[0] if argv else "check"
+    if cmd == "scoped":
+        rep = record_scoped(merge(), write="--write" in argv)
+        print(json.dumps(rep, indent=1, ensure_ascii=False))
+        return 0
     if cmd == "scope":
         rep = propose_scope(merge(), write="--write" in argv)
         print(json.dumps(rep, indent=1, ensure_ascii=False))

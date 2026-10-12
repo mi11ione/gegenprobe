@@ -131,7 +131,7 @@ nothing):
 |---|---|---|---|---|---|---|---|---|
 | submitter | **role split** | 35/65 = 53.8% [33.3%, 75.0%] | 11 | Zürich city 1/6, Thurgau 2/6, Fribourg 2/6, Vernier 1/6, Lugano 3/6: joint authors, none designated first; Valais 0/6: a parliamentary group; Graubünden: OPD's first author a co-signer. Bern city, Vaud, Lausanne 6/6 | role split | role split | 0.93 | 0.24 |
 | co-signatories | **role split** | 10/41 = 24.4% [6.8%, 46.3%] | 9 | Bern city 0/6: two to four printed first signatories, so OPD's list includes authors of record; Zürich city 0/4 and Fribourg, Vernier, Thurgau, Lugano: joint authors; Graubünden 3/5: authors of record; Valais: persons signing for a group. Lausanne 3/3 | role split | role split | 0.96 | 0.45 |
-| submission date | **body-specific** | 44/57 = 77.2% [57.1%, 91.8%] | 11 | Vernier 0/5, Lausanne 2/5: OPD's date printed nowhere, 2 to 28 days after the printed lodging date; 9 parliaments conform | body-specific | body-specific | 0.97 | 0.58 |
+| submission date | **body-specific** | 44/57 = 77.2% [57.1%, 91.8%] | 11 | OPD's date printed in neither document in Vernier (5/5 affairs) and Lausanne (3/5), 2 to 28 days after the printed lodging date; 9 parliaments conform | body-specific | body-specific | 0.97 | 0.58 |
 | language | **role split** | 34/36 = 94.4% [83.3%, 100.0%] | 6 | Fribourg 4/6: the tag names the other official language; 5 of 11 parliaments tag no document | role split | role split | 1.00 | 0.89 |
 | type | **role split** | 55/64 = 85.9% [76.2%, 95.3%] | 11 | Bellinzona 3/5: "Motions" that propose a decision the council takes itself; Valais 4/6: "Postulate" that mandate the executive; Lugano and Fribourg 4/6, scattered | role split | role split | 0.95 | 0.19 |
 | addressed body | role split, **fragile** | 57/60 = 95.0% [87.0%, 100.0%] | 11 | Bellinzona 2/4: the council itself; the executive in 10 parliaments (one exception allowed) | shared | role split | 0.76 | 0.17 |
@@ -350,10 +350,13 @@ both Locarno affairs that have no answer and takes a later printed date in one L
 | the converter's record (actors) | 21/68 | 0.31 | 0.30 | 0.30 |
 | document order (no model; P10's post hoc baseline) | 17/86 | 0.20 | 0.24 | 0.22 |
 | OPD's contributor list, first author + co-signers (reference; OPD's names) | 16/77 | 0.21 | 0.23 | 0.22 |
-| Apertus role reader, partial: 5 affairs (Ticino 3, Mendrisio 2), 31 gold pairs | 3/21 | 0.14 | 0.10 | 0.12 |
+| Apertus role reader (all 12 affairs; D1, D2) | 21/63 | 0.33 | 0.30 | 0.32 |
 
-The role reader read 5 of the 12 affairs before the build guard stopped it at the 6th (D1, below); its row is scored
-on those 5 only. Mendrisio's 3 affairs hold 34 of the 70 gold pairs (long signatory lists); there the record prints 41
+The role reader read 5 of the 12 affairs before the build guard stopped it at the 6th (D1, below) and the remaining 7
+after the route served the registered build again (D2); every one of its responses carries the registered label and
+fingerprint, and it is scored on all 12 (its configuration in-sample in Bellinzona, the one parliament of P8's
+development set here). Exploratory, 12 affairs: the reader is level with the converter's record (F1 0.32 vs 0.30) and
+ahead of document order and OPD's list (0.22 each). Mendrisio's 3 affairs hold 34 of the 70 gold pairs (long signatory lists); there the record prints 41
 pairs and matches none, document order matches 1. The converter's record detects the language of all 24 documents
 (24/24) and names the instrument right in 5 of 12 affairs.
 
@@ -396,10 +399,10 @@ lowest κ: decision outcome 0.069, dispatch date 0.089, government recommendatio
 
 ### The gateway build switch (D1)
 
-Every committed gateway response (17,568 in `data/model_cache/publicai_swiss-ai_apertus-v1.5-8b/`, the cache `make run`
+Every committed gateway response (17,720 in `data/model_cache/publicai_swiss-ai_apertus-v1.5-8b/`, the cache `make run`
 replays) carries one served label, `swiss-ai/apertus-v1.5-8b`, and one fingerprint,
-`vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840`; the last of them was answered at 01:05 UTC on 12 Oct 2026
-(`results/report/r19_numbers.json` `gateway`). P11's date pointer finished its 12 affairs on that build and the role
+`vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840` (`results/report/r19_numbers.json` `gateway`). Before 01:06 UTC
+on 12 Oct 2026 P11's date pointer finished its 12 affairs on that build and the role
 reader 5. Shortly after, Public AI began answering requests for `swiss-ai/apertus-v1.5-8b` with the label
 `swiss-ai/Apertus-v1.5-70B`, and the role reader's first live request for its 6th affair came back from it; the
 response check (`llm._Remote._check`) raised `ServedModelMismatch`. A probe (`eval/p11/served_probe.py`,
@@ -408,11 +411,18 @@ role-reader requests, one P1 date-pointer request) byte for byte: all 3 came bac
 with another fingerprint, `vllm-0.1.dev1+g54b4292c2-tp2-bfd70257`, and log-probabilities that differ by up to 4.64
 (the greedy token changed on 1 of the 2 role-reader requests). The build changed, not only the label.
 
-Per PROTOCOL §8.4 the role reader is reported as partial (5 of 12 affairs); the date pointer, complete on the
-registered build, stands, as do the no-model arms. θ and the role reader's configuration were fitted on the registered
-build and are not carried over (`convert/build_guard.py`); no result mixes builds. The 145 cached P11 responses replay
-with the registered label and fingerprint. In operation, review mode refuses the new build with exit 3 until its θ is
-fitted (`docs/runbook.md`, "Review mode in operation").
+Per PROTOCOL §8.4 the role reader was stopped and reported as partial (5 of 12 affairs); the date pointer, complete
+on the registered build, stands, as do the no-model arms. θ and the role reader's configuration were fitted on the
+registered build and are not carried over (`convert/build_guard.py`); no result mixes builds.
+
+**D2 (the route back).** At about 03:32 UTC the route answered from the registered build again (probes at 03:43 and
+03:47 UTC, `results/refit_bfd70257/probe_*.json`). D2, written before any further P11 model call, resumed the role
+reader on that build for its 7 unread affairs, with the same configuration, prompts and scorer and the same response
+check; it completed 12/12 (152 live responses checked, none from another build;
+`results/p11/it_arms_pointer.json`). In operation, review mode refused the other build with exit 3 and runs again on
+the registered θ: a live `convert --mode review` and `affair --mode review --roles apertus` both exited 0
+(`results/refit_bfd70257/e2e_live.json`). A θ refit for the other build had 40 of 97 dev documents when the route
+switched back (`eval/refit_bfd70257/NOTE.md`; `docs/runbook.md`, "Review mode in operation").
 
 ## Document parts: blind check of the detector
 
@@ -517,11 +527,11 @@ check follows); the real 8B was run in-process on CPU on P1, P2 (52 documents) a
 verifier and as P10's role reader.
 Apertus numbers not marked 8B come from the 70B weights, which Public AI served under the name
 `swiss-ai/apertus-v1.5-8b` with the label `swiss-ai/apertus-v1.5-8b` and the fingerprint
-`vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840` until about 01:05 UTC on 12 Oct 2026; every committed gateway
-response (17,568) carries that label and fingerprint. Since then the same name answers with the label
-`swiss-ai/Apertus-v1.5-70B` from another build (`vllm-0.1.dev1+g54b4292c2-tp2-bfd70257`, different log-probabilities on
-the same requests); the response check stopped P11's role reader there, and review mode refuses that build until its θ
-is fitted ([P11, D1](#the-gateway-build-switch-d1)). The gateway's own label for the new build says 70B; that the
+`vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840`, except from about 01:05 to 03:33 UTC on 12 Oct 2026; every
+committed gateway response (17,720) carries that label and fingerprint. In that window the same name answered with the
+label `swiss-ai/Apertus-v1.5-70B` from another build (`vllm-0.1.dev1+g54b4292c2-tp2-bfd70257`, different
+log-probabilities on the same requests); the response check stopped P11's role reader there, and review mode refused
+that build ([P11, D1, D2](#the-gateway-build-switch-d1)). The gateway's own label for the new build says 70B; that the
 registered build is the 70B is inferred, not documented by Public AI: the served fingerprint (`tp8-pp2-…`, a
 tensor-parallel 8 × pipeline-parallel 2 deployment) and the behaviour (report §3: 760/792 greedy outputs
 byte-identical to the `-70b` name; MMLU 84.4% vs 70.8% for the v1 8B route) point to the 70B. We use that name because
@@ -928,7 +938,7 @@ is-answer variant and θ_B.
   pairs right (F1 0.27; the rules 0.17, document order 0.41, the 70B 0.42), so date suggestions only. The 70B weights served by Public AI produced every other Apertus
   number, P2's 53/62 and P10's 50/141 among them.
 - **Builds:** θ does not transfer between builds, so each gets its own; the 70B results above carry θ = 10.40 (the
-  registered gateway build, `…tp8-pp2-dd237840`; the build Public AI serves under the same name since 12 Oct 2026,
-  `…tp2-bfd70257`, has no θ yet, so review mode refuses it with exit 3), the
+  registered gateway build, `…tp8-pp2-dd237840`; the build Public AI served under the same name
+  `…tp2-bfd70257` from about 01:05 to 03:33 UTC on 12 Oct 2026, has no θ, so review mode refused it with exit 3), the
   real 8B θ = 16.73 (dev AUROC 0.90; 97 dev documents, D3). The shipped review mode keeps the v1 reader: P6 found v2
   right on 5 documents v1 missed and wrong on 2 (p = 0.45), not enough to switch.

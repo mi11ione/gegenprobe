@@ -30,7 +30,7 @@ r13.xl_evaluable	1,999	results/findings/cross_language_links.json	totals.opd_tag
 r13.xl_gr	148	results/findings/cross_language_links.json	bodies.4.opd_tag.first_pair_cross	int	python -m gegenprobe.findings.cross_language	README.md	
 r13.xl_vs	63	results/findings/cross_language_links.json	bodies.0.opd_tag.first_pair_cross	int	python -m gegenprobe.findings.cross_language	README.md	
 r13.at_durations	6,362	results/findings/answer_times.json	headline.durations	int	python -m gegenprobe.findings.answer_times	README.md	
-r13.at_min_n	20	results/findings/answer_times.json	min_n	int	python -m gegenprobe.findings.answer_times	README.md	
+r13.at_min_n	20	results/findings/answer_times.json	min_n	int	python -m gegenprobe.findings.answer_times	README.md,technical_report.md	
 r13.at_rho	0.884	results/findings/answer_times.json	headline.rho_opd_plain_vs_adapter	str	python -m gegenprobe.findings.answer_times	README.md	
 r13.at_vs_after	0	results/findings/answer_times.json	headline.vs_motions_submission_after_answer_document	int	python -m gegenprobe.findings.answer_times	README.md,technical_report.md	
 r13.at_vs_rows	23	results/findings/answer_times.json	headline.vs_counted_rows	int	python -m gegenprobe.findings.answer_times	-	
@@ -50,14 +50,14 @@ r13.p1_trivial_ci	[78.6, 89.8]	results/report/r13_numbers.json	display.p1_latest
 r13.p1_rules_n	135	results/report/r13_numbers.json	display.p1_rules_exact	int	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
 r13.p1_latest_n	131	results/report/r13_numbers.json	display.p1_latest_answer_typed_exact	int	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
 r13.p2_cluster_gain	[-0.02, 0.54]	results/report/r13_numbers.json	display.p2_pointer_vs_rules_cluster	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md,README.md	
-r13.p5_prec_cluster	[0.66, 0.97]	results/report/r13_numbers.json	display.p5_precision_parliament_cluster	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
+r13.p5_prec_cluster	[0.66, 0.97]	results/report/r13_numbers.json	display.p5_precision_parliament_cluster	str	PYTHONPATH=src:. python -m report.r13_numbers	-	
 r13.p2_h2_p	5.3	results/report/r13_numbers.json	display.p2_h2_p_mantissa	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
 r13.p8_ci_submitter	[33.3%, 75.0%]	results/report/r13_numbers.json	display.p8_cluster.submitter	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
 r13.p8_ci_cosign	[6.8%, 46.3%]	results/report/r13_numbers.json	display.p8_cluster.co_signatories	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
 r13.p8_ci_subdate	[57.1%, 91.8%]	results/report/r13_numbers.json	display.p8_cluster.date_submission	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
 r13.p8_ci_type	[76.2%, 95.3%]	results/report/r13_numbers.json	display.p8_cluster.type	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
 r13.p8_ci_language	[83.3%, 100.0%]	results/report/r13_numbers.json	display.p8_cluster.language	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
-r13.p4_invented	0/36	results/eval4/hypotheses4__publicai_swiss-ai_apertus-v1.5-8b.json	H3.invented.0/H3.invented.1	frac	PYTHONPATH=src:. python -m eval.gold4.hypotheses4	technical_report.md	
+r13.p4_invented	0/36	results/eval4/hypotheses4__publicai_swiss-ai_apertus-v1.5-8b.json	H3.invented.0/H3.invented.1	frac	PYTHONPATH=src:. python -m eval.gold4.hypotheses4	-	
 r13.valais_by_number	11/11	results/findings/cross_language_links.json	valais_pairing_by_number.by_number_right/valais_pairing_by_number.gold_answers	frac	python -m gegenprobe.findings.cross_language	-	
 r13.audit3_decoys	60	results/repair/adapters/audit3/sample.json	n_decoys	int	python -m gegenprobe.repair.adapters.audit3 sample	technical_report.md	
 r13.fed_function	15/15	results/fed/fed_tables.json	instrument_function.ALL.in_E.k/instrument_function.ALL.in_E.n	frac	PYTHONPATH=src:. python -m eval.fed.score	README.md,technical_report.md	

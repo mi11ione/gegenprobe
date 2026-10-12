@@ -1,7 +1,8 @@
-# Development and CI tool pins (pip install --require-hashes -r requirements.lock -r requirements-dev.lock: the CI test
-# job, and a host that runs `make test` / `make lint`). sha256 of every file PyPI publishes for ruff 0.16.10 (all
-# platforms + sdist), from https://pypi.org/pypi/ruff/0.16.10/json. pytest and its dependencies carry the same pins and
-# hashes as in requirements.lock (the image keeps them there), so this file alone also installs the test runner.
+# Development and CI tool pins, installed on top of the runtime lock (pip install --require-hashes -r requirements.lock
+# -r requirements-dev.lock: the CI test job, and a host that runs `make test` / `make lint`). The runtime image does not
+# install this file. sha256 of every file PyPI publishes for each pinned version (all platforms + sdist), e.g.
+# https://pypi.org/pypi/ruff/0.16.10/json; pytest and its dependencies (iniconfig, packaging, pluggy, pygments) are
+# test-only and live here only.
 
 ruff==0.16.10 \
     --hash=sha256:1dfc6f0088149fb6a362c1c446bcbb3fd2157b3852fe2fa68409276eab9ad9b3 \

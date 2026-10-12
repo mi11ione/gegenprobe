@@ -38,7 +38,9 @@ byte-identical to the results files and that a build into another directory carr
 The schema sample record (top of the page) is the P3b record after the product post-processing
 (`gegenprobe.affair_post`, `docs/affair.md`), carried to schema v0.2 (`gegenprobe.schema.v0_2_all.carry_v0_1`) and
 validated as a whole: `qa[0].answering_body` is the typed null `not_extracted` instead of a false
-`present_unanchored`, and the interpellation's `decision` is `not_applicable`.
+`present_unanchored`, and the interpellation's `decision` is `not_applicable`. It shows what the converter itself
+writes: the committed v0.2 records (`results/schema/v0_2/`) then fill the answering body from OPD's metadata where OPD
+names the executive (118 of the converter's 120 records, post hoc; `docs/affair.md`).
 
 ## Numbers and texts
 Every number on the page is read from the files above when the page is built; none is typed by hand, so the page is

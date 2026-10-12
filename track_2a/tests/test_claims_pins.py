@@ -60,8 +60,8 @@ REVIEW_MISSES = [
     ("docs/form_notes.md", "level with OPD's contributor list", "ahead of OPD's contributor list"),
     # where document text goes at runtime
     ("README.md", "or nothing with the\nlocal 8B.", "or to any provider with the\nlocal 8B."),
-    ("technical_report.md", "Apertus review mode sends document text to the Public AI gateway",
-     "Apertus review mode keeps document text in Switzerland"),
+    ("technical_report.md", "or the local 8B, where no text leaves the machine)",
+     "or any provider, where no text leaves Switzerland)"),
     # P8's sensitivity check
     ("README.md", "(5/7 verdicts hold;", "(7/7 verdicts hold;"),
 ]

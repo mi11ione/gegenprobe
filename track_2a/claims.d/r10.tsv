@@ -7,7 +7,7 @@ r10.p7_date_hit_p7	113/120	results/p7/p7_posthoc_r8.json	ablation.arms.p7.annota
 r10.p7_date_hit_rule	127/157	results/p7/p7_posthoc_r8.json	ablation.arms.rule_any_view.annotated.date_hit/ablation.arms.rule_any_view.annotated.n	frac	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md,src/gegenprobe/viewer/template.html	
 r10.p7_rule_recall	88%	results/p7/p7_posthoc_r8.json	ablation.arms.rule_any_view.recall_attainable	pct0	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md,src/gegenprobe/viewer/template.html	
 r10.p7_p7_recall	66%	results/p7/p7_posthoc_r8.json	ablation.arms.p7.recall_attainable	pct0	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md,src/gegenprobe/viewer/template.html	
-r10.p7_rule_queue	369	results/p7/p7_posthoc_r8.json	ablation.queue.total.rule_any_view	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	technical_report.md,docs/evaluation.md,README.md	
+r10.p7_rule_queue	369	results/p7/p7_posthoc_r8.json	ablation.queue.total.rule_any_view	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md,README.md	
 r10.p7_queue_eligible	863	results/p7/p7_posthoc_r8.json	ablation.queue.total.eligible	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r10.p2_free_registered	22/29	results/report/p2_numbers.json	arms.naive_null.value_recall/n_gold_value	frac	python -m report.p2_numbers	README.md	
 r10.p2_free_null_reparsed	24/29	results/eval/posthoc_r3_naive_reparsed.json	splits.P2.naive_null.reparsed.correct/splits.P2.naive_null.reparsed.n_gold_value	frac	PYTHONPATH=src:. python -m eval.posthoc_r3 naive	technical_report.md	

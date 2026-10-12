@@ -54,7 +54,7 @@ repair.all_relink_heading	2,459	results/repair/be_verify_all.json	by_action.reli
 repair.all_relink_date_v2	2,421	results/repair/be_verify_all.json	by_action.relink.v2.date_eq_event	int	python -m gegenprobe.repair.verify_all run	docs/repair.md,README.md,technical_report.md,docs/operations.md,../README.md
 repair.all_relink_date_v2_ci	[97.9, 98.9]	results/repair/be_verify_all.json	by_action.relink.v2.ci_date_eq_event	ci	python -m gegenprobe.repair.verify_all run	docs/repair.md,technical_report.md,docs/operations.md
 repair.all_relink_date_v1	2,332	results/repair/be_verify_all.json	by_action.relink.v1_registered.date_eq_event	int	python -m gegenprobe.repair.verify_all run	docs/repair.md,docs/operations.md
-repair.all_fetch_triple	48	results/repair/be_verify_all.json	by_action.fetch.v2.triple	int	python -m gegenprobe.repair.verify_all run	docs/repair.md,docs/operations.md,technical_report.md,README.md
+repair.all_fetch_triple	48	results/repair/be_verify_all.json	by_action.fetch.v2.triple	int	python -m gegenprobe.repair.verify_all run	docs/repair.md,docs/operations.md,README.md
 repair.all_fetch_errors	0	results/repair/be_verify_all.json	fetch_errors	int	python -m gegenprobe.repair.verify_all run	docs/repair.md
 repair.review_after_check	39	results/repair/summary.json	review_after_check	int	python -m gegenprobe.repair.run	docs/repair.md,docs/operations.md
 repair.acceptance_parentless	2,459	results/repair/acceptance_snapshot-2026-10-06.json	still_parentless	int	python -m gegenprobe.repair.acceptance	docs/repair.md,docs/runbook.md,docs/operations.md

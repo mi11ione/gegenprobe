@@ -95,13 +95,13 @@
      "f1": "0.22"
     },
     "reader": {
-     "matched": 3,
-     "printed": 21,
-     "gold": 31,
-     "affairs": 5,
-     "precision": "0.14",
-     "recall": "0.10",
-     "f1": "0.12"
+     "matched": 21,
+     "printed": 63,
+     "gold": 70,
+     "affairs": 12,
+     "precision": "0.33",
+     "recall": "0.30",
+     "f1": "0.32"
     }
    },
    "in_sample": {
@@ -125,12 +125,16 @@
     "role_rules": 4,
     "role_reader_development": 1
    },
-   "reader_affairs": 5,
+   "reader_affairs": 12,
    "reader_by_body": {
     "Ticino": 3,
-    "Mendrisio": 2
+    "Mendrisio": 3,
+    "Lugano": 2,
+    "Locarno": 2,
+    "Bellinzona": 2
    },
-   "reader_stopped_at_affair": 6,
+   "reader_complete": true,
+   "reader_stopped_at_affair": null,
    "date_pointer_affairs": 12,
    "cached_replays_frozen": 145,
    "agreement": {
@@ -206,17 +210,17 @@
   }
  },
  "gateway": {
-  "committed_responses": 17568,
+  "committed_responses": 17720,
   "labels": {
-   "swiss-ai/apertus-v1.5-8b": 17568
+   "swiss-ai/apertus-v1.5-8b": 17720
   },
   "fingerprints": {
-   "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840": 17568
+   "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840": 17720
   },
   "n_labels": 1,
   "n_fingerprints": 1,
-  "last_response_utc": "2026-10-12T01:05:45Z",
-  "last_response_hhmm": "01:05",
+  "last_response_utc": "2026-10-12T03:59:16Z",
+  "last_response_hhmm": "03:59",
   "probe": {
    "replays": 3,
    "labels_live": [

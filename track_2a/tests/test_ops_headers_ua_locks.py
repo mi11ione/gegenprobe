@@ -83,12 +83,21 @@ def test_install_sh_refuses_before_installing_units():
 
 
 # ------------------------------------------------------------------------------------------------ locks and report
-def test_dev_lock_installs_pytest_with_the_runtime_pins():
+def test_test_tools_live_in_the_dev_lock_only():
+    """The runtime lock (the image, the nightly venv) carries only what they import; pytest and its dependencies are
+    hash-pinned in requirements-dev.lock, which installs on top of it (CI test job, make test)."""
     dev, run = (ROOT / "requirements-dev.lock").read_text(), (ROOT / "requirements.lock").read_text()
-    for pkg in ("pytest", "iniconfig", "packaging", "pluggy", "pygments"):
-        block = re.search(rf"^{pkg}==\S+ \\\n(?:    --hash=sha256:[0-9a-f]{{64}}(?: \\)?\n)+", dev, re.M)
-        assert block, pkg
-        assert block.group(0) in run, f"{pkg}: same pin and hashes as requirements.lock"
+
+    def pins(s):
+        return {m.group(1).lower(): m.group(2) for m in re.finditer(r"^([A-Za-z0-9_.-]+)==(\S+) \\$", s, re.M)}
+
+    for pkg in ("pytest", "iniconfig", "packaging", "pluggy", "pygments", "ruff"):
+        assert re.search(rf"^{pkg}==\S+ \\\n(?:    --hash=sha256:[0-9a-f]{{64}}(?: \\)?\n)+", dev, re.M), pkg
+        assert pkg not in pins(run), f"{pkg} is test-only: requirements-dev.lock, not requirements.lock"
+    txt = {m.group(1).lower(): m.group(2) for m in re.finditer(r"^([A-Za-z0-9_.-]+)==(\S+)$",
+                                                                (ROOT / "requirements.txt").read_text(), re.M)}
+    assert txt == pins(run), "requirements.txt and requirements.lock pin the same runtime set"
+    assert not set(pins(dev)) & set(pins(run)), "no package is pinned in both locks"
 
 
 def test_report_pdf_title_is_the_report_heading():

@@ -1,0 +1,635 @@
+{
+ "label": "POST HOC (after P11's scores, which stay as committed in results/p11/ni_arms_offline.json and p11_ni_tables.json): v0.2 records for the NI affairs by a carrier, not the frozen converter arm",
+ "command": "PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_ni",
+ "n": 15,
+ "records_valid": 15,
+ "invalid": [],
+ "p11_converter_arm": {
+  "records_valid": 3,
+  "statuses": {
+   "no_documents": 12,
+   "ok": 3
+  }
+ },
+ "now_valid_by_p11_status": {
+  "no_documents": 12,
+  "ok": 3
+ },
+ "documents": {
+  "n": 24,
+  "from_opd_copy": 5,
+  "with_language_of_text": 24
+ },
+ "answer_fields_not_applicable": {
+  "date_answer": {
+   "gold_not_applicable": 13,
+   "record_typed_not_applicable": 10,
+   "gold_applies_record_not_applicable": 0,
+   "both": 10
+  },
+  "date_dispatch": {
+   "gold_not_applicable": 13,
+   "record_typed_not_applicable": 10,
+   "gold_applies_record_not_applicable": 0,
+   "both": 10
+  },
+  "qa_pairing": {
+   "gold_not_applicable": 15,
+   "record_typed_not_applicable": 10,
+   "gold_applies_record_not_applicable": 0,
+   "both": 10
+  },
+  "answer_link_status": {
+   "gold_not_applicable": 13,
+   "record_typed_not_applicable": 10,
+   "gold_applies_record_not_applicable": 0,
+   "both": 10
+  }
+ },
+ "field_status": {
+  "addressed_body": {
+   "absent": 15
+  },
+  "answer_link_status": {
+   "value:absent": 5,
+   "value:not_applicable": 10
+  },
+  "co_signatories": {
+   "absent": 3,
+   "empty:not_in_corpus": 8,
+   "value": 4
+  },
+  "date_answer": {
+   "empty:not_applicable": 10,
+   "empty:not_in_corpus": 5
+  },
+  "date_decision": {
+   "empty:not_applicable": 10,
+   "empty:not_in_corpus": 5
+  },
+  "date_dispatch": {
+   "empty:not_applicable": 10,
+   "empty:not_in_corpus": 5
+  },
+  "date_submission": {
+   "value": 15
+  },
+  "decision_outcome": {
+   "null:not_in_corpus": 10,
+   "value": 5
+  },
+  "documents_usable_text": {
+   "value": 15
+  },
+  "government_recommendation": {
+   "null:not_in_corpus": 14,
+   "value": 1
+  },
+  "language": {
+   "value": 15
+  },
+  "procedural_history": {
+   "value": 15
+  },
+  "procedural_state": {
+   "value": 15
+  },
+  "qa_pairing": {
+   "empty:not_applicable": 10,
+   "empty:not_in_corpus": 5
+  },
+  "related_affairs": {
+   "empty:not_extracted": 15
+  },
+  "submitter": {
+   "empty:not_in_corpus": 8,
+   "value": 7
+  },
+  "type": {
+   "absent": 15
+  }
+ },
+ "gold_verdict_vs_record": {
+  "addressed_body": {
+   "fits -> absent": 13,
+   "new_role -> absent": 1,
+   "not_applicable -> absent": 1
+  },
+  "answer_link_status": {
+   "fits -> value:absent": 1,
+   "not_applicable -> value:absent": 3,
+   "not_applicable -> value:not_applicable": 10,
+   "not_printed -> value:absent": 1
+  },
+  "co_signatories": {
+   "fits -> absent": 3,
+   "fits -> value": 4,
+   "new_role -> empty:not_in_corpus": 4,
+   "not_printed -> empty:not_in_corpus": 4
+  },
+  "date_answer": {
+   "fits -> empty:not_in_corpus": 1,
+   "not_applicable -> empty:not_applicable": 10,
+   "not_applicable -> empty:not_in_corpus": 3,
+   "not_printed -> empty:not_in_corpus": 1
+  },
+  "date_decision": {
+   "fits -> empty:not_applicable": 1,
+   "new_role -> empty:not_applicable": 3,
+   "new_role -> empty:not_in_corpus": 2,
+   "not_printed -> empty:not_applicable": 6,
+   "not_printed -> empty:not_in_corpus": 3
+  },
+  "date_dispatch": {
+   "fits -> empty:not_in_corpus": 1,
+   "not_applicable -> empty:not_applicable": 10,
+   "not_applicable -> empty:not_in_corpus": 3,
+   "not_printed -> empty:not_in_corpus": 1
+  },
+  "date_submission": {
+   "fits -> value": 12,
+   "not_printed -> value": 3
+  },
+  "decision_outcome": {
+   "fits -> null:not_in_corpus": 3,
+   "fits -> value": 2,
+   "not_printed -> null:not_in_corpus": 7,
+   "not_printed -> value": 3
+  },
+  "documents_usable_text": {
+   "fits -> value": 15
+  },
+  "government_recommendation": {
+   "fits -> null:not_in_corpus": 1,
+   "fits -> value": 1,
+   "new_role -> null:not_in_corpus": 5,
+   "not_applicable -> null:not_in_corpus": 1,
+   "not_printed -> null:not_in_corpus": 7
+  },
+  "language": {
+   "fits -> value": 15
+  },
+  "procedural_history": {
+   "fits -> value": 11,
+   "new_role -> value": 4
+  },
+  "procedural_state": {
+   "fits -> value": 15
+  },
+  "qa_pairing": {
+   "not_applicable -> empty:not_applicable": 10,
+   "not_applicable -> empty:not_in_corpus": 5
+  },
+  "related_affairs": {
+   "fits -> empty:not_extracted": 7,
+   "not_printed -> empty:not_extracted": 8
+  },
+  "submitter": {
+   "fits -> empty:not_in_corpus": 7,
+   "fits -> value": 7,
+   "not_printed -> empty:not_in_corpus": 1
+  },
+  "type": {
+   "fits -> absent": 13,
+   "new_role -> absent": 2
+  }
+ },
+ "records": "results/p11/ni_records_v0_2_posthoc.jsonl",
+ "per_affair": [
+  {
+   "affair_id": 274355,
+   "body": "SO",
+   "ni_type": "GA",
+   "lang": "de",
+   "p11_converter_status": "ok",
+   "valid": true,
+   "documents": 2,
+   "documents_from_opd_copy": 0,
+   "fields": {
+    "date_submission": "value",
+    "date_decision": "empty:not_in_corpus",
+    "date_dispatch": "empty:not_in_corpus",
+    "qa_pairing": "empty:not_in_corpus",
+    "related_affairs": "empty:not_extracted",
+    "documents_usable_text": "value",
+    "answer_link_status": "value:absent",
+    "date_answer": "empty:not_in_corpus",
+    "procedural_history": "value",
+    "type": "absent",
+    "procedural_state": "value",
+    "decision_outcome": "null:not_in_corpus",
+    "submitter": "empty:not_in_corpus",
+    "co_signatories": "empty:not_in_corpus",
+    "addressed_body": "absent",
+    "government_recommendation": "null:not_in_corpus",
+    "language": "value"
+   }
+  },
+  {
+   "affair_id": 87775,
+   "body": "VS",
+   "ni_type": "GA",
+   "lang": "de",
+   "p11_converter_status": "no_documents",
+   "valid": true,
+   "documents": 3,
+   "documents_from_opd_copy": 0,
+   "fields": {
+    "date_submission": "value",
+    "date_decision": "empty:not_in_corpus",
+    "date_dispatch": "empty:not_in_corpus",
+    "qa_pairing": "empty:not_in_corpus",
+    "related_affairs": "empty:not_extracted",
+    "documents_usable_text": "value",
+    "answer_link_status": "value:absent",
+    "date_answer": "empty:not_in_corpus",
+    "procedural_history": "value",
+    "type": "absent",
+    "procedural_state": "value",
+    "decision_outcome": "value",
+    "submitter": "empty:not_in_corpus",
+    "co_signatories": "empty:not_in_corpus",
+    "addressed_body": "absent",
+    "government_recommendation": "null:not_in_corpus",
+    "language": "value"
+   }
+  },
+  {
+   "affair_id": 130663,
+   "body": "BE",
+   "ni_type": "GA",
+   "lang": "de",
+   "p11_converter_status": "ok",
+   "valid": true,
+   "documents": 1,
+   "documents_from_opd_copy": 0,
+   "fields": {
+    "date_submission": "value",
+    "date_decision": "empty:not_applicable",
+    "date_dispatch": "empty:not_applicable",
+    "qa_pairing": "empty:not_applicable",
+    "related_affairs": "empty:not_extracted",
+    "documents_usable_text": "value",
+    "answer_link_status": "value:not_applicable",
+    "date_answer": "empty:not_applicable",
+    "procedural_history": "value",
+    "type": "absent",
+    "procedural_state": "value",
+    "decision_outcome": "null:not_in_corpus",
+    "submitter": "empty:not_in_corpus",
+    "co_signatories": "empty:not_in_corpus",
+    "addressed_body": "absent",
+    "government_recommendation": "null:not_in_corpus",
+    "language": "value"
+   }
+  },
+  {
+   "affair_id": 328742,
+   "body": "6643",
+   "ni_type": "GA",
+   "lang": "fr",
+   "p11_converter_status": "no_documents",
+   "valid": true,
+   "documents": 2,
+   "documents_from_opd_copy": 0,
+   "fields": {
+    "date_submission": "value",
+    "date_decision": "empty:not_applicable",
+    "date_dispatch": "empty:not_applicable",
+    "qa_pairing": "empty:not_applicable",
+    "related_affairs": "empty:not_extracted",
+    "documents_usable_text": "value",
+    "answer_link_status": "value:not_applicable",
+    "date_answer": "empty:not_applicable",
+    "procedural_history": "value",
+    "type": "absent",
+    "procedural_state": "value",
+    "decision_outcome": "null:not_in_corpus",
+    "submitter": "empty:not_in_corpus",
+    "co_signatories": "empty:not_in_corpus",
+    "addressed_body": "absent",
+    "government_recommendation": "null:not_in_corpus",
+    "language": "value"
+   }
+  },
+  {
+   "affair_id": 327945,
+   "body": "6248",
+   "ni_type": "GA",
+   "lang": "fr",
+   "p11_converter_status": "no_documents",
+   "valid": true,
+   "documents": 1,
+   "documents_from_opd_copy": 1,
+   "fields": {
+    "date_submission": "value",
+    "date_decision": "empty:not_applicable",
+    "date_dispatch": "empty:not_applicable",
+    "qa_pairing": "empty:not_applicable",
+    "related_affairs": "empty:not_extracted",
+    "documents_usable_text": "value",
+    "answer_link_status": "value:not_applicable",
+    "date_answer": "empty:not_applicable",
+    "procedural_history": "value",
+    "type": "absent",
+    "procedural_state": "value",
+    "decision_outcome": "null:not_in_corpus",
+    "submitter": "empty:not_in_corpus",
+    "co_signatories": "empty:not_in_corpus",
+    "addressed_body": "absent",
+    "government_recommendation": "null:not_in_corpus",
+    "language": "value"
+   }
+  },
+  {
+   "affair_id": 85098,
+   "body": "TI",
+   "ni_type": "GA",
+   "lang": "it",
+   "p11_converter_status": "no_documents",
+   "valid": true,
+   "documents": 1,
+   "documents_from_opd_copy": 0,
+   "fields": {
+    "date_submission": "value",
+    "date_decision": "empty:not_applicable",
+    "date_dispatch": "empty:not_applicable",
+    "qa_pairing": "empty:not_applicable",
+    "related_affairs": "empty:not_extracted",
+    "documents_usable_text": "value",
+    "answer_link_status": "value:not_applicable",
+    "date_answer": "empty:not_applicable",
+    "procedural_history": "value",
+    "type": "absent",
+    "procedural_state": "value",
+    "decision_outcome": "value",
+    "submitter": "empty:not_in_corpus",
+    "co_signatories": "empty:not_in_corpus",
+    "addressed_body": "absent",
+    "government_recommendation": "null:not_in_corpus",
+    "language": "value"
+   }
+  },
+  {
+   "affair_id": 119281,
+   "body": "5192",
+   "ni_type": "GA",
+   "lang": "it",
+   "p11_converter_status": "no_documents",
+   "valid": true,
+   "documents": 1,
+   "documents_from_opd_copy": 0,
+   "fields": {
+    "date_submission": "value",
+    "date_decision": "empty:not_in_corpus",
+    "date_dispatch": "empty:not_in_corpus",
+    "qa_pairing": "empty:not_in_corpus",
+    "related_affairs": "empty:not_extracted",
+    "documents_usable_text": "value",
+    "answer_link_status": "value:absent",
+    "date_answer": "empty:not_in_corpus",
+    "procedural_history": "value",
+    "type": "absent",
+    "procedural_state": "value",
+    "decision_outcome": "null:not_in_corpus",
+    "submitter": "empty:not_in_corpus",
+    "co_signatories": "empty:not_in_corpus",
+    "addressed_body": "absent",
+    "government_recommendation": "null:not_in_corpus",
+    "language": "value"
+   }
+  },
+  {
+   "affair_id": 28953,
+   "body": "5254",
+   "ni_type": "GA",
+   "lang": "it",
+   "p11_converter_status": "no_documents",
+   "valid": true,
+   "documents": 2,
+   "documents_from_opd_copy": 2,
+   "fields": {
+    "date_submission": "value",
+    "date_decision": "empty:not_applicable",
+    "date_dispatch": "empty:not_applicable",
+    "qa_pairing": "empty:not_applicable",
+    "related_affairs": "empty:not_extracted",
+    "documents_usable_text": "value",
+    "answer_link_status": "value:not_applicable",
+    "date_answer": "empty:not_applicable",
+    "procedural_history": "value",
+    "type": "absent",
+    "procedural_state": "value",
+    "decision_outcome": "value",
+    "submitter": "empty:not_in_corpus",
+    "co_signatories": "empty:not_in_corpus",
+    "addressed_body": "absent",
+    "government_recommendation": "null:not_in_corpus",
+    "language": "value"
+   }
+  },
+  {
+   "affair_id": 302594,
+   "body": "ZH",
+   "ni_type": "PI",
+   "lang": "de",
+   "p11_converter_status": "no_documents",
+   "valid": true,
+   "documents": 1,
+   "documents_from_opd_copy": 0,
+   "fields": {
+    "date_submission": "value",
+    "date_decision": "empty:not_applicable",
+    "date_dispatch": "empty:not_applicable",
+    "qa_pairing": "empty:not_applicable",
+    "related_affairs": "empty:not_extracted",
+    "documents_usable_text": "value",
+    "answer_link_status": "value:not_applicable",
+    "date_answer": "empty:not_applicable",
+    "procedural_history": "value",
+    "type": "absent",
+    "procedural_state": "value",
+    "decision_outcome": "null:not_in_corpus",
+    "submitter": "value",
+    "co_signatories": "value",
+    "addressed_body": "absent",
+    "government_recommendation": "null:not_in_corpus",
+    "language": "value"
+   }
+  },
+  {
+   "affair_id": 86834,
+   "body": "VS",
+   "ni_type": "PI",
+   "lang": "de",
+   "p11_converter_status": "no_documents",
+   "valid": true,
+   "documents": 3,
+   "documents_from_opd_copy": 0,
+   "fields": {
+    "date_submission": "value",
+    "date_decision": "empty:not_in_corpus",
+    "date_dispatch": "empty:not_in_corpus",
+    "qa_pairing": "empty:not_in_corpus",
+    "related_affairs": "empty:not_extracted",
+    "documents_usable_text": "value",
+    "answer_link_status": "value:absent",
+    "date_answer": "empty:not_in_corpus",
+    "procedural_history": "value",
+    "type": "absent",
+    "procedural_state": "value",
+    "decision_outcome": "value",
+    "submitter": "value",
+    "co_signatories": "value",
+    "addressed_body": "absent",
+    "government_recommendation": "null:not_in_corpus",
+    "language": "value"
+   }
+  },
+  {
+   "affair_id": 260080,
+   "body": "BL",
+   "ni_type": "PI",
+   "lang": "de",
+   "p11_converter_status": "ok",
+   "valid": true,
+   "documents": 3,
+   "documents_from_opd_copy": 0,
+   "fields": {
+    "date_submission": "value",
+    "date_decision": "empty:not_in_corpus",
+    "date_dispatch": "empty:not_in_corpus",
+    "qa_pairing": "empty:not_in_corpus",
+    "related_affairs": "empty:not_extracted",
+    "documents_usable_text": "value",
+    "answer_link_status": "value:absent",
+    "date_answer": "empty:not_in_corpus",
+    "procedural_history": "value",
+    "type": "absent",
+    "procedural_state": "value",
+    "decision_outcome": "value",
+    "submitter": "value",
+    "co_signatories": "absent",
+    "addressed_body": "absent",
+    "government_recommendation": "value",
+    "language": "value"
+   }
+  },
+  {
+   "affair_id": 337925,
+   "body": "JU",
+   "ni_type": "PI",
+   "lang": "fr",
+   "p11_converter_status": "no_documents",
+   "valid": true,
+   "documents": 1,
+   "documents_from_opd_copy": 0,
+   "fields": {
+    "date_submission": "value",
+    "date_decision": "empty:not_applicable",
+    "date_dispatch": "empty:not_applicable",
+    "qa_pairing": "empty:not_applicable",
+    "related_affairs": "empty:not_extracted",
+    "documents_usable_text": "value",
+    "answer_link_status": "value:not_applicable",
+    "date_answer": "empty:not_applicable",
+    "procedural_history": "value",
+    "type": "absent",
+    "procedural_state": "value",
+    "decision_outcome": "null:not_in_corpus",
+    "submitter": "value",
+    "co_signatories": "absent",
+    "addressed_body": "absent",
+    "government_recommendation": "null:not_in_corpus",
+    "language": "value"
+   }
+  },
+  {
+   "affair_id": 245753,
+   "body": "JU",
+   "ni_type": "PI",
+   "lang": "fr",
+   "p11_converter_status": "no_documents",
+   "valid": true,
+   "documents": 1,
+   "documents_from_opd_copy": 0,
+   "fields": {
+    "date_submission": "value",
+    "date_decision": "empty:not_applicable",
+    "date_dispatch": "empty:not_applicable",
+    "qa_pairing": "empty:not_applicable",
+    "related_affairs": "empty:not_extracted",
+    "documents_usable_text": "value",
+    "answer_link_status": "value:not_applicable",
+    "date_answer": "empty:not_applicable",
+    "procedural_history": "value",
+    "type": "absent",
+    "procedural_state": "value",
+    "decision_outcome": "null:not_in_corpus",
+    "submitter": "value",
+    "co_signatories": "absent",
+    "addressed_body": "absent",
+    "government_recommendation": "null:not_in_corpus",
+    "language": "value"
+   }
+  },
+  {
+   "affair_id": 84313,
+   "body": "TI",
+   "ni_type": "PI",
+   "lang": "it",
+   "p11_converter_status": "no_documents",
+   "valid": true,
+   "documents": 1,
+   "documents_from_opd_copy": 1,
+   "fields": {
+    "date_submission": "value",
+    "date_decision": "empty:not_applicable",
+    "date_dispatch": "empty:not_applicable",
+    "qa_pairing": "empty:not_applicable",
+    "related_affairs": "empty:not_extracted",
+    "documents_usable_text": "value",
+    "answer_link_status": "value:not_applicable",
+    "date_answer": "empty:not_applicable",
+    "procedural_history": "value",
+    "type": "absent",
+    "procedural_state": "value",
+    "decision_outcome": "null:not_in_corpus",
+    "submitter": "value",
+    "co_signatories": "value",
+    "addressed_body": "absent",
+    "government_recommendation": "null:not_in_corpus",
+    "language": "value"
+   }
+  },
+  {
+   "affair_id": 174484,
+   "body": "TI",
+   "ni_type": "PI",
+   "lang": "it",
+   "p11_converter_status": "no_documents",
+   "valid": true,
+   "documents": 1,
+   "documents_from_opd_copy": 1,
+   "fields": {
+    "date_submission": "value",
+    "date_decision": "empty:not_applicable",
+    "date_dispatch": "empty:not_applicable",
+    "qa_pairing": "empty:not_applicable",
+    "related_affairs": "empty:not_extracted",
+    "documents_usable_text": "value",
+    "answer_link_status": "value:not_applicable",
+    "date_answer": "empty:not_applicable",
+    "procedural_history": "value",
+    "type": "absent",
+    "procedural_state": "value",
+    "decision_outcome": "null:not_in_corpus",
+    "submitter": "value",
+    "co_signatories": "value",
+    "addressed_body": "absent",
+    "government_recommendation": "null:not_in_corpus",
+    "language": "value"
+   }
+  }
+ ]
+}

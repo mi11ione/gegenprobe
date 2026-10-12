@@ -27,11 +27,17 @@ claims_pins.json (at track_2a/), so a docs pass updates them in one place:
            behind, beats, outperforms, better, worse, ties, ...), maturity and role words (ready to deploy,
            deployable, prototype, feasibility study, final, essential, earns its place, reviewer's aid, extractor,
            robust, accurate, unattended, needs_review, recommends, ...), scope quantifiers (every one, most, all,
-           never, always, only) and deployment words (locally, laptop, CPU, GPU, on-prem, air-gapped). A comparative
+           never, always, only), deployment words (locally, laptop, CPU, GPU, on-prem, air-gapped), labelling words
+           (human, expert, clerk, lawyer, staff, manual, by hand, people, person, ...: who labelled), adoption words
+           (shipped, deployed, adopted, applied, in (daily) use, live, rolled out, used by, ...), evaluative words
+           (dominates, improves, dramatic, substantial, higher, lower, far, ...), safety claims (guarantee, certified,
+           hallucination, GDPR, compliant, secure, safe, error-free, ...) and cost words (free, cheap, low-cost,
+           negligible, ...). A comparative
            is pinned with the result that makes it true where one exists ("level with document order" with both
            cluster intervals spanning 0; "beats the rules on 22 and loses on 4" with the discordant pairs)
   allow    {document: [{phrase, why}]}: guard words that are not claims ("fails on any mismatch" describes the checker)
-  docs     the documents the guards scan (README.md, technical_report.md, docs/form_notes.md, ../README.md)
+  docs     the documents the guards scan (README.md, technical_report.md, docs/form_notes.md, ../README.md), extended
+           by claims_strict.json `strict_docs` (the one list of strict documents)
 
 Documents outside the project (../README.md, the repository root) are not in the Docker build context; inside the image
 they are skipped unless GP_CLAIMS_STRICT=1, which the host CI job sets (as gegenprobe.claims does).
@@ -56,18 +62,38 @@ PINS_NAME = "claims_pins.json"  # at ROOT; read at call time
 NEG = re.compile(r"(?i)(?<![\w-])(not|no|none|never|nothing|failed|fail|fails|below|without)(?![\w-])")
 
 
+STRICT_NAME = "claims_strict.json"  # its `strict_docs` are scanned by the guards too
+
+
 def config(path: Path | None = None) -> dict:
+    """claims_pins.json; its `docs` extended by claims_strict.json's `strict_docs` (one list names the strict
+    documents: adding docs/decision.md there puts it under the numbers, scope words, small integers and these guards)."""
     p = path or ROOT / PINS_NAME
-    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+    cfg = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+    sp = (path.parent if path else ROOT) / STRICT_NAME
+    if cfg and sp.exists():
+        extra = json.loads(sp.read_text(encoding="utf-8")).get("strict_docs") or []
+        cfg["docs"] = list(cfg.get("docs") or []) + [d for d in extra if d not in (cfg.get("docs") or [])]
+    return cfg
 
 
 def _get(obj, path: str):
     """A dotted JSON path; a list is indexed by number or selected by `[key=value]` (the one element whose `key` is
-    `value`, e.g. parliaments.rows.[key=BE].periods), so a pin does not depend on the order of a list."""
-    for part in path.split("."):
+    `value`, e.g. parliaments.rows.[key=BE].periods), so a pin does not depend on the order of a list. A `*` step maps
+    the rest of the path over every element of a list and returns the flat list of the values (sets.*.sessions.*.models.*:
+    every model of every annotator session)."""
+    parts = path.split(".")
+    for k, part in enumerate(parts):
+        if part == "*":
+            rest = ".".join(parts[k + 1:])
+            out = []
+            for x in obj:
+                v = _get(x, rest) if rest else x
+                out += v if isinstance(v, list) and "*" in parts[k + 1:] else [v]
+            return out
         if isinstance(obj, list) and part.startswith("[") and part.endswith("]") and "=" in part:
-            k, v = part[1:-1].split("=", 1)
-            hits = [x for x in obj if isinstance(x, dict) and str(x.get(k)) == v]
+            key, val = part[1:-1].split("=", 1)
+            hits = [x for x in obj if isinstance(x, dict) and str(x.get(key)) == val]
             if len(hits) != 1:
                 raise KeyError(f"{part}: {len(hits)} elements match")
             obj = hits[0]
@@ -81,7 +107,8 @@ _OPS = {ast.Add: operator.add, ast.Sub: operator.sub, ast.Mult: operator.mul, as
         ast.UAdd: operator.pos, ast.Lt: operator.lt, ast.LtE: operator.le, ast.Gt: operator.gt, ast.GtE: operator.ge,
         ast.Eq: operator.eq, ast.NotEq: operator.ne, ast.In: lambda a, b: a in b, ast.NotIn: lambda a, b: a not in b,
         ast.And: all, ast.Or: any, ast.Not: operator.not_}
-_FUNCS = {"round": round, "abs": abs, "min": min, "max": max, "len": len, "sum": sum, "int": int}
+_FUNCS = {"round": round, "abs": abs, "min": min, "max": max, "len": len, "sum": sum, "int": int, "float": float,
+          "sorted": sorted, "set": set}
 
 
 def evaluate(expr: str, env: dict):

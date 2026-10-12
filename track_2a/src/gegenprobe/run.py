@@ -54,9 +54,10 @@ model cache, 132 match (22 cache misses)", then "RESULT PASS in 537 s"; when a s
 "RESULT PASS (offline: 3 steps skipped: convert, rederive, rederive_apertus) in 868 s".
 Time budgets (seconds), hard ceilings (gegenprobe.deadline: each document's fetch and extraction is interrupted at the
 budget; every request is capped at GP_REQUEST_TIMEOUT, default 30 s, 2 tries): GP_AFFAIR_CLI_BUDGET (step affair_cli,
-default 240), GP_REDERIVE_BUDGET (rules, default 240) + GP_REDERIVE_APERTUS_BUDGET (default 180, per set: P1 and P2 each
-get it, so P2 is always attempted). Worst case of the three network steps: 240 + 240 + 2 x 180 = 840 s, each step
-overrunning its budget by its own bookkeeping only (under a second).
+default 240), GP_REDERIVE_BUDGET (rules, default 240) + GP_REDERIVE_APERTUS_BUDGET (P1, default 180) and
+GP_REDERIVE_APERTUS_BUDGET_P2 (P2, default 240; P2 is always attempted, its failing sources read from OPD's own copy,
+sha256-checked). Worst case of the three network steps: 240 + 240 + 180 + 240 = 900 s, each step overrunning its budget
+by its own bookkeeping only (under a second).
 """
 from __future__ import annotations
 
@@ -86,8 +87,10 @@ STEPS = [
     ("claims", "gegenprobe.claims_step", "main"),
 ]
 P1_DOCS = 154  # P1 held-out documents (data/gold/heldout_docs.jsonl)
+P2_DOCS = 62  # P2 documents (data/gold2/p2_docs.jsonl)
 os.environ.setdefault("GP_REDERIVE_BUDGET", "240")
-os.environ.setdefault("GP_REDERIVE_APERTUS_BUDGET", "180")  # per set (P1, P2)
+os.environ.setdefault("GP_REDERIVE_APERTUS_BUDGET", "180")  # P1
+os.environ.setdefault("GP_REDERIVE_APERTUS_BUDGET_P2", "240")  # P2 (cold fetch)
 os.environ.setdefault("GP_AFFAIR_CLI_BUDGET", "240")
 
 
@@ -124,21 +127,32 @@ def replay_coverage(report: dict) -> dict:
     return dict(status=st.get("status"), sets=st.get("coverage") or {})
 
 
+def _not_rederived(s: dict) -> str:
+    """Why the rest of a set was not re-derived, exactly: ' (22 cache misses, 8 unreachable (robots_unreachable 8))'."""
+    kinds = s.get("unreachable_kinds") or {}
+    rest = [f"{s.get(k, 0)} {lab}" + (f" ({', '.join(f'{kk} {n}' for kk, n in sorted(kinds.items()))})"
+                                      if k == "unreachable" and kinds else "")
+            for k, lab in (("cache_miss", "cache misses"), ("unreachable", "unreachable"),
+                           ("not_reached_budget", "over budget"), ("skipped_no_ocr", "no OCR"),
+                           ("ocr_failed", "OCR failed")) if s.get(k)]
+    return f" ({', '.join(rest)})" if rest else ""
+
+
 def coverage_line(report: dict) -> str:
-    """One line: how many P1 Apertus decisions this run re-derived from the model cache, and why the rest were not."""
+    """One line: how many P1 and P2 Apertus decisions this run re-derived from the model cache, and why the rest were not."""
     cov = replay_coverage(report)
     p1 = next((v for k, v in cov["sets"].items() if k.startswith("P1")), None)
     if p1 is None:
         why = "offline" if report.get("online") is False else f"step rederive_apertus {cov['status'] or 'not run'}"
-        return (f"Apertus replay: P1 0/{P1_DOCS} decisions re-derived from the model cache ({why}); the stored decisions "
-                "were re-scored by step eval")
-    rest = [f"{p1.get(k, 0)} {lab}" for k, lab in (("cache_miss", "cache misses"), ("unreachable", "unreachable"),
-                                                    ("not_reached_budget", "over budget")) if p1.get(k)]
+        return (f"Apertus replay: P1 0/{P1_DOCS} decisions re-derived from the model cache ({why}); P2 0/{P2_DOCS} "
+                f"({why}); the stored decisions were re-scored by step eval")
     line = (f"Apertus replay: P1 {p1.get('rederived', 0)}/{p1['n']} decisions re-derived from the model cache, "
-            f"{p1.get('match', 0)} match" + (f" ({', '.join(rest)})" if rest else ""))
+            f"{p1.get('match', 0)} match" + _not_rederived(p1))
     p2 = next((v for k, v in cov["sets"].items() if k.startswith("P2")), None)
     if p2 is not None:
-        line += f"; P2 {p2.get('rederived', 0)}/{p2['n']}, {p2.get('match', 0)} match"
+        copies = (p2.get("read_via") or {}).get("opd_copy", 0)
+        line += (f"; P2 {p2.get('rederived', 0)}/{p2['n']}, {p2.get('match', 0)} match"
+                 + (f", {copies} read from OPD's copy (sha256-checked)" if copies else "") + _not_rederived(p2))
     return line
 
 

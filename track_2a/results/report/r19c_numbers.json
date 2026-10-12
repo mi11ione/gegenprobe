@@ -1,0 +1,52 @@
+{
+ "deps": {
+  "runtime_pins": 8,
+  "dev_pins": 6,
+  "audit_tool_pins": 50,
+  "gguf_packages": 2
+ },
+ "sbom": {
+  "python_runtime": 8,
+  "python_dev": 6,
+  "image_components": 218,
+  "image_base": 151,
+  "image_apt": 63,
+  "image_tessdata": 4
+ },
+ "audit": {
+  "run": "2026-10-12",
+  "packages": 66,
+  "failing": 0,
+  "accepted": 1,
+  "removed_packages": 18,
+  "removed_known_vulnerabilities": 9
+ },
+ "swiss_70b": {
+  "label": "ESTIMATE (assumptions below, not measured): GPU time of review mode on a Swiss-hosted Apertus 70B",
+  "measured": {
+   "calls_per_residue_doc": 3.515463917525773,
+   "prompt_tokens_per_residue_doc": 5904.505154639175,
+   "source": "results/report/cost_end_to_end.json (Public AI registered build)"
+  },
+  "assumed": {
+   "gpu": "NVIDIA H100 80 GB",
+   "gpus": 2,
+   "prefill_tokens_per_s": 2000,
+   "chf_per_gpu_hour": 4.0,
+   "output_tokens_per_call": 1
+  },
+  "implied_utilisation": 0.1416,
+  "prompt_tokens_per_1000_residue": 5904505,
+  "wall_h_per_1000_residue": 0.82,
+  "gpu_h_per_1000_residue": 1.64,
+  "chf_per_1000_residue": 6.56,
+  "gpu_h_per_1000_converted": 1.03,
+  "residue_share": "97/154",
+  "sensitivity_gpu_h_per_1000_residue": {
+   "500": 6.56,
+   "5000": 0.66
+  },
+  "dedicated_month_gpu_h": 1440,
+  "dedicated_month_chf": 5760
+ }
+}

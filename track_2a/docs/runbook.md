@@ -2,19 +2,20 @@
 
 The operations guide for a two- or three-person data team; the tables are the quick reference. The nightly job is
 model-free. The converter's optional Apertus review mode is the one part that uses a model; "Review mode in operation"
-below covers its refit procedure, owner and cost.
+below covers its refit procedure, owner and cost. For management and a chancellery: [the decision page](decision.md),
+one screen.
 
 ## Operator sheet
 
 | | |
 |---|---|
-| **Data protection (nDSG)** | *Personal data in the documents:* parliamentary documents are public and name members of parliament and of the government in their public office (authors, signatories, signers). An answer can also name other people, for example officials or people concerned by a matter. *Where text goes, by route:* **default (rules only: nightly job, `convert` without `--mode review`, `make run`)**: nowhere. Documents are read from their public source and processed on the machine that runs the job. **Review mode with a model you host** (local Apertus 8B GGUF with `GP_GGUF=1`, or your own vLLM in Switzerland): the text stays on your infrastructure. **Review mode through the Public AI gateway** (`LLM_BASE_URL`): the text of each residue document goes to that provider, which may process it outside Switzerland. That is a disclosure abroad under nDSG Art. 16: check the provider's terms and processing locations before use. *Retention:* PDFs and extracted text are cached under `GP_WORK` (`pdf/`, `text/`, keyed by sha256; nightly: `/var/lib/gegenprobe/work`; `make run`: `.work/make-run`). They expire after `GP_CACHE_MAX_AGE_DAYS` days (default 30, counted from when the file was written; `0` disables expiry). The nightly job enforces this at the start of every network night, before its first request (both units; run.json `cache_retention`). Elsewhere, `make cache-clean` does the same (`DRY=1` lists without deleting). Only `pdf/<sha256>.pdf` and `text/<sha256>.*.json` are deleted. Exports, scan metadata, nightly state, GGUF weights and the committed `data/` are not touched (`src/gegenprobe/cache_retention.py`). Committed results hold ids, URLs, hashes, dates, short quotations and the names of office holders, but no contact data and no full document texts. *Recommendation for public bodies:* run rules only (the default), or review mode with the local 8B (date suggestions only), so that no document text leaves your infrastructure. |
+| **Data protection (nDSG)** | *Personal data in the documents:* parliamentary documents are public and name members of parliament and of the government in their public office (authors, signatories, signers). An answer can also name other people, for example officials or people concerned by a matter. *Where text goes, by route:* **default (rules only: nightly job, `convert` without `--mode review`, `make run`)**: nowhere. Documents are read from their public source and processed on the machine that runs the job. **Review mode with a model you host** (local Apertus 8B GGUF with `GP_GGUF=1`, or your own vLLM in Switzerland): the text stays on your infrastructure. **Review mode through the Public AI gateway** (`LLM_BASE_URL`): the text of each residue document goes to that provider, a US nonprofit whose published terms offer no data processing agreement and no data storage outside the US, and name no processing location per model; its compute partners include AWS, Exoscale, Australia's NCI and Cudo Compute ([what its terms state](#public-ai-and-ndsg-art-16), retrieved 12 Oct 2026). Treat it as a disclosure abroad under nDSG Art. 16. *A body that may not disclose abroad* loses only the review-queue verifier and the role reader (they need the 70B); the rules, and the local 8B's date suggestions, run on its own machine. A Swiss-hosted 70B is an estimated 1.64 GPU-hours per 1,000 residue documents ([estimate and assumptions](#swiss-hosted-70b-estimate)). *Retention:* PDFs and extracted text are cached under `GP_WORK` (`pdf/`, `text/`, keyed by sha256; nightly: `/var/lib/gegenprobe/work`; `make run`: `.work/make-run`). They expire after `GP_CACHE_MAX_AGE_DAYS` days (default 30, counted from when the file was written; `0` disables expiry). The nightly job enforces this at the start of every network night, before its first request (both units; run.json `cache_retention`). Elsewhere, `make cache-clean` does the same (`DRY=1` lists without deleting). Only `pdf/<sha256>.pdf` and `text/<sha256>.*.json` are deleted. Exports, scan metadata, nightly state, GGUF weights and the committed `data/` are not touched (`src/gegenprobe/cache_retention.py`). Committed results hold ids, URLs, hashes, dates, short quotations and the names of office holders, but no contact data and no full document texts. *Recommendation for public bodies:* run rules only (the default), or review mode with the local 8B (date suggestions only), so that no document text leaves your infrastructure. |
 | **Hardware** | Nightly job: Linux, systemd, Docker or a Python 3.11 venv; one core most of the run, ceilings 4 GB memory and 2 CPU (peak 2,077.6 MB), state under 1 GB, 20 GB disk; no GPU, no model. Optional local Apertus 8B (review mode only; date suggestions): 9.3 GB peak memory, 180 s per document on 4 vCPUs. Self-hosted Apertus 70B (the review-queue verifier and the role reader): bf16 weights about 140 GB, e.g. two 80 GB GPUs (arithmetic; [routes](#review-mode-routes)). |
 | **Time** | First network night 83 and 86 min on 4-vCPU GitHub runners, the incremental next night 6.6 min; inside OPD with `GP_EXPORTS_DIR` and no changed export, 96.8 s. `TimeoutStartSec=4h`. |
 | **External hosts** | files.openparldata.ch (GET of the exports; none with `GP_EXPORTS_DIR`) · ogd.parl.apps.be.ch, rrgr-service.apps.be.ch (GET; an affair number) · fedlex.data.admin.ch, www.fedlex.admin.ch (a citation such as "BBl 2014 9657") · the document hosts OPD lists and the parliaments' sites (GET of public pages, PDFs and robots.txt; one canary per adapter source each network night) · huggingface.co only with `GP_GGUF=1` (the pinned GGUF, once) · the LLM endpoint you set (`LLM_BASE_URL`: text of public documents, review mode only) · your webhook or SMTP relay (`GP_ALERT_*`: the night's alerts). Every request Gegenprobe sends carries `GP_USER_AGENT`: document and export fetches and robots.txt (`gegenprobe.net`), the OCR model download, the model endpoint (`llm.py`, `roles_pointer.py`), the GGUF download and the alert webhook. The one exception is the development budget gateway (`gw.py`, outside this repository), which sends the default `hackapertus-research/0.1` and is not a runtime route; `compliance/ci_repeats.py` sends no request (it judges past CI runs under the default User-Agent they sent). Every fetch keeps 1.2 s per host and obeys robots.txt (RFC 9309, fail-closed). |
-| **Exit codes** | 0 quiet night · 3 alerts delivered (`GP_ALERT_EXIT`) · 1 job or delivery failure (undelivered alerts stay in `work/nightly/outbox.json` and go out the next night) · 2 nothing to work on yet · 137 killed for memory. Review mode exits 3 on a served build its θ was not fitted on (since 12 Oct 2026 the Public AI route `swiss-ai/apertus-v1.5-8b` serves another build, so review mode on that route exits 3 until θ is fitted for it: [routes](#review-mode-routes)). |
+| **Exit codes** | 0 quiet night · 3 alerts delivered (`GP_ALERT_EXIT`) · 1 job or delivery failure (undelivered alerts stay in `work/nightly/outbox.json` and go out the next night) · 2 nothing to work on yet · 137 killed for memory. Review mode exits 3 on a served build its θ was not fitted on (on 12 Oct 2026 the Public AI route served another build from about 01:05 to 03:33 UTC; review mode exited 3 in that window and runs again since the route went back: [routes](#review-mode-routes)). |
 | **Alerts** | to the webhook or SMTP relay in `/etc/gegenprobe/alerts.env`; the systemd failure notifier posts on exit 1 or 2, a crash, a timeout or an OOM kill ([Alerts](#alerts)); `python -m gegenprobe.monitor.notify test` checks the channel. |
-| **Licences** | code Apache-2.0; data and results CDLA-Permissive-2.0, derived from OpenParlData.ch (CC BY 4.0, "Source: OpenParlData.ch"); report CC-BY-4.0; Apertus 8B and its GGUF chain Apache-2.0 ([Checked in CI](#checked-in-ci)); Python dependencies installed with `--require-hashes` from `requirements.lock`. |
+| **Licences** | code Apache-2.0; data and results CDLA-Permissive-2.0, derived from OpenParlData.ch (CC BY 4.0, "Source: OpenParlData.ch"); report CC-BY-4.0; Apertus 8B and its GGUF chain Apache-2.0 ([Checked in CI](#checked-in-ci)); Python dependencies (8 in the image, under permissive licences; numpy's Linux wheel also bundles libgfortran, GPL-3.0 with the GCC runtime exception) installed with `--require-hashes` from `requirements.lock`; in the image also poppler-utils (GPL-2.0 or GPL-3.0, run as a separate program, not linked), tesseract and the tessdata_fast models (Apache-2.0) and the Debian 12 base. Every component with its licence: [licences.md](licences.md); CycloneDX SBOMs in `docs/sbom/`, regenerated and scanned for known vulnerabilities by CI job `sbom-audit`. |
 
 ### Review-mode routes
 
@@ -24,9 +25,54 @@ Local 8B: date suggestions only; the review-queue verifier and the role reader n
 |---|---|---|---|---|---|
 | **rules only** (default) | none: public sources are read, nothing is sent | every test's rules arm (P1–P8, P10) | one core, 4 GB memory ceiling, no GPU | about 0.5 CPU-hours for all 902,754 documents in OPD's export | none (no model) |
 | **local Apertus 8B** (`GP_GGUF=1`), date suggestions only | none | P1, P2 (52 reachable documents), P6 (exploratory arms); as P7's review-queue verifier it promotes nothing (no θ meets the dev rule; 88 of the 190 annotated rows scored before the deadline; `results/p7/gguf8b/hypotheses.json`); as P10's role reader (exploratory) it reads 30/141 author pairs right, F1 0.27 against the rules' 0.17, below document order (0.41) and the 70B (0.42) (`results/p10/gguf8b/p10_8b_scores.json`) | 4 vCPU, 9.3 GB peak memory (a 16 GB machine) | 179.6 s per document; 49.9 machine-hours per 1,000 residue documents | its own θ (pointer θ = 16.73, `data/convert/theta/`); no θ exists for the P7 verifier; P10's role thresholds refitted on P8's development parliaments give F1 0.26 |
-| **self-hosted Apertus 70B** (your own server, `LLM_BASE_URL`) | none beyond your infrastructure | the same weights as the gateway runs below; not run by us on self-hosted hardware | bf16 weights about 140 GB, e.g. two 80 GB GPUs; a 4-bit build about 35 GB of weights (both arithmetic, not measured; a quantised build is a different build) | hardware and power, not measured | yes: θ does not transfer across builds; refit on the dev documents and re-run the held-out arms ("Review mode in operation" below) |
-| **Public AI, registered build** (`LLM_BASE_URL`, the gateway we evaluated on; route `swiss-ai/apertus-v1.5-8b`, label `swiss-ai/apertus-v1.5-8b`, fingerprint `vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840`; the 70B weights by inference) | the text of each residue document, to a provider that may process it outside Switzerland (nDSG Art. 16, above) | P1, P2, P3, P3b, P4, P5, P6, P7, P10, P11 (date pointer; role reader 5 of 12 affairs); every committed gateway response (17,568) is from this build, served until about 01:05 UTC on 12 Oct 2026 | none locally | USD 0.59 per 1,000 residue documents | fitted for this build (pointer θ = 10.40; P7 θ_A = 8, θ_B = 10) |
-| **Public AI, since 12 Oct 2026** (the same route `swiss-ai/apertus-v1.5-8b`; label `swiss-ai/Apertus-v1.5-70B`, fingerprint `vllm-0.1.dev1+g54b4292c2-tp2-bfd70257`) | as above | not measured: 3 replayed requests (`results/p11/served_model_probe.json`) give other log-probabilities (up to 4.64 apart) | none locally | not measured | none yet: review mode exits 3 on it until θ (and, for the role reader, its configuration) is fitted for this build (steps below) |
+| **self-hosted Apertus 70B** (your own server, `LLM_BASE_URL`) | none beyond your infrastructure | the same weights as the gateway runs below; not run by us on self-hosted hardware | bf16 weights about 140 GB, e.g. two 80 GB GPUs; a 4-bit build about 35 GB of weights (both arithmetic, not measured; a quantised build is a different build) | not measured; estimated 1.64 GPU-hours per 1,000 residue documents ([assumptions](#swiss-hosted-70b-estimate)) | yes: θ does not transfer across builds; refit on the dev documents and re-run the held-out arms ("Review mode in operation" below) |
+| **Public AI, registered build** (`LLM_BASE_URL`, the gateway we evaluated on; route `swiss-ai/apertus-v1.5-8b`, label `swiss-ai/apertus-v1.5-8b`, fingerprint `vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840`; the 70B weights by inference) | the text of each residue document, to a provider that may process it outside Switzerland (nDSG Art. 16, above) | P1, P2, P3, P3b, P4, P5, P6, P7, P10, P11 (date pointer and role reader, 12 of 12 affairs); every committed gateway response (17,720) is from this build, served until about 01:05 UTC and again from about 03:33 UTC on 12 Oct 2026 | none locally | USD 0.59 per 1,000 residue documents | fitted for this build (pointer θ = 10.40; P7 θ_A = 8, θ_B = 10) |
+| **Public AI, 12 Oct 2026 ~01:05–03:33 UTC** (the same route `swiss-ai/apertus-v1.5-8b`; label `swiss-ai/Apertus-v1.5-70B`, fingerprint `vllm-0.1.dev1+g54b4292c2-tp2-bfd70257`) | as above | not measured: 3 replayed requests (`results/p11/served_model_probe.json`) give other log-probabilities (up to 4.64 apart); on the 40 dev documents both builds answered, the abstain/answer decision agrees on 38/40 (`results/refit_bfd70257/dev_partial_compare.json`) | none locally | not measured | none: a refit had 40 of 97 dev documents when the route went back to the registered build (`eval/refit_bfd70257/`). If this build returns, `python -m eval.refit_bfd70257.run fit` resumes it, and the converter uses the resulting `data/deploy/theta_bfd70257.json` only while a preflight request shows that build |
+
+### Public AI and nDSG Art. 16
+
+What Public AI publishes, retrieved on 12 Oct 2026 (quotations; the pages show no date of last change):
+
+- **Terms and privacy** ([publicai.co/tc](https://publicai.co/tc), one page "Terms and Privacy"): the provider is "the
+  nonprofit 501(c)(3) Metagov Inc"; "We are a US-based nonprofit." Under "What we DON'T currently offer": "Formal Data
+  Processing Agreements (DPAs)", "EU Standard Contractual Clauses", "Localized data storage outside the US". §1.5:
+  "Our Services may route Prompts and related data to external providers" and "We do not control providers' retention,
+  training, or other uses once data is sent to them." §2.9: model providers "act as independent controllers of your
+  data" and "no Data Processing Agreements are in place." §2.13, subprocessors: model providers Swiss AI Initiative and
+  AI Singapore; cloud providers AWS, Exoscale, Australian National Computational Infrastructure, Cudo Compute and
+  Vercel; analytics Mixpanel; public data hosting Hugging Face. §2.5: technical logs "are stored for no longer than 90
+  days". §1.6: "We do not offer service-level agreements (SLAs)".
+- **Where inference runs** ([publicai.co/utility](https://publicai.co/utility)): servers "deployed across clusters
+  donated by national and industry partners"; "A global load-balancing layer ensures that requests are routed
+  efficiently and transparently, regardless of which country's compute is serving the query."
+- **Which compute served the evaluated build: not known.** Every committed response records the served model label and
+  vLLM fingerprint, none a region or host, and Public AI names no location per model.
+
+So a body sending document text through the gateway discloses it abroad (nDSG Art. 16) without a processing agreement.
+The documents are public, but an answer can name officials or people concerned by a matter (above). A body that may not
+disclose abroad keeps everything but two components: the rules (every list, the nightly job, the converter's
+rules-only records) and the local 8B's date suggestions run on its own machine; the review-queue verifier and the role
+reader need the 70B, so for that body they wait for a Swiss-hosted 70B (next section) or are left out.
+
+### Swiss-hosted 70B: estimate
+
+An **estimate**, not a measurement (`results/report/r19c_numbers.json`, `python -m report.r19c_numbers`). Measured on
+Public AI's evaluated build: 3.5 calls and 5,905 billed prompt tokens per residue document; each call reads the next token's
+log-probabilities and generates one token (`max_tokens=1`), so prompt processing is the load. Assumed: two NVIDIA H100 80 GB (the bf16 weights are about
+140 GB), 2,000 prompt tokens per second across both GPUs (14.2% of their dense bf16 peak, a conservative utilisation
+for long prompts), and CHF 4.00 per GPU-hour rented (an assumed price, not a quote).
+
+| per 1,000 residue documents | estimate |
+|---|---|
+| prompt tokens | 5,904,505 (measured per document × 1,000) |
+| wall time on the two GPUs | 0.82 h |
+| GPU-hours | **1.64** (6.56 at 500 tokens/s, 0.66 at 5,000 tokens/s) |
+| rented GPU cost | CHF 6.56 |
+| per 1,000 converted documents (residue share 97/154) | 1.03 GPU-hours |
+
+Renting by the hour is what keeps this small: two GPUs kept for a whole month are 1,440 GPU-hours (CHF 5,760 at the
+same price) whatever the volume. Before relying on the figure, measure throughput on the chosen server and refit θ for
+that build (the refit below).
 
 ## Where it runs
 
@@ -349,7 +395,12 @@ requests showed different log-probabilities, so the build changed, not only the 
 D1). Cached replays (`GP_OFFLINE=1`, `make run`) are unaffected. A live review-mode run on that route exits 3 before
 any suggestion: the label check (requested `swiss-ai/apertus-v1.5-8b`, served `swiss-ai/Apertus-v1.5-70B`) runs before
 the fingerprint guard and maps to the same exit code; `LLM_NAME=swiss-ai/Apertus-v1.5-70B` finds no θ for that build and
-stops before any call. The steps below fit θ for the new build.
+stops before any call. At about 03:33 UTC the route answered from the registered build again (label
+`swiss-ai/apertus-v1.5-8b`, fingerprint `…dd237840`; probes at 03:43 and 03:47 UTC, `results/refit_bfd70257/probe_*.json`),
+and a live `convert --mode review` and `affair --mode review --roles apertus` both exited 0 on the registered θ
+(`results/refit_bfd70257/e2e_live.json`); P11's role reader resumed and read the remaining 7 affairs on that build (D2).
+On the 40 dev documents both builds answered, the abstain/answer decision agrees on 38/40 at the registered build's θ,
+the AUROC is 0.990 vs 0.985, and margins differ by a median of 4.3 nats (up to 33.7). That is why θ is per build.
 
 **Refitting θ** (when the guard stops a run, or when the host announces a new model or inference build), from a checkout
 with network access to the model server:
@@ -367,6 +418,12 @@ LLM_BASE_URL=https://<server>/v1 LLM_NAME=<model> LLM_API_KEY=<key> make theta B
 make arms SPLIT=heldout BACKEND=openai
 # 5. deploy the new θ file with the converter; the guard now accepts the fingerprints it records
 ```
+
+**Deployment θ files** go to `data/deploy/theta_<build>.json`, outside the locked `data/convert/theta/`. The CLI
+(`convert`, `affair`) uses one only after a preflight request (one plain message, `max_tokens` 1, never cached) shows that
+the route serves its build, and then checks every response against that file's label and fingerprint; otherwise the
+registered θ applies to the registered build and any other build exits 3 (`convert/deploy_theta.py`,
+`tests/test_deploy_theta.py`). The preflight exists because the route switched builds twice in one night.
 
 Notes: `make theta` writes into the checkout's `data/convert/theta/`. In this repository those files are the evaluation
 record and are hash-locked (`eval/prereg/LOCK`), so refit in the deployment's own copy, not here. 30 of the 127 dev
@@ -441,7 +498,11 @@ The evidence viewer is static files only and makes no third-party request: its t
 Base image `python:3.11.14-slim-bookworm` pinned by digest (`Dockerfile`); Python dependencies installed with
 `--require-hashes` from `requirements.lock`. CI: every GitHub Action is pinned to a full commit SHA (version in a comment),
 the gitleaks binary is checked against the sha256 from its release's checksum file before it runs, and the test job
-installs `requirements.lock` + `requirements-dev.lock` (ruff) with `--require-hashes`. The 8B workflows install
+installs `requirements.lock` + `requirements-dev.lock` (pytest and its dependencies, ruff; the image installs only
+`requirements.lock`) with `--require-hashes`. Job `sbom-audit` installs pip-audit and cyclonedx-bom from
+`requirements-audit.lock` (hash-pinned) into their own venv, regenerates the Python SBOMs and compares them with
+`docs/sbom/`, then scans every lock for known vulnerabilities and fails on any the allowlist does not accept with a
+reason ([licences.md](licences.md)); the image drops the base image's pip, setuptools and wheel after the install. The 8B workflows install
 `requirements.lock` with `--require-hashes` too; their llama-cpp-python step (CPU wheel index, with a source build as
 fallback) is not hash-pinned, because a source build has no fixed file hash: the hash-pinned path for that wheel is
 `requirements-gguf.lock` (`docker build --build-arg GGUF=1`). The optional 8B path pins the llama-cpp-python 0.3.35 CPU wheels by sha256

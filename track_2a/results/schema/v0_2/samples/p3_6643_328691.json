@@ -82,9 +82,9 @@
   }
  ],
  "decision": {
-  "evidence": "no decision event",
+  "evidence": "affair type question (None): parliament takes no decision on it",
   "kind": "null",
-  "null_reason": "not_in_corpus",
+  "null_reason": "not_applicable",
   "route": "metadata"
  },
  "documents": [
@@ -145,7 +145,7 @@
   "builds": [],
   "converter_version": "gegenprobe-0.1.0+affair",
   "created": "2026-10-10T08:48:54.780283Z",
-  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it); v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 1 printed authors (1 earlier entries for the same persons replaced), 1 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 1 parts in 1 of 2 documents examined; Q/A pairing by gegenprobe.schema.v0_2_qa.with_qa (gegenprobe.qa.extract (the P5 rules arm, no model)): 9 questions (enumerated), 9 answer passages located",
+  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it); v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 1 printed authors (1 earlier entries for the same persons replaced), 1 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 1 parts in 1 of 2 documents examined; Q/A pairing by gegenprobe.schema.v0_2_qa.with_qa (gegenprobe.qa.extract (the P5 rules arm, no model)): 9 questions (enumerated), 9 answer passages located; OPD metadata filled by gegenprobe.schema.v0_2_meta.with_metadata: type.harmonised (opd:affairs/328691#type_harmonized_id=12), decision (null not_applicable), qa.0.answering_body (opd:events/922573#actor_fr) (route metadata, no value replaced)",
   "schema_version": "0.2.0"
  },
  "government_recommendation": {
@@ -187,10 +187,11 @@
     "route": "rule"
    },
    "answering_body": {
-    "evidence": "the answering body is not extracted by converter gegenprobe-0.1.0+affair",
-    "kind": "null",
-    "null_reason": "not_extracted",
-    "route": "rule"
+    "basis": "metadata",
+    "kind": "value",
+    "route": "metadata",
+    "source": "opd:events/922573#actor_fr",
+    "value": "Conseil administratif Vernier"
    },
    "items": [
     {
@@ -489,7 +490,7 @@
   "fr": "Contrat de quartier Aïre-Le Lignon"
  },
  "type": {
-  "harmonised": "unknown",
+  "harmonised": "question",
   "instrument_function": {
    "basis": "inferred",
    "char_end": 50,
@@ -513,6 +514,7 @@
    "route": "rule",
    "rule": "roles-2:instrument:heading",
    "value": "question"
-  }
+  },
+  "opd_harmonised_id": 12
  }
 }
