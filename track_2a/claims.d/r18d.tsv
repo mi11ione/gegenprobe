@@ -1,27 +1,27 @@
 id	shown	file	path	fmt	command	where	context
-r18d.p2bb.ptr_exact	53/62	results/eval2/p2_posthoc_best_baseline.json	arms.pointer.exact	frac	PYTHONPATH=src:. python -m eval.gold2.posthoc_best_baseline	README.md,technical_report.md,docs/form_notes.md,../README.md	
+r18d.p2bb.ptr_exact	53/62	results/eval2/p2_posthoc_best_baseline.json	arms.pointer.exact	frac	PYTHONPATH=src:. python -m eval.gold2.posthoc_best_baseline	README.md,technical_report.md	
 r18d.p2bb.base_exact	44/62	results/eval2/p2_posthoc_best_baseline.json	arms.latest_date_on_answer_docs_only.exact	frac	PYTHONPATH=src:. python -m eval.gold2.posthoc_best_baseline	README.md,technical_report.md	
 r18d.p2bb.ptr_found	24/29	results/eval2/p2_posthoc_best_baseline.json	answer_dates_found.pointer	frac	PYTHONPATH=src:. python -m eval.gold2.posthoc_best_baseline	README.md,technical_report.md,docs/form_notes.md,../README.md	
-r18d.p2bb.base_found	18/29	results/eval2/p2_posthoc_best_baseline.json	answer_dates_found.latest_date_on_answer_docs_only	frac	PYTHONPATH=src:. python -m eval.gold2.posthoc_best_baseline	README.md,technical_report.md	
+r18d.p2bb.base_found	18/29	results/eval2/p2_posthoc_best_baseline.json	answer_dates_found.latest_date_on_answer_docs_only	frac	PYTHONPATH=src:. python -m eval.gold2.posthoc_best_baseline	technical_report.md	
 r18d.p2bb.ptr_only	10	results/eval2/p2_posthoc_best_baseline.json	paired.pointer vs latest_date_on_answer_docs_only.a_only	int	PYTHONPATH=src:. python -m eval.gold2.posthoc_best_baseline	-	
 r18d.p2bb.base_only	1	results/eval2/p2_posthoc_best_baseline.json	paired.pointer vs latest_date_on_answer_docs_only.b_only	int	PYTHONPATH=src:. python -m eval.gold2.posthoc_best_baseline	-	
-r18d.p2bb.mcnemar	0.0117	results/eval2/p2_posthoc_best_baseline.json	display.mcnemar_p	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_best_baseline	README.md	
+r18d.p2bb.mcnemar	0.0117	results/eval2/p2_posthoc_best_baseline.json	display.mcnemar_p	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_best_baseline	-	
 r18d.p2bb.cluster	[0.056, 0.243]	results/eval2/p2_posthoc_best_baseline.json	display.cluster95	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_best_baseline	-	
 r18d.p2bb.ans_wins	7	results/eval2/p2_posthoc_best_baseline.json	paired.pointer vs latest_date_on_answer_docs_only (answered).a_only	int	PYTHONPATH=src:. python -m eval.gold2.posthoc_best_baseline	-	
 r18d.p2bb.ans_wins_intervention	4	results/eval2/p2_posthoc_best_baseline.json	display.answered_wins_on_intervention_typed	int	PYTHONPATH=src:. python -m eval.gold2.posthoc_best_baseline	-	
 r18d.p8cov.named	302/302	results/p8/p8_v02_role_coverage.json	summary.named/summary.determinable	frac	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_role_coverage	README.md	
 r18d.p8cov.cells	58	results/p8/p8_v02_role_coverage.json	summary.cells	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_role_coverage	README.md	
 r18d.p8cov.fields	6	results/p8/p8_v02_role_coverage.json	summary.fields_fully_named	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_role_coverage	-	
-r18d.v02.records	186	results/schema/v0_2/validation_all.json	validated_records.n_records	int	make schema-v02	technical_report.md,docs/form_notes.md,../README.md	
-r18d.v02.parliaments	26	results/schema/v0_2/validation_all.json	validated_records.n_parliaments	int	make schema-v02	technical_report.md,docs/form_notes.md,../README.md	
-r18d.v02.converter	120	results/schema/v0_2/validation_all.json	validated_records.converter.n_records	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,../README.md	
-r18d.v02.cantonal_communal	105	results/schema/v0_2/validation_all.json	validated_records.converter.cantonal_and_communal.n_records	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,../README.md	
-r18d.v02.federal	15	results/schema/v0_2/validation_all.json	validated_records.converter.federal.n_records	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,../README.md	
-r18d.v02.converter_parliaments	23	results/schema/v0_2/validation_all.json	validated_records.converter.n_parliaments	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,../README.md	
-r18d.v02.p8	66	results/schema/v0_2/validation_all.json	validated_records.p8_gold.n_records	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,../README.md	
-r18d.v02.p8_parliaments	11	results/schema/v0_2/validation_all.json	validated_records.p8_gold.n_parliaments	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,../README.md	
-r18d.p7_8b.scored	88	results/p7/gguf8b/hypotheses.json	coverage.annotated_scored	int	PYTHONPATH=src:. python -m eval.p7.run_8b hypotheses	README.md	
-r18d.p7_8b.annotated	190	results/p7/gguf8b/hypotheses.json	coverage.annotated	int	PYTHONPATH=src:. python -m eval.p7.run_8b hypotheses	README.md	
+r18d.v02.records	186	results/schema/v0_2/validation_all.json	validated_records.n_records	int	make schema-v02	technical_report.md,docs/form_notes.md,../README.md,docs/ech-onepager.md	
+r18d.v02.parliaments	26	results/schema/v0_2/validation_all.json	validated_records.n_parliaments	int	make schema-v02	technical_report.md,docs/form_notes.md,../README.md,docs/ech-onepager.md	
+r18d.v02.converter	120	results/schema/v0_2/validation_all.json	validated_records.converter.n_records	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,../README.md,docs/ech-onepager.md	
+r18d.v02.cantonal_communal	105	results/schema/v0_2/validation_all.json	validated_records.converter.cantonal_and_communal.n_records	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,../README.md,docs/ech-onepager.md	
+r18d.v02.federal	15	results/schema/v0_2/validation_all.json	validated_records.converter.federal.n_records	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,../README.md,docs/ech-onepager.md	
+r18d.v02.converter_parliaments	23	results/schema/v0_2/validation_all.json	validated_records.converter.n_parliaments	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,../README.md,docs/ech-onepager.md	
+r18d.v02.p8	66	results/schema/v0_2/validation_all.json	validated_records.p8_gold.n_records	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,../README.md,docs/ech-onepager.md	
+r18d.v02.p8_parliaments	11	results/schema/v0_2/validation_all.json	validated_records.p8_gold.n_parliaments	int	make schema-v02	README.md,technical_report.md,docs/form_notes.md,../README.md,docs/ech-onepager.md	
+r18d.p7_8b.scored	88	results/p7/gguf8b/hypotheses.json	coverage.annotated_scored	int	PYTHONPATH=src:. python -m eval.p7.run_8b hypotheses	README.md,docs/runbook.md	
+r18d.p7_8b.annotated	190	results/p7/gguf8b/hypotheses.json	coverage.annotated	int	PYTHONPATH=src:. python -m eval.p7.run_8b hypotheses	README.md,docs/runbook.md	
 r18d.retier.n	140	results/repair/adapters/retier/retier_r18.json	n	int	PYTHONPATH=src:. python -m gegenprobe.repair.adapters.retier	README.md	
 r18d.retier.counted_after	6,473	results/repair/adapters/retier/retier_r18.json	lists_after.counted	int	PYTHONPATH=src:. python -m gegenprobe.repair.adapters.retier	README.md,technical_report.md	
 r18d.retier.counted_before	6,613	results/repair/adapters/retier/retier_r18.json	lists_before.counted	int	PYTHONPATH=src:. python -m gegenprobe.repair.adapters.retier	-	
@@ -41,12 +41,12 @@ r18d.at.valais_moved	76	results/findings/answer_times.json	retiered.durations_mo
 r18d.at.valais_before_n	99	results/findings/answer_times.json	retiered.valais_before.n	int	python -m gegenprobe.findings.answer_times	-	
 r18d.at.valais_before_median	100	results/findings/answer_times.json	retiered.valais_before.median	int	python -m gegenprobe.findings.answer_times	-	
 r18d.at.kriens_opd_same	0	results/findings/answer_times.json	per_parliament.1059.opd_same_affairs.median	int	python -m gegenprobe.findings.answer_times	README.md	
-r18d.bilanz.suspense	45.9%	data/census/cited_evidence.json	booking.suspense_share	pct1	copied from the S3-BILANZ spike (data/census/cited_evidence.json)	README.md,docs/census.md	
-r18d.bilanz.bodies	12	data/census/cited_evidence.json	booking.bodies	int	copied from the S3-BILANZ spike (data/census/cited_evidence.json)	README.md	
+r18d.bilanz.suspense	45.9%	data/census/cited_evidence.json	booking.suspense_share	pct1	copied from the S3-BILANZ spike (data/census/cited_evidence.json)	README.md,docs/census.md,docs/ech-onepager.md	
+r18d.bilanz.bodies	12	data/census/cited_evidence.json	booking.bodies	int	copied from the S3-BILANZ spike (data/census/cited_evidence.json)	README.md,docs/ech-onepager.md	
 r18d.rs.p8	6	results/report/r17_numbers.json	role_splits.p8_registered	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md,technical_report.md,docs/form_notes.md,../README.md	
 r18d.rs.labels	4	results/report/r17_numbers.json	role_splits.labels_only_post_hoc	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md,technical_report.md,docs/form_notes.md,../README.md	
 r18d.rs.robust	8	results/report/r17_numbers.json	role_splits.robust	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md	
 r18d.rs.fragile	2	results/report/r17_numbers.json	role_splits.fragile	int	PYTHONPATH=src:. python -m report.r17_numbers	../README.md	
 r18d.rs.n	10	results/report/r17_numbers.json	role_splits.n	int	PYTHONPATH=src:. python -m report.r17_numbers	-	
-r18d.p8sub.vernier	5/5	results/p8/p8_hypotheses.json	fields.date_submission.per_parliament.6643.counts.unprinted_differs/fields.date_submission.per_parliament.6643.n_det	frac	PYTHONPATH=src:. python -m eval.p8.score; python -m eval.p8.hypotheses9	README.md,technical_report.md,docs/form_notes.md	
-r18d.p8sub.lausanne	3/5	results/p8/p8_hypotheses.json	fields.date_submission.per_parliament.5586.counts.unprinted_differs/fields.date_submission.per_parliament.5586.n_det	frac	PYTHONPATH=src:. python -m eval.p8.score; python -m eval.p8.hypotheses9	README.md,technical_report.md,docs/form_notes.md	"{""technical_report.md"": ""3/5); a data-source split |"", ""README.md"": ""affairs) and Lausanne (3/5)"", ""docs/form_notes.md"": ""affairs, and Lausanne, 3/5;""}"
+r18d.p8sub.vernier	5/5	results/p8/p8_hypotheses.json	fields.date_submission.per_parliament.6643.counts.unprinted_differs/fields.date_submission.per_parliament.6643.n_det	frac	PYTHONPATH=src:. python -m eval.p8.score; python -m eval.p8.hypotheses9	README.md,technical_report.md,docs/form_notes.md,docs/ech-onepager.md	
+r18d.p8sub.lausanne	3/5	results/p8/p8_hypotheses.json	fields.date_submission.per_parliament.5586.counts.unprinted_differs/fields.date_submission.per_parliament.5586.n_det	frac	PYTHONPATH=src:. python -m eval.p8.score; python -m eval.p8.hypotheses9	README.md,technical_report.md,docs/form_notes.md,docs/ech-onepager.md	"{""technical_report.md"": ""3/5); a data-source split |"", ""README.md"": ""affairs) and Lausanne (3/5)"", ""docs/form_notes.md"": ""affairs, and Lausanne, 3/5;"", ""docs/ech-onepager.md"": ""3/5) it is printed in""}"

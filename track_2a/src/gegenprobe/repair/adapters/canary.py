@@ -8,7 +8,10 @@ fresh through the polite network layer, extraction, identity / heading / date ch
   adapter_canary_failed        a canary that was counted is no longer counted (the reason says where it broke: a typed
                                failure such as http_404, not_found, robots_disallowed, empty_text, or the check that failed)
   adapter_canary_text_changed  still counted, but the extracted text's sha256 differs from the committed one (the source
-                               re-published the file or the extractor changed; informational)
+                               re-published the file, or the text differs under the same extractor; informational).
+                               Not raised when the document's bytes are the baseline's (`baseline.file_sha256`) and only
+                               the extractor differs from the baseline's (`baseline.extractor`, e.g. the Docker image's
+                               poppler 22.12 against the host's 26.02): the result then says `text_differs_by_extractor`
   adapter_counted_drop         a parliament's counted rows in results/repair/adapters/adapters_summary.json fell since the
                                last canary run by more than max(DROP_MIN, DROP_SHARE of the previous count) (after a re-run)
 
@@ -19,6 +22,9 @@ fresh through the polite network layer, extraction, identity / heading / date ch
     python -m gegenprobe.repair.adapters.canary run       network (RFC 9309 robots + OPD mirror, one request at a time per
                                                            host): re-check every canary; WORK/canary/<date>.json and
                                                            WORK/canary/state.json; exit GP_ALERT_EXIT (default 3) on alerts
+    python -m gegenprobe.repair.adapters.canary baseline  network: re-check every canary and, where it verifies with the
+                                                           committed text hash, record the document's bytes hash and the
+                                                           extractor in canary.json `baseline` (no other field changes)
     python -m gegenprobe.repair.adapters.canary run --fixtures DIR   the same, reading each canary's document text from
                                                            DIR/<BODY>_<affair_id>.txt instead of the network (tests, drills)
 
@@ -135,18 +141,40 @@ def _fresh(c: dict, fixtures: Path | None, scratch: Path):
     saved = base.url_cache_get, base.fetch_text, base.ADIR
     base.url_cache_get = lambda url: None
     base.ADIR = scratch
+    seen.clear()
+    real = base.fetch_text
+    # adapters that imported fetch_text by name (vs.py) get the same wrapper; restored below
+    users = [m for n, m in list(sys.modules.items()) if n.startswith("gegenprobe.repair.adapters.") and m is not base
+             and getattr(m, "fetch_text", None) is real]
+
+    def recording(url, body, ocr=True, max_ocr_pages=4):
+        t, m = real(url, body, ocr=ocr, max_ocr_pages=max_ocr_pages)
+        seen[url] = dict(file_sha256=m.get("sha256"), extractor=m.get("extractor"))
+        return t, m
+    base.fetch_text = recording
+    for m in users:
+        m.fetch_text = recording
     if fixtures is not None:
         def fake(url, body, ocr=True, max_ocr_pages=4):
             p = fixtures / f"{c['body']}_{c['affair_id']}.txt"
             if not p.exists():
                 raise base.Failure("not_found", f"fixture {p.name} missing")
             t = p.read_text(encoding="utf-8")
-            return t, dict(sha256=hashlib.sha256(t.encode()).hexdigest(), extractor="fixture", kind="txt")
+            m = dict(sha256=hashlib.sha256(t.encode()).hexdigest(), extractor="fixture", kind="txt")
+            seen[url] = dict(file_sha256=m["sha256"], extractor=m["extractor"])
+            return t, m
         base.fetch_text = fake
+        for m in users:
+            m.fetch_text = fake
     try:
         yield
     finally:
         base.url_cache_get, base.fetch_text, base.ADIR = saved
+        for m in users:
+            m.fetch_text = real
+
+
+seen: dict[str, dict] = {}  # url -> {file_sha256, extractor} of the documents fetched during one re-check
 
 
 class _Committed:
@@ -179,10 +207,23 @@ def recheck(c: dict, fixtures: Path | None = None, scratch: Path | None = None) 
         if rec["outcome"] == "failed":
             cl = dict(tier="failed", counted=False)
         sha = lists.text_sha256(rec)
-    return dict(source=c["source"], body=c["body"], affair_id=c["affair_id"], affair_number=c["affair_number"],
-                outcome=rec["outcome"], reason=rec.get("reason"), detail=rec.get("detail"), tier=cl["tier"],
-                counted=cl["counted"], text_sha256=sha, same_text=sha == c["text_sha256"] if sha else None,
-                url=(rec.get("best") or {}).get("url"), seconds=round(time.time() - t0, 1))
+    url = (rec.get("best") or {}).get("url")
+    doc = seen.get(url) or {}
+    out = dict(source=c["source"], body=c["body"], affair_id=c["affair_id"], affair_number=c["affair_number"],
+               outcome=rec["outcome"], reason=rec.get("reason"), detail=rec.get("detail"), tier=cl["tier"],
+               counted=cl["counted"], text_sha256=sha, same_text=sha == c["text_sha256"] if sha else None,
+               url=url, seconds=round(time.time() - t0, 1))
+    if doc:
+        out.update(file_sha256=doc.get("file_sha256"), extractor=doc.get("extractor"))
+    out["text_differs_by_extractor"] = by_extractor(out, c.get("baseline"))
+    return out
+
+
+def by_extractor(r: dict, bl: dict | None) -> bool:
+    """The text hash differs only because the extractor does: the document's bytes are the baseline's and the extractor
+    is another one (e.g. the Docker image's poppler 22.12 against the host's 26.02 the committed hash was taken with)."""
+    return bool(r.get("same_text") is False and bl and bl.get("file_sha256") and r.get("file_sha256")
+                and r["file_sha256"] == bl["file_sha256"] and r.get("extractor") and r["extractor"] != bl.get("extractor"))
 
 
 def alerts(results: list[dict], counts_prev: dict | None, counts_now: dict, names: dict | None = None) -> list[dict]:
@@ -195,7 +236,7 @@ def alerts(results: list[dict], counts_prev: dict | None, counts_now: dict, name
                             affair=r["affair_number"], outcome=r["outcome"], tier=r["tier"], reason=r["reason"],
                             message=f"{name}: the canary affair {r['affair_number']} on {r['source']} no longer verifies "
                                     f"({r['outcome']}: {r['reason'] or r['tier']}); the adapter's path may have broken"))
-        elif r["same_text"] is False:
+        elif r["same_text"] is False and not r.get("text_differs_by_extractor"):
             out.append(dict(kind="adapter_canary_text_changed", body=r["body"], name=name, source=r["source"],
                             affair=r["affair_number"],
                             message=f"{name}: the canary {r['affair_number']} still verifies but its text changed"))
@@ -234,6 +275,20 @@ def run_all(fixtures: Path | None = None, cfg: dict | None = None, state_dir: Pa
     return res
 
 
+def baseline(cfg: dict) -> list[dict]:
+    """Live re-check; where a canary verifies with the committed text hash, record in cfg its document's bytes hash and the
+    extractor that produced that text (`baseline`), so a later night can tell a re-published file from an extractor
+    difference. Nothing else changes (text_sha256 stays the committed list's)."""
+    out = []
+    for c in cfg["canaries"]:
+        r = recheck(c)
+        out.append(r)
+        if r["counted"] and r["same_text"] and r.get("file_sha256"):
+            c["baseline"] = dict(file_sha256=r["file_sha256"], extractor=r["extractor"], checked=dt.date.today().isoformat(),
+                                 url=r["url"])
+    return out
+
+
 def main(argv: list[str]) -> int:
     cmd = argv[0] if argv else ""
     if cmd == "select":
@@ -248,12 +303,23 @@ def main(argv: list[str]) -> int:
             print("canary:", b)
         print(f"{len(load()['canaries'])} canaries, {len(bad)} problems")
         return 1 if bad else 0
+    if cmd == "baseline":
+        cfg = load()
+        rs = baseline(cfg)
+        CANARY.write_text(json.dumps(cfg, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        for r in rs:
+            print(f"{r['source']:28} {r['body']:5} {r['affair_number']:14} same_text={r['same_text']} "
+                  f"extractor={r.get('extractor')} file={str(r.get('file_sha256'))[:16]}")
+        n = sum(bool(c.get("baseline")) for c in cfg["canaries"])
+        print(f"{CANARY}: baseline recorded for {n}/{len(cfg['canaries'])} canaries")
+        return 0 if n == len(cfg["canaries"]) else 1
     if cmd == "run":
         fx = Path(argv[argv.index("--fixtures") + 1]) if "--fixtures" in argv else None
         res = run_all(fx)
         for r in res["results"]:
             print(f"{r['source']:28} {r['body']:5} {r['affair_number']:14} {r['outcome']:8} {r['tier']:22} "
-                  f"same_text={r['same_text']}")
+                  f"same_text={r['same_text']}"
+                  + (f" (same file, extractor {r['extractor']}: no alert)" if r.get("text_differs_by_extractor") else ""))
         for a in res["alerts"]:
             print("ALERT", a["kind"], a["message"])
         print(f"{res['verified']}/{res['expected']} canaries verified, {len(res['alerts'])} alerts")

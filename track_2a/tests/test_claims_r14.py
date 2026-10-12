@@ -39,16 +39,16 @@ def _errs(rows, cfg, doc, old, new):
 
 # ---- 1 scope words are bound to their claims
 @pytest.mark.parametrize("doc,old,new", [
-    ("technical_report.md", "registered against the rules (the baselines post hoc, proposed",
-     "registered against the rules (the baselines registered, proposed"),
+    ("technical_report.md", "(post hoc, `docs/evaluation.md`): model-free",
+     "(registered, `docs/evaluation.md`): model-free"),
     ("technical_report.md", "outside interventions 36/43 (exploratory, post hoc",
      "outside interventions 36/43 (exploratory, registered"),
     ("technical_report.md", "at recall 39/137 (exploratory)", "at recall 39/137 (registered)"),
-    ("README.md", "who is an author (+7.3 points, post hoc)", "who is an author (+7.3 points, registered)"),
+    ("README.md", "2/29 (P2, registered)", "2/29 (P2, post hoc)"),
     ("README.md", "recall 286/345 (in-sample)", "recall 286/345 (held out)"),
     ("README.md", "**Federal level (exploratory,", "**Federal level (registered,"),
     ("docs/form_notes.md", "4 from OPD's labels, post hoc", "4 from OPD's labels, registered"),
-    ("docs/form_notes.md", "cascade's 138/154, post hoc)", "cascade's 138/154, registered)"),
+    ("docs/form_notes.md", "(at most 0.58; post hoc)", "(at most 0.58; registered)"),
 ])
 def test_r14_scope_word_flip_fails(rows, cfg, doc, old, new):
     errs = _errs(rows, cfg, doc, old, new)

@@ -157,15 +157,14 @@
   "builds": [],
   "converter_version": "gegenprobe-0.1.0+affair",
   "created": "2026-10-10T08:48:54.780283Z",
-  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it); v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 1 printed authors (1 earlier entries for the same persons replaced), 1 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 1 parts in 1 of 2 documents examined; Q/A pairing by gegenprobe.schema.v0_2_qa.with_qa (gegenprobe.qa.extract (the P5 rules arm, no model)): 9 questions (enumerated), 9 answer passages located; typed gaps by gegenprobe.schema.v0_2_gaps.with_gaps: co_signatories not_in_document; OPD metadata filled by gegenprobe.schema.v0_2_meta.with_metadata: type.harmonised (opd:affairs/328691#type_harmonized_id=12), decision (null not_applicable), qa.0.answering_body (opd:events/922573#actor_fr) (route metadata, no value replaced); answer-date roles by gegenprobe.schema.v0_2_dates.with_date_roles: dates.1 answered (unlabelled_date_line: printed as a bare date (place_date_tail) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)), qa.0.answer_date answered (unlabelled_date_line: printed as a bare date (place_date_tail) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse))",
+  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it); v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 1 printed authors (1 earlier entries for the same persons replaced), 1 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 1 parts in 1 of 2 documents examined; Q/A pairing by gegenprobe.schema.v0_2_qa.with_qa (gegenprobe.qa.extract (the P5 rules arm, no model)): 9 questions (enumerated), 9 answer passages located; typed gaps by gegenprobe.schema.v0_2_gaps.with_gaps: co_signatories not_in_document; OPD metadata filled by gegenprobe.schema.v0_2_meta.with_metadata: type.harmonised (opd:affairs/328691#type_harmonized_id=12), decision (null not_applicable), government_recommendation (type.harmonised question), qa.0.answering_body (opd:events/922573#actor_fr) (route metadata, no value replaced); answer-date roles by gegenprobe.schema.v0_2_dates.with_date_roles: dates.1 answered (unlabelled_date_line: printed as a bare date (place_date_tail) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)), qa.0.answer_date answered (unlabelled_date_line: printed as a bare date (place_date_tail) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse))",
   "schema_version": "0.2.0"
  },
  "government_recommendation": {
-  "doc": "opd:895359",
-  "evidence": "no_anchor",
+  "evidence": "affair type question (None): the executive answers it and makes no recommendation on it (the converter writes this for an interpellation; the type was read as unknown when the rules ran, which then found no recommendation anchor)",
   "kind": "null",
-  "null_reason": "present_unanchored",
-  "route": "rule"
+  "null_reason": "not_applicable",
+  "route": "metadata"
  },
  "languages": [
   "fr"

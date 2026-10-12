@@ -1,7 +1,7 @@
 id	shown	file	path	fmt	command	where	context
 p8.n	66	results/p8/sample.json	n	int	PYTHONPATH=src:. python -m eval.p8.sample	README.md,technical_report.md,docs/evaluation.md,docs/ech-onepager.md	
 p8.parliaments	11	results/p8/p8_hypotheses.json	n_parliaments	int	PYTHONPATH=src:. python -m eval.p8.score; python -m eval.p8.hypotheses9	README.md,technical_report.md,docs/evaluation.md,docs/ech-onepager.md	
-p8.meaning_tested	7	results/p8/p8_hypotheses.json	meaning_tested	int	PYTHONPATH=src:. python -m eval.p8.score; python -m eval.p8.hypotheses9	README.md,../README.md,technical_report.md,docs/evaluation.md	
+p8.meaning_tested	7	results/p8/p8_hypotheses.json	meaning_tested	int	PYTHONPATH=src:. python -m eval.p8.score; python -m eval.p8.hypotheses9	README.md,../README.md,technical_report.md,docs/evaluation.md,docs/ech-onepager.md	
 p8.submitter.verdict	role_split	results/p8/p8_hypotheses.json	fields.submitter.verdict	str	PYTHONPATH=src:. python -m eval.p8.score; python -m eval.p8.hypotheses9	-	
 p8.submitter.verdict_agreed_only	role_split	results/p8/p8_hypotheses.json	fields.submitter.verdict_agreed_only	str	PYTHONPATH=src:. python -m eval.p8.score; python -m eval.p8.hypotheses9	-	
 p8.submitter.pooled	35/65	results/p8/p8_hypotheses.json	fields.submitter.pooled.n_E/fields.submitter.pooled.n	frac	PYTHONPATH=src:. python -m eval.p8.score; python -m eval.p8.hypotheses9	README.md,technical_report.md,docs/evaluation.md,docs/ech-onepager.md	

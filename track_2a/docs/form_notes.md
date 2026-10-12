@@ -13,23 +13,24 @@ every number here from its results file and fails on any mismatch, or on a numbe
   apply).
 - **Delivered.** Repairs for 9,580 answers keyed on OpenParlData (OPD) ids, every one from model-free rules; schema
   v0.2 with the roles; a converter whose 120 records give every value its page and span or its source record, every
-  gap a typed reason and the answer date its role (blind gold role: 32/32); a nightly job (three real nights, then a real
-  two-night Docker pair: night 2 kept night 1's verdicts).
+  gap a typed reason and the answer date its role (blind gold role: 32/32), the cantonal
+  and communal ones written by the operator command itself;
+  a nightly job (three real nights, then a real two-night Docker pair: night 2 kept night 1's verdicts).
 - **Headline.** 92.1% of interventions with a recorded government answer would have answer text once the repairs are
-  applied, up from 81.6% (91.5% from row-checked repairs alone). The Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation. 186 v0.2 records from 26
+  applied, up from 81.6%: +10.5 points, all from the 9,580 repairs (91.5% from the 8,949 row-checked alone). The
+  Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation. 186 v0.2 records from 26
   parliaments validate: the converter's 120 (105 cantonal and communal + 15 federal, 23 parliaments) and P8's 66 gold
-  records (11 parliaments); the converter's hold a value in 1,172 of 2,040 field-record pairs.
-- **Apertus, opt-in: provable values and a ranked review queue.** Apertus only picks values printed in the document,
-  and code locates them. On new layouts (P2, 15 parliaments) it finds 24/29 answer dates, exact on 53/62 documents;
-  the strongest model-free rule we tried 21/29 and 46/62: right alone on 9 vs 2, exact McNemar p = 0.065 (post hoc).
-  Registered: the rules 2/29. On the review queue (P7) its promotions are answers on 120/120
-  (registered), a no-model exact-date match's on 146/146 with more rows (206 vs 135, post hoc); Apertus's edge
-  there is the date. Author roles, in 14 parliaments without rules (P10): Apertus
-  50/141, level with OPD's contributor list (37/141; Holm p = 0.17); Rules 17/141; most of the gain comes from the
-  model-free candidate finder (document order 52/141); Apertus adds precision deciding who is an author (+7.3 points,
-  post hoc). Where rules exist it adds one document net (P1: 139/154 vs a model-free cascade's 138/154, post hoc). In
-  Italian (P11, exploratory) the pointer is exact on 12/12 answers, the rules on 8/12.
-- **Census and OPD.** 2,177 "missing" answers were in OPD all along, under another heading. OPD confirmed
+  records (11 parliaments).
+- **Apertus, opt-in: it reads what no rules cover.** Apertus only picks values printed in the document, and code
+  locates them. In 15 parliaments nobody wrote rules for (P2) it finds 24/29 answer dates, the rules 2/29
+  (registered). In 14 parliaments without rules (P10) it raises author-role recall by 23.4 points over the rules,
+  precision not worse (H1, H2, registered). On the review queue (P7) 120/120 of its sampled promotions are the
+  government's answer (H1, registered). On 15 Federal Council answers that print no date it dates none, and in
+  Italian (P11) it is exact on 12/12 (both exploratory). Every value it returns is a located printed value (62/62,
+  32/32, 35/35; free prompting's quotes 30/60, 17/32), and its margin ranks the open documents for review: AUROC 0.90
+  on new layouts, above every no-model signal we computed (at most 0.58; post hoc).
+- **Census and OPD.** 2,177 "missing" answers were in OPD all along, under another heading; 7,876 answered
+  interventions (5.9%, 73 parliaments) still carry "submitted" as their last OPD state. OPD confirmed
   the Bern linking bug (correspondence, 10 Oct 2026); the only open decision is its hash rule for relinks. Lists from
   50 model-free source adapters: blind AI annotators judged 185/186 counted rows to be the answer (Claude) and
   186/186 (Qwen), post hoc.

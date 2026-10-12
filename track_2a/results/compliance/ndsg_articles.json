@@ -1,0 +1,10 @@
+{
+ "label": "The articles of the Swiss Federal Act on Data Protection (nDSG/revFADP, SR 235.1, of 25 September 2020, in force since 1 September 2023) that the documents cite, with each article's heading; recorded by hand from the act's published text, not fetched by code. The claims check binds every cited article number (docs/dpo_checklist.md, the decision pages, README, runbook) to this file, so a changed number fails until the file and the sentence agree.",
+ "act": {"short": "nDSG", "sr": "235.1", "title_de": "Bundesgesetz über den Datenschutz (Datenschutzgesetz, DSG)", "adopted": "2020-09-25", "in_force": "2023-09-01", "source": "https://www.fedlex.admin.ch/eli/cc/2022/491/de"},
+ "articles": {
+  "register": {"article": 12, "heading_de": "Verzeichnis der Bearbeitungstätigkeiten", "cited_for": "the register of processing activities the DPO checklist fills in, one entry per line"},
+  "disclosure_abroad": {"article": 16, "heading_de": "Bekanntgabe ins Ausland: Grundsätze", "cited_for": "the Public AI route: document text disclosed abroad without a processing agreement (results/compliance/publicai_terms.json assessment.ndsg_article)"},
+  "automated_decision": {"article": 21, "heading_de": "Informationspflicht bei einer automatisierten Einzelentscheidung", "cited_for": "Gegenprobe takes no automated individual decisions"},
+  "impact_assessment": {"article": 22, "heading_de": "Datenschutz-Folgenabschätzung", "cited_for": "whether the body's rules call for a data protection impact assessment, left to the DPO"}
+ }
+}

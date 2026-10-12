@@ -1,12 +1,14 @@
 {
- "_doc": "Strict zones for `make claims` (gegenprobe.claims.zone_check): every numeric token in a zone must be bound to a claim whose `where` lists the document, by an anchor in claims_anchor.json that holds the claim's value at that position. README.md, technical_report.md and docs/form_notes.md are strict end to end. A zone is {start, end} (literals; null = top/end) or a list of them. `allow` lists the non-claims literally, each with why. `small_int_tables` lists result tables (by the start of their header row) whose integer cells below 10 must be bound too; scope words (post hoc, registered, exploratory, in-sample, held out, weighted, unweighted) must sit inside an anchor phrase or an allowlisted phrase; `pinned` phrases must occur exactly `count` times. The repository-root README (../README.md) is strict end to end as well (skipped inside the Docker build context, checked by the host CI job with GP_CLAIMS_STRICT=1). `small_int_docs` lists the documents in which every integer below 10 counts too (structural uses excepted: list/heading numbers, §/Fig./Figure/Table references, code spans, HTML tags; gegenprobe.claims.small_structural): a count is bound by an anchor, an ordinal or setting is allowlisted with its reason. `strict_docs` is the one list of strict documents: each is a zone end to end unless `zones` narrows it, is in `small_int_docs` and is scanned by the wording guards of claims_pins.json (adding a document is one line). `scoped` ({document: {phrase: {qualifier: count}}}, written by `python -m gegenprobe.claims scoped --write`) records the scoping qualifiers (not sample-checked, post hoc, in-sample, uncorrected, would, once, at most, partly, ...) in the clause of every claim anchor and wording-pin phrase: a qualifier that leaves its clause fails.",
+ "_doc": "Strict zones for `make claims` (gegenprobe.claims.zone_check): every numeric token in a zone must be bound to a claim whose `where` lists the document, by an anchor in claims_anchor.json that holds the claim's value at that position. README.md, technical_report.md and docs/form_notes.md are strict end to end. A zone is {start, end} (literals; null = top/end) or a list of them. `allow` lists the non-claims literally, each with why. `small_int_tables` lists result tables (by the start of their header row) whose integer cells below 10 must be bound too; scope words (post hoc, registered, exploratory, in-sample, held out, weighted, unweighted) must sit inside an anchor phrase or an allowlisted phrase; `pinned` phrases must occur exactly `count` times. The repository-root README (../README.md) is strict end to end as well (skipped inside the Docker build context, checked by the host CI job with GP_CLAIMS_STRICT=1). `small_int_docs` lists the documents in which every integer below 10 counts too (structural uses excepted: list/heading numbers, §/Fig./Figure/Table references, code spans, HTML tags; gegenprobe.claims.small_structural): a count is bound by an anchor, an ordinal or setting is allowlisted with its reason. `strict_docs` is the one list of strict documents: each is a zone end to end unless `zones` narrows it, is in `small_int_docs` and is scanned by the wording guards of claims_pins.json (adding a document is one line). `scoped` ({document: {phrase: {qualifier: count}}}, written by `python -m gegenprobe.claims scoped --write`) records the scoping qualifiers (not sample-checked, post hoc, in-sample, uncorrected, would, once, at most, partly, ...) in the clause of every claim anchor and wording-pin phrase: a qualifier that leaves its clause fails. R21: docs/dpo_checklist.md and docs/ech-onepager.md are strict documents; docs/runbook.md has one zone (operator sheet and route table); nDSG article numbers are bound to results/compliance/ndsg_articles.json and the cache-retention default to cache_retention.DEFAULT_DAYS (claims.d/r21_c.tsv).",
  "strict_docs": [
   "README.md",
   "technical_report.md",
   "docs/form_notes.md",
   "../README.md",
   "docs/decision.md",
-  "docs/decision_de.md"
+  "docs/decision_de.md",
+  "docs/dpo_checklist.md",
+  "docs/ech-onepager.md"
  ],
  "zones": {
   "README.md": {
@@ -24,6 +26,10 @@
   "../README.md": {
    "start": null,
    "end": null
+  },
+  "docs/runbook.md": {
+   "start": "## Operator sheet",
+   "end": "### Public AI and nDSG Art. 16"
   }
  },
  "allow": {
@@ -97,10 +103,6 @@
     "why": "figure title: the registered census gap"
    },
    {
-    "phrase": "**Two findings for OPD's data** (post hoc, no model)",
-    "why": "scope of the two findings below; their numbers are bound"
-   },
-   {
     "phrase": "passes the registered test\n  of meaning",
     "why": "P8's registered test, named"
    },
@@ -119,10 +121,6 @@
    {
     "phrase": "Integers below 10 are checked in the result tables",
     "why": "the claims check's threshold, not a result"
-   },
-   {
-    "phrase": "(default 30)",
-    "why": "a setting's default, not a result"
    },
    {
     "phrase": "```json\n{\n \"schema_version\": \"0.2.0\",\n \"ref\": {\"body_key\": \"BE\", \"number\": \"2021.RRGR.388\", \"opd_id\": 39369, \"virtual\": false},\n \"actors\": [\n  {\"role\": \"joint_author\", \"kind\": \"person\",\n   \"name\": {\"kind\": \"value\", \"value\": \"Ruchti\", \"basis\": \"extracted\", \"route\": \"rule\",\n            \"rule\": \"roles-2:authors:table:eingereicht_von\", \"doc\": \"opd:23227\", \"page\": 1,\n            \"char_start\": 231, \"char_end\": 237, \"quote_sha256\": \"94cbc0329ffdf881…\"}}\n ],\n \"qa\": [{\n  \"answer_date\": {\"kind\": \"value\", \"value\": \"2022-05-18\", \"role\": \"answer_decided\", \"basis\": \"normalised\", \"route\": \"rule\",\n                  \"rule\": \"opd_event_date_in_document\", \"doc\": \"opd:656633\", \"page\": 1,\n                  \"char_start\": 466, \"char_end\": 477, \"quote\": \"18 mai 2022\"},\n  \"answering_body\": {\"kind\": \"value\", \"value\": \"Regierungsrat des Kantons Bern\", \"basis\": \"metadata\",\n                     \"route\": \"metadata\", \"source\": \"opd:bodies/253#executive_name\"},\n  \"answer_identifier\": {\"kind\": \"null\", \"null_reason\": \"present_unanchored\", \"route\": \"rule\",\n                        \"evidence\": \"decision number carried on answer_date.decision_number\"}\n }],\n \"documents\": [\n  {\"doc_id\": \"opd:656633\", \"role\": \"answer\", \"language_tag\": \"de\", \"language_of_text\": [\"fr\"]}\n ]\n}\n```",
@@ -253,12 +251,40 @@
     "why": "the previous base image's CPython version, not a result"
    },
    {
-    "phrase": "nDSG Art. 16",
-    "why": "the article of the Swiss data protection act (disclosure abroad), not a count"
-   },
-   {
     "phrase": "followed (12 Oct)",
     "why": "date of the fixed-ledger two-night run"
+   },
+   {
+    "phrase": "re-check on 12 Oct",
+    "why": "a date"
+   },
+   {
+    "phrase": "canary_runs/2026-10-12.json",
+    "why": "a file name (a date)"
+   },
+   {
+    "phrase": "pdftotext 22.12 extracts",
+    "why": "a software version"
+   },
+   {
+    "phrase": "the 26.02 the model cache",
+    "why": "a software version"
+   },
+   {
+    "phrase": "affair 157601",
+    "why": "an OPD affair id"
+   },
+   {
+    "phrase": "**Findings for OPD's data** (post hoc, no model)",
+    "why": "section heading: the scope of the findings below, each bound in its sentence"
+   },
+   {
+    "phrase": "**What the closed design buys: provenance and a ranked review queue** (post hoc,",
+    "why": "the scope of the bullet; each number in it is bound by its anchor"
+   },
+   {
+    "phrase": "**Baselines proposed in review** (post hoc, context for the registered results;",
+    "why": "the scope of the bullet (post hoc baselines next to the registered results); each number in it is bound by its anchor"
    }
   ],
   "technical_report.md": [
@@ -335,14 +361,6 @@
     "why": "names the registered null-safety tests, whose results are bound in Tables 2 and the P1/P2/P6 paragraphs"
    },
    {
-    "phrase": "default 30 days",
-    "why": "a setting's default, not a result"
-   },
-   {
-    "phrase": "**Post hoc**: analysed after the labels, often proposed in review; **registered**: decided by the frozen rule.",
-    "why": "glossary: definition of the scope words"
-   },
-   {
     "phrase": "by source of the split 4 parliamentary practice, 4 partly OPD's tagging (which OPD can correct), 2 open",
     "why": "split of the 10 role-split fields by the source column of the report's Table 1; bound by the wording pin schema.split_sources (claims_pins.json), which counts the table's rows"
    },
@@ -399,10 +417,6 @@
     "why": "P11's scope label; the statement is bound by pin p11.ni.not_as_is"
    },
    {
-    "phrase": "the post hoc record writer for affairs without a member's text",
-    "why": "names a post hoc tool in Next steps, not a result"
-   },
-   {
     "phrase": "CPython 3.11.17 base",
     "why": "the base image's CPython version, not a result"
    },
@@ -413,6 +427,18 @@
    {
     "phrase": "changed no registered decision",
     "why": "the decisions the pre-registered rules made; a statement about the cross-check, not a scope word for a number"
+   },
+   {
+    "phrase": "(Wilson 95% [",
+    "why": "confidence level of the interval, not a result"
+   },
+   {
+    "phrase": "**registered**: decided by a rule frozen by hash before the labels; **post hoc**: analysed after the labels, often proposed in review; **exploratory**: a locked cell without confirmatory hypotheses",
+    "why": "definitions of the scope words (the terms list)"
+   },
+   {
+    "phrase": "**P11**, the **federal cell**: locked exploratory cells",
+    "why": "definition of the exploratory cells (the terms list)"
    }
   ],
   "docs/form_notes.md": [
@@ -471,19 +497,15 @@
     "why": "date of the gateway build switch (P11 D1)"
    },
    {
-    "phrase": "review mode runs again on the\nregistered build",
-    "why": "the gateway build Public AI served during the registered runs (label and fingerprint), not a registration status"
-   },
-   {
     "phrase": "night 2 kept night 1's verdicts",
     "why": "names the second and the first night of the pair (ordinals), not counts"
+   },
+   {
+    "phrase": "runs again on the registered build",
+    "why": "the model build the evaluation ran on, not a test result"
    }
   ],
   "docs/decision.md": [
-   {
-    "phrase": "nDSG Art. 16",
-    "why": "article of the Swiss Federal Act on Data Protection (cross-border disclosure)"
-   },
    {
     "phrase": "per 1,000 residue documents",
     "why": "the unit the review-mode costs are stated in, not a result"
@@ -495,16 +517,146 @@
   ],
   "docs/decision_de.md": [
    {
-    "phrase": "nDSG Art. 16",
-    "why": "article of the Swiss Federal Act on Data Protection (cross-border disclosure)"
-   },
-   {
     "phrase": "pro 1,000 Restdokumente",
     "why": "the unit the review-mode costs are stated in, not a result"
    },
    {
     "phrase": "(Nacht 2 behielt die Prüfergebnisse von Nacht 1)",
     "why": "names the second and the first night of the pair (ordinals), not counts"
+   }
+  ],
+  "docs/ech-onepager.md": [
+   {
+    "phrase": "snapshot 6 Oct 2026",
+    "why": "date of the OPD export snapshot"
+   },
+   {
+    "phrase": "version 0.1.0",
+    "why": "the JSON Schema's version string"
+   },
+   {
+    "phrase": "**body-specific** (2 concepts, not among the 17 fields)",
+    "why": "the two constructs are bound by pin schema.body_specific_constructs (site/data.json schema.body_specific, len 2); 17 = r11.schema_fields"
+   },
+   {
+    "phrase": "(parliament-cluster 95% interval)",
+    "why": "confidence level of the intervals, not a result"
+   },
+   {
+    "phrase": "other 7 are 1–5 days apart",
+    "why": "7 = the 44 checkable minus the 37 that agree (both bound in this sentence); 1–5 days: the offsets of the 5 near disagreements (1, 1, 2, 4, 5) in results/eval/posthoc_r3_gold_oracle.json splits.P1"
+   },
+   {
+    "phrase": "(\"Zu Frage 2\", \"Réponse à la question 2\")",
+    "why": "quoted answer headings, not a count"
+   },
+   {
+    "phrase": "team 444",
+    "why": "team number"
+   },
+   {
+    "phrase": "parliament **registered** it",
+    "why": "'registered' = the date parliament registered the answer (a date role), not a scope word"
+   },
+   {
+    "phrase": "not under both registered\n  checks",
+    "why": "names P8's two registered checks; the fragile verdict it qualifies is pinned (p8.fragile_to_confirm)"
+   }
+  ],
+  "docs/dpo_checklist.md": [
+   {
+    "phrase": "mode 0600",
+    "why": "file mode of alerts.env, a setting"
+   },
+   {
+    "phrase": "Modus 0600",
+    "why": "file mode of alerts.env, a setting"
+   }
+  ],
+  "docs/runbook.md": [
+   {
+    "phrase": "retrieved 12 Oct 2026",
+    "why": "a date (retrieval, build switch), not a result"
+   },
+   {
+    "phrase": "per 1,000 residue documents",
+    "why": "the unit of the rate"
+   },
+   {
+    "phrase": "Python 3.11 venv",
+    "why": "a software version"
+   },
+   {
+    "phrase": "20 GB disk",
+    "why": "an operator requirement for the host, not a measurement"
+   },
+   {
+    "phrase": "two 80 GB GPUs",
+    "why": "hardware: the memory of one H100, a specification"
+   },
+   {
+    "phrase": "\"BBl 2014 9657\"",
+    "why": "an example citation"
+   },
+   {
+    "phrase": "Every fetch keeps 1.2 s per host",
+    "why": "the politeness setting (≥ 1.2 s per host), a setting; pinned in the report"
+   },
+   {
+    "phrase": "RFC 9309",
+    "why": "the robots.txt standard's number"
+   },
+   {
+    "phrase": "137 killed for memory",
+    "why": "an exit code"
+   },
+   {
+    "phrase": "on 12 Oct 2026 the Public AI route served another build",
+    "why": "a date (retrieval, build switch), not a result"
+   },
+   {
+    "phrase": "from about 01:05 to 03:33 UTC",
+    "why": "a time of day"
+   },
+   {
+    "phrase": "(CC BY 4.0,",
+    "why": "a licence version"
+   },
+   {
+    "phrase": "the Debian 12 base",
+    "why": "a release number"
+   },
+   {
+    "phrase": "(a 16 GB machine)",
+    "why": "hardware: a machine size"
+   },
+   {
+    "phrase": "a 4-bit build about 35 GB of weights (both arithmetic, not measured",
+    "why": "arithmetic (70B parameters at 4 bit), stated as not measured"
+   },
+   {
+    "phrase": "and again from about 03:33 UTC on 12 Oct 2026",
+    "why": "a time of day and a date"
+   },
+   {
+    "phrase": "θ_B = 10",
+    "why": "P7's frozen answer-date threshold (eval/prereg8), a setting"
+   },
+   {
+    "phrase": "**Public AI, 12 Oct 2026 ~01:05–03:33 UTC**",
+    "why": "a date and a time window"
+   },
+   {
+    "phrase": "and re-run the held-out arms",
+    "why": "the procedure after a refit (re-run the held-out test arms), not a result's status"
+   },
+   {
+    "phrase": "**Public AI, registered build**",
+    "why": "names the build the tests were registered on (a build label)"
+   },
+   {
+    "phrase": "went back to the registered build",
+    "why": "names the build the tests were registered on (a build label)"
    }
   ]
  },
@@ -532,19 +684,9 @@
     "why": "no closed-set arm returned a date printed nowhere (OPD's submission date in Vernier and Lausanne is now worded 'printed in neither document')"
    },
    {
-    "phrase": "only picks values printed in the document",
-    "count": 1,
-    "why": "what Apertus may return"
-   },
-   {
     "phrase": "model-free",
-    "count": 14,
+    "count": 6,
     "why": "which repairs and baselines use no model"
-   },
-   {
-    "phrase": "not paired",
-    "count": 2,
-    "why": "P7's date precisions are each on their own promotions (§3 What Apertus adds and the table above it)"
    },
    {
     "phrase": "OPD's own agenda link, not sample-checked",
@@ -615,13 +757,8 @@
    },
    {
     "phrase": "model-free",
-    "count": 7,
+    "count": 4,
     "why": "which repairs and baselines use no model"
-   },
-   {
-    "phrase": "not paired",
-    "count": 1,
-    "why": "P7's date precisions are each on their own promotions"
    },
    {
     "phrase": "Vernier (0/5)",
@@ -672,7 +809,7 @@
    },
    {
     "phrase": "model-free",
-    "count": 5,
+    "count": 2,
     "why": "which repairs and baselines use no model"
    },
    {
@@ -722,14 +859,8 @@
  ],
  "scoped": {
   "README.md": {
-   "(+7.3 points, post hoc)": {
-    "post hoc": 1
-   },
    "(12 of the 24": {
     "exploratory": 1
-   },
-   "(33 vs 34 of": {
-    "post hoc": 1
    },
    "(7 of 8 affairs; P11, exploratory)": {
     "exploratory": 2
@@ -753,7 +884,7 @@
     "post hoc": 1
    },
    "(P11, exploratory, 15 affairs)": {
-    "exploratory": 2
+    "exploratory": 1
    },
    "(P11, exploratory, `eval/p11/`, locked before the draw and the labels).** On 15": {
     "exploratory": 1
@@ -761,11 +892,17 @@
    "(P11, exploratory, locked before the draw and the labels).** On 12 interventions": {
     "exploratory": 1
    },
+   "(at most 0.58; the interval of the": {
+    "at most": 2
+   },
    "(exploratory; 88 of the 190": {
     "exploratory": 1
    },
    "(our evaluation used Public AI, which may route outside Switzerland; with the local 8B no text leaves the machine)": {
     "may": 1
+   },
+   "(post hoc): every value Apertus returns is a printed value located by code (62/62": {
+    "post hoc": 1
    },
    "(precision\n  0.875,": {
     "in sample": 1
@@ -778,6 +915,9 @@
     "unweighted": 1,
     "weighted": 1
    },
+   "**Apertus 70B, opt-in, reads layouts no rules cover:**": {
+    "registered": 1
+   },
    "**Apertus with a reviewer.** Apertus reads dates and a person confirms them": {
     "registered": 1
    },
@@ -787,9 +927,20 @@
    "**Outside\ninterventions the skeleton does not carry over as is**": {
     "exploratory": 1
    },
+   "**What only the closed design gives** (post hoc): every value Apertus returns is a printed value located by code (62/62": {
+    "post hoc": 1
+   },
+   "+10.5 points, all from the 9,580 repairs (the 8,949 row-checked ones reach 91.5%; the 592 agenda joins and 39 Bern rows in review add the rest": {
+    "once": 1,
+    "proposed": 1,
+    "would": 1
+   },
    "+23.4 points (H1, p =": {
     "observed": 1,
     "registered": 1
+   },
+   "- **The one open decision.**": {
+    "unless": 1
    },
    "- **What the 9,580 are:**": {
     "not sample checked": 1
@@ -797,28 +948,9 @@
    "0 violations; post hoc, `results/eval/annotator_isolation.json`). A": {
     "post hoc": 1
    },
-   "0.0117); registered: the rules": {
-    "registered": 1
-   },
-   "0.012, uncorrected). The reader ships": {
-    "one sided": 1,
-    "uncorrected": 1
-   },
-   "0.032), level with OPD's": {
-    "registered": 1
-   },
    "0.032), precision non-inferior (H2, observed": {
     "observed": 1,
     "registered": 1
-   },
-   "0.057). On all": {
-    "post hoc": 1
-   },
-   "0.077, post hoc).": {
-    "post hoc": 1
-   },
-   "0.17), and without Neuchâtel": {
-    "post hoc": 1
    },
    "0.32 (its configuration in-sample in Bellinzona;": {
     "in sample": 1
@@ -833,11 +965,6 @@
     "about": 1,
     "registered": 1
    },
-   "0.6 points from the": {
-    "once": 1,
-    "proposed": 1,
-    "would": 1
-   },
    "0.62, the rules": {
     "in sample": 1
    },
@@ -850,6 +977,12 @@
    },
    "0.80 (in-sample); on the": {
     "in sample": 1
+   },
+   "0.90 (P2), above every no-model ranking": {
+    "at most": 1
+   },
+   "0.90 is above every no-model ranking": {
+    "at most": 1
    },
    "0.93 on P1 and P2, and": {
     "registered": 1
@@ -870,6 +1003,11 @@
     "post hoc": 1,
     "registered": 1
    },
+   "10.5 points, all from the": {
+    "once": 1,
+    "proposed": 1,
+    "would": 1
+   },
    "105 converter records carry at least": {
     "at least": 1
    },
@@ -883,19 +1021,6 @@
    "11.5 documents a night, about": {
     "about": 1,
     "held out": 1
-   },
-   "111 printed; precision": {
-    "post hoc": 1,
-    "proposed": 1,
-    "registered": 1
-   },
-   "113/120 of its promotions, against": {
-    "not paired": 1,
-    "post hoc": 1
-   },
-   "113/120 of its promotions, the rule's": {
-    "not paired": 1,
-    "post hoc": 1
    },
    "12 affairs (D2). Review mode refused": {
     "registered": 3
@@ -912,35 +1037,20 @@
    "12/12\n  [75.7, 100]": {
     "exploratory": 1
    },
-   "12/12** Italian answer dates (P11,": {
+   "12/12** Italian interventions exact on the answer date (10 printed dates, 2 right nulls), five parliaments | P11 | exploratory": {
     "exploratory": 1
    },
    "120/120 of its sampled promotions the": {
     "registered": 1
    },
-   "120/120** of its sampled review-queue": {
+   "120/120 of its sampled review-queue": {
     "registered": 1
    },
-   "120/120** of its sampled review-queue promotions are answers (P7, registered": {
+   "120/120 of its sampled review-queue\n  promotions are the government's answer (P7, H1, registered": {
     "registered": 1
    },
-   "126 both, 9 Apertus only; post": {
-    "post hoc": 1,
-    "proposed": 1
-   },
-   "126 both, 9 Apertus only; post hoc": {
-    "post hoc": 1,
-    "proposed": 1
-   },
-   "127/146 (post hoc, not paired); registered": {
-    "not paired": 1,
-    "post hoc": 1,
-    "registered": 1,
-    "weighted": 1
-   },
-   "127/146 for the": {
-    "not paired": 1,
-    "post hoc": 1
+   "120/120** sampled review-queue promotions are the government's answer | the verifier test, P7 (H1) | registered": {
+    "registered": 1
    },
    "13 documents where the rules are": {
     "registered": 1
@@ -948,23 +1058,11 @@
    "13,150** written answers lack answer": {
     "at most": 1
    },
-   "130/154, P2": {
-    "may": 1
-   },
    "131/154, level with the rules": {
     "post hoc": 1
    },
    "131/154, level with the rules (paired p = 0.48": {
     "post hoc": 1
-   },
-   "134/154 vs the pointer's": {
-    "may": 1
-   },
-   "135 (post hoc": {
-    "post hoc": 1
-   },
-   "139/154, a model-free cascade (rules,": {
-    "about": 1
    },
    "14 German- and": {
     "about": 1,
@@ -977,15 +1075,15 @@
    "14 sampled rows of that stratum).": {
     "as run": 1
    },
+   "14 such parliaments it raises author-role": {
+    "registered": 1
+   },
    "14.6% of the": {
     "at most": 1
    },
    "141 gold (name, role) pairs right,": {
     "about": 1,
     "registered": 1
-   },
-   "146/146 and more rows:": {
-    "post hoc": 1
    },
    "15 (registered arm; the other": {
     "registered": 1
@@ -999,14 +1097,14 @@
    "15 federal records from an exploratory": {
     "exploratory": 1
    },
-   "15 parliaments; post hoc; [next to": {
-    "post hoc": 1
-   },
    "15/15 valid) moves": {
     "post hoc": 1
    },
    "15/15 validate (post hoc, `results/p11/ni_posthoc.json`), and": {
     "post hoc": 1
+   },
+   "15/15** right nulls on Federal Council answers, which print no answer date | the federal cell | exploratory": {
+    "exploratory": 1
    },
    "16 councils publish only meeting documents:": {
     "exploratory": 1
@@ -1023,7 +1121,7 @@
    "17** | fields are shared": {
     "once": 1
    },
-   "17,720) comes from one build,": {
+   "17,720) comes from one": {
     "by inference": 1
    },
    "17,720, the cache `make run`": {
@@ -1036,6 +1134,10 @@
     "about": 1,
     "registered": 1
    },
+   "17/32; and its confidence margin": {
+    "at most": 1,
+    "post hoc": 1
+   },
    "18.2 answers a day in": {
     "about": 1,
     "estimate": 1
@@ -1044,9 +1146,6 @@
     "post hoc": 1
    },
    "2 days, mostly interpellations and questions": {
-    "post hoc": 1
-   },
-   "2 instrument functions. On P8's own": {
     "post hoc": 1
    },
    "2 to 28 days after the signing or": {
@@ -1058,6 +1157,16 @@
    "2.1 s per document, about": {
     "about": 2
    },
+   "2/29 (P2, registered)": {
+    "registered": 1
+   },
+   "2/29 (P2, registered); in": {
+    "registered": 2
+   },
+   "2/29; on all": {
+    "pre registered": 1,
+    "registered": 1
+   },
    "20 registered confirmatory tests of P1–P7:": {
     "registered": 2
    },
@@ -1067,41 +1176,37 @@
    "20). On the same affairs,": {
     "at least": 1
    },
-   "206 of the": {
-    "post hoc": 1
-   },
    "21 of the": {
     "in sample": 1
    },
-   "22.7 points of promotions whose printed": {
-    "registered": 1,
-    "weighted": 1
-   },
-   "22/29 as registered,": {
-    "once": 1,
-    "registered": 1
+   "21/29 answer dates (the pointer": {
+    "about": 1,
+    "may": 1,
+    "up to": 1
    },
    "23 verified answers that still count": {
     "post hoc": 1
    },
-   "23.4 points over the rules, Holm": {
+   "23.4 points\n  over the rules, with precision not worse (P10, H1 and H2, registered": {
     "registered": 1
    },
-   "24/29 (null allowed)": {
-    "once": 1,
+   "23.4 points from P10 (Holm p": {
     "registered": 1
    },
-   "24/29 answer\n  dates in the registered": {
+   "23.4 points** author-role recall over the rules in 14 parliaments without rules (50/141 pairs vs 17/141); precision not worse | the author test, P10 (H1, H2) | registered": {
     "registered": 1
    },
-   "24/29 from P2,\nregistered against the rules (the baselines post hoc": {
-    "post hoc": 1,
-    "proposed": 1,
+   "24/29 answer dates in the registered": {
+    "pre registered": 1,
     "registered": 1
    },
-   "25/29 (plain) once its answers": {
-    "once": 1,
+   "24/29 from P2 and": {
     "registered": 1
+   },
+   "24/29), and a free prompt": {
+    "about": 1,
+    "may": 1,
+    "up to": 1
    },
    "26 have affairs among the validated": {
     "at least": 1
@@ -1156,15 +1261,10 @@
    "302/302 across 58 field × parliament cells": {
     "post hoc": 1
    },
-   "31 it types as interventions: it": {
-    "post hoc": 1,
-    "proposed": 1
-   },
-   "31. A free prompt finds": {
-    "once": 1,
-    "registered": 1
-   },
    "32 pairs, none right (post hoc).": {
+    "post hoc": 1
+   },
+   "32/32 and": {
     "post hoc": 1
    },
    "33/105); the rules'": {
@@ -1174,8 +1274,11 @@
     "about": 2,
     "would": 1
    },
-   "37/141: Apertus is not significantly": {
+   "35/35 on P1, P2 and P6),": {
     "post hoc": 1
+   },
+   "35/62 (H2 held). Resampled by whole": {
+    "registered": 1
    },
    "38 for review),": {
     "proposed": 1
@@ -1187,11 +1290,6 @@
    "39 Bern rows in review. In": {
     "not sample checked": 1
    },
-   "39 review rows ([staged](#ready-for-opd)) |": {
-    "once": 1,
-    "proposed": 1,
-    "would": 1
-   },
    "4 answer fields do not apply, and 6": {
     "exploratory": 1
    },
@@ -1200,9 +1298,6 @@
    },
    "4 come from\nparliamentary practice, 4 partly from OPD's tagging (which OPD can correct) and 2 are open": {
     "partly": 1
-   },
-   "4 do not apply,": {
-    "exploratory": 1
    },
    "4 from OPD's label vocabularies (post": {
     "post hoc": 1,
@@ -1232,15 +1327,18 @@
    "40/50 on a sample | one-off": {
     "about": 1
    },
-   "46/62 and finds": {
+   "41/43 fit (post hoc,": {
+    "draft": 1,
     "post hoc": 1,
     "proposed": 1
    },
-   "478-row test frame against Apertus's": {
-    "post hoc": 1
-   },
    "480 documents per second, about": {
     "about": 1
+   },
+   "49/62 documents (the pointer": {
+    "about": 1,
+    "may": 1,
+    "up to": 1
    },
    "5 at ten times": {
     "about": 2
@@ -1252,19 +1350,13 @@
     "post hoc": 1,
     "proposed": 1
    },
-   "50/141 from P10,": {
-    "registered": 1
-   },
-   "52/141 gold pairs (": {
-    "post hoc": 1,
-    "proposed": 1,
-    "registered": 1
-   },
    "527 hours for": {
     "about": 2
    },
-   "53/62 and the keyword rule on": {
-    "post hoc": 1
+   "53/62) and find up to": {
+    "about": 1,
+    "may": 1,
+    "up to": 1
    },
    "54 appear in at least one": {
     "at least": 1
@@ -1283,17 +1375,8 @@
     "exploratory": 1,
     "post hoc": 1
    },
-   "59/68; no paired difference significant),": {
-    "may": 1,
-    "would": 1
-   },
    "592 agenda joins (OPD's own agenda": {
     "not sample checked": 1
-   },
-   "592 agenda joins and": {
-    "once": 1,
-    "proposed": 1,
-    "would": 1
    },
    "592 answers OPD files under an": {
     "registered": 1
@@ -1313,9 +1396,6 @@
     "after seeing the labels": 1,
     "pre registered": 1
    },
-   "6 need new roles (P11, exploratory,": {
-    "exploratory": 1
-   },
    "6 need roles interventions lack, chiefly": {
     "exploratory": 1
    },
@@ -1332,9 +1412,6 @@
    "60/60 documents on held-out parliaments); OPD's": {
     "held out": 1
    },
-   "62 documents the pointer is exact": {
-    "post hoc": 1
-   },
    "64 answer dates and dating 2": {
     "registered": 1
    },
@@ -1350,32 +1427,22 @@
    "7 of the 17 fields fit unchanged": {
     "exploratory": 1
    },
-   "7.3 points precision": {
-    "one sided": 1,
-    "uncorrected": 1
-   },
-   "7.3 points, post hoc) | Rules": {
-    "post hoc": 1
-   },
-   "7.3 points: one-sided p =": {
-    "one sided": 1,
-    "uncorrected": 1
-   },
    "70 pairs right at": {
     "in sample": 1
    },
-   "73.2% for the exact-date match,": {
-    "registered": 1,
-    "unweighted": 1,
-    "weighted": 1
+   "75 carry printed authors with their": {
+    "exploratory": 1
    },
-   "79 pairs, post hoc). Post hoc": {
-    "post hoc": 2,
-    "proposed": 1,
-    "registered": 1
+   "78 the instrument's function and all": {
+    "exploratory": 1
    },
    "8,949 checked row by row,": {
     "not sample checked": 1
+   },
+   "8,949 row-checked ones reach": {
+    "once": 1,
+    "proposed": 1,
+    "would": 1
    },
    "81.6% have it attached to the": {
     "registered": 1
@@ -1388,6 +1455,11 @@
    },
    "89,846 answered in writing);": {
     "at most": 1
+   },
+   "9,580 repairs (the": {
+    "once": 1,
+    "proposed": 1,
+    "would": 1
    },
    "9,580** | answers with a": {
     "proposed": 1
@@ -1410,11 +1482,6 @@
    "91,268 interventions with a recorded": {
     "once": 1
    },
-   "91.5% from row-checked repairs +": {
-    "once": 1,
-    "proposed": 1,
-    "would": 1
-   },
    "92.1%** would have answer text": {
     "once": 1,
     "proposed": 1,
@@ -1430,20 +1497,11 @@
     "unweighted": 1,
     "weighted": 1
    },
+   "> - **Federal answers** print no answer date and no author": {
+    "exploratory": 1
+   },
    "A body that may not disclose text abroad goes without only the review-queue verifier and the role reader": {
     "may": 1
-   },
-   "A free prompt that may answer null is as accurate": {
-    "may": 1
-   },
-   "Apertus adds about one document": {
-    "about": 1
-   },
-   "Apertus adds precision deciding who is an author (+7.3 points, post hoc)": {
-    "post hoc": 1
-   },
-   "Apertus is not significantly better\n  (H3a, Holm p = 0.17)": {
-    "post hoc": 1
    },
    "As P10's author-role reader\n  (exploratory; 34 affairs": {
     "exploratory": 1
@@ -1452,6 +1510,7 @@
     "in sample": 1
    },
    "In 15 parliaments nobody wrote rules for,": {
+    "pre registered": 1,
     "registered": 1
    },
    "OPD's label vocabularies (post hoc); 8 are": {
@@ -1464,30 +1523,13 @@
    "P11 (12 Italian": {
     "exploratory": 1
    },
-   "P2 54/62 vs": {
-    "may": 1
-   },
-   "P6 62/68 vs": {
-    "may": 1
-   },
    "P6 and P7 blind: κ 0.80–": {
     "registered": 1
    },
-   "P8's lock). Of its 105 records,": {
-    "exploratory": 1
-   },
-   "Registered (H4, weighted): 95.8%": {
+   "Registered\n  (H4, weighted): 95.8%": {
     "registered": 1,
     "unweighted": 1,
     "weighted": 1
-   },
-   "The strongest rule we tried": {
-    "post hoc": 1,
-    "proposed": 1
-   },
-   "The strongest rule we tried (post hoc, proposed in review) takes the latest date on documents OPD types as answers\n  and the date after a session cue on the 31 it types as interventions: it is exact on 46/62": {
-    "post hoc": 1,
-    "proposed": 1
    },
    "Vernier (5/5 affairs) and Lausanne (": {
     "registered": 1
@@ -1501,22 +1543,7 @@
    "[-0.02, 0.54], so it sits in": {
     "registered": 1
    },
-   "[-0.02, 0.54], so it sits in some\n  parliaments, not all. Post hoc": {
-    "post hoc": 1,
-    "proposed": 1,
-    "registered": 1
-   },
-   "[0.014, 0.221]; post hoc, proposed in review)": {
-    "post hoc": 1,
-    "proposed": 1
-   },
-   "[0.8, 18.2] (one-sided p =": {
-    "one sided": 1,
-    "uncorrected": 1
-   },
-   "[3.4, 12.2]). Post hoc, the date": {
-    "not paired": 1,
-    "post hoc": 1,
+   "[3.4, 12.2]). The tier it fills": {
     "registered": 1,
     "unweighted": 1,
     "weighted": 1
@@ -1536,8 +1563,23 @@
    "a Swiss-hosted 70B is an estimated 1.64 GPU-hours": {
     "estimated": 1
    },
+   "a free prompt that may answer null is about as accurate as the pointer on P1, P2 and P6": {
+    "about": 1,
+    "may": 1,
+    "up to": 1
+   },
+   "a free prompt that may answer null is about as accurate as the pointer on P1, P2 and P6, without its\n  located values": {
+    "about": 1,
+    "may": 1,
+    "up to": 1
+   },
    "a live `convert --mode review` and `affair --mode review --roles apertus` both exited 0": {
     "registered": 2
+   },
+   "a no-model exact-date match, +22.7 points": {
+    "registered": 1,
+    "unweighted": 1,
+    "weighted": 1
    },
    "a valid v0.2 record for 3 of": {
     "registered": 1
@@ -1546,8 +1588,14 @@
     "about": 1,
     "registered": 1
    },
+   "above every no-model ranking signal we computed (at most 0.58; the interval of the\ndifference excludes zero)": {
+    "at most": 1
+   },
    "across 58": {
     "post hoc": 1
+   },
+   "after P8's lock): of its 105 records,": {
+    "exploratory": 1
    },
    "against 0.31; it": {
     "about": 1,
@@ -1559,24 +1607,15 @@
    "and 2 right nulls, no invented date": {
     "exploratory": 1
    },
-   "and finds 21/29 answer": {
-    "post hoc": 1,
-    "proposed": 1
+   "and no registered decision changes": {
+    "registered": 1
    },
-   "answer dates where rules exist (P1; rules, then Apertus) | about one document |": {
-    "about": 1
-   },
-   "answer-typed documents; post hoc) on 138/154.": {
-    "about": 1,
+   "and none types an answer field\n  `not_applicable`": {
     "post hoc": 1
    },
    "author roles stay low for every arm (F1 0.32 or\n  lower)": {
     "exploratory": 1,
     "registered": 1
-   },
-   "authors keeps recall and prints 96": {
-    "one sided": 1,
-    "uncorrected": 1
    },
    "body-specific; 6 are not yet tested": {
     "not yet tested": 1
@@ -1584,7 +1623,13 @@
    "check rather than a test: 302/302 across": {
     "post hoc": 1
    },
-   "contributor list (37/141; H3a, Holm p =": {
+   "comes from one build:": {
+    "by inference": 1
+   },
+   "computed (at most 0.58; the interval of the": {
+    "at most": 1
+   },
+   "cover:** in 15 parliaments nobody wrote rules for": {
     "registered": 1
    },
    "dating 2 of the 90 answerless": {
@@ -1608,11 +1653,15 @@
     "registered": 1
    },
    "every value a printed": {
+    "pre registered": 1,
     "registered": 1
    },
    "exploratory cell of 12 affairs": {
     "exploratory": 1,
     "registered": 1
+   },
+   "exploratory, 15 affairs ([scope]": {
+    "exploratory": 1
    },
    "exploratory, `eval/fed/`, locked before the draw and the labels).** On 15": {
     "exploratory": 1
@@ -1621,22 +1670,17 @@
     "exploratory": 1,
     "post hoc": 1
    },
-   "exploratory, written after\nP8's lock). Of its 105": {
+   "exploratory, written after P8's lock): of its 105": {
     "exploratory": 1
    },
-   "exploratory; 12": {
-    "exploratory": 1
+   "find 2/29 | the date test, P2 | registered": {
+    "registered": 1
    },
    "finding 47 of": {
     "registered": 1
    },
    "follow OPD's hash decision (2,421 ready,": {
     "proposed": 1
-   },
-   "for the exact-date match, +22.7 points": {
-    "registered": 1,
-    "unweighted": 1,
-    "weighted": 1
    },
    "from 81.6% to": {
     "once": 1,
@@ -1645,6 +1689,9 @@
    },
    "from OPD's labels and P8; 186": {
     "exploratory": 1
+   },
+   "from P10 (Holm p = 0.032), registered;": {
+    "registered": 1
    },
    "held-out P5 precision is 0.83, recall": {
     "held out": 1
@@ -1666,18 +1713,17 @@
     "at least": 1,
     "post hoc": 1
    },
+   "is above every no-model ranking signal we computed\n  (at most 0.58; the interval of the difference excludes zero)": {
+    "at most": 1
+   },
    "is printed in neither document, 2 to": {
     "registered": 1
    },
-   "keeps recall and prints 96\n  pairs instead of 111, +7.3 points precision [0.8, 18.2]": {
-    "one sided": 1,
-    "uncorrected": 1
+   "it raises author-role recall by 23.4 points": {
+    "registered": 1
    },
    "labels | partly: 7 · 31 ·": {
     "partly": 1
-   },
-   "level with OPD's\ncontributor list (37/141; H3a, Holm p = 0.17)": {
-    "registered": 1
    },
    "low for every arm (F1 0.32 or": {
     "exploratory": 1,
@@ -1686,12 +1732,8 @@
    "no invented date": {
     "exploratory": 1
    },
-   "no paired difference significant": {
-    "would": 1
-   },
-   "not accuracy** (post hoc,\n  `results/eval/closed_vs_free.json`). A free prompt that may answer null is as accurate (P1 134/154": {
-    "may": 1,
-    "post hoc": 1
+   "none of the seven fields tested passes the registered test": {
+    "registered": 1
    },
    "of P11's 15.": {
     "post hoc": 1
@@ -1702,15 +1744,8 @@
    "of the same affair; those 592 are": {
     "registered": 1
    },
-   "on answer-typed documents; post hoc): 138/154 |": {
-    "post hoc": 1
-   },
    "or group author | partly: 23 ·": {
     "partly": 1
-   },
-   "pairs instead of 111,": {
-    "one sided": 1,
-    "uncorrected": 1
    },
    "partial tier (H1); H2, H5 held; H3 no gain": {
     "partial": 1
@@ -1730,17 +1765,15 @@
    "partly: 3 · 8 · 56 ·": {
     "partly": 1
    },
-   "points [10.2, 34.3] (unweighted": {
+   "passes the date check, against 73.2%": {
     "registered": 1,
     "unweighted": 1,
     "weighted": 1
    },
-   "points [9.5, 33.6].": {
+   "points [10.2, 34.3] (unweighted": {
+    "registered": 1,
+    "unweighted": 1,
     "weighted": 1
-   },
-   "points: one-sided p = 0.012, uncorrected.": {
-    "one sided": 1,
-    "uncorrected": 1
    },
    "post hoc record writer for affairs without a member's text (15/15": {
     "post hoc": 1
@@ -1762,12 +1795,7 @@
     "observed": 1,
     "registered": 1
    },
-   "printed; precision 0.47, recall": {
-    "post hoc": 1,
-    "proposed": 1,
-    "registered": 1
-   },
-   "provenance and a review ranking, not accuracy": {
+   "prompting's quotes check out on 30/60 and": {
     "post hoc": 1
    },
    "recall 0.10)": {
@@ -1779,15 +1807,6 @@
    "record reaches F1 0.30": {
     "in sample": 1
    },
-   "records from an exploratory cell); 24/29 from P2,": {
-    "exploratory": 1,
-    "post hoc": 1,
-    "proposed": 1,
-    "registered": 1
-   },
-   "registered (recall +23.4": {
-    "registered": 1
-   },
    "registered census counts 16,749": {
     "registered": 1
    },
@@ -1797,28 +1816,25 @@
    "registered gain over the rules (P2-H2) is [-0.02, 0.54]": {
     "registered": 1
    },
-   "registered mapping (the first is first signatory, the rest\n  co-signatories, a lone name sole author), match 52/141": {
-    "post hoc": 1,
-    "proposed": 1,
-    "registered": 1
-   },
    "registered result over the\n  rules (right on 13": {
     "registered": 1
    },
    "registered, Wilson 95%\n  [96.9, 100]": {
     "registered": 1
    },
-   "registered: the rules 2/29 |": {
-    "registered": 1
-   },
    "robust + 2 fragile;": {
     "once": 1
    },
+   "rolls back unless every statement changes exactly one row": {
+    "unless": 1
+   },
+   "row-checked ones reach 91.5%; the": {
+    "once": 1,
+    "proposed": 1,
+    "would": 1
+   },
    "rows: 197/200, and": {
     "as run": 1
-   },
-   "rules for, the pointer finds 24/29 answer": {
-    "registered": 1
    },
    "same OPD metadata and the 24": {
     "post hoc": 1
@@ -1828,9 +1844,6 @@
    },
    "ten tests, each frozen by hash before its labels": {
     "pre registered": 1
-   },
-   "test frame against Apertus's 135 (": {
-    "post hoc": 1
    },
    "the 9 that held as registered": {
     "registered": 2
@@ -1845,14 +1858,22 @@
     "about": 1,
     "registered": 1
    },
+   "the P2 pointer and P6's reader v2 dated none": {
+    "post hoc": 1
+   },
    "the council itself | partly: 12 ·": {
     "partly": 1
    },
    "the council itself | partly: 12 · 10 ·": {
     "partly": 1
    },
-   "the keyword rule on 45/62 (p =": {
-    "post hoc": 1
+   "the instrument's function and all 105 the": {
+    "exploratory": 1
+   },
+   "the labels are exact on 44/62 to": {
+    "about": 1,
+    "may": 1,
+    "up to": 1
    },
    "the other language | partly: 14 ·": {
     "partly": 1
@@ -1878,11 +1899,11 @@
    "the rules on 8/12 (in-sample in Ticino, Mendrisio and Lugano)": {
     "in sample": 1
    },
-   "the two are level (33 vs": {
-    "post hoc": 1
-   },
    "their roles are explicit (8 robust +": {
     "once": 1
+   },
+   "value located by code (62/62,": {
+    "post hoc": 1
    },
    "volume the rules need about 5 CPU-hours": {
     "about": 1
@@ -1890,24 +1911,17 @@
    "volume; review mode costs USD 0.59 per": {
     "about": 2
    },
-   "vs 53/62, P6": {
-    "may": 1
-   },
-   "weighted), +22.7": {
-    "registered": 1,
-    "weighted": 1
-   },
-   "weighted, the difference is +22.0 points": {
-    "weighted": 1
-   },
    "which stops with `no_documents` on 12 of P11's": {
     "post hoc": 1
    },
-   "without Neuchâtel the two are level": {
-    "post hoc": 1
-   },
-   "written for other layouts, find 2/29;": {
+   "with precision not worse (P10, H1 and H2, registered)": {
     "registered": 1
+   },
+   "wrote rules for it finds 24/29": {
+    "registered": 1
+   },
+   "| **Maturity** | census and Bern repair lists ready to apply (relinks: after the hash decision); nightly job ready to deploy; source-adapter lists audited; rules-only converter a tested prototype; review mode a feasibility study; schema v0.1 and v0.2 drafts for the eCH group |": {
+    "drafts": 1
    },
    "| OPD labels | partly: 41 ·": {
     "partly": 1
@@ -1929,9 +1943,6 @@
    },
    "| language | role split | P8: tag names the other language | partly: 14 · 53 · 20 · 2": {
     "partly": 1
-   },
-   "| outside interventions | 7 fit,": {
-    "exploratory": 1
    },
    "| procedural state | role split | OPD labels | partly: 41 · 27 · 18 · 3": {
     "partly": 1
@@ -1974,9 +1985,6 @@
    }
   },
   "technical_report.md": {
-   "(+7.3 points, post hoc)": {
-    "post hoc": 1
-   },
    "(10 printed dates": {
     "in sample": 1
    },
@@ -1986,6 +1994,14 @@
    "(8 robust + 2 fragile; 6 from the role test P8, registered, 4 from OPD's labels, post hoc)": {
     "post hoc": 1,
     "registered": 1
+   },
+   "(post hoc). Every closed value is a printed date with page and span (62/62": {
+    "post hoc": 1
+   },
+   "(post hoc, `docs/evaluation.md`): model-free date rules written after P2's labels are exact on 44/62": {
+    "post hoc": 1,
+    "proposed": 1,
+    "up to": 1
    },
    "**Null safety** is left to the reviewer:": {
     "registered": 1
@@ -2015,27 +2031,21 @@
    "**partial**: no field unattended; Apertus recall held, precision below": {
     "partial": 1
    },
+   "*ready to apply*: census and Bern repair lists (relinks: one OPD decision, its hash rule); *ready to deploy*: nightly job (three real nights on standard GitHub runners + a real two-night Docker pair after a ledger fix: night 2 kept night 1's verdicts); *audited*: source-adapter lists; *tested prototype*: rules-only converter; *feasibility study*: review mode, whole and virtual affairs; *drafts for the eCH group*: schema v0.1 and v0.2 (P8's roles).": {
+    "drafts": 1
+   },
+   "+10.5 points, all from the 9,580 repairs (the 8,949 row-checked ones reach 91.5%; the 592 agenda joins and 39 Bern rows in review add the rest)": {
+    "once": 1,
+    "proposed": 1,
+    "would": 1
+   },
    "0 violations; post hoc, `results/eval/annotator_isolation.json`).": {
     "post hoc": 1
    },
    "0 · 6 |": {
     "partly": 1
    },
-   "0.12; post hoc, proposed in": {
-    "post hoc": 1,
-    "proposed": 1
-   },
-   "0.17): where OPD lists the authors, its order is a strong baseline. *Post hoc": {
-    "post hoc": 1,
-    "proposed": 1,
-    "registered": 1
-   },
    "0.32 or lower for every arm):": {
-    "registered": 1
-   },
-   "0.41). The gain over the": {
-    "post hoc": 1,
-    "proposed": 1,
     "registered": 1
    },
    "0.48, post hoc; P1's rules": {
@@ -2045,24 +2055,25 @@
     "about": 2
    },
    "0.53 for the free prompt's quote": {
-    "post hoc": 1
+    "at most": 1
    },
    "0.58,": {
-    "post hoc": 1
+    "at most": 1
    },
-   "0.6 points from the": {
-    "once": 1,
-    "proposed": 1,
-    "would": 1
+   "0.58; the interval of the": {
+    "at most": 1
    },
    "0.67, *partial* with document-level intervals,": {
     "not yet": 1,
     "partial": 1
    },
    "0.71 on P1, P2, P6, against": {
-    "post hoc": 1
+    "at most": 1
    },
    "0.90,": {
+    "at most": 1
+   },
+   "0.99). **Why closed:** provenance by": {
     "post hoc": 1
    },
    "1.64 GPU-hours per": {
@@ -2072,9 +2083,10 @@
     "post hoc": 1,
     "registered": 1
    },
-   "113/120 of its promotions, the rule's": {
-    "not paired": 1,
-    "post hoc": 1
+   "10.5 points, all from the": {
+    "once": 1,
+    "proposed": 1,
+    "would": 1
    },
    "12 interventions from five parliaments: the": {
     "in sample": 1
@@ -2082,21 +2094,14 @@
    "12/12 [75.7, 100] (10": {
     "in sample": 1
    },
-   "12/12** Italian answer dates (P11,": {
-    "exploratory": 1
-   },
-   "12/12** Italian answer dates (P11, exploratory": {
-    "exploratory": 1
-   },
-   "120/120** sampled review-queue promotions are": {
+   "120/120 of its sampled review-queue promotions": {
     "registered": 1
    },
-   "120/120** sampled review-queue promotions are answers (P7, registered": {
+   "120/120 of its sampled review-queue promotions are the government's answer (registered)": {
     "registered": 1
    },
-   "127/146 (post hoc, not paired) |": {
-    "not paired": 1,
-    "post hoc": 1
+   "120/120** sampled review-queue promotions are the government's answer (Wilson 95% [96.9, 100]) | the verifier test, P7 (H1) | registered": {
+    "registered": 1
    },
    "13 partly or only in the": {
     "partly": 1
@@ -2104,11 +2109,14 @@
    "131) are level (paired p": {
     "post hoc": 1
    },
-   "135 (post hoc) |": {
-    "post hoc": 1
-   },
    "135) and the latest date": {
     "post hoc": 1
+   },
+   "14 it raises author-role recall by": {
+    "registered": 1
+   },
+   "142 answer dates carry a split": {
+    "exploratory": 1
    },
    "15 (registered arm), a writer from": {
     "post hoc": 1,
@@ -2117,12 +2125,18 @@
    "15 Federal Council answers print no": {
     "exploratory": 1
    },
+   "15 Federal Council answers print no answer date and no author; rules, pointer and converter date none": {
+    "exploratory": 1
+   },
    "15 affairs) | the executive as": {
     "exploratory": 1
    },
    "15/15 (post hoc).": {
     "post hoc": 1,
     "registered": 1
+   },
+   "15/15** right nulls on Federal Council answers, which print no answer date | federal cell | exploratory": {
+    "exploratory": 1
    },
    "16,749 placed once each (`results/census/corrected.json`). Still": {
     "once": 1,
@@ -2138,8 +2152,8 @@
    "17,720) comes from one build,": {
     "by inference": 1
    },
-   "17/32 (P2) values, while every closed": {
-    "post hoc": 1
+   "17/32 (P2) values; the closed margin": {
+    "at most": 1
    },
    "185/186 the executive's answer (": {
     "post hoc": 1
@@ -2153,11 +2167,20 @@
    "197/200). Also for OPD:": {
     "as run": 1
    },
+   "2 right nulls) | P11 | exploratory": {
+    "exploratory": 1
+   },
    "2 right nulls), the latest date": {
     "in sample": 1
    },
    "2,459 Bern relinks follow OPD's hash": {
     "proposed": 1
+   },
+   "2/29 (registered); in": {
+    "registered": 2
+   },
+   "2/29 | the date test, P2 | registered": {
+    "registered": 1
    },
    "20 durations; figure in the README):": {
     "at least": 1,
@@ -2166,27 +2189,32 @@
    "20 registered confirmatory tests of P1–P7:": {
     "registered": 1
    },
-   "206 of the": {
-    "post hoc": 1
-   },
-   "21/29 (post hoc). We use the": {
-    "post hoc": 1
-   },
-   "21/29 answer dates; registered: the rules": {
-    "registered": 1
-   },
-   "24/29 answer dates, the best model-free": {
-    "post hoc": 1
-   },
-   "24/29 from P2 and": {
+   "21/29 answer dates (the pointer": {
     "post hoc": 1,
     "proposed": 1,
+    "up to": 1
+   },
+   "23.4 points over the rules, with": {
     "registered": 1
    },
-   "24/29 from P2 and 50/141 from P10, registered against the rules (the baselines post hoc": {
+   "23.4 points over the rules, with precision not worse (registered)": {
+    "registered": 1
+   },
+   "23.4 points** author-role recall over the rules in 14 parliaments without rules (50/141 pairs vs 17/141; Holm p = 0.032); precision not worse | the author test, P10 (H1, H2) | registered": {
+    "registered": 1
+   },
+   "24/29 answer dates, the rules": {
+    "registered": 1
+   },
+   "24/29 answer dates, the rules 2/29 (registered)": {
+    "registered": 1
+   },
+   "24/29); a free prompt that": {
+    "about": 1,
+    "may": 1,
     "post hoc": 1,
     "proposed": 1,
-    "registered": 1
+    "up to": 1
    },
    "25 with no answer at all": {
     "post hoc": 1
@@ -2210,29 +2238,19 @@
    "32 labels ambiguous | partly:": {
     "partly": 1
    },
-   "32/32,": {
-    "post hoc": 1
-   },
    "325,691 affairs); outside interventions the skeleton": {
     "exploratory": 1
    },
    "34 · 6 |": {
     "partly": 1
    },
-   "35/35), and the closed margin": {
-    "post hoc": 1
-   },
-   "36/43 (exploratory, post hoc, `oos_role_fit.json`). The": {
+   "36/43 (exploratory, post hoc, `oos_role_fit.json`); the": {
+    "draft": 1,
     "exploratory": 1,
-    "post hoc": 1
+    "post hoc": 2
    },
    "38 to review. Relinking changes each": {
     "unless": 1
-   },
-   "39 review rows |": {
-    "once": 1,
-    "proposed": 1,
-    "would": 1
    },
    "39/49 at recall": {
     "exploratory": 1
@@ -2258,36 +2276,32 @@
    "4 · 3 |": {
     "partly": 1
    },
+   "41/43, post hoc; v0.2 stays": {
+    "draft": 1,
+    "post hoc": 1
+   },
+   "42 of its": {
+    "exploratory": 1
+   },
    "42 · 0 ·": {
     "partly": 1
    },
    "44 checkable P1 dates. Holm over": {
     "registered": 1
    },
-   "478 frame rows promoted against Apertus's": {
-    "post hoc": 1
+   "49/62 documents and find up to": {
+    "post hoc": 1,
+    "proposed": 1,
+    "up to": 1
    },
    "5 at ten times OPD's volume;": {
     "about": 2
-   },
-   "50/141 from P10, registered against the": {
-    "post hoc": 1,
-    "proposed": 1,
-    "registered": 1
    },
    "54 · 10 |": {
     "partly": 1
    },
    "56 · 10 |": {
     "partly": 1
-   },
-   "59/68; no paired difference significant;": {
-    "may": 1
-   },
-   "592 agenda joins and": {
-    "once": 1,
-    "proposed": 1,
-    "would": 1
    },
    "6 come from the role test": {
     "post hoc": 1,
@@ -2317,13 +2331,6 @@
    "60/60 documents and author (name, role)": {
     "exploratory": 1
    },
-   "7.3 points precision": {
-    "uncorrected": 1
-   },
-   "7.3 points: one-sided p =": {
-    "one sided": 1,
-    "uncorrected": 1
-   },
    "7.5): **supported**. Base rate:": {
     "registered": 1,
     "unweighted": 1,
@@ -2333,6 +2340,11 @@
     "registered": 1,
     "unweighted": 1,
     "weighted": 1
+   },
+   "8,949 row-checked ones reach": {
+    "once": 1,
+    "proposed": 1,
+    "would": 1
    },
    "8/12 (in-sample in three); author roles": {
     "in sample": 1
@@ -2345,6 +2357,11 @@
     "once": 1,
     "registered": 1
    },
+   "9,580 repairs (the": {
+    "once": 1,
+    "proposed": 1,
+    "would": 1
+   },
    "9,580** | answers with a": {
     "proposed": 1
    },
@@ -2353,11 +2370,6 @@
    },
    "902,754 documents in OPD's export, about": {
     "about": 2
-   },
-   "91.5% from row-checked repairs +": {
-    "once": 1,
-    "proposed": 1,
-    "would": 1
    },
    "92.1% once the repairs apply. *Answer": {
     "at least": 1,
@@ -2370,33 +2382,25 @@
     "proposed": 1,
     "would": 1
    },
-   "99/99. **P5.** Rules-only pairing: precision": {
-    "not yet": 1,
-    "partial": 1
-   },
    "A body that may not disclose text abroad goes without only the review-queue verifier and the role reader": {
     "may": 1
    },
-   "A free prompt that may answer null is as accurate": {
-    "may": 1
-   },
    "AUROC for a wrong value 0.73,": {
-    "post hoc": 1
+    "at most": 1
    },
-   "Apertus adds precision deciding who is an author (+7.3 points, post hoc)": {
-    "post hoc": 1
+   "In 15 parliaments nobody wrote rules for": {
+    "registered": 1
    },
    "No registered hypothesis held: v2 vs free prompting": {
     "registered": 1
    },
-   "P2 54/62 vs": {
-    "may": 1
+   "P2's labels are exact on 44/62 to": {
+    "post hoc": 1,
+    "proposed": 1,
+    "up to": 1
    },
    "P3b replicated by its registered criteria": {
     "registered": 1
-   },
-   "P6 62/68 vs": {
-    "may": 1
    },
    "P8: the instrument | partly: 61 ·": {
     "partly": 1
@@ -2406,9 +2410,6 @@
    },
    "Yes, if each field says which role its value plays** (e.g. \"answer date\" = the government's decision, its letter or the submission date)": {
     "if": 1
-   },
-   "[0.8, 18.2] (uncorrected).": {
-    "uncorrected": 1
    },
    "[10.2, 34.3], weighted, as registered (unweighted": {
     "registered": 1,
@@ -2421,8 +2422,13 @@
    "a Swiss-hosted 70B is an estimated 1.64 GPU-hours": {
     "estimated": 1
    },
-   "a model-free cascade (post hoc): 138/154 |": {
-    "post hoc": 1
+   "a free prompt that may answer null is about as accurate as the pointer on P1": {
+    "about": 1,
+    "may": 1
+   },
+   "a free prompt that may answer null is about as accurate as the pointer on P1, P2 and P6, without located values": {
+    "about": 1,
+    "may": 1
    },
    "a row is promoted only if both pass and the date passes the adapters' own date rule": {
     "if": 1
@@ -2436,6 +2442,9 @@
     "post hoc": 1,
     "registered": 1
    },
+   "above every no-model ranking signal we computed (at most 0.58; the interval of the difference excludes zero)": {
+    "at most": 1
+   },
    "ambiguous | partly: 7 · 31 ·": {
     "partly": 1
    },
@@ -2445,11 +2454,10 @@
    "and an alert relay only if the operator sets them": {
     "if": 1
    },
-   "answer dates where rules exist (P1; rules, then Apertus) | about one document |": {
-    "about": 1
-   },
-   "answer dates; registered: the rules 2/29 |": {
-    "registered": 1
+   "answer dates (the pointer 53/62,": {
+    "post hoc": 1,
+    "proposed": 1,
+    "up to": 1
    },
    "as registered (unweighted +7.5): **supported**": {
     "registered": 1,
@@ -2488,11 +2496,8 @@
    "free prompting 1:4 (p = 0.38); v2 dates": {
     "registered": 1
    },
-   "its quotes check out on 30/60 (P1) and": {
-    "post hoc": 1
-   },
-   "keeps recall and adds +7.3 points precision [0.8, 18.2] (uncorrected)": {
-    "uncorrected": 1
+   "its `model` checked on every call": {
+    "by inference": 1
    },
    "labels ambiguous | partly: 41 ·": {
     "partly": 1
@@ -2506,17 +2511,11 @@
    "meaning test next | partly: 7 ·": {
     "partly": 1
    },
-   "no-model exact-date match: answers on 146/146,": {
-    "post hoc": 1
-   },
-   "null is as accurate (P1 134/154 vs": {
-    "may": 1
-   },
    "on 5 parliaments its rules never saw": {
     "exploratory": 1
    },
    "on P1, P2, P6, against 0.63,": {
-    "post hoc": 1
+    "at most": 1
    },
    "or group author | partly: 23 ·": {
     "partly": 1
@@ -2529,13 +2528,6 @@
    },
    "partly: 3 · 8 · 56 ·": {
     "partly": 1
-   },
-   "points: one-sided p = 0.012, uncorrected.*": {
-    "one sided": 1,
-    "uncorrected": 1
-   },
-   "post hoc), but its quotes check out on 30/60": {
-    "post hoc": 1
    },
    "post hoc, 17": {
     "at least": 1,
@@ -2554,6 +2546,11 @@
    "registered; in 7 of 54": {
     "registered": 1
    },
+   "row-checked ones reach 91.5%; the": {
+    "once": 1,
+    "proposed": 1,
+    "would": 1
+   },
    "still count; as run on 200 rows:": {
     "as run": 1,
     "post hoc": 1
@@ -2565,11 +2562,11 @@
     "once": 1,
     "registered": 1
    },
-   "the best model-free rule we tried 21/29": {
-    "post hoc": 1
-   },
    "the council (Bellinzona) | partly: 12 ·": {
     "partly": 1
+   },
+   "the isolation audit found no session that read a key, a result or another annotator's files": {
+    "registered": 1
    },
    "the pointer is exact on 12/12 [75.7": {
     "in sample": 1
@@ -2577,7 +2574,10 @@
    "the registered null-safety tests on the 70B failed (P1-H1, P2-H3, P6-H2)": {
     "registered": 1
    },
-   "up from 81.6% today: 91.5%": {
+   "the ten pre-registered tests of OpenParlData (OPD) records and documents (P3b replicates P3": {
+    "pre registered": 1
+   },
+   "up from 81.6% today: +10.5": {
     "once": 1,
     "proposed": 1,
     "would": 1
@@ -2591,28 +2591,11 @@
    "volume; review mode costs USD 0.59 per": {
     "about": 2
    },
-   "vs 130/154, P2": {
-    "may": 1
-   },
-   "vs 53/62, P6": {
-    "may": 1
-   },
    "which is why the default runs no model.": {
     "registered": 1
    },
-   "who is an author (+7.3 points": {
-    "post hoc": 1
-   },
-   "with OPD's registered mapping match 52/141 (": {
-    "post hoc": 1,
-    "proposed": 1,
+   "with precision not worse (registered)": {
     "registered": 1
-   },
-   "with page and span (62/62,": {
-    "post hoc": 1
-   },
-   "| *feasibility study* · *drafts for the eCH group* | review mode, whole and virtual affairs · schema v0.1 and v0.2 (P8's roles) |": {
-    "drafts": 1
    },
    "| *model-free cascade (post hoc)* | *138/154 [83.8, 93.5]* | *52* |": {
     "post hoc": 1
@@ -2712,39 +2695,51 @@
    }
   },
   "docs/form_notes.md": {
-   "(+7.3 points,\n  post hoc)": {
-    "post hoc": 1
-   },
    "(P11, exploratory, 15 affairs:": {
     "exploratory": 1
    },
-   "0.065 (post hoc).": {
-    "post hoc": 1
+   "+10.5 points, all from the 9,580 repairs (91.5% from the 8,949 row-checked alone)": {
+    "once": 1,
+    "would": 1
    },
    "0.5 CPU-hours for OPD's": {
     "about": 1
+   },
+   "0.58; post hoc).": {
+    "at most": 1,
+    "post hoc": 1
    },
    "10 fields (8 robust + 2 fragile; 6 from the role test, P8, registered, 4 from OPD's labels, post hoc)": {
     "post hoc": 1,
     "registered": 1
    },
-   "120/120\n  (registered": {
-    "post hoc": 1,
+   "10.5 points, all from the": {
+    "once": 1,
+    "would": 1
+   },
+   "12/12 (both exploratory). Every value it": {
+    "exploratory": 1
+   },
+   "120/120 of its sampled promotions are": {
     "registered": 1
    },
-   "135, post hoc); Apertus's edge": {
-    "post hoc": 1,
+   "120/120 of its sampled promotions are the\n  government's answer (H1, registered": {
     "registered": 1
    },
-   "138/154, post hoc).": {
-    "post hoc": 1
-   },
-   "146/146 with more rows (": {
-    "post hoc": 1,
+   "14 parliaments without rules (P10) it": {
     "registered": 1
+   },
+   "15 Federal Council answers that print": {
+    "exploratory": 1
    },
    "15 affairs: 6 fields need roles": {
     "exploratory": 1
+   },
+   "15 parliaments nobody wrote rules for": {
+    "registered": 1
+   },
+   "17/32), and its margin ranks": {
+    "at most": 1
    },
    "185/186 counted rows to be the": {
     "post hoc": 1
@@ -2752,8 +2747,20 @@
    "186/186 (Qwen), post hoc.": {
     "post hoc": 1
    },
-   "2, exact McNemar p =": {
-    "post hoc": 1
+   "2/29\n  (registered": {
+    "registered": 1
+   },
+   "23.4 points over the rules,": {
+    "registered": 1
+   },
+   "23.4 points over the rules,\n  precision not worse (H1, H2, registered": {
+    "registered": 1
+   },
+   "24/29 answer dates, the rules": {
+    "registered": 1
+   },
+   "35/35; free prompting's quotes": {
+    "at most": 1
    },
    "4 answer fields do not\n  apply)": {
     "exploratory": 1
@@ -2766,13 +2773,7 @@
     "post hoc": 1,
     "registered": 1
    },
-   "46/62: right alone on": {
-    "post hoc": 1
-   },
    "50 model-free source adapters: blind AI": {
-    "post hoc": 1
-   },
-   "52/141); Apertus adds precision deciding": {
     "post hoc": 1
    },
    "6 from the role test, P8,": {
@@ -2783,10 +2784,14 @@
     "post hoc": 1,
     "registered": 1
    },
+   "8,949 row-checked alone). The": {
+    "once": 1,
+    "would": 1
+   },
    "902,754 documents; review USD": {
     "about": 1
    },
-   "91.5% from row-checked repairs alone). The": {
+   "91.5% from the": {
     "once": 1,
     "would": 1
    },
@@ -2794,10 +2799,7 @@
     "once": 1,
     "would": 1
    },
-   "Apertus adds precision deciding who is an author (+7.3 points,\n  post hoc)": {
-    "post hoc": 1
-   },
-   "Italian (P11, exploratory) the pointer is exact on 12/12 answers": {
+   "On 15 Federal Council answers that print no date it dates none": {
     "exploratory": 1
    },
    "Outside interventions the skeleton does not carry over as is": {
@@ -2806,62 +2808,44 @@
    "P6: no registered hypothesis held.": {
     "registered": 1
    },
-   "Registered: the rules 2/29": {
-    "registered": 1
-   },
    "Untested: 6 fields, defined once": {
     "once": 1
-   },
-   "Where rules exist it adds one document net": {
-    "post hoc": 1
    },
    "Yes, if each field says which role its value plays\n  (e.g. \"answer date\" = the government's decision, its letter or the submission date)": {
     "if": 1
    },
-   "adds one document net (P1: 139/154": {
+   "above every no-model signal we computed (at most 0.58; post hoc)": {
+    "at most": 1,
     "post hoc": 1
    },
-   "applied, up from 81.6% (": {
+   "answer dates, the rules 2/29": {
+    "registered": 1
+   },
+   "applied, up from 81.6%:": {
     "once": 1,
     "would": 1
    },
    "documents; review USD 0.59 per": {
     "about": 1
    },
-   "its promotions are answers on 120/120": {
-    "post hoc": 1,
-    "registered": 1
+   "free prompting's quotes 30/60,": {
+    "at most": 1
    },
    "may not send text abroad loses only the verifier and the role reader": {
     "may": 1
    },
-   "right alone on 9 vs": {
-    "post hoc": 1
+   "open documents for review: AUROC 0.90": {
+    "at most": 1
    },
-   "strongest model-free rule we tried 21/29 and": {
-    "post hoc": 1
+   "points, all from the 9,580 repairs (": {
+    "once": 1,
+    "would": 1
    },
-   "the rules on 8/12.": {
-    "exploratory": 1
-   },
-   "the strongest model-free rule we tried 21/29 and 46/62: right alone on 9 vs 2": {
-    "post hoc": 1
-   },
-   "who is an author (+7.3 points,": {
-    "post hoc": 1
-   },
-   "with more rows (206 vs": {
-    "post hoc": 1,
+   "precision not worse (H1, H2, registered)": {
     "registered": 1
    }
   },
   "../README.md": {
-   "(+7.3 points, post hoc)": {
-    "post hoc": 1
-   },
-   "(37/141; H3a, Holm p =": {
-    "registered": 1
-   },
    "(8 robust + 2 fragile; 6 from the role test, P8, registered, and 4 from OPD's label vocabularies, post hoc)": {
     "once": 1,
     "post hoc": 1,
@@ -2876,37 +2860,34 @@
    "**Untested: 6 fields,**": {
     "once": 1
    },
-   "0.032), level with OPD's contributor": {
-    "registered": 1
-   },
-   "0.12; post hoc, proposed in": {
-    "post hoc": 1,
-    "proposed": 1
-   },
-   "0.5 CPU-hours for all": {
-    "about": 2
-   },
-   "0.6 points from the": {
+   "+10.5 points, all from the 9,580 repairs (the 8,949 row-checked ones reach 91.5%; the 592 agenda joins and 39 Bern rows in review add the rest)": {
     "once": 1,
     "proposed": 1,
     "would": 1
    },
-   "113/120 of its promotions, the rule's": {
-    "not paired": 1,
-    "post hoc": 1
-   },
-   "120/120** sampled review-queue promotions are": {
+   "0.032), registered; the margin from": {
     "registered": 1
    },
-   "120/120** sampled review-queue promotions are answers (P7, registered": {
+   "0.5 CPU-hours for all": {
+    "about": 2
+   },
+   "0.58; post hoc).": {
+    "at most": 1,
+    "post hoc": 1
+   },
+   "0.90, above every no-model ranking": {
+    "at most": 1
+   },
+   "10.5 points, all from the": {
+    "once": 1,
+    "proposed": 1,
+    "would": 1
+   },
+   "12/12** Italian interventions exact on the answer date (10 printed dates, 2 right nulls), five parliaments | P11 | exploratory": {
+    "exploratory": 1
+   },
+   "120/120** sampled review-queue promotions are the government's answer | the verifier test, P7 (H1) | registered": {
     "registered": 1
-   },
-   "127/146 (post hoc, not paired) |": {
-    "not paired": 1,
-    "post hoc": 1
-   },
-   "135 (post hoc) |": {
-    "post hoc": 1
    },
    "15 federal records from an exploratory": {
     "exploratory": 1
@@ -2914,21 +2895,20 @@
    "17** | fields are shared": {
     "once": 1
    },
-   "17,720) comes from one build,": {
-    "by inference": 1
+   "17/32), and its confidence margin": {
+    "at most": 1
    },
-   "206 of the": {
-    "post hoc": 1
-   },
-   "24/29 from P2,\nregistered against the rules (the baselines post hoc": {
-    "post hoc": 1,
-    "proposed": 1,
+   "23.4 points from P10 (Holm p": {
     "registered": 1
    },
-   "39 review rows |": {
-    "once": 1,
-    "proposed": 1,
-    "would": 1
+   "23.4 points** author-role recall over the rules in 14 parliaments without rules (50/141 pairs vs 17/141); precision not worse | the author test, P10 (H1, H2) | registered": {
+    "registered": 1
+   },
+   "32/32 and": {
+    "at most": 1
+   },
+   "35/35 on P1, P2 and P6,": {
+    "at most": 1
    },
    "4 answer fields do not apply, and 6": {
     "exploratory": 1
@@ -2941,22 +2921,8 @@
     "post hoc": 1,
     "registered": 1
    },
-   "46/62 exact; registered: the rules": {
-    "registered": 1
-   },
-   "478 frame rows promoted against Apertus's": {
-    "post hoc": 1
-   },
    "5 at ten times": {
     "about": 2
-   },
-   "50/141 from P10,": {
-    "registered": 1
-   },
-   "592 agenda joins and": {
-    "once": 1,
-    "proposed": 1,
-    "would": 1
    },
    "6 from the role test, P8,": {
     "post hoc": 1,
@@ -2969,8 +2935,15 @@
    "7 of the 17 fields fit unchanged": {
     "exploratory": 1
    },
-   "7.3 points, post hoc) | Rules": {
-    "post hoc": 1
+   "8,949 row-checked ones reach": {
+    "once": 1,
+    "proposed": 1,
+    "would": 1
+   },
+   "9,580 repairs (the": {
+    "once": 1,
+    "proposed": 1,
+    "would": 1
    },
    "9,580** | answers with a": {
     "proposed": 1
@@ -2978,60 +2951,56 @@
    "902,754 documents in OPD's export, about": {
     "about": 2
    },
-   "91.5% from row-checked repairs +": {
-    "once": 1,
-    "proposed": 1,
-    "would": 1
-   },
    "92.1%** | of interventions with": {
     "once": 1,
     "proposed": 1,
     "would": 1
    },
-   "Apertus adds precision deciding who is an author (+7.3 points, post hoc)": {
-    "post hoc": 1
-   },
-   "H3a, Holm p = 0.17). Every committed": {
+   "Every committed gateway response (17,720) comes": {
     "by inference": 1
+   },
+   "Every value Apertus returns is a printed value located by code (62/62": {
+    "at most": 1
+   },
+   "P1–P8 and P10 are the ten pre-registered tests": {
+    "pre registered": 1
    },
    "Yes, if each field says which role its value plays** (e.g. \"answer\ndate\" = the government's decision, its letter or the submission date)": {
     "if": 1
    },
-   "a model-free cascade (post hoc): 138/154 |": {
+   "above every no-model ranking signal\nwe computed (at most 0.58; post hoc)": {
+    "at most": 1,
     "post hoc": 1
    },
    "and 6 need roles interventions lack": {
     "exploratory": 1
    },
-   "answer dates where rules exist (P1; rules, then Apertus) | about one document |": {
-    "about": 1
-   },
    "body-specific; 6 are not yet tested": {
     "not yet tested": 1
    },
-   "exact; registered: the rules 2/29 |": {
-    "registered": 1
+   "comes\nfrom one build": {
+    "by inference": 1
    },
-   "from P10, registered (recall +23.4": {
+   "find 2/29 | the date test, P2 | registered": {
     "registered": 1
-   },
-   "level with OPD's contributor list\n(37/141; H3a, Holm p = 0.17)": {
-    "registered": 1
-   },
-   "no-model exact-date match: answers on 146/146,": {
-    "post hoc": 1
    },
    "on the answer 9/12": {
     "exploratory": 1
    },
-   "records from an exploratory cell); 24/29 from P2,": {
+   "prompting's quotes check out on 30/60 and": {
+    "at most": 1
+   },
+   "records from an exploratory cell); 24/29 from P2": {
     "exploratory": 1,
-    "post hoc": 1,
-    "proposed": 1,
     "registered": 1
    },
    "robust + 2 fragile;": {
     "once": 1
+   },
+   "row-checked ones reach 91.5%; the": {
+    "once": 1,
+    "proposed": 1,
+    "would": 1
    },
    "the repair lists (no model); 186 from": {
     "exploratory": 1
@@ -3045,16 +3014,128 @@
    "their roles are explicit (8 robust +": {
     "once": 1
    },
-   "up from 81.6% today: 91.5%": {
+   "up from 81.6% today: +10.5": {
     "once": 1,
     "proposed": 1,
     "would": 1
+   },
+   "value located by code (62/62,": {
+    "at most": 1
    },
    "volume; review mode costs USD 0.59 per": {
     "about": 2
    }
   },
+  "docs/runbook.md": {
+   "\"Formal Data\n  Processing Agreements (DPAs)\"": {
+    "may": 1,
+    "once": 1
+   },
+   "\"Localized data storage outside the US\"": {
+    "may": 1,
+    "once": 1
+   },
+   "\"We are a US-based nonprofit.\"": {
+    "may": 1,
+    "once": 1
+   },
+   "\"no Data Processing Agreements are in place.\"": {
+    "may": 1,
+    "once": 1
+   },
+   "*A body that may not disclose abroad* loses only the review-queue verifier and the role reader": {
+    "may": 1
+   },
+   "0.17, below document order (": {
+    "exploratory": 1
+   },
+   "0.27 against the rules'": {
+    "exploratory": 1
+   },
+   "0.41) and the 70B (": {
+    "exploratory": 1
+   },
+   "0.42) (`results/p10/gguf8b/p10_8b_scores.json`) | 4 vCPU,": {
+    "exploratory": 1
+   },
+   "0.5 CPU-hours for all": {
+    "about": 1
+   },
+   "12 affairs); every committed gateway response": {
+    "about": 2
+   },
+   "16. *A body that may": {
+    "may": 1
+   },
+   "17,720) is from this build,": {
+    "about": 2
+   },
+   "30/141 author pairs right, F1": {
+    "exploratory": 1
+   },
+   "4.64 apart); on the": {
+    "up to": 1
+   },
+   "52 reachable documents), P6 (exploratory arms);": {
+    "exploratory": 1
+   },
+   "902,754 documents in OPD's export |": {
+    "about": 1
+   },
+   "97 dev documents when the route": {
+    "registered": 1
+   },
+   "P1, P2 (52 reachable documents), P6 (exploratory arms)": {
+    "exploratory": 1
+   },
+   "an estimated 1.64 GPU-hours per": {
+    "estimate": 1,
+    "estimated": 1
+   },
+   "as P10's role reader (exploratory) it reads 30/141": {
+    "exploratory": 1
+   },
+   "it outside Switzerland (nDSG Art. 16, above) | P1, P2,": {
+    "may": 1
+   },
+   "measured; estimated 1.64 GPU-hours per": {
+    "estimated": 1
+   },
+   "nDSG Art. 16": {
+    "may": 1
+   },
+   "reader): bf16 weights about 140 GB, e.g. two": {
+    "about": 1
+   },
+   "to a provider that may process it outside Switzerland (nDSG Art. 16, above)": {
+    "may": 1
+   },
+   "| bf16 weights about 140 GB, e.g. two": {
+    "about": 1
+   },
+   "| none: a refit had 40 of": {
+    "registered": 1
+   }
+  },
   "docs/decision.md": {
+   "**OPD's one open decision.**": {
+    "unless": 1
+   },
+   "15 parliaments without rules it found": {
+    "pre registered": 1
+   },
+   "2/29 (a pre-registered test).": {
+    "pre registered": 1
+   },
+   "24/29 answer dates, where the rules": {
+    "pre registered": 1
+   },
+   "A body that may not do this goes without two\n  components, the review-queue verifier and the role reader": {
+    "may": 1
+   },
+   "It reads layouts no rules cover": {
+    "pre registered": 1
+   },
    "about 0.5 CPU-hours": {
     "about": 1
    },
@@ -3068,6 +3149,182 @@
     "estimated": 1
    }
   },
-  "docs/decision_de.md": {}
+  "docs/decision_de.md": {},
+  "docs/dpo_checklist.md": {
+   "nDSG Art. 21": {
+    "about": 1
+   },
+   "| **Disclosure abroad** | Only on the Public AI route: treat it as a disclosure abroad under nDSG Art. 16, without a processing agreement. A body that may not disclose abroad leaves this route off and loses only two components (the review-queue verifier and the role reader). |": {
+    "may": 1
+   },
+   "| **For the DPO to decide** | Whether the Public AI route may be switched on at all, and if so for which documents. Whether the body's rules call for a data protection impact assessment (nDSG Art. 22); the default route reads public documents and sends nothing on. |": {
+    "if": 1,
+    "may": 1
+   },
+   "| **Purpose** | Completeness and quality of published parliamentary data. No decisions about persons, no profiling, no automated individual decisions (nDSG Art. 21): the records describe parliamentary business, not people. |": {
+    "about": 1
+   },
+   "| **Recipients, review mode through the Public AI gateway (opt-in)** | The text of each document the rules leave open goes to Public AI (Metagov Inc., a US nonprofit). Its terms offer no data processing agreement and no standard contractual clauses. Model and cloud providers act as further recipients (its terms name the Swiss AI Initiative, AI Singapore, AWS, Exoscale, Australia's NCI, Cudo Compute and Vercel). Off unless `LLM_BASE_URL` is set. |": {
+    "unless": 1
+   }
+  },
+  "docs/ech-onepager.md": {
+   "(P10, registered):* on 14 parliaments outside every rule set": {
+    "about": 1,
+    "registered": 1
+   },
+   "**Addressed body and recommendation: fragile, to confirm.** Both split on the gold but not under both registered\n  checks (the addressed body is shared on agreed labels only, the recommendation on Qwen's labels)": {
+    "registered": 1
+   },
+   "**defined once in v0.1** (6 of": {
+    "once": 1
+   },
+   "0.67: usable with a reviewer,": {
+    "not yet": 1,
+    "partial": 1,
+    "pre registered": 1
+   },
+   "0.83 and recall": {
+    "not yet": 1,
+    "partial": 1,
+    "pre registered": 1
+   },
+   "1 body-specific,": {
+    "once": 1
+   },
+   "10 need\nroles (8 robust, 2 fragile)": {
+    "once": 1
+   },
+   "10 parliaments, DE/FR/IT) puts": {
+    "not yet": 1,
+    "partial": 1,
+    "pre registered": 1
+   },
+   "10% threshold). That threshold measures coverage,": {
+    "would": 1
+   },
+   "105 records, and in a blind": {
+    "exploratory": 1,
+    "in sample": 1
+   },
+   "11 parliaments (P8) finds roles in": {
+    "pre registered": 1
+   },
+   "12/12 and recall": {
+    "exploratory": 1,
+    "in sample": 1
+   },
+   "12/15, annexes at": {
+    "exploratory": 1,
+    "in sample": 1
+   },
+   "13 partly; no field lacks a": {
+    "partly": 1,
+    "would": 1
+   },
+   "14 parliaments outside every rule set,": {
+    "about": 1,
+    "registered": 1
+   },
+   "141 gold (name, role) pairs right,": {
+    "about": 1,
+    "registered": 1
+   },
+   "15 Federal Council answers whose v0.2": {
+    "exploratory": 1
+   },
+   "17) | decision date, dispatch": {
+    "once": 1
+   },
+   "30 documents (exploratory, in-sample for": {
+    "exploratory": 1,
+    "in sample": 1
+   },
+   "4 fields are in OPD's metadata": {
+    "partly": 1
+   },
+   "4 fields are in OPD's metadata almost everywhere": {
+    "partly": 1
+   },
+   "40 fresh affairs from": {
+    "not yet": 1,
+    "partial": 1,
+    "pre registered": 1
+   },
+   "44 checkable documents, and": {
+    "held out": 1
+   },
+   "5 of the": {
+    "held out": 1
+   },
+   "5 would at a": {
+    "would": 1
+   },
+   "6 defined once in v0.1 (meaning": {
+    "once": 1
+   },
+   "66 of its": {
+    "exploratory": 1,
+    "in sample": 1
+   },
+   "7 fields on": {
+    "pre registered": 1
+   },
+   "An exploratory\nfederal cell adds 15 Federal Council answers": {
+    "exploratory": 1
+   },
+   "Test plan for the six fields defined once": {
+    "once": 2
+   },
+   "The pre-registered test P5 (40 fresh affairs": {
+    "not yet": 1,
+    "partial": 1,
+    "pre registered": 1
+   },
+   "and 6/6": {
+    "exploratory": 1,
+    "in sample": 1
+   },
+   "annexes at 6/6 and": {
+    "exploratory": 1,
+    "in sample": 1
+   },
+   "date parliament **registered** it. In 7 of": {
+    "registered": 1
+   },
+   "equals the printed date for 37 of": {
+    "held out": 1
+   },
+   "fields: 10 need": {
+    "once": 1
+   },
+   "in a blind check of 30 documents (exploratory, in-sample for\nthe detector)": {
+    "exploratory": 1,
+    "in sample": 1
+   },
+   "names the documents print reads 50 of": {
+    "about": 1,
+    "registered": 1
+   },
+   "not only for dates. The 17 fields:": {
+    "once": 1
+   },
+   "on 66 fresh affairs": {
+    "pre registered": 1
+   },
+   "on our held-out gold OPD's event equals the printed date for 37": {
+    "held out": 1
+   },
+   "robust, 2 fragile),": {
+    "once": 1
+   },
+   "role) pairs right, the rules 17": {
+    "about": 1,
+    "registered": 1
+   },
+   "roles (8 robust,": {
+    "once": 1
+   }
+  }
  }
 }

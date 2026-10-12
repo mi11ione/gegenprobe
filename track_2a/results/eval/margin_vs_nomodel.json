@@ -1,0 +1,1244 @@
+{
+ "label": "POST HOC (12 Oct 2026; proposed in review; not pre-registered): the closed reader's margin vs no-model ranking signals for flagging its wrong values (P1, P2, P6), from committed results and document metadata; no registered decision depends on this file",
+ "proposed_by": "proposed in review (round-20 skeptical-ML review); signals chosen and computed by the team",
+ "method": "POST HOC (12 Oct 2026; proposed in review; not pre-registered): does the closed reader's margin rank its wrong values\nfirst better than ranking signals that need no model? On P1, P2 and P6 (the held-out sets of eval.closed_vs_free), on\nexactly the values the closed reader returns. No model call, no network, no document text: committed results files and\ndocument metadata (data/*/..._docs.jsonl: extractor, page and character counts, OPD's document type) only. No registered\ndecision depends on this file.",
+ "signals_defined": "each with its direction fixed before scoring (higher = more doubtful) and computed on the same rows:\n  n_candidates        distinct dates printed in the document (the closed reader's candidate set; doc_dates)\n  ocr                 the text came from OCR (extractor tesseract; only P1 has OCR documents)\n  rules_no_value      the registered rules returned no value for the document (abstain or typed null)\n  rules_unconfirmed   the rules did not return the same date as the reader (no value, or a different one)\n  later_dates         how many distinct printed dates are later than the returned date (0 = it is the latest)\n  days_before_latest  days between the returned date and the latest printed date\n  intervention_typed  OPD types the document as an intervention, not an answer\n  chars, pages        document length (characters of extracted text; pages)\n  rules_unconfirmed_then_n_candidates   rules_unconfirmed, ties broken by n_candidates (fixed combination)\nlater_dates and days_before_latest read the returned date (not the margin): they are what a reviewer sees next to it.",
+ "statistics": "AUROC (Mann-Whitney, ties half) for wrong vs right; a document-level percentile bootstrap 95% interval\n(resampling the returned values with replacement, B = 10,000, seed 20261011; resamples with no wrong or no right value\ndropped and counted); the paired bootstrap interval of margin AUROC minus signal AUROC on the same resamples; and,\nflagged as optimistic, the AUROC in the better of the two directions. The best no-model signal per set is the one with\nthe highest fixed-direction AUROC, chosen on the same rows (so it favours the baseline). Everything is computed twice:\non all values the reader returns (the rows of closed_vs_free) and on the `residue`, the documents where the registered\nrules return no value (the documents the deployed cascade sends to the reader, and so the queue the margin orders).",
+ "sets": {
+  "P1": {
+   "arm": "pointer",
+   "values": 62,
+   "wrong": 16,
+   "right": 46,
+   "margin": {
+    "auroc": 0.732,
+    "ci95": [
+     0.577,
+     0.866
+    ]
+   },
+   "signals": {
+    "n_candidates": {
+     "auroc": 0.599,
+     "ci95": [
+      0.442,
+      0.752
+     ],
+     "distinct_values": 8,
+     "auroc_better_direction_optimistic": 0.599,
+     "margin_minus_signal": 0.133,
+     "margin_minus_signal_ci95": [
+      -0.085,
+      0.352
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "ocr": {
+     "auroc": 0.486,
+     "ci95": [
+      0.396,
+      0.594
+     ],
+     "distinct_values": 2,
+     "auroc_better_direction_optimistic": 0.514,
+     "margin_minus_signal": 0.246,
+     "margin_minus_signal_ci95": [
+      0.074,
+      0.395
+     ],
+     "margin_better_interval_excludes_0": true
+    },
+    "rules_no_value": {
+     "auroc": 0.621,
+     "ci95": [
+      0.483,
+      0.76
+     ],
+     "distinct_values": 2,
+     "auroc_better_direction_optimistic": 0.621,
+     "margin_minus_signal": 0.111,
+     "margin_minus_signal_ci95": [
+      -0.073,
+      0.297
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "rules_unconfirmed": {
+     "auroc": 0.84,
+     "ci95": [
+      0.73,
+      0.93
+     ],
+     "distinct_values": 2,
+     "auroc_better_direction_optimistic": 0.84,
+     "margin_minus_signal": -0.107,
+     "margin_minus_signal_ci95": [
+      -0.293,
+      0.07
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "later_dates": {
+     "auroc": 0.546,
+     "ci95": [
+      0.425,
+      0.679
+     ],
+     "distinct_values": 3,
+     "auroc_better_direction_optimistic": 0.546,
+     "margin_minus_signal": 0.186,
+     "margin_minus_signal_ci95": [
+      0.016,
+      0.352
+     ],
+     "margin_better_interval_excludes_0": true
+    },
+    "days_before_latest": {
+     "auroc": 0.545,
+     "ci95": [
+      0.424,
+      0.676
+     ],
+     "distinct_values": 10,
+     "auroc_better_direction_optimistic": 0.545,
+     "margin_minus_signal": 0.188,
+     "margin_minus_signal_ci95": [
+      0.016,
+      0.352
+     ],
+     "margin_better_interval_excludes_0": true
+    },
+    "intervention_typed": {
+     "auroc": 0.655,
+     "ci95": [
+      0.532,
+      0.781
+     ],
+     "distinct_values": 2,
+     "auroc_better_direction_optimistic": 0.655,
+     "margin_minus_signal": 0.077,
+     "margin_minus_signal_ci95": [
+      -0.102,
+      0.257
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "chars": {
+     "auroc": 0.572,
+     "ci95": [
+      0.418,
+      0.719
+     ],
+     "distinct_values": 62,
+     "auroc_better_direction_optimistic": 0.572,
+     "margin_minus_signal": 0.16,
+     "margin_minus_signal_ci95": [
+      -0.033,
+      0.358
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "pages": {
+     "auroc": 0.667,
+     "ci95": [
+      0.512,
+      0.808
+     ],
+     "distinct_values": 5,
+     "auroc_better_direction_optimistic": 0.667,
+     "margin_minus_signal": 0.065,
+     "margin_minus_signal_ci95": [
+      -0.105,
+      0.24
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "rules_unconfirmed_then_n_candidates": {
+     "auroc": 0.886,
+     "ci95": [
+      0.79,
+      0.963
+     ],
+     "distinct_values": 14,
+     "auroc_better_direction_optimistic": 0.886,
+     "margin_minus_signal": -0.154,
+     "margin_minus_signal_ci95": [
+      -0.336,
+      0.021
+     ],
+     "margin_better_interval_excludes_0": false
+    }
+   },
+   "best_nomodel_signal": {
+    "name": "rules_unconfirmed_then_n_candidates",
+    "auroc": 0.886,
+    "ci95": [
+     0.79,
+     0.963
+    ],
+    "margin_minus_best": -0.154,
+    "margin_minus_best_ci95": [
+     -0.336,
+     0.021
+    ],
+    "margin_better_interval_excludes_0": false
+   },
+   "bootstrap": {
+    "b": 10000,
+    "seed": 20261011,
+    "resamples_dropped": 0,
+    "unit": "returned value (document)"
+   },
+   "residue": {
+    "note": "only the documents where the registered rules return no value: the ones the deployed cascade (rules first) routes to the reader, so the review queue the margin orders in practice; rules_no_value and rules_unconfirmed are constant here",
+    "arm": "pointer",
+    "values": 16,
+    "wrong": 7,
+    "right": 9,
+    "margin": {
+     "auroc": 0.937,
+     "ci95": [
+      0.762,
+      1.0
+     ]
+    },
+    "signals": {
+     "n_candidates": {
+      "auroc": 0.635,
+      "ci95": [
+       0.317,
+       0.942
+      ],
+      "distinct_values": 7,
+      "auroc_better_direction_optimistic": 0.635,
+      "margin_minus_signal": 0.302,
+      "margin_minus_signal_ci95": [
+       -0.048,
+       0.65
+      ],
+      "margin_better_interval_excludes_0": false
+     },
+     "ocr": {
+      "auroc": 0.5,
+      "ci95": [
+       0.5,
+       0.5
+      ],
+      "distinct_values": 1,
+      "auroc_better_direction_optimistic": 0.5,
+      "margin_minus_signal": 0.437,
+      "margin_minus_signal_ci95": [
+       0.262,
+       0.5
+      ],
+      "margin_better_interval_excludes_0": true
+     },
+     "rules_no_value": {
+      "auroc": 0.5,
+      "ci95": [
+       0.5,
+       0.5
+      ],
+      "distinct_values": 1,
+      "auroc_better_direction_optimistic": 0.5,
+      "margin_minus_signal": 0.437,
+      "margin_minus_signal_ci95": [
+       0.262,
+       0.5
+      ],
+      "margin_better_interval_excludes_0": true
+     },
+     "rules_unconfirmed": {
+      "auroc": 0.5,
+      "ci95": [
+       0.5,
+       0.5
+      ],
+      "distinct_values": 1,
+      "auroc_better_direction_optimistic": 0.5,
+      "margin_minus_signal": 0.437,
+      "margin_minus_signal_ci95": [
+       0.262,
+       0.5
+      ],
+      "margin_better_interval_excludes_0": true
+     },
+     "later_dates": {
+      "auroc": 0.429,
+      "ci95": [
+       0.208,
+       0.667
+      ],
+      "distinct_values": 3,
+      "auroc_better_direction_optimistic": 0.571,
+      "margin_minus_signal": 0.508,
+      "margin_minus_signal_ci95": [
+       0.236,
+       0.766
+      ],
+      "margin_better_interval_excludes_0": true
+     },
+     "days_before_latest": {
+      "auroc": 0.429,
+      "ci95": [
+       0.208,
+       0.667
+      ],
+      "distinct_values": 3,
+      "auroc_better_direction_optimistic": 0.571,
+      "margin_minus_signal": 0.508,
+      "margin_minus_signal_ci95": [
+       0.236,
+       0.766
+      ],
+      "margin_better_interval_excludes_0": true
+     },
+     "intervention_typed": {
+      "auroc": 0.873,
+      "ci95": [
+       0.683,
+       1.0
+      ],
+      "distinct_values": 2,
+      "auroc_better_direction_optimistic": 0.873,
+      "margin_minus_signal": 0.063,
+      "margin_minus_signal_ci95": [
+       -0.156,
+       0.292
+      ],
+      "margin_better_interval_excludes_0": false
+     },
+     "chars": {
+      "auroc": 0.762,
+      "ci95": [
+       0.483,
+       0.982
+      ],
+      "distinct_values": 16,
+      "auroc_better_direction_optimistic": 0.762,
+      "margin_minus_signal": 0.175,
+      "margin_minus_signal_ci95": [
+       -0.111,
+       0.491
+      ],
+      "margin_better_interval_excludes_0": false
+     },
+     "pages": {
+      "auroc": 0.841,
+      "ci95": [
+       0.672,
+       0.967
+      ],
+      "distinct_values": 5,
+      "auroc_better_direction_optimistic": 0.841,
+      "margin_minus_signal": 0.095,
+      "margin_minus_signal_ci95": [
+       -0.15,
+       0.317
+      ],
+      "margin_better_interval_excludes_0": false
+     },
+     "rules_unconfirmed_then_n_candidates": {
+      "auroc": 0.635,
+      "ci95": [
+       0.317,
+       0.942
+      ],
+      "distinct_values": 7,
+      "auroc_better_direction_optimistic": 0.635,
+      "margin_minus_signal": 0.302,
+      "margin_minus_signal_ci95": [
+       -0.048,
+       0.65
+      ],
+      "margin_better_interval_excludes_0": false
+     }
+    },
+    "best_nomodel_signal": {
+     "name": "intervention_typed",
+     "auroc": 0.873,
+     "ci95": [
+      0.683,
+      1.0
+     ],
+     "margin_minus_best": 0.063,
+     "margin_minus_best_ci95": [
+      -0.156,
+      0.292
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "bootstrap": {
+     "b": 10000,
+     "seed": 20261011,
+     "resamples_dropped": 0,
+     "unit": "returned value (document)"
+    }
+   }
+  },
+  "P2": {
+   "arm": "pointer",
+   "values": 32,
+   "wrong": 8,
+   "right": 24,
+   "margin": {
+    "auroc": 0.896,
+    "ci95": [
+     0.77,
+     0.986
+    ]
+   },
+   "signals": {
+    "n_candidates": {
+     "auroc": 0.479,
+     "ci95": [
+      0.237,
+      0.728
+     ],
+     "distinct_values": 9,
+     "auroc_better_direction_optimistic": 0.521,
+     "margin_minus_signal": 0.417,
+     "margin_minus_signal_ci95": [
+      0.133,
+      0.688
+     ],
+     "margin_better_interval_excludes_0": true
+    },
+    "ocr": {
+     "auroc": 0.5,
+     "ci95": [
+      0.5,
+      0.5
+     ],
+     "distinct_values": 1,
+     "auroc_better_direction_optimistic": 0.5,
+     "margin_minus_signal": 0.396,
+     "margin_minus_signal_ci95": [
+      0.27,
+      0.486
+     ],
+     "margin_better_interval_excludes_0": true
+    },
+    "rules_no_value": {
+     "auroc": 0.583,
+     "ci95": [
+      0.519,
+      0.667
+     ],
+     "distinct_values": 2,
+     "auroc_better_direction_optimistic": 0.583,
+     "margin_minus_signal": 0.312,
+     "margin_minus_signal_ci95": [
+      0.154,
+      0.436
+     ],
+     "margin_better_interval_excludes_0": true
+    },
+    "rules_unconfirmed": {
+     "auroc": 0.542,
+     "ci95": [
+      0.5,
+      0.604
+     ],
+     "distinct_values": 2,
+     "auroc_better_direction_optimistic": 0.542,
+     "margin_minus_signal": 0.354,
+     "margin_minus_signal_ci95": [
+      0.222,
+      0.458
+     ],
+     "margin_better_interval_excludes_0": true
+    },
+    "later_dates": {
+     "auroc": 0.562,
+     "ci95": [
+      0.407,
+      0.75
+     ],
+     "distinct_values": 2,
+     "auroc_better_direction_optimistic": 0.562,
+     "margin_minus_signal": 0.333,
+     "margin_minus_signal_ci95": [
+      0.085,
+      0.532
+     ],
+     "margin_better_interval_excludes_0": true
+    },
+    "days_before_latest": {
+     "auroc": 0.568,
+     "ci95": [
+      0.407,
+      0.763
+     ],
+     "distinct_values": 6,
+     "auroc_better_direction_optimistic": 0.568,
+     "margin_minus_signal": 0.328,
+     "margin_minus_signal_ci95": [
+      0.075,
+      0.532
+     ],
+     "margin_better_interval_excludes_0": true
+    },
+    "intervention_typed": {
+     "auroc": 0.479,
+     "ci95": [
+      0.355,
+      0.644
+     ],
+     "distinct_values": 2,
+     "auroc_better_direction_optimistic": 0.521,
+     "margin_minus_signal": 0.417,
+     "margin_minus_signal_ci95": [
+      0.241,
+      0.563
+     ],
+     "margin_better_interval_excludes_0": true
+    },
+    "chars": {
+     "auroc": 0.323,
+     "ci95": [
+      0.109,
+      0.571
+     ],
+     "distinct_values": 32,
+     "auroc_better_direction_optimistic": 0.677,
+     "margin_minus_signal": 0.573,
+     "margin_minus_signal_ci95": [
+      0.304,
+      0.817
+     ],
+     "margin_better_interval_excludes_0": true
+    },
+    "pages": {
+     "auroc": 0.526,
+     "ci95": [
+      0.288,
+      0.779
+     ],
+     "distinct_values": 4,
+     "auroc_better_direction_optimistic": 0.526,
+     "margin_minus_signal": 0.37,
+     "margin_minus_signal_ci95": [
+      0.103,
+      0.621
+     ],
+     "margin_better_interval_excludes_0": true
+    },
+    "rules_unconfirmed_then_n_candidates": {
+     "auroc": 0.516,
+     "ci95": [
+      0.282,
+      0.747
+     ],
+     "distinct_values": 10,
+     "auroc_better_direction_optimistic": 0.516,
+     "margin_minus_signal": 0.38,
+     "margin_minus_signal_ci95": [
+      0.111,
+      0.643
+     ],
+     "margin_better_interval_excludes_0": true
+    }
+   },
+   "best_nomodel_signal": {
+    "name": "rules_no_value",
+    "auroc": 0.583,
+    "ci95": [
+     0.519,
+     0.667
+    ],
+    "margin_minus_best": 0.312,
+    "margin_minus_best_ci95": [
+     0.154,
+     0.436
+    ],
+    "margin_better_interval_excludes_0": true
+   },
+   "bootstrap": {
+    "b": 10000,
+    "seed": 20261011,
+    "resamples_dropped": 1,
+    "unit": "returned value (document)"
+   },
+   "residue": {
+    "note": "only the documents where the registered rules return no value: the ones the deployed cascade (rules first) routes to the reader, so the review queue the margin orders in practice; rules_no_value and rules_unconfirmed are constant here",
+    "arm": "pointer",
+    "values": 28,
+    "wrong": 8,
+    "right": 20,
+    "margin": {
+     "auroc": 0.912,
+     "ci95": [
+      0.78,
+      1.0
+     ]
+    },
+    "signals": {
+     "n_candidates": {
+      "auroc": 0.506,
+      "ci95": [
+       0.258,
+       0.752
+      ],
+      "distinct_values": 6,
+      "auroc_better_direction_optimistic": 0.506,
+      "margin_minus_signal": 0.406,
+      "margin_minus_signal_ci95": [
+       0.123,
+       0.684
+      ],
+      "margin_better_interval_excludes_0": true
+     },
+     "ocr": {
+      "auroc": 0.5,
+      "ci95": [
+       0.5,
+       0.5
+      ],
+      "distinct_values": 1,
+      "auroc_better_direction_optimistic": 0.5,
+      "margin_minus_signal": 0.412,
+      "margin_minus_signal_ci95": [
+       0.28,
+       0.5
+      ],
+      "margin_better_interval_excludes_0": true
+     },
+     "rules_no_value": {
+      "auroc": 0.5,
+      "ci95": [
+       0.5,
+       0.5
+      ],
+      "distinct_values": 1,
+      "auroc_better_direction_optimistic": 0.5,
+      "margin_minus_signal": 0.412,
+      "margin_minus_signal_ci95": [
+       0.28,
+       0.5
+      ],
+      "margin_better_interval_excludes_0": true
+     },
+     "rules_unconfirmed": {
+      "auroc": 0.5,
+      "ci95": [
+       0.5,
+       0.5
+      ],
+      "distinct_values": 1,
+      "auroc_better_direction_optimistic": 0.5,
+      "margin_minus_signal": 0.412,
+      "margin_minus_signal_ci95": [
+       0.28,
+       0.5
+      ],
+      "margin_better_interval_excludes_0": true
+     },
+     "later_dates": {
+      "auroc": 0.6,
+      "ci95": [
+       0.455,
+       0.786
+      ],
+      "distinct_values": 2,
+      "auroc_better_direction_optimistic": 0.6,
+      "margin_minus_signal": 0.312,
+      "margin_minus_signal_ci95": [
+       0.058,
+       0.513
+      ],
+      "margin_better_interval_excludes_0": true
+     },
+     "days_before_latest": {
+      "auroc": 0.606,
+      "ci95": [
+       0.455,
+       0.8
+      ],
+      "distinct_values": 4,
+      "auroc_better_direction_optimistic": 0.606,
+      "margin_minus_signal": 0.306,
+      "margin_minus_signal_ci95": [
+       0.047,
+       0.513
+      ],
+      "margin_better_interval_excludes_0": true
+     },
+     "intervention_typed": {
+      "auroc": 0.463,
+      "ci95": [
+       0.328,
+       0.619
+      ],
+      "distinct_values": 2,
+      "auroc_better_direction_optimistic": 0.537,
+      "margin_minus_signal": 0.45,
+      "margin_minus_signal_ci95": [
+       0.286,
+       0.589
+      ],
+      "margin_better_interval_excludes_0": true
+     },
+     "chars": {
+      "auroc": 0.319,
+      "ci95": [
+       0.098,
+       0.567
+      ],
+      "distinct_values": 28,
+      "auroc_better_direction_optimistic": 0.681,
+      "margin_minus_signal": 0.594,
+      "margin_minus_signal_ci95": [
+       0.326,
+       0.83
+      ],
+      "margin_better_interval_excludes_0": true
+     },
+     "pages": {
+      "auroc": 0.531,
+      "ci95": [
+       0.289,
+       0.778
+      ],
+      "distinct_values": 4,
+      "auroc_better_direction_optimistic": 0.531,
+      "margin_minus_signal": 0.381,
+      "margin_minus_signal_ci95": [
+       0.112,
+       0.635
+      ],
+      "margin_better_interval_excludes_0": true
+     },
+     "rules_unconfirmed_then_n_candidates": {
+      "auroc": 0.506,
+      "ci95": [
+       0.258,
+       0.752
+      ],
+      "distinct_values": 6,
+      "auroc_better_direction_optimistic": 0.506,
+      "margin_minus_signal": 0.406,
+      "margin_minus_signal_ci95": [
+       0.123,
+       0.684
+      ],
+      "margin_better_interval_excludes_0": true
+     }
+    },
+    "best_nomodel_signal": {
+     "name": "days_before_latest",
+     "auroc": 0.606,
+     "ci95": [
+      0.455,
+      0.8
+     ],
+     "margin_minus_best": 0.306,
+     "margin_minus_best_ci95": [
+      0.047,
+      0.513
+     ],
+     "margin_better_interval_excludes_0": true
+    },
+    "bootstrap": {
+     "b": 10000,
+     "seed": 20261011,
+     "resamples_dropped": 0,
+     "unit": "returned value (document)"
+    }
+   }
+  },
+  "P6": {
+   "arm": "v2",
+   "values": 35,
+   "wrong": 5,
+   "right": 30,
+   "margin": {
+    "auroc": 0.713,
+    "ci95": [
+     0.339,
+     1.0
+    ]
+   },
+   "signals": {
+    "n_candidates": {
+     "auroc": 0.447,
+     "ci95": [
+      0.173,
+      0.77
+     ],
+     "distinct_values": 10,
+     "auroc_better_direction_optimistic": 0.553,
+     "margin_minus_signal": 0.267,
+     "margin_minus_signal_ci95": [
+      -0.088,
+      0.677
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "ocr": {
+     "auroc": 0.5,
+     "ci95": [
+      0.5,
+      0.5
+     ],
+     "distinct_values": 1,
+     "auroc_better_direction_optimistic": 0.5,
+     "margin_minus_signal": 0.213,
+     "margin_minus_signal_ci95": [
+      -0.161,
+      0.5
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "rules_no_value": {
+     "auroc": 0.817,
+     "ci95": [
+      0.726,
+      0.903
+     ],
+     "distinct_values": 2,
+     "auroc_better_direction_optimistic": 0.817,
+     "margin_minus_signal": -0.103,
+     "margin_minus_signal_ci95": [
+      -0.479,
+      0.19
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "rules_unconfirmed": {
+     "auroc": 0.8,
+     "ci95": [
+      0.71,
+      0.887
+     ],
+     "distinct_values": 2,
+     "auroc_better_direction_optimistic": 0.8,
+     "margin_minus_signal": -0.087,
+     "margin_minus_signal_ci95": [
+      -0.455,
+      0.206
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "later_dates": {
+     "auroc": 0.633,
+     "ci95": [
+      0.409,
+      0.924
+     ],
+     "distinct_values": 2,
+     "auroc_better_direction_optimistic": 0.633,
+     "margin_minus_signal": 0.08,
+     "margin_minus_signal_ci95": [
+      -0.411,
+      0.503
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "days_before_latest": {
+     "auroc": 0.633,
+     "ci95": [
+      0.409,
+      0.933
+     ],
+     "distinct_values": 7,
+     "auroc_better_direction_optimistic": 0.633,
+     "margin_minus_signal": 0.08,
+     "margin_minus_signal_ci95": [
+      -0.414,
+      0.5
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "intervention_typed": {
+     "auroc": 0.467,
+     "ci95": [
+      0.417,
+      0.5
+     ],
+     "distinct_values": 2,
+     "auroc_better_direction_optimistic": 0.533,
+     "margin_minus_signal": 0.247,
+     "margin_minus_signal_ci95": [
+      -0.13,
+      0.53
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "chars": {
+     "auroc": 0.487,
+     "ci95": [
+      0.167,
+      0.812
+     ],
+     "distinct_values": 35,
+     "auroc_better_direction_optimistic": 0.513,
+     "margin_minus_signal": 0.227,
+     "margin_minus_signal_ci95": [
+      -0.107,
+      0.531
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "pages": {
+     "auroc": 0.43,
+     "ci95": [
+      0.138,
+      0.71
+     ],
+     "distinct_values": 6,
+     "auroc_better_direction_optimistic": 0.57,
+     "margin_minus_signal": 0.283,
+     "margin_minus_signal_ci95": [
+      -0.129,
+      0.621
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "rules_unconfirmed_then_n_candidates": {
+     "auroc": 0.76,
+     "ci95": [
+      0.576,
+      0.925
+     ],
+     "distinct_values": 15,
+     "auroc_better_direction_optimistic": 0.76,
+     "margin_minus_signal": -0.047,
+     "margin_minus_signal_ci95": [
+      -0.393,
+      0.273
+     ],
+     "margin_better_interval_excludes_0": false
+    }
+   },
+   "best_nomodel_signal": {
+    "name": "rules_no_value",
+    "auroc": 0.817,
+    "ci95": [
+     0.726,
+     0.903
+    ],
+    "margin_minus_best": -0.103,
+    "margin_minus_best_ci95": [
+     -0.479,
+     0.19
+    ],
+    "margin_better_interval_excludes_0": false
+   },
+   "bootstrap": {
+    "b": 10000,
+    "seed": 20261011,
+    "resamples_dropped": 44,
+    "unit": "returned value (document)"
+   },
+   "residue": {
+    "note": "only the documents where the registered rules return no value: the ones the deployed cascade (rules first) routes to the reader, so the review queue the margin orders in practice; rules_no_value and rules_unconfirmed are constant here",
+    "arm": "v2",
+    "values": 16,
+    "wrong": 5,
+    "right": 11,
+    "margin": {
+     "auroc": 0.618,
+     "ci95": [
+      0.208,
+      0.974
+     ]
+    },
+    "signals": {
+     "n_candidates": {
+      "auroc": 0.418,
+      "ci95": [
+       0.1,
+       0.769
+      ],
+      "distinct_values": 8,
+      "auroc_better_direction_optimistic": 0.582,
+      "margin_minus_signal": 0.2,
+      "margin_minus_signal_ci95": [
+       -0.23,
+       0.67
+      ],
+      "margin_better_interval_excludes_0": false
+     },
+     "ocr": {
+      "auroc": 0.5,
+      "ci95": [
+       0.5,
+       0.5
+      ],
+      "distinct_values": 1,
+      "auroc_better_direction_optimistic": 0.5,
+      "margin_minus_signal": 0.118,
+      "margin_minus_signal_ci95": [
+       -0.292,
+       0.474
+      ],
+      "margin_better_interval_excludes_0": false
+     },
+     "rules_no_value": {
+      "auroc": 0.5,
+      "ci95": [
+       0.5,
+       0.5
+      ],
+      "distinct_values": 1,
+      "auroc_better_direction_optimistic": 0.5,
+      "margin_minus_signal": 0.118,
+      "margin_minus_signal_ci95": [
+       -0.292,
+       0.474
+      ],
+      "margin_better_interval_excludes_0": false
+     },
+     "rules_unconfirmed": {
+      "auroc": 0.5,
+      "ci95": [
+       0.5,
+       0.5
+      ],
+      "distinct_values": 1,
+      "auroc_better_direction_optimistic": 0.5,
+      "margin_minus_signal": 0.118,
+      "margin_minus_signal_ci95": [
+       -0.292,
+       0.474
+      ],
+      "margin_better_interval_excludes_0": false
+     },
+     "later_dates": {
+      "auroc": 0.609,
+      "ci95": [
+       0.357,
+       0.893
+      ],
+      "distinct_values": 2,
+      "auroc_better_direction_optimistic": 0.609,
+      "margin_minus_signal": 0.009,
+      "margin_minus_signal_ci95": [
+       -0.545,
+       0.473
+      ],
+      "margin_better_interval_excludes_0": false
+     },
+     "days_before_latest": {
+      "auroc": 0.609,
+      "ci95": [
+       0.357,
+       0.908
+      ],
+      "distinct_values": 5,
+      "auroc_better_direction_optimistic": 0.609,
+      "margin_minus_signal": 0.009,
+      "margin_minus_signal_ci95": [
+       -0.547,
+       0.473
+      ],
+      "margin_better_interval_excludes_0": false
+     },
+     "intervention_typed": {
+      "auroc": 0.5,
+      "ci95": [
+       0.5,
+       0.5
+      ],
+      "distinct_values": 1,
+      "auroc_better_direction_optimistic": 0.5,
+      "margin_minus_signal": 0.118,
+      "margin_minus_signal_ci95": [
+       -0.292,
+       0.474
+      ],
+      "margin_better_interval_excludes_0": false
+     },
+     "chars": {
+      "auroc": 0.655,
+      "ci95": [
+       0.286,
+       0.949
+      ],
+      "distinct_values": 16,
+      "auroc_better_direction_optimistic": 0.655,
+      "margin_minus_signal": -0.036,
+      "margin_minus_signal_ci95": [
+       -0.491,
+       0.364
+      ],
+      "margin_better_interval_excludes_0": false
+     },
+     "pages": {
+      "auroc": 0.564,
+      "ci95": [
+       0.217,
+       0.893
+      ],
+      "distinct_values": 6,
+      "auroc_better_direction_optimistic": 0.564,
+      "margin_minus_signal": 0.055,
+      "margin_minus_signal_ci95": [
+       -0.464,
+       0.513
+      ],
+      "margin_better_interval_excludes_0": false
+     },
+     "rules_unconfirmed_then_n_candidates": {
+      "auroc": 0.418,
+      "ci95": [
+       0.1,
+       0.769
+      ],
+      "distinct_values": 8,
+      "auroc_better_direction_optimistic": 0.582,
+      "margin_minus_signal": 0.2,
+      "margin_minus_signal_ci95": [
+       -0.23,
+       0.67
+      ],
+      "margin_better_interval_excludes_0": false
+     }
+    },
+    "best_nomodel_signal": {
+     "name": "chars",
+     "auroc": 0.655,
+     "ci95": [
+      0.286,
+      0.949
+     ],
+     "margin_minus_best": -0.036,
+     "margin_minus_best_ci95": [
+      -0.491,
+      0.364
+     ],
+     "margin_better_interval_excludes_0": false
+    },
+    "bootstrap": {
+     "b": 10000,
+     "seed": 20261011,
+     "resamples_dropped": 21,
+     "unit": "returned value (document)"
+    }
+   }
+  }
+ },
+ "margin_matches_closed_vs_free": {
+  "P1": true,
+  "P2": true,
+  "P6": true
+ },
+ "display": {
+  "margin_auroc": {
+   "P1": 0.732,
+   "P2": 0.896,
+   "P6": 0.713
+  },
+  "margin_ci95": {
+   "P1": [
+    0.577,
+    0.866
+   ],
+   "P2": [
+    0.77,
+    0.986
+   ],
+   "P6": [
+    0.339,
+    1.0
+   ]
+  },
+  "best_nomodel": {
+   "P1": "rules_unconfirmed_then_n_candidates 0.886",
+   "P2": "rules_no_value 0.583",
+   "P6": "rules_no_value 0.817"
+  },
+  "best_nomodel_ci95": {
+   "P1": [
+    0.79,
+    0.963
+   ],
+   "P2": [
+    0.519,
+    0.667
+   ],
+   "P6": [
+    0.726,
+    0.903
+   ]
+  },
+  "margin_minus_best_ci95": {
+   "P1": [
+    -0.336,
+    0.021
+   ],
+   "P2": [
+    0.154,
+    0.436
+   ],
+   "P6": [
+    -0.479,
+    0.19
+   ]
+  },
+  "margin_beats_signal_interval_excludes_0": {
+   "P1": [
+    "ocr",
+    "later_dates",
+    "days_before_latest"
+   ],
+   "P2": [
+    "n_candidates",
+    "ocr",
+    "rules_no_value",
+    "rules_unconfirmed",
+    "later_dates",
+    "days_before_latest",
+    "intervention_typed",
+    "chars",
+    "pages",
+    "rules_unconfirmed_then_n_candidates"
+   ],
+   "P6": []
+  },
+  "residue_values": {
+   "P1": "16 (7 wrong)",
+   "P2": "28 (8 wrong)",
+   "P6": "16 (5 wrong)"
+  },
+  "residue_margin_auroc": {
+   "P1": 0.937,
+   "P2": 0.912,
+   "P6": 0.618
+  },
+  "residue_margin_ci95": {
+   "P1": [
+    0.762,
+    1.0
+   ],
+   "P2": [
+    0.78,
+    1.0
+   ],
+   "P6": [
+    0.208,
+    0.974
+   ]
+  },
+  "residue_best_nomodel": {
+   "P1": "intervention_typed 0.873",
+   "P2": "days_before_latest 0.606",
+   "P6": "chars 0.655"
+  },
+  "residue_margin_minus_best_ci95": {
+   "P1": [
+    -0.156,
+    0.292
+   ],
+   "P2": [
+    0.047,
+    0.513
+   ],
+   "P6": [
+    -0.491,
+    0.364
+   ]
+  }
+ }
+}

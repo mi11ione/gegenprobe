@@ -13,7 +13,7 @@ import json
 import pytest
 
 from gegenprobe import __main__ as cli
-from gegenprobe import affair_cli, llm
+from gegenprobe import affair_cli, affair_product, llm
 from gegenprobe.convert import batch, build_guard, deploy_theta
 from gegenprobe.paths import DATA, ROOT
 
@@ -151,6 +151,7 @@ def test_cli_exit_codes_with_and_without_the_file(route, monkeypatch, capsys, cm
         return 0
     monkeypatch.setattr(cli, "_convert", one_call)
     monkeypatch.setattr(affair_cli, "main_args", one_call)
+    monkeypatch.setattr(affair_product, "main_args", one_call)  # the CLI entry (R21: affair_cli + post layers)
     argv = (["convert", "x.pdf", "--mode", "review", "--backend", "openai"] if cmd == "convert"
             else ["affair", "--opd-affair", "39369", "--mode", "review", "--backend", "openai"])
     assert cli.main(argv) == 3  # no deployment file: the new build is refused

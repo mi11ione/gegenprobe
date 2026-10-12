@@ -85,7 +85,8 @@ def test_lugano_sample_no_longer_mixes_sole_and_joint():
 
 def test_validation_block_lists_the_changed_records():
     rc = json.loads((OUT / "validation_all.json").read_text(encoding="utf-8"))["role_consistency"]
-    assert rc["n_records_changed"] == 2 and sorted(rc["changed"]) == ["p3b:293:106111", "p5:5192:28156"]
+    # R21: P5's records are the command's, which runs the same repair itself (Lugano 28156 arrives repaired)
+    assert rc["n_records_changed"] == 1 and sorted(rc["changed"]) == ["p3b:293:106111"]
     assert all(v["n_violating"] == 0 for v in rc["checked"].values())
     assert set(rc["checked"]) == {"p3", "p3b", "p5", "fed", "p8"}
 

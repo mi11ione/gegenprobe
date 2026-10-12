@@ -28,7 +28,7 @@ REVIEW_MISSES = [
     ("technical_report.md", "Not confirmed: H3a", "Confirmed: H3a"),
     ("README.md", "about three times the rules", "about five times the rules"),
     ("README.md", "doubles extraction", "triples extraction"),
-    ("README.md", "Apertus adds about one document", "Apertus adds about four documents"),
+    ("README.md", "it raises author-role recall by 23.4 points", "it raises author-role recall about four times, by 23.4 points"),
     ("README.md", "The default runs no model.", "The default runs Apertus."),
     ("technical_report.md", "Apertus never writes a value.", "Apertus writes every value."),
     ("docs/form_notes.md", "Apertus only suggests.", "Apertus runs unattended."),
@@ -46,7 +46,8 @@ REVIEW_MISSES = [
     ("docs/form_notes.md", "Yes, if each field says which role its value plays", "Yes, without qualification"),
     ("../README.md", "Yes, if each field says which role its value plays", "Yes, without qualification"),
     ("README.md", "No closed-set arm returned a date printed nowhere", "No arm returned a date printed nowhere"),
-    ("README.md", "The closed set gives it by construction", "The free prompt gives it by construction"),
+    ("README.md", "Every value it returns is printed in the document and",
+     "Every value the free prompt returns is printed in the document and"),
     ("README.md", "rolls the whole transaction back", "never rolls the transaction back"),
     ("README.md", "Ten tests, each with code", "Eleven tests, each with code"),
     ("docs/form_notes.md", "**Ten tests, frozen before any label**", "**Eleven tests, frozen before any label**"),
@@ -55,11 +56,12 @@ REVIEW_MISSES = [
                   "D4, D12)", ""),
     ("technical_report.md", " (P1's hypothesis script followed its labels, D4; its rules came with its sample, D12)", ""),
     # P10 against OPD's contributor list is level (H3a not confirmed), never "ahead"
-    ("README.md", "level with OPD's\ncontributor list", "ahead of OPD's\ncontributor list"),
-    ("technical_report.md", "level with OPD's contributor list", "ahead of OPD's contributor list"),
-    ("docs/form_notes.md", "level with OPD's contributor list", "ahead of OPD's contributor list"),
+    ("README.md", "is not confirmed\n  (+0.12, Holm p = 0.17)", "is ahead of OPD's list\n  (+0.12, Holm p = 0.17)"),
+    ("technical_report.md", "Not confirmed: H3a, over OPD's list", "Ahead: H3a, over OPD's list"),
+    ("docs/form_notes.md", "precision not worse (H1, H2, registered)",
+     "precision ahead of OPD's contributor list (H1, H2, registered)"),
     # where document text goes at runtime
-    ("README.md", "or nothing with the local 8B on CPU.", "or to any provider with the local 8B on CPU."),
+    ("README.md", "or nothing with the local 8B on CPU |", "or to any provider with the local 8B on CPU |"),
     ("technical_report.md", "or the local 8B, where no text leaves the machine)",
      "or any provider, where no text leaves Switzerland)"),
     # P8's sensitivity check
@@ -149,7 +151,7 @@ def test_root_readme_skipped_outside_the_build_context(monkeypatch, tmp_path):
     cfg = {"zones": {"../README.md": {"start": None, "end": None}}}
     monkeypatch.setattr(C, "ROOT", tmp_path / "track_2a")
     assert C.zone_check([], cfg=cfg, anchors={}) == []
-    pcfg = dict(P.config(), pins=[], docs=["../README.md"])
+    pcfg = dict(P.config(), pins=[], docs=["../README.md"], zones={})  # only the root README (no runbook zone)
     assert P.check(pcfg, root=tmp_path / "track_2a") == []
     monkeypatch.setenv("GP_CLAIMS_STRICT", "1")
     assert C.zone_check([], cfg=cfg, anchors={})

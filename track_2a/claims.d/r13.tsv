@@ -1,13 +1,13 @@
 id	shown	file	path	fmt	command	where	context
 r13.p7_hit_pct	94%	results/report/r13_numbers.json	p7.p7.share	pct0	PYTHONPATH=src:. python -m report.r13_numbers	-	
-r13.p7_trivial_hit	127/146	results/report/r13_numbers.json	p7.trivial.date_hit/p7.trivial.n	frac	PYTHONPATH=src:. python -m report.r13_numbers	README.md,technical_report.md	
+r13.p7_trivial_hit	127/146	results/report/r13_numbers.json	p7.trivial.date_hit/p7.trivial.n	frac	PYTHONPATH=src:. python -m report.r13_numbers	-	
 r13.p7_trivial_pct	87%	results/report/r13_numbers.json	p7.trivial.share	pct0	PYTHONPATH=src:. python -m report.r13_numbers	-	
 r13.p7_rule_pct	81%	results/report/r13_numbers.json	p7.rule_any_view.share	pct0	PYTHONPATH=src:. python -m report.r13_numbers	-	
 r13.conv_authors	75	results/report/r13_numbers.json	converter.printed_author_with_role	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.conv_function	78	results/report/r13_numbers.json	converter.instrument_function	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.conv_language_all	105	results/report/r13_numbers.json	converter.language_of_text_all_documents	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.conv_affairs	105	results/report/r13_numbers.json	languages.affairs	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
-r13.tagged_docs	130	results/report/r13_numbers.json	languages.opd_tagged	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
+r13.tagged_docs	210	results/report/r13_numbers.json	languages.opd_tagged	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.fed_it_slot	37,828	results/report/r13_numbers.json	federal.it_slot_answers	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.fed_it_holds_fr	7,165	results/report/r13_numbers.json	federal.it_slot_holds_fr	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.fed_eligible	38,307	results/report/r13_numbers.json	federal.eligible_affairs	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
@@ -39,12 +39,12 @@ r13.pg_relinks	2,421	results/repair/apply_be/apply_BE_pg_check.json	checks.1_app
 r13.pg_begin	554	results/repair/apply_be/apply_BE_pg_check.json	checks.1_apply.affairs_at_after_value	int	python -m gegenprobe.repair.apply_be_pg	README.md	
 r13.pg_review	173	results/repair/apply_be/apply_BE_pg_check.json	begin_date_review_rows	int	python -m gegenprobe.repair.apply_be_pg	README.md	
 r13.pg_server	16.2	results/repair/apply_be/apply_BE_pg_check.json	server	str	python -m gegenprobe.repair.apply_be_pg	README.md	
-r13.p2_mcnemar	0.012	results/eval/posthoc_r3_paired.json	splits.P2.comparisons.pointer~latest_date_on_answer_docs_only.all.p_str	str	PYTHONPATH=src:. python -m eval.posthoc_r3	README.md	
+r13.p2_mcnemar	0.012	results/eval/posthoc_r3_paired.json	splits.P2.comparisons.pointer~latest_date_on_answer_docs_only.all.p_str	str	PYTHONPATH=src:. python -m eval.posthoc_r3	-	
 r13.p2_cluster	0.031	results/eval/posthoc_r3_paired.json	splits.P2.comparisons.pointer~latest_date_on_answer_docs_only.bodies.cluster_permutation_p_str	str	PYTHONPATH=src:. python -m eval.posthoc_r3	-	
 r13.p1_rules_vs_latest	0.48	results/eval/posthoc_r3_paired.json	splits.P1.comparisons.rules~latest_date_on_answer_docs_only.all.p_str	str	PYTHONPATH=src:. python -m eval.posthoc_r3	README.md,technical_report.md	
 r13.fed_null	15/15	results/fed/fed_tables.json	answer_date.arms.converter_CA.strict.ALL.correct_null/answer_date.arms.converter_CA.strict.ALL.n	frac	PYTHONPATH=src:. python -m eval.fed.score	README.md,technical_report.md	
 r13.fed_latest_invented	6/15	results/fed/fed_tables.json	answer_date.arms.latest_printed_date.strict.ALL.invented_on_null/answer_date.arms.latest_printed_date.strict.ALL.n	frac	PYTHONPATH=src:. python -m eval.fed.score	README.md,technical_report.md	
-r13.fed_n	15	results/fed/fed_tables.json	n	int	PYTHONPATH=src:. python -m eval.fed.score	README.md,technical_report.md	
+r13.fed_n	15	results/fed/fed_tables.json	n	int	PYTHONPATH=src:. python -m eval.fed.score	README.md,technical_report.md,docs/ech-onepager.md	
 r13.fed_opd_event	7	results/fed/fed_tables.json	answer_date.metadata_layer.record_carries_opd_answer_event	int	PYTHONPATH=src:. python -m eval.fed.score	-	
 r13.p1_trivial_ci	[78.6, 89.8]	results/report/r13_numbers.json	display.p1_latest_answer_typed_ci	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
 r13.p1_rules_n	135	results/report/r13_numbers.json	display.p1_rules_exact	int	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
@@ -52,11 +52,11 @@ r13.p1_latest_n	131	results/report/r13_numbers.json	display.p1_latest_answer_typ
 r13.p2_cluster_gain	[-0.02, 0.54]	results/report/r13_numbers.json	display.p2_pointer_vs_rules_cluster	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md,README.md	
 r13.p5_prec_cluster	[0.66, 0.97]	results/report/r13_numbers.json	display.p5_precision_parliament_cluster	str	PYTHONPATH=src:. python -m report.r13_numbers	-	
 r13.p2_h2_p	5.3	results/report/r13_numbers.json	display.p2_h2_p_mantissa	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
-r13.p8_ci_submitter	[33.3%, 75.0%]	results/report/r13_numbers.json	display.p8_cluster.submitter	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
-r13.p8_ci_cosign	[6.8%, 46.3%]	results/report/r13_numbers.json	display.p8_cluster.co_signatories	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
-r13.p8_ci_subdate	[57.1%, 91.8%]	results/report/r13_numbers.json	display.p8_cluster.date_submission	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
-r13.p8_ci_type	[76.2%, 95.3%]	results/report/r13_numbers.json	display.p8_cluster.type	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
-r13.p8_ci_language	[83.3%, 100.0%]	results/report/r13_numbers.json	display.p8_cluster.language	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md	
+r13.p8_ci_submitter	[33.3%, 75.0%]	results/report/r13_numbers.json	display.p8_cluster.submitter	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md,docs/ech-onepager.md	
+r13.p8_ci_cosign	[6.8%, 46.3%]	results/report/r13_numbers.json	display.p8_cluster.co_signatories	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md,docs/ech-onepager.md	
+r13.p8_ci_subdate	[57.1%, 91.8%]	results/report/r13_numbers.json	display.p8_cluster.date_submission	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md,docs/ech-onepager.md	
+r13.p8_ci_type	[76.2%, 95.3%]	results/report/r13_numbers.json	display.p8_cluster.type	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md,docs/ech-onepager.md	
+r13.p8_ci_language	[83.3%, 100.0%]	results/report/r13_numbers.json	display.p8_cluster.language	str	PYTHONPATH=src:. python -m report.r13_numbers	technical_report.md,docs/ech-onepager.md	
 r13.p4_invented	0/36	results/eval4/hypotheses4__publicai_swiss-ai_apertus-v1.5-8b.json	H3.invented.0/H3.invented.1	frac	PYTHONPATH=src:. python -m eval.gold4.hypotheses4	-	
 r13.valais_by_number	11/11	results/findings/cross_language_links.json	valais_pairing_by_number.by_number_right/valais_pairing_by_number.gold_answers	frac	python -m gegenprobe.findings.cross_language	-	
 r13.audit3_decoys	60	results/repair/adapters/audit3/sample.json	n_decoys	int	python -m gegenprobe.repair.adapters.audit3 sample	technical_report.md	

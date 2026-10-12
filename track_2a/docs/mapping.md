@@ -63,7 +63,7 @@ Docling's `DoclingDocument` items (texts, tables, pictures) carry `prov` entries
 |---|---|---|---|
 | `Valued.page` | `prov.page_no` | ✓ | Both are 1-based. |
 | `Valued.char_start` / `char_end` | `prov.charspan` | ≈ | Our offsets index into the *page text of our extractor* (pdftotext / tesseract), recorded in `Document.extractor`. Docling's charspan is relative to its own text item. Converting needs a text alignment, not just a re-index. |
-| — | `prov.bbox` | sidecar | The schema carries no box (v0.2 forbids extra fields); `results/schema/v0_2/span_bboxes.jsonl` gives each located value its box on the PDF page (PDF points, origin top left, from `pdftotext -bbox`), keyed by record, value path, document, page and span: 1,582 of the converter's 1,589 spans (the 7 others are federal values in OPD text records). Join on path + doc + page + char_start + char_end for the workbench's side-by-side view. |
+| — | `prov.bbox` | sidecar | The schema carries no box (v0.2 forbids extra fields); `results/schema/v0_2/span_bboxes.jsonl` gives each located value its box on the PDF page (PDF points, origin top left, from `pdftotext -bbox`), keyed by record, value path, document, page and span: 1,573 of the converter's 1,580 spans (the 7 others are federal values in OPD text records). Join on path + doc + page + char_start + char_end for the workbench's side-by-side view. |
 | `DocumentPart(kind=table/image)` | `TableItem` / `PictureItem` | ✓ | Same idea: a referenced part, by page. |
 | `Affair` semantics | — | ✗ | Docling is deliberately domain-agnostic. This schema is the layer above it. |
 

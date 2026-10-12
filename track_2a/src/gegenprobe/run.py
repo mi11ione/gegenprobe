@@ -32,9 +32,11 @@ steps that need the network or a model endpoint and cannot reach them; the repla
   6c affair_cli  the operator command `python -m gegenprobe affair --opd-affair <id> --schema v0.2` on the affairs of
               the three committed v0.2 samples (Bern, Vernier, Lugano): OPD's rows from the committed export slice, the
               documents fetched from their sources, or from OPD's own copy (files.openparldata.ch) where a source fails,
-              sha256-checked against the sample; each record must validate and match its sample's documents, text
-              languages, answer date and Q/A items (SKIP offline, or when no affair could be checked, with each typed
-              reason: source_gone, over_budget, network kinds)
+              sha256-checked against the sample; the command's record carries the post layers of `make schema-v02`
+              (typed gaps, OPD metadata, answer-date roles; gegenprobe.affair_product); each record must validate and
+              match its sample's documents, text languages, answer date, Q/A items, actor roles, date roles (with the
+              answer date's role), answering body and title (SKIP offline, or when no affair could be checked, with each
+              typed reason: source_gone, over_budget, network kinds)
   7 rederive  the P1 rules arm re-derived from the source PDFs (sha256-verified); WARN, never FAIL
   8 rederive_apertus  P1 + P2 pointer and cascade decisions recomputed from the committed model cache, cache-only
               (no request leaves the machine); FAIL only if a cache hit gives a different decision
@@ -80,7 +82,7 @@ STEPS = [
     ("replay", "eval.replay_all", "main"),  # P1-P8 + P3b, 8B analysis, LOCK-LOCK9, committed files (FAIL on any diff)
     ("replay_p10", "eval.replay_p10", "main"),  # P10 gold, arms, H1-H3b + federal tables; LOCK10 + LOCKFED (ten locks + LOCKFED)
     ("schema_v02", "gegenprobe.schema.v0_2_parts", "step"),  # v0.2: 105 converter records (+ document parts) + 66 P8 gold
-    ("affair_cli", "gegenprobe.affair_cli", "step"),  # `gegenprobe affair` on the 3 v0.2 sample affairs (network; SKIP offline)
+    ("affair_cli", "gegenprobe.affair_product", "step"),  # `gegenprobe affair` + post layers on the 3 samples (SKIP offline)
     ("rederive", "eval.rederive", "main"),  # rules arm re-derived from the source PDFs (non-fatal: PASS / WARN / SKIP)
     ("rederive_apertus", "eval.replay_all", "main_rederive"),  # pointer/cascade from the model cache (cache-only)
     ("numbers", "report.numbers_step", "main"),  # summary-number files regenerated in memory, byte-identical (FAIL on a diff)
@@ -138,8 +140,62 @@ def _not_rederived(s: dict) -> str:
     return f" ({', '.join(rest)})" if rest else ""
 
 
-def coverage_line(report: dict) -> str:
-    """One line: how many P1 and P2 Apertus decisions this run re-derived from the model cache, and why the rest were not."""
+CACHE_POPPLER = "26.02.0"  # the committed P1/P2 model cache's prompts were built from this pdftotext (docs/runbook.md)
+CI_RUNS = Path(__file__).resolve().parents[2] / "results" / "ci"
+
+
+def expected_misses(poppler: str | None = None) -> dict:
+    """How many P1 / P2 cache misses this machine's pdftotext is expected to give, and why: 0 with the cache's poppler;
+    for another version, the latest committed CI record of a Docker `make run` with that poppler and no budget cut
+    (results/ci/docker_make_run_*.json); else not measured."""
+    if poppler is None:  # as gegenprobe.pdftext.poppler_version (not imported here: no fetch module in run.py)
+        import re
+        import subprocess
+        try:
+            o = subprocess.run(["pdftotext", "-v"], capture_output=True, text=True)
+            m = re.search(r"version ([\d.]+)", o.stderr + o.stdout)
+            poppler = m.group(1) if m else "unknown"
+        except OSError:
+            poppler = "absent"
+    out = dict(poppler=poppler, cache_poppler=CACHE_POPPLER)
+    if poppler == CACHE_POPPLER:
+        return dict(out, p1=0, p2=0, source="same pdftotext as the model cache")
+    best = None
+    for f in sorted(CI_RUNS.glob("docker_make_run_*.json")):
+        try:
+            d = json.loads(f.read_text(encoding="utf-8"))
+        except ValueError:
+            continue
+        ra = d.get("rederive_apertus") or {}
+        p1, p2 = ra.get("P1") or {}, ra.get("P2") or {}
+        if (str(d.get("image_poppler", "")).startswith(poppler) and not p1.get("over_budget")
+                and not p2.get("over_budget") and (best is None or d["run_id"] > best[0])):
+            best = (d["run_id"], p1.get("cache_miss", 0), p2.get("cache_miss", 0), f.relative_to(CI_RUNS.parents[1]).as_posix())
+    if best is None:
+        return dict(out, p1=None, p2=None, source=f"not measured for poppler {poppler}")
+    return dict(out, p1=best[1], p2=best[2], source=f"CI run {best[0]}", record=best[3])
+
+
+def expected_note(e: dict) -> str:
+    """'expected with poppler 22.12.0: P1 25, P2 5 cache misses (CI run ...): ...' for the rederive_apertus line."""
+    if e.get("p1") == 0 and e.get("p2") == 0:
+        return f"expected 0 cache misses (pdftotext {e['poppler']}, as the model cache)"
+    if e.get("p1") is None:
+        return (f"expected cache misses not measured for pdftotext {e['poppler']} (0 only with {e['cache_poppler']}, the "
+                "model cache's)")
+    return (f"expected with pdftotext {e['poppler']}: P1 {e['p1']}, P2 {e['p2']} cache misses ({e['source']}): the model "
+            f"cache was built on pdftotext {e['cache_poppler']}, which extracts some documents differently, so their "
+            "prompts hash differently; a miss is reported, never scored (docs/runbook.md, poppler in the image)")
+
+
+def coverage_line(report: dict, expected: dict | None = None) -> str:
+    """One line: how many P1 and P2 Apertus decisions this run re-derived from the model cache, and why the rest were not
+    (with `expected`, the cache misses this pdftotext is expected to give and why)."""
+    tail = f"; {expected_note(expected)}" if expected else ""
+    return _coverage_line(report) + tail
+
+
+def _coverage_line(report: dict) -> str:
     cov = replay_coverage(report)
     p1 = next((v for k, v in cov["sets"].items() if k.startswith("P1")), None)
     if p1 is None:
@@ -188,6 +244,13 @@ def main() -> int:
         except Exception as e:
             res = dict(status="FAIL", error=f"{type(e).__name__}: {e}", trace=traceback.format_exc()[-2000:])
         res["secs"] = round(time.time() - s, 1)
+        if name == "rederive_apertus":  # the cache misses this pdftotext is expected to give, and why (J3 R20 #4)
+            try:
+                res["expected_cache_misses"] = expected_misses()
+                if res.get("summary"):
+                    res["summary"] += f"; {expected_note(res['expected_cache_misses'])}"
+            except Exception as e:  # noqa: BLE001 - a note, never a failure
+                res["expected_cache_misses"] = dict(error=f"{type(e).__name__}: {e}")
         report["steps"][name] = res
         line = res.get("summary") or res.get("error") or res.get("reason") or ""
         print(f"[{name:<8}] {res['status']}  ({res['secs']} s)  {line}", flush=True)
@@ -204,7 +267,8 @@ def main() -> int:
     report["skipped"] = skipped_steps(report)
     report["apertus_replay"] = replay_coverage(report)
     (OUT / "run_report.json").write_text(json.dumps(report, indent=1, ensure_ascii=False, default=str))
-    print("\n" + coverage_line(report))
+    exp = (report["steps"].get("rederive_apertus") or {}).get("expected_cache_misses")
+    print("\n" + coverage_line(report, exp if exp and "error" not in exp else None))
     print(result_line(report))
     print(f"Full report: {OUT / 'run_report.json'}")
     if str(report.get("site", "")).endswith("index.html"):

@@ -1,18 +1,18 @@
 id	shown	file	path	fmt	command	where
-r20_e.p2.lead_docs	7	results/report/r20e_numbers.json	p2_lead.exact_docs	int	PYTHONPATH=src:. python -m report.r20e_numbers	README.md,technical_report.md,../README.md
-r20_e.p2.lead_dates	3	results/report/r20e_numbers.json	p2_lead.answer_dates	int	PYTHONPATH=src:. python -m report.r20e_numbers	README.md,technical_report.md,../README.md
+r20_e.p2.lead_docs	7	results/report/r20e_numbers.json	p2_lead.exact_docs	int	PYTHONPATH=src:. python -m report.r20e_numbers	-
+r20_e.p2.lead_dates	3	results/report/r20e_numbers.json	p2_lead.answer_dates	int	PYTHONPATH=src:. python -m report.r20e_numbers	-
 r20_e.dates.no_role_printed	87	results/report/r20e_numbers.json	date_roles.no_role_printed	int	PYTHONPATH=src:. python -m report.r20e_numbers	README.md
-r20_e.prov.conv_record	535	results/report/r20e_numbers.json	provenance.converter_source_record	int	PYTHONPATH=src:. python -m report.r20e_numbers	README.md
+r20_e.prov.conv_record	578	results/report/r20e_numbers.json	provenance.converter_source_record	int	PYTHONPATH=src:. python -m report.r20e_numbers	README.md
 r20_e.night.pending	2,468	results/monitor/two_nights_docker_38187596786/two_nights.json	night2.ledger.pending	int	.github/workflows/nightly-real-docker.yml (run 38187596786)	README.md
 r20_e.night.review	40	results/monitor/two_nights_docker_38187596786/two_nights.json	night2.ledger.review	int	.github/workflows/nightly-real-docker.yml (run 38187596786)	README.md
 r20_e.night.alerts	2	results/monitor/two_nights_docker_38187596786/two_nights.json	night2.alerts	int	.github/workflows/nightly-real-docker.yml (run 38187596786)	README.md
-r20_e.night.exit	3	results/monitor/two_nights_docker_38187596786/two_nights.json	night2.exit_status	str	.github/workflows/nightly-real-docker.yml (run 38187596786)	README.md
+r20_e.night.exit	3	results/monitor/two_nights_docker_38187596786/two_nights.json	night2.exit_status	str	.github/workflows/nightly-real-docker.yml (run 38187596786)	-
 r20_e.night.canary_verified	7	results/monitor/two_nights_docker_38187596786/two_nights.json	night2.adapter_canary.verified	int	.github/workflows/nightly-real-docker.yml (run 38187596786)	-
-r20_e.cvf.p2.closed_printed	32/32	results/eval/closed_vs_free.json	sets.P2.accuracy.pointer.values_among_printed_dates/sets.P2.accuracy.pointer.values	frac	PYTHONPATH=src:. python -m eval.closed_vs_free	README.md,technical_report.md
-r20_e.cvf.p6.closed_printed	35/35	results/eval/closed_vs_free.json	sets.P6.accuracy.v2.values_among_printed_dates/sets.P6.accuracy.v2.values	frac	PYTHONPATH=src:. python -m eval.closed_vs_free	README.md,technical_report.md
+r20_e.cvf.p2.closed_printed	32/32	results/eval/closed_vs_free.json	sets.P2.accuracy.pointer.values_among_printed_dates/sets.P2.accuracy.pointer.values	frac	PYTHONPATH=src:. python -m eval.closed_vs_free	README.md,technical_report.md,docs/form_notes.md,../README.md
+r20_e.cvf.p6.closed_printed	35/35	results/eval/closed_vs_free.json	sets.P6.accuracy.v2.values_among_printed_dates/sets.P6.accuracy.v2.values	frac	PYTHONPATH=src:. python -m eval.closed_vs_free	README.md,technical_report.md,docs/form_notes.md,../README.md
 r20_e.cvf.p2.pointer	53/62	results/eval/closed_vs_free.json	sets.P2.accuracy.pointer.exact	frac	PYTHONPATH=src:. python -m eval.closed_vs_free	README.md,technical_report.md
 r20_e.cvf.p6.free_quote	20/36	results/eval/closed_vs_free.json	sets.P6.review_ranking.free_quote_flag.with_verified_quote/sets.P6.review_ranking.free_quote_flag.values	frac	PYTHONPATH=src:. python -m eval.closed_vs_free	-
-r20_e.p2.n_docs	62	results/report/r20e_numbers.json	p2_lead.n_docs	int	PYTHONPATH=src:. python -m report.r20e_numbers	README.md,technical_report.md,../README.md
-r20_e.p2.n_answered	29	results/report/r20e_numbers.json	p2_lead.n_answered	int	PYTHONPATH=src:. python -m report.r20e_numbers	README.md,technical_report.md,../README.md
-r20_e.dates.records_split_n	24	results/schema/v0_2/validation_all.json	answer_date_roles.records_with_a_split_role	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_parts	README.md,technical_report.md
+r20_e.p2.n_docs	62	results/report/r20e_numbers.json	p2_lead.n_docs	int	PYTHONPATH=src:. python -m report.r20e_numbers	-
+r20_e.p2.n_answered	29	results/report/r20e_numbers.json	p2_lead.n_answered	int	PYTHONPATH=src:. python -m report.r20e_numbers	-
+r20_e.dates.records_split_n	28	results/schema/v0_2/validation_all.json	answer_date_roles.records_with_a_split_role	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_parts	README.md,technical_report.md
 r20_e.man.p11_sessions	3	results/eval/annotation_manifest.json	summary.per_set.P11 (Italian and non-intervention cells).sessions	int	PYTHONPATH=src:. python -m eval.annotation_manifest	README.md,technical_report.md

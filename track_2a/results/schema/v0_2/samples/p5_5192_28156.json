@@ -97,6 +97,22 @@
    "role": "joint_author"
   },
   {
+   "kind": "parliament",
+   "name": {
+    "basis": "inferred",
+    "char_end": 2152,
+    "char_start": 2131,
+    "doc": "opd:396630",
+    "kind": "value",
+    "page": 1,
+    "quote": "al Consiglio comunale",
+    "route": "rule",
+    "rule": "addressed_parliament",
+    "value": "al Consiglio comunale"
+   },
+   "role": "addressed_body"
+  },
+  {
    "kind": "person",
    "name": {
     "doc": "opd:396630",
@@ -106,16 +122,6 @@
     "route": "rule"
    },
    "role": "co_signatory"
-  },
-  {
-   "kind": "other",
-   "name": {
-    "evidence": "gegenprobe.schema.v0_2_gaps: the P5 rules path (Q/A pairs, people, recommendation) does not read the addressed body",
-    "kind": "null",
-    "null_reason": "not_extracted",
-    "route": "rule"
-   },
-   "role": "addressed_body"
   }
  ],
  "answer_link_status": "attached",
@@ -171,10 +177,21 @@
    },
    "label": "printed: heading_place_date",
    "role": "signed"
+  },
+  {
+   "date": {
+    "doc": "opd:18579",
+    "evidence": "the answer document prints no dispatch anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)",
+    "kind": "null",
+    "null_reason": "not_in_document",
+    "route": "rule"
+   },
+   "label": "not carried, counterpart of qa.0.answer_date (answer_decided): not_in_document",
+   "role": "answer_dispatched"
   }
  ],
  "decision": {
-  "evidence": "affair type question (Interrogazione): parliament takes no decision on it",
+  "evidence": "affair type question (None): parliament takes no decision on it",
   "kind": "null",
   "null_reason": "not_applicable",
   "route": "metadata"
@@ -184,10 +201,12 @@
    "doc_id": "opd:396630",
    "extractor": "pdftotext-26.02.0",
    "image_only": false,
+   "language": "it",
    "language_of_text": [
     "it"
    ],
    "language_of_text_method": "stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15)",
+   "language_tag": "it",
    "n_pages": 7,
    "opd_text_status": "ok",
    "parts": [],
@@ -200,10 +219,12 @@
    "doc_id": "opd:18579",
    "extractor": "pdftotext-26.02.0",
    "image_only": false,
+   "language": "it",
    "language_of_text": [
     "it"
    ],
    "language_of_text_method": "stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15)",
+   "language_tag": "it",
    "n_pages": 3,
    "opd_text_status": "ok",
    "parts": [
@@ -227,44 +248,28 @@
    "reason": "none_printed",
    "route": "rule"
   },
-  "languages": {
-   "evidence": "OPD records no language for this affair's documents",
-   "reason": "not_in_corpus",
-   "route": "metadata"
-  },
   "related_affairs": {
-   "evidence": "the P5 rules path does not extract related affairs",
-   "reason": "not_extracted",
+   "evidence": "the converter's related-affair rule found no cited affair number in the documents",
+   "reason": "none_printed",
    "route": "rule"
-  },
-  "title": {
-   "evidence": "the P5 assembly carries no title",
-   "reason": "not_extracted",
-   "route": "metadata"
   }
  },
  "extraction": {
   "builds": [],
-  "converter_version": "gegenprobe P5 rules arm (none)",
-  "created": "2026-10-10T21:08:35Z",
-  "notes": "assembled as a v0.2 affair by gegenprobe.schema.v0_2_all.p5_affair from results/eval6/p5__none.json (R.records) and OPD's census export (number, body, type); no value was changed; v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 6 printed authors (0 earlier entries for the same persons replaced, 1 unconfirmed earlier rule entries dropped), 2 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 1 parts in 1 of 2 documents examined; author roles harmonised by gegenprobe.schema.role_consistency (eval/p8/GUIDE_P8.md section 2: authors printed with equal standing, none designated first, are joint authors): parliamentary_group 'Partito Popolare Democratico e Generazione Giovani' sole_author -> joint_author; typed gaps by gegenprobe.schema.v0_2_gaps.with_gaps: co_signatories not_applicable, addressed_body not_extracted; OPD metadata filled by gegenprobe.schema.v0_2_meta.with_metadata: procedural_state (opd:events/389853), decision (null not_applicable), dates[submitted] (opd:events/389853), qa.0.answering_body (opd:bodies/384#executive_name) (route metadata, no value replaced)",
+  "converter_version": "gegenprobe-0.1.0+affair",
+  "created": "2026-10-12T07:33:19Z",
+  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it); v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 6 printed authors (4 earlier entries for the same persons replaced), 2 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); author roles harmonised by gegenprobe.schema.role_consistency (eval/p8/GUIDE_P8.md section 2: authors printed with equal standing, none designated first, are joint authors): parliamentary_group 'Partito Popolare Democratico e Generazione Giovani' sole_author -> joint_author; Q/A pairing by gegenprobe.schema.v0_2_qa.with_qa (gegenprobe.qa.extract (the P5 rules arm, no model)): 4 questions (enumerated), 3 answer passages located; built by gegenprobe.affair_cli (rules_only) from OPD's export rows (local, saved slice data/affair_cli/opd_rows_p5.json, index generated 2026-10-06T04:43:15Z) and the affair's documents (question opd:396630, answer opd:18579); answer-link status attached from this affair's rows; document parts: 1 by gegenprobe.convert.parts parts-1; document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 1 parts in 1 of 2 documents examined; typed gaps by gegenprobe.schema.v0_2_gaps.with_gaps: co_signatories not_applicable; OPD metadata filled by gegenprobe.schema.v0_2_meta.with_metadata: government_recommendation (type.harmonised question), qa.0.answering_body (opd:bodies/384#executive_name) (route metadata, no value replaced); answer-date roles by gegenprobe.schema.v0_2_dates.with_date_roles: qa.0.answer_date answer_decided (rule_role: frozen rule it_ris_label reads a decision date printed with its role (gegenprobe.convert.rules)), dates.3 answer_dispatched (not_in_document: the answer document prints no dispatch anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl))",
   "schema_version": "0.2.0"
  },
  "government_recommendation": {
-  "basis": "inferred",
-  "char_end": 178,
-  "char_start": 164,
-  "context": "extent p1:164 - p1:178",
-  "doc": "opd:396630",
-  "kind": "value",
-  "page": 1,
-  "quote": "INTERROGAZIONE",
-  "role": "recommendation",
-  "route": "rule",
-  "rule": "type_interpellation_or_question",
-  "value": "not_applicable"
+  "evidence": "affair type question (None): the executive answers it and makes no recommendation on it (the converter writes this for an interpellation; the type was read as unknown when the rules ran, which then found no recommendation anchor)",
+  "kind": "null",
+  "null_reason": "not_applicable",
+  "route": "metadata"
  },
- "languages": [],
+ "languages": [
+  "it"
+ ],
  "procedural_state": {
   "basis": "metadata",
   "kind": "value",
@@ -275,16 +280,23 @@
  "qa": [
   {
    "answer_date": {
-    "evidence": "the answer date is not extracted by the P5 rules path (Q/A pairs, people, recommendation)",
-    "kind": "null",
-    "null_reason": "not_extracted",
-    "route": "rule"
+    "basis": "normalised",
+    "char_end": 115,
+    "char_start": 105,
+    "doc": "opd:18579",
+    "kind": "value",
+    "page": 1,
+    "quote": "07/07/2016",
+    "role": "answer_decided",
+    "route": "rule",
+    "rule": "it_ris_label",
+    "value": "2016-07-07"
    },
    "answer_doc": "opd:18579",
    "answer_identifier": {
-    "evidence": "the decision number is not extracted by the P5 rules path (Q/A pairs, people, recommendation)",
+    "evidence": "decision number carried on answer_date.decision_number",
     "kind": "null",
-    "null_reason": "not_extracted",
+    "null_reason": "present_unanchored",
     "route": "rule"
    },
    "answering_body": {
@@ -312,12 +324,11 @@
       "doc": "opd:396630",
       "kind": "value",
       "page": 7,
-      "quote": "1. Non ritiene il Municipio che la mozione Merlo meritasse una (doverosa) rispos…",
-      "quote_sha256": "fe67e8737a06c984d976cc7a5c7aed83e71e9f852424720f05c1a70009b93589",
+      "quote": "1. Non ritiene il Municipio che la mozione Merlo meritasse una (doverosa) risposta?",
       "role": "question",
       "route": "rule",
       "rule": "question_item",
-      "value": "1. Non ritiene il Municipio che la mozione Merlo meritasse una (doverosa) rispos…"
+      "value": "1. Non ritiene il Municipio che la mozione Merlo meritasse una (doverosa) risposta?"
      }
     },
     {
@@ -329,12 +340,11 @@
       "doc": "opd:18579",
       "kind": "value",
       "page": 2,
-      "quote": "Il Municipio è consapevole del fatto che il diritto di riscatto esiste e che, a …",
-      "quote_sha256": "51a7b468a3dc6c2439d782d5d60ac8edc366bb9503915cd522964eeccfa035f0",
+      "quote": "Il Municipio è consapevole del fatto che il diritto di riscatto esiste e che, a determinate\ncondizioni potrebbe essere esercitato. Per farlo occorre tuttavia valutarne le conseguenze.\nGli stessi interroganti ricordano che nelle proprie osservazioni del 10 aprile 2001 al\nprimo rapporto della Commissione della Gestione sulla Mozione il Municipio scriveva\nche \"l'incameramento nei beni comunali dei be",
       "role": "answer",
       "route": "rule",
       "rule": "reprinted_question",
-      "value": "Il Municipio è consapevole del fatto che il diritto di riscatto esiste e che, a …"
+      "value": "Il Municipio è consapevole del fatto che il diritto di riscatto esiste e che, a determinate\ncondizioni potrebbe essere esercitato. Per farlo occorre tuttavia valutarne le conseguenze.\nGli stessi interroganti ricordano che nelle proprie osservazioni del 10 aprile 2001 al\nprimo rapporto della Commissione della Gestione sulla Mozione il Municipio scriveva\nche \"l'incameramento nei beni comunali dei be"
      },
      "n": 2,
      "question": {
@@ -345,12 +355,11 @@
       "doc": "opd:396630",
       "kind": "value",
       "page": 7,
-      "quote": "2. Quale sarebbe stata la posizione del Municipio nel caso in cui la commissione…",
-      "quote_sha256": "92ab46a05d8d8ad7dcc9e3bce278f6da646fe1ab7066f5326534a627d133b2e7",
+      "quote": "2. Quale sarebbe stata la posizione del Municipio nel caso in cui la commissione speciale avesse\npresentato un rapporto?",
       "role": "question",
       "route": "rule",
       "rule": "question_item",
-      "value": "2. Quale sarebbe stata la posizione del Municipio nel caso in cui la commissione…"
+      "value": "2. Quale sarebbe stata la posizione del Municipio nel caso in cui la commissione speciale avesse\npresentato un rapporto?"
      }
     },
     {
@@ -362,12 +371,11 @@
       "doc": "opd:18579",
       "kind": "value",
       "page": 2,
-      "quote": "È opportuno ricordare che anche in quest'ambito le regole sono cambiate da quand…",
-      "quote_sha256": "e4c0db1caefcb3ba05193fc059555093bfd5bb0fb2d13ef737982d40c4bfc8d1",
+      "quote": "È opportuno ricordare che anche in quest'ambito le regole sono cambiate da quando\nvenne presentata la mozione.\nLa perizia Knapp, allestita nel mese di dicembre del 2000, concludeva che la legislazione\nticinese non conteneva alcuna norma che consentisse di conferire al Consiglio Comunale\no a una sua Commissione il potere di dare ai rappresentanti del Comune nelle società\npartecipate delle istruzion",
       "role": "answer",
       "route": "rule",
       "rule": "reprinted_question+joint_empty",
-      "value": "È opportuno ricordare che anche in quest'ambito le regole sono cambiate da quand…"
+      "value": "È opportuno ricordare che anche in quest'ambito le regole sono cambiate da quando\nvenne presentata la mozione.\nLa perizia Knapp, allestita nel mese di dicembre del 2000, concludeva che la legislazione\nticinese non conteneva alcuna norma che consentisse di conferire al Consiglio Comunale\no a una sua Commissione il potere di dare ai rappresentanti del Comune nelle società\npartecipate delle istruzion"
      },
      "n": 3,
      "question": {
@@ -378,12 +386,11 @@
       "doc": "opd:396630",
       "kind": "value",
       "page": 7,
-      "quote": "3. Non ritiene il Municipio corretto sottoporre al Consiglio comunale prima dell…",
-      "quote_sha256": "9c063c32fc490c7aee516dee88b6a1b36c3eea5efdda9c49889d08565c5db11a",
+      "quote": "3. Non ritiene il Municipio corretto sottoporre al Consiglio comunale prima dell’Assemblea\ngenerale della Casinò Lugano SA e di tutte le altre società di cui il Comune è azionista, i temi\nin discussione, affinché la persona designata a rappresentare le azioni della Città riceva le\nnecessarie istruzioni vincolanti?",
       "role": "question",
       "route": "rule",
       "rule": "question_item",
-      "value": "3. Non ritiene il Municipio corretto sottoporre al Consiglio comunale prima dell…"
+      "value": "3. Non ritiene il Municipio corretto sottoporre al Consiglio comunale prima dell’Assemblea\ngenerale della Casinò Lugano SA e di tutte le altre società di cui il Comune è azionista, i temi\nin discussione, affinché la persona designata a rappresentare le azioni della Città riceva le\nnecessarie istruzioni vincolanti?"
      }
     },
     {
@@ -395,12 +402,11 @@
       "doc": "opd:18579",
       "kind": "value",
       "page": 2,
-      "quote": "È opportuno ricordare che anche in quest'ambito le regole sono cambiate da quand…",
-      "quote_sha256": "e4c0db1caefcb3ba05193fc059555093bfd5bb0fb2d13ef737982d40c4bfc8d1",
+      "quote": "È opportuno ricordare che anche in quest'ambito le regole sono cambiate da quando\nvenne presentata la mozione.\nLa perizia Knapp, allestita nel mese di dicembre del 2000, concludeva che la legislazione\nticinese non conteneva alcuna norma che consentisse di conferire al Consiglio Comunale\no a una sua Commissione il potere di dare ai rappresentanti del Comune nelle società\npartecipate delle istruzion",
       "role": "answer",
       "route": "rule",
       "rule": "reprinted_question",
-      "value": "È opportuno ricordare che anche in quest'ambito le regole sono cambiate da quand…"
+      "value": "È opportuno ricordare che anche in quest'ambito le regole sono cambiate da quando\nvenne presentata la mozione.\nLa perizia Knapp, allestita nel mese di dicembre del 2000, concludeva che la legislazione\nticinese non conteneva alcuna norma che consentisse di conferire al Consiglio Comunale\no a una sua Commissione il potere di dare ai rappresentanti del Comune nelle società\npartecipate delle istruzion"
      },
      "n": 4,
      "question": {
@@ -411,12 +417,11 @@
       "doc": "opd:396630",
       "kind": "value",
       "page": 7,
-      "quote": "4. In questo senso, non ritiene il Municipio necessario codificare questa prassi…",
-      "quote_sha256": "cc147c1cd9ddb6b8c70e36a6da40763b8f4c1fc0a90191fdddfe70b4535a13ae",
+      "quote": "4. In questo senso, non ritiene il Municipio necessario codificare questa prassi in un articolo del\nRegolamento comunale?",
       "role": "question",
       "route": "rule",
       "rule": "question_item",
-      "value": "4. In questo senso, non ritiene il Municipio necessario codificare questa prassi…"
+      "value": "4. In questo senso, non ritiene il Municipio necessario codificare questa prassi in un articolo del\nRegolamento comunale?"
      }
     }
    ],
@@ -432,7 +437,9 @@
  },
  "related_affairs": [],
  "schema_version": "0.2.0",
- "title": {},
+ "title": {
+  "it": "\"Anche Paolo Merlo, dopo 16 anni, merita una risposta!\""
+ },
  "type": {
   "harmonised": "question",
   "instrument_function": {
@@ -459,7 +466,6 @@
    "rule": "roles-2:instrument:heading",
    "value": "question"
   },
-  "opd_harmonised_id": 12,
-  "source_label": "Interrogazione"
+  "opd_harmonised_id": 12
  }
 }

@@ -27,7 +27,10 @@
                              [--out FILE]
       One OPD affair -> one validated schema v0.2 record: OPD's export rows (affair, events, contributors, document rows)
       plus the affair's question and answer documents, through the converter's record pipeline (affair.build,
-      affair_post, schema.v0_2_all); typed nulls, needs_review as affair_post. A typed failure exits 2. --roles apertus
+      affair_post, schema.v0_2_all), then the post layers of `make schema-v02` (typed gaps, OPD metadata: answering
+      body / state / decision, answer-date roles; gegenprobe/affair_product.py), so it writes what the published
+      records show; a federal affair (body CHE) is read from OPD's texts export as the federal cell's records; typed
+      nulls, needs_review as affair_post. A typed failure exits 2. --roles apertus
       (opt-in) adds the frozen P10 role reader's roles under suggestions.actors, each review: true; never applied;
       --roles-fallback opd (off by default) offers OPD's contributor list where the reader suggests no author.
       Docs: docs/affair.md (gegenprobe/affair_cli.py).
@@ -207,7 +210,9 @@ def main(argv: list[str] | None = None) -> int:
         from .convert.build_guard import BuildMismatch
         try:
             with deploy_theta.installed():  # a deployment θ for a re-built route (data/deploy/; convert/deploy_theta.py)
-                return affair_cli.main_args(a)
+                from . import affair_product  # affair_cli's record + the post layers of `make schema-v02`
+
+                return affair_product.main_args(a)
         except BuildMismatch as e:  # review mode: the served model is not the build θ was fitted on
             print(str(e), file=sys.stderr)
             return 3

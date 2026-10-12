@@ -60,10 +60,10 @@ J5_R18_MISSES = [
     ("Q7 free to run", [("../README.md", "- **Sovereign and cheap to run:**", "- **Sovereign and free to run:**")]),
     ("C9 dominating", [("../README.md", "the Apertus pointer is exact on 12/12 Italian answers\n  (the latest printed date",
                         "the Apertus pointer is exact on 12/12 Italian answers\n  (dominating the latest printed date")]),
-    ("C12 dramatically improves", [("README.md", "Apertus adds precision deciding who is an author",
-                                    "Apertus dramatically improves precision deciding who is an author")]),
-    ("C1 precision -> recall", [("README.md", "Apertus adds precision deciding who is an author (+7.3 points, post hoc)",
-                                 "Apertus adds recall deciding who is an author (+7.3 points, post hoc)")]),
+    ("C12 dramatically improves", [("README.md", "it raises author-role recall by 23.4 points",
+                                    "it dramatically improves author-role recall by 23.4 points")]),
+    ("C1 precision -> recall", [("README.md", "with precision not worse (P10, H1 and H2, registered)",
+                                 "with recall not worse (P10, H1 and H2, registered)")]),
     ("W6 caveat deleted", [("technical_report.md",
                             "the rules on 8/12 (in-sample in three);",
                             "the rules on 8/12;")]),
@@ -159,10 +159,10 @@ def test_scoped_snapshot_matches_the_committed_docs():
 
 
 @pytest.mark.parametrize("doc,before,after", [
-    ("README.md", "(+7.3 points, post hoc)", "(+7.3 points)"),
+    ("README.md", "(unweighted +7.5 [3.4, 12.2])", "(+7.5 [3.4, 12.2])"),
     ("README.md", "F1 is 0.80 (in-sample)", "F1 is 0.80"),
-    ("README.md", "each on its own promotions (not paired)", "each on its own promotions"),
-    ("technical_report.md", "+7.3 points precision [0.8, 18.2] (uncorrected)", "+7.3 points precision [0.8, 18.2]"),
+    ("README.md", "2/29 (P2, registered)", "2/29 (P2)"),
+    ("technical_report.md", "36/43 (exploratory, post hoc, `oos_role_fit.json`)", "36/43 (`oos_role_fit.json`)"),
     ("README.md", "92.1%** would have answer text once the proposed repairs are applied",
      "92.1%** have answer text after the repairs"),
 ])
@@ -177,9 +177,9 @@ def test_removing_a_scoping_word_next_to_a_claim_fails(doc, before, after, rows,
 
 def test_adding_a_caveat_never_fails():
     docs = _docs()
-    before = "each on its own promotions (not paired)"
+    before = "(P7, H1, registered)"
     assert before in docs["README.md"]
-    docs["README.md"] = docs["README.md"].replace(before, "each on its own promotions (not paired, post hoc, uncorrected)", 1)
+    docs["README.md"] = docs["README.md"].replace(before, "(P7, H1, registered, uncorrected, at most)", 1)
     assert C.scoped_check(docs=docs) == []
 
 

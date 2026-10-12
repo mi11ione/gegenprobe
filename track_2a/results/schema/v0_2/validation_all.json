@@ -4,13 +4,13 @@
  "sources": {
   "p3": "results/eval3/p3__publicai_swiss-ai_apertus-v1.5-8b.json",
   "p3b": "results/eval5/p3b__none.json",
-  "p5": "results/eval6/p5__none.json (R.records) + data/census/affairs.tsv.gz, bodies.tsv.gz + data/gold6/p5_affairs.jsonl",
+  "p5": "results/schema/v0_2/p5_affair_cli.jsonl (python -m gegenprobe.affair_product p5: the operator command on P5's documents; OPD rows data/affair_cli/opd_rows_p5.json)",
   "p8": "results/schema/v0_2/p8_records.jsonl (gegenprobe.schema.p8_v0_2, P8 gold labels)"
  },
  "record_makers": {
   "p3": "converter (rules_only product record) + affair_post.finalize + gegenprobe.schema.v0_2_all.carry_v0_1",
   "p3b": "converter (rules_only product record) + affair_post.finalize + gegenprobe.schema.v0_2_all.carry_v0_1",
-  "p5": "converter P5 rules arm + gegenprobe.schema.v0_2_all.p5_affair",
+  "p5": "converter (rules_only product record, `python -m gegenprobe affair`) + affair_post.finalize + gegenprobe.schema.v0_2_all.carry_v0_1 (R21: replaces the P5 rules arm's assembly gegenprobe.schema.v0_2_all.p5_affair so the published P5 records are the command's)",
   "p8": "P8 gold labels (route annotator)"
  },
  "n_affairs": 171,
@@ -28,11 +28,12 @@
   "n_parliaments": 22
  },
  "product_records": {
-  "n_affairs": 65,
-  "n_valid": 65,
+  "n_affairs": 105,
+  "n_valid": 105,
   "sets": [
    "p3",
-   "p3b"
+   "p3b",
+   "p5"
   ]
  },
  "sets": {
@@ -65,10 +66,10 @@
      "present_unanchored": 2
     },
     "null_reasons": {
-     "not_applicable": 43,
+     "not_applicable": 54,
      "not_in_corpus": 2,
      "not_in_document": 37,
-     "present_unanchored": 107
+     "present_unanchored": 96
     },
     "qa_items": {
      "none": 3,
@@ -89,8 +90,8 @@
      "printed_date:signed": 8
     },
     "routes": {
-     "metadata": 149,
-     "rule": 585
+     "metadata": 160,
+     "rule": 574
     },
     "v02_additions_used": {
      "actor_role:joint_author": 22,
@@ -133,10 +134,10 @@
      "present_unanchored": 1
     },
     "null_reasons": {
-     "not_applicable": 40,
+     "not_applicable": 60,
      "not_in_corpus": 8,
      "not_in_document": 50,
-     "present_unanchored": 153
+     "present_unanchored": 133
     },
     "qa_items": {
      "none": 4,
@@ -157,8 +158,8 @@
      "printed_date:signed": 21
     },
     "routes": {
-     "metadata": 209,
-     "rule": 734
+     "metadata": 229,
+     "rule": 714
     },
     "v02_additions_used": {
      "actor_role:joint_author": 12,
@@ -180,34 +181,32 @@
    "n_parliaments": 10,
    "counts": {
     "actor_roles": {
-     "addressed_body": 32,
-     "co_signatory": 173,
+     "addressed_body": 40,
+     "co_signatory": 218,
      "first_signatory": 5,
      "joint_author": 12,
      "sole_author": 14,
      "spokesperson": 18,
-     "submitter": 11
+     "submitter": 21
     },
     "date_roles": {
-     "answer_decided": 3,
-     "answer_dispatched": 3,
+     "answer_decided": 4,
+     "answer_dispatched": 6,
      "answered": 19,
      "lodged": 4,
      "signed": 23,
      "submitted": 40
     },
     "empty_reasons": {
-     "none_printed": 48,
-     "not_extracted": 80,
-     "not_in_corpus": 28,
-     "present_unanchored": 7
+     "none_printed": 94,
+     "present_unanchored": 1
     },
     "null_reasons": {
-     "not_applicable": 30,
-     "not_extracted": 92,
-     "not_in_corpus": 12,
-     "not_in_document": 56,
-     "present_unanchored": 31
+     "not_applicable": 59,
+     "not_extracted": 2,
+     "not_in_corpus": 20,
+     "not_in_document": 47,
+     "present_unanchored": 126
     },
     "qa_items": {
      "none": 7,
@@ -228,8 +227,8 @@
      "printed_date:signed": 23
     },
     "routes": {
-     "metadata": 202,
-     "rule": 825
+     "metadata": 266,
+     "rule": 828
     },
     "v02_additions_used": {
      "actor_role:joint_author": 12,
@@ -239,7 +238,7 @@
      "date_role:signed": 23,
      "instrument_function": 28,
      "language_of_text": 40,
-     "quote_sha256": 557
+     "quote_sha256": 274
     }
    }
   },
@@ -559,7 +558,7 @@
     "records_with_items": 33,
     "items": 175,
     "answers_located": 143,
-    "source": "results/eval6/p5__none.json (R.records, the P5 rules arm)"
+    "source": "the operator command's pairing (gegenprobe.affair_cli: gegenprobe.schema.v0_2_qa.pair, the P5 rules) in results/schema/v0_2/p5_affair_cli.jsonl"
    }
   },
   "records_with_items_before_overlay": {
@@ -571,16 +570,9 @@
  "role_consistency": {
   "rules": "R1 at most one sole_author; R2 sole_author excludes joint_author; R3 a person sole_author excludes a first_signatory; R4 joint_author excludes first_signatory and needs another joint author (gegenprobe.schema.role_consistency, from eval/p8/GUIDE_P8.md section 2)",
   "repair": "R2: every sole_author next to a joint_author becomes joint_author (GUIDE_P8: authors printed with equal standing, none designated first); names, pages, spans and rules unchanged",
-  "n_records_changed": 2,
+  "n_records_changed": 1,
   "changed": {
    "p3b:293:106111": [
-    {
-     "kind": "parliamentary_group",
-     "was": "sole_author",
-     "now": "joint_author"
-    }
-   ],
-   "p5:5192:28156": [
     {
      "kind": "parliamentary_group",
      "was": "sole_author",
@@ -653,22 +645,22 @@
   "anchors": "results/schema/v0_2/answer_date_anchors.jsonl (python -m gegenprobe.schema.v0_2_dates detect)",
   "trust": "results/census/date_trust.json",
   "n_records": 120,
-  "n_answer_date_values": 139,
-  "values_role_split": 38,
-  "values_role_answered": 101,
+  "n_answer_date_values": 142,
+  "values_role_split": 42,
+  "values_role_answered": 100,
   "values_by_role": {
-   "answer_decided": 22,
-   "answer_dispatched": 16,
-   "answered": 101
+   "answer_decided": 25,
+   "answer_dispatched": 17,
+   "answered": 100
   },
-  "records_with_an_answer_date": 77,
-  "records_with_a_split_role": 24,
+  "records_with_an_answer_date": 83,
+  "records_with_a_split_role": 28,
   "counterparts": {
-   "n": 24,
+   "n": 28,
    "by_role_reason": {
-    "answer_decided:not_in_document": 11,
-    "answer_dispatched:not_in_document": 10,
-    "answer_dispatched:present_unanchored": 3
+    "answer_decided:not_in_document": 12,
+    "answer_dispatched:not_in_document": 11,
+    "answer_dispatched:present_unanchored": 5
    },
    "note": "where a record's answer dates carry one split role, the other role is a typed null in dates[] (not_in_document: no such anchor printed; not_extracted: the anchor is printed but the rules return one date; present_unanchored: only a bare date line that names no role)"
   },
@@ -676,27 +668,27 @@
   "totals": {
    "before": {
     "dates:answered": 71,
-    "qa:none": 68
+    "qa:none": 71
    },
    "after": {
     "dates:answer_decided": 9,
-    "dates:answer_decided:typed_null": 11,
+    "dates:answer_decided:typed_null": 12,
     "dates:answer_dispatched": 5,
-    "dates:answer_dispatched:typed_null": 13,
+    "dates:answer_dispatched:typed_null": 16,
     "dates:answered": 57,
-    "qa:answer_decided": 13,
-    "qa:answer_dispatched": 11,
-    "qa:answered": 44
+    "qa:answer_decided": 16,
+    "qa:answer_dispatched": 12,
+    "qa:answered": 43
    }
   },
   "by_source": {
    "answer_decided:printed_anchor": 18,
-   "answer_decided:rule_role": 4,
-   "answer_dispatched:printed_anchor": 10,
-   "answer_dispatched:rule_role": 6,
-   "answered:not_at_anchor": 50,
-   "answered:same_as_submission": 14,
-   "answered:unlabelled_date_line": 37
+   "answer_decided:rule_role": 7,
+   "answer_dispatched:printed_anchor": 9,
+   "answer_dispatched:rule_role": 8,
+   "answered:not_at_anchor": 45,
+   "answered:same_as_submission": 13,
+   "answered:unlabelled_date_line": 42
   },
   "by_parliament": {
    "261": {
@@ -709,11 +701,15 @@
     "answered": 2
    },
    "5192": {
-    "answered": 4
+    "answer_decided": 1,
+    "answered": 2
    },
    "5586": {
-    "answer_decided": 1,
-    "answered": 9
+    "answer_decided": 3,
+    "answered": 8
+   },
+   "6152": {
+    "answered": 4
    },
    "6643": {
     "answered": 14
@@ -722,8 +718,8 @@
     "answer_decided": 6
    },
    "BL": {
-    "answer_dispatched": 12,
-    "answered": 3
+    "answer_dispatched": 13,
+    "answered": 2
    },
    "BS": {
     "answer_decided": 3,
@@ -748,7 +744,7 @@
     "answered": 6
    },
    "SH": {
-    "answered": 4
+    "answered": 3
    },
    "TI": {
     "answer_decided": 6
@@ -792,14 +788,16 @@
    "p5": {
     "before": {
      "dates:answered": 22,
-     "qa:none": 22
+     "qa:none": 25
     },
     "after": {
-     "dates:answer_decided:typed_null": 3,
+     "dates:answer_decided:typed_null": 4,
      "dates:answer_dispatched": 3,
+     "dates:answer_dispatched:typed_null": 3,
      "dates:answered": 19,
-     "qa:answer_dispatched": 3,
-     "qa:answered": 19
+     "qa:answer_decided": 3,
+     "qa:answer_dispatched": 4,
+     "qa:answered": 18
     }
    },
    "fed": {
@@ -2270,8 +2268,8 @@
     "value": "2011-11-29",
     "tier": "sitting_day",
     "role": "answer_dispatched",
-    "source": "printed_anchor",
-    "detail": "printed at the dispatch anchor signature_block of opd:305863 p4:330-347",
+    "source": "rule_role",
+    "detail": "frozen rule signature_block reads a dispatch date printed with its role (gegenprobe.convert.rules)",
     "role_frozen_mapping": "answer_dispatched"
    },
    {
@@ -2303,12 +2301,24 @@
     "body": "BL",
     "opd_id": 131418,
     "path": "qa.0.answer_date",
-    "value": "2016-11-16",
+    "value": "2016-11-15",
     "tier": "sitting_day",
-    "role": "answered",
-    "reason": "not_at_anchor",
-    "detail": "opd:356417 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
-    "role_frozen_mapping": "answered"
+    "role": "answer_dispatched",
+    "source": "rule_role",
+    "detail": "frozen rule signature_block reads a dispatch date printed with its role (gegenprobe.convert.rules)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "BL",
+    "opd_id": 131418,
+    "path": "dates.3",
+    "value": null,
+    "tier": "sitting_day",
+    "role": "answer_decided",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no decision anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
    },
    {
     "set": "p5",
@@ -2397,18 +2407,6 @@
    {
     "set": "p5",
     "body": "SH",
-    "opd_id": 79626,
-    "path": "qa.0.answer_date",
-    "value": "2009-08-07",
-    "tier": "same_day",
-    "role": "answered",
-    "reason": "same_as_submission",
-    "detail": "the answer date equals a submission date of this record (date-trust tier same_day)",
-    "role_frozen_mapping": "answered"
-   },
-   {
-    "set": "p5",
-    "body": "SH",
     "opd_id": 169918,
     "path": "dates.1",
     "value": "2011-07-18",
@@ -2543,12 +2541,24 @@
     "body": "5586",
     "opd_id": 29393,
     "path": "qa.0.answer_date",
-    "value": "2025-03-07",
+    "value": "2025-03-06",
     "tier": "diffuse",
-    "role": "answered",
-    "reason": "not_at_anchor",
-    "detail": "opd:347273 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
-    "role_frozen_mapping": "answered"
+    "role": "answer_decided",
+    "source": "rule_role",
+    "detail": "frozen rule fr_adopte_seance reads a decision date printed with its role (gegenprobe.convert.rules)",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p5",
+    "body": "5586",
+    "opd_id": 29393,
+    "path": "dates.3",
+    "value": null,
+    "tier": "diffuse",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "present_unanchored",
+    "detail": "the document prints a bare date (place_date_head at p1:286-297) that may be the letter's date but names no role"
    },
    {
     "set": "p5",
@@ -2567,12 +2577,36 @@
     "body": "5586",
     "opd_id": 120219,
     "path": "qa.0.answer_date",
-    "value": "2023-12-08",
+    "value": "2023-12-07",
+    "tier": "diffuse",
+    "role": "answer_decided",
+    "source": "rule_role",
+    "detail": "frozen rule fr_adopte_seance reads a decision date printed with its role (gegenprobe.convert.rules)",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p5",
+    "body": "5586",
+    "opd_id": 120219,
+    "path": "dates.3",
+    "value": null,
+    "tier": "diffuse",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "present_unanchored",
+    "detail": "the document prints a bare date (place_date_head at p1:192-207) that may be the letter's date but names no role"
+   },
+   {
+    "set": "p5",
+    "body": "5586",
+    "opd_id": 120342,
+    "path": "qa.0.answer_date",
+    "value": "2024-06-03",
     "tier": "diffuse",
     "role": "answered",
-    "reason": "not_at_anchor",
-    "detail": "opd:347262 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
-    "role_frozen_mapping": "answered"
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_tail) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
    },
    {
     "set": "p5",
@@ -2672,6 +2706,78 @@
    },
    {
     "set": "p5",
+    "body": "6152",
+    "opd_id": 328238,
+    "path": "qa.0.answer_date",
+    "value": "2020-03-10",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_head) that names no role: a letter's date or the date of the government sitting (date-trust tier sitting_day)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "6152",
+    "opd_id": 328273,
+    "path": "qa.0.answer_date",
+    "value": "2018-10-12",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_head) that names no role: a letter's date or the date of the government sitting (date-trust tier sitting_day)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "6152",
+    "opd_id": 328413,
+    "path": "qa.0.answer_date",
+    "value": "2020-01-27",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_head) that names no role: a letter's date or the date of the government sitting (date-trust tier sitting_day)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "6152",
+    "opd_id": 328247,
+    "path": "qa.0.answer_date",
+    "value": "2020-10-14",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_head) that names no role: a letter's date or the date of the government sitting (date-trust tier sitting_day)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "5192",
+    "opd_id": 28156,
+    "path": "qa.0.answer_date",
+    "value": "2016-07-07",
+    "tier": "diffuse",
+    "role": "answer_decided",
+    "source": "rule_role",
+    "detail": "frozen rule it_ris_label reads a decision date printed with its role (gegenprobe.convert.rules)",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p5",
+    "body": "5192",
+    "opd_id": 28156,
+    "path": "dates.3",
+    "value": null,
+    "tier": "diffuse",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no dispatch anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p5",
     "body": "5192",
     "opd_id": 27659,
     "path": "dates.1",
@@ -2685,32 +2791,8 @@
    {
     "set": "p5",
     "body": "5192",
-    "opd_id": 27659,
-    "path": "qa.0.answer_date",
-    "value": "2020-10-19",
-    "tier": "diffuse",
-    "role": "answered",
-    "reason": "not_at_anchor",
-    "detail": "opd:190240 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
-    "role_frozen_mapping": "answered"
-   },
-   {
-    "set": "p5",
-    "body": "5192",
     "opd_id": 27657,
     "path": "dates.1",
-    "value": "2020-09-14",
-    "tier": "diffuse",
-    "role": "answered",
-    "reason": "not_at_anchor",
-    "detail": "opd:243689 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
-    "role_frozen_mapping": "answered"
-   },
-   {
-    "set": "p5",
-    "body": "5192",
-    "opd_id": 27657,
-    "path": "qa.0.answer_date",
     "value": "2020-09-14",
     "tier": "diffuse",
     "role": "answered",
@@ -2735,7 +2817,7 @@
     "body": "GR",
     "opd_id": 288671,
     "path": "qa.0.answer_date",
-    "value": "2026-02-26",
+    "value": "2026-02-24",
     "tier": "diffuse",
     "role": "answered",
     "reason": "unlabelled_date_line",
@@ -2759,7 +2841,7 @@
     "body": "GR",
     "opd_id": 280476,
     "path": "qa.0.answer_date",
-    "value": "2026-01-15",
+    "value": "2026-01-13",
     "tier": "diffuse",
     "role": "answered",
     "reason": "unlabelled_date_line",
@@ -2783,7 +2865,7 @@
     "body": "GR",
     "opd_id": 247748,
     "path": "qa.0.answer_date",
-    "value": "2025-08-20",
+    "value": "2025-08-19",
     "tier": "diffuse",
     "role": "answered",
     "reason": "unlabelled_date_line",
@@ -2807,7 +2889,7 @@
     "body": "GR",
     "opd_id": 75591,
     "path": "qa.0.answer_date",
-    "value": "2025-06-13",
+    "value": "2025-06-10",
     "tier": "diffuse",
     "role": "answered",
     "reason": "unlabelled_date_line",
@@ -2904,8 +2986,8 @@
   "label": "POST HOC (R20): a typed reason for every role the converter's records left silent; nothing replaced, no model; make schema-v02 fails on a converter record with an untyped cell",
   "overlay": "gegenprobe.schema.v0_2_gaps.with_gaps",
   "addressed_rule": "results/schema/v0_2/addressed_body_rule.jsonl (python -m gegenprobe.schema.v0_2_gaps detect)",
-  "addressed_rule_documents": 65,
-  "addressed_rule_fires": 6,
+  "addressed_rule_documents": 105,
+  "addressed_rule_fires": 19,
   "n_added": 250,
   "sets": {
    "fed": {
@@ -2931,9 +3013,11 @@
     "type.instrument_named:not_in_document": 9
    },
    "p5": {
-    "addressed_body:not_extracted": 32,
+    "addressed_body:present_unanchored": 27,
     "co_signatories:not_applicable": 3,
-    "co_signatories:not_in_document": 19,
+    "co_signatories:not_in_corpus": 8,
+    "co_signatories:not_in_document": 15,
+    "co_signatories:present_unanchored": 1,
     "type.instrument_named:not_in_document": 12
    }
   },
@@ -2952,14 +3036,14 @@
   "label": "POST HOC (R20): page bounding boxes for the located values (sidecar; the records are unchanged)",
   "file": "results/schema/v0_2/span_bboxes.jsonl (python -m gegenprobe.schema.v0_2_bbox detect)",
   "coords": "PDF points, origin top left (pdftotext -bbox)",
-  "n_spans": 1589,
-  "with_bbox": 1582,
-  "exact": 1582,
+  "n_spans": 1580,
+  "with_bbox": 1573,
+  "exact": 1573,
   "partial": 0,
-  "on_pdf_text_layer": 1582,
-  "with_bbox_of_pdf_text_layer": "1582/1582",
+  "on_pdf_text_layer": 1573,
+  "with_bbox_of_pdf_text_layer": "1573/1573",
   "statuses": {
-   "exact": 1582,
+   "exact": 1573,
    "no_pdf": 7
   },
   "sets": {
@@ -2973,7 +3057,7 @@
     "exact": 519
    },
    "p5": {
-    "exact": 643
+    "exact": 634
    }
   },
   "sample": {
@@ -3010,6 +3094,7 @@
   "sets": {
    "fed": {
     "decision": 8,
+    "government_recommendation": 2,
     "procedural_state": 14,
     "qa.answering_body:opd_events": 6,
     "qa.answering_body:table": 9,
@@ -3017,21 +3102,20 @@
    },
    "p3": {
     "decision": 10,
+    "government_recommendation": 11,
     "qa.answering_body:opd_bodies": 26,
     "qa.answering_body:opd_events": 3,
     "type.harmonised": 11
    },
    "p3b": {
     "decision": 19,
+    "government_recommendation": 20,
     "qa.answering_body:opd_bodies": 32,
     "qa.answering_body:opd_events": 4,
     "type.harmonised": 20
    },
    "p5": {
-    "dates": 62,
-    "decision": 40,
-    "procedural_state": 40,
-    "qa.0.answer_date": 22,
+    "government_recommendation": 13,
     "qa.answering_body:opd_bodies": 38
    }
   },
@@ -3176,6 +3260,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Bundesrat",
@@ -3201,6 +3291,12 @@
      "was": "null not_in_corpus",
      "now": "null not_applicable",
      "source": null
+    },
+    {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -3341,6 +3437,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Stadtrat Zürich",
@@ -3360,6 +3462,12 @@
      "was": "null not_in_corpus",
      "now": "null not_applicable",
      "source": null
+    },
+    {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -3401,6 +3509,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Conseil administratif Vernier",
@@ -3429,6 +3543,12 @@
      "was": "null not_in_corpus",
      "now": "null not_applicable",
      "source": null
+    },
+    {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -3471,6 +3591,12 @@
      "was": "unknown",
      "now": "question",
      "source": "opd:affairs/121857#type_harmonized_id=12"
+    },
+    {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -3566,6 +3692,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Consiglio di Stato della Repubblica e Cantone Ticino",
@@ -3587,6 +3719,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Consiglio di Stato della Repubblica e Cantone Ticino",
@@ -3606,6 +3744,12 @@
      "was": "null not_in_corpus",
      "now": "null not_applicable",
      "source": null
+    },
+    {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -3656,6 +3800,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Regierungsrat des Kantons Zürich",
@@ -3677,6 +3827,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Regierungsrat des Kantons Zürich",
@@ -3696,6 +3852,12 @@
      "was": "null not_in_corpus",
      "now": "null not_applicable",
      "source": null
+    },
+    {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -3728,6 +3890,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Stadtrat Wädenswil",
@@ -3758,6 +3926,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Stadtrat Wädenswil",
@@ -3777,6 +3951,12 @@
      "was": "null not_in_corpus",
      "now": "null not_applicable",
      "source": null
+    },
+    {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -3800,6 +3980,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Municipio Lugano",
@@ -3821,6 +4007,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Municipio Lugano",
@@ -3840,6 +4032,12 @@
      "was": "null not_in_corpus",
      "now": "null not_applicable",
      "source": null
+    },
+    {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -3884,6 +4082,12 @@
      "source": "opd:affairs/29824#type_harmonized_id=12"
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Municipalité Lausanne",
@@ -3903,6 +4107,12 @@
      "was": "null not_in_corpus",
      "now": "null not_applicable",
      "source": null
+    },
+    {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -3926,6 +4136,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Conseil administratif Vernier",
@@ -3945,6 +4161,12 @@
      "was": "null not_in_corpus",
      "now": "null not_applicable",
      "source": null
+    },
+    {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -3986,6 +4208,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Regierungsrat des Kantons Basel-Landschaft",
@@ -4025,6 +4253,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Conseil d'État du canton de Genève",
@@ -4044,6 +4278,12 @@
      "was": "null not_in_corpus",
      "now": "null not_applicable",
      "source": null
+    },
+    {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -4067,6 +4307,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Conseil d'État du canton de Genève",
@@ -4086,6 +4332,12 @@
      "was": "null not_in_corpus",
      "now": "null not_applicable",
      "source": null
+    },
+    {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -4109,6 +4361,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Regierung des Kantons Graubünden",
@@ -4128,6 +4386,12 @@
      "was": "null not_in_corpus",
      "now": "null not_applicable",
      "source": null
+    },
+    {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -4151,6 +4415,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Regierung des Kantons Graubünden",
@@ -4170,6 +4440,12 @@
      "was": "null not_in_corpus",
      "now": "null not_applicable",
      "source": null
+    },
+    {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -4220,6 +4496,12 @@
      "source": null
     },
     {
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
+     "now": "null not_applicable",
+     "source": "type.harmonised question"
+    },
+    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Regierungsrat des Kantons Luzern",
@@ -4265,24 +4547,6 @@
    ],
    "p5:1061:279839": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value submitted",
-     "source": "opd:events/774597"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2025-10-27",
-     "source": "opd:events/774597"
-    },
-    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Stadtrat Luzern",
@@ -4291,24 +4555,6 @@
     }
    ],
    "p5:1061:3921": [
-    {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value scheduled",
-     "source": "opd:events/128254"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_in_corpus",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2019-02-15",
-     "source": "opd:events/374584"
-    },
     {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
@@ -4319,24 +4565,6 @@
    ],
    "p5:1061:3952": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value scheduled",
-     "source": "opd:events/374549"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_in_corpus",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2017-04-18",
-     "source": "opd:events/128383"
-    },
-    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Stadtrat Luzern",
@@ -4345,24 +4573,6 @@
     }
    ],
    "p5:1061:93906": [
-    {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value scheduled",
-     "source": "opd:events/64962"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2023-05-23",
-     "source": "opd:events/190683"
-    },
     {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
@@ -4373,36 +4583,6 @@
    ],
    "p5:2703:103172": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value answered",
-     "source": "opd:events/321974"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2019-11-21",
-     "source": "opd:events/198878"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2019-11-26",
-     "source": "opd:events/321974"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2019-11-26",
-     "source": "opd:events/321974"
-    },
-    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Gemeinderat Riehen",
@@ -4411,36 +4591,6 @@
     }
    ],
    "p5:2703:105348": [
-    {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value answered",
-     "source": "opd:events/9010"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2018-10-26",
-     "source": "opd:events/9011"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2018-10-30",
-     "source": "opd:events/9010"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2018-10-30",
-     "source": "opd:events/9010"
-    },
     {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
@@ -4451,36 +4601,6 @@
    ],
    "p5:2703:105365": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value answered",
-     "source": "opd:events/198868"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2019-03-21",
-     "source": "opd:events/382435"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2019-03-26",
-     "source": "opd:events/198868"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2019-03-26",
-     "source": "opd:events/198868"
-    },
-    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Gemeinderat Riehen",
@@ -4489,36 +4609,6 @@
     }
    ],
    "p5:2703:105419": [
-    {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value answered",
-     "source": "opd:events/73449"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2020-09-18",
-     "source": "opd:events/73450"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2020-09-22",
-     "source": "opd:events/73449"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2020-09-22",
-     "source": "opd:events/73449"
-    },
     {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
@@ -4529,22 +4619,10 @@
    ],
    "p5:293:106129": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value submitted",
-     "source": "opd:events/73930"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
      "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2011-06-07",
-     "source": "opd:events/73930"
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -4556,24 +4634,6 @@
    ],
    "p5:293:106226": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value closed",
-     "source": "opd:events/199496"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "value written_off",
-     "source": "opd:events/199496"
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2022-10-19",
-     "source": "opd:events/322568"
-    },
-    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Stadtrat Wädenswil",
@@ -4583,22 +4643,10 @@
    ],
    "p5:293:106237": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value submitted",
-     "source": "opd:events/199404"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
      "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2012-07-27",
-     "source": "opd:events/199404"
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -4610,22 +4658,10 @@
    ],
    "p5:293:106273": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value submitted",
-     "source": "opd:events/9630"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
      "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2013-12-04",
-     "source": "opd:events/9630"
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -4637,22 +4673,10 @@
    ],
    "p5:5192:251760": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value submitted",
-     "source": "opd:events/686092"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
      "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2025-06-16",
-     "source": "opd:events/686092"
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -4664,36 +4688,6 @@
    ],
    "p5:5192:27657": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value answered",
-     "source": "opd:events/143866"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_in_corpus",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2020-01-13",
-     "source": "opd:events/450531"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2020-09-14",
-     "source": "opd:events/143866"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2020-09-14",
-     "source": "opd:events/143866"
-    },
-    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "unchanged",
@@ -4701,36 +4695,6 @@
     }
    ],
    "p5:5192:27659": [
-    {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value answered",
-     "source": "opd:events/329521"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_in_corpus",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2020-01-22",
-     "source": "opd:events/206011"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2020-10-19",
-     "source": "opd:events/329521"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2020-10-19",
-     "source": "opd:events/329521"
-    },
     {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
@@ -4740,22 +4704,10 @@
    ],
    "p5:5192:28156": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value submitted",
-     "source": "opd:events/389853"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
      "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2016-07-04",
-     "source": "opd:events/389853"
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -4767,36 +4719,6 @@
    ],
    "p5:5586:120219": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value decided",
-     "source": "opd:events/330302"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "value adopted",
-     "source": "opd:events/330302"
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2023-10-03",
-     "source": "opd:events/81623"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2023-12-08",
-     "source": "opd:events/81646"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2023-12-08",
-     "source": "opd:events/81646"
-    },
-    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Municipalité Lausanne",
@@ -4805,24 +4727,6 @@
     }
    ],
    "p5:5586:120342": [
-    {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value debated",
-     "source": "opd:events/17236"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_in_corpus",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2018-11-06",
-     "source": "opd:events/17571"
-    },
     {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
@@ -4833,36 +4737,6 @@
    ],
    "p5:5586:29393": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value decided",
-     "source": "opd:events/686247"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "value adopted",
-     "source": "opd:events/686247"
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2024-01-30",
-     "source": "opd:events/451110"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2025-03-07",
-     "source": "opd:events/450973"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2025-03-07",
-     "source": "opd:events/450973"
-    },
-    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Municipalité Lausanne",
@@ -4871,24 +4745,6 @@
     }
    ],
    "p5:5586:29520": [
-    {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value debated",
-     "source": "opd:events/451081"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_in_corpus",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2019-05-21",
-     "source": "opd:events/390424"
-    },
     {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
@@ -4899,24 +4755,6 @@
    ],
    "p5:6152:328238": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value scheduled",
-     "source": "opd:events/900590"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_in_corpus",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2018-12-29",
-     "source": "opd:events/900589"
-    },
-    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Conseil municipal",
@@ -4925,24 +4763,6 @@
     }
    ],
    "p5:6152:328247": [
-    {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value scheduled",
-     "source": "opd:events/900606"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_in_corpus",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2019-09-07",
-     "source": "opd:events/900605"
-    },
     {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
@@ -4953,24 +4773,6 @@
    ],
    "p5:6152:328273": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value scheduled",
-     "source": "opd:events/900678"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_in_corpus",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2017-08-27",
-     "source": "opd:events/900677"
-    },
-    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Conseil municipal",
@@ -4979,24 +4781,6 @@
     }
    ],
    "p5:6152:328413": [
-    {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value scheduled",
-     "source": "opd:events/900721"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_in_corpus",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2018-09-09",
-     "source": "opd:events/900720"
-    },
     {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
@@ -5007,36 +4791,6 @@
    ],
    "p5:BL:130950": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value closed",
-     "source": "opd:events/951546"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2011-09-22",
-     "source": "opd:events/209375"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2011-11-29",
-     "source": "opd:events/395906"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2011-11-29",
-     "source": "opd:events/395906"
-    },
-    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Regierungsrat des Kantons Basel-Landschaft",
@@ -5045,36 +4799,6 @@
     }
    ],
    "p5:BL:131418": [
-    {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value closed",
-     "source": "opd:events/843110"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2016-10-20",
-     "source": "opd:events/394393"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2016-11-16",
-     "source": "opd:events/148240"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2016-11-16",
-     "source": "opd:events/148240"
-    },
     {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
@@ -5085,36 +4809,6 @@
    ],
    "p5:BL:301315": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value closed",
-     "source": "opd:events/951536"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2012-11-01",
-     "source": "opd:events/937244"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2013-01-15",
-     "source": "opd:events/937245"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2013-01-15",
-     "source": "opd:events/937245"
-    },
-    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Regierungsrat des Kantons Basel-Landschaft",
@@ -5123,36 +4817,6 @@
     }
    ],
    "p5:BL:40420": [
-    {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value closed",
-     "source": "opd:events/842569"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2014-06-26",
-     "source": "opd:events/272397"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2014-09-30",
-     "source": "opd:events/396023"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2014-09-30",
-     "source": "opd:events/396023"
-    },
     {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
@@ -5163,34 +4827,10 @@
    ],
    "p5:GR:247748": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value closed",
-     "source": "opd:events/774657"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
      "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2025-06-13",
-     "source": "opd:events/548651"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2025-08-20",
-     "source": "opd:events/965504"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2025-08-20",
-     "source": "opd:events/965504"
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -5202,34 +4842,10 @@
    ],
    "p5:GR:280476": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value closed",
-     "source": "opd:events/891692"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
      "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2025-10-22",
-     "source": "opd:events/774645"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2026-01-15",
-     "source": "opd:events/965427"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2026-01-15",
-     "source": "opd:events/965427"
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -5241,34 +4857,10 @@
    ],
    "p5:GR:288671": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value closed",
-     "source": "opd:events/958184"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
      "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2025-12-10",
-     "source": "opd:events/801602"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2026-02-26",
-     "source": "opd:events/965467"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2026-02-26",
-     "source": "opd:events/965467"
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -5280,34 +4872,10 @@
    ],
    "p5:GR:75591": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value closed",
-     "source": "opd:events/685245"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
      "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2025-04-24",
-     "source": "opd:events/548605"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2025-06-13",
-     "source": "opd:events/965441"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2025-06-13",
-     "source": "opd:events/965441"
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -5319,34 +4887,10 @@
    ],
    "p5:SH:169918": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value answered",
-     "source": "opd:events/60225"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
      "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2011-07-18",
-     "source": "opd:events/845248"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2011-07-18",
-     "source": "opd:events/845248"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2011-07-18",
-     "source": "opd:events/845248"
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -5358,34 +4902,10 @@
    ],
    "p5:SH:79626": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value answered",
-     "source": "opd:events/308982"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
      "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2009-08-07",
-     "source": "opd:events/845229"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2009-08-07",
-     "source": "opd:events/845229"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2009-08-07",
-     "source": "opd:events/845229"
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -5397,22 +4917,10 @@
    ],
    "p5:SH:79864": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "null not_in_corpus",
-     "source": null
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
      "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2024-12-13",
-     "source": "opd:affairs/79864#begin_date"
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -5424,22 +4932,10 @@
    ],
    "p5:SH:79870": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "null not_in_corpus",
-     "source": null
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
+     "field": "government_recommendation",
+     "was": "null present_unanchored",
      "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2025-02-11",
-     "source": "opd:affairs/79870#begin_date"
+     "source": "type.harmonised question"
     },
     {
      "field": "qa.0.answering_body",
@@ -5451,36 +4947,6 @@
    ],
    "p5:VS:247619": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value answered",
-     "source": "opd:events/909867"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2025-06-13",
-     "source": "opd:events/662037"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2025-06-13",
-     "source": "opd:events/861269"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2025-06-13",
-     "source": "opd:events/861269"
-    },
-    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Conseil d'État du canton du Valais",
@@ -5489,36 +4955,6 @@
     }
    ],
    "p5:VS:252838": [
-    {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value scheduled",
-     "source": "opd:events/909917"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2025-09-09",
-     "source": "opd:events/689829"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2025-09-09",
-     "source": "opd:events/899853"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2025-09-09",
-     "source": "opd:events/899853"
-    },
     {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
@@ -5529,36 +4965,6 @@
    ],
    "p5:VS:295461": [
     {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value scheduled",
-     "source": "opd:events/964374"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2025-12-16",
-     "source": "opd:events/841943"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2025-12-16",
-     "source": "opd:events/964373"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2025-12-16",
-     "source": "opd:events/964373"
-    },
-    {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",
      "now": "Conseil d'État du canton du Valais",
@@ -5567,36 +4973,6 @@
     }
    ],
    "p5:VS:87651": [
-    {
-     "field": "procedural_state",
-     "was": "null not_extracted",
-     "now": "value answered",
-     "source": "opd:events/908889"
-    },
-    {
-     "field": "decision",
-     "was": "null not_extracted",
-     "now": "null not_applicable",
-     "source": null
-    },
-    {
-     "field": "dates[submitted]",
-     "was": "absent",
-     "now": "2023-09-03",
-     "source": "opd:events/64279"
-    },
-    {
-     "field": "dates[answered]",
-     "was": "absent",
-     "now": "2023-09-03",
-     "source": "opd:events/781755"
-    },
-    {
-     "field": "qa.0.answer_date",
-     "was": "null not_extracted",
-     "now": "2023-09-03",
-     "source": "opd:events/781755"
-    },
     {
      "field": "qa.0.answering_body",
      "was": "null not_extracted",

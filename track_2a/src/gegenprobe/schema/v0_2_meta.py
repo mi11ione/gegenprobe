@@ -17,13 +17,18 @@ naming the OPD record, and never replaces a value:
     the converter's own EVENT_MAP); for the federal Curia Vista events, which carry no harmonised title, the last event whose
     title starts with a decision word (CURIA_DECISIONS); else, for an interpellation or a question (affair_post's
     NO_DECISION_TYPES), the typed null `not_applicable` as the converter writes it.
+  * government_recommendation (R21): for an interpellation or a question whose recommendation the rules left a typed
+    null without an anchor (the converter read the type as `unknown` when its rules ran, so its own rule "no
+    recommendation on an interpellation / question" did not fire), the typed null `not_applicable`, as the converter
+    writes it for a typed interpellation.
   * procedural_state: a typed null -> OPD's last state event (EVENT_MAP), or the federal `Erledigt` event (closed).
   * qa[].answering_body (`not_extracted` in all 120 records): the body's executive as OPD's bodies export names it
     (`executive_name`, else `executive_name_<language>`), else the actor OPD's events give the executive's own step (the
     Federal Council's statement, Vernier's `Conseil administratif`), else the committed table data/schema/body_executives.json
     (one row: the Confederation, whose executive OPD's bodies export does not name). Not filled where OPD's own answer event
     names another actor (a committee): there the typed null stays, with that evidence.
-  * P5 only (its assembly carries no OPD event): the submission date and OPD's answer event in `dates`, and OPD's answer
+  * the P5 rules arm's assembly only (it carries no OPD event; since R21 P5's records are the operator command's, which
+    carry them): the submission date and OPD's answer event in `dates`, and OPD's answer
     event as qa[0].answer_date (the converter's metadata fallback, role unsplit), as the P3/P3b product records carry them.
 Every change is listed in `extraction.notes` (one sentence) and returned; `strip_metadata` undoes the overlay exactly
 (tests/test_schema_v0_2_meta.py).
@@ -56,6 +61,8 @@ NOT_EXECUTIVE_ACTOR = re.compile(r"^(Kommission|Parlament|Grosser Rat|Kantonsrat
 EXECUTIVE_ACTOR = re.compile(r"Bundesrat|Conseil administratif|Conseil municipal|Municipalit|Municipio|Stadtrat|"
                              r"Gemeinderat|Regierungsrat|Conseil d.[ÉE]tat|Consiglio di Stato", re.I)
 ANSWER_HIDS = (6, 76)
+UNANCHORED_REC = ("present_unanchored", "not_extracted", "not_in_corpus")
+P5_ARM = "gegenprobe P5 rules arm"  # converter_version of gegenprobe.schema.v0_2_all.p5_affair (P5's records before R21)
 
 
 # ----------------------------------------------------------------------------------------------------------- vendor
@@ -247,8 +254,18 @@ def with_metadata(rec: dict, sl: dict, set_name: str, tab: dict | None = None) -
         if v is not None:
             changes.append(dict(field="decision", was=_desc(rec.get("decision")), now=_desc(v), source=v.get("source")))
             rec["decision"] = v
-    if set_name == "p5" and m:
-        _p5_dates(rec, m, defs, changes)
+    gr = rec.get("government_recommendation")
+    if (t.get("harmonised") in NO_DECISION_TYPES and gr and gr.get("kind") == "null"
+            and gr.get("null_reason") in UNANCHORED_REC and gr.get("evidence") in (None, "no_anchor")):
+        v = dict(kind="null", null_reason="not_applicable", route="metadata",
+                 evidence=f"affair type {t['harmonised']} ({t.get('source_label')}): the executive answers it and makes no "
+                          "recommendation on it (the converter writes this for an interpellation; the type was read as "
+                          "unknown when the rules ran, which then found no recommendation anchor)")
+        changes.append(dict(field="government_recommendation", was=_desc(gr), now=_desc(v),
+                            source=f"type.harmonised {t['harmonised']}"))
+        rec["government_recommendation"] = v
+    if set_name == "p5" and m and str(rec["extraction"].get("converter_version") or "").startswith(P5_ARM):
+        _p5_dates(rec, m, defs, changes)  # the P5 rules arm's assembly only (the command's records carry OPD's events)
     bodies = sl["bodies"]
     for i, q in enumerate(rec.get("qa") or []):
         if not (q.get("answer_doc") or q.get("answer_text_ref")) or not _open(q.get("answering_body")):
@@ -312,7 +329,7 @@ def _p5_dates(rec: dict, m: dict, defs, changes: list[dict]) -> None:
 def strip_metadata(rec: dict, before: dict) -> dict:
     """Undo with_metadata given the record before it (the overlay keeps a record otherwise identical): for the test."""
     rec = copy.deepcopy(rec)
-    for k in ("type", "procedural_state", "decision", "dates", "qa"):
+    for k in ("type", "procedural_state", "decision", "government_recommendation", "dates", "qa"):
         rec[k] = copy.deepcopy(before.get(k)) if k in before else rec.pop(k, None)
     if "dates" in (before.get("empty_reasons") or {}):
         rec["empty_reasons"]["dates"] = before["empty_reasons"]["dates"]

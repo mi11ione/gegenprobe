@@ -1,0 +1,11 @@
+id	shown	file	path	fmt	command	where
+r21c.ech.verdict_body_specific	1	site/data.json	schema.verdict.body_specific	int	python -m report.site_data	docs/ech-onepager.md
+r21c.ech.gov_rec_ambiguous	0	results/census/comparability.json	government_recommendation.ambiguous_labels	int	python -m census.comparability	docs/ech-onepager.md
+r21c.ech.tier10_fundamental	5	results/census/tier_sensitivity.json	grid.3.counts.fundamentally different	int	python -m census.tier_sensitivity	docs/ech-onepager.md
+r21c.ech.tier10_threshold	10%	results/census/tier_sensitivity.json	grid.3.fundamental_min	pct0	python -m census.tier_sensitivity	docs/ech-onepager.md
+r21c.ndsg.art_register	12	results/compliance/ndsg_articles.json	articles.register.article	int	recorded by hand from SR 235.1	docs/dpo_checklist.md
+r21c.ndsg.art_abroad	16	results/compliance/ndsg_articles.json	articles.disclosure_abroad.article	int	recorded by hand from SR 235.1	docs/dpo_checklist.md,README.md,docs/decision.md,docs/decision_de.md,docs/runbook.md
+r21c.ndsg.art_automated	21	results/compliance/ndsg_articles.json	articles.automated_decision.article	int	recorded by hand from SR 235.1	docs/dpo_checklist.md
+r21c.retention.default_days	30	src/gegenprobe/cache_retention.py	DEFAULT_DAYS	int	the code default (cache_retention.DEFAULT_DAYS)	docs/dpo_checklist.md,README.md,technical_report.md,docs/runbook.md
+r21c.publicai.log_days	90	results/compliance/publicai_terms.json	technical_log_retention_days_max	int	recorded by hand from publicai.co/tc §2.5	docs/dpo_checklist.md
+r21c.ndsg.art_dpia	22	results/compliance/ndsg_articles.json	articles.impact_assessment.article	int	recorded by hand from SR 235.1	docs/dpo_checklist.md

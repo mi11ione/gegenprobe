@@ -1,8 +1,13 @@
 # Gegenprobe — Hack Apertus, Track 2A (OpenParlData), team 444
 
-For management and a chancellery: [one page](track_2a/docs/decision.md) ([Deutsch](track_2a/docs/decision_de.md))
-with what runs, what leaves the machine, the cost, OPD's one decision and who reviews; for a data protection officer:
-[a register checklist](track_2a/docs/dpo_checklist.md) (EN/DE).
+**Start here:**
+- **Evidence site:** https://gegenprobe.mi11ion.io (also written to `track_2a/out/site/index.html` by `make run`)
+- **Technical report:** [`track_2a/technical_report.md`](track_2a/technical_report.md) (PDF: `track_2a/444_Report.pdf`)
+- **One page for OPD's management and a chancellery:** [English](track_2a/docs/decision.md) ·
+  [Deutsch](track_2a/docs/decision_de.md); for a data protection officer,
+  [a register checklist](track_2a/docs/dpo_checklist.md) (EN/DE)
+- **Replay:** `cd track_2a && make run` (Docker, CPU, clean checkout); the project README:
+  [`track_2a/README.md`](track_2a/README.md)
 
 **For OPD, in three lines:**
 1. **Apply now:** repair lists keyed on your ids, as dry-run plans; 3,621 repairs need neither a decision nor a fetch.
@@ -36,30 +41,35 @@ OPD's volume; review mode costs USD 0.59 per 1,000 residue documents on the 70B.
 
 | | |
 |---|---|
-| **92.1%** | of interventions with a recorded government answer would have answer text once the proposed repairs are applied, up from 81.6% today: 91.5% from row-checked repairs + 0.6 points from the 592 agenda joins and 39 review rows |
+| **92.1%** | of interventions with a recorded government answer would have answer text once the proposed repairs are applied, up from 81.6% today: +10.5 points, all from the 9,580 repairs (the 8,949 row-checked ones reach 91.5%; the 592 agenda joins and 39 Bern rows in review add the rest) |
 | **9,580** | answers with a model-free repair proposed to OPD, keyed on OPD ids; the Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation |
 | **10 of 17** | fields are shared once their roles are explicit (8 robust + 2 fragile; 6 from the role test, P8, registered, and 4 from OPD's label vocabularies, post hoc); 1 is body-specific; 6 are not yet tested for meaning |
 | **186** | v0.2 records from 26 parliaments validate: the converter's 120 (105 cantonal and communal + 15 federal, 23 parliaments) and P8's 66 gold records (11 parliaments) |
 
-| Apertus, where nobody wrote rules | what Apertus adds | what the model-free baseline reaches |
+| What Apertus adds where nobody wrote rules | test | scope |
 |---|---|---|
-| **24/29** answer dates on new layouts (the date test, P2; 15 parliaments) | +7 of 62 documents and +3 of 29 answer dates over the strongest model-free rule we tried: exact on 53/62 against 46/62, right alone on 9 documents vs 2 (exact McNemar p = 0.065; parliament permutation p = 0.12; post hoc, proposed in review) | that rule (the latest date on answer-typed documents, the date after a session cue on intervention-typed ones): 21/29 answer dates, 46/62 exact; registered: the rules 2/29 |
-| **50/141** author roles in 14 parliaments (the author test, P10) | Apertus adds precision deciding who is an author (+7.3 points, post hoc) | Rules 17/141; most of the gain comes from the model-free candidate finder (document order 52/141) |
-| **139/154** answer dates where rules exist (P1; rules, then Apertus) | about one document | a model-free cascade (post hoc): 138/154 |
-| **120/120** sampled review-queue promotions are answers (P7, registered) | the date: the gold answer date on 113/120 of its promotions, the rule's on 127/146 (post hoc, not paired) | a no-model exact-date match: answers on 146/146, 206 of the 478 frame rows promoted against Apertus's 135 (post hoc) |
+| **24/29** answer dates in 15 parliaments nobody wrote rules for; the rules, written for other layouts, find 2/29 | the date test, P2 | registered |
+| **+23.4 points** author-role recall over the rules in 14 parliaments without rules (50/141 pairs vs 17/141); precision not worse | the author test, P10 (H1, H2) | registered |
+| **120/120** sampled review-queue promotions are the government's answer | the verifier test, P7 (H1) | registered |
+| **12/12** Italian interventions exact on the answer date (10 printed dates, 2 right nulls), five parliaments | P11 | exploratory |
+
+Every value Apertus returns is a printed value located by code (62/62, 32/32 and 35/35 on P1, P2 and P6, where free
+prompting's quotes check out on 30/60 and 17/32), and its confidence margin ranks the documents the rules leave open
+for review: on layouts no rules cover it puts wrong values first with AUROC 0.90, above every no-model ranking signal
+we computed (at most 0.58; post hoc).
 
 <sub>Sources: 92.1% and 9,580 from the census and the repair lists (no model); 186 from
-`track_2a/results/schema/v0_2/validation_all.json` (the 15 federal records from an exploratory cell); 24/29 from P2,
-registered against the rules (the baselines post hoc, proposed in review); 50/141 from P10, registered (recall +23.4
-points over the rules, Holm p = 0.032), level with OPD's contributor list
-(37/141; H3a, Holm p = 0.17). Every committed gateway response (17,720) comes from one build, Apertus 70B by inference
-(the gateway labelled it 8B; fingerprint check in `track_2a/docs/evaluation.md`); on 12 Oct 2026 Public AI switched
-the route to another build and back the same night, and the build guard caught it live; review mode runs again on the
-registered build. P1–P8 and P10 are the ten pre-registered tests (P3b replicates P3).</sub>
+`track_2a/results/schema/v0_2/validation_all.json` (the 15 federal records from an exploratory cell); 24/29 from P2
+and +23.4 points from P10 (Holm p = 0.032), registered; the margin from `track_2a/results/eval/margin_vs_nomodel.json`;
+the baselines proposed in review are in `track_2a/docs/evaluation.md`. Every committed gateway response (17,720) comes
+from one build, Apertus 70B by inference (the gateway labelled it 8B; fingerprint check in `track_2a/docs/evaluation.md`);
+on 12 Oct 2026 Public AI switched the route to another build and back the same night, and the build guard caught it
+live; review mode runs again on the registered build. P1–P8 and P10 are the ten pre-registered tests (P3b replicates P3).</sub>
 
 - **Ready for OPD:** Bern relinks, fetches and `begin_date` corrections, per-parliament lists from 50 model-free
-  source adapters, a vocabulary error list and a Fedlex resolver for 29,946 federal documents. The only open decision
-  is OPD's hash rule for relinks.
+  source adapters, a vocabulary error list, a list of 7,876 answered interventions whose OPD state still reads
+  "submitted", and a Fedlex resolver for 29,946 federal documents. The only open decision is OPD's hash rule for
+  relinks.
 - **Sovereign and cheap to run:** the default runs no model and only reads public sources. A first network night took
   86 min, the next 6.6 min; on a real two-night Docker pair with the fixed ledger, night 2 kept night 1's verdicts.
 - **Italian and outside interventions (P11, exploratory):** the Apertus pointer is exact on 12/12 Italian answers
@@ -67,15 +77,8 @@ registered build. P1–P8 and P10 are the ten pre-registered tests (P3b replicat
 - **Checked:** ten tests, each frozen by hash before its labels except P1's hypothesis script and rules (D4, D12); `make claims` recomputes every number in the README,
   the report and the form from its results file and fails on any mismatch.
 
-The eCH expert group's page, with a per-field recommendation from P8: [`track_2a/docs/ech-onepager.md`](track_2a/docs/ech-onepager.md).
-
-- **Evidence site:** https://gegenprobe.mi11ion.io (also written to `track_2a/out/site/index.html` by `make run`)
-- **Project:** [`track_2a/`](track_2a/) — start with [`track_2a/README.md`](track_2a/README.md); technical report
-  [`track_2a/technical_report.md`](track_2a/technical_report.md) (PDF: `track_2a/444_Report.pdf`)
-
-```bash
-cd track_2a && make run      # Docker, CPU, clean checkout
-```
+The eCH expert group's page, with a per-field recommendation from P8: [`track_2a/docs/ech-onepager.md`](track_2a/docs/ech-onepager.md);
+mappings to Popolo, Akoma Ntoso, Parla-CLARIN and OParl: [`track_2a/docs/mapping.md`](track_2a/docs/mapping.md).
 
 Code: Apache-2.0 ([LICENSE](LICENSE)). Report: CC-BY-4.0 ([track_2a/docs/LICENSE-report.txt](track_2a/docs/LICENSE-report.txt)).
 Data in `track_2a/data/` and results in `track_2a/results/`: CDLA-Permissive-2.0

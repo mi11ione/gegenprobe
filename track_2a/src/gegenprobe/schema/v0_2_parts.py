@@ -62,6 +62,7 @@ OVERLAY = "gegenprobe.schema.v0_2_parts.with_parts"
 KINDS = ("annex", "table", "budget_table", "image", "signature")
 CONVERTER_SETS = ("p3", "p3b", "p5")
 OLD_REASON = V.CONVERTER_EMPTY["documents.*.parts"]
+P5_PRODUCT = OUT / "p5_affair_cli.jsonl"  # R21: the P5 records as the operator command makes them (affair_product p5)
 
 
 # ----------------------------------------------------------------------------------------------------------- detection
@@ -240,8 +241,10 @@ def render(meta: bool = True) -> dict[str, str]:
     by_set, block, roles_changed = {}, {}, {}
     pairs, qa_before = QA.load(), {}
     adet, trust, ledger, dates_before, gaps = VD.load(), VD.tiers(), [], {}, VG.Inputs.load()
+    product_p5 = _product_p5()
     for k in CONVERTER_SETS:
-        base_recs = [json.loads(x) for x in base[f"{k}_records.jsonl"].splitlines() if x.strip()]
+        base_recs = ([json.loads(x) for x in base[f"{k}_records.jsonl"].splitlines() if x.strip()]
+                     if not (k == "p5" and product_p5) else product_p5)
         qa_before[k] = sum(any(q.get("items") for q in r.get("qa") or []) for r in base_recs)
         recs = [_with_meta(VG.with_gaps(with_roles_consistent(_with_qa(with_parts(r, det, k), pairs, k), roles_changed,
                                                               k), gaps, k), sl, k, meta_changed, meta)
@@ -295,7 +298,24 @@ def render(meta: bool = True) -> dict[str, str]:
         fed=dict(fed_block, records="results/schema/v0_2/fed_records.jsonl",
                  source=f"{FED_IN.relative_to(ROOT).as_posix()} (eval.fed.arms offline) + {OVERLAY}"),
     )
+    if product_p5:
+        val["sources"]["p5"] = (f"{P5_PRODUCT.relative_to(ROOT).as_posix()} (python -m gegenprobe.affair_product p5: "
+                                "the operator command on P5's documents; OPD rows data/affair_cli/opd_rows_p5.json)")
+        val["record_makers"]["p5"] = (f"converter (rules_only product record, `python -m gegenprobe affair`) + "
+                                      f"affair_post.finalize + {V.CARRY} (R21: replaces the P5 rules arm's assembly "
+                                      f"{V.P5_ASSEMBLY} so the published P5 records are the command's)")
+        val["product_records"] = dict(n_affairs=sum(val["sets"][k]["n_affairs"] for k in CONVERTER_SETS),
+                                      n_valid=sum(val["sets"][k]["n_valid"] for k in CONVERTER_SETS),
+                                      sets=list(CONVERTER_SETS))
+        conv = [k for k in val["converter_made"]["sets"]]
+        val["converter_made"]["n_valid"] = sum(val["sets"][k]["n_valid"] for k in conv)
+        val["n_valid"] = sum(v["n_valid"] for v in val["sets"].values())
+        val["n_invalid"] = sum(v["n_invalid"] for v in val["sets"].values())
     val["qa_pairing"] = QA.block(by_set, qa_before)
+    if product_p5:
+        val["qa_pairing"]["sets"]["p5"]["source"] = ("the operator command's pairing (gegenprobe.affair_cli: "
+                                                     "gegenprobe.schema.v0_2_qa.pair, the P5 rules) in "
+                                                     f"{P5_PRODUCT.relative_to(ROOT).as_posix()}")
     val["role_consistency"] = role_block(files, roles_changed)
     val["validated_records"] = validated_records(by_set, valid, st["n_valid"])
     val["answer_date_roles"] = VD.block({**by_set, "fed": valid}, dates_before, ledger, adet)
@@ -333,6 +353,15 @@ def validated_records(by_set: dict[str, list[dict]], fed: list[dict], fed_valid:
         note=("n_affairs/n_parliaments at the top of this file count v0_2_all's sets p3, p3b, p5 and p8; this block "
               "adds the federal cell's records (fed_records.jsonl, validated here)"),
     )
+
+
+def _product_p5() -> list[dict] | None:
+    """The P5 records made by the operator command (gegenprobe.affair_product p5; before the post layers), or None
+    when that file is absent (then v0_2_all's P5 rules-arm assembly is used, as before R21)."""
+    if not P5_PRODUCT.exists():
+        return None
+    from ..affair_product import load_p5
+    return load_p5()
 
 
 def _with_qa(rec: dict, pairs: dict, set_name: str) -> dict:
@@ -451,10 +480,13 @@ def step(ctx: dict) -> dict:
     val = json.loads(files["validation_all.json"])
     sc = QA.samples_check(files, val["samples"])
     fc = _completeness_check()
+    from ..affair_product import p5_check
+    from ..findings import stale_states
+    r21 = [p5_check(), stale_states.check()]  # R21: P5 by the operator command; the stale-state OPD finding
     s, dp = val["sets"], val["document_parts"]["converter_made"]
     ok = (p8["status"] == "PASS" and not bad and val["n_invalid"] == 0 and rc["status"] != "FAIL"
           and pc["status"] != "FAIL" and qc["status"] != "FAIL" and sc["status"] != "FAIL" and fc["status"] != "FAIL"
-          and all(c["status"] != "FAIL" for c in r20))
+          and all(c["status"] != "FAIL" for c in r20 + r21))
     qa = val["qa_pairing"]["sets"]
     carry = dp["records_carrying"]
     summary_ = (f"schema v0.2: {val['n_valid']}/{val['n_affairs']} affairs valid (converter records: P3 "
@@ -470,7 +502,7 @@ def step(ctx: dict) -> dict:
                                                f"{qa[k]['n_records']}" for k in CONVERTER_SETS)
                 + f" records; {qc['summary']}; {sc['summary']}"
                 + f"; OPD metadata filled in {val['metadata_fill']['n_records_changed']} records; {fc['summary']}"
-                + _r20_summary(val, r20)
+                + _r20_summary(val, r20) + "".join(f"; {c['summary']}" for c in r21)
                 + (f"; differs: {', '.join(bad)}" if bad else "")
                 + ("" if p8["status"] == "PASS" else f"; P8: {p8['summary']}"))
     return dict(status="PASS" if ok else "FAIL", summary=summary_)

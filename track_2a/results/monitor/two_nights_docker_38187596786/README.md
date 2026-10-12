@@ -20,6 +20,9 @@ and the 40 rows that failed their check on night 1 stayed in review. OPD's index
 same exports; the ledger's carry-over is what this pair tests.
 
 Both nights exit with status 3, the job's "alerts raised" status: the adapter canary still verified 7 of 7 sample
-affairs, and flagged that the text of two of them changed at the source (Locarno IR 2008.0022 via OPD's copy, Valais
-2020.06.206). Both alerts reached the webhook (`alert_posts.jsonl`). The User-Agent carried a contact URL
+affairs, and flagged two texts that differ from the committed hashes (Locarno IR 2008.0022 via OPD's copy, Valais
+2020.06.206). The sources did not change: both canaries are read through OCR, and the image's older tesseract reads the
+unchanged files differently. A host re-check on 12 Oct verified all 7 with their committed texts
+(`results/repair/adapters/canary_runs/2026-10-12.json`); since then a canary alerts only when its file's bytes change
+or its text changes under the same extractor. Both alerts reached the webhook (`alert_posts.jsonl`). The User-Agent carried a contact URL
 (`has_contact: true`). Install and image build took 32 s; peak memory about 2.1 GB.

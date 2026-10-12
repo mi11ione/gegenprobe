@@ -70,7 +70,7 @@ def test_addressed_rule_rerun_reproduces_the_carried_values(recs):
                 if a["role"] == "addressed_body" and a["name"]["kind"] == "value":
                     n = a["name"]
                     carried[(k, r["ref"]["opd_id"])] = (n["rule"], n["page"], n["char_start"], n["char_end"])
-    assert len(carried) == 6
+    assert len(carried) == 19  # R21: P3/P3b 6 + P5 13 (P5 is the command's, which reads the addressed body)
     assert {k: (m["rule"], m["page"], m["char_start"], m["char_end"]) for k, m in fired.items()} == carried
 
 
@@ -98,8 +98,8 @@ def test_every_answer_date_has_a_role_and_its_source(recs, val):
                 assert q["answer_date"]["role"] in VD.ANSWER_ROLES
             assert not any(d["role"] == "answered" and d["date"]["kind"] == "value" and "; role answered" not in
                            (d.get("label") or "") for d in r.get("dates") or [])
-    assert b["values_by_role"] == {"answer_decided": 22, "answer_dispatched": 16, "answered": 101}
-    assert b["records_with_a_split_role"] == 24 and b["counterparts"]["n"] == 24
+    assert b["values_by_role"] == {"answer_decided": 25, "answer_dispatched": 17, "answered": 100}  # R21: P5 by the command
+    assert b["records_with_a_split_role"] == 28 and b["counterparts"]["n"] == 28
 
 
 def test_roles_agree_with_the_blind_gold(val):
@@ -130,7 +130,7 @@ def test_rule_values_sit_on_their_committed_anchor(recs):
             assert any(a["rule"] == v["rule"] and a["page"] == v["page"] and a["char_start"] == v["char_start"]
                        and a["char_end"] == v["char_end"] for a in row["anchors"]), (k, r["ref"])
             n += 1
-    assert n == 16
+    assert n == 30  # R21: + P5's located answer dates (the command reads them)
 
 
 def test_printed_role_names_only_labelled_anchors():
@@ -144,8 +144,8 @@ def test_printed_role_names_only_labelled_anchors():
 # ----------------------------------------------------------------------------------------------------------- boxes
 def test_every_located_value_has_a_box_or_a_reason(recs, val):
     b = val["span_bboxes"]
-    assert b["n_spans"] == len(VB.spans(recs)) == 1589
-    assert b["with_bbox"] == b["exact"] == 1582 and b["statuses"] == {"exact": 1582, "no_pdf": 7}
+    assert b["n_spans"] == len(VB.spans(recs)) == 1580
+    assert b["with_bbox"] == b["exact"] == 1573 and b["statuses"] == {"exact": 1573, "no_pdf": 7}
     s = b["sample"]
     assert s["bbox"] == [277.92, 355.76, 325.46, 365.13] and s["page_size"] == [595.28, 841.89]
 
@@ -170,6 +170,6 @@ def test_provenance_counts_add_up(recs):
     c = fc["converter"]
     assert c["n_values"] == sum(n for k, n in c["kinds"].items() if k != "typed_null")
     assert set(c["kinds"]) <= {"page_span", "opd_record", "other_record", "typed_null"}
-    assert c["kinds"]["page_span"] == 1589
+    assert c["kinds"]["page_span"] == 1580
     n = sum(1 for rs in recs.values() for r in rs for _ in FC._walk(r))
     assert n == c["n_values"] + c["n_typed_nulls"]

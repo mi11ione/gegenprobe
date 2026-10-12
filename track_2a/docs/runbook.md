@@ -231,7 +231,7 @@ the document's `files.openparldata.ch/doc` URL; `--hash keep` plans the relink w
 | `rate_trend_drop` | a body's rate fell by > 5 points over the last 7 nights (slow drift below the nightly threshold) | that body's scraper changes over the week |
 | `exports_stale` | OPD's `index.json` is older than `GP_STALE_DAYS` (2) days | OPD's export job; the night's numbers describe old data |
 | `adapter_canary_failed` | (with `GP_ADAPTER_CANARY=1`) a known counted affair of an external source no longer verifies; `reason` says where (http_404, not_found, robots_disallowed, empty_text, date_mismatch, ...) | the adapter's owner: open the source, fix the adapter, re-run that body (operating plan below) |
-| `adapter_canary_text_changed` | the canary still verifies but its extracted text changed (file re-published, extractor update) | none unless it repeats; re-run `canary select` after the next monthly run |
+| `adapter_canary_text_changed` | the canary still verifies, but its file was re-published or its text changed under the same extractor; a text that differs only because the extractor differs (e.g. the Docker image's tesseract on an OCR canary) is listed as `text_differs_by_extractor` and raises no alert | open the source; if the change is genuine, re-run `python -m gegenprobe.repair.adapters.canary baseline` |
 | `adapter_counted_drop` | a parliament's counted adapter rows fell by more than max(5, 2 %) since the last canary run | compare the new `adapters_summary.json` with the previous one before publishing the lists |
 | `adapter_canary_error` | the canary step itself failed (the night continues) | run `python -m gegenprobe.repair.adapters.canary run` by hand |
 | `outbox_corrupt` / `state_corrupt` | the outbox or the night-over-night state could not be parsed; moved to `work/nightly/<name>.corrupt-<UTC>` | read the quarantined file for undelivered alerts; after `state_corrupt` the next night re-scans everything once |
@@ -309,7 +309,8 @@ matters.
 **poppler in the image (decision, 10 Oct 2026): stay on bookworm's 22.12.** The committed P1/P2 model cache was built on
 the development Mac (poppler 26.02.0). The image's poppler-utils `22.12.0-2+deb12u3` extracts some documents differently,
 so the prompt hash differs and `make run` counts a cache miss (25 of 154 P1 documents in CI run 38049690293); a miss is
-reported, never scored. A newer poppler does not remove this: no Debian release ships 26.02 (trixie 13 has
+reported, never scored. The `rederive_apertus` line prints the misses to expect for the machine's pdftotext: with
+22.12.0, P1 25 and P2 5 (CI run 38076870082); with 26.02.0, none; any other version, not measured. A newer poppler does not remove this: no Debian release ships 26.02 (trixie 13 has
 `25.03.0-5+deb13u4`, forky/testing and sid have 26.07.0; checked on packages.debian.org, 10 Oct 2026), so a trixie base
 would trade one version gap for another, change tesseract and the whole system layer at once, and testing/sid packages
 cannot be pinned for long. We keep the digest-pinned bookworm base and the recorded versions

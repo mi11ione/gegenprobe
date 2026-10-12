@@ -60,3 +60,34 @@ def test_committed_canaries_are_counted_rows_of_the_committed_lists():
     assert {"parlzhcdws.cmicloud.ch", "www.ratsinfo.sg.ch", "ratsinfo.so.ch", "parlement.vs.ch", "www.lu.ch",
             "www.aarau.ch", "files.openparldata.ch"} == srcs
     assert all(json.dumps(c["affair"]) and c["text_sha256"] for c in cfg["canaries"])
+
+
+def test_text_differing_only_by_extractor_is_not_an_alert(tmp_path, monkeypatch):
+    """Same document bytes as the baseline, another extractor (the Docker image's tesseract / poppler): no alert; other
+    bytes, or the same extractor, still alert adapter_canary_text_changed."""
+    sha = hashlib.sha256(CITY_ANSWER.encode()).hexdigest()
+    changed = CITY_ANSWER + "\nNachtrag"
+    cfg = _cfg(sha)
+    file_sha = hashlib.sha256(changed.encode()).hexdigest()  # the fixture's "file" hash is its text's
+    monkeypatch.setattr(registry, "get", lambda body: zurich_city.ZurichCity())
+    fx = tmp_path / "fx"
+    fx.mkdir()
+    (fx / "261_1.txt").write_text(changed, encoding="utf-8")
+    cfg["canaries"][0]["baseline"] = dict(file_sha256=file_sha, extractor="tesseract-5.5.3-deu+fra+ita")
+    res = canary.run_all(fixtures=fx, cfg=cfg, state_dir=tmp_path / "s1")
+    r = res["results"][0]
+    assert (r["same_text"], r["extractor"], r["text_differs_by_extractor"]) == (False, "fixture", True)
+    assert not [a for a in res["alerts"] if a["kind"].startswith("adapter_canary")]
+    cfg["canaries"][0]["baseline"] = dict(file_sha256="0" * 64, extractor="tesseract-5.5.3-deu+fra+ita")  # re-published
+    res = canary.run_all(fixtures=fx, cfg=cfg, state_dir=tmp_path / "s2")
+    assert [a["kind"] for a in res["alerts"] if a["kind"].startswith("adapter_canary")] == ["adapter_canary_text_changed"]
+    cfg["canaries"][0]["baseline"] = dict(file_sha256=file_sha, extractor="fixture")  # same extractor, other text
+    res = canary.run_all(fixtures=fx, cfg=cfg, state_dir=tmp_path / "s3")
+    assert [a["kind"] for a in res["alerts"] if a["kind"].startswith("adapter_canary")] == ["adapter_canary_text_changed"]
+
+
+def test_committed_canaries_carry_a_baseline():
+    cfg = canary.load()
+    assert all(c["baseline"]["file_sha256"] and c["baseline"]["extractor"] for c in cfg["canaries"])
+    ocr = {c["affair_number"] for c in cfg["canaries"] if c["baseline"]["extractor"].startswith("tesseract")}
+    assert ocr == {"IR 2008.0022", "2020.06.206"}  # the two canaries the Docker nights flagged

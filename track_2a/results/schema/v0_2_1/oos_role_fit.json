@@ -1,0 +1,1755 @@
+{
+ "changed": {
+  "interventions_unchanged": true,
+  "non_interventions": "36/43 -> 41/43",
+  "remaining_unnamed": {
+   "instrument_function: new_role: executive's own spending authorisation (subject to optional referendum)": 1,
+   "instrument_function: new_role: general-terms proposal that the law be amended, drafting left to a later stage; general-terms request that parliament itself legislate (to be drafted later)": 1
+  },
+  "submission_date_role_p11_ni": "7/12 -> 12/12"
+ },
+ "command": "PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_1_oos_fit",
+ "fit_v0_2_1": {
+  "command": "PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_oos_fit",
+  "definition": "determinable = a printed gold value that is not undeterminable / unclear / cannot_tell; named = the value maps to a named v0.2 value (asserted against the schema's Literal types; v0.2 `other` is unnamed); NI: `fits` maps through the role, `new_role` is unnamed, not_printed and not_applicable are not determinable",
+  "fields": {
+   "answer_date_role": {
+    "interventions": {
+     "determinable": 10,
+     "named": 10,
+     "unnamed": 0
+    },
+    "not_labelled": {
+     "p10": "GUIDE_P10 labels people only"
+    },
+    "tests": {
+     "fed": {
+      "categories": {
+       "not_printed": {
+        "not printed": 15
+       }
+      },
+      "determinable": 0,
+      "named": 0,
+      "not_printed": 15,
+      "parliaments": 0,
+      "parliaments_all_named": 0,
+      "per_parliament": {
+       "CHE": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 15,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": null,
+      "undeterminable": 0,
+      "unnamed": 0
+     },
+     "p11_it": {
+      "categories": {
+       "named": {
+        "decision": 5,
+        "dispatch": 5
+       },
+       "not_printed": {
+        "not printed": 2
+       }
+      },
+      "determinable": 10,
+      "named": 10,
+      "not_printed": 2,
+      "parliaments": 4,
+      "parliaments_all_named": 4,
+      "per_parliament": {
+       "5002": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5113": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 2,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5192": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5254": {
+        "determinable": 3,
+        "named": 3,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "TI": {
+        "determinable": 3,
+        "named": 3,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     },
+     "p11_ni": {
+      "categories": {
+       "named": {
+        "dispatch": 1
+       },
+       "not_printed": {
+        "not_applicable": 13,
+        "not_printed": 1
+       }
+      },
+      "determinable": 1,
+      "named": 1,
+      "not_printed": 14,
+      "parliaments": 1,
+      "parliaments_all_named": 1,
+      "per_parliament": {
+       "5192": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 1,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5254": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 1,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "6248": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 1,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "6643": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 1,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "BE": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 1,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "BL": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "JU": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 2,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "SO": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 1,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "TI": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 3,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "VS": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 2,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "ZH": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 1,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     }
+    },
+    "unit": "affairs"
+   },
+   "author_role": {
+    "interventions": {
+     "determinable": 70,
+     "named": 70,
+     "unnamed": 0
+    },
+    "not_labelled": {},
+    "tests": {
+     "fed": {
+      "categories": {
+       "not_printed": {
+        "no person printed": 15
+       }
+      },
+      "determinable": 0,
+      "named": 0,
+      "not_printed": 15,
+      "parliaments": 0,
+      "parliaments_all_named": 0,
+      "per_parliament": {
+       "CHE": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 15,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": null,
+      "undeterminable": 0,
+      "unnamed": 0
+     },
+     "p10": {
+      "categories": {
+       "named": {
+        "co_signatory": 126,
+        "first_signatory": 18,
+        "joint_author": 27,
+        "sole_author": 22,
+        "spokesperson": 4
+       }
+      },
+      "determinable": 197,
+      "named": 197,
+      "not_printed": 0,
+      "parliaments": 15,
+      "parliaments_all_named": 15,
+      "per_parliament": {
+       "1024": {
+        "determinable": 7,
+        "named": 7,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "1058": {
+        "determinable": 18,
+        "named": 18,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "121": {
+        "determinable": 5,
+        "named": 5,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "131": {
+        "determinable": 5,
+        "named": 5,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "2196": {
+        "determinable": 4,
+        "named": 4,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "2937": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "306": {
+        "determinable": 3,
+        "named": 3,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "3427": {
+        "determinable": 3,
+        "named": 3,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "4001": {
+        "determinable": 4,
+        "named": 4,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "4289": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5192": {
+        "determinable": 56,
+        "named": 56,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "AR": {
+        "determinable": 3,
+        "named": 3,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "NE": {
+        "determinable": 62,
+        "named": 62,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "SG": {
+        "determinable": 21,
+        "named": 21,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "ZG": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     },
+     "p11_it": {
+      "categories": {
+       "named": {
+        "co_signatory": 18,
+        "first_signatory": 3,
+        "joint_author": 42,
+        "sole_author": 4,
+        "spokesperson": 3
+       }
+      },
+      "determinable": 70,
+      "named": 70,
+      "not_printed": 0,
+      "parliaments": 5,
+      "parliaments_all_named": 5,
+      "per_parliament": {
+       "5002": {
+        "determinable": 3,
+        "named": 3,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5113": {
+        "determinable": 7,
+        "named": 7,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5192": {
+        "determinable": 15,
+        "named": 15,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5254": {
+        "determinable": 34,
+        "named": 34,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "TI": {
+        "determinable": 11,
+        "named": 11,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     },
+     "p11_ni": {
+      "categories": {
+       "named": {
+        "first_signatory": 5,
+        "joint_author": 2,
+        "sole_author": 7
+       },
+       "not_printed": {
+        "not_printed": 1
+       }
+      },
+      "determinable": 14,
+      "named": 14,
+      "not_printed": 1,
+      "parliaments": 10,
+      "parliaments_all_named": 10,
+      "per_parliament": {
+       "5192": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 1,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5254": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "6248": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "6643": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "BE": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "BL": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "JU": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "SO": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "TI": {
+        "determinable": 3,
+        "named": 3,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "VS": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "ZH": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     }
+    },
+    "unit": "persons (P10, IT, fed); affairs (NI)"
+   },
+   "co_signatory_role": {
+    "interventions": {
+     "determinable": 0,
+     "named": 0,
+     "unnamed": 0
+    },
+    "not_labelled": {
+     "fed": "counted under author_role (one people list)",
+     "p10": "counted under author_role (one people list)",
+     "p11_it": "counted under author_role (one people list)"
+    },
+    "tests": {
+     "p11_ni": {
+      "categories": {
+       "named": {
+        "co_signatory": 5,
+        "joint_author": 2
+       },
+       "not_printed": {
+        "not_printed": 4
+       },
+       "unnamed": {
+        "new_role: official signing on behalf of the executive (Staatsschreiber)": 1,
+        "new_role: officials signing on behalf of the executive (mayor, secretary)": 1,
+        "new_role: officials signing on behalf of the executive (president, chancellor)": 1,
+        "new_role: officials signing on behalf of the executive (president, secretary)": 1
+       }
+      },
+      "determinable": 11,
+      "named": 7,
+      "not_printed": 4,
+      "parliaments": 8,
+      "parliaments_all_named": 4,
+      "per_parliament": {
+       "5192": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 1,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5254": {
+        "determinable": 1,
+        "named": 0,
+        "not_printed": 0,
+        "share_named": 0.0,
+        "undeterminable": 0,
+        "unnamed": 1
+       },
+       "6248": {
+        "determinable": 1,
+        "named": 0,
+        "not_printed": 0,
+        "share_named": 0.0,
+        "undeterminable": 0,
+        "unnamed": 1
+       },
+       "6643": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 1,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "BE": {
+        "determinable": 1,
+        "named": 0,
+        "not_printed": 0,
+        "share_named": 0.0,
+        "undeterminable": 0,
+        "unnamed": 1
+       },
+       "BL": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "JU": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "SO": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 1,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "TI": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 1,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "VS": {
+        "determinable": 2,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 0.5,
+        "undeterminable": 0,
+        "unnamed": 1
+       },
+       "ZH": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 0.636,
+      "undeterminable": 0,
+      "unnamed": 4
+     }
+    },
+    "unit": "affairs"
+   },
+   "instrument_function": {
+    "interventions": {
+     "determinable": 27,
+     "named": 27,
+     "unnamed": 0
+    },
+    "not_labelled": {
+     "p10": "GUIDE_P10 labels people only"
+    },
+    "tests": {
+     "fed": {
+      "categories": {
+       "named": {
+        "examine_report": 1,
+        "mandate": 5,
+        "questions": 9
+       }
+      },
+      "determinable": 15,
+      "named": 15,
+      "not_printed": 0,
+      "parliaments": 1,
+      "parliaments_all_named": 1,
+      "per_parliament": {
+       "CHE": {
+        "determinable": 15,
+        "named": 15,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     },
+     "p11_it": {
+      "categories": {
+       "named": {
+        "direct_decision": 1,
+        "mandate": 3,
+        "questions": 8
+       }
+      },
+      "determinable": 12,
+      "named": 12,
+      "not_printed": 0,
+      "parliaments": 5,
+      "parliaments_all_named": 5,
+      "per_parliament": {
+       "5002": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5113": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5192": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5254": {
+        "determinable": 3,
+        "named": 3,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "TI": {
+        "determinable": 3,
+        "named": 3,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     },
+     "p11_ni": {
+      "categories": {
+       "named": {
+        "direct_decision": 13
+       },
+       "unnamed": {
+        "new_role: executive's own spending authorisation (subject to optional referendum)": 1,
+        "new_role: general-terms proposal that the law be amended, drafting left to a later stage; general-terms request that parliament itself legislate (to be drafted later)": 1
+       }
+      },
+      "determinable": 15,
+      "named": 13,
+      "not_printed": 0,
+      "parliaments": 11,
+      "parliaments_all_named": 9,
+      "per_parliament": {
+       "5192": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5254": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "6248": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "6643": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "BE": {
+        "determinable": 1,
+        "named": 0,
+        "not_printed": 0,
+        "share_named": 0.0,
+        "undeterminable": 0,
+        "unnamed": 1
+       },
+       "BL": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "JU": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "SO": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "TI": {
+        "determinable": 3,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 0.667,
+        "undeterminable": 0,
+        "unnamed": 1
+       },
+       "VS": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "ZH": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 0.867,
+      "undeterminable": 0,
+      "unnamed": 2
+     }
+    },
+    "unit": "affairs"
+   },
+   "instrument_named": {
+    "interventions": {
+     "determinable": 21,
+     "named": 21,
+     "unnamed": 0
+    },
+    "not_labelled": {
+     "p10": "GUIDE_P10 labels people only",
+     "p11_ni": "GUIDE_P11_NI judges the function only"
+    },
+    "tests": {
+     "fed": {
+      "categories": {
+       "named": {
+        "interpellation": 2,
+        "motion": 5,
+        "postulate": 1,
+        "question": 1
+       },
+       "not_printed": {
+        "none": 6
+       }
+      },
+      "determinable": 9,
+      "named": 9,
+      "not_printed": 6,
+      "parliaments": 1,
+      "parliaments_all_named": 1,
+      "per_parliament": {
+       "CHE": {
+        "determinable": 9,
+        "named": 9,
+        "not_printed": 6,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     },
+     "p11_it": {
+      "categories": {
+       "named": {
+        "motion": 3,
+        "question": 9
+       }
+      },
+      "determinable": 12,
+      "named": 12,
+      "not_printed": 0,
+      "parliaments": 5,
+      "parliaments_all_named": 5,
+      "per_parliament": {
+       "5002": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5113": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5192": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5254": {
+        "determinable": 3,
+        "named": 3,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "TI": {
+        "determinable": 3,
+        "named": 3,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     }
+    },
+    "unit": "affairs"
+   },
+   "language_tag_vs_text": {
+    "interventions": {
+     "determinable": 16,
+     "named": 16,
+     "unnamed": 0
+    },
+    "not_labelled": {
+     "p10": "GUIDE_P10 labels people only",
+     "p11_ni": "GUIDE_P11_NI: role text_language only, no tag comparison"
+    },
+    "tests": {
+     "fed": {
+      "categories": {
+       "named": {
+        "text_language": 15
+       }
+      },
+      "determinable": 15,
+      "named": 15,
+      "not_printed": 0,
+      "parliaments": 1,
+      "parliaments_all_named": 1,
+      "per_parliament": {
+       "CHE": {
+        "determinable": 15,
+        "named": 15,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     },
+     "p11_it": {
+      "categories": {
+       "named": {
+        "text_language": 1
+       },
+       "undeterminable": {
+        "undeterminable": 11
+       }
+      },
+      "determinable": 1,
+      "named": 1,
+      "not_printed": 0,
+      "parliaments": 1,
+      "parliaments_all_named": 1,
+      "per_parliament": {
+       "5002": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 0,
+        "share_named": null,
+        "undeterminable": 2,
+        "unnamed": 0
+       },
+       "5113": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 0,
+        "share_named": null,
+        "undeterminable": 2,
+        "unnamed": 0
+       },
+       "5192": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 0,
+        "share_named": null,
+        "undeterminable": 2,
+        "unnamed": 0
+       },
+       "5254": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 2,
+        "unnamed": 0
+       },
+       "TI": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 0,
+        "share_named": null,
+        "undeterminable": 3,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 11,
+      "unnamed": 0
+     }
+    },
+    "unit": "affairs"
+   },
+   "submission_date_role": {
+    "interventions": {
+     "determinable": 0,
+     "named": 0,
+     "unnamed": 0
+    },
+    "not_labelled": {
+     "fed": "GUIDE_FED: P8 section 3 (dates) not asked",
+     "p10": "GUIDE_P10 labels people only",
+     "p11_it": "GUIDE_P11_IT: P8 section 3 (dates) not asked"
+    },
+    "tests": {
+     "p11_ni": {
+      "categories": {
+       "named": {
+        "cited": 5,
+        "lodged": 3,
+        "signed": 4
+       },
+       "not_printed": {
+        "not_printed": 3
+       }
+      },
+      "determinable": 12,
+      "named": 12,
+      "not_printed": 3,
+      "parliaments": 8,
+      "parliaments_all_named": 8,
+      "per_parliament": {
+       "5192": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 1,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5254": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "6248": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "6643": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 1,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "BE": {
+        "determinable": 0,
+        "named": 0,
+        "not_printed": 1,
+        "share_named": null,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "BL": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "JU": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "SO": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "TI": {
+        "determinable": 3,
+        "named": 3,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "VS": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "ZH": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     }
+    },
+    "unit": "affairs"
+   },
+   "text_language": {
+    "interventions": {
+     "determinable": 54,
+     "named": 54,
+     "unnamed": 0
+    },
+    "not_labelled": {
+     "p10": "GUIDE_P10 labels people only"
+    },
+    "tests": {
+     "fed": {
+      "categories": {
+       "named": {
+        "de": 10,
+        "fr": 10,
+        "it": 10
+       }
+      },
+      "determinable": 30,
+      "named": 30,
+      "not_printed": 0,
+      "parliaments": 1,
+      "parliaments_all_named": 1,
+      "per_parliament": {
+       "CHE": {
+        "determinable": 30,
+        "named": 30,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     },
+     "p11_it": {
+      "categories": {
+       "named": {
+        "it": 24
+       }
+      },
+      "determinable": 24,
+      "named": 24,
+      "not_printed": 0,
+      "parliaments": 5,
+      "parliaments_all_named": 5,
+      "per_parliament": {
+       "5002": {
+        "determinable": 4,
+        "named": 4,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5113": {
+        "determinable": 4,
+        "named": 4,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5192": {
+        "determinable": 4,
+        "named": 4,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5254": {
+        "determinable": 6,
+        "named": 6,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "TI": {
+        "determinable": 6,
+        "named": 6,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     },
+     "p11_ni": {
+      "categories": {
+       "named": {
+        "text_language": 15
+       }
+      },
+      "determinable": 15,
+      "named": 15,
+      "not_printed": 0,
+      "parliaments": 11,
+      "parliaments_all_named": 11,
+      "per_parliament": {
+       "5192": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5254": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "6248": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "6643": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "BE": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "BL": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "JU": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "SO": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "TI": {
+        "determinable": 3,
+        "named": 3,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "VS": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "ZH": {
+        "determinable": 1,
+        "named": 1,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     }
+    },
+    "unit": "document languages (IT, fed); affairs (NI)"
+   },
+   "type_category": {
+    "interventions": {
+     "determinable": 27,
+     "named": 27,
+     "unnamed": 0
+    },
+    "not_labelled": {
+     "p10": "GUIDE_P10 labels people only",
+     "p11_ni": "not derived for NI"
+    },
+    "tests": {
+     "fed": {
+      "categories": {
+       "named": {
+        "conforms": 15
+       }
+      },
+      "determinable": 15,
+      "named": 15,
+      "not_printed": 0,
+      "parliaments": 1,
+      "parliaments_all_named": 1,
+      "per_parliament": {
+       "CHE": {
+        "determinable": 15,
+        "named": 15,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     },
+     "p11_it": {
+      "categories": {
+       "named": {
+        "conforms": 10,
+        "direct_decision": 1,
+        "mandate": 1
+       }
+      },
+      "determinable": 12,
+      "named": 12,
+      "not_printed": 0,
+      "parliaments": 5,
+      "parliaments_all_named": 5,
+      "per_parliament": {
+       "5002": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5113": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5192": {
+        "determinable": 2,
+        "named": 2,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "5254": {
+        "determinable": 3,
+        "named": 3,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       },
+       "TI": {
+        "determinable": 3,
+        "named": 3,
+        "not_printed": 0,
+        "share_named": 1.0,
+        "undeterminable": 0,
+        "unnamed": 0
+       }
+      },
+      "share_named": 1.0,
+      "undeterminable": 0,
+      "unnamed": 0
+     }
+    },
+    "unit": "affairs"
+   }
+  },
+  "gold": {
+   "fed": {
+    "file": "data/fed/fed_gold.jsonl",
+    "guide": "eval/fed/GUIDE_FED.md",
+    "n_affairs": 15,
+    "n_parliaments": 1,
+    "scope": "interventions"
+   },
+   "p10": {
+    "file": "data/p10/p10_gold.jsonl",
+    "guide": "eval/p10/GUIDE_P10.md",
+    "n_affairs": 40,
+    "n_parliaments": 15,
+    "scope": "interventions"
+   },
+   "p11_it": {
+    "file": "data/p11/p11_it_gold.jsonl",
+    "guide": "eval/p11/GUIDE_P11_IT.md",
+    "n_affairs": 12,
+    "n_parliaments": 5,
+    "scope": "interventions"
+   },
+   "p11_ni": {
+    "file": "data/p11/p11_ni_gold.jsonl",
+    "guide": "eval/p11/GUIDE_P11_NI.md",
+    "n_affairs": 15,
+    "n_parliaments": 11,
+    "scope": "government business and parliamentary initiatives"
+   }
+  },
+  "label": "EXPLORATORY, POST HOC (not pre-registered): v0.2 role fit on gold labelled after v0.2's role vocabularies were fixed; descriptive, no threshold (gegenprobe/schema/v0_2_oos_fit.py)",
+  "mappings": {
+   "answer_date_role": {
+    "decision": "answer_decided",
+    "dispatch": "answer_dispatched"
+   },
+   "language_tag_vs_text": {
+    "invalid_tag": null,
+    "other_language": "Lang",
+    "subset_of_text": "Lang",
+    "superset_of_text": "Lang",
+    "text_language": "Lang"
+   },
+   "submission_date_role": {
+    "cited": "cited",
+    "lodged": "lodged",
+    "session_lodged": "announced",
+    "signed": "signed"
+   },
+   "type_category": {
+    "conforms": [
+     "motion",
+     "postulate",
+     "interpellation",
+     "question"
+    ],
+    "direct_decision": [
+     "direct_decision"
+    ],
+    "examine_report": [
+     "examine_report"
+    ],
+    "mandate": [
+     "mandate"
+    ],
+    "other": null,
+    "questions": [
+     "questions"
+    ]
+   }
+  },
+  "summary": {
+   "authorship": {
+    "determinable": 267,
+    "named": 267,
+    "unnamed": {}
+   },
+   "authorship_non_interventions": {
+    "determinable": 25,
+    "named": 21,
+    "unnamed": {
+     "co_signatory_role: new_role: official signing on behalf of the executive (Staatsschreiber)": 1,
+     "co_signatory_role: new_role: officials signing on behalf of the executive (mayor, secretary)": 1,
+     "co_signatory_role: new_role: officials signing on behalf of the executive (president, chancellor)": 1,
+     "co_signatory_role: new_role: officials signing on behalf of the executive (president, secretary)": 1
+    }
+   },
+   "beyond_authorship_interventions": {
+    "determinable": 112,
+    "named": 112,
+    "unnamed": {}
+   },
+   "beyond_authorship_interventions_without_text_language": {
+    "determinable": 58,
+    "named": 58,
+    "unnamed": {}
+   },
+   "beyond_authorship_non_interventions": {
+    "determinable": 43,
+    "named": 41,
+    "unnamed": {
+     "instrument_function: new_role: executive's own spending authorisation (subject to optional referendum)": 1,
+     "instrument_function: new_role: general-terms proposal that the law be amended, drafting left to a later stage; general-terms request that parliament itself legislate (to be drafted later)": 1
+    }
+   },
+   "circular_check": {
+    "file": "results/p8/p8_v02_role_coverage.json",
+    "note": "302/302 on P8's own gold (v0.2's roles written from P8's categories); this file is the out-of-sample counterpart"
+   },
+   "interventions": {
+    "n_affairs": 27,
+    "n_parliaments": 6
+   },
+   "submission_date_role": {
+    "interventions": "not labelled by any out-of-sample test (P10, P11 IT, fed)",
+    "labelled_by": [
+     "p11_ni"
+    ],
+    "p11_ni": {
+     "determinable": 12,
+     "named": 12,
+     "unnamed": {}
+    }
+   }
+  },
+  "vocabulary": {
+   "commit": "836185d1",
+   "committed": "2026-10-11T12:35:37+02:00",
+   "file": "schema/gegenprobe_schema_v0_2.py",
+   "locks": {
+    "fed": {
+     "after_vocabulary": true,
+     "lock": "eval/fed/LOCKFED",
+     "written": "2026-10-11T17:49:17+0200"
+    },
+    "p10": {
+     "after_vocabulary": true,
+     "lock": "eval/prereg10/LOCK10",
+     "written": "2026-10-11T20:25:37+0200"
+    },
+    "p11_it": {
+     "after_vocabulary": true,
+     "lock": "eval/p11/LOCKP11",
+     "written": "2026-10-12T02:35:34+0200"
+    },
+    "p11_ni": {
+     "after_vocabulary": true,
+     "lock": "eval/p11/LOCKP11",
+     "written": "2026-10-12T02:35:34+0200"
+    }
+   }
+  }
+ },
+ "label": "POST HOC (12 Oct 2026; proposed in review; not pre-registered): v0.2's out-of-sample role fit re-run on the draft schema v0.2.1 (v0.2.0 plus the date role `cited`); `cited` was added after these labels were seen, so this is a consistency check with P8's definition, not an out-of-sample test of it",
+ "mappings": {
+  "submission_date_role": {
+   "cited": "cited",
+   "lodged": "lodged",
+   "session_lodged": "announced",
+   "signed": "signed"
+  }
+ },
+ "schema": {
+  "added_date_roles": [
+   "cited"
+  ],
+  "extends": "0.2.0",
+  "file": "schema/gegenprobe_schema_v0_2_1.py",
+  "v0_2_0_locked_in": [
+   "eval/p11/LOCKP11",
+   "eval/fed/LOCKFED"
+  ],
+  "version": "0.2.1"
+ },
+ "v0_2_0": {
+  "beyond_authorship_interventions": {
+   "determinable": 112,
+   "named": 112,
+   "unnamed": {}
+  },
+  "beyond_authorship_non_interventions": {
+   "determinable": 43,
+   "named": 36,
+   "unnamed": {
+    "instrument_function: new_role: executive's own spending authorisation (subject to optional referendum)": 1,
+    "instrument_function: new_role: general-terms proposal that the law be amended, drafting left to a later stage; general-terms request that parliament itself legislate (to be drafted later)": 1,
+    "submission_date_role: cited": 5
+   }
+  },
+  "submission_date_role_p11_ni": {
+   "determinable": 12,
+   "named": 7,
+   "unnamed": {
+    "cited": 5
+   }
+  }
+ },
+ "v0_2_1": {
+  "beyond_authorship_interventions": {
+   "determinable": 112,
+   "named": 112,
+   "unnamed": {}
+  },
+  "beyond_authorship_non_interventions": {
+   "determinable": 43,
+   "named": 41,
+   "unnamed": {
+    "instrument_function: new_role: executive's own spending authorisation (subject to optional referendum)": 1,
+    "instrument_function: new_role: general-terms proposal that the law be amended, drafting left to a later stage; general-terms request that parliament itself legislate (to be drafted later)": 1
+   }
+  },
+  "submission_date_role_p11_ni": {
+   "determinable": 12,
+   "named": 12,
+   "unnamed": {}
+  }
+ }
+}

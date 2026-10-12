@@ -128,6 +128,8 @@
    "events": [
     {
      "actor_de": null,
+     "actor_fr": null,
+     "actor_it": null,
      "date": "2016-07-04T00:00:00",
      "id": 389853,
      "position": 1,
@@ -220,6 +222,8 @@
    "events": [
     {
      "actor_de": null,
+     "actor_fr": null,
+     "actor_it": null,
      "date": "2024-03-12T00:00:00",
      "id": 905651,
      "position": 1,
@@ -230,6 +234,8 @@
     },
     {
      "actor_de": null,
+     "actor_fr": "Conseil administratif Vernier",
+     "actor_it": null,
      "date": "2024-06-10T00:00:00",
      "id": 922573,
      "position": 2,
@@ -367,6 +373,8 @@
    "events": [
     {
      "actor_de": null,
+     "actor_fr": null,
+     "actor_it": null,
      "date": "2021-12-08T00:00:00",
      "id": 333218,
      "position": 1,
@@ -377,6 +385,8 @@
     },
     {
      "actor_de": "Regierung",
+     "actor_fr": null,
+     "actor_it": null,
      "date": "2022-05-18T00:00:00",
      "id": 333247,
      "position": 2,
@@ -387,6 +397,8 @@
     },
     {
      "actor_de": "Parlament",
+     "actor_fr": null,
+     "actor_it": null,
      "date": "2022-09-05T00:00:00",
      "id": 673640,
      "position": 3,
@@ -396,6 +408,41 @@
      "title_it": null
     }
    ]
+  }
+ },
+ "bodies": {
+  "5192": {
+   "body_key": "5192",
+   "executive_name": "Municipio Lugano",
+   "executive_name_de": "Stadtrat",
+   "executive_name_fr": "Municipalité",
+   "executive_name_it": "Municipio",
+   "executive_wikidata_id": null,
+   "id": 384,
+   "lang": "IT",
+   "name": "Lugano"
+  },
+  "6643": {
+   "body_key": "6643",
+   "executive_name": null,
+   "executive_name_de": null,
+   "executive_name_fr": null,
+   "executive_name_it": null,
+   "executive_wikidata_id": null,
+   "id": 429,
+   "lang": "FR",
+   "name": "Vernier"
+  },
+  "BE": {
+   "body_key": "BE",
+   "executive_name": "Regierungsrat des Kantons Bern",
+   "executive_name_de": "Regierungsrat",
+   "executive_name_fr": "Conseil-exécutif",
+   "executive_name_it": "Consiglio esecutivo",
+   "executive_wikidata_id": "Q2993931",
+   "id": 253,
+   "lang": "DE",
+   "name": "Bern"
   }
  },
  "names": {
@@ -3647,6 +3694,10 @@
   ]
  },
  "sources": {
+  "bodies": {
+   "file": "bodies.ndjson.gz",
+   "source": "https://files.openparldata.ch/exports/"
+  },
   "docs": {
    "location": "https://files.openparldata.ch/exports/docs/docs_<body>.ndjson.gz",
    "source": "exports"

@@ -30,7 +30,8 @@ anything:
   * addressed_body, where none is carried and the record has actors:
       present_unanchored P3/P3b: the frozen addressed-body rule finds no addressee phrase in the question document
                          (re-run on the cached text: addressed_body_rule.jsonl)
-      not_extracted      P5 and the federal cell: their path does not read the addressed body
+      not_extracted      the federal cell (and the P5 rules arm's records before R21): their path does not read the
+                         addressed body; P5's records are the operator command's since R21 and read it as P3/P3b
   * type.instrument_function / type.instrument_named, where absent: the instrument function's own typed null where the
     role rules typed it (not_in_document), else not_extracted (the federal cell's path does not run the instrument rules)
 Each added reason's evidence starts with "gegenprobe.schema.v0_2_gaps:"; one sentence in `extraction.notes`;
@@ -56,12 +57,21 @@ TAG = "gegenprobe.schema.v0_2_gaps: "
 NOTE_HEAD = f"typed gaps by {OVERLAY}"
 COSIGN_ROLES = ("co_signatory", "supporter")
 SOLE_ROLES = ("sole_author", "spokesperson", "group", "submitter", "committee")
-ADDRESSED_SETS = ("p3", "p3b")
+ADDRESSED_SETS = ("p3", "p3b", "p5")  # R21: P5's records are the operator command's (affair_product), as P3/P3b
+P5_ARM = "gegenprobe P5 rules arm"  # converter_version of the P5 rules arm's assembly (gegenprobe.schema.v0_2_all.p5_affair)
 WINDOW = 3000  # gegenprobe.affair.extract: pages_q[0][:3000]
 NOT_READ = {
     "p5": "the P5 rules path (Q/A pairs, people, recommendation) does not read the {what}",
     "fed": "the federal cell's path (eval.fed.arms) does not read the {what}",
 }
+
+
+def not_read(rec: dict, set_name: str) -> str | None:
+    """The sentence for a role the record's path does not read: the federal cell's path, and the P5 rules arm's
+    assembly (P5's records before R21); None for a record of the operator command / product path."""
+    if set_name == "p5" and not str((rec.get("extraction") or {}).get("converter_version") or "").startswith(P5_ARM):
+        return None
+    return NOT_READ.get(set_name)
 
 
 # ----------------------------------------------------------------------------------------------------------- detection
@@ -174,6 +184,7 @@ def _cosign_reason(rec: dict, set_name: str) -> dict:
     if rule_auth:
         a = rule_auth[0]
         who = ("the P5 people rules (gegenprobe.qa.people) read one name" if a["role"] == "submitter" and set_name == "p5"
+               and not_read(rec, set_name)
                else f"the role rules read a {a['role']} ({a['name'].get('rule')})")
         return _null("not_in_document", _rroute(q), f"{who} and no further signer in the question document", qid)
     meta = [a for a in vals if a["name"].get("route") == "metadata"]
@@ -184,8 +195,8 @@ def _cosign_reason(rec: dict, set_name: str) -> dict:
 
 def _addressed_reason(rec: dict, set_name: str, inp: Inputs) -> dict | None:
     q = _doc(rec, "question")
-    if set_name in NOT_READ:
-        return _null("not_extracted", "rule", NOT_READ[set_name].format(what="addressed body"))
+    if not_read(rec, set_name):
+        return _null("not_extracted", "rule", not_read(rec, set_name).format(what="addressed body"))
     if q is None:
         return _null("not_in_corpus", "metadata", "OPD links no question document to read the addressed body from")
     row = inp.addressed.get((set_name, q["doc_id"]))
@@ -214,9 +225,9 @@ def with_gaps(rec: dict, inp: Inputs, set_name: str, ledger: list | None = None)
     t = rec["type"]
     fn = t.get("instrument_function")
     if fn is None:
-        if set_name in NOT_READ:
+        if not_read(rec, set_name):
             t["instrument_function"] = _null("not_extracted", "rule",
-                                             NOT_READ[set_name].format(what="instrument (gegenprobe.convert.roles)"))
+                                             not_read(rec, set_name).format(what="instrument (gegenprobe.convert.roles)"))
             added.append(("type.instrument_function", t["instrument_function"]))
             fn = t["instrument_function"]
     if t.get("instrument_named") is None and fn is not None:

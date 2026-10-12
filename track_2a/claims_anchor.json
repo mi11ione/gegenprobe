@@ -1,6 +1,11 @@
 {
  "_doc": "Anchors for `make claims`: {claim id: {document: [phrase, ...]}}. A phrase holds the claim's shown value with the words that name it; in a strict zone every numeric token must sit inside such a phrase at its position (gegenprobe.claims.zone_check).",
  "anchors": {
+  "census.bodies_with_affairs": {
+   "docs/ech-onepager.md": [
+    "89 parliaments with affairs in scope)."
+   ]
+  },
   "census.gap": {
    "README.md": [
     "16,749 under its frozen lexicon,",
@@ -52,6 +57,9 @@
    "docs/form_notes.md": [
     "902,754 documents; review USD"
    ],
+   "docs/runbook.md": [
+    "902,754 documents in OPD's export |"
+   ],
    "technical_report.md": [
     "902,754 documents in OPD's export, about"
    ]
@@ -65,6 +73,9 @@
    ],
    "docs/form_notes.md": [
     "0.5 CPU-hours for OPD's"
+   ],
+   "docs/runbook.md": [
+    "0.5 CPU-hours for all"
    ],
    "technical_report.md": [
     "0.5 CPU-hours for all"
@@ -87,6 +98,9 @@
    ]
   },
   "docs.theta_publicai": {
+   "docs/runbook.md": [
+    "this build (pointer θ = 10.40; P7 θ_A = 8,"
+   ],
    "technical_report.md": [
     "10.40) | Public AI, or",
     "documents and frozen (θ = 10.40, AUROC"
@@ -138,6 +152,9 @@
    ]
   },
   "eval.h3.auroc": {
+   "README.md": [
+    "(H3 held, AUROC 0.969)."
+   ],
    "technical_report.md": [
     "suggestion (D6); H3 held (AUROC 0.969)."
    ]
@@ -207,6 +224,9 @@
    ]
   },
   "matrix.fields_partial": {
+   "docs/ech-onepager.md": [
+    "13 partly; no field lacks a"
+   ],
    "technical_report.md": [
     "13 partly or only in the"
    ]
@@ -238,11 +258,23 @@
   },
   "p2.bodies": {
    "README.md": [
+    "15 parliaments nobody wrote rules for;",
     "In 15 parliaments nobody wrote rules for,",
+    "cover:** in 15 parliaments nobody wrote rules for",
     "| 62 documents, 15 parliaments without rules |"
    ],
+   "docs/decision.md": [
+    "15 parliaments without rules it found"
+   ],
+   "docs/decision_de.md": [
+    "15 Parlamenten ohne Regeln fand es"
+   ],
    "docs/form_notes.md": [
-    "15 parliaments) it finds"
+    "15 parliaments nobody wrote rules for"
+   ],
+   "technical_report.md": [
+    "In 15 parliaments nobody wrote rules for",
+    "in 15 parliaments nobody wrote rules for; the rules, written for other layouts, 2/29"
    ]
   },
   "p2.h3_k": {
@@ -255,7 +287,7 @@
   },
   "p2.n": {
    "README.md": [
-    "62 documents the pointer is exact",
+    "62 documents it is exact on",
     "| P2 | 62 documents,"
    ],
    "technical_report.md": [
@@ -271,13 +303,22 @@
   },
   "p2.pointer.exact": {
    "technical_report.md": [
-    "answer dates: exact on 53/62 against",
     "| **pointer** | **53/62**"
    ]
   },
   "p2.pointer_found": {
+   "../README.md": [
+    "records from an exploratory cell); 24/29 from P2"
+   ],
    "README.md": [
-    "24/29 answer dates, rules"
+    "24/29 answer dates, rules",
+    "24/29 from P2 and"
+   ],
+   "docs/decision.md": [
+    "24/29 answer dates, where the rules"
+   ],
+   "docs/decision_de.md": [
+    "Parlamenten ohne Regeln fand es 24/29"
    ],
    "technical_report.md": [
     "24/29 dates, rules",
@@ -296,17 +337,30 @@
   },
   "p2.rules_found": {
    "../README.md": [
-    "exact; registered: the rules 2/29 |"
+    "2/29 | the date test, P2",
+    "find 2/29 | the date test, P2 | registered"
    ],
    "README.md": [
+    "2/29 (P2, registered)",
+    "2/29 (P2, registered); in",
     "2/29 answer dates.",
+    "2/29 | the date test, P2",
+    "2/29; on all",
     "answer dates, rules 2/29 |",
-    "registered: the rules 2/29 |",
-    "written for other layouts, find 2/29;"
+    "find 2/29 | the date test, P2 | registered"
+   ],
+   "docs/decision.md": [
+    "2/29 (a pre-registered test)."
+   ],
+   "docs/decision_de.md": [
+    "2/29 (ein vorregistrierter Test)."
    ],
    "technical_report.md": [
+    "2/29 (registered); in",
+    "2/29 | the date test, P2",
+    "2/29 | the date test, P2 | registered",
     "2/29). H2 held: on all",
-    "answer dates; registered: the rules 2/29 |",
+    "24/29 answer dates, the rules 2/29 (registered)",
     "dates, rules 2/29 |",
     "| **2/29**"
    ]
@@ -341,17 +395,11 @@
     "29 whole affairs,"
    ]
   },
-  "p4.derived": {
-   "technical_report.md": [
-    "with Apertus suggestions. P4: 99 of"
-   ]
-  },
   "p4.precision": {
    "README.md": [
     "H1, H3 failed | precision 99/99, recall"
    ],
    "technical_report.md": [
-    "99/99. **P5.** Rules-only pairing: precision",
     "precision 99/99 |"
    ]
   },
@@ -370,12 +418,9 @@
   },
   "p7.h1.correct": {
    "README.md": [
+    "120/120 from P7 (Wilson",
     "120/120 of its sampled promotions the",
     "H1 holds (120/120); H4 supported"
-   ],
-   "docs/form_notes.md": [
-    "120/120\n  (registered",
-    "its promotions are answers on 120/120"
    ],
    "technical_report.md": [
     "**H1 holds** (120/120); H4 supported",
@@ -406,6 +451,7 @@
   },
   "p7.queue.promoted": {
    "README.md": [
+    "214 of the",
     "214 review rows verified by Apertus,",
     "supported; H3 not supported | 214 of"
    ],
@@ -419,15 +465,11 @@
    ]
   },
   "p7.test.frame": {
-   "../README.md": [
-    "478 frame rows promoted against Apertus's"
-   ],
    "README.md": [
     "478 review rows,"
    ],
    "technical_report.md": [
     "478 eligible review rows outside every",
-    "478 frame rows promoted against Apertus's",
     "478 review rows,"
    ]
   },
@@ -445,14 +487,27 @@
     "2/4 in v0.1's meaning), the"
    ]
   },
+  "p8.addressed_body.n_conform": {
+   "docs/ech-onepager.md": [
+    "the executive in 10 of"
+   ]
+  },
   "p8.addressed_body.pooled": {
    "technical_report.md": [
     "57/60) and recommendation ("
    ]
   },
+  "p8.agreement.a3_fields": {
+   "docs/ech-onepager.md": [
+    "11 disputed fields; another vendor's model"
+   ]
+  },
   "p8.co_signatories.pooled": {
    "README.md": [
     "10/41). Two Bellinzona \"Motions\" propose"
+   ],
+   "docs/ech-onepager.md": [
+    "a derived list** (role split; 10/41"
    ],
    "technical_report.md": [
     "co-signatories 10/41"
@@ -461,6 +516,9 @@
   "p8.date_submission.n_conform": {
    "README.md": [
     "In 9 of 11 parliaments OPD's date"
+   ],
+   "docs/ech-onepager.md": [
+    "In 9 of"
    ]
   },
   "p8.date_submission.offset_max": {
@@ -470,6 +528,10 @@
    "README.md": [
     "2 to 28 days after the signing or",
     ">   28 days after the signing or"
+   ],
+   "docs/ech-onepager.md": [
+    "28 days after the signing or",
+    "28 days earlier (P8, under both"
    ]
   },
   "p8.date_submission.offset_min": {
@@ -479,9 +541,16 @@
    "README.md": [
     "(3/5), 2 to",
     "is printed in neither document, 2 to"
+   ],
+   "docs/ech-onepager.md": [
+    "2 to",
+    "member's signing or lodging date 2 to"
    ]
   },
   "p8.date_submission.pooled": {
+   "docs/ech-onepager.md": [
+    "event and its source** (body-specific; 44/57"
+   ],
    "technical_report.md": [
     "submission date 44/57"
    ]
@@ -504,9 +573,20 @@
   "p8.language.FR_other": {
    "README.md": [
     "names the other official language in 2\n  of 6 affairs"
+   ],
+   "docs/ech-onepager.md": [
+    "In Fribourg 2 of"
+   ]
+  },
+  "p8.language.n_untagged": {
+   "docs/ech-onepager.md": [
+    "name the other official language; 5 of"
    ]
   },
   "p8.language.pooled": {
+   "docs/ech-onepager.md": [
+    "the source's tag** (role split; 34/36"
+   ],
    "technical_report.md": [
     "language 34/36"
    ]
@@ -517,6 +597,9 @@
     "checks | meaning measured for 11 of",
     "group.** Meaning is measured for 11 of"
    ],
+   "docs/ech-onepager.md": [
+    "11 of the"
+   ],
    "technical_report.md": [
     "5 robust; meaning measured for 11 of"
    ]
@@ -524,6 +607,9 @@
   "p8.meaning_tested": {
    "README.md": [
     "| meaning of 7 fields in the documents |"
+   ],
+   "docs/ech-onepager.md": [
+    "7 fields on"
    ],
    "technical_report.md": [
     "| meaning of 7 fields in the documents |"
@@ -535,6 +621,10 @@
     "66 fresh affairs from",
     "| P8 | 66 fresh affairs,"
    ],
+   "docs/ech-onepager.md": [
+    "66 fresh affairs from",
+    "on 66 fresh affairs"
+   ],
    "technical_report.md": [
     "| P8 | 66 fresh affairs,"
    ]
@@ -544,6 +634,13 @@
     "11 parliaments OPD's date is the",
     "11 parliaments, labelled blind",
     "66 fresh affairs, 11 parliaments | meaning of 7"
+   ],
+   "docs/ech-onepager.md": [
+    "11 parliaments (P8) finds roles in",
+    "11 parliaments (one exception allowed); Bellinzona's",
+    "11 parliaments OPD's",
+    "11 parliaments tag no document. *Recommend:*",
+    "11 parliaments, cantons and"
    ],
    "technical_report.md": [
     "11 parliaments | meaning of 7"
@@ -566,16 +663,25 @@
    "README.md": [
     "35/65 affairs carry the one meaning"
    ],
+   "docs/ech-onepager.md": [
+    "not a slot** (role split; 35/65"
+   ],
    "technical_report.md": [
     "interval): submitter 35/65"
    ]
   },
   "p8.type.pooled": {
+   "docs/ech-onepager.md": [
+    "the harmonised value** (role split; 55/64"
+   ],
    "technical_report.md": [
     "type 55/64"
    ]
   },
   "question.bodies": {
+   "docs/ech-onepager.md": [
+    "54 bodies OPD's \"answer\" event is"
+   ],
    "technical_report.md": [
     "54 bodies the submission date |",
     "registered; in 7 of 54"
@@ -585,6 +691,10 @@
    "README.md": [
     "7 parliaments, mostly the submission date",
     "and in 7 parliaments mostly the submission date"
+   ],
+   "docs/ech-onepager.md": [
+    "7 bodies mostly the",
+    "date parliament **registered** it. In 7 of"
    ],
    "technical_report.md": [
     "7 parliaments, mostly the submission date",
@@ -626,21 +736,19 @@
     "| 24/29 | 7 | 1 |"
    ]
   },
-  "r10.p2_free_plain_reparsed": {
-   "README.md": [
-    "25/29 (plain) once its answers"
-   ]
-  },
   "r10.p2_free_registered": {
    "README.md": [
-    "22/29 as registered,",
     "the latest printed date (22/29"
    ]
   },
   "r10.p7_h1_wilson": {
    "README.md": [
+    "[96.9, 100]); the margin from",
     "[96.9, 100];",
     "registered, Wilson 95%\n  [96.9, 100]"
+   ],
+   "technical_report.md": [
+    "[96.9, 100]) | the verifier test,"
    ]
   },
   "r10.p7_h4_ci": {
@@ -650,14 +758,7 @@
   },
   "r10.p7_h4_pts": {
    "README.md": [
-    "22.7 points of promotions whose printed",
-    "for the exact-date match, +22.7 points",
-    "weighted), +22.7"
-   ]
-  },
-  "r10.p7_rule_queue": {
-   "README.md": [
-    "recovers 369."
+    "a no-model exact-date match, +22.7 points"
    ]
   },
   "r10.residue_share": {
@@ -681,7 +782,7 @@
   },
   "r11.p7_h4_unweighted_ci": {
    "README.md": [
-    "[3.4, 12.2]). Post hoc, the date"
+    "[3.4, 12.2]). The tier it fills"
    ]
   },
   "r11.schema_body_specific": {
@@ -707,6 +808,14 @@
     "17** | fields are shared",
     "of 17 fields |",
     "of the 17 fields: 4"
+   ],
+   "docs/ech-onepager.md": [
+    "17 fields) | oral answers in",
+    "17 fields. **v0.2 ships P8's roles,",
+    "17) | decision date, dispatch",
+    "17) | submission date: in",
+    "not only for dates. The 17 fields:",
+    "of 17:"
    ],
    "docs/form_notes.md": [
     "17-field skeleton."
@@ -738,6 +847,10 @@
     "| **10 of",
     "| needs roles | **10** ("
    ],
+   "docs/ech-onepager.md": [
+    "fields: 10 need",
+    "with a role split** (10 of"
+   ],
    "docs/form_notes.md": [
     "Needs roles: 10 fields ("
    ],
@@ -765,9 +878,11 @@
   },
   "r12.p2_best_nomodel_exact": {
    "README.md": [
-    "44/62 (p ="
+    "the labels are exact on 44/62 to"
    ],
    "technical_report.md": [
+    "(post hoc, `docs/evaluation.md`): model-free date rules written after P2's labels are exact on 44/62",
+    "P2's labels are exact on 44/62 to",
     "date, answer-typed docs* | *44/62* | *"
    ]
   },
@@ -781,9 +896,15 @@
     "| *13* | *0* | *7*"
    ]
   },
+  "r12.p2_pointer_exact": {
+   "README.md": [
+    "53/62 against the rules'"
+   ]
+  },
   "r12.p2_rules_found": {
    "docs/form_notes.md": [
-    "Registered: the rules 2/29"
+    "2/29\n  (registered",
+    "answer dates, the rules 2/29"
    ]
   },
   "r12.p3_bodies": {
@@ -799,7 +920,6 @@
     "120 agenda items, 6 sittings |"
    ],
    "technical_report.md": [
-    "120 agenda items as virtual affairs,",
     "120 agenda items, 6 sittings |"
    ]
   },
@@ -807,13 +927,11 @@
    "README.md": [
     "10 parliaments | Q/A pairs, people,"
    ],
+   "docs/ech-onepager.md": [
+    "10 parliaments, DE/FR/IT) puts"
+   ],
    "technical_report.md": [
     "10 parliaments | Q/A pairs, people,"
-   ]
-  },
-  "r12.p7_date_hit_p7": {
-   "README.md": [
-    "113/120 of its promotions, against"
    ]
   },
   "r12.readme.matrix.addressed_body.metadata": {
@@ -929,6 +1047,10 @@
    "README.md": [
     "body-specific; 6 are not yet tested"
    ],
+   "docs/ech-onepager.md": [
+    "**defined once in v0.1** (6 of",
+    "6 defined once in v0.1 (meaning"
+   ],
    "docs/form_notes.md": [
     "Untested: 6 fields, defined once"
    ]
@@ -938,6 +1060,10 @@
     "2 are fragile",
     "2 fragile) | \"answer date\" is",
     "robust + 2 fragile;"
+   ],
+   "docs/ech-onepager.md": [
+    "2 fragile) | answer date, procedural",
+    "robust, 2 fragile),"
    ],
    "docs/form_notes.md": [
     "robust + 2 fragile;"
@@ -953,6 +1079,10 @@
    "README.md": [
     "**10** (8 robust +",
     "their roles are explicit (8 robust +"
+   ],
+   "docs/ech-onepager.md": [
+    "17: 8 robust,",
+    "roles (8 robust,"
    ],
    "docs/form_notes.md": [
     "fields (8 robust +"
@@ -1053,6 +1183,10 @@
     "answer documents, and the 15",
     "exploratory, `eval/fed/`, locked before the draw and the labels).** On 15"
    ],
+   "docs/ech-onepager.md": [
+    "15 Federal Council answers whose v0.2",
+    "An exploratory\nfederal cell adds 15 Federal Council answers"
+   ],
    "technical_report.md": [
     "15 Federal Council answers print no",
     "exploratory, locked before draw and labels): 15"
@@ -1116,7 +1250,6 @@
   "r13.p2_cluster_gain": {
    "README.md": [
     "[-0.02, 0.54], so it sits in",
-    "[-0.02, 0.54], so it sits in some\n  parliaments, not all. Post hoc",
     "registered gain over the rules (P2-H2) is [-0.02, 0.54]"
    ],
    "technical_report.md": [
@@ -1128,32 +1261,42 @@
     "5.3 × 10⁻⁴); resampling the"
    ]
   },
-  "r13.p2_mcnemar": {
-   "README.md": [
-    "0.012, `results/eval2/p2_posthoc_best_baseline.json`). It puts a"
-   ]
-  },
   "r13.p8_ci_cosign": {
+   "docs/ech-onepager.md": [
+    "[6.8%, 46.3%]). Bern"
+   ],
    "technical_report.md": [
     "[6.8%, 46.3%], submission date"
    ]
   },
   "r13.p8_ci_language": {
+   "docs/ech-onepager.md": [
+    "[83.3%, 100.0%]). In Fribourg"
+   ],
    "technical_report.md": [
     "[83.3%, 100.0%], each verdict unchanged on"
    ]
   },
   "r13.p8_ci_subdate": {
+   "docs/ech-onepager.md": [
+    "[57.1%, 91.8%]). In"
+   ],
    "technical_report.md": [
     "[57.1%, 91.8%], type"
    ]
   },
   "r13.p8_ci_submitter": {
+   "docs/ech-onepager.md": [
+    "[33.3%, 75.0%]). Bern city, Vaud and"
+   ],
    "technical_report.md": [
     "[33.3%, 75.0%], co-signatories"
    ]
   },
   "r13.p8_ci_type": {
+   "docs/ech-onepager.md": [
+    "[76.2%, 95.3%]). Two Bellinzona \"Motions\""
+   ],
    "technical_report.md": [
     "[76.2%, 95.3%], language"
    ]
@@ -1174,6 +1317,7 @@
   },
   "r13.pairs_rec_heldout": {
    "README.md": [
+    "39/137 gold (name, role) pairs. The",
     "39/137). Where no rule exists",
     "39/137: on unseen layouts the"
    ],
@@ -1233,7 +1377,7 @@
   },
   "r13.tagged_docs": {
    "README.md": [
-    "can differ (3 of the 130 tagged"
+    "can differ (9 of the 210 tagged"
    ]
   },
   "r13.v02_fed_affairs": {
@@ -1266,8 +1410,7 @@
   "r13.xl_first_pair_cross": {
    "README.md": [
     "answer differ in language in 214 of",
-    "converter affairs; 214",
-    "fills holds 214 of"
+    "converter affairs; 214"
    ]
   },
   "r13.xl_gr": {
@@ -1351,7 +1494,6 @@
   },
   "r14.cc_rules": {
    "README.md": [
-    "15 parliaments; post hoc; [next to",
     "| frozen rules | 15 |"
    ]
   },
@@ -1380,50 +1522,43 @@
   },
   "r14.cov_review": {
    "../README.md": [
-    "39 review rows |"
+    "39 Bern rows in review add"
    ],
    "technical_report.md": [
-    "39 review rows |"
+    "39 Bern rows in review add"
    ]
   },
   "r14.cov_row_checked": {
    "../README.md": [
-    "91.5% from row-checked repairs +"
+    "row-checked ones reach 91.5%; the"
    ],
    "README.md": [
-    "91.5% from row-checked repairs +"
+    "row-checked ones reach 91.5%; the"
    ],
    "docs/form_notes.md": [
-    "91.5% from row-checked repairs alone). The"
+    "91.5% from the"
    ],
    "technical_report.md": [
-    "91.5% from row-checked repairs +"
+    "row-checked ones reach 91.5%; the"
    ]
   },
-  "r14.cov_unchecked_points": {
+  "r14.cov_row_checked_n": {
    "../README.md": [
-    "0.6 points from the"
+    "8,949 row-checked ones reach"
    ],
    "README.md": [
-    "0.6 points from the"
+    "8,949 row-checked ones reach"
+   ],
+   "docs/form_notes.md": [
+    "8,949 row-checked alone). The"
    ],
    "technical_report.md": [
-    "0.6 points from the"
+    "8,949 row-checked ones reach"
    ]
   },
   "r14.p1_apertus_cascade_exact": {
-   "../README.md": [
-    "139/154** answer dates where rules"
-   ],
    "README.md": [
-    "139/154** answer dates where rules",
-    "139/154, a model-free cascade (rules,"
-   ],
-   "docs/form_notes.md": [
-    "adds one document net (P1: 139/154"
-   ],
-   "technical_report.md": [
-    "139/154** answer dates where rules"
+    "139/154, and the pointer's margin"
    ]
   },
   "r14.p1_mfc_ci": {
@@ -1432,18 +1567,7 @@
    ]
   },
   "r14.p1_mfc_exact": {
-   "../README.md": [
-    "a model-free cascade (post hoc): 138/154 |"
-   ],
-   "README.md": [
-    "answer-typed documents; post hoc) on 138/154.",
-    "on answer-typed documents; post hoc): 138/154 |"
-   ],
-   "docs/form_notes.md": [
-    "138/154, post hoc)."
-   ],
    "technical_report.md": [
-    "a model-free cascade (post hoc): 138/154 |",
     "cascade (post hoc)* | *138/154"
    ]
   },
@@ -1676,6 +1800,9 @@
     "141 gold (name, role) pairs right,",
     "141 gold names on unseen layouts,"
    ],
+   "docs/ech-onepager.md": [
+    "141 gold (name, role) pairs right,"
+   ],
    "technical_report.md": [
     "141 gold (name, role) pairs. Pairs"
    ]
@@ -1687,26 +1814,40 @@
   },
   "r15.p10_h1_holm": {
    "../README.md": [
-    "0.032), level with OPD's contributor"
+    "0.032), registered; the margin from"
    ],
    "README.md": [
-    "0.032), level with OPD's",
-    "0.032), precision non-inferior (H2, observed"
+    "0.032), precision non-inferior (H2, observed",
+    "from P10 (Holm p = 0.032), registered;"
    ],
    "technical_report.md": [
+    "0.032); precision not worse |",
     "0.032; H2, precision non-inferior ("
    ]
   },
   "r15.p10_h1_points": {
    "../README.md": [
-    "from P10, registered (recall +23.4"
+    "23.4 points from P10 (Holm p",
+    "23.4 points** author-role recall over the",
+    "23.4 points** author-role recall over the rules in 14 parliaments without rules (50/141 pairs vs 17/141); precision not worse | the author test, P10 (H1, H2) | registered"
    ],
    "README.md": [
     "+23.4 points (H1, p =",
-    "23.4 points over the rules, Holm",
-    "registered (recall +23.4"
+    "23.4 points\n  over the rules, with precision not worse (P10, H1 and H2, registered",
+    "23.4 points from P10 (Holm p",
+    "23.4 points** author-role recall over the",
+    "23.4 points** author-role recall over the rules in 14 parliaments without rules (50/141 pairs vs 17/141); precision not worse | the author test, P10 (H1, H2) | registered",
+    "it raises author-role recall by 23.4 points"
+   ],
+   "docs/form_notes.md": [
+    "23.4 points over the rules,",
+    "23.4 points over the rules,\n  precision not worse (H1, H2, registered"
    ],
    "technical_report.md": [
+    "23.4 points over the rules, with",
+    "23.4 points over the rules, with precision not worse (registered)",
+    "23.4 points** author-role recall over the",
+    "23.4 points** author-role recall over the rules in 14 parliaments without rules (50/141 pairs vs 17/141; Holm p = 0.032); precision not worse | the author test, P10 (H1, H2) | registered",
     "recall over the rules, +23.4 points"
    ]
   },
@@ -1727,21 +1868,11 @@
    ]
   },
   "r15.p10_h3a_holm": {
-   "../README.md": [
-    "H3a, Holm p = 0.17). Every committed"
-   ],
    "README.md": [
-    "(+0.12, Holm p = 0.17)",
-    "0.17), and without Neuchâtel",
-    "H3a, Holm p = 0.17);"
-   ],
-   "docs/form_notes.md": [
-    "Holm p = 0.17); Rules"
+    "(+0.12, Holm p = 0.17)"
    ],
    "technical_report.md": [
-    "(+0.12, Holm p = 0.17)",
-    "0.17): where OPD lists the authors, its order is a strong baseline. *Post hoc",
-    "H3a, Holm p = 0.17);"
+    "(+0.12, Holm p = 0.17)"
    ]
   },
   "r15.p10_it_ptr_f1": {
@@ -1790,39 +1921,47 @@
   },
   "r15.p10_parl": {
    "../README.md": [
-    "14 parliaments (the author test, P10)"
+    "14 parliaments without rules ("
    ],
    "README.md": [
     "14 German- and",
     "14 parliaments and behind in 1.",
     "14 parliaments and behind in 1. Registered",
-    "14 parliaments without rules (the author",
+    "14 parliaments without rules (",
     "14 parliaments without rules | author",
+    "14 such parliaments it raises author-role",
     "14 unseen ones"
    ],
+   "docs/ech-onepager.md": [
+    "(P10, registered):* on 14 parliaments outside every rule set",
+    "14 parliaments outside every rule set,"
+   ],
    "docs/form_notes.md": [
-    "14 parliaments without rules (P10): Apertus"
+    "14 parliaments without rules (P10) it"
    ],
    "technical_report.md": [
+    "14 it raises author-role recall by",
     "14 parliaments outside every rule set,",
-    "14 parliaments without rules (the author",
+    "14 parliaments without rules (",
     "14 parliaments without rules | author"
    ]
   },
   "r15.p10_pointer_f1": {
    "README.md": [
+    "(Apertus 0.42).",
+    "0.42), and thresholds",
     "0.42; rules",
     "unseen ones 0.42. In"
    ],
    "technical_report.md": [
+    "(Apertus 0.42).",
     "F1 0.42), rules"
    ]
   },
   "r15.p10_pointer_precision": {
    "README.md": [
     "0.52 against",
-    "precision, recall and F1: Apertus 0.52,",
-    "printed; 0.52,"
+    "precision, recall and F1: Apertus 0.52,"
    ],
    "technical_report.md": [
     "(precision 0.52, recall"
@@ -1830,7 +1969,6 @@
   },
   "r15.p10_pointer_recall": {
    "README.md": [
-    "0.35); per affair 8 better,",
     "0.35,"
    ],
    "technical_report.md": [
@@ -1845,23 +1983,16 @@
   "r15.p10_ptr_right": {
    "README.md": [
     "every rule set, it reads 50 of"
+   ],
+   "docs/ech-onepager.md": [
+    "names the documents print reads 50 of"
    ]
   },
   "r15.p10_ptr_right_of": {
-   "../README.md": [
-    "50/141 from P10,",
-    "50/141** author roles in"
-   ],
    "README.md": [
-    "50/141 from P10,",
-    "50/141** author roles in",
     "| (name, role) pairs right 50/141, rules"
    ],
-   "docs/form_notes.md": [
-    "50/141, level with OPD's contributor"
-   ],
    "technical_report.md": [
-    "50/141** author roles in",
     "H3a not | pairs right 50/141, rules",
     "P10 50/141 |"
    ]
@@ -1891,20 +2022,17 @@
     "(0.31, 0.12,"
    ]
   },
+  "r15.p10_rules_right": {
+   "docs/ech-onepager.md": [
+    "role) pairs right, the rules 17"
+   ]
+  },
   "r15.p10_rules_right_of": {
-   "../README.md": [
-    "17/141; most of the gain"
-   ],
    "README.md": [
     "17/141), at precision",
-    "17/141, OPD's list",
-    "17/141; most of the gain"
-   ],
-   "docs/form_notes.md": [
-    "17/141; most of the"
+    "17/141, OPD's list"
    ],
    "technical_report.md": [
-    "17/141; most of the gain",
     "rules 17/141, OPD"
    ]
   },
@@ -1916,16 +2044,26 @@
   "r15.parts_annex_precision": {
    "README.md": [
     "| annex | 6/6 |"
+   ],
+   "docs/ech-onepager.md": [
+    "annexes at 6/6 and"
    ]
   },
   "r15.parts_annex_recall": {
    "README.md": [
     "| annex | 6/6 | 6/6 |"
+   ],
+   "docs/ech-onepager.md": [
+    "and 6/6"
    ]
   },
   "r15.parts_docs": {
    "README.md": [
     "30 of its documents page by"
+   ],
+   "docs/ech-onepager.md": [
+    "30 documents (exploratory, in-sample for",
+    "in a blind check of 30 documents (exploratory, in-sample for\nthe detector)"
    ]
   },
   "r15.parts_image_precision": {
@@ -1947,11 +2085,17 @@
   "r15.parts_rec_n": {
    "README.md": [
     "105 converter records carry at least"
+   ],
+   "docs/ech-onepager.md": [
+    "105 records, and in a blind"
    ]
   },
   "r15.parts_rec_with": {
    "README.md": [
     "66 of"
+   ],
+   "docs/ech-onepager.md": [
+    "66 of its"
    ]
   },
   "r15.parts_scanned_precision": {
@@ -1977,11 +2121,17 @@
   "r15.parts_table_precision": {
    "README.md": [
     "| table | 12/12 |"
+   ],
+   "docs/ech-onepager.md": [
+    "12/12 and recall"
    ]
   },
   "r15.parts_table_recall": {
    "README.md": [
     "| 12/15 |"
+   ],
+   "docs/ech-onepager.md": [
+    "12/15, annexes at"
    ]
   },
   "r16.p10_it_opd_f1": {
@@ -1990,41 +2140,17 @@
    ]
   },
   "r16.p10_opd_right_of": {
-   "../README.md": [
-    "(37/141; H3a, Holm p ="
-   ],
    "README.md": [
-    "37/141: Apertus is not significantly",
-    "OPD's list 37/141 |",
-    "contributor list (37/141; H3a, Holm p ="
-   ],
-   "docs/form_notes.md": [
-    "with OPD's contributor list (37/141; Holm p ="
+    "OPD's list 37/141 |"
    ],
    "technical_report.md": [
-    "OPD 37/141 |",
-    "with OPD's contributor list (37/141; H3a, Holm p ="
+    "OPD 37/141 |"
    ]
   },
   "r16.p10_planned": {
    "README.md": [
     "38 planned;\n  the French stratum 4 short under the registered fill rule)",
     "fresh affairs (of 38 planned;"
-   ]
-  },
-  "r16.p10_wo_ne_gold": {
-   "README.md": [
-    "79 pairs, post hoc). Post hoc"
-   ]
-  },
-  "r16.p10_wo_ne_opd": {
-   "README.md": [
-    "(33 vs 34 of"
-   ]
-  },
-  "r16.p10_wo_ne_ptr": {
-   "README.md": [
-    "the two are level (33 vs"
    ]
   },
   "r16.root.night1_min": {
@@ -2072,7 +2198,9 @@
   },
   "r17.qa_records": {
    "README.md": [
-    "105 converter records carry pairs (P3"
+    "105 converter records carry pairs (P3",
+    "after P8's lock): of its 105 records,",
+    "exploratory, written after P8's lock): of its 105"
    ]
   },
   "r17.qa_with_items": {
@@ -2086,6 +2214,9 @@
    ],
    "README.md": [
     "37,864) share the vocabulary and"
+   ],
+   "docs/ech-onepager.md": [
+    "37,864) and other executive business"
    ]
   },
   "r17.scope_parl_init": {
@@ -2094,6 +2225,9 @@
    ],
    "README.md": [
     "5,817) and government"
+   ],
+   "docs/ech-onepager.md": [
+    "5,817 OPD affairs), government business ("
    ]
   },
   "r17.v02_converter_parliaments": {
@@ -2104,6 +2238,7 @@
   "r17.v02_converter_records": {
    "README.md": [
     "120 records give every value its",
+    "120 records this is",
     "converter's 120 records,",
     "pass the check: the converter's 120 and P8's",
     "them the converter's records number 120 from"
@@ -2190,69 +2325,49 @@
   "r18d.bilanz.bodies": {
    "README.md": [
     "12 bodies, [`docs/census.md`](docs/census.md)). Parliamentary"
+   ],
+   "docs/ech-onepager.md": [
+    "12 bodies, left"
    ]
   },
   "r18d.bilanz.suspense": {
    "README.md": [
     "45.9% had no schema account"
-   ]
-  },
-  "r18d.p2bb.base_exact": {
-   "README.md": [
-    "44/62 (McNemar p ="
-   ]
-  },
-  "r18d.p2bb.base_found": {
-   "README.md": [
-    "intervention-typed documents by construction: 18/29,"
-   ]
-  },
-  "r18d.p2bb.mcnemar": {
-   "README.md": [
-    "0.0117); registered: the rules"
-   ]
-  },
-  "r18d.p2bb.ptr_exact": {
-   "../README.md": [
-    "rule we tried: exact on 53/62 against"
    ],
-   "README.md": [
-    "rule we tried: exact on 53/62 against"
-   ],
-   "docs/form_notes.md": [
-    "answer dates, exact on 53/62 documents;"
+   "docs/ech-onepager.md": [
+    "45.9% of statements without a schema"
    ]
   },
   "r18d.p2bb.ptr_found": {
    "../README.md": [
-    "24/29 from P2,\nregistered against the rules (the baselines post hoc",
-    "24/29** answer dates on new",
-    "records from an exploratory cell); 24/29 from P2,"
+    "24/29** answer dates in"
    ],
    "README.md": [
-    "24/29 answer dates, against",
-    "24/29 from P2,\nregistered against the rules (the baselines post hoc",
-    "24/29** answer dates on new",
-    "records from an exploratory cell); 24/29 from P2,"
+    "24/29), and a free prompt",
+    "24/29** answer dates in"
    ],
    "docs/form_notes.md": [
-    "parliaments) it finds 24/29"
+    "24/29 answer dates, the rules"
    ],
    "technical_report.md": [
-    "24/29 answer dates, the best model-free",
-    "24/29 from P2 and",
-    "24/29 from P2 and 50/141 from P10, registered against the rules (the baselines post hoc",
+    "24/29); a free prompt that",
     "verifier, role reader | P2 24/29; P7"
    ]
   },
   "r18d.p7_8b.annotated": {
    "README.md": [
     "190 annotated rows scored before the"
+   ],
+   "docs/runbook.md": [
+    "190 annotated rows scored before the"
    ]
   },
   "r18d.p7_8b.scored": {
    "README.md": [
     "(exploratory; 88 of the 190",
+    "88 of the"
+   ],
+   "docs/runbook.md": [
     "88 of the"
    ]
   },
@@ -2272,6 +2387,9 @@
     "3/5) it is printed in",
     "affairs) and Lausanne (3/5),"
    ],
+   "docs/ech-onepager.md": [
+    "3/5) it is printed in"
+   ],
    "docs/form_notes.md": [
     "3/5; oral answers, minutes-only councils)."
    ],
@@ -2284,6 +2402,9 @@
    "README.md": [
     "Vernier (5/5 affairs) and Lausanne (",
     "in Vernier (5/5 affairs) and Lausanne ("
+   ],
+   "docs/ech-onepager.md": [
+    "5/5 affairs) and Lausanne ("
    ],
    "docs/form_notes.md": [
     "in neither document in Vernier, 5/5"
@@ -2366,6 +2487,10 @@
     "converter's 120 (105 cantonal and communal +",
     "the converter's 120 (105 cantonal and communal +"
    ],
+   "docs/ech-onepager.md": [
+    "it: the converter's 120 (105 cantonal and communal +",
+    "validate**: the converter's 120 (105 cantonal and communal +"
+   ],
    "docs/form_notes.md": [
     "105 cantonal and communal +"
    ],
@@ -2381,6 +2506,10 @@
    "README.md": [
     "converter's 120 (",
     "parliaments validate: the converter's 120 ("
+   ],
+   "docs/ech-onepager.md": [
+    "validate in it: the converter's 120 (",
+    "validate**: the converter's 120 ("
    ],
    "docs/form_notes.md": [
     "parliaments validate: the converter's 120 ("
@@ -2399,6 +2528,10 @@
     "converter's 120 (105 cantonal and communal + 15 federal, 23 parliaments) and P8's",
     "the converter's 120 (105 cantonal and communal + 15 federal, 23 parliaments) and P8's"
    ],
+   "docs/ech-onepager.md": [
+    "15 federal, 23 parliaments) and P8's",
+    "federal, 23 parliaments) and P8's"
+   ],
    "docs/form_notes.md": [
     "23 parliaments) and P8's"
    ],
@@ -2416,7 +2549,12 @@
     "converter's 120 (105 cantonal and communal + 15 federal,",
     "the converter's 120 (105 cantonal and communal + 15 federal,"
    ],
+   "docs/ech-onepager.md": [
+    "cantonal and communal + 15 federal,",
+    "it: the converter's 120 (105 cantonal and communal + 15"
+   ],
    "docs/form_notes.md": [
+    "15 Federal Council answers that print",
     "cantonal and communal + 15 federal,"
    ],
    "technical_report.md": [
@@ -2431,12 +2569,15 @@
     "converter's 120 (105 cantonal and communal + 15 federal, 23 parliaments) and P8's 66 gold records (",
     "the converter's 120 (105 cantonal and communal + 15 federal, 23 parliaments) and P8's 66 gold records ("
    ],
+   "docs/ech-onepager.md": [
+    "15 federal, 23 parliaments) and P8's 66 gold records (",
+    "federal, 23 parliaments) and P8's 66 gold records ("
+   ],
    "docs/form_notes.md": [
     "parliaments) and P8's 66 gold"
    ],
    "technical_report.md": [
-    "66 gold records (",
-    "66 gold records leave"
+    "66 gold records ("
    ]
   },
   "r18d.v02.p8_parliaments": {
@@ -2446,8 +2587,12 @@
    "README.md": [
     "11 parliaments); the"
    ],
+   "docs/ech-onepager.md": [
+    "11 parliaments). Next for v0.3: a",
+    "15 federal, 23 parliaments) and P8's 66 gold records (11"
+   ],
    "docs/form_notes.md": [
-    "11 parliaments); the converter's hold a"
+    "records (11 parliaments)."
    ],
    "technical_report.md": [
     "11 parliaments); the converter's records hold"
@@ -2456,6 +2601,10 @@
   "r18d.v02.parliaments": {
    "../README.md": [
     "26 parliaments validate: the converter's"
+   ],
+   "docs/ech-onepager.md": [
+    "26 parliaments validate in it: the",
+    "and 186 v0.2 records from 26 parliaments"
    ],
    "docs/form_notes.md": [
     "v0.2 records from 26"
@@ -2468,6 +2617,10 @@
    "../README.md": [
     "186** | v0.2 records from",
     "the repair lists (no model); 186 from"
+   ],
+   "docs/ech-onepager.md": [
+    "and 186 v0.2 records from",
+    "reason; 186 v0.2 records from"
    ],
    "docs/form_notes.md": [
     "186 v0.2 records from"
@@ -2496,10 +2649,13 @@
   },
   "r18s.lang_tag_not_text": {
    "README.md": [
-    "can differ (3 of the 130 tagged"
+    "can differ (9 of the 210 tagged"
    ]
   },
   "r18s.matrix.fields_feasible": {
+   "docs/ech-onepager.md": [
+    "4 fields are in OPD's metadata"
+   ],
    "technical_report.md": [
     "4 fields are in OPD's metadata almost everywhere"
    ]
@@ -2520,14 +2676,12 @@
     "| 120 agenda items, 6 sittings |"
    ]
   },
-  "r18s.p7_overlap_apertus_only": {
-   "README.md": [
-    "(126 both, 9 Apertus only"
-   ]
-  },
   "r18s.p8_fr_language_affairs": {
    "README.md": [
     "language in 2\n  of 6 affairs"
+   ],
+   "docs/ech-onepager.md": [
+    "6 tags name the other official"
    ]
   },
   "r18s.p8_summary_body_specific": {
@@ -2610,16 +2764,6 @@
     "| 68 fresh documents, 8 parliaments |"
    ]
   },
-  "r18s.x1.p10.order.order_ahead": {
-   "README.md": [
-    "8 better, 7 worse"
-   ]
-  },
-  "r18s.x1.p10.order.pointer_ahead": {
-   "README.md": [
-    "per affair 8 better"
-   ]
-  },
   "r18s.xlang_bern_first_pair": {
    "README.md": [
     "Bern 3); in 6 affairs"
@@ -2633,6 +2777,9 @@
   "r19.gw.max_delta": {
    "README.md": [
     "4.64 apart on"
+   ],
+   "docs/runbook.md": [
+    "4.64 apart); on the"
    ]
   },
   "r19.gw.replays": {
@@ -2642,11 +2789,14 @@
   },
   "r19.gw.responses": {
    "../README.md": [
-    "17,720) comes from one build,"
+    "Every committed gateway response (17,720) comes"
    ],
    "README.md": [
-    "17,720) comes from one build,",
+    "17,720) comes from one",
     "17,720, the cache `make run`"
+   ],
+   "docs/runbook.md": [
+    "17,720) is from this build,"
    ],
    "technical_report.md": [
     "17,720) comes from one build,"
@@ -2681,12 +2831,10 @@
     "on the answer 9/12"
    ],
    "README.md": [
-    "9/12; author roles: the converter's",
     "exact on 9/12 and dates both answerless"
    ],
    "technical_report.md": [
-    "9/12, the rules on",
-    "9/12; roles: the converter's record"
+    "9/12, the rules on"
    ]
   },
   "r19.it.n": {
@@ -2694,6 +2842,9 @@
     "(P11, exploratory, locked before the draw and the labels).** On 12 interventions",
     "P11 (12 Italian",
     "exploratory cell of 12 affairs"
+   ],
+   "docs/runbook.md": [
+    "12 affairs); every committed gateway response"
    ],
    "technical_report.md": [
     "12 interventions from five parliaments: the",
@@ -2708,28 +2859,28 @@
   },
   "r19.it.order_f1": {
    "README.md": [
-    "document order 0.22 |",
     "document order and OPD's list 0.22 each"
    ],
    "technical_report.md": [
-    "document order 0.22 |",
     "document order and OPD's list 0.22"
    ]
   },
   "r19.it.ptr": {
    "../README.md": [
-    "(P11, exploratory):** the Apertus pointer is exact on 12/12 Italian answers"
+    "(P11, exploratory):** the Apertus pointer is exact on 12/12 Italian answers",
+    "12/12** Italian interventions exact on the answer date (",
+    "12/12** Italian interventions exact on the answer date (10 printed dates, 2 right nulls), five parliaments | P11 | exploratory"
    ],
    "README.md": [
-    "12/12** Italian answer dates (P11,",
+    "12/12** Italian interventions exact on the answer date (",
+    "12/12** Italian interventions exact on the answer date (10 printed dates, 2 right nulls), five parliaments | P11 | exploratory",
     "the pointer is exact on 12/12"
    ],
    "docs/form_notes.md": [
-    "Italian (P11, exploratory) the pointer is exact on 12/12 answers"
+    "12/12 (both exploratory). Every value it"
    ],
    "technical_report.md": [
-    "12/12** Italian answer dates (P11,",
-    "12/12** Italian answer dates (P11, exploratory",
+    "12/12** Italian interventions exact on",
     "the pointer is exact on 12/12 [75.7"
    ]
   },
@@ -2743,46 +2894,52 @@
   },
   "r19.it.ptr_null": {
    "README.md": [
-    "and 2 right nulls, no invented date"
+    "and 2 right nulls, no invented date",
+    "answer date (10 printed dates, 2 right nulls)"
    ],
    "technical_report.md": [
+    "2 right nulls) | P11 |",
+    "2 right nulls) | P11 | exploratory",
     "2 right nulls), the latest date"
+   ],
+   "../README.md": [
+    "answer date (10 printed dates, 2 right nulls)"
    ]
   },
   "r19.it.ptr_printed": {
    "README.md": [
-    "[75.7, 100]: 10 printed answer dates"
+    "[75.7, 100]: 10 printed answer dates",
+    "answer date (10 printed dates, 2 right nulls)"
    ],
    "technical_report.md": [
     "(10 printed dates"
+   ],
+   "../README.md": [
+    "answer date (10 printed dates, 2 right nulls)"
    ]
   },
   "r19.it.reader_affairs": {
    "README.md": [
     "12 affairs (D2). Review mode refused",
-    "12 affairs) | author roles: the",
-    "12 affairs, reads",
-    "exploratory; 12"
+    "12 affairs, reads"
+   ],
+   "docs/runbook.md": [
+    "(date pointer and role reader, 12 of"
    ]
   },
   "r19.it.reader_f1": {
    "README.md": [
     "0.32 (its configuration in-sample in Bellinzona;",
-    "0.32 | the latest date on",
     "low for every arm (F1 0.32 or"
    ],
    "technical_report.md": [
     "0.32 or lower for every arm):",
-    "0.32 | latest date on the",
     "0.32, the converter's record"
    ]
   },
   "r19.it.record_f1": {
    "README.md": [
     "record reaches F1 0.30"
-   ],
-   "technical_report.md": [
-    "record F1 0.30"
    ]
   },
   "r19.it.role_rules_in_sample": {
@@ -2796,9 +2953,6 @@
    ],
    "README.md": [
     "the rules on 8/12 (in-sample in Ticino, Mendrisio and Lugano)"
-   ],
-   "docs/form_notes.md": [
-    "the rules on 8/12."
    ],
    "technical_report.md": [
     "8/12 (in-sample in three); author roles"
@@ -2825,8 +2979,7 @@
    ],
    "README.md": [
     "7 fields carry over (submi",
-    "7 of the 17 fields fit unchanged",
-    "| outside interventions | 7 fit,"
+    "7 of the 17 fields fit unchanged"
    ],
    "technical_report.md": [
     "7 of 17 fields carry over",
@@ -2861,6 +3014,7 @@
     "(P11, exploratory, `eval/p11/`, locked before the draw and the labels).** On 15",
     "15 (registered arm; the other",
     "15 affairs outside interventions",
+    "exploratory, 15 affairs ([scope]",
     "of P11's 15."
    ],
    "docs/form_notes.md": [
@@ -2895,8 +3049,7 @@
    ],
    "README.md": [
     "4 answer fields do not apply (Q/A",
-    "4 answer fields do not apply, and 6",
-    "4 do not apply,"
+    "4 answer fields do not apply, and 6"
    ],
    "docs/form_notes.md": [
     "4 answer fields do not\n  apply)"
@@ -2921,7 +3074,6 @@
     "and 6 need roles interventions lack"
    ],
    "README.md": [
-    "6 need new roles (P11, exploratory,",
     "6 need roles interventions lack, chiefly",
     "and 6 need new roles:"
    ],
@@ -2990,7 +3142,7 @@
   },
   "r19_b.fc.answer_date": {
    "README.md": [
-    "68/120 an answer date,"
+    "71/120 an answer date,"
    ]
   },
   "r19_b.fc.answering_body": {
@@ -3003,9 +3155,6 @@
    "README.md": [
     "2,040 field-record pairs and a typed",
     "2,040 field-record pairs of the converter's"
-   ],
-   "docs/form_notes.md": [
-    "2,040 field-record pairs."
    ],
    "technical_report.md": [
     "2,040 field-record pairs and a typed"
@@ -3033,16 +3182,16 @@
   },
   "r19_b.fc.typed_gap": {
    "README.md": [
-    "780 ([per field](#1-the-schema-shared-concepts-explicit-roles)) |",
-    "780 a typed gap,"
+    "783 ([per field](#1-the-schema-shared-concepts-explicit-roles)) |",
+    "783 a typed gap,"
    ],
    "technical_report.md": [
-    "780 (`field_completeness.json`) |"
+    "783 (`field_completeness.json`) |"
    ]
   },
   "r19_b.fc.unsplit": {
    "README.md": [
-    "88 an answer date"
+    "86 an answer date"
    ]
   },
   "r19_b.fc.untyped": {
@@ -3113,7 +3262,7 @@
     "36/43 fit; the misses show where"
    ],
    "technical_report.md": [
-    "36/43 (exploratory, post hoc, `oos_role_fit.json`). The"
+    "36/43 (exploratory, post hoc, `oos_role_fit.json`); the"
    ]
   },
   "r19_b.oos.iv_affairs": {
@@ -3214,6 +3363,9 @@
   "r19_c.dec.usd_1k": {
    "docs/decision.md": [
     "USD 0.59 per 1,000 residue documents"
+   ],
+   "docs/runbook.md": [
+    "| none locally | USD 0.59 per"
    ]
   },
   "r19_c.deps.runtime": {
@@ -3231,6 +3383,10 @@
    "docs/decision.md": [
     "an estimated 1.64 GPU-hours"
    ],
+   "docs/runbook.md": [
+    "an estimated 1.64 GPU-hours per",
+    "measured; estimated 1.64 GPU-hours per"
+   ],
    "technical_report.md": [
     "1.64 GPU-hours per"
    ]
@@ -3244,6 +3400,9 @@
    "README.md": [
     "(17/141; F1 0.27\n  against"
    ],
+   "docs/runbook.md": [
+    "0.27 against the rules'"
+   ],
    "technical_report.md": [
     "roles F1 0.27 |"
    ]
@@ -3255,7 +3414,13 @@
   },
   "r19b.p10_8b.order_f1": {
    "README.md": [
-    "document order reaches F1 0.41 and"
+    "in document order reaches F1 0.41 (Apertus"
+   ],
+   "docs/runbook.md": [
+    "0.41) and the 70B ("
+   ],
+   "technical_report.md": [
+    "in document order reach F1 0.41 (Apertus"
    ]
   },
   "r19b.p10_8b.precision": {
@@ -3265,44 +3430,52 @@
   },
   "r19b.p10_8b.recall": {
    "README.md": [
-    "and recall 0.21; document order"
+    "and recall 0.21 (the 70B: F1"
    ]
   },
   "r19b.p10_8b.refit_f1": {
    "README.md": [
     "refitted on P8's development parliaments give 0.26"
+   ],
+   "docs/runbook.md": [
+    "P8's development parliaments give F1 0.26 |"
    ]
   },
   "r19b.p10_8b.registered_f1": {
-   "README.md": [
-    "and the 70B 0.42, and thresholds"
+   "docs/runbook.md": [
+    "0.42) (`results/p10/gguf8b/p10_8b_scores.json`) | 4 vCPU,"
    ]
   },
   "r19b.p10_8b.right": {
    "README.md": [
     "the 8B reads 30/141 pairs right"
+   ],
+   "docs/runbook.md": [
+    "30/141 author pairs right, F1",
+    "as P10's role reader (exploratory) it reads 30/141"
    ]
   },
   "r19b.p10_8b.rules_f1": {
    "README.md": [
     "against 0.17), at precision"
+   ],
+   "docs/runbook.md": [
+    "0.17, below document order ("
    ]
   },
   "r19b.p10_8b.rules_right": {
    "README.md": [
+    "17/141); precision not worse |",
     "more than the rules (17/141;"
    ]
   },
   "r19e.fc.carries_n": {
    "README.md": [
-    "1,172 hold a value,",
-    "1,172 of their"
-   ],
-   "docs/form_notes.md": [
-    "converter's hold a value in 1,172 of"
+    "1,171 hold a value,",
+    "1,171 of their"
    ],
    "technical_report.md": [
-    "1,172 of their"
+    "1,171 of their"
    ]
   },
   "r19e.it.reader_matched": {
@@ -3317,8 +3490,7 @@
   },
   "r19e.it.reader_rec": {
    "README.md": [
-    "recall 0.30, F1",
-    "record F1 0.30, document order"
+    "recall 0.30, F1"
    ],
    "technical_report.md": [
     "0.30, document order and OPD's"
@@ -3336,11 +3508,19 @@
   },
   "r19e.oos.function_ni_miss": {
    "README.md": [
-    "2 instrument functions. On P8's own"
+    "2 instrument functions. P8 counts a"
+   ]
+  },
+  "r19e.refit.agree": {
+   "docs/runbook.md": [
+    "38/40 (`results/refit_bfd70257/dev_partial_compare.json`) | none locally |"
    ]
   },
   "r19e.refit.dev": {
    "README.md": [
+    "97 dev documents when the route"
+   ],
+   "docs/runbook.md": [
     "97 dev documents when the route"
    ]
   },
@@ -3348,6 +3528,10 @@
    "README.md": [
     "40 dev documents done (`python -m",
     "the other build had reached 40"
+   ],
+   "docs/runbook.md": [
+    "on the 40 dev documents both builds answered,",
+    "| none: a refit had 40 of"
    ]
   },
   "r20_a.bbox.no_pdf": {
@@ -3357,87 +3541,88 @@
   },
   "r20_a.bbox.spans": {
    "README.md": [
-    "1,589 spans also"
+    "1,580 spans also"
    ],
    "technical_report.md": [
-    "1,589 spans also have their box"
+    "1,580 spans also have their box"
    ]
   },
   "r20_a.bbox.with": {
    "README.md": [
-    "1,582 of the"
+    "1,573 of the"
    ],
    "technical_report.md": [
-    "1,582 of the"
+    "1,573 of the"
    ]
   },
   "r20_a.dates.answered": {
    "README.md": [
-    "101 stay `answered` with a typed"
+    "100 stay `answered` with a typed"
    ],
    "technical_report.md": [
-    "101 answer dates stay `answered` with"
+    "100 answer dates stay `answered` with"
    ]
   },
   "r20_a.dates.decided": {
    "README.md": [
-    "22 are the government's decision and"
+    "25 are the government's decision and"
    ],
    "technical_report.md": [
-    "22 decision and"
+    "25 decision and"
    ]
   },
   "r20_a.dates.dispatched": {
    "README.md": [
-    "16 its letter or dispatch (in"
+    "17 its letter or dispatch (in"
    ],
    "technical_report.md": [
-    "16 letter or dispatch dates in"
+    "17 letter or dispatch dates in"
    ]
   },
   "r20_a.dates.gold": {
    "README.md": [
     "32/32); the other"
    ],
-   "docs/form_notes.md": [
-    "32/32); a nightly job (three"
-   ],
    "technical_report.md": [
     "32/32); the other"
+   ],
+   "docs/form_notes.md": [
+    "(blind gold role: 32/32), the cantonal"
    ]
   },
   "r20_a.dates.values": {
    "README.md": [
-    "139 answer dates in the"
+    "142 answer dates in the",
+    "its 142 answer dates"
+   ],
+   "technical_report.md": [
+    "142 answer dates carry a split"
    ]
   },
   "r20_a.dates.why.same_as_sub": {
    "README.md": [
-    "14). Every record carries its"
+    "13). Every record carries its"
    ]
   },
   "r20_a.gaps.untyped_p8": {
    "README.md": [
     "116 cells empty (addressed body and"
-   ],
-   "technical_report.md": [
-    "116 cells empty (addressed body, co-signatories:"
    ]
   },
   "r20_a.prov.conv_opd": {
    "README.md": [
-    "526 OPD records, and"
+    "569 OPD records, and"
    ],
    "technical_report.md": [
-    "526 OPD records;"
+    "569 OPD records;"
    ]
   },
   "r20_a.prov.conv_span": {
    "README.md": [
-    "1,589) or its source record"
+    "1,580) or its source record"
    ],
    "technical_report.md": [
-    "1,589 values) or a source record"
+    "1,580 values) or a source record"
    ]
   },
   "r20_a.prov.conv_table": {
@@ -3449,10 +3634,19 @@
    ]
   },
   "r20_b.cvf.p1.closed_printed": {
+   "../README.md": [
+    "value located by code (62/62,"
+   ],
    "README.md": [
-    "its page and span (P1 62/62, P2"
+    "(post hoc): every value Apertus returns is a printed value located by code (62/62",
+    "page and span (P1 62/62, P2",
+    "value located by code (62/62,"
+   ],
+   "docs/form_notes.md": [
+    "a located printed value (62/62,"
    ],
    "technical_report.md": [
+    "(post hoc). Every closed value is a printed date with page and span (62/62",
     "with page and span (62/62,"
    ]
   },
@@ -3461,22 +3655,19 @@
     "8 of its"
    ]
   },
-  "r20_b.cvf.p1.free": {
-   "README.md": [
-    "134/154 vs the pointer's",
-    "not accuracy** (post hoc,\n  `results/eval/closed_vs_free.json`). A free prompt that may answer null is as accurate (P1 134/154"
-   ],
-   "technical_report.md": [
-    "null is as accurate (P1 134/154 vs"
-   ]
-  },
   "r20_b.cvf.p1.free_quote": {
+   "../README.md": [
+    "prompting's quotes check out on 30/60 and"
+   ],
    "README.md": [
-    "prompt's quotes check out on 30/60 (P1) and"
+    "prompt's quotes check out on 30/60 (P1) and",
+    "prompting's quotes check out on 30/60 and"
+   ],
+   "docs/form_notes.md": [
+    "free prompting's quotes 30/60,"
    ],
    "technical_report.md": [
-    "its quotes check out on 30/60 (P1) and",
-    "post hoc), but its quotes check out on 30/60"
+    "prompt's quotes check out on 30/60 (P1) and"
    ]
   },
   "r20_b.cvf.p1.margin_auroc": {
@@ -3485,14 +3676,6 @@
    ],
    "technical_report.md": [
     "AUROC for a wrong value 0.73,"
-   ]
-  },
-  "r20_b.cvf.p1.pointer": {
-   "README.md": [
-    "130/154, P2"
-   ],
-   "technical_report.md": [
-    "vs 130/154, P2"
    ]
   },
   "r20_b.cvf.p1.quote_auroc": {
@@ -3508,22 +3691,32 @@
     "16 wrong values sit in the"
    ]
   },
-  "r20_b.cvf.p2.free_corrected": {
-   "technical_report.md": [
-    "P2 54/62 vs"
-   ]
-  },
   "r20_b.cvf.p2.free_quote": {
+   "../README.md": [
+    "17/32), and its confidence margin"
+   ],
    "README.md": [
-    "17/32 (P2) of its values. Its"
+    "(P1) and 17/32 (P2) of",
+    "17/32; and its confidence margin"
+   ],
+   "docs/form_notes.md": [
+    "17/32), and its margin ranks"
    ],
    "technical_report.md": [
-    "17/32 (P2) values, while every closed"
+    "17/32 (P2) values; the closed margin"
    ]
   },
   "r20_b.cvf.p2.margin_auroc": {
+   "../README.md": [
+    "0.90, above every no-model ranking"
+   ],
    "README.md": [
-    "0.90 and"
+    "0.90 (P2), above every no-model ranking",
+    "0.90 and",
+    "0.90 is above every no-model ranking"
+   ],
+   "docs/form_notes.md": [
+    "open documents for review: AUROC 0.90"
    ],
    "technical_report.md": [
     "0.90,"
@@ -3535,14 +3728,6 @@
    ],
    "technical_report.md": [
     "0.58,"
-   ]
-  },
-  "r20_b.cvf.p6.free": {
-   "README.md": [
-    "P6 62/68 vs"
-   ],
-   "technical_report.md": [
-    "P6 62/68 vs"
    ]
   },
   "r20_b.cvf.p6.margin_auroc": {
@@ -3559,14 +3744,6 @@
    ],
    "technical_report.md": [
     "0.53 for the free prompt's quote"
-   ]
-  },
-  "r20_b.cvf.p6.v2": {
-   "README.md": [
-    "59/68; no paired difference significant),"
-   ],
-   "technical_report.md": [
-    "59/68; no paired difference significant;"
    ]
   },
   "r20_b.man.label_files": {
@@ -3590,107 +3767,9 @@
     "`results/eval/annotator_isolation.json`). A manifest lists all 99 sessions (P11's"
    ]
   },
-  "r20_b.p2c.cluster95": {
-   "README.md": [
-    "[0.014, 0.221]; post hoc, proposed in review)"
-   ]
-  },
   "r20_b.p2c.composite.answer_dates": {
-   "../README.md": [
-    "21/29 answer dates,"
-   ],
    "README.md": [
-    "21/29 answer dates,",
-    "21/29 for the strongest model-free",
-    "and finds 21/29 answer"
-   ],
-   "docs/form_notes.md": [
-    "strongest model-free rule we tried 21/29 and"
-   ],
-   "technical_report.md": [
-    "21/29 (post hoc). We use the",
-    "21/29 answer dates; registered: the rules"
-   ]
-  },
-  "r20_b.p2c.composite.exact": {
-   "../README.md": [
-    "46/62 exact; registered: the rules",
-    "46/62, right alone on"
-   ],
-   "README.md": [
-    "46/62 and finds",
-    "46/62 exact; the results-table baseline, which",
-    "46/62, right alone on",
-    "The strongest rule we tried (post hoc, proposed in review) takes the latest date on documents OPD types as answers\n  and the date after a session cue on the 31 it types as interventions: it is exact on 46/62"
-   ],
-   "docs/form_notes.md": [
-    "46/62: right alone on"
-   ],
-   "technical_report.md": [
-    "46/62, right alone on"
-   ]
-  },
-  "r20_b.p2c.composite_only": {
-   "../README.md": [
-    "2 (exact McNemar p ="
-   ],
-   "README.md": [
-    "on 2 (exact McNemar p =",
-    "right alone on 9 documents vs 2 (exact McNemar"
-   ],
-   "docs/form_notes.md": [
-    "2, exact McNemar p ="
-   ],
-   "technical_report.md": [
-    "right alone on 9 documents vs 2 (exact McNemar"
-   ]
-  },
-  "r20_b.p2c.interventions": {
-   "README.md": [
-    "31 intervention-typed documents by construction:",
-    "31 it types as interventions: it"
-   ]
-  },
-  "r20_b.p2c.mcnemar_p": {
-   "../README.md": [
-    "0.065; parliament permutation p ="
-   ],
-   "README.md": [
-    "0.065; parliament permutation p =",
-    "on 2 (exact McNemar p = 0.065; parliament permutation"
-   ],
-   "docs/form_notes.md": [
-    "0.065 (post hoc)."
-   ],
-   "technical_report.md": [
-    "0.065; parliament permutation p ="
-   ]
-  },
-  "r20_b.p2c.parliament_perm_p": {
-   "../README.md": [
-    "0.12; post hoc, proposed in"
-   ],
-   "README.md": [
-    "0.12), a lead of",
-    "0.12; parliament-resampled interval of the"
-   ],
-   "technical_report.md": [
-    "0.12; post hoc, proposed in"
-   ]
-  },
-  "r20_b.p2c.pointer_only": {
-   "../README.md": [
-    "9 documents vs"
-   ],
-   "README.md": [
-    "9 documents vs",
-    "9 documents, the rule on"
-   ],
-   "docs/form_notes.md": [
-    "right alone on 9 vs"
-   ],
-   "technical_report.md": [
-    "9 documents vs"
+    "21/29 answer dates (the pointer"
    ]
   },
   "r20_c.de.8b_h_1k": {
@@ -3743,6 +3822,20 @@
     "USD 0.59 pro 1,000 Restdokumente"
    ]
   },
+  "r20_c.hero.gain_points": {
+   "../README.md": [
+    "10.5 points, all from the"
+   ],
+   "README.md": [
+    "10.5 points, all from the"
+   ],
+   "docs/form_notes.md": [
+    "10.5 points, all from the"
+   ],
+   "technical_report.md": [
+    "10.5 points, all from the"
+   ]
+  },
   "r20_c.scan.base_failing": {
    "README.md": [
     "0 such findings the Dockerfile keeps"
@@ -3751,28 +3844,29 @@
     "lock and the image (base: 0 fixable"
    ],
    "technical_report.md": [
-    "0 the image keeps ("
+    "has 0 the image keeps, and the build"
    ]
   },
   "r20_c.scan.base_without_fix": {
    "README.md": [
     "71 HIGH or CRITICAL have no"
-   ],
-   "technical_report.md": [
-    "71 have no Debian fix listed),"
    ]
   },
   "r20_c.scan.prev_failing": {
    "README.md": [
     "89 ([licences.md, Image scan](docs/licences.md#image-scan))."
-   ],
-   "technical_report.md": [
-    "89 on the previous base;"
    ]
   },
   "r20_e.cvf.p2.closed_printed": {
+   "../README.md": [
+    "32/32 and"
+   ],
    "README.md": [
+    "32/32 and",
     "P2 32/32, P6"
+   ],
+   "docs/form_notes.md": [
+    "32/32,"
    ],
    "technical_report.md": [
     "32/32,"
@@ -3780,18 +3874,25 @@
   },
   "r20_e.cvf.p2.pointer": {
    "README.md": [
-    "vs 53/62, P6"
+    "53/62) and find up to"
    ],
    "technical_report.md": [
-    "vs 53/62, P6"
+    "answer dates (the pointer 53/62,"
    ]
   },
   "r20_e.cvf.p6.closed_printed": {
+   "../README.md": [
+    "35/35 on P1, P2 and P6,"
+   ],
    "README.md": [
-    "35/35), while the free prompt's"
+    "35/35 on P1, P2 and P6),",
+    "35/35), while a free prompt's"
+   ],
+   "docs/form_notes.md": [
+    "35/35; free prompting's quotes"
    ],
    "technical_report.md": [
-    "35/35), and the closed margin"
+    "35/35 on P1, P2, P6), while"
    ]
   },
   "r20_e.dates.no_role_printed": {
@@ -3801,10 +3902,10 @@
   },
   "r20_e.dates.records_split_n": {
    "README.md": [
-    "24 records), each from a"
+    "28 records), each from a"
    ],
    "technical_report.md": [
-    "24 of the"
+    "28 of the"
    ]
   },
   "r20_e.man.p11_sessions": {
@@ -3817,12 +3918,7 @@
   },
   "r20_e.night.alerts": {
    "README.md": [
-    "2 alerts (two"
-   ]
-  },
-  "r20_e.night.exit": {
-   "README.md": [
-    "3, alerts sent) (`results/monitor/two_nights_docker_38187596786/README.md`)."
+    "both nights raised the canary's 2 alerts"
    ]
   },
   "r20_e.night.pending": {
@@ -3835,55 +3931,297 @@
     "40 on both nights, and both"
    ]
   },
-  "r20_e.p2.lead_dates": {
-   "../README.md": [
-    "documents and +3 of"
-   ],
-   "README.md": [
-    "3 answer dates (`results/eval/p2_posthoc_composite.json`). The latest",
-    "documents and +3 of"
-   ],
-   "technical_report.md": [
-    "documents, +3 of"
-   ]
-  },
-  "r20_e.p2.lead_docs": {
-   "../README.md": [
-    "parliaments) | +7 of"
-   ],
-   "README.md": [
-    "7 documents and",
-    "wrote rules for) | +7 of"
-   ],
-   "technical_report.md": [
-    "parliaments without rules) | +7 of"
-   ]
-  },
-  "r20_e.p2.n_answered": {
-   "../README.md": [
-    "29 answer dates over the strongest"
-   ],
-   "README.md": [
-    "29 answer dates over the strongest"
-   ],
-   "technical_report.md": [
-    "29 answer dates: exact on"
-   ]
-  },
-  "r20_e.p2.n_docs": {
-   "../README.md": [
-    "62 documents and"
-   ],
-   "README.md": [
-    "62 documents and"
-   ],
-   "technical_report.md": [
-    "of 62 documents,"
-   ]
-  },
   "r20_e.prov.conv_record": {
    "README.md": [
-    "or its source record (535:"
+    "or its source record (578:"
+   ]
+  },
+  "r21_b.p2.cascade.answer_dates": {
+   "technical_report.md": [
+    "21/29 answer dates (the pointer"
+   ]
+  },
+  "r21_b.p2.cascade.exact": {
+   "README.md": [
+    "49/62 documents (the pointer"
+   ],
+   "technical_report.md": [
+    "49/62 documents and find up to"
+   ]
+  },
+  "r21_b.p2.ladder.rules": {
+   "README.md": [
+    "35/62 (H2 held). Resampled by whole"
+   ]
+  },
+  "r21c.ech.gov_rec_ambiguous": {
+   "docs/ech-onepager.md": [
+    "harmonised labels map unambiguously (0 of"
+   ]
+  },
+  "r21c.ech.tier10_fundamental": {
+   "docs/ech-onepager.md": [
+    "5 would at a"
+   ]
+  },
+  "r21c.ech.tier10_threshold": {
+   "docs/ech-onepager.md": [
+    "10% threshold). That threshold measures coverage,"
+   ]
+  },
+  "r21c.ech.verdict_body_specific": {
+   "docs/ech-onepager.md": [
+    "1 body-specific,",
+    "| **body-specific** (1 of"
+   ]
+  },
+  "r21c.ndsg.art_abroad": {
+   "README.md": [
+    "nDSG Art. 16"
+   ],
+   "docs/decision.md": [
+    "nDSG Art. 16"
+   ],
+   "docs/decision_de.md": [
+    "nDSG Art. 16"
+   ],
+   "docs/dpo_checklist.md": [
+    "16 behandeln, ohne Auftragsbearbeitungsvertrag. Eine Stelle,",
+    "16, without a processing agreement.",
+    "16](runbook.md#public-ai-and-ndsg-art-16). Decision page: [English](decision.md),"
+   ],
+   "docs/runbook.md": [
+    "16. *A body that may",
+    "it outside Switzerland (nDSG Art. 16, above) | P1, P2,"
+   ]
+  },
+  "r21c.ndsg.art_automated": {
+   "docs/dpo_checklist.md": [
+    "21): Die Datensätze beschreiben Parlamentsgeschäfte,",
+    "21): the records describe parliamentary"
+   ]
+  },
+  "r21c.ndsg.art_dpia": {
+   "docs/dpo_checklist.md": [
+    "22); der Standardweg liest öffentliche",
+    "22); the default route reads"
+   ]
+  },
+  "r21c.ndsg.art_register": {
+   "docs/dpo_checklist.md": [
+    "12), for OPD or a"
+   ]
+  },
+  "r21c.publicai.log_days": {
+   "docs/dpo_checklist.md": [
+    "90 Tage auf (deren Bedingungen; nur",
+    "90 days (its terms; Public AI"
+   ]
+  },
+  "r21c.retention.default_days": {
+   "README.md": [
+    "(default 30)"
+   ],
+   "docs/dpo_checklist.md": [
+    "30), durchgesetzt zu Beginn jeder",
+    "30), enforced at the start"
+   ],
+   "docs/runbook.md": [
+    "30, counted from when the"
+   ],
+   "technical_report.md": [
+    "default 30 days"
+   ]
+  },
+  "r21d.dates.split_n": {
+   "README.md": [
+    "42 of its"
+   ],
+   "technical_report.md": [
+    "42 of its"
+   ]
+  },
+  "r21d.docker.p1_miss": {
+   "README.md": [
+    "misses to expect there, P1 25 and P2"
+   ]
+  },
+  "r21d.docker.p2_miss": {
+   "README.md": [
+    "5 as measured in CI, each"
+   ]
+  },
+  "r21d.margin.p2_best": {
+   "../README.md": [
+    "0.58; post hoc)."
+   ],
+   "docs/form_notes.md": [
+    "0.58; post hoc)."
+   ],
+   "README.md": [
+    "(at most 0.58; the interval of the",
+    "computed (at most 0.58; the interval of the"
+   ],
+   "technical_report.md": [
+    "0.58; the interval of the"
+   ]
+  },
+  "r21d.p7.shared_p7": {
+   "README.md": [
+    "answer date 106 vs"
+   ],
+   "technical_report.md": [
+    "write the gold answer date 106 vs"
+   ]
+  },
+  "r21d.p7.shared_rows": {
+   "README.md": [
+    "112 rows both Apertus and a"
+   ],
+   "technical_report.md": [
+    "112 P7 rows both promote, Apertus"
+   ]
+  },
+  "r21d.p7.shared_trivial": {
+   "README.md": [
+    "105 times, and over all their"
+   ],
+   "technical_report.md": [
+    "105 times (over all their promotions"
+   ]
+  },
+  "r21d.p7.union_p7": {
+   "README.md": [
+    "113); on P10, the"
+   ],
+   "technical_report.md": [
+    "times (over all their promotions 113 vs"
+   ]
+  },
+  "r21d.p7.union_trivial": {
+   "README.md": [
+    "the match dates more (127 vs"
+   ],
+   "technical_report.md": [
+    "127); P10's candidates in document"
+   ]
+  },
+  "r21d.product.be": {
+   "README.md": [
+    "answering body and title included: 268/268,",
+    "itself (on the three samples 268/268,"
+   ],
+   "technical_report.md": [
+    "affair (on the three samples 268/268,"
+   ]
+  },
+  "r21d.product.fed": {
+   "README.md": [
+    "112/112 fields equal). Its question/answer pairs"
+   ]
+  },
+  "r21d.product.lugano": {
+   "README.md": [
+    "325/325 comparable fields equal, roles and",
+    "included: 268/268, 380/380 and 325/325 comparable fields equal"
+   ],
+   "technical_report.md": [
+    "325/325 comparable fields equal). **Schema and"
+   ]
+  },
+  "r21d.product.p5_date": {
+   "README.md": [
+    "25/40), and a federal affair"
+   ]
+  },
+  "r21d.product.p5_title": {
+   "README.md": [
+    "40/40, answer dates located in"
+   ]
+  },
+  "r21d.product.vernier": {
+   "README.md": [
+    "included: 268/268, 380/380 and",
+    "samples 268/268, 380/380 and"
+   ],
+   "technical_report.md": [
+    "380/380 and"
+   ]
+  },
+  "r21d.stale.answered": {
+   "README.md": [
+    "133,215 answered interventions (",
+    "of 133,215 answered,"
+   ],
+   "technical_report.md": [
+    "133,215 answered interventions ("
+   ]
+  },
+  "r21d.stale.be": {
+   "README.md": [
+    "OPD holds the answer (Bern 1,057, Lugano"
+   ]
+  },
+  "r21d.stale.bodies": {
+   "README.md": [
+    "73 parliaments) still carry \"submitted\" as",
+    "73 parliaments) | the state event"
+   ],
+   "docs/form_notes.md": [
+    "73 parliaments) still carry \"submitted\" as"
+   ],
+   "technical_report.md": [
+    "73 parliaments) whose last OPD state"
+   ]
+  },
+  "r21d.stale.lugano": {
+   "README.md": [
+    "Lugano 1,005,"
+   ]
+  },
+  "r21d.stale.n": {
+   "../README.md": [
+    "7,876 answered interventions whose OPD state"
+   ],
+   "README.md": [
+    "7,876 answered interventions whose last OPD",
+    "field lags its own data: 7,876 of"
+   ],
+   "docs/form_notes.md": [
+    "all along, under another heading; 7,876 answered"
+   ],
+   "technical_report.md": [
+    "vocabulary labels wrong as published; 7,876 of"
+   ]
+  },
+  "r21d.stale.records": {
+   "README.md": [
+    "19, and the operator command"
+   ]
+  },
+  "r21d.stale.share": {
+   "README.md": [
+    "answered interventions (5.9%,",
+    "state is still \"submitted\" (5.9% of"
+   ],
+   "docs/form_notes.md": [
+    "interventions (5.9%,"
+   ],
+   "technical_report.md": [
+    "answered interventions (5.9%,"
+   ]
+  },
+  "r21d.stale.stgallen": {
+   "README.md": [
+    "837); in the converter's"
+   ]
+  },
+  "r21d.v021.ni": {
+   "README.md": [
+    "41/43 fit (post hoc,"
+   ],
+   "technical_report.md": [
+    "41/43, post hoc; v0.2 stays"
    ]
   },
   "r2w.procedural_state_ambiguous": {
@@ -3914,19 +4252,22 @@
     "naive, null-allowed, re-parsed (D2-4) | 54/62 |"
    ]
   },
-  "r3w1.P2_naive_null_reparsed_recall": {
-   "README.md": [
-    "24/29 (null allowed)"
-   ]
-  },
   "r3w3.coverage_gap_bodies": {
    "README.md": [
     "31 parliaments where OPD holds interventions"
    ]
   },
   "r3w4.P1_oracle_checkable": {
+   "docs/ech-onepager.md": [
+    "44 checkable documents, and"
+   ],
    "technical_report.md": [
     "44 checkable P1 dates. Holm over"
+   ]
+  },
+  "r3w4.P1_oracle_within_week": {
+   "docs/ech-onepager.md": [
+    "5 of the"
    ]
   },
   "r3w4.usd_per_1000_residue": {
@@ -3954,7 +4295,16 @@
     "follow OPD's hash decision (2,421 ready,"
    ]
   },
+  "r4d.night_wall_min": {
+   "docs/runbook.md": [
+    "**Time** | First network night 83 and"
+   ]
+  },
   "r4d.p1_oracle_agree": {
+   "docs/ech-onepager.md": [
+    "equals the printed date for 37 of",
+    "on our held-out gold OPD's event equals the printed date for 37"
+   ],
    "technical_report.md": [
     "Non-LLM checks: OPD's event matches 37 of"
    ]
@@ -3992,6 +4342,10 @@
    "README.md": [
     "52 reachable documents), and its two-step"
    ],
+   "docs/runbook.md": [
+    "52 reachable documents), P6 (exploratory arms);",
+    "P1, P2 (52 reachable documents), P6 (exploratory arms)"
+   ],
    "technical_report.md": [
     "52 new-layout documents both read, the"
    ]
@@ -3999,6 +4353,12 @@
   "r4d.p2_n_answerless52": {
    "technical_report.md": [
     "31 answerless documents (70B"
+   ]
+  },
+  "r4d.weights_70b_gb": {
+   "docs/runbook.md": [
+    "reader): bf16 weights about 140 GB, e.g. two",
+    "| bf16 weights about 140 GB, e.g. two"
    ]
   },
   "r5a.p1_date_kappa": {
@@ -4046,6 +4406,16 @@
     "[1.9, 22] | 2 | 0 |"
    ]
   },
+  "r5b.review_8b_h_1k": {
+   "docs/runbook.md": [
+    "49.9 machine-hours per"
+   ]
+  },
+  "r5b.review_8b_s_doc": {
+   "docs/runbook.md": [
+    "179.6 s per document;"
+   ]
+  },
   "r5c.days_diffuse": {
    "README.md": [
     "39 where it is a"
@@ -4061,9 +4431,19 @@
     "112 days where the date"
    ]
   },
+  "r5c.gov_rec_labels": {
+   "docs/ech-onepager.md": [
+    "183 raw labels map to different"
+   ]
+  },
   "r5c.in_writing_all": {
    "README.md": [
     "89,846 answered in writing);"
+   ]
+  },
+  "r5c.role_split_measured": {
+   "docs/ech-onepager.md": [
+    "5 are measured); submitter, co-signatories, language"
    ]
   },
   "r5d.be_y2425_missing": {
@@ -4111,6 +4491,7 @@
    "../README.md": [
     "9,580 answers keyed on OPD ids,",
     "9,580 from the census and the",
+    "9,580 repairs (the",
     "9,580** | answers with a"
    ],
    "README.md": [
@@ -4118,15 +4499,18 @@
     "9,580 answers keyed on OPD ids,",
     "9,580 from the census and the",
     "9,580 needs one: those are rules,",
+    "9,580 repairs (the",
     "9,580** | answers with a",
     "9,580, so the repairs add",
     "not among the 9,580."
    ],
    "docs/form_notes.md": [
-    "9,580 answers keyed on OpenParlData (OPD)"
+    "9,580 answers keyed on OpenParlData (OPD)",
+    "points, all from the 9,580 repairs ("
    ],
    "technical_report.md": [
     "9,580 answers keyed on OPD ids,",
+    "9,580 repairs (the",
     "9,580** | answers with a"
    ]
   },
@@ -4575,6 +4959,11 @@
     "81.6% have answer text attached in OPD (the registered count)"
    ]
   },
+  "r7docs.canary_verified": {
+   "README.md": [
+    "Oct verified all 7 canaries"
+   ]
+  },
   "r7docs.che_hours": {
    "README.md": [
     "17.5 h at the polite rate"
@@ -4600,6 +4989,9 @@
    "README.md": [
     "86 min for the first Docker",
     "86 min on a GitHub runner,"
+   ],
+   "docs/runbook.md": [
+    "86 min on 4-vCPU GitHub runners,"
    ]
   },
   "r7docs.night2_bodies": {
@@ -4611,6 +5003,9 @@
    "README.md": [
     "6.6 min for the incremental second",
     "6.6 min; at ten times OPD's"
+   ],
+   "docs/runbook.md": [
+    "6.6 min; inside OPD with `GP_EXPORTS_DIR`"
    ]
   },
   "r7docs.no_answer_docs": {
@@ -4702,8 +5097,8 @@
   },
   "r7docs.repaired_be_review": {
    "README.md": [
-    "39 Bern rows in review. In",
-    "39 review rows ([staged](#ready-for-opd)) |"
+    "39 Bern rows in review add",
+    "39 Bern rows in review. In"
    ]
   },
   "r7docs.repaired_verified": {
@@ -4722,6 +5117,9 @@
   "r7docs.vocab_votaziun": {
    "README.md": [
     "9,887 affairs | OPD's vocabulary |"
+   ],
+   "docs/ech-onepager.md": [
+    "9,887 affairs) are listed in `results/census/vocab_bugs.tsv`."
    ]
   },
   "r8e.mult_m": {
@@ -4865,26 +5263,16 @@
   },
   "r9p.p2_bodies": {
    "../README.md": [
-    "layouts (the date test, P2; 15 parliaments) |"
-   ],
-   "README.md": [
-    "15 parliaments nobody wrote rules for)"
+    "15 parliaments nobody wrote rules for;"
    ],
    "technical_report.md": [
     "15 parliaments without rules | rules",
-    "15 parliaments without rules) |",
-    "15 parliaments without rules) | +7",
     "15 parliaments, the gain is"
-   ]
-  },
-  "r9p.p2_free_reparsed": {
-   "README.md": [
-    "P2 54/62 vs"
    ]
   },
   "r9p.p2_latest_answerless": {
    "README.md": [
-    "31. A free prompt finds"
+    "found) dates 31."
    ]
   },
   "r9p.p2_pointer_answerless": {
@@ -4903,18 +5291,18 @@
    ]
   },
   "r9p.share_attached": {
-   "../README.md": [
-    "up from 81.6% today: 91.5%"
-   ],
    "README.md": [
     "81.6% have it attached to the",
     "from 81.6% to"
    ],
    "docs/form_notes.md": [
-    "applied, up from 81.6% ("
+    "applied, up from 81.6%:"
    ],
    "technical_report.md": [
-    "up from 81.6% today: 91.5%"
+    "up from 81.6% today: +10.5"
+   ],
+   "../README.md": [
+    "up from 81.6% today: +10.5"
    ]
   },
   "r9p.share_now": {
@@ -4977,6 +5365,16 @@
     "2.1 s per document, about"
    ]
   },
+  "repair.nightly_local_s": {
+   "docs/runbook.md": [
+    "`GP_EXPORTS_DIR` and no changed export, 96.8 s. `TimeoutStartSec=4h`. |"
+   ]
+  },
+  "repair.nightly_peak_rss_mb": {
+   "docs/runbook.md": [
+    "2,077.6 MB), state under 1 GB,"
+   ]
+  },
   "report.heldout_n": {
    "README.md": [
     "154 documents, parliaments with rules |"
@@ -5002,7 +5400,7 @@
   },
   "report.theta_auroc": {
    "technical_report.md": [
-    "0.99). **Why closed:** for provenance"
+    "0.99). **Why closed:** provenance by"
    ]
   },
   "robust.dates_ambiguous": {
@@ -5056,8 +5454,6 @@
   },
   "schema.v02.conv_valid": {
    "README.md": [
-    "P8's lock). Of its 105 records,",
-    "exploratory, written after\nP8's lock). Of its 105",
     "the instrument's function and all 105 the"
    ]
   },
@@ -5087,6 +5483,11 @@
    ],
    "technical_report.md": [
     "submitter rules 12/40, pointer 24/40, free generation"
+   ]
+  },
+  "u2.p5.posthoc.valais.qa_recall": {
+   "docs/ech-onepager.md": [
+    "0/11). For a standard this"
    ]
   },
   "u2.p5.rules.recommendation": {
@@ -5193,7 +5594,12 @@
   },
   "upd.p5.n": {
    "README.md": [
+    "40 P5 records are its own",
     "40 fresh affairs,"
+   ],
+   "docs/ech-onepager.md": [
+    "40 fresh affairs from",
+    "The pre-registered test P5 (40 fresh affairs"
    ],
    "technical_report.md": [
     "40 fresh affairs,"
@@ -5203,6 +5609,9 @@
    "README.md": [
     "held-out P5 precision is 0.83, recall"
    ],
+   "docs/ech-onepager.md": [
+    "0.83 and recall"
+   ],
    "technical_report.md": [
     "**P5.** Rules-only pairing: precision 0.83, recall"
    ]
@@ -5211,6 +5620,9 @@
    "README.md": [
     "0.67, and on the P3/P3b"
    ],
+   "docs/ech-onepager.md": [
+    "0.67: usable with a reviewer,"
+   ],
    "technical_report.md": [
     "0.67, *partial* with document-level intervals,"
    ]
@@ -5218,9 +5630,16 @@
   "w5.8b.rss_gb": {
    "README.md": [
     "9.3 GB peak"
+   ],
+   "docs/runbook.md": [
+    "9.3 GB peak memory (a",
+    "9.3 GB peak memory,"
    ]
   },
   "w5.8b.theta": {
+   "docs/runbook.md": [
+    "16.73, `data/convert/theta/`); no θ exists"
+   ],
    "technical_report.md": [
     "16.73; exploratory) | locally on"
    ]
@@ -5229,17 +5648,15 @@
    "README.md": [
     "memory, 180 s per document on 4",
     "takes 180 s per document on 4"
+   ],
+   "docs/runbook.md": [
+    "180 s per document on 4"
    ]
   },
   "w5.p3b.answer_C": {
    "technical_report.md": [
     "20/35 by default (C),",
     "registered criteria; answer date 20/35"
-   ]
-  },
-  "w5.p3b.answer_CA": {
-   "technical_report.md": [
-    "31/35 with Apertus suggestions. P4:"
    ]
   },
   "w5.p3b.n": {
@@ -5260,272 +5677,83 @@
     "35/36; addressed body"
    ]
   },
-  "x1.p10.author_filter.diff_precision_ci_pts": {
-   "README.md": [
-    "[0.8, 18.2] (one-sided p ="
-   ],
-   "technical_report.md": [
-    "[0.8, 18.2] (uncorrected)."
-   ]
-  },
-  "x1.p10.author_filter.diff_precision_p": {
-   "README.md": [
-    "0.012, uncorrected). The reader ships",
-    "points: one-sided p = 0.012, uncorrected."
-   ],
-   "technical_report.md": [
-    "points: one-sided p = 0.012, uncorrected.*"
-   ]
-  },
-  "x1.p10.author_filter.diff_precision_pts": {
-   "../README.md": [
-    "(+7.3 points, post hoc)",
-    "7.3 points, post hoc) | Rules"
-   ],
-   "README.md": [
-    "(+7.3 points, post hoc)",
-    "7.3 points precision",
-    "7.3 points, post hoc) | Rules",
-    "7.3 points: one-sided p ="
-   ],
-   "docs/form_notes.md": [
-    "(+7.3 points,\n  post hoc)",
-    "who is an author (+7.3 points,"
-   ],
-   "technical_report.md": [
-    "(+7.3 points, post hoc)",
-    "7.3 points precision",
-    "7.3 points: one-sided p =",
-    "who is an author (+7.3 points"
-   ]
-  },
-  "x1.p10.order.diff_f1_ci_pts": {
-   "README.md": [
-    "[-9, 15.5]. The gain over the"
-   ]
-  },
-  "x1.p10.order.diff_f1_pts": {
-   "README.md": [
-    "F1 +0.9"
-   ]
-  },
-  "x1.p10.order.diff_recall_ci_pts": {
-   "README.md": [
-    "points [-12, 10.6], F1"
-   ]
-  },
-  "x1.p10.order.diff_recall_pts": {
-   "README.md": [
-    "recall difference -1.4 points"
-   ]
-  },
-  "x1.p10.order.f1": {
-   "technical_report.md": [
-    "0.41). The gain over the"
-   ]
-  },
-  "x1.p10.order.matched": {
-   "../README.md": [
-    "model-free candidate finder (document order 52/141) |"
-   ],
-   "README.md": [
-    "52/141 gold pairs (",
-    "model-free candidate finder (document order 52/141) |",
-    "registered mapping (the first is first signatory, the rest\n  co-signatories, a lone name sole author), match 52/141"
-   ],
-   "docs/form_notes.md": [
-    "52/141); Apertus adds precision deciding"
-   ],
-   "technical_report.md": [
-    "model-free candidate finder (document order 52/141) |",
-    "with OPD's registered mapping match 52/141 ("
-   ]
-  },
-  "x1.p10.order.precision": {
-   "README.md": [
-    "printed; precision 0.47, recall"
-   ]
-  },
-  "x1.p10.order.printed": {
-   "README.md": [
-    "111 printed; precision",
-    "pairs instead of 111,"
-   ]
-  },
-  "x1.p10.order.recall": {
-   "README.md": [
-    "recall 0.37) against"
-   ]
-  },
-  "x1.p10.order.tied": {
-   "README.md": [
-    "19 tied; parliament-cluster bootstrap:"
-   ]
-  },
   "x1.p10.pointer.matched": {
+   "../README.md": [
+    "50/141 pairs vs"
+   ],
    "README.md": [
-    "Apertus's 50/141 ("
+    "50/141 pairs vs"
    ],
    "technical_report.md": [
-    "50/141 from P10, registered against the",
-    "50/141 is level with OPD's contributor"
+    "50/141 pairs vs"
    ]
   },
-  "x1.p10.pointer.printed": {
-   "README.md": [
-    "(96 printed;",
-    "authors keeps recall and prints 96"
-   ]
-  },
-  "x1.p2.answer_dates_mcnemar_p": {
-   "README.md": [
-    "0.057). On all",
-    "McNemar p = 0.057);"
-   ]
-  },
-  "x1.p2.keyword.answer_dates": {
-   "README.md": [
-    "16/29 answer dates: Apertus's lead is",
-    "a generic keyword rule finds 16/29, exact"
-   ]
-  },
-  "x1.p2.keyword.exact": {
-   "README.md": [
-    "the keyword rule on 45/62 (p ="
-   ]
-  },
-  "x1.p2.mcnemar_p": {
-   "README.md": [
-    "0.077, post hoc)."
+  "x1.p10.rules.matched": {
+   "../README.md": [
+    "17/141); precision not worse |"
+   ],
+   "technical_report.md": [
+    "pairs vs 17/141; Holm p ="
    ]
   },
   "x1.p2.pointer.answer_dates": {
    "README.md": [
-    "24/29 answer\n  dates in the registered",
-    "rules for, the pointer finds 24/29 answer"
-   ]
-  },
-  "x1.p2.pointer.exact": {
-   "README.md": [
-    "53/62 and the keyword rule on"
-   ]
-  },
-  "x1.p7.date_hit_diff_ci_pts": {
-   "README.md": [
-    "points [9.5, 33.6]."
-   ]
-  },
-  "x1.p7.date_hit_diff_pts": {
-   "README.md": [
-    "weighted, the difference is +22.0 points"
-   ]
-  },
-  "x1.p7.frame_rows": {
-   "README.md": [
-    "478-row test frame against Apertus's"
-   ]
-  },
-  "x1.p7.overlap_both": {
-   "README.md": [
-    "126 both, 9 Apertus only; post",
-    "126 both, 9 Apertus only; post hoc"
-   ]
-  },
-  "x1.p7.p7.date_hit": {
-   "../README.md": [
-    "113/120 of its promotions, the rule's"
-   ],
-   "README.md": [
-    "113/120 of its promotions, the rule's"
+    "24/29 answer dates in the registered",
+    "wrote rules for it finds 24/29"
    ],
    "technical_report.md": [
-    "113/120 of its promotions, the rule's"
+    "24/29 answer dates, the rules"
    ]
   },
   "x1.p7.p7.is_answer": {
    "../README.md": [
     "120/120** sampled review-queue promotions are",
-    "120/120** sampled review-queue promotions are answers (P7, registered"
+    "120/120** sampled review-queue promotions are the government's answer | the verifier test, P7 (H1) | registered"
    ],
    "README.md": [
-    "120/120** of its sampled review-queue",
-    "120/120** of its sampled review-queue promotions are answers (P7, registered"
+    "120/120 of its sampled review-queue",
+    "120/120 of its sampled review-queue\n  promotions are the government's answer (P7, H1, registered",
+    "120/120** sampled review-queue promotions are",
+    "120/120** sampled review-queue promotions are the government's answer | the verifier test, P7 (H1) | registered"
+   ],
+   "docs/form_notes.md": [
+    "120/120 of its sampled promotions are",
+    "120/120 of its sampled promotions are the\n  government's answer (H1, registered"
    ],
    "technical_report.md": [
+    "120/120 of its sampled review-queue promotions",
+    "120/120 of its sampled review-queue promotions are the government's answer (registered)",
     "120/120** sampled review-queue promotions are",
-    "120/120** sampled review-queue promotions are answers (P7, registered"
+    "120/120** sampled review-queue promotions are the government's answer (Wilson 95% [96.9, 100]) | the verifier test, P7 (H1) | registered"
    ]
   },
   "x1.p7.p7.w_precision_dated": {
    "README.md": [
     "95.8% of its promotions are answers",
-    "Registered (H4, weighted): 95.8%"
-   ]
-  },
-  "x1.p7.promoted_p7": {
-   "../README.md": [
-    "135 (post hoc) |"
-   ],
-   "README.md": [
-    "135 (post hoc",
-    "test frame against Apertus's 135 ("
-   ],
-   "docs/form_notes.md": [
-    "135, post hoc); Apertus's edge"
-   ],
-   "technical_report.md": [
-    "135 (post hoc) |"
-   ]
-  },
-  "x1.p7.promoted_trivial": {
-   "../README.md": [
-    "206 of the"
-   ],
-   "README.md": [
-    "206 of the"
-   ],
-   "docs/form_notes.md": [
-    "with more rows (206 vs"
-   ],
-   "technical_report.md": [
-    "206 of the"
-   ]
-  },
-  "x1.p7.trivial.date_hit": {
-   "../README.md": [
-    "127/146 (post hoc, not paired) |"
-   ],
-   "README.md": [
-    "127/146 (post hoc, not paired); registered",
-    "127/146 for the"
-   ],
-   "technical_report.md": [
-    "127/146 (post hoc, not paired) |"
-   ]
-  },
-  "x1.p7.trivial.is_answer": {
-   "../README.md": [
-    "no-model exact-date match: answers on 146/146,"
-   ],
-   "README.md": [
-    "146/146 and more rows:",
-    "146/146), and more"
-   ],
-   "docs/form_notes.md": [
-    "146/146 with more rows ("
-   ],
-   "technical_report.md": [
-    "no-model exact-date match: answers on 146/146,"
+    "Registered\n  (H4, weighted): 95.8%"
    ]
   },
   "x1.p7.trivial.w_precision_dated": {
    "README.md": [
-    "73.2% for the exact-date match,"
+    "passes the date check, against 73.2%"
    ]
   },
   "x1.p8.holds": {
    "README.md": [
     "5/7 verdicts hold; post hoc, proposed"
+   ]
+  },
+  "r21d.fed.pointer_null": {
+   "README.md": [
+    "15/15** right nulls on Federal Council answers, which print no answer date | the federal cell | exploratory"
+   ],
+   "technical_report.md": [
+    "15/15** right nulls on Federal Council answers, which print no answer date | federal cell | exploratory"
+   ]
+  },
+  "w5.p3b.answer_CA": {
+   "technical_report.md": [
+    "31/35 with Apertus suggestions."
    ]
   }
  }

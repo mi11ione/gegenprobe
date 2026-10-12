@@ -6,7 +6,8 @@ Every number on this page is checked by `make claims`.
 
 **What runs.** A nightly job on a Linux server, or inside OPD next to its export job: it recounts the answers that lack
 text in OPD and re-checks the Bern repairs against OPD's exports. Rules write the values; no model runs by default.
-Apertus (the optional review mode) proposes values, and a reviewer confirms them.
+Apertus (the optional review mode) proposes values, and a reviewer confirms them. It reads layouts no rules cover: in
+15 parliaments without rules it found 24/29 answer dates, where the rules found 2/29 (a pre-registered test).
 
 **What leaves the machine.**
 

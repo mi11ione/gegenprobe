@@ -152,13 +152,19 @@ def test_overlay_changes_nothing_else(base, over):
                for x in over[f"{k}_records.jsonl"].splitlines()]
         # after the parts, the Q/A pairing (gegenprobe.schema.v0_2_qa, undone by strip_qa) and the role-consistency
         # repair (gegenprobe.schema.role_consistency) are the only other changes
+        if k == "p5" and VP._product_p5():  # R21: P5's records are the command's (their parts and items its own)
+            want = [QA.strip_qa(VP.strip_parts(RC.harmonise(r)[0])) for r in VP._product_p5()]
+            assert [QA.strip_qa(VP.strip_parts(g)) for g in got] == want, k
+            continue
         assert got == [RC.harmonise(json.loads(x))[0] for x in base[f"{k}_records.jsonl"].splitlines()], k
     fed_in = [RC.harmonise(json.loads(x))[0] for x in VP.FED_IN.read_text(encoding="utf-8").splitlines()]
     assert [VP.strip_parts(VG.strip_gaps(VD.strip_date_roles(json.loads(x)))) for x in over[VP.FED_OUT].splitlines()] \
         == fed_in
     b, o = json.loads(base["validation_all.json"]), json.loads(over_meta["validation_all.json"])
-    for k in ("n_affairs", "n_valid", "n_invalid", "n_parliaments", "converter_made", "product_records", "samples"):
+    for k in ("n_affairs", "n_valid", "n_invalid", "n_parliaments", "converter_made", "samples"):
         assert b[k] == o[k], k
+    # R21: all three converter sets are product records (P5 by the operator command)
+    assert o["product_records"]["n_affairs"] == b["converter_made"]["n_affairs"]
 
 
 def test_every_examined_document_has_parts_or_a_reason(over, val):

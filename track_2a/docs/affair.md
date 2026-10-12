@@ -78,16 +78,20 @@ Pydantic model validates it.
   the fallback 50/128 (precision 0.39, F1 0.37): it fired on 2 affairs and added 32 pairs, none correct. `record.actors` is never changed. A build
   other than the one P10 measured (Public AI, `publicai:swiss-ai/apertus-v1.5-8b`) is marked exploratory. The default,
   `--roles rules`, runs no model.
-- **Scope.** The command serves affairs whose member's text and answer are PDF documents in OPD's docs export: the
-  cantonal and communal parliaments. Federal affairs keep their texts in OPD's `texts` export, which the command does
-  not read (`no_documents`).
+- **Scope.** The command serves affairs whose member's text and answer are PDF documents in OPD's docs export (the
+  cantonal and communal parliaments) and federal affairs. A federal affair is read from OPD's texts export (the
+  member's text, its reasons and the Federal Council's answer rows), as the federal cell's 15 records were; its record
+  equals the committed one (affair 157601: 112/112 comparable fields, `results/affair_cli/product_check.json`). A
+  federal affair without an answer row stops with the typed failure `no_documents` and its reason.
 - **Checked.** Seven P3b affairs (LU, VS, GE, BL, GR, Lausanne, Lugano), run from the exports and compared with
   `results/schema/v0_2/p3b_records.jsonl`, have the same documents, language of each text and answer date. Every
-  comparable field is equal except the type correction above. `make run` step: `gegenprobe.affair_cli.step` runs
+  comparable field is equal except the type correction above. `make run` step `affair_cli` (`gegenprobe.affair_product.step`) runs
   the command on the affairs of the three committed samples (Bern, Vernier, Lugano;
   `results/schema/v0_2/samples/`). It reads OPD's rows from the committed slice `data/affair_cli/opd_rows_samples.json`
   (exports of 11 Oct 2026; `GP_AFFAIR_LIVE_EXPORTS=1` reads the live exports) and fetches the documents. It then
-  compares each record with its sample. It is skipped offline.
+  compares each record with its sample, the actor roles, the date roles, the answering body and the title included
+  (`gegenprobe.affair_product.step`): 268/268, 380/380 and 325/325 comparable fields equal. It is skipped offline.
+  `python -m gegenprobe.affair_product samples` writes that comparison to `results/affair_cli/product_check.json`.
 
 **Product records (`gegenprobe.affair_post`).** The scored results above are the frozen assembly's output and
 stay unchanged. What OPD would load runs through an unlocked post-processing step (`src/gegenprobe/affair_post.py`;
@@ -104,7 +108,14 @@ stay unchanged. What OPD would load runs through an unlocked post-processing ste
   `executive_name` in OPD's bodies export, OPD's own answer-event actor, or the committed federal row
   (`data/schema/body_executives.json`), each with route and basis `metadata` and the OPD record as `source`. 118 of the
   converter's 120 records carry it; Lugano's 27657 and 27659 keep `not_extracted`, because OPD's answer event there names
-  a committee. The operator command `gegenprobe affair` (locked by LOCKP11) still writes `not_extracted`.
+  a committee. The operator command `gegenprobe affair` applies the same post layers to its record
+  (`src/gegenprobe/affair_product.py`: typed gaps, OPD's metadata with answering body, state and decision, then the
+  answer-date roles; `affair_cli.py` itself stays locked by LOCKP11), so its output for the README's Bern sample is the
+  sample: `answer_decided`, Regierungsrat des Kantons Bern, 4 actors, 4 dates. The 40 P5 records are the command's own
+  output on P5's documents (`python -m gegenprobe.affair_product p5`; titles 40/40, answer dates located in the text
+  25/40), so every published cantonal and communal record comes from the product path. The command also flags a
+  `submitted` procedural state next to an attached answer for review (an OPD data finding:
+  `results/findings/stale_states.json`).
 - `decision`: for an interpellation, a written question or question time, on which parliament takes no decision, a
   metadata null `not_in_corpus` becomes `not_applicable` (route metadata, the type as evidence). A decision OPD records
   is kept.

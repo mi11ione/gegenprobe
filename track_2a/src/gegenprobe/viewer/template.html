@@ -83,6 +83,8 @@ button.theme { font: inherit; font-family: var(--mono); font-size: 11px; letter-
 .hero { padding-block: 56px 40px; border-bottom: 1px solid var(--rule); row-gap: 28px; }
 .hero .big { font-family: var(--display); font-weight: 750; font-variation-settings: "wdth" 88; font-size: clamp(76px, 14.5vw, 232px);
   line-height: .82; letter-spacing: -.045em; color: var(--red); margin: 0; font-variant-numeric: tabular-nums; }
+.hero .kicker { font-size: clamp(18px, 2vw, 26px); line-height: 1.2; letter-spacing: -.01em; margin: 0 0 14px; max-width: 46ch; color: var(--ink); }
+.hero .kicker b { font-weight: 650; }
 .hero h1 { font-weight: 500; font-size: clamp(20px, 2.3vw, 30px); line-height: 1.18; letter-spacing: -.01em; margin: 18px 0 0;
   max-width: 30ch; text-wrap: balance; }
 .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); margin-top: 36px; }
@@ -505,6 +507,7 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
     <div class="code muted" id="heroSrc"></div>
   </div>
   <div class="work hero-main">
+    <p class="kicker" id="heroKicker"><b>One schema works if each field names its role.</b> What that repairs in OpenParlData today:</p>
     <p class="big" id="heroBig"></p>
     <p class="bigcap" id="heroBigCap"></p>
     <p class="delivered" id="heroDelivered"></p>
@@ -800,7 +803,7 @@ function drawHero() {
   // the one lead sentence (README, report, form notes, site): the schema verdict plus the repair result
   $('#heroBig').textContent = am && am.after_repair != null ? pct(am.after_repair) : fmt(x.missing);
   $('#heroBigCap').textContent = am && am.after_repair != null
-    ? `of answered interventions${period === 'all' ? '' : ` (${PERW[period]})`} would have their answer text, up from ${pct(1 - x.missing / x.written)} today (+${(100 * (am.after_repair - (1 - x.missing / x.written))).toFixed(1)} points${period === 'all' ? ` from ${fmt(D.parliaments.corrected.national.all.repaired)} repairs` : ''})`
+    ? `of answered interventions${period === 'all' ? '' : ` (${PERW[period]})`} would have their answer text, up from ${pct(1 - x.missing / x.written)} today (+${(100 * (am.after_repair - (1 - x.missing / x.written))).toFixed(1)} points${period === 'all' ? `, all from the ${fmt(D.parliaments.corrected.national.all.repaired)} repairs` + ((D.tiles || {}).row_checked != null ? `: ${fmt(D.tiles.row_checked)} row-checked, ${fmt(D.tiles.agenda)} agenda joins and ${fmt(D.tiles.review)} Bern rows in review` : '') : ''})`
     : `answered interventions${period === 'all' ? '' : ` (${PERW[period]})`} without answer text in OpenParlData`;
   // the plain answer first (README, report, form notes and site share it), then what was delivered
   $('#heroLine').textContent = 'Can one schema hold Swiss parliamentary business? Yes, if each field says which role its value plays (e.g. “answer date” = the government’s decision, its letter or the submission date).';
@@ -813,8 +816,7 @@ function drawHero() {
     $('#heroDelivered').replaceChildren(el('b', {}, `The ${fmt(N.repaired)} repairs`), ', every one from model-free rules and keyed on OPD ids' +
       (all ? ': ' : '.'), all ? el('ul', { class: 'rlist', 'aria-label': 'what each repair still needs' },
         li('apply now', now), el('li', {}, 'one decision ', el('span', { class: 'n' }, fmt(H.relink)), ` (${fmt(H.relink_ready)} ready)`), li('to fetch', fetch)) : null); }
-  { const B = (D.tiles || {}).p2_composite;
-    $('#heroApertus').textContent = H.p2 && B ? `Apertus 70B, opt-in, where nobody wrote rules: ${H.p2.pointer.correct}/${H.p2.pointer.of} answer dates, against ${B.found[0]}/${B.found[1]} for the strongest model-free rule we tried (the date test, P2; post hoc). It picks among the dates printed in the document; a reviewer confirms.` : ''; }
+  $('#heroApertus').textContent = H.p2 ? `Apertus 70B, opt-in, reads layouts no rules cover: in ${H.p2.bodies} parliaments nobody wrote rules for it finds ${H.p2.pointer.correct}/${H.p2.pointer.of} answer dates, the rules ${H.p2.rules.correct}/${H.p2.rules.of} (the date test, P2, registered). It picks among the dates printed in the document; a reviewer confirms.` : '';
   { const C = (D.tiles || {}).cost;
     $('#heroCost').textContent = C ? `Cost: the rules take about ${C.rules_cpu_hours} CPU-hours for all ${fmt(C.documents)} documents in OPD's export, about ${C.x10_rules_cpu_hours} CPU-hours at ten times OPD's volume; review mode costs USD ${C.usd_per_1000.toFixed(2)} per 1,000 documents the rules leave open, on the 70B.` : ''; }
   $('#heroDetail').textContent = am && am.written != null ?
@@ -837,23 +839,19 @@ const facts = [
 ];
 const kw = t => el('span', { class: 'k' }, t);
 const factsApertus = [
-  H.p2 ? [`${H.p2.pointer.correct}/${H.p2.pointer.of}`, el('span', {}, `answer dates Apertus picks right among the printed dates in ${H.p2.bodies} parliaments nobody wrote rules for (the date test on new layouts, P2). `,
-       PC ? kw('What Apertus adds: ') : null,
-       PC ? `against the strongest model-free rule we tried (the latest date on answer-typed documents, the date after a session cue on intervention-typed ones; post hoc, proposed in review) it is exact on ${BB ? `${BB.pointer_exact[0]}/${BB.pointer_exact[1]}` : '—'} documents vs ${PC.exact[0]}/${PC.exact[1]}, right alone on ${PC.pointer_only} vs ${PC.composite_only} (exact McNemar p = ${PC.mcnemar}; parliament permutation p = ${PC.perm}). ` : '',
-       kw('What the model-free baseline reaches: '),
-       (PC ? `that rule ${PC.found[0]}/${PC.found[1]} answer dates; ` : '') + (BB ? `the latest date on answer-typed documents alone ${BB.base_found[0]}/${BB.base_found[1]}; ` : '') + `registered: the rules ${H.p2.rules.correct}/${H.p2.rules.of}.`)]
+  H.p2 ? [`${H.p2.pointer.correct}/${H.p2.pointer.of}`, el('span', {}, `answer dates Apertus picks right among the printed dates in ${H.p2.bodies} parliaments nobody wrote rules for (the date test on new layouts, P2, registered); the rules, written for other layouts, find ${H.p2.rules.correct}/${H.p2.rules.of}. `,
+       T.p2_margin ? kw('What only the closed design gives: ') : null,
+       T.p2_margin ? `every value a printed date located by code (${T.p2_margin.printed[0]}/${T.p2_margin.printed[1]}), and a margin that puts wrong values first for the reviewer (AUROC ${T.p2_margin.auroc.toFixed(2)}, above every no-model ranking signal we computed, at most ${T.p2_margin.best_nomodel.toFixed(2)}; post hoc).` : '')]
        : [`${H.rules_exact}/${H.heldout}`, `documents exact with the default converter (rules, no model).`],
-  P10 ? [`${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs}`, el('span', {}, `author roles Apertus reads right in ${P10.primary.parliaments} parliaments without rules (the author test, P10). `,
-       kw('What the model-free baseline reaches: '), `the rules ${P10.primary.arms.rules.right}/${P10.primary.gold_pairs}` +
-       (P10.order ? `; most of the gain comes from the model-free candidate finder (document order ${P10.order.right}/${P10.order.gold}). ` : '. '),
-       T.p10_filter_pts != null ? kw('What Apertus adds: ') : null,
-       T.p10_filter_pts != null ? `precision deciding who is an author (+${T.p10_filter_pts} points, post hoc).` : '')] : null,
+  P10 ? [`${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs}`, el('span', {}, `author roles Apertus reads right in ${P10.primary.parliaments} parliaments without rules (the author test, P10), the rules ${P10.primary.arms.rules.right}/${P10.primary.gold_pairs}: `,
+       kw('registered: '), `recall +${P10.hypotheses.H1.points} points over the rules (H1, Holm p = ${P10.hypotheses.H1.p_holm}), precision not worse (H2).`)] : null,
 ];
 $('#facts').append(...facts.filter(Boolean).map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
 $('#factsApertus').append(...factsApertus.filter(Boolean).map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
 { $('#factNote').textContent = `Sources: ${H.at_most && H.at_most.all ? pct(H.at_most.all.after_repair) : '—'} and ${fmt(D.parliaments.corrected.national.all.repaired)} from the census and the repair lists (no model); ${V.need_roles} of ${V.fields} from the role test (P8, registered) and OPD's label vocabularies (post hoc)` +
     (H.p2 ? `; ${H.p2.pointer.correct}/${H.p2.pointer.of} from the date test on new layouts (P2), registered (the model-free baselines post hoc, proposed in review)` : '') +
-    (P10 ? `; ${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs} from the author test (P10), registered (recall +${P10.hypotheses.H1.points} points over the rules, Holm p = ${P10.hypotheses.H1.p_holm}), level with OPD's contributor list (${P10.primary.arms.opd_first.right}/${P10.primary.gold_pairs}; H3a, Holm p = ${P10.hypotheses.H3a.p_holm_2})` : '') +
+    (P10 ? `; ${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs} from the author test (P10), registered` : '') +
+    (T.p2_margin ? '; the margin from results/eval/margin_vs_nomodel.json (post hoc); the baselines proposed in review: 03 Evaluation and docs/evaluation.md' : '') +
     (R2 ? `; the federal cell's ${R2.federal} affairs are exploratory` : '') +
     '. P1–P8 and P10 are the ten tests (P3b replicates P3), each frozen by hash before its labels except P1\'s hypothesis script and rules (D4, D12).' +
     (H.p2 && P10 ? ' Gateway runs: one build, Apertus 70B by inference (the gateway labelled it 8B; fingerprint check in docs/evaluation.md); on 12 Oct 2026 Public AI switched the route to another build, and the build guard caught it live (03 Evaluation, P11); local 8B results: 03 Evaluation. Runtime external services: none by default (public sources only); Apertus review mode sends document text to the Public AI gateway, or nothing with the local 8B.' : ''); }
@@ -895,7 +893,7 @@ if (DL) {
       el('p', { class: 'small code', style: 'margin:0;max-width:96ch;line-height:1.7' }, ...DL.adapter_lists.files.flatMap((f, i) => [i ? ' · ' : '', el('a', { href: f.href, download: '', title: `${f.label}: ${f.rows} rows, ${f.counted} counted` }, f.body), ` ${fmt(f.counted)}`]))) : null,
     el('p', { class: 'repo' }, 'Code, tests and every results file: ', el('a', { href: DL.repo }, DL.repo.replace('https://', '')),
       ' · how the lists are built and checked: docs/repair.md · the apply plan is a dry run, never executed by us'),
-    D.nights ? el('p', { class: 'small', style: 'margin:6px 0 0;max-width:80ch' }, `Nightly job: three real nights on standard GitHub runners, one with the venv unit and two consecutive in the recommended Docker setup (GitHub Actions run ${D.nights.run}, results/monitor/two_nights_docker_${D.nights.run}/): night 1 took ${Math.round(D.nights.night1_s / 60)} min and streamed ${(D.nights.night1_bytes / 1e9).toFixed(1)} GB; night 2, on night 1’s state and OPD’s next export, took ${(D.nights.night2_s / 60).toFixed(1)} min and re-scanned the ${D.nights.night2_bodies} bodies whose exports changed; ${D.nights.alerts} alerts, the Bern list unchanged (${fmt(D.nights.relink)} relink and ${fmt(D.nights.fetch)} fetch candidates). Night 2 exposed a ledger bug (per-row verdicts reset to unchecked); it is fixed and guarded by two-night tests` + (D.nights.fixed && D.nights.fixed.kept ? `, and a real two-night Docker pair on the fixed ledger (run ${D.nights.fixed.run}) kept night 1’s verdicts on night 2: pending ${fmt(D.nights.fixed.pending)}, review ${fmt(D.nights.fixed.review)}; both nights raised the adapter canary’s ${D.nights.fixed.alerts} alerts (two source texts changed).` : '.') + ` Ready for OPD's side: the same unit reads a local export directory (GP_EXPORTS_DIR).`) : null);
+    D.nights ? el('p', { class: 'small', style: 'margin:6px 0 0;max-width:80ch' }, `Nightly job: three real nights on standard GitHub runners, one with the venv unit and two consecutive in the recommended Docker setup (GitHub Actions run ${D.nights.run}, results/monitor/two_nights_docker_${D.nights.run}/): night 1 took ${Math.round(D.nights.night1_s / 60)} min and streamed ${(D.nights.night1_bytes / 1e9).toFixed(1)} GB; night 2, on night 1’s state and OPD’s next export, took ${(D.nights.night2_s / 60).toFixed(1)} min and re-scanned the ${D.nights.night2_bodies} bodies whose exports changed; ${D.nights.alerts} alerts, the Bern list unchanged (${fmt(D.nights.relink)} relink and ${fmt(D.nights.fetch)} fetch candidates). Night 2 exposed a ledger bug (per-row verdicts reset to unchecked); it is fixed and guarded by two-night tests` + (D.nights.fixed && D.nights.fixed.kept ? `, and a real two-night Docker pair on the fixed ledger (run ${D.nights.fixed.run}) kept night 1’s verdicts on night 2: pending ${fmt(D.nights.fixed.pending)}, review ${fmt(D.nights.fixed.review)}; both nights raised the adapter canary’s ${D.nights.fixed.alerts} alerts, from the image’s older tesseract on the two canaries read through OCR, not from changed sources: a host re-check on 12 Oct verified all 7, and a canary now alerts only when its file changes or its text changes under the same extractor.` : '.') + ` Ready for OPD's side: the same unit reads a local export directory (GP_EXPORTS_DIR).`) : null);
 }
 $('#steps').append(...STEPS.map(([w, t, h], i) => el('div', {}, el('div', { class: 'n' }, String(i + 1)), el('div', { class: 'w' }, el('a', { href: h }, w)), el('p', {}, t))));
 const GLOSS = [

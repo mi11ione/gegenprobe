@@ -35,8 +35,8 @@ the document and closed set for a model's document-level classification (a revie
   converter's own records: P3 (29) and P3b (36) product records after `affair_post`, carried to v0.2 with
   `qa[].answering_body` as the typed null `not_extracted` (then filled from OPD's metadata where OPD names the
   executive: 118 of the converter's 120 records, post hoc; `results/schema/v0_2/field_completeness.json`), and P5 (40)
-  rules-arm records (Q/A items, people,
-  recommendation) with OPD's identification metadata. The other 66 are P8's gold records. The converter fills v0.2's
+  records made by the operator command on P5's documents (`python -m gegenprobe.affair_product p5`; titles 40/40, Q/A
+  items equal to the P5 rules arm's), carried through the same layers. The other 66 are P8's gold records. The converter fills v0.2's
   roles in its 105 records from the documents (`src/gegenprobe/convert/roles.py`, `gegenprobe.schema.v0_2_roles`):
   printed authors with their role, the instrument named and its function, printed submission dates (signed, lodged)
   and `language_of_text` on every document, with `language_of_text_method` recording the detector; the score against
@@ -45,6 +45,11 @@ the document and closed set for a model's document-level classification (a revie
   documents.*.parts, qa.*.items) carries a typed reason (the null reasons plus `none_printed` and
   `carried_from_v0_1`); a reason on a filled list is invalid. Converter-made samples, chosen by a written rule:
   `results/schema/v0_2/samples/` (Bern in German, Vernier in French, Lugano in Italian).
+- **v0.2.1** (draft, `schema/gegenprobe_schema_v0_2_1.py`, JSON Schema `results/schema/v0_2_1/affair.schema.json`):
+  v0.2 plus one date role, `cited` (a date the text cites, P8's definition, which P8 counts inside the shared meaning of
+  the submission date); `upgrade_v0_2` and `downgrade_to_v0_2` (raises on `cited`); the role fit outside
+  interventions becomes 41/43 (post hoc, `results/schema/v0_2_1/oos_role_fit.json`). v0.2 itself stays frozen
+  (LOCKP11, LOCKFED).
 - Validator: `src/gegenprobe/validate/` (see the end of this page)
 
 ## 1. Three design rules

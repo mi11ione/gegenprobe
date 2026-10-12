@@ -1,5 +1,5 @@
 id	shown	file	path	fmt	command	where	context
-r19e.fc.carries_n	1,172	results/schema/v0_2/field_completeness.json	summary.converter_carries	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_completeness	README.md,technical_report.md,docs/form_notes.md	
+r19e.fc.carries_n	1,171	results/schema/v0_2/field_completeness.json	summary.converter_carries	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_completeness	README.md,technical_report.md	
 r19e.refit.done	40	results/refit_bfd70257/dev_partial_compare.json	n_complete_new_build	int	python -m eval.refit_bfd70257.run partial	README.md,docs/runbook.md,docs/evaluation.md	
 r19e.refit.dev	97	results/refit_bfd70257/dev_partial_compare.json	n_dev	int	python -m eval.refit_bfd70257.run partial	README.md,docs/runbook.md,docs/evaluation.md	
 r19e.refit.agree	38/40	results/refit_bfd70257/dev_partial_compare.json	decision_agreement_at_theta_old.0/decision_agreement_at_theta_old.1	frac	python -m eval.refit_bfd70257.run partial	docs/runbook.md	

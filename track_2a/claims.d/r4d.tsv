@@ -1,5 +1,5 @@
 id	shown	file	path	fmt	command	where	context
-r4d.p2_8b_scored	52	results/eval2/p2_8b_analysis.json	n_scored	int	PYTHONPATH=src:. python -m report.p2_8b	docs/evaluation.md,README.md,technical_report.md	
+r4d.p2_8b_scored	52	results/eval2/p2_8b_analysis.json	n_scored	int	PYTHONPATH=src:. python -m report.p2_8b	docs/evaluation.md,README.md,technical_report.md,docs/runbook.md	
 r4d.p2_8b_unreachable	10	results/eval2/p2_8b_analysis.json	n_unreachable	int	PYTHONPATH=src:. python -m report.p2_8b	docs/evaluation.md	
 r4d.p2_8b_unreach_answered	8	results/eval2/p2_8b_analysis.json	unreachable_answered	int	PYTHONPATH=src:. python -m report.p2_8b	docs/evaluation.md	
 r4d.p2_rules52	33/52	results/eval2/p2_8b_analysis.json	profiles.8b_rules.exact/profiles.8b_rules.n	frac	PYTHONPATH=src:. python -m report.p2_8b	docs/evaluation.md	
@@ -33,7 +33,7 @@ r4d.p2_8b_vs_70b_b	10	results/eval2/p2_8b_analysis.json	comparisons.pointer8_vs_
 r4d.p2_8b_vs_70b_p	0.039	results/eval2/p2_8b_analysis.json	comparisons.pointer8_vs_pointer70.p_str	str	PYTHONPATH=src:. python -m report.p2_8b	docs/evaluation.md	
 r4d.p2_8b_vs_70b_cas_p	0.039	results/eval2/p2_8b_analysis.json	comparisons.cascade8_vs_cascade70.p_str	str	PYTHONPATH=src:. python -m report.p2_8b	-	
 r4d.night_wall_s	4,997	results/report/r4d_numbers.json	night.wall_s	int	PYTHONPATH=src:. python -m report.r4d_numbers	docs/operations.md	
-r4d.night_wall_min	83	results/report/r4d_numbers.json	night.wall_min	int	PYTHONPATH=src:. python -m report.r4d_numbers	docs/operations.md	
+r4d.night_wall_min	83	results/report/r4d_numbers.json	night.wall_min	int	PYTHONPATH=src:. python -m report.r4d_numbers	docs/operations.md,docs/runbook.md	
 r4d.night_download_s	1,892	results/report/r4d_numbers.json	night.download_s	int	PYTHONPATH=src:. python -m report.r4d_numbers	docs/operations.md	
 r4d.night_mb	198	results/report/r4d_numbers.json	night.transfer_mb	int	PYTHONPATH=src:. python -m report.r4d_numbers	docs/operations.md	
 r4d.night_check_min	50	results/report/r4d_numbers.json	night.triple_check_min_derived	int	PYTHONPATH=src:. python -m report.r4d_numbers	docs/operations.md	
@@ -48,7 +48,7 @@ r4d.night_review	40	results/report/r4d_numbers.json	night.ledger_review	int	PYTH
 r4d.scale_residue_k	569k	results/report/r4d_numbers.json	scale_8b.residue_documents_k	str	PYTHONPATH=src:. python -m report.r4d_numbers	docs/operations.md	
 r4d.scale_8b_h	28,400	results/report/r4d_numbers.json	scale_8b.machine_hours_display	str	PYTHONPATH=src:. python -m report.r4d_numbers	docs/operations.md	
 r4d.scale_70b_usd	336	results/report/r4d_numbers.json	scale_8b.usd_70b_same_documents	int	PYTHONPATH=src:. python -m report.r4d_numbers	docs/operations.md	
-r4d.weights_70b_gb	140	results/report/r4d_numbers.json	weights_70b.weights_gb	int	PYTHONPATH=src:. python -m report.r4d_numbers	docs/evaluation.md	
+r4d.weights_70b_gb	140	results/report/r4d_numbers.json	weights_70b.weights_gb	int	PYTHONPATH=src:. python -m report.r4d_numbers	docs/evaluation.md,docs/runbook.md	
 r4d.ci_replay	22/22	results/ci/docker_make_run_38076870082.json	replay.passed/replay.n	frac	copied from CI log, run 38076870082 (job make-run)	docs/operations.md	
 r4d.ci_rules	141	results/ci/docker_make_run_38076870082.json	rederive_rules.rederived	int	copied from CI log, run 38076870082 (job make-run)	docs/operations.md	
 r4d.ci_p1	129/129	results/ci/docker_make_run_38076870082.json	rederive_apertus.P1.match/rederive_apertus.P1.recomputed	frac	copied from CI log, run 38076870082 (job make-run)	docs/operations.md	

@@ -57,7 +57,8 @@ update its context.
 Columns (tab-separated, header required):
   id       unique claim id (area.slug)
   shown    the string exactly as printed in the documents, e.g. 16,749 | 18.4% | 40/40 | [91.2, 100]
-  file     results file relative to track_2a/ (.json, or .csv with path "row:<key>=<val>;col:<name>")
+  file     results file relative to track_2a/ (.json, or .csv with path "row:<key>=<val>;col:<name>", or a .py source
+           with path = a module-level constant: a code default such as cache_retention.DEFAULT_DAYS)
   path     dotted JSON path; list indices as numbers (e.g. national.gap, rows.3.verified); "a/b" = ratio of two paths
   fmt      int | pct1 (ratio -> 18.4%) | pct0 | f1 | f2 | frac (a/b -> 40/40) | ci (list -> [91.2, 100]) | str
   command  the command that writes the file
@@ -126,10 +127,24 @@ def render(value, fmt: str) -> str:
     return str(value)
 
 
+def py_const(p: Path, name: str):
+    """The literal value of the module-level assignment `name = <literal>` in the Python source `p`, read with ast (the
+    module is not imported): a code default a document states ("default 30" days of cache retention) is bound to the
+    constant the code uses."""
+    import ast
+    for node in ast.parse(p.read_text(encoding="utf-8")).body:
+        targets = node.targets if isinstance(node, ast.Assign) else [node.target] if isinstance(node, ast.AnnAssign) else []
+        if any(isinstance(t, ast.Name) and t.id == name for t in targets) and node.value is not None:
+            return ast.literal_eval(node.value)
+    raise KeyError(f"{name}: no module-level literal assignment in {p.name}")
+
+
 def value_of(row: dict):
     p = ROOT / row["file"]
     if p.suffix == ".csv":
         return _csv_get(p, row["path"])
+    if p.suffix == ".py":  # path = the name of a module-level constant (a code default)
+        return py_const(p, row["path"])
     d = json.loads(p.read_text())
     if "/" in row["path"] and row["fmt"] in ("pct1", "pct0", "frac", "f1", "f2"):
         a, b = row["path"].split("/")

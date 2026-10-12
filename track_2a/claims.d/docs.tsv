@@ -5,5 +5,5 @@ docs.be_linked_after	3,394	results/report/figure_numbers.json	be_linked_after_jo
 docs.be_linked_after_share	96.1%	results/report/figure_numbers.json	be_linked_after_share	pct1	python -m report.figures	README.md,technical_report.md,docs/operations.md
 docs.repairable_deterministic	3,107	results/report/figure_numbers.json	repairable_deterministic	int	python -m report.figures	docs/operations.md
 docs.matrix_fields	17	results/report/figure_numbers.json	matrix_fields	int	python -m report.figures	-
-docs.theta_publicai	10.40	data/convert/theta/publicai_swiss-ai_apertus-v1.5-8b.json	answer_date.theta	f2	python -m eval.arms fit --backend gateway:swiss-ai/apertus-v1.5-8b:2a-theta:1.0	technical_report.md,docs/evaluation.md
+docs.theta_publicai	10.40	data/convert/theta/publicai_swiss-ai_apertus-v1.5-8b.json	answer_date.theta	f2	python -m eval.arms fit --backend gateway:swiss-ai/apertus-v1.5-8b:2a-theta:1.0	technical_report.md,docs/evaluation.md,docs/runbook.md
 docs.sample_null_margin	88.25	docs/samples/ti_question_typed_null.json	apertus_pointer.margin	f2	python -m report.samples	-

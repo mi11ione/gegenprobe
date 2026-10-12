@@ -1,0 +1,28 @@
+id	shown	file	path	fmt	command	where
+r21d.stale.n	7,876	results/findings/stale_states.json	census.totals.stale	int	PYTHONPATH=src:. python -m gegenprobe.findings.stale_states	README.md,technical_report.md,docs/form_notes.md,../README.md
+r21d.stale.answered	133,215	results/findings/stale_states.json	census.totals.answered	int	PYTHONPATH=src:. python -m gegenprobe.findings.stale_states	README.md,technical_report.md
+r21d.stale.share	5.9%	results/findings/stale_states.json	census.share_of_answered	pct1	PYTHONPATH=src:. python -m gegenprobe.findings.stale_states	README.md,technical_report.md,docs/form_notes.md
+r21d.stale.bodies	73	results/findings/stale_states.json	census.n_bodies_with_stale	int	PYTHONPATH=src:. python -m gegenprobe.findings.stale_states	README.md,technical_report.md,docs/form_notes.md
+r21d.stale.records	19	results/findings/stale_states.json	records.stale	int	PYTHONPATH=src:. python -m gegenprobe.findings.stale_states	README.md
+r21d.stale.be	1,057	results/findings/stale_states.json	census.bodies.0.stale	int	PYTHONPATH=src:. python -m gegenprobe.findings.stale_states	README.md
+r21d.stale.lugano	1,005	results/findings/stale_states.json	census.bodies.1.stale	int	PYTHONPATH=src:. python -m gegenprobe.findings.stale_states	README.md
+r21d.stale.stgallen	837	results/findings/stale_states.json	census.bodies.2.stale	int	PYTHONPATH=src:. python -m gegenprobe.findings.stale_states	README.md
+r21d.product.be	268/268	results/affair_cli/product_check.json	samples.BE:39369.fields_equal/samples.BE:39369.fields_compared	frac	PYTHONPATH=src:. python -m gegenprobe.affair_product samples	README.md,technical_report.md,docs/affair.md
+r21d.product.vernier	380/380	results/affair_cli/product_check.json	samples.6643:328691.fields_equal/samples.6643:328691.fields_compared	frac	PYTHONPATH=src:. python -m gegenprobe.affair_product samples	README.md,technical_report.md,docs/affair.md
+r21d.product.lugano	325/325	results/affair_cli/product_check.json	samples.5192:28156.fields_equal/samples.5192:28156.fields_compared	frac	PYTHONPATH=src:. python -m gegenprobe.affair_product samples	README.md,technical_report.md,docs/affair.md
+r21d.product.fed	112/112	results/affair_cli/product_check.json	federal.fields_equal/federal.fields_compared	frac	PYTHONPATH=src:. python -m gegenprobe.affair_product samples	README.md,docs/affair.md
+r21d.product.p5_title	40/40	results/affair_cli/product_check.json	p5.with_title/p5.n_records	frac	PYTHONPATH=src:. python -m gegenprobe.affair_product samples	README.md,docs/affair.md,docs/schema.md
+r21d.product.p5_date	25/40	results/affair_cli/product_check.json	p5.answer_date_located/p5.n_records	frac	PYTHONPATH=src:. python -m gegenprobe.affair_product samples	README.md,docs/affair.md
+r21d.v021.ni	41/43	results/schema/v0_2_1/oos_role_fit.json	fit_v0_2_1.summary.beyond_authorship_non_interventions.named/fit_v0_2_1.summary.beyond_authorship_non_interventions.determinable	frac	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_1_oos_fit	README.md,technical_report.md,docs/schema.md
+r21d.margin.p2	0.90	results/eval/margin_vs_nomodel.json	sets.P2.margin.auroc	f2	PYTHONPATH=src:. python -m eval.margin_vs_nomodel	README.md,technical_report.md,docs/form_notes.md,../README.md
+r21d.margin.p2_best	0.58	results/eval/margin_vs_nomodel.json	sets.P2.best_nomodel_signal.auroc	f2	PYTHONPATH=src:. python -m eval.margin_vs_nomodel	README.md,technical_report.md,docs/form_notes.md,../README.md
+r21d.margin.p2_diff_ci	[0.154, 0.436]	results/eval/margin_vs_nomodel.json	display.margin_minus_best_ci95.P2	str	PYTHONPATH=src:. python -m eval.margin_vs_nomodel	docs/evaluation.md
+r21d.p7.shared_rows	112	results/p7/p7_paired.json	shared_rows.rows	int	PYTHONPATH=src:. python -m eval.p7.posthoc_paired	README.md,technical_report.md,docs/evaluation.md
+r21d.p7.shared_p7	106	results/p7/p7_paired.json	shared_rows.p7_date_hit	int	PYTHONPATH=src:. python -m eval.p7.posthoc_paired	README.md,technical_report.md,docs/evaluation.md
+r21d.p7.shared_trivial	105	results/p7/p7_paired.json	shared_rows.trivial_date_hit	int	PYTHONPATH=src:. python -m eval.p7.posthoc_paired	README.md,technical_report.md,docs/evaluation.md
+r21d.p7.union_p7	113	results/p7/p7_paired.json	union.p7_date_hit	int	PYTHONPATH=src:. python -m eval.p7.posthoc_paired	README.md,technical_report.md,docs/evaluation.md
+r21d.p7.union_trivial	127	results/p7/p7_paired.json	union.trivial_date_hit	int	PYTHONPATH=src:. python -m eval.p7.posthoc_paired	README.md,technical_report.md,docs/evaluation.md
+r21d.dates.split_n	42	results/schema/v0_2/validation_all.json	answer_date_roles.values_role_split	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_parts	README.md,technical_report.md
+r21d.fed.pointer_null	15/15	results/fed/fed_tables.json	answer_date.arms.pointer.strict.ALL.correct_null/answer_date.arms.pointer.strict.ALL.n	frac	PYTHONPATH=src:. python -m eval.fed.score	README.md,technical_report.md
+r21d.docker.p1_miss	25	results/ci/docker_make_run_38076870082.json	rederive_apertus.P1.cache_miss	int	CI run 38076870082 (job make-run), summarised by hand	README.md
+r21d.docker.p2_miss	5	results/ci/docker_make_run_38076870082.json	rederive_apertus.P2.cache_miss	int	CI run 38076870082 (job make-run), summarised by hand	README.md

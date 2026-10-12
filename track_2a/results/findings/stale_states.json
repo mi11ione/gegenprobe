@@ -1,0 +1,1476 @@
+{
+ "label": "POST HOC, descriptive OPD data finding",
+ "command": "PYTHONPATH=src:. python -m gegenprobe.findings.stale_states",
+ "rule": "procedural state = the last OPD event whose harmonised title maps to a state (data/schema/opd_event_titles.json; gegenprobe.schema.v0_2_meta._state) is `submitted` while an answer is attached (answer document / text) or dated (answer date, answer event); strict: a written-answer event dated after the state event",
+ "pre_answer_states": [
+  "submitted"
+ ],
+ "records": {
+  "files": [
+   "results/schema/v0_2/p3_records.jsonl",
+   "results/schema/v0_2/p3b_records.jsonl",
+   "results/schema/v0_2/p5_records.jsonl",
+   "results/schema/v0_2/fed_records.jsonl"
+  ],
+  "n_records": 120,
+  "stale": 19,
+  "sets": {
+   "p3": {
+    "n_records": 29,
+    "stale": 1
+   },
+   "p3b": {
+    "n_records": 36,
+    "stale": 12
+   },
+   "p5": {
+    "n_records": 40,
+    "stale": 6
+   },
+   "fed": {
+    "n_records": 15,
+    "stale": 0
+   }
+  },
+  "by_body": {
+   "1061": 1,
+   "261": 1,
+   "293": 7,
+   "5192": 6,
+   "6643": 1,
+   "VS": 3
+  },
+  "answer_before_state": 1,
+  "records": [
+   {
+    "set": "p3",
+    "body": "261",
+    "opd_id": 335762,
+    "state_source": "opd:events/961147",
+    "state_date": "2026-07-01",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:928734"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p3b",
+    "body": "293",
+    "opd_id": 15393,
+    "state_source": "opd:events/133954",
+    "state_date": "2012-06-22",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:236614"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p3b",
+    "body": "293",
+    "opd_id": 106111,
+    "state_source": "opd:events/73924",
+    "state_date": "2010-11-23",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:128347"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p3b",
+    "body": "293",
+    "opd_id": 106234,
+    "state_source": "opd:events/383049",
+    "state_date": "2012-07-09",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:128414"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p3b",
+    "body": "293",
+    "opd_id": 298308,
+    "state_source": "opd:events/854685",
+    "state_date": "2025-04-09",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:691729"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p3b",
+    "body": "5192",
+    "opd_id": 26811,
+    "state_source": "opd:events/143894",
+    "state_date": "2021-06-23",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:296112"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p3b",
+    "body": "5192",
+    "opd_id": 26860,
+    "state_source": "opd:events/143931",
+    "state_date": "2022-11-28",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:243876"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p3b",
+    "body": "5192",
+    "opd_id": 117834,
+    "state_source": "opd:events/267880",
+    "state_date": "2025-03-14",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:295853"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p3b",
+    "body": "5192",
+    "opd_id": 253285,
+    "state_source": "opd:events/690750",
+    "state_date": "2025-09-16",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:638827"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p3b",
+    "body": "6643",
+    "opd_id": 329085,
+    "state_source": "opd:events/906004",
+    "state_date": "2023-11-07",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:879772"
+    ],
+    "answer_dates": [
+     "2023-11-06"
+    ],
+    "answer_before_state": true
+   },
+   {
+    "set": "p3b",
+    "body": "VS",
+    "opd_id": 89453,
+    "state_source": "opd:events/127635",
+    "state_date": "2019-03-14",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:581294"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p3b",
+    "body": "VS",
+    "opd_id": 179045,
+    "state_source": "opd:events/63900",
+    "state_date": "2019-03-11",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:112489"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p3b",
+    "body": "VS",
+    "opd_id": 179362,
+    "state_source": "opd:events/373091",
+    "state_date": "2017-09-15",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:578561"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p5",
+    "body": "1061",
+    "opd_id": 279839,
+    "state_source": "opd:events/774597",
+    "state_date": "2025-10-27",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:751706"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p5",
+    "body": "293",
+    "opd_id": 106129,
+    "state_source": "opd:events/73930",
+    "state_date": "2011-06-07",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:183522"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p5",
+    "body": "293",
+    "opd_id": 106237,
+    "state_source": "opd:events/199404",
+    "state_date": "2012-07-27",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:11440"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p5",
+    "body": "293",
+    "opd_id": 106273,
+    "state_source": "opd:events/9630",
+    "state_date": "2013-12-04",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:236642"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   },
+   {
+    "set": "p5",
+    "body": "5192",
+    "opd_id": 28156,
+    "state_source": "opd:events/389853",
+    "state_date": "2016-07-04",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:18579"
+    ],
+    "answer_dates": [
+     "2016-07-07"
+    ],
+    "answer_before_state": false
+   },
+   {
+    "set": "p5",
+    "body": "5192",
+    "opd_id": 251760,
+    "state_source": "opd:events/686092",
+    "state_date": "2025-06-16",
+    "kind": "answer_attached",
+    "answer_docs": [
+     "opd:555595"
+    ],
+    "answer_dates": [],
+    "answer_before_state": false
+   }
+  ],
+  "sentence": "19 of 120 converter records carry procedural_state `submitted` from OPD's events next to an attached or dated answer"
+ },
+ "census": {
+  "source": "data/census/{affairs,events,docs,docs_other,agendas,texts,be_ogd_answers}.tsv.gz (OPD exports of the census snapshot; answer-link status by gegenprobe.census.funnel)",
+  "totals": {
+   "in_scope": 198594,
+   "answered": 133215,
+   "last_state_submitted": 28996,
+   "stale": 7876,
+   "stale_attached": 7774,
+   "stale_answer_event": 270,
+   "strict": 29
+  },
+  "share_of_answered": 0.0591,
+  "n_bodies_with_stale": 73,
+  "bodies": [
+   {
+    "body": "BE",
+    "in_scope": 5063,
+    "answered": 4618,
+    "last_state_submitted": 1230,
+    "stale": 1057,
+    "stale_attached": 1057,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.2289,
+    "examples": [
+     25869,
+     35256,
+     35273
+    ]
+   },
+   {
+    "body": "5192",
+    "in_scope": 2870,
+    "answered": 1217,
+    "last_state_submitted": 2658,
+    "stale": 1005,
+    "stale_attached": 1005,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.8258,
+    "examples": [
+     786,
+     990,
+     1701
+    ]
+   },
+   {
+    "body": "3203",
+    "in_scope": 1530,
+    "answered": 899,
+    "last_state_submitted": 1441,
+    "stale": 837,
+    "stale_attached": 837,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.931,
+    "examples": [
+     17142,
+     17146,
+     17158
+    ]
+   },
+   {
+    "body": "351",
+    "in_scope": 6009,
+    "answered": 5700,
+    "last_state_submitted": 889,
+    "stale": 585,
+    "stale_attached": 585,
+    "stale_answer_event": 24,
+    "strict": 0,
+    "share_of_answered": 0.1026,
+    "examples": [
+     21159,
+     21336,
+     21476
+    ]
+   },
+   {
+    "body": "1024",
+    "in_scope": 594,
+    "answered": 542,
+    "last_state_submitted": 586,
+    "stale": 535,
+    "stale_attached": 535,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.9871,
+    "examples": [
+     2111,
+     2112,
+     2163
+    ]
+   },
+   {
+    "body": "FR",
+    "in_scope": 2933,
+    "answered": 2710,
+    "last_state_submitted": 754,
+    "stale": 533,
+    "stale_attached": 533,
+    "stale_answer_event": 1,
+    "strict": 0,
+    "share_of_answered": 0.1967,
+    "examples": [
+     227890,
+     228444,
+     229000
+    ]
+   },
+   {
+    "body": "VS",
+    "in_scope": 7005,
+    "answered": 3183,
+    "last_state_submitted": 2354,
+    "stale": 523,
+    "stale_attached": 520,
+    "stale_answer_event": 3,
+    "strict": 0,
+    "share_of_answered": 0.1643,
+    "examples": [
+     84896,
+     84955,
+     86170
+    ]
+   },
+   {
+    "body": "1061",
+    "in_scope": 2773,
+    "answered": 1036,
+    "last_state_submitted": 1209,
+    "stale": 267,
+    "stale_attached": 267,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.2577,
+    "examples": [
+     31,
+     2009,
+     2124
+    ]
+   },
+   {
+    "body": "293",
+    "in_scope": 536,
+    "answered": 389,
+    "last_state_submitted": 257,
+    "stale": 239,
+    "stale_attached": 239,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.6144,
+    "examples": [
+     859,
+     869,
+     2306
+    ]
+   },
+   {
+    "body": "SZ",
+    "in_scope": 1316,
+    "answered": 833,
+    "last_state_submitted": 273,
+    "stale": 201,
+    "stale_attached": 201,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.2413,
+    "examples": [
+     81972,
+     82021,
+     82025
+    ]
+   },
+   {
+    "body": "5113",
+    "in_scope": 652,
+    "answered": 545,
+    "last_state_submitted": 301,
+    "stale": 194,
+    "stale_attached": 187,
+    "stale_answer_event": 9,
+    "strict": 0,
+    "share_of_answered": 0.356,
+    "examples": [
+     26054,
+     26076,
+     26077
+    ]
+   },
+   {
+    "body": "1059",
+    "in_scope": 454,
+    "answered": 302,
+    "last_state_submitted": 196,
+    "stale": 128,
+    "stale_attached": 126,
+    "stale_answer_event": 2,
+    "strict": 0,
+    "share_of_answered": 0.4238,
+    "examples": [
+     2993,
+     2994,
+     2998
+    ]
+   },
+   {
+    "body": "UR",
+    "in_scope": 619,
+    "answered": 585,
+    "last_state_submitted": 109,
+    "stale": 107,
+    "stale_attached": 107,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.1829,
+    "examples": [
+     86082,
+     86086,
+     86121
+    ]
+   },
+   {
+    "body": "191",
+    "in_scope": 419,
+    "answered": 216,
+    "last_state_submitted": 268,
+    "stale": 98,
+    "stale_attached": 98,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.4537,
+    "examples": [
+     2272,
+     2274,
+     2304
+    ]
+   },
+   {
+    "body": "247",
+    "in_scope": 581,
+    "answered": 113,
+    "last_state_submitted": 473,
+    "stale": 97,
+    "stale_attached": 97,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.8584,
+    "examples": [
+     1730,
+     9076,
+     9149
+    ]
+   },
+   {
+    "body": "ZH",
+    "in_scope": 12081,
+    "answered": 10147,
+    "last_state_submitted": 202,
+    "stale": 94,
+    "stale_attached": 48,
+    "stale_answer_event": 83,
+    "strict": 6,
+    "share_of_answered": 0.0093,
+    "examples": [
+     84272,
+     89886,
+     90073
+    ]
+   },
+   {
+    "body": "2829",
+    "in_scope": 1055,
+    "answered": 282,
+    "last_state_submitted": 843,
+    "stale": 84,
+    "stale_attached": 84,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.2979,
+    "examples": [
+     280590,
+     280611,
+     280612
+    ]
+   },
+   {
+    "body": "361",
+    "in_scope": 321,
+    "answered": 254,
+    "last_state_submitted": 83,
+    "stale": 79,
+    "stale_attached": 79,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.311,
+    "examples": [
+     283057,
+     283061,
+     283065
+    ]
+   },
+   {
+    "body": "1058",
+    "in_scope": 688,
+    "answered": 192,
+    "last_state_submitted": 513,
+    "stale": 77,
+    "stale_attached": 77,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.401,
+    "examples": [
+     2046,
+     2818,
+     2822
+    ]
+   },
+   {
+    "body": "AG",
+    "in_scope": 3561,
+    "answered": 2471,
+    "last_state_submitted": 182,
+    "stale": 74,
+    "stale_attached": 74,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.0299,
+    "examples": [
+     255692,
+     255847,
+     256505
+    ]
+   },
+   {
+    "body": "53",
+    "in_scope": 77,
+    "answered": 71,
+    "last_state_submitted": 77,
+    "stale": 71,
+    "stale_attached": 71,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 1.0,
+    "examples": [
+     41,
+     29209,
+     29210
+    ]
+   },
+   {
+    "body": "198",
+    "in_scope": 731,
+    "answered": 484,
+    "last_state_submitted": 238,
+    "stale": 68,
+    "stale_attached": 59,
+    "stale_answer_event": 14,
+    "strict": 14,
+    "share_of_answered": 0.1405,
+    "examples": [
+     6206,
+     6216,
+     6229
+    ]
+   },
+   {
+    "body": "GL",
+    "in_scope": 433,
+    "answered": 276,
+    "last_state_submitted": 117,
+    "stale": 61,
+    "stale_attached": 61,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.221,
+    "examples": [
+     61241,
+     73475,
+     73926
+    ]
+   },
+   {
+    "body": "JU",
+    "in_scope": 7003,
+    "answered": 1569,
+    "last_state_submitted": 4526,
+    "stale": 59,
+    "stale_attached": 56,
+    "stale_answer_event": 3,
+    "strict": 0,
+    "share_of_answered": 0.0376,
+    "examples": [
+     50565,
+     50745,
+     52360
+    ]
+   },
+   {
+    "body": "4001",
+    "in_scope": 548,
+    "answered": 311,
+    "last_state_submitted": 119,
+    "stale": 50,
+    "stale_attached": 50,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.1608,
+    "examples": [
+     271765,
+     271780,
+     271781
+    ]
+   },
+   {
+    "body": "62",
+    "in_scope": 222,
+    "answered": 143,
+    "last_state_submitted": 99,
+    "stale": 43,
+    "stale_attached": 43,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.3007,
+    "examples": [
+     29892,
+     29896,
+     29899
+    ]
+   },
+   {
+    "body": "SG",
+    "in_scope": 4811,
+    "answered": 3586,
+    "last_state_submitted": 480,
+    "stale": 37,
+    "stale_attached": 37,
+    "stale_answer_event": 5,
+    "strict": 0,
+    "share_of_answered": 0.0103,
+    "examples": [
+     55241,
+     58647,
+     58758
+    ]
+   },
+   {
+    "body": "4045",
+    "in_scope": 627,
+    "answered": 100,
+    "last_state_submitted": 326,
+    "stale": 35,
+    "stale_attached": 35,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.35,
+    "examples": [
+     24406,
+     24434,
+     24439
+    ]
+   },
+   {
+    "body": "SO",
+    "in_scope": 2041,
+    "answered": 1912,
+    "last_state_submitted": 130,
+    "stale": 35,
+    "stale_attached": 33,
+    "stale_answer_event": 16,
+    "strict": 0,
+    "share_of_answered": 0.0183,
+    "examples": [
+     273116,
+     273355,
+     273467
+    ]
+   },
+   {
+    "body": "942",
+    "in_scope": 946,
+    "answered": 893,
+    "last_state_submitted": 38,
+    "stale": 34,
+    "stale_attached": 34,
+    "stale_answer_event": 1,
+    "strict": 0,
+    "share_of_answered": 0.0381,
+    "examples": [
+     35417,
+     35550,
+     35556
+    ]
+   },
+   {
+    "body": "243",
+    "in_scope": 843,
+    "answered": 39,
+    "last_state_submitted": 495,
+    "stale": 33,
+    "stale_attached": 33,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.8462,
+    "examples": [
+     45,
+     66,
+     67
+    ]
+   },
+   {
+    "body": "296",
+    "in_scope": 769,
+    "answered": 635,
+    "last_state_submitted": 85,
+    "stale": 33,
+    "stale_attached": 32,
+    "stale_answer_event": 2,
+    "strict": 0,
+    "share_of_answered": 0.052,
+    "examples": [
+     16623,
+     16624,
+     16635
+    ]
+   },
+   {
+    "body": "3443",
+    "in_scope": 306,
+    "answered": 34,
+    "last_state_submitted": 228,
+    "stale": 32,
+    "stale_attached": 32,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.9412,
+    "examples": [
+     1592,
+     1597,
+     1602
+    ]
+   },
+   {
+    "body": "TI",
+    "in_scope": 11692,
+    "answered": 2449,
+    "last_state_submitted": 787,
+    "stale": 30,
+    "stale_attached": 30,
+    "stale_answer_event": 5,
+    "strict": 0,
+    "share_of_answered": 0.0122,
+    "examples": [
+     83347,
+     83364,
+     83401
+    ]
+   },
+   {
+    "body": "4401",
+    "in_scope": 161,
+    "answered": 85,
+    "last_state_submitted": 105,
+    "stale": 29,
+    "stale_attached": 29,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.3412,
+    "examples": [
+     25105,
+     25106,
+     25107
+    ]
+   },
+   {
+    "body": "66",
+    "in_scope": 186,
+    "answered": 74,
+    "last_state_submitted": 91,
+    "stale": 29,
+    "stale_attached": 29,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.3919,
+    "examples": [
+     30209,
+     30239,
+     30248
+    ]
+   },
+   {
+    "body": "VD",
+    "in_scope": 5932,
+    "answered": 2791,
+    "last_state_submitted": 351,
+    "stale": 29,
+    "stale_attached": 29,
+    "stale_answer_event": 4,
+    "strict": 0,
+    "share_of_answered": 0.0104,
+    "examples": [
+     176285,
+     176396,
+     221328
+    ]
+   },
+   {
+    "body": "GR",
+    "in_scope": 1475,
+    "answered": 1265,
+    "last_state_submitted": 36,
+    "stale": 26,
+    "stale_attached": 24,
+    "stale_answer_event": 24,
+    "strict": 0,
+    "share_of_answered": 0.0206,
+    "examples": [
+     75411,
+     75582,
+     75659
+    ]
+   },
+   {
+    "body": "LIE",
+    "in_scope": 3717,
+    "answered": 3386,
+    "last_state_submitted": 207,
+    "stale": 25,
+    "stale_attached": 25,
+    "stale_answer_event": 22,
+    "strict": 0,
+    "share_of_answered": 0.0074,
+    "examples": [
+     830,
+     70101,
+     70205
+    ]
+   },
+   {
+    "body": "2703",
+    "in_scope": 521,
+    "answered": 341,
+    "last_state_submitted": 78,
+    "stale": 22,
+    "stale_attached": 22,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.0645,
+    "examples": [
+     14636,
+     14654,
+     14676
+    ]
+   },
+   {
+    "body": "4082",
+    "in_scope": 374,
+    "answered": 112,
+    "last_state_submitted": 133,
+    "stale": 22,
+    "stale_attached": 22,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.1964,
+    "examples": [
+     283908,
+     283946,
+     283969
+    ]
+   },
+   {
+    "body": "6643",
+    "in_scope": 273,
+    "answered": 173,
+    "last_state_submitted": 121,
+    "stale": 21,
+    "stale_attached": 20,
+    "stale_answer_event": 15,
+    "strict": 0,
+    "share_of_answered": 0.1214,
+    "examples": [
+     328647,
+     328693,
+     328695
+    ]
+   },
+   {
+    "body": "261",
+    "in_scope": 5683,
+    "answered": 4956,
+    "last_state_submitted": 136,
+    "stale": 20,
+    "stale_attached": 20,
+    "stale_answer_event": 2,
+    "strict": 2,
+    "share_of_answered": 0.004,
+    "examples": [
+     250829,
+     282699,
+     285133
+    ]
+   },
+   {
+    "body": "NW",
+    "in_scope": 406,
+    "answered": 240,
+    "last_state_submitted": 42,
+    "stale": 20,
+    "stale_attached": 20,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.0833,
+    "examples": [
+     77314,
+     77341,
+     77371
+    ]
+   },
+   {
+    "body": "SH",
+    "in_scope": 1159,
+    "answered": 700,
+    "last_state_submitted": 256,
+    "stale": 18,
+    "stale_attached": 18,
+    "stale_answer_event": 2,
+    "strict": 0,
+    "share_of_answered": 0.0257,
+    "examples": [
+     491,
+     79488,
+     79534
+    ]
+   },
+   {
+    "body": "2831",
+    "in_scope": 687,
+    "answered": 362,
+    "last_state_submitted": 96,
+    "stale": 16,
+    "stale_attached": 9,
+    "stale_answer_event": 8,
+    "strict": 1,
+    "share_of_answered": 0.0442,
+    "examples": [
+     784,
+     1166,
+     1588
+    ]
+   },
+   {
+    "body": "6621",
+    "in_scope": 4539,
+    "answered": 50,
+    "last_state_submitted": 1741,
+    "stale": 16,
+    "stale_attached": 16,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.32,
+    "examples": [
+     31468,
+     31540,
+     31837
+    ]
+   },
+   {
+    "body": "131",
+    "in_scope": 245,
+    "answered": 150,
+    "last_state_submitted": 100,
+    "stale": 13,
+    "stale_attached": 13,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.0867,
+    "examples": [
+     5054,
+     5065,
+     5092
+    ]
+   },
+   {
+    "body": "404",
+    "in_scope": 92,
+    "answered": 12,
+    "last_state_submitted": 92,
+    "stale": 12,
+    "stale_attached": 12,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 1.0,
+    "examples": [
+     334378,
+     334388,
+     334389
+    ]
+   },
+   {
+    "body": "1711",
+    "in_scope": 571,
+    "answered": 241,
+    "last_state_submitted": 14,
+    "stale": 11,
+    "stale_attached": 11,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.0456,
+    "examples": [
+     5139,
+     5140,
+     5172
+    ]
+   },
+   {
+    "body": "ZG",
+    "in_scope": 1163,
+    "answered": 977,
+    "last_state_submitted": 90,
+    "stale": 10,
+    "stale_attached": 10,
+    "stale_answer_event": 1,
+    "strict": 0,
+    "share_of_answered": 0.0102,
+    "examples": [
+     220126,
+     220574,
+     220798
+    ]
+   },
+   {
+    "body": "BL",
+    "in_scope": 3106,
+    "answered": 1799,
+    "last_state_submitted": 157,
+    "stale": 9,
+    "stale_attached": 9,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.005,
+    "examples": [
+     329834,
+     329836,
+     334002
+    ]
+   },
+   {
+    "body": "TG",
+    "in_scope": 1522,
+    "answered": 1463,
+    "last_state_submitted": 41,
+    "stale": 9,
+    "stale_attached": 9,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.0062,
+    "examples": [
+     280417,
+     285185,
+     289797
+    ]
+   },
+   {
+    "body": "4566",
+    "in_scope": 257,
+    "answered": 245,
+    "last_state_submitted": 20,
+    "stale": 8,
+    "stale_attached": 5,
+    "stale_answer_event": 4,
+    "strict": 0,
+    "share_of_answered": 0.0327,
+    "examples": [
+     25262,
+     295645,
+     295646
+    ]
+   },
+   {
+    "body": "743",
+    "in_scope": 275,
+    "answered": 125,
+    "last_state_submitted": 132,
+    "stale": 8,
+    "stale_attached": 8,
+    "stale_answer_event": 4,
+    "strict": 4,
+    "share_of_answered": 0.064,
+    "examples": [
+     330164,
+     330210,
+     330256
+    ]
+   },
+   {
+    "body": "2937",
+    "in_scope": 249,
+    "answered": 135,
+    "last_state_submitted": 121,
+    "stale": 7,
+    "stale_attached": 7,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.0519,
+    "examples": [
+     906,
+     977,
+     106594
+    ]
+   },
+   {
+    "body": "4289",
+    "in_scope": 130,
+    "answered": 90,
+    "last_state_submitted": 23,
+    "stale": 7,
+    "stale_attached": 5,
+    "stale_answer_event": 2,
+    "strict": 0,
+    "share_of_answered": 0.0778,
+    "examples": [
+     111352,
+     115785,
+     115830
+    ]
+   },
+   {
+    "body": "OW",
+    "in_scope": 338,
+    "answered": 189,
+    "last_state_submitted": 17,
+    "stale": 7,
+    "stale_attached": 7,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.037,
+    "examples": [
+     850,
+     167562,
+     167698
+    ]
+   },
+   {
+    "body": "3001",
+    "in_scope": 48,
+    "answered": 6,
+    "last_state_submitted": 48,
+    "stale": 6,
+    "stale_attached": 6,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 1.0,
+    "examples": [
+     17103,
+     107956,
+     108008
+    ]
+   },
+   {
+    "body": "NE",
+    "in_scope": 2953,
+    "answered": 808,
+    "last_state_submitted": 71,
+    "stale": 6,
+    "stale_attached": 1,
+    "stale_answer_event": 5,
+    "strict": 2,
+    "share_of_answered": 0.0074,
+    "examples": [
+     207553,
+     216348,
+     216349
+    ]
+   },
+   {
+    "body": "230",
+    "in_scope": 1757,
+    "answered": 940,
+    "last_state_submitted": 360,
+    "stale": 5,
+    "stale_attached": 5,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.0053,
+    "examples": [
+     97967,
+     98041,
+     98151
+    ]
+   },
+   {
+    "body": "4671",
+    "in_scope": 155,
+    "answered": 155,
+    "last_state_submitted": 5,
+    "stale": 5,
+    "stale_attached": 0,
+    "stale_answer_event": 5,
+    "strict": 0,
+    "share_of_answered": 0.0323,
+    "examples": [
+     25405,
+     25419,
+     25528
+    ]
+   },
+   {
+    "body": "3427",
+    "in_scope": 446,
+    "answered": 233,
+    "last_state_submitted": 101,
+    "stale": 4,
+    "stale_attached": 4,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.0172,
+    "examples": [
+     278847,
+     279179,
+     279424
+    ]
+   },
+   {
+    "body": "5002",
+    "in_scope": 1105,
+    "answered": 879,
+    "last_state_submitted": 111,
+    "stale": 4,
+    "stale_attached": 4,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.0046,
+    "examples": [
+     255004,
+     255173,
+     255174
+    ]
+   },
+   {
+    "body": "BS",
+    "in_scope": 8869,
+    "answered": 6280,
+    "last_state_submitted": 97,
+    "stale": 3,
+    "stale_attached": 3,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.0005,
+    "examples": [
+     42455,
+     46420,
+     339922
+    ]
+   },
+   {
+    "body": "306",
+    "in_scope": 200,
+    "answered": 162,
+    "last_state_submitted": 13,
+    "stale": 2,
+    "stale_attached": 2,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.0123,
+    "examples": [
+     335746,
+     338611
+    ]
+   },
+   {
+    "body": "6152",
+    "in_scope": 236,
+    "answered": 131,
+    "last_state_submitted": 12,
+    "stale": 2,
+    "stale_attached": 1,
+    "stale_answer_event": 1,
+    "strict": 0,
+    "share_of_answered": 0.0153,
+    "examples": [
+     328158,
+     328173
+    ]
+   },
+   {
+    "body": "6153",
+    "in_scope": 161,
+    "answered": 126,
+    "last_state_submitted": 11,
+    "stale": 2,
+    "stale_attached": 0,
+    "stale_answer_event": 2,
+    "strict": 0,
+    "share_of_answered": 0.0159,
+    "examples": [
+     328521,
+     328537
+    ]
+   },
+   {
+    "body": "6248",
+    "in_scope": 29,
+    "answered": 29,
+    "last_state_submitted": 2,
+    "stale": 2,
+    "stale_attached": 2,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.069,
+    "examples": [
+     327901,
+     334547
+    ]
+   },
+   {
+    "body": "AR",
+    "in_scope": 210,
+    "answered": 148,
+    "last_state_submitted": 4,
+    "stale": 2,
+    "stale_attached": 2,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.0135,
+    "examples": [
+     337086,
+     340369
+    ]
+   },
+   {
+    "body": "LU",
+    "in_scope": 1918,
+    "answered": 1708,
+    "last_state_submitted": 168,
+    "stale": 2,
+    "stale_attached": 1,
+    "stale_answer_event": 1,
+    "strict": 0,
+    "share_of_answered": 0.0012,
+    "examples": [
+     273007,
+     298335
+    ]
+   },
+   {
+    "body": "AI",
+    "in_scope": 69,
+    "answered": 10,
+    "last_state_submitted": 13,
+    "stale": 1,
+    "stale_attached": 1,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.1,
+    "examples": [
+     337104
+    ]
+   },
+   {
+    "body": "GE",
+    "in_scope": 288,
+    "answered": 114,
+    "last_state_submitted": 53,
+    "stale": 1,
+    "stale_attached": 1,
+    "stale_answer_event": 0,
+    "strict": 0,
+    "share_of_answered": 0.0088,
+    "examples": [
+     337983
+    ]
+   }
+  ],
+  "list": "results/findings/stale_states.tsv.gz (one row per stale affair)",
+  "sentence": "7,876 of 133,215 answered in-scope affairs in OPD (5.9%, 73 parliaments) still carry the state `submitted` as their last state event; 29 of them have a written-answer event dated after that state event"
+ },
+ "next_to": "results/census/vocab_bugs.tsv (OPD vocabulary findings)"
+}

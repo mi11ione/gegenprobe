@@ -49,12 +49,13 @@ def _errs(rows, docs) -> set[str]:
 # (document, text before, text after): J5's nine misses, verbatim where the docs still print them
 J5_MISSES = [
     # 1. a comparative flipped: level -> ahead
-    ("README.md", "Apertus's role choice is level with document order", "Apertus's role choice is ahead of document order"),
+    ("README.md", "with precision not worse (P10, H1 and H2, registered)",
+     "with precision ahead of the rules (P10, H1 and H2, registered)"),
     # 2. the maturity table (what the rubric scores rigour against)
-    ("technical_report.md", "| *feasibility study* · *drafts for the eCH group* |",
-     "| *deployable prototype* · *final eCH standard* |"),
-    ("technical_report.md", "| review mode, whole and virtual affairs ·",
-     "| review mode (*ready to deploy*), whole and virtual affairs ·"),
+    ("technical_report.md", "*feasibility study*: review mode",
+     "*deployable prototype*: review mode"),
+    ("technical_report.md", "*drafts for the eCH group*: schema v0.1",
+     "*final eCH standard*: schema v0.1"),
     # 3. every one -> most
     ("docs/form_notes.md", "every one from model-free rules", "most from model-free rules"),
     # 4. a false sovereignty claim
@@ -65,7 +66,8 @@ J5_MISSES = [
     ("technical_report.md", "it recommends rules only or the local 8B", "it recommends the Public AI gateway"),
     # 7. Apertus's role
     ("README.md", "Apertus as a reviewer's aid", "Apertus as the unattended extractor"),
-    ("README.md", "Apertus is opt-in:\nwhere nobody", "Apertus is essential:\nwhere nobody"),
+    ("README.md", "**Apertus 70B, opt-in, reads layouts no rules cover:**",
+     "**Apertus 70B, essential, reads layouts no rules cover:**"),
     # 8. a new sentence without numbers or verdict words
     ("README.md", "- **Suggestions go to a reviewer;",
      "**Apertus beats the rules on every field we tested.**\n- **Suggestions go to a reviewer;"),
@@ -240,7 +242,8 @@ def test_pdf_whole_text_in_sync(pdf_raw):
 
 
 @pytest.mark.parametrize("before,after", [
-    ("*feasibility study* · *drafts for the eCH group*", "*deployable prototype* · *final eCH standard*"),
+    ("*feasibility study*: review mode, whole and virtual affairs",
+     "*deployable prototype*: review mode, whole and virtual affairs"),
     ("for public bodies it recommends rules only or the local 8B", "for public bodies it recommends the Public AI gateway"),
     ("the rules (135) and the latest date on answer-typed documents (131)",
      "the latest date on answer-typed documents (135) and the rules (131)"),

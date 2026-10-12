@@ -1,7 +1,7 @@
 id	shown	file	path	fmt	command	where	context
 r19_c.dec.corpus_docs	902,754	results/report/cost.json	corpus_documents	int	python -m report.cost	docs/decision.md	
 r19_c.dec.rules_cpu_h	0.5	results/report/cost.json	rules_cpu_hours_corpus	f1	python -m report.cost	docs/decision.md	{"docs/decision.md": "CPU-hours"}
-r19_c.dec.usd_1k	0.59	results/report/cost_end_to_end.json	review_70b_usd_per_1000_residue_docs	f2	python -m report.cost e2e	docs/decision.md	
+r19_c.dec.usd_1k	0.59	results/report/cost_end_to_end.json	review_70b_usd_per_1000_residue_docs	f2	python -m report.cost e2e	docs/decision.md,docs/runbook.md	
 r19_c.dec.8b_h_1k	49.9	results/report/cost_end_to_end.json	review_8b_wall_h_per_1000_docs	f1	python -m report.cost e2e	docs/decision.md	
 r19_c.dec.8b_vcpus	4	results/report/cost_end_to_end.json	review_8b_vcpus	int	python -m report.cost e2e	docs/decision.md	{"docs/decision.md": "vCPU machine"}
 r19_c.dec.relinks	2,421	results/report/r9_numbers.json	coverage.after_hash_relink	int	PYTHONPATH=src:. python -m report.r9_numbers	docs/decision.md	

@@ -75,26 +75,19 @@ def test_carry_changes_only_the_declared_fields():
         assert back == post
 
 
-def test_p5_records_keep_the_rules_arm_values():
-    """The P5 rules arm's Q/A items stay; its people stay when the role rules print no author, and give way to the
-    printed authors (with their v0.2 roles) when they do."""
+def test_p5_records_are_the_commands_with_the_arms_qa_items():
+    """R21: the published P5 records are the operator command's on P5's documents (gegenprobe.affair_product p5), not the
+    rules arm's assembly. The command pairs Q/A items by the same P5 rules, so the items equal the arm's; every answer
+    date is located in the answer text (route rule) or OPD's event (route metadata)."""
     res = json.loads(V.P5.read_text(encoding="utf-8"))
     recs = {r["ref"]["opd_id"]: r for r in map(json.loads, (OUT / "p5_records.jsonl").read_text().splitlines())}
     for x in res["per_affair"]:
         r, R = recs[x["affair_id"]], x["R"]["records"]
-        items = r["qa"][0].get("items", [])
-        assert [i["n"] for i in items] == [i["n"] for i in R["qa_items"]]
-        named = [a for a in r["actors"] if a["name"]["kind"] == "value"]  # typed-null roles: gegenprobe.schema.v0_2_gaps
-        printed = [a["name"]["value"] for a in named if str(a["name"].get("rule", "")).startswith("roles-")]
-        kept = [a["name"]["value"] for a in named if not str(a["name"].get("rule", "")).startswith("roles-")]
-        for a in R["actors"]:
-            name = a["name"].get("value")
-            assert name in kept or printed, (x["affair_id"], name)
-        assert not (printed and any(a["role"] == "submitter" for a in r["actors"]))
-        # the P5 path reads no answer date; OPD's answer event fills it where OPD has one (gegenprobe.schema.v0_2_meta)
+        assert r["extraction"]["converter_version"] == "gegenprobe-0.1.0+affair"
+        assert [i["n"] for i in r["qa"][0].get("items", [])] == [i["n"] for i in R["qa_items"]]
         ad = r["qa"][0]["answer_date"]
-        assert ad.get("null_reason") == "not_extracted" or (
-            ad["kind"] == "value" and ad["route"] == "metadata" and ad["source"].startswith("opd:events/"))
+        assert ad["kind"] == "null" or ad["route"] in ("rule", "ocr+rule", "metadata")
+        assert r.get("title"), x["affair_id"]
 
 
 def test_samples_are_converter_records_that_validate(val):

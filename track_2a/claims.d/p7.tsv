@@ -1,7 +1,7 @@
 id	shown	file	path	fmt	command	where	context
 p7.dev.n	80	results/p7/dev_sample.json	n	int	python -m eval.p7.dev draw; python -m eval.p7.dev features --a a1,a2; python -m eval.p7.dev table	-	
 p7.dev.p7	16/16	results/p7/dev_table.json	configs.12.correct/configs.12.promoted	frac	python -m eval.p7.dev draw; python -m eval.p7.dev features --a a1,a2; python -m eval.p7.dev table	-	
-p7.test.frame	478	results/p7/test_sample.json	frame	int	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	README.md,technical_report.md,docs/evaluation.md,../README.md	
+p7.test.frame	478	results/p7/test_sample.json	frame	int	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	README.md,technical_report.md,docs/evaluation.md	
 p7.test.packets	190	results/p7/p7_hypotheses.json	packets	int	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	README.md,technical_report.md,docs/evaluation.md	
 p7.test.p7_promoted_frame	135	results/p7/test_sample.json	arms_on_frame.p7	int	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	-	
 p7.test.free_promoted_frame	163	results/p7/test_sample.json	arms_on_frame.free	int	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	-	

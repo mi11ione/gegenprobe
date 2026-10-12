@@ -16,7 +16,7 @@ r8e.p7_h4_uw_trivial	129/146	results/p7/p7_posthoc_r8.json	h4_unweighted.unweigh
 r8e.p7_h4_uw_trivial_rate	88.4%	results/p7/p7_posthoc_r8.json	h4_unweighted.unweighted.trivial_rate	pct1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_h4_without_rest	4.2	results/p7/p7_posthoc_r8.json	display.h4_without_rest_pts	f1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	-	
 r8e.p7_trivial_rest	2/8	results/p7/p7_posthoc_r8.json	h4_unweighted.trivial_by_stratum.rest.correct_dated/h4_unweighted.trivial_by_stratum.rest.promoted	frac	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	-	
-r8e.p7_trivial_is_answer	146/146	results/p7/p7_posthoc_r8.json	trivial.annotated_is_answer.0/trivial.annotated_is_answer.1	frac	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md,README.md,technical_report.md	
+r8e.p7_trivial_is_answer	146/146	results/p7/p7_posthoc_r8.json	trivial.annotated_is_answer.0/trivial.annotated_is_answer.1	frac	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_gold_no	10	results/p7/p7_posthoc_r8.json	trivial.gold_no	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_trivial_stops	10	results/p7/p7_posthoc_r8.json	trivial.gold_no_stopped.trivial	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_free_stops	8	results/p7/p7_posthoc_r8.json	trivial.gold_no_stopped.free	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	-	

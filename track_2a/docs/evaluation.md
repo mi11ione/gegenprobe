@@ -665,7 +665,7 @@ documents only), written without the gold and run unchanged on all 62 cached tex
 45/62 and finds 16/29 answer dates (4/33 answerless documents dated). Against the pointer (53/62, 24/29): pointer only
 12 documents, rule only 4, exact McNemar p = 0.077; on the 29 answered documents 11 vs 3, p = 0.057; 5 parliaments
 favour the pointer, 2 the rule (cluster permutation p = 0.20). Apertus's lead over a generic rule is in the answer dates
-it finds; the p = 0.012 above is against the latest-date baseline (44/62). **The strongest rule tried** (post hoc,
+it finds; the p = 0.012 above is against the latest-date baseline (44/62). **A composite rule** (post hoc,
 proposed in review; `eval/gold2/posthoc_composite.py` → `results/eval/p2_posthoc_composite.json`): the latest date on
 answer-typed documents and, on the 31 intervention-typed documents, the first date within 80 characters after a session
 cue (government and answer words required, no latest-date fallback), run unchanged on the 62 sha256-verified texts:
@@ -673,8 +673,9 @@ exact on 46/62, 21/29 answer dates found, 8/33 answerless documents dated. Again
 exact McNemar p = 0.065 (answered documents 5 vs 2, p = 0.45); 5 parliaments favour the pointer, 1 the rule, cluster
 permutation p = 0.12; parliament-resampled interval of the difference [0.014, 0.221], optimistic with 15 clusters, so
 the exact tests lead. The keyword rule on answer-typed documents with the same cue rule: 47/62, 19/29, p = 0.21
-(cluster p = 0.44). The pointer's lead over the strongest rule is 7 documents and 3 answer dates, not significant at
-the parliament level. Asked freely with a null-allowed prompt, Apertus
+(cluster p = 0.44). The pointer's lead over the composite rule is 7 documents and 3 answer dates, not significant at
+the parliament level; the rules followed by the keyword+cue rule reach 49/62 (the full ladder:
+[Baselines proposed in review](#baselines-proposed-in-review)). Asked freely with a null-allowed prompt, Apertus
 scores about the same as the pointer (52 vs 53 of 62; re-parsed 54); the pointer adds provenance by construction, not
 accuracy. The margin separates the classes (AUROC 0.983); null safety failed again (4/33, upper bound 27.3%), so
 Apertus's values remain review suggestions. θ = 0, registered in PREREG2 as a secondary with no decision attached,
@@ -927,6 +928,61 @@ instructions is right on 55/67 and dates 7/34 answerless documents (v2 vs it: 2 
 is-answer variant and θ_B.
 
 ![Scoreboards](figures/fig5_scoreboard.png)
+
+## Baselines proposed in review
+
+Every comparison in this section was proposed by a reviewer after the labels were committed and is post hoc: context
+for the registered results above, not a registered test. No model call was made for it; each module re-derives its file
+from committed predictions and labels and has a `--check`.
+
+**P2: the model-free ladder** (`python -m eval.gold2.posthoc_cascade` → `results/eval/p2_posthoc_cascade.json`). The
+cascade is the registered rules arm, then, where the rules return no value (58 of the 62 documents), the keyword+cue
+rule: the same construction as the P1 cascade baseline.
+
+| arm (model-free unless stated) | exact /62 | answer dates /29 | pointer vs arm, right alone | exact McNemar p | parliament-resampled 95% of the difference |
+|---|---|---|---|---|---|
+| registered rules alone | 35/62 | 2/29 | 22 vs 4 | 5.3 × 10⁻⁴ | [-0.018, 0.545] |
+| latest date on answer-typed documents | 44/62 | 18/29 | 10 vs 1 | 0.012 | [0.056, 0.243] |
+| keyword rule | 45/62 | 16/29 | 12 vs 4 | 0.077 | [-0.016, 0.276] |
+| composite rule | 46/62 | 21/29 | 9 vs 2 | 0.065 | [0.014, 0.221] |
+| keyword+cue rule | 47/62 | 19/29 | 11 vs 5 | 0.21 | [-0.086, 0.266] |
+| cascade: rules, then keyword+cue | 49/62 | 21/29 | 9 vs 5 | 0.42 | [-0.123, 0.234] |
+| Apertus pointer (registered) | 53/62 | 24/29 | | | |
+
+Against the cascade, 4 parliaments favour the pointer and 3 the cascade (permutation p = 0.64); on the answered
+documents the pointer is right alone on 7, the cascade on 4 (p = 0.55). The registered cascade (rules, then the pointer)
+is exact on 51/62. The latest printed date on every document finds 22/29 answer dates but dates 31 of the 33
+answerless documents.
+
+**P7: the verifier paired with the exact-date match** (`python -m eval.p7.posthoc_paired` → `results/p7/p7_paired.json`;
+190 annotated rows of the 478-row frame). On the 112 rows both promote, the gold answer date is written 106 (Apertus)
+vs 105 (no model) times (exact McNemar p = 1). Over every annotated row either promotes, correctly dated promotions are
+113 vs 127 (right alone 8 vs 22, p = 0.016); weighted to the frame, 127.1 vs 158.7, difference [-56.4, -12.3]. Apertus's
+precision (113/120 vs 127/146; registered H4, weighted, +22.7 points) comes from the 34 rows it declines and the match
+promotes, of which 22 the match dates correctly: Apertus promotes fewer rows, more of them right.
+
+**The margin as a review ranking against no-model signals** (`python -m eval.margin_vs_nomodel` →
+`results/eval/margin_vs_nomodel.json`; 10 no-model signals with directions fixed before scoring, document-level
+bootstrap, B = 10,000; the best signal is chosen on the same rows, which favours the baseline).
+
+| set | values (wrong) | margin AUROC [95%] | best no-model signal, AUROC | margin minus best [95%] |
+|---|---|---|---|---|
+| P1 | 62 (16) | 0.732 [0.577, 0.866] | rules unconfirmed, ties by number of candidates, 0.886 | [-0.336, 0.021] |
+| P2 | 32 (8) | 0.896 [0.77, 0.986] | rules return no value, 0.583 | [0.154, 0.436] |
+| P6 | 35 (5) | 0.713 [0.339, 1.0] | rules return no value, 0.817 | [-0.479, 0.19] |
+
+On the layouts no rules cover (P2) the margin ranks wrong values first better than every no-model signal (each
+interval of the difference excludes 0). Where rules exist (P1, P6), whether the rules confirm the value ranks as well or
+better (not significantly). Among the documents the rules leave to the reader (the queue the deployed cascade sends),
+the margin's AUROC is 0.937 on P1 (best signal 0.873, interval [-0.156, 0.292]), 0.912 on P2 (0.606, [0.047, 0.513])
+and 0.618 on P6 (0.655, n = 16).
+
+**P10: document order** (`results/p10/p10_posthoc_baselines.json`; detail in [P10](#p10-author-roles-where-no-rules-exist)).
+The same candidates in document order, read with OPD's registered mapping, match 52/141 gold pairs (F1 0.41) against
+Apertus's 50/141 (F1 0.42); the gain over the rules comes from the model-free candidate finder and document order, and
+Apertus's author filter on the same order rule keeps recall and adds +7.3 points precision [0.8, 18.2] (one-sided
+p = 0.012, uncorrected). **P1:** a model-free cascade (rules, then the latest date on answer-typed documents) is exact
+on 138/154, the registered cascade with Apertus on 139/154.
 
 ## Use of Apertus
 

@@ -1697,7 +1697,7 @@ def tiles() -> dict | None:
     c = json.loads(p14.read_text(encoding="utf-8"))["coverage"]
     v = json.loads(p13.read_text(encoding="utf-8"))["v02_with_federal"]
     out = dict(share_all=c["share_all"], share_row_checked=c["share_row_checked"], points_unchecked=c["points_unchecked"],
-               agenda=c["agenda"], review=c["review"], repaired=c["repaired"],
+               agenda=c["agenda"], review=c["review"], repaired=c["repaired"], row_checked=c["row_checked"],
                v02_affairs=v["valid"], v02_parliaments=v["parliaments"], federal=v["federal_valid"])
     p17 = RESULTS / "report" / "r17_numbers.json"  # who made the v0.2 records: the converter, or P8's gold labels
     if p17.exists():
@@ -1740,6 +1740,14 @@ def tiles() -> dict | None:
     p10b = RESULTS / "p10" / "p10_posthoc_baselines.json"  # post hoc: Apertus's author filter on the document-order rule
     if p10b.exists():
         out["p10_filter_pts"] = json.loads(p10b.read_text(encoding="utf-8"))["display"]["author_filter"]["precision"]["pts"]
+    mv = RESULTS / "eval" / "margin_vs_nomodel.json"  # post hoc: the closed margin as a review ranking vs no-model signals
+    cf = RESULTS / "eval" / "closed_vs_free.json"
+    if mv.exists() and cf.exists():
+        m2 = json.loads(mv.read_text(encoding="utf-8"))["sets"]["P2"]
+        a2 = json.loads(cf.read_text(encoding="utf-8"))["sets"]["P2"]["accuracy"]["pointer"]
+        out["p2_margin"] = dict(auroc=round(m2["margin"]["auroc"], 2), best_nomodel=round(m2["best_nomodel_signal"]["auroc"], 2),
+                                excludes_0=m2["best_nomodel_signal"]["margin_better_interval_excludes_0"],
+                                printed=[a2["values_among_printed_dates"], a2["values"]])
     c1, c2 = RESULTS / "report" / "cost.json", RESULTS / "report" / "cost_end_to_end.json"
     if c1.exists() and c2.exists():
         a, e = json.loads(c1.read_text(encoding="utf-8")), json.loads(c2.read_text(encoding="utf-8"))

@@ -53,7 +53,7 @@ eval.h2.pooled_cascade_only	9	results/eval/hypotheses__publicai_swiss-ai_apertus
 eval.h2.pooled_rules_only	5	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.secondary_pooled_all.rules_only	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	-
 eval.h2.p_pooled	0.42	results/report/eval_numbers.json	h2_p_pooled_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	-
 eval.h2.branch	B	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H2.branch	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md
-eval.h3.auroc	0.969	results/report/eval_numbers.json	auroc_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,docs/evaluation.md
+eval.h3.auroc	0.969	results/report/eval_numbers.json	auroc_str	str	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	technical_report.md,docs/evaluation.md,README.md
 eval.h4.wrong	3	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H4.wrong	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	docs/evaluation.md
 eval.h4.n	8	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	H4.apertus_decided_fr_it_values	int	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	docs/evaluation.md
 eval.share.apertus_values	16/67	results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json	model_share.apertus/model_share.values	frac	python -m eval.hypotheses publicai_swiss-ai_apertus-v1.5-8b	-

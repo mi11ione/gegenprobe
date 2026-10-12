@@ -1,0 +1,146 @@
+{
+ "label": "POST HOC (12 Oct 2026; proposed in review; not pre-registered): P7 Apertus promotions vs the no-model exact-date match, paired on the same annotated rows, from committed copies; no registered decision depends on this file",
+ "proposed_by": "proposed in review (round-20 skeptical-ML review); counted by the team",
+ "method": "* shared rows (both arms promote): date hits per arm, discordant pairs, exact McNemar (two-sided);\n  * every annotated row either arm promotes (the union): correctly dated promotions per arm (the yield), discordant\n    pairs, exact McNemar; split into shared / Apertus-only / no-model-only;\n  * precision (date hits / promotions) per arm, unweighted, and where the precision difference comes from;\n  * the stratum-weighted frame estimate of correctly dated promotions per arm (weights N/n per sampling stratum, from\n    results/p7/p7_posthoc_r8.json), with a stratified percentile bootstrap of the difference (B = 10,000, seed 20261011).",
+ "annotated_rows": 190,
+ "frame_rows": 478,
+ "strata_N": {
+  "free_only": 38,
+  "p7": 135,
+  "rest": 305
+ },
+ "strata_n": {
+  "free_only": 30,
+  "p7": 120,
+  "rest": 40
+ },
+ "weights": {
+  "free_only": 1.2666666666666666,
+  "p7": 1.125,
+  "rest": 7.625
+ },
+ "shared_rows": {
+  "rows": 112,
+  "p7_date_hit": 106,
+  "trivial_date_hit": 105,
+  "p7_only_hit": 1,
+  "trivial_only_hit": 0,
+  "both_hit": 105,
+  "p_mcnemar_exact": 1.0,
+  "p_str": "1"
+ },
+ "union": {
+  "rows": 154,
+  "p7_date_hit": 113,
+  "trivial_date_hit": 127,
+  "p7_only_hit": 8,
+  "trivial_only_hit": 22,
+  "both_hit": 105,
+  "p_mcnemar_exact": 0.016124801710247993,
+  "p_str": "0.016",
+  "split": {
+   "shared": {
+    "rows": 112,
+    "p7_date_hit": 106,
+    "trivial_date_hit": 105,
+    "p7_only_hit": 1,
+    "trivial_only_hit": 0,
+    "both_hit": 105,
+    "p_mcnemar_exact": 1.0,
+    "p_str": "1"
+   },
+   "p7_only": {
+    "rows": 8,
+    "p7_date_hit": 7,
+    "trivial_date_hit": 0,
+    "p7_only_hit": 7,
+    "trivial_only_hit": 0,
+    "both_hit": 0,
+    "p_mcnemar_exact": 0.015625,
+    "p_str": "0.016"
+   },
+   "trivial_only": {
+    "rows": 34,
+    "p7_date_hit": 0,
+    "trivial_date_hit": 22,
+    "p7_only_hit": 0,
+    "trivial_only_hit": 22,
+    "both_hit": 0,
+    "p_mcnemar_exact": 4.76837158203125e-07,
+    "p_str": "4.8e-07"
+   }
+  }
+ },
+ "precision_unweighted": {
+  "p7": {
+   "promoted": 120,
+   "date_hit": 113,
+   "correct_dated": 115,
+   "precision_date_hit": 0.9417
+  },
+  "trivial": {
+   "promoted": 146,
+   "date_hit": 127,
+   "correct_dated": 129,
+   "precision_date_hit": 0.8699
+  }
+ },
+ "precision_weighted_from_posthoc_r8": {
+  "p7": {
+   "ci95": [
+    0.8917,
+    0.9833
+   ],
+   "estimate": 0.9417
+  },
+  "trivial": {
+   "ci95": [
+    0.6086,
+    0.8462
+   ],
+   "estimate": 0.7216
+  }
+ },
+ "weighted_frame_estimate": {
+  "correctly_dated_promotions": {
+   "p7": 127.12,
+   "trivial": 158.71
+  },
+  "ci95": {
+   "p7": [
+    121.5,
+    132.75
+   ],
+   "trivial": [
+    138.68,
+    183.97
+   ]
+  },
+  "p7_minus_trivial": -31.58,
+  "p7_minus_trivial_ci95": [
+   -56.4,
+   -12.26
+  ],
+  "interval_excludes_0": true,
+  "b": 10000,
+  "seed": 20261011,
+  "frame_promoted": {
+   "p7": 135,
+   "trivial": 206
+  }
+ },
+ "display": {
+  "shared": "106 vs 105 of 112",
+  "shared_discordant": "1 vs 0",
+  "shared_p": "1",
+  "yield_annotated": "113 vs 127 of 154",
+  "yield_discordant": "8 vs 22",
+  "yield_p": "0.016",
+  "p7_only": "7/8",
+  "trivial_only": "22/34",
+  "precision": "113/120 vs 127/146",
+  "weighted_yield": "127.1 vs 158.7",
+  "weighted_yield_diff_ci95": "[-56.4, -12.3]"
+ },
+ "reading": "On the rows both arms promote, Apertus and the no-model match write the gold answer date equally often (106 vs 105 of 112). Apertus's higher precision comes from the rows it declines: the no-model match also promotes 34 annotated rows Apertus does not, every one an answer, 22 of them correctly dated. So the no-model match yields more correctly dated promotions (113 vs 127); Apertus's precision gain is an abstention effect, not a better date."
+}

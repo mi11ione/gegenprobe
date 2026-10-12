@@ -8,7 +8,8 @@ Zahlen sind geschrieben wie in der englischen Fassung (Tausender mit Komma, Dezi
 **Was läuft.** Ein nächtlicher Job auf einem Linux-Server oder bei OPD neben dessen Exportjob: Er zählt die Antworten
 nach, denen in OPD der Text fehlt, und prüft die Berner Reparaturen erneut gegen die Exporte von OPD. Regeln schreiben
 die Werte; standardmässig läuft kein Modell. Apertus (der optionale Prüfmodus) schlägt Werte vor, und eine Prüferin oder
-ein Prüfer bestätigt sie.
+ein Prüfer bestätigt sie. Es liest Layouts, für die es keine Regeln gibt: In 15 Parlamenten ohne Regeln fand es 24/29
+Antwortdaten, die Regeln 2/29 (ein vorregistrierter Test).
 
 **Was die Maschine verlässt.**
 

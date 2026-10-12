@@ -5,7 +5,7 @@ maps BuildMismatch. No network: OpenAICompat._post is a stub and the cache is no
 import pytest
 
 from gegenprobe import __main__ as cli
-from gegenprobe import affair_cli, llm
+from gegenprobe import affair_cli, affair_product, llm
 from gegenprobe.convert import batch
 
 NEW_LABEL, NEW_FP = "swiss-ai/Apertus-v1.5-70B", "vllm-0.1.dev1+g54b4292c2-tp2-bfd70257"
@@ -34,6 +34,7 @@ def test_cli_maps_served_label_mismatch_to_exit_3(monkeypatch, capsys, cmd):
         raise llm.ServedModelMismatch(f"requested swiss-ai/apertus-v1.5-8b, served {NEW_LABEL}")
     monkeypatch.setattr(cli, "_convert", boom)
     monkeypatch.setattr(affair_cli, "main_args", boom)
+    monkeypatch.setattr(affair_product, "main_args", boom)  # the CLI entry (R21: affair_cli + post layers)
     argv = ["convert", "x.pdf", "--mode", "review"] if cmd == "convert" else ["affair", "--opd-affair", "1"]
     assert cli.main(argv) == 3
     err = capsys.readouterr().err

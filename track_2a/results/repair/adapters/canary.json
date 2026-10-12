@@ -1,6 +1,7 @@
 {
  "note": "one known counted affair per external source the adapters read (repair/adapters/canary.py); re-checked live by `canary run` (nightly with GP_ADAPTER_CANARY=1)",
  "selected": "2026-10-11",
+ "baseline_note": "baseline per canary (python -m gegenprobe.repair.adapters.canary baseline, live, 2026-10-12, host: poppler 26.02.0, tesseract 5.5.3): the document's bytes hash and the extractor that gives the committed text_sha256 (7 of 7 verified with the committed text hash). The two Docker nights of 11/12 Oct (results/monitor/two_nights_docker_38187596786) raised adapter_canary_text_changed for exactly the two canaries read through OCR (Locarno IR 2008.0022, Valais 2020.06.206): the image's tesseract gives another text from the same file. A night now alerts only when the file's bytes changed or the text changed under the same extractor; a text that differs only by extractor is reported as text_differs_by_extractor. text_sha256 stays the committed list's (canary select gives identical canaries).",
  "canaries": [
   {
    "source": "files.openparldata.ch",
@@ -49,7 +50,13 @@
      "format": "application/pdf",
      "text": ""
     }
-   ]
+   ],
+   "baseline": {
+    "file_sha256": "1250295ce38b127cff65e6eca343fa3db207836ba16c33bff494a44dfb504f2b",
+    "extractor": "tesseract-5.5.3-deu+fra+ita",
+    "checked": "2026-10-12",
+    "url": "https://files.openparldata.ch/doc/5113/fd76c2cd6bcf4fe90c084371c5d3da41d400b93f9bb23de02dfc436b5f6c7a93"
+   }
   },
   {
    "source": "parlement.vs.ch",
@@ -129,7 +136,13 @@
      "format": "application/pdf",
      "text": ""
     }
-   ]
+   ],
+   "baseline": {
+    "file_sha256": "3512652ebd18b5f360e5bee0c6719d7f97f80ee42b879e50542fa274bb43c95b",
+    "extractor": "tesseract-5.5.3-deu+fra+ita",
+    "checked": "2026-10-12",
+    "url": "https://parlement.vs.ch/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOUk4QVE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f0bf8be3a2450edaed405847f7133d8c3ca07fdc/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2h3WkdZNkRIRnlYMnhwYm10cEE1VWpBUT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--22319a422c558924f9de4255e42adca29ba06d47/2020.06_QE_2020.06.206_Chlorothalonil_REP.pdf"
+   }
   },
   {
    "source": "parlzhcdws.cmicloud.ch",
@@ -248,7 +261,13 @@
      "format": null,
      "text": ""
     }
-   ]
+   ],
+   "baseline": {
+    "file_sha256": "8a6a9af3f7523797c3e51c3368be3d65612868018b44424c793d199e2a09e20b",
+    "extractor": "pdftotext-26.02.0",
+    "checked": "2026-10-12",
+    "url": "https://parlzhcdws.cmicloud.ch/parlzh5/cdws/Files/17afcb7558fe449dbe7dd1e7de116881-332/1/pdf"
+   }
   },
   {
    "source": "ratsinfo.so.ch",
@@ -310,7 +329,13 @@
      "format": "application/pdf",
      "text": ""
     }
-   ]
+   ],
+   "baseline": {
+    "file_sha256": "e17811eb0255f5b2e9ae4ecf871c537a3d480e81218d858b82b45799957438bf",
+    "extractor": "pdftotext-26.02.0",
+    "checked": "2026-10-12",
+    "url": "https://ratsinfo.so.ch/media/documents/published/1f871c87-74fd-4be8-b56c-4cd9c8dc40eb.pdf"
+   }
   },
   {
    "source": "www.aarau.ch",
@@ -360,7 +385,13 @@
      "format": "application/pdf",
      "text": ""
     }
-   ]
+   ],
+   "baseline": {
+    "file_sha256": "bb12d12af98d08d4a76daa089aeadb91f8c07490b00e53d0b7274cf697c6c32d",
+    "extractor": "pdftotext-26.02.0",
+    "checked": "2026-10-12",
+    "url": "https://www.aarau.ch/public/upload/assets/16217/2021-283%20Beantwortung%20Anfrage%20Daniel%20Ballmer%20%28Gr%C3%BCne%29%20und%20Nora%20Riss%20%28SP%29%2C%20Korruption%20in%20der%20Demokratischen%20Republik%20Kongo%20mit%20Aarauer%20Beteiligung.pdf?fp=1"
+   }
   },
   {
    "source": "www.lu.ch",
@@ -407,7 +438,13 @@
      "format": "application/pdf",
      "text": ""
     }
-   ]
+   ],
+   "baseline": {
+    "file_sha256": "3db629be60cc59a7c1a21931c05a145d78f95a605e7c92fa223f01c87f721a51",
+    "extractor": "pdftotext-26.02.0",
+    "checked": "2026-10-12",
+    "url": "https://www.lu.ch/-/klu/ris/cdws/document?fileid=83ae5500346f416da50fe80b826697bc"
+   }
   },
   {
    "source": "www.ratsinfo.sg.ch",
@@ -458,7 +495,13 @@
      "format": "application/pdf",
      "text": ""
     }
-   ]
+   ],
+   "baseline": {
+    "file_sha256": "001a731189b4c0fd2142292991b1a868a3a3fa8d672453237321c83dcd66ca06",
+    "extractor": "pdftotext-26.02.0",
+    "checked": "2026-10-12",
+    "url": "https://www.ratsinfo.sg.ch/media/documents/published/signed/a4d6fe9f-8905-4726-916e-51e0a7b19cbb_gKHy7AJ.pdf"
+   }
   }
  ],
  "counted_by_body": {

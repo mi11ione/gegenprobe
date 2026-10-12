@@ -66,8 +66,8 @@ def test_altered_report_fails_in_the_summary_and_in_the_body(rows, cfg):
     """The whole report is a strict zone (it used to stop at "## 2.")."""
     t = _text("technical_report.md")
     head, sep, body = t.partition("\n## 2.")
-    assert sep and "24/29 answer dates, the best" in head
-    in_summary = head.replace("24/29 answer dates, the best", "23/29 answer dates, the best", 1) + sep + body
+    assert sep and "it finds 24/29 answer dates, the rules" in head
+    in_summary = head.replace("it finds 24/29 answer dates, the rules", "it finds 23/29 answer dates, the rules", 1) + sep + body
     assert any("'23/29'" in e for e in claims.zone_check(rows, cfg, docs={"technical_report.md": in_summary}))
     stray = head + sep + body + "\nA stray 12.34% after the summary.\n"
     assert any("'12.34%'" in e for e in claims.zone_check(rows, cfg, docs={"technical_report.md": stray}))
@@ -94,25 +94,25 @@ def test_check_includes_the_anchor_check(monkeypatch, rows):
 # ---- a swap between two valid claims of the same document must fail
 
 def test_m3_readme_headline_swap_between_valid_claims_fails(rows, cfg):
-    """M3 (headline re-cut in review): 24/29 -> 25/29 in the README headline. 25/29 is a valid claim for
-    README.md (the re-parsed plain free prompt), so a value-set check would pass it; the anchor binds 24/29 to its
+    """M3 (headline re-cut in review): 24/29 -> 22/29 in the README's Apertus table. 22/29 is a valid claim for
+    README.md (the latest printed date on P2), so a value-set check would pass it; the anchor binds 24/29 to its
     position."""
     t = _text("README.md")
     assert "| **24/29** answer dates" in t
-    assert any(r["shown"] == "25/29" and "README.md" in r["where"] for r in rows)
-    bad = t.replace("| **24/29** answer dates", "| **25/29** answer dates", 1)
+    assert any(r["shown"] == "22/29" and "README.md" in r["where"] for r in rows)
+    bad = t.replace("| **24/29** answer dates", "| **22/29** answer dates", 1)
     errs = claims.zone_check(rows, cfg, docs={"README.md": bad})
-    assert any("README.md:" in e and "'25/29'" in e for e in errs), errs
+    assert any("README.md:" in e and "'22/29'" in e for e in errs), errs
 
 
 def test_m5_report_body_change_with_the_value_elsewhere_fails(rows):
-    """M5 (the case moved with the report's summary): "24/29 answer dates, the best model-free" -> 22/29 in the
+    """M5 (the case moved with the report's summary): "24/29 answer dates, the rules" -> 22/29 in the
     abstract, while 24/29 still appears in the §3 table and 22/29 is a valid report claim elsewhere."""
     t = _text("technical_report.md")
-    assert "24/29 answer dates, the best model-free" in t and t.count("24/29") >= 2 and "22/29" in t
-    bad = t.replace("24/29 answer dates, the best model-free", "22/29 answer dates, the best model-free", 1)
+    assert "24/29 answer dates, the rules" in t and t.count("24/29") >= 2 and "22/29" in t
+    bad = t.replace("24/29 answer dates, the rules", "22/29 answer dates, the rules", 1)
     errs = claims.anchor_check(rows, docs={"technical_report.md": bad})
-    assert any("'24/29 answer dates, the best model-free' not found in technical_report.md" in e for e in errs), errs
+    assert any("'24/29 answer dates, the rules' not found in technical_report.md" in e for e in errs), errs
 
 
 def test_m17_readme_results_table_swap_fails(rows, cfg):
@@ -128,9 +128,9 @@ def test_m17_readme_results_table_swap_fails(rows, cfg):
 
 def test_swapped_staging_shares_in_the_report_summary_fail(rows, cfg):
     t = _text("technical_report.md")
-    a, b = "up from 81.6% today", "91.5% from row-checked repairs"
+    a, b = "up from 81.6% today", "row-checked ones reach 91.5%"
     assert a in t and b in t
-    bad = t.replace(a, "up from 91.5% today", 1).replace(b, "81.6% from row-checked repairs", 1)
+    bad = t.replace(a, "up from 91.5% today", 1).replace(b, "row-checked ones reach 81.6%", 1)
     errs = claims.zone_check(rows, cfg, docs={"technical_report.md": bad})
     assert any("'91.5%'" in e for e in errs) and any("'81.6%'" in e for e in errs), errs
 

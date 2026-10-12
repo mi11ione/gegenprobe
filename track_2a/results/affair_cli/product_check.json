@@ -1,0 +1,90 @@
+{
+ "label": "the operator command (python -m gegenprobe affair) vs the published records; no model",
+ "command": "PYTHONPATH=src:. python -m gegenprobe.affair_product samples",
+ "step_status": "PASS",
+ "samples": {
+  "6643:328691": {
+   "status": "ok",
+   "fields_compared": 380,
+   "fields_equal": 380,
+   "answer_date": "2024-06-10",
+   "answering_body": [
+    "value:Conseil administratif Vernier"
+   ],
+   "n_actors": 3,
+   "n_dates": 3,
+   "checks": {
+    "documents": true,
+    "language_of_text": true,
+    "answer_date": true,
+    "qa_items": true,
+    "actor_roles": true,
+    "date_roles": true,
+    "answering_body": true,
+    "title": true
+   }
+  },
+  "BE:39369": {
+   "status": "ok",
+   "fields_compared": 268,
+   "fields_equal": 268,
+   "answer_date": "2022-05-18",
+   "answering_body": [
+    "value:Regierungsrat des Kantons Bern"
+   ],
+   "n_actors": 4,
+   "n_dates": 4,
+   "checks": {
+    "documents": true,
+    "language_of_text": true,
+    "answer_date": true,
+    "qa_items": true,
+    "actor_roles": true,
+    "date_roles": true,
+    "answering_body": true,
+    "title": true
+   }
+  },
+  "5192:28156": {
+   "status": "ok",
+   "fields_compared": 325,
+   "fields_equal": 325,
+   "answer_date": "2016-07-07",
+   "answering_body": [
+    "value:Municipio Lugano"
+   ],
+   "n_actors": 8,
+   "n_dates": 4,
+   "checks": {
+    "documents": true,
+    "language_of_text": true,
+    "answer_date": true,
+    "qa_items": true,
+    "actor_roles": true,
+    "date_roles": true,
+    "answering_body": true,
+    "title": true
+   }
+  }
+ },
+ "federal": {
+  "affair": "CHE:157601",
+  "slice": "data/affair_cli/opd_rows_fed_157601.json",
+  "status": "ok",
+  "fields_compared": 112,
+  "fields_equal": 112,
+  "checks": {
+   "documents": true,
+   "language_of_text": true,
+   "actor_roles": true,
+   "date_roles": true,
+   "answering_body": true,
+   "title": true
+  }
+ },
+ "p5": {
+  "n_records": 40,
+  "with_title": 40,
+  "answer_date_located": 25
+ }
+}
