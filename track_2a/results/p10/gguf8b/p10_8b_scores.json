@@ -1,0 +1,6522 @@
+{
+ "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+ "checks": {
+  "candidates_identical": 40,
+  "registered_candidates_reproduced": true,
+  "registered_hypotheses_reproduced": true,
+  "registered_secondary_reproduced": true,
+  "registered_table_reproduced": true,
+  "test_affairs_fetched": 40,
+  "text_identical": 35
+ },
+ "config": {
+  "a_head": 1000,
+  "coherence": [],
+  "lone_first_needs_cue": true,
+  "max_lines": 2,
+  "mode": "staged",
+  "note": "data/p10/p10_config.json (frozen)",
+  "prompt": "role_author_v2",
+  "prompt_first": [
+   "role_first",
+   "role_first_v2"
+  ],
+  "prompt_neg": null,
+  "q_head": 2500,
+  "q_tail": 1500,
+  "tau": 0.98,
+  "tau_first": 0.3
+ },
+ "fetch": {
+  "fetch__dev__0_of_10": {
+   "affairs": 4,
+   "failed": [],
+   "fetched": 4,
+   "text_identical": 4,
+   "via": {
+    "opd_copy": 4,
+    "original": 4
+   }
+  },
+  "fetch__dev__1_of_10": {
+   "affairs": 10,
+   "failed": [],
+   "fetched": 10,
+   "text_identical": 10,
+   "via": {
+    "original": 20
+   }
+  },
+  "fetch__dev__2_of_10": {
+   "affairs": 3,
+   "failed": [],
+   "fetched": 3,
+   "text_identical": 3,
+   "via": {
+    "original": 6
+   }
+  },
+  "fetch__dev__3_of_10": {
+   "affairs": 3,
+   "failed": [],
+   "fetched": 3,
+   "text_identical": 3,
+   "via": {
+    "original": 6
+   }
+  },
+  "fetch__dev__4_of_10": {
+   "affairs": 3,
+   "failed": [],
+   "fetched": 3,
+   "text_identical": 3,
+   "via": {
+    "original": 6
+   }
+  },
+  "fetch__dev__5_of_10": {
+   "affairs": 4,
+   "failed": [],
+   "fetched": 4,
+   "text_identical": 4,
+   "via": {
+    "original": 8
+   }
+  },
+  "fetch__dev__6_of_10": {
+   "affairs": 6,
+   "failed": [],
+   "fetched": 6,
+   "text_identical": 6,
+   "via": {
+    "original": 12
+   }
+  },
+  "fetch__dev__7_of_10": {
+   "affairs": 6,
+   "failed": [],
+   "fetched": 6,
+   "text_identical": 6,
+   "via": {
+    "original": 12
+   }
+  },
+  "fetch__dev__8_of_10": {
+   "affairs": 1,
+   "failed": [],
+   "fetched": 1,
+   "text_identical": 1,
+   "via": {
+    "original": 2
+   }
+  },
+  "fetch__dev__9_of_10": {
+   "affairs": 3,
+   "failed": [],
+   "fetched": 3,
+   "text_identical": 3,
+   "via": {
+    "original": 6
+   }
+  },
+  "fetch__test__0_of_6": {
+   "affairs": 10,
+   "failed": [],
+   "fetched": 10,
+   "text_identical": 8,
+   "via": {
+    "original": 20
+   }
+  },
+  "fetch__test__1_of_6": {
+   "affairs": 7,
+   "failed": [],
+   "fetched": 7,
+   "text_identical": 7,
+   "via": {
+    "original": 14
+   }
+  },
+  "fetch__test__2_of_6": {
+   "affairs": 13,
+   "failed": [],
+   "fetched": 13,
+   "text_identical": 10,
+   "via": {
+    "original": 26
+   }
+  },
+  "fetch__test__3_of_6": {
+   "affairs": 3,
+   "failed": [],
+   "fetched": 3,
+   "text_identical": 3,
+   "via": {
+    "original": 6
+   }
+  },
+  "fetch__test__4_of_6": {
+   "affairs": 2,
+   "failed": [],
+   "fetched": 2,
+   "text_identical": 2,
+   "via": {
+    "original": 4
+   }
+  },
+  "fetch__test__5_of_6": {
+   "affairs": 9,
+   "failed": [],
+   "fetched": 9,
+   "text_identical": 9,
+   "via": {
+    "original": 18
+   }
+  }
+ },
+ "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+ "method": "eval/p10/score.py unchanged (affair_row, pooled, table, candidate_recall, hypotheses: paired parliament-cluster bootstrap, seed 20261102, Holm) with the 8B pairs in the pointer's place; the other arms are the committed registered outputs; verdicts are exploratory analogues, not tests of the registered family",
+ "refit": {
+  "available": true,
+  "coverage": {
+   "complete": 36,
+   "dev_affairs": 36,
+   "missing": {},
+   "parliaments": [
+    "261",
+    "5002",
+    "5586",
+    "6643",
+    "FR",
+    "GR"
+   ],
+   "text_identical": 36
+  },
+  "frozen_on_dev_8b": {
+   "affairs_exact": 17,
+   "f1": 0.4976,
+   "macro_f1": 0.4858,
+   "matched": 105,
+   "names_recall": 0.7548,
+   "pairs_gold": 208,
+   "pairs_predicted": 214,
+   "per_body": {
+    "261": {
+     "affairs_exact": 6,
+     "f1": 1.0,
+     "matched": 12,
+     "names_recall": 1.0,
+     "pairs_gold": 12,
+     "pairs_predicted": 12,
+     "precision": 1.0,
+     "recall": 1.0
+    },
+    "5002": {
+     "affairs_exact": 2,
+     "f1": 0.1159,
+     "matched": 4,
+     "names_recall": 0.8571,
+     "pairs_gold": 7,
+     "pairs_predicted": 62,
+     "precision": 0.0645,
+     "recall": 0.5714
+    },
+    "5586": {
+     "affairs_exact": 2,
+     "f1": 0.4762,
+     "matched": 5,
+     "names_recall": 0.5385,
+     "pairs_gold": 13,
+     "pairs_predicted": 8,
+     "precision": 0.625,
+     "recall": 0.3846
+    },
+    "6643": {
+     "affairs_exact": 3,
+     "f1": 0.55,
+     "matched": 11,
+     "names_recall": 1.0,
+     "pairs_gold": 20,
+     "pairs_predicted": 20,
+     "precision": 0.55,
+     "recall": 0.55
+    },
+    "FR": {
+     "affairs_exact": 2,
+     "f1": 0.2,
+     "matched": 2,
+     "names_recall": 1.0,
+     "pairs_gold": 10,
+     "pairs_predicted": 10,
+     "precision": 0.2,
+     "recall": 0.2
+    },
+    "GR": {
+     "affairs_exact": 2,
+     "f1": 0.5726,
+     "matched": 71,
+     "names_recall": 0.6986,
+     "pairs_gold": 146,
+     "pairs_predicted": 102,
+     "precision": 0.6961,
+     "recall": 0.4863
+    }
+   },
+   "precision": 0.4907,
+   "recall": 0.5048
+  },
+  "gateway_registered_dev": {
+   "selected": {
+    "f1": 0.8009,
+    "macro_f1": 0.7368,
+    "precision": 0.7897,
+    "recall": 0.8125,
+    "tau": 0.98,
+    "tau_first": 0.3
+   }
+  },
+  "grid_top": [
+   {
+    "affairs_exact": 21,
+    "f1": 0.4241,
+    "macro_f1": 0.5936,
+    "matched": 95,
+    "names_recall": 0.851,
+    "pairs_gold": 208,
+    "pairs_predicted": 240,
+    "precision": 0.3958,
+    "recall": 0.4567,
+    "tau": 0.6,
+    "tau_first": 0.9
+   },
+   {
+    "affairs_exact": 21,
+    "f1": 0.4241,
+    "macro_f1": 0.5936,
+    "matched": 95,
+    "names_recall": 0.851,
+    "pairs_gold": 208,
+    "pairs_predicted": 240,
+    "precision": 0.3958,
+    "recall": 0.4567,
+    "tau": 0.6,
+    "tau_first": 0.95
+   },
+   {
+    "affairs_exact": 21,
+    "f1": 0.4185,
+    "macro_f1": 0.5923,
+    "matched": 95,
+    "names_recall": 0.8702,
+    "pairs_gold": 208,
+    "pairs_predicted": 246,
+    "precision": 0.3862,
+    "recall": 0.4567,
+    "tau": 0.5,
+    "tau_first": 0.9
+   },
+   {
+    "affairs_exact": 21,
+    "f1": 0.4185,
+    "macro_f1": 0.5923,
+    "matched": 95,
+    "names_recall": 0.8702,
+    "pairs_gold": 208,
+    "pairs_predicted": 246,
+    "precision": 0.3862,
+    "recall": 0.4567,
+    "tau": 0.5,
+    "tau_first": 0.95
+   },
+   {
+    "affairs_exact": 21,
+    "f1": 0.4158,
+    "macro_f1": 0.5916,
+    "matched": 95,
+    "names_recall": 0.8798,
+    "pairs_gold": 208,
+    "pairs_predicted": 249,
+    "precision": 0.3815,
+    "recall": 0.4567,
+    "tau": 0.4,
+    "tau_first": 0.9
+   },
+   {
+    "affairs_exact": 21,
+    "f1": 0.4158,
+    "macro_f1": 0.5916,
+    "matched": 95,
+    "names_recall": 0.8798,
+    "pairs_gold": 208,
+    "pairs_predicted": 249,
+    "precision": 0.3815,
+    "recall": 0.4567,
+    "tau": 0.4,
+    "tau_first": 0.95
+   },
+   {
+    "affairs_exact": 21,
+    "f1": 0.413,
+    "macro_f1": 0.591,
+    "matched": 95,
+    "names_recall": 0.8894,
+    "pairs_gold": 208,
+    "pairs_predicted": 252,
+    "precision": 0.377,
+    "recall": 0.4567,
+    "tau": 0.3,
+    "tau_first": 0.9
+   },
+   {
+    "affairs_exact": 21,
+    "f1": 0.413,
+    "macro_f1": 0.591,
+    "matched": 95,
+    "names_recall": 0.8894,
+    "pairs_gold": 208,
+    "pairs_predicted": 252,
+    "precision": 0.377,
+    "recall": 0.4567,
+    "tau": 0.3,
+    "tau_first": 0.95
+   },
+   {
+    "affairs_exact": 21,
+    "f1": 0.4552,
+    "macro_f1": 0.5909,
+    "matched": 94,
+    "names_recall": 0.7452,
+    "pairs_gold": 208,
+    "pairs_predicted": 205,
+    "precision": 0.4585,
+    "recall": 0.4519,
+    "tau": 0.99,
+    "tau_first": 0.9
+   },
+   {
+    "affairs_exact": 21,
+    "f1": 0.4552,
+    "macro_f1": 0.5909,
+    "matched": 94,
+    "names_recall": 0.7452,
+    "pairs_gold": 208,
+    "pairs_predicted": 205,
+    "precision": 0.4585,
+    "recall": 0.4519,
+    "tau": 0.99,
+    "tau_first": 0.95
+   },
+   {
+    "affairs_exact": 21,
+    "f1": 0.4455,
+    "macro_f1": 0.5882,
+    "matched": 94,
+    "names_recall": 0.7548,
+    "pairs_gold": 208,
+    "pairs_predicted": 214,
+    "precision": 0.4393,
+    "recall": 0.4519,
+    "tau": 0.98,
+    "tau_first": 0.9
+   },
+   {
+    "affairs_exact": 21,
+    "f1": 0.4455,
+    "macro_f1": 0.5882,
+    "matched": 94,
+    "names_recall": 0.7548,
+    "pairs_gold": 208,
+    "pairs_predicted": 214,
+    "precision": 0.4393,
+    "recall": 0.4519,
+    "tau": 0.98,
+    "tau_first": 0.95
+   },
+   {
+    "affairs_exact": 22,
+    "f1": 0.4408,
+    "macro_f1": 0.5872,
+    "matched": 95,
+    "names_recall": 0.7885,
+    "pairs_gold": 208,
+    "pairs_predicted": 223,
+    "precision": 0.426,
+    "recall": 0.4567,
+    "tau": 0.95,
+    "tau_first": 0.9
+   },
+   {
+    "affairs_exact": 22,
+    "f1": 0.4408,
+    "macro_f1": 0.5872,
+    "matched": 95,
+    "names_recall": 0.7885,
+    "pairs_gold": 208,
+    "pairs_predicted": 223,
+    "precision": 0.426,
+    "recall": 0.4567,
+    "tau": 0.95,
+    "tau_first": 0.95
+   },
+   {
+    "affairs_exact": 22,
+    "f1": 0.4398,
+    "macro_f1": 0.5869,
+    "matched": 95,
+    "names_recall": 0.7885,
+    "pairs_gold": 208,
+    "pairs_predicted": 224,
+    "precision": 0.4241,
+    "recall": 0.4567,
+    "tau": 0.9,
+    "tau_first": 0.9
+   }
+  ],
+  "refit_on_dev_8b": {
+   "affairs_exact": 21,
+   "f1": 0.4241,
+   "macro_f1": 0.5936,
+   "matched": 95,
+   "names_recall": 0.851,
+   "pairs_gold": 208,
+   "pairs_predicted": 240,
+   "per_body": {
+    "261": {
+     "affairs_exact": 6,
+     "f1": 1.0,
+     "matched": 12,
+     "names_recall": 1.0,
+     "pairs_gold": 12,
+     "pairs_predicted": 12,
+     "precision": 1.0,
+     "recall": 1.0
+    },
+    "5002": {
+     "affairs_exact": 2,
+     "f1": 0.1081,
+     "matched": 4,
+     "names_recall": 0.8571,
+     "pairs_gold": 7,
+     "pairs_predicted": 67,
+     "precision": 0.0597,
+     "recall": 0.5714
+    },
+    "5586": {
+     "affairs_exact": 2,
+     "f1": 0.5455,
+     "matched": 6,
+     "names_recall": 0.6154,
+     "pairs_gold": 13,
+     "pairs_predicted": 9,
+     "precision": 0.6667,
+     "recall": 0.4615
+    },
+    "6643": {
+     "affairs_exact": 5,
+     "f1": 0.95,
+     "matched": 19,
+     "names_recall": 1.0,
+     "pairs_gold": 20,
+     "pairs_predicted": 20,
+     "precision": 0.95,
+     "recall": 0.95
+    },
+    "FR": {
+     "affairs_exact": 4,
+     "f1": 0.6,
+     "matched": 6,
+     "names_recall": 1.0,
+     "pairs_gold": 10,
+     "pairs_predicted": 10,
+     "precision": 0.6,
+     "recall": 0.6
+    },
+    "GR": {
+     "affairs_exact": 2,
+     "f1": 0.3582,
+     "matched": 48,
+     "names_recall": 0.8288,
+     "pairs_gold": 146,
+     "pairs_predicted": 122,
+     "precision": 0.3934,
+     "recall": 0.3288
+    }
+   },
+   "precision": 0.3958,
+   "recall": 0.4567
+  },
+  "rule": "eval/p10/dev.py (PREREG10 §7) on the 8B's development answers: tau x tau_first over dev.TAUS x dev.TAUS; highest macro pair F1 over the 6 development parliaments, ties -> pooled F1 -> pooled precision -> larger tau -> larger tau_first; prompts (staged_v3) and lone_first_needs_cue frozen",
+  "tau": 0.6,
+  "tau_first": 0.95
+ },
+ "shards": {
+  "dev__0_of_10": {
+   "assigned": 29,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 85,
+   "s_per_request": 159.6,
+   "scored": 29,
+   "scored_now": 29,
+   "shard": "0/10",
+   "split": "dev",
+   "wall_s": 13561.8
+  },
+  "dev__1_of_10": {
+   "assigned": 31,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 87,
+   "s_per_request": 164.5,
+   "scored": 31,
+   "scored_now": 31,
+   "shard": "1/10",
+   "split": "dev",
+   "wall_s": 14310.3
+  },
+  "dev__2_of_10": {
+   "assigned": 28,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 84,
+   "s_per_request": 189.6,
+   "scored": 28,
+   "scored_now": 28,
+   "shard": "2/10",
+   "split": "dev",
+   "wall_s": 15926.6
+  },
+  "dev__3_of_10": {
+   "assigned": 29,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 85,
+   "s_per_request": 152.8,
+   "scored": 29,
+   "scored_now": 29,
+   "shard": "3/10",
+   "split": "dev",
+   "wall_s": 12991.7
+  },
+  "dev__4_of_10": {
+   "assigned": 28,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 84,
+   "s_per_request": 207.9,
+   "scored": 28,
+   "scored_now": 28,
+   "shard": "4/10",
+   "split": "dev",
+   "wall_s": 17465.8
+  },
+  "dev__5_of_10": {
+   "assigned": 29,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 87,
+   "s_per_request": 163.4,
+   "scored": 29,
+   "scored_now": 29,
+   "shard": "5/10",
+   "split": "dev",
+   "wall_s": 14215.1
+  },
+  "dev__6_of_10": {
+   "assigned": 30,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 84,
+   "s_per_request": 172.7,
+   "scored": 30,
+   "scored_now": 30,
+   "shard": "6/10",
+   "split": "dev",
+   "wall_s": 14507.4
+  },
+  "dev__7_of_10": {
+   "assigned": 29,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 85,
+   "s_per_request": 156.5,
+   "scored": 29,
+   "scored_now": 29,
+   "shard": "7/10",
+   "split": "dev",
+   "wall_s": 13303.6
+  },
+  "dev__8_of_10": {
+   "assigned": 28,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 84,
+   "s_per_request": 203.4,
+   "scored": 28,
+   "scored_now": 28,
+   "shard": "8/10",
+   "split": "dev",
+   "wall_s": 17087.1
+  },
+  "dev__9_of_10": {
+   "assigned": 30,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 84,
+   "s_per_request": 129.1,
+   "scored": 30,
+   "scored_now": 30,
+   "shard": "9/10",
+   "split": "dev",
+   "wall_s": 10843.0
+  },
+  "test__0_of_6": {
+   "assigned": 31,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 85,
+   "s_per_request": 168.7,
+   "scored": 31,
+   "scored_now": 31,
+   "shard": "0/6",
+   "split": "test",
+   "wall_s": 14341.3
+  },
+  "test__1_of_6": {
+   "assigned": 27,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 81,
+   "s_per_request": 208.0,
+   "scored": 27,
+   "scored_now": 27,
+   "shard": "1/6",
+   "split": "test",
+   "wall_s": 16848.0
+  },
+  "test__2_of_6": {
+   "assigned": 30,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 82,
+   "s_per_request": 165.3,
+   "scored": 30,
+   "scored_now": 30,
+   "shard": "2/6",
+   "split": "test",
+   "wall_s": 13552.4
+  },
+  "test__3_of_6": {
+   "assigned": 28,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 84,
+   "s_per_request": 164.0,
+   "scored": 28,
+   "scored_now": 28,
+   "shard": "3/6",
+   "split": "test",
+   "wall_s": 13772.7
+  },
+  "test__4_of_6": {
+   "assigned": 27,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 81,
+   "s_per_request": 98.5,
+   "scored": 27,
+   "scored_now": 27,
+   "shard": "4/6",
+   "split": "test",
+   "wall_s": 7980.0
+  },
+  "test__5_of_6": {
+   "assigned": 29,
+   "build": "gguf:apertus-v1.5-8b-text-q4_k_m",
+   "label": "EXPLORATORY (after LOCK10; PREREG10 §4 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged",
+   "n_ctx": 8192,
+   "requests_now": 81,
+   "s_per_request": 102.6,
+   "scored": 29,
+   "scored_now": 29,
+   "shard": "5/6",
+   "split": "test",
+   "wall_s": 8310.4
+  }
+ },
+ "variants": {
+  "frozen": {
+   "coverage": {
+    "abstentions": {},
+    "affairs": 40,
+    "note": "an affair the 8B did not fully score is a pointer abstention (no pairs), never an exclusion (PREREG10 stop rule 2)",
+    "pointer_run": 40,
+    "primary_pointer_run": 34
+   },
+   "holds": {
+    "H1": {
+     "gguf_8b": {
+      "observed": 0.0921985815602837,
+      "p_holm": 0.07169283071692831,
+      "verdict_analogue": "not confirmed"
+     },
+     "holds": false,
+     "registered": {
+      "observed": 0.23404255319148937,
+      "p_holm": 0.031596840315968405,
+      "verdict": "confirmed"
+     }
+    },
+    "H2": {
+     "gguf_8b": {
+      "observed": 0.07065592635212892,
+      "p_holm": 0.1827817218278172,
+      "verdict_analogue": "not confirmed"
+     },
+     "holds": false,
+     "registered": {
+      "observed": 0.2117424242424243,
+      "p_holm": 0.033396660333966606,
+      "verdict": "confirmed"
+     }
+    },
+    "H3a": {
+     "gguf_8b": {
+      "observed": -0.029313543599257808,
+      "p_holm": 0.577042295770423,
+      "verdict_analogue": "not confirmed"
+     },
+     "holds": false,
+     "registered": {
+      "observed": 0.11990011194351169,
+      "p_holm": 0.17488251174882513,
+      "verdict": "not confirmed"
+     }
+    },
+    "H3b": {
+     "gguf_8b": {
+      "observed": 0.14574314574314579,
+      "p_holm": 0.017198280171982803,
+      "verdict_analogue": "confirmed"
+     },
+     "holds": true,
+     "registered": {
+      "observed": 0.2949568012859153,
+      "p_holm": 0.031596840315968405,
+      "verdict": "confirmed"
+     }
+    }
+   },
+   "primary": {
+    "affairs_same_pairs_as_registered": 21,
+    "candidates": {
+     "candidates": 111,
+     "found": 87,
+     "gold_names": 141,
+     "pointer_recall_given_candidate": 0.3448275862068966,
+     "recall": 0.6170212765957447,
+     "wilson95": [
+      0.5346892540798193,
+      0.6931458430193568
+     ]
+    },
+    "hypotheses": {
+     "alpha": 0.05,
+     "correction": "Holm",
+     "family": [
+      "H1",
+      "H2",
+      "H3a",
+      "H3b"
+     ],
+     "n_affairs": 34,
+     "n_gold_pairs": 141,
+     "tests": {
+      "H1": {
+       "boot_ci95": [
+        0.007297947741457731,
+        0.22523184949655528
+       ],
+       "mcnemar_secondary": {
+        "p_exact_one_sided": 0.007316648960113525,
+        "pointer_only": 19,
+        "rules_only": 6
+       },
+       "n_boot": 10000,
+       "null": 0.0,
+       "observed": 0.0921985815602837,
+       "p": 0.023897610238976102,
+       "p_boot": 0.023897610238976102,
+       "p_holm": 0.07169283071692831,
+       "rejected": false,
+       "threshold": 0.016666666666666666,
+       "verdict": "not confirmed"
+      },
+      "H2": {
+       "boot_ci95": [
+        -0.20053808052901523,
+        0.2281984037676085
+       ],
+       "n_boot": 10000,
+       "null": -0.1,
+       "observed": 0.07065592635212892,
+       "p": 0.0913908609139086,
+       "p_boot": 0.0913908609139086,
+       "p_holm": 0.1827817218278172,
+       "rejected": false,
+       "threshold": 0.025,
+       "verdict": "not confirmed"
+      },
+      "H3a": {
+       "boot_ci95": [
+        -0.3641637492568207,
+        0.19742844827586187
+       ],
+       "n_boot": 10000,
+       "null": 0.0,
+       "observed": -0.029313543599257808,
+       "p": 0.577042295770423,
+       "p_boot": 0.577042295770423,
+       "p_holm": 0.577042295770423,
+       "rejected": false,
+       "threshold": 0.05,
+       "verdict": "not confirmed"
+      },
+      "H3b": {
+       "boot_ci95": [
+        0.03570660191787558,
+        0.2377795054164794
+       ],
+       "n_boot": 10000,
+       "null": 0.0,
+       "observed": 0.14574314574314579,
+       "p": 0.004299570042995701,
+       "p_boot": 0.004299570042995701,
+       "p_holm": 0.017198280171982803,
+       "rejected": true,
+       "threshold": 0.0125,
+       "verdict": "confirmed"
+      }
+     },
+     "underpowered": false
+    },
+    "pointer_8b_minus_registered": {
+     "f1": {
+      "boot_ci95": [
+       -0.4174347639895205,
+       0.08243145988057399
+      ],
+      "observed": -0.1492136555427695
+     },
+     "precision": {
+      "boot_ci95": [
+       -0.4492834845341011,
+       0.1255411255411255
+      ],
+      "observed": -0.14108649789029537
+     },
+     "recall": {
+      "boot_ci95": [
+       -0.408705533596838,
+       0.05970895522388049
+      ],
+      "observed": -0.14184397163120568
+     }
+    },
+    "table": {
+     "all": {
+      "cand_joint": {
+       "affairs": 34,
+       "affairs_exact": 12,
+       "affairs_with_output": 34,
+       "f1": 0.12698412698412698,
+       "matched": 16,
+       "names_precision": 0.6396396396396397,
+       "names_recall": 0.5035460992907801,
+       "pairs_gold": 141,
+       "pairs_predicted": 111,
+       "precision": 0.14414414414414414,
+       "precision_wilson95": [
+        0.09071442330382282,
+        0.22138154192132206
+       ],
+       "recall": 0.11347517730496454,
+       "recall_wilson95": [
+        0.07106523194689557,
+        0.17638853824067482
+       ]
+      },
+      "opd_first": {
+       "affairs": 34,
+       "affairs_exact": 11,
+       "affairs_with_output": 31,
+       "f1": 0.30204081632653057,
+       "matched": 37,
+       "names_precision": 0.5480769230769231,
+       "names_recall": 0.40425531914893614,
+       "pairs_gold": 141,
+       "pairs_predicted": 104,
+       "precision": 0.3557692307692308,
+       "precision_wilson95": [
+        0.2704028984181852,
+        0.45141131798809964
+       ],
+       "recall": 0.2624113475177305,
+       "recall_wilson95": [
+        0.1967876598278167,
+        0.3406380521223413
+       ]
+      },
+      "opd_joint": {
+       "affairs": 34,
+       "affairs_exact": 12,
+       "affairs_with_output": 31,
+       "f1": 0.14693877551020407,
+       "matched": 18,
+       "names_precision": 0.5480769230769231,
+       "names_recall": 0.40425531914893614,
+       "pairs_gold": 141,
+       "pairs_predicted": 104,
+       "precision": 0.17307692307692307,
+       "precision_wilson95": [
+        0.11237651918444376,
+        0.257069038003135
+       ],
+       "recall": 0.1276595744680851,
+       "recall_wilson95": [
+        0.08229767647714942,
+        0.19277246911638168
+       ]
+      },
+      "pointer": {
+       "affairs": 34,
+       "affairs_exact": 9,
+       "affairs_with_output": 32,
+       "f1": 0.27272727272727276,
+       "matched": 30,
+       "names_precision": 0.6962025316455697,
+       "names_recall": 0.3900709219858156,
+       "pairs_gold": 141,
+       "pairs_predicted": 79,
+       "precision": 0.379746835443038,
+       "precision_wilson95": [
+        0.28066330946973556,
+        0.4899833221742695
+       ],
+       "recall": 0.2127659574468085,
+       "recall_wilson95": [
+        0.15329835090284472,
+        0.28747004712645075
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 34,
+       "affairs_exact": 14,
+       "affairs_with_output": 32,
+       "f1": 0.42194092827004226,
+       "matched": 50,
+       "names_precision": 0.7083333333333334,
+       "names_recall": 0.48226950354609927,
+       "pairs_gold": 141,
+       "pairs_predicted": 96,
+       "precision": 0.5208333333333334,
+       "precision_wilson95": [
+        0.42203591721406514,
+        0.618027543307401
+       ],
+       "recall": 0.3546099290780142,
+       "recall_wilson95": [
+        0.2804602036792119,
+        0.43647194840969084
+       ]
+      },
+      "rules": {
+       "affairs": 34,
+       "affairs_exact": 9,
+       "affairs_with_output": 25,
+       "f1": 0.173469387755102,
+       "matched": 17,
+       "names_precision": 0.5272727272727272,
+       "names_recall": 0.20567375886524822,
+       "pairs_gold": 141,
+       "pairs_predicted": 55,
+       "precision": 0.3090909090909091,
+       "precision_wilson95": [
+        0.20282124520577244,
+        0.4402883915138273
+       ],
+       "recall": 0.12056737588652482,
+       "recall_wilson95": [
+        0.07665405308915482,
+        0.18460790480139597
+       ]
+      }
+     },
+     "body:1024": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 1.0,
+       "names_recall": 0.8571428571428571,
+       "pairs_gold": 7,
+       "pairs_predicted": 6,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.3903430336530645
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.35433884297520657
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.5714285714285714,
+       "matched": 4,
+       "names_precision": 0.7142857142857143,
+       "names_recall": 0.7142857142857143,
+       "pairs_gold": 7,
+       "pairs_predicted": 7,
+       "precision": 0.5714285714285714,
+       "precision_wilson95": [
+        0.2504542304090258,
+        0.8417830777373732
+       ],
+       "recall": 0.5714285714285714,
+       "recall_wilson95": [
+        0.2504542304090258,
+        0.8417830777373732
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.7142857142857143,
+       "names_recall": 0.7142857142857143,
+       "pairs_gold": 7,
+       "pairs_predicted": 7,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.35433884297520657
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.35433884297520657
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.15384615384615383,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.8571428571428571,
+       "pairs_gold": 7,
+       "pairs_predicted": 6,
+       "precision": 0.16666666666666666,
+       "precision_wilson95": [
+        0.03005258587173032,
+        0.563509436563646
+       ],
+       "recall": 0.14285714285714285,
+       "recall_wilson95": [
+        0.02567895594897479,
+        0.51313450331903
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.7692307692307692,
+       "matched": 5,
+       "names_precision": 1.0,
+       "names_recall": 0.8571428571428571,
+       "pairs_gold": 7,
+       "pairs_predicted": 6,
+       "precision": 0.8333333333333334,
+       "precision_wilson95": [
+        0.43649056343635395,
+        0.9699474141282697
+       ],
+       "recall": 0.7142857142857143,
+       "recall_wilson95": [
+        0.35892909014821267,
+        0.9177828342909844
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.16666666666666666,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.7142857142857143,
+       "pairs_gold": 7,
+       "pairs_predicted": 5,
+       "precision": 0.2,
+       "precision_wilson95": [
+        0.03622316096978745,
+        0.6244717358814613
+       ],
+       "recall": 0.14285714285714285,
+       "recall_wilson95": [
+        0.02567895594897479,
+        0.51313450331903
+       ]
+      }
+     },
+     "body:1058": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.85,
+       "names_recall": 0.9444444444444444,
+       "pairs_gold": 18,
+       "pairs_predicted": 20,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.16113012549493322
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.1758845505823749
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.8333333333333334,
+       "matched": 15,
+       "names_precision": 0.9444444444444444,
+       "names_recall": 0.9444444444444444,
+       "pairs_gold": 18,
+       "pairs_predicted": 18,
+       "precision": 0.8333333333333334,
+       "precision_wilson95": [
+        0.6077750036164076,
+        0.9416352959953425
+       ],
+       "recall": 0.8333333333333334,
+       "recall_wilson95": [
+        0.6077750036164076,
+        0.9416352959953425
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.9444444444444444,
+       "names_recall": 0.9444444444444444,
+       "pairs_gold": 18,
+       "pairs_predicted": 18,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.1758845505823749
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.1758845505823749
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.06896551724137931,
+       "matched": 1,
+       "names_precision": 0.8181818181818182,
+       "names_recall": 0.5,
+       "pairs_gold": 18,
+       "pairs_predicted": 11,
+       "precision": 0.09090909090909091,
+       "precision_wilson95": [
+        0.01623175226282597,
+        0.3773646254862038
+       ],
+       "recall": 0.05555555555555555,
+       "recall_wilson95": [
+        0.009874935830924525,
+        0.2575779980200754
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.9090909090909091,
+       "matched": 15,
+       "names_precision": 1.0,
+       "names_recall": 0.8333333333333334,
+       "pairs_gold": 18,
+       "pairs_predicted": 15,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.7961107336956521,
+        1.0
+       ],
+       "recall": 0.8333333333333334,
+       "recall_wilson95": [
+        0.6077750036164076,
+        0.9416352959953425
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.10526315789473684,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.05555555555555555,
+       "pairs_gold": 18,
+       "pairs_predicted": 1,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.20654329147389294,
+        1.0
+       ],
+       "recall": 0.05555555555555555,
+       "recall_wilson95": [
+        0.009874935830924525,
+        0.2575779980200754
+       ]
+      }
+     },
+     "body:121": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.375,
+       "names_recall": 0.6,
+       "pairs_gold": 5,
+       "pairs_predicted": 8,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.3244156195108769
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.43449149475208104
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.8000000000000002,
+       "matched": 4,
+       "names_precision": 0.8,
+       "names_recall": 0.8,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 0.8,
+       "precision_wilson95": [
+        0.3755282641185388,
+        0.9637768390302125
+       ],
+       "recall": 0.8,
+       "recall_wilson95": [
+        0.3755282641185388,
+        0.9637768390302125
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.20000000000000004,
+       "matched": 1,
+       "names_precision": 0.8,
+       "names_recall": 0.8,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 0.2,
+       "precision_wilson95": [
+        0.03622316096978745,
+        0.6244717358814613
+       ],
+       "recall": 0.2,
+       "recall_wilson95": [
+        0.03622316096978745,
+        0.6244717358814613
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.25,
+       "names_recall": 0.2,
+       "pairs_gold": 5,
+       "pairs_predicted": 4,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.48990002040399916
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.43449149475208104
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.20000000000000004,
+       "matched": 1,
+       "names_precision": 0.6,
+       "names_recall": 0.6,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 0.2,
+       "precision_wilson95": [
+        0.03622316096978745,
+        0.6244717358814613
+       ],
+       "recall": 0.2,
+       "recall_wilson95": [
+        0.03622316096978745,
+        0.6244717358814613
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 5,
+       "pairs_predicted": 1,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.7934567085261071
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.43449149475208104
+       ]
+      }
+     },
+     "body:131": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 5,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.5655085052479191,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.5655085052479191,
+        1.0
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.43449149475208104
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.43449149475208104
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 5,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.5655085052479191,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.5655085052479191,
+        1.0
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.6,
+       "matched": 3,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 0.6,
+       "precision_wilson95": [
+        0.23071993220883708,
+        0.8823817688407467
+       ],
+       "recall": 0.6,
+       "recall_wilson95": [
+        0.23071993220883708,
+        0.8823817688407467
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.4000000000000001,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 0.4,
+       "precision_wilson95": [
+        0.1176182311592533,
+        0.769280067791163
+       ],
+       "recall": 0.4,
+       "recall_wilson95": [
+        0.1176182311592533,
+        0.769280067791163
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 5,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.5655085052479191,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.5655085052479191,
+        1.0
+       ]
+      }
+     },
+     "body:2196": {
+      "cand_joint": {
+       "affairs": 1,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.5,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 8,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.3244156195108769
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.48990002040399916
+       ]
+      },
+      "opd_first": {
+       "affairs": 1,
+       "affairs_exact": 1,
+       "affairs_with_output": 1,
+       "f1": 1.0,
+       "matched": 4,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 4,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.5100999795960008,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.5100999795960008,
+        1.0
+       ]
+      },
+      "opd_joint": {
+       "affairs": 1,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 4,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.48990002040399916
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.48990002040399916
+       ]
+      },
+      "pointer": {
+       "affairs": 1,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.6666666666666666,
+       "matched": 4,
+       "names_precision": 0.5,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 8,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.21521252682444186,
+        0.7847874731755582
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.5100999795960008,
+        1.0
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 1,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.5,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 8,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.3244156195108769
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.48990002040399916
+       ]
+      },
+      "rules": {
+       "affairs": 1,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 1.0,
+       "names_recall": 0.25,
+       "pairs_gold": 4,
+       "pairs_predicted": 1,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.7934567085261071
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.48990002040399916
+       ]
+      }
+     },
+     "body:2937": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 0,
+       "f1": null,
+       "matched": 0,
+       "names_precision": null,
+       "names_recall": 0.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 0,
+       "precision": null,
+       "precision_wilson95": null,
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.6576280471103807
+       ]
+      }
+     },
+     "body:306": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.2,
+       "names_recall": 0.3333333333333333,
+       "pairs_gold": 3,
+       "pairs_predicted": 5,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.43449149475208104
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 3,
+       "pairs_predicted": 4,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.48990002040399916
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 3,
+       "pairs_predicted": 4,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.48990002040399916
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.2,
+       "names_recall": 0.3333333333333333,
+       "pairs_gold": 3,
+       "pairs_predicted": 5,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.43449149475208104
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 1,
+       "f1": 0.5,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.3333333333333333,
+       "pairs_gold": 3,
+       "pairs_predicted": 1,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.20654329147389294,
+        1.0
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 3,
+       "pairs_predicted": 3,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.5615060804490177
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      }
+     },
+     "body:3427": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.5,
+       "names_recall": 1.0,
+       "pairs_gold": 3,
+       "pairs_predicted": 6,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.3903430336530645
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.048780487804878044,
+       "matched": 1,
+       "names_precision": 0.05263157894736842,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 38,
+       "precision": 0.02631578947368421,
+       "precision_wilson95": [
+        0.004660467553530057,
+        0.13495178436800254
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.05263157894736842,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 38,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.09181293258383999
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.3333333333333333,
+       "matched": 1,
+       "names_precision": 0.6666666666666666,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.3333333333333333,
+       "matched": 1,
+       "names_precision": 0.6666666666666666,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 3,
+       "pairs_predicted": 2,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.6576280471103807
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      }
+     },
+     "body:4001": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.25,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 4,
+       "precision": 0.25,
+       "precision_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ],
+       "recall": 0.25,
+       "recall_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.28571428571428575,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.75,
+       "pairs_gold": 4,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.25,
+       "recall_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.28571428571428575,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.75,
+       "pairs_gold": 4,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.25,
+       "recall_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.5,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 4,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.15003570882017148,
+        0.8499642911798285
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.15003570882017148,
+        0.8499642911798285
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.5,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 4,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.15003570882017148,
+        0.8499642911798285
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.15003570882017148,
+        0.8499642911798285
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 1,
+       "f1": 0.4,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.25,
+       "pairs_gold": 4,
+       "pairs_predicted": 1,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.20654329147389294,
+        1.0
+       ],
+       "recall": 0.25,
+       "recall_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ]
+      }
+     },
+     "body:4289": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.3333333333333333,
+       "matched": 1,
+       "names_precision": 0.25,
+       "names_recall": 0.5,
+       "pairs_gold": 2,
+       "pairs_predicted": 4,
+       "precision": 0.25,
+       "precision_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.5,
+       "matched": 1,
+       "names_precision": 0.5,
+       "names_recall": 0.5,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.5,
+       "matched": 1,
+       "names_precision": 0.5,
+       "names_recall": 0.5,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 1,
+       "f1": 0.6666666666666666,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.5,
+       "pairs_gold": 2,
+       "pairs_predicted": 1,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.20654329147389294,
+        1.0
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.3333333333333333,
+       "matched": 1,
+       "names_precision": 0.25,
+       "names_recall": 0.5,
+       "pairs_gold": 2,
+       "pairs_predicted": 4,
+       "precision": 0.25,
+       "precision_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.6576280471103807
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.6576280471103807
+       ]
+      }
+     },
+     "body:AR": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.3333333333333333,
+       "matched": 1,
+       "names_precision": 0.6666666666666666,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.4,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 2,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.4,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 2,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.3333333333333333,
+       "matched": 1,
+       "names_precision": 0.6666666666666666,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.3333333333333333,
+       "matched": 1,
+       "names_precision": 0.6666666666666666,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.3333333333333333,
+       "matched": 1,
+       "names_precision": 0.6666666666666666,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      }
+     },
+     "body:NE": {
+      "cand_joint": {
+       "affairs": 9,
+       "affairs_exact": 3,
+       "affairs_with_output": 9,
+       "f1": 0.0975609756097561,
+       "matched": 4,
+       "names_precision": 1.0,
+       "names_recall": 0.3225806451612903,
+       "pairs_gold": 62,
+       "pairs_predicted": 20,
+       "precision": 0.2,
+       "precision_wilson95": [
+        0.0806563532712,
+        0.41602172202575993
+       ],
+       "recall": 0.06451612903225806,
+       "recall_wilson95": [
+        0.025372494807644003,
+        0.15447732658187266
+       ]
+      },
+      "opd_first": {
+       "affairs": 9,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.08823529411764706,
+       "matched": 3,
+       "names_precision": 1.0,
+       "names_recall": 0.0967741935483871,
+       "pairs_gold": 62,
+       "pairs_predicted": 6,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.18761280689940868,
+        0.8123871931005913
+       ],
+       "recall": 0.04838709677419355,
+       "recall_wilson95": [
+        0.016591385000846108,
+        0.13288250384754152
+       ]
+      },
+      "opd_joint": {
+       "affairs": 9,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.08823529411764706,
+       "matched": 3,
+       "names_precision": 1.0,
+       "names_recall": 0.0967741935483871,
+       "pairs_gold": 62,
+       "pairs_predicted": 6,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.18761280689940868,
+        0.8123871931005913
+       ],
+       "recall": 0.04838709677419355,
+       "recall_wilson95": [
+        0.016591385000846108,
+        0.13288250384754152
+       ]
+      },
+      "pointer": {
+       "affairs": 9,
+       "affairs_exact": 1,
+       "affairs_with_output": 9,
+       "f1": 0.3116883116883117,
+       "matched": 12,
+       "names_precision": 1.0,
+       "names_recall": 0.24193548387096775,
+       "pairs_gold": 62,
+       "pairs_predicted": 15,
+       "precision": 0.8,
+       "precision_wilson95": [
+        0.5481406466534955,
+        0.9295257935638959
+       ],
+       "recall": 0.1935483870967742,
+       "recall_wilson95": [
+        0.11433696420146605,
+        0.3085203175170827
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 9,
+       "affairs_exact": 2,
+       "affairs_with_output": 9,
+       "f1": 0.4146341463414634,
+       "matched": 17,
+       "names_precision": 1.0,
+       "names_recall": 0.3225806451612903,
+       "pairs_gold": 62,
+       "pairs_predicted": 20,
+       "precision": 0.85,
+       "precision_wilson95": [
+        0.6395767041130426,
+        0.9476322080405041
+       ],
+       "recall": 0.27419354838709675,
+       "recall_wilson95": [
+        0.17880918599092133,
+        0.39592775843327255
+       ]
+      },
+      "rules": {
+       "affairs": 9,
+       "affairs_exact": 3,
+       "affairs_with_output": 9,
+       "f1": 0.1643835616438356,
+       "matched": 6,
+       "names_precision": 1.0,
+       "names_recall": 0.1774193548387097,
+       "pairs_gold": 62,
+       "pairs_predicted": 11,
+       "precision": 0.5454545454545454,
+       "precision_wilson95": [
+        0.28008775568998817,
+        0.7872904245601196
+       ],
+       "recall": 0.0967741935483871,
+       "recall_wilson95": [
+        0.0451112577973332,
+        0.1954904286744415
+       ]
+      }
+     },
+     "body:SG": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.05555555555555555,
+       "names_recall": 0.047619047619047616,
+       "pairs_gold": 21,
+       "pairs_predicted": 18,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.1758845505823749
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.15464382326420195
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.08,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.19047619047619047,
+       "pairs_gold": 21,
+       "pairs_predicted": 4,
+       "precision": 0.25,
+       "precision_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ],
+       "recall": 0.047619047619047616,
+       "recall_wilson95": [
+        0.008455769471923294,
+        0.22669816586235464
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.32,
+       "matched": 4,
+       "names_precision": 1.0,
+       "names_recall": 0.19047619047619047,
+       "pairs_gold": 21,
+       "pairs_predicted": 4,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.5100999795960008,
+        1.0
+       ],
+       "recall": 0.19047619047619047,
+       "recall_wilson95": [
+        0.07667440615177301,
+        0.40000986539273287
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.1,
+       "names_recall": 0.047619047619047616,
+       "pairs_gold": 21,
+       "pairs_predicted": 10,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.2775401687666166
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.15464382326420195
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.05555555555555555,
+       "names_recall": 0.047619047619047616,
+       "pairs_gold": 21,
+       "pairs_predicted": 18,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.1758845505823749
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.15464382326420195
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.05555555555555555,
+       "names_recall": 0.047619047619047616,
+       "pairs_gold": 21,
+       "pairs_predicted": 18,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.1758845505823749
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.15464382326420195
+       ]
+      }
+     },
+     "body:ZG": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.5,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 4,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.48990002040399916
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.6576280471103807
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.5,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 4,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.48990002040399916
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.6576280471103807
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      }
+     },
+     "stratum:de": {
+      "cand_joint": {
+       "affairs": 24,
+       "affairs_exact": 9,
+       "affairs_with_output": 24,
+       "f1": 0.1518987341772152,
+       "matched": 12,
+       "names_precision": 0.5662650602409639,
+       "names_recall": 0.6266666666666667,
+       "pairs_gold": 75,
+       "pairs_predicted": 83,
+       "precision": 0.14457831325301204,
+       "precision_wilson95": [
+        0.08468215781561281,
+        0.23591994992998375
+       ],
+       "recall": 0.16,
+       "recall_wilson95": [
+        0.09396421323774289,
+        0.25916915797745316
+       ]
+      },
+      "opd_first": {
+       "affairs": 24,
+       "affairs_exact": 7,
+       "affairs_with_output": 24,
+       "f1": 0.3550295857988166,
+       "matched": 30,
+       "names_precision": 0.5,
+       "names_recall": 0.6266666666666667,
+       "pairs_gold": 75,
+       "pairs_predicted": 94,
+       "precision": 0.3191489361702128,
+       "precision_wilson95": [
+        0.23361018709048176,
+        0.4188893632030539
+       ],
+       "recall": 0.4,
+       "recall_wilson95": [
+        0.29662343078170594,
+        0.5131216783992341
+       ]
+      },
+      "opd_joint": {
+       "affairs": 24,
+       "affairs_exact": 9,
+       "affairs_with_output": 24,
+       "f1": 0.1775147928994083,
+       "matched": 15,
+       "names_precision": 0.5,
+       "names_recall": 0.6266666666666667,
+       "pairs_gold": 75,
+       "pairs_predicted": 94,
+       "precision": 0.1595744680851064,
+       "precision_wilson95": [
+        0.09915526347591294,
+        0.24672624295897774
+       ],
+       "recall": 0.2,
+       "recall_wilson95": [
+        0.12512038203120296,
+        0.3041149455116171
+       ]
+      },
+      "pointer": {
+       "affairs": 24,
+       "affairs_exact": 8,
+       "affairs_with_output": 22,
+       "f1": 0.2137404580152672,
+       "matched": 14,
+       "names_precision": 0.6428571428571429,
+       "names_recall": 0.48,
+       "pairs_gold": 75,
+       "pairs_predicted": 56,
+       "precision": 0.25,
+       "precision_wilson95": [
+        0.15516915222973843,
+        0.37692892001431927
+       ],
+       "recall": 0.18666666666666668,
+       "recall_wilson95": [
+        0.11458005622312066,
+        0.2892879525438247
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 24,
+       "affairs_exact": 12,
+       "affairs_with_output": 22,
+       "f1": 0.46153846153846156,
+       "matched": 33,
+       "names_precision": 0.6470588235294118,
+       "names_recall": 0.5866666666666667,
+       "pairs_gold": 75,
+       "pairs_predicted": 68,
+       "precision": 0.4852941176470588,
+       "precision_wilson95": [
+        0.370506471844866,
+        0.6016545045253707
+       ],
+       "recall": 0.44,
+       "recall_wilson95": [
+        0.3333127597678485,
+        0.5525343057407155
+       ]
+      },
+      "rules": {
+       "affairs": 24,
+       "affairs_exact": 6,
+       "affairs_with_output": 15,
+       "f1": 0.18644067796610173,
+       "matched": 11,
+       "names_precision": 0.3953488372093023,
+       "names_recall": 0.22666666666666666,
+       "pairs_gold": 75,
+       "pairs_predicted": 43,
+       "precision": 0.2558139534883721,
+       "precision_wilson95": [
+        0.14929365877065542,
+        0.40238689868254857
+       ],
+       "recall": 0.14666666666666667,
+       "recall_wilson95": [
+        0.08391630937003362,
+        0.24384974306928775
+       ]
+      }
+     },
+     "stratum:fr": {
+      "cand_joint": {
+       "affairs": 10,
+       "affairs_exact": 3,
+       "affairs_with_output": 10,
+       "f1": 0.0851063829787234,
+       "matched": 4,
+       "names_precision": 0.8571428571428571,
+       "names_recall": 0.36363636363636365,
+       "pairs_gold": 66,
+       "pairs_predicted": 28,
+       "precision": 0.14285714285714285,
+       "precision_wilson95": [
+        0.056989129307017855,
+        0.31490173044877334
+       ],
+       "recall": 0.06060606060606061,
+       "recall_wilson95": [
+        0.023818229304678556,
+        0.14573115100734177
+       ]
+      },
+      "opd_first": {
+       "affairs": 10,
+       "affairs_exact": 4,
+       "affairs_with_output": 7,
+       "f1": 0.18421052631578946,
+       "matched": 7,
+       "names_precision": 1.0,
+       "names_recall": 0.15151515151515152,
+       "pairs_gold": 66,
+       "pairs_predicted": 10,
+       "precision": 0.7,
+       "precision_wilson95": [
+        0.39677321997956516,
+        0.892210712513788
+       ],
+       "recall": 0.10606060606060606,
+       "recall_wilson95": [
+        0.05233280771918242,
+        0.20312525738814619
+       ]
+      },
+      "opd_joint": {
+       "affairs": 10,
+       "affairs_exact": 3,
+       "affairs_with_output": 7,
+       "f1": 0.07894736842105263,
+       "matched": 3,
+       "names_precision": 1.0,
+       "names_recall": 0.15151515151515152,
+       "pairs_gold": 66,
+       "pairs_predicted": 10,
+       "precision": 0.3,
+       "precision_wilson95": [
+        0.10778928748621183,
+        0.6032267800204347
+       ],
+       "recall": 0.045454545454545456,
+       "recall_wilson95": [
+        0.015577991894810295,
+        0.1253351601521073
+       ]
+      },
+      "pointer": {
+       "affairs": 10,
+       "affairs_exact": 1,
+       "affairs_with_output": 10,
+       "f1": 0.35955056179775285,
+       "matched": 16,
+       "names_precision": 0.8260869565217391,
+       "names_recall": 0.2878787878787879,
+       "pairs_gold": 66,
+       "pairs_predicted": 23,
+       "precision": 0.6956521739130435,
+       "precision_wilson95": [
+        0.49133870939427393,
+        0.8439617197902755
+       ],
+       "recall": 0.24242424242424243,
+       "recall_wilson95": [
+        0.15509054458269061,
+        0.35809357491056265
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 10,
+       "affairs_exact": 2,
+       "affairs_with_output": 10,
+       "f1": 0.3617021276595745,
+       "matched": 17,
+       "names_precision": 0.8571428571428571,
+       "names_recall": 0.36363636363636365,
+       "pairs_gold": 66,
+       "pairs_predicted": 28,
+       "precision": 0.6071428571428571,
+       "precision_wilson95": [
+        0.42408726034906297,
+        0.7643454817241996
+       ],
+       "recall": 0.25757575757575757,
+       "recall_wilson95": [
+        0.16748707345896682,
+        0.37433327429938923
+       ]
+      },
+      "rules": {
+       "affairs": 10,
+       "affairs_exact": 3,
+       "affairs_with_output": 10,
+       "f1": 0.15384615384615385,
+       "matched": 6,
+       "names_precision": 1.0,
+       "names_recall": 0.18181818181818182,
+       "pairs_gold": 66,
+       "pairs_predicted": 12,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.2537781703934222,
+        0.7462218296065778
+       ],
+       "recall": 0.09090909090909091,
+       "recall_wilson95": [
+        0.042332398591397716,
+        0.18448943825082814
+       ]
+      }
+     }
+    },
+    "text_identical_subset": {
+     "affairs": 29,
+     "table": {
+      "cand_joint": {
+       "affairs": 29,
+       "affairs_exact": 9,
+       "affairs_with_output": 29,
+       "f1": 0.0944206008583691,
+       "matched": 11,
+       "names_precision": 0.65,
+       "names_recall": 0.48872180451127817,
+       "pairs_gold": 133,
+       "pairs_predicted": 100,
+       "precision": 0.11,
+       "precision_wilson95": [
+        0.06254131955225126,
+        0.18631463027903022
+       ],
+       "recall": 0.08270676691729323,
+       "recall_wilson95": [
+        0.0468079420631385,
+        0.1420352167423709
+       ]
+      },
+      "opd_first": {
+       "affairs": 29,
+       "affairs_exact": 9,
+       "affairs_with_output": 26,
+       "f1": 0.35000000000000003,
+       "matched": 35,
+       "names_precision": 0.7611940298507462,
+       "names_recall": 0.38345864661654133,
+       "pairs_gold": 133,
+       "pairs_predicted": 67,
+       "precision": 0.5223880597014925,
+       "precision_wilson95": [
+        0.40484988526831645,
+        0.6374981136475746
+       ],
+       "recall": 0.2631578947368421,
+       "recall_wilson95": [
+        0.1957272138754272,
+        0.343886470852024
+       ]
+      },
+      "opd_joint": {
+       "affairs": 29,
+       "affairs_exact": 9,
+       "affairs_with_output": 26,
+       "f1": 0.13,
+       "matched": 13,
+       "names_precision": 0.7611940298507462,
+       "names_recall": 0.38345864661654133,
+       "pairs_gold": 133,
+       "pairs_predicted": 67,
+       "precision": 0.19402985074626866,
+       "precision_wilson95": [
+        0.11705063857457097,
+        0.3041933762415822
+       ],
+       "recall": 0.09774436090225563,
+       "recall_wilson95": [
+        0.05801425130918243,
+        0.1600597846564888
+       ]
+      },
+      "pointer": {
+       "affairs": 29,
+       "affairs_exact": 6,
+       "affairs_with_output": 28,
+       "f1": 0.24509803921568624,
+       "matched": 25,
+       "names_precision": 0.704225352112676,
+       "names_recall": 0.37593984962406013,
+       "pairs_gold": 133,
+       "pairs_predicted": 71,
+       "precision": 0.352112676056338,
+       "precision_wilson95": [
+        0.25122584561603256,
+        0.4681815427882774
+       ],
+       "recall": 0.18796992481203006,
+       "recall_wilson95": [
+        0.13068596058578308,
+        0.2627733383408591
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 29,
+       "affairs_exact": 12,
+       "affairs_with_output": 29,
+       "f1": 0.42857142857142855,
+       "matched": 48,
+       "names_precision": 0.6923076923076923,
+       "names_recall": 0.47368421052631576,
+       "pairs_gold": 133,
+       "pairs_predicted": 91,
+       "precision": 0.5274725274725275,
+       "precision_wilson95": [
+        0.4258757854999975,
+        0.6268436962464092
+       ],
+       "recall": 0.3609022556390977,
+       "recall_wilson95": [
+        0.28424408653110655,
+        0.4453702997373965
+       ]
+      },
+      "rules": {
+       "affairs": 29,
+       "affairs_exact": 8,
+       "affairs_with_output": 22,
+       "f1": 0.15555555555555553,
+       "matched": 14,
+       "names_precision": 0.5531914893617021,
+       "names_recall": 0.19548872180451127,
+       "pairs_gold": 133,
+       "pairs_predicted": 47,
+       "precision": 0.2978723404255319,
+       "precision_wilson95": [
+        0.18651084151016262,
+        0.439779440463654
+       ],
+       "recall": 0.10526315789473684,
+       "recall_wilson95": [
+        0.06374409698776773,
+        0.16894537755798442
+       ]
+      }
+     }
+    }
+   },
+   "secondary_it": {
+    "note": "Lugano (5192): the rules arm is in-sample there (roles-2); outside the family",
+    "table": {
+     "all": {
+      "cand_joint": {
+       "affairs": 6,
+       "affairs_exact": 1,
+       "affairs_with_output": 6,
+       "f1": 0.3247863247863248,
+       "matched": 19,
+       "names_precision": 0.8360655737704918,
+       "names_recall": 0.9107142857142857,
+       "pairs_gold": 56,
+       "pairs_predicted": 61,
+       "precision": 0.3114754098360656,
+       "precision_wilson95": [
+        0.20937273683536856,
+        0.43591670697847934
+       ],
+       "recall": 0.3392857142857143,
+       "recall_wilson95": [
+        0.22919799319334652,
+        0.4700079103921191
+       ]
+      },
+      "opd_first": {
+       "affairs": 6,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.625,
+       "matched": 35,
+       "names_precision": 0.9642857142857143,
+       "names_recall": 0.9642857142857143,
+       "pairs_gold": 56,
+       "pairs_predicted": 56,
+       "precision": 0.625,
+       "precision_wilson95": [
+        0.494051260344893,
+        0.7398997035330781
+       ],
+       "recall": 0.625,
+       "recall_wilson95": [
+        0.494051260344893,
+        0.7398997035330781
+       ]
+      },
+      "opd_joint": {
+       "affairs": 6,
+       "affairs_exact": 2,
+       "affairs_with_output": 6,
+       "f1": 0.35714285714285715,
+       "matched": 20,
+       "names_precision": 0.9642857142857143,
+       "names_recall": 0.9642857142857143,
+       "pairs_gold": 56,
+       "pairs_predicted": 56,
+       "precision": 0.35714285714285715,
+       "precision_wilson95": [
+        0.2445639270270599,
+        0.4880635428266874
+       ],
+       "recall": 0.35714285714285715,
+       "recall_wilson95": [
+        0.2445639270270599,
+        0.4880635428266874
+       ]
+      },
+      "pointer": {
+       "affairs": 6,
+       "affairs_exact": 1,
+       "affairs_with_output": 6,
+       "f1": 0.5185185185185186,
+       "matched": 28,
+       "names_precision": 0.9230769230769231,
+       "names_recall": 0.8571428571428571,
+       "pairs_gold": 56,
+       "pairs_predicted": 52,
+       "precision": 0.5384615384615384,
+       "precision_wilson95": [
+        0.405033783976834,
+        0.6665974013760211
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.37331520958682995,
+        0.62668479041317
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 6,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.6470588235294118,
+       "matched": 33,
+       "names_precision": 1.0,
+       "names_recall": 0.8214285714285714,
+       "pairs_gold": 56,
+       "pairs_predicted": 46,
+       "precision": 0.717391304347826,
+       "precision_wilson95": [
+        0.5745116426970621,
+        0.8267595845508592
+       ],
+       "recall": 0.5892857142857143,
+       "recall_wilson95": [
+        0.45877362113703657,
+        0.7083342102043715
+       ]
+      },
+      "rules": {
+       "affairs": 6,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 56,
+       "pairs_predicted": 2,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.6576280471103807
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.06419614448811528
+       ]
+      }
+     },
+     "body:5192": {
+      "cand_joint": {
+       "affairs": 6,
+       "affairs_exact": 1,
+       "affairs_with_output": 6,
+       "f1": 0.3247863247863248,
+       "matched": 19,
+       "names_precision": 0.8360655737704918,
+       "names_recall": 0.9107142857142857,
+       "pairs_gold": 56,
+       "pairs_predicted": 61,
+       "precision": 0.3114754098360656,
+       "precision_wilson95": [
+        0.20937273683536856,
+        0.43591670697847934
+       ],
+       "recall": 0.3392857142857143,
+       "recall_wilson95": [
+        0.22919799319334652,
+        0.4700079103921191
+       ]
+      },
+      "opd_first": {
+       "affairs": 6,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.625,
+       "matched": 35,
+       "names_precision": 0.9642857142857143,
+       "names_recall": 0.9642857142857143,
+       "pairs_gold": 56,
+       "pairs_predicted": 56,
+       "precision": 0.625,
+       "precision_wilson95": [
+        0.494051260344893,
+        0.7398997035330781
+       ],
+       "recall": 0.625,
+       "recall_wilson95": [
+        0.494051260344893,
+        0.7398997035330781
+       ]
+      },
+      "opd_joint": {
+       "affairs": 6,
+       "affairs_exact": 2,
+       "affairs_with_output": 6,
+       "f1": 0.35714285714285715,
+       "matched": 20,
+       "names_precision": 0.9642857142857143,
+       "names_recall": 0.9642857142857143,
+       "pairs_gold": 56,
+       "pairs_predicted": 56,
+       "precision": 0.35714285714285715,
+       "precision_wilson95": [
+        0.2445639270270599,
+        0.4880635428266874
+       ],
+       "recall": 0.35714285714285715,
+       "recall_wilson95": [
+        0.2445639270270599,
+        0.4880635428266874
+       ]
+      },
+      "pointer": {
+       "affairs": 6,
+       "affairs_exact": 1,
+       "affairs_with_output": 6,
+       "f1": 0.5185185185185186,
+       "matched": 28,
+       "names_precision": 0.9230769230769231,
+       "names_recall": 0.8571428571428571,
+       "pairs_gold": 56,
+       "pairs_predicted": 52,
+       "precision": 0.5384615384615384,
+       "precision_wilson95": [
+        0.405033783976834,
+        0.6665974013760211
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.37331520958682995,
+        0.62668479041317
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 6,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.6470588235294118,
+       "matched": 33,
+       "names_precision": 1.0,
+       "names_recall": 0.8214285714285714,
+       "pairs_gold": 56,
+       "pairs_predicted": 46,
+       "precision": 0.717391304347826,
+       "precision_wilson95": [
+        0.5745116426970621,
+        0.8267595845508592
+       ],
+       "recall": 0.5892857142857143,
+       "recall_wilson95": [
+        0.45877362113703657,
+        0.7083342102043715
+       ]
+      },
+      "rules": {
+       "affairs": 6,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 56,
+       "pairs_predicted": 2,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.6576280471103807
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.06419614448811528
+       ]
+      }
+     },
+     "stratum:it": {
+      "cand_joint": {
+       "affairs": 6,
+       "affairs_exact": 1,
+       "affairs_with_output": 6,
+       "f1": 0.3247863247863248,
+       "matched": 19,
+       "names_precision": 0.8360655737704918,
+       "names_recall": 0.9107142857142857,
+       "pairs_gold": 56,
+       "pairs_predicted": 61,
+       "precision": 0.3114754098360656,
+       "precision_wilson95": [
+        0.20937273683536856,
+        0.43591670697847934
+       ],
+       "recall": 0.3392857142857143,
+       "recall_wilson95": [
+        0.22919799319334652,
+        0.4700079103921191
+       ]
+      },
+      "opd_first": {
+       "affairs": 6,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.625,
+       "matched": 35,
+       "names_precision": 0.9642857142857143,
+       "names_recall": 0.9642857142857143,
+       "pairs_gold": 56,
+       "pairs_predicted": 56,
+       "precision": 0.625,
+       "precision_wilson95": [
+        0.494051260344893,
+        0.7398997035330781
+       ],
+       "recall": 0.625,
+       "recall_wilson95": [
+        0.494051260344893,
+        0.7398997035330781
+       ]
+      },
+      "opd_joint": {
+       "affairs": 6,
+       "affairs_exact": 2,
+       "affairs_with_output": 6,
+       "f1": 0.35714285714285715,
+       "matched": 20,
+       "names_precision": 0.9642857142857143,
+       "names_recall": 0.9642857142857143,
+       "pairs_gold": 56,
+       "pairs_predicted": 56,
+       "precision": 0.35714285714285715,
+       "precision_wilson95": [
+        0.2445639270270599,
+        0.4880635428266874
+       ],
+       "recall": 0.35714285714285715,
+       "recall_wilson95": [
+        0.2445639270270599,
+        0.4880635428266874
+       ]
+      },
+      "pointer": {
+       "affairs": 6,
+       "affairs_exact": 1,
+       "affairs_with_output": 6,
+       "f1": 0.5185185185185186,
+       "matched": 28,
+       "names_precision": 0.9230769230769231,
+       "names_recall": 0.8571428571428571,
+       "pairs_gold": 56,
+       "pairs_predicted": 52,
+       "precision": 0.5384615384615384,
+       "precision_wilson95": [
+        0.405033783976834,
+        0.6665974013760211
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.37331520958682995,
+        0.62668479041317
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 6,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.6470588235294118,
+       "matched": 33,
+       "names_precision": 1.0,
+       "names_recall": 0.8214285714285714,
+       "pairs_gold": 56,
+       "pairs_predicted": 46,
+       "precision": 0.717391304347826,
+       "precision_wilson95": [
+        0.5745116426970621,
+        0.8267595845508592
+       ],
+       "recall": 0.5892857142857143,
+       "recall_wilson95": [
+        0.45877362113703657,
+        0.7083342102043715
+       ]
+      },
+      "rules": {
+       "affairs": 6,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 56,
+       "pairs_predicted": 2,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.6576280471103807
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.06419614448811528
+       ]
+      }
+     }
+    }
+   },
+   "thresholds": {
+    "tau": 0.98,
+    "tau_first": 0.3
+   }
+  },
+  "refit_dev": {
+   "coverage": {
+    "abstentions": {},
+    "affairs": 40,
+    "note": "an affair the 8B did not fully score is a pointer abstention (no pairs), never an exclusion (PREREG10 stop rule 2)",
+    "pointer_run": 40,
+    "primary_pointer_run": 34
+   },
+   "holds": {
+    "H1": {
+     "gguf_8b": {
+      "observed": 0.0921985815602837,
+      "p_holm": 0.0044995500449955,
+      "verdict_analogue": "confirmed"
+     },
+     "holds": true,
+     "registered": {
+      "observed": 0.23404255319148937,
+      "p_holm": 0.031596840315968405,
+      "verdict": "confirmed"
+     }
+    },
+    "H2": {
+     "gguf_8b": {
+      "observed": 0.024242424242424232,
+      "p_holm": 0.20477952204779523,
+      "verdict_analogue": "not confirmed"
+     },
+     "holds": false,
+     "registered": {
+      "observed": 0.2117424242424243,
+      "p_holm": 0.033396660333966606,
+      "verdict": "confirmed"
+     }
+    },
+    "H3a": {
+     "gguf_8b": {
+      "observed": -0.042300556586270854,
+      "p_holm": 0.6171382861713829,
+      "verdict_analogue": "not confirmed"
+     },
+     "holds": false,
+     "registered": {
+      "observed": 0.11990011194351169,
+      "p_holm": 0.17488251174882513,
+      "verdict": "not confirmed"
+     }
+    },
+    "H3b": {
+     "gguf_8b": {
+      "observed": 0.13275613275613274,
+      "p_holm": 0.00039996000399960006,
+      "verdict_analogue": "confirmed"
+     },
+     "holds": true,
+     "registered": {
+      "observed": 0.2949568012859153,
+      "p_holm": 0.031596840315968405,
+      "verdict": "confirmed"
+     }
+    }
+   },
+   "primary": {
+    "affairs_same_pairs_as_registered": 20,
+    "candidates": {
+     "candidates": 111,
+     "found": 87,
+     "gold_names": 141,
+     "pointer_recall_given_candidate": 0.3448275862068966,
+     "recall": 0.6170212765957447,
+     "wilson95": [
+      0.5346892540798193,
+      0.6931458430193568
+     ]
+    },
+    "hypotheses": {
+     "alpha": 0.05,
+     "correction": "Holm",
+     "family": [
+      "H1",
+      "H2",
+      "H3a",
+      "H3b"
+     ],
+     "n_affairs": 34,
+     "n_gold_pairs": 141,
+     "tests": {
+      "H1": {
+       "boot_ci95": [
+        0.030927835051546393,
+        0.19117647058823528
+       ],
+       "mcnemar_secondary": {
+        "p_exact_one_sided": 0.0035986900329589844,
+        "pointer_only": 17,
+        "rules_only": 4
+       },
+       "n_boot": 10000,
+       "null": 0.0,
+       "observed": 0.0921985815602837,
+       "p": 0.0014998500149985001,
+       "p_boot": 0.0014998500149985001,
+       "p_holm": 0.0044995500449955,
+       "rejected": true,
+       "threshold": 0.016666666666666666,
+       "verdict": "confirmed"
+      },
+      "H2": {
+       "boot_ci95": [
+        -0.18959031357388315,
+        0.14939936882352722
+       ],
+       "n_boot": 10000,
+       "null": -0.1,
+       "observed": 0.024242424242424232,
+       "p": 0.10238976102389762,
+       "p_boot": 0.10238976102389762,
+       "p_holm": 0.20477952204779523,
+       "rejected": false,
+       "threshold": 0.025,
+       "verdict": "not confirmed"
+      },
+      "H3a": {
+       "boot_ci95": [
+        -0.37992153680786894,
+        0.1979910325958104
+       ],
+       "n_boot": 10000,
+       "null": 0.0,
+       "observed": -0.042300556586270854,
+       "p": 0.6171382861713829,
+       "p_boot": 0.6171382861713829,
+       "p_holm": 0.6171382861713829,
+       "rejected": false,
+       "threshold": 0.05,
+       "verdict": "not confirmed"
+      },
+      "H3b": {
+       "boot_ci95": [
+        0.03537598255038075,
+        0.20926980321638947
+       ],
+       "n_boot": 10000,
+       "null": 0.0,
+       "observed": 0.13275613275613274,
+       "p": 9.999000099990002e-05,
+       "p_boot": 9.999000099990002e-05,
+       "p_holm": 0.00039996000399960006,
+       "rejected": true,
+       "threshold": 0.0125,
+       "verdict": "confirmed"
+      }
+     },
+     "underpowered": false
+    },
+    "pointer_8b_minus_registered": {
+     "f1": {
+      "boot_ci95": [
+       -0.4039293242136732,
+       0.04351768920734428
+      ],
+      "observed": -0.16220066852978254
+     },
+     "precision": {
+      "boot_ci95": [
+       -0.4476421362476302,
+       0.05572803641869933
+      ],
+      "observed": -0.18750000000000006
+     },
+     "recall": {
+      "boot_ci95": [
+       -0.3873902027027027,
+       0.04166666666666663
+      ],
+      "observed": -0.14184397163120568
+     }
+    },
+    "table": {
+     "all": {
+      "cand_joint": {
+       "affairs": 34,
+       "affairs_exact": 12,
+       "affairs_with_output": 34,
+       "f1": 0.12698412698412698,
+       "matched": 16,
+       "names_precision": 0.6396396396396397,
+       "names_recall": 0.5035460992907801,
+       "pairs_gold": 141,
+       "pairs_predicted": 111,
+       "precision": 0.14414414414414414,
+       "precision_wilson95": [
+        0.09071442330382282,
+        0.22138154192132206
+       ],
+       "recall": 0.11347517730496454,
+       "recall_wilson95": [
+        0.07106523194689557,
+        0.17638853824067482
+       ]
+      },
+      "opd_first": {
+       "affairs": 34,
+       "affairs_exact": 11,
+       "affairs_with_output": 31,
+       "f1": 0.30204081632653057,
+       "matched": 37,
+       "names_precision": 0.5480769230769231,
+       "names_recall": 0.40425531914893614,
+       "pairs_gold": 141,
+       "pairs_predicted": 104,
+       "precision": 0.3557692307692308,
+       "precision_wilson95": [
+        0.2704028984181852,
+        0.45141131798809964
+       ],
+       "recall": 0.2624113475177305,
+       "recall_wilson95": [
+        0.1967876598278167,
+        0.3406380521223413
+       ]
+      },
+      "opd_joint": {
+       "affairs": 34,
+       "affairs_exact": 12,
+       "affairs_with_output": 31,
+       "f1": 0.14693877551020407,
+       "matched": 18,
+       "names_precision": 0.5480769230769231,
+       "names_recall": 0.40425531914893614,
+       "pairs_gold": 141,
+       "pairs_predicted": 104,
+       "precision": 0.17307692307692307,
+       "precision_wilson95": [
+        0.11237651918444376,
+        0.257069038003135
+       ],
+       "recall": 0.1276595744680851,
+       "recall_wilson95": [
+        0.08229767647714942,
+        0.19277246911638168
+       ]
+      },
+      "pointer": {
+       "affairs": 34,
+       "affairs_exact": 11,
+       "affairs_with_output": 33,
+       "f1": 0.2597402597402597,
+       "matched": 30,
+       "names_precision": 0.6333333333333333,
+       "names_recall": 0.40425531914893614,
+       "pairs_gold": 141,
+       "pairs_predicted": 90,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.2445335995323974,
+        0.4357787566081628
+       ],
+       "recall": 0.2127659574468085,
+       "recall_wilson95": [
+        0.15329835090284472,
+        0.28747004712645075
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 34,
+       "affairs_exact": 14,
+       "affairs_with_output": 32,
+       "f1": 0.42194092827004226,
+       "matched": 50,
+       "names_precision": 0.7083333333333334,
+       "names_recall": 0.48226950354609927,
+       "pairs_gold": 141,
+       "pairs_predicted": 96,
+       "precision": 0.5208333333333334,
+       "precision_wilson95": [
+        0.42203591721406514,
+        0.618027543307401
+       ],
+       "recall": 0.3546099290780142,
+       "recall_wilson95": [
+        0.2804602036792119,
+        0.43647194840969084
+       ]
+      },
+      "rules": {
+       "affairs": 34,
+       "affairs_exact": 9,
+       "affairs_with_output": 25,
+       "f1": 0.173469387755102,
+       "matched": 17,
+       "names_precision": 0.5272727272727272,
+       "names_recall": 0.20567375886524822,
+       "pairs_gold": 141,
+       "pairs_predicted": 55,
+       "precision": 0.3090909090909091,
+       "precision_wilson95": [
+        0.20282124520577244,
+        0.4402883915138273
+       ],
+       "recall": 0.12056737588652482,
+       "recall_wilson95": [
+        0.07665405308915482,
+        0.18460790480139597
+       ]
+      }
+     },
+     "body:1024": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 1.0,
+       "names_recall": 0.8571428571428571,
+       "pairs_gold": 7,
+       "pairs_predicted": 6,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.3903430336530645
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.35433884297520657
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.5714285714285714,
+       "matched": 4,
+       "names_precision": 0.7142857142857143,
+       "names_recall": 0.7142857142857143,
+       "pairs_gold": 7,
+       "pairs_predicted": 7,
+       "precision": 0.5714285714285714,
+       "precision_wilson95": [
+        0.2504542304090258,
+        0.8417830777373732
+       ],
+       "recall": 0.5714285714285714,
+       "recall_wilson95": [
+        0.2504542304090258,
+        0.8417830777373732
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.7142857142857143,
+       "names_recall": 0.7142857142857143,
+       "pairs_gold": 7,
+       "pairs_predicted": 7,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.35433884297520657
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.35433884297520657
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.15384615384615383,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.8571428571428571,
+       "pairs_gold": 7,
+       "pairs_predicted": 6,
+       "precision": 0.16666666666666666,
+       "precision_wilson95": [
+        0.03005258587173032,
+        0.563509436563646
+       ],
+       "recall": 0.14285714285714285,
+       "recall_wilson95": [
+        0.02567895594897479,
+        0.51313450331903
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.7692307692307692,
+       "matched": 5,
+       "names_precision": 1.0,
+       "names_recall": 0.8571428571428571,
+       "pairs_gold": 7,
+       "pairs_predicted": 6,
+       "precision": 0.8333333333333334,
+       "precision_wilson95": [
+        0.43649056343635395,
+        0.9699474141282697
+       ],
+       "recall": 0.7142857142857143,
+       "recall_wilson95": [
+        0.35892909014821267,
+        0.9177828342909844
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.16666666666666666,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.7142857142857143,
+       "pairs_gold": 7,
+       "pairs_predicted": 5,
+       "precision": 0.2,
+       "precision_wilson95": [
+        0.03622316096978745,
+        0.6244717358814613
+       ],
+       "recall": 0.14285714285714285,
+       "recall_wilson95": [
+        0.02567895594897479,
+        0.51313450331903
+       ]
+      }
+     },
+     "body:1058": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.85,
+       "names_recall": 0.9444444444444444,
+       "pairs_gold": 18,
+       "pairs_predicted": 20,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.16113012549493322
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.1758845505823749
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.8333333333333334,
+       "matched": 15,
+       "names_precision": 0.9444444444444444,
+       "names_recall": 0.9444444444444444,
+       "pairs_gold": 18,
+       "pairs_predicted": 18,
+       "precision": 0.8333333333333334,
+       "precision_wilson95": [
+        0.6077750036164076,
+        0.9416352959953425
+       ],
+       "recall": 0.8333333333333334,
+       "recall_wilson95": [
+        0.6077750036164076,
+        0.9416352959953425
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.9444444444444444,
+       "names_recall": 0.9444444444444444,
+       "pairs_gold": 18,
+       "pairs_predicted": 18,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.1758845505823749
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.1758845505823749
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.12903225806451615,
+       "matched": 2,
+       "names_precision": 0.8461538461538461,
+       "names_recall": 0.6111111111111112,
+       "pairs_gold": 18,
+       "pairs_predicted": 13,
+       "precision": 0.15384615384615385,
+       "precision_wilson95": [
+        0.04325726318273798,
+        0.4223517050863101
+       ],
+       "recall": 0.1111111111111111,
+       "recall_wilson95": [
+        0.031018868453582787,
+        0.3280024486660421
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.9090909090909091,
+       "matched": 15,
+       "names_precision": 1.0,
+       "names_recall": 0.8333333333333334,
+       "pairs_gold": 18,
+       "pairs_predicted": 15,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.7961107336956521,
+        1.0
+       ],
+       "recall": 0.8333333333333334,
+       "recall_wilson95": [
+        0.6077750036164076,
+        0.9416352959953425
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.10526315789473684,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.05555555555555555,
+       "pairs_gold": 18,
+       "pairs_predicted": 1,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.20654329147389294,
+        1.0
+       ],
+       "recall": 0.05555555555555555,
+       "recall_wilson95": [
+        0.009874935830924525,
+        0.2575779980200754
+       ]
+      }
+     },
+     "body:121": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.375,
+       "names_recall": 0.6,
+       "pairs_gold": 5,
+       "pairs_predicted": 8,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.3244156195108769
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.43449149475208104
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.8000000000000002,
+       "matched": 4,
+       "names_precision": 0.8,
+       "names_recall": 0.8,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 0.8,
+       "precision_wilson95": [
+        0.3755282641185388,
+        0.9637768390302125
+       ],
+       "recall": 0.8,
+       "recall_wilson95": [
+        0.3755282641185388,
+        0.9637768390302125
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.20000000000000004,
+       "matched": 1,
+       "names_precision": 0.8,
+       "names_recall": 0.8,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 0.2,
+       "precision_wilson95": [
+        0.03622316096978745,
+        0.6244717358814613
+       ],
+       "recall": 0.2,
+       "recall_wilson95": [
+        0.03622316096978745,
+        0.6244717358814613
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.25,
+       "names_recall": 0.2,
+       "pairs_gold": 5,
+       "pairs_predicted": 4,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.48990002040399916
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.43449149475208104
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.20000000000000004,
+       "matched": 1,
+       "names_precision": 0.6,
+       "names_recall": 0.6,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 0.2,
+       "precision_wilson95": [
+        0.03622316096978745,
+        0.6244717358814613
+       ],
+       "recall": 0.2,
+       "recall_wilson95": [
+        0.03622316096978745,
+        0.6244717358814613
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 5,
+       "pairs_predicted": 1,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.7934567085261071
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.43449149475208104
+       ]
+      }
+     },
+     "body:131": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 5,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.5655085052479191,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.5655085052479191,
+        1.0
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.43449149475208104
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.43449149475208104
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 5,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.5655085052479191,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.5655085052479191,
+        1.0
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 5,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.5655085052479191,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.5655085052479191,
+        1.0
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.4000000000000001,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 0.4,
+       "precision_wilson95": [
+        0.1176182311592533,
+        0.769280067791163
+       ],
+       "recall": 0.4,
+       "recall_wilson95": [
+        0.1176182311592533,
+        0.769280067791163
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 5,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 5,
+       "pairs_predicted": 5,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.5655085052479191,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.5655085052479191,
+        1.0
+       ]
+      }
+     },
+     "body:2196": {
+      "cand_joint": {
+       "affairs": 1,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.5,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 8,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.3244156195108769
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.48990002040399916
+       ]
+      },
+      "opd_first": {
+       "affairs": 1,
+       "affairs_exact": 1,
+       "affairs_with_output": 1,
+       "f1": 1.0,
+       "matched": 4,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 4,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.5100999795960008,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.5100999795960008,
+        1.0
+       ]
+      },
+      "opd_joint": {
+       "affairs": 1,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 4,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.48990002040399916
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.48990002040399916
+       ]
+      },
+      "pointer": {
+       "affairs": 1,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.5,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 8,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.3244156195108769
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.48990002040399916
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 1,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.5,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 8,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.3244156195108769
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.48990002040399916
+       ]
+      },
+      "rules": {
+       "affairs": 1,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 1.0,
+       "names_recall": 0.25,
+       "pairs_gold": 4,
+       "pairs_predicted": 1,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.7934567085261071
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.48990002040399916
+       ]
+      }
+     },
+     "body:2937": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 0,
+       "f1": null,
+       "matched": 0,
+       "names_precision": null,
+       "names_recall": 0.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 0,
+       "precision": null,
+       "precision_wilson95": null,
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.6576280471103807
+       ]
+      }
+     },
+     "body:306": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.2,
+       "names_recall": 0.3333333333333333,
+       "pairs_gold": 3,
+       "pairs_predicted": 5,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.43449149475208104
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 3,
+       "pairs_predicted": 4,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.48990002040399916
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 3,
+       "pairs_predicted": 4,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.48990002040399916
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.2,
+       "names_recall": 0.3333333333333333,
+       "pairs_gold": 3,
+       "pairs_predicted": 5,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.43449149475208104
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 1,
+       "f1": 0.5,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.3333333333333333,
+       "pairs_gold": 3,
+       "pairs_predicted": 1,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.20654329147389294,
+        1.0
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 3,
+       "pairs_predicted": 3,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.5615060804490177
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      }
+     },
+     "body:3427": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.5,
+       "names_recall": 1.0,
+       "pairs_gold": 3,
+       "pairs_predicted": 6,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.3903430336530645
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.048780487804878044,
+       "matched": 1,
+       "names_precision": 0.05263157894736842,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 38,
+       "precision": 0.02631578947368421,
+       "precision_wilson95": [
+        0.004660467553530057,
+        0.13495178436800254
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.05263157894736842,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 38,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.09181293258383999
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.6666666666666666,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 3,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.5615060804490177
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.3333333333333333,
+       "matched": 1,
+       "names_precision": 0.6666666666666666,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 3,
+       "pairs_predicted": 2,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.6576280471103807
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.5615060804490177
+       ]
+      }
+     },
+     "body:4001": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.25,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 4,
+       "precision": 0.25,
+       "precision_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ],
+       "recall": 0.25,
+       "recall_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.28571428571428575,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.75,
+       "pairs_gold": 4,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.25,
+       "recall_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.28571428571428575,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.75,
+       "pairs_gold": 4,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.25,
+       "recall_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 4,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 4,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.5100999795960008,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.5100999795960008,
+        1.0
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.5,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 4,
+       "pairs_predicted": 4,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.15003570882017148,
+        0.8499642911798285
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.15003570882017148,
+        0.8499642911798285
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 1,
+       "f1": 0.4,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.25,
+       "pairs_gold": 4,
+       "pairs_predicted": 1,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.20654329147389294,
+        1.0
+       ],
+       "recall": 0.25,
+       "recall_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ]
+      }
+     },
+     "body:4289": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.3333333333333333,
+       "matched": 1,
+       "names_precision": 0.25,
+       "names_recall": 0.5,
+       "pairs_gold": 2,
+       "pairs_predicted": 4,
+       "precision": 0.25,
+       "precision_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.5,
+       "matched": 1,
+       "names_precision": 0.5,
+       "names_recall": 0.5,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.5,
+       "matched": 1,
+       "names_precision": 0.5,
+       "names_recall": 0.5,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.4,
+       "matched": 1,
+       "names_precision": 0.3333333333333333,
+       "names_recall": 0.5,
+       "pairs_gold": 2,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.3333333333333333,
+       "matched": 1,
+       "names_precision": 0.25,
+       "names_recall": 0.5,
+       "pairs_gold": 2,
+       "pairs_predicted": 4,
+       "precision": 0.25,
+       "precision_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ],
+       "recall": 0.5,
+       "recall_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 1,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.6576280471103807
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.6576280471103807
+       ]
+      }
+     },
+     "body:AR": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.3333333333333333,
+       "matched": 1,
+       "names_precision": 0.6666666666666666,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.4,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 2,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.4,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 2,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.09452865480086614,
+        0.9054713451991339
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.3333333333333333,
+       "matched": 1,
+       "names_precision": 0.6666666666666666,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.3333333333333333,
+       "matched": 1,
+       "names_precision": 0.6666666666666666,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.3333333333333333,
+       "matched": 1,
+       "names_precision": 0.6666666666666666,
+       "names_recall": 0.6666666666666666,
+       "pairs_gold": 3,
+       "pairs_predicted": 3,
+       "precision": 0.3333333333333333,
+       "precision_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ],
+       "recall": 0.3333333333333333,
+       "recall_wilson95": [
+        0.0614903152761605,
+        0.7923450448735121
+       ]
+      }
+     },
+     "body:NE": {
+      "cand_joint": {
+       "affairs": 9,
+       "affairs_exact": 3,
+       "affairs_with_output": 9,
+       "f1": 0.0975609756097561,
+       "matched": 4,
+       "names_precision": 1.0,
+       "names_recall": 0.3225806451612903,
+       "pairs_gold": 62,
+       "pairs_predicted": 20,
+       "precision": 0.2,
+       "precision_wilson95": [
+        0.0806563532712,
+        0.41602172202575993
+       ],
+       "recall": 0.06451612903225806,
+       "recall_wilson95": [
+        0.025372494807644003,
+        0.15447732658187266
+       ]
+      },
+      "opd_first": {
+       "affairs": 9,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.08823529411764706,
+       "matched": 3,
+       "names_precision": 1.0,
+       "names_recall": 0.0967741935483871,
+       "pairs_gold": 62,
+       "pairs_predicted": 6,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.18761280689940868,
+        0.8123871931005913
+       ],
+       "recall": 0.04838709677419355,
+       "recall_wilson95": [
+        0.016591385000846108,
+        0.13288250384754152
+       ]
+      },
+      "opd_joint": {
+       "affairs": 9,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.08823529411764706,
+       "matched": 3,
+       "names_precision": 1.0,
+       "names_recall": 0.0967741935483871,
+       "pairs_gold": 62,
+       "pairs_predicted": 6,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.18761280689940868,
+        0.8123871931005913
+       ],
+       "recall": 0.04838709677419355,
+       "recall_wilson95": [
+        0.016591385000846108,
+        0.13288250384754152
+       ]
+      },
+      "pointer": {
+       "affairs": 9,
+       "affairs_exact": 1,
+       "affairs_with_output": 9,
+       "f1": 0.3116883116883117,
+       "matched": 12,
+       "names_precision": 1.0,
+       "names_recall": 0.24193548387096775,
+       "pairs_gold": 62,
+       "pairs_predicted": 15,
+       "precision": 0.8,
+       "precision_wilson95": [
+        0.5481406466534955,
+        0.9295257935638959
+       ],
+       "recall": 0.1935483870967742,
+       "recall_wilson95": [
+        0.11433696420146605,
+        0.3085203175170827
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 9,
+       "affairs_exact": 2,
+       "affairs_with_output": 9,
+       "f1": 0.4146341463414634,
+       "matched": 17,
+       "names_precision": 1.0,
+       "names_recall": 0.3225806451612903,
+       "pairs_gold": 62,
+       "pairs_predicted": 20,
+       "precision": 0.85,
+       "precision_wilson95": [
+        0.6395767041130426,
+        0.9476322080405041
+       ],
+       "recall": 0.27419354838709675,
+       "recall_wilson95": [
+        0.17880918599092133,
+        0.39592775843327255
+       ]
+      },
+      "rules": {
+       "affairs": 9,
+       "affairs_exact": 3,
+       "affairs_with_output": 9,
+       "f1": 0.1643835616438356,
+       "matched": 6,
+       "names_precision": 1.0,
+       "names_recall": 0.1774193548387097,
+       "pairs_gold": 62,
+       "pairs_predicted": 11,
+       "precision": 0.5454545454545454,
+       "precision_wilson95": [
+        0.28008775568998817,
+        0.7872904245601196
+       ],
+       "recall": 0.0967741935483871,
+       "recall_wilson95": [
+        0.0451112577973332,
+        0.1954904286744415
+       ]
+      }
+     },
+     "body:SG": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.05555555555555555,
+       "names_recall": 0.047619047619047616,
+       "pairs_gold": 21,
+       "pairs_predicted": 18,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.1758845505823749
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.15464382326420195
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.08,
+       "matched": 1,
+       "names_precision": 1.0,
+       "names_recall": 0.19047619047619047,
+       "pairs_gold": 21,
+       "pairs_predicted": 4,
+       "precision": 0.25,
+       "precision_wilson95": [
+        0.045586062644636216,
+        0.6993639475573634
+       ],
+       "recall": 0.047619047619047616,
+       "recall_wilson95": [
+        0.008455769471923294,
+        0.22669816586235464
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 1,
+       "affairs_with_output": 2,
+       "f1": 0.32,
+       "matched": 4,
+       "names_precision": 1.0,
+       "names_recall": 0.19047619047619047,
+       "pairs_gold": 21,
+       "pairs_predicted": 4,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.5100999795960008,
+        1.0
+       ],
+       "recall": 0.19047619047619047,
+       "recall_wilson95": [
+        0.07667440615177301,
+        0.40000986539273287
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.058823529411764705,
+       "names_recall": 0.047619047619047616,
+       "pairs_gold": 21,
+       "pairs_predicted": 17,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.18432366037156456
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.15464382326420195
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.05555555555555555,
+       "names_recall": 0.047619047619047616,
+       "pairs_gold": 21,
+       "pairs_predicted": 18,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.1758845505823749
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.15464382326420195
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.05555555555555555,
+       "names_recall": 0.047619047619047616,
+       "pairs_gold": 21,
+       "pairs_predicted": 18,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.1758845505823749
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.15464382326420195
+       ]
+      }
+     },
+     "body:ZG": {
+      "cand_joint": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "opd_first": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.5,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 4,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.48990002040399916
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.6576280471103807
+       ]
+      },
+      "opd_joint": {
+       "affairs": 2,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.5,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 4,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.48990002040399916
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.6576280471103807
+       ]
+      },
+      "pointer": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      },
+      "rules": {
+       "affairs": 2,
+       "affairs_exact": 2,
+       "affairs_with_output": 2,
+       "f1": 1.0,
+       "matched": 2,
+       "names_precision": 1.0,
+       "names_recall": 1.0,
+       "pairs_gold": 2,
+       "pairs_predicted": 2,
+       "precision": 1.0,
+       "precision_wilson95": [
+        0.34237195288961925,
+        1.0
+       ],
+       "recall": 1.0,
+       "recall_wilson95": [
+        0.34237195288961925,
+        1.0
+       ]
+      }
+     },
+     "stratum:de": {
+      "cand_joint": {
+       "affairs": 24,
+       "affairs_exact": 9,
+       "affairs_with_output": 24,
+       "f1": 0.1518987341772152,
+       "matched": 12,
+       "names_precision": 0.5662650602409639,
+       "names_recall": 0.6266666666666667,
+       "pairs_gold": 75,
+       "pairs_predicted": 83,
+       "precision": 0.14457831325301204,
+       "precision_wilson95": [
+        0.08468215781561281,
+        0.23591994992998375
+       ],
+       "recall": 0.16,
+       "recall_wilson95": [
+        0.09396421323774289,
+        0.25916915797745316
+       ]
+      },
+      "opd_first": {
+       "affairs": 24,
+       "affairs_exact": 7,
+       "affairs_with_output": 24,
+       "f1": 0.3550295857988166,
+       "matched": 30,
+       "names_precision": 0.5,
+       "names_recall": 0.6266666666666667,
+       "pairs_gold": 75,
+       "pairs_predicted": 94,
+       "precision": 0.3191489361702128,
+       "precision_wilson95": [
+        0.23361018709048176,
+        0.4188893632030539
+       ],
+       "recall": 0.4,
+       "recall_wilson95": [
+        0.29662343078170594,
+        0.5131216783992341
+       ]
+      },
+      "opd_joint": {
+       "affairs": 24,
+       "affairs_exact": 9,
+       "affairs_with_output": 24,
+       "f1": 0.1775147928994083,
+       "matched": 15,
+       "names_precision": 0.5,
+       "names_recall": 0.6266666666666667,
+       "pairs_gold": 75,
+       "pairs_predicted": 94,
+       "precision": 0.1595744680851064,
+       "precision_wilson95": [
+        0.09915526347591294,
+        0.24672624295897774
+       ],
+       "recall": 0.2,
+       "recall_wilson95": [
+        0.12512038203120296,
+        0.3041149455116171
+       ]
+      },
+      "pointer": {
+       "affairs": 24,
+       "affairs_exact": 10,
+       "affairs_with_output": 23,
+       "f1": 0.2535211267605634,
+       "matched": 18,
+       "names_precision": 0.5671641791044776,
+       "names_recall": 0.5066666666666667,
+       "pairs_gold": 75,
+       "pairs_predicted": 67,
+       "precision": 0.26865671641791045,
+       "precision_wilson95": [
+        0.1772206517897013,
+        0.3851833594127559
+       ],
+       "recall": 0.24,
+       "recall_wilson95": [
+        0.15754748728758244,
+        0.3477897965828615
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 24,
+       "affairs_exact": 12,
+       "affairs_with_output": 22,
+       "f1": 0.46153846153846156,
+       "matched": 33,
+       "names_precision": 0.6470588235294118,
+       "names_recall": 0.5866666666666667,
+       "pairs_gold": 75,
+       "pairs_predicted": 68,
+       "precision": 0.4852941176470588,
+       "precision_wilson95": [
+        0.370506471844866,
+        0.6016545045253707
+       ],
+       "recall": 0.44,
+       "recall_wilson95": [
+        0.3333127597678485,
+        0.5525343057407155
+       ]
+      },
+      "rules": {
+       "affairs": 24,
+       "affairs_exact": 6,
+       "affairs_with_output": 15,
+       "f1": 0.18644067796610173,
+       "matched": 11,
+       "names_precision": 0.3953488372093023,
+       "names_recall": 0.22666666666666666,
+       "pairs_gold": 75,
+       "pairs_predicted": 43,
+       "precision": 0.2558139534883721,
+       "precision_wilson95": [
+        0.14929365877065542,
+        0.40238689868254857
+       ],
+       "recall": 0.14666666666666667,
+       "recall_wilson95": [
+        0.08391630937003362,
+        0.24384974306928775
+       ]
+      }
+     },
+     "stratum:fr": {
+      "cand_joint": {
+       "affairs": 10,
+       "affairs_exact": 3,
+       "affairs_with_output": 10,
+       "f1": 0.0851063829787234,
+       "matched": 4,
+       "names_precision": 0.8571428571428571,
+       "names_recall": 0.36363636363636365,
+       "pairs_gold": 66,
+       "pairs_predicted": 28,
+       "precision": 0.14285714285714285,
+       "precision_wilson95": [
+        0.056989129307017855,
+        0.31490173044877334
+       ],
+       "recall": 0.06060606060606061,
+       "recall_wilson95": [
+        0.023818229304678556,
+        0.14573115100734177
+       ]
+      },
+      "opd_first": {
+       "affairs": 10,
+       "affairs_exact": 4,
+       "affairs_with_output": 7,
+       "f1": 0.18421052631578946,
+       "matched": 7,
+       "names_precision": 1.0,
+       "names_recall": 0.15151515151515152,
+       "pairs_gold": 66,
+       "pairs_predicted": 10,
+       "precision": 0.7,
+       "precision_wilson95": [
+        0.39677321997956516,
+        0.892210712513788
+       ],
+       "recall": 0.10606060606060606,
+       "recall_wilson95": [
+        0.05233280771918242,
+        0.20312525738814619
+       ]
+      },
+      "opd_joint": {
+       "affairs": 10,
+       "affairs_exact": 3,
+       "affairs_with_output": 7,
+       "f1": 0.07894736842105263,
+       "matched": 3,
+       "names_precision": 1.0,
+       "names_recall": 0.15151515151515152,
+       "pairs_gold": 66,
+       "pairs_predicted": 10,
+       "precision": 0.3,
+       "precision_wilson95": [
+        0.10778928748621183,
+        0.6032267800204347
+       ],
+       "recall": 0.045454545454545456,
+       "recall_wilson95": [
+        0.015577991894810295,
+        0.1253351601521073
+       ]
+      },
+      "pointer": {
+       "affairs": 10,
+       "affairs_exact": 1,
+       "affairs_with_output": 10,
+       "f1": 0.2696629213483146,
+       "matched": 12,
+       "names_precision": 0.8260869565217391,
+       "names_recall": 0.2878787878787879,
+       "pairs_gold": 66,
+       "pairs_predicted": 23,
+       "precision": 0.5217391304347826,
+       "precision_wilson95": [
+        0.3296242986421849,
+        0.7076313046005427
+       ],
+       "recall": 0.18181818181818182,
+       "recall_wilson95": [
+        0.10718501425764242,
+        0.2914541921751999
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 10,
+       "affairs_exact": 2,
+       "affairs_with_output": 10,
+       "f1": 0.3617021276595745,
+       "matched": 17,
+       "names_precision": 0.8571428571428571,
+       "names_recall": 0.36363636363636365,
+       "pairs_gold": 66,
+       "pairs_predicted": 28,
+       "precision": 0.6071428571428571,
+       "precision_wilson95": [
+        0.42408726034906297,
+        0.7643454817241996
+       ],
+       "recall": 0.25757575757575757,
+       "recall_wilson95": [
+        0.16748707345896682,
+        0.37433327429938923
+       ]
+      },
+      "rules": {
+       "affairs": 10,
+       "affairs_exact": 3,
+       "affairs_with_output": 10,
+       "f1": 0.15384615384615385,
+       "matched": 6,
+       "names_precision": 1.0,
+       "names_recall": 0.18181818181818182,
+       "pairs_gold": 66,
+       "pairs_predicted": 12,
+       "precision": 0.5,
+       "precision_wilson95": [
+        0.2537781703934222,
+        0.7462218296065778
+       ],
+       "recall": 0.09090909090909091,
+       "recall_wilson95": [
+        0.042332398591397716,
+        0.18448943825082814
+       ]
+      }
+     }
+    },
+    "text_identical_subset": {
+     "affairs": 29,
+     "table": {
+      "cand_joint": {
+       "affairs": 29,
+       "affairs_exact": 9,
+       "affairs_with_output": 29,
+       "f1": 0.0944206008583691,
+       "matched": 11,
+       "names_precision": 0.65,
+       "names_recall": 0.48872180451127817,
+       "pairs_gold": 133,
+       "pairs_predicted": 100,
+       "precision": 0.11,
+       "precision_wilson95": [
+        0.06254131955225126,
+        0.18631463027903022
+       ],
+       "recall": 0.08270676691729323,
+       "recall_wilson95": [
+        0.0468079420631385,
+        0.1420352167423709
+       ]
+      },
+      "opd_first": {
+       "affairs": 29,
+       "affairs_exact": 9,
+       "affairs_with_output": 26,
+       "f1": 0.35000000000000003,
+       "matched": 35,
+       "names_precision": 0.7611940298507462,
+       "names_recall": 0.38345864661654133,
+       "pairs_gold": 133,
+       "pairs_predicted": 67,
+       "precision": 0.5223880597014925,
+       "precision_wilson95": [
+        0.40484988526831645,
+        0.6374981136475746
+       ],
+       "recall": 0.2631578947368421,
+       "recall_wilson95": [
+        0.1957272138754272,
+        0.343886470852024
+       ]
+      },
+      "opd_joint": {
+       "affairs": 29,
+       "affairs_exact": 9,
+       "affairs_with_output": 26,
+       "f1": 0.13,
+       "matched": 13,
+       "names_precision": 0.7611940298507462,
+       "names_recall": 0.38345864661654133,
+       "pairs_gold": 133,
+       "pairs_predicted": 67,
+       "precision": 0.19402985074626866,
+       "precision_wilson95": [
+        0.11705063857457097,
+        0.3041933762415822
+       ],
+       "recall": 0.09774436090225563,
+       "recall_wilson95": [
+        0.05801425130918243,
+        0.1600597846564888
+       ]
+      },
+      "pointer": {
+       "affairs": 29,
+       "affairs_exact": 8,
+       "affairs_with_output": 29,
+       "f1": 0.23255813953488372,
+       "matched": 25,
+       "names_precision": 0.6341463414634146,
+       "names_recall": 0.39097744360902253,
+       "pairs_gold": 133,
+       "pairs_predicted": 82,
+       "precision": 0.3048780487804878,
+       "precision_wilson95": [
+        0.21583254094468948,
+        0.4113878277343659
+       ],
+       "recall": 0.18796992481203006,
+       "recall_wilson95": [
+        0.13068596058578308,
+        0.2627733383408591
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 29,
+       "affairs_exact": 12,
+       "affairs_with_output": 29,
+       "f1": 0.42857142857142855,
+       "matched": 48,
+       "names_precision": 0.6923076923076923,
+       "names_recall": 0.47368421052631576,
+       "pairs_gold": 133,
+       "pairs_predicted": 91,
+       "precision": 0.5274725274725275,
+       "precision_wilson95": [
+        0.4258757854999975,
+        0.6268436962464092
+       ],
+       "recall": 0.3609022556390977,
+       "recall_wilson95": [
+        0.28424408653110655,
+        0.4453702997373965
+       ]
+      },
+      "rules": {
+       "affairs": 29,
+       "affairs_exact": 8,
+       "affairs_with_output": 22,
+       "f1": 0.15555555555555553,
+       "matched": 14,
+       "names_precision": 0.5531914893617021,
+       "names_recall": 0.19548872180451127,
+       "pairs_gold": 133,
+       "pairs_predicted": 47,
+       "precision": 0.2978723404255319,
+       "precision_wilson95": [
+        0.18651084151016262,
+        0.439779440463654
+       ],
+       "recall": 0.10526315789473684,
+       "recall_wilson95": [
+        0.06374409698776773,
+        0.16894537755798442
+       ]
+      }
+     }
+    }
+   },
+   "secondary_it": {
+    "note": "Lugano (5192): the rules arm is in-sample there (roles-2); outside the family",
+    "table": {
+     "all": {
+      "cand_joint": {
+       "affairs": 6,
+       "affairs_exact": 1,
+       "affairs_with_output": 6,
+       "f1": 0.3247863247863248,
+       "matched": 19,
+       "names_precision": 0.8360655737704918,
+       "names_recall": 0.9107142857142857,
+       "pairs_gold": 56,
+       "pairs_predicted": 61,
+       "precision": 0.3114754098360656,
+       "precision_wilson95": [
+        0.20937273683536856,
+        0.43591670697847934
+       ],
+       "recall": 0.3392857142857143,
+       "recall_wilson95": [
+        0.22919799319334652,
+        0.4700079103921191
+       ]
+      },
+      "opd_first": {
+       "affairs": 6,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.625,
+       "matched": 35,
+       "names_precision": 0.9642857142857143,
+       "names_recall": 0.9642857142857143,
+       "pairs_gold": 56,
+       "pairs_predicted": 56,
+       "precision": 0.625,
+       "precision_wilson95": [
+        0.494051260344893,
+        0.7398997035330781
+       ],
+       "recall": 0.625,
+       "recall_wilson95": [
+        0.494051260344893,
+        0.7398997035330781
+       ]
+      },
+      "opd_joint": {
+       "affairs": 6,
+       "affairs_exact": 2,
+       "affairs_with_output": 6,
+       "f1": 0.35714285714285715,
+       "matched": 20,
+       "names_precision": 0.9642857142857143,
+       "names_recall": 0.9642857142857143,
+       "pairs_gold": 56,
+       "pairs_predicted": 56,
+       "precision": 0.35714285714285715,
+       "precision_wilson95": [
+        0.2445639270270599,
+        0.4880635428266874
+       ],
+       "recall": 0.35714285714285715,
+       "recall_wilson95": [
+        0.2445639270270599,
+        0.4880635428266874
+       ]
+      },
+      "pointer": {
+       "affairs": 6,
+       "affairs_exact": 2,
+       "affairs_with_output": 6,
+       "f1": 0.5535714285714286,
+       "matched": 31,
+       "names_precision": 0.9107142857142857,
+       "names_recall": 0.9107142857142857,
+       "pairs_gold": 56,
+       "pairs_predicted": 56,
+       "precision": 0.5535714285714286,
+       "precision_wilson95": [
+        0.42412986131783886,
+        0.676134837487006
+       ],
+       "recall": 0.5535714285714286,
+       "recall_wilson95": [
+        0.42412986131783886,
+        0.676134837487006
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 6,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.6470588235294118,
+       "matched": 33,
+       "names_precision": 1.0,
+       "names_recall": 0.8214285714285714,
+       "pairs_gold": 56,
+       "pairs_predicted": 46,
+       "precision": 0.717391304347826,
+       "precision_wilson95": [
+        0.5745116426970621,
+        0.8267595845508592
+       ],
+       "recall": 0.5892857142857143,
+       "recall_wilson95": [
+        0.45877362113703657,
+        0.7083342102043715
+       ]
+      },
+      "rules": {
+       "affairs": 6,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 56,
+       "pairs_predicted": 2,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.6576280471103807
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.06419614448811528
+       ]
+      }
+     },
+     "body:5192": {
+      "cand_joint": {
+       "affairs": 6,
+       "affairs_exact": 1,
+       "affairs_with_output": 6,
+       "f1": 0.3247863247863248,
+       "matched": 19,
+       "names_precision": 0.8360655737704918,
+       "names_recall": 0.9107142857142857,
+       "pairs_gold": 56,
+       "pairs_predicted": 61,
+       "precision": 0.3114754098360656,
+       "precision_wilson95": [
+        0.20937273683536856,
+        0.43591670697847934
+       ],
+       "recall": 0.3392857142857143,
+       "recall_wilson95": [
+        0.22919799319334652,
+        0.4700079103921191
+       ]
+      },
+      "opd_first": {
+       "affairs": 6,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.625,
+       "matched": 35,
+       "names_precision": 0.9642857142857143,
+       "names_recall": 0.9642857142857143,
+       "pairs_gold": 56,
+       "pairs_predicted": 56,
+       "precision": 0.625,
+       "precision_wilson95": [
+        0.494051260344893,
+        0.7398997035330781
+       ],
+       "recall": 0.625,
+       "recall_wilson95": [
+        0.494051260344893,
+        0.7398997035330781
+       ]
+      },
+      "opd_joint": {
+       "affairs": 6,
+       "affairs_exact": 2,
+       "affairs_with_output": 6,
+       "f1": 0.35714285714285715,
+       "matched": 20,
+       "names_precision": 0.9642857142857143,
+       "names_recall": 0.9642857142857143,
+       "pairs_gold": 56,
+       "pairs_predicted": 56,
+       "precision": 0.35714285714285715,
+       "precision_wilson95": [
+        0.2445639270270599,
+        0.4880635428266874
+       ],
+       "recall": 0.35714285714285715,
+       "recall_wilson95": [
+        0.2445639270270599,
+        0.4880635428266874
+       ]
+      },
+      "pointer": {
+       "affairs": 6,
+       "affairs_exact": 2,
+       "affairs_with_output": 6,
+       "f1": 0.5535714285714286,
+       "matched": 31,
+       "names_precision": 0.9107142857142857,
+       "names_recall": 0.9107142857142857,
+       "pairs_gold": 56,
+       "pairs_predicted": 56,
+       "precision": 0.5535714285714286,
+       "precision_wilson95": [
+        0.42412986131783886,
+        0.676134837487006
+       ],
+       "recall": 0.5535714285714286,
+       "recall_wilson95": [
+        0.42412986131783886,
+        0.676134837487006
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 6,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.6470588235294118,
+       "matched": 33,
+       "names_precision": 1.0,
+       "names_recall": 0.8214285714285714,
+       "pairs_gold": 56,
+       "pairs_predicted": 46,
+       "precision": 0.717391304347826,
+       "precision_wilson95": [
+        0.5745116426970621,
+        0.8267595845508592
+       ],
+       "recall": 0.5892857142857143,
+       "recall_wilson95": [
+        0.45877362113703657,
+        0.7083342102043715
+       ]
+      },
+      "rules": {
+       "affairs": 6,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 56,
+       "pairs_predicted": 2,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.6576280471103807
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.06419614448811528
+       ]
+      }
+     },
+     "stratum:it": {
+      "cand_joint": {
+       "affairs": 6,
+       "affairs_exact": 1,
+       "affairs_with_output": 6,
+       "f1": 0.3247863247863248,
+       "matched": 19,
+       "names_precision": 0.8360655737704918,
+       "names_recall": 0.9107142857142857,
+       "pairs_gold": 56,
+       "pairs_predicted": 61,
+       "precision": 0.3114754098360656,
+       "precision_wilson95": [
+        0.20937273683536856,
+        0.43591670697847934
+       ],
+       "recall": 0.3392857142857143,
+       "recall_wilson95": [
+        0.22919799319334652,
+        0.4700079103921191
+       ]
+      },
+      "opd_first": {
+       "affairs": 6,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.625,
+       "matched": 35,
+       "names_precision": 0.9642857142857143,
+       "names_recall": 0.9642857142857143,
+       "pairs_gold": 56,
+       "pairs_predicted": 56,
+       "precision": 0.625,
+       "precision_wilson95": [
+        0.494051260344893,
+        0.7398997035330781
+       ],
+       "recall": 0.625,
+       "recall_wilson95": [
+        0.494051260344893,
+        0.7398997035330781
+       ]
+      },
+      "opd_joint": {
+       "affairs": 6,
+       "affairs_exact": 2,
+       "affairs_with_output": 6,
+       "f1": 0.35714285714285715,
+       "matched": 20,
+       "names_precision": 0.9642857142857143,
+       "names_recall": 0.9642857142857143,
+       "pairs_gold": 56,
+       "pairs_predicted": 56,
+       "precision": 0.35714285714285715,
+       "precision_wilson95": [
+        0.2445639270270599,
+        0.4880635428266874
+       ],
+       "recall": 0.35714285714285715,
+       "recall_wilson95": [
+        0.2445639270270599,
+        0.4880635428266874
+       ]
+      },
+      "pointer": {
+       "affairs": 6,
+       "affairs_exact": 2,
+       "affairs_with_output": 6,
+       "f1": 0.5535714285714286,
+       "matched": 31,
+       "names_precision": 0.9107142857142857,
+       "names_recall": 0.9107142857142857,
+       "pairs_gold": 56,
+       "pairs_predicted": 56,
+       "precision": 0.5535714285714286,
+       "precision_wilson95": [
+        0.42412986131783886,
+        0.676134837487006
+       ],
+       "recall": 0.5535714285714286,
+       "recall_wilson95": [
+        0.42412986131783886,
+        0.676134837487006
+       ]
+      },
+      "pointer_registered": {
+       "affairs": 6,
+       "affairs_exact": 3,
+       "affairs_with_output": 6,
+       "f1": 0.6470588235294118,
+       "matched": 33,
+       "names_precision": 1.0,
+       "names_recall": 0.8214285714285714,
+       "pairs_gold": 56,
+       "pairs_predicted": 46,
+       "precision": 0.717391304347826,
+       "precision_wilson95": [
+        0.5745116426970621,
+        0.8267595845508592
+       ],
+       "recall": 0.5892857142857143,
+       "recall_wilson95": [
+        0.45877362113703657,
+        0.7083342102043715
+       ]
+      },
+      "rules": {
+       "affairs": 6,
+       "affairs_exact": 0,
+       "affairs_with_output": 2,
+       "f1": 0.0,
+       "matched": 0,
+       "names_precision": 0.0,
+       "names_recall": 0.0,
+       "pairs_gold": 56,
+       "pairs_predicted": 2,
+       "precision": 0.0,
+       "precision_wilson95": [
+        0.0,
+        0.6576280471103807
+       ],
+       "recall": 0.0,
+       "recall_wilson95": [
+        0.0,
+        0.06419614448811528
+       ]
+      }
+     }
+    }
+   },
+   "thresholds": {
+    "tau": 0.6,
+    "tau_first": 0.95
+   }
+  }
+ }
+}

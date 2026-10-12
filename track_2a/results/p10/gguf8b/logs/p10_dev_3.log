@@ -1,0 +1,53 @@
+P8-031#0 {'role_author_v2': 1.0, 'role_first': 1.0, 'role_first_v2': 1.0} 245.4s
+P8-032#0 {'role_author_v2': 1.0, 'role_first': 1.0, 'role_first_v2': 0.595} 324.1s
+P8-032#1 {'role_author_v2': 1.0, 'role_first': 0.999, 'role_first_v2': 0.06} 324.0s
+P8-033#0 {'role_author_v2': 1.0} 162.5s
+P8-033#1 {'role_author_v2': 1.0, 'role_first': 1.0, 'role_first_v2': 0.985} 475.8s
+P8-033#2 {'role_author_v2': 1.0, 'role_first': 0.992, 'role_first_v2': 0.461} 470.7s
+P8-033#3 {'role_author_v2': 1.0, 'role_first': 0.999, 'role_first_v2': 0.001} 485.5s
+P8-033#4 {'role_author_v2': 1.0, 'role_first': 0.967, 'role_first_v2': 0.005} 469.0s
+P8-033#5 {'role_author_v2': 1.0, 'role_first': 0.923, 'role_first_v2': 0.008} 470.5s
+P8-033#6 {'role_author_v2': 1.0, 'role_first': 0.85, 'role_first_v2': 0.0} 481.1s
+P8-033#7 {'role_author_v2': 1.0, 'role_first': 0.965, 'role_first_v2': 0.002} 484.3s
+P8-033#8 {'role_author_v2': 1.0, 'role_first': 0.615, 'role_first_v2': 0.002} 469.0s
+P8-033#9 {'role_author_v2': 1.0, 'role_first': 0.969, 'role_first_v2': 0.007} 477.2s
+P8-033#10 {'role_author_v2': 1.0, 'role_first': 0.979, 'role_first_v2': 0.003} 482.0s
+P8-033#11 {'role_author_v2': 0.991, 'role_first': 0.995, 'role_first_v2': 0.001} 461.7s
+P8-033#12 {'role_author_v2': 0.999, 'role_first': 0.769, 'role_first_v2': 0.012} 473.9s
+P8-033#13 {'role_author_v2': 0.989, 'role_first': 0.034, 'role_first_v2': 0.0} 488.1s
+P8-033#14 {'role_author_v2': 1.0, 'role_first': 0.814, 'role_first_v2': 0.0} 465.0s
+P8-033#15 {'role_author_v2': 1.0, 'role_first': 0.906, 'role_first_v2': 0.0} 461.2s
+P8-033#16 {'role_author_v2': 1.0, 'role_first': 0.976, 'role_first_v2': 0.001} 463.3s
+P8-033#17 {'role_author_v2': 1.0, 'role_first': 0.64, 'role_first_v2': 0.0} 472.0s
+P8-033#18 {'role_author_v2': 1.0, 'role_first': 0.873, 'role_first_v2': 0.0} 480.7s
+P8-033#19 {'role_author_v2': 1.0, 'role_first': 0.9, 'role_first_v2': 0.0} 490.7s
+P8-033#20 {'role_author_v2': 1.0, 'role_first': 0.886, 'role_first_v2': 0.0} 490.3s
+P8-033#21 {'role_author_v2': 1.0, 'role_first': 0.974, 'role_first_v2': 0.0} 498.3s
+P8-033#22 {'role_author_v2': 1.0, 'role_first': 0.961, 'role_first_v2': 0.0} 493.9s
+P8-033#23 {'role_author_v2': 1.0, 'role_first': 1.0, 'role_first_v2': 0.022} 474.0s
+P8-033#24 {'role_author_v2': 0.346, 'role_first': 0.411, 'role_first_v2': 0.0} 478.4s
+P8-033#25 {'role_author_v2': 1.0, 'role_first': 0.086, 'role_first_v2': 0.0} 478.8s
+{"label": "EXPLORATORY (after LOCK10; PREREG10 \u00a74 (d), outside the hypothesis family, not pre-registered as a test): the real Apertus v1.5 8B (GGUF Q4_K_M, llama.cpp CPU) as P10's author-role reader; frozen candidates, prompts, view and composition; scored against the committed P10 gold with eval/p10/score.py unchanged", "build": "gguf:apertus-v1.5-8b-text-q4_k_m", "split": "dev", "shard": "3/10", "assigned": 29, "scored": 29, "scored_now": 29, "requests_now": 85, "wall_s": 12991.7, "s_per_request": 152.8, "n_ctx": 8192} not scored: 0
+	Command being timed: "python -m eval.p10.run_8b features --split dev --shard 3/10"
+	User time (seconds): 51837.07
+	System time (seconds): 6.09
+	Percent of CPU this job got: 399%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 3:36:31
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9386088
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 122374
+	Voluntary context switches: 742
+	Involuntary context switches: 7884163
+	Swaps: 0
+	File system inputs: 1192
+	File system outputs: 1392
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
