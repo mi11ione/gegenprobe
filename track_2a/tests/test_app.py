@@ -58,6 +58,38 @@ def test_every_intervention_and_every_repair(built):
             assert sum(st.count(x) for x in "RBbTXFf") == c["repaired"], body["key"]
 
 
+def test_parliament_counts_are_the_queue_rows_per_action_and_step(built):
+    """The Parliaments table and a parliament's page count exactly the repair queue's rows of that parliament, per
+    action and per step; Bern's relink 2,976 = 517 agenda joins (apply now) + 2,459 relinks after the hash decision
+    (2,421 in the plan + 38 review); the plan's 554 begin_date corrections (another field) are not repairs."""
+    one = built[0]
+    core, q = _j(one / "data" / "core.json"), _j(one / "data" / "queue.json")
+    key_of = {r: b["key"] for b in core["bodies"] for r in range(b["start"], b["start"] + b["n"])}
+    acts, steps = {}, {}
+    for r, a, s in zip(q["i"], q["a"], q["step"]):
+        k = key_of[r]
+        acts.setdefault(k, {}).setdefault(core["actions"][a], 0)
+        acts[k][core["actions"][a]] += 1
+        steps.setdefault(k, {}).setdefault(s, 0)
+        steps[k][s] += 1
+    for b in core["bodies"]:
+        assert b["by_action"] == acts.get(b["key"], {}), b["key"]
+        assert b["by_step"] == steps.get(b["key"], {}), b["key"]
+        assert sum(b["by_action"].values()) == sum(b["by_step"].values()) == b["repaired"], b["key"]
+    bd = core["bound"]
+    for s in ("now", "after_hash", "fetch"):
+        assert sum(b["by_step"].get(s, 0) for b in core["bodies"]) == bd[s], s
+    assert A.queue_counts(core["bodies"], q) == {b["key"]: (b["by_action"], b["by_step"]) for b in core["bodies"]}
+    be = next(b for b in core["bodies"] if b["key"] == "BE")
+    assert be["by_action"] == {"relink": 2976, "fetch": 49} and be["repaired"] == 3025
+    assert be["by_step"] == {"now": 517, "after_hash": 2459, "fetch": 49} and be["by_code"]["R"] == 517
+    # the SQL plan: 2,975 statements = 2,421 relinks (queue rows marked p) + 554 begin_date corrections, not counted
+    plan = (SITE / "downloads" / "apply_BE_plan.sql.txt").read_text(encoding="utf-8")
+    begin = re.findall(r"^WITH u AS \(UPDATE affairs SET begin_date = ", plan, re.M)
+    assert len(begin) == 554 and "expected_rows_changed: 2975" in plan
+    assert sum(q["p"]) == 2975 - len(begin) == 2421
+
+
 def test_lookup_finds_the_example_affair(built):
     one = built[0]
     core, ix = _j(one / "data" / "core.json"), _j(one / "data" / "index.json")

@@ -8,7 +8,7 @@ Configuration: ONE file, claims_app.json (at track_2a/):
                   and `fields` equal what app/build.py computes now from the committed results (an edit of a number in
                   core.json, or a build from other results, fails); the per-parliament rows sum to the bound national
                   numbers and the index's status codes count the bound repair steps (the per-affair data agrees with
-                  the stated totals);
+                  the stated totals); each parliament's repairs by action and by step equal its repair-queue rows;
   2. bindings     [{key, claim, fmt?}]: each core.json `bound` value, rendered with fmt (default: the claim's), equals the
                   claim's value recomputed from its results file (claims.tsv);
   3. completeness every key of `bound` is bound, or listed under `unbound` with a reason: a new stated number fails until
@@ -301,6 +301,17 @@ def check(cfg: dict | None = None, rows: list[dict] | None = None, site: Path | 
         for k, v in steps.items():
             if v != b.get(k):
                 errs.append(f"app: the index counts {v:,} rows in step {k}, the stated number is {b.get(k)}")
+    qp = site / "data" / "queue.json"
+    if qp.exists() and bodies:  # the Parliaments table's per-action and per-step counts are the queue's rows
+        qc = A.queue_counts(bodies, json.loads(qp.read_text(encoding="utf-8")), core.get("actions") or A.ACTIONS)
+        for x in bodies:
+            if (x.get("by_action"), x.get("by_step")) != qc[x["key"]]:
+                errs.append(f"app: {x['key']} counts repairs {x.get('by_action')} / {x.get('by_step')}, "
+                            f"its repair-queue rows {qc[x['key']][0]} / {qc[x['key']][1]}")
+        for k in A.STEPS:
+            s = sum((x.get("by_step") or {}).get(k, 0) for x in bodies)
+            if s != b.get(k):
+                errs.append(f"app: the parliaments' step {k} sums to {s:,}, the stated number is {b.get(k)}")
 
     # 2. bindings + 3. completeness
     by_id = {r["id"]: r for r in rows}

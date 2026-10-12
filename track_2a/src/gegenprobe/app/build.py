@@ -89,6 +89,7 @@ EXTRA_TIERS = {
     "identity_wording_only": "identity + wording only (no date check; not counted)",
 }
 STEP = {"R": "now", "T": "now", "X": "now", "B": "after_hash", "b": "after_hash", "F": "fetch", "f": "fetch"}
+STEPS = ("now", "after_hash", "fetch")  # the queue's steps; Bern's begin_date corrections (another field) are not repairs
 STOP = set("""der die das und oder des dem den ein eine einer eines einem zum zur von vom mit fur fuer auf aus bei
 nach uber ueber unter zu im in an am als auch wie was wer wo nicht ist sind wird werden wurde hat haben kann konnen
 les le la des du de et ou en au aux un une sur pour par dans avec sans sous que qui quoi est sont dont
@@ -473,6 +474,7 @@ def assemble() -> dict:
         census = [x for x in rs if x["code"] != "n"]
         c = collections.Counter(x["code"] for x in census)
         acts = collections.Counter(x["fix"]["a"] for x in census if x["fix"])
+        steps = collections.Counter(STEP[x["code"]] for x in census if x["fix"])
         written = len(census)
         attached = c["a"]
         repaired = sum(1 for x in census if x["fix"])
@@ -483,9 +485,11 @@ def assemble() -> dict:
             written=written, attached=attached, oral=c["o"], gap=written - attached, repaired=repaired,
             review_rows=sum(1 for x in census if (x["fix"] or {}).get("r")), candidates=c["V"],
             open=c["I"] + c["M"] + c["V"], by_action={a: acts[a] for a in ACTIONS if acts[a]},
+            by_step={k: steps[k] for k in STEPS if steps[k]},
             by_code={kk: v for kk, v in sorted(c.items())},
             lists=_lists_of(k, census)))
     _assert_layer(bodies)
+    _assert_queue(bodies, queue)
 
     return dict(core=core(bodies, types, rows, recs, len(shards), queue), index=index, tokens=tokens_out,
                 shards=shards, names=names, records=recs, queue=queue)
@@ -533,6 +537,28 @@ def _assert_layer(bodies: list[dict]) -> None:
                                                                             c["repaired"]), (b["key"], b, c)
     nat = corr["national"]["all"]
     assert sum(b["written"] for b in bodies) == nat["written"] and sum(b["repaired"] for b in bodies) == nat["repaired"]
+
+
+def queue_counts(bodies: list[dict], queue: dict, actions=ACTIONS) -> dict[str, tuple[dict, dict]]:
+    """Body key -> ({action: n}, {step: n}) counted from the repair queue's rows (zero counts left out)."""
+    key_of = {}
+    for b in bodies:
+        key_of.update(dict.fromkeys(range(b["start"], b["start"] + b["n"]), b["key"]))
+    acts, steps = collections.Counter(), collections.Counter()
+    for r, a, s in zip(queue.get("i", []), queue.get("a", []), queue.get("step", [])):
+        acts[key_of[r], actions[a]] += 1
+        steps[key_of[r], s] += 1
+    return {b["key"]: ({a: acts[b["key"], a] for a in actions if acts[b["key"], a]},
+                       {s: steps[b["key"], s] for s in STEPS if steps[b["key"], s]}) for b in bodies}
+
+
+def _assert_queue(bodies: list[dict], queue: dict) -> None:
+    """Each parliament's repairs by action and by step (the Parliaments table, a parliament's page) are exactly the repair
+    queue's rows of that parliament; nothing else (e.g. Bern's begin_date corrections) is counted as a repair."""
+    qc = queue_counts(bodies, queue)
+    for b in bodies:
+        assert (b["by_action"], b["by_step"]) == qc[b["key"]], (b["key"], b["by_action"], b["by_step"], qc[b["key"]])
+        assert sum(b["by_action"].values()) == sum(b["by_step"].values()) == b["repaired"], b["key"]
 
 
 # ------------------------------------------------------------------------------------------------ core + About

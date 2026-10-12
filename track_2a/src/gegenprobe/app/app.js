@@ -247,7 +247,11 @@
     let group = 'all';
     let current = null;
     let seq = 0;
+    let ctx = null;          // with an affair open: the rows of its parliament and year (the list without a query)
+    let ctxKey = '';
+    let reveal = false;      // the next list render scrolls the open affair into view
     const PAGE = 60;
+    const SHORT = 8;         // a result list shorter than this is followed by the open affair's parliament and year
     const input = () => $('#q');
 
     function init() {
@@ -279,7 +283,7 @@
       });
       $('#results').addEventListener('click', (e) => {
         const b = e.target.closest('[data-more]');
-        if (b) { shown += PAGE; renderList(); }
+        if (b) { shown += PAGE; renderList(true); }
         const ex = e.target.closest('[data-q]');
         if (ex) { e.preventDefault(); input().value = ex.dataset.q; run(ex.dataset.q); }
       });
@@ -295,6 +299,7 @@
       titleWords = fold(text).split(/[^a-z0-9]+/).filter((w) => w.length >= 3 && !/^\d+$/.test(w));
       const params = { q: text };
       setQuery(params);
+      if (!text.trim()) reveal = true;  // back to the open affair's parliament and year: show the affair
       renderList();
     }
 
@@ -315,22 +320,65 @@
       return out.sort((a, b) => (a[1] - b[1]) || (I.yr[b[0]] - I.yr[a[0]])).slice(0, 8).map((x) => x[0]);
     }
 
-    function filtered() {
+    function filtered(rows) {
       const g = GROUPS[group];
-      return g ? hits.filter((r) => g.includes(I.st[r])) : hits;
+      return g ? rows.filter((r) => g.includes(I.st[r])) : rows;
     }
 
-    function counts() {
+    function counts(rows) {
       const c = {};
-      Object.entries(GROUPS).forEach(([k, g]) => { c[k] = g ? hits.filter((r) => g.includes(I.st[r])).length : hits.length; });
+      Object.entries(GROUPS).forEach(([k, g]) => { c[k] = g ? rows.filter((r) => g.includes(I.st[r])).length : rows.length; });
       return c;
     }
 
-    async function renderList() {
+    // the open affair's parliament and year: what the list shows when there is no query (a permalink, a Try link)
+    function setCtx(id) {
+      const r = id == null ? undefined : byId.get(id);
+      if (r === undefined) { const was = ctxKey; ctx = null; ctxKey = ''; return was !== ''; }
+      const bi = rowBody[r];
+      const key = bi + ':' + I.yr[r];
+      if (key === ctxKey) return false;
+      const b = C.bodies[bi];
+      ctx = [];
+      for (let k = b.start; k < b.start + b.n; k++) if (I.yr[k] === I.yr[r]) ctx.push(k);
+      ctx.b = b;
+      ctx.y = I.yr[r];
+      ctxKey = key;
+      return true;
+    }
+    const ctxName = () => bodyName(ctx.b) + (ctx.y ? ' · ' + ctx.y : ' · year unknown');
+    const ctxMore = () => html`<a href="#/parliament/${ctx.b.key}?f=all">all of ${bodyName(ctx.b)} →</a>`;
+    const shortList = () => q.trim() && current != null && ctx && filtered(hits).length < SHORT;
+
+    const item = (r) => {
+      const b = C.bodies[rowBody[r]];
+      const t = titleNow(r);
+      return html`<li><a href="#/affair/${I.id[r]}${q ? '?q=' + encodeURIComponent(q) : ''}" aria-current="${I.id[r] === current}">
+        <span class="no">${I.num[r]}</span>${statusHTML(I.st[r])}
+        <span class="t${t == null ? ' pending' : ''}" data-row="${r}">${t == null ? '…' : (t || '(no title in OPD)')}</span>
+        <span class="meta">${bodyName(b)} · ${I.yr[r] || ''} · ${C.types[I.ty[r]] || ''} · OPD ${I.id[r]}</span></a></li>`;
+    };
+    async function fillTitles(box, rows) {
+      await titlesFor(rows);
+      $$('.rlist .t.pending', box).forEach((el) => {
+        const t = titleNow(Number(el.dataset.row));
+        if (t != null) { el.textContent = t || '(no title in OPD)'; el.classList.remove('pending'); }
+      });
+    }
+
+    function layout() {
+      const split = $('.split');
+      const browse = !q.trim();
+      split.classList.toggle('idle', browse && current == null);
+      split.classList.toggle('solo', browse && current != null && !ctx);  // nothing to list: the affair takes the width
+      split.classList.toggle('ctx', browse && current != null && !!ctx);  // narrow screens: the list follows the affair
+    }
+
+    async function renderList(keep) {  // keep: leave the list's scroll position (Show more)
       const box = $('#results');
       const seg = $('#qstatus');
-      $('.split').classList.toggle('idle', !q.trim() && current == null);
-      if (!q.trim()) {
+      layout();
+      if (!q.trim() && !ctx) {
         $$('button', seg).forEach((b) => { b.innerHTML = esc(b.dataset.g); });
         const bd = C.bound;
         box.innerHTML = String(html`<div class="empty" data-claims="lookup">
@@ -339,42 +387,50 @@
           <p class="muted">Press / to search from anywhere.</p></div>`);
         return;
       }
-      const c = counts();
+      const browse = !q.trim();
+      const base = browse ? ctx : hits;
+      const c = counts(base);
       $$('button', seg).forEach((b) => { b.innerHTML = String(html`${b.dataset.g}<span class="c">${fmt(c[b.dataset.g])}</span>`); });
-      const list = filtered();
+      const list = filtered(base);
+      // without a query the open affair's parliament and year are listed, far enough down to include the affair
+      const at = browse && current != null ? list.indexOf(byId.get(current)) : -1;
+      if (at >= shown) shown = Math.ceil((at + 1 + PAGE / 3) / PAGE) * PAGE;
       const page = list.slice(0, shown);
+      const extra = shortList() ? filtered(ctx).filter((r) => !list.includes(r)).slice(0, PAGE) : [];
+      const tail = extra.length ? html`<div class="rcount rsub"><span>Also in ${ctxName()}</span><span>${ctxMore()}</span></div>
+        <ul class="rlist">${extra.map(item)}</ul>` : '';
+      const more = page.length < list.length ? html`<div class="more"><button class="btn" type="button" data-more>Show more</button></div>` : '';
       if (!list.length) {
-        const near = group === 'all' ? nearNumbers(q) : [];
-        box.innerHTML = String(html`<div class="empty"><p>No match for “${q}”${group !== 'all' ? ' in ' + group : ''}.</p>
+        const near = !browse && group === 'all' ? nearNumbers(q) : [];
+        box.innerHTML = String(html`<div class="empty"><p>No match for “${browse ? ctxName() : q}”${group !== 'all' ? ' in ' + group : ''}.</p>
           ${near.length ? html`<p>Close numbers: ${near.map((r, i) => html`${i ? ' · ' : ''}<a href="#/affair/${I.id[r]}">${I.num[r]}</a> <span class="muted">${bodyName(C.bodies[rowBody[r]])}</span>`)}</p>` : ''}
-          <p class="muted">Numbers match anywhere in the affair number; words match the start of title words or a parliament's name.</p></div>`);
+          <p class="muted">Numbers match anywhere in the affair number; words match the start of title words or a parliament's name.</p></div>${tail}`);
+        box.scrollTop = 0;
+        reveal = false;
+        await fillTitles(box, extra);
         return;
       }
-      const item = (r) => {
-        const b = C.bodies[rowBody[r]];
-        const t = titleNow(r);
-        return html`<li><a href="#/affair/${I.id[r]}${q ? '?q=' + encodeURIComponent(q) : ''}" aria-current="${I.id[r] === current}">
-          <span class="no">${I.num[r]}</span>${statusHTML(I.st[r])}
-          <span class="t${t == null ? ' pending' : ''}" data-row="${r}">${t == null ? '…' : (t || '(no title in OPD)')}</span>
-          <span class="meta">${bodyName(b)} · ${I.yr[r] || ''} · ${C.types[I.ty[r]] || ''} · OPD ${I.id[r]}</span></a></li>`;
-      };
-      box.innerHTML = String(html`<div class="rcount"><span>${fmt(list.length)} match${list.length === 1 ? '' : 'es'}</span><span>${page.length < list.length ? 'showing ' + fmt(page.length) : ''}</span></div>
-        <ul class="rlist">${page.map(item)}</ul>
-        ${page.length < list.length ? html`<div class="more"><button class="btn" type="button" data-more>Show more</button></div>` : ''}`);
-      await titlesFor(page);
-      $$('.rlist .t.pending', box).forEach((el) => {
-        const t = titleNow(Number(el.dataset.row));
-        if (t != null) { el.textContent = t || '(no title in OPD)'; el.classList.remove('pending'); }
-      });
+      const head = browse
+        ? html`<div class="rcount"><span>${ctxName()}: ${fmt(list.length)} affair${list.length === 1 ? '' : 's'}</span><span>${ctxMore()}</span></div>`
+        : html`<div class="rcount"><span>${fmt(list.length)} match${list.length === 1 ? '' : 'es'}</span><span>${page.length < list.length ? 'showing ' + fmt(page.length) : ''}</span></div>`;
+      box.innerHTML = String(html`${head}<ul class="rlist">${page.map(item)}</ul>${more}${tail}`);
+      const on = $('.rlist a[aria-current="true"]', box);
+      if (on && browse && reveal) box.scrollTop = Math.max(0, on.offsetTop - box.clientHeight / 3);
+      else if (!keep) box.scrollTop = 0;
+      reveal = false;
+      await fillTitles(box, page.concat(extra));
     }
 
     let first = true;
     async function show(id, qs) {
-      if (qs !== q) { input().value = qs; await run(qs); } else if (first) renderList();
-      first = false;
+      const wasShort = shortList();
       current = id;
+      const moved = setCtx(id);
+      reveal = moved || first;
+      if (qs !== q) { input().value = qs; await run(qs); } else if (first || (moved && !q.trim()) || shortList() !== wasShort || (moved && shortList())) renderList();
+      first = false;
       $('.split').classList.toggle('has-detail', id != null);
-      $('.split').classList.toggle('idle', !q.trim() && id == null);
+      layout();
       $$('#results .rlist a').forEach((a) => a.setAttribute('aria-current', String(a.getAttribute('href').startsWith('#/affair/' + id + '?') || a.getAttribute('href') === '#/affair/' + id)));
       const box = $('#detail');
       if (id == null) {
@@ -489,7 +545,7 @@
         ['OPD id', String(I.id[r])],
       ];
       const back = q ? '#/?q=' + encodeURIComponent(q) : '#/';
-      return html`<a class="backlink only-mobile" href="${back}">← Results</a>
+      return html`<a class="backlink only-mobile" href="${back}">← ${q ? 'Results' : 'Search'}</a>
         <div class="dhead"><b>${I.num[r]}</b><span>${b.name}</span><span>${I.yr[r] || ''}</span>
           <span class="perma"><button class="btn" type="button" data-copy="#/affair/${I.id[r]}" title="Copy a link to this affair">Copy link</button></span></div>
         <h1 class="dtitle">${main ? main[1] : '(no title in OPD)'}</h1>
@@ -596,12 +652,14 @@
   const Parliaments = (() => {
     const COLS = [
       ['name', 'Parliament', 'l sticky'], ['level', 'Level', 'l hm'], ['lang', 'Lang', 'l hm'], ['written', 'Answers'], ['today', 'Today'], ['after', 'After repairs'],
-      ['gap', 'Gap'], ['oral', 'Oral'], ['repaired', 'Repairs'], ['relink', 'Relink'], ['tag', 'Tag'], ['extract', 'Extract'], ['fetch', 'Fetch'], ['open', 'Open'],
-      ['converter', 'Converter', 'l'],
+      ['gap', 'Gap'], ['oral', 'Oral'], ['repaired', 'Repairs', '', 'Relink + tag + extract + fetch: the parliament\u2019s rows in the repair queue'],
+      ['relink', 'Relink'], ['hash', 'After hash', '', 'Of the relinks: Bern\u2019s, which wait for OPD\u2019s hash decision (the others are agenda joins, applied now)'],
+      ['tag', 'Tag'], ['extract', 'Extract'], ['fetch', 'Fetch'], ['open', 'Open'], ['converter', 'Converter', 'l'],
     ];
     const val = (b, k) => ({
       today: b.written ? b.attached / b.written : 0, after: b.written ? (b.attached + b.repaired) / b.written : 0,
       relink: b.by_action.relink || 0, tag: b.by_action.tag || 0, extract: b.by_action.extract || 0, fetch: b.by_action.fetch || 0,
+      hash: b.by_step.after_hash || 0,
     }[k] ?? b[k]);
     let st = { level: 'all', lang: 'all', sort: 'gap', dir: 'desc', text: '' };
 
@@ -646,10 +704,11 @@
           <div><label class="lbl" for="ptext">Name</label><input id="ptext" type="text" value="${st.text}" placeholder="Filter"></div>
         </div>
         <p class="hint">Today: answer text attached in OPD. After repairs: plus every proposed repair. Gap = answers without attached text = oral + repairs + open. Open = still without text after the repairs. A row opens the parliament.</p>
-        <div class="tablewrap"><table class="dense"><thead><tr>${COLS.map(([k, label, cls]) => html`<th class="${cls || ''}" ${st.sort === k ? raw('aria-sort="' + (st.dir === 'asc' ? 'ascending' : 'descending') + '"') : ''}><button type="button" data-sort="${k}">${label}</button></th>`)}</tr></thead>
+        <p class="hint">Repairs = relink + tag + extract + fetch: exactly the parliament's rows in the <a href="#/queue">repair queue</a>. After hash: the relinks among them that wait for OPD's hash decision (Bern); the other relinks are agenda joins, applied now. Bern's begin-date corrections in the dry-run plan fix another field and are not counted.</p>
+        <div class="tablewrap"><table class="dense"><thead><tr>${COLS.map(([k, label, cls, tip]) => html`<th class="${cls || ''}" ${tip ? raw('title="' + esc(tip) + '"') : ''} ${st.sort === k ? raw('aria-sort="' + (st.dir === 'asc' ? 'ascending' : 'descending') + '"') : ''}><button type="button" data-sort="${k}">${label}</button></th>`)}</tr></thead>
           <tbody>${list.map((b) => html`<tr class="go" tabindex="0" data-key="${b.key}">${COLS.map(([k]) => cell(b, k))}</tr>`)}</tbody>
           <tfoot><tr><td class="l sticky">${list.length} parliament${list.length === 1 ? '' : 's'}</td><td class="hm"></td><td class="hm"></td><td>${fmt(tot.written)}</td><td>${share(tot.attached, tot.written)}</td>
-            <td>${share(tot.attached + tot.repaired, tot.written)}</td><td>${fmt(sum('gap'))}</td><td>${fmt(sum('oral'))}</td><td>${fmt(tot.repaired)}</td><td>${fmt(sum('relink'))}</td><td>${fmt(sum('tag'))}</td>
+            <td>${share(tot.attached + tot.repaired, tot.written)}</td><td>${fmt(sum('gap'))}</td><td>${fmt(sum('oral'))}</td><td>${fmt(tot.repaired)}</td><td>${fmt(sum('relink'))}</td><td>${fmt(sum('hash'))}</td><td>${fmt(sum('tag'))}</td>
             <td>${fmt(sum('extract'))}</td><td>${fmt(sum('fetch'))}</td><td>${fmt(sum('open'))}</td><td></td></tr></tfoot></table></div>`);
       const upd = (patch) => { Object.assign(st, patch); setQuery({ level: st.level === 'all' ? '' : st.level, lang: st.lang === 'all' ? '' : st.lang, sort: st.sort === 'gap' ? '' : st.sort, dir: st.dir === 'desc' ? '' : st.dir, text: st.text }); render(); };
       $$('.seg', box).forEach((seg) => seg.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) upd({ [seg.dataset.k]: b.dataset.v }); }));
@@ -703,14 +762,17 @@
       page = Math.min(page, pages - 1);
       const slice = list.slice(page * PAGE, page * PAGE + PAGE);
       const cnt = (f) => { const g = FILTERS[f]; let n = 0; for (let r = b.start; r < b.start + b.n; r++) if (I.st[r] !== 'n' && (!g || g.includes(I.st[r]))) n++; return n; };
-      const acts = C.actions.filter((a) => b.by_action[a]).map((a) => a + ' ' + fmt(b.by_action[a])).join(' · ');
+      const hashN = b.by_step.after_hash || 0;
+      const acts = C.actions.filter((a) => b.by_action[a]).map((a) => a + ' ' + fmt(b.by_action[a])
+        + (a === 'relink' && hashN ? ': ' + (b.by_action.relink > hashN ? fmt(b.by_action.relink - hashN) + ' now, ' : '') + fmt(hashN) + ' after the hash decision' : '')).join(' · ');
       box.innerHTML = String(html`<a class="backlink" href="#/parliaments">← Parliaments</a>
         <div class="phead"><h1>${b.name}</h1><span class="k">${b.key} · ${b.level} · ${b.lang} · converter: ${b.converter}${b.date_trust ? ' · answer dates: ' + b.date_trust.replace(/_/g, ' ') : ''}</span></div>
         <div class="factline"><span><b>${fmt(b.written)}</b> answers</span><span><b>${share(b.attached, b.written)}</b> with text today</span>
           <span><b>${share(b.attached + b.repaired, b.written)}</b> after repairs</span><span>gap <b>${fmt(b.gap)}</b></span>
           <span>repairs <b>${fmt(b.repaired)}</b>${acts ? ' (' + acts + ')' : ''}</span><span>oral <b>${fmt(b.oral)}</b></span><span>open <b>${fmt(b.open)}</b></span></div>
         <div class="bigbar">${covBar(b)}<div class="legend"><span><i class="t0"></i>text attached</span><span><i class="t1"></i>after the proposed repairs</span><span><i class="bg"></i>open or oral</span></div></div>
-        ${b.by_code.B || b.by_code.b ? html`<p class="hint">${HASH_LINE}</p>` : ''}
+        ${b.by_code.B || b.by_code.b ? html`<p class="hint">${HASH_LINE} The plan's begin-date corrections (OPD's load timestamp replaced by the submission date) fix another field and are not counted as repairs.</p>` : ''}
+        ${b.repaired ? html`<p class="hint"><a href="#/queue?b=${encodeURIComponent(b.key)}">This parliament's repairs in the repair queue</a></p>` : ''}
         <h2>Lists for this parliament</h2>
         <ul class="files">${b.lists.map((f) => html`<li><a href="${docLink(f)}">${f.split('/').pop()}</a>${docLink(f).startsWith('http') ? html` <span class="muted">(repository)</span>` : ''}</li>`)}
           <li><button class="btn" type="button" id="pexport">Export these rows (CSV)</button> <span class="muted">the rows of the filter below, with status and repair</span></li></ul>
