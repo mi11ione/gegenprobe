@@ -204,7 +204,7 @@ def test_app_repair_count_edit_fails(app_base, rows, tmp_path):
 def test_app_number_written_by_the_script_fails(app_base, rows, tmp_path):
     from gegenprobe.app.build import APP
     js = (APP / "app.js").read_text(encoding="utf-8")
-    t = js.replace("<p class=\"lede\">Gegenprobe checks every", "<p class=\"lede\">95.3% of the time Gegenprobe checks every", 1)
+    t = js.replace("<dt>Scope</dt><dd>", "<dt>Scope</dt><dd>95.3% of ", 1)
     assert t != js
     errs = _app_new(app_base, rows, tmp_path, sources={"app.js": t})
     assert any("95.3%" in e for e in errs), errs

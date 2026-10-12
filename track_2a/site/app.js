@@ -121,16 +121,18 @@
   };
 
   // status code -> [class, marker, short label]
-  const HASH_LINE = 'Hash decision: OPD\u2019s document hash is sha256(body key + parent type + URL), so a relink changes the hash and the files.openparldata.ch address. OPD decides whether a relinked document keeps its old identifier or takes the new one; the dry-run plan writes the new one.';
+  const HASH_LINE = 'OPD\u2019s document hash is sha256(body key + parent type + URL): a relink changes the hash and the files.openparldata.ch address. OPD decides whether a relinked document keeps its old identifier; the dry-run plan writes the new one.';
+  // an explanation folded behind a [?] toggle (details/summary: keyboard and screen-reader accessible)
+  const why = (label, body, cls) => html`<details class="q${cls ? ' ' + cls : ''}"><summary>[?]${label ? ' ' + label : ''}</summary><div>${body}</div></details>`;
   const TIER = { agenda_join: 'agenda join', be_verified: 'Bern: verified', be_review: 'Bern: check failed', be_fetch: 'Bern: verified',
     curia: 'Curia Vista', exact_doc_date: 'document date', exact_any_printed_date: 'printed date', date_window: 'date window',
     review: 'review', identity_wording_only: 'wording only' };
   const tierShort = (t) => TIER[t] || String(t || '').replace(/_/g, ' ');
   const ST = {
     a: ['attached', '[x]', 'attached'], o: ['oral', '[o]', 'oral answer'],
-    R: ['repair', '[>]', 'relink'], B: ['repair', '[>]', 'relink · hash decision'], b: ['review', '[?]', 'relink · review'],
-    T: ['repair', '[>]', 'tag'], X: ['repair', '[>]', 'extract'], F: ['repair', '[>]', 'fetch'], f: ['review', '[?]', 'fetch · review'],
-    V: ['review', '[?]', 'review candidate'], I: ['missing', '[!]', 'missing · scan'], M: ['missing', '[!]', 'missing'],
+    R: ['repair', '[→]', 'relink'], B: ['repair', '[→]', 'relink · hash decision'], b: ['review', '[ ]', 'relink · review'],
+    T: ['repair', '[→]', 'tag'], X: ['repair', '[→]', 'extract'], F: ['repair', '[→]', 'fetch'], f: ['review', '[ ]', 'fetch · review'],
+    V: ['review', '[ ]', 'review candidate'], I: ['missing', '[!]', 'missing · scan'], M: ['missing', '[!]', 'missing'],
     n: ['outside', '[-]', 'record only (no recorded answer)'],
   };
   // one partition of the statuses, the same in Lookup and on a parliament's page; 'n' (an affair outside the census,
@@ -381,10 +383,9 @@
       if (!q.trim() && !ctx) {
         $$('button', seg).forEach((b) => { b.innerHTML = esc(b.dataset.g); });
         const bd = C.bound;
-        box.innerHTML = String(html`<div class="empty" data-claims="lookup">
-          <p>${fmt(bd.written)} interventions with a recorded government answer in OpenParlData; ${fmt(bd.repaired)} have a proposed repair.</p>
-          <p>Try <a href="#" data-q="2021.RRGR.388">2021.RRGR.388</a> · <a href="#" data-q="Bern 39369">Bern 39369</a> · <a href="#" data-q="Grundwasser">Grundwasser</a> · <a href="#" data-q="Lugano">Lugano</a></p>
-          <p class="muted">Press / to search from anywhere.</p></div>`);
+        box.innerHTML = String(html`<div class="idle-line" data-claims="lookup">
+          <span title="Interventions with a recorded government answer in OpenParlData"><b>${fmt(bd.written)}</b> interventions · <b>${fmt(bd.repaired)}</b> with a proposed repair</span>
+          <span class="ex"><span>Try</span><a href="#" data-q="2021.RRGR.388">2021.RRGR.388</a><a href="#" data-q="Bern 39369">Bern 39369</a><a href="#" data-q="Grundwasser">Grundwasser</a><a href="#" data-q="Lugano">Lugano</a></span></div>`);
         return;
       }
       const browse = !q.trim();
@@ -404,7 +405,7 @@
         const near = !browse && group === 'all' ? nearNumbers(q) : [];
         box.innerHTML = String(html`<div class="empty"><p>No match for “${browse ? ctxName() : q}”${group !== 'all' ? ' in ' + group : ''}.</p>
           ${near.length ? html`<p>Close numbers: ${near.map((r, i) => html`${i ? ' · ' : ''}<a href="#/affair/${I.id[r]}">${I.num[r]}</a> <span class="muted">${bodyName(C.bodies[rowBody[r]])}</span>`)}</p>` : ''}
-          <p class="muted">Numbers match anywhere in the affair number; words match the start of title words or a parliament's name.</p></div>${tail}`);
+          ${why('Matching', 'Numbers match anywhere in the affair number; words match the start of title words or a parliament\u2019s name.')}</div>${tail}`);
         box.scrollTop = 0;
         reveal = false;
         await fillTitles(box, extra);
@@ -434,7 +435,7 @@
       $$('#results .rlist a').forEach((a) => a.setAttribute('aria-current', String(a.getAttribute('href').startsWith('#/affair/' + id + '?') || a.getAttribute('href') === '#/affair/' + id)));
       const box = $('#detail');
       if (id == null) {
-        box.innerHTML = String(html`<p class="hint">Select an affair to see where its answer is, the proposed fix, and the record if there is one.</p>`);
+        box.innerHTML = '<p class="hint">[←] Select an affair</p>';
         if (document.activeElement === document.body || !document.activeElement) input().focus();
         return;
       }
@@ -463,17 +464,17 @@
       const doc = f.d ? html`document <b>${f.d}</b>` : '';
       const title = f.x ? html` (“${f.x}”)` : '';
       switch (code) {
-        case 'a': return html`<p>OPD has the answer text attached to this affair.</p>`;
-        case 'o': return html`<p>Answered orally in the sitting. No written text is expected.</p>`;
-        case 'R': return html`<p>In OPD, filed under an agenda item that points to this affair: ${doc}${title}${f.n ? ', ' + f.n : ''}.</p>`;
-        case 'B': case 'b': return html`<p>In OPD without a parent: ${doc}${title}. The canton's open data name it as this affair's answer.</p>`;
-        case 'T': return html`<p>In OPD on this affair, under a heading the census does not recognise as an answer: ${doc}${title}.</p>`;
-        case 'X': return html`<p>In OPD as a copy without usable text: ${doc}${title}. Its text was read${f.ex ? ' (' + f.ex + ')' : ''} and checked against the affair.</p>`;
-        case 'F': case 'f': return html`<p>Not in OPD. The ${f.s === 'curia' ? 'federal parliament (Curia Vista)' : 'parliament'} publishes it${f.u ? html`: <a href="${f.u}">${hostOf(f.u)}</a>` : ''}${title}.</p>`;
-        case 'V': return html`<p>A candidate was found but is not counted${f.d ? html`: ${doc}` : f.u ? html`: <a href="${f.u}">${hostOf(f.u)}</a>` : ''}${title}.</p>`;
-        case 'I': return html`<p>In OPD only as a scan without text. No verified copy found yet.</p>`;
-        case 'M': return html`<p>Not in OPD. ${d.flags & 4 ? 'A source adapter looked and found nothing usable.' : 'No list or source adapter has found it yet.'}</p>`;
-        default: return html`<p>This affair has no recorded government answer in OPD; it is outside the census and shown for its v0.2 record.</p>`;
+        case 'a': return html`<p>Attached in OPD.</p>`;
+        case 'o': return html`<p>Oral, in the sitting. No written text.</p>`;
+        case 'R': return html`<p>In OPD under an agenda item for this affair: ${doc}${title}${f.n ? ', ' + f.n : ''}.</p>`;
+        case 'B': case 'b': return html`<p>In OPD without a parent: ${doc}${title}. Named as this answer by the canton's open data.</p>`;
+        case 'T': return html`<p>In OPD on this affair, under an unrecognised heading: ${doc}${title}.</p>`;
+        case 'X': return html`<p>In OPD as a copy without usable text: ${doc}${title}. Text read${f.ex ? ' (' + f.ex + ')' : ''} and checked.</p>`;
+        case 'F': case 'f': return html`<p>Not in OPD. Published by the ${f.s === 'curia' ? 'federal parliament (Curia Vista)' : 'parliament'}${f.u ? html`: <a href="${f.u}">${hostOf(f.u)}</a>` : ''}${title}.</p>`;
+        case 'V': return html`<p>Candidate, not counted${f.d ? html`: ${doc}` : f.u ? html`: <a href="${f.u}">${hostOf(f.u)}</a>` : ''}${title}.</p>`;
+        case 'I': return html`<p>In OPD only as a scan without text. No verified copy yet.</p>`;
+        case 'M': return html`<p>Not in OPD. ${d.flags & 4 ? 'A source adapter found nothing usable.' : 'No list or source adapter has it yet.'}</p>`;
+        default: return html`<p>No recorded answer in OPD: outside the census, shown for its v0.2 record.</p>`;
       }
     }
     const hostOf = (u) => { try { return new URL(u).host; } catch (e) { return u; } };
@@ -503,22 +504,21 @@
       const step = { R: 'apply now', T: 'apply now', X: 'apply now', B: 'after OPD’s hash decision', b: 'after review and the hash decision', F: 'fetch', f: 'after review' }[code];
       let what = '';
       switch (code) {
-        case 'R': what = html`Attach document ${f.d} to affair ${id}. Nothing to decide.`; break;
+        case 'R': what = html`Attach document ${f.d} to affair ${id}.`; break;
         case 'B': case 'b': what = html`Move document ${f.d} from its agenda parent to affair ${id}.`; break;
-        case 'T': what = html`Set the category of document ${f.d}${f.c ? ' to ' + f.c : ''}. Nothing to decide, nothing to fetch.`; break;
-        case 'X': what = html`Store the verified text of document ${f.d}${f.c ? ' and set its category to ' + f.c : ''}.`; break;
-        case 'F': case 'f': what = html`Fetch the parliament's document, attach it to affair ${id}${f.c ? ', category ' + f.c : ''}.`; break;
+        case 'T': what = html`Set the category of document ${f.d}${f.c ? ' to ' + f.c : ''}.`; break;
+        case 'X': what = html`Store the verified text of document ${f.d}${f.c ? ', category ' + f.c : ''}.`; break;
+        case 'F': case 'f': what = html`Fetch the parliament's document; attach it to affair ${id}${f.c ? ', category ' + f.c : ''}.`; break;
         case 'V': what = html`Nothing is applied until a person confirms the candidate.`; break;
         default: return '';
       }
       const decide = [];
       if (f.h) {
-        decide.push(html`<div class="decide"><b>OPD decides:</b> the hash rule for relinked documents. OPD's document hash is sha256(body key + parent type + URL), so moving
-          the document changes its hash and its files.openparldata.ch address unless OPD keeps the old identifier.
-          ${f.p ? html`<br><span class="mono muted">plan row: hash ${String(f.hb).slice(0, 12)}… → ${String(f.ha).slice(0, 12)}… (guarded UPDATE in <a href="${C.bern_plan}">apply_BE_plan.sql.txt</a>)</span>` : html`<br><span class="mono muted">not in the dry-run plan: the plan holds the verified relinks only</span>`}</div>`);
+        decide.push(html`<div class="decide">${f.p ? html`<div class="plan">plan row: hash ${String(f.hb).slice(0, 12)}… → ${String(f.ha).slice(0, 12)}… · <a href="${C.bern_plan}">apply_BE_plan.sql.txt</a></div>` : html`<div class="plan">not in the dry-run plan (verified relinks only)</div>`}
+          ${why('Hash decision', HASH_LINE)}</div>`);
       }
-      if (f.r || code === 'V') decide.push(html`<div class="decide"><b>Review:</b> ${f.rr || tierText(f.t)}</div>`);
-      return html`<p><b class="mono">${(f.a || '').toUpperCase()}</b>${step ? html` <span class="mono muted">· ${step}</span>` : ''}</p><p>${what}</p>${decide}`;
+      if (f.r || code === 'V') decide.push(html`<div class="decide">[ ] review: ${f.rr || tierText(f.t)}</div>`);
+      return html`<p class="act"><b>[→] ${(f.a || '').toUpperCase()}</b>${step ? html` <span class="muted">· ${step}</span>` : ''}</p><p>${what}</p>${decide}`;
     }
 
     function render(r, d, q) {
@@ -538,9 +538,9 @@
       const facts = [
         ['Parliament', html`<a href="#/parliament/${b.key}">${b.name}</a>`],
         ['Type', (C.types[I.ty[r]] || '') + (d.typeRaw && d.typeRaw !== C.types[I.ty[r]] ? ' (' + d.typeRaw + ')' : '')],
-        ['Submitted', d.flags & 1 ? 'unknown (OPD’s begin date is its load timestamp)' : ddmmyyyy(d.sub) + (d.subSrc === 'begin_date' ? ' (begin date)' : '')],
-        ['Answered (OPD event)', ddmmyyyy(d.ans)],
-        ['Census link status', d.link ? d.link.replace(/_/g, ' ') + (d.link === 'absent' ? ' (no answer document found)' : '') : ''],
+        ['Submitted', d.flags & 1 ? html`<abbr title="OPD’s begin date is its load timestamp">unknown</abbr>` : d.subSrc === 'begin_date' ? html`<abbr title="OPD begin date">${ddmmyyyy(d.sub)}</abbr>` : ddmmyyyy(d.sub)],
+        [raw('<abbr title="OPD answer event">Answered</abbr>'), ddmmyyyy(d.ans)],
+        ['Link status', d.link ? (d.link === 'absent' ? html`<abbr title="no answer document found">absent</abbr>` : d.link.replace(/_/g, ' ')) : ''],
         ['Date trust', b.date_trust ? b.date_trust.replace(/_/g, ' ') : ''],
         ['OPD id', String(I.id[r])],
       ];
@@ -551,13 +551,12 @@
         <h1 class="dtitle">${main ? main[1] : '(no title in OPD)'}</h1>
         ${titles.slice(1).map(([lg, t]) => html`<p class="alt"><span class="lg">${lg.toUpperCase()}</span>${t}</p>`)}
         <div class="status ${s[0]}">${s[1]} ${statusLine}${sub ? html`<span class="s2">${sub}</span>` : ''}</div>
-        <div class="kv">${facts.filter((x) => x[1]).map(([k, v]) => html`<div><span class="lbl">${k}</span><div class="v">${v}</div></div>`)}</div>
-        <h2>Where the answer is</h2>
+        <div class="kv">${facts.filter((x) => String(x[1])).map(([k, v]) => html`<div><span class="lbl">${k}</span><div class="v">${v}</div></div>`)}</div>
+        <p class="go-links"><a href="${opdUrl(I.id[r])}">OpenParlData</a>${d.url ? html`<a href="${d.url}">Parliament's page</a>` : ''}${(d.fix || d.cand || {}).u ? html`<a href="${(d.fix || d.cand).u}">Answer document</a>` : ''}</p>
+        <h2>Answer</h2>
         <div class="prose">${where(code, d)}</div>
         ${evidence(code, d)}
-        ${(d.fix || code === 'V') ? html`<h2>${code === 'V' ? 'Before anything is applied' : 'The fix'}</h2><div class="prose">${fix(code, d, I.id[r])}</div>` : ''}
-        <h2>Links</h2>
-        <div class="links"><a href="${opdUrl(I.id[r])}">OpenParlData affair</a>${d.url ? html`<a href="${d.url}">Parliament's page</a>` : ''}${(d.fix || d.cand || {}).u ? html`<a href="${(d.fix || d.cand).u}">Answer document</a>` : ''}</div>
+        ${(d.fix || code === 'V') ? html`<h2>${code === 'V' ? 'Review' : 'Fix'}</h2><div class="prose">${fix(code, d, I.id[r])}</div>` : ''}
         <div id="record"></div>`;
     }
 
@@ -599,11 +598,11 @@
           return html`<tr data-i="${i}" class="${c.bb ? 'box' : ''}" tabindex="${c.bb ? 0 : -1}"><td class="f mono">${label(c.p, c)}</td><td class="v">${c.v}${c.q ? html`<div class="mono muted">“${c.q}”</div>` : ''}${how ? html`<div class="how">${how}</div>` : ''}</td>
             <td class="r">${(c.role || '').replace(/_/g, ' ')}</td><td class="w">${where(c)}</td><td class="r">${c.rt}</td></tr>`;
         }
-        return html`<tr data-i="${i}"><td class="f mono">${label(c.p, c)}</td><td class="v"><span class="gap">gap: ${GAP[c.nr] || (c.nr || '').replace(/_/g, ' ')}</span>${c.e ? html`<div class="how">${c.e}</div>` : ''}</td>
+        return html`<tr data-i="${i}"><td class="f mono">${label(c.p, c)}</td><td class="v"><span class="gap">[–] ${GAP[c.nr] || (c.nr || '').replace(/_/g, ' ')}</span>${c.e ? why('', c.e, 'inline') : ''}</td>
           <td class="r">${(c.role || '').replace(/_/g, ' ')}</td><td class="w"></td><td class="r">${c.rt || ''}</td></tr>`;
       };
       const idx = new Map(rec.cells.map((c, i) => [c, i]));
-      const table = (cells) => html`<div class="recwrap"><table class="rec"><thead><tr><th>Field</th><th>Value or typed gap</th><th>Role</th><th>Page · chars</th><th>Route</th></tr></thead>
+      const table = (cells) => html`<div class="recwrap"><table class="rec"><thead><tr><th>Field</th><th title="A value, or a typed gap [–] with its reason">Value</th><th>Role</th><th title="Page · character span">Where</th><th>Route</th></tr></thead>
         <tbody>${cells.map((c) => row(c, idx.get(c)))}</tbody></table></div>`;
       // page outlines: one per (document, page) with located values
       const pages = new Map();
@@ -623,11 +622,11 @@
           ${boxes.map(([i, b]) => html`<rect class="b" data-i="${i}" x="${b[0]}" y="${b[1]}" width="${Math.max(b[2] - b[0], 4)}" height="${Math.max(b[3] - b[1], 4)}"></rect>`)}</svg>
           <div class="pl">${key.replace('#', ' · p. ')}</div></div>`;
       };
-      box.innerHTML = String(html`<h2>v0.2 record</h2>
-        <p class="hint">${rec.label} · schema ${rec.v} · ${rec.docs.length} document${rec.docs.length === 1 ? '' : 's'}: ${rec.docs.map((d) => html`<a href="${d.url}">${d.id}</a> ${d.role}${d.n ? ', ' + d.n + ' p.' : ''} `)}</p>
+      box.innerHTML = String(html`<h2>Record v0.2</h2>
+        <p class="hint">${rec.label} · schema ${rec.v} · ${rec.docs.map((d, k) => html`${k ? ' · ' : ''}<a href="${d.url}">${d.id}</a> ${d.role}${d.n ? ' ' + d.n + ' p.' : ''}`)}</p>
         ${pages.size ? html`<div class="pages">${Array.from(pages.entries()).map(([k, b]) => outline(k, b))}</div>` : ''}
         ${table(main)}
-        ${qa.length ? html`<details class="more-cells"><summary>Question and answer pairs (${qa.length} cells)</summary>${table(qa)}</details>` : ''}`);
+        ${qa.length ? html`<details class="more-cells"><summary>Question–answer pairs (${qa.length})</summary>${table(qa)}</details>` : ''}`);
       const on = (i, v) => {
         $$('[data-i="' + i + '"]', box).forEach((el) => el.classList.toggle('on', v));
       };
@@ -651,10 +650,13 @@
   };
   const Parliaments = (() => {
     const COLS = [
-      ['name', 'Parliament', 'l sticky'], ['level', 'Level', 'l hm'], ['lang', 'Lang', 'l hm'], ['written', 'Answers'], ['today', 'Today'], ['after', 'After repairs'],
-      ['gap', 'Gap'], ['oral', 'Oral'], ['repaired', 'Repairs', '', 'Relink + tag + extract + fetch: the parliament\u2019s rows in the repair queue'],
-      ['relink', 'Relink'], ['hash', 'After hash', '', 'Of the relinks: Bern\u2019s, which wait for OPD\u2019s hash decision (the others are agenda joins, applied now)'],
-      ['tag', 'Tag'], ['extract', 'Extract'], ['fetch', 'Fetch'], ['open', 'Open'], ['converter', 'Converter', 'l'],
+      ['name', 'Parliament', 'l sticky'], ['level', 'Level', 'l hm'], ['lang', 'Lang', 'l hm'],
+      ['written', 'Answers', '', 'Interventions with a recorded government answer'], ['today', 'Today', '', 'Answer text attached in OPD'],
+      ['after', 'After repairs', '', 'Attached plus every proposed repair'], ['gap', 'Gap', '', 'Answers without attached text = oral + repairs + open'],
+      ['oral', 'Oral', '', 'Answered orally: no written text expected'],
+      ['repaired', 'Repairs', '', 'Relink + tag + extract + fetch: the parliament\u2019s rows in the repair queue'],
+      ['relink', 'Relink'], ['hash', 'After hash', '', 'Relinks that wait for OPD\u2019s hash decision (Bern); the other relinks are agenda joins, applied now. Bern\u2019s begin-date corrections fix another field and are not counted'],
+      ['tag', 'Tag'], ['extract', 'Extract'], ['fetch', 'Fetch'], ['open', 'Open', '', 'Still without text after the repairs'], ['converter', 'Converter', 'l'],
     ];
     const val = (b, k) => ({
       today: b.written ? b.attached / b.written : 0, after: b.written ? (b.attached + b.repaired) / b.written : 0,
@@ -699,12 +701,10 @@
       };
       box.innerHTML = String(html`<h1>Parliaments</h1>
         <div class="filters">
-          <div><span class="lbl">Level</span><div class="seg" data-k="level">${Object.keys(LEVELS).map((l) => html`<button type="button" data-v="${l}" aria-pressed="${st.level === l}">${l}</button>`)}</div></div>
-          <div><span class="lbl">Language</span><div class="seg" data-k="lang">${['all'].concat(langs.map((l) => l.toLowerCase())).map((l) => html`<button type="button" data-v="${l}" aria-pressed="${st.lang === l}">${l}</button>`)}</div></div>
-          <div><label class="lbl" for="ptext">Name</label><input id="ptext" type="text" value="${st.text}" placeholder="Filter"></div>
+          <div class="seg" data-k="level" role="group" aria-label="Level">${Object.keys(LEVELS).map((l) => html`<button type="button" data-v="${l}" aria-pressed="${st.level === l}">${l}</button>`)}</div>
+          <div class="seg" data-k="lang" role="group" aria-label="Language">${['all'].concat(langs.map((l) => l.toLowerCase())).map((l) => html`<button type="button" data-v="${l}" aria-pressed="${st.lang === l}">${l}</button>`)}</div>
+          <input id="ptext" type="text" value="${st.text}" placeholder="Name" aria-label="Filter by name">
         </div>
-        <p class="hint">Today: answer text attached in OPD. After repairs: plus every proposed repair. Gap = answers without attached text = oral + repairs + open. Open = still without text after the repairs. A row opens the parliament.</p>
-        <p class="hint">Repairs = relink + tag + extract + fetch: exactly the parliament's rows in the <a href="#/queue">repair queue</a>. After hash: the relinks among them that wait for OPD's hash decision (Bern); the other relinks are agenda joins, applied now. Bern's begin-date corrections in the dry-run plan fix another field and are not counted.</p>
         <div class="tablewrap"><table class="dense"><thead><tr>${COLS.map(([k, label, cls, tip]) => html`<th class="${cls || ''}" ${tip ? raw('title="' + esc(tip) + '"') : ''} ${st.sort === k ? raw('aria-sort="' + (st.dir === 'asc' ? 'ascending' : 'descending') + '"') : ''}><button type="button" data-sort="${k}">${label}</button></th>`)}</tr></thead>
           <tbody>${list.map((b) => html`<tr class="go" tabindex="0" data-key="${b.key}">${COLS.map(([k]) => cell(b, k))}</tr>`)}</tbody>
           <tfoot><tr><td class="l sticky">${list.length} parliament${list.length === 1 ? '' : 's'}</td><td class="hm"></td><td class="hm"></td><td>${fmt(tot.written)}</td><td>${share(tot.attached, tot.written)}</td>
@@ -763,26 +763,34 @@
       const slice = list.slice(page * PAGE, page * PAGE + PAGE);
       const cnt = (f) => { const g = FILTERS[f]; let n = 0; for (let r = b.start; r < b.start + b.n; r++) if (I.st[r] !== 'n' && (!g || g.includes(I.st[r]))) n++; return n; };
       const hashN = b.by_step.after_hash || 0;
-      const acts = C.actions.filter((a) => b.by_action[a]).map((a) => a + ' ' + fmt(b.by_action[a])
-        + (a === 'relink' && hashN ? ': ' + (b.by_action.relink > hashN ? fmt(b.by_action.relink - hashN) + ' now, ' : '') + fmt(hashN) + ' after the hash decision' : '')).join(' · ');
+      const acts = C.actions.filter((a) => b.by_action[a]).map((a) => html`${a} <b>${fmt(b.by_action[a])}</b>${a === 'relink' && hashN
+        ? html` (${b.by_action.relink > hashN ? fmt(b.by_action.relink - hashN) + ' now, ' : ''}${fmt(hashN)} after hash)` : ''}`);
+      const form = [
+        ['Level', b.level || '—'], ['Language', b.lang || '—'], ['Converter', b.converter || '—'],
+        ['Answer dates', b.date_trust ? b.date_trust.replace(/_/g, ' ') : '—'],
+        ['Answers', html`<b>${fmt(b.written)}</b> · gap ${fmt(b.gap)} · oral ${fmt(b.oral)} · open ${fmt(b.open)}`],
+        ['Repairs', b.repaired ? html`<b>${fmt(b.repaired)}</b> · ${acts.map((a, i) => html`${i ? ' · ' : ''}${a}`)} · <a href="#/queue?b=${encodeURIComponent(b.key)}">[→] queue</a>` : '0'],
+      ];
       box.innerHTML = String(html`<a class="backlink" href="#/parliaments">← Parliaments</a>
-        <div class="phead"><h1>${b.name}</h1><span class="k">${b.key} · ${b.level} · ${b.lang} · converter: ${b.converter}${b.date_trust ? ' · answer dates: ' + b.date_trust.replace(/_/g, ' ') : ''}</span></div>
-        <div class="factline"><span><b>${fmt(b.written)}</b> answers</span><span><b>${share(b.attached, b.written)}</b> with text today</span>
-          <span><b>${share(b.attached + b.repaired, b.written)}</b> after repairs</span><span>gap <b>${fmt(b.gap)}</b></span>
-          <span>repairs <b>${fmt(b.repaired)}</b>${acts ? ' (' + acts + ')' : ''}</span><span>oral <b>${fmt(b.oral)}</b></span><span>open <b>${fmt(b.open)}</b></span></div>
-        <div class="bigbar">${covBar(b)}<div class="legend"><span><i class="t0"></i>text attached</span><span><i class="t1"></i>after the proposed repairs</span><span><i class="bg"></i>open or oral</span></div></div>
-        ${b.by_code.B || b.by_code.b ? html`<p class="hint">${HASH_LINE} The plan's begin-date corrections (OPD's load timestamp replaced by the submission date) fix another field and are not counted as repairs.</p>` : ''}
-        ${b.repaired ? html`<p class="hint"><a href="#/queue?b=${encodeURIComponent(b.key)}">This parliament's repairs in the repair queue</a></p>` : ''}
-        <h2>Lists for this parliament</h2>
-        <ul class="files">${b.lists.map((f) => html`<li><a href="${docLink(f)}">${f.split('/').pop()}</a>${docLink(f).startsWith('http') ? html` <span class="muted">(repository)</span>` : ''}</li>`)}
-          <li><button class="btn" type="button" id="pexport">Export these rows (CSV)</button> <span class="muted">the rows of the filter below, with status and repair</span></li></ul>
-        <h2>Interventions</h2>
-        <div class="seg" id="pfilter">${Object.keys(FILTERS).map((f) => html`<button type="button" data-f="${f}" aria-pressed="${f === filter}">${f}<span class="c">${fmt(cnt(f))}</span></button>`)}</div>
+        <h1>${b.name} <span class="key">${b.key}</span></h1>
+        <div class="figs two"><div><span class="big">${share(b.attached, b.written)}</span><span class="lbl">answer text today</span></div>
+          <div><span class="big">${share(b.attached + b.repaired, b.written)}</span><span class="lbl">after the proposed repairs</span></div></div>
+        <div class="bigbar" title="Black: text attached · grey: after the proposed repairs · blank: open or oral">${covBar(b)}</div>
+        <dl class="form pairs">${form.map(([k, v], i) => html`<dt>${k}</dt><dd class="${i > 3 ? 'long' : ''}">${v}</dd>`)}</dl>
+        <div class="page-body">
+        <section class="sec"><h2>Interventions</h2><div class="w">
+        <div class="bar"><div class="seg" id="pfilter" role="group" aria-label="Status">${Object.keys(FILTERS).map((f) => html`<button type="button" data-f="${f}" aria-pressed="${f === filter}">${f}<span class="c">${fmt(cnt(f))}</span></button>`)}</div>
+          <button class="btn" type="button" id="pexport" title="The rows of this filter, with status and repair">Export CSV</button></div>
         <div class="plist" id="prows"><ul class="rlist">${slice.map((r) => html`<li><a href="#/affair/${I.id[r]}"><span class="no">${I.num[r]}</span>${statusHTML(I.st[r])}
           <span class="t pending" data-row="${r}">…</span><span class="meta">${I.yr[r] || ''} · ${C.types[I.ty[r]] || ''} · OPD ${I.id[r]}</span></a></li>`)}</ul>
           ${slice.length ? '' : html`<p class="empty">No intervention in this filter.</p>`}</div>
         ${pages > 1 ? html`<div class="pager"><button class="btn" type="button" data-p="${page - 1}" ${page === 0 ? raw('disabled') : ''}>← Previous</button>
-          <span>page ${page + 1} of ${pages}</span><button class="btn" type="button" data-p="${page + 1}" ${page >= pages - 1 ? raw('disabled') : ''}>Next →</button></div>` : ''}`);
+          <span>page ${page + 1} of ${pages}</span><button class="btn" type="button" data-p="${page + 1}" ${page >= pages - 1 ? raw('disabled') : ''}>Next →</button></div>` : ''}
+        </div></section>
+        <section class="sec"><h2>Files</h2><div class="w">
+          <ul class="files">${b.lists.map((f) => html`<li><a href="${docLink(f)}">${f.split('/').pop()}</a>${docLink(f).startsWith('http') ? html` <span class="muted">(repository)</span>` : ''}</li>`)}</ul>
+          ${b.by_code.B || b.by_code.b ? why('Hash decision', HASH_LINE + ' The plan\u2019s begin-date corrections (OPD\u2019s load timestamp replaced by the submission date) fix another field and are not counted as repairs.') : ''}
+        </div></section></div>`);
       $('#pfilter').addEventListener('click', (e) => { const x = e.target.closest('button'); if (x) { filter = x.dataset.f; page = 0; setQuery({ f: filter === 'missing' ? '' : filter }); render(); } });
       $$('[data-p]', box).forEach((x) => x.addEventListener('click', () => { page = Number(x.dataset.p); setQuery({ f: filter === 'missing' ? '' : filter, p: page || '' }); render(); box.scrollIntoView(); }));
       $('#pexport').addEventListener('click', () => exportRows(b, list));
@@ -808,7 +816,7 @@
       }
       download('gegenprobe_' + b.key + '_' + filter + '.csv', csv(out), 'text/csv;charset=utf-8');
       btn.disabled = false;
-      btn.textContent = 'Export these rows (CSV)';
+      btn.textContent = 'Export CSV';
     }
     return { show };
   })();
@@ -853,8 +861,9 @@
       const selBern = selRelink.filter((k) => Q.p[k] === 1);
       const seg = (k, opts) => html`<div class="seg" data-k="${k}">${Object.entries(opts).map(([v, l]) => html`<button type="button" data-v="${v}" aria-pressed="${st[k] === v}">${l}</button>`)}</div>`;
       box.innerHTML = String(html`<h1>Repair queue</h1>
-        <p class="steps" data-claims="queue"><span><b>${fmt(bd.now)}</b> apply now</span><span><b>${fmt(bd.after_hash)}</b> Bern relinks after the hash decision</span><span><b>${fmt(bd.fetch)}</b> fetch from the parliaments</span></p>
-        <p class="hint">${HASH_LINE}</p>
+        <div class="figs" data-claims="queue"><div><span class="big">${fmt(bd.now)}</span><span class="lbl">apply now</span></div>
+          <div title="Bern relinks that wait for OPD\u2019s hash decision"><span class="big">${fmt(bd.after_hash)}</span><span class="lbl">Bern, after hash decision</span></div>
+          <div><span class="big">${fmt(bd.fetch)}</span><span class="lbl">fetch from parliaments</span></div></div>
         <button class="btn only-mobile" type="button" id="qf" aria-expanded="false">Filters${Object.values(st).filter(Boolean).length ? ' (' + Object.values(st).filter(Boolean).length + ' on)' : ''}</button>
         <div class="filters collapsible" id="qfilters">
           <div><label class="lbl" for="qb">Parliament</label><select id="qb"><option value="">all</option>${bodiesWith.map((b) => html`<option value="${b.key}" ${st.b === b.key ? raw('selected') : ''}>${b.name}</option>`)}</select></div>
@@ -863,16 +872,17 @@
           <div><span class="lbl">Status</span>${seg('r', { '': 'all', ready: 'ready', review: 'review' })}</div>
           <div><label class="lbl" for="qt">Check</label><select id="qt"><option value="">all</option>${tiers.map((t) => html`<option value="${t}" ${st.t === t ? raw('selected') : ''}>${tierShort(t)}</option>`)}</select></div>
         </div>
-        <div class="qbar"><span class="count"><b>${fmt(list.length)}</b> row${list.length === 1 ? '' : 's'} match · <b>${fmt(selected.size)}</b> selected</span>
+        ${why('Hash decision', HASH_LINE)}
+        <div class="qbar"><span class="count"><b>${fmt(list.length)}</b> row${list.length === 1 ? '' : 's'} · <b>${fmt(selected.size)}</b> selected</span>
           <button class="btn" type="button" id="qall">Select all ${fmt(list.length)}</button>
           <button class="btn" type="button" id="qnone" ${selected.size ? '' : raw('disabled')}>Clear</button>
           <button class="btn primary" type="button" id="qcsv" ${selected.size ? '' : raw('disabled')}>Export CSV</button>
           <button class="btn" type="button" id="qsql" ${selBern.length ? '' : raw('disabled')} title="${selBern.length ? 'The guarded UPDATE statements of the selected Bern relinks, copied from the dry-run plan' : 'Select Bern relinks (step: after hash) to export their statements from the dry-run plan'}">Export Bern SQL${selBern.length ? ' (' + fmt(selBern.length) + (selRelink.length > selBern.length ? ' in the plan; ' + fmt(selRelink.length - selBern.length) + ' review rows are not' : '') + ')' : ''}</button></div>
-        <div class="tablewrap"><table class="dense" id="qtable"><thead><tr><th class="plain"><span class="lbl">Pick</span></th><th class="l plain">Number</th><th class="l plain">Parliament</th><th class="l plain">Action</th><th class="l plain hm">Step</th>
+        <div class="tablewrap"><table class="dense" id="qtable"><thead><tr><th class="plain"><span class="sr">Select</span></th><th class="l plain">Number</th><th class="l plain">Parliament</th><th class="l plain">Action</th><th class="l plain hm">Step</th>
           <th class="l plain hm">Check</th><th class="l plain">Status</th><th class="l plain">Target</th></tr></thead>
           <tbody>${slice.map((k) => { const r = Q.i[k]; return html`<tr class="go ${open === k ? 'open' : ''}" tabindex="0" data-k="${k}"><td class="ck"><input type="checkbox" aria-label="Select ${I.num[r]}" data-k="${k}" ${selected.has(k) ? raw('checked') : ''}></td>
             <td class="l mono">${I.num[r]}</td><td class="l">${C.bodies[rowBody[r]].name}</td><td class="l">${C.actions[Q.a[k]]}</td><td class="l hm">${STEPS[Q.step[k]]}</td>
-            <td class="l hm" title="${C.tiers[Q.t[k]] || ''}">${tierShort(Q.t[k])}</td><td class="l">${Q.r[k] ? html`<span class="st review">[?] review</span>` : 'ready'}</td>
+            <td class="l hm" title="${C.tiers[Q.t[k]] || ''}">${tierShort(Q.t[k])}</td><td class="l">${Q.r[k] ? html`<span class="st review">[ ] review</span>` : 'ready'}</td>
             <td class="l mono">${Q.d[k] ? 'doc ' + Q.d[k] : Q.u[k] ? hostOf(Q.u[k]) : ''}</td></tr>${open === k ? html`<tr class="drawer"><td colspan="8"><div class="inner" id="qdrawer">Loading…</div></td></tr>` : ''}`; })}</tbody></table></div>
         ${pages > 1 ? html`<div class="pager"><button class="btn" type="button" data-p="${page - 1}" ${page === 0 ? raw('disabled') : ''}>← Previous</button>
           <span>page ${page + 1} of ${pages}</span><button class="btn" type="button" data-p="${page + 1}" ${page >= pages - 1 ? raw('disabled') : ''}>Next →</button></div>` : ''}`);
@@ -976,27 +986,34 @@
       const kb = (b) => (b >= 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' kB');
       $('#v-about').innerHTML = String(html`<div class="about" data-claims="about">
         <h1>About</h1>
-        <p class="lede">Gegenprobe checks every intervention with a recorded government answer in OpenParlData (OPD): is the answer text attached, and if not, where is it? It proposes repairs keyed on OPD's ids, made without a model.</p>
-        <p class="lede">${fmt(bd.written)} interventions · ${bd.share_today} with answer text today, ${bd.share_after} once the ${fmt(bd.repaired)} repairs are applied</p>
-        <h2>Schema</h2>
-        <p class="verdict">One schema holds Swiss parliamentary business if each field says which role its value plays (an “answer date” is the government's decision, its letter or the submission date).</p>
-        <div class="vcounts"><span><b>${bd.fields}</b>fields</span><span><b>${bd.need_roles}</b>need roles</span><span><b>${bd.body_specific}</b>body-specific</span><span><b>${bd.untested}</b>untested</span></div>
-        <div class="fgrid">${grid.map((f) => html`<div class="${f.verdict}" title="${f.why}"><div class="fn">${f.name}</div><div class="fv">${vlabel[f.verdict]}${f.fragile ? ' · fragile' : ''}${f.test ? ' · ' + f.test : ''}</div></div>`)}</div>
-        <h2>What Apertus adds (registered tests)</h2>
-        <div class="recwrap"><table class="results"><tbody>
-          <tr><td class="n">${bd.p2_pointer[0]}/${bd.p2_pointer[1]}</td><td>answer dates found in ${bd.p2_parliaments} parliaments nobody wrote rules for; the rules find ${bd.p2_rules[0]}/${bd.p2_rules[1]}</td><td class="src">P2 · date test</td></tr>
-          <tr><td class="n">+${bd.p10_points}</td><td>points of author-role recall over the rules in ${bd.p10_parliaments} parliaments without rules; precision not worse</td><td class="src">P10 · author test</td></tr>
-          <tr><td class="n">${bd.p7[0]}/${bd.p7[1]}</td><td>sampled review-queue promotions are the government's answer</td><td class="src">P7 · verifier test</td></tr>
-        </tbody></table></div>
-        <p class="hint">In use, Apertus is opt-in and a reviewer confirms each value it proposes; the repairs in this tool use no model.</p>
-        <h2>How a value is proven</h2>
-        <p class="prose">Every extracted value names its document, page and character span, and the route that found it (rule, metadata or model). Lookup draws the value's box on a page outline. A field the document does not hold is a typed gap with its reason, never a blank.</p>
-        <h2>Read more</h2>
-        <p class="hint">Track 2A · OpenParlData · Team 444</p>
-        <div class="linkrow"><a class="btn" href="${C.repo}">Repository</a><a class="btn" href="${C.links.report}">Technical report (PDF)</a><a class="btn" href="${C.links.decision_en}">Decision page</a><a class="btn" href="${C.links.decision_de}">Entscheidungsseite (DE)</a></div>
-        <h2>Downloads</h2>
-        <div data-meta="files">${Object.entries(groups).map(([g, fs]) => html`<details class="dl"><summary>${g} <span class="muted">(${fs.length})</span></summary><ul>
-          ${fs.map((d) => html`<li><a class="fn" href="${d.h}">${d.f}</a><span class="w">${d.w}</span><span class="sz">${d.r != null ? fmt(d.r) + ' rows · ' : ''}${kb(d.b)}</span></li>`)}</ul></details>`)}</div>
+        <div class="figs two wide"><div title="${bd.share_today} with answer text today, ${bd.share_after} once the ${fmt(bd.repaired)} repairs are applied"><span class="big">${bd.share_today}<span class="to">→</span><span class="red">${bd.share_after}</span></span>
+          <span class="lbl">answer text attached: today → after the repairs</span></div>
+          <div><span class="big">${fmt(bd.repaired)}</span><span class="lbl">repairs, keyed on OPD ids, no model</span></div></div>
+        <dl class="form">
+          <dt>Scope</dt><dd><b>${fmt(bd.written)}</b> interventions with a recorded government answer · OpenParlData (OPD)</dd>
+          <dt>Check</dt><dd>answer text attached? if not, where it is and which repair</dd>
+          <dt>Schema</dt><dd>one schema, if each field names its value’s role · <b>${bd.fields}</b> fields · <b>${bd.need_roles}</b> need roles · <b>${bd.body_specific}</b> body-specific · <b>${bd.untested}</b> untested</dd>
+          <dt>Provenance</dt><dd>document · page · character span · route (rule, metadata, model) · a missing value is a typed gap</dd>
+          <dt>Apertus</dt><dd>opt-in; a reviewer confirms each value it proposes · the repairs use no model</dd>
+        </dl>
+        <div class="page-body">
+        <section class="sec"><h2>Schema fields</h2><div class="w">
+          <div class="fgrid">${grid.map((f) => html`<div class="${f.verdict}" title="${f.why}"><div class="fn">${f.name}</div><div class="fv">${vlabel[f.verdict]}${f.fragile ? ' · fragile' : ''}${f.test ? ' · ' + f.test : ''}</div></div>`)}</div>
+        </div></section>
+        <section class="sec"><h2>Apertus, registered tests</h2><div class="w">
+          <div class="recwrap"><table class="results"><tbody>
+            <tr><td class="n">${bd.p2_pointer[0]}/${bd.p2_pointer[1]}</td><td>answer dates in ${bd.p2_parliaments} parliaments without rules (rules: ${bd.p2_rules[0]}/${bd.p2_rules[1]})</td><td class="src">P2</td></tr>
+            <tr><td class="n">+${bd.p10_points}</td><td>points author-role recall in ${bd.p10_parliaments} parliaments without rules; precision not worse</td><td class="src">P10</td></tr>
+            <tr><td class="n">${bd.p7[0]}/${bd.p7[1]}</td><td>sampled review-queue promotions are the government’s answer</td><td class="src">P7</td></tr>
+          </tbody></table></div>
+        </div></section>
+        <section class="sec"><h2>Read more</h2><div class="w">
+          <div class="linkrow"><a class="btn" href="${C.repo}">Repository</a><a class="btn" href="${C.links.report}">Technical report (PDF)</a><a class="btn" href="${C.links.decision_en}">Decision page</a><a class="btn" href="${C.links.decision_de}">Entscheidungsseite (DE)</a></div>
+          <p class="hint">Track 2A · OpenParlData · Team 444</p>
+        </div></section>
+        <section class="sec"><h2>Downloads</h2><div class="w" data-meta="files">${Object.entries(groups).map(([g, fs]) => html`<details class="dl"><summary>${g} <span class="muted">(${fs.length})</span></summary><ul>
+          ${fs.map((d) => html`<li><a class="fn" href="${d.h}">${d.f}</a><span class="w">${d.w}</span><span class="sz">${d.r != null ? fmt(d.r) + ' rows · ' : ''}${kb(d.b)}</span></li>`)}</ul></details>`)}</div></section>
+        </div>
       </div>`);
     }
     return { show };
