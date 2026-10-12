@@ -1,0 +1,27 @@
+{
+ "threshold_pp": 2.0,
+ "min_affairs": 50,
+ "doc_drop": 0.1,
+ "trend_pp": 5.0,
+ "trend_nights": 7,
+ "stale_days": 2.0,
+ "alerts": [
+  {
+   "kind": "adapter_canary_text_changed",
+   "body": "5113",
+   "name": "Locarno (city)",
+   "source": "files.openparldata.ch",
+   "affair": "IR 2008.0022",
+   "message": "Locarno (city): the canary IR 2008.0022 still verifies but its text changed"
+  },
+  {
+   "kind": "adapter_canary_text_changed",
+   "body": "VS",
+   "name": "Valais (canton)",
+   "source": "parlement.vs.ch",
+   "affair": "2020.06.206",
+   "message": "Valais (canton): the canary 2020.06.206 still verifies but its text changed"
+  }
+ ],
+ "undelivered_from_previous_nights": []
+}
