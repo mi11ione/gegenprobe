@@ -9,6 +9,8 @@ from gegenprobe.convert import parts as P
 from gegenprobe.paths import PDF_CACHE
 from gegenprobe.schema import role_consistency as RC
 from gegenprobe.schema import v0_2_all as V
+from gegenprobe.schema import v0_2_dates as VD
+from gegenprobe.schema import v0_2_gaps as VG
 from gegenprobe.schema import v0_2_parts as VP
 from gegenprobe.schema import v0_2_qa as QA
 from gegenprobe.schema.p8_v0_2 import OUT, schema_module
@@ -146,12 +148,14 @@ def test_overlay_changes_nothing_else(base, over):
     over_meta = over
     over = VP.render(meta=False)  # the OPD-metadata overlay comes last; tests/test_schema_v0_2_meta.py undoes it
     for k in VP.CONVERTER_SETS:
-        got = [QA.strip_qa(VP.strip_parts(json.loads(x))) for x in over[f"{k}_records.jsonl"].splitlines()]
+        got = [QA.strip_qa(VP.strip_parts(VG.strip_gaps(VD.strip_date_roles(json.loads(x)))))
+               for x in over[f"{k}_records.jsonl"].splitlines()]
         # after the parts, the Q/A pairing (gegenprobe.schema.v0_2_qa, undone by strip_qa) and the role-consistency
         # repair (gegenprobe.schema.role_consistency) are the only other changes
         assert got == [RC.harmonise(json.loads(x))[0] for x in base[f"{k}_records.jsonl"].splitlines()], k
     fed_in = [RC.harmonise(json.loads(x))[0] for x in VP.FED_IN.read_text(encoding="utf-8").splitlines()]
-    assert [VP.strip_parts(json.loads(x)) for x in over[VP.FED_OUT].splitlines()] == fed_in
+    assert [VP.strip_parts(VG.strip_gaps(VD.strip_date_roles(json.loads(x)))) for x in over[VP.FED_OUT].splitlines()] \
+        == fed_in
     b, o = json.loads(base["validation_all.json"]), json.loads(over_meta["validation_all.json"])
     for k in ("n_affairs", "n_valid", "n_invalid", "n_parliaments", "converter_made", "product_records", "samples"):
         assert b[k] == o[k], k

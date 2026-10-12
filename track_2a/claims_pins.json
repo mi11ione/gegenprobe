@@ -1,5 +1,5 @@
 {
- "_doc": "Wording pins for `make claims` (src/gegenprobe/claims_pins.py;). pins: phrases that must occur exactly `count` times (default 1), bound where possible to the result they state (`results`: {file, path, is} or {file, vars, expr, is}); `polarity` neg/pos keeps a verdict phrase on the side its result is. guards: every match in `docs` must lie inside a pin phrase or an `allow` phrase. A docs pass that rewrites one of these sentences updates its phrase here; a result that changes fails its pin until the sentence is rewritten. Guards (R18): comparative, maturity, scope_quantifier and deployment words as well; `python -m gegenprobe.claims_pins uncovered` lists matches outside every phrase, `propose` drafts allow entries. Guards also cover labelling (who labelled), adoption (shipped/deployed/adopted/applied/in use/live), evaluative (dominates/improves/higher/lower/far), safety claims (guarantee/certified/hallucination/GDPR/compliant/secure) and cost (free/cheap); `docs` is extended by claims_strict.json `strict_docs`.",
+ "_doc": "Wording pins for `make claims` (src/gegenprobe/claims_pins.py;). pins: phrases that must occur exactly `count` times (default 1), bound where possible to the result they state (`results`: {file, path, is} or {file, vars, expr, is}); `polarity` neg/pos keeps a verdict phrase on the side its result is. guards: every match in `docs` must lie inside a pin phrase or an `allow` phrase. A docs pass that rewrites one of these sentences updates its phrase here; a result that changes fails its pin until the sentence is rewritten. Guards (R18): comparative, maturity, scope_quantifier and deployment words as well; `python -m gegenprobe.claims_pins uncovered` lists matches outside every phrase, `propose` drafts allow entries. Guards also cover labelling (who labelled), adoption (shipped/deployed/adopted/applied/in use/live), evaluative (dominates/improves/higher/lower/far), safety claims (guarantee/certified/hallucination/GDPR/compliant/secure) and cost (free/cheap); `docs` is extended by claims_strict.json `strict_docs`. Guards (R20, J5's round-19 misses): scope_extent (inside/outside/within/beyond the tested scope), review (reviewer, confirms, written directly, automatically, without review, human in the loop), jurisdiction (Swiss, Switzerland, US, EU, abroad, processing agreement, DPA, nDSG, data protection, nonprofit; Public AI's terms are bound to results/compliance/publicai_terms.json) and intensifier (decisive, virtually, almost all, nearly every, key component, the main, entirely, fully, completely, clearly, ...); tests/test_claims_battery.py replays J5's 80-edit mutation battery, every edit must fail.",
  "docs": [
   "README.md",
   "technical_report.md",
@@ -18,7 +18,11 @@
   "adoption": "(?i)(?<![\\w-])(ship(?:s|ped|ping)?|deploy(?:s|ed|ing|ment|ments)?|adopt(?:s|ed|ing|ion|er|ers)?|appl(?:ied|ies|ying)|in\\s+(?:\\w+\\s+)?(?:use|operation|service)|live|go(?:es|ing|ne)?[- ]live|roll(?:s|ed|ing)?[- ]?outs?|operational|used\\s+by|relie[sd]\\s+on|integrated|customers?|pilot(?:s|ed|ing)?)(?![\\w-])",
   "evaluative": "(?i)(?<![\\w-])(dominat\\w*|improv\\w*|dramatic\\w*|substantial\\w*|considerabl[ey]|vast(?:ly)?|huge(?:ly)?|massive(?:ly)?|markedly|greatly|remarkabl[ey]|impressive\\w*|excellent|higher|lower|far|sharp(?:ly|er)?|breakthrough|game[- ]chang\\w*)(?![\\w-])",
   "safety_claim": "(?i)(?<![\\w-])(guarantee[\\w-]*|certif[\\w-]*|hallucinat[\\w-]*|GDPR[\\w-]*|DSGVO[\\w-]*|complian[\\w-]*|secur[\\w-]*|safe(?:ly|r|st)?|tamper-?proof|(?:error|risk|bug|maintenance|invention|fabrication)-free|fail-?safe|provabl[ey]|zero\\s+risk)(?![\\w-])",
-  "cost": "(?i)(?<![\\w-])(free|cheap\\w*|inexpensive|affordabl\\w*|low[- ]cost|no[- ]cost|zero[- ]cost|cost[- ]free|costless|negligibl[ey]|gratis|pennies)(?![\\w-])"
+  "cost": "(?i)(?<![\\w-])(free|cheap\\w*|inexpensive|affordabl\\w*|low[- ]cost|no[- ]cost|zero[- ]cost|cost[- ]free|costless|negligibl[ey]|gratis|pennies)(?![\\w-])",
+  "scope_extent": "(?i)(?<![\\w-])((?:inside|outside|within|beyond|in|out\\s+of)\\s+(?:the\\s+|our\\s+|its\\s+|this\\s+|their\\s+)?(?:(?:tested|registered|evaluated|study|test|claimed)\\s+)?scope|in-scope|out-of-scope|tested\\s+scope)(?![\\w-])|(?i:(?<![\\w-])(?:ausserhalb|außerhalb|innerhalb|jenseits)\\s+(?:des|der|dem)\\s+(?:\\w+\\s+)?(?:Umfangs?|Bereichs?|Geltungsbereichs?|Testbereichs?|Untersuchungsbereichs?)(?![\\w-]))",
+  "review": "(?i)(?<![\\w-])(reviewers?|human[- ]in[- ]the[- ]loop|in\\s+the\\s+loop|confirms|confirming|sign(?:s|ed)?[- ]off|(?:written|writes?|write|applied|applies|merged|accepted|promoted|stored|published)\\s+(?:directly|automatically|unreviewed|unchecked|as\\s+is|straight)|automatic(?:ally)?|without\\s+(?:a\\s+|any\\s+)?(?:human\\s+)?(?:review\\w*|check\\w*|confirmation)|unreviewed|unchecked|no\\s+(?:human\\s+)?review\\w*)(?![\\w-])|(?i:(?<![\\w-])(?:Prüfer\\w*|Prüfperson\\w*|bestätig\\w*|ungeprüft\\w*|unbestätigt\\w*|automatisch\\w*|direkt\\s+(?:geschrieben|übernommen|eingetragen)|ohne\\s+(?:menschliche\\s+)?(?:Prüfung|Kontrolle|Freigabe|Bestätigung))(?![\\w-]))",
+  "jurisdiction": "(?<![\\w-])((?:US|USA|U\\.S\\.|EU|EEA)(?:-[A-Za-z]+)?|DPAs?|SCCs?|(?i:swiss|switzerland|swiss-(?:hosted|based|run|operated|owned|made|only)|abroad|foreign|offshore|processing\\s+agreements?|data\\s+processing|(?:rev)?DSG(?:-[a-z]+)?|nDSG(?:-[a-z]+)?|FADP(?:-[a-z]+)?|data\\s+protection|jurisdiction\\w*|non-?profit|501\\(c\\)\\(3\\)|standard\\s+contractual\\s+clauses|adequa(?:te|cy)\\s+decision))(?![\\w-])|(?i:(?<![\\w-])(?:Schweiz\\w*|schweizerisch\\w*|Ausland\\w*|ausländisch\\w*|Auftrags(?:bearbeitung|verarbeitung)\\w*|Datenschutz\\w*|gemeinnützig\\w*|Vereinigten\\s+Staaten|Bekanntgabe\\w*)(?![\\w-]))",
+  "intensifier": "(?i)(?<![\\w-])(decisive\\w*|virtually|almost\\s+(?:all|every\\w*|always|never|none|no|entirely|completely|certainly)|nearly\\s+(?:all|every\\w*|always|never|none|no|entirely|completely)|practically|pivotal|vital|critical(?:ly)?|key\\s+(?:component|part|role|driver|factor|ingredient|contribution|enabler|element|step|engine|piece|advantage|strength|finding|result)|core\\s+(?:component|engine|part|element|driver|strength|of)|central\\s+(?:component|role|part|engine|driver)|(?:the|its|our|their)\\s+main|main\\s+(?:component|driver|engine|source|contribution|reason|gain|result|strength)|entire(?:ly)?|fully|completely|totally|wholly|absolutely|overwhelming\\w*|undoubtedly|unquestionabl[ey]|clearly|perfect\\w*|flawless\\w*|by\\s+far|far\\s+(?:better|more|ahead))(?![\\w-])|(?i:(?<![\\w-])(?:entscheidend\\w*|nahezu|praktisch|beinahe|fast\\s+(?:alle\\w*|jede\\w*|immer|nie|kein\\w*)|vollständig\\w*|völlig|gänzlich|zentral\\w*|wesentlich\\w*|Kern(?:komponente|stück|teil)\\w*|Haupt(?:komponente|quelle|grund|beitrag|teil|gewinn)\\w*|eindeutig\\w*|klar\\s+(?:besser|vorn|überlegen)|immer|nie|niemals|stets)(?![\\w-]))"
  },
  "pins": [
   {
@@ -580,7 +584,7 @@
      "so no model by default |"
     ],
     "docs/form_notes.md": [
-     "The default runs no model and only reads public sources; every model value goes",
+     "The default runs no model; every model value goes",
      "so by default no model runs."
     ],
     "../README.md": [
@@ -598,10 +602,10 @@
     ],
     "technical_report.md": [
      "**Closed form only.** Apertus never writes a value.",
-     "Apertus only picks values printed in the document, and code locates them"
+     "it only picks values printed in the document, code locates them"
     ],
     "docs/form_notes.md": [
-     "Apertus only picks values\n  printed in the document, and code locates them.",
+     "Apertus only picks values printed in the document,\n  and code locates them.",
      "Apertus only suggests."
     ],
     "../README.md": [
@@ -623,24 +627,24 @@
    "why": "provenance: every value carries page and span",
    "docs": {
     "README.md": [
-     "every value carries its role and",
-     "a converter that gives every value its page and span",
+     "a converter whose 120 records give every value its source (page and span, or a source record)",
+     "Every value of the converter's\nrecords has its page and span (1,589) or its source record",
      "every value has its page, span and quote hash",
      "every value a printed",
-     "with a page and span for every value",
+     "every value is a printed date\n  with its page and span",
      "every value has its page, character span and rule",
-     "Every value has its document, page, span and rule; an empty field says why."
+     "Every value has its document, page, span and rule, or its OPD record; an empty field says why."
     ],
     "technical_report.md": [
-     "Every value carries its role and source",
-     "a converter that gives every value its page and span"
+     "*In the converter's 120 records* every value carries its role and source",
+     "a converter whose records give every value its page and span or its source record"
     ],
     "docs/form_notes.md": [
-     "a converter that gives every value its page and span"
+     "a converter whose 120 records give every value its page and span or its source record"
     ],
     "../README.md": [
-     "every value carries its role and",
-     "a converter that gives every value its page and span"
+     "in the converter's 120 records every\n  value carries its role and source",
+     "a converter whose records give every value its page and span or its source record"
     ]
    }
   },
@@ -652,7 +656,7 @@
      "The default nightly job uses no third-party processor.",
      "(our evaluation used Public AI, which may route outside Switzerland; with the local 8B no text leaves the machine)",
      "With the local 8B no document text leaves the machine.",
-     "**Runtime external services:** none by\ndefault (public sources only); Apertus review mode sends document text to the Public AI gateway, or nothing with the\nlocal 8B."
+     "**Runtime external services:** none by default (public sources only); Apertus review mode sends document text to the\n  Public AI gateway, a US nonprofit without a processing agreement (nDSG Art. 16), or nothing with the local 8B on CPU."
     ],
     "technical_report.md": [
      "No third-party processor by default;",
@@ -676,7 +680,8 @@
     ],
     "technical_report.md": [
      "Team 444 — Roman (+ Claude Code agents, §7)",
-     "**Declarations.** Claude Code agents (Anthropic) wrote most code, documentation and the gold labels."
+     "**Declarations.** Claude Code agents (Anthropic) wrote most code, documentation and the gold labels.",
+     "The same assistant family wrote the code and the gold labels"
     ],
     "docs/form_notes.md": [
      "Claude Code agents wrote the code and labels."
@@ -782,7 +787,7 @@
    "docs": {
     "README.md": [
      "No closed-set arm returned a date printed nowhere (P1, P2, P6).",
-     "the closed set gives it by construction"
+     "The closed set gives it by construction"
     ],
     "technical_report.md": [
      "no arm that picks from printed dates returned a date printed nowhere (P1, P2, P6)"
@@ -852,7 +857,7 @@
    "why": "the incident the second real Docker night exposed, and its fix",
    "docs": {
     "README.md": [
-     "Night 2\n  exposed a ledger bug (it reset night 1's per-row verdicts to `unchecked`)"
+     "that second\n  night exposed a ledger bug, which is fixed"
     ]
    }
   },
@@ -864,7 +869,7 @@
      "(P1's hypothesis script followed its labels and\n  its rules entered with its sample, both logged: D4, D12)"
     ],
     "technical_report.md": [
-     "(P1's hypothesis script followed its labels, D4)",
+     "(P1's hypothesis script followed its labels, D4; its rules came with its sample, D12)",
      "P1's rules entered with its sample, D12"
     ],
     "docs/form_notes.md": [
@@ -1067,36 +1072,6 @@
    }
   },
   {
-   "id": "cmp.closed_set_near_free",
-   "why": "closed set within 3 documents of the free prompt on P2 and P6",
-   "results": [
-    {
-     "file": "results/report/p2_numbers.json",
-     "path": "arms.pointer.exact",
-     "is": 53
-    },
-    {
-     "file": "results/eval/posthoc_r3_naive_reparsed.json",
-     "path": "splits.P2.naive_null.reparsed_exact.0",
-     "is": 54
-    },
-    {
-     "file": "results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json",
-     "vars": {
-      "v": "arms.v2.exact.0",
-      "f": "arms.free_null.exact.0"
-     },
-     "expr": "0 <= f - v <= 3",
-     "is": true
-    }
-   ],
-   "docs": {
-    "README.md": [
-     "The closed set reaches near free-prompt accuracy"
-    ]
-   }
-  },
-  {
    "id": "cmp.census.bern_bug_most",
    "why": "Bern's unlinked answers (agenda + parentless) are most of its 2024-25 gap",
    "results": [
@@ -1145,32 +1120,11 @@
    }
   },
   {
-   "id": "role.earns_its_place",
-   "why": "Apertus's registered gains: P2-H2 (answer date) and P10-H1 (authors) confirmed",
-   "results": [
-    {
-     "file": "results/eval2/hypotheses2__publicai_swiss-ai_apertus-v1.5-8b.json",
-     "path": "subsets.all.theta_10_40.H2_pointer_vs_rules.holds",
-     "is": true
-    },
-    {
-     "file": "results/p10/p10_scores.json",
-     "path": "primary.hypotheses.tests.H1.verdict",
-     "is": "confirmed"
-    }
-   ],
-   "docs": {
-    "README.md": [
-     "Apertus earns its place choosing the\nright value among printed candidates"
-    ]
-   }
-  },
-  {
    "id": "maturity.table",
    "why": "the declared maturity of each component (the rubric scores rigour against it)",
    "docs": {
     "technical_report.md": [
-     "| *ready to apply* · *ready to deploy* | census and Bern repair lists (relinks: one OPD decision, its hash rule) · nightly job (three real nights on standard GitHub runners: one with the venv unit, 10 Oct, and two consecutive with the Docker unit, 11 Oct) |",
+     "| *ready to apply* · *ready to deploy* | census and Bern repair lists (relinks: one OPD decision, its hash rule) · nightly job (three real nights on standard GitHub runners + a real two-night Docker pair on the fixed ledger: night 2 kept night 1's verdicts) |",
      "| *audited* · *tested prototype* | source-adapter lists · rules-only converter |",
      "| *feasibility study* · *drafts for the eCH group* | review mode, whole and virtual affairs · schema v0.1 and v0.2 (P8's roles) |",
      "feasibility study (D3-5)"
@@ -1316,12 +1270,12 @@
    "why": "where the models run: the 70B via Public AI, the 8B locally on CPU",
    "docs": {
     "README.md": [
-     "(70B weights via the Public AI gateway; local 8B on CPU)",
+     "or nothing with the local 8B on CPU",
      "The Apertus 8B runs locally on CPU",
      "sha256-pinned, run in-process on CPU"
     ],
     "technical_report.md": [
-     "sha256-pinned) runs locally on CPU",
+     "locally on CPU, no text leaves",
      "and an alert relay only if the operator sets them"
     ],
     "../README.md": [
@@ -1509,15 +1463,7 @@
    ],
    "docs": {
     "README.md": [
-     "right on 10 where the baseline is wrong, the reverse on 1",
-     "4 of its 7 wins on answered documents are documents OPD types as interventions, where that baseline returns nothing by construction"
-    ],
-    "technical_report.md": [
-     "right on 10 where it is wrong, the reverse on 1"
-    ],
-    "../README.md": [
-     "right on 10 where the baseline is wrong, the reverse on 1",
-     "4 of its 7 wins on answered documents are documents OPD types as interventions, where that baseline returns nothing by construction"
+     "which returns nothing on the 31 intervention-typed documents by construction"
     ]
    }
   },
@@ -1595,7 +1541,7 @@
      "no θ meets the dev rule, so the 8B\n  promotes nothing"
     ],
     "technical_report.md": [
-     "no θ meets the dev rule, so it promotes nothing"
+     "verifier promotes none"
     ],
     "docs/form_notes.md": [
      "or nothing with the local 8B (date suggestions)"
@@ -1630,7 +1576,7 @@
      "the 8B reads 30/141 pairs right, more than the rules"
     ],
     "technical_report.md": [
-     "it reads 30/141 pairs right, F1 0.27 against the rules' 0.17 (document order 0.41, the 70B 0.42)"
+     "roles F1 0.27 |"
     ]
    }
   },
@@ -1651,9 +1597,6 @@
    "docs": {
     "README.md": [
      "302/302 across 58 field × parliament cells"
-    ],
-    "technical_report.md": [
-     "On P8's own gold, 302/302 is an exhaustiveness check"
     ]
    }
   },
@@ -1674,7 +1617,7 @@
    ],
    "docs": {
     "README.md": [
-     "skeleton does not\ncarry over as is",
+     "**Outside\ninterventions the skeleton does not carry over as is**",
      "does not carry over as is: 7 fields carry over"
     ],
     "technical_report.md": [
@@ -1706,9 +1649,6 @@
    "docs": {
     "README.md": [
      "no invented date"
-    ],
-    "technical_report.md": [
-     "none invented"
     ]
    }
   },
@@ -1743,9 +1683,6 @@
     ],
     "technical_report.md": [
      "so no result mixes builds"
-    ],
-    "docs/form_notes.md": [
-     "live: no result mixes builds"
     ]
    }
   },
@@ -1775,10 +1712,7 @@
      "The build guard caught the switch live"
     ],
     "technical_report.md": [
-     "The build guard caught the switch live"
-    ],
-    "docs/form_notes.md": [
-     "The build guard caught Public AI's gateway\n  build switch (12 Oct 2026) live"
+     "the build guard stopped the run"
     ],
     "../README.md": [
      "the build guard caught it live"
@@ -1975,9 +1909,6 @@
    "docs": {
     "README.md": [
      "a live `convert --mode review` and `affair --mode review --roles apertus` both exited 0"
-    ],
-    "technical_report.md": [
-     "a live `convert --mode review` and `affair --mode review --roles apertus` both exited 0"
     ]
    }
   },
@@ -1994,9 +1925,6 @@
    "docs": {
     "README.md": [
      "a deployment θ applies only after\none preflight request shows that the route serves the build it was fitted on"
-    ],
-    "technical_report.md": [
-     "and a deployment θ applies only once a preflight request shows its build"
     ]
    }
   },
@@ -2019,10 +1947,6 @@
     "README.md": [
      "the Apertus role reader, on all 12 affairs",
      "the role reader resumed and read all 12 affairs"
-    ],
-    "technical_report.md": [
-     "the Apertus role reader 0.32 on all 12 affairs",
-     "on the registered build again the reader read all 12 affairs"
     ]
    }
   },
@@ -2049,9 +1973,6 @@
     "README.md": [
      "all 15/15 validate",
      "`not_applicable` where P11's gold finds it applies"
-    ],
-    "technical_report.md": [
-     "none typing an answer field `not_applicable` where the gold finds it applies"
     ]
    }
   },
@@ -2072,9 +1993,6 @@
    "docs": {
     "README.md": [
      "documents re-derived, all matching"
-    ],
-    "technical_report.md": [
-     "in 90 s, all matching"
     ]
    }
   },
@@ -2095,8 +2013,7 @@
    "docs": {
     "README.md": [
      "OPD's date is printed in neither document in Vernier (5/5 affairs) and Lausanne (3/5)",
-     "Vernier (5/5 affairs) and Lausanne (3/5) it is printed in neither document",
-     "document in Vernier, 5/5 affairs, and Lausanne, 3/5"
+     "Vernier (5/5 affairs) and Lausanne (3/5) it is printed in neither document"
     ],
     "technical_report.md": [
      "printed in neither document in Vernier (5/5 affairs) and Lausanne (3/5)",
@@ -2104,6 +2021,406 @@
     ],
     "docs/form_notes.md": [
      "OPD's is printed in neither document in Vernier, 5/5\n  affairs, and Lausanne, 3/5"
+    ]
+   }
+  },
+  {
+   "id": "scope.tested_scope",
+   "why": "the tested scope is OPD's five intervention types: the census population (198,594) is the sum of exactly those types in data/schema/affair_types.json, so parliamentary initiatives and government business lie outside it",
+   "results": [
+    {
+     "file": "results/report/r17_numbers.json",
+     "path": "scope.interventions",
+     "is": 198594
+    },
+    {
+     "file": "results/census/summary.json",
+     "path": "national.n",
+     "is": 198594
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "share the vocabulary and are outside the tested scope.",
+     "The tested scope is interventions; parliamentary\ninitiatives, government business and other executive business that answers no member's affair are outside it."
+    ],
+    "../README.md": [
+     "are outside\n  the tested scope."
+    ]
+   }
+  },
+  {
+   "id": "safety.reviewer_confirms",
+   "why": "every Apertus value is a suggestion a reviewer confirms before it is written (needs_review: true); only the rules write unattended",
+   "docs": {
+    "docs/decision.md": [
+     "Apertus (the optional review mode) proposes values, and a reviewer confirms them.",
+     "| OPD's reviewer of the repair lists |",
+     "every Apertus suggestion before it is written |"
+    ],
+    "README.md": [
+     "every model value goes to a\n  reviewer.",
+     "**Apertus with a reviewer.** Apertus reads dates and a person confirms them"
+    ],
+    "technical_report.md": [
+     "**Null safety** is left to the reviewer:"
+    ],
+    "docs/form_notes.md": [
+     "every model value goes\n  to a reviewer."
+    ],
+    "docs/decision_de.md": [
+     "schlägt Werte vor, und eine Prüferin oder\nein Prüfer bestätigt sie.",
+     "jeden Vorschlag von Apertus, bevor er geschrieben wird |"
+    ]
+   }
+  },
+  {
+   "id": "sovereignty.publicai_terms",
+   "polarity": "neg",
+   "why": "Public AI's published terms (retrieved 12 Oct 2026): a US nonprofit, no data processing agreement, no storage outside the US",
+   "results": [
+    {
+     "file": "results/compliance/publicai_terms.json",
+     "path": "provider.jurisdiction",
+     "is": "US"
+    },
+    {
+     "file": "results/compliance/publicai_terms.json",
+     "path": "provider.form",
+     "is": "nonprofit"
+    },
+    {
+     "file": "results/compliance/publicai_terms.json",
+     "path": "data_processing_agreement",
+     "is": false
+    },
+    {
+     "file": "results/compliance/publicai_terms.json",
+     "path": "storage_outside_us",
+     "is": false
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "name a US nonprofit, offer no data processing agreement and no data storage outside the US"
+    ],
+    "technical_report.md": [
+     "by its published terms a US nonprofit offering no data processing agreement and no storage outside the US"
+    ],
+    "docs/decision.md": [
+     "goes to a US nonprofit that\n  offers no processing agreement"
+    ],
+    "docs/decision_de.md": [
+     "gemeinnützige Organisation in den USA, die keinen Auftragsbearbeitungsvertrag anbietet"
+    ]
+   }
+  },
+  {
+   "id": "sovereignty.publicai_terms_source",
+   "why": "the quotations and the retrieval date of Public AI's terms, as recorded in the facts file",
+   "results": [
+    {
+     "file": "results/compliance/publicai_terms.json",
+     "path": "retrieved",
+     "is": "2026-10-12"
+    },
+    {
+     "file": "results/compliance/publicai_terms.json",
+     "path": "sources.0.url",
+     "is": "https://publicai.co/tc"
+    },
+    {
+     "file": "results/compliance/publicai_terms.json",
+     "path": "not_offered.data_processing_agreement",
+     "is": true
+    },
+    {
+     "file": "results/compliance/publicai_terms.json",
+     "path": "not_offered.storage_outside_us",
+     "is": true
+    },
+    {
+     "file": "results/compliance/publicai_terms.json",
+     "path": "model_providers_dpa",
+     "is": false
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "(publicai.co/tc, retrieved\n  12 Oct 2026)"
+    ],
+    "docs/runbook.md": [
+     "What Public AI publishes, retrieved on 12 Oct 2026",
+     "\"We are a US-based nonprofit.\"",
+     "\"Formal Data\n  Processing Agreements (DPAs)\"",
+     "\"Localized data storage outside the US\"",
+     "\"no Data Processing Agreements are in place.\""
+    ]
+   }
+  },
+  {
+   "id": "sovereignty.ndsg_abroad",
+   "why": "sending document text through the gateway is a disclosure abroad under nDSG Art. 16, without a processing agreement",
+   "results": [
+    {
+     "file": "results/compliance/publicai_terms.json",
+     "path": "assessment.ndsg_disclosure_abroad",
+     "is": true
+    },
+    {
+     "file": "results/compliance/publicai_terms.json",
+     "path": "assessment.ndsg_article",
+     "is": "nDSG Art. 16"
+    },
+    {
+     "file": "results/compliance/publicai_terms.json",
+     "path": "data_processing_agreement",
+     "is": false
+    }
+   ],
+   "docs": {
+    "docs/decision.md": [
+     "a disclosure abroad under nDSG Art. 16"
+    ],
+    "technical_report.md": [
+     "the route that discloses text abroad (Public AI:"
+    ],
+    "docs/runbook.md": [
+     "discloses it abroad (nDSG Art. 16) without a processing agreement"
+    ],
+    "docs/decision_de.md": [
+     "das ist eine Bekanntgabe ins Ausland nach nDSG Art. 16"
+    ]
+   }
+  },
+  {
+   "id": "sovereignty.swiss_hosted_estimate",
+   "why": "the Swiss-hosted 70B is an estimate (assumed hardware and throughput), not a measured or existing deployment",
+   "results": [
+    {
+     "file": "results/report/r19c_numbers.json",
+     "path": "swiss_70b.label",
+     "is": "ESTIMATE (assumptions below, not measured): GPU time of review mode on a Swiss-hosted Apertus 70B"
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "a Swiss-hosted 70B is an estimated 1.64 GPU-hours"
+    ],
+    "technical_report.md": [
+     "a Swiss-hosted 70B is an estimated 1.64 GPU-hours"
+    ],
+    "docs/decision.md": [
+     "| review mode, Swiss-hosted 70B | an estimated 1.64 GPU-hours"
+    ],
+    "docs/decision_de.md": [
+     "| Prüfmodus, 70B in der Schweiz betrieben | geschätzt 1.64 GPU-Stunden"
+    ]
+   }
+  },
+  {
+   "id": "census.metadata_almost_everywhere",
+   "why": "'almost everywhere' = the fields whose 'where it lives' cell is metadata (OPD metadata carries them in nearly every parliament), counted in docs/evaluation.md's table of the 17 fields",
+   "results": [
+    {
+     "doc": "docs/evaluation.md",
+     "table": "| field | class | meaning | where it lives",
+     "match": {
+      "where it lives (metadata · mixed · PDF only · none)": "^\\*\\*metadata\\*\\*"
+     },
+     "is": 4
+    }
+   ],
+   "docs": {
+    "technical_report.md": [
+     "4 fields are in OPD's metadata almost everywhere"
+    ],
+    "docs/evaluation.md": [
+     "So 4 fields are in OPD's metadata almost everywhere"
+    ]
+   }
+  },
+  {
+   "id": "cmp.p2.pointer_vs_composite",
+   "why": "P2 pointer vs the strongest no-model rule tried (post hoc, proposed in review): 9 vs 2 discordant, exact McNemar p = 0.065 and parliament permutation p = 0.12 (neither below 0.05); the lead is 7 documents and 3 answer dates",
+   "results": [
+    {
+     "file": "results/eval/p2_posthoc_composite.json",
+     "path": "mcnemar.pointer_vs_composite.all.pointer_only",
+     "is": 9
+    },
+    {
+     "file": "results/eval/p2_posthoc_composite.json",
+     "path": "mcnemar.pointer_vs_composite.all.composite_only",
+     "is": 2
+    },
+    {
+     "file": "results/eval/p2_posthoc_composite.json",
+     "vars": {
+      "a": "mcnemar.pointer_vs_composite.all.p_mcnemar_exact",
+      "b": "mcnemar.pointer_vs_composite.bodies.cluster_permutation_p_two_sided"
+     },
+     "expr": "a > 0.05 and b > 0.05",
+     "is": true
+    },
+    {
+     "file": "results/report/r20e_numbers.json",
+     "vars": {
+      "d": "p2_lead.exact_docs",
+      "a": "p2_lead.answer_dates"
+     },
+     "expr": "d == 7 and a == 3",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "right alone on 9 documents vs 2",
+     "the strongest model-free\n  rule we tried",
+     "over the strongest model-free rule we tried",
+     "the pointer is right alone on 9 documents, the rule on 2",
+     "a lead of 7 documents and 3 answer dates",
+     "The strongest rule we tried"
+    ],
+    "technical_report.md": [
+     "right alone on 9 documents vs 2",
+     "the best model-free rule we tried 21/29",
+     "the strongest rule tried,"
+    ],
+    "docs/form_notes.md": [
+     "the strongest model-free rule we tried 21/29 and 46/62: right alone on 9 vs 2"
+    ],
+    "../README.md": [
+     "right alone on 9 documents vs 2",
+     "over the strongest model-free rule we tried"
+    ]
+   }
+  },
+  {
+   "id": "apertus.optin_role",
+   "why": "the plain-language summary of Apertus's role (R20, J5): opt-in; a few more answer dates than the best rule tried where nobody wrote rules (P2 composite, post hoc: +3 of 29), rules level with it where they exist (P1 cascade 139 vs model-free cascade 138; P10 document order 52 vs 50); its distinct contribution: values with provenance and a margin-ranked review queue",
+   "results": [
+    {
+     "file": "results/report/r20e_numbers.json",
+     "path": "p2_lead.answer_dates",
+     "is": 3
+    },
+    {
+     "file": "results/eval/closed_vs_free.json",
+     "vars": {
+      "a": "sets.P1.review_ranking.closed_margin.auroc_margin_flags_wrong",
+      "b": "sets.P1.review_ranking.free_quote_flag.auroc_missing_quote_flags_wrong",
+      "c": "sets.P2.review_ranking.closed_margin.auroc_margin_flags_wrong",
+      "d": "sets.P2.review_ranking.free_quote_flag.auroc_missing_quote_flags_wrong"
+     },
+     "expr": "a > b and c > d",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "where nobody wrote rules it finds a few more answer dates than the best rule we tried, and rules match it elsewhere;\nits distinct contribution is provable values and a ranked review queue",
+     "what it adds is provable values and a\n  ranked review queue"
+    ],
+    "technical_report.md": [
+     "where nobody wrote rules it finds a few more answer dates than the best rule we tried, and rules match it elsewhere; its distinct contribution is provable values and a ranked review queue"
+    ],
+    "docs/form_notes.md": [
+     "**Apertus, opt-in: provable values and a ranked review queue.**"
+    ]
+   }
+  },
+  {
+   "id": "cmp.closed_vs_free",
+   "polarity": "neg",
+   "why": "closed reader vs a null-allowed free prompt (post hoc): no paired accuracy difference significant on P1, P2 or P6; the closed set buys provenance (every value printed, with page and span) and a better review ranking (margin AUROC above the free prompt's quote check on P1, P2, P6)",
+   "results": [
+    {
+     "file": "results/eval/closed_vs_free.json",
+     "vars": {
+      "a": "sets.P1.paired.pointer_vs_naive_null.mcnemar_exact_p",
+      "b": "sets.P2.paired.pointer_vs_naive_null.mcnemar_exact_p",
+      "c": "sets.P6.paired.v2_vs_free_null.mcnemar_exact_p"
+     },
+     "expr": "a > 0.05 and b > 0.05 and c > 0.05",
+     "is": true
+    },
+    {
+     "file": "results/eval/closed_vs_free.json",
+     "vars": {
+      "a": "sets.P1.accuracy.pointer.values_printed_nowhere",
+      "b": "sets.P2.accuracy.pointer.values_printed_nowhere",
+      "c": "sets.P6.accuracy.v2.values_printed_nowhere"
+     },
+     "expr": "a + b + c",
+     "is": 0
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "provenance and a review ranking, not accuracy",
+     "no paired difference significant"
+    ],
+    "technical_report.md": [
+     "for provenance and a review ranking, not accuracy",
+     "no paired difference significant"
+    ]
+   }
+  },
+  {
+   "id": "nightly.fixed_pair",
+   "why": "the nightly job's maturity evidence: three real nights, then a real two-night Docker pair on the fixed ledger in which night 2 kept night 1's verdicts (Actions run 38187596786)",
+   "results": [
+    {
+     "file": "results/monitor/two_nights_docker_38187596786/two_nights.json",
+     "path": "night2_kept_night1_verdicts",
+     "is": true
+    },
+    {
+     "file": "results/monitor/two_nights_docker_38187596786/two_nights.json",
+     "path": "night2_had_previous_state",
+     "is": true
+    }
+   ],
+   "docs": {
+    "docs/decision.md": [
+     "| nightly job | ready to deploy: three real nights, then a real two-night Docker pair on the fixed ledger (night 2 kept night 1's verdicts) |"
+    ],
+    "docs/decision_de.md": [
+     "| nächtlicher Job | einsatzbereit: drei echte Nächte, dann ein echtes Nächtepaar in Docker mit dem korrigierten Ledger (Nacht 2 behielt die Prüfergebnisse von Nacht 1) |"
+    ],
+    "README.md": [
+     "A real two-night Docker pair on the fixed ledger followed (12 Oct): night 2\n  kept night 1's verdicts"
+    ],
+    "../README.md": [
+     "on a real two-night Docker pair with the fixed ledger, night 2 kept night 1's verdicts."
+    ],
+    "docs/form_notes.md": [
+     "two-night Docker pair: night 2 kept night 1's verdicts)."
+    ]
+   }
+  },
+  {
+   "id": "cmp.closed_vs_free.as_accurate",
+   "why": "the null-allowed free prompt is level with the closed reader in accuracy: no paired difference significant on P1, P2 or P6 (post hoc)",
+   "results": [
+    {
+     "file": "results/eval/closed_vs_free.json",
+     "vars": {
+      "a": "sets.P1.paired.pointer_vs_naive_null.mcnemar_exact_p",
+      "b": "sets.P2.paired.pointer_vs_naive_null.mcnemar_exact_p",
+      "c": "sets.P6.paired.v2_vs_free_null.mcnemar_exact_p"
+     },
+     "expr": "a > 0.05 and b > 0.05 and c > 0.05",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "A free prompt that may answer null is as accurate"
+    ],
+    "technical_report.md": [
+     "A free prompt that may answer null is as accurate"
     ]
    }
   }
@@ -2185,10 +2502,6 @@
    {
     "phrase": "councils that publish only minutes",
     "why": "names a construct (minutes-only councils), not a quantifier"
-   },
-   {
-    "phrase": "# Docker, CPU, clean checkout",
-    "why": "make run's comment: the hardware it needs"
    },
    {
     "phrase": "only meeting documents",
@@ -2359,20 +2672,12 @@
     "why": "OPD's confirmation of the Bern bug (correspondence, 10 Oct 2026)"
    },
    {
-    "phrase": "about 5 at ten times\nOPD's volume",
-    "why": "the 10× volume case of the cost estimate (results/report/cost_end_to_end.json)"
-   },
-   {
     "phrase": "3 dates judged wrong, all Solothurn",
     "why": "the 3 date verdicts of the re-read fall in exact_doc_date/fetch, Solothurn's eq_gov rows (retier_r18.json audit.after_retier by_stratum)"
    },
    {
     "phrase": "every field only OPD's metadata supplies",
     "why": "describes which fields become typed nulls (convert --schema v0.2), not a claim about Apertus"
-   },
-   {
-    "phrase": "chiefly the executive acting as proposer (adopting, endorsing and signing its own",
-    "why": "the executive adopting its own proposal: a role in government business (P11), not adoption of this work"
    },
    {
     "phrase": "once the proposed repairs are applied",
@@ -2443,10 +2748,6 @@
     "why": "ships in this repository (its release contents), not adoption by OPD"
    },
    {
-    "phrase": "gives the same no-invention guarantee, the closed set gives it by construction",
-    "why": "a property by construction (only printed values can be returned; no closed-set arm returned a date printed nowhere, pinned), not a certification"
-   },
-   {
     "phrase": "for OPD's existing manual-review step",
     "why": "OPD's own review step that the values go to, not labelling"
    },
@@ -2503,16 +2804,68 @@
     "why": "'hold' as in 'contain', not a verdict"
    },
    {
-    "phrase": "1,149 hold a value",
-    "why": "'hold' as in 'contain', not a verdict"
-   },
-   {
     "phrase": "only as a separate program",
     "why": "how the image runs poppler (docs/licences.md), not a result"
    },
    {
     "phrase": "which llama-cpp-python requires and Gegenprobe never calls",
     "why": "the vulnerability allowlist's justification (docs/sbom/vuln-allowlist.tsv)"
+   },
+   {
+    "phrase": "# Gegenprobe: one schema and a converter for Swiss parliamentary answers",
+    "why": "title: names the domain (Switzerland's parliaments), not where data goes"
+   },
+   {
+    "phrase": "Operator sheet (data protection under the nDSG,",
+    "why": "pointer to the operator sheet's nDSG row (docs/runbook.md), which states the facts"
+   },
+   {
+    "phrase": "almost no written answers",
+    "why": "the coverage_gap status as defined in gegenprobe.viewer.data.coverage_of (fewer than 20 written answers and under 10% of the in-scope interventions); the 31 is bound (r3w3.coverage_gap_bodies)"
+   },
+   {
+    "phrase": "for a data protection officer",
+    "why": "names the reader of the checklist, not a claim"
+   },
+   {
+    "phrase": "**10** (8 robust + 2 fragile)",
+    "why": "P8's registered robustness class (robust = under both checks), the same split as the 10 of 17 tile"
+   },
+   {
+    "phrase": "chiefly the executive acting as proposer (adopting,\nendorsing and signing its own",
+    "why": "the P11 gold role \"adopting\" (a new role), not adoption of Gegenprobe"
+   },
+   {
+    "phrase": "1,172 hold a value",
+    "why": "\"hold\" = carry a value in the field-record pair, not a verdict"
+   },
+   {
+    "phrase": "a record with an untyped cell fails `make schema-v02`",
+    "why": "describes the validator rule (v0_2_gaps.require_typed), tested by test_an_untyped_cell_fails"
+   },
+   {
+    "phrase": "would give the same no-invention guarantee",
+    "why": "a hypothetical design alternative (a printed-date filter after a free prompt), not a claim about Gegenprobe"
+   },
+   {
+    "phrase": "A manifest lists all 99",
+    "why": "all = the 99 sessions of results/eval/annotation_manifest.json (summary.n_sessions)"
+   },
+   {
+    "phrase": "only their hashes",
+    "why": "what is committed of the transcripts: their sha256 only"
+   },
+   {
+    "phrase": "and fails on any HIGH or CRITICAL finding with a published\n  fix",
+    "why": "describes the CI gate of job image-scan (tools/sbom.py image-scan)"
+   },
+   {
+    "phrase": "applies Debian's updates at build time",
+    "why": "the Dockerfile's apt-get upgrade step, not adoption"
+   },
+   {
+    "phrase": "71 HIGH or CRITICAL",
+    "why": "CVSS severity labels of grype findings (docs/licences.md, Image scan)"
    }
   ],
   "technical_report.md": [
@@ -2527,10 +2880,6 @@
    {
     "phrase": "every fetch path now fails closed",
     "why": "describes the fetch guard"
-   },
-   {
-    "phrase": "what OPD already holds",
-    "why": "describes OPD's data"
    },
    {
     "phrase": "the instrument behind",
@@ -2613,10 +2962,6 @@
     "why": "the 10× volume case of the cost estimate (results/report/cost_end_to_end.json)"
    },
    {
-    "phrase": "3 dates judged wrong, all Solothurn",
-    "why": "the 3 date verdicts of the re-read fall in exact_doc_date/fetch, Solothurn's eq_gov rows (retier_r18.json audit.after_retier by_stratum)"
-   },
-   {
     "phrase": "once the proposed repairs are applied",
     "why": "hypothetical: the repairs are proposed, not applied (would ... once applied)"
    },
@@ -2663,6 +3008,38 @@
    {
     "phrase": "and a reviewer confirms each; the default runs no model",
     "why": "the default mode (rules_only), as pinned in safety.default_runs_no_model"
+   },
+   {
+    "phrase": "# Technical report — Gegenprobe: one schema and a converter for Swiss parliamentary answers",
+    "why": "title: names the domain (Switzerland's parliaments), not where data goes"
+   },
+   {
+    "phrase": "can one schema hold the business of Switzerland's communal, cantonal and federal parliaments",
+    "why": "the research question: names the domain, not where data goes"
+   },
+   {
+    "phrase": "**Sovereignty and data protection.**",
+    "why": "paragraph heading; the sentences under it are pinned (sovereignty.*)"
+   },
+   {
+    "phrase": "The operator sheet's nDSG row names the personal data",
+    "why": "pointer to the operator sheet's nDSG row (docs/runbook.md)"
+   },
+   {
+    "phrase": "failing on a fixable HIGH or CRITICAL finding",
+    "why": "describes the CI gate of job image-scan; severity labels, not intensifiers"
+   },
+   {
+    "phrase": "the build applies Debian's updates",
+    "why": "the Dockerfile's apt-get upgrade step, not adoption"
+   },
+   {
+    "phrase": "A manifest lists all 99 sessions",
+    "why": "all = the 99 sessions of results/eval/annotation_manifest.json (summary.n_sessions)"
+   },
+   {
+    "phrase": "date suggestions only",
+    "why": "the 8B's recommended use, as in the Recommendation sentence (pin ops.local_8b_dates_only)"
    }
   ],
   "docs/form_notes.md": [
@@ -2701,6 +3078,10 @@
    {
     "phrase": "the converter's hold a value in",
     "why": "'hold' as in 'contain', not a verdict"
+   },
+   {
+    "phrase": "HIGH/CRITICAL findings kept",
+    "why": "CVSS severity labels of the image and lock scans (docs/licences.md)"
    }
   ],
   "../README.md": [
@@ -2747,6 +3128,10 @@
    {
     "phrase": "what leaves the machine",
     "why": "names a section of the decision page, not a claim"
+   },
+   {
+    "phrase": "for a data protection officer",
+    "why": "names the reader of the checklist, not a claim"
    }
   ],
   "docs/decision.md": [
@@ -2763,16 +3148,22 @@
     "why": "maturity label as in technical_report.md's maturity table"
    },
    {
-    "phrase": "| nightly job | ready to deploy |",
-    "why": "maturity label as in technical_report.md's maturity table"
-   },
-   {
     "phrase": "| rules-only converter | tested prototype |",
     "why": "maturity label as in technical_report.md's maturity table"
    },
    {
     "phrase": "| review mode (Apertus) | feasibility study |",
     "why": "maturity label as in technical_report.md's maturity table"
+   }
+  ],
+  "docs/decision_de.md": [
+   {
+    "phrase": "[Checkliste für Datenschutzbeauftragte](dpo_checklist.md#deutsch)",
+    "why": "link to the data-protection officer's checklist, which states the facts"
+   },
+   {
+    "phrase": "den Prüfer der Review-Warteschlange",
+    "why": "component name: the review-queue verifier (decision.md: 'the review-queue verifier')"
    }
   ]
  }

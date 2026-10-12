@@ -31,6 +31,28 @@
     "value": "Gerber"
    },
    "role": "joint_author"
+  },
+  {
+   "kind": "person",
+   "name": {
+    "doc": "opd:23227",
+    "evidence": "gegenprobe.schema.v0_2_gaps: the role rules (gegenprobe.convert.roles) read the printed authors as joint authors with equal standing, none designated first (GUIDE_P8): no co-signatory role applies",
+    "kind": "null",
+    "null_reason": "not_applicable",
+    "route": "rule"
+   },
+   "role": "co_signatory"
+  },
+  {
+   "kind": "other",
+   "name": {
+    "doc": "opd:23227",
+    "evidence": "gegenprobe.schema.v0_2_gaps: the frozen addressed-body rule (gegenprobe.affair.extract ADDRESSED) finds no addressee phrase in page 1, characters 0-3000 of the question document (re-run on the cached text: results/schema/v0_2/addressed_body_rule.jsonl)",
+    "kind": "null",
+    "null_reason": "present_unanchored",
+    "route": "rule"
+   },
+   "role": "addressed_body"
   }
  ],
  "answer_link_status": "attached",
@@ -57,12 +79,13 @@
    "date": {
     "basis": "metadata",
     "kind": "value",
+    "role": "answer_decided",
     "route": "metadata",
     "source": "opd:events/333247",
     "value": "2022-05-18"
    },
-   "label": "OPD answer event",
-   "role": "answered"
+   "label": "OPD answer event; role answer_decided: printed_anchor",
+   "role": "answer_decided"
   },
   {
    "date": {
@@ -80,6 +103,17 @@
    },
    "label": "printed: Eingereicht am",
    "role": "lodged"
+  },
+  {
+   "date": {
+    "doc": "opd:656633",
+    "evidence": "the answer document prints no dispatch anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)",
+    "kind": "null",
+    "null_reason": "not_in_document",
+    "route": "rule"
+   },
+   "label": "not carried, counterpart of dates.1 (answer_decided): not_in_document",
+   "role": "answer_dispatched"
   }
  ],
  "decision": {
@@ -145,7 +179,7 @@
   "builds": [],
   "converter_version": "gegenprobe-0.1.0+affair",
   "created": "2026-10-10T08:43:29.097587Z",
-  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it); v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 2 printed authors (2 earlier entries for the same persons replaced), 1 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 0 parts in 0 of 2 documents examined; Q/A pairing by gegenprobe.schema.v0_2_qa.with_qa (gegenprobe.qa.extract (the P5 rules arm, no model)): 4 questions (enumerated), 4 answer passages located; OPD metadata filled by gegenprobe.schema.v0_2_meta.with_metadata: qa.0.answering_body (opd:bodies/253#executive_name) (route metadata, no value replaced)",
+  "notes": "carried to schema v0.2 by gegenprobe.schema.v0_2_all.carry_v0_1: qa[].answering_body is typed not_extracted (this converter version does not extract it); v0.2 roles from the documents by gegenprobe.schema.v0_2_all.with_roles (gegenprobe.convert.roles roles-2): 2 printed authors (2 earlier entries for the same persons replaced), 1 printed submission dates, instrument; language of each text by stopword-profile-v1 (de/fr/it/rm/en; paragraphs >= 120 chars; share >= 0.15); document parts by gegenprobe.schema.v0_2_parts.with_parts (gegenprobe.convert.parts parts-1): 0 parts in 0 of 2 documents examined; Q/A pairing by gegenprobe.schema.v0_2_qa.with_qa (gegenprobe.qa.extract (the P5 rules arm, no model)): 4 questions (enumerated), 4 answer passages located; typed gaps by gegenprobe.schema.v0_2_gaps.with_gaps: co_signatories not_applicable, addressed_body present_unanchored; OPD metadata filled by gegenprobe.schema.v0_2_meta.with_metadata: qa.0.answering_body (opd:bodies/253#executive_name) (route metadata, no value replaced); answer-date roles by gegenprobe.schema.v0_2_dates.with_date_roles: dates.1 answer_decided (printed_anchor: printed at the decision anchor be_ace_split of opd:656633 p1:466-477), qa.0.answer_date answer_decided (printed_anchor: printed at the decision anchor be_ace_split of opd:656633 p1:466-477), dates.3 answer_dispatched (not_in_document: the answer document prints no dispatch anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl))",
   "schema_version": "0.2.0"
  },
  "government_recommendation": {
@@ -175,6 +209,7 @@
     "kind": "value",
     "page": 1,
     "quote": "18 mai 2022",
+    "role": "answer_decided",
     "route": "rule",
     "rule": "opd_event_date_in_document",
     "value": "2022-05-18"

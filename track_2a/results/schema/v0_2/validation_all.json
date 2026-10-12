@@ -44,8 +44,8 @@
    "n_parliaments": 10,
    "counts": {
     "actor_roles": {
-     "addressed_body": 4,
-     "co_signatory": 12,
+     "addressed_body": 29,
+     "co_signatory": 38,
      "first_signatory": 3,
      "joint_author": 22,
      "sole_author": 14,
@@ -53,7 +53,9 @@
      "submitter": 5
     },
     "date_roles": {
-     "answered": 23,
+     "answer_decided": 9,
+     "answer_dispatched": 12,
+     "answered": 14,
      "lodged": 5,
      "signed": 8,
      "submitted": 29
@@ -63,10 +65,10 @@
      "present_unanchored": 2
     },
     "null_reasons": {
-     "not_applicable": 35,
-     "not_in_corpus": 1,
-     "not_in_document": 8,
-     "present_unanchored": 76
+     "not_applicable": 43,
+     "not_in_corpus": 2,
+     "not_in_document": 37,
+     "present_unanchored": 107
     },
     "qa_items": {
      "none": 3,
@@ -87,8 +89,8 @@
      "printed_date:signed": 8
     },
     "routes": {
-     "metadata": 148,
-     "rule": 517
+     "metadata": 149,
+     "rule": 585
     },
     "v02_additions_used": {
      "actor_role:joint_author": 22,
@@ -110,8 +112,8 @@
    "n_parliaments": 9,
    "counts": {
     "actor_roles": {
-     "addressed_body": 2,
-     "co_signatory": 160,
+     "addressed_body": 36,
+     "co_signatory": 185,
      "first_signatory": 5,
      "joint_author": 12,
      "sole_author": 22,
@@ -119,7 +121,9 @@
      "submitter": 10
     },
     "date_roles": {
-     "answered": 19,
+     "answer_decided": 8,
+     "answer_dispatched": 3,
+     "answered": 17,
      "lodged": 8,
      "signed": 21,
      "submitted": 36
@@ -129,10 +133,10 @@
      "present_unanchored": 1
     },
     "null_reasons": {
-     "not_applicable": 37,
-     "not_in_corpus": 4,
-     "not_in_document": 15,
-     "present_unanchored": 118
+     "not_applicable": 40,
+     "not_in_corpus": 8,
+     "not_in_document": 50,
+     "present_unanchored": 153
     },
     "qa_items": {
      "none": 4,
@@ -153,8 +157,8 @@
      "printed_date:signed": 21
     },
     "routes": {
-     "metadata": 205,
-     "rule": 661
+     "metadata": 209,
+     "rule": 734
     },
     "v02_additions_used": {
      "actor_role:joint_author": 12,
@@ -176,7 +180,8 @@
    "n_parliaments": 10,
    "counts": {
     "actor_roles": {
-     "co_signatory": 151,
+     "addressed_body": 32,
+     "co_signatory": 173,
      "first_signatory": 5,
      "joint_author": 12,
      "sole_author": 14,
@@ -184,7 +189,9 @@
      "submitter": 11
     },
     "date_roles": {
-     "answered": 22,
+     "answer_decided": 3,
+     "answer_dispatched": 3,
+     "answered": 19,
      "lodged": 4,
      "signed": 23,
      "submitted": 40
@@ -196,10 +203,10 @@
      "present_unanchored": 7
     },
     "null_reasons": {
-     "not_applicable": 27,
-     "not_extracted": 60,
+     "not_applicable": 30,
+     "not_extracted": 92,
      "not_in_corpus": 12,
-     "not_in_document": 22,
+     "not_in_document": 56,
      "present_unanchored": 31
     },
     "qa_items": {
@@ -222,7 +229,7 @@
     },
     "routes": {
      "metadata": 202,
-     "rule": 756
+     "rule": 825
     },
     "v02_additions_used": {
      "actor_role:joint_author": 12,
@@ -639,6 +646,2360 @@
   },
   "sentence": "186 v0.2 records from 26 parliaments validate: the converter's 120 (105 cantonal and communal + 15 federal, 23 parliaments) and P8's 66 gold records (11 parliaments)",
   "note": "n_affairs/n_parliaments at the top of this file count v0_2_all's sets p3, p3b, p5 and p8; this block adds the federal cell's records (fed_records.jsonl, validated here)"
+ },
+ "answer_date_roles": {
+  "label": "POST HOC (R20), descriptive: the role of every answer date the converter's records carry, from the frozen rules' own roles, the frozen anchors printed in the answer document and the census date-trust tier; no model, no value changed",
+  "overlay": "gegenprobe.schema.v0_2_dates.with_date_roles",
+  "anchors": "results/schema/v0_2/answer_date_anchors.jsonl (python -m gegenprobe.schema.v0_2_dates detect)",
+  "trust": "results/census/date_trust.json",
+  "n_records": 120,
+  "n_answer_date_values": 139,
+  "values_role_split": 38,
+  "values_role_answered": 101,
+  "values_by_role": {
+   "answer_decided": 22,
+   "answer_dispatched": 16,
+   "answered": 101
+  },
+  "records_with_an_answer_date": 77,
+  "records_with_a_split_role": 24,
+  "counterparts": {
+   "n": 24,
+   "by_role_reason": {
+    "answer_decided:not_in_document": 11,
+    "answer_dispatched:not_in_document": 10,
+    "answer_dispatched:present_unanchored": 3
+   },
+   "note": "where a record's answer dates carry one split role, the other role is a typed null in dates[] (not_in_document: no such anchor printed; not_extracted: the anchor is printed but the rules return one date; present_unanchored: only a bare date line that names no role)"
+  },
+  "documents_read": 120,
+  "totals": {
+   "before": {
+    "dates:answered": 71,
+    "qa:none": 68
+   },
+   "after": {
+    "dates:answer_decided": 9,
+    "dates:answer_decided:typed_null": 11,
+    "dates:answer_dispatched": 5,
+    "dates:answer_dispatched:typed_null": 13,
+    "dates:answered": 57,
+    "qa:answer_decided": 13,
+    "qa:answer_dispatched": 11,
+    "qa:answered": 44
+   }
+  },
+  "by_source": {
+   "answer_decided:printed_anchor": 18,
+   "answer_decided:rule_role": 4,
+   "answer_dispatched:printed_anchor": 10,
+   "answer_dispatched:rule_role": 6,
+   "answered:not_at_anchor": 50,
+   "answered:same_as_submission": 14,
+   "answered:unlabelled_date_line": 37
+  },
+  "by_parliament": {
+   "261": {
+    "answered": 4
+   },
+   "2703": {
+    "answered": 8
+   },
+   "5002": {
+    "answered": 2
+   },
+   "5192": {
+    "answered": 4
+   },
+   "5586": {
+    "answer_decided": 1,
+    "answered": 9
+   },
+   "6643": {
+    "answered": 14
+   },
+   "BE": {
+    "answer_decided": 6
+   },
+   "BL": {
+    "answer_dispatched": 12,
+    "answered": 3
+   },
+   "BS": {
+    "answer_decided": 3,
+    "answered": 3
+   },
+   "CHE": {
+    "answered": 7
+   },
+   "GE": {
+    "answer_dispatched": 4
+   },
+   "GR": {
+    "answered": 16
+   },
+   "LU": {
+    "answered": 8
+   },
+   "NW": {
+    "answered": 3
+   },
+   "OW": {
+    "answered": 6
+   },
+   "SH": {
+    "answered": 4
+   },
+   "TI": {
+    "answer_decided": 6
+   },
+   "VS": {
+    "answered": 10
+   },
+   "ZH": {
+    "answer_decided": 6
+   }
+  },
+  "sets": {
+   "p3": {
+    "before": {
+     "dates:answered": 23,
+     "qa:none": 22
+    },
+    "after": {
+     "dates:answer_decided": 9,
+     "dates:answer_dispatched:typed_null": 12,
+     "dates:answered": 14,
+     "qa:answer_decided": 12,
+     "qa:answered": 10
+    }
+   },
+   "p3b": {
+    "before": {
+     "dates:answered": 19,
+     "qa:none": 24
+    },
+    "after": {
+     "dates:answer_decided:typed_null": 8,
+     "dates:answer_dispatched": 2,
+     "dates:answer_dispatched:typed_null": 1,
+     "dates:answered": 17,
+     "qa:answer_decided": 1,
+     "qa:answer_dispatched": 8,
+     "qa:answered": 15
+    }
+   },
+   "p5": {
+    "before": {
+     "dates:answered": 22,
+     "qa:none": 22
+    },
+    "after": {
+     "dates:answer_decided:typed_null": 3,
+     "dates:answer_dispatched": 3,
+     "dates:answered": 19,
+     "qa:answer_dispatched": 3,
+     "qa:answered": 19
+    }
+   },
+   "fed": {
+    "before": {
+     "dates:answered": 7
+    },
+    "after": {
+     "dates:answered": 7
+    }
+   }
+  },
+  "gold_check": {
+   "p3": {
+    "agree": 21,
+    "disagreements": []
+   },
+   "p3b": {
+    "agree": 11,
+    "disagreements": []
+   }
+  },
+  "gold_check_total": {
+   "agree": 32,
+   "compared": 32
+  },
+  "gold_check_first_mapping": {
+   "p3": {
+    "agree": 27,
+    "disagree": 1,
+    "disagreements": [
+     {
+      "opd_id": 203603,
+      "body": "NW",
+      "path": "qa.0.answer_date",
+      "value": "2024-05-07",
+      "role": "answer_dispatched",
+      "gold_role": "answer_decided",
+      "source": null
+     }
+    ]
+   },
+   "p3b": {
+    "disagree": 9,
+    "agree": 19,
+    "no_gold_same_date": 5,
+    "disagreements": [
+     {
+      "opd_id": 240980,
+      "body": "LU",
+      "path": "dates.1",
+      "value": "2021-10-19",
+      "role": "answer_dispatched",
+      "gold_role": "answer_decided",
+      "source": null
+     },
+     {
+      "opd_id": 240980,
+      "body": "LU",
+      "path": "qa.0.answer_date",
+      "value": "2021-10-19",
+      "role": "answer_dispatched",
+      "gold_role": "answer_decided",
+      "source": null
+     },
+     {
+      "opd_id": 240904,
+      "body": "LU",
+      "path": "dates.1",
+      "value": "2020-06-09",
+      "role": "answer_dispatched",
+      "gold_role": "answer_decided",
+      "source": null
+     },
+     {
+      "opd_id": 240904,
+      "body": "LU",
+      "path": "qa.0.answer_date",
+      "value": "2020-06-09",
+      "role": "answer_dispatched",
+      "gold_role": "answer_decided",
+      "source": null
+     },
+     {
+      "opd_id": 241105,
+      "body": "LU",
+      "path": "dates.1",
+      "value": "2018-02-20",
+      "role": "answer_dispatched",
+      "gold_role": "answer_decided",
+      "source": null
+     },
+     {
+      "opd_id": 241105,
+      "body": "LU",
+      "path": "qa.0.answer_date",
+      "value": "2018-02-20",
+      "role": "answer_dispatched",
+      "gold_role": "answer_decided",
+      "source": null
+     },
+     {
+      "opd_id": 165723,
+      "body": "GR",
+      "path": "qa.0.answer_date",
+      "value": "2025-06-10",
+      "role": "answer_dispatched",
+      "gold_role": "answer_decided",
+      "source": null
+     },
+     {
+      "opd_id": 288663,
+      "body": "GR",
+      "path": "qa.0.answer_date",
+      "value": "2026-02-24",
+      "role": "answer_dispatched",
+      "gold_role": "answer_decided",
+      "source": null
+     },
+     {
+      "opd_id": 165724,
+      "body": "GR",
+      "path": "qa.0.answer_date",
+      "value": "2025-06-10",
+      "role": "answer_dispatched",
+      "gold_role": "answer_decided",
+      "source": null
+     }
+    ]
+   }
+  },
+  "gold_check_first_mapping_total": {
+   "agree": 46,
+   "compared": 56,
+   "disagree_by_parliament": {
+    "GR": 3,
+    "LU": 6,
+    "NW": 1
+   }
+  },
+  "gold_check_note": "POST HOC: the blind P3/P3b gold labels' answer-date role (decision / dispatch), where the gold date equals the record's value. R20's first mapping took every frozen dispatch anchor as a dispatch date (gold_check_first_mapping): the values that disagreed with the gold role were bare date lines (a protocol's or a sitting's date), which now keep `answered` (unlabelled_date_line)",
+  "p8_gold": "not changed: P8's annotators labelled the answer date `answer_or_decision` (77 dates, role `answered`), which does not split decided from dispatched",
+  "values": [
+   {
+    "set": "p3",
+    "body": "BE",
+    "opd_id": 39369,
+    "path": "dates.1",
+    "value": "2022-05-18",
+    "tier": "verified",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor be_ace_split of opd:656633 p1:466-477",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "BE",
+    "opd_id": 39369,
+    "path": "qa.0.answer_date",
+    "value": "2022-05-18",
+    "tier": "verified",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor be_ace_split of opd:656633 p1:466-477",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "BE",
+    "opd_id": 39369,
+    "path": "dates.3",
+    "value": null,
+    "tier": "verified",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no dispatch anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3",
+    "body": "BE",
+    "opd_id": 271530,
+    "path": "dates.1",
+    "value": "2025-10-15",
+    "tier": "verified",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor be_rrb_split of opd:604199 p1:398-414",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "BE",
+    "opd_id": 271530,
+    "path": "qa.0.answer_date",
+    "value": "2025-10-15",
+    "tier": "verified",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor be_rrb_split of opd:604199 p1:398-414",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "BE",
+    "opd_id": 271530,
+    "path": "dates.3",
+    "value": null,
+    "tier": "verified",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no dispatch anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3",
+    "body": "BE",
+    "opd_id": 271519,
+    "path": "dates.1",
+    "value": "2025-10-15",
+    "tier": "verified",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor be_rrb_split of opd:604192 p1:499-515",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "BE",
+    "opd_id": 271519,
+    "path": "qa.0.answer_date",
+    "value": "2025-10-15",
+    "tier": "verified",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor be_rrb_split of opd:604192 p1:499-515",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "BE",
+    "opd_id": 271519,
+    "path": "dates.3",
+    "value": null,
+    "tier": "verified",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no dispatch anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3",
+    "body": "ZH",
+    "opd_id": 180608,
+    "path": "dates.1",
+    "value": "2020-09-23",
+    "tier": "sitting_day",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor protokoll_sitzung of opd:172579 p1:94-112",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "ZH",
+    "opd_id": 180608,
+    "path": "qa.0.answer_date",
+    "value": "2020-09-23",
+    "tier": "sitting_day",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor protokoll_sitzung of opd:172579 p1:94-112",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "ZH",
+    "opd_id": 180608,
+    "path": "dates.3",
+    "value": null,
+    "tier": "sitting_day",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no dispatch anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3",
+    "body": "ZH",
+    "opd_id": 180017,
+    "path": "dates.1",
+    "value": "2023-06-07",
+    "tier": "sitting_day",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor protokoll_sitzung of opd:111612 p1:94-106",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "ZH",
+    "opd_id": 180017,
+    "path": "qa.0.answer_date",
+    "value": "2023-06-07",
+    "tier": "sitting_day",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor protokoll_sitzung of opd:111612 p1:94-106",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "ZH",
+    "opd_id": 180017,
+    "path": "dates.3",
+    "value": null,
+    "tier": "sitting_day",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no dispatch anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3",
+    "body": "ZH",
+    "opd_id": 90357,
+    "path": "dates.1",
+    "value": "2022-07-06",
+    "tier": "sitting_day",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor protokoll_sitzung of opd:226381 p1:94-106",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "ZH",
+    "opd_id": 90357,
+    "path": "qa.0.answer_date",
+    "value": "2022-07-06",
+    "tier": "sitting_day",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor protokoll_sitzung of opd:226381 p1:94-106",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "ZH",
+    "opd_id": 90357,
+    "path": "dates.2",
+    "value": null,
+    "tier": "sitting_day",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no dispatch anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3",
+    "body": "BS",
+    "opd_id": 46346,
+    "path": "dates.1",
+    "value": "2023-09-06",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:153494 prints this date at no decision or dispatch anchor (date-trust tier mixed does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "BS",
+    "opd_id": 46346,
+    "path": "qa.0.answer_date",
+    "value": "2023-09-05",
+    "tier": "mixed",
+    "role": "answer_decided",
+    "source": "rule_role",
+    "detail": "frozen rule rrb_vom reads a decision date printed with its role (gegenprobe.convert.rules)",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "BS",
+    "opd_id": 46346,
+    "path": "dates.2",
+    "value": null,
+    "tier": "mixed",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no dispatch anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3",
+    "body": "BS",
+    "opd_id": 121857,
+    "path": "dates.1",
+    "value": "2016-11-30",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:97616 prints this date at no decision or dispatch anchor (date-trust tier mixed does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "BS",
+    "opd_id": 121857,
+    "path": "qa.0.answer_date",
+    "value": "2016-11-29",
+    "tier": "mixed",
+    "role": "answer_decided",
+    "source": "rule_role",
+    "detail": "frozen rule rrb_vom reads a decision date printed with its role (gegenprobe.convert.rules)",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "BS",
+    "opd_id": 121857,
+    "path": "dates.2",
+    "value": null,
+    "tier": "mixed",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no dispatch anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3",
+    "body": "BS",
+    "opd_id": 568,
+    "path": "dates.1",
+    "value": "2010-09-01",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:360674 prints this date at no decision or dispatch anchor (date-trust tier mixed does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "BS",
+    "opd_id": 568,
+    "path": "qa.0.answer_date",
+    "value": "2010-08-31",
+    "tier": "mixed",
+    "role": "answer_decided",
+    "source": "rule_role",
+    "detail": "frozen rule rrb_vom reads a decision date printed with its role (gegenprobe.convert.rules)",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "BS",
+    "opd_id": 568,
+    "path": "dates.2",
+    "value": null,
+    "tier": "mixed",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no dispatch anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3",
+    "body": "TI",
+    "opd_id": 174066,
+    "path": "dates.1",
+    "value": "2024-08-07",
+    "tier": "verified",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor it_rg of opd:50511 p2:59-72",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "TI",
+    "opd_id": 174066,
+    "path": "qa.0.answer_date",
+    "value": "2024-08-07",
+    "tier": "verified",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor it_rg of opd:50511 p2:59-72",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "TI",
+    "opd_id": 174066,
+    "path": "dates.2",
+    "value": null,
+    "tier": "verified",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "present_unanchored",
+    "detail": "the document prints a bare date (ti_header_date_head at p1:185-198) that may be the letter's date but names no role"
+   },
+   {
+    "set": "p3",
+    "body": "TI",
+    "opd_id": 83444,
+    "path": "dates.1",
+    "value": "2023-03-08",
+    "tier": "verified",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor it_rg of opd:325535 p2:59-71",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "TI",
+    "opd_id": 83444,
+    "path": "qa.0.answer_date",
+    "value": "2023-03-08",
+    "tier": "verified",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor it_rg of opd:325535 p2:59-71",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "TI",
+    "opd_id": 83444,
+    "path": "dates.2",
+    "value": null,
+    "tier": "verified",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "present_unanchored",
+    "detail": "the document prints a bare date (date_line_above_heading_head at p1:185-197) that may be the letter's date but names no role"
+   },
+   {
+    "set": "p3",
+    "body": "TI",
+    "opd_id": 173540,
+    "path": "dates.1",
+    "value": "2022-09-07",
+    "tier": "verified",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor it_rg of opd:375588 p2:59-75",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "TI",
+    "opd_id": 173540,
+    "path": "qa.0.answer_date",
+    "value": "2022-09-07",
+    "tier": "verified",
+    "role": "answer_decided",
+    "source": "printed_anchor",
+    "detail": "printed at the decision anchor it_rg of opd:375588 p2:59-75",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3",
+    "body": "TI",
+    "opd_id": 173540,
+    "path": "dates.2",
+    "value": null,
+    "tier": "verified",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "present_unanchored",
+    "detail": "the document prints a bare date (date_line_above_heading_head at p1:185-201) that may be the letter's date but names no role"
+   },
+   {
+    "set": "p3",
+    "body": "261",
+    "opd_id": 250883,
+    "path": "dates.1",
+    "value": "2025-11-26",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:651306 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "261",
+    "opd_id": 250883,
+    "path": "qa.0.answer_date",
+    "value": "2025-11-26",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:651306 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "261",
+    "opd_id": 250848,
+    "path": "dates.1",
+    "value": "2025-11-12",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:638493 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "261",
+    "opd_id": 250848,
+    "path": "qa.0.answer_date",
+    "value": "2025-11-12",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:638493 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "NW",
+    "opd_id": 203603,
+    "path": "qa.0.answer_date",
+    "value": "2024-05-07",
+    "tier": "too_few",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_head) that names no role: a letter's date or the date of the government sitting (date-trust tier too_few)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3",
+    "body": "NW",
+    "opd_id": 167415,
+    "path": "dates.1",
+    "value": "2010-07-06",
+    "tier": "too_few",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:462678 prints this date at no decision or dispatch anchor (date-trust tier too_few does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "NW",
+    "opd_id": 167415,
+    "path": "qa.0.answer_date",
+    "value": "2010-07-06",
+    "tier": "too_few",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:462678 prints this date at no decision or dispatch anchor (date-trust tier too_few does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "OW",
+    "opd_id": 167740,
+    "path": "dates.1",
+    "value": "2022-08-29",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:431738 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "OW",
+    "opd_id": 167740,
+    "path": "qa.0.answer_date",
+    "value": "2022-08-29",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:431738 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "OW",
+    "opd_id": 167741,
+    "path": "dates.1",
+    "value": "2022-09-06",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:431710 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "OW",
+    "opd_id": 167741,
+    "path": "qa.0.answer_date",
+    "value": "2022-09-06",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:431710 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "OW",
+    "opd_id": 294993,
+    "path": "dates.1",
+    "value": "2026-02-24",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:686525 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "OW",
+    "opd_id": 294993,
+    "path": "qa.0.answer_date",
+    "value": "2026-02-24",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:686525 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "6643",
+    "opd_id": 328935,
+    "path": "dates.1",
+    "value": "2024-06-18",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_tail) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3",
+    "body": "6643",
+    "opd_id": 328935,
+    "path": "qa.0.answer_date",
+    "value": "2024-06-18",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_tail) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3",
+    "body": "6643",
+    "opd_id": 328691,
+    "path": "dates.1",
+    "value": "2024-06-10",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_tail) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3",
+    "body": "6643",
+    "opd_id": 328691,
+    "path": "qa.0.answer_date",
+    "value": "2024-06-10",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_tail) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3",
+    "body": "6643",
+    "opd_id": 328952,
+    "path": "dates.1",
+    "value": "2022-10-11",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_tail) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3",
+    "body": "6643",
+    "opd_id": 328952,
+    "path": "qa.0.answer_date",
+    "value": "2022-10-11",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_tail) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3",
+    "body": "5002",
+    "opd_id": 254570,
+    "path": "dates.1",
+    "value": "2021-07-02",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:644143 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3",
+    "body": "5002",
+    "opd_id": 254745,
+    "path": "dates.1",
+    "value": "2020-12-29",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:642553 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3b",
+    "body": "LU",
+    "opd_id": 240980,
+    "path": "dates.1",
+    "value": "2021-10-19",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_head) that names no role: a letter's date or the date of the government sitting (date-trust tier mixed)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "LU",
+    "opd_id": 240980,
+    "path": "qa.0.answer_date",
+    "value": "2021-10-19",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_head) that names no role: a letter's date or the date of the government sitting (date-trust tier mixed)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "LU",
+    "opd_id": 240904,
+    "path": "dates.1",
+    "value": "2020-06-09",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_head) that names no role: a letter's date or the date of the government sitting (date-trust tier mixed)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "LU",
+    "opd_id": 240904,
+    "path": "qa.0.answer_date",
+    "value": "2020-06-09",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_head) that names no role: a letter's date or the date of the government sitting (date-trust tier mixed)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "LU",
+    "opd_id": 241105,
+    "path": "dates.1",
+    "value": "2018-02-20",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_head) that names no role: a letter's date or the date of the government sitting (date-trust tier mixed)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "LU",
+    "opd_id": 241105,
+    "path": "qa.0.answer_date",
+    "value": "2018-02-20",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_head) that names no role: a letter's date or the date of the government sitting (date-trust tier mixed)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "LU",
+    "opd_id": 77052,
+    "path": "dates.1",
+    "value": "2024-10-29",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:520923 prints this date at no decision or dispatch anchor (date-trust tier mixed does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3b",
+    "body": "LU",
+    "opd_id": 77052,
+    "path": "qa.0.answer_date",
+    "value": "2024-10-29",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:520923 prints this date at no decision or dispatch anchor (date-trust tier mixed does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3b",
+    "body": "VS",
+    "opd_id": 247577,
+    "path": "dates.1",
+    "value": "2025-05-05",
+    "tier": "same_day",
+    "role": "answered",
+    "reason": "same_as_submission",
+    "detail": "the answer date equals a submission date of this record (date-trust tier same_day)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3b",
+    "body": "VS",
+    "opd_id": 247577,
+    "path": "qa.0.answer_date",
+    "value": "2025-05-05",
+    "tier": "same_day",
+    "role": "answered",
+    "reason": "same_as_submission",
+    "detail": "the answer date equals a submission date of this record (date-trust tier same_day)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3b",
+    "body": "GE",
+    "opd_id": 335218,
+    "path": "qa.0.answer_date",
+    "value": "2026-08-19",
+    "tier": "too_few",
+    "role": "answer_dispatched",
+    "source": "rule_role",
+    "detail": "frozen rule date_de_depot_head reads a dispatch date printed with its role (gegenprobe.convert.rules)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "GE",
+    "opd_id": 335218,
+    "path": "dates.2",
+    "value": null,
+    "tier": "too_few",
+    "role": "answer_decided",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no decision anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3b",
+    "body": "GE",
+    "opd_id": 327784,
+    "path": "qa.0.answer_date",
+    "value": "2026-06-03",
+    "tier": "too_few",
+    "role": "answer_dispatched",
+    "source": "rule_role",
+    "detail": "frozen rule date_de_depot_head reads a dispatch date printed with its role (gegenprobe.convert.rules)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "GE",
+    "opd_id": 327784,
+    "path": "dates.2",
+    "value": null,
+    "tier": "too_few",
+    "role": "answer_decided",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no decision anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3b",
+    "body": "GE",
+    "opd_id": 335202,
+    "path": "qa.0.answer_date",
+    "value": "2026-09-02",
+    "tier": "too_few",
+    "role": "answer_dispatched",
+    "source": "rule_role",
+    "detail": "frozen rule date_de_depot_head reads a dispatch date printed with its role (gegenprobe.convert.rules)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "GE",
+    "opd_id": 335202,
+    "path": "dates.2",
+    "value": null,
+    "tier": "too_few",
+    "role": "answer_decided",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no decision anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3b",
+    "body": "GE",
+    "opd_id": 338009,
+    "path": "qa.0.answer_date",
+    "value": "2026-09-30",
+    "tier": "too_few",
+    "role": "answer_dispatched",
+    "source": "rule_role",
+    "detail": "frozen rule date_de_depot_head reads a dispatch date printed with its role (gegenprobe.convert.rules)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "GE",
+    "opd_id": 338009,
+    "path": "dates.2",
+    "value": null,
+    "tier": "too_few",
+    "role": "answer_decided",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no decision anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3b",
+    "body": "5586",
+    "opd_id": 29363,
+    "path": "dates.1",
+    "value": "2023-03-14",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:191324 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3b",
+    "body": "5586",
+    "opd_id": 29363,
+    "path": "qa.0.answer_date",
+    "value": "2023-05-11",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "5586",
+    "opd_id": 29824,
+    "path": "dates.1",
+    "value": "2024-09-27",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:191679 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3b",
+    "body": "5586",
+    "opd_id": 29824,
+    "path": "qa.0.answer_date",
+    "value": "2024-09-26",
+    "tier": "diffuse",
+    "role": "answer_decided",
+    "source": "rule_role",
+    "detail": "frozen rule fr_adopte_seance reads a decision date printed with its role (gegenprobe.convert.rules)",
+    "role_frozen_mapping": "answer_decided"
+   },
+   {
+    "set": "p3b",
+    "body": "5586",
+    "opd_id": 29824,
+    "path": "dates.2",
+    "value": null,
+    "tier": "diffuse",
+    "role": "answer_dispatched",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no dispatch anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3b",
+    "body": "5586",
+    "opd_id": 120166,
+    "path": "dates.1",
+    "value": "2022-09-13",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:19284 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3b",
+    "body": "5586",
+    "opd_id": 120166,
+    "path": "qa.0.answer_date",
+    "value": "2023-09-28",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "BL",
+    "opd_id": 282912,
+    "path": "qa.0.answer_date",
+    "value": "2018-11-06",
+    "tier": "sitting_day",
+    "role": "answer_dispatched",
+    "source": "rule_role",
+    "detail": "frozen rule signature_block reads a dispatch date printed with its role (gegenprobe.convert.rules)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "BL",
+    "opd_id": 282912,
+    "path": "dates.2",
+    "value": null,
+    "tier": "sitting_day",
+    "role": "answer_decided",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no decision anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3b",
+    "body": "BL",
+    "opd_id": 301273,
+    "path": "dates.1",
+    "value": "2014-11-18",
+    "tier": "sitting_day",
+    "role": "answer_dispatched",
+    "source": "printed_anchor",
+    "detail": "printed at the dispatch anchor signature_block of opd:919785 p6:944-961",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "BL",
+    "opd_id": 301273,
+    "path": "qa.0.answer_date",
+    "value": "2014-11-18",
+    "tier": "sitting_day",
+    "role": "answer_dispatched",
+    "source": "printed_anchor",
+    "detail": "printed at the dispatch anchor signature_block of opd:919785 p6:944-961",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "BL",
+    "opd_id": 301273,
+    "path": "dates.3",
+    "value": null,
+    "tier": "sitting_day",
+    "role": "answer_decided",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no decision anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3b",
+    "body": "BL",
+    "opd_id": 34503,
+    "path": "dates.1",
+    "value": "2017-10-24",
+    "tier": "sitting_day",
+    "role": "answer_dispatched",
+    "source": "printed_anchor",
+    "detail": "printed at the dispatch anchor signature_block of opd:305383 p2:2057-2073",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "BL",
+    "opd_id": 34503,
+    "path": "qa.0.answer_date",
+    "value": "2017-10-24",
+    "tier": "sitting_day",
+    "role": "answer_dispatched",
+    "source": "printed_anchor",
+    "detail": "printed at the dispatch anchor signature_block of opd:305383 p2:2057-2073",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "BL",
+    "opd_id": 34503,
+    "path": "dates.3",
+    "value": null,
+    "tier": "sitting_day",
+    "role": "answer_decided",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no decision anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3b",
+    "body": "BL",
+    "opd_id": 131278,
+    "path": "dates.1",
+    "value": "2016-03-22",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:31159 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3b",
+    "body": "BL",
+    "opd_id": 131278,
+    "path": "qa.0.answer_date",
+    "value": "2016-03-08",
+    "tier": "sitting_day",
+    "role": "answer_dispatched",
+    "source": "rule_role",
+    "detail": "frozen rule signature_block reads a dispatch date printed with its role (gegenprobe.convert.rules)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "BL",
+    "opd_id": 131278,
+    "path": "dates.2",
+    "value": null,
+    "tier": "sitting_day",
+    "role": "answer_decided",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no decision anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p3b",
+    "body": "GR",
+    "opd_id": 165723,
+    "path": "dates.1",
+    "value": "2025-06-13",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "GR",
+    "opd_id": 165723,
+    "path": "qa.0.answer_date",
+    "value": "2025-06-10",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "GR",
+    "opd_id": 288663,
+    "path": "dates.1",
+    "value": "2026-02-26",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "GR",
+    "opd_id": 288663,
+    "path": "qa.0.answer_date",
+    "value": "2026-02-24",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "GR",
+    "opd_id": 165724,
+    "path": "dates.1",
+    "value": "2025-06-11",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "GR",
+    "opd_id": 165724,
+    "path": "qa.0.answer_date",
+    "value": "2025-06-10",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "GR",
+    "opd_id": 288679,
+    "path": "dates.1",
+    "value": "2026-02-19",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "GR",
+    "opd_id": 288679,
+    "path": "qa.0.answer_date",
+    "value": "2026-02-19",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "6643",
+    "opd_id": 329195,
+    "path": "dates.1",
+    "value": "2025-08-25",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:895529 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3b",
+    "body": "6643",
+    "opd_id": 329195,
+    "path": "qa.0.answer_date",
+    "value": "2025-08-25",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:895529 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p3b",
+    "body": "6643",
+    "opd_id": 329125,
+    "path": "dates.1",
+    "value": "2024-03-05",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "6643",
+    "opd_id": 329125,
+    "path": "qa.0.answer_date",
+    "value": "2024-03-05",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "6643",
+    "opd_id": 329153,
+    "path": "dates.1",
+    "value": "2023-11-06",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_tail) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "6643",
+    "opd_id": 329153,
+    "path": "qa.0.answer_date",
+    "value": "2023-11-06",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_tail) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "6643",
+    "opd_id": 329085,
+    "path": "dates.1",
+    "value": "2023-11-06",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_tail) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p3b",
+    "body": "6643",
+    "opd_id": 329085,
+    "path": "qa.0.answer_date",
+    "value": "2023-11-06",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (place_date_tail) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "BL",
+    "opd_id": 130950,
+    "path": "dates.1",
+    "value": "2011-11-29",
+    "tier": "sitting_day",
+    "role": "answer_dispatched",
+    "source": "printed_anchor",
+    "detail": "printed at the dispatch anchor signature_block of opd:305863 p4:330-347",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "BL",
+    "opd_id": 130950,
+    "path": "qa.0.answer_date",
+    "value": "2011-11-29",
+    "tier": "sitting_day",
+    "role": "answer_dispatched",
+    "source": "printed_anchor",
+    "detail": "printed at the dispatch anchor signature_block of opd:305863 p4:330-347",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "BL",
+    "opd_id": 130950,
+    "path": "dates.2",
+    "value": null,
+    "tier": "sitting_day",
+    "role": "answer_decided",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no decision anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p5",
+    "body": "BL",
+    "opd_id": 131418,
+    "path": "dates.1",
+    "value": "2016-11-16",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:356417 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "BL",
+    "opd_id": 131418,
+    "path": "qa.0.answer_date",
+    "value": "2016-11-16",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:356417 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "BL",
+    "opd_id": 301315,
+    "path": "dates.1",
+    "value": "2013-01-15",
+    "tier": "sitting_day",
+    "role": "answer_dispatched",
+    "source": "printed_anchor",
+    "detail": "printed at the dispatch anchor signature_block of opd:887608 p4:2976-2991",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "BL",
+    "opd_id": 301315,
+    "path": "qa.0.answer_date",
+    "value": "2013-01-15",
+    "tier": "sitting_day",
+    "role": "answer_dispatched",
+    "source": "printed_anchor",
+    "detail": "printed at the dispatch anchor signature_block of opd:887608 p4:2976-2991",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "BL",
+    "opd_id": 301315,
+    "path": "dates.3",
+    "value": null,
+    "tier": "sitting_day",
+    "role": "answer_decided",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no decision anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p5",
+    "body": "BL",
+    "opd_id": 40420,
+    "path": "dates.1",
+    "value": "2014-09-30",
+    "tier": "sitting_day",
+    "role": "answer_dispatched",
+    "source": "printed_anchor",
+    "detail": "printed at the dispatch anchor signature_block of opd:146627 p9:1134-1152",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "BL",
+    "opd_id": 40420,
+    "path": "qa.0.answer_date",
+    "value": "2014-09-30",
+    "tier": "sitting_day",
+    "role": "answer_dispatched",
+    "source": "printed_anchor",
+    "detail": "printed at the dispatch anchor signature_block of opd:146627 p9:1134-1152",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "BL",
+    "opd_id": 40420,
+    "path": "dates.2",
+    "value": null,
+    "tier": "sitting_day",
+    "role": "answer_decided",
+    "counterpart": true,
+    "reason": "not_in_document",
+    "detail": "the answer document prints no decision anchor of the frozen answer-date rules (results/schema/v0_2/answer_date_anchors.jsonl)"
+   },
+   {
+    "set": "p5",
+    "body": "SH",
+    "opd_id": 79626,
+    "path": "dates.1",
+    "value": "2009-08-07",
+    "tier": "same_day",
+    "role": "answered",
+    "reason": "same_as_submission",
+    "detail": "the answer date equals a submission date of this record (date-trust tier same_day)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "SH",
+    "opd_id": 79626,
+    "path": "qa.0.answer_date",
+    "value": "2009-08-07",
+    "tier": "same_day",
+    "role": "answered",
+    "reason": "same_as_submission",
+    "detail": "the answer date equals a submission date of this record (date-trust tier same_day)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "SH",
+    "opd_id": 169918,
+    "path": "dates.1",
+    "value": "2011-07-18",
+    "tier": "same_day",
+    "role": "answered",
+    "reason": "same_as_submission",
+    "detail": "the answer date equals a submission date of this record (date-trust tier same_day)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "SH",
+    "opd_id": 169918,
+    "path": "qa.0.answer_date",
+    "value": "2011-07-18",
+    "tier": "same_day",
+    "role": "answered",
+    "reason": "same_as_submission",
+    "detail": "the answer date equals a submission date of this record (date-trust tier same_day)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "2703",
+    "opd_id": 105419,
+    "path": "dates.1",
+    "value": "2020-09-22",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:235852 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "2703",
+    "opd_id": 105419,
+    "path": "qa.0.answer_date",
+    "value": "2020-09-22",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:235852 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "2703",
+    "opd_id": 105348,
+    "path": "dates.1",
+    "value": "2018-10-30",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:235846 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "2703",
+    "opd_id": 105348,
+    "path": "qa.0.answer_date",
+    "value": "2018-10-30",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:235846 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "2703",
+    "opd_id": 103172,
+    "path": "dates.1",
+    "value": "2019-11-26",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:70990 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "2703",
+    "opd_id": 103172,
+    "path": "qa.0.answer_date",
+    "value": "2019-11-26",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:70990 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "2703",
+    "opd_id": 105365,
+    "path": "dates.1",
+    "value": "2019-03-26",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:71000 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "2703",
+    "opd_id": 105365,
+    "path": "qa.0.answer_date",
+    "value": "2019-03-26",
+    "tier": "sitting_day",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:71000 prints this date at no decision or dispatch anchor (date-trust tier sitting_day does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "5586",
+    "opd_id": 29393,
+    "path": "dates.1",
+    "value": "2025-03-07",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:347273 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "5586",
+    "opd_id": 29393,
+    "path": "qa.0.answer_date",
+    "value": "2025-03-07",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:347273 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "5586",
+    "opd_id": 120219,
+    "path": "dates.1",
+    "value": "2023-12-08",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:347262 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "5586",
+    "opd_id": 120219,
+    "path": "qa.0.answer_date",
+    "value": "2023-12-08",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:347262 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "VS",
+    "opd_id": 87651,
+    "path": "dates.1",
+    "value": "2023-09-03",
+    "tier": "same_day",
+    "role": "answered",
+    "reason": "same_as_submission",
+    "detail": "the answer date equals a submission date of this record (date-trust tier same_day)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "VS",
+    "opd_id": 87651,
+    "path": "qa.0.answer_date",
+    "value": "2023-09-03",
+    "tier": "same_day",
+    "role": "answered",
+    "reason": "same_as_submission",
+    "detail": "the answer date equals a submission date of this record (date-trust tier same_day)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "VS",
+    "opd_id": 295461,
+    "path": "dates.1",
+    "value": "2025-12-16",
+    "tier": "same_day",
+    "role": "answered",
+    "reason": "same_as_submission",
+    "detail": "the answer date equals a submission date of this record (date-trust tier same_day)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "VS",
+    "opd_id": 295461,
+    "path": "qa.0.answer_date",
+    "value": "2025-12-16",
+    "tier": "same_day",
+    "role": "answered",
+    "reason": "same_as_submission",
+    "detail": "the answer date equals a submission date of this record (date-trust tier same_day)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "VS",
+    "opd_id": 247619,
+    "path": "dates.1",
+    "value": "2025-06-13",
+    "tier": "same_day",
+    "role": "answered",
+    "reason": "same_as_submission",
+    "detail": "the answer date equals a submission date of this record (date-trust tier same_day)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "VS",
+    "opd_id": 247619,
+    "path": "qa.0.answer_date",
+    "value": "2025-06-13",
+    "tier": "same_day",
+    "role": "answered",
+    "reason": "same_as_submission",
+    "detail": "the answer date equals a submission date of this record (date-trust tier same_day)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "VS",
+    "opd_id": 252838,
+    "path": "dates.1",
+    "value": "2025-09-09",
+    "tier": "same_day",
+    "role": "answered",
+    "reason": "same_as_submission",
+    "detail": "the answer date equals a submission date of this record (date-trust tier same_day)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "VS",
+    "opd_id": 252838,
+    "path": "qa.0.answer_date",
+    "value": "2025-09-09",
+    "tier": "same_day",
+    "role": "answered",
+    "reason": "same_as_submission",
+    "detail": "the answer date equals a submission date of this record (date-trust tier same_day)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "5192",
+    "opd_id": 27659,
+    "path": "dates.1",
+    "value": "2020-10-19",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:190240 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "5192",
+    "opd_id": 27659,
+    "path": "qa.0.answer_date",
+    "value": "2020-10-19",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:190240 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "5192",
+    "opd_id": 27657,
+    "path": "dates.1",
+    "value": "2020-09-14",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:243689 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "5192",
+    "opd_id": 27657,
+    "path": "qa.0.answer_date",
+    "value": "2020-09-14",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd:243689 prints this date at no decision or dispatch anchor (date-trust tier diffuse does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "p5",
+    "body": "GR",
+    "opd_id": 288671,
+    "path": "dates.1",
+    "value": "2026-02-26",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "GR",
+    "opd_id": 288671,
+    "path": "qa.0.answer_date",
+    "value": "2026-02-26",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "GR",
+    "opd_id": 280476,
+    "path": "dates.1",
+    "value": "2026-01-15",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "GR",
+    "opd_id": 280476,
+    "path": "qa.0.answer_date",
+    "value": "2026-01-15",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "GR",
+    "opd_id": 247748,
+    "path": "dates.1",
+    "value": "2025-08-20",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "GR",
+    "opd_id": 247748,
+    "path": "qa.0.answer_date",
+    "value": "2025-08-20",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "GR",
+    "opd_id": 75591,
+    "path": "dates.1",
+    "value": "2025-06-13",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "p5",
+    "body": "GR",
+    "opd_id": 75591,
+    "path": "qa.0.answer_date",
+    "value": "2025-06-13",
+    "tier": "diffuse",
+    "role": "answered",
+    "reason": "unlabelled_date_line",
+    "detail": "printed as a bare date (date_line_above_heading_head) that names no role: a letter's date or the date of the government sitting (date-trust tier diffuse)",
+    "role_frozen_mapping": "answer_dispatched"
+   },
+   {
+    "set": "fed",
+    "body": "CHE",
+    "opd_id": 142904,
+    "path": "dates.1",
+    "value": "2008-05-21",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd-texts:61984 prints this date at no decision or dispatch anchor (date-trust tier mixed does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "fed",
+    "body": "CHE",
+    "opd_id": 157601,
+    "path": "dates.1",
+    "value": "2021-09-01",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd-texts:159676 prints this date at no decision or dispatch anchor (date-trust tier mixed does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "fed",
+    "body": "CHE",
+    "opd_id": 70763,
+    "path": "dates.1",
+    "value": "2024-10-30",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd-texts:187778 prints this date at no decision or dispatch anchor (date-trust tier mixed does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "fed",
+    "body": "CHE",
+    "opd_id": 288089,
+    "path": "dates.1",
+    "value": "2026-02-11",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd-texts:213770 prints this date at no decision or dispatch anchor (date-trust tier mixed does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "fed",
+    "body": "CHE",
+    "opd_id": 70942,
+    "path": "dates.1",
+    "value": "2024-11-27",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd-texts:189034 prints this date at no decision or dispatch anchor (date-trust tier mixed does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "fed",
+    "body": "CHE",
+    "opd_id": 215141,
+    "path": "dates.1",
+    "value": "2024-02-22",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd-texts:181005 prints this date at no decision or dispatch anchor (date-trust tier mixed does not establish the role)",
+    "role_frozen_mapping": "answered"
+   },
+   {
+    "set": "fed",
+    "body": "CHE",
+    "opd_id": 57189,
+    "path": "dates.1",
+    "value": "2013-08-21",
+    "tier": "mixed",
+    "role": "answered",
+    "reason": "not_at_anchor",
+    "detail": "opd-texts:96890 prints this date at no decision or dispatch anchor (date-trust tier mixed does not establish the role)",
+    "role_frozen_mapping": "answered"
+   }
+  ]
+ },
+ "typed_gaps": {
+  "label": "POST HOC (R20): a typed reason for every role the converter's records left silent; nothing replaced, no model; make schema-v02 fails on a converter record with an untyped cell",
+  "overlay": "gegenprobe.schema.v0_2_gaps.with_gaps",
+  "addressed_rule": "results/schema/v0_2/addressed_body_rule.jsonl (python -m gegenprobe.schema.v0_2_gaps detect)",
+  "addressed_rule_documents": 65,
+  "addressed_rule_fires": 6,
+  "n_added": 250,
+  "sets": {
+   "fed": {
+    "addressed_body:not_extracted": 15,
+    "co_signatories:not_in_corpus": 14,
+    "type.instrument_function:not_extracted": 15,
+    "type.instrument_named:not_extracted": 15
+   },
+   "p3": {
+    "addressed_body:present_unanchored": 25,
+    "co_signatories:not_applicable": 8,
+    "co_signatories:not_in_corpus": 1,
+    "co_signatories:not_in_document": 14,
+    "co_signatories:present_unanchored": 3,
+    "type.instrument_named:not_in_document": 6
+   },
+   "p3b": {
+    "addressed_body:present_unanchored": 34,
+    "co_signatories:not_applicable": 3,
+    "co_signatories:not_in_corpus": 4,
+    "co_signatories:not_in_document": 17,
+    "co_signatories:present_unanchored": 1,
+    "type.instrument_named:not_in_document": 9
+   },
+   "p5": {
+    "addressed_body:not_extracted": 32,
+    "co_signatories:not_applicable": 3,
+    "co_signatories:not_in_document": 19,
+    "type.instrument_named:not_in_document": 12
+   }
+  },
+  "untyped_cells_left": {
+   "converter": 0,
+   "converter_by_field": {},
+   "p8_gold": 116,
+   "p8_gold_by_field": {
+    "addressed_body": 66,
+    "co_signatories": 50
+   },
+   "p8_note": "P8's gold records (gegenprobe.schema.p8_v0_2, frozen) are not changed: its annotators labelled authorship and submission dates; the addressed body was not labelled and co-signatories only where printed"
+  }
+ },
+ "span_bboxes": {
+  "label": "POST HOC (R20): page bounding boxes for the located values (sidecar; the records are unchanged)",
+  "file": "results/schema/v0_2/span_bboxes.jsonl (python -m gegenprobe.schema.v0_2_bbox detect)",
+  "coords": "PDF points, origin top left (pdftotext -bbox)",
+  "n_spans": 1589,
+  "with_bbox": 1582,
+  "exact": 1582,
+  "partial": 0,
+  "on_pdf_text_layer": 1582,
+  "with_bbox_of_pdf_text_layer": "1582/1582",
+  "statuses": {
+   "exact": 1582,
+   "no_pdf": 7
+  },
+  "sets": {
+   "fed": {
+    "no_pdf": 7
+   },
+   "p3": {
+    "exact": 420
+   },
+   "p3b": {
+    "exact": 519
+   },
+   "p5": {
+    "exact": 643
+   }
+  },
+  "sample": {
+   "bbox": [
+    277.92,
+    355.76,
+    325.46,
+    365.13
+   ],
+   "body": "BE",
+   "char_end": 477,
+   "char_start": 466,
+   "coords": "PDF points, origin top left (pdftotext -bbox)",
+   "doc": "opd:656633",
+   "n_words": 3,
+   "opd_id": 39369,
+   "page": 1,
+   "page_size": [
+    595.28,
+    841.89
+   ],
+   "path": "qa.0.answer_date",
+   "set": "p3",
+   "status": "exact",
+   "text_ok": true
+  }
  },
  "metadata_fill": {
   "label": "POST HOC: fields OPD's own metadata holds, filled in the carrier layer (route metadata, source = the OPD record); no value replaced, no document read, no model",

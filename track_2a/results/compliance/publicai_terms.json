@@ -1,0 +1,48 @@
+{
+ "label": "Public AI's published terms: the facts the documents state about the review-mode route through the Public AI gateway (who runs it, under which jurisdiction, with or without a processing agreement, where inference runs), recorded by hand from the provider's pages; quotations verbatim",
+ "retrieved": "2026-10-12",
+ "recorded_in": "docs/runbook.md#public-ai-and-ndsg-art-16 (commit d6f002c0)",
+ "pages_show_last_change": false,
+ "sources": [
+  {"url": "https://publicai.co/tc", "title": "Terms and Privacy", "retrieved": "2026-10-12"},
+  {"url": "https://publicai.co/utility", "title": "Public AI utility (where inference runs)", "retrieved": "2026-10-12"}
+ ],
+ "provider": {
+  "name": "Metagov Inc",
+  "form": "nonprofit",
+  "status": "501(c)(3)",
+  "jurisdiction": "US",
+  "quote": "the nonprofit 501(c)(3) Metagov Inc; We are a US-based nonprofit."
+ },
+ "not_offered": {
+  "quote_heading": "What we DON'T currently offer",
+  "data_processing_agreement": true,
+  "eu_standard_contractual_clauses": true,
+  "storage_outside_us": true,
+  "service_level_agreement": true,
+  "quotes": ["Formal Data Processing Agreements (DPAs)", "EU Standard Contractual Clauses", "Localized data storage outside the US", "We do not offer service-level agreements (SLAs)"]
+ },
+ "data_processing_agreement": false,
+ "storage_outside_us": false,
+ "model_providers_dpa": false,
+ "model_providers_quote": "act as independent controllers of your data; no Data Processing Agreements are in place. (§2.9)",
+ "routing": {
+  "external_providers": true,
+  "quote": "Our Services may route Prompts and related data to external providers (§1.5); A global load-balancing layer ensures that requests are routed efficiently and transparently, regardless of which country's compute is serving the query. (utility page)",
+  "location_per_model_published": false,
+  "location_of_evaluated_build_known": false
+ },
+ "subprocessors": {
+  "model_providers": ["Swiss AI Initiative", "AI Singapore"],
+  "cloud": ["AWS", "Exoscale", "Australian National Computational Infrastructure", "Cudo Compute", "Vercel"],
+  "analytics": ["Mixpanel"],
+  "public_data_hosting": ["Hugging Face"],
+  "section": "§2.13"
+ },
+ "technical_log_retention_days_max": 90,
+ "assessment": {
+  "ndsg_disclosure_abroad": true,
+  "ndsg_article": "nDSG Art. 16",
+  "why": "the provider is US-based, routes requests across other countries' compute and offers no processing agreement, so a body sending document text through the gateway discloses it abroad without one; with the local 8B no document text leaves the machine"
+ }
+}

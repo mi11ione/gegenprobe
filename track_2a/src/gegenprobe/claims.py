@@ -67,6 +67,7 @@ Columns (tab-separated, header required):
 from __future__ import annotations
 
 import csv
+import functools
 import io
 import json
 import os
@@ -137,12 +138,24 @@ def value_of(row: dict):
     return _get(d, row["path"])
 
 
-def token_spans(text: str, shown: str) -> list[tuple[int, int]]:
+def _literal(text: str, s: str):
+    """(start, end) of the non-overlapping occurrences of `s`, as re.finditer(re.escape(s), text) yields them, without
+    compiling a pattern per value (thousands of values overflow the re cache)."""
+    if not s:
+        yield from ((m.start(), m.end()) for m in re.finditer("", text))
+        return
+    i = text.find(s)
+    while i >= 0:
+        yield i, i + len(s)
+        i = text.find(s, i + len(s))
+
+
+@functools.lru_cache(maxsize=1 << 16)  # pure; a check re-reads the same texts for every claim (and the battery per edit)
+def token_spans(text: str, shown: str) -> tuple[tuple[int, int], ...]:
     """Occurrences of `shown` that are whole tokens: not glued to letters/digits, not part of a longer number
     ("459" in "2,459", "4" in "4.5" or "1.4"), not a negated value ("1.4" in "−1.4") and not a power base ("10" in "10⁻⁷")."""
     out = []
-    for m in re.finditer(re.escape(shown), text):
-        i, j = m.start(), m.end()
+    for i, j in _literal(text, shown):
         prev = text[i - 1] if i > 0 else " "  # never "": "" is in every string ("" in SUPERSCRIPT is True)
         prev2 = text[i - 2] if i > 1 else " "
         nxt = text[j] if j < len(text) else " "
@@ -156,7 +169,7 @@ def token_spans(text: str, shown: str) -> list[tuple[int, int]]:
         if shown[-1:].isdigit() and ((nxt in ".,'" and nxt2.isdigit()) or nxt in SUPERSCRIPT):
             continue
         out.append((i, j))
-    return out
+    return tuple(out)
 
 
 def contexts() -> dict[str, dict[str, str]]:
@@ -172,8 +185,8 @@ def context_of(row: dict, side: dict[str, dict[str, str]]) -> dict[str, str]:
 
 def context_ok(text: str, shown: str, phrase: str) -> bool:
     spans = token_spans(text, shown)
-    for m in re.finditer(re.escape(phrase), text):
-        lo, hi = m.start() - CONTEXT_WINDOW, m.end() + CONTEXT_WINDOW
+    for a, b in _literal(text, phrase):
+        lo, hi = a - CONTEXT_WINDOW, b + CONTEXT_WINDOW
         if any(i >= lo and j <= hi for i, j in spans):
             return True
     return False
@@ -315,7 +328,7 @@ def anchor_spans(rows: list[dict], anchors: dict, doc: str, text: str, errs: lis
                 if errs is not None:
                     errs.append(f"anchor {cid}: {ph!r} does not contain {r['shown']!r} as a whole token")
                 continue
-            hits = [m.start() for m in re.finditer(re.escape(ph), text)]
+            hits = [a for a, _ in _literal(text, ph)]
             if not hits and errs is not None:
                 errs.append(f"anchor {cid}: {ph!r} not found in {doc}")
             for h in hits:
@@ -382,7 +395,7 @@ def anchor_extents(rows: list[dict], anchors: dict, doc: str, text: str) -> list
         for ph in per_doc.get(doc) or []:
             if not token_spans(ph, r["shown"]):
                 continue
-            out += [(m.start(), m.end()) for m in re.finditer(re.escape(ph), text)]
+            out += list(_literal(text, ph))
     return out
 
 
@@ -444,8 +457,8 @@ def scope_snapshot(text: str, phrases: list[str]) -> dict[str, dict[str, int]]:
     out: dict[str, dict[str, int]] = {}
     for ph in phrases:
         idx = set()
-        for m in re.finditer(re.escape(ph), text):
-            idx |= {k for k, (a, b) in enumerate(cl) if a < m.end() and m.start() < b}
+        for i0, j0 in _literal(text, ph):
+            idx |= {k for k, (a, b) in enumerate(cl) if a < j0 and i0 < b}
         cnt: dict[str, int] = {}
         for k in sorted(idx):
             a, b = cl[k]
@@ -603,7 +616,7 @@ def zone_check(rows: list[dict], cfg: dict | None = None, docs: dict[str, str] |
             continue
         allowed = []
         for a in (cfg.get("allow") or {}).get(doc, []):
-            hits = [(m.start(), m.end()) for m in re.finditer(re.escape(a["phrase"]), text)]
+            hits = list(_literal(text, a["phrase"]))
             if not hits:
                 errs.append(f"strict zone {doc}: allowlisted phrase {a['phrase']!r} not found (remove it)")
             allowed += hits
@@ -628,19 +641,24 @@ def zone_check(rows: list[dict], cfg: dict | None = None, docs: dict[str, str] |
     return errs
 
 
-def check(rows: list[dict] | None = None, render_site: bool = False, notes: list[str] | None = None) -> list[str]:
+def check(rows: list[dict] | None = None, render_site: bool = False, notes: list[str] | None = None,
+          docs: dict[str, str] | None = None, site: bool = True, recompute: bool = True) -> list[str]:
     """Every claim, anchor, strict zone, pinned phrase, wording pin and the evidence site (gegenprobe.claims_site; with
-    `render_site`, also the first screen rendered by headless Chrome where one is found)."""
+    `render_site`, also the first screen rendered by headless Chrome where one is found). `docs` overrides documents by
+    name (the mutation battery checks an edited text without touching the file); `site=False` skips the site check and
+    `recompute=False` the recomputation of each value from its results file (neither reads a document)."""
     rows = rows if rows is not None else load(ROOT / "claims.tsv")
-    errs, docs, side = [], {}, contexts()
+    over = dict(docs or {})
+    errs, docs, side = [], dict(over), contexts()
     for r in rows:
-        try:
-            got = render(value_of(r), r["fmt"])
-        except Exception as e:  # missing file / path
-            errs.append(f"{r['id']}: cannot recompute ({type(e).__name__}: {e})")
-            continue
-        if got != r["shown"]:
-            errs.append(f"{r['id']}: shown {r['shown']!r} but {r['file']}:{r['path']} renders {got!r}")
+        if recompute:
+            try:
+                got = render(value_of(r), r["fmt"])
+            except Exception as e:  # missing file / path
+                errs.append(f"{r['id']}: cannot recompute ({type(e).__name__}: {e})")
+                continue
+            if got != r["shown"]:
+                errs.append(f"{r['id']}: shown {r['shown']!r} but {r['file']}:{r['path']} renders {got!r}")
         for doc in [w.strip() for w in r["where"].split(",") if w.strip() and w.strip() != "-"]:
             if doc not in docs:
                 p = ROOT / doc
@@ -663,8 +681,9 @@ def check(rows: list[dict] | None = None, render_site: bool = False, notes: list
                     errs.append(f"{r['id']}: context {phrase!r} not within {CONTEXT_WINDOW} chars of {r['shown']!r} in {doc}")
     from .claims_pins import check as pins_check
     from .claims_site import check as site_check
-    return errs + anchor_check(rows) + zone_check(rows) + pinned_check() + scoped_check() + pins_check() + \
-        site_check(rows=rows, render=None if render_site else False, notes=notes, root=ROOT)
+    kw = {"docs": over} if over else {}  # without an override, the plain calls (as before)
+    errs += anchor_check(rows, **kw) + zone_check(rows, **kw) + pinned_check(**kw) + scoped_check(**kw) + pins_check(**kw)
+    return errs + (site_check(rows=rows, render=None if render_site else False, notes=notes, root=ROOT) if site else [])
 
 
 STOP = {"eval", "results", "json", "report", "claims", "the", "and", "with", "arms", "strict", "counts", "publicai", "swiss",

@@ -1,5 +1,8 @@
 # Debian packages the Dockerfile's apt-get layer installed (poppler-utils tesseract-ocr ca-certificates make, --no-install-recommends),
 # as apt printed them in the image build of CI run 38197201361 (job make-run, 2026-10-12, linux/amd64): 62 new, 1 upgraded.
+# Since R20 the base is python:3.11.17-slim-bookworm (Debian 12.15), which already holds the upgraded package
+# (ca-certificates 20250419~deb12u1); tools/sbom.py image lists such a package once, as base. The layer now also runs
+# apt-get upgrade (Debian security updates at build time); CI job image-scan scans the built image.
 # source/source_version from the Debian bookworm Packages indexes; licence: an SPDX expression for the components
 # Gegenprobe runs or loads (checked in debian/copyright), else the License: short names of the package's machine-readable
 # debian/copyright (metadata.ftp-master.debian.org), else empty (free-text or not retrieved: the image's

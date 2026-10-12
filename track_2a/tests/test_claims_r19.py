@@ -65,8 +65,8 @@ J5_R18_MISSES = [
     ("C1 precision -> recall", [("README.md", "Apertus adds precision deciding who is an author (+7.3 points, post hoc)",
                                  "Apertus adds recall deciding who is an author (+7.3 points, post hoc)")]),
     ("W6 caveat deleted", [("technical_report.md",
-                            "82.3% also count the 592 answers OPD files under an agenda item of the affair (not sample-checked);",
-                            "82.3% also count the 592 answers OPD files under an agenda item of the affair;")]),
+                            "the rules on 8/12 (in-sample in three);",
+                            "the rules on 8/12;")]),
 ]
 
 

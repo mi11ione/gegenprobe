@@ -237,8 +237,11 @@ from a dated snapshot. Every request Gegenprobe sends carries `GP_USER_AGENT`: d
   state and OPD's next export, took 6.6 min, re-scanned the 12 bodies whose exports changed and streamed 1.19 GB; 0
   alerts, the Bern list unchanged (2,459 relink + 49 fetch). Night 2 also exposed a ledger-status bug (rows seen again
   lost their stored check verdict); it is fixed and covered by a two-night test (`tests/test_ledger_two_nights.py`;
-  `results/monitor/two_nights_docker_38098822336/README.md`), and the real two-night re-run of the fixed code starts
-  with OPD's next nightly export (12 Oct 00:30 UTC). Both nights ran on a standard GitHub runner; the job runs on standard Linux hosts.
+  `results/monitor/two_nights_docker_38098822336/README.md`). The real two-night re-run of the fixed code (run
+  38187596786, dispatched 12 Oct 00:20 UTC; `results/monitor/two_nights_docker_38187596786/README.md`) kept night 1's
+  verdicts on night 2: pending 2,468 and review 40 on both nights, the 40 carried back to review; both nights exit with
+  status 3, the job's "alerts raised" status, on the adapter canary's 2 alerts (7 of 7 sample affairs verified, the
+  text of two changed at the source). Both nights ran on a standard GitHub runner; the job runs on standard Linux hosts.
 - **Operator-facing details.** The recommended Docker unit bind-mounts `GP_EXPORTS_DIR` read-only at the same path; CI
   runs a network-mode night that way inside the image, on a root-owned, read-only fixture export directory with
   `--network none`. The adapter canaries are on by default (`GP_ADAPTER_CANARY=1` in the template); the live run of 11

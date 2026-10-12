@@ -1,0 +1,449 @@
+{
+ "label": "POST HOC (12 Oct 2026; proposed in review; not pre-registered): closed-set reader vs a free prompt with null allowed (P1, P2, P6) from committed results; what the closed design buys (provenance, a review ranking) and what it does not (accuracy); no registered decision depends on this file",
+ "method": "* accuracy: exact (correct value or correct null), answer dates found, answerless documents dated, and the paired\n    difference (exact McNemar; parliament-cluster percentile bootstrap, eval.posthoc_r6.doc_level_block, B = 10,000,\n    seed 20261011);\n  * provenance: values among the printed dates (the dates the frozen lattice reads; a correct value outside them is not\n    counted there and not as printed nowhere), values printed\n    nowhere, and for the free prompt how many of its values come with a quote that occurs verbatim in the text and\n    contains the date (eval.posthoc_r3 quote check; the closed arms' values are lattice candidates, so each has a page\n    and a character span by construction, `convert/pointer.locate`);\n  * review ranking: the closed reader's margin as an ordering of its suggested values for review. AUROC of the margin\n    for \"this value is wrong\" among the values the reader returns (higher margin = closer to null), and how many of the\n    wrong values sit in the first quarter of a queue sorted by margin; next to it the free prompt's only signal, its\n    quote check (a yes/no flag, as AUROC), and the registered null-vs-value margin AUROCs (P1-H3, P2-H4, P6-S4).",
+ "sets": {
+  "P1": {
+   "arms": {
+    "closed": "pointer",
+    "cascade": "cascade",
+    "free": "naive_null"
+   },
+   "margin": "pointer null margin lp(null) - logsumexp(lp(dates)), θ = 10.40",
+   "theta": 10.395354058425431,
+   "accuracy": {
+    "pointer": {
+     "exact": [
+      130,
+      154
+     ],
+     "answer_dates_found": [
+      46,
+      64
+     ],
+     "answerless_dated": [
+      6,
+      90
+     ],
+     "values": 62,
+     "values_among_printed_dates": 62,
+     "values_printed_nowhere": 0
+    },
+    "cascade": {
+     "exact": [
+      139,
+      154
+     ],
+     "answer_dates_found": [
+      56,
+      64
+     ],
+     "answerless_dated": [
+      7,
+      90
+     ],
+     "values": 67,
+     "values_among_printed_dates": 67,
+     "values_printed_nowhere": 0
+    },
+    "naive_null": {
+     "exact": [
+      134,
+      154
+     ],
+     "answer_dates_found": [
+      47,
+      64
+     ],
+     "answerless_dated": [
+      3,
+      90
+     ],
+     "values": 58,
+     "values_among_printed_dates": 57,
+     "values_printed_nowhere": 0
+    }
+   },
+   "paired": {
+    "pointer_vs_naive_null": {
+     "n": 154,
+     "closed_only": 6,
+     "free_only": 10,
+     "mcnemar_exact_p": 0.454498291015625,
+     "p_str": "0.45",
+     "accuracy_difference": -0.025974025974025976,
+     "cluster_bootstrap95": [
+      -0.08148148148148149,
+      0.04321658615136866
+     ],
+     "cluster95_str": "[-0.082, 0.044]",
+     "cluster_interval_excludes_0": false,
+     "n_parliaments": 16
+    },
+    "cascade_vs_naive_null": {
+     "n": 154,
+     "closed_only": 12,
+     "free_only": 7,
+     "mcnemar_exact_p": 0.359283447265625,
+     "p_str": "0.36",
+     "accuracy_difference": 0.032467532467532464,
+     "cluster_bootstrap95": [
+      -0.05263157894736842,
+      0.12281061259706638
+     ],
+     "cluster95_str": "[-0.053, 0.123]",
+     "cluster_interval_excludes_0": false,
+     "n_parliaments": 16
+    }
+   },
+   "review_ranking": {
+    "closed_margin": {
+     "values": 62,
+     "wrong": 16,
+     "right": 46,
+     "auroc_margin_flags_wrong": 0.732,
+     "first_quarter_of_queue": 16,
+     "wrong_in_first_quarter": 8
+    },
+    "free_quote_flag": {
+     "values": 58,
+     "with_verified_quote": 28,
+     "wrong": 11,
+     "wrong_with_verified_quote": 3,
+     "auroc_missing_quote_flags_wrong": 0.63
+    },
+    "registered_null_vs_value_auroc": {
+     "test": "P1-H3 (registered)",
+     "auroc": 0.969,
+     "n_null": 86,
+     "n_value": 64
+    }
+   }
+  },
+  "P2": {
+   "arms": {
+    "closed": "pointer",
+    "cascade": "cascade",
+    "free": "naive_null"
+   },
+   "margin": "pointer null margin lp(null) - logsumexp(lp(dates)), θ = 10.40",
+   "theta": 10.395354058425431,
+   "accuracy": {
+    "pointer": {
+     "exact": [
+      53,
+      62
+     ],
+     "answer_dates_found": [
+      24,
+      29
+     ],
+     "answerless_dated": [
+      4,
+      33
+     ],
+     "values": 32,
+     "values_among_printed_dates": 32,
+     "values_printed_nowhere": 0
+    },
+    "cascade": {
+     "exact": [
+      51,
+      62
+     ],
+     "answer_dates_found": [
+      22,
+      29
+     ],
+     "answerless_dated": [
+      4,
+      33
+     ],
+     "values": 32,
+     "values_among_printed_dates": 32,
+     "values_printed_nowhere": 0
+    },
+    "naive_null": {
+     "exact": [
+      52,
+      62
+     ],
+     "answer_dates_found": [
+      22,
+      29
+     ],
+     "answerless_dated": [
+      3,
+      33
+     ],
+     "values": 30,
+     "values_among_printed_dates": 29,
+     "values_printed_nowhere": 1
+    }
+   },
+   "paired": {
+    "pointer_vs_naive_null": {
+     "n": 62,
+     "closed_only": 2,
+     "free_only": 1,
+     "mcnemar_exact_p": 1.0,
+     "p_str": "1.00",
+     "accuracy_difference": 0.016129032258064516,
+     "cluster_bootstrap95": [
+      -0.04477611940298507,
+      0.08695652173913043
+     ],
+     "cluster95_str": "[-0.045, 0.087]",
+     "cluster_interval_excludes_0": false,
+     "n_parliaments": 15
+    },
+    "cascade_vs_naive_null": {
+     "n": 62,
+     "closed_only": 2,
+     "free_only": 3,
+     "mcnemar_exact_p": 1.0,
+     "p_str": "1.00",
+     "accuracy_difference": -0.016129032258064516,
+     "cluster_bootstrap95": [
+      -0.10257352941176469,
+      0.07407407407407407
+     ],
+     "cluster95_str": "[-0.103, 0.075]",
+     "cluster_interval_excludes_0": false,
+     "n_parliaments": 15
+    }
+   },
+   "review_ranking": {
+    "closed_margin": {
+     "values": 32,
+     "wrong": 8,
+     "right": 24,
+     "auroc_margin_flags_wrong": 0.896,
+     "first_quarter_of_queue": 8,
+     "wrong_in_first_quarter": 5
+    },
+    "free_quote_flag": {
+     "values": 30,
+     "with_verified_quote": 15,
+     "wrong": 8,
+     "wrong_with_verified_quote": 3,
+     "auroc_missing_quote_flags_wrong": 0.585
+    },
+    "registered_null_vs_value_auroc": {
+     "test": "P2-H4 (registered)",
+     "auroc": 0.983,
+     "n_null": 31,
+     "n_value": 29
+    }
+   }
+  },
+  "P6": {
+   "arms": {
+    "closed": "v2",
+    "cascade": "cascade_v2",
+    "free": "free_null"
+   },
+   "margin": "v2 presence margin (answer present vs not), gate θ_presence",
+   "theta": -5.887991393334232,
+   "accuracy": {
+    "v2": {
+     "exact": [
+      59,
+      68
+     ],
+     "answer_dates_found": [
+      30,
+      34
+     ],
+     "answerless_dated": [
+      5,
+      34
+     ],
+     "values": 35,
+     "values_among_printed_dates": 35,
+     "values_printed_nowhere": 0
+    },
+    "cascade_v2": {
+     "exact": [
+      60,
+      68
+     ],
+     "answer_dates_found": [
+      31,
+      34
+     ],
+     "answerless_dated": [
+      5,
+      34
+     ],
+     "values": 37,
+     "values_among_printed_dates": 37,
+     "values_printed_nowhere": 0
+    },
+    "free_null": {
+     "exact": [
+      62,
+      68
+     ],
+     "answer_dates_found": [
+      32,
+      34
+     ],
+     "answerless_dated": [
+      4,
+      34
+     ],
+     "values": 36,
+     "values_among_printed_dates": 36,
+     "values_printed_nowhere": 0
+    }
+   },
+   "paired": {
+    "v2_vs_free_null": {
+     "n": 68,
+     "closed_only": 1,
+     "free_only": 4,
+     "mcnemar_exact_p": 0.375,
+     "p_str": "0.38",
+     "accuracy_difference": -0.04411764705882353,
+     "cluster_bootstrap95": [
+      -0.13333333333333333,
+      0.015873015873015872
+     ],
+     "cluster95_str": "[-0.134, 0.016]",
+     "cluster_interval_excludes_0": false,
+     "n_parliaments": 8
+    },
+    "cascade_v2_vs_free_null": {
+     "n": 68,
+     "closed_only": 2,
+     "free_only": 4,
+     "mcnemar_exact_p": 0.6875,
+     "p_str": "0.69",
+     "accuracy_difference": -0.029411764705882353,
+     "cluster_bootstrap95": [
+      -0.0847457627118644,
+      0.024390243902439025
+     ],
+     "cluster95_str": "[-0.085, 0.025]",
+     "cluster_interval_excludes_0": false,
+     "n_parliaments": 8
+    }
+   },
+   "review_ranking": {
+    "closed_margin": {
+     "values": 35,
+     "wrong": 5,
+     "right": 30,
+     "auroc_margin_flags_wrong": 0.713,
+     "first_quarter_of_queue": 9,
+     "wrong_in_first_quarter": 3
+    },
+    "free_quote_flag": {
+     "values": 36,
+     "with_verified_quote": 20,
+     "wrong": 4,
+     "wrong_with_verified_quote": 2,
+     "auroc_missing_quote_flags_wrong": 0.531
+    },
+    "registered_null_vs_value_auroc": {
+     "test": "P6-S4 (registered secondary)",
+     "auroc": 0.933,
+     "n_null": 32,
+     "n_value": 34
+    }
+   }
+  }
+ },
+ "corrected_parser": {
+  "note": "free prompt re-parsed with the corrected date parser (D2-4), from results/eval/posthoc_r3_paired.json",
+  "P1": {
+   "pointer_exact": [
+    130,
+    154
+   ],
+   "free_exact": [
+    133,
+    154
+   ],
+   "pointer_only": 7,
+   "free_only": 10,
+   "p_str": "0.63",
+   "provenance_free": {
+    "values": 60,
+    "printed_in_document": 59,
+    "not_printed": 1,
+    "wrong_values": 13,
+    "values_on_gold_null": 4,
+    "quote_given": 34,
+    "quote_verbatim_in_text": 31,
+    "quote_verbatim_and_contains_date": 30,
+    "wrong_values_passing_quote_check": 4
+   },
+   "provenance_pointer": {
+    "values": 62,
+    "printed_in_document": 62,
+    "not_printed": 0,
+    "wrong_values": 16,
+    "values_on_gold_null": 6
+   }
+  },
+  "P2": {
+   "pointer_exact": [
+    53,
+    62
+   ],
+   "free_exact": [
+    54,
+    62
+   ],
+   "pointer_only": 0,
+   "free_only": 1,
+   "p_str": "1",
+   "provenance_free": {
+    "values": 32,
+    "printed_in_document": 31,
+    "not_printed": 1,
+    "wrong_values": 8,
+    "values_on_gold_null": 3,
+    "quote_given": 18,
+    "quote_verbatim_in_text": 17,
+    "quote_verbatim_and_contains_date": 17,
+    "wrong_values_passing_quote_check": 3
+   },
+   "provenance_pointer": {
+    "values": 32,
+    "printed_in_document": 32,
+    "not_printed": 0,
+    "wrong_values": 8,
+    "values_on_gold_null": 4
+   }
+  }
+ },
+ "display": {
+  "p1_exact": "130/154 vs 134/154",
+  "p1_answerless_dated": "6/90 vs 3/90",
+  "p1_p": "0.45",
+  "p2_exact_registered_parser": "53/62 vs 52/62",
+  "p2_exact_corrected_parser": "53/62 vs 54/62",
+  "p6_exact": "59/68 vs 62/68",
+  "p6_p": "0.38",
+  "free_values_with_verified_quote_p1": "30/60",
+  "free_values_with_verified_quote_p2": "17/32",
+  "closed_values_printed_and_located": {
+   "P1": "62/62",
+   "P2": "32/32",
+   "P6": "35/35"
+  },
+  "margin_auroc_wrong_values": {
+   "P1": 0.732,
+   "P2": 0.896,
+   "P6": 0.713
+  },
+  "free_quote_auroc_wrong_values": {
+   "P1": 0.63,
+   "P2": 0.585,
+   "P6": 0.531
+  }
+ },
+ "reading": "Accuracy: the closed reader is not more accurate than the free prompt with null allowed on any of the three sets (no paired difference is significant; on P1 and P6 the free prompt is ahead in point estimate). What the closed design buys: every value it returns is a date printed in the document, with page and span from the lattice, by construction; the free prompt's values are printed in the document almost always too, but a checkable quote comes with only about half of them, and a printed-date filter added after a free prompt would give the no-invention guarantee as well. The margin orders the closed reader's values for review; the free prompt has only its quote flag."
+}

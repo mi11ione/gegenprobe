@@ -1,0 +1,332 @@
+{
+ "tool": "grype 0.119.0",
+ "run": "2026-10-12",
+ "fail_on": "fixable HIGH or CRITICAL, not removed by the Dockerfile, not in docs/sbom/image-vuln-allowlist.tsv",
+ "scans": {
+  "image_system_sbom": {
+   "target": "sbom:docs/sbom/image-system.cdx.json (base python:3.11.17-slim-bookworm, 62 apt-layer packages, tessdata)",
+   "distro": "debian 12",
+   "db_built": "2026-10-11T06:30:42Z",
+   "gated": true,
+   "findings": 312,
+   "by_severity_and_fix_state": {
+    "Critical": {
+     "not-fixed": 3,
+     "wont-fix": 10
+    },
+    "High": {
+     "not-fixed": 25,
+     "wont-fix": 42
+    },
+    "Low": {
+     "not-fixed": 4,
+     "wont-fix": 28
+    },
+    "Medium": {
+     "not-fixed": 16,
+     "wont-fix": 64
+    },
+    "Negligible": {
+     "not-fixed": 115,
+     "wont-fix": 1
+    },
+    "Unknown": {
+     "not-fixed": 3,
+     "wont-fix": 1
+    }
+   },
+   "high_critical": 80,
+   "high_critical_fixable": 0,
+   "high_critical_fixable_by_type": {},
+   "high_critical_without_fix": 80,
+   "removed_by_dockerfile": [],
+   "accepted": [],
+   "failing": []
+  },
+  "base_image": {
+   "target": "python:3.11.17-slim-bookworm@sha256:0a310eeecf4e1f5a0743f9a6520c90c88d089c903ca5fd283f501e3a805f5f89",
+   "distro": "debian 12.15",
+   "db_built": "2026-10-11T06:30:42Z",
+   "gated": true,
+   "findings": 288,
+   "by_severity_and_fix_state": {
+    "Critical": {
+     "not-fixed": 2,
+     "wont-fix": 3
+    },
+    "High": {
+     "fixed": 2,
+     "not-fixed": 43,
+     "wont-fix": 23
+    },
+    "Low": {
+     "fixed": 1,
+     "not-fixed": 8,
+     "wont-fix": 9
+    },
+    "Medium": {
+     "fixed": 12,
+     "not-fixed": 21,
+     "wont-fix": 66
+    },
+    "Negligible": {
+     "fixed": 1,
+     "not-fixed": 80
+    },
+    "Unknown": {
+     "not-fixed": 17
+    }
+   },
+   "high_critical": 73,
+   "high_critical_fixable": 2,
+   "high_critical_fixable_by_type": {
+    "python": 2
+   },
+   "high_critical_without_fix": 71,
+   "removed_by_dockerfile": [
+    "python jaraco-context 5.3.0 GHSA-58pv-8j8x-9vj2 High (fixed in 6.1.0)",
+    "python wheel 0.45.1 GHSA-8rrh-rw8j-w5fx High (fixed in 0.46.2)"
+   ],
+   "accepted": [],
+   "failing": []
+  },
+  "previous_image_system_sbom": {
+   "target": "sbom:docs/sbom/image-system.cdx.json as committed at 9932e53e (base python:3.11.14-slim-bookworm, apt layer of CI run 38197201361)",
+   "distro": "debian 12",
+   "db_built": "2026-10-11T06:30:42Z",
+   "gated": false,
+   "findings": 383,
+   "by_severity_and_fix_state": {
+    "Critical": {
+     "fixed": 10,
+     "not-fixed": 3,
+     "wont-fix": 10
+    },
+    "High": {
+     "fixed": 39,
+     "not-fixed": 25,
+     "wont-fix": 42
+    },
+    "Low": {
+     "fixed": 3,
+     "not-fixed": 4,
+     "wont-fix": 28
+    },
+    "Medium": {
+     "fixed": 19,
+     "not-fixed": 16,
+     "wont-fix": 64
+    },
+    "Negligible": {
+     "not-fixed": 115,
+     "wont-fix": 1
+    },
+    "Unknown": {
+     "not-fixed": 3,
+     "wont-fix": 1
+    }
+   },
+   "high_critical": 129,
+   "high_critical_fixable": 49,
+   "high_critical_fixable_by_type": {
+    "deb": 49
+   },
+   "high_critical_without_fix": 80,
+   "removed_by_dockerfile": [],
+   "accepted": [],
+   "failing": [
+    "deb glibc 2.36-9+deb12u13 CVE-2025-15281 High (fixed in 2.36-9+deb12u14)",
+    "deb dpkg 1.21.22 CVE-2025-6297 High (fixed in 1.21.23)",
+    "deb glibc 2.36-9+deb12u13 CVE-2026-0861 High (fixed in 2.36-9+deb12u14)",
+    "deb glibc 2.36-9+deb12u13 CVE-2026-0915 High (fixed in 2.36-9+deb12u14)",
+    "deb pcre2 10.42-1 CVE-2026-103111 High (fixed in 10.42-1+deb12u2)",
+    "deb perl 5.36.0-7+deb12u3 CVE-2026-12087 Critical (fixed in 5.36.0-7+deb12u4)",
+    "deb perl 5.36.0-7+deb12u3 CVE-2026-13221 Critical (fixed in 5.36.0-7+deb12u4)",
+    "deb dpkg 1.21.22 CVE-2026-2219 High (fixed in 1.21.23)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-28387 High (fixed in 3.0.19-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-28388 High (fixed in 3.0.19-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-28389 High (fixed in 3.0.19-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-28390 High (fixed in 3.0.19-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-31789 Critical (fixed in 3.0.19-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-31790 High (fixed in 3.0.19-1~deb12u2)",
+    "deb gnutls28 3.7.9-2+deb12u6 CVE-2026-33845 Critical (fixed in 3.7.9-2+deb12u7)",
+    "deb gnutls28 3.7.9-2+deb12u6 CVE-2026-33846 High (fixed in 3.7.9-2+deb12u7)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-34180 High (fixed in 3.0.20-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-34182 Critical (fixed in 3.0.20-1~deb12u2)",
+    "deb gnutls28 3.7.9-2+deb12u6 CVE-2026-3833 High (fixed in 3.7.9-2+deb12u7)",
+    "deb krb5 1.20.1-2+deb12u4 CVE-2026-40355 High (fixed in 1.20.1-2+deb12u5)",
+    "deb krb5 1.20.1-2+deb12u4 CVE-2026-40356 High (fixed in 1.20.1-2+deb12u5)",
+    "deb glibc 2.36-9+deb12u13 CVE-2026-4046 High (fixed in 2.36-9+deb12u14)",
+    "deb gnutls28 3.7.9-2+deb12u6 CVE-2026-42009 High (fixed in 3.7.9-2+deb12u7)",
+    "deb gnutls28 3.7.9-2+deb12u6 CVE-2026-42010 Critical (fixed in 3.7.9-2+deb12u7)",
+    "deb gnutls28 3.7.9-2+deb12u6 CVE-2026-42011 High (fixed in 3.7.9-2+deb12u7)",
+    "deb gnutls28 3.7.9-2+deb12u6 CVE-2026-42012 High (fixed in 3.7.9-2+deb12u7)",
+    "deb gnutls28 3.7.9-2+deb12u6 CVE-2026-42013 High (fixed in 3.7.9-2+deb12u7)",
+    "deb perl 5.36.0-7+deb12u3 CVE-2026-42496 Critical (fixed in 5.36.0-7+deb12u4)",
+    "deb perl 5.36.0-7+deb12u3 CVE-2026-42497 High (fixed in 5.36.0-7+deb12u4)",
+    "deb glibc 2.36-9+deb12u13 CVE-2026-4437 High (fixed in 2.36-9+deb12u14)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-45445 High (fixed in 3.0.20-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-45447 High (fixed in 3.0.20-1~deb12u2)",
+    "deb libcap2 1:2.66-4+deb12u2+b2 CVE-2026-4878 High (fixed in 1:2.66-4+deb12u3)",
+    "deb perl 5.36.0-7+deb12u3 CVE-2026-48959 High (fixed in 5.36.0-7+deb12u4)",
+    "deb perl 5.36.0-7+deb12u3 CVE-2026-48962 High (fixed in 5.36.0-7+deb12u4)",
+    "deb gnutls28 3.7.9-2+deb12u6 CVE-2026-5260 High (fixed in 3.7.9-2+deb12u7)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-54874 High (fixed in 3.0.22-1~deb12u1)",
+    "deb perl 5.36.0-7+deb12u3 CVE-2026-57432 High (fixed in 5.36.0-7+deb12u4)",
+    "deb perl 5.36.0-7+deb12u3 CVE-2026-57433 Critical (fixed in 5.36.0-7+deb12u4)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-63072 High (fixed in 3.0.22-1~deb12u1)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-63076 High (fixed in 3.0.22-1~deb12u1)",
+    "deb perl 5.36.0-7+deb12u3 CVE-2026-7017 High (fixed in 5.36.0-7+deb12u4)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-7383 High (fixed in 3.0.20-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-75803 Critical (fixed in 3.0.22-1~deb12u1)",
+    "deb perl 5.36.0-7+deb12u3 CVE-2026-8376 Critical (fixed in 5.36.0-7+deb12u4)",
+    "deb pcre2 10.42-1 CVE-2026-86145 High (fixed in 10.42-1+deb12u1)",
+    "deb pcre2 10.42-1 CVE-2026-89157 High (fixed in 10.42-1+deb12u1)",
+    "deb pcre2 10.42-1 CVE-2026-89161 High (fixed in 10.42-1+deb12u1)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-9076 High (fixed in 3.0.20-1~deb12u2)"
+   ]
+  },
+  "previous_base_image": {
+   "target": "python:3.11.14-slim-bookworm@sha256:65a93d69fa75478d554f4ad27c85c1e69fa184956261b4301ebaf6dbb0a3543d",
+   "distro": "debian 12.13",
+   "db_built": "2026-10-11T06:30:42Z",
+   "gated": false,
+   "findings": 434,
+   "by_severity_and_fix_state": {
+    "Critical": {
+     "fixed": 14,
+     "not-fixed": 2,
+     "wont-fix": 3
+    },
+    "High": {
+     "fixed": 77,
+     "not-fixed": 43,
+     "wont-fix": 23
+    },
+    "Low": {
+     "fixed": 10,
+     "not-fixed": 8,
+     "wont-fix": 9
+    },
+    "Medium": {
+     "fixed": 60,
+     "not-fixed": 21,
+     "wont-fix": 66
+    },
+    "Negligible": {
+     "fixed": 1,
+     "not-fixed": 80
+    },
+    "Unknown": {
+     "not-fixed": 17
+    }
+   },
+   "high_critical": 162,
+   "high_critical_fixable": 91,
+   "high_critical_fixable_by_type": {
+    "binary": 13,
+    "deb": 76,
+    "python": 2
+   },
+   "high_critical_without_fix": 71,
+   "removed_by_dockerfile": [
+    "python jaraco-context 5.3.0 GHSA-58pv-8j8x-9vj2 High (fixed in 6.1.0)",
+    "python wheel 0.45.1 GHSA-8rrh-rw8j-w5fx High (fixed in 0.46.2)"
+   ],
+   "accepted": [],
+   "failing": [
+    "binary python 3.11.14 CVE-2025-13836 High (fixed in 3.10.20, 3.11.15, 3.12.13, 3.13.11, 3.14.1, 3.15.0a3)",
+    "deb libc-bin 2.36-9+deb12u13 CVE-2025-15281 High (fixed in 2.36-9+deb12u14)",
+    "deb libc6 2.36-9+deb12u13 CVE-2025-15281 High (fixed in 2.36-9+deb12u14)",
+    "deb dpkg 1.21.22 CVE-2025-6297 High (fixed in 1.21.23)",
+    "deb libc-bin 2.36-9+deb12u13 CVE-2026-0861 High (fixed in 2.36-9+deb12u14)",
+    "deb libc6 2.36-9+deb12u13 CVE-2026-0861 High (fixed in 2.36-9+deb12u14)",
+    "deb libc-bin 2.36-9+deb12u13 CVE-2026-0915 High (fixed in 2.36-9+deb12u14)",
+    "deb libc6 2.36-9+deb12u13 CVE-2026-0915 High (fixed in 2.36-9+deb12u14)",
+    "deb libpcre2-8-0 10.42-1 CVE-2026-103111 High (fixed in 10.42-1+deb12u2)",
+    "binary python 3.11.14 CVE-2026-11940 High (fixed in 3.10.21, 3.11.16, 3.12.14, 3.13.15, 3.14.7, 3.15.0b4)",
+    "binary python 3.11.14 CVE-2026-11972 High (fixed in 3.10.21, 3.11.16, 3.12.14, 3.13.15, 3.14.7, 3.15.0b4)",
+    "deb perl-base 5.36.0-7+deb12u3 CVE-2026-12087 Critical (fixed in 5.36.0-7+deb12u4)",
+    "deb perl-base 5.36.0-7+deb12u3 CVE-2026-13221 Critical (fixed in 5.36.0-7+deb12u4)",
+    "binary python 3.11.14 CVE-2026-15308 High (fixed in 3.10.21, 3.11.16, 3.12.14, 3.13.15, 3.14.7, 3.15.0b4)",
+    "binary python 3.11.14 CVE-2026-19445 Critical (fixed in 3.10.22, 3.11.17, 3.12.15, 3.13.16, 3.14.8, 3.15.0rc3)",
+    "binary python 3.11.14 CVE-2026-19553 High (fixed in 3.10.22, 3.11.17, 3.12.15, 3.13.16, 3.14.8, 3.15.0rc3)",
+    "deb dpkg 1.21.22 CVE-2026-2219 High (fixed in 1.21.23)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-28387 High (fixed in 3.0.19-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-28387 High (fixed in 3.0.19-1~deb12u2)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-28388 High (fixed in 3.0.19-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-28388 High (fixed in 3.0.19-1~deb12u2)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-28389 High (fixed in 3.0.19-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-28389 High (fixed in 3.0.19-1~deb12u2)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-28390 High (fixed in 3.0.19-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-28390 High (fixed in 3.0.19-1~deb12u2)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-31789 Critical (fixed in 3.0.19-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-31789 Critical (fixed in 3.0.19-1~deb12u2)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-31790 High (fixed in 3.0.19-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-31790 High (fixed in 3.0.19-1~deb12u2)",
+    "deb libgnutls30 3.7.9-2+deb12u6 CVE-2026-33845 Critical (fixed in 3.7.9-2+deb12u7)",
+    "deb libgnutls30 3.7.9-2+deb12u6 CVE-2026-33846 High (fixed in 3.7.9-2+deb12u7)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-34180 High (fixed in 3.0.20-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-34180 High (fixed in 3.0.20-1~deb12u2)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-34182 Critical (fixed in 3.0.20-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-34182 Critical (fixed in 3.0.20-1~deb12u2)",
+    "binary python 3.11.14 CVE-2026-3644 High (fixed in 3.10.21, 3.11.16, 3.12.14, 3.13.13, 3.14.4, 3.15.0a8)",
+    "deb libgnutls30 3.7.9-2+deb12u6 CVE-2026-3833 High (fixed in 3.7.9-2+deb12u7)",
+    "deb libgssapi-krb5-2 1.20.1-2+deb12u4 CVE-2026-40355 High (fixed in 1.20.1-2+deb12u5)",
+    "deb libk5crypto3 1.20.1-2+deb12u4 CVE-2026-40355 High (fixed in 1.20.1-2+deb12u5)",
+    "deb libkrb5-3 1.20.1-2+deb12u4 CVE-2026-40355 High (fixed in 1.20.1-2+deb12u5)",
+    "deb libkrb5support0 1.20.1-2+deb12u4 CVE-2026-40355 High (fixed in 1.20.1-2+deb12u5)",
+    "deb libgssapi-krb5-2 1.20.1-2+deb12u4 CVE-2026-40356 High (fixed in 1.20.1-2+deb12u5)",
+    "deb libk5crypto3 1.20.1-2+deb12u4 CVE-2026-40356 High (fixed in 1.20.1-2+deb12u5)",
+    "deb libkrb5-3 1.20.1-2+deb12u4 CVE-2026-40356 High (fixed in 1.20.1-2+deb12u5)",
+    "deb libkrb5support0 1.20.1-2+deb12u4 CVE-2026-40356 High (fixed in 1.20.1-2+deb12u5)",
+    "deb libc-bin 2.36-9+deb12u13 CVE-2026-4046 High (fixed in 2.36-9+deb12u14)",
+    "deb libc6 2.36-9+deb12u13 CVE-2026-4046 High (fixed in 2.36-9+deb12u14)",
+    "deb libgnutls30 3.7.9-2+deb12u6 CVE-2026-42009 High (fixed in 3.7.9-2+deb12u7)",
+    "deb libgnutls30 3.7.9-2+deb12u6 CVE-2026-42010 Critical (fixed in 3.7.9-2+deb12u7)",
+    "deb libgnutls30 3.7.9-2+deb12u6 CVE-2026-42011 High (fixed in 3.7.9-2+deb12u7)",
+    "deb libgnutls30 3.7.9-2+deb12u6 CVE-2026-42012 High (fixed in 3.7.9-2+deb12u7)",
+    "deb libgnutls30 3.7.9-2+deb12u6 CVE-2026-42013 High (fixed in 3.7.9-2+deb12u7)",
+    "binary python 3.11.14 CVE-2026-4224 High (fixed in 3.10.21, 3.11.16, 3.12.14, 3.13.13, 3.14.4, 3.15.0a8)",
+    "deb perl-base 5.36.0-7+deb12u3 CVE-2026-42496 Critical (fixed in 5.36.0-7+deb12u4)",
+    "deb perl-base 5.36.0-7+deb12u3 CVE-2026-42497 High (fixed in 5.36.0-7+deb12u4)",
+    "deb libc-bin 2.36-9+deb12u13 CVE-2026-4437 High (fixed in 2.36-9+deb12u14)",
+    "deb libc6 2.36-9+deb12u13 CVE-2026-4437 High (fixed in 2.36-9+deb12u14)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-45445 High (fixed in 3.0.20-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-45445 High (fixed in 3.0.20-1~deb12u2)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-45447 High (fixed in 3.0.20-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-45447 High (fixed in 3.0.20-1~deb12u2)",
+    "binary python 3.11.14 CVE-2026-4786 High (fixed in 3.10.21, 3.11.16, 3.12.14, 3.13.14, 3.14.5rc1, 3.15.0b1)",
+    "deb libcap2 1:2.66-4+deb12u2+b2 CVE-2026-4878 High (fixed in 1:2.66-4+deb12u3)",
+    "deb perl-base 5.36.0-7+deb12u3 CVE-2026-48959 High (fixed in 5.36.0-7+deb12u4)",
+    "deb perl-base 5.36.0-7+deb12u3 CVE-2026-48962 High (fixed in 5.36.0-7+deb12u4)",
+    "deb libgnutls30 3.7.9-2+deb12u6 CVE-2026-5260 High (fixed in 3.7.9-2+deb12u7)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-54874 High (fixed in 3.0.22-1~deb12u1)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-54874 High (fixed in 3.0.22-1~deb12u1)",
+    "deb perl-base 5.36.0-7+deb12u3 CVE-2026-57432 High (fixed in 5.36.0-7+deb12u4)",
+    "deb perl-base 5.36.0-7+deb12u3 CVE-2026-57433 Critical (fixed in 5.36.0-7+deb12u4)",
+    "binary python 3.11.14 CVE-2026-6100 High (fixed in 3.10.21, 3.11.16, 3.12.14, 3.13.14, 3.14.5rc1, 3.15.0b1)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-63072 High (fixed in 3.0.22-1~deb12u1)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-63072 High (fixed in 3.0.22-1~deb12u1)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-63076 High (fixed in 3.0.22-1~deb12u1)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-63076 High (fixed in 3.0.22-1~deb12u1)",
+    "deb perl-base 5.36.0-7+deb12u3 CVE-2026-7017 High (fixed in 5.36.0-7+deb12u4)",
+    "binary python 3.11.14 CVE-2026-7210 High (fixed in 3.10.22, 3.11.16, 3.12.14, 3.13.14, 3.14.6, 3.15.0b2)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-7383 High (fixed in 3.0.20-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-7383 High (fixed in 3.0.20-1~deb12u2)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-75803 Critical (fixed in 3.0.22-1~deb12u1)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-75803 Critical (fixed in 3.0.22-1~deb12u1)",
+    "binary python 3.11.14 CVE-2026-82049 High (fixed in 3.10.22, 3.11.17, 3.12.15, 3.13.16, 3.14.0b1)",
+    "deb perl-base 5.36.0-7+deb12u3 CVE-2026-8376 Critical (fixed in 5.36.0-7+deb12u4)",
+    "deb libpcre2-8-0 10.42-1 CVE-2026-86145 High (fixed in 10.42-1+deb12u1)",
+    "deb libpcre2-8-0 10.42-1 CVE-2026-89157 High (fixed in 10.42-1+deb12u1)",
+    "deb libpcre2-8-0 10.42-1 CVE-2026-89161 High (fixed in 10.42-1+deb12u1)",
+    "deb libssl3 3.0.18-1~deb12u2 CVE-2026-9076 High (fixed in 3.0.20-1~deb12u2)",
+    "deb openssl 3.0.18-1~deb12u2 CVE-2026-9076 High (fixed in 3.0.20-1~deb12u2)",
+    "binary python 3.11.14 CVE-2026-9669 High (fixed in 3.10.21, 3.11.16, 3.12.14, 3.13.14, 3.14.6, 3.15.0b3)"
+   ]
+  }
+ },
+ "failing": 0,
+ "how": "Local scan, no Docker: grype 0.119.0 (release archive sha256-checked against grype_0.119.0_checksums.txt), its vulnerability database as built on db_built, linux/amd64. Base images by digest straight from the registry (grype registry:IMAGE@DIGEST --platform linux/amd64 -o json); the system layer through its SBOM (grype sbom:FILE -o json; Debian packages only, CPython is matched in the base-image scans). Then python -I tools/sbom.py image-scan docs/sbom/image-scan.json NAME=JSON ... --gate=image_system_sbom,base_image --date=2026-10-12. CI job image-scan runs the same gate on the image it builds (grype docker:gegenprobe:scan)."
+}

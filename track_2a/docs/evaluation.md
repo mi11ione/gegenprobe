@@ -2,12 +2,14 @@
 
 The full record behind the evaluation summary in [`../README.md`](../README.md) and the technical report. Paths are
 relative to `track_2a/`. Every number here is listed in `claims.tsv` and recomputed by `make claims`. Each test froze
-code, prompts and θ by sha256 before any label was committed (`eval/prereg*/`); failed hypotheses are reported as
+code, prompts and θ by sha256 before any label was committed, except P1's hypothesis script and rules (D4, D12;
+`eval/prereg*/`); failed hypotheses are reported as
 registered, next to the ones that held.
 
 ## The ten tests, in registration order
 
-Each froze code, prompts and θ by sha256 before any label was committed (`eval/prereg*/`).
+Each froze code, prompts and θ by sha256 before any label was committed, except P1's hypothesis script and rules (D4,
+D12; `eval/prereg*/`).
 
 | test | n | what it tests | registered result | note |
 |---|---|---|---|---|
@@ -108,6 +110,17 @@ means the value is *not in OPD's data* for that parliament (neither metadata nor
 publish it), not a different concept.
 
 ![Feasibility matrix](figures/fig2_matrix.png)
+
+### Answer times across parliaments (post hoc, descriptive)
+
+![Answer times in 17 parliaments](figures/fig6_answer_times.png)
+
+Figure 6 (`python -m report.figures`, from `results/findings/answer_times.json`): median days from submission to answer
+in 17 parliaments with at least 20 verified durations, on the date the answer document carries (dot and interquartile
+bar) and on OPD's answer event (diamond), with what OPD's date is in each parliament (its date-trust tier) and n. The
+rankings agree (Spearman 0.884; 0.997 on the same affairs), but the date's role differs: in Kriens OPD's answer date is
+the submission day (median 0 days), where the documents give 26.5 days (interquartile range 15 to 41.5, 68 affairs).
+Vaud is clipped at the axis (documents: 1,156 days).
 
 ## P8: what the shared fields mean
 
@@ -464,7 +477,8 @@ an agenda item and its minutes, for councils whose business exists only as meeti
 
 ## Protocol, gold labels and every test
 
-**Locks.** Every test froze code, prompts and θ by sha256 before any label was committed: the LOCK commit precedes the
+**Locks.** Every test froze code, prompts and θ by sha256 before any label was committed (P1's hypothesis script
+and rules excepted: D4, D12): the LOCK commit precedes the
 commit adding its labels by 6 min 0 s (P1), 2 min 28 s (P2), 3 min 37 s (P3) and 4 min 3 s (P4) by commit date
 (`results/eval/posthoc_r3_gold_oracle.json`), an order GitHub's clock confirms
 (`results/eval/lock_server_times_all.json`; rewritten SHAs in `docs/commit-map.md`); P3b's LOCK5 (commit 43a9012), P5's
@@ -651,7 +665,16 @@ documents only), written without the gold and run unchanged on all 62 cached tex
 45/62 and finds 16/29 answer dates (4/33 answerless documents dated). Against the pointer (53/62, 24/29): pointer only
 12 documents, rule only 4, exact McNemar p = 0.077; on the 29 answered documents 11 vs 3, p = 0.057; 5 parliaments
 favour the pointer, 2 the rule (cluster permutation p = 0.20). Apertus's lead over a generic rule is in the answer dates
-it finds; the p = 0.012 above is against the latest-date baseline (44/62). Asked freely with a null-allowed prompt, Apertus
+it finds; the p = 0.012 above is against the latest-date baseline (44/62). **The strongest rule tried** (post hoc,
+proposed in review; `eval/gold2/posthoc_composite.py` → `results/eval/p2_posthoc_composite.json`): the latest date on
+answer-typed documents and, on the 31 intervention-typed documents, the first date within 80 characters after a session
+cue (government and answer words required, no latest-date fallback), run unchanged on the 62 sha256-verified texts:
+exact on 46/62, 21/29 answer dates found, 8/33 answerless documents dated. Against the pointer: right alone on 9 vs 2,
+exact McNemar p = 0.065 (answered documents 5 vs 2, p = 0.45); 5 parliaments favour the pointer, 1 the rule, cluster
+permutation p = 0.12; parliament-resampled interval of the difference [0.014, 0.221], optimistic with 15 clusters, so
+the exact tests lead. The keyword rule on answer-typed documents with the same cue rule: 47/62, 19/29, p = 0.21
+(cluster p = 0.44). The pointer's lead over the strongest rule is 7 documents and 3 answer dates, not significant at
+the parliament level. Asked freely with a null-allowed prompt, Apertus
 scores about the same as the pointer (52 vs 53 of 62; re-parsed 54); the pointer adds provenance by construction, not
 accuracy. The margin separates the classes (AUROC 0.983); null safety failed again (4/33, upper bound 27.3%), so
 Apertus's values remain review suggestions. θ = 0, registered in PREREG2 as a secondary with no decision attached,
@@ -914,6 +937,14 @@ is-answer variant and θ_B.
   numbered question an answer paragraph replies to, which printed sentence states the recommendation and which printed
   name is the submitter. Free generation runs only as a contrast arm in the evaluations (P1, P2, P6,
   P7), never in the product path.
+- **What the closed design buys** (post hoc, `eval/closed_vs_free.py` → `results/eval/closed_vs_free.json`):
+  provenance and a review ranking, not accuracy. A free prompt that may answer null is as accurate (P1 134/154 vs the
+  pointer's 130/154, answerless documents dated 3/90 vs 6/90; P2 54/62 re-parsed vs 53/62; P6 62/68 vs 59/68; no
+  paired difference significant). Every closed value is a printed date with page and span (P1 62/62, P2 32/32, P6
+  35/35); the free prompt's quote occurs verbatim and contains the date for 30/60 (P1), 17/32 (P2, corrected parser)
+  and 20/36 (P6) of its values. The closed margin ranks wrong values first in the review queue (AUROC 0.73, 0.90, 0.71
+  on P1, P2, P6), the free prompt's quote check less well (0.63, 0.58, 0.53). A printed-date filter after a free
+  prompt would give the same no-invention guarantee.
 - **What it adds, measured:** the date check as a closed-set verifier of the adapters' review queue (P7: 214 rows
   promoted into a separate tier, 120/120 sampled are answers; +22.7 points of dated precision over a trivial date
   match), finding answer dates the rules miss on unseen parliaments (P2 22:4; P6 11:5 on all 68 documents, p = 0.21)

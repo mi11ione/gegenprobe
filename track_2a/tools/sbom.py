@@ -14,11 +14,20 @@ human-readable table; docs/sbom/ holds the machine-readable files.
                                     `removed:NAME=JSON` records a scan of packages the Dockerfile uninstalls (not gated).
   image BASE_SPDX APT_TSV OUT       docs/sbom/image-system.cdx.json: the image's system layer. BASE_SPDX is the SPDX
                                     document Docker publishes as an attestation of the digest-pinned base image (blob
-                                    sha256:73407d14..., fetched from registry-1.docker.io; its in-toto envelope or the bare
+                                    sha256:8e82fecd..., fetched from registry-1.docker.io; its in-toto envelope or the bare
                                     document), APT_TSV is docs/sbom/image-apt-layer.tsv (the apt layer as apt printed it in
                                     CI); the pinned tessdata_fast models come from src/gegenprobe/ocrguard.py. The base image's
                                     Python packages (pip, setuptools with its vendored packages, wheel) are listed as
-                                    removed: the Dockerfile uninstalls them after the hash-pinned install.
+                                    removed: the Dockerfile uninstalls them after the hash-pinned install. An apt row that
+                                    the base already holds at the same version is listed once (as base).
+  image-scan OUT NAME=GRYPE_JSON ... [--gate=NAME,...] [--date=D]
+                                    docs/sbom/image-scan.json from grype's JSON output (`grype -o json`) per scan target:
+                                    findings (vulnerability, package, version) by severity and fix state, the HIGH and
+                                    CRITICAL ones Debian or upstream has fixed ("fixable"), those in packages the
+                                    Dockerfile uninstalls (pip, setuptools with its vendored packages, wheel, packaging:
+                                    recorded, not gated), those docs/sbom/image-vuln-allowlist.tsv accepts with a reason,
+                                    and the rest (failing). Exit 1 when a scan named in --gate (default: every scan) has a
+                                    failing finding. CI job `image-scan` gates the built image with it.
 """
 from __future__ import annotations
 
@@ -30,9 +39,12 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE_IMAGE = "python:3.11.14-slim-bookworm@sha256:65a93d69fa75478d554f4ad27c85c1e69fa184956261b4301ebaf6dbb0a3543d"
-BASE_AMD64 = "sha256:83f339c1be6340ae1096010fdccf6552ac932d8f410d45d206014916bdf37e48"
-BASE_SBOM_BLOB = "sha256:73407d14db8e9628d48a8a4748b8f8cc38349700b39b34ad124816f6293155e9"
+BASE_IMAGE = "python:3.11.17-slim-bookworm@sha256:0a310eeecf4e1f5a0743f9a6520c90c88d089c903ca5fd283f501e3a805f5f89"
+BASE_AMD64 = "sha256:8a00ecb83ed9d0864dfd102a1bdb2067fda907ceb30bb86d09da9ee558b19590"
+BASE_SBOM_BLOB = "sha256:8e82fecd7f2bdf51d09344ca57edd1762cc3a1021d1a358ba1fc5a0588ded92b"
+# the base image before R20 (python 3.11.14, Debian 12.13): its system layer had fixable HIGH/CRITICAL vulnerabilities in
+# CPython and 21 Debian packages (docs/licences.md, "Image scan"); docs/sbom/image-scan.json keeps that scan for comparison
+PREVIOUS_BASE_IMAGE = "python:3.11.14-slim-bookworm@sha256:65a93d69fa75478d554f4ad27c85c1e69fa184956261b4301ebaf6dbb0a3543d"
 TESSDATA_REPO = "https://github.com/tesseract-ocr/tessdata_fast"
 
 
@@ -111,6 +123,68 @@ def audit_summary(pairs: list[str], allow: Path, date: str) -> dict:
     return out
 
 
+# packages the Dockerfile uninstalls after the hash-pinned install (a base-image scan still finds them)
+REMOVED_BY_DOCKERFILE = re.compile(r"/site-packages/(?:pip|setuptools|wheel|packaging)(?:[-/]|$)")
+HIGH_CRITICAL = ("Critical", "High")
+
+
+def image_scan(pairs: list[str], allow: Path, date: str, gate: list[str] | None = None) -> dict:
+    """grype JSON per target -> counts and the gate (see `image-scan` above). A finding is one (vulnerability, package,
+    version, type), however many files grype matched it in; `fixable` = grype's fix state "fixed" (a fixed version
+    exists in the distribution or upstream)."""
+    ok = {(r["id"], r["package"]) for r in allowlist(allow)} if allow.exists() else set()
+    out: dict = {"tool": "", "run": date, "fail_on": "fixable HIGH or CRITICAL, not removed by the Dockerfile, not in "
+                 "docs/sbom/image-vuln-allowlist.tsv", "scans": {}}
+    for pair in pairs:
+        name, js = pair.split("=", 1)
+        d = json.loads(Path(js).read_text(encoding="utf-8"))
+        desc = d.get("descriptor") or {}
+        out["tool"] = f"grype {desc.get('version', '?')}"
+        src = (d.get("source") or {}).get("target")
+        found: dict[tuple, dict] = {}
+        for m in d.get("matches") or []:
+            v, a = m["vulnerability"], m["artifact"]
+            key = (v["id"], a["name"], a["version"], a["type"])
+            paths = [loc.get("path", "") for loc in a.get("locations") or []]
+            x = found.setdefault(key, {"severity": v.get("severity", "Unknown"),
+                                       "state": (v.get("fix") or {}).get("state") or "unknown",
+                                       "fix": sorted((v.get("fix") or {}).get("versions") or []), "removed": False})
+            x["removed"] = x["removed"] or any(REMOVED_BY_DOCKERFILE.search(p) for p in paths)
+        by: dict[str, dict[str, int]] = {}
+        for x in found.values():
+            row = by.setdefault(x["severity"], {})
+            row[x["state"]] = row.get(x["state"], 0) + 1
+
+        def line(k: tuple, found: dict = found) -> str:
+            x = found[k]
+            return f"{k[3]} {k[1]} {k[2]} {k[0]} {x['severity']}" + (f" (fixed in {', '.join(x['fix'])})" if x["fix"] else "")
+
+        hc = sorted(k for k, x in found.items() if x["severity"] in HIGH_CRITICAL)
+        fixable = [k for k in hc if found[k]["state"] == "fixed"]
+        removed = [k for k in fixable if found[k]["removed"]]
+        accepted = [k for k in fixable if k not in removed and (k[0], k[1]) in ok]
+        failing = [k for k in fixable if k not in removed and k not in accepted]
+        types = sorted({k[3] for k in fixable})
+        dist = d.get("distro") or {}
+        out["scans"][name] = {
+            "target": src.get("userInput") if isinstance(src, dict) else src,
+            "distro": " ".join(str(x) for x in (dist.get("name"), dist.get("version")) if x),
+            "db_built": ((desc.get("db") or {}).get("status") or {}).get("built"),
+            "gated": gate is None or name in gate,
+            "findings": len(found),
+            "by_severity_and_fix_state": {s: dict(sorted(r.items())) for s, r in sorted(by.items())},
+            "high_critical": len(hc),
+            "high_critical_fixable": len(fixable),
+            "high_critical_fixable_by_type": {t: sum(1 for k in fixable if k[3] == t) for t in types},
+            "high_critical_without_fix": len(hc) - len(fixable),
+            "removed_by_dockerfile": [line(k) for k in removed],
+            "accepted": [line(k) for k in accepted],
+            "failing": [line(k) for k in failing],
+        }
+    out["failing"] = sum(len(s["failing"]) for s in out["scans"].values() if s["gated"])
+    return out
+
+
 def _tessdata() -> tuple[str, dict[str, str]]:
     src = (ROOT / "src" / "gegenprobe" / "ocrguard.py").read_text(encoding="utf-8")
     commit = re.search(r'^TESSDATA_COMMIT = "([0-9a-f]{40})"', src, re.M).group(1)
@@ -139,7 +213,11 @@ def image(base_spdx: Path, apt_tsv: Path) -> dict:
         comps.append(c)
     rows = [r for r in csv.DictReader(io.StringIO("".join(
         ln for ln in apt_tsv.read_text(encoding="utf-8").splitlines(keepends=True) if not ln.startswith("#"))), delimiter="\t")]
+    base_debs = {(c["name"], c["version"]) for c in comps if c["purl"].startswith("pkg:deb/")}
+    in_base = sorted(f"{r['package']} {r['version']}" for r in rows if (r["package"], r["version"]) in base_debs)
     for r in rows:
+        if f"{r['package']} {r['version']}" in in_base:  # requested by the apt layer, already in the base at that version
+            continue
         purl = (f"pkg:deb/debian/{r['package']}@{r['version']}?arch={r['arch']}&distro=debian-12"
                 + (f"&upstream={r['source']}" if r["source"] != r["package"] else ""))
         c = {"type": "library", "name": r["package"], "version": r["version"], "purl": purl,
@@ -165,7 +243,9 @@ def image(base_spdx: Path, apt_tsv: Path) -> dict:
                                                       {"name": "gegenprobe:base-image-amd64", "value": BASE_AMD64},
                                                       {"name": "gegenprobe:base-sbom-blob", "value": BASE_SBOM_BLOB},
                                                       {"name": "gegenprobe:removed-by-dockerfile",
-                                                       "value": "; ".join(sorted(removed))}]}},
+                                                       "value": "; ".join(sorted(removed))},
+                                                      {"name": "gegenprobe:apt-requested-already-in-base",
+                                                       "value": "; ".join(in_base)}]}},
             "components": comps}
 
 
@@ -188,6 +268,20 @@ def main(argv: list[str]) -> int:
         rep = audit_summary([a for a in argv[2:] if not a.startswith("--")], ROOT / "docs/sbom/vuln-allowlist.tsv", date)
         Path(argv[1]).write_text(json.dumps(rep, indent=1) + "\n", encoding="utf-8")
         print(f"audit: {rep['packages']} packages, {rep['failing']} failing, {rep['accepted']} accepted (allowlist)")
+        return 1 if rep["failing"] else 0
+    if cmd == "image-scan" and len(argv) >= 3:
+        opt = dict(a[2:].split("=", 1) for a in argv[2:] if a.startswith("--") and "=" in a)
+        gate = [g for g in opt["gate"].split(",") if g] if "gate" in opt else None
+        rep = image_scan([a for a in argv[2:] if not a.startswith("--")], ROOT / "docs/sbom/image-vuln-allowlist.tsv",
+                         opt.get("date", ""), gate)
+        Path(argv[1]).write_text(json.dumps(rep, indent=1) + "\n", encoding="utf-8")
+        for name, sc in rep["scans"].items():
+            print(f"image scan {name}: {sc['findings']} findings, {sc['high_critical']} HIGH/CRITICAL, "
+                  f"{sc['high_critical_fixable']} of them fixable ({len(sc['removed_by_dockerfile'])} in packages the "
+                  f"Dockerfile removes, {len(sc['accepted'])} accepted, {len(sc['failing'])} failing)"
+                  + ("" if sc["gated"] else " [not gated]"))
+            for f in sc["failing"]:
+                print(f"  FAIL {f}")
         return 1 if rep["failing"] else 0
     if cmd == "image" and len(argv) == 4:
         Path(argv[3]).write_text(json.dumps(image(Path(argv[1]), Path(argv[2])), indent=1, ensure_ascii=False) + "\n",

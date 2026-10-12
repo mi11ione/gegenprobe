@@ -24,6 +24,8 @@ with a diff against the previous night (`WORK/nightly/state.json`).
    moves); a row whose check failed stays `review` and is not handed on again as a relink/fetch (`run.json`
    `be_repair_carried_review`). Earlier, `be.join`'s `verified=None` overwrote the stored verdict, so every second
    night showed all rows `unchecked` (two Docker nights, run 38098822336; `results/monitor/two_nights_docker_38098822336/README.md`).
+   On the fixed code a real two-night pair kept night 1's verdicts on night 2 (run 38187596786;
+   `results/monitor/two_nights_docker_38187596786/README.md`).
 8. `results/monitor/alerts.json`, then delivery (below), then the night's state. Exit code: 0 = quiet night,
    `GP_ALERT_EXIT` (default 3) = alerts, 1 = the job itself or the alert delivery failed, 2 = nothing to work on yet.
 
@@ -215,7 +217,9 @@ filesystem and a private 1 GB `/tmp` (tmpfs). `docker rm -f gegenprobe-nightly` 
 (`ExecStopPost=-`) every night, so a container left over from a night killed at `TimeoutStartSec` cannot block the next one
 with a name conflict. Without systemd
 or root it prints the commands instead and exits 0. Without Docker: `sh deploy/nightly/install.sh --venv` creates the
-`gegenprobe` system user and `/var/lib/gegenprobe` and installs `gegenprobe-nightly-venv.service`, which runs the same job
-from a read-only checkout and a hash-pinned venv (`pip install --require-hashes -r requirements.lock`) with
+`gegenprobe` system user and `/var/lib/gegenprobe`, puts the pinned OCR models into `/opt/gegenprobe/tessdata-pinned`
+(`python -m gegenprobe.ocr_models`, sha256 per file; it installs nothing if that fails) and installs
+`gegenprobe-nightly-venv.service`, which runs the same job, OCR with the measured models (`TESSDATA_PREFIX`,
+`GP_OCR_REQUIRE_PINNED=1`), from a read-only checkout and a hash-pinned venv (`pip install --require-hashes -r requirements.lock`) with
 `MemoryMax=4G` / `CPUQuota=200%`. Settings: `deploy/nightly/alerts.env.example`. Operations, triage and failure modes:
 `docs/runbook.md`.

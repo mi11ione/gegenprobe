@@ -1,7 +1,8 @@
 # Gegenprobe at a glance: what to decide
 
-For OPD's management and a cantonal chancellery. Details: [operator sheet](runbook.md#operator-sheet),
-[licences](licences.md). Every number on this page is checked by `make claims`.
+For OPD's management and a cantonal chancellery. Auf Deutsch: [decision_de.md](decision_de.md). Details: [operator
+sheet](runbook.md#operator-sheet), [licences](licences.md), [checklist for a DPO](dpo_checklist.md).
+Every number on this page is checked by `make claims`.
 
 **What runs.** A nightly job on a Linux server, or inside OPD next to its export job: it recounts the answers that lack
 text in OPD and re-checks the Bern repairs against OPD's exports. Rules write the values; no model runs by default.
@@ -40,7 +41,7 @@ neither a decision nor a fetch.
 | component | maturity |
 |---|---|
 | census and Bern repair lists | ready to apply (relinks: after the hash decision) |
-| nightly job | ready to deploy |
+| nightly job | ready to deploy: three real nights, then a real two-night Docker pair on the fixed ledger (night 2 kept night 1's verdicts) |
 | source-adapter lists | audited |
 | rules-only converter | tested prototype |
 | review mode (Apertus) | feasibility study |

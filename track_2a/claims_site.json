@@ -390,6 +390,50 @@
    "path": "headline.relink",
    "claim": "r9p.after_hash",
    "why": "'one decision' in the hero's repair list: the 2,459 Bern relinks that follow OPD's hash decision (2,421 ready + 38 for review), so the three items sum to the 9,580"
+  },
+  {
+   "vars": {
+    "a": "headline.at_most.all.after_repair",
+    "m": "headline.periods.all.missing",
+    "w": "headline.periods.all.written"
+   },
+   "expr": "100 * (a - (1 - m / w))",
+   "fmt": "f1",
+   "claim": "r20_c.hero.gain_points",
+   "why": "'(+10.5 points from 9,580 repairs)' in the hero caption"
+  },
+  {
+   "paths": [
+    "tiles.p2_composite.found.0",
+    "tiles.p2_composite.found.1"
+   ],
+   "fmt": "frac",
+   "claim": "r20_b.p2c.composite.answer_dates",
+   "why": "post hoc, proposed in review: the strongest no-model rule tried on P2"
+  },
+  {
+   "paths": [
+    "tiles.p2_composite.exact.0",
+    "tiles.p2_composite.exact.1"
+   ],
+   "fmt": "frac",
+   "claim": "r20_b.p2c.composite.exact"
+  },
+  {
+   "path": "tiles.p2_composite.pointer_only",
+   "claim": "r20_b.p2c.pointer_only"
+  },
+  {
+   "path": "tiles.p2_composite.composite_only",
+   "claim": "r20_b.p2c.composite_only"
+  },
+  {
+   "path": "tiles.p2_composite.mcnemar",
+   "claim": "r20_b.p2c.mcnemar_p"
+  },
+  {
+   "path": "tiles.p2_composite.perm",
+   "claim": "r20_b.p2c.parliament_perm_p"
   }
  ],
  "unbound": [

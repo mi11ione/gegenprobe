@@ -1,8 +1,8 @@
 id	shown	file	path	fmt	command	where	context
 r9p.share_attached	81.6%	results/report/r9_numbers.json	coverage.share.attached	str	PYTHONPATH=src:. python -m report.r9_numbers	README.md,technical_report.md,docs/form_notes.md,../README.md,docs/operations.md	
-r9p.share_with_agenda	82.3%	results/report/r9_numbers.json	coverage.share.with_agenda	str	PYTHONPATH=src:. python -m report.r9_numbers	README.md,technical_report.md	
-r9p.share_now	85.6%	results/report/r9_numbers.json	coverage.share.now	str	PYTHONPATH=src:. python -m report.r9_numbers	README.md,technical_report.md,docs/operations.md	
-r9p.share_after_hash	88.3%	results/report/r9_numbers.json	coverage.share.after_hash	str	PYTHONPATH=src:. python -m report.r9_numbers	README.md,technical_report.md,docs/operations.md	
+r9p.share_with_agenda	82.3%	results/report/r9_numbers.json	coverage.share.with_agenda	str	PYTHONPATH=src:. python -m report.r9_numbers	README.md	
+r9p.share_now	85.6%	results/report/r9_numbers.json	coverage.share.now	str	PYTHONPATH=src:. python -m report.r9_numbers	README.md,docs/operations.md	
+r9p.share_after_hash	88.3%	results/report/r9_numbers.json	coverage.share.after_hash	str	PYTHONPATH=src:. python -m report.r9_numbers	README.md,docs/operations.md	
 r9p.share_all	92.1%	results/report/r9_numbers.json	coverage.share.all	str	PYTHONPATH=src:. python -m report.r9_numbers	README.md,technical_report.md,docs/form_notes.md,../README.md,docs/operations.md	
 r9p.now	3,621	results/report/r9_numbers.json	coverage.now	int	PYTHONPATH=src:. python -m report.r9_numbers	README.md,docs/operations.md,../README.md,technical_report.md	
 r9p.after_hash	2,459	results/report/r9_numbers.json	coverage.after_hash	int	PYTHONPATH=src:. python -m report.r9_numbers	README.md,docs/operations.md,technical_report.md	
@@ -10,7 +10,7 @@ r9p.after_hash_relink	2,421	results/report/r9_numbers.json	coverage.after_hash_r
 r9p.after_hash_review	38	results/report/r9_numbers.json	coverage.after_hash_review	int	PYTHONPATH=src:. python -m report.r9_numbers	README.md	
 r9p.fetch	3,500	results/report/r9_numbers.json	coverage.fetch	int	PYTHONPATH=src:. python -m report.r9_numbers	README.md,docs/operations.md,technical_report.md	
 r9p.beyond_agenda	8,988	results/report/r9_numbers.json	coverage.repaired_beyond_agenda	int	PYTHONPATH=src:. python -m report.r9_numbers	README.md	
-r9p.agenda	592	results/report/r9_numbers.json	coverage.agenda	int	PYTHONPATH=src:. python -m report.r9_numbers	README.md,technical_report.md	
+r9p.agenda	592	results/report/r9_numbers.json	coverage.agenda	int	PYTHONPATH=src:. python -m report.r9_numbers	README.md	
 r9p.p7_vs_rule_pts	19.6	results/p7/p7_cluster_r9.json	vs_no_model.display.pts	f1	PYTHONPATH=src:. python -m eval.p7.cluster_r9	docs/evaluation.md,src/gegenprobe/viewer/template.html	
 r9p.p7_vs_rule_cluster	[0.9, 42.8]	results/p7/p7_cluster_r9.json	vs_no_model.display.cluster_ci	ci	PYTHONPATH=src:. python -m eval.p7.cluster_r9	docs/evaluation.md,src/gegenprobe/viewer/template.html	
 r9p.p7_vs_rule_row	[8.4, 30.9]	results/p7/p7_cluster_r9.json	vs_no_model.display.row_ci	ci	PYTHONPATH=src:. python -m eval.p7.cluster_r9	docs/evaluation.md	
@@ -30,7 +30,7 @@ r9p.p2_latest_answerless	31	results/eval2/posthoc_r5_p2_table.json	all_62_70b.la
 r9p.p2_answerless_n	33	results/eval2/posthoc_r5_p2_table.json	all_62_70b.latest_printed_date.values_on_answerless.1	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	README.md,technical_report.md	
 r9p.p2_pointer_answerless	4	results/report/p2_numbers.json	error_profile.P2.pointer.date_on_answerless	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md	
 r9p.p2_bodies	15	results/report/p2_numbers.json	n_bodies	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md,technical_report.md,../README.md	
-r9p.p2_pointer_exact_n	53	results/report/p2_numbers.json	arms.pointer.exact	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	README.md	
+r9p.p2_pointer_exact_n	53	results/report/p2_numbers.json	arms.pointer.exact	int	python -m eval.gold2.run_p2 --backend none; python -m eval.gold2.run_p2 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p2:2.0; python -m eval.gold2.hypotheses2 publicai_swiss-ai_apertus-v1.5-8b; python -m report.p2_numbers	-	
 r9p.p2_free_reparsed	54/62	results/eval/posthoc_r3_naive_reparsed.json	splits.P2.naive_null.reparsed_exact.0/splits.P2.naive_null.reparsed_exact.1	frac	PYTHONPATH=src:. python -m eval.posthoc_r3 naive	README.md	
 r9p.p5_free_submitter	34/40	results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json	scores.G.submitter.k/scores.G.submitter.n	frac	python -m eval.gold6.run6 p5 --backend gateway:swiss-ai/apertus-v1.5-8b:2a-p5-test:1.5; python -m eval.gold6.hypotheses6 p5 publicai_swiss-ai_apertus-v1.5-8b	README.md,docs/evaluation.md	
 r9p.noans_n	53	results/eval/posthoc_r8_noanswer.json	headline.no_answer_docs	int	PYTHONPATH=src:. python -m eval.posthoc_r8 noanswer	README.md	
@@ -39,7 +39,7 @@ r9p.noans_p6_n	28	results/eval/posthoc_r8_noanswer.json	p6_70b.no_answer_at_all	
 r9p.audit_qwen	200/200	results/repair/adapters/audit3/summary.json	headline.qwen_counted	str	python -m gegenprobe.repair.adapters.audit3 score --final	-	
 r9p.audit_agree	252	results/repair/adapters/audit3/summary.json	agreement.is_answer_equal	int	python -m gegenprobe.repair.adapters.audit3 score --final	-	
 r9p.audit_n	260	results/repair/adapters/audit3/summary.json	packets	int	python -m gegenprobe.repair.adapters.audit3 score --final	-	
-r9p.audit_date_no	15	results/repair/adapters/audit3/summary.json	auditors.claude.counted.date_ok_no	int	python -m gegenprobe.repair.adapters.audit3 score --final	technical_report.md	
+r9p.audit_date_no	15	results/repair/adapters/audit3/summary.json	auditors.claude.counted.date_ok_no	int	python -m gegenprobe.repair.adapters.audit3 score --final	-	
 r9p.cost_70b_usd	336	results/report/r4d_numbers.json	scale_8b.usd_70b_same_documents	int	PYTHONPATH=src:. python -m report.r4d_numbers	README.md	
 r9p.cost_8b_h	28,400	results/report/r4d_numbers.json	scale_8b.machine_hours_display	str	PYTHONPATH=src:. python -m report.r4d_numbers	README.md	
 r9p.cost_residue_k	569k	results/report/r4d_numbers.json	scale_8b.residue_documents_k	str	PYTHONPATH=src:. python -m report.r4d_numbers	README.md	

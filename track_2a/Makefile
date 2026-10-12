@@ -1,6 +1,6 @@
 # Gegenprobe (Track 2A, OpenParlData). Judges: `make run` (Docker, CPU, clean checkout).
 # Development targets run on the host with .venv (python 3.11); every target is re-runnable and writes under results/.
-.PHONY: schema-v02 parts-detect qa-detect dev-install gold-dev-fetch site deploy-site figures run test lint claims census census-corrected census-scan census-replay census-hash repair repair-network adapters-write adapters-canary repair-manifest nightly-offline nightly-smoke nightly-notify-test convert eval report install-nightly docker-build
+.PHONY: schema-v02 parts-detect qa-detect r20-detect dev-install gold-dev-fetch site deploy-site figures run test lint claims census census-corrected census-scan census-replay census-hash repair repair-network adapters-write adapters-canary repair-manifest nightly-offline nightly-smoke nightly-notify-test convert eval report install-nightly docker-build
 
 PY ?= .venv/bin/python
 IMAGE ?= gegenprobe:latest
@@ -65,6 +65,10 @@ numbers:
 #             (field_completeness.json, before/after that overlay); the out-of-sample role check on the P10, P11 and
 #             federal gold (oos_role_fit.json); and v0.2 records for P11's 15 non-intervention affairs
 #             (results/p11/ni_records_v0_2_posthoc.jsonl, ni_posthoc.json; needs the cached texts, else SKIP).
+#             Post hoc (R20), inside v0_2_parts: a typed reason for every role the records left silent
+#             (gegenprobe.schema.v0_2_gaps; a converter record with an untyped cell stops the target), the role of every
+#             answer date (gegenprobe.schema.v0_2_dates: decided / dispatched / answered with its reason) and the
+#             coverage of the page boxes of the located values (gegenprobe.schema.v0_2_bbox, sidecar span_bboxes.jsonl).
 #             No network, no model.
 schema-v02:
 	$(PY) -m gegenprobe.schema.p8_v0_2
@@ -81,6 +85,17 @@ parts-detect:
 #            results/schema/v0_2/qa_pairs.jsonl, which schema-v02 puts into the records' qa[0].items (gegenprobe.schema.v0_2_qa)
 qa-detect:
 	$(PY) -m gegenprobe.schema.v0_2_qa detect
+
+# r20-detect: from the cached texts and PDFs (no network, no model): the frozen answer-date anchors of the answer texts
+#             (answer_date_anchors.jsonl), the frozen addressed-body rule on the P3/P3b question texts
+#             (addressed_body_rule.jsonl), then, after schema-v02 wrote the records, the page box of every located value
+#             (span_bboxes.jsonl, pdftotext -bbox); schema-v02 reads the committed files
+r20-detect:
+	$(PY) -m gegenprobe.schema.v0_2_dates detect
+	$(PY) -m gegenprobe.schema.v0_2_gaps detect
+	$(MAKE) schema-v02
+	$(PY) -m gegenprobe.schema.v0_2_bbox detect
+	$(PY) -m gegenprobe.schema.v0_2_parts
 
 # ---- census (owner: census workstream)
 # census:        re-extract data/census from the full exports in GP_OPD_RAW / GP_DOCS_META (if present) and recompute results/census

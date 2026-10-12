@@ -1,7 +1,7 @@
 """Report figures, generated from committed results files only (no hand-typed numbers). Dev-only: needs matplotlib
 (`pip install -e .[report]`); the judges' runtime does not.
 
-    python -m report.figures            -> docs/figures/fig{1..5}_*.{png,svg} + results/report/figure_numbers.json
+    python -m report.figures            -> docs/figures/fig{1..6}_*.{png,svg} + results/report/figure_numbers.json
 
 Palette: the dataviz reference instance, validated with its validator (categorical slots 1-3 blue/orange/aqua pass
 all-pairs CVD and normal-vision floors; the blue ordinal ramp 600/400/250 passes --ordinal). Aqua is below 3:1 on the
@@ -430,6 +430,88 @@ def fig5() -> bool:
     return True
 
 
+# ---------------------------------------------------------------- fig 6: answer times (post hoc, descriptive; R20)
+TRUST6 = {"same_day": "submission day", "sitting_day": "weekly sitting", "mixed": "mixed weekdays",
+          "diffuse": "diffuse", "verified": "decision date (checked)"}  # what OPD's answer-event date is (date_trust.json)
+
+
+def fig6(xmax: float = 260) -> bool:
+    """POST HOC, descriptive (R20; proposed in review): per-parliament median answer time on the answer document's own
+    date (adapter-verified; dot, with the interquartile range) next to OPD's plain median (open diamond), for the 17
+    parliaments with >= 20 verified durations (results/findings/answer_times.json `ranking.table`). The right column
+    names what OPD's answer-event date is in that parliament (results/census/date_trust.json tier). Kriens is
+    highlighted: OPD's date is the submission day there (median 0 days), the documents say about four weeks. Not placed
+    in the report by this function."""
+    p = RESULTS / "findings" / "answer_times.json"
+    if not p.exists():
+        return False
+    at = json.loads(p.read_text())
+    rows = sorted(at["ranking"]["table"], key=lambda t: (t["adapter_median"], t["opd_plain_median"]))
+    names = [t["name"] for t in rows]
+
+    def label(t: dict) -> str:
+        nm = t["name"]
+        if names.count(nm) > 1:
+            nm += " (canton)" if t["body"].isalpha() else " (city)"
+        return nm
+
+    fig = plt.figure(figsize=(7.2, 3.35))
+    ax = fig.add_axes([0.2, 0.12, 0.56, 0.7])
+    n = len(rows)
+    for i, t in enumerate(rows):
+        y = n - 1 - i
+        hi = t["body"] == "1059"
+        if hi:
+            ax.axhspan(y - 0.48, y + 0.48, color=GRAY_LIGHT, alpha=0.55, lw=0, zorder=0)
+        q1, q3, md, opd = t["adapter_q1"], t["adapter_q3"], t["adapter_median"], t["opd_plain_median"]
+        clip = md > xmax
+        ax.plot([min(q1, xmax), min(q3, xmax)], [y, y], color=RAMP["250"], lw=2.2, solid_capstyle="round", zorder=1)
+        if clip:
+            ax.annotate("", xy=(xmax, y), xytext=(xmax - 22, y), zorder=3,
+                        arrowprops=dict(arrowstyle="-|>", color=BLUE, lw=1.4, mutation_scale=8))
+            ax.text(opd + 9, y, f"documents {md:,.0f} d", ha="left", va="center", fontsize=7, color=INK)
+        else:
+            ax.plot([md], [y], "o", ms=5.2, color=BLUE, mec=SURFACE, mew=0.8, zorder=3)
+        ax.plot([min(opd, xmax)], [y], "D", ms=4.6, mfc="none", mec=ORANGE, mew=1.4, zorder=4)
+        ax.text(-0.012, y, f"{label(t)}", transform=ax.get_yaxis_transform(), ha="right", va="center", fontsize=7.3,
+                color=INK, fontweight="bold" if hi else "normal")
+        ax.text(1.015, y, f"{TRUST6.get(t['date_trust'], t['date_trust'])}", transform=ax.get_yaxis_transform(),
+                ha="left", va="center", fontsize=7, color=INK if hi else INK2, fontweight="bold" if hi else "normal")
+        ax.text(1.36, y, f"{t['n_adapter']:,}", transform=ax.get_yaxis_transform(), ha="right", va="center",
+                fontsize=7, color=INK2)
+        if hi:
+            ax.text(q3 + 8, y, f"OPD {opd:.0f} d, documents {md:g} d", fontsize=7, color=INK, fontweight="bold",
+                    va="center", ha="left")
+    ax.set_ylim(-0.7, n - 0.3)
+    ax.set_yticks([])
+    ax.spines["left"].set_visible(False)
+    ax.set_xlim(-4, xmax)
+    ax.set_xticks([0, 30, 60, 90, 120, 150, 180, 210, 240])
+    ax.tick_params(axis="x", labelsize=7)
+    ax.grid(axis="x", color=GRAY_LIGHT, lw=0.5, zorder=0)
+    ax.set_axisbelow(True)
+    ax.set_xlabel("days from submission to answer (median)", fontsize=7)
+    ax.text(1.015, n - 0.1, "OPD's date is", transform=ax.get_yaxis_transform(), ha="left", va="bottom", fontsize=7,
+            color=INK2, fontweight="bold")
+    ax.text(1.36, n - 0.1, "n", transform=ax.get_yaxis_transform(), ha="right", va="bottom", fontsize=7, color=INK2,
+            fontweight="bold")
+    hd = at["headline"]
+    fig.text(0.012, 0.985, f"Answer times in {hd['ranked_parliaments']} parliaments: the answer document's own date vs "
+             f"OPD's answer event (post hoc, descriptive)", ha="left", va="top", fontsize=8.5, color=INK)
+    fig.text(0.012, 0.93, f"{hd['durations']:,} verified durations; document date = the government's decision or letter "
+             "date (Neuchâtel: transmission). Medians mix intervention types.", ha="left", va="top", fontsize=7,
+             color=INK2)
+    from matplotlib.lines import Line2D
+    ax.legend(handles=[Line2D([], [], marker="o", ls="-", lw=2.2, color=RAMP["250"], mfc=BLUE, mec=SURFACE, ms=5.2,
+                              label="answer document's own date: median, interquartile range"),
+                       Line2D([], [], marker="D", ls="none", mfc="none", mec=ORANGE, mew=1.4, ms=4.6,
+                              label="OPD's answer event: plain median")],
+              loc="lower left", bbox_to_anchor=(-0.3, 1.0), ncol=2, frameon=False, fontsize=7, handlelength=2.2,
+              columnspacing=1.2)
+    save(fig, "fig6_answer_times")
+    return True
+
+
 def main() -> None:
     n = numbers()
     fig1(n)
@@ -440,6 +522,7 @@ def main() -> None:
     d.update(extra)
     NUM.write_text(json.dumps(d, indent=1))
     fig5()
+    fig6()
     print(json.dumps({k: v for k, v in d.items() if k != "gap_parts"}, indent=1))
 
 

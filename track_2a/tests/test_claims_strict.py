@@ -66,8 +66,8 @@ def test_altered_report_fails_in_the_summary_and_in_the_body(rows, cfg):
     """The whole report is a strict zone (it used to stop at "## 2.")."""
     t = _text("technical_report.md")
     head, sep, body = t.partition("\n## 2.")
-    assert sep and "24/29 answer dates, against" in head
-    in_summary = head.replace("24/29 answer dates, against", "23/29 answer dates, against", 1) + sep + body
+    assert sep and "24/29 answer dates, the best" in head
+    in_summary = head.replace("24/29 answer dates, the best", "23/29 answer dates, the best", 1) + sep + body
     assert any("'23/29'" in e for e in claims.zone_check(rows, cfg, docs={"technical_report.md": in_summary}))
     stray = head + sep + body + "\nA stray 12.34% after the summary.\n"
     assert any("'12.34%'" in e for e in claims.zone_check(rows, cfg, docs={"technical_report.md": stray}))
@@ -106,13 +106,13 @@ def test_m3_readme_headline_swap_between_valid_claims_fails(rows, cfg):
 
 
 def test_m5_report_body_change_with_the_value_elsewhere_fails(rows):
-    """M5 (the case moved with the report's summary): "24/29 answer dates, against" -> 22/29 in the abstract, while
-    24/29 still appears in the §3 table and 22/29 is a valid report claim elsewhere."""
+    """M5 (the case moved with the report's summary): "24/29 answer dates, the best model-free" -> 22/29 in the
+    abstract, while 24/29 still appears in the §3 table and 22/29 is a valid report claim elsewhere."""
     t = _text("technical_report.md")
-    assert "24/29 answer dates, against" in t and t.count("24/29") >= 2 and "22/29" in t
-    bad = t.replace("24/29 answer dates, against", "22/29 answer dates, against", 1)
+    assert "24/29 answer dates, the best model-free" in t and t.count("24/29") >= 2 and "22/29" in t
+    bad = t.replace("24/29 answer dates, the best model-free", "22/29 answer dates, the best model-free", 1)
     errs = claims.anchor_check(rows, docs={"technical_report.md": bad})
-    assert any("'24/29 answer dates, against' not found in technical_report.md" in e for e in errs), errs
+    assert any("'24/29 answer dates, the best model-free' not found in technical_report.md" in e for e in errs), errs
 
 
 def test_m17_readme_results_table_swap_fails(rows, cfg):
@@ -128,11 +128,11 @@ def test_m17_readme_results_table_swap_fails(rows, cfg):
 
 def test_swapped_staging_shares_in_the_report_summary_fail(rows, cfg):
     t = _text("technical_report.md")
-    a, b = "85.6% with the repairs", "88.3% after the Bern relinks"
+    a, b = "up from 81.6% today", "91.5% from row-checked repairs"
     assert a in t and b in t
-    bad = t.replace(a, "88.3% with the repairs", 1).replace(b, "85.6% after the Bern relinks", 1)
+    bad = t.replace(a, "up from 91.5% today", 1).replace(b, "81.6% from row-checked repairs", 1)
     errs = claims.zone_check(rows, cfg, docs={"technical_report.md": bad})
-    assert any("'88.3%'" in e for e in errs) and any("'85.6%'" in e for e in errs), errs
+    assert any("'91.5%'" in e for e in errs) and any("'81.6%'" in e for e in errs), errs
 
 
 def test_readme_report_and_form_notes_are_strict_end_to_end(cfg):

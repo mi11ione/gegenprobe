@@ -1,0 +1,5 @@
+# Fixable HIGH/CRITICAL vulnerabilities in the built image that CI job image-scan accepts, one row each, with the reason
+# (docs/licences.md "Image scan"; tools/sbom.py image-scan). Empty: the image must scan with no fixable HIGH or CRITICAL
+# finding outside the packages the Dockerfile uninstalls. A row needs the vulnerability id, the package as grype names it,
+# a justification (why it cannot be fixed now and why it is not reachable or not exploitable here) and a review date.
+id	package	justification	reviewed

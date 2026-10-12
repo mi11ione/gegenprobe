@@ -10,6 +10,8 @@ set -eu
 HERE=$(cd "$(dirname "$0")" && pwd)
 VENV=""
 UA_ARG=""
+VENV_PY=/opt/gegenprobe/.venv/bin/python
+TESSDATA_PINNED=/opt/gegenprobe/tessdata-pinned   # = TESSDATA_PREFIX in gegenprobe-nightly-venv.service
 while [ $# -gt 0 ]; do
   case "$1" in
     --venv) VENV=1 ;;
@@ -37,9 +39,9 @@ if [ "$(uname -s)" != "Linux" ] || ! command -v systemctl >/dev/null 2>&1 || [ "
   echo "  sudoedit /etc/gegenprobe/alerts.env   # REQUIRED: GP_USER_AGENT=<your product>/0.1 (+https://<your contact page>)"
   echo "  sudo cp $HERE/gegenprobe-nightly.service $HERE/gegenprobe-nightly-failure.service $HERE/gegenprobe-nightly.timer /etc/systemd/system/"
   echo "  (on the server: sudo sh $HERE/install.sh [--venv] --user-agent '<your product>/0.1 (+https://<your contact page>)')"
-  echo "  (no Docker: sudo sh $HERE/install.sh --venv  creates the gegenprobe system user and /var/lib/gegenprobe and installs"
-  echo "   gegenprobe-nightly-venv.service as gegenprobe-nightly.service; checkout in /opt/gegenprobe/track_2a, venv in"
-  echo "   /opt/gegenprobe/.venv, see the unit's header)"
+  echo "  (no Docker: sudo sh $HERE/install.sh --venv  creates the gegenprobe system user and /var/lib/gegenprobe, puts the"
+  echo "   pinned OCR models into $TESSDATA_PINNED (sha256-checked) and installs gegenprobe-nightly-venv.service as"
+  echo "   gegenprobe-nightly.service; checkout in /opt/gegenprobe/track_2a, venv in /opt/gegenprobe/.venv, see the unit's header)"
   echo "  sudo systemctl daemon-reload && sudo systemctl enable --now gegenprobe-nightly.timer"
   echo "  systemctl list-timers gegenprobe-nightly.timer   # next run"
   echo "  journalctl -u gegenprobe-nightly.service          # last run"
@@ -65,7 +67,17 @@ if [ -n "$VENV" ]; then
   # no Docker: the job runs as an unprivileged system user and writes only under /var/lib/gegenprobe
   id gegenprobe >/dev/null 2>&1 || useradd --system --home-dir /var/lib/gegenprobe --shell /usr/sbin/nologin gegenprobe
   install -d -o gegenprobe -g gegenprobe -m 0750 /var/lib/gegenprobe /var/lib/gegenprobe/work /var/lib/gegenprobe/results
-  [ -x /opt/gegenprobe/.venv/bin/python ] || echo "warning: /opt/gegenprobe/.venv missing (python3.11 -m venv /opt/gegenprobe/.venv && /opt/gegenprobe/.venv/bin/pip install --require-hashes -r /opt/gegenprobe/track_2a/requirements.lock)"
+  [ -x "$VENV_PY" ] || echo "warning: /opt/gegenprobe/.venv missing (python3.11 -m venv /opt/gegenprobe/.venv && /opt/gegenprobe/.venv/bin/pip install --require-hashes -r /opt/gegenprobe/track_2a/requirements.lock)"
+  # OCR with the models the OCR numbers were measured with, as in the image: the pinned tessdata_fast files (deu, fra,
+  # ita, eng) into $TESSDATA_PINNED, each sha256-checked, then tesseract checked with them under GP_OCR_REQUIRE_PINNED=1
+  # (gegenprobe.ocr_models, the same code as `make ocr-models`). The unit points tesseract there (TESSDATA_PREFIX) and
+  # refuses other models (GP_OCR_REQUIRE_PINNED=1); /opt is read-only for the job. Fail-closed: no unit without them.
+  if ! GP_USER_AGENT="$UA_SET" PYTHONPATH="$HERE/../../src" "$VENV_PY" -m gegenprobe.ocr_models "$TESSDATA_PINNED"; then
+    echo "install-nightly: the pinned OCR models are not ready in $TESSDATA_PINNED (venv, tesseract-ocr and network to" >&2
+    echo "  raw.githubusercontent.com needed; reason above). Nothing installed (fail-closed)." >&2
+    exit 1
+  fi
+  chmod -R a+rX,go-w "$TESSDATA_PINNED"
   install -m 0644 "$HERE/gegenprobe-nightly-venv.service" /etc/systemd/system/gegenprobe-nightly.service
 else
   docker image inspect gegenprobe:0.1.0 >/dev/null 2>&1 || docker build -t gegenprobe:0.1.0 "$HERE/../.."

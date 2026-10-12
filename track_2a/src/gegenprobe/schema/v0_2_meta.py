@@ -316,9 +316,14 @@ def strip_metadata(rec: dict, before: dict) -> dict:
         rec[k] = copy.deepcopy(before.get(k)) if k in before else rec.pop(k, None)
     if "dates" in (before.get("empty_reasons") or {}):
         rec["empty_reasons"]["dates"] = before["empty_reasons"]["dates"]
+    # the answer-date roles (gegenprobe.schema.v0_2_dates) run after this overlay and read the dates it fills: their
+    # sentence is the one of the record before it
+    from .v0_2_dates import NOTE_HEAD as DATES_HEAD
     ex = rec["extraction"]
-    ex["notes"] = "; ".join(x for x in (ex.get("notes") or "").split("; ")
-                            if not x.startswith(NOTE_HEAD))
+    ex["notes"] = "; ".join([x for x in (ex.get("notes") or "").split("; ")
+                             if not x.startswith((NOTE_HEAD, DATES_HEAD))]
+                            + [x for x in (before["extraction"].get("notes") or "").split("; ")
+                               if x.startswith(DATES_HEAD)])
     return rec
 
 

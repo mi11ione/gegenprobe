@@ -3,9 +3,9 @@ r13.p7_hit_pct	94%	results/report/r13_numbers.json	p7.p7.share	pct0	PYTHONPATH=s
 r13.p7_trivial_hit	127/146	results/report/r13_numbers.json	p7.trivial.date_hit/p7.trivial.n	frac	PYTHONPATH=src:. python -m report.r13_numbers	README.md,technical_report.md	
 r13.p7_trivial_pct	87%	results/report/r13_numbers.json	p7.trivial.share	pct0	PYTHONPATH=src:. python -m report.r13_numbers	-	
 r13.p7_rule_pct	81%	results/report/r13_numbers.json	p7.rule_any_view.share	pct0	PYTHONPATH=src:. python -m report.r13_numbers	-	
-r13.conv_authors	75	results/report/r13_numbers.json	converter.printed_author_with_role	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md,technical_report.md	
+r13.conv_authors	75	results/report/r13_numbers.json	converter.printed_author_with_role	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.conv_function	78	results/report/r13_numbers.json	converter.instrument_function	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
-r13.conv_language_all	105	results/report/r13_numbers.json	converter.language_of_text_all_documents	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md,technical_report.md	
+r13.conv_language_all	105	results/report/r13_numbers.json	converter.language_of_text_all_documents	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.conv_affairs	105	results/report/r13_numbers.json	languages.affairs	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.tagged_docs	130	results/report/r13_numbers.json	languages.opd_tagged	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.fed_it_slot	37,828	results/report/r13_numbers.json	federal.it_slot_answers	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
@@ -40,7 +40,7 @@ r13.pg_begin	554	results/repair/apply_be/apply_BE_pg_check.json	checks.1_apply.a
 r13.pg_review	173	results/repair/apply_be/apply_BE_pg_check.json	begin_date_review_rows	int	python -m gegenprobe.repair.apply_be_pg	README.md	
 r13.pg_server	16.2	results/repair/apply_be/apply_BE_pg_check.json	server	str	python -m gegenprobe.repair.apply_be_pg	README.md	
 r13.p2_mcnemar	0.012	results/eval/posthoc_r3_paired.json	splits.P2.comparisons.pointer~latest_date_on_answer_docs_only.all.p_str	str	PYTHONPATH=src:. python -m eval.posthoc_r3	README.md	
-r13.p2_cluster	0.031	results/eval/posthoc_r3_paired.json	splits.P2.comparisons.pointer~latest_date_on_answer_docs_only.bodies.cluster_permutation_p_str	str	PYTHONPATH=src:. python -m eval.posthoc_r3	README.md	
+r13.p2_cluster	0.031	results/eval/posthoc_r3_paired.json	splits.P2.comparisons.pointer~latest_date_on_answer_docs_only.bodies.cluster_permutation_p_str	str	PYTHONPATH=src:. python -m eval.posthoc_r3	-	
 r13.p1_rules_vs_latest	0.48	results/eval/posthoc_r3_paired.json	splits.P1.comparisons.rules~latest_date_on_answer_docs_only.all.p_str	str	PYTHONPATH=src:. python -m eval.posthoc_r3	README.md,technical_report.md	
 r13.fed_null	15/15	results/fed/fed_tables.json	answer_date.arms.converter_CA.strict.ALL.correct_null/answer_date.arms.converter_CA.strict.ALL.n	frac	PYTHONPATH=src:. python -m eval.fed.score	README.md,technical_report.md	
 r13.fed_latest_invented	6/15	results/fed/fed_tables.json	answer_date.arms.latest_printed_date.strict.ALL.invented_on_null/answer_date.arms.latest_printed_date.strict.ALL.n	frac	PYTHONPATH=src:. python -m eval.fed.score	README.md,technical_report.md	

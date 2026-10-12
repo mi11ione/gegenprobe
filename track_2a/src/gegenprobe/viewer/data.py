@@ -1515,7 +1515,17 @@ def nights() -> dict | None:
     n1, n2 = d["night1"], d["night2"]
     return dict(run="38098822336", night1_s=n1["wall_s"], night1_bytes=n1["bytes"]["total"], night2_s=n2["wall_s"],
                 night2_bytes=n2["bytes"]["total"], night2_bodies=n2["rescanned_bodies"], alerts=n1["alerts"] + n2["alerts"],
-                relink=n2["be_repair"]["relink"], fetch=n2["be_repair"]["fetch"])
+                relink=n2["be_repair"]["relink"], fetch=n2["be_repair"]["fetch"], fixed=fixed_pair())
+
+
+def fixed_pair() -> dict | None:
+    """The real two-night Docker pair on the fixed ledger (Actions run 38187596786): night 2 kept night 1's verdicts."""
+    p = RESULTS / "monitor" / "two_nights_docker_38187596786" / "two_nights.json"
+    if not p.exists():
+        return None
+    d = json.loads(p.read_text())
+    return dict(run="38187596786", kept=d["night2_kept_night1_verdicts"], pending=d["night2"]["ledger"]["pending"],
+                review=d["night2"]["ledger"]["review"], alerts=d["night2"]["alerts"])
 
 
 def method() -> dict:
@@ -1709,6 +1719,14 @@ def tiles() -> dict | None:
                               mcnemar=b["display"]["mcnemar_p"], cluster95=b["display"]["cluster95"],
                               answered_wins=b["paired"]["pointer vs latest_date_on_answer_docs_only (answered)"]["a_only"],
                               answered_wins_intervention=b["display"]["answered_wins_on_intervention_typed"])
+    pc = RESULTS / "eval" / "p2_posthoc_composite.json"  # post hoc, proposed in review: the strongest no-model rule tried
+    if pc.exists():
+        c = json.loads(pc.read_text(encoding="utf-8"))
+        m = c["mcnemar"]["pointer_vs_composite"]
+        out["p2_composite"] = dict(exact=[c["arms"]["composite"]["exact"], c["arms"]["composite"]["n"]],
+                                   found=c["arms"]["composite"]["value_recall"],
+                                   pointer_only=m["all"]["pointer_only"], composite_only=m["all"]["composite_only"],
+                                   mcnemar=m["all"]["p_str"], perm=m["bodies"]["cluster_permutation_p_str"])
     va = RESULTS / "schema" / "v0_2" / "validation_all.json"  # one count of validated v0.2 records
     if va.exists():
         r = json.loads(va.read_text(encoding="utf-8")).get("validated_records")

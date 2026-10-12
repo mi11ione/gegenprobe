@@ -12,32 +12,33 @@ every number here from its results file and fails on any mismatch, or on a numbe
   Outside interventions the skeleton does not carry over as is (P11, exploratory, 15 affairs: 6 fields need roles interventions lack, 4 answer fields do not
   apply).
 - **Delivered.** Repairs for 9,580 answers keyed on OpenParlData (OPD) ids, every one from model-free rules; schema
-  v0.2 with the roles; a converter that gives every value its page and span; a nightly job. Apertus only picks values
-  printed in the document, and code locates them.
+  v0.2 with the roles; a converter whose 120 records give every value its page and span or its source record, every
+  gap a typed reason and the answer date its role (blind gold role: 32/32); a nightly job (three real nights, then a real
+  two-night Docker pair: night 2 kept night 1's verdicts).
 - **Headline.** 92.1% of interventions with a recorded government answer would have answer text once the repairs are
   applied, up from 81.6% (91.5% from row-checked repairs alone). The Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation. 186 v0.2 records from 26
   parliaments validate: the converter's 120 (105 cantonal and communal + 15 federal, 23 parliaments) and P8's 66 gold
-  records (11 parliaments); the converter's hold a value in 1,149 of 2,040 field-record pairs.
-- **What Apertus adds: the right value among printed candidates.** On new layouts (P2, 15 parliaments) it finds 24/29
-  answer dates and is exact on 53/62 documents; the model-free baseline of P2's table (latest date on answer-typed
-  documents) reaches 18/29 and 44/62: 10 documents vs 1, exact McNemar p = 0.0117, parliament-resampled interval
-  [0.056, 0.243] (post hoc). Registered: the rules 2/29. On the review queue (P7) its promotions are answers on 120/120
+  records (11 parliaments); the converter's hold a value in 1,172 of 2,040 field-record pairs.
+- **Apertus, opt-in: provable values and a ranked review queue.** Apertus only picks values printed in the document,
+  and code locates them. On new layouts (P2, 15 parliaments) it finds 24/29 answer dates, exact on 53/62 documents;
+  the strongest model-free rule we tried 21/29 and 46/62: right alone on 9 vs 2, exact McNemar p = 0.065 (post hoc).
+  Registered: the rules 2/29. On the review queue (P7) its promotions are answers on 120/120
   (registered), a no-model exact-date match's on 146/146 with more rows (206 vs 135, post hoc); Apertus's edge
   there is the date. Author roles, in 14 parliaments without rules (P10): Apertus
   50/141, level with OPD's contributor list (37/141; Holm p = 0.17); Rules 17/141; most of the gain comes from the
   model-free candidate finder (document order 52/141); Apertus adds precision deciding who is an author (+7.3 points,
   post hoc). Where rules exist it adds one document net (P1: 139/154 vs a model-free cascade's 138/154, post hoc). In
   Italian (P11, exploratory) the pointer is exact on 12/12 answers, the rules on 8/12.
-- **Census and OPD.** 2,177 "missing" answers were in OPD all along, under an unrecognised heading. OPD confirmed
+- **Census and OPD.** 2,177 "missing" answers were in OPD all along, under another heading. OPD confirmed
   the Bern linking bug (correspondence, 10 Oct 2026); the only open decision is its hash rule for relinks. Lists from
   50 model-free source adapters: blind AI annotators judged 185/186 counted rows to be the answer (Claude) and
-  186/186 (Qwen), post hoc after 140 Valais rows moved to review.
-- **Sovereign and cheap to run.** The default runs no model and only reads public sources; every model value goes
+  186/186 (Qwen), post hoc.
+- **Sovereign and cheap to run.** The default runs no model; every model value goes
   to a reviewer. Runtime external services: none by default (public sources only); Apertus review mode sends document
   text to the Public AI gateway, or nothing with the local 8B (date suggestions).
   Rules: about 0.5 CPU-hours for OPD's 902,754 documents; review USD 0.59 per 1,000 residue documents. A body that
-  may not send text abroad loses only the verifier and the role reader. The build guard caught Public AI's gateway
-  build switch (12 Oct 2026) live: no result mixes builds; review mode runs again on the registered build.
+  may not send text abroad loses only the verifier and the role reader. CI scans every lock and the image (base: 0 fixable
+  HIGH/CRITICAL findings kept); a DPO checklist (EN/DE) gives purpose, recipients and retention.
 - **Ten tests, frozen before any label** (P1's hypothesis script followed its labels, its rules came with its
   sample: D4, D12). P1: rules alone right on 135/154, so by default no model runs. P6: no registered hypothesis held.
   The 9 held results of P1–P7 survive Holm over their 20 tests. Null safety failed on the 70B (P1, P2, P6), so

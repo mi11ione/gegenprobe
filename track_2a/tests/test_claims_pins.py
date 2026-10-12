@@ -46,20 +46,20 @@ REVIEW_MISSES = [
     ("docs/form_notes.md", "Yes, if each field says which role its value plays", "Yes, without qualification"),
     ("../README.md", "Yes, if each field says which role its value plays", "Yes, without qualification"),
     ("README.md", "No closed-set arm returned a date printed nowhere", "No arm returned a date printed nowhere"),
-    ("README.md", "the closed set gives it by construction", "the free prompt gives it by construction"),
+    ("README.md", "The closed set gives it by construction", "The free prompt gives it by construction"),
     ("README.md", "rolls the whole transaction back", "never rolls the transaction back"),
     ("README.md", "Ten tests, each with code", "Eleven tests, each with code"),
     ("docs/form_notes.md", "**Ten tests, frozen before any label**", "**Eleven tests, frozen before any label**"),
-    ("README.md", "Night 2\n  exposed a ledger bug (it reset night 1's per-row verdicts to `unchecked`)", "Night 2\n  ran clean"),
+    ("README.md", "that second\n  night exposed a ledger bug, which is fixed", "that second\n  night ran clean"),
     ("README.md", " (P1's hypothesis script followed its labels and\n  its rules entered with its sample, both logged: "
                   "D4, D12)", ""),
-    ("technical_report.md", " (P1's hypothesis script followed its labels, D4)", ""),
+    ("technical_report.md", " (P1's hypothesis script followed its labels, D4; its rules came with its sample, D12)", ""),
     # P10 against OPD's contributor list is level (H3a not confirmed), never "ahead"
     ("README.md", "level with OPD's\ncontributor list", "ahead of OPD's\ncontributor list"),
     ("technical_report.md", "level with OPD's contributor list", "ahead of OPD's contributor list"),
     ("docs/form_notes.md", "level with OPD's contributor list", "ahead of OPD's contributor list"),
     # where document text goes at runtime
-    ("README.md", "or nothing with the\nlocal 8B.", "or to any provider with the\nlocal 8B."),
+    ("README.md", "or nothing with the local 8B on CPU.", "or to any provider with the local 8B on CPU."),
     ("technical_report.md", "or the local 8B, where no text leaves the machine)",
      "or any provider, where no text leaves Switzerland)"),
     # P8's sensitivity check

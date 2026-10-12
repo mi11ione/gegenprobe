@@ -5,6 +5,7 @@ import json
 
 import pytest
 
+from gegenprobe.schema import v0_2_dates as VD
 from gegenprobe.schema import v0_2_parts as VP
 from gegenprobe.schema import v0_2_qa as QA
 from gegenprobe.schema.p8_v0_2 import OUT, schema_module
@@ -54,7 +55,7 @@ def test_strip_qa_undoes_the_overlay():
     over = VP.render(meta=False)  # without the OPD-metadata overlay (it fills qa[].answering_body; test_schema_v0_2_meta)
     base = {k: [json.loads(x) for x in VP.V.render()[f"{k}_records.jsonl"].splitlines()] for k in QA.SETS}
     for k in QA.SETS:
-        got = [QA.strip_qa(json.loads(x)) for x in over[f"{k}_records.jsonl"].splitlines()]
+        got = [QA.strip_qa(VD.strip_date_roles(json.loads(x))) for x in over[f"{k}_records.jsonl"].splitlines()]
         assert [g["qa"] for g in got] == [b["qa"] for b in base[k]]
         assert [g["empty_reasons"].get("qa.0.items") for g in got] == [b["empty_reasons"].get("qa.0.items")
                                                                          for b in base[k]]

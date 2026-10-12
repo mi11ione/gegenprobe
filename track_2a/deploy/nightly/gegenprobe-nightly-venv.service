@@ -1,6 +1,7 @@
 # Variant without Docker: a checkout in /opt/gegenprobe/track_2a with a Python 3.11 venv in /opt/gegenprobe/.venv
-# (pip install --require-hashes -r requirements.lock) and poppler-utils + tesseract-ocr{,-deu,-fra,-ita} from the
-# distribution. Same timer, same outputs. The checkout stays read-only for the job: everything it writes goes to
+# (pip install --require-hashes -r requirements.lock) and poppler-utils + tesseract-ocr from the distribution. OCR reads
+# only the pinned tessdata_fast models that install.sh --venv puts into /opt/gegenprobe/tessdata-pinned (sha256-checked;
+# the models the OCR numbers were measured with, as in the image). Same timer, same outputs. The checkout stays read-only for the job: everything it writes goes to
 # /var/lib/gegenprobe (work/ = caches and state, results/ = rates, alerts, ledger), owned by the `gegenprobe` system user
 # that install.sh creates.
 [Unit]
@@ -20,6 +21,8 @@ WorkingDirectory=/var/lib/gegenprobe
 EnvironmentFile=-/etc/gegenprobe/alerts.env
 Environment=PYTHONPATH=/opt/gegenprobe/track_2a/src PYTHONDONTWRITEBYTECODE=1 HOME=/var/lib/gegenprobe
 Environment=GP_WORK=/var/lib/gegenprobe/work GP_MONITOR_OUT=/var/lib/gegenprobe/results
+# OCR with the measured models only (as the image: Dockerfile ENV); a model that differs from the pins is a typed ocr_failed
+Environment=TESSDATA_PREFIX=/opt/gegenprobe/tessdata-pinned GP_OCR_REQUIRE_PINNED=1
 ExecStart=/opt/gegenprobe/.venv/bin/python -m gegenprobe.monitor.nightly run
 TimeoutStartSec=4h
 Nice=10

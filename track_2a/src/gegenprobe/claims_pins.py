@@ -32,7 +32,12 @@ claims_pins.json (at track_2a/), so a docs pass updates them in one place:
            (shipped, deployed, adopted, applied, in (daily) use, live, rolled out, used by, ...), evaluative words
            (dominates, improves, dramatic, substantial, higher, lower, far, ...), safety claims (guarantee, certified,
            hallucination, GDPR, compliant, secure, safe, error-free, ...) and cost words (free, cheap, low-cost,
-           negligible, ...). A comparative
+           negligible, ...); R20 (J5's round-19 mutation battery, tests/test_claims_battery.py): scope extent
+           (inside/outside/within/beyond the tested scope), review (reviewer, confirms, written directly,
+           automatically, without review), jurisdiction (Swiss, US, EU, abroad, processing agreement, DPA, nDSG, data
+           protection, nonprofit; Public AI's terms bound to results/compliance/publicai_terms.json) and intensifiers
+           (decisive, virtually, almost all, key component, the main, entirely, fully, clearly, ...), each with its
+           German forms for docs/decision_de.md. A comparative
            is pinned with the result that makes it true where one exists ("level with document order" with both
            cluster intervals spanning 0; "beats the rules on 22 and loses on 4" with the discordant pairs)
   allow    {document: [{phrase, why}]}: guard words that are not claims ("fails on any mismatch" describes the checker)
@@ -59,7 +64,8 @@ from pathlib import Path
 from .paths import ROOT
 
 PINS_NAME = "claims_pins.json"  # at ROOT; read at call time
-NEG = re.compile(r"(?i)(?<![\w-])(not|no|none|never|nothing|failed|fail|fails|below|without)(?![\w-])")
+NEG = re.compile(r"(?i)(?<![\w-])(not|no|none|never|nothing|failed|fail|fails|below|without|"
+                 r"nicht|kein\w*|nie|niemals|nichts|ohne)(?![\w-])")  # English and German (docs/decision_de.md)
 
 
 STRICT_NAME = "claims_strict.json"  # its `strict_docs` are scanned by the guards too
@@ -201,13 +207,19 @@ def guard_matches(cfg: dict, text: str) -> list[tuple[int, int, str, str]]:
     return sorted(out)
 
 
+def _literal(text: str, s: str) -> list[tuple[int, int]]:
+    """The non-overlapping occurrences of `s` (as re.finditer(re.escape(s), text), without a compiled pattern each)."""
+    from .claims import _literal as lit
+    return list(lit(text, s))
+
+
 def covered_spans(cfg: dict, doc: str, text: str) -> list[tuple[int, int]]:
     spans = []
     for pin in cfg.get("pins") or []:
         for ph, _ in _phrases((pin.get("docs") or {}).get(doc) or []):
-            spans += [(m.start(), m.end()) for m in re.finditer(re.escape(ph), text)]
+            spans += list(_literal(text, ph))
     for a in (cfg.get("allow") or {}).get(doc) or []:
-        spans += [(m.start(), m.end()) for m in re.finditer(re.escape(a["phrase"]), text)]
+        spans += list(_literal(text, a["phrase"]))
     return spans
 
 

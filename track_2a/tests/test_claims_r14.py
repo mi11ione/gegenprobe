@@ -41,8 +41,8 @@ def _errs(rows, cfg, doc, old, new):
 @pytest.mark.parametrize("doc,old,new", [
     ("technical_report.md", "registered against the rules (the baselines post hoc, proposed",
      "registered against the rules (the baselines registered, proposed"),
-    ("technical_report.md", "302/302 is an exhaustiveness check (post hoc",
-     "302/302 is an exhaustiveness check (registered"),
+    ("technical_report.md", "outside interventions 36/43 (exploratory, post hoc",
+     "outside interventions 36/43 (exploratory, registered"),
     ("technical_report.md", "at recall 39/137 (exploratory)", "at recall 39/137 (registered)"),
     ("README.md", "who is an author (+7.3 points, post hoc)", "who is an author (+7.3 points, registered)"),
     ("README.md", "recall 286/345 (in-sample)", "recall 286/345 (held out)"),

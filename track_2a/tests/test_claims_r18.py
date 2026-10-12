@@ -65,7 +65,7 @@ J5_MISSES = [
     ("technical_report.md", "it recommends rules only or the local 8B", "it recommends the Public AI gateway"),
     # 7. Apertus's role
     ("README.md", "Apertus as a reviewer's aid", "Apertus as the unattended extractor"),
-    ("README.md", "Apertus earns its place choosing", "Apertus is essential choosing"),
+    ("README.md", "Apertus is opt-in:\nwhere nobody", "Apertus is essential:\nwhere nobody"),
     # 8. a new sentence without numbers or verdict words
     ("README.md", "- **Suggestions go to a reviewer;",
      "**Apertus beats the rules on every field we tested.**\n- **Suggestions go to a reviewer;"),
@@ -128,7 +128,7 @@ def test_list_selector_in_pin_paths():
 
 # ---------------------------------------------------------------------------------------------------- small integers
 @pytest.mark.parametrize("doc,before,after", [
-    ("README.md", "in 7 parliaments,\n  mostly the submission date", "in 8 parliaments,\n  mostly the submission date"),
+    ("README.md", "in 7 parliaments, mostly the submission date", "in 8 parliaments, mostly the submission date"),
     ("../README.md", "in 7 parliaments,\n  mostly the submission date", "in 6 parliaments,\n  mostly the submission date"),
     ("technical_report.md", "dates 7 of 90 answerless documents", "dates 5 of 90 answerless documents"),
     ("docs/form_notes.md", "The 9 held results", "The 8 held results"),

@@ -55,6 +55,8 @@ GENERATORS = [
     # round 19 operations pass: dependency, SBOM and audit counts, and the Swiss-hosted 70B estimate (docs/runbook.md,
     # docs/decision.md, docs/licences.md)
     ("report.r19c_numbers", "main"),
+    # round 20 docs pass: P2's lead over the strongest no-model rule tried, the answer dates with no printed role
+    ("report.r20e_numbers", "main"),
 ]
 
 

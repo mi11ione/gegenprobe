@@ -17,34 +17,30 @@
   "unsplit": "value_role_unsplit: decision / dispatch date, where the record carries an answer date without saying which of the two it is",
   "typed_gap": "a typed null (null:<reason>) or an empty list with its typed reason (empty:<reason>)",
   "untyped": "absent (no value and no reason) or partial (a language of text for some documents only)",
+  "reading": "P11's (eval.p11.arms.record_status), extended in R20 where it cannot see a typed reason (status): a role carried only as a typed null reads null:<reason>; a language of text missing only where the document's empty list carries a typed reason reads partial_typed:<reason> / empty:<reason> (typed_gap)",
   "before": "the same records without gegenprobe.schema.v0_2_meta (OPD metadata overlay)",
   "extra": "fields outside the 17 of the skeleton: answering_body, answer_identifier, type_harmonised, instrument_named"
  },
  "summary": {
   "fields_17": 17,
   "converter_cells": 2040,
-  "converter_carries_before": 1038,
-  "converter_carries": 1149,
-  "converter_unsplit": 136,
-  "converter_typed_gap": 524,
-  "converter_untyped": 231,
+  "converter_carries_before": 1058,
+  "converter_carries": 1172,
+  "converter_unsplit": 88,
+  "converter_typed_gap": 780,
+  "converter_untyped": 0,
   "all_cells": 3162,
-  "all_carries": 1661,
-  "all_unsplit": 136,
-  "all_typed_gap": 1018,
-  "all_untyped": 347,
+  "all_carries": 1684,
+  "all_unsplit": 88,
+  "all_typed_gap": 1274,
+  "all_untyped": 116,
   "fields_carried_by_every_converter_record": [
    "answer_link_status",
    "date_submission",
    "documents_usable_text",
    "procedural_history"
   ],
-  "fields_untyped_somewhere_in_converter": [
-   "addressed_body",
-   "co_signatories",
-   "language",
-   "type"
-  ]
+  "fields_untyped_somewhere_in_converter": []
  },
  "rows": [
   {
@@ -66,30 +62,30 @@
    "field": "date_decision",
    "extra": false,
    "converter_n": 120,
-   "converter_carries_before": 0,
-   "converter_carries": 0,
-   "converter_unsplit": 68,
-   "converter_typed_gap": 52,
+   "converter_carries_before": 13,
+   "converter_carries": 13,
+   "converter_unsplit": 44,
+   "converter_typed_gap": 63,
    "converter_untyped": 0,
    "all_n": 186,
-   "all_carries": 0,
-   "all_unsplit": 68,
-   "all_typed_gap": 118,
+   "all_carries": 13,
+   "all_unsplit": 44,
+   "all_typed_gap": 129,
    "all_untyped": 0
   },
   {
    "field": "date_dispatch",
    "extra": false,
    "converter_n": 120,
-   "converter_carries_before": 0,
-   "converter_carries": 0,
-   "converter_unsplit": 68,
-   "converter_typed_gap": 52,
+   "converter_carries_before": 8,
+   "converter_carries": 11,
+   "converter_unsplit": 44,
+   "converter_typed_gap": 65,
    "converter_untyped": 0,
    "all_n": 186,
-   "all_carries": 0,
-   "all_unsplit": 68,
-   "all_typed_gap": 118,
+   "all_carries": 11,
+   "all_unsplit": 44,
+   "all_typed_gap": 131,
    "all_untyped": 0
   },
   {
@@ -189,13 +185,13 @@
    "converter_carries_before": 78,
    "converter_carries": 78,
    "converter_unsplit": 0,
-   "converter_typed_gap": 27,
-   "converter_untyped": 15,
+   "converter_typed_gap": 42,
+   "converter_untyped": 0,
    "all_n": 186,
    "all_carries": 142,
    "all_unsplit": 0,
-   "all_typed_gap": 29,
-   "all_untyped": 15
+   "all_typed_gap": 44,
+   "all_untyped": 0
   },
   {
    "field": "procedural_state",
@@ -231,15 +227,15 @@
    "field": "submitter",
    "extra": false,
    "converter_n": 120,
-   "converter_carries_before": 112,
-   "converter_carries": 112,
+   "converter_carries_before": 111,
+   "converter_carries": 111,
    "converter_unsplit": 0,
-   "converter_typed_gap": 8,
+   "converter_typed_gap": 9,
    "converter_untyped": 0,
    "all_n": 186,
-   "all_carries": 178,
+   "all_carries": 177,
    "all_unsplit": 0,
-   "all_typed_gap": 8,
+   "all_typed_gap": 9,
    "all_untyped": 0
   },
   {
@@ -249,13 +245,13 @@
    "converter_carries_before": 25,
    "converter_carries": 25,
    "converter_unsplit": 0,
-   "converter_typed_gap": 8,
-   "converter_untyped": 87,
+   "converter_typed_gap": 95,
+   "converter_untyped": 0,
    "all_n": 186,
    "all_carries": 41,
    "all_unsplit": 0,
-   "all_typed_gap": 8,
-   "all_untyped": 137
+   "all_typed_gap": 95,
+   "all_untyped": 50
   },
   {
    "field": "addressed_body",
@@ -264,13 +260,13 @@
    "converter_carries_before": 6,
    "converter_carries": 6,
    "converter_unsplit": 0,
-   "converter_typed_gap": 0,
-   "converter_untyped": 114,
+   "converter_typed_gap": 114,
+   "converter_untyped": 0,
    "all_n": 186,
    "all_carries": 6,
    "all_unsplit": 0,
-   "all_typed_gap": 0,
-   "all_untyped": 180
+   "all_typed_gap": 114,
+   "all_untyped": 66
   },
   {
    "field": "government_recommendation",
@@ -294,13 +290,13 @@
    "converter_carries_before": 105,
    "converter_carries": 105,
    "converter_unsplit": 0,
-   "converter_typed_gap": 0,
-   "converter_untyped": 15,
+   "converter_typed_gap": 15,
+   "converter_untyped": 0,
    "all_n": 186,
    "all_carries": 171,
    "all_unsplit": 0,
-   "all_typed_gap": 0,
-   "all_untyped": 15
+   "all_typed_gap": 15,
+   "all_untyped": 0
   },
   {
    "field": "answering_body",
@@ -354,15 +350,116 @@
    "converter_carries_before": 78,
    "converter_carries": 78,
    "converter_unsplit": 0,
-   "converter_typed_gap": 0,
-   "converter_untyped": 42,
+   "converter_typed_gap": 42,
+   "converter_untyped": 0,
    "all_n": 186,
    "all_carries": 144,
    "all_unsplit": 0,
-   "all_typed_gap": 0,
-   "all_untyped": 42
+   "all_typed_gap": 42,
+   "all_untyped": 0
   }
  ],
+ "provenance": {
+  "label": "POST HOC, descriptive (R20): what each value's provenance is, over every provenance-bearing value",
+  "definitions": "page_span: document, page and character span (quote or quote_sha256); page_only: an annotator's label located to a document page; document_level: a model's closed-set pick over a document; opd_record: basis metadata with an OPD record as source; other_record: basis metadata with another committed record as source; typed_null: a TypedNull with its reason; typed_empty_lists: empty_reasons entries",
+  "groups": {
+   "p3": {
+    "n_records": 29,
+    "n_values": 545,
+    "n_typed_nulls": 189,
+    "kinds": {
+     "opd_record": 125,
+     "page_span": 420,
+     "typed_null": 189
+    },
+    "typed_empty_lists": 56,
+    "other_record_sources": {}
+   },
+   "p3b": {
+    "n_records": 36,
+    "n_values": 692,
+    "n_typed_nulls": 251,
+    "kinds": {
+     "opd_record": 173,
+     "page_span": 519,
+     "typed_null": 251
+    },
+    "typed_empty_lists": 87,
+    "other_record_sources": {}
+   },
+   "p5": {
+    "n_records": 40,
+    "n_values": 806,
+    "n_typed_nulls": 221,
+    "kinds": {
+     "opd_record": 163,
+     "page_span": 643,
+     "typed_null": 221
+    },
+    "typed_empty_lists": 163,
+    "other_record_sources": {}
+   },
+   "fed": {
+    "n_records": 15,
+    "n_values": 81,
+    "n_typed_nulls": 113,
+    "kinds": {
+     "opd_record": 65,
+     "other_record": 9,
+     "page_span": 7,
+     "typed_null": 113
+    },
+    "typed_empty_lists": 84,
+    "other_record_sources": {
+     "gegenprobe:data/schema/body_executives.json": 9
+    }
+   },
+   "p8": {
+    "n_records": 66,
+    "n_values": 767,
+    "n_typed_nulls": 164,
+    "kinds": {
+     "opd_record": 66,
+     "page_only": 174,
+     "page_span": 527,
+     "typed_null": 164
+    },
+    "typed_empty_lists": 330,
+    "other_record_sources": {}
+   },
+   "converter": {
+    "n_records": 120,
+    "n_values": 2124,
+    "n_typed_nulls": 774,
+    "kinds": {
+     "opd_record": 526,
+     "other_record": 9,
+     "page_span": 1589,
+     "typed_null": 774
+    },
+    "typed_empty_lists": 390,
+    "other_record_sources": {
+     "gegenprobe:data/schema/body_executives.json": 9
+    }
+   },
+   "all": {
+    "n_records": 186,
+    "n_values": 2891,
+    "n_typed_nulls": 938,
+    "kinds": {
+     "opd_record": 592,
+     "other_record": 9,
+     "page_only": 174,
+     "page_span": 2116,
+     "typed_null": 938
+    },
+    "typed_empty_lists": 720,
+    "other_record_sources": {
+     "gegenprobe:data/schema/body_executives.json": 9
+    }
+   }
+  }
+ },
  "after": {
   "date_submission": {
    "p3": {
@@ -439,36 +536,40 @@
   "date_decision": {
    "p3": {
     "n": 29,
-    "carries": 0,
-    "unsplit": 22,
+    "carries": 12,
+    "unsplit": 10,
     "typed_gap": 7,
     "untyped": 0,
     "statuses": {
      "null:not_in_document": 2,
      "null:present_unanchored": 5,
-     "value_role_unsplit": 22
+     "value": 12,
+     "value_role_unsplit": 10
     }
    },
    "p3b": {
     "n": 36,
-    "carries": 0,
-    "unsplit": 24,
-    "typed_gap": 12,
+    "carries": 1,
+    "unsplit": 15,
+    "typed_gap": 20,
     "untyped": 0,
     "statuses": {
+     "null:not_in_document": 8,
      "null:present_unanchored": 12,
-     "value_role_unsplit": 24
+     "value": 1,
+     "value_role_unsplit": 15
     }
    },
    "p5": {
     "n": 40,
     "carries": 0,
-    "unsplit": 22,
-    "typed_gap": 18,
+    "unsplit": 19,
+    "typed_gap": 21,
     "untyped": 0,
     "statuses": {
      "null:not_extracted": 18,
-     "value_role_unsplit": 22
+     "null:not_in_document": 3,
+     "value_role_unsplit": 19
     }
    },
    "fed": {
@@ -494,29 +595,31 @@
    },
    "converter": {
     "n": 120,
-    "carries": 0,
-    "unsplit": 68,
-    "typed_gap": 52,
+    "carries": 13,
+    "unsplit": 44,
+    "typed_gap": 63,
     "untyped": 0,
     "statuses": {
      "null:not_extracted": 18,
-     "null:not_in_document": 11,
+     "null:not_in_document": 22,
      "null:present_unanchored": 23,
-     "value_role_unsplit": 68
+     "value": 13,
+     "value_role_unsplit": 44
     }
    },
    "all": {
     "n": 186,
-    "carries": 0,
-    "unsplit": 68,
-    "typed_gap": 118,
+    "carries": 13,
+    "unsplit": 44,
+    "typed_gap": 129,
     "untyped": 0,
     "statuses": {
      "empty:not_extracted": 66,
      "null:not_extracted": 18,
-     "null:not_in_document": 11,
+     "null:not_in_document": 22,
      "null:present_unanchored": 23,
-     "value_role_unsplit": 68
+     "value": 13,
+     "value_role_unsplit": 44
     }
    }
   },
@@ -524,35 +627,38 @@
    "p3": {
     "n": 29,
     "carries": 0,
-    "unsplit": 22,
-    "typed_gap": 7,
+    "unsplit": 10,
+    "typed_gap": 19,
     "untyped": 0,
     "statuses": {
-     "null:not_in_document": 2,
-     "null:present_unanchored": 5,
-     "value_role_unsplit": 22
+     "null:not_in_document": 11,
+     "null:present_unanchored": 8,
+     "value_role_unsplit": 10
     }
    },
    "p3b": {
     "n": 36,
-    "carries": 0,
-    "unsplit": 24,
-    "typed_gap": 12,
+    "carries": 8,
+    "unsplit": 15,
+    "typed_gap": 13,
     "untyped": 0,
     "statuses": {
+     "null:not_in_document": 1,
      "null:present_unanchored": 12,
-     "value_role_unsplit": 24
+     "value": 8,
+     "value_role_unsplit": 15
     }
    },
    "p5": {
     "n": 40,
-    "carries": 0,
-    "unsplit": 22,
+    "carries": 3,
+    "unsplit": 19,
     "typed_gap": 18,
     "untyped": 0,
     "statuses": {
      "null:not_extracted": 18,
-     "value_role_unsplit": 22
+     "value": 3,
+     "value_role_unsplit": 19
     }
    },
    "fed": {
@@ -578,29 +684,31 @@
    },
    "converter": {
     "n": 120,
-    "carries": 0,
-    "unsplit": 68,
-    "typed_gap": 52,
+    "carries": 11,
+    "unsplit": 44,
+    "typed_gap": 65,
     "untyped": 0,
     "statuses": {
      "null:not_extracted": 18,
-     "null:not_in_document": 11,
-     "null:present_unanchored": 23,
-     "value_role_unsplit": 68
+     "null:not_in_document": 21,
+     "null:present_unanchored": 26,
+     "value": 11,
+     "value_role_unsplit": 44
     }
    },
    "all": {
     "n": 186,
-    "carries": 0,
-    "unsplit": 68,
-    "typed_gap": 118,
+    "carries": 11,
+    "unsplit": 44,
+    "typed_gap": 131,
     "untyped": 0,
     "statuses": {
      "empty:not_extracted": 66,
      "null:not_extracted": 18,
-     "null:not_in_document": 11,
-     "null:present_unanchored": 23,
-     "value_role_unsplit": 68
+     "null:not_in_document": 21,
+     "null:present_unanchored": 26,
+     "value": 11,
+     "value_role_unsplit": 44
     }
    }
   },
@@ -1131,10 +1239,10 @@
     "n": 15,
     "carries": 0,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 15,
+    "typed_gap": 15,
+    "untyped": 0,
     "statuses": {
-     "absent": 15
+     "null:not_extracted": 15
     }
    },
    "p8": {
@@ -1155,10 +1263,10 @@
     "n": 120,
     "carries": 78,
     "unsplit": 0,
-    "typed_gap": 27,
-    "untyped": 15,
+    "typed_gap": 42,
+    "untyped": 0,
     "statuses": {
-     "absent": 15,
+     "null:not_extracted": 15,
      "null:not_in_document": 27,
      "value": 78
     },
@@ -1170,10 +1278,10 @@
     "n": 186,
     "carries": 142,
     "unsplit": 0,
-    "typed_gap": 29,
-    "untyped": 15,
+    "typed_gap": 44,
+    "untyped": 0,
     "statuses": {
-     "absent": 15,
+     "null:not_extracted": 15,
      "null:not_in_document": 27,
      "null:present_unanchored": 2,
      "value": 142
@@ -1383,12 +1491,13 @@
   "submitter": {
    "p3": {
     "n": 29,
-    "carries": 29,
+    "carries": 28,
     "unsplit": 0,
-    "typed_gap": 0,
+    "typed_gap": 1,
     "untyped": 0,
     "statuses": {
-     "value": 29
+     "null:present_unanchored": 1,
+     "value": 28
     }
    },
    "p3b": {
@@ -1434,24 +1543,26 @@
    },
    "converter": {
     "n": 120,
-    "carries": 112,
+    "carries": 111,
     "unsplit": 0,
-    "typed_gap": 8,
+    "typed_gap": 9,
     "untyped": 0,
     "statuses": {
      "empty:not_in_corpus": 8,
-     "value": 112
+     "null:present_unanchored": 1,
+     "value": 111
     }
    },
    "all": {
     "n": 186,
-    "carries": 178,
+    "carries": 177,
     "unsplit": 0,
-    "typed_gap": 8,
+    "typed_gap": 9,
     "untyped": 0,
     "statuses": {
      "empty:not_in_corpus": 8,
-     "value": 178
+     "null:present_unanchored": 1,
+     "value": 177
     }
    }
   },
@@ -1460,10 +1571,13 @@
     "n": 29,
     "carries": 3,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 26,
+    "typed_gap": 26,
+    "untyped": 0,
     "statuses": {
-     "absent": 26,
+     "null:not_applicable": 8,
+     "null:not_in_corpus": 1,
+     "null:not_in_document": 14,
+     "null:present_unanchored": 3,
      "value": 3
     }
    },
@@ -1471,10 +1585,13 @@
     "n": 36,
     "carries": 11,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 25,
+    "typed_gap": 25,
+    "untyped": 0,
     "statuses": {
-     "absent": 25,
+     "null:not_applicable": 3,
+     "null:not_in_corpus": 4,
+     "null:not_in_document": 17,
+     "null:present_unanchored": 1,
      "value": 11
     }
    },
@@ -1482,11 +1599,12 @@
     "n": 40,
     "carries": 10,
     "unsplit": 0,
-    "typed_gap": 8,
-    "untyped": 22,
+    "typed_gap": 30,
+    "untyped": 0,
     "statuses": {
-     "absent": 22,
      "empty:not_in_corpus": 8,
+     "null:not_applicable": 3,
+     "null:not_in_document": 19,
      "value": 10
     }
    },
@@ -1494,10 +1612,10 @@
     "n": 15,
     "carries": 1,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 14,
+    "typed_gap": 14,
+    "untyped": 0,
     "statuses": {
-     "absent": 14,
+     "null:not_in_corpus": 14,
      "value": 1
     }
    },
@@ -1516,11 +1634,14 @@
     "n": 120,
     "carries": 25,
     "unsplit": 0,
-    "typed_gap": 8,
-    "untyped": 87,
+    "typed_gap": 95,
+    "untyped": 0,
     "statuses": {
-     "absent": 87,
      "empty:not_in_corpus": 8,
+     "null:not_applicable": 14,
+     "null:not_in_corpus": 19,
+     "null:not_in_document": 50,
+     "null:present_unanchored": 4,
      "value": 25
     }
    },
@@ -1528,11 +1649,15 @@
     "n": 186,
     "carries": 41,
     "unsplit": 0,
-    "typed_gap": 8,
-    "untyped": 137,
+    "typed_gap": 95,
+    "untyped": 50,
     "statuses": {
-     "absent": 137,
+     "absent": 50,
      "empty:not_in_corpus": 8,
+     "null:not_applicable": 14,
+     "null:not_in_corpus": 19,
+     "null:not_in_document": 50,
+     "null:present_unanchored": 4,
      "value": 41
     }
    }
@@ -1542,10 +1667,10 @@
     "n": 29,
     "carries": 4,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 25,
+    "typed_gap": 25,
+    "untyped": 0,
     "statuses": {
-     "absent": 25,
+     "null:present_unanchored": 25,
      "value": 4
     }
    },
@@ -1553,10 +1678,10 @@
     "n": 36,
     "carries": 2,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 34,
+    "typed_gap": 34,
+    "untyped": 0,
     "statuses": {
-     "absent": 34,
+     "null:present_unanchored": 34,
      "value": 2
     }
    },
@@ -1564,20 +1689,21 @@
     "n": 40,
     "carries": 0,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 40,
+    "typed_gap": 40,
+    "untyped": 0,
     "statuses": {
-     "absent": 40
+     "empty:not_in_corpus": 8,
+     "null:not_extracted": 32
     }
    },
    "fed": {
     "n": 15,
     "carries": 0,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 15,
+    "typed_gap": 15,
+    "untyped": 0,
     "statuses": {
-     "absent": 15
+     "null:not_extracted": 15
     }
    },
    "p8": {
@@ -1594,10 +1720,12 @@
     "n": 120,
     "carries": 6,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 114,
+    "typed_gap": 114,
+    "untyped": 0,
     "statuses": {
-     "absent": 114,
+     "empty:not_in_corpus": 8,
+     "null:not_extracted": 47,
+     "null:present_unanchored": 59,
      "value": 6
     }
    },
@@ -1605,10 +1733,13 @@
     "n": 186,
     "carries": 6,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 180,
+    "typed_gap": 114,
+    "untyped": 66,
     "statuses": {
-     "absent": 180,
+     "absent": 66,
+     "empty:not_in_corpus": 8,
+     "null:not_extracted": 47,
+     "null:present_unanchored": 59,
      "value": 6
     }
    }
@@ -1756,10 +1887,10 @@
     "n": 15,
     "carries": 0,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 15,
+    "typed_gap": 15,
+    "untyped": 0,
     "statuses": {
-     "partial": 15
+     "empty:present_unanchored": 15
     }
    },
    "p8": {
@@ -1776,10 +1907,10 @@
     "n": 120,
     "carries": 105,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 15,
+    "typed_gap": 15,
+    "untyped": 0,
     "statuses": {
-     "partial": 15,
+     "empty:present_unanchored": 15,
      "value": 105
     }
    },
@@ -1787,10 +1918,10 @@
     "n": 186,
     "carries": 171,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 15,
+    "typed_gap": 15,
+    "untyped": 0,
     "statuses": {
-     "partial": 15,
+     "empty:present_unanchored": 15,
      "value": 171
     }
    }
@@ -2041,10 +2172,10 @@
     "n": 29,
     "carries": 23,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 6,
+    "typed_gap": 6,
+    "untyped": 0,
     "statuses": {
-     "absent": 6,
+     "null:not_in_document": 6,
      "value": 23
     },
     "value_routes": {
@@ -2055,10 +2186,10 @@
     "n": 36,
     "carries": 27,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 9,
+    "typed_gap": 9,
+    "untyped": 0,
     "statuses": {
-     "absent": 9,
+     "null:not_in_document": 9,
      "value": 27
     },
     "value_routes": {
@@ -2069,10 +2200,10 @@
     "n": 40,
     "carries": 28,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 12,
+    "typed_gap": 12,
+    "untyped": 0,
     "statuses": {
-     "absent": 12,
+     "null:not_in_document": 12,
      "value": 28
     },
     "value_routes": {
@@ -2083,10 +2214,10 @@
     "n": 15,
     "carries": 0,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 15,
+    "typed_gap": 15,
+    "untyped": 0,
     "statuses": {
-     "absent": 15
+     "null:not_extracted": 15
     }
    },
    "p8": {
@@ -2106,10 +2237,11 @@
     "n": 120,
     "carries": 78,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 42,
+    "typed_gap": 42,
+    "untyped": 0,
     "statuses": {
-     "absent": 42,
+     "null:not_extracted": 15,
+     "null:not_in_document": 27,
      "value": 78
     },
     "value_routes": {
@@ -2120,10 +2252,11 @@
     "n": 186,
     "carries": 144,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 42,
+    "typed_gap": 42,
+    "untyped": 0,
     "statuses": {
-     "absent": 42,
+     "null:not_extracted": 15,
+     "null:not_in_document": 27,
      "value": 144
     },
     "value_routes": {
@@ -2191,25 +2324,28 @@
   "date_decision": {
    "p3": {
     "n": 29,
-    "carries": 0,
-    "unsplit": 22,
+    "carries": 12,
+    "unsplit": 10,
     "typed_gap": 7,
     "untyped": 0,
     "statuses": {
      "null:not_in_document": 2,
      "null:present_unanchored": 5,
-     "value_role_unsplit": 22
+     "value": 12,
+     "value_role_unsplit": 10
     }
    },
    "p3b": {
     "n": 36,
-    "carries": 0,
-    "unsplit": 24,
-    "typed_gap": 12,
+    "carries": 1,
+    "unsplit": 15,
+    "typed_gap": 20,
     "untyped": 0,
     "statuses": {
+     "null:not_in_document": 8,
      "null:present_unanchored": 12,
-     "value_role_unsplit": 24
+     "value": 1,
+     "value_role_unsplit": 15
     }
    },
    "p5": {
@@ -2235,15 +2371,16 @@
    },
    "converter": {
     "n": 120,
-    "carries": 0,
-    "unsplit": 46,
-    "typed_gap": 74,
+    "carries": 13,
+    "unsplit": 25,
+    "typed_gap": 82,
     "untyped": 0,
     "statuses": {
      "null:not_extracted": 40,
-     "null:not_in_document": 11,
+     "null:not_in_document": 19,
      "null:present_unanchored": 23,
-     "value_role_unsplit": 46
+     "value": 13,
+     "value_role_unsplit": 25
     }
    }
   },
@@ -2251,24 +2388,26 @@
    "p3": {
     "n": 29,
     "carries": 0,
-    "unsplit": 22,
-    "typed_gap": 7,
+    "unsplit": 10,
+    "typed_gap": 19,
     "untyped": 0,
     "statuses": {
-     "null:not_in_document": 2,
-     "null:present_unanchored": 5,
-     "value_role_unsplit": 22
+     "null:not_in_document": 11,
+     "null:present_unanchored": 8,
+     "value_role_unsplit": 10
     }
    },
    "p3b": {
     "n": 36,
-    "carries": 0,
-    "unsplit": 24,
-    "typed_gap": 12,
+    "carries": 8,
+    "unsplit": 15,
+    "typed_gap": 13,
     "untyped": 0,
     "statuses": {
+     "null:not_in_document": 1,
      "null:present_unanchored": 12,
-     "value_role_unsplit": 24
+     "value": 8,
+     "value_role_unsplit": 15
     }
    },
    "p5": {
@@ -2294,15 +2433,16 @@
    },
    "converter": {
     "n": 120,
-    "carries": 0,
-    "unsplit": 46,
-    "typed_gap": 74,
+    "carries": 8,
+    "unsplit": 25,
+    "typed_gap": 87,
     "untyped": 0,
     "statuses": {
      "null:not_extracted": 40,
-     "null:not_in_document": 11,
-     "null:present_unanchored": 23,
-     "value_role_unsplit": 46
+     "null:not_in_document": 21,
+     "null:present_unanchored": 26,
+     "value": 8,
+     "value_role_unsplit": 25
     }
    }
   },
@@ -2678,20 +2818,20 @@
     "n": 15,
     "carries": 0,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 15,
+    "typed_gap": 15,
+    "untyped": 0,
     "statuses": {
-     "absent": 15
+     "null:not_extracted": 15
     }
    },
    "converter": {
     "n": 120,
     "carries": 78,
     "unsplit": 0,
-    "typed_gap": 27,
-    "untyped": 15,
+    "typed_gap": 42,
+    "untyped": 0,
     "statuses": {
-     "absent": 15,
+     "null:not_extracted": 15,
      "null:not_in_document": 27,
      "value": 78
     }
@@ -2815,12 +2955,13 @@
   "submitter": {
    "p3": {
     "n": 29,
-    "carries": 29,
+    "carries": 28,
     "unsplit": 0,
-    "typed_gap": 0,
+    "typed_gap": 1,
     "untyped": 0,
     "statuses": {
-     "value": 29
+     "null:present_unanchored": 1,
+     "value": 28
     }
    },
    "p3b": {
@@ -2856,13 +2997,14 @@
    },
    "converter": {
     "n": 120,
-    "carries": 112,
+    "carries": 111,
     "unsplit": 0,
-    "typed_gap": 8,
+    "typed_gap": 9,
     "untyped": 0,
     "statuses": {
      "empty:not_in_corpus": 8,
-     "value": 112
+     "null:present_unanchored": 1,
+     "value": 111
     }
    }
   },
@@ -2871,10 +3013,13 @@
     "n": 29,
     "carries": 3,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 26,
+    "typed_gap": 26,
+    "untyped": 0,
     "statuses": {
-     "absent": 26,
+     "null:not_applicable": 8,
+     "null:not_in_corpus": 1,
+     "null:not_in_document": 14,
+     "null:present_unanchored": 3,
      "value": 3
     }
    },
@@ -2882,10 +3027,13 @@
     "n": 36,
     "carries": 11,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 25,
+    "typed_gap": 25,
+    "untyped": 0,
     "statuses": {
-     "absent": 25,
+     "null:not_applicable": 3,
+     "null:not_in_corpus": 4,
+     "null:not_in_document": 17,
+     "null:present_unanchored": 1,
      "value": 11
     }
    },
@@ -2893,11 +3041,12 @@
     "n": 40,
     "carries": 10,
     "unsplit": 0,
-    "typed_gap": 8,
-    "untyped": 22,
+    "typed_gap": 30,
+    "untyped": 0,
     "statuses": {
-     "absent": 22,
      "empty:not_in_corpus": 8,
+     "null:not_applicable": 3,
+     "null:not_in_document": 19,
      "value": 10
     }
    },
@@ -2905,10 +3054,10 @@
     "n": 15,
     "carries": 1,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 14,
+    "typed_gap": 14,
+    "untyped": 0,
     "statuses": {
-     "absent": 14,
+     "null:not_in_corpus": 14,
      "value": 1
     }
    },
@@ -2916,11 +3065,14 @@
     "n": 120,
     "carries": 25,
     "unsplit": 0,
-    "typed_gap": 8,
-    "untyped": 87,
+    "typed_gap": 95,
+    "untyped": 0,
     "statuses": {
-     "absent": 87,
      "empty:not_in_corpus": 8,
+     "null:not_applicable": 14,
+     "null:not_in_corpus": 19,
+     "null:not_in_document": 50,
+     "null:present_unanchored": 4,
      "value": 25
     }
    }
@@ -2930,10 +3082,10 @@
     "n": 29,
     "carries": 4,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 25,
+    "typed_gap": 25,
+    "untyped": 0,
     "statuses": {
-     "absent": 25,
+     "null:present_unanchored": 25,
      "value": 4
     }
    },
@@ -2941,10 +3093,10 @@
     "n": 36,
     "carries": 2,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 34,
+    "typed_gap": 34,
+    "untyped": 0,
     "statuses": {
-     "absent": 34,
+     "null:present_unanchored": 34,
      "value": 2
     }
    },
@@ -2952,30 +3104,33 @@
     "n": 40,
     "carries": 0,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 40,
+    "typed_gap": 40,
+    "untyped": 0,
     "statuses": {
-     "absent": 40
+     "empty:not_in_corpus": 8,
+     "null:not_extracted": 32
     }
    },
    "fed": {
     "n": 15,
     "carries": 0,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 15,
+    "typed_gap": 15,
+    "untyped": 0,
     "statuses": {
-     "absent": 15
+     "null:not_extracted": 15
     }
    },
    "converter": {
     "n": 120,
     "carries": 6,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 114,
+    "typed_gap": 114,
+    "untyped": 0,
     "statuses": {
-     "absent": 114,
+     "empty:not_in_corpus": 8,
+     "null:not_extracted": 47,
+     "null:present_unanchored": 59,
      "value": 6
     }
    }
@@ -3077,20 +3232,20 @@
     "n": 15,
     "carries": 0,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 15,
+    "typed_gap": 15,
+    "untyped": 0,
     "statuses": {
-     "partial": 15
+     "empty:present_unanchored": 15
     }
    },
    "converter": {
     "n": 120,
     "carries": 105,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 15,
+    "typed_gap": 15,
+    "untyped": 0,
     "statuses": {
-     "partial": 15,
+     "empty:present_unanchored": 15,
      "value": 105
     }
    }
@@ -3261,10 +3416,10 @@
     "n": 29,
     "carries": 23,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 6,
+    "typed_gap": 6,
+    "untyped": 0,
     "statuses": {
-     "absent": 6,
+     "null:not_in_document": 6,
      "value": 23
     }
    },
@@ -3272,10 +3427,10 @@
     "n": 36,
     "carries": 27,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 9,
+    "typed_gap": 9,
+    "untyped": 0,
     "statuses": {
-     "absent": 9,
+     "null:not_in_document": 9,
      "value": 27
     }
    },
@@ -3283,10 +3438,10 @@
     "n": 40,
     "carries": 28,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 12,
+    "typed_gap": 12,
+    "untyped": 0,
     "statuses": {
-     "absent": 12,
+     "null:not_in_document": 12,
      "value": 28
     }
    },
@@ -3294,20 +3449,21 @@
     "n": 15,
     "carries": 0,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 15,
+    "typed_gap": 15,
+    "untyped": 0,
     "statuses": {
-     "absent": 15
+     "null:not_extracted": 15
     }
    },
    "converter": {
     "n": 120,
     "carries": 78,
     "unsplit": 0,
-    "typed_gap": 0,
-    "untyped": 42,
+    "typed_gap": 42,
+    "untyped": 0,
     "statuses": {
-     "absent": 42,
+     "null:not_extracted": 15,
+     "null:not_in_document": 27,
      "value": 78
     }
    }

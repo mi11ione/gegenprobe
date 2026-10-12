@@ -47,6 +47,9 @@ from ..convert import parts as P
 from ..paths import PDF_CACHE, ROOT
 from . import role_consistency as RC
 from . import v0_2_all as V
+from . import v0_2_bbox as VB
+from . import v0_2_dates as VD
+from . import v0_2_gaps as VG
 from . import v0_2_qa as QA
 from . import v0_2_meta as VM
 from . import v0_2_roles
@@ -236,24 +239,34 @@ def render(meta: bool = True) -> dict[str, str]:
     val = json.loads(base["validation_all.json"])
     by_set, block, roles_changed = {}, {}, {}
     pairs, qa_before = QA.load(), {}
+    adet, trust, ledger, dates_before, gaps = VD.load(), VD.tiers(), [], {}, VG.Inputs.load()
     for k in CONVERTER_SETS:
         base_recs = [json.loads(x) for x in base[f"{k}_records.jsonl"].splitlines() if x.strip()]
         qa_before[k] = sum(any(q.get("items") for q in r.get("qa") or []) for r in base_recs)
-        recs = [_with_meta(with_roles_consistent(_with_qa(with_parts(r, det, k), pairs, k), roles_changed, k), sl, k,
-                           meta_changed, meta) for r in base_recs]
+        recs = [_with_meta(VG.with_gaps(with_roles_consistent(_with_qa(with_parts(r, det, k), pairs, k), roles_changed,
+                                                              k), gaps, k), sl, k, meta_changed, meta)
+                for r in base_recs]
+        dates_before[k] = recs
+        recs = [VD.with_date_roles(r, adet, trust, k, ledger) for r in recs]
         st, valid = V.stats(recs, m)
         if st["n_invalid"]:
             raise ValueError(f"{k}: {st['invalid'][:2]}")
+        if meta:  # the committed records (the meta=False render is the before column of field_completeness.json)
+            VG.require_typed(valid, k)
         val["sets"][k] = st
         by_set[k] = valid
         files[f"{k}_records.jsonl"] = "".join(json.dumps(r, ensure_ascii=False, sort_keys=True) + "\n" for r in valid)
         block[k] = summary(valid, det, k)
-    fed = [_with_meta(with_roles_consistent(with_parts(json.loads(x), det, "fed"), roles_changed, "fed"), sl, "fed",
-                      meta_changed, meta)
+    fed = [_with_meta(VG.with_gaps(with_roles_consistent(with_parts(json.loads(x), det, "fed"), roles_changed, "fed"),
+                                   gaps, "fed"), sl, "fed", meta_changed, meta)
            for x in FED_IN.read_text(encoding="utf-8").splitlines() if x.strip()]
+    dates_before["fed"] = fed
+    fed = [VD.with_date_roles(r, adet, trust, "fed", ledger) for r in fed]
     st, valid = V.stats(fed, m)
     if st["n_invalid"]:
         raise ValueError(f"fed: {st['invalid'][:2]}")
+    if meta:
+        VG.require_typed(valid, "fed")
     files[FED_OUT] = "".join(json.dumps(r, ensure_ascii=False, sort_keys=True) + "\n" for r in valid)
     fed_block = dict(summary(valid, det, "fed"), n_valid=st["n_valid"])
     for p in val["samples"]:
@@ -285,6 +298,9 @@ def render(meta: bool = True) -> dict[str, str]:
     val["qa_pairing"] = QA.block(by_set, qa_before)
     val["role_consistency"] = role_block(files, roles_changed)
     val["validated_records"] = validated_records(by_set, valid, st["n_valid"])
+    val["answer_date_roles"] = VD.block({**by_set, "fed": valid}, dates_before, ledger, adet)
+    val["typed_gaps"] = VG.block({**by_set, "fed": valid})
+    val["span_bboxes"] = VB.block({**by_set, "fed": valid})
     if meta:
         val["metadata_fill"] = meta_block(meta_changed)
     files["validation_all.json"] = json.dumps(val, ensure_ascii=False, indent=1) + "\n"
@@ -429,6 +445,7 @@ def step(ctx: dict) -> dict:
     rc = v0_2_roles.check()
     pc = check_detections()
     qc = QA.check_detections()
+    r20 = [VD.check_detections(), VG.check_detections(), VB.check_detections()]
     files = render()
     bad = _diff(files)
     val = json.loads(files["validation_all.json"])
@@ -436,7 +453,8 @@ def step(ctx: dict) -> dict:
     fc = _completeness_check()
     s, dp = val["sets"], val["document_parts"]["converter_made"]
     ok = (p8["status"] == "PASS" and not bad and val["n_invalid"] == 0 and rc["status"] != "FAIL"
-          and pc["status"] != "FAIL" and qc["status"] != "FAIL" and sc["status"] != "FAIL" and fc["status"] != "FAIL")
+          and pc["status"] != "FAIL" and qc["status"] != "FAIL" and sc["status"] != "FAIL" and fc["status"] != "FAIL"
+          and all(c["status"] != "FAIL" for c in r20))
     qa = val["qa_pairing"]["sets"]
     carry = dp["records_carrying"]
     summary_ = (f"schema v0.2: {val['n_valid']}/{val['n_affairs']} affairs valid (converter records: P3 "
@@ -452,9 +470,18 @@ def step(ctx: dict) -> dict:
                                                f"{qa[k]['n_records']}" for k in CONVERTER_SETS)
                 + f" records; {qc['summary']}; {sc['summary']}"
                 + f"; OPD metadata filled in {val['metadata_fill']['n_records_changed']} records; {fc['summary']}"
+                + _r20_summary(val, r20)
                 + (f"; differs: {', '.join(bad)}" if bad else "")
                 + ("" if p8["status"] == "PASS" else f"; P8: {p8['summary']}"))
     return dict(status="PASS" if ok else "FAIL", summary=summary_)
+
+
+def _r20_summary(val: dict, checks: list[dict]) -> str:
+    d, g, b = val["answer_date_roles"], val["typed_gaps"], val["span_bboxes"]
+    return (f"; answer-date roles: {d['values_role_split']}/{d['n_answer_date_values']} answer dates decided or "
+            f"dispatched, the rest `answered` with a typed reason; typed gaps added {g['n_added']}, untyped cells left "
+            f"{g['untyped_cells_left']['converter']}; page boxes {b['with_bbox']}/{b['n_spans']} located values; "
+            + "; ".join(c["summary"] for c in checks))
 
 
 def main(argv: list[str]) -> int:

@@ -1,5 +1,5 @@
 id	shown	file	path	fmt	command	where	context
-r19b.p10_8b.right	30/141	results/p10/gguf8b/p10_8b_scores.json	variants.frozen.primary.table.all.pointer.matched/variants.frozen.primary.table.all.pointer.pairs_gold	frac	PYTHONPATH=src:. python -m eval.p10.run_8b merge	README.md,technical_report.md,docs/evaluation.md,docs/runbook.md	
+r19b.p10_8b.right	30/141	results/p10/gguf8b/p10_8b_scores.json	variants.frozen.primary.table.all.pointer.matched/variants.frozen.primary.table.all.pointer.pairs_gold	frac	PYTHONPATH=src:. python -m eval.p10.run_8b merge	README.md,docs/evaluation.md,docs/runbook.md	
 r19b.p10_8b.right_printed	30/79	results/p10/gguf8b/p10_8b_scores.json	variants.frozen.primary.table.all.pointer.matched/variants.frozen.primary.table.all.pointer.pairs_predicted	frac	PYTHONPATH=src:. python -m eval.p10.run_8b merge	docs/evaluation.md	
 r19b.p10_8b.precision	0.38	results/p10/gguf8b/p10_8b_scores.json	variants.frozen.primary.table.all.pointer.precision	f2	PYTHONPATH=src:. python -m eval.p10.run_8b merge	README.md,docs/evaluation.md	
 r19b.p10_8b.recall	0.21	results/p10/gguf8b/p10_8b_scores.json	variants.frozen.primary.table.all.pointer.recall	f2	PYTHONPATH=src:. python -m eval.p10.run_8b merge	README.md,docs/evaluation.md	

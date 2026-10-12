@@ -3,15 +3,18 @@
 What Gegenprobe ships, installs or runs, with each component's licence and how it is used. The machine-readable bills of
 materials are in [`docs/sbom/`](sbom/) (CycloneDX 1.6 JSON). CI job `sbom-audit` (`.github/workflows/ci.yml`) regenerates
 the Python ones from the hash-pinned locks, compares them with the committed files and scans every lock for known
-vulnerabilities; it fails on any finding the [allowlist](sbom/vuln-allowlist.tsv) does not accept with a reason.
-Numbers on this page: `results/report/r19c_numbers.json` (`python -m report.r19c_numbers`), bound in `claims.d/r19_c.tsv`.
+vulnerabilities; it fails on any finding the [allowlist](sbom/vuln-allowlist.tsv) does not accept with a reason. CI job
+`image-scan` builds the image and scans it, Debian packages and CPython included ([Image scan](#image-scan)).
+Numbers on this page: `results/report/r19c_numbers.json` (`python -m report.r19c_numbers`), bound in `claims.d/r19_c.tsv`,
+and `results/report/r20c_numbers.json` (`python -m report.r20c_numbers`), bound in `claims.d/r20_c.tsv`.
 
 | file | what it lists | how it is made |
 |---|---|---|
 | [`sbom/python-runtime.cdx.json`](sbom/python-runtime.cdx.json) | the 8 Python packages the image and the nightly venv install (`requirements.lock`) | `cyclonedx-py environment` over a clean venv installed with `--require-hashes` (CI job `sbom-audit`) |
 | [`sbom/python-dev.cdx.json`](sbom/python-dev.cdx.json) | the 6 test and lint packages (`requirements-dev.lock`; not in the image) | the same, over `requirements-dev.lock` |
-| [`sbom/image-system.cdx.json`](sbom/image-system.cdx.json) | the image's system layer: 218 components (151 from the base image, 63 Debian packages from the Dockerfile's apt layer, 4 OCR models) | `python -I tools/sbom.py image`: Docker's SPDX attestation of the digest-pinned base image, plus [`sbom/image-apt-layer.tsv`](sbom/image-apt-layer.tsv) (the apt layer as apt printed it in CI run 38197201361), plus the tessdata pins of `src/gegenprobe/ocrguard.py` |
+| [`sbom/image-system.cdx.json`](sbom/image-system.cdx.json) | the image's system layer: 217 components (151 from the base image, 62 Debian packages from the Dockerfile's apt layer, 4 OCR models) | `python -I tools/sbom.py image`: Docker's SPDX attestation of the digest-pinned base image, plus [`sbom/image-apt-layer.tsv`](sbom/image-apt-layer.tsv) (the apt layer as apt printed it in CI run 38197201361; ca-certificates, which that build upgraded, now comes with the base at the same version), plus the tessdata pins of `src/gegenprobe/ocrguard.py` |
 | [`sbom/audit.json`](sbom/audit.json) | the pip-audit run of 2026-10-12 over every lock | `python -I tools/sbom.py audit-summary` over pip-audit's JSON (the CI job writes the same file as an artifact) |
+| [`sbom/image-scan.json`](sbom/image-scan.json) | the grype scan of 2026-10-12: the current and the previous base image, the system layer | `python -I tools/sbom.py image-scan` over grype's JSON (CI job `image-scan` writes the same file for the image it builds, as an artifact) |
 
 ## Gegenprobe itself
 
@@ -58,9 +61,10 @@ built image).
 
 ## The image's system components
 
-Base: `python:3.11.14-slim-bookworm`, pinned by digest (Dockerfile); Debian 12 "bookworm" plus CPython 3.11.14
+Base: `python:3.11.17-slim-bookworm`, pinned by digest (Dockerfile); Debian 12 "bookworm" (12.15) plus CPython 3.11.17
 (PSF-2.0). Its licences per package are in `sbom/image-system.cdx.json`, as Docker's attestation declares them. The
-Dockerfile's apt layer adds 63 Debian packages; the ones Gegenprobe runs or loads:
+Dockerfile's apt layer applies Debian's updates (`apt-get upgrade`) and adds 62 Debian packages; the ones Gegenprobe runs
+or loads (ca-certificates is requested by the Dockerfile and already in the base):
 
 | component | version | licence | how Gegenprobe uses it |
 |---|---|---|---|
@@ -100,11 +104,34 @@ packages across the four locks, 0 failing, 1 accepted by the allowlist:
   directory can run code in the reading process; no fixed version exists. Gegenprobe never creates a diskcache, and the
   image's only writable paths are `GP_WORK`, `out/` and a private `/tmp` owned by the job's uid. The reason is in
   [`sbom/vuln-allowlist.tsv`](sbom/vuln-allowlist.tsv); the CI job accepts it for `requirements-gguf.lock` only.
-- **The base image's installers, removed.** The base image ships pip 24.0, setuptools 79.0.1 (with 15 vendored
-  packages) and wheel 0.45.1: 18 packages with 9 known vulnerabilities (pip, setuptools, wheel, jaraco-context). Nothing in
-  the image runs them after the build, so the Dockerfile now uninstalls them right after the hash-pinned install.
-  The inert wheels under Python's `ensurepip/_bundled/` stay (used only by `python -m ensurepip`).
-- **Not scanned: Debian packages.** apt versions are not pinned, so the system layer is whatever the Debian mirror
-  serves on the build date; the CI build of 12 Oct reported 21 base-image packages with pending updates that the
-  Dockerfile does not upgrade. A Debian CVE scanner over the built image (e.g. trivy or grype on
-  `sbom/image-system.cdx.json`) is the next step for an operator who redistributes the image.
+- **The base image's installers, removed.** The base image ships pip 24.0, setuptools 79.0.1 (with its vendored
+  packages, among them wheel 0.45.1), wheel 0.46.3 and packaging 26.3: 20 packages with 9 known vulnerabilities (pip,
+  setuptools and its vendored wheel and jaraco-context). Nothing in the image runs them after the build, so the
+  Dockerfile uninstalls them (pip, setuptools, wheel, packaging) right after the hash-pinned install. The inert wheels
+  under Python's `ensurepip/_bundled/` stay (used only by `python -m ensurepip`).
+- **Debian packages and CPython:** scanned, next section.
+
+## Image scan
+
+grype 0.119.0 (release archive pinned by sha256), its vulnerability database of 2026-10-11, run on 2026-10-12
+([`sbom/image-scan.json`](sbom/image-scan.json)). A finding is one vulnerability in one package version; *fixable*
+means Debian, or upstream for CPython, has published a fixed version. The gate fails on a fixable HIGH or CRITICAL
+finding unless the Dockerfile removes the package or [`sbom/image-vuln-allowlist.tsv`](sbom/image-vuln-allowlist.tsv)
+accepts it with a reason; the allowlist is empty.
+
+| scanned | HIGH or CRITICAL | fixable | fixable and not removed by the Dockerfile |
+|---|---|---|---|
+| previous base, `python:3.11.14-slim-bookworm` (Debian 12.13), by digest | 162 | 91 | 89 would fail the gate: 76 in Debian packages, 13 in CPython 3.11.14 |
+| current base, `python:3.11.17-slim-bookworm` (Debian 12.15), by digest | 73 | 2 | 0 (the 2 are in setuptools' vendored packages) |
+| system layer of the current image (its SBOM: base and apt layer; Debian packages only) | 80 | 0 | 0 |
+
+- **What changed.** The image now builds on `python:3.11.17-slim-bookworm` (digest-pinned on 12 Oct) and applies
+  Debian's updates in its apt layer, so a later build also gets fixes published after the base image was made. Of the
+  previous base's fixable findings, the 2 that the Dockerfile removes were in setuptools' vendored packages.
+- **Without a fix.** 71 HIGH or CRITICAL findings in the current base have no fixed version in Debian 12 (Debian lists
+  them as not fixed yet, or as not to be fixed in this release). An upgrade cannot remove them; the scan lists them, and a
+  rebuild picks up each fix once Debian publishes it.
+- **How it ran.** No Docker on the scanning host: grype read both base images by digest straight from the registry
+  (`grype registry:IMAGE@DIGEST --platform linux/amd64`) and the system layer through `sbom/image-system.cdx.json`
+  (`grype sbom:...`), then `python -I tools/sbom.py image-scan`. CI job `image-scan` builds the image and runs the same
+  gate on it (`grype docker:gegenprobe:scan`), on every push; its artifact holds the scan of the image it built.

@@ -1,0 +1,73 @@
+{
+ "image_scan": {
+  "tool": "grype 0.119.0",
+  "run": "2026-10-12",
+  "scans": {
+   "image_system_sbom": {
+    "target": "sbom:docs/sbom/image-system.cdx.json (base python:3.11.17-slim-bookworm, 62 apt-layer packages, tessdata)",
+    "distro": "debian 12",
+    "gated": true,
+    "high_critical": 80,
+    "fixable": 0,
+    "removed_by_dockerfile": 0,
+    "accepted": 0,
+    "failing": 0,
+    "failing_by_type": {},
+    "without_fix": 80,
+    "cpython": "3.11.17"
+   },
+   "base_image": {
+    "target": "python:3.11.17-slim-bookworm@sha256:0a310eeecf4e1f5a0743f9a6520c90c88d089c903ca5fd283f501e3a805f5f89",
+    "distro": "debian 12.15",
+    "gated": true,
+    "high_critical": 73,
+    "fixable": 2,
+    "removed_by_dockerfile": 2,
+    "accepted": 0,
+    "failing": 0,
+    "failing_by_type": {},
+    "without_fix": 71,
+    "cpython": "3.11.17"
+   },
+   "previous_image_system_sbom": {
+    "target": "sbom:docs/sbom/image-system.cdx.json as committed at 9932e53e (base python:3.11.14-slim-bookworm, apt layer of CI run 38197201361)",
+    "distro": "debian 12",
+    "gated": false,
+    "high_critical": 129,
+    "fixable": 49,
+    "removed_by_dockerfile": 0,
+    "accepted": 0,
+    "failing": 49,
+    "failing_by_type": {
+     "deb": 49
+    },
+    "without_fix": 80,
+    "cpython": "3.11.14"
+   },
+   "previous_base_image": {
+    "target": "python:3.11.14-slim-bookworm@sha256:65a93d69fa75478d554f4ad27c85c1e69fa184956261b4301ebaf6dbb0a3543d",
+    "distro": "debian 12.13",
+    "gated": false,
+    "high_critical": 162,
+    "fixable": 91,
+    "removed_by_dockerfile": 2,
+    "accepted": 0,
+    "failing": 89,
+    "failing_by_type": {
+     "binary": 13,
+     "deb": 76
+    },
+    "without_fix": 71,
+    "cpython": "3.11.14"
+   }
+  },
+  "db_built_date": "2026-10-11",
+  "gated_failing": 0
+ },
+ "hero": {
+  "after_share": 0.921451,
+  "today_share": 0.816486,
+  "gain_points": 10.4965,
+  "repaired": 9580
+ }
+}

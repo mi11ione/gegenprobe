@@ -1,0 +1,949 @@
+{
+ "label": "POST HOC (12 Oct 2026; proposed in review; not pre-registered): P2 pointer vs a composite no-model baseline (latest date on answer-typed documents; the reviewer's cue-anchored date on intervention-typed documents), implemented as proposed, not tuned by the team; no registered decision depends on this file",
+ "proposed_by": "proposed in review (round-19 skeptical-ML review); rule text as the reviewer wrote it, run by the team",
+ "method": "every P2 arm (eval.score.outcome, strict; eval.baselines._score), and paired with the registered pointer\n(results/eval2/p2__publicai_swiss-ai_apertus-v1.5-8b.json):\n  * eval.posthoc_r3._pair: exact McNemar (two-sided) on all 62, on the 29 with a gold date and on the 33 without; per\n    parliament the sign test and the exact cluster permutation (joint flip per parliament);\n  * eval.posthoc_r6.doc_level_block: the parliament-cluster percentile bootstrap of the accuracy difference (B = 10,000,\n    seed 20261011; the method of the P2-H2 cluster interval), on all 62 and on the 29 answered.\nThe per-document predictions of both arms (dates only, no document text) are written to the output, so that the scores\nre-derive from committed files without the PDFs (`rescore`).",
+ "inputs": {
+  "sha256_verified": 62,
+  "fetched": 0,
+  "unavailable": []
+ },
+ "n": 62,
+ "n_answered": 29,
+ "n_parliaments": 15,
+ "n_intervention_typed": 31,
+ "intervention_typed": {
+  "n": 31,
+  "with_gold_date": 5,
+  "composite_dated": 5,
+  "composite_right": 28,
+  "baseline_right": 26,
+  "pointer_right": 30
+ },
+ "arms": {
+  "pointer": {
+   "n": 62,
+   "exact": 53,
+   "exact_ci": [
+    0.7465637464683084,
+    0.92170676943653
+   ],
+   "value_recall": [
+    24,
+    29
+   ],
+   "values_on_gold_null": [
+    4,
+    33
+   ],
+   "misattributed": 8,
+   "fabricated": 0,
+   "false_null": 1
+  },
+  "composite": {
+   "n": 62,
+   "exact": 46,
+   "exact_ci": [
+    0.621186360610032,
+    0.8344526275069032
+   ],
+   "value_recall": [
+    21,
+    29
+   ],
+   "values_on_gold_null": [
+    8,
+    33
+   ],
+   "misattributed": 15,
+   "fabricated": 0,
+   "false_null": 1
+  },
+  "keyword_cue": {
+   "n": 62,
+   "exact": 47,
+   "exact_ci": [
+    0.6384725574675495,
+    0.8475423631905147
+   ],
+   "value_recall": [
+    19,
+    29
+   ],
+   "values_on_gold_null": [
+    5,
+    33
+   ],
+   "misattributed": 11,
+   "fabricated": 0,
+   "false_null": 4
+  },
+  "latest_date_on_answer_docs_only": {
+   "n": 62,
+   "exact": 44,
+   "exact_ci": [
+    0.5871211868886292,
+    0.8077659361460481
+   ],
+   "value_recall": [
+    18,
+    29
+   ],
+   "values_on_gold_null": [
+    7,
+    33
+   ],
+   "misattributed": 13,
+   "fabricated": 0,
+   "false_null": 5
+  },
+  "keyword": {
+   "n": 62,
+   "exact": 45,
+   "exact_ci": [
+    0.6040722415667276,
+    0.8211908140090788
+   ],
+   "value_recall": [
+    16,
+    29
+   ],
+   "values_on_gold_null": [
+    4,
+    33
+   ],
+   "misattributed": 9,
+   "fabricated": 0,
+   "false_null": 8
+  }
+ },
+ "mcnemar": {
+  "pointer_vs_composite": {
+   "all": {
+    "n": 62,
+    "pointer_only": 9,
+    "composite_only": 2,
+    "p_mcnemar_exact": 0.0654296875,
+    "p_str": "0.065",
+    "exact": [
+     53,
+     46
+    ]
+   },
+   "gold_value": {
+    "n": 29,
+    "pointer_only": 5,
+    "composite_only": 2,
+    "p_mcnemar_exact": 0.453125,
+    "p_str": "0.45",
+    "exact": [
+     24,
+     21
+    ]
+   },
+   "gold_null": {
+    "n": 33,
+    "pointer_only": 4,
+    "composite_only": 0,
+    "p_mcnemar_exact": 0.125,
+    "p_str": "0.12",
+    "exact": [
+     29,
+     25
+    ]
+   },
+   "bodies": {
+    "n_bodies": 15,
+    "favour_pointer": 5,
+    "favour_composite": 1,
+    "tied_with_discordance": 1,
+    "sign_p_two_sided": 0.21875,
+    "cluster_permutation_p_two_sided": 0.125,
+    "sign_p_str": "0.22",
+    "cluster_permutation_p_str": "0.12",
+    "per_body": {
+     "5002": {
+      "pointer_only": 1,
+      "composite_only": 0
+     },
+     "62": {
+      "pointer_only": 1,
+      "composite_only": 0
+     },
+     "6266": {
+      "pointer_only": 2,
+      "composite_only": 0
+     },
+     "6643": {
+      "pointer_only": 1,
+      "composite_only": 1
+     },
+     "NW": {
+      "pointer_only": 2,
+      "composite_only": 0
+     },
+     "OW": {
+      "pointer_only": 0,
+      "composite_only": 1
+     },
+     "SZ": {
+      "pointer_only": 2,
+      "composite_only": 0
+     }
+    }
+   }
+  },
+  "pointer_vs_keyword_cue": {
+   "all": {
+    "n": 62,
+    "pointer_only": 11,
+    "keyword_cue_only": 5,
+    "p_mcnemar_exact": 0.210113525390625,
+    "p_str": "0.21",
+    "exact": [
+     53,
+     47
+    ]
+   },
+   "gold_value": {
+    "n": 29,
+    "pointer_only": 9,
+    "keyword_cue_only": 4,
+    "p_mcnemar_exact": 0.266845703125,
+    "p_str": "0.27",
+    "exact": [
+     24,
+     19
+    ]
+   },
+   "gold_null": {
+    "n": 33,
+    "pointer_only": 2,
+    "keyword_cue_only": 1,
+    "p_mcnemar_exact": 1.0,
+    "p_str": "1",
+    "exact": [
+     29,
+     28
+    ]
+   },
+   "bodies": {
+    "n_bodies": 15,
+    "favour_pointer": 5,
+    "favour_keyword_cue": 2,
+    "tied_with_discordance": 0,
+    "sign_p_two_sided": 0.453125,
+    "cluster_permutation_p_two_sided": 0.4375,
+    "sign_p_str": "0.45",
+    "cluster_permutation_p_str": "0.44",
+    "per_body": {
+     "5002": {
+      "pointer_only": 2,
+      "keyword_cue_only": 0
+     },
+     "62": {
+      "pointer_only": 1,
+      "keyword_cue_only": 0
+     },
+     "6266": {
+      "pointer_only": 0,
+      "keyword_cue_only": 1
+     },
+     "6643": {
+      "pointer_only": 2,
+      "keyword_cue_only": 1
+     },
+     "NW": {
+      "pointer_only": 4,
+      "keyword_cue_only": 0
+     },
+     "OW": {
+      "pointer_only": 0,
+      "keyword_cue_only": 3
+     },
+     "SZ": {
+      "pointer_only": 2,
+      "keyword_cue_only": 0
+     }
+    }
+   }
+  },
+  "composite_vs_results_table_baseline": {
+   "all": {
+    "n": 62,
+    "composite_only": 3,
+    "latest_date_on_answer_docs_only_only": 1,
+    "p_mcnemar_exact": 0.625,
+    "p_str": "0.62",
+    "exact": [
+     46,
+     44
+    ]
+   },
+   "gold_value": {
+    "n": 29,
+    "composite_only": 3,
+    "latest_date_on_answer_docs_only_only": 0,
+    "p_mcnemar_exact": 0.25,
+    "p_str": "0.25",
+    "exact": [
+     21,
+     18
+    ]
+   },
+   "gold_null": {
+    "n": 33,
+    "composite_only": 0,
+    "latest_date_on_answer_docs_only_only": 1,
+    "p_mcnemar_exact": 1.0,
+    "p_str": "1",
+    "exact": [
+     25,
+     26
+    ]
+   },
+   "bodies": {
+    "n_bodies": 15,
+    "favour_composite": 2,
+    "favour_latest_date_on_answer_docs_only": 1,
+    "tied_with_discordance": 0,
+    "sign_p_two_sided": 1.0,
+    "cluster_permutation_p_two_sided": 0.75,
+    "sign_p_str": "1",
+    "cluster_permutation_p_str": "0.75",
+    "per_body": {
+     "247": {
+      "composite_only": 1,
+      "latest_date_on_answer_docs_only_only": 0
+     },
+     "62": {
+      "composite_only": 0,
+      "latest_date_on_answer_docs_only_only": 1
+     },
+     "OW": {
+      "composite_only": 2,
+      "latest_date_on_answer_docs_only_only": 0
+     }
+    }
+   }
+  }
+ },
+ "cluster_bootstrap": {
+  "pointer vs composite": {
+   "n": 62,
+   "a_only": 9,
+   "b_only": 2,
+   "mcnemar_exact_p": 0.0654296875,
+   "accuracy_difference": 0.11290322580645161,
+   "cluster_bootstrap95": [
+    0.014925373134328358,
+    0.22033898305084745
+   ],
+   "n_parliaments": 15,
+   "cluster_interval_excludes_0": true,
+   "parliaments_a_better": 5,
+   "parliaments_b_better": 1,
+   "parliaments_tied": 9,
+   "parliament_sign_test_p": 0.21875
+  },
+  "pointer vs composite (answered)": {
+   "n": 29,
+   "a_only": 5,
+   "b_only": 2,
+   "mcnemar_exact_p": 0.453125,
+   "accuracy_difference": 0.10344827586206896,
+   "cluster_bootstrap95": [
+    -0.07142857142857142,
+    0.3333333333333333
+   ],
+   "n_parliaments": 7,
+   "cluster_interval_excludes_0": false,
+   "parliaments_a_better": 2,
+   "parliaments_b_better": 1,
+   "parliaments_tied": 4,
+   "parliament_sign_test_p": 1.0
+  },
+  "pointer vs keyword_cue": {
+   "n": 62,
+   "a_only": 11,
+   "b_only": 5,
+   "mcnemar_exact_p": 0.210113525390625,
+   "accuracy_difference": 0.0967741935483871,
+   "cluster_bootstrap95": [
+    -0.08512158054711244,
+    0.265625
+   ],
+   "n_parliaments": 15,
+   "cluster_interval_excludes_0": false,
+   "parliaments_a_better": 5,
+   "parliaments_b_better": 2,
+   "parliaments_tied": 8,
+   "parliament_sign_test_p": 0.453125
+  },
+  "pointer vs keyword_cue (answered)": {
+   "n": 29,
+   "a_only": 9,
+   "b_only": 4,
+   "mcnemar_exact_p": 0.266845703125,
+   "accuracy_difference": 0.1724137931034483,
+   "cluster_bootstrap95": [
+    -0.2,
+    0.5454545454545454
+   ],
+   "n_parliaments": 7,
+   "cluster_interval_excludes_0": false,
+   "parliaments_a_better": 4,
+   "parliaments_b_better": 1,
+   "parliaments_tied": 2,
+   "parliament_sign_test_p": 0.375
+  },
+  "composite vs latest_date_on_answer_docs_only": {
+   "n": 62,
+   "a_only": 3,
+   "b_only": 1,
+   "mcnemar_exact_p": 0.625,
+   "accuracy_difference": 0.03225806451612903,
+   "cluster_bootstrap95": [
+    -0.03571428571428571,
+    0.11864406779661017
+   ],
+   "n_parliaments": 15,
+   "cluster_interval_excludes_0": false,
+   "parliaments_a_better": 2,
+   "parliaments_b_better": 1,
+   "parliaments_tied": 12,
+   "parliament_sign_test_p": 1.0
+  }
+ },
+ "cluster_bootstrap_arms": {
+  "pointer": {
+   "exact": [
+    53,
+    62
+   ],
+   "rate": 0.8548387096774194,
+   "doc_level_wilson95": [
+    0.7465637464683084,
+    0.92170676943653
+   ],
+   "cluster_bootstrap95": [
+    0.7076923076923077,
+    0.9661016949152542
+   ]
+  },
+  "composite": {
+   "exact": [
+    46,
+    62
+   ],
+   "rate": 0.7419354838709677,
+   "doc_level_wilson95": [
+    0.621186360610032,
+    0.8344526275069032
+   ],
+   "cluster_bootstrap95": [
+    0.59375,
+    0.8769230769230769
+   ]
+  },
+  "keyword_cue": {
+   "exact": [
+    47,
+    62
+   ],
+   "rate": 0.7580645161290323,
+   "doc_level_wilson95": [
+    0.6384725574675495,
+    0.8475423631905147
+   ],
+   "cluster_bootstrap95": [
+    0.5833333333333334,
+    0.9166666666666666
+   ]
+  },
+  "latest_date_on_answer_docs_only": {
+   "exact": [
+    44,
+    62
+   ],
+   "rate": 0.7096774193548387,
+   "doc_level_wilson95": [
+    0.5871211868886292,
+    0.8077659361460481
+   ],
+   "cluster_bootstrap95": [
+    0.5322494852436513,
+    0.8653846153846154
+   ]
+  },
+  "keyword": {
+   "exact": [
+    45,
+    62
+   ],
+   "rate": 0.7258064516129032,
+   "doc_level_wilson95": [
+    0.6040722415667276,
+    0.8211908140090788
+   ],
+   "cluster_bootstrap95": [
+    0.5507246376811594,
+    0.8870967741935484
+   ]
+  }
+ },
+ "display": {
+  "composite_exact": "46/62",
+  "composite_answer_dates": "21/29",
+  "pointer_exact": "53/62",
+  "pointer_answer_dates": "24/29",
+  "discordant": "9 vs 2",
+  "mcnemar_p": "0.065",
+  "answered_discordant": "5 vs 2",
+  "answered_mcnemar_p": "0.453",
+  "parliament_permutation_p": "0.12",
+  "parliament_favour": "5 vs 1",
+  "cluster95": "[0.014, 0.221]",
+  "cluster95_excludes_0": true,
+  "answered_cluster95": "[-0.072, 0.334]",
+  "keyword_cue_exact": "47/62",
+  "keyword_cue_answer_dates": "19/29",
+  "keyword_cue_mcnemar_p": "0.210",
+  "keyword_cue_permutation_p": "0.44"
+ },
+ "per_doc": [
+  {
+   "doc_id": 26192,
+   "dtype": "intervention",
+   "composite": "2012-10-16",
+   "keyword_cue": "2012-10-16",
+   "keyword": null
+  },
+  {
+   "doc_id": 47288,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 52086,
+   "dtype": "answer",
+   "composite": "2022-06-22",
+   "keyword_cue": "2022-06-22",
+   "keyword": "2022-06-22"
+  },
+  {
+   "doc_id": 52140,
+   "dtype": "answer",
+   "composite": "2023-06-21",
+   "keyword_cue": "2023-06-21",
+   "keyword": "2023-06-21"
+  },
+  {
+   "doc_id": 52151,
+   "dtype": "answer",
+   "composite": "2023-11-01",
+   "keyword_cue": "2023-11-01",
+   "keyword": "2023-11-01"
+  },
+  {
+   "doc_id": 52368,
+   "dtype": "answer",
+   "composite": "2022-09-28",
+   "keyword_cue": "2022-09-28",
+   "keyword": "2022-09-28"
+  },
+  {
+   "doc_id": 52653,
+   "dtype": "answer",
+   "composite": "2024-02-07",
+   "keyword_cue": "2024-02-07",
+   "keyword": "2024-02-07"
+  },
+  {
+   "doc_id": 62545,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 64053,
+   "dtype": "answer",
+   "composite": "2023-04-04",
+   "keyword_cue": "2023-04-04",
+   "keyword": "2023-04-04"
+  },
+  {
+   "doc_id": 102901,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 102903,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 111648,
+   "dtype": "answer",
+   "composite": "2021-03-10",
+   "keyword_cue": "2021-03-10",
+   "keyword": "2021-03-10"
+  },
+  {
+   "doc_id": 111796,
+   "dtype": "answer",
+   "composite": "2023-11-01",
+   "keyword_cue": "2023-11-01",
+   "keyword": "2023-11-01"
+  },
+  {
+   "doc_id": 121366,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 167939,
+   "dtype": "answer",
+   "composite": "2022-11-30",
+   "keyword_cue": "2022-11-30",
+   "keyword": "2022-11-30"
+  },
+  {
+   "doc_id": 229627,
+   "dtype": "intervention",
+   "composite": "2003-09-29",
+   "keyword_cue": "2003-09-29",
+   "keyword": null
+  },
+  {
+   "doc_id": 243169,
+   "dtype": "answer",
+   "composite": "2019-04-29",
+   "keyword_cue": "2019-04-29",
+   "keyword": "2019-04-29"
+  },
+  {
+   "doc_id": 265887,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 279568,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 281593,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 345564,
+   "dtype": "answer",
+   "composite": "2020-03-05",
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 380394,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 395802,
+   "dtype": "answer",
+   "composite": "2023-09-27",
+   "keyword_cue": "2023-09-27",
+   "keyword": "2023-09-27"
+  },
+  {
+   "doc_id": 431363,
+   "dtype": "answer",
+   "composite": "2013-05-07",
+   "keyword_cue": "2013-04-30",
+   "keyword": "2013-04-30"
+  },
+  {
+   "doc_id": 431569,
+   "dtype": "answer",
+   "composite": "2013-06-25",
+   "keyword_cue": "2013-05-06",
+   "keyword": "2013-05-06"
+  },
+  {
+   "doc_id": 431985,
+   "dtype": "intervention",
+   "composite": "2012-04-03",
+   "keyword_cue": "2012-04-03",
+   "keyword": null
+  },
+  {
+   "doc_id": 451305,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 457795,
+   "dtype": "answer",
+   "composite": "2015-03-22",
+   "keyword_cue": "2015-03-22",
+   "keyword": "2015-03-22"
+  },
+  {
+   "doc_id": 458049,
+   "dtype": "answer",
+   "composite": "2017-01-24",
+   "keyword_cue": "2017-01-24",
+   "keyword": "2017-01-24"
+  },
+  {
+   "doc_id": 459724,
+   "dtype": "answer",
+   "composite": "2022-06-28",
+   "keyword_cue": "2021-11-24",
+   "keyword": "2021-11-24"
+  },
+  {
+   "doc_id": 459740,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 460187,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 460472,
+   "dtype": "answer",
+   "composite": "2014-01-01",
+   "keyword_cue": "2012-04-25",
+   "keyword": "2012-04-25"
+  },
+  {
+   "doc_id": 460874,
+   "dtype": "answer",
+   "composite": "2013-10-23",
+   "keyword_cue": "2013-10-23",
+   "keyword": "2013-10-23"
+  },
+  {
+   "doc_id": 461027,
+   "dtype": "answer",
+   "composite": "2012-09-18",
+   "keyword_cue": "2012-04-03",
+   "keyword": "2012-04-03"
+  },
+  {
+   "doc_id": 534977,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 558899,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 560636,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 619475,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 619575,
+   "dtype": "intervention",
+   "composite": "2016-11-01",
+   "keyword_cue": "2016-11-01",
+   "keyword": null
+  },
+  {
+   "doc_id": 641750,
+   "dtype": "answer",
+   "composite": "2021-07-02",
+   "keyword_cue": "2021-07-02",
+   "keyword": "2021-07-02"
+  },
+  {
+   "doc_id": 642566,
+   "dtype": "answer",
+   "composite": "2021-07-07",
+   "keyword_cue": "2021-07-07",
+   "keyword": "2021-07-07"
+  },
+  {
+   "doc_id": 644304,
+   "dtype": "answer",
+   "composite": "2019-09-24",
+   "keyword_cue": "2019-09-24",
+   "keyword": "2019-09-24"
+  },
+  {
+   "doc_id": 675276,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 693213,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 862355,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 863183,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 867952,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 868121,
+   "dtype": "answer",
+   "composite": "2022-02-22",
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 868140,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 868257,
+   "dtype": "answer",
+   "composite": "2025-09-05",
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 868280,
+   "dtype": "answer",
+   "composite": "2025-12-16",
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 868323,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 869606,
+   "dtype": "answer",
+   "composite": "2018-02-22",
+   "keyword_cue": "2017-10-31",
+   "keyword": "2017-10-31"
+  },
+  {
+   "doc_id": 869638,
+   "dtype": "answer",
+   "composite": "2022-04-05",
+   "keyword_cue": "2022-04-05",
+   "keyword": "2022-04-05"
+  },
+  {
+   "doc_id": 874506,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 874549,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 874585,
+   "dtype": "intervention",
+   "composite": null,
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 877681,
+   "dtype": "intervention",
+   "composite": "2024-05-22",
+   "keyword_cue": "2024-05-22",
+   "keyword": null
+  },
+  {
+   "doc_id": 879872,
+   "dtype": "answer",
+   "composite": "2022-12-12",
+   "keyword_cue": null,
+   "keyword": null
+  },
+  {
+   "doc_id": 895511,
+   "dtype": "answer",
+   "composite": "2017-01-30",
+   "keyword_cue": "2017-01-30",
+   "keyword": "2017-01-30"
+  },
+  {
+   "doc_id": 921934,
+   "dtype": "answer",
+   "composite": "2022-10-28",
+   "keyword_cue": null,
+   "keyword": null
+  }
+ ]
+}

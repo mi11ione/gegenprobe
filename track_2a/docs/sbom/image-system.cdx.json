@@ -11,44 +11,28 @@
    "properties": [
     {
      "name": "gegenprobe:base-image",
-     "value": "python:3.11.14-slim-bookworm@sha256:65a93d69fa75478d554f4ad27c85c1e69fa184956261b4301ebaf6dbb0a3543d"
+     "value": "python:3.11.17-slim-bookworm@sha256:0a310eeecf4e1f5a0743f9a6520c90c88d089c903ca5fd283f501e3a805f5f89"
     },
     {
      "name": "gegenprobe:base-image-amd64",
-     "value": "sha256:83f339c1be6340ae1096010fdccf6552ac932d8f410d45d206014916bdf37e48"
+     "value": "sha256:8a00ecb83ed9d0864dfd102a1bdb2067fda907ceb30bb86d09da9ee558b19590"
     },
     {
      "name": "gegenprobe:base-sbom-blob",
-     "value": "sha256:73407d14db8e9628d48a8a4748b8f8cc38349700b39b34ad124816f6293155e9"
+     "value": "sha256:8e82fecd7f2bdf51d09344ca57edd1762cc3a1021d1a358ba1fc5a0588ded92b"
     },
     {
      "name": "gegenprobe:removed-by-dockerfile",
-     "value": "autocommand 2.2.2; backports-tarfile 1.2.0; importlib-metadata 8.0.0; inflect 7.3.1; jaraco-collections 5.1.0; jaraco-context 5.3.0; jaraco-functools 4.0.1; jaraco-text 3.12.1; more-itertools 10.3.0; packaging 24.2; pip 24.0; platformdirs 4.2.2; setuptools 79.0.1; tomli 2.0.1; typeguard 4.3.0; typing-extensions 4.12.2; wheel 0.45.1; zipp 3.19.2"
+     "value": "autocommand 2.2.2; backports-tarfile 1.2.0; importlib-metadata 8.0.0; inflect 7.3.1; jaraco-collections 5.1.0; jaraco-context 5.3.0; jaraco-functools 4.0.1; jaraco-text 3.12.1; more-itertools 10.3.0; packaging 24.2; packaging 26.3; pip 24.0; platformdirs 4.2.2; setuptools 79.0.1; tomli 2.0.1; typeguard 4.3.0; typing-extensions 4.12.2; wheel 0.45.1; wheel 0.46.3; zipp 3.19.2"
+    },
+    {
+     "name": "gegenprobe:apt-requested-already-in-base",
+     "value": "ca-certificates 20250419~deb12u1"
     }
    ]
   }
  },
  "components": [
-  {
-   "type": "library",
-   "name": "ca-certificates",
-   "version": "20250419~deb12u1",
-   "purl": "pkg:deb/debian/ca-certificates@20250419~deb12u1?arch=all&distro=debian-12",
-   "properties": [
-    {
-     "name": "gegenprobe:layer",
-     "value": "apt-get layer (Dockerfile)"
-    },
-    {
-     "name": "gegenprobe:debian-source",
-     "value": "ca-certificates 20250419~deb12u1"
-    },
-    {
-     "name": "gegenprobe:licence-basis",
-     "value": "debian/copyright not retrieved (version no longer on metadata.ftp-master.debian.org)"
-    }
-   ]
-  },
   {
    "type": "library",
    "name": "fontconfig",
@@ -2869,8 +2853,8 @@
   {
    "type": "library",
    "name": "base-files",
-   "version": "12.4+deb12u13",
-   "purl": "pkg:deb/debian/base-files@12.4%2Bdeb12u13?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "12.4+deb12u15",
+   "purl": "pkg:deb/debian/base-files@12.4%2Bdeb12u15?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -2898,8 +2882,8 @@
   {
    "type": "library",
    "name": "bash",
-   "version": "5.2.15-2+b10",
-   "purl": "pkg:deb/debian/bash@5.2.15-2%2Bb10?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "5.2.15-2+b13",
+   "purl": "pkg:deb/debian/bash@5.2.15-2%2Bb13?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -2949,8 +2933,8 @@
   {
    "type": "library",
    "name": "ca-certificates",
-   "version": "20230311+deb12u1",
-   "purl": "pkg:deb/debian/ca-certificates@20230311%2Bdeb12u1?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "20250419~deb12u1",
+   "purl": "pkg:deb/debian/ca-certificates@20250419~deb12u1?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -3097,8 +3081,8 @@
   {
    "type": "library",
    "name": "dpkg",
-   "version": "1.21.22",
-   "purl": "pkg:deb/debian/dpkg@1.21.22?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "1.21.23",
+   "purl": "pkg:deb/debian/dpkg@1.21.23?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -3216,8 +3200,8 @@
   {
    "type": "library",
    "name": "glibc",
-   "version": "2.36-9+deb12u13",
-   "purl": "pkg:deb/debian/glibc@2.36-9%2Bdeb12u13?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "2.36-9+deb12u14",
+   "purl": "pkg:deb/debian/glibc@2.36-9%2Bdeb12u14?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -3267,8 +3251,8 @@
   {
    "type": "library",
    "name": "gnutls28",
-   "version": "3.7.9-2+deb12u6",
-   "purl": "pkg:deb/debian/gnutls28@3.7.9-2%2Bdeb12u6?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "3.7.9-2+deb12u7",
+   "purl": "pkg:deb/debian/gnutls28@3.7.9-2%2Bdeb12u7?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -3386,8 +3370,8 @@
   {
    "type": "library",
    "name": "krb5",
-   "version": "1.20.1-2+deb12u4",
-   "purl": "pkg:deb/debian/krb5@1.20.1-2%2Bdeb12u4?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "1.20.1-2+deb12u5",
+   "purl": "pkg:deb/debian/krb5@1.20.1-2%2Bdeb12u5?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -3522,8 +3506,8 @@
   {
    "type": "library",
    "name": "libc-bin",
-   "version": "2.36-9+deb12u13",
-   "purl": "pkg:deb/debian/libc-bin@2.36-9%2Bdeb12u13?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "2.36-9+deb12u14",
+   "purl": "pkg:deb/debian/libc-bin@2.36-9%2Bdeb12u14?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -3539,8 +3523,8 @@
   {
    "type": "library",
    "name": "libc6",
-   "version": "2.36-9+deb12u13",
-   "purl": "pkg:deb/debian/libc6@2.36-9%2Bdeb12u13?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "2.36-9+deb12u14",
+   "purl": "pkg:deb/debian/libc6@2.36-9%2Bdeb12u14?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -3590,8 +3574,8 @@
   {
    "type": "library",
    "name": "libcap2",
-   "version": "1:2.66-4+deb12u2+b2",
-   "purl": "pkg:deb/debian/libcap2@1%3A2.66-4%2Bdeb12u2%2Bb2?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "1:2.66-4+deb12u3+b1",
+   "purl": "pkg:deb/debian/libcap2@1%3A2.66-4%2Bdeb12u3%2Bb1?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -3738,8 +3722,8 @@
   {
    "type": "library",
    "name": "libgcrypt20",
-   "version": "1.10.1-3",
-   "purl": "pkg:deb/debian/libgcrypt20@1.10.1-3?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "1.10.1-3+deb12u1",
+   "purl": "pkg:deb/debian/libgcrypt20@1.10.1-3%2Bdeb12u1?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -3789,8 +3773,8 @@
   {
    "type": "library",
    "name": "libgnutls30",
-   "version": "3.7.9-2+deb12u6",
-   "purl": "pkg:deb/debian/libgnutls30@3.7.9-2%2Bdeb12u6?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "3.7.9-2+deb12u7",
+   "purl": "pkg:deb/debian/libgnutls30@3.7.9-2%2Bdeb12u7?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -3840,8 +3824,8 @@
   {
    "type": "library",
    "name": "libgssapi-krb5-2",
-   "version": "1.20.1-2+deb12u4",
-   "purl": "pkg:deb/debian/libgssapi-krb5-2@1.20.1-2%2Bdeb12u4?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "1.20.1-2+deb12u5",
+   "purl": "pkg:deb/debian/libgssapi-krb5-2@1.20.1-2%2Bdeb12u5?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -3908,8 +3892,8 @@
   {
    "type": "library",
    "name": "libk5crypto3",
-   "version": "1.20.1-2+deb12u4",
-   "purl": "pkg:deb/debian/libk5crypto3@1.20.1-2%2Bdeb12u4?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "1.20.1-2+deb12u5",
+   "purl": "pkg:deb/debian/libk5crypto3@1.20.1-2%2Bdeb12u5?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -3942,8 +3926,8 @@
   {
    "type": "library",
    "name": "libkrb5-3",
-   "version": "1.20.1-2+deb12u4",
-   "purl": "pkg:deb/debian/libkrb5-3@1.20.1-2%2Bdeb12u4?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "1.20.1-2+deb12u5",
+   "purl": "pkg:deb/debian/libkrb5-3@1.20.1-2%2Bdeb12u5?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -3959,8 +3943,8 @@
   {
    "type": "library",
    "name": "libkrb5support0",
-   "version": "1.20.1-2+deb12u4",
-   "purl": "pkg:deb/debian/libkrb5support0@1.20.1-2%2Bdeb12u4?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "1.20.1-2+deb12u5",
+   "purl": "pkg:deb/debian/libkrb5support0@1.20.1-2%2Bdeb12u5?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -3993,8 +3977,8 @@
   {
    "type": "library",
    "name": "liblzma5",
-   "version": "5.4.1-1",
-   "purl": "pkg:deb/debian/liblzma5@5.4.1-1?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "5.4.1-1+deb12u2",
+   "purl": "pkg:deb/debian/liblzma5@5.4.1-1%2Bdeb12u2?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -4214,8 +4198,8 @@
   {
    "type": "library",
    "name": "libpcre2-8-0",
-   "version": "10.42-1",
-   "purl": "pkg:deb/debian/libpcre2-8-0@10.42-1?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "10.42-1+deb12u2",
+   "purl": "pkg:deb/debian/libpcre2-8-0@10.42-1%2Bdeb12u2?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -4437,8 +4421,8 @@
   {
    "type": "library",
    "name": "libssl3",
-   "version": "3.0.18-1~deb12u2",
-   "purl": "pkg:deb/debian/libssl3@3.0.18-1~deb12u2?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "3.0.22-1~deb12u1",
+   "purl": "pkg:deb/debian/libssl3@3.0.22-1~deb12u1?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -4471,8 +4455,8 @@
   {
    "type": "library",
    "name": "libsystemd0",
-   "version": "252.39-1~deb12u1",
-   "purl": "pkg:deb/debian/libsystemd0@252.39-1~deb12u1?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "252.39-1~deb12u2",
+   "purl": "pkg:deb/debian/libsystemd0@252.39-1~deb12u2?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -4573,8 +4557,8 @@
   {
    "type": "library",
    "name": "libudev1",
-   "version": "252.39-1~deb12u1",
-   "purl": "pkg:deb/debian/libudev1@252.39-1~deb12u1?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "252.39-1~deb12u2",
+   "purl": "pkg:deb/debian/libudev1@252.39-1~deb12u2?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -4874,8 +4858,8 @@
   {
    "type": "library",
    "name": "openssl",
-   "version": "3.0.18-1~deb12u2",
-   "purl": "pkg:deb/debian/openssl@3.0.18-1~deb12u2?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "3.0.22-1~deb12u1",
+   "purl": "pkg:deb/debian/openssl@3.0.22-1~deb12u1?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -4942,8 +4926,8 @@
   {
    "type": "library",
    "name": "pcre2",
-   "version": "10.42-1",
-   "purl": "pkg:deb/debian/pcre2@10.42-1?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "10.42-1+deb12u2",
+   "purl": "pkg:deb/debian/pcre2@10.42-1%2Bdeb12u2?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -4959,8 +4943,8 @@
   {
    "type": "library",
    "name": "perl",
-   "version": "5.36.0-7+deb12u3",
-   "purl": "pkg:deb/debian/perl@5.36.0-7%2Bdeb12u3?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "5.36.0-7+deb12u4",
+   "purl": "pkg:deb/debian/perl@5.36.0-7%2Bdeb12u4?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -4976,8 +4960,8 @@
   {
    "type": "library",
    "name": "perl-base",
-   "version": "5.36.0-7+deb12u3",
-   "purl": "pkg:deb/debian/perl-base@5.36.0-7%2Bdeb12u3?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "5.36.0-7+deb12u4",
+   "purl": "pkg:deb/debian/perl-base@5.36.0-7%2Bdeb12u4?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -4993,8 +4977,8 @@
   {
    "type": "application",
    "name": "python",
-   "version": "3.11.14",
-   "purl": "pkg:generic/python@3.11.14",
+   "version": "3.11.17",
+   "purl": "pkg:generic/python@3.11.17",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -5044,8 +5028,8 @@
   {
    "type": "library",
    "name": "sed",
-   "version": "4.9-1",
-   "purl": "pkg:deb/debian/sed@4.9-1?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "4.9-1+deb12u1",
+   "purl": "pkg:deb/debian/sed@4.9-1%2Bdeb12u1?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -5095,8 +5079,8 @@
   {
    "type": "library",
    "name": "systemd",
-   "version": "252.39-1~deb12u1",
-   "purl": "pkg:deb/debian/systemd@252.39-1~deb12u1?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "252.39-1~deb12u2",
+   "purl": "pkg:deb/debian/systemd@252.39-1~deb12u2?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -5163,8 +5147,8 @@
   {
    "type": "library",
    "name": "tzdata",
-   "version": "2025b-0+deb12u2",
-   "purl": "pkg:deb/debian/tzdata@2025b-0%2Bdeb12u2?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "2026c-0+deb12u1",
+   "purl": "pkg:deb/debian/tzdata@2026c-0%2Bdeb12u1?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",
@@ -5260,8 +5244,8 @@
   {
    "type": "library",
    "name": "xz-utils",
-   "version": "5.4.1-1",
-   "purl": "pkg:deb/debian/xz-utils@5.4.1-1?os_distro=bookworm&os_name=debian&os_version=12",
+   "version": "5.4.1-1+deb12u2",
+   "purl": "pkg:deb/debian/xz-utils@5.4.1-1%2Bdeb12u2?os_distro=bookworm&os_name=debian&os_version=12",
    "properties": [
     {
      "name": "gegenprobe:layer",

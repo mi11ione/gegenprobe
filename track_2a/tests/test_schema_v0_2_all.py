@@ -84,8 +84,9 @@ def test_p5_records_keep_the_rules_arm_values():
         r, R = recs[x["affair_id"]], x["R"]["records"]
         items = r["qa"][0].get("items", [])
         assert [i["n"] for i in items] == [i["n"] for i in R["qa_items"]]
-        printed = [a["name"]["value"] for a in r["actors"] if str(a["name"].get("rule", "")).startswith("roles-")]
-        kept = [a["name"]["value"] for a in r["actors"] if not str(a["name"].get("rule", "")).startswith("roles-")]
+        named = [a for a in r["actors"] if a["name"]["kind"] == "value"]  # typed-null roles: gegenprobe.schema.v0_2_gaps
+        printed = [a["name"]["value"] for a in named if str(a["name"].get("rule", "")).startswith("roles-")]
+        kept = [a["name"]["value"] for a in named if not str(a["name"].get("rule", "")).startswith("roles-")]
         for a in R["actors"]:
             name = a["name"].get("value")
             assert name in kept or printed, (x["affair_id"], name)
@@ -138,8 +139,11 @@ def test_bern_sample_reads_the_document_not_the_tag():
     """the Bern answer is French although OPD tags it 'de'; the document prints 'Eingereicht von: Ruchti
     (Sprecher/in), Gerber' (joint authors, no co-signatory)."""
     rec = json.loads((OUT / "samples" / "p3_BE_39369.json").read_text(encoding="utf-8"))
-    roles = {a["name"]["value"]: a["role"] for a in rec["actors"]}
+    roles = {a["name"]["value"]: a["role"] for a in rec["actors"] if a["name"]["kind"] == "value"}
     assert roles == {"Ruchti": "joint_author", "Gerber": "joint_author"}
+    # the roles the record does not carry say why (gegenprobe.schema.v0_2_gaps): no co-signatory next to joint authors
+    nulls = {a["role"]: a["name"]["null_reason"] for a in rec["actors"] if a["name"]["kind"] == "null"}
+    assert nulls == {"co_signatory": "not_applicable", "addressed_body": "present_unanchored"}
     ans = next(d for d in rec["documents"] if d["role"] == "answer")
     assert ans["language_tag"] == "de" and ans["language_of_text"] == ["fr"] and ans["language_of_text_method"]
     assert rec["body"]["languages"] == ["de", "fr"]

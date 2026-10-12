@@ -51,7 +51,9 @@ def test_image_sbom_names_what_gegenprobe_runs():
     assert props["gegenprobe:base-image"] in df
     assert "pip uninstall -y -q pip setuptools wheel" in df and "pip 24.0" in props["gegenprobe:removed-by-dockerfile"]
     apt = [ln.split("\t") for ln in (SBOM / "image-apt-layer.tsv").read_text().splitlines() if not ln.startswith("#")]
-    assert len(apt) - 1 == sum(1 for c in bom["components"] if c["properties"][0]["value"].startswith("apt-get"))
+    in_base = [x for x in props["gegenprobe:apt-requested-already-in-base"].split("; ") if x]
+    assert in_base == ["ca-certificates 20250419~deb12u1"]  # upgraded by the 12 Oct build, in the 3.11.17 base already
+    assert len(apt) - 1 == len(in_base) + sum(1 for c in bom["components"] if c["properties"][0]["value"].startswith("apt-get"))
 
 
 def test_allowlist_rows_have_reasons_and_only_cover_the_gguf_lock():
@@ -85,7 +87,7 @@ def test_ci_regenerates_the_sbom_and_gates_on_known_vulnerabilities():
     assert "pip install -q --require-hashes -r requirements-audit.lock" in job
     assert "cyclonedx-py environment" in job and "tools/sbom.py compare" in job
     assert "pip-audit --strict" in job and "tools/sbom.py audit-summary" in job and "requirements-gguf.lock" in job
-    assert '! grep -iE "^(pip|setuptools|wheel|pytest)=="' in ci  # nightly-smoke: no installer or test runner in the image
+    assert '! grep -iE "^(pip|setuptools|wheel|packaging|pytest)=="' in ci  # nightly-smoke: no installer or test runner
 
 
 def test_licences_page_lists_every_runtime_component():
