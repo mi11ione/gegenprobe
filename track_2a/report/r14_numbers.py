@@ -1,8 +1,9 @@
 """Display-ready numbers for the docs pass, derived only from committed files, so claims.tsv can trace them:
 
-  * the 92.3% split by how its repairs are checked (results/report/r9_numbers.json, r7docs_numbers.json): the share of
+  * the share after every counted repair split by how its repairs are checked (results/report/r9_numbers.json,
+    r7docs_numbers.json): the share of
     the 91,268 interventions with a recorded government answer that have answer text once the row-checked repairs are
-    applied (attached today + the 9,089 repairs checked row by row), and the points the 592 agenda joins (OPD's own
+    applied (attached today + the repairs checked row by row), and the points the 592 agenda joins (OPD's own
     agenda link, not sample-checked) and the 39 Bern rows in review add;
   * P1's model-free cascade (post hoc): the frozen rules decide where they return a value or a typed null; where they
     abstain, the latest printed date on documents OPD types as answers (null on the member's text), the same definition
@@ -35,7 +36,7 @@ def coverage_split() -> dict:
     c = _j("report", "r9_numbers.json")["coverage"]
     verified = _j("report", "r7docs_numbers.json")["repairs"]["verified"]
     review = c["after_hash_review"] + (c["repaired"] - verified - c["agenda"] - c["after_hash_review"])
-    assert verified + c["agenda"] + review == c["repaired"], "9,720 = checked + agenda joins + review rows"
+    assert verified + c["agenda"] + review == c["repaired"], "repaired = checked + agenda joins + review rows"
     w = c["written"]
     checked = (c["attached"] + verified) / w
     total = (c["attached"] + c["repaired"]) / w
@@ -46,7 +47,7 @@ def coverage_split() -> dict:
                 review=review, share_row_checked=checked_s, share_all=total_s,
                 points_unchecked=f"{points:.1f}",
                 note="points_unchecked = the rounded total minus the rounded row-checked share, so the two printed parts "
-                     "add up to the printed 92.3%")
+                     f"add up to the printed {total_s}")
 
 
 def _mcnemar_exact(b: int, c: int) -> float:

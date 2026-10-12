@@ -1,5 +1,5 @@
 {
- "note": "Every repair list under results/repair, the command that writes it and which list wins where two lists name the same affair (precedence). Adapter lists: apply rows with counted=true (verified=true is the same); tier=review rows are for a person. No two files under results/repair share a name.",
+ "note": "Every repair list under results/repair, the command that writes it and which list wins where two lists name the same affair (precedence). Adapter lists: apply rows with counted=true (verified=true is the same) except the rows a retier file names; tier=review rows and re-tiered rows are for a person. No two files under results/repair share a name.",
  "precedence": [
   {
    "lists": "adapter list vs route list, action=ocr (same affair)",
@@ -20,6 +20,11 @@
    "lists": "repair_BE_relink.tsv / repair_BE_begin_date.tsv vs apply_be/apply_BE_plan.*",
    "wins": "apply_be plan for execution",
    "why": "the plan is built from the two lists and guards every UPDATE with the before-state (repair.apply_be)."
+  },
+  {
+   "lists": "adapters/retier/retier_<change>.json vs adapter list (same affair)",
+   "wins": "retier file",
+   "why": "a logged re-tiering of rows in the committed (LOCK8-hashed, unedited) adapter lists: the rows it names are not applied; they go to the review queue with the file's review_reason and date_policy (repair/adapters/retier.py; r18: Valais's 140 date_window fetch rows). counted_after_retier below."
   },
   {
    "lists": "results/ vs site/downloads/",
@@ -461,7 +466,8 @@
     "exact_doc_date": 35,
     "review": 4
    },
-   "counted": 69
+   "counted": 69,
+   "counted_after_retier": 69
   },
   {
    "file": "results/repair/adapters/adapters_121.tsv",
@@ -471,7 +477,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_131.tsv",
@@ -487,7 +494,8 @@
     "exact_doc_date": 2,
     "review": 20
    },
-   "counted": 2
+   "counted": 2,
+   "counted_after_retier": 2
   },
   {
    "file": "results/repair/adapters/adapters_191.tsv",
@@ -504,7 +512,8 @@
     "exact_doc_date": 1,
     "review": 32
    },
-   "counted": 2
+   "counted": 2,
+   "counted_after_retier": 2
   },
   {
    "file": "results/repair/adapters/adapters_198.tsv",
@@ -514,7 +523,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_230.tsv",
@@ -524,7 +534,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_247.tsv",
@@ -534,7 +545,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_261.tsv",
@@ -552,7 +564,8 @@
     "exact_doc_date": 1162,
     "review": 21
    },
-   "counted": 1417
+   "counted": 1417,
+   "counted_after_retier": 1417
   },
   {
    "file": "results/repair/adapters/adapters_2829.tsv",
@@ -566,7 +579,8 @@
    "by_tier": {
     "review": 63
    },
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_2831.tsv",
@@ -580,7 +594,8 @@
    "by_tier": {
     "review": 15
    },
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_293.tsv",
@@ -590,7 +605,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_296.tsv",
@@ -607,7 +623,8 @@
     "exact_doc_date": 29,
     "review": 9
    },
-   "counted": 30
+   "counted": 30,
+   "counted_after_retier": 30
   },
   {
    "file": "results/repair/adapters/adapters_351.tsv",
@@ -623,7 +640,8 @@
     "exact_doc_date": 3,
     "review": 2
    },
-   "counted": 3
+   "counted": 3,
+   "counted_after_retier": 3
   },
   {
    "file": "results/repair/adapters/adapters_4001.tsv",
@@ -641,7 +659,8 @@
     "exact_doc_date": 2,
     "review": 16
    },
-   "counted": 71
+   "counted": 71,
+   "counted_after_retier": 71
   },
   {
    "file": "results/repair/adapters/adapters_4289.tsv",
@@ -659,7 +678,8 @@
     "exact_doc_date": 4,
     "review": 22
    },
-   "counted": 5
+   "counted": 5,
+   "counted_after_retier": 5
   },
   {
    "file": "results/repair/adapters/adapters_4401.tsv",
@@ -673,7 +693,8 @@
    "by_tier": {
     "exact_doc_date": 21
    },
-   "counted": 21
+   "counted": 21,
+   "counted_after_retier": 21
   },
   {
    "file": "results/repair/adapters/adapters_4566.tsv",
@@ -691,7 +712,8 @@
     "exact_doc_date": 12,
     "review": 147
    },
-   "counted": 16
+   "counted": 16,
+   "counted_after_retier": 16
   },
   {
    "file": "results/repair/adapters/adapters_4671.tsv",
@@ -705,7 +727,8 @@
    "by_tier": {
     "review": 4
    },
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_5002.tsv",
@@ -719,7 +742,8 @@
    "by_tier": {
     "review": 49
    },
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_5113.tsv",
@@ -737,7 +761,8 @@
     "exact_doc_date": 109,
     "review": 103
    },
-   "counted": 122
+   "counted": 122,
+   "counted_after_retier": 122
   },
   {
    "file": "results/repair/adapters/adapters_5192.tsv",
@@ -753,7 +778,8 @@
     "exact_any_printed_date": 1,
     "review": 6
    },
-   "counted": 1
+   "counted": 1,
+   "counted_after_retier": 1
   },
   {
    "file": "results/repair/adapters/adapters_5586.tsv",
@@ -770,7 +796,8 @@
     "exact_doc_date": 1,
     "review": 61
    },
-   "counted": 4
+   "counted": 4,
+   "counted_after_retier": 4
   },
   {
    "file": "results/repair/adapters/adapters_581.tsv",
@@ -784,7 +811,8 @@
    "by_tier": {
     "review": 14
    },
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_6152.tsv",
@@ -794,7 +822,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_6153.tsv",
@@ -811,7 +840,8 @@
     "exact_doc_date": 4,
     "review": 4
    },
-   "counted": 29
+   "counted": 29,
+   "counted_after_retier": 29
   },
   {
    "file": "results/repair/adapters/adapters_616.tsv",
@@ -821,7 +851,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_6458.tsv",
@@ -831,7 +862,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_66.tsv",
@@ -841,7 +873,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_6643.tsv",
@@ -851,7 +884,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_743.tsv",
@@ -861,7 +895,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_942.tsv",
@@ -871,7 +906,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_AR.tsv",
@@ -881,7 +917,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_BL.tsv",
@@ -895,7 +932,8 @@
    "by_tier": {
     "exact_any_printed_date": 2
    },
-   "counted": 2
+   "counted": 2,
+   "counted_after_retier": 2
   },
   {
    "file": "results/repair/adapters/adapters_BS.tsv",
@@ -909,7 +947,8 @@
    "by_tier": {
     "exact_any_printed_date": 1
    },
-   "counted": 1
+   "counted": 1,
+   "counted_after_retier": 1
   },
   {
    "file": "results/repair/adapters/adapters_FR.tsv",
@@ -925,7 +964,8 @@
     "exact_any_printed_date": 6,
     "review": 1
    },
-   "counted": 6
+   "counted": 6,
+   "counted_after_retier": 6
   },
   {
    "file": "results/repair/adapters/adapters_GE.tsv",
@@ -935,7 +975,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_GR.tsv",
@@ -945,7 +986,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_JU.tsv",
@@ -962,7 +1004,8 @@
     "identity_wording_only": 282,
     "review": 28
    },
-   "counted": 72
+   "counted": 72,
+   "counted_after_retier": 72
   },
   {
    "file": "results/repair/adapters/adapters_LIE.tsv",
@@ -972,7 +1015,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_LU.tsv",
@@ -988,7 +1032,8 @@
     "exact_doc_date": 104,
     "review": 1
    },
-   "counted": 104
+   "counted": 104,
+   "counted_after_retier": 104
   },
   {
    "file": "results/repair/adapters/adapters_NE.tsv",
@@ -1006,7 +1051,8 @@
     "exact_doc_date": 117,
     "review": 14
    },
-   "counted": 237
+   "counted": 237,
+   "counted_after_retier": 237
   },
   {
    "file": "results/repair/adapters/adapters_OW.tsv",
@@ -1016,7 +1062,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_SG.tsv",
@@ -1032,7 +1079,8 @@
     "exact_doc_date": 1012,
     "review": 2
    },
-   "counted": 1012
+   "counted": 1012,
+   "counted_after_retier": 1012
   },
   {
    "file": "results/repair/adapters/adapters_SH.tsv",
@@ -1042,7 +1090,8 @@
    "by_action": {},
    "sha256": "88522743d126eaa9d55e38c21132e5d093e64f5f2657146cc9ac51bee8056558",
    "by_tier": {},
-   "counted": 0
+   "counted": 0,
+   "counted_after_retier": 0
   },
   {
    "file": "results/repair/adapters/adapters_SO.tsv",
@@ -1058,7 +1107,8 @@
     "exact_doc_date": 210,
     "review": 1
    },
-   "counted": 210
+   "counted": 210,
+   "counted_after_retier": 210
   },
   {
    "file": "results/repair/adapters/adapters_TG.tsv",
@@ -1075,7 +1125,8 @@
     "exact_any_printed_date": 32,
     "review": 17
    },
-   "counted": 32
+   "counted": 32,
+   "counted_after_retier": 32
   },
   {
    "file": "results/repair/adapters/adapters_TI.tsv",
@@ -1091,7 +1142,8 @@
     "exact_any_printed_date": 719,
     "review": 46
    },
-   "counted": 719
+   "counted": 719,
+   "counted_after_retier": 719
   },
   {
    "file": "results/repair/adapters/adapters_VD.tsv",
@@ -1108,7 +1160,8 @@
     "exact_doc_date": 83,
     "review": 13
    },
-   "counted": 91
+   "counted": 91,
+   "counted_after_retier": 91
   },
   {
    "file": "results/repair/adapters/adapters_VS.tsv",
@@ -1126,7 +1179,8 @@
     "exact_doc_date": 8,
     "review": 119
    },
-   "counted": 163
+   "counted": 163,
+   "counted_after_retier": 23
   },
   {
    "file": "results/repair/adapters/adapters_X.tsv",
@@ -1155,7 +1209,8 @@
     "exact_doc_date": 2170,
     "review": 83
    },
-   "counted": 2172
+   "counted": 2172,
+   "counted_after_retier": 2172
   },
   {
    "file": "results/repair/adapters/p7/promoted.tsv",
@@ -1566,6 +1621,11 @@
    "ocr / date_window": 4,
    "retype_oral / no adapter row": 1008
   }
+ },
+ "retier": {
+  "file": "results/repair/adapters/retier/retier_r18.json",
+  "rows": 140,
+  "note": "rows of the adapter lists not to apply as counted (precedence above); they are review rows"
  },
  "same_name": {},
  "site_copies_identical": {

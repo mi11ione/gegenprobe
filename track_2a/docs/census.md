@@ -226,68 +226,71 @@ Virtual-affairs frontier (`results/census/virtual_affairs.json`): 16 bodies whos
 no network); `tests/test_findings_answer_times.py` recomputes it.*
 
 §4 ends on "quote answer times per parliament with the body's date tier": OPD's 'answer' date is a decision date in some
-parliaments, a sitting, publication or submission date in others. The source adapters (`docs/adapters.md`) verified 6,613
-answers in 27 parliaments and read the date each answer document carries (its header or place-date line; in the cantons
-mostly the government's decision date, in Neuchâtel the date the answer was transmitted to the Grand Conseil). This
-section recomputes answer times on that date and asks whether the cross-parliament ranking holds.
+parliaments, a sitting, publication or submission date in others. The source adapters (`docs/adapters.md`) verified 6,473
+counted answers in 27 parliaments (after the logged re-tiering of Valais's 140 date-window rows to review,
+`results/repair/adapters/retier/retier_r18.json`) and read the date each answer document carries (its header or
+place-date line; in the cantons mostly the government's decision date, in Neuchâtel the date the answer was transmitted
+to the Grand Conseil). This section recomputes answer times on that date and asks whether the cross-parliament ranking
+holds.
 
-**Sample.** All 6,613 counted adapter rows (the three tiers with a date check). Answer date: the document's own date as
-read (5,428 rows); for rows verified because a printed date equals OPD's answer event and no own date was read (mostly
+**Sample.** All 6,473 counted adapter rows (the three tiers with a date check). Answer date: the document's own date as
+read (5,352 rows); for rows verified because a printed date equals OPD's answer event and no own date was read (mostly
 OCR'd Ticino letters titled 'Risposta del CdS del …'), that event's date when the affair has exactly one (1,010 rows);
-98 rows with several answer events are excluded (which one the printed date matched is not recorded). Submission date:
-the census rule (`interventions.tsv.gz` `submitted`). Durations below 0 (75) or above 3,650 days (2) are excluded, as in
-the census. That leaves 6,438 durations in 27 parliaments; the ranking uses the 17 parliaments with at least 20 durations.
-Three medians per parliament: OPD's plain median (§4, every answered intervention), OPD's census date on the same
-affairs, and the document date.
+95 rows with several answer events are excluded (which one the printed date matched is not recorded). Submission date:
+the census rule (`interventions.tsv.gz` `submitted`). Durations below 0 (14) or above 3,650 days (2) are excluded, as in
+the census. That leaves 6,362 durations in 27 parliaments; the ranking uses the 17 parliaments with at least 20
+durations. Three medians per parliament: OPD's plain median (§4, every answered intervention), OPD's census date on the
+same affairs, and the document date.
 
 | parliament | OPD date tier | n | OPD plain (all affairs) | OPD date, same affairs | document date [IQR] | rank OPD → document |
 |---|---|---:|---:|---:|---:|---|
-| Kriens | same_day | 68 | 0 | 0 | 26.5 [15, 41.5] | 1.5 → 1 |
-| Neuchâtel | diffuse | 232 | 25 | 36 | 36 [28, 88.75] | 3 → 2 |
-| Jura | mixed | 72 | 48 | 48 | 48 [41, 83] | 4 → 3 |
-| Arbon | sitting_day | 21 | 55 | 55 | 55 [48, 74.5] | 6 → 4.5 |
-| Thurgau | sitting_day | 32 | 55 | 55 | 55 [41, 184.5] | 6 → 4.5 |
-| Aarau | sitting_day | 71 | 59 | 60 | 60 [35, 141] | 8 → 6 |
-| St. Gallen | sitting_day | 1,011 | 64 | 63 | 63 [41, 85] | 10 → 7 |
-| Ticino | verified | 719 | 61 | 67 | 67 [37, 116] | 9 → 8 |
-| Locarno | diffuse | 119 | 66 | 70 | 70 [38, 174] | 11 → 9 |
-| Zürich (canton) | sitting_day | 2,164 | 79 | 79 | 79 [58, 86] | 12 → 10 |
-| Zürich (city) | sitting_day | 1,328 | 91 | 85 | 84 [70, 92] | 13 → 11 |
-| Illnau-Effretikon | sitting_day | 30 | 105 | 90.5 | 90.5 [74.75, 175.75] | 15 → 12 |
-| Monthey | sitting_day | 29 | 98 | 91 | 91 [70, 101.5] | 14 → 13 |
-| Valais | same_day | 99 | 0 | 173 | 100 [50, 147] | 1.5 → 14 |
+| Valais | same_day | 23 | 0 | 0 | 2 [0, 5] | 1.5 → 1 |
+| Kriens | same_day | 68 | 0 | 0 | 26.5 [15, 41.5] | 1.5 → 2 |
+| Neuchâtel | diffuse | 232 | 25 | 36 | 36 [28, 88.75] | 3 → 3 |
+| Jura | mixed | 72 | 48 | 48 | 48 [41, 83] | 4 → 4 |
+| Arbon | sitting_day | 21 | 55 | 55 | 55 [48, 74.5] | 6 → 5.5 |
+| Thurgau | sitting_day | 32 | 55 | 55 | 55 [41, 184.5] | 6 → 5.5 |
+| Aarau | sitting_day | 71 | 59 | 60 | 60 [35, 141] | 8 → 7 |
+| St. Gallen | sitting_day | 1,011 | 64 | 63 | 63 [41, 85] | 10 → 8 |
+| Ticino | verified | 719 | 61 | 67 | 67 [37, 116] | 9 → 9 |
+| Locarno | diffuse | 119 | 66 | 70 | 70 [38, 174] | 11 → 10 |
+| Zürich (canton) | sitting_day | 2,164 | 79 | 79 | 79 [58, 86] | 12 → 11 |
+| Zürich (city) | sitting_day | 1,328 | 91 | 85 | 84 [70, 92] | 13 → 12 |
+| Illnau-Effretikon | sitting_day | 30 | 105 | 90.5 | 90.5 [74.75, 175.75] | 15 → 13 |
+| Monthey | sitting_day | 29 | 98 | 91 | 91 [70, 101.5] | 14 → 14 |
 | Solothurn | mixed | 209 | 55 | 169 | 125 [76, 153] | 6 → 15 |
 | Luzern | mixed | 104 | 134 | 155 | 155 [119, 222.5] | 16 → 16 |
 | Vaud | sitting_day | 90 | 161 | 1,156 | 1,156 [802.5, 1,642.5] | 17 → 17 |
 
 Days from submission; rank 1 = shortest median, ties share the mean rank.
 
-**Finding.** OPD's plain medians mislead where the 'answer' event is the submission date (Kriens, Valais, date tier
-`same_day`): there OPD's plain median is 0 days (Kriens, 80 affairs; Valais, 2,570), the dates the verified answer
-documents carry give 26.5 (Kriens, 68) and 100 (Valais, 99). Elsewhere the ranking holds; post hoc, descriptive.
+**Finding.** Where OPD's 'answer' event is the submission date (date tier `same_day`), OPD's plain median says 0 days
+(Kriens, 80 affairs; Valais, 2,570). In Kriens the dates the verified answer documents carry give 26.5 days (68
+affairs), where OPD's date on the same affairs gives 0. In Valais the 23 verified answers that still count give 2 days
+(12 interpellations, 7 questions, 4 motions); post hoc, descriptive.
 - **Same affairs, two dates:** OPD's census date and the document date rank the 17 parliaments almost identically
-  (Spearman ρ = 0.99). The date's role matters in magnitude (Kriens 0 vs 26.5 days on the same affairs), barely in rank.
-- **Plain medians vs the document date:** ρ = 0.656 over 17 parliaments (permutation p = 0.006); without Kriens and
-  Valais, ρ = 0.832 (15).
+  (Spearman ρ = 0.997). The date's role matters in magnitude (Kriens 0 vs 26.5 days on the same affairs), barely in rank.
+- **Plain medians vs the document date:** ρ = 0.884 over 17 parliaments; without Kriens and Valais, ρ = 0.832 (15).
 - **Selection.** The rest of the difference is the sample, not the date: the adapter sample is the census gap
   (answers OPD lacks text for), with its own type mix. OPD's plain median and OPD's own date on the same affairs rank
-  the parliaments with ρ = 0.584. Vaud's 90 are postulates (median 1,156 days on both dates) and Solothurn's are mostly
-  motions (183 of 209); within one type the rankings agree: written questions ρ = 0.966 (13 parliaments),
+  the parliaments with ρ = 0.86. Vaud's 90 are mostly postulates (87; median 1,156 days on both dates) and Solothurn's
+  mostly motions (183 of 209); within one type the rankings agree: written questions ρ = 0.966 (13 parliaments),
   interpellations 0.9 (5), postulates 1.0 (4).
-- **Valais** moves from tied fastest (median 0 days) to 14th of 17 (100 days). In 61 of its 163 verified answers, all
-  motions, OPD's submission event lies after the government's answer letter (54 of them on the same day as OPD's answer
-  event), so these rows are excluded and Valais's submission date is itself not reliable in OPD. **Solothurn**: OPD's
-  census date on these affairs is 36 days after the government's statement (median difference; OPD's 'Beantwortet'
-  event is the committee's, `docs/adapters.md`).
+- **Valais, before the re-tiering.** On the lists as committed, 99 Valais durations gave a median of 100 days; 76 of
+  them were date-window rows that are now review rows, because OPD's Valais answer event is the session that debated
+  the motion, after the government's letter (`retiered` in `results/findings/answer_times.json`). The data that still
+  count no longer measure Valais motions' answer times. **Solothurn**: OPD's census date on these affairs is 36 days
+  after the government's statement (median difference; OPD's 'Beantwortet' event is the committee's,
+  `docs/adapters.md`).
 - In 13 of the 17 parliaments, OPD's census answer date equals the document's own date for at least 90% of the verified
   answers. This extends the per-affair date check of §4 (Bern, Ticino) to 11 more parliaments, for the gap affairs. It
   differs in Kriens, Monthey, Solothurn and Valais.
 
 **What this means for the schema.** A cross-parliament comparison of answer times is reliable when each answer carries a
 date with its role (the schema's `answer_decided`, `answer_dispatched`, or `answered` when the role is unknown) and the comparison holds the type fixed. Where
-OPD's date already is the government's date, the ranking holds. Where it is the submission date (Kriens, Valais), the
-plain median reports 0 days; where it is a committee date (Solothurn), it lies 36 days after the government's
-statement on the same affairs. These are the parliaments the date-tier column (`same_day`, `mixed`) already flags.
+OPD's date already is the government's date, the ranking holds. Where it is the submission date (Kriens), the plain
+median reports 0 days; where it is a committee date (Solothurn), it lies 36 days after the government's statement on
+the same affairs. These are the parliaments the date-tier column (`same_day`, `mixed`) already flags.
 
 **Limits.** The sample covers 27 parliaments and only their gap affairs, not every answer. The 'exact' tiers count a row
 only when its date equals an OPD event, so agreement with OPD on those rows partly follows from how they were verified.

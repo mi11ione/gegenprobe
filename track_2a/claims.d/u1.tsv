@@ -1,11 +1,11 @@
 id	shown	file	path	fmt	command	where	context
 u1.targets	12,150	results/repair/adapters/adapters_summary.json	totals.targets	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
-u1.verified	6,613	results/repair/adapters/adapters_summary.json	totals.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,README.md,technical_report.md,docs/operations.md	
+u1.verified	6,613	results/repair/adapters/adapters_summary.json	totals.verified	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md	
 u1.verified_absent	5,793	results/repair/adapters/adapters_summary.json	totals.verified_absent	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md	
 u1.verified_image_only	820	results/repair/adapters/adapters_summary.json	totals.verified_image_only	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md	
-u1.repairable_with_adapters	9,720	results/repair/adapters/adapters_summary.json	coverage.repairable_deterministic_with_adapters	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,README.md,technical_report.md,docs/form_notes.md,../README.md,docs/operations.md	
+u1.repairable_with_adapters	9,720	results/repair/adapters/adapters_summary.json	coverage.repairable_deterministic_with_adapters	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.needs_adapters_after	5,007	results/repair/adapters/adapters_summary.json	coverage.needs_adapters_after	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md	
-u1.review	917	results/repair/adapters/adapters_summary.json	totals.review	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,technical_report.md,docs/operations.md	
+u1.review	917	results/repair/adapters/adapters_summary.json	totals.review	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md	
 u1.review_absent	661	results/repair/adapters/adapters_summary.json	totals.review_absent	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.fetch	3,584	results/repair/adapters/adapters_summary.json	totals.verified_by_action.fetch	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.tag_answer	2,177	results/repair/adapters/adapters_summary.json	totals.verified_by_action.tag_answer	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,README.md,technical_report.md,docs/operations.md	
@@ -35,8 +35,8 @@ u1.anywhere_conflict_review	211	results/repair/adapters/adapters_summary.json	to
 u1.opd_doc_ambiguous	9	results/repair/adapters/adapters_summary.json	totals.review_by_reason.opd_doc_ambiguous	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.adapters_with_counted	27	results/repair/adapters/adapters_summary.json	totals.adapters_with_counted	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,technical_report.md	
 u1.adapters_without_counted	23	results/repair/adapters/adapters_summary.json	totals.adapters_without_counted	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
-u1.adapter_rows_counted	6,613	results/repair/adapters/adapters_summary.json	coverage.adapter_rows_counted	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,README.md,technical_report.md,docs/operations.md	
-u1.tier_date_window	396	results/repair/adapters/adapters_summary.json	tiers.date_window.n	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md	
+u1.adapter_rows_counted	6,613	results/repair/adapters/adapters_summary.json	coverage.adapter_rows_counted	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md	
+u1.tier_date_window	396	results/repair/adapters/adapters_summary.json	tiers.date_window.n	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.tier_identity_wording_only	282	results/repair/adapters/adapters_summary.json	tiers.identity_wording_only.n	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md	
 u1.ju_exact_date	72	results/repair/adapters/adapters_summary.json	bodies.JU.tiers.exact_doc_date	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md	
 u1.ju_identity_wording_only	282	results/repair/adapters/adapters_summary.json	bodies.JU.tiers.identity_wording_only	int	python -m gegenprobe.repair.adapters.run --write	docs/adapters.md,docs/operations.md,technical_report.md	

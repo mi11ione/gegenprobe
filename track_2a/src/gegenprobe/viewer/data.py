@@ -894,7 +894,7 @@ def evaluation() -> dict:
             a: dict(correct=v["strict"]["ALL"]["correct"], of=v["strict"]["ALL"]["n_gold_value"]) for a, v in res["arms"].items()
         },
         suggestions=dict(right=sugg_ok, of=len(sugg), on_answerless=sum(r["gold"] is None for r in sugg)),
-        # P2's best no-model baseline (post hoc): the latest printed date on documents OPD types as answers
+        # P2's no-model baseline of its results table (post hoc): the latest printed date on documents OPD types as answers
         p2_answer_typed=_p2_answer_typed(),
     )
     return dict(
@@ -1148,11 +1148,49 @@ def adapters() -> dict | None:
                       "fetch": b["counted_by_action"].get("fetch", 0)}
                      for k, b in s["bodies"].items() if b["counted"] or b["tiers"].get("identity_wording_only")),
                     key=lambda b: -b["verified"])
-    return dict(coverage=s["coverage"], n_bodies=len(s["bodies"]),
-                tiers={k: dict(n=v["n"], absent=v["absent"], image_only=v["image_only"], counted=v["counted"])
-                       for k, v in tiers.items()},
-                verified=t["verified"], verified_absent=t["verified_absent"], verified_image_only=t["verified_image_only"],
-                review=t["review"], tag_answer=t["verified_by_action"].get("tag_answer", 0),
+    tiers = {k: dict(n=v["n"], absent=v["absent"], image_only=v["image_only"], counted=v["counted"])
+             for k, v in tiers.items()}
+    cov = dict(s["coverage"])
+    tot = dict(verified=t["verified"], verified_absent=t["verified_absent"], verified_image_only=t["verified_image_only"],
+               review=t["review"], tag_answer=t["verified_by_action"].get("tag_answer", 0))
+    # the logged re-tiering (repair/adapters/retier.py, results/repair/adapters/retier/retier_r18.json): rows moved from a
+    # counted tier to review; the lists stay as committed, every derived figure applies the change
+    rt, rp = None, base / "retier" / "retier_r18.json"
+    if rp.exists():
+        rd = json.loads(rp.read_text(encoding="utf-8"))
+        byb = {b["key"]: b for b in bodies}
+        for r in rd["rows"]:
+            o, n, link = r["old"], r["new"], "image_only" if r["census_link"] == "image_only" else "absent"
+            if not (o["counted"] and not n["counted"]):
+                continue
+            tiers[o["tier"]]["n"] -= 1
+            tiers[o["tier"]][link] -= 1
+            tiers[n["tier"]]["n"] += 1
+            tiers[n["tier"]][link] += 1
+            tot["verified"] -= 1
+            tot["verified_" + link] -= 1
+            tot["review"] += 1
+            tot["tag_answer"] -= o["action"] == "tag_answer"
+            cov["repairable_deterministic_with_adapters"] -= 1
+            cov["needs_adapters_after"] += 1
+            cov["adapter_rows_counted"] -= 1
+            b = byb.get(r["body"])
+            if b:
+                b["verified"] -= 1
+                b[o["action"]] -= 1
+                b["review"] += 1
+        bodies.sort(key=lambda b: -b["verified"])
+        a = rd["audit"]
+        cl, qw = a["after_retier"]["auditors"]["claude"], a["after_retier"]["auditors"]["qwen"]
+        rt = dict(file="results/repair/adapters/retier/retier_r18.json", n=rd["n"],
+                  moved_stratum_sampled=a["moved_stratum_sampled"],
+                  moved_date_no=a["claude_in_moved_stratum"]["date_ok_no"],
+                  moved_not_answer=a["claude_in_moved_stratum"]["not_the_answer"],
+                  whole=a["claude_whole_audit"], claude_after=cl["counted"], claude_after_date_no=cl["date_ok_no"],
+                  qwen_after=qw["counted"], counted_after=rd["lists_after"]["counted"])
+    return dict(coverage=cov, n_bodies=len(s["bodies"]), tiers=tiers, retier=rt,
+                verified=tot["verified"], verified_absent=tot["verified_absent"],
+                verified_image_only=tot["verified_image_only"], review=tot["review"], tag_answer=tot["tag_answer"],
                 design_audit=dict(rows=dsum["rows"], verified=design["verified"]["n"],
                                   verified_no=design["verified"].get("is_answer_no", 0),
                                   all_yes=design["all"]["is_answer_yes"]),
@@ -1347,7 +1385,10 @@ def _verdict(fields: list[dict]) -> dict:
     once = [f for f in shared if not f["p8"]]
     assert len(split) + len(body) + len(once) == len(fields)
     return dict(fields=len(fields), need_roles=len(split), need_roles_robust=len(split) - len(fragile),
-                need_roles_fragile=len(fragile), body_specific=len(body), defined_once=len(once),
+                need_roles_fragile=len(fragile),
+                # where each split was measured: the role test (P8, registered) or OPD's label vocabularies only (post hoc)
+                need_roles_p8=sum(1 for f in split if f["p8"]), need_roles_labels=sum(1 for f in split if not f["p8"]),
+                body_specific=len(body), defined_once=len(once),
                 fragile_fields=[f["key"] for f in fragile], body_specific_fields=[f["key"] for f in body],
                 defined_once_fields=[f["key"] for f in once])
 
@@ -1533,7 +1574,9 @@ def headline(par: dict, ev: dict) -> dict:
                  for k, v in par["national_periods"].items()},
         # derived layer: the registered gap minus the answers in OPD with text under an unrecognised heading
         at_most={k: dict(lack_text=v["lack_text_on_affair_at_most"], written=v["written_lack_text_at_most"],
-                         unrecognised=v["unrecognised"], after_repair=v["after_repair"])
+                         unrecognised=v["unrecognised"],
+                         # from the counts, not corrected.json's 4-decimal share (92.145% would show as 92.2%)
+                         after_repair=(v["attached"] + v["repaired"]) / v["written"] if v["written"] else None)
                  for k, v in par["corrected"]["national"].items()},
     )
 
@@ -1623,8 +1666,11 @@ def adapter_lists() -> dict | None:
 
 
 def tiles() -> dict | None:
-    """The headline tiles shared by README, report, form notes and site: the 92.3% split by how its repairs
-    are checked (results/report/r14_numbers.json), schema v0.2 with the federal cell (r13_numbers.json)."""
+    """The headline tiles shared by README, report, form notes and site: the share after every counted repair split by
+    how its repairs are checked (results/report/r14_numbers.json), schema v0.2 with the federal cell (r13_numbers.json),
+    the one count of validated v0.2 records (validation_all.json `validated_records`), P2's pointer against the
+    no-model baseline (post hoc, results/eval2/p2_posthoc_best_baseline.json), P10's author filter (post hoc) and the
+    cost line (results/report/cost.json, cost_end_to_end.json)."""
     p14, p13 = RESULTS / "report" / "r14_numbers.json", RESULTS / "report" / "r13_numbers.json"
     if not (p14.exists() and p13.exists()):
         return None
@@ -1642,6 +1688,36 @@ def tiles() -> dict | None:
     if pk.exists():
         k = json.loads(pk.read_text(encoding="utf-8"))["arms"]["keyword"]
         out["p2_keyword"] = k["value_recall"]
+    pb = RESULTS / "eval2" / "p2_posthoc_best_baseline.json"  # post hoc: pointer vs the latest date on answer-typed docs
+    if pb.exists():
+        b = json.loads(pb.read_text(encoding="utf-8"))
+        pr = b["paired"]["pointer vs latest_date_on_answer_docs_only"]
+        out["p2_best"] = dict(pointer_exact=b["arms"]["pointer"]["exact"],
+                              base_exact=b["arms"]["latest_date_on_answer_docs_only"]["exact"],
+                              base_found=b["answer_dates_found"]["latest_date_on_answer_docs_only"],
+                              pointer_only=pr["a_only"], base_only=pr["b_only"],
+                              mcnemar=b["display"]["mcnemar_p"], cluster95=b["display"]["cluster95"],
+                              answered_wins=b["paired"]["pointer vs latest_date_on_answer_docs_only (answered)"]["a_only"],
+                              answered_wins_intervention=b["display"]["answered_wins_on_intervention_typed"])
+    va = RESULTS / "schema" / "v0_2" / "validation_all.json"  # one count of validated v0.2 records
+    if va.exists():
+        r = json.loads(va.read_text(encoding="utf-8")).get("validated_records")
+        if r:
+            cv = r["converter"]
+            out["v02_records"] = dict(n=r["n_records"], parliaments=r["n_parliaments"], converter=cv["n_records"],
+                                      converter_parliaments=cv["n_parliaments"],
+                                      cantonal_communal=cv["cantonal_and_communal"]["n_records"],
+                                      federal=cv["federal"]["n_records"], p8=r["p8_gold"]["n_records"],
+                                      p8_parliaments=r["p8_gold"]["n_parliaments"])
+    p10b = RESULTS / "p10" / "p10_posthoc_baselines.json"  # post hoc: Apertus's author filter on the document-order rule
+    if p10b.exists():
+        out["p10_filter_pts"] = json.loads(p10b.read_text(encoding="utf-8"))["display"]["author_filter"]["precision"]["pts"]
+    c1, c2 = RESULTS / "report" / "cost.json", RESULTS / "report" / "cost_end_to_end.json"
+    if c1.exists() and c2.exists():
+        a, e = json.loads(c1.read_text(encoding="utf-8")), json.loads(c2.read_text(encoding="utf-8"))
+        out["cost"] = dict(rules_cpu_hours=round(a["rules_cpu_hours_corpus"], 1), documents=a["corpus_documents"],
+                           x10_rules_cpu_hours=round(e["x10_rules_cpu_hours"]),
+                           usd_per_1000=round(e["review_70b_usd_per_1000_residue_docs"], 2))
     return out
 
 

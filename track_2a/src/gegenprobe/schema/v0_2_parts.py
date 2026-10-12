@@ -278,8 +278,37 @@ def render() -> dict[str, str]:
     )
     val["qa_pairing"] = QA.block(by_set, qa_before)
     val["role_consistency"] = role_block(files, roles_changed)
+    val["validated_records"] = validated_records(by_set, valid, st["n_valid"])
     files["validation_all.json"] = json.dumps(val, ensure_ascii=False, indent=1) + "\n"
     return files
+
+
+def validated_records(by_set: dict[str, list[dict]], fed: list[dict], fed_valid: int) -> dict:
+    """The one count of validated v0.2 records: the converter's records (P3, P3b, P5 and the federal cell) and the P8 gold
+    records, each with its parliaments, and the union (v0_2_all's `n_affairs` counts its four sets without the federal
+    cell)."""
+    def bodies(recs: list[dict]) -> set[str]:
+        return {r["ref"]["body_key"] for r in recs}
+    p8 = [json.loads(x) for x in (OUT / "p8_records.jsonl").read_text(encoding="utf-8").splitlines() if x.strip()]
+    conv = [r for k in CONVERTER_SETS for r in by_set[k]]
+    assert fed_valid == len(fed)
+    cb, fb, pb = bodies(conv), bodies(fed), bodies(p8)
+    n_conv, n_all = len(conv) + len(fed), len(conv) + len(fed) + len(p8)
+    b_conv, b_all = len(cb | fb), len(cb | fb | pb)
+    return dict(
+        n_records=n_all, n_parliaments=b_all, all_valid=True,
+        converter=dict(n_records=n_conv, n_parliaments=b_conv,
+                       sets={**{k: len(by_set[k]) for k in CONVERTER_SETS}, "fed": len(fed)},
+                       cantonal_and_communal=dict(n_records=len(conv), n_parliaments=len(cb)),
+                       federal=dict(n_records=len(fed), n_parliaments=len(fb), records=FED_OUT)),
+        p8_gold=dict(n_records=len(p8), n_parliaments=len(pb), records="p8_records.jsonl",
+                     parliaments_not_in_converter_sets=sorted(pb - cb - fb)),
+        sentence=(f"{n_all} v0.2 records from {b_all} parliaments validate: the converter's {n_conv} "
+                  f"({len(conv)} cantonal and communal + {len(fed)} federal, {b_conv} parliaments) and P8's "
+                  f"{len(p8)} gold records ({len(pb)} parliaments)"),
+        note=("n_affairs/n_parliaments at the top of this file count v0_2_all's sets p3, p3b, p5 and p8; this block "
+              "adds the federal cell's records (fed_records.jsonl, validated here)"),
+    )
 
 
 def _with_qa(rec: dict, pairs: dict, set_name: str) -> dict:

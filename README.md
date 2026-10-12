@@ -2,48 +2,54 @@
 
 **For OPD, in three lines:**
 1. **Apply now:** repair lists keyed on your ids, as dry-run plans; 3,621 repairs need neither a decision nor a fetch.
-2. **Needs one decision:** your hash rule for relinked documents, which the 2,421 ready Bern relinks follow.
+2. **Needs one decision:** your hash rule for relinked documents, which the 2,421 ready Bern relinks follow. OPD
+   confirmed the Bern linking bug (correspondence, 10 Oct 2026).
 3. **Research:** schema v0.2 and the converter's roles (drafts for the eCH group); Apertus as a reviewer's aid.
 
 **Can one schema hold Swiss parliamentary business? Yes, if each field says which role its value plays** (e.g. "answer
-date" = the government's decision, its letter or the submission date). Asked of interventions, OPD's five intervention
-types (interpellation, motion, postulate, question, question time): 198,594 of its 325,691 affairs.
+date" = the government's decision, its letter or the submission date). Tested on OPD's five intervention types
+(interpellation, motion, postulate, question, question time): 198,594 of its 325,691 affairs; the "Yes" covers the
+affair's skeleton of 17 fields.
 
 - **Shared:** one schema of 17 fields for communal, cantonal and federal business; every value carries its role and
   source, every gap a typed reason.
-- **Needs roles: 10 fields** (4 parliamentary practice, 4 partly OPD's tagging, 2 open): "answer date" is the
-  government's decision, its letter or, in 7 parliaments, mostly the submission date.
-- **Body-specific: 1 field and 2 constructs:** the submission date in Vernier and Lausanne; oral answers, councils
-  that publish only minutes. Parliamentary initiatives (5,817) and government business (37,864) are outside the tested
-  scope.
-- **Untested: 6 fields,** defined once in v0.1; meaning is measured for the other 11 (OPD's labels and P8: 66 affairs,
-  11 parliaments).
+- **Needs roles: 10 fields,** e.g. "answer date" is the government's decision, its letter or, in 7 parliaments,
+  mostly the submission date.
+- **Body-specific: 1 field and 2 constructs:** the submission date (in Vernier and Lausanne OPD's submission date is
+  printed in neither document; they print the member's signing or lodging date 2 to 28 days earlier); oral answers,
+  councils that publish only minutes. Parliamentary initiatives (5,817) and government business (37,864) are outside
+  the tested scope.
+- **Untested: 6 fields,** defined once in v0.1; whether each means the same everywhere is the next test.
 
-**Delivered:** repairs for 9,720 answers keyed on OPD ids, every one from model-free rules; schema v0.2 with the roles;
+**Delivered:** repairs for 9,580 answers keyed on OPD ids, every one from model-free rules; schema v0.2 with the roles;
 a converter that gives every value its page and span; a nightly job. Apertus only picks values printed in the document,
 and code locates them (70B weights via the Public AI gateway; local 8B on CPU). **Runtime external services:** none by
 default (public sources only); Apertus review mode sends document text to the Public AI gateway, or nothing with the
-local 8B.
+local 8B. **Cost:** the rules take about 0.5 CPU-hours for all 902,754 documents in OPD's export, about 5 at ten times
+OPD's volume; review mode costs USD 0.59 per 1,000 residue documents on the 70B.
 
 | | |
 |---|---|
-| **92.3%** | of interventions with a recorded government answer would have answer text once the proposed repairs are applied, up from 81.6% today: 91.6% from row-checked repairs + 0.7 points from the 592 agenda joins and 39 review rows |
-| **9,720** | answers with a model-free repair proposed to OPD, keyed on OPD ids; the Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation |
-| **10 of 17** | fields are shared once their roles are explicit; 1 is body-specific; 6 are not yet tested for meaning |
-| **24/29** | answer dates Apertus picks right among the printed dates in 15 parliaments nobody wrote rules for: the rules 2/29 (registered), a generic keyword rule 16/29 (post hoc) |
-| **50/141** | author roles Apertus reads right in 14 parliaments without rules (rules 17/141); the gain is the model-free candidate finder: document order 52/141 (post hoc), level |
-| **120** | records the converter made, from 23 parliaments (communal, cantonal, federal), validate in schema v0.2; so do P8's 66 gold records |
+| **92.1%** | of interventions with a recorded government answer would have answer text once the proposed repairs are applied, up from 81.6% today: 91.5% from row-checked repairs + 0.6 points from the 592 agenda joins and 39 review rows |
+| **9,580** | answers with a model-free repair proposed to OPD, keyed on OPD ids; the Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation |
+| **10 of 17** | fields are shared once their roles are explicit (8 robust + 2 fragile; 6 from the role test, P8, registered, and 4 from OPD's label vocabularies, post hoc); 1 is body-specific; 6 are not yet tested for meaning |
+| **186** | v0.2 records from 26 parliaments validate: the converter's 120 (105 cantonal and communal + 15 federal, 23 parliaments) and P8's 66 gold records (11 parliaments) |
 
-<sub>Sources: 92.3% and 9,720 from the census and the repair lists (no model); 10 of 17 from OPD's labels and P8
-(pre-registered); 24/29 from P2, registered (the keyword rule post hoc, proposed in review: exact McNemar p = 0.057);
-50/141 from P10, registered (recall +23.4 points over the rules, Holm p = 0.032), level with OPD's contributor list
-(37/141; H3a, Holm p = 0.17); 120 from P3, P3b, P5 and the federal cell, whose 15 affairs are exploratory. 24/29 and
-50/141 come from Apertus v1.5 70B weights, which Public AI serves under the name `swiss-ai/apertus-v1.5-8b`. P1–P8 and
-P10 are the ten pre-registered tests (P3b replicates P3).</sub>
+| Apertus, where nobody wrote rules | what Apertus adds | what the model-free baseline reaches |
+|---|---|---|
+| **24/29** answer dates on new layouts (the date test, P2; 15 parliaments) | exact on 53/62 documents against the baseline's 44/62: right on 10 where the baseline is wrong, the reverse on 1 (exact McNemar p = 0.0117; parliament-resampled interval of the difference [0.056, 0.243]; post hoc); 4 of its 7 wins on answered documents are documents OPD types as interventions, where that baseline returns nothing by construction | the latest date on answer-typed documents: 18/29 answer dates, 44/62 exact; registered: the rules 2/29 |
+| **50/141** author roles in 14 parliaments (the author test, P10) | Apertus adds precision deciding who is an author (+7.3 points, post hoc) | Rules 17/141; most of the gain comes from the model-free candidate finder (document order 52/141) |
 
-- **Ready for OPD:** Bern relinks, fetches and `begin_date` corrections (OPD confirmed the bug; correspondence, 10 Oct
-  2026), per-parliament lists from 50 model-free source adapters, a vocabulary error list and a Fedlex resolver for
-  29,946 federal documents. The only open decision is OPD's hash rule for relinks.
+<sub>Sources: 92.1% and 9,580 from the census and the repair lists (no model); 186 from
+`track_2a/results/schema/v0_2/validation_all.json` (the 15 federal records from an exploratory cell); 24/29 from P2,
+registered against the rules (the baselines post hoc, proposed in review); 50/141 from P10, registered (recall +23.4
+points over the rules, Holm p = 0.032), level with OPD's contributor list
+(37/141; H3a, Holm p = 0.17). Gateway runs used Apertus 70B (the gateway labels it 8B; fingerprint check in
+`track_2a/docs/evaluation.md`). P1–P8 and P10 are the ten pre-registered tests (P3b replicates P3).</sub>
+
+- **Ready for OPD:** Bern relinks, fetches and `begin_date` corrections, per-parliament lists from 50 model-free
+  source adapters, a vocabulary error list and a Fedlex resolver for 29,946 federal documents. The only open decision
+  is OPD's hash rule for relinks.
 - **Sovereign and cheap to run:** the default runs no model and only reads public sources. A first network night took
   86 min, the next 6.6 min.
 - **Checked:** ten tests, each frozen by hash before its labels; `make claims` recomputes every number in the README,

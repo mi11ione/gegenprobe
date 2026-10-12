@@ -16,7 +16,10 @@ claims.tsv, `check` fails (exit 1) when
     (120/120) and interval ([96.9, 100]); integers below 10 are free. Non-claims (team number, dates, the form's character
     limit) are listed one by one in claims_strict.json as literal phrases; a token is exempt only inside an occurrence of
     such a phrase. In the result tables listed under `small_int_tables` (the P1, P2 and P6 arm tables of the report)
-    integers below 10 are numeric tokens too, or
+    integers below 10 are numeric tokens too, and in the documents listed under `small_int_docs` (the four strict
+    documents) every integer below 10 is, except structural uses (a list or heading number, §/Fig./Figure/Table n,
+    code spans and HTML tags; `small_structural`): a count in prose ("4 parliamentary practice") is bound by an anchor
+    like any other number, an ordinal or a setting ("night 2", "4 vCPUs") is allowlisted with its reason, or
   * a scope word in a strict zone (post hoc, registered, exploratory, in-sample, held out, weighted, unweighted; not
     "pre-registered") lies outside every anchor phrase and every allowlisted phrase: it is bound to the claim it
     qualifies by an anchor that contains both (`python -m gegenprobe.claims scope` proposes them), so flipping
@@ -26,7 +29,10 @@ claims.tsv, `check` fails (exit 1) when
   * a wording pin fails (claims_pins.json, gegenprobe.claims_pins): a verdict, multiplier or comparative bound
     to the result it states ("is not confirmed" bound to P10's H3a verdict, "about three times" to 50/17), or a safety,
     sovereignty or coding-assistant sentence, no longer occurs exactly as pinned; or a verdict, quantifier or safety
-    word appears outside every pinned or allowlisted phrase.
+    word appears outside every pinned or allowlisted phrase, or
+  * the evidence site disagrees with its claims (claims_site.json, gegenprobe.claims_site): site/index.html is not
+    the template with site/data.json, a first-screen value differs from the claim it is bound to, or a number on the
+    first screen (template text; with Chrome, the rendered page) is not the value of a bound claim.
 
 The repository-root README (../README.md) is a strict zone too. It is outside the Docker build context, so
 inside the image it is skipped; the host CI job sets GP_CLAIMS_STRICT=1 and checks it.
@@ -388,6 +394,48 @@ def pinned_check(cfg: dict | None = None, docs: dict[str, str] | None = None) ->
     return errs
 
 
+# Structural small integers (only in `small_int_docs`): a list marker or a numbered heading at the start of a line
+# ("1. ", "## 2. "), a section, figure or table reference ("§7", "Fig. 1", "Figure 2", "Table 1"), and anything inside an
+# inline code span or an HTML tag. Every other integer below 10 in those documents states a count and must be bound.
+_STRUCT_BEFORE = re.compile(r"(?:§|\bFig\.\s|\bFigure\s|\bTable\s)$")
+_LINE_MARKER = re.compile(r"^\s*(?:#+\s+|[-*>]\s+)?$")
+
+
+def _code_spans(text: str) -> list[tuple[int, int]]:
+    out = [(m.start(), m.end()) for m in re.finditer(r"```.*?```", text, re.S)]
+    out += [(m.start(), m.end()) for m in re.finditer(r"`[^`\n]+`", text)]
+    out += [(m.start(), m.end()) for m in re.finditer(r"<[A-Za-z/][^<>\n]*>", text)]
+    return out
+
+
+def small_structural(text: str, i: int, j: int, code: list[tuple[int, int]]) -> bool:
+    """An integer below 10 at [i, j) that is a list/heading number, a §/figure/table reference or inside code/HTML."""
+    ls = text.rfind("\n", 0, i) + 1
+    if _LINE_MARKER.match(text[ls:i]) and text[j:j + 1] == ".":
+        return True
+    if _STRUCT_BEFORE.search(text[max(0, i - 8):i]):
+        return True
+    return any(a <= i and j <= b for a, b in code)
+
+
+def zone_tokens(text: str, lo: int, hi: int, doc: str, cfg: dict) -> list[tuple[int, int, str]]:
+    """(start, end, token) in absolute offsets: the numeric tokens of the zone [lo, hi) that must be bound. Integers below 10
+    count too in the rows of the result tables listed under `small_int_tables` and, outside structural uses
+    (small_structural), everywhere in the documents listed under `small_int_docs`."""
+    toks = [(a + lo, b + lo, t) for a, b, t in numeric_tokens(text[lo:hi])]
+    seen = {(a, b) for a, b, _ in toks}
+    if doc in (cfg.get("small_int_docs") or []):
+        code = _code_spans(text)
+        toks += [(a + lo, b + lo, t) for a, b, t in numeric_tokens(text[lo:hi], small=True)
+                 if (a + lo, b + lo) not in seen and not small_structural(text, a + lo, b + lo, code)]
+    else:
+        for ta, tb in table_lines(text, (cfg.get("small_int_tables") or {}).get(doc, [])):
+            if lo <= ta and tb <= hi:  # result-table rows: integers below 10 are claims too
+                toks += [(a + ta, b + ta, t) for a, b, t in numeric_tokens(text[ta:tb], small=True)
+                         if (a + ta, b + ta) not in seen]
+    return sorted(set(toks))
+
+
 def _bound(spans: set, i: int, j: int, tok: str) -> bool:
     t = _norm(tok)
     if (i, j, t) in spans:
@@ -427,16 +475,8 @@ def zone_check(rows: list[dict], cfg: dict | None = None, docs: dict[str, str] |
             allowed += hits
         spans = anchor_spans(rows, anchors, doc, text)
         extents = anchor_extents(rows, anchors, doc, text)
-        tables = table_lines(text, (cfg.get("small_int_tables") or {}).get(doc, []))
         for lo, hi in zones:
-            toks = numeric_tokens(text[lo:hi])
-            seen = {(i, j) for i, j, _ in toks}
-            for a, b in tables:  # result-table rows: integers below 10 are claims too
-                if lo <= a and b <= hi:
-                    toks += [(i + a - lo, j + a - lo, t) for i, j, t in numeric_tokens(text[a:b], small=True)
-                             if (i + a - lo, j + a - lo) not in seen]
-            for i, j, tok in sorted(toks):
-                i, j = i + lo, j + lo
+            for i, j, tok in zone_tokens(text, lo, hi, doc, cfg):
                 if any(a <= i and j <= b for a, b in allowed):
                     continue
                 if _bound(spans, i, j, tok):
@@ -454,7 +494,9 @@ def zone_check(rows: list[dict], cfg: dict | None = None, docs: dict[str, str] |
     return errs
 
 
-def check(rows: list[dict] | None = None) -> list[str]:
+def check(rows: list[dict] | None = None, render_site: bool = False, notes: list[str] | None = None) -> list[str]:
+    """Every claim, anchor, strict zone, pinned phrase, wording pin and the evidence site (gegenprobe.claims_site; with
+    `render_site`, also the first screen rendered by headless Chrome where one is found)."""
     rows = rows if rows is not None else load(ROOT / "claims.tsv")
     errs, docs, side = [], {}, contexts()
     for r in rows:
@@ -486,7 +528,9 @@ def check(rows: list[dict] | None = None) -> list[str]:
                 elif not context_ok(docs[doc], r["shown"], phrase):
                     errs.append(f"{r['id']}: context {phrase!r} not within {CONTEXT_WINDOW} chars of {r['shown']!r} in {doc}")
     from .claims_pins import check as pins_check
-    return errs + anchor_check(rows) + zone_check(rows) + pinned_check() + pins_check()
+    from .claims_site import check as site_check
+    return errs + anchor_check(rows) + zone_check(rows) + pinned_check() + pins_check() + \
+        site_check(rows=rows, render=None if render_site else False, notes=notes, root=ROOT)
 
 
 STOP = {"eval", "results", "json", "report", "claims", "the", "and", "with", "arms", "strict", "counts", "publicai", "swiss",
@@ -639,15 +683,8 @@ def propose_anchors(rows: list[dict] | None = None, write: bool = False) -> dict
         for r in rows:
             if doc in _where(r):
                 cands_by_val.setdefault(_norm(r["shown"]), []).append(r)
-        tables = table_lines(text, (cfg.get("small_int_tables") or {}).get(doc, []))
         for lo, hi in zones_of(text, spec):
-            toks = [(a + lo, b + lo, t) for a, b, t in numeric_tokens(text[lo:hi])]
-            seen = {(a, b) for a, b, _ in toks}
-            for ta, tb in tables:
-                if lo <= ta and tb <= hi:
-                    toks += [(a + ta, b + ta, t) for a, b, t in numeric_tokens(text[ta:tb], small=True)
-                             if (a + ta, b + ta) not in seen]
-            toks.sort()
+            toks = zone_tokens(text, lo, hi, doc, cfg)
             for k, (i, j, tok) in enumerate(toks):
                 if any(a <= i and j <= b for a, b in allowed) or _bound(spans, i, j, tok):
                     continue
@@ -762,9 +799,12 @@ def main(argv: list[str]) -> int:
         print(json.dumps(rep, indent=1, ensure_ascii=False))
         return 0
     rows = merge() if cmd in ("merge", "check") and (ROOT / "claims.d").exists() else None
-    errs = check(rows)
+    notes: list[str] = []
+    errs = check(rows, render_site=True, notes=notes)
     for e in errs:
         print("CLAIM FAIL", e)
+    for n in notes:
+        print(n)
     from .claims_pins import summary as pins_summary
     print(f"claims: {len(rows if rows is not None else load(ROOT / 'claims.tsv'))} checked, {len(errs)} failing "
           f"(with {pins_summary()})")

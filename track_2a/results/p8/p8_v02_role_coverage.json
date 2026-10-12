@@ -1,0 +1,975 @@
+{
+ "definition": "per field and parliament: determinable affairs (applicable, gold category not undeterminable) whose gold category is named by a v0.2 role or slot (vocabulary asserted against schema/gegenprobe_schema_v0_2.py), vs `other` or a value v0.2 cannot carry",
+ "fields": {
+  "addressed_body": {
+   "categories": {
+    "executive": 57,
+    "parliament": 3
+   },
+   "determinable": 60,
+   "mapping": {
+    "administration": {
+     "type": "ActorKind",
+     "values": [
+      "administration"
+     ]
+    },
+    "committee": {
+     "type": "ActorKind",
+     "values": [
+      "committee"
+     ]
+    },
+    "executive": {
+     "type": "ActorKind",
+     "values": [
+      "executive"
+     ]
+    },
+    "executive_member_or_department": {
+     "type": "ActorKind",
+     "values": [
+      "person",
+      "administration"
+     ]
+    },
+    "other": null,
+    "parliament": {
+     "type": "ActorKind",
+     "values": [
+      "parliament"
+     ]
+    }
+   },
+   "named": 60,
+   "p8_verdict": "role_split",
+   "parliaments": 11,
+   "parliaments_all_named": 11,
+   "per_parliament": {
+    "261": {
+     "categories": {
+      "executive": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "351": {
+     "categories": {
+      "executive": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "5002": {
+     "categories": {
+      "executive": 2,
+      "parliament": 2
+     },
+     "n": 4,
+     "named": 4,
+     "share_named": 1.0
+    },
+    "5192": {
+     "categories": {
+      "executive": 5,
+      "parliament": 1
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "5586": {
+     "categories": {
+      "executive": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "6643": {
+     "categories": {
+      "executive": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "FR": {
+     "categories": {
+      "executive": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "GR": {
+     "categories": {
+      "executive": 4
+     },
+     "n": 4,
+     "named": 4,
+     "share_named": 1.0
+    },
+    "TG": {
+     "categories": {
+      "executive": 4
+     },
+     "n": 4,
+     "named": 4,
+     "share_named": 1.0
+    },
+    "VD": {
+     "categories": {
+      "executive": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "VS": {
+     "categories": {
+      "executive": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    }
+   },
+   "records_carry_slot": 0,
+   "share_named": 1.0,
+   "slot": "actors with role addressed_body",
+   "unnamed_categories": []
+  },
+  "co_signatories": {
+   "categories": {
+    "cosigners": 10,
+    "includes_author_of_record": 8,
+    "joint_authors": 19,
+    "signing_for_group": 4
+   },
+   "determinable": 41,
+   "mapping": {
+    "cosigners": {
+     "type": "ActorRole",
+     "values": [
+      "co_signatory"
+     ]
+    },
+    "cosigners_and_supporters": {
+     "type": "ActorRole",
+     "values": [
+      "co_signatory",
+      "supporter"
+     ]
+    },
+    "includes_author_of_record": {
+     "type": "ActorRole",
+     "values": [
+      "sole_author",
+      "first_signatory",
+      "co_signatory"
+     ]
+    },
+    "joint_authors": {
+     "type": "ActorRole",
+     "values": [
+      "joint_author"
+     ]
+    },
+    "other": null,
+    "signing_for_group": {
+     "type": "ActorRole",
+     "values": [
+      "spokesperson"
+     ]
+    },
+    "supporters": {
+     "type": "ActorRole",
+     "values": [
+      "supporter"
+     ]
+    }
+   },
+   "named": 41,
+   "p8_verdict": "role_split",
+   "parliaments": 9,
+   "parliaments_all_named": 9,
+   "per_parliament": {
+    "261": {
+     "categories": {
+      "joint_authors": 4
+     },
+     "n": 4,
+     "named": 4,
+     "share_named": 1.0
+    },
+    "351": {
+     "categories": {
+      "includes_author_of_record": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "5192": {
+     "categories": {
+      "cosigners": 3,
+      "joint_authors": 2
+     },
+     "n": 5,
+     "named": 5,
+     "share_named": 1.0
+    },
+    "5586": {
+     "categories": {
+      "cosigners": 3
+     },
+     "n": 3,
+     "named": 3,
+     "share_named": 1.0
+    },
+    "6643": {
+     "categories": {
+      "joint_authors": 4
+     },
+     "n": 4,
+     "named": 4,
+     "share_named": 1.0
+    },
+    "FR": {
+     "categories": {
+      "joint_authors": 4
+     },
+     "n": 4,
+     "named": 4,
+     "share_named": 1.0
+    },
+    "GR": {
+     "categories": {
+      "cosigners": 3,
+      "includes_author_of_record": 2
+     },
+     "n": 5,
+     "named": 5,
+     "share_named": 1.0
+    },
+    "TG": {
+     "categories": {
+      "cosigners": 1,
+      "joint_authors": 4
+     },
+     "n": 5,
+     "named": 5,
+     "share_named": 1.0
+    },
+    "VS": {
+     "categories": {
+      "joint_authors": 1,
+      "signing_for_group": 4
+     },
+     "n": 5,
+     "named": 5,
+     "share_named": 1.0
+    }
+   },
+   "records_carry_slot": 43,
+   "share_named": 1.0,
+   "slot": "actors (role)",
+   "unnamed_categories": []
+  },
+  "date_submission": {
+   "categories": {
+    "cited": 5,
+    "lodged": 39,
+    "other_printed": 1,
+    "unprinted_differs": 12
+   },
+   "determinable": 57,
+   "mapping": {
+    "answer_or_decision": {
+     "type": "DateRole",
+     "values": [
+      "answered"
+     ]
+    },
+    "cited": null,
+    "later_step": {
+     "type": "DateRole",
+     "values": [
+      "later_step"
+     ]
+    },
+    "lodged": {
+     "type": "DateRole",
+     "values": [
+      "signed",
+      "lodged",
+      "announced"
+     ]
+    },
+    "other_printed": null,
+    "unprinted_differs": {
+     "type": "DateRole",
+     "values": [
+      "submitted",
+      "signed",
+      "lodged"
+     ]
+    }
+   },
+   "named": 51,
+   "p8_verdict": "body_specific",
+   "parliaments": 11,
+   "parliaments_all_named": 8,
+   "per_parliament": {
+    "261": {
+     "categories": {
+      "lodged": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "351": {
+     "categories": {
+      "lodged": 5,
+      "unprinted_differs": 1
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "5002": {
+     "categories": {
+      "cited": 1,
+      "lodged": 1,
+      "unprinted_differs": 1
+     },
+     "n": 3,
+     "named": 2,
+     "share_named": 0.667
+    },
+    "5192": {
+     "categories": {
+      "lodged": 5,
+      "unprinted_differs": 1
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "5586": {
+     "categories": {
+      "lodged": 2,
+      "unprinted_differs": 3
+     },
+     "n": 5,
+     "named": 5,
+     "share_named": 1.0
+    },
+    "6643": {
+     "categories": {
+      "unprinted_differs": 5
+     },
+     "n": 5,
+     "named": 5,
+     "share_named": 1.0
+    },
+    "FR": {
+     "categories": {
+      "lodged": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "GR": {
+     "categories": {
+      "lodged": 5
+     },
+     "n": 5,
+     "named": 5,
+     "share_named": 1.0
+    },
+    "TG": {
+     "categories": {
+      "cited": 4,
+      "lodged": 2
+     },
+     "n": 6,
+     "named": 2,
+     "share_named": 0.333
+    },
+    "VD": {
+     "categories": {
+      "lodged": 2,
+      "other_printed": 1
+     },
+     "n": 3,
+     "named": 2,
+     "share_named": 0.667
+    },
+    "VS": {
+     "categories": {
+      "lodged": 5,
+      "unprinted_differs": 1
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    }
+   },
+   "records_carry_slot": 66,
+   "share_named": 0.895,
+   "slot": "dates[] (role)",
+   "unnamed_categories": [
+    "cited",
+    "other_printed"
+   ]
+  },
+  "government_recommendation": {
+   "categories": {
+    "on_fulfilment": 5,
+    "on_referral": 31
+   },
+   "determinable": 36,
+   "mapping": {
+    "on_fulfilment": {
+     "type": "RecommendationStage",
+     "values": [
+      "on_fulfilment"
+     ]
+    },
+    "on_referral": {
+     "type": "RecommendationStage",
+     "values": [
+      "on_adoption"
+     ]
+    },
+    "other": null
+   },
+   "named": 36,
+   "p8_verdict": "role_split",
+   "parliaments": 10,
+   "parliaments_all_named": 10,
+   "per_parliament": {
+    "261": {
+     "categories": {
+      "on_referral": 4
+     },
+     "n": 4,
+     "named": 4,
+     "share_named": 1.0
+    },
+    "351": {
+     "categories": {
+      "on_referral": 4
+     },
+     "n": 4,
+     "named": 4,
+     "share_named": 1.0
+    },
+    "5002": {
+     "categories": {
+      "on_referral": 4
+     },
+     "n": 4,
+     "named": 4,
+     "share_named": 1.0
+    },
+    "5192": {
+     "categories": {
+      "on_referral": 4
+     },
+     "n": 4,
+     "named": 4,
+     "share_named": 1.0
+    },
+    "5586": {
+     "categories": {
+      "on_fulfilment": 2
+     },
+     "n": 2,
+     "named": 2,
+     "share_named": 1.0
+    },
+    "6643": {
+     "categories": {
+      "on_fulfilment": 3
+     },
+     "n": 3,
+     "named": 3,
+     "share_named": 1.0
+    },
+    "FR": {
+     "categories": {
+      "on_referral": 4
+     },
+     "n": 4,
+     "named": 4,
+     "share_named": 1.0
+    },
+    "GR": {
+     "categories": {
+      "on_referral": 4
+     },
+     "n": 4,
+     "named": 4,
+     "share_named": 1.0
+    },
+    "TG": {
+     "categories": {
+      "on_referral": 3
+     },
+     "n": 3,
+     "named": 3,
+     "share_named": 1.0
+    },
+    "VS": {
+     "categories": {
+      "on_referral": 4
+     },
+     "n": 4,
+     "named": 4,
+     "share_named": 1.0
+    }
+   },
+   "records_carry_slot": 36,
+   "share_named": 1.0,
+   "slot": "government_recommendation.stage",
+   "unnamed_categories": []
+  },
+  "language": {
+   "categories": {
+    "other_language": 2,
+    "text_language": 34
+   },
+   "determinable": 36,
+   "mapping": {
+    "invalid_tag": null,
+    "other_language": {
+     "type": "Lang",
+     "values": []
+    },
+    "subset_of_text": {
+     "type": "Lang",
+     "values": []
+    },
+    "superset_of_text": {
+     "type": "Lang",
+     "values": []
+    },
+    "text_language": {
+     "type": "Lang",
+     "values": []
+    }
+   },
+   "named": 36,
+   "p8_verdict": "role_split",
+   "parliaments": 6,
+   "parliaments_all_named": 6,
+   "per_parliament": {
+    "351": {
+     "categories": {
+      "text_language": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "5586": {
+     "categories": {
+      "text_language": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "6643": {
+     "categories": {
+      "text_language": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "FR": {
+     "categories": {
+      "other_language": 2,
+      "text_language": 4
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "GR": {
+     "categories": {
+      "text_language": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "VS": {
+     "categories": {
+      "text_language": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    }
+   },
+   "records_carry_slot": 66,
+   "share_named": 1.0,
+   "slot": "documents[].language_tag and language_of_text",
+   "unnamed_categories": []
+  },
+  "submitter": {
+   "categories": {
+    "author_person": 35,
+    "cosigner_person": 2,
+    "group": 9,
+    "joint_person": 19
+   },
+   "determinable": 65,
+   "mapping": {
+    "author_person": {
+     "type": "ActorRole",
+     "values": [
+      "sole_author",
+      "first_signatory"
+     ]
+    },
+    "committee_or_body": {
+     "type": "ActorKind",
+     "values": [
+      "committee"
+     ]
+    },
+    "cosigner_person": {
+     "type": "ActorRole",
+     "values": [
+      "co_signatory",
+      "supporter"
+     ]
+    },
+    "group": {
+     "type": "ActorKind",
+     "values": [
+      "parliamentary_group"
+     ]
+    },
+    "joint_person": {
+     "type": "ActorRole",
+     "values": [
+      "joint_author"
+     ]
+    },
+    "other": null
+   },
+   "named": 65,
+   "p8_verdict": "role_split",
+   "parliaments": 11,
+   "parliaments_all_named": 11,
+   "per_parliament": {
+    "261": {
+     "categories": {
+      "author_person": 1,
+      "group": 1,
+      "joint_person": 4
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "351": {
+     "categories": {
+      "author_person": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "5002": {
+     "categories": {
+      "author_person": 4,
+      "group": 1
+     },
+     "n": 5,
+     "named": 5,
+     "share_named": 1.0
+    },
+    "5192": {
+     "categories": {
+      "author_person": 3,
+      "group": 1,
+      "joint_person": 2
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "5586": {
+     "categories": {
+      "author_person": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "6643": {
+     "categories": {
+      "author_person": 1,
+      "group": 1,
+      "joint_person": 4
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "FR": {
+     "categories": {
+      "author_person": 2,
+      "joint_person": 4
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "GR": {
+     "categories": {
+      "author_person": 4,
+      "cosigner_person": 2
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "TG": {
+     "categories": {
+      "author_person": 2,
+      "joint_person": 4
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "VD": {
+     "categories": {
+      "author_person": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "VS": {
+     "categories": {
+      "group": 5,
+      "joint_person": 1
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    }
+   },
+   "records_carry_slot": 66,
+   "share_named": 1.0,
+   "slot": "actors (role, kind)",
+   "unnamed_categories": []
+  },
+  "type": {
+   "categories": {
+    "conforms": 55,
+    "direct_decision": 3,
+    "examine_report": 2,
+    "mandate": 3,
+    "questions": 1
+   },
+   "determinable": 64,
+   "mapping": {
+    "conforms": {
+     "type": "AffairType",
+     "values": [
+      "motion",
+      "postulate",
+      "interpellation",
+      "question"
+     ]
+    },
+    "direct_decision": {
+     "type": "InstrumentFunction",
+     "values": [
+      "direct_decision"
+     ]
+    },
+    "examine_report": {
+     "type": "InstrumentFunction",
+     "values": [
+      "examine_report"
+     ]
+    },
+    "mandate": {
+     "type": "InstrumentFunction",
+     "values": [
+      "mandate"
+     ]
+    },
+    "other": null,
+    "questions": {
+     "type": "InstrumentFunction",
+     "values": [
+      "questions"
+     ]
+    }
+   },
+   "named": 64,
+   "p8_verdict": "role_split",
+   "parliaments": 11,
+   "parliaments_all_named": 11,
+   "per_parliament": {
+    "261": {
+     "categories": {
+      "conforms": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "351": {
+     "categories": {
+      "conforms": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "5002": {
+     "categories": {
+      "conforms": 3,
+      "direct_decision": 2
+     },
+     "n": 5,
+     "named": 5,
+     "share_named": 1.0
+    },
+    "5192": {
+     "categories": {
+      "conforms": 4,
+      "direct_decision": 1,
+      "examine_report": 1
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "5586": {
+     "categories": {
+      "conforms": 5,
+      "mandate": 1
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "6643": {
+     "categories": {
+      "conforms": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "FR": {
+     "categories": {
+      "conforms": 4,
+      "examine_report": 1,
+      "questions": 1
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "GR": {
+     "categories": {
+      "conforms": 5
+     },
+     "n": 5,
+     "named": 5,
+     "share_named": 1.0
+    },
+    "TG": {
+     "categories": {
+      "conforms": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "VD": {
+     "categories": {
+      "conforms": 6
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    },
+    "VS": {
+     "categories": {
+      "conforms": 4,
+      "mandate": 2
+     },
+     "n": 6,
+     "named": 6,
+     "share_named": 1.0
+    }
+   },
+   "records_carry_slot": 66,
+   "share_named": 1.0,
+   "slot": "type.harmonised and type.instrument_function",
+   "unnamed_categories": []
+  }
+ },
+ "label": "POST HOC (not pre-registered): v0.2 role coverage of P8's gold values; descriptive, no threshold (gegenprobe/schema/v0_2_role_coverage.py)",
+ "n_affairs": 66,
+ "n_parliaments": 11,
+ "summary": {
+  "actors_with_role_other": {
+   "affairs": [
+    {
+     "body": "351",
+     "n": 2,
+     "number": "2020.SR.000309"
+    }
+   ],
+   "n": 2,
+   "of_actors": 345
+  },
+  "body_specific_field": {
+   "determinable": 57,
+   "field": "date_submission",
+   "named": 51,
+   "unnamed": {
+    "cited": 5,
+    "other_printed": 1
+   }
+  },
+  "cells": 58,
+  "cells_fully_named": 58,
+  "determinable": 302,
+  "fields_fully_named": 6,
+  "fields_whose_records_do_not_write_the_slot": [
+   "addressed_body"
+  ],
+  "named": 302,
+  "role_split_fields": [
+   "submitter",
+   "co_signatories",
+   "addressed_body",
+   "language",
+   "government_recommendation",
+   "type"
+  ]
+ }
+}

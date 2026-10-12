@@ -46,12 +46,12 @@ def test_committed_documents_pass(rows, cfg):
 
 
 def test_altered_readme_fails(rows, cfg):
-    """A review mutation: 92.3% -> 97.3% and 9,720 -> 9,920 in the headline table, each next to correct copies elsewhere."""
+    """A review mutation: 92.1% -> 97.1% and 9,580 -> 9,780 in the headline table, each next to correct copies elsewhere."""
     t = _text("README.md")
-    assert "| **92.3%** |" in t and "| **9,720** |" in t
-    bad = t.replace("| **92.3%** |", "| **97.3%** |").replace("| **9,720** |", "| **9,920** |")
+    assert "| **92.1%** |" in t and "| **9,580** |" in t
+    bad = t.replace("| **92.1%** |", "| **97.1%** |").replace("| **9,580** |", "| **9,780** |")
     errs = claims.zone_check(rows, cfg, docs={"README.md": bad})
-    assert any("'97.3%'" in e for e in errs) and any("'9,920'" in e for e in errs), errs
+    assert any("'97.1%'" in e for e in errs) and any("'9,780'" in e for e in errs), errs
 
 
 def test_wrong_number_next_to_a_right_one_fails(rows, cfg):
@@ -98,20 +98,20 @@ def test_m3_readme_headline_swap_between_valid_claims_fails(rows, cfg):
     README.md (the re-parsed plain free prompt), so a value-set check would pass it; the anchor binds 24/29 to its
     position."""
     t = _text("README.md")
-    assert "| **24/29** | answer dates" in t
+    assert "| **24/29** answer dates" in t
     assert any(r["shown"] == "25/29" and "README.md" in r["where"] for r in rows)
-    bad = t.replace("| **24/29** | answer dates", "| **25/29** | answer dates", 1)
+    bad = t.replace("| **24/29** answer dates", "| **25/29** answer dates", 1)
     errs = claims.zone_check(rows, cfg, docs={"README.md": bad})
     assert any("README.md:" in e and "'25/29'" in e for e in errs), errs
 
 
 def test_m5_report_body_change_with_the_value_elsewhere_fails(rows):
-    """M5: "Claude Opus judged 197/200" -> 199/200 in the report body, while 197/200 still appears in the summary."""
+    """M5: "Claude Opus judged 185/186" -> 186/186 in the report body, while 185/186 still appears in the summary."""
     t = _text("technical_report.md")
-    assert "Claude Opus judged 197/200" in t and t.count("197/200") >= 2
-    bad = t.replace("Claude Opus judged 197/200", "Claude Opus judged 199/200", 1)
+    assert "Claude Opus judged 185/186" in t and t.count("185/186") >= 2
+    bad = t.replace("Claude Opus judged 185/186", "Claude Opus judged 186/186", 1)
     errs = claims.anchor_check(rows, docs={"technical_report.md": bad})
-    assert any("'Claude Opus judged 197/200' not found in technical_report.md" in e for e in errs), errs
+    assert any("'Claude Opus judged 185/186' not found in technical_report.md" in e for e in errs), errs
 
 
 def test_m17_readme_results_table_swap_fails(rows, cfg):

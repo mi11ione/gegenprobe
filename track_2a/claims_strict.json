@@ -1,5 +1,5 @@
 {
- "_doc": "Strict zones for `make claims` (gegenprobe.claims.zone_check): every numeric token in a zone must be bound to a claim whose `where` lists the document, by an anchor in claims_anchor.json that holds the claim's value at that position. README.md, technical_report.md and docs/form_notes.md are strict end to end. A zone is {start, end} (literals; null = top/end) or a list of them. `allow` lists the non-claims literally, each with why. `small_int_tables` lists result tables (by the start of their header row) whose integer cells below 10 must be bound too; scope words (post hoc, registered, exploratory, in-sample, held out, weighted, unweighted) must sit inside an anchor phrase or an allowlisted phrase; `pinned` phrases must occur exactly `count` times. The repository-root README (../README.md) is strict end to end as well (skipped inside the Docker build context, checked by the host CI job with GP_CLAIMS_STRICT=1).",
+ "_doc": "Strict zones for `make claims` (gegenprobe.claims.zone_check): every numeric token in a zone must be bound to a claim whose `where` lists the document, by an anchor in claims_anchor.json that holds the claim's value at that position. README.md, technical_report.md and docs/form_notes.md are strict end to end. A zone is {start, end} (literals; null = top/end) or a list of them. `allow` lists the non-claims literally, each with why. `small_int_tables` lists result tables (by the start of their header row) whose integer cells below 10 must be bound too; scope words (post hoc, registered, exploratory, in-sample, held out, weighted, unweighted) must sit inside an anchor phrase or an allowlisted phrase; `pinned` phrases must occur exactly `count` times. The repository-root README (../README.md) is strict end to end as well (skipped inside the Docker build context, checked by the host CI job with GP_CLAIMS_STRICT=1). `small_int_docs` lists the documents in which every integer below 10 counts too (structural uses excepted: list/heading numbers, §/Fig./Figure/Table references, code spans, HTML tags; gegenprobe.claims.small_structural): a count is bound by an anchor, an ordinal or setting is allowlisted with its reason.",
  "zones": {
   "README.md": {
    "start": null,
@@ -131,6 +131,78 @@
    {
     "phrase": "Docker unit\n  (11 Oct)",
     "why": "date of the two Docker nights (results/monitor/two_nights_docker_38098822336/)"
+   },
+   {
+    "phrase": "1 field and 2 constructs",
+    "why": "bound by the wording pin schema.body_specific_constructs (claims_pins.json: schema.verdict.body_specific and the two constructs in site/data.json)"
+   },
+   {
+    "phrase": "fields: 4\non OPD's own labels, 6 on the documents in P8 and 1 (type) on both",
+    "why": "the 11 measured fields by evidence: 4 on OPD's labels only, 6 on P8's documents only, type on both"
+   },
+   {
+    "phrase": "rows = 48 ready + 1 for review",
+    "why": "the one fetch row that fails a check: 49 fetch rows (bound) minus 48 ready (repair.all_fetch_triple)"
+   },
+   {
+    "phrase": "Night 2\n  exposed",
+    "why": "names the second real night (an ordinal), not a count"
+   },
+   {
+    "phrase": "reset night 1's",
+    "why": "names the first real night (an ordinal), not a count"
+   },
+   {
+    "phrase": "The 2 records where the rules printed a\ngroup's name",
+    "why": "describes a converter fix (src/gegenprobe/schema/role_consistency.py) on two records; no results count"
+   },
+   {
+    "phrase": "and 2 more a test\nsampled",
+    "why": "91 bodies (bound) minus the 89 of the feasibility matrix (bound): results/convert/coverage_by_parliament.json summary"
+   },
+   {
+    "phrase": "(5 each in German, French and Italian",
+    "why": "design of the frozen federal draw (eval/fed/LOCKFED; results/fed/sample.json by_cell)"
+   },
+   {
+    "phrase": "| body-specific in 2 |",
+    "why": "the two parliaments named in the row (Vernier, Lausanne: results/p8/p8_hypotheses.json fields.date_submission.deviating)"
+   },
+   {
+    "phrase": "| 7 fields: metadata, rules, Apertus |",
+    "why": "the fields P3 registered (eval/prereg3), a design input"
+   },
+   {
+    "phrase": "| 3 of 4 held; H3 null safety failed (4/33) |",
+    "why": "count bound by the wording pin verdict.p2 (claims_pins.json: the four P2 hypotheses' verdicts sum to 3)"
+   },
+   {
+    "phrase": "| 3 of 4 held: H1 recall, H2 precision, H3b;",
+    "why": "count bound by the wording pin verdict.p10.table (claims_pins.json)"
+   },
+   {
+    "phrase": "a community 4-bit build",
+    "why": "quantisation of the pinned GGUF (sha256 in the Dockerfile), not a result"
+   },
+   {
+    "phrase": "The 8B is a community 4-bit GGUF",
+    "why": "quantisation of the pinned GGUF, not a result"
+   },
+   {
+    "phrase": "180 s per document on 4 vCPUs). On",
+    "why": "the measured machine (results/report/cost_end_to_end.json review_8b_vcpus), a setup, not a result"
+   },
+   {
+    "phrase": "180 s per document on 4 vCPUs. For",
+    "why": "the measured machine (review_8b_vcpus), a setup, not a result"
+   },
+   {
+    "phrase": "4 come from\nparliamentary practice, 4 partly from OPD's tagging (which OPD can correct) and 2 are open",
+    "why": "split of the 10 role-split fields by the source column of the report's Table 1; bound by the wording pin schema.split_sources (claims_pins.json), which counts the table's rows"
+   },
+   {
+    "phrase": "(registered class: body-specific)",
+    "why": "the class the registered rule (PREREG9 §7) assigns to the submission date; pinned by verdict.p8 (summary.body_specific)"
    }
   ],
   "technical_report.md": [
@@ -199,7 +271,7 @@
     "why": "a setting: the minimum interval between requests to one host"
    },
    {
-    "phrase": "style=\"width:100%;",
+    "phrase": "style=\"width:74%;",
     "why": "figure width in the PDF layout, not a result"
    },
    {
@@ -237,6 +309,54 @@
    {
     "phrase": "**Branch B**: P1's registered outcome",
     "why": "glossary: names a registered outcome, not a result"
+   },
+   {
+    "phrase": "by source of the split 4 parliamentary practice, 4 partly OPD's tagging (which OPD can correct), 2 open",
+    "why": "split of the 10 role-split fields by the source column of the report's Table 1; bound by the wording pin schema.split_sources (claims_pins.json), which counts the table's rows"
+   },
+   {
+    "phrase": "1 field and 2 constructs",
+    "why": "bound by the wording pin schema.body_specific_constructs (claims_pins.json: schema.verdict.body_specific and the two constructs in site/data.json)"
+   },
+   {
+    "phrase": "bug night 2 exposed",
+    "why": "names the second real night (an ordinal), not a count"
+   },
+   {
+    "phrase": "| body-specific in 2 |",
+    "why": "the two parliaments named in the row (Vernier, Lausanne: results/p8/p8_hypotheses.json fields.date_submission.deviating)"
+   },
+   {
+    "phrase": "| 7 fields: metadata, rules, Apertus |",
+    "why": "the fields P3 registered (eval/prereg3), a design input"
+   },
+   {
+    "phrase": "| **3 of 4 held**; H3 null safety failed (4/33) |",
+    "why": "count bound by the wording pin verdict.p2 (claims_pins.json: the four P2 hypotheses' verdicts sum to 3)"
+   },
+   {
+    "phrase": "| **3 of 4 held**: H1, H2, H3b;",
+    "why": "count bound by the wording pin verdict.p10.table (claims_pins.json)"
+   },
+   {
+    "phrase": "a community 4-bit GGUF",
+    "why": "quantisation of the pinned GGUF, not a result"
+   },
+   {
+    "phrase": "180 s per document on 4 vCPUs on the 8B",
+    "why": "the measured machine (review_8b_vcpus), a setup, not a result"
+   },
+   {
+    "phrase": "θ_A = 8)",
+    "why": "a frozen threshold of the P7 verifier (eval/prereg8), a parameter, not a result"
+   },
+   {
+    "phrase": "Review mode stops (exit 3)",
+    "why": "a process exit code"
+   },
+   {
+    "phrase": "documents, 6 of them council reports",
+    "why": "document type of the 7 answerless dates (cascade, P1 held-out predictions), no summary path"
    }
   ],
   "docs/form_notes.md": [
@@ -255,6 +375,14 @@
    {
     "phrase": "P6: no registered hypothesis held",
     "why": "P6's registered result as a statement (no number)"
+   },
+   {
+    "phrase": "1 field and 2 constructs",
+    "why": "bound by the wording pin schema.body_specific_constructs (claims_pins.json: schema.verdict.body_specific and the two constructs in site/data.json)"
+   },
+   {
+    "phrase": "per 1,000",
+    "why": "the unit of a cost (per 1,000 residue documents)"
    }
   ],
   "../README.md": [
@@ -263,12 +391,20 @@
     "why": "team number"
    },
    {
-    "phrase": "correspondence, 10 Oct\n  2026",
+    "phrase": "CC BY 4.0",
+    "why": "licence name and version"
+   },
+   {
+    "phrase": "1 field and 2 constructs",
+    "why": "bound by the wording pin schema.body_specific_constructs (claims_pins.json: schema.verdict.body_specific and the two constructs in site/data.json)"
+   },
+   {
+    "phrase": "(correspondence, 10 Oct 2026)",
     "why": "date of OPD's correspondence"
    },
    {
-    "phrase": "CC BY 4.0",
-    "why": "licence name and version"
+    "phrase": "per 1,000",
+    "why": "the unit of a cost (per 1,000 residue documents)"
    }
   ]
  },
@@ -303,7 +439,7 @@
    },
    {
     "phrase": "model-free",
-    "count": 8,
+    "count": 10,
     "why": "which repairs and baselines use no model"
    },
    {
@@ -325,8 +461,8 @@
    },
    {
     "phrase": "printed nowhere",
-    "count": 2,
-    "why": "no closed-set arm returned a date printed nowhere"
+    "count": 3,
+    "why": "no closed-set arm returned a date printed nowhere (2); OPD's submission date printed nowhere in Vernier and Lausanne (Table 1)"
    },
    {
     "phrase": "only picks values printed in the document",
@@ -357,14 +493,15 @@
    },
    {
     "phrase": "model-free",
-    "count": 4,
+    "count": 5,
     "why": "which repairs and baselines use no model"
-   },
-   {
-    "phrase": "not paired",
-    "count": 1,
-    "why": "P7's date precisions are each on their own promotions"
    }
   ]
- }
+ },
+ "small_int_docs": [
+  "README.md",
+  "technical_report.md",
+  "docs/form_notes.md",
+  "../README.md"
+ ]
 }

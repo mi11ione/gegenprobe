@@ -61,12 +61,14 @@ def test_r13_new_false_sentence_in_the_body_fails(rows, cfg, doc, anchor):
 
 def test_r13_p7_numbers_are_bound(rows):
     """P7 left the headline tiles; its numbers (120/120; 113/120 vs 127/146; 214 vs 369 rows; 86.7%; 146/146)
-    are anchored where the body reports them, in README, report and form notes."""
+    are anchored where the body reports them, in README and report; the form notes (5,000 characters) keep 120/120."""
     anchors = claims.anchor_config()
     by_id = {r["id"]: r for r in rows}
-    for doc in ("README.md", "technical_report.md", "docs/form_notes.md"):
+    for doc in ("README.md", "technical_report.md"):
         bound = {by_id[c]["shown"] for c, per in anchors.items() if doc in per and c in by_id}
         assert {"120/120", "113/120", "127/146", "369", "86.7%", "146/146"} <= bound, doc
+    form = {by_id[c]["shown"] for c, per in anchors.items() if "docs/form_notes.md" in per and c in by_id}
+    assert "120/120" in form
 
 
 def test_r13_best_no_model_rule_is_the_best(rows):

@@ -1,8 +1,8 @@
 id	shown	file	path	fmt	command	where	context
-r6docs.audit3_claude_counted	197/200	results/repair/adapters/audit3/summary.json	headline.claude_counted	str	python -m gegenprobe.repair.adapters.audit3 score --final	README.md,technical_report.md,docs/form_notes.md,docs/operations.md	
-r6docs.audit3_wilson_lo	95.7%	results/repair/adapters/audit3/summary.json	headline.claude_wilson95.0	pct1	python -m gegenprobe.repair.adapters.audit3 score --final	technical_report.md,docs/operations.md	
-r6docs.audit3_wilson_hi	99.5%	results/repair/adapters/audit3/summary.json	headline.claude_wilson95.1	pct1	python -m gegenprobe.repair.adapters.audit3 score --final	technical_report.md,docs/operations.md	
-r6docs.audit3_failed_decoys_rejected	60%	results/repair/adapters/audit3/summary.json	headline.claude_no_share_failed_decoys	pct0	python -m gegenprobe.repair.adapters.audit3 score --final	technical_report.md,docs/operations.md	
+r6docs.audit3_claude_counted	197/200	results/repair/adapters/audit3/summary.json	headline.claude_counted	str	python -m gegenprobe.repair.adapters.audit3 score --final	README.md,technical_report.md,docs/operations.md	
+r6docs.audit3_wilson_lo	95.7%	results/repair/adapters/audit3/summary.json	headline.claude_wilson95.0	pct1	python -m gegenprobe.repair.adapters.audit3 score --final	docs/operations.md	
+r6docs.audit3_wilson_hi	99.5%	results/repair/adapters/audit3/summary.json	headline.claude_wilson95.1	pct1	python -m gegenprobe.repair.adapters.audit3 score --final	docs/operations.md	
+r6docs.audit3_failed_decoys_rejected	60%	results/repair/adapters/audit3/summary.json	headline.claude_no_share_failed_decoys	pct0	python -m gegenprobe.repair.adapters.audit3 score --final	docs/operations.md	
 r6docs.audit3_counted_rejected	1.5%	results/repair/adapters/audit3/summary.json	headline.claude_no_share_counted	pct1	python -m gegenprobe.repair.adapters.audit3 score --final	docs/operations.md	
 r6docs.audit3_review_decoys_yes	77%	results/repair/adapters/audit3/summary.json	headline.claude_yes_share_review_decoys	pct0	python -m gegenprobe.repair.adapters.audit3 score --final	docs/operations.md	
 r6docs.audit3_qwen_counted	200/200	results/repair/adapters/audit3/summary.json	headline.qwen_counted	str	python -m gegenprobe.repair.adapters.audit3 score --final	docs/operations.md	
@@ -35,8 +35,8 @@ r6docs.matrix.government_recommendation.mixed	8	results/census/matrix.json	field
 r6docs.matrix.government_recommendation.pdf	56	results/census/matrix.json	fields.government_recommendation.status_counts.pdf	int	make census	README.md,technical_report.md,docs/evaluation.md	
 r6docs.matrix.government_recommendation.no_source	10	results/census/matrix.json	fields.government_recommendation.status_counts.no_source	int	make census	README.md,technical_report.md,docs/evaluation.md	
 r6docs.matrix.date_submission.metadata	89	results/census/matrix.json	fields.date_submission.status_counts.metadata	int	make census	technical_report.md,docs/evaluation.md,README.md	
-r6docs.matrix.date_submission.mixed	0	results/census/matrix.json	fields.date_submission.status_counts.mixed	int	make census	technical_report.md,docs/evaluation.md	
-r6docs.matrix.date_submission.pdf	0	results/census/matrix.json	fields.date_submission.status_counts.pdf	int	make census	technical_report.md,docs/evaluation.md	
+r6docs.matrix.date_submission.mixed	0	results/census/matrix.json	fields.date_submission.status_counts.mixed	int	make census	docs/evaluation.md,technical_report.md	"{""docs/evaluation.md"": ""| submission date |"", ""technical_report.md"": ""| submission date | body-specific in 2 |""}"
+r6docs.matrix.date_submission.pdf	0	results/census/matrix.json	fields.date_submission.status_counts.pdf	int	make census	docs/evaluation.md,technical_report.md	"{""docs/evaluation.md"": ""| submission date |"", ""technical_report.md"": ""| submission date | body-specific in 2 |""}"
 r6docs.matrix.date_submission.no_source	0	results/census/matrix.json	fields.date_submission.status_counts.no_source	int	make census	technical_report.md,docs/evaluation.md	
 r6docs.matrix.answer_link_status.metadata	54	results/census/matrix.json	fields.answer_link_status.status_counts.metadata	int	make census	technical_report.md,docs/evaluation.md,README.md	
 r6docs.matrix.answer_link_status.mixed	0	results/census/matrix.json	fields.answer_link_status.status_counts.mixed	int	make census	technical_report.md,docs/evaluation.md	

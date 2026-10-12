@@ -1,6 +1,6 @@
 """Display-ready numbers for the precision pass, derived only from committed files, so claims.tsv can trace them:
 
-  * the 92.3% after every counted repair, split by what each repair still needs (census/corrected.py placement of every
+  * the share after every counted repair, split by what each repair still needs (census/corrected.py placement of every
     registered gap row, cross-checked against the Bern lists):
       now          OPD already holds the answer with its text, or holds its own copy whose text we verified: the agenda
                    joins (filed under an agenda item of the affair; not sample-checked), the answers under a heading the
@@ -12,7 +12,7 @@
                    be fetched into OPD (adapters, Bern fetch, Curia Vista)
     with the cumulative share of the 91,268 interventions with a recorded government answer after each step;
   * 81.6% (text attached, the registered count) vs 82.3% (also counting answers filed under an agenda item of the
-    affair), and the repairs beyond the 82.3% (the 592 agenda joins are in both the 82.3% and the 9,720).
+    affair), and the repairs beyond the 82.3% (the 592 agenda joins are in both the 82.3% and the proposed repairs).
 
     PYTHONPATH=src:. python -m report.r9_numbers   -> results/report/r9_numbers.json
 """
@@ -66,7 +66,7 @@ def split() -> dict:
     cum_now = attached + n["now"]
     cum_hash = cum_now + n["after_hash"]
     cum_all = cum_hash + n["fetch"]
-    assert round(cum_all / written, 3) == nat["after_repair"], (cum_all, written, nat["after_repair"])
+    assert round(cum_all / written, 4) == nat["after_repair"], (cum_all, written, nat["after_repair"])
     return dict(
         written=written, attached=attached, agenda=agenda, repaired=nat["repaired"],
         now=n["now"], after_hash=n["after_hash"], fetch=n["fetch"], parts=dict(sub),
@@ -79,7 +79,7 @@ def split() -> dict:
         definitions=dict(
             attached="text attached to the intervention in OPD (the registered census count)",
             with_agenda="also counting answers OPD files under an agenda item of the same affair (census link_status "
-                        "agenda); these 592 are also among the 9,720 counted repairs",
+                        f"agenda); these {agenda:,} are also among the {nat['repaired']:,} counted repairs",
             now="+ answers OPD holds with text under an unrecognised heading (tag_answer) and the verified text of OPD's "
                 "own copies (extract_tag): no OPD decision and no fetch needed",
             after_hash="+ the Bern answers OPD holds without a parent (relink + review rows): after OPD's hash rule for "

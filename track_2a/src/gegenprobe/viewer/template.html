@@ -199,6 +199,11 @@ table.dense td { padding: 6px 8px; border-bottom: 1px solid var(--rule); text-al
 table.dense tbody tr { cursor: pointer; }
 table.dense tbody tr:hover td { background: var(--paper-2); }
 table.dense tr.open td { background: var(--ink); color: var(--paper); }
+/* a short summary table: no 980 px floor, its text column wraps; any table that still overflows scrolls in its wrapper */
+table.dense.compact { min-width: 0; }
+table.dense.compact td:last-child { white-space: normal; text-align: left; min-width: 18ch; }
+table.dense.compact tbody tr { cursor: default; }
+.scrollx { overflow-x: auto; max-width: 100%; }
 .stack { display: flex; height: 10px; width: 110px; background: var(--paper-2); }
 .stack i { display: block; height: 100%; }
 .k-att { background: var(--ink); } .k-ag { background: var(--ink-2); } .k-par { background: var(--hl); }
@@ -308,6 +313,12 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
 .hero .perrow .label { margin-bottom: 5px; }
 .hero .delivered { margin: 14px 0 0; font-size: clamp(15px, 1.25vw, 17px); line-height: 1.45; color: var(--ink-2); max-width: 70ch; }
 .hero .delivered b { color: var(--ink); font-weight: 650; }
+.hero .rlist { display: inline; margin: 0; padding: 0; list-style: none; }
+.hero .rlist li { display: inline; white-space: nowrap; }
+.hero .rlist li + li::before { content: " · "; color: var(--ink-3); }
+.hero .rlist .n { font-family: var(--mono); color: var(--ink); font-weight: 650; }
+.facts.two .fact p { max-width: 62ch; }
+.fact p .k { font-weight: 650; color: var(--ink); }
 .hero .factnote { margin: 10px 0 0; font-size: 12px; color: var(--ink-3); max-width: 110ch; }
 .hero .bigcap { margin: 10px 0 0; font-family: var(--mono); font-size: clamp(12.5px, 1.05vw, 14px); line-height: 1.4; color: var(--ink-2); max-width: 62ch; }
 .hero .scope { margin: 8px 0 0; font-size: 13.5px; color: var(--ink-2); max-width: 86ch; }
@@ -488,10 +499,11 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
   <div class="work hero-main">
     <p class="big" id="heroBig"></p>
     <p class="bigcap" id="heroBigCap"></p>
+    <p class="delivered" id="heroDelivered"></p>
+    <p class="next" id="heroNext"><b>What OPD does next:</b> run the Bern plan (<a href="#bern-numbers">Bern numbers</a>), import the lists keyed on your ids (<a href="#opdDownloads">downloads</a>), and decide the hash rule for relinked documents. OPD confirmed the Bern linking bug (correspondence, 10 Oct 2026).</p>
     <h1 id="heroLine"></h1>
     <p class="scope" id="heroScope"></p>
-    <p class="delivered" id="heroDelivered"></p>
-    <p class="next" id="heroNext"><b>What OPD does next:</b> run the Bern plan (<a href="#bern-numbers">Bern numbers</a>), import the lists keyed on your ids (<a href="#opdDownloads">downloads</a>), and decide the hash rule for relinked documents.</p>
+    <p class="scope" id="heroCost"></p>
     <div class="perrow" id="heroPeriod"></div>
     <div class="facts three" id="facts"></div>
     <div class="label factpair">Where nobody wrote rules: Apertus picks among printed values</div>
@@ -772,14 +784,17 @@ function drawHero() {
     : `answered interventions${period === 'all' ? '' : ` (${PERW[period]})`} without answer text in OpenParlData`;
   // the plain answer first (README, report, form notes and site share it), then what was delivered
   $('#heroLine').textContent = 'Can one schema hold Swiss parliamentary business? Yes, if each field says which role its value plays (e.g. “answer date” = the government’s decision, its letter or the submission date).';
-  $('#heroScope').textContent = D.scope ? `Asked of interventions, OPD's five intervention types: ${fmt(D.scope.interventions)} of its ${fmt(D.scope.opd_affairs)} affairs` +
+  $('#heroScope').textContent = D.scope ? `Tested on OPD's five intervention types: ${fmt(D.scope.interventions)} of its ${fmt(D.scope.opd_affairs)} affairs` +
     (D.scope.parliamentary_initiative != null ? `; parliamentary initiatives (${fmt(D.scope.parliamentary_initiative)}) and government business (${fmt(D.scope.government_affair)}) are outside the tested scope.` : '.') : '';
   const all = period === 'all';
   { const N = D.parliaments.corrected.national.all, E = N.opd_elsewhere_parts || {}, I = N.image_only_parts || {};
     const now = (E.agenda || 0) + (N.unrecognised || 0) + (I.text_verified || 0), fetch = (N.fetchable || 0) + (I.fetchable || 0);
-    $('#heroDelivered').replaceChildren(el('b', {}, `The ${fmt(N.repaired)} repairs, `), all && N.repaired === now + (E.parentless || 0) + fetch ?
-      `every one from model-free rules and keyed on OPD ids: ${fmt(now)} need neither a decision nor a fetch (${fmt(E.agenda)} agenda joins, ${fmt(N.unrecognised)} category tags, ${fmt(I.text_verified)} verified texts of OPD's own copies); ${fmt(E.parentless)} Bern answers OPD holds without a parent (${fmt(H.relink_ready)} ready relinks, which follow OPD's hash decision); ${fmt(fetch)} answers checked at the parliaments, to fetch.` + (H.pg && H.pg.begin != null ? ` The ${fmt(H.pg.begin)} Bern begin_date corrections fix another field and are not among them.` : '') :
-      `every one from model-free rules and keyed on OPD ids.`); }
+    const li = (label, n) => el('li', {}, `${label} `, el('span', { class: 'n' }, fmt(n)));
+    $('#heroDelivered').replaceChildren(el('b', {}, `The ${fmt(N.repaired)} repairs`), ', every one from model-free rules and keyed on OPD ids' +
+      (all ? ': ' : '.'), all ? el('ul', { class: 'rlist', 'aria-label': 'what each repair still needs' },
+        li('apply now', now), li('one decision', H.relink_ready), li('to fetch', fetch)) : null); }
+  { const C = (D.tiles || {}).cost;
+    $('#heroCost').textContent = C ? `Cost: the rules take about ${C.rules_cpu_hours} CPU-hours for all ${fmt(C.documents)} documents in OPD's export, about ${C.x10_rules_cpu_hours} CPU-hours at ten times OPD's volume; review mode costs USD ${C.usd_per_1000.toFixed(2)} per 1,000 residue documents on the 70B.` : ''; }
   $('#heroDetail').textContent = am && am.written != null ?
     `Headline, ${PERW[period]}: at most ${fmt(am.written)} written answers lack answer text on their intervention in OpenParlData (${pct(am.written / x.in_writing)} of the ${fmt(x.in_writing)} answered in writing). ` +
     `The registered census rule counts ${fmt(x.missing)} of the ${fmt(x.written)} interventions with a recorded government answer without attached answer text (${pct(x.missing / x.written)}); ` +
@@ -791,27 +806,35 @@ function drawHero() {
 $('#heroPeriod').append(periodSeg('Period · applies to the whole page'));
 drawHero();
 const V = D.schema.verdict, V2 = D.schema.v02, P7 = D.evaluation.p7, P2E = D.evaluation.p2, P10 = D.evaluation.p10;
+const T = D.tiles || {}, BB = T.p2_best, R2 = T.v02_records;
 const facts = [
   [fmt(D.parliaments.corrected.national.all.repaired), el('span', {}, `answers with a model-free repair proposed to OPD, keyed on OPD ids. ` + (H.pg && H.pg.ok ? `The Bern plan ran on PostgreSQL ${H.pg.server.split('.')[0]}: ${fmt(H.pg.rows)} rows in one transaction that rolls back on any deviation. ` : ''), el('a', { class: 'bernlink', href: '#bern-numbers' }, 'All Bern numbers →'))],
-  [`${V.need_roles} of ${V.fields}`, `fields are shared once their roles are explicit; ${V.body_specific} is body-specific; ${V.defined_once} are not yet tested for meaning.`],
-  D.tiles && D.tiles.converter_records != null ? [fmt(D.tiles.converter_records), `records the converter made, from ${D.tiles.converter_parliaments} parliaments (communal, cantonal, federal), validate in schema v0.2; so do P8's ${D.tiles.gold_records} gold records.`]
-          : [fmt(V2 ? V2.n_valid : 0), 'affairs validate in schema v0.2.'],
+  [`${V.need_roles} of ${V.fields}`, `fields are shared once their roles are explicit (${V.need_roles_robust} robust; ${V.need_roles_fragile} fragile: they hold under one of the role test's two checks): ${V.need_roles_p8} measured in the role test (P8, registered), ${V.need_roles_labels} on OPD's label vocabularies (post hoc); ${V.body_specific} is body-specific; ${V.defined_once} are not yet tested for meaning.`],
+  R2 ? [fmt(R2.n), `v0.2 records from ${R2.parliaments} parliaments validate: the converter's ${R2.converter} (${R2.cantonal_communal} cantonal and communal + ${R2.federal} federal, ${R2.converter_parliaments} parliaments) and P8's ${R2.p8} gold records (${R2.p8_parliaments} parliaments).`]
+     : [fmt(V2 ? V2.n_valid : 0), 'affairs validate in schema v0.2.'],
 ];
+const kw = t => el('span', { class: 'k' }, t);
 const factsApertus = [
-  H.p2 ? [`${H.p2.pointer.correct}/${H.p2.pointer.of}`, `answer dates Apertus picks right among the printed dates in ${H.p2.bodies} parliaments: the rules ${H.p2.rules.correct}/${H.p2.rules.of} (registered)` +
-       (D.tiles && D.tiles.p2_keyword ? `, a generic keyword rule ${D.tiles.p2_keyword[0]}/${D.tiles.p2_keyword[1]} (post hoc).` : '.')]
+  H.p2 ? [`${H.p2.pointer.correct}/${H.p2.pointer.of}`, el('span', {}, `answer dates Apertus picks right among the printed dates in ${H.p2.bodies} parliaments nobody wrote rules for (the date test on new layouts, P2). `,
+       BB ? kw('What Apertus adds: ') : null,
+       BB ? `against the model-free baseline of P2's results table it is exact on ${BB.pointer_exact[0]}/${BB.pointer_exact[1]} documents vs ${BB.base_exact[0]}/${BB.base_exact[1]}, right on ${BB.pointer_only} where the baseline is wrong and the reverse on ${BB.base_only} (exact McNemar p = ${BB.mcnemar}, parliament-resampled interval ${BB.cluster95}, post hoc); ${BB.answered_wins_intervention} of its ${BB.answered_wins} wins on answered documents are documents OPD types as interventions, where that baseline returns nothing by construction. ` : '',
+       kw('What the model-free baseline reaches: '),
+       (BB ? `the latest date on answer-typed documents ${BB.base_found[0]}/${BB.base_found[1]} answer dates; ` : '') + `registered: the rules ${H.p2.rules.correct}/${H.p2.rules.of}.`)]
        : [`${H.rules_exact}/${H.heldout}`, `documents exact with the default converter (rules, no model).`],
-  P10 ? [`${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs}`, `author roles Apertus reads right in ${P10.primary.parliaments} parliaments (rules ${P10.primary.arms.rules.right}/${P10.primary.gold_pairs})` +
-       (P10.order ? `; the gain is the model-free candidate finder: document order ${P10.order.right}/${P10.order.gold} (post hoc), level.` : '.')] : null,
+  P10 ? [`${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs}`, el('span', {}, `author roles Apertus reads right in ${P10.primary.parliaments} parliaments without rules (the author test, P10). `,
+       kw('What the model-free baseline reaches: '), `the rules ${P10.primary.arms.rules.right}/${P10.primary.gold_pairs}` +
+       (P10.order ? `; most of the gain comes from the model-free candidate finder (document order ${P10.order.right}/${P10.order.gold}). ` : '. '),
+       T.p10_filter_pts != null ? kw('What Apertus adds: ') : null,
+       T.p10_filter_pts != null ? `precision deciding who is an author (+${T.p10_filter_pts} points, post hoc).` : '')] : null,
 ];
 $('#facts').append(...facts.filter(Boolean).map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
 $('#factsApertus').append(...factsApertus.filter(Boolean).map(([v, t]) => el('div', { class: 'fact' }, el('div', { class: 'v' }, v), el('p', {}, t))));
-{ $('#factNote').textContent = `Sources: 92.3% and ${fmt(D.parliaments.corrected.national.all.repaired)} from the census and the repair lists (no model); ${V.need_roles} of ${V.fields} from OPD's labels and P8 (pre-registered)` +
-    (H.p2 ? `; ${H.p2.pointer.correct}/${H.p2.pointer.of} from P2, registered (the keyword rule post hoc, proposed in review)` : '') +
-    (P10 ? `; ${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs} from P10, registered (recall +${P10.hypotheses.H1.points} points over the rules, Holm p = ${P10.hypotheses.H1.p_holm}), level with OPD's contributor list (${P10.primary.arms.opd_first.right}/${P10.primary.gold_pairs}; H3a, Holm p = ${P10.hypotheses.H3a.p_holm_2})` : '') +
-    (D.tiles && D.tiles.converter_records != null ? `; ${fmt(D.tiles.converter_records)} from P3, P3b, P5 and the federal cell, whose ${D.tiles.federal} affairs are exploratory` : '') +
+{ $('#factNote').textContent = `Sources: ${H.at_most && H.at_most.all ? pct(H.at_most.all.after_repair) : '—'} and ${fmt(D.parliaments.corrected.national.all.repaired)} from the census and the repair lists (no model); ${V.need_roles} of ${V.fields} from the role test (P8, registered) and OPD's label vocabularies (post hoc)` +
+    (H.p2 ? `; ${H.p2.pointer.correct}/${H.p2.pointer.of} from the date test on new layouts (P2), registered (the model-free baselines post hoc, proposed in review)` : '') +
+    (P10 ? `; ${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs} from the author test (P10), registered (recall +${P10.hypotheses.H1.points} points over the rules, Holm p = ${P10.hypotheses.H1.p_holm}), level with OPD's contributor list (${P10.primary.arms.opd_first.right}/${P10.primary.gold_pairs}; H3a, Holm p = ${P10.hypotheses.H3a.p_holm_2})` : '') +
+    (R2 ? `; the federal cell's ${R2.federal} affairs are exploratory` : '') +
     '. P1–P8 and P10 are the ten tests (P3b replicates P3), each frozen by hash before its labels.' +
-    (H.p2 && P10 ? ` Which model: ${H.p2.pointer.correct}/${H.p2.pointer.of} and ${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs} come from Apertus v1.5 70B weights, which Public AI serves under the name swiss-ai/apertus-v1.5-8b; local 8B results: 03 Evaluation. Runtime external services: none by default (public sources only); Apertus review mode sends document text to the Public AI gateway, or nothing with the local 8B.` : ''); }
+    (H.p2 && P10 ? ' Gateway runs used Apertus 70B (the gateway labels it 8B; fingerprint check in docs/evaluation.md); local 8B results: 03 Evaluation. Runtime external services: none by default (public sources only); Apertus review mode sends document text to the Public AI gateway, or nothing with the local 8B.' : ''); }
 /* converter coverage per parliament (results/convert/coverage_by_parliament.json) */
 if (D.coverage) {
   const C = D.coverage, S = C.summary, ST = ['frozen rules', 'source adapter', 'metadata only'];
@@ -819,8 +842,8 @@ if (D.coverage) {
     'source adapter': 'document values flagged for review (no_rules_for_body); a model-free source adapter verifies their answers for the repair lists',
     'metadata only': 'document values flagged for review (no_rules_for_body)' };
   $('#covNote').textContent = `${fmt(S.bodies)} bodies: the ${fmt(S.bodies_in_matrix)} of the feasibility matrix and ${S.bodies - S.bodies_in_matrix} more a test sampled. Tests: P1–P8 and the exploratory federal cell; v0.2 = affairs among the validated schema v0.2 records.`;
-  $('#covSummary').replaceChildren(el('table', { class: 'dense' }, el('thead', {}, el('tr', {}, ['converter status', 'bodies', 'in a test', 'document values'].map(h => el('th', {}, h)))),
-    el('tbody', {}, ST.map(k => el('tr', {}, el('td', {}, k), el('td', { class: 'num' }, fmt(S.by_status[k])), el('td', { class: 'num' }, fmt(S.tested_by_status[k])), el('td', {}, what[k]))))));
+  $('#covSummary').replaceChildren(el('div', { class: 'scrollx' }, el('table', { class: 'dense compact' }, el('thead', {}, el('tr', {}, ['converter status', 'bodies', 'in a test', 'document values'].map(h => el('th', {}, h)))),
+    el('tbody', {}, ST.map(k => el('tr', {}, el('td', {}, k), el('td', { class: 'num' }, fmt(S.by_status[k])), el('td', { class: 'num' }, fmt(S.tested_by_status[k])), el('td', {}, what[k])))))));
   $('#covSum').textContent = `Every parliament (${fmt(S.bodies)}), its status and the tests that read it`;
   const order = Object.fromEntries(ST.map((k, i) => [k, i]));
   const rows = [...C.rows].sort((a, b) => order[a.status] - order[b.status] || a.name.localeCompare(b.name));
@@ -1632,8 +1655,8 @@ function renderAdapters() {
   $('#adBody').replaceChildren(
     el('p', { style: 'margin:0 0 10px;max-width:72ch' }, `Before the adapters, deterministic routes proposed repairs for ${fmt(c.baseline_repairable_deterministic)} of the ${fmt(c.gap)} interventions without answer text, and ${fmt(c.needs_adapters_before)} written answers had no answer document anywhere in OPD. Adapters for ${A.n_bodies} parliaments now verify ${fmt(A.verified)} more answers (${fmt(A.verified_absent)} absent, ${fmt(A.verified_image_only)} image-only), each by affair number or title, the parliament's answer formula and a date check: `,
       el('b', {}, `repairs proposed for ${fmt(c.repairable_deterministic_with_adapters)} of ${fmt(c.gap)}; the adapters looked at ${fmt(c.needs_adapters_after)} more without a counted row.`)),
-    el('p', { class: 'small', style: 'margin:0 0 10px;max-width:80ch' }, `Verification tiers: the document's own date equals an OPD event ${fmt(T.exact_doc_date.n)}; a printed date equals an OPD answer event and no document date contradicts it by more than 30 days ${fmt(T.exact_any_printed_date.n)}; within the parliament's documented window ${fmt(T.date_window.n)} (at most 15 days in Zürich city, 120 in Valais). Listed, not counted: ${fmt(T.identity_wording_only.n)} Jura answers that match by identity and wording only (OPD's Jura answer events carry no date) and ${fmt(A.review)} review rows${D.evaluation.p7 ? `, of which Apertus promoted ${fmt(D.evaluation.p7.promoted)} into a separate tier (P7, results/repair/adapters/p7/promoted.tsv)` : ''}. ${fmt(A.tag_answer)} of the "missing" answers are already in OPD with text, filed under the question's file: the repair is a category on the document (tag_answer), not a new document.`),
-    el('p', { class: 'small', style: 'margin:0 0 10px;max-width:80ch' }, `Audits: a design audit of ${fmt(A.design_audit.rows)} rows found ${A.design_audit.verified_no} non-answers among ${A.design_audit.verified} verified rows (deadline extensions, commission reports, minutes); typed filters now catch all of them and remove none of the sample's ${fmt(A.design_audit.all_yes)} answers. Blind audit v3 (results/repair/adapters/audit3/): 200 counted rows, stratified by tier and route, and 60 decoys from the review and failed lists, shuffled into packets without the pipeline's verdict. The packets carry the text's sha256, which joins to the committed lists, so the audit is blind for Qwen and blind by instruction for the Claude auditor; the key's hash reached GitHub at 00:56:16 UTC on 11 Oct (commit ce416a8), before the Claude verdicts were finished. Claude Opus judged 197/200 counted rows to be the executive's answer (Wilson 95.7% to 99.5%), with the date wrong or unsupported on 15; it rejected 60% of the failed decoys but 1.5% of the counted rows, and called 77% of the review decoys answers, so the pipeline errs on the side of review. Qwen-SEA-LION accepted 200/200 but was lenient on decoys; the two agree on 252/260. Both auditors are language models, by design (no human labelling).`),
+    el('p', { class: 'small', style: 'margin:0 0 10px;max-width:80ch' }, `Verification tiers: the document's own date equals an OPD event ${fmt(T.exact_doc_date.n)}; a printed date equals an OPD answer event and no document date contradicts it by more than 30 days ${fmt(T.exact_any_printed_date.n)}; within the parliament's documented window ${fmt(T.date_window.n)} (at most 15 days in Zürich city). Listed, not counted: ${fmt(T.identity_wording_only.n)} Jura answers that match by identity and wording only (OPD's Jura answer events carry no date) and ${fmt(A.review)} review rows${D.evaluation.p7 ? `, of which Apertus promoted ${fmt(D.evaluation.p7.promoted)} into a separate tier (P7, results/repair/adapters/p7/promoted.tsv)` : ''}. ${fmt(A.tag_answer)} of the "missing" answers are already in OPD with text, filed under the question's file: the repair is a category on the document (tag_answer), not a new document.`),
+    el('p', { class: 'small', style: 'margin:0 0 10px;max-width:80ch' }, `Audits: a design audit of ${fmt(A.design_audit.rows)} rows found ${A.design_audit.verified_no} non-answers among ${A.design_audit.verified} verified rows (deadline extensions, commission reports, minutes); typed filters now catch all of them and remove none of the sample's ${fmt(A.design_audit.all_yes)} answers. Blind audit v3 (results/repair/adapters/audit3/): 200 counted rows, stratified by tier and route, and 60 decoys from the review and failed lists, shuffled into packets without the pipeline's verdict. The packets carry the text's sha256, which joins to the committed lists, so the audit is blind for Qwen and blind by instruction for the Claude auditor; the key's hash reached GitHub at 00:56:16 UTC on 11 Oct (commit ce416a8), before the Claude verdicts were finished. Claude Opus judged 197/200 counted rows to be the executive's answer (Wilson 95.7% to 99.5%), with the date wrong or unsupported on 15; it rejected 60% of the failed decoys but 1.5% of the counted rows, and called 77% of the review decoys answers, so the pipeline errs on the side of review. Qwen-SEA-LION accepted 200/200 but was lenient on decoys; the two agree on 252/260. Both auditors are language models, by design (no human labelling).` + (A.retier ? ` ${A.retier.moved_date_no} of the 15 date verdicts and ${A.retier.moved_not_answer} of the 3 'no' verdicts fell in ${A.retier.moved_stratum_sampled} sampled rows of one stratum, Valais's date-window fetch rows, where OPD's answer event is the session that debated the motion, after the government's letter; those ${fmt(A.retier.n)} rows are now review rows (${A.retier.file}). On the audited rows that still count, Claude judged ${A.retier.claude_after} the executive's answer, the date wrong on ${A.retier.claude_after_date_no} (all Solothurn), and Qwen ${A.retier.qwen_after}.` : '')),
     el('p', { class: 'small', style: 'margin:0 0 12px;max-width:80ch' }, `robots.txt: our network layer used a first-match parser where RFC 9309 requires the longest match. Between 9 and 11 Oct 2026 the project requested 147 distinct URLs on paths www4.ti.ch (Canton Ticino) disallows, 133 of them downloads, mostly by the gold-set samplers; CI runs repeated at most 4,942 downloads before the fix (each process kept 1.2 s between its requests, and at most 8 ran at once). No other host was affected. An RFC 9309 matcher now judges every fetch, and every fetch path requests a mapped URL from OPD's own copy instead; 126 of the 130 evaluation documents are byte-identical to it (docs/incidents.md, results/compliance/).`),
     el('div', { style: 'overflow-x:auto' }, el('table', { class: 'dense' }, el('thead', {}, el('tr', {}, ['Parliament', 'Targets', 'Verified (counted)', 'in OPD with text (tag_answer)', 'in OPD without text, read (extract_tag)', 'fetch from the parliament', 'Review'].map(x => el('th', {}, x)))),
       el('tbody', {}, A.bodies.slice(0, 15).map(b => el('tr', {}, el('td', {}, b.name), el('td', { class: 'num code' }, fmt(b.targets)), el('td', { class: 'num code' }, fmt(b.verified), b.not_counted ? el('span', { class: 'iqr' }, `+ ${fmt(b.not_counted)} not counted`) : null),

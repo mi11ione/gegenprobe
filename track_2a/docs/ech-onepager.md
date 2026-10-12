@@ -13,9 +13,9 @@ submission date; v0.1 makes the role explicit on every date. A pre-registered te
 from 11 parliaments (P8) finds roles in authorship (sole author, first signatory, joint authors, parliamentary group),
 signatories, the instrument behind a harmonised type, the language (a text's language, OPD's tag and the affair's
 language can differ), and the date a submission really carries; §2 turns each finding into a recommendation. Meaning
-is now measured for 11 of the 17 fields. **v0.2 ships P8's roles, the converter fills them, and 171 affairs
-validate**: the converter's own records for P3 (29), P3b (36) and P5 (40) and the 66 P8 affairs, every empty list
-with a typed reason; the v0.1 samples upgrade losslessly (`results/schema/v0_2/validation_all.json`). An exploratory
+is now measured for 11 of the 17 fields. **v0.2 ships P8's roles, the converter fills them, and 186 v0.2 records from 26 parliaments
+validate**: the converter's 120 (105 cantonal and communal + 15 federal, 23 parliaments) and P8's 66 gold records (11
+parliaments), every empty list with a typed reason; the v0.1 samples upgrade losslessly (`results/schema/v0_2/validation_all.json`). An exploratory
 federal cell adds 15 Federal Council answers whose v0.2 records validate as well (`results/fed/fed_tables.json`).
 
 ## 1. Classes (by meaning, measured on OPD's labels and on the documents)
@@ -23,7 +23,7 @@ federal cell adds 15 Federal Council answers whose v0.2 records validate as well
 | class | fields and concepts | what it means for a standard |
 |---|---|---|
 | **shared with a role split** (10 of 17: 8 robust, 2 fragile) | answer date, procedural history, type, procedural state, decision outcome (from OPD's labels; all 5 are measured); submitter, co-signatories, language (P8; type splits there too); addressed body and government recommendation (P8, *fragile, to confirm*: split on the gold, not under both checks) | one label covers several roles that must be kept apart before parliaments can be compared; the roles are named in §2 and in `data/schema/field_verdict_classes.json` |
-| **body-specific** (1 of 17) | submission date: in Vernier and Lausanne OPD's date is mostly printed nowhere in the documents (P8, under both checks) | a standard records which event the date is |
+| **body-specific** (1 of 17) | submission date: in Vernier and Lausanne OPD's submission date is mostly printed in neither document; they print the member's signing or lodging date 2 to 28 days earlier (P8, under both checks; a data-source split) | a standard records which event the date is |
 | **defined once in v0.1** (6 of 17) | decision date, dispatch date, Q/A pairing, related affairs, usable text, answer-link status | one definition in v0.1; their meaning is the next test (the same test as P8); *where* the value lives (metadata, PDF, or not in OPD) is measured |
 | **body-specific** (2 concepts, not among the 17 fields) | oral answers in question time; councils that publish only meeting documents | needs its own construct, not a field: v0.1 types oral answers as a null reason and marks affairs rebuilt from minutes `virtual` with `derived_from` |
 | **outside the tested scope** | parliamentary initiatives (5,817 OPD affairs), government business (37,864) and other executive business that answers no member's affair | the census and the tests sample interventions (OPD's five intervention types); a standard for it is a separate question |
@@ -72,7 +72,7 @@ tolerated); a parliament that departs systematically names a role. Share in v0.1
   `Document.language_tag`.
 - **Submission date: the event and its source** (body-specific; 44/57 [57.1%, 91.8%]). In 9 of 11 parliaments OPD's
   date is the printed lodging date (one exception allowed); in Vernier (0/5) and Lausanne (2/5) it is mostly printed nowhere in the documents,
-  2 to 28 days after the lodging date they print. *Recommend:* give the submission date a role and a source like every
+  2 to 28 days after the signing or lodging date they print. *Recommend:* give the submission date a role and a source like every
   other date. *In v0.2:* `DateRole` adds `signed`, `lodged`, `received`, `announced` and `later_step` (v0.1's
   `submitted` stays for a source's own "submitted" event).
 - **Addressed body and recommendation: fragile, to confirm.** Both split on the gold but not under both registered
@@ -137,7 +137,8 @@ Adopt date roles, typed nulls and the classes of §1 as the frame; standardise t
 (it decides every answer-time comparison); treat oral answers, executive-own business and minutes-only councils as
 named constructs. v0.2 ships the P8 roles of §2 (author roles, `instrument_function` next to the type, the language
 from the text apart from the tag, submission-date roles, the recommendation's `stage`) and a `not_extracted` null
-reason; 171 affairs validate in it, 105 of them the converter's own records (P3, P3b, P5). Next for v0.3: a `QAItem`
+reason; 186 v0.2 records from 26 parliaments validate in it: the converter's 120 (105 cantonal and communal + 15
+federal, 23 parliaments) and P8's 66 gold records (11 parliaments). Next for v0.3: a `QAItem`
 field for joint answers (measured, P5) and the five gaps. Test plan for the six fields defined once (decision and dispatch dates, Q/A pairing, related affairs, usable text,
 answer-link status): the same P8 protocol, with Ticino's documents once its robots.txt permits them. OPD vocabulary errors found on the way
 (e.g. the harmonised type "Votaziun", Romansh for a vote, on 9,887 affairs) are listed in `results/census/vocab_bugs.tsv`. Gegenprobe (Hack Apertus,

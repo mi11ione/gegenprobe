@@ -29,7 +29,9 @@ the document and closed set for a model's document-level classification (a revie
   (`python -m gegenprobe.schema.vocab`)
 - Samples: `results/schema/samples/*.json` (`python -m gegenprobe.schema.samples`)
 - **v0.2** (P8's roles, `schema/gegenprobe_schema_v0_2.py`, JSON Schema `results/schema/v0_2/affair.schema.json`):
-  validated on 171 affairs in four sets (`results/schema/v0_2/validation_all.json`, `make schema-v02`). 105 are the
+  186 v0.2 records from 26 parliaments validate: the converter's 120 (105 cantonal and communal + 15 federal, 23
+  parliaments) and P8's 66 gold records (11 parliaments) (`results/schema/v0_2/validation_all.json` `validated_records`,
+  `make schema-v02`; its top-level count, 171, covers the four sets without the federal cell). 105 are the
   converter's own records: P3 (29) and P3b (36) product records after `affair_post`, carried to v0.2 with
   `qa[].answering_body` as the typed null `not_extracted`, and P5 (40) rules-arm records (Q/A items, people,
   recommendation) with OPD's identification metadata. The other 66 are P8's gold records. The converter fills v0.2's

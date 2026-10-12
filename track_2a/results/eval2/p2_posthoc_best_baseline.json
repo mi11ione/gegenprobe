@@ -1,0 +1,102 @@
+{
+ "label": "POST HOC (12 Oct 2026; proposed in review; not pre-registered): P2 pointer vs the latest date on answer-typed documents, the no-model baseline of P2's results table; no registered decision depends on this file",
+ "method": "eval.posthoc_r6.doc_level_block (strict outcome; exact McNemar; parliament-cluster percentile bootstrap, B = 10000, seed 20261011)",
+ "n": 62,
+ "n_answered": 29,
+ "n_parliaments": 15,
+ "arms": {
+  "pointer": {
+   "exact": [
+    53,
+    62
+   ],
+   "rate": 0.8548387096774194,
+   "doc_level_wilson95": [
+    0.7465637464683084,
+    0.92170676943653
+   ],
+   "cluster_bootstrap95": [
+    0.7076923076923077,
+    0.9661016949152542
+   ]
+  },
+  "latest_date_on_answer_docs_only": {
+   "exact": [
+    44,
+    62
+   ],
+   "rate": 0.7096774193548387,
+   "doc_level_wilson95": [
+    0.5871211868886292,
+    0.8077659361460481
+   ],
+   "cluster_bootstrap95": [
+    0.5322494852436513,
+    0.8653846153846154
+   ]
+  }
+ },
+ "answer_dates_found": {
+  "pointer": [
+   24,
+   29
+  ],
+  "latest_date_on_answer_docs_only": [
+   18,
+   29
+  ]
+ },
+ "paired": {
+  "pointer vs latest_date_on_answer_docs_only": {
+   "n": 62,
+   "a_only": 10,
+   "b_only": 1,
+   "mcnemar_exact_p": 0.01171875,
+   "accuracy_difference": 0.14516129032258066,
+   "cluster_bootstrap95": [
+    0.05660377358490566,
+    0.24243506493506478
+   ],
+   "n_parliaments": 15,
+   "cluster_interval_excludes_0": true,
+   "parliaments_a_better": 6,
+   "parliaments_b_better": 0,
+   "parliaments_tied": 9,
+   "parliament_sign_test_p": 0.03125
+  },
+  "pointer vs latest_date_on_answer_docs_only (answered)": {
+   "n": 29,
+   "a_only": 7,
+   "b_only": 1,
+   "mcnemar_exact_p": 0.0703125,
+   "accuracy_difference": 0.20689655172413793,
+   "cluster_bootstrap95": [
+    0.05555555555555555,
+    0.47058823529411764
+   ],
+   "n_parliaments": 7,
+   "cluster_interval_excludes_0": true,
+   "parliaments_a_better": 4,
+   "parliaments_b_better": 0,
+   "parliaments_tied": 3,
+   "parliament_sign_test_p": 0.125
+  }
+ },
+ "answered_wins_by_dtype": {
+  "intervention": 4,
+  "answer": 3
+ },
+ "answered_losses_by_dtype": {
+  "answer": 1
+ },
+ "display": {
+  "exact": "53/62 vs 44/62",
+  "answer_dates": "24/29 vs 18/29",
+  "discordant": "10 vs 1",
+  "mcnemar_p": "0.0117",
+  "cluster95": "[0.056, 0.243]",
+  "answered_discordant": "7 vs 1",
+  "answered_wins_on_intervention_typed": 4
+ },
+ "note": "on documents OPD types as interventions the baseline returns null by construction, so part of the pointer's edge over it rests on OPD's document typing"
+}

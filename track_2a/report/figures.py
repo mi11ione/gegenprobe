@@ -138,7 +138,7 @@ def _text_in(fig, labels: list, size: float, rotation: float = 0) -> float:
 # ---------------------------------------------------------------- fig 1: where the registered gap is (derived layer)
 def fig1(n: dict) -> None:
     """The registered 16,749 placed once each by the derived census layer (results/census/corrected.json, national.all):
-    blue = a verified repair is proposed (9,720), aqua = OPD's copy without text not yet read, orange = answered orally,
+    blue = a verified repair is proposed, aqua = OPD's copy without text not yet read, orange = answered orally,
     grey = no verified answer yet. Wide and short for the report's full text width; every label is 7.5 pt or larger."""
     x = j("census/corrected.json")["national"]["all"]
     io_ = x["image_only_parts"]

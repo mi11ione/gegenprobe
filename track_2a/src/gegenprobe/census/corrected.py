@@ -47,6 +47,7 @@ import sys
 from pathlib import Path
 
 from ..paths import RESULTS
+from ..repair.adapters import retier
 from ..repair.adapters.run import COUNTED, NOT_BODIES, SUMMARY, TIERS
 
 OUT = RESULTS / "census" / "corrected.json"
@@ -71,8 +72,10 @@ def interventions() -> dict[int, dict]:
 
 
 def adapter_rows() -> dict[int, dict]:
-    """affair_id -> {body, outcome, action, cause, tier, counted, extractor} for every adapter target."""
-    out = {}
+    """affair_id -> {body, outcome, action, cause, tier, counted, extractor} for every adapter target, with the logged
+    re-tierings applied (repair/adapters/retier.py: results/repair/adapters/retier/retier_r18.json moves Valais's 140
+    date_window fetch rows to review; the LOCK8-hashed lists themselves stay as committed)."""
+    out, moved = {}, retier.overrides()
     for p in sorted(ADAPTERS.glob("*.json")):
         if p.name in NOT_BODIES:
             continue
@@ -86,6 +89,11 @@ def adapter_rows() -> dict[int, dict]:
             out[int(a["affair_id"])] = dict(body=p.stem, outcome=a["outcome"], action=a.get("action"), cause=a["cause"],
                                             tier=a["tier"], counted=a["counted"],
                                             extractor=ext.get(int(a["affair_id"]), ""))
+            new = moved.pop((p.stem, int(a["affair_id"])), None)
+            if new is not None:
+                assert a["counted"], ("re-tiered row was not counted", p.stem, a["affair_id"])
+                out[int(a["affair_id"])].update(new, retier=retier.CHANGE)
+    assert not moved, f"re-tiered rows without an adapter target: {sorted(moved)[:5]}"
     return out
 
 
@@ -235,6 +243,12 @@ def compute() -> dict:
                                note="tier identity_wording_only: identity and wording match, no date check (OPD's Jura "
                                     "answer events carry no date); listed for a person or OPD to confirm, not counted"),
         tag_answer_by_tier=dict(sorted(tag_tiers.items())),
+        retiered=dict(file=str(retier.OUT.relative_to(RESULTS.parent)) if retier.OUT.exists() else None,
+                      n=sum(1 for a in ad.values() if a.get("retier")),
+                      by_change=dict(sorted(collections.Counter(a["retier"] for a in ad.values()
+                                                                if a.get("retier")).items())),
+                      note="rows of the committed (LOCK8) lists counted in a verification tier and moved to review by a "
+                           "logged change (repair/adapters/retier.py); they sit in open/review or image_only/open"),
         adapter_sources=adapter_sources(),
         report=_report(nat["all"]),
     )
@@ -251,8 +265,9 @@ def _report(a: dict) -> dict:
     return dict(written=w, in_writing=a["in_writing"],
                 registered_text_share=round(registered_now / w, 4),
                 registered_after_relink=round(registered_after / w, 4),
-                after_all_counted_repairs=round((a["attached"] + a["repaired"]) / w, 4),
-                after_all_counted_repairs_in_writing=round((a["attached"] + a["repaired"]) / a["in_writing"], 4),
+                # 6 decimals: a share printed to one decimal is rounded once (92.1451% -> 92.1%, never 0.9215 -> 92.2%)
+                after_all_counted_repairs=round((a["attached"] + a["repaired"]) / w, 6),
+                after_all_counted_repairs_in_writing=round((a["attached"] + a["repaired"]) / a["in_writing"], 6),
                 repaired=a["repaired"], still_without_text=a["gap"] - a["repaired"],
                 verified_fetches=a["fetchable"] + a["image_only_parts"]["fetchable"],
                 image_only_text_verified=a["image_only_parts"]["text_verified"],
@@ -263,9 +278,12 @@ def _f(n: int) -> str:
     return f"{n:,}"
 
 
+def _pc(k: int, n: int) -> str:
+    return f"{100 * k / n:.1f}%"
+
+
 def sentences(res: dict) -> dict:
     a, n = res["national"]["all"], res["national"]["y2425"]
-    r = res["report"]
     t = a["unrecognised_by_tier"]
     return dict(
         headline=(f"The registered census counts {_f(a['gap'])} interventions with a written government answer but no "
@@ -290,9 +308,11 @@ def sentences(res: dict) -> dict:
                f"{_f(n['written_lack_text_at_most'])} written answers."),
         jura=(f"Listed, not counted: {_f(res['listed_unverified']['n'])} Jura answers that match by identity and wording "
               "only (OPD's Jura answer events carry no date)."),
-        report=(f"across 54 parliaments, {100 * r['registered_text_share']:.1f}% of written answers have their text in "
-                f"OPD ({100 * r['registered_after_relink']:.1f}% after the agenda join and the Bern relink; "
-                f"{100 * r['after_all_counted_repairs']:.1f}% after every counted repair, adding the answers OPD "
+        # shares from the counts, not from the 4-decimal fields (rounding twice would print 92.145% as 92.2%)
+        report=(f"across 54 parliaments, {_pc(a['attached'] + a['opd_elsewhere_parts']['agenda'], a['written'])} of "
+                f"written answers have their text in "
+                f"OPD ({_pc(a['attached'] + a['opd_elsewhere'], a['written'])} after the agenda join and the Bern relink; "
+                f"{_pc(a['attached'] + a['repaired'], a['written'])} after every counted repair, adding the answers OPD "
                 "already holds under an unrecognised heading, the verified text of OPD's own image-only copies and "
                 "the verified fetches from the parliaments)"),
     )
@@ -316,6 +336,7 @@ def write_lists(dest: Path) -> dict:
     per parliament the file, rows by action and tier, counted rows, the hosts read; which list wins where an older list
     names the same affair is in results/repair/MANIFEST.json (repair/manifest.py)."""
     src = adapter_sources()
+    moved = retier.overrides()
     dest.mkdir(parents=True, exist_ok=True)
     files = []
     for p in sorted(ADAPTERS.glob(f"{LIST_PREFIX}*.tsv")):
@@ -330,6 +351,7 @@ def write_lists(dest: Path) -> dict:
             by_action=dict(collections.Counter(r["action"] for r in rows)),
             by_tier=dict(sorted(collections.Counter(r["tier"] for r in rows).items())),
             counted=sum(counted.values()), counted_by_action=dict(counted),
+            counted_after_retier=sum(r["counted"] == "true" and (b, int(r["affair_id"])) not in moved for r in rows),
             not_counted_verified=sum(r["tier"] == "identity_wording_only" for r in rows),
             tag_or_extract_without_opd_doc_id=sum(r["counted"] == "true" and r["action"] in ("tag_answer", "extract_tag")
                                                   and not r["opd_doc_id"] for r in rows),
@@ -344,11 +366,17 @@ def write_lists(dest: Path) -> dict:
                     "candidate rows (results/repair/repair_<BODY>.tsv, action=ocr); the Bern lists and the Valais "
                     "retype_oral list have no adapter counterpart. All lists and the rule: results/repair/MANIFEST.json."),
         counted_tiers=list(COUNTED),
+        retier=dict(file=retier.OUT.name if moved else None, rows=len(moved),
+                    affairs=sorted(f"{b}:{a}" for b, a in moved),
+                    note="logged re-tiering (repair/adapters/retier.py): these counted rows are NOT to be applied; "
+                         "they are review rows (confirm identity, attach, keep OPD's event dates). The lists stay "
+                         "byte-identical to the committed ones."),
         files=files,
         totals=dict(rows=sum(f["rows"] for f in files), counted=sum(f["counted"] for f in files),
                     counted_by_action=dict(sum((collections.Counter(f["counted_by_action"]) for f in files),
                                                collections.Counter())),
                     by_tier=dict(sum((collections.Counter(f["by_tier"]) for f in files), collections.Counter())),
+                    counted_after_retier=sum(f["counted_after_retier"] for f in files),
                     not_counted_verified=sum(f["not_counted_verified"] for f in files)),
     )
     (dest / MANIFEST).write_text(json.dumps(man, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

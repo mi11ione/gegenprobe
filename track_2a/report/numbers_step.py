@@ -40,6 +40,16 @@ GENERATORS = [
     ("report.stats", "main"),
     ("report.p2_8b", "main"),
     ("report.matrix_accuracy", "main"),
+    # round 18: the logged re-tiering, the derived census layer and the repair MANIFEST that apply it, and the post hoc
+    # v0.2 role coverage of P8's gold
+    ("gegenprobe.repair.adapters.retier", "main"),
+    ("gegenprobe.census.corrected", "main"),
+    ("gegenprobe.repair.manifest", "main"),
+    ("gegenprobe.schema.v0_2_role_coverage", "main"),
+    # round 18 docs pass: the answer-time finding on the re-tiered lists, and P2's pointer against its strongest
+    # no-model baseline (post hoc)
+    ("gegenprobe.findings.answer_times", "main"),
+    ("eval.gold2.posthoc_best_baseline", "main"),
 ]
 
 

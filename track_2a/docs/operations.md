@@ -27,10 +27,10 @@ majority (Ticino, Vaud, Genève, Valais, Fribourg; Graubünden, Bern, Luzern), c
 written answers lack text. Bern: 567 of 593 written answers from 2024–25 (96%) lack text, but 520 of them are in OPD
 unlinked (418 under an agenda item, 102 without a parent). Coverage gaps: 31 parliaments where OPD holds interventions
 but records almost no written answers (canton SZ: 1,316 interventions, 0 answers): OPD coverage, not unanswered
-questions. After every counted repair 92.3% of the 91,268 have answer text, up from 81.6% attached today: 85.6%
+questions. After every counted repair 92.1% of the 91,268 have answer text, up from 81.6% attached today: 85.6%
 with the 3,621 repairs from what OPD already holds (agenda joins, category tags, verified text of its own copies),
-88.3% after OPD's hash decision for the 2,459 Bern relinks, 92.3% once the 3,640 checked fetches are loaded
-(`results/report/r9_numbers.json`). The 554 `begin_date` corrections are a separate field, not among the 9,720.
+88.3% after OPD's hash decision for the 2,459 Bern relinks, 92.1% once the 3,500 checked fetches are loaded
+(`results/report/r9_numbers.json`). The 554 `begin_date` corrections are a separate field, not among the 9,580.
 
 ## Repair lists for OPD (`docs/repair.md`, `docs/runbook.md`)
 
@@ -59,7 +59,7 @@ with the 3,621 repairs from what OPD already holds (agenda joins, category tags,
   `opd_group`), the two groups OPD described; 554 get the date of their own "Eingereicht" event, 173
   go to review (`repair_BE_begin_date.tsv`).
 - **Coverage.** Before the source adapters, deterministic routes (Bern relinks and fetches, agenda joins, federal Curia
-  Vista) proposed repairs for 3,107 of the 16,749 without answer text; with them, 9,720 (next bullet: 9,089 checked
+  Vista) proposed repairs for 3,107 of the 16,749 without answer text; with them, 9,580 (next bullet: 8,949 checked
   row by row, 592 agenda joins never sample-checked, 39 Bern rows in review). The retype list holds 1,008 Valais answers, confirmed by the exact text
   rule, that were given orally and filed as a stub: they are retyped as oral, not searched for (the length proxy finds
   1,016 such stubs; `results/census/vs_reconcile.json`). For 1,350 affairs whose answer OPD holds only as an image, a probe ran German+French+Italian OCR on 15
@@ -69,16 +69,20 @@ with the 3,621 repairs from what OPD already holds (agenda joins, category tags,
   time).
 - **Source adapters for 50 parliaments** (`src/gegenprobe/repair/adapters/`, `docs/adapters.md`; model-free). Routes of
   their own for the parliaments with the most missing answers (Zürich canton and city, St. Gallen, Ticino, Neuchâtel,
-  Jura, Valais, Solothurn, Luzern, Aarau) and a reader of OPD's own documents for every other parliament verify 6,613
-  more answers: 5,793 of the 10,800 without an answer document and 820 of the 1,350 image-only ones. Each is checked by
+  Jura, Valais, Solothurn, Luzern, Aarau) and a reader of OPD's own documents for every other parliament verify 6,473
+  more answers after the logged re-tiering below (6,613 in the lists as committed: 5,793 of the 10,800 without an
+  answer document and 820 of the 1,350 image-only ones). Each is checked by
   affair number or title, the parliament's answer formula and a date check, and typed filters reject documents that
   only look like answers (deadline extensions, commission reports, minutes, the member's own text, another affair).
   Verification tiers: 5,161 whose own date equals an OPD event; 1,056 where a printed date equals an OPD answer
   event and the document's own date, if read, lies within 30 days of one (rows more than 30 days off go to review);
-  396 within the parliament's documented window (at most 15 days in Zürich city, 120 in Valais). Listed separately and **not counted**: 282 Jura answers that match by
-  identity and wording only (OPD's Jura answer events carry no date), and 917 rows that wait for a person (214 of them
-  promoted by Apertus into the separate tier `promoted_by_apertus`, P7). **Repairs are proposed for 9,720 of the
-  16,749; the adapters looked at 5,007 more without a counted row, 943 of which wait for a person.**
+  256 within the parliament's documented window (at most 15 days in Zürich city; Kriens, Neuchâtel). Valais's 140
+  date-window rows moved to review: OPD's Valais answer event is the session that debated the motion, after the
+  government's letter (logged in `results/repair/adapters/retier/retier_r18.json`). Listed separately and **not
+  counted**: 282 Jura answers that match by identity and wording only (OPD's Jura answer events carry no date), and
+  1,057 rows that wait for a person (P7's Apertus tier `promoted_by_apertus` holds 214 of the 917 it was applied to).
+  **Repairs are proposed for 9,580 of the 16,749; 1,079 rows wait for a person.** In the lists as committed the
+  adapters looked at 5,007 more without a counted row.
   2,177 of the answers the census counts as missing are already in OPD with text, filed under the question's file and
   worded in a way our frozen census lexicon does not list (Zürich city alone: 1,417, "Der Stadtrat beantwortet die
   Anfrage wie folgt"): the repair is a category on the document (`tag_answer`), not a new document. The registered
@@ -90,8 +94,12 @@ with the 3,621 repairs from what OPD already holds (agenda joins, category tags,
   decoys from the review and failed lists, shuffled into packets that carry no outcome, reason or proposed action. The
   packets do carry the text's sha256, which joins to the committed lists. The audit is therefore blind for Qwen, which
   saw only the prompt, and blind by instruction for Claude, which ran in a checkout. The key's hash reached GitHub at
-  00:56:16 UTC on 11 Oct (commit `ce416a8`), before the Claude verdicts were finished and before any scoring. Claude Opus judged **197/200** counted rows to be the executive's
-  answer (Wilson 95.7% to 99.5%; a plain proportion over a stratified sample), and the date wrong or unsupported on 15.
+  00:56:16 UTC on 11 Oct (commit `ce416a8`), before the Claude verdicts were finished and before any scoring. On the
+  counted rows after the re-tiering, Claude Opus judged **185/186** to be the executive's answer (3 dates judged wrong,
+  all Solothurn, where the auditor saw the committee's "Beantwortet" date) and Qwen-SEA-LION 186/186 (post hoc re-read
+  over the 7 strata that still count). As run, on 200 counted rows: Claude **197/200** (Wilson 95.7% to 99.5%; a plain
+  proportion over a stratified sample), the date wrong or unsupported on 15, 12 of them on the 14 sampled Valais
+  date-window rows.
   It rejected 60% of the failed decoys but only 1.5% of the counted rows, and called 77% of the review decoys answers:
   the pipeline errs on the side of review. A second auditor from another vendor, Qwen-SEA-LION, accepted 200/200 but
   was lenient on decoys; the two agree on 252/260. Both auditors are language models, by design (no human labelling).
@@ -132,7 +140,8 @@ from `data/p8/p8_gold.jsonl`, byte-identical, with LOCK9); replays P10 and the f
 `eval/replay_p10.py`: the P10 gold merged again from the committed A1/A2/A3 files, the arms joined and H1–H3b
 re-scored, the Qwen-SEA-LION check and the federal tables re-scored, each byte-identical) and verifies LOCK10 and
 LOCKFED on every committed file they hash, so all ten pre-registration locks and LOCKFED are checked; re-derives schema v0.2 for the converter's own P3, P3b and
-P5 records and the P8 gold (171 affairs, all must validate, byte-identical); re-derives the P1 rules arm from the
+P5 records and the P8 gold (171 affairs, all must validate, byte-identical; with the 15 federal records, 186 v0.2
+records from 26 parliaments validate); re-derives the P1 rules arm from the
 source PDFs (fetched by sha256) and recomputes P1 and P2 Apertus decisions from the committed model cache (cache only,
 no model call) within a time budget; and runs the claims check: each number listed in `claims.tsv` is recomputed from
 its results file, and the step fails if a document a claim lists does not print the claimed value (short values within

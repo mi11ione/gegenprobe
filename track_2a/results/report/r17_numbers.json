@@ -39,5 +39,30 @@
   "docker_consecutive": 2,
   "docker_exit_0": 2,
   "real_nights": 3
+ },
+ "role_splits": {
+  "n": 10,
+  "p8_registered": 6,
+  "labels_only_post_hoc": 4,
+  "robust": 8,
+  "fragile": 2,
+  "p8_fields": [
+   "type",
+   "submitter",
+   "co_signatories",
+   "addressed_body",
+   "government_recommendation",
+   "language"
+  ],
+  "labels_only_fields": [
+   "date_answer",
+   "procedural_history",
+   "procedural_state",
+   "decision_outcome"
+  ],
+  "fragile_fields": [
+   "addressed_body",
+   "government_recommendation"
+  ]
  }
 }

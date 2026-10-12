@@ -40,8 +40,10 @@ test:
 lint:
 	$(PY) -m ruff check src eval tests
 
-# claims: every number recomputed and bound (claims.tsv, claims_anchor.json, claims_strict.json), then 444_Report.pdf
-#         checked against technical_report.md (every report anchor phrase in the PDF's text; needs pdftotext)
+# claims: every number recomputed and bound (claims.tsv, claims_anchor.json, claims_strict.json), every evaluative word
+#         pinned or listed (claims_pins.json), the evidence site's first screen against its claims (claims_site.json;
+#         rendered with Chrome where found), then 444_Report.pdf checked against technical_report.md (every report anchor
+#         phrase and the whole text, word by word; needs pdftotext)
 claims:
 	$(PY) -m gegenprobe.claims check
 	$(PY) -m report.pdf_check

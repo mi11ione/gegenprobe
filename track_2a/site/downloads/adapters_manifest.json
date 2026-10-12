@@ -7,6 +7,153 @@
   "exact_any_printed_date",
   "date_window"
  ],
+ "retier": {
+  "file": "retier_r18.json",
+  "rows": 140,
+  "affairs": [
+   "VS:179050",
+   "VS:179059",
+   "VS:260310",
+   "VS:331872",
+   "VS:331875",
+   "VS:331876",
+   "VS:331879",
+   "VS:331880",
+   "VS:331899",
+   "VS:331900",
+   "VS:332077",
+   "VS:332078",
+   "VS:332079",
+   "VS:332082",
+   "VS:332083",
+   "VS:332084",
+   "VS:332085",
+   "VS:332087",
+   "VS:332088",
+   "VS:332089",
+   "VS:332090",
+   "VS:332091",
+   "VS:332092",
+   "VS:332095",
+   "VS:332097",
+   "VS:332099",
+   "VS:332203",
+   "VS:332356",
+   "VS:332358",
+   "VS:332360",
+   "VS:332361",
+   "VS:332363",
+   "VS:332364",
+   "VS:332365",
+   "VS:332368",
+   "VS:332369",
+   "VS:332370",
+   "VS:332371",
+   "VS:332373",
+   "VS:332374",
+   "VS:332375",
+   "VS:332376",
+   "VS:332377",
+   "VS:332384",
+   "VS:332385",
+   "VS:332386",
+   "VS:332388",
+   "VS:332397",
+   "VS:332398",
+   "VS:332401",
+   "VS:332404",
+   "VS:332405",
+   "VS:332406",
+   "VS:332407",
+   "VS:332412",
+   "VS:332413",
+   "VS:332424",
+   "VS:332430",
+   "VS:332432",
+   "VS:332433",
+   "VS:332434",
+   "VS:332437",
+   "VS:332439",
+   "VS:332440",
+   "VS:332441",
+   "VS:332442",
+   "VS:332444",
+   "VS:332446",
+   "VS:332447",
+   "VS:332448",
+   "VS:332449",
+   "VS:332457",
+   "VS:332461",
+   "VS:332463",
+   "VS:332464",
+   "VS:332465",
+   "VS:332466",
+   "VS:332468",
+   "VS:332470",
+   "VS:332472",
+   "VS:332473",
+   "VS:332476",
+   "VS:332477",
+   "VS:332478",
+   "VS:332479",
+   "VS:332482",
+   "VS:332485",
+   "VS:332486",
+   "VS:332487",
+   "VS:332488",
+   "VS:332490",
+   "VS:332491",
+   "VS:332492",
+   "VS:332493",
+   "VS:332495",
+   "VS:332496",
+   "VS:332497",
+   "VS:332499",
+   "VS:332501",
+   "VS:332505",
+   "VS:332507",
+   "VS:332509",
+   "VS:332510",
+   "VS:332511",
+   "VS:332514",
+   "VS:332516",
+   "VS:332518",
+   "VS:332519",
+   "VS:332521",
+   "VS:332522",
+   "VS:332523",
+   "VS:332524",
+   "VS:332525",
+   "VS:332528",
+   "VS:332600",
+   "VS:332620",
+   "VS:332658",
+   "VS:332680",
+   "VS:332709",
+   "VS:332710",
+   "VS:332711",
+   "VS:332713",
+   "VS:332716",
+   "VS:332717",
+   "VS:332730",
+   "VS:332758",
+   "VS:332763",
+   "VS:332780",
+   "VS:332781",
+   "VS:332824",
+   "VS:332868",
+   "VS:332876",
+   "VS:332888",
+   "VS:332925",
+   "VS:86668",
+   "VS:86675",
+   "VS:86733",
+   "VS:87286",
+   "VS:87731",
+   "VS:88791"
+  ],
+  "note": "logged re-tiering (repair/adapters/retier.py): these counted rows are NOT to be applied; they are review rows (confirm identity, attach, keep OPD's event dates). The lists stay byte-identical to the committed ones."
+ },
  "files": [
   {
    "body": "1059",
@@ -27,6 +174,7 @@
    "counted_by_action": {
     "tag_answer": 69
    },
+   "counted_after_retier": 69,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -52,6 +200,7 @@
    "counted_by_action": {
     "extract_tag": 2
    },
+   "counted_after_retier": 2,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -78,6 +227,7 @@
    "counted_by_action": {
     "extract_tag": 2
    },
+   "counted_after_retier": 2,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -105,6 +255,7 @@
    "counted_by_action": {
     "tag_answer": 1417
    },
+   "counted_after_retier": 1417,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -126,6 +277,7 @@
    },
    "counted": 0,
    "counted_by_action": {},
+   "counted_after_retier": 0,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -147,6 +299,7 @@
    },
    "counted": 0,
    "counted_by_action": {},
+   "counted_after_retier": 0,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -173,6 +326,7 @@
    "counted_by_action": {
     "extract_tag": 30
    },
+   "counted_after_retier": 30,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -198,6 +352,7 @@
    "counted_by_action": {
     "tag_answer": 3
    },
+   "counted_after_retier": 3,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -226,6 +381,7 @@
     "fetch": 67,
     "tag_answer": 4
    },
+   "counted_after_retier": 71,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -255,6 +411,7 @@
     "tag_answer": 4,
     "extract_tag": 1
    },
+   "counted_after_retier": 5,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -278,6 +435,7 @@
    "counted_by_action": {
     "tag_answer": 21
    },
+   "counted_after_retier": 21,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -306,6 +464,7 @@
     "tag_answer": 14,
     "extract_tag": 2
    },
+   "counted_after_retier": 16,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -327,6 +486,7 @@
    },
    "counted": 0,
    "counted_by_action": {},
+   "counted_after_retier": 0,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -348,6 +508,7 @@
    },
    "counted": 0,
    "counted_by_action": {},
+   "counted_after_retier": 0,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -376,6 +537,7 @@
     "tag_answer": 64,
     "extract_tag": 58
    },
+   "counted_after_retier": 122,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -401,6 +563,7 @@
    "counted_by_action": {
     "tag_answer": 1
    },
+   "counted_after_retier": 1,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -427,6 +590,7 @@
    "counted_by_action": {
     "tag_answer": 4
    },
+   "counted_after_retier": 4,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -448,6 +612,7 @@
    },
    "counted": 0,
    "counted_by_action": {},
+   "counted_after_retier": 0,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -474,6 +639,7 @@
    "counted_by_action": {
     "tag_answer": 29
    },
+   "counted_after_retier": 29,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -497,6 +663,7 @@
    "counted_by_action": {
     "tag_answer": 2
    },
+   "counted_after_retier": 2,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -520,6 +687,7 @@
    "counted_by_action": {
     "tag_answer": 1
    },
+   "counted_after_retier": 1,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -545,6 +713,7 @@
    "counted_by_action": {
     "extract_tag": 6
    },
+   "counted_after_retier": 6,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -571,6 +740,7 @@
    "counted_by_action": {
     "tag_answer": 72
    },
+   "counted_after_retier": 72,
    "not_counted_verified": 282,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -596,6 +766,7 @@
    "counted_by_action": {
     "fetch": 104
    },
+   "counted_after_retier": 104,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -623,6 +794,7 @@
    "counted_by_action": {
     "tag_answer": 237
    },
+   "counted_after_retier": 237,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -648,6 +820,7 @@
    "counted_by_action": {
     "fetch": 1012
    },
+   "counted_after_retier": 1012,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -673,6 +846,7 @@
    "counted_by_action": {
     "fetch": 210
    },
+   "counted_after_retier": 210,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -700,6 +874,7 @@
     "extract_tag": 31,
     "tag_answer": 1
    },
+   "counted_after_retier": 32,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -725,6 +900,7 @@
    "counted_by_action": {
     "extract_tag": 719
    },
+   "counted_after_retier": 719,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -751,6 +927,7 @@
    "counted_by_action": {
     "tag_answer": 91
    },
+   "counted_after_retier": 91,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -778,6 +955,7 @@
    "counted_by_action": {
     "fetch": 163
    },
+   "counted_after_retier": 23,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -808,6 +986,7 @@
     "fetch": 2028,
     "extract_tag": 1
    },
+   "counted_after_retier": 2172,
    "not_counted_verified": 0,
    "tag_or_extract_without_opd_doc_id": 0,
    "hosts": [
@@ -832,6 +1011,7 @@
    "review": 917,
    "identity_wording_only": 282
   },
+  "counted_after_retier": 6473,
   "not_counted_verified": 282
  }
 }

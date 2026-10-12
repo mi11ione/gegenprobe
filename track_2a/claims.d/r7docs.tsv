@@ -1,14 +1,14 @@
 id	shown	file	path	fmt	command	where	context
-r7docs.repaired_verified	9,089	results/report/r7docs_numbers.json	repairs.verified	int	PYTHONPATH=src:. python -m report.r7docs_numbers	README.md,docs/operations.md	
+r7docs.repaired_verified	8,949	results/report/r7docs_numbers.json	repairs.verified	int	PYTHONPATH=src:. python -m report.r7docs_numbers	README.md,docs/operations.md	
 r7docs.repaired_agenda_unsampled	592	results/report/r7docs_numbers.json	repairs.agenda_join_unsampled	int	PYTHONPATH=src:. python -m report.r7docs_numbers	README.md,docs/operations.md	
 r7docs.repaired_be_review	39	results/report/r7docs_numbers.json	repairs.be_review	int	PYTHONPATH=src:. python -m report.r7docs_numbers	README.md,docs/operations.md	
-r7docs.open	5,077	results/report/r7docs_numbers.json	repairs.open	int	PYTHONPATH=src:. python -m report.r7docs_numbers	README.md,technical_report.md	
-r7docs.open_for_a_person	943	results/report/r7docs_numbers.json	repairs.open_for_a_person	int	PYTHONPATH=src:. python -m report.r7docs_numbers	docs/operations.md,technical_report.md,README.md	
-r7docs.open_review	661	results/report/r7docs_numbers.json	repairs.open_review	int	PYTHONPATH=src:. python -m report.r7docs_numbers	-	
+r7docs.open	5,213	results/report/r7docs_numbers.json	repairs.open	int	PYTHONPATH=src:. python -m report.r7docs_numbers	README.md,technical_report.md	
+r7docs.open_for_a_person	1,079	results/report/r7docs_numbers.json	repairs.open_for_a_person	int	PYTHONPATH=src:. python -m report.r7docs_numbers	docs/operations.md,technical_report.md,README.md	
+r7docs.open_review	797	results/report/r7docs_numbers.json	repairs.open_review	int	PYTHONPATH=src:. python -m report.r7docs_numbers	-	
 r7docs.open_adapter_failed	4,064	results/census/corrected.json	national.all.open_parts.adapter_failed	int	python -m gegenprobe.census.corrected	-	
 r7docs.open_no_adapter	70	results/census/corrected.json	national.all.open_parts.no_adapter	int	python -m gegenprobe.census.corrected	-	
 r7docs.adapters_looked	5,007	results/repair/adapters/adapters_summary.json	coverage.needs_adapters_after	int	python -m gegenprobe.repair.adapters.run --write	docs/operations.md	
-r7docs.image_only_unread	530	results/report/r7docs_numbers.json	repairs.image_only_unread	int	PYTHONPATH=src:. python -m report.r7docs_numbers	-	
+r7docs.image_only_unread	534	results/report/r7docs_numbers.json	repairs.image_only_unread	int	PYTHONPATH=src:. python -m report.r7docs_numbers	-	
 r7docs.attached_share	81.6%	results/census/corrected.json	national.all.attached/national.all.written	pct1	python -m gegenprobe.census.corrected	technical_report.md	
 r7docs.no_answer_docs	53	results/report/r7docs_numbers.json	answerless.apertus_no_answer_docs	int	PYTHONPATH=src:. python -m report.r7docs_numbers	README.md,docs/evaluation.md	
 r7docs.dated_no_answer_docs	0	results/report/r7docs_numbers.json	answerless.apertus_dated_no_answer_docs	int	PYTHONPATH=src:. python -m report.r7docs_numbers	-	
@@ -30,7 +30,7 @@ r7docs.p6_8b_n	67	results/p6/hypotheses7__gguf_apertus-v1.5-8b-text-q4_k_m.json	
 r7docs.che_placeholder	29,946	results/repair/summary.json	by_action.placeholder_replace	int	python -m gegenprobe.repair.run	README.md,technical_report.md,../README.md	
 r7docs.che_sample	40/50	results/repair/che_backlog_run.json	verified_rule/total_done	frac	python -m gegenprobe.repair.che backlog 50 && python -m gegenprobe.repair.che stats	README.md	
 r7docs.che_hours	17.5	results/repair/che_backlog_run.json	est_hours_full_backlog	f1	python -m gegenprobe.repair.che backlog 50 && python -m gegenprobe.repair.che stats	README.md	
-r7docs.vocab_rows	9	results/report/r7docs_numbers.json	vocab_bugs.rows	int	PYTHONPATH=src:. python -m report.r7docs_numbers	README.md,technical_report.md,docs/form_notes.md	
+r7docs.vocab_rows	9	results/report/r7docs_numbers.json	vocab_bugs.rows	int	PYTHONPATH=src:. python -m report.r7docs_numbers	README.md,technical_report.md	
 r7docs.vocab_votaziun	9,887	results/report/r7docs_numbers.json	vocab_bugs.votaziun_affairs	int	PYTHONPATH=src:. python -m report.r7docs_numbers	README.md,docs/ech-onepager.md	
 r7docs.vocab_popular_initiative	1,893	results/report/r7docs_numbers.json	vocab_bugs.popular_initiative_affairs	int	PYTHONPATH=src:. python -m report.r7docs_numbers	-	
 r7docs.events_unharmonised	29.1%	results/census/comparability.json	dates_with_roles.unharmonised_share	pct1	PYTHONPATH=src:. python -m gegenprobe.census.comparability	docs/evaluation.md	

@@ -19,6 +19,10 @@
       is an error, exit 2); --queue-nulls sends a rules-only null answer date on an answer document (doc_role answer, or
       --doc-category / batch column doc_category says answer) to review with its candidates.
       Docs: docs/convert-your-own.md.
+  python -m gegenprobe convert <pdf path or URL> --schema v0.2 --body KEY [--level L] [--doc-role question|answer]
+                               [--affair-number N] [--affair-type T] [--out FILE]
+      One bare PDF (no OPD affair id) -> one validated schema v0.2 record (rules_only): the rules' values with page,
+      span and rule; every field only OPD's metadata supplies is a typed null not_in_corpus (convert/v02_pdf.py).
   python -m gegenprobe affair --opd-affair <id> [--schema v0.2] [--mode rules_only|review] [--roles rules|apertus]
                              [--out FILE]
       One OPD affair -> one validated schema v0.2 record: OPD's export rows (affair, events, contributors, document rows)
@@ -177,6 +181,15 @@ def main(argv: list[str] | None = None) -> int:
     c.add_argument("-v", "--verbose", action="store_true", help="print the cache path (GP_WORK, default the repo's .work/)")
     c.add_argument("--timeout", type=int, default=60, help="seconds per HTTP request (default 60)")
     c.add_argument("--tries", type=int, default=2, help="HTTP attempts per document (default 2)")
+    c.add_argument("--schema", choices=["v0.1", "v0.2"], default="v0.1",
+                   help="v0.1 (default): the document row with its v0.1 record; v0.2: one validated schema v0.2 affair "
+                   "record from this PDF alone, without an OPD affair id (fields only OPD's metadata supplies are typed "
+                   "not_in_corpus; needs --body, and --level for a parliament outside OPD's bodies table; "
+                   "convert/v02_pdf.py)")
+    c.add_argument("--level", choices=["cantonal", "communal", "federal"],
+                   help="--schema v0.2: the parliament's level when --body is not an OPD body key")
+    c.add_argument("--doc-role", choices=["question", "answer"],
+                   help="--schema v0.2: the member's text or the answer (default: the converter's own doc_role)")
     from . import affair_cli
     affair_cli.add_parser(sub)
     sub.add_parser("run", help="the make-run replay")
@@ -201,6 +214,9 @@ def main(argv: list[str] | None = None) -> int:
             a.affair_type = affair_types.normalize(a.affair_type, aliases)
         except affair_types.UnknownAffairType as e:
             c.error(f"argument --affair-type: {e}")
+        if a.schema == "v0.2":
+            from .convert import v02_pdf
+            return v02_pdf.main_args(a)
         try:
             return _convert(a)
         except BuildMismatch as e:  # review mode: the served model is not the build θ was fitted on

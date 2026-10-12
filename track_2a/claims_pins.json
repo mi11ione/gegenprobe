@@ -1,5 +1,5 @@
 {
- "_doc": "Wording pins for `make claims` (src/gegenprobe/claims_pins.py;). pins: phrases that must occur exactly `count` times (default 1), bound where possible to the result they state (`results`: {file, path, is} or {file, vars, expr, is}); `polarity` neg/pos keeps a verdict phrase on the side its result is. guards: every match in `docs` must lie inside a pin phrase or an `allow` phrase. A docs pass that rewrites one of these sentences updates its phrase here; a result that changes fails its pin until the sentence is rewritten.",
+ "_doc": "Wording pins for `make claims` (src/gegenprobe/claims_pins.py;). pins: phrases that must occur exactly `count` times (default 1), bound where possible to the result they state (`results`: {file, path, is} or {file, vars, expr, is}); `polarity` neg/pos keeps a verdict phrase on the side its result is. guards: every match in `docs` must lie inside a pin phrase or an `allow` phrase. A docs pass that rewrites one of these sentences updates its phrase here; a result that changes fails its pin until the sentence is rewritten. Guards (R18): comparative, maturity, scope_quantifier and deployment words as well; `python -m gegenprobe.claims_pins uncovered` lists matches outside every phrase, `propose` drafts allow entries.",
  "docs": [
   "README.md",
   "technical_report.md",
@@ -9,7 +9,11 @@
  "guards": {
   "verdict": "(?i)(?<![\\w-])(not\\s+confirmed|confirmed|unconfirmed|not\\s+supported|supported|not\\s+held|held(?!\\s+out)|holds?|failed|fails?|replicated|rejected|inconclusive|no\\s+(?:measurable\\s+)?gain|non-inferior|superior|not\\s+significant\\w*|significant\\w*)(?![\\w-])",
   "quantifier": "(?i)(?<![\\w-])((?:one|two|three|four|five|six|seven|eight|nine|ten|a\\s+few|several|many)\\s+times|twice|thrice|doubl(?:e|es|ed|ing)|tripl(?:e|es|ed|ing)|quadrupl\\w*|halv(?:e|es|ed|ing)|half|(?:about|nearly|almost|roughly|around|over|under|at\\s+least|at\\s+most)\\s+(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|a\\s+(?:third|quarter|half|dozen)))(?![\\w-])",
-  "safety": "(?i)(runs?\\s+no\\s+model|no\\s+model\\s+runs|no\\s+model\\s+by\\s+default|never\\s+writes|only\\s+suggests|only\\s+picks|writes\\s+(?:a|every|the|no)\\s+values?|runs?\\s+unattended|leaves\\s+(?:the\\s+machine|Switzerland)|outside\\s+Switzerland|in\\s+Switzerland|third-party\\s+processor|Claude\\s+Code|coding\\s+assistants?|wrote\\s+(?:the|most|all)\\s+code|team\\s+wrote|every\\s+value)"
+  "safety": "(?i)(runs?\\s+no\\s+model|no\\s+model\\s+runs|no\\s+model\\s+by\\s+default|never\\s+writes|only\\s+suggests|only\\s+picks|writes\\s+(?:a|every|the|no)\\s+values?|runs?\\s+unattended|leaves\\s+(?:the\\s+machine|Switzerland)|outside\\s+Switzerland|in\\s+Switzerland|third-party\\s+processor|Claude\\s+Code|coding\\s+assistants?|wrote\\s+(?:the|most|all)\\s+code|team\\s+wrote|every\\s+value)",
+  "comparative": "(?i)(?<![\\w-])(level(?:\\s+with)?|ahead|behind|beat(?:s|ing)?|better|worse|stronger|weaker|outperform\\w*|underperform\\w*|on\\s+par|wins?|won|loses?|lost|ties|tied|trails?|exceeds?|surpass\\w*|edges?\\s+out)(?![\\w-])",
+  "maturity": "(?i)(?<![\\w-])(essential|indispensable|crucial|ready\\s+to\\s+(?:apply|deploy|use|run|ship)|deployable|deploy-ready|production(?:[- ](?:ready|grade))?|prototype|feasibility\\s+study|final|mature|earns?\\s+its\\s+place|reviewer's\\s+aid|extractor|robust\\w*|reliabl\\w*|accura\\w*|strong|weak|proven|state[- ]of[- ]the[- ]art|best|unattended|needs_review|recommend(?:s|ed|ing)?|Recommendation:)(?![\\w-])",
+  "scope_quantifier": "(?i)(?<![\\w-])(every\\s+one|most|all|never|always|only)(?![\\w-])",
+  "deployment": "(?i)(?<![\\w-])(locally|laptop|CPU|GPU|on-prem\\w*|air-gapped)(?![\\w-])"
  },
  "pins": [
   {
@@ -105,6 +109,9 @@
    "docs": {
     "technical_report.md": [
      "so it sits in a few parliaments"
+    ],
+    "README.md": [
+     "so it sits in some\n  parliaments, not all"
     ]
    }
   },
@@ -322,8 +329,7 @@
      "These five verdicts hold on agreed labels only and on another vendor's"
     ],
     "technical_report.md": [
-     "**none uniform**: 6 role split, 1 body-specific",
-     "2 are fragile (the split holds under one of P8's two checks)"
+     "**none uniform**: 6 role split, 1 body-specific"
     ]
    }
   },
@@ -560,7 +566,7 @@
    "docs": {
     "README.md": [
      "The default runs no model.",
-     "The default (`rules_only`) runs no model, and no repair behind the 92.3% and the 9,720 needs one",
+     "The default (`rules_only`) runs no model, and no repair behind the 92.1% and the 9,580 needs one",
      "so the default runs no model |"
     ],
     "technical_report.md": [
@@ -625,7 +631,6 @@
      "with a page, span and margin on every value"
     ],
     "docs/form_notes.md": [
-     "every value with its role and source",
      "a converter that gives every value its page and span"
     ],
     "../README.md": [
@@ -651,7 +656,7 @@
      "**Runtime external services:** none by default (public sources only); Apertus review mode sends document text to the Public AI gateway, or nothing with the local 8B."
     ],
     "docs/form_notes.md": [
-     "Runtime external services: none by default (public sources only); Apertus review mode sends document\n  text to the Public AI gateway, or nothing with the local 8B."
+     "Runtime external services: none by default (public sources only); Apertus review mode sends document\n  text to the Public AI gateway, or nothing with the local 8B"
     ],
     "../README.md": [
      "**Runtime external services:** none by\ndefault (public sources only); Apertus review mode sends document text to the Public AI gateway, or nothing with the\nlocal 8B."
@@ -894,6 +899,725 @@
      "the first two become shared (5/7 verdicts hold;"
     ]
    }
+  },
+  {
+   "id": "cmp.p10.order_level",
+   "why": "document order vs Apertus: both cluster intervals (recall, F1) span 0",
+   "results": [
+    {
+     "file": "results/p10/p10_posthoc_baselines.json",
+     "vars": {
+      "lo": "display.pointer_vs_cand_order.recall.ci_pts.0",
+      "hi": "display.pointer_vs_cand_order.recall.ci_pts.1"
+     },
+     "expr": "lo < 0 < hi",
+     "is": true
+    },
+    {
+     "file": "results/p10/p10_posthoc_baselines.json",
+     "vars": {
+      "lo": "display.pointer_vs_cand_order.f1.ci_pts.0",
+      "hi": "display.pointer_vs_cand_order.f1.ci_pts.1"
+     },
+     "expr": "lo < 0 < hi",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "and Apertus's role choice is level with document order"
+    ]
+   }
+  },
+  {
+   "id": "cmp.p10.order_per_affair",
+   "why": "per-affair wins, losses and ties of Apertus vs document order",
+   "results": [
+    {
+     "file": "results/p10/p10_posthoc_baselines.json",
+     "path": "primary.paired.cand_order.wins_losses_ties.by_matched_pairs.first_ahead",
+     "is": 8
+    },
+    {
+     "file": "results/p10/p10_posthoc_baselines.json",
+     "path": "primary.paired.cand_order.wins_losses_ties.by_matched_pairs.arm_ahead",
+     "is": 7
+    },
+    {
+     "file": "results/p10/p10_posthoc_baselines.json",
+     "path": "primary.paired.cand_order.wins_losses_ties.by_matched_pairs.tie",
+     "is": 19
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "per affair 8 better, 7 worse, 19 tied"
+    ]
+   }
+  },
+  {
+   "id": "cmp.p10.parliaments_ahead",
+   "why": "parliaments where Apertus reads more pairs right than the rules, and fewer",
+   "results": [
+    {
+     "file": "site/data.json",
+     "path": "evaluation.p10.primary.parliaments_pointer_more",
+     "is": 9
+    },
+    {
+     "file": "site/data.json",
+     "path": "evaluation.p10.primary.parliaments_rules_more",
+     "is": 1
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "it is ahead of the rules in 9 of the 14 parliaments and behind in 1"
+    ]
+   }
+  },
+  {
+   "id": "cmp.p10.without_neuchatel_level",
+   "why": "without Neuchâtel, Apertus and OPD's list differ by at most one pair",
+   "results": [
+    {
+     "file": "results/report/r16_numbers.json",
+     "vars": {
+      "a": "p10.concentration.without_largest.pointer",
+      "b": "p10.concentration.without_largest.opd_first"
+     },
+     "expr": "abs(a - b) <= 1",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "without Neuchâtel the two are level"
+    ]
+   }
+  },
+  {
+   "id": "cmp.p1.rules_vs_latest_level",
+   "why": "P1 rules vs the latest date on answer-typed documents: exact McNemar p > 0.05",
+   "results": [
+    {
+     "file": "results/eval/posthoc_r3_paired.json",
+     "vars": {
+      "p": "splits.P1.comparisons.rules~latest_date_on_answer_docs_only.all.p_mcnemar_exact"
+     },
+     "expr": "p > 0.05",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "131/154, level with the rules (paired p = 0.48"
+    ],
+    "technical_report.md": [
+     "(131) are level (paired p = 0.48"
+    ]
+   }
+  },
+  {
+   "id": "cmp.p2.pointer_beats_rules",
+   "why": "P2 discordant pairs pointer vs rules on all 62 documents",
+   "results": [
+    {
+     "file": "results/eval/posthoc_r3_paired.json",
+     "path": "splits.P2.comparisons.pointer~rules.all.pointer_only",
+     "is": 22
+    },
+    {
+     "file": "results/eval/posthoc_r3_paired.json",
+     "path": "splits.P2.comparisons.pointer~rules.all.rules_only",
+     "is": 4
+    },
+    {
+     "file": "results/eval/posthoc_r3_paired.json",
+     "vars": {
+      "p": "splits.P2.comparisons.pointer~rules.all.p_mcnemar_exact"
+     },
+     "expr": "p < 0.05",
+     "is": true
+    }
+   ],
+   "docs": {
+    "technical_report.md": [
+     "the pointer beats the rules on 22 and loses on 4"
+    ]
+   }
+  },
+  {
+   "id": "cmp.p5.model_routes_beat_rules",
+   "why": "P5 submitter: pointer and free generation both above the rules",
+   "results": [
+    {
+     "file": "results/eval6/hypotheses6__p5__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "vars": {
+      "r": "scores.R.submitter.k",
+      "ra": "scores.RA.submitter.k",
+      "g": "scores.G.submitter.k"
+     },
+     "expr": "ra > r and g > r",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "Both model routes beat the rules on submitters"
+    ]
+   }
+  },
+  {
+   "id": "cmp.closed_set_near_free",
+   "why": "closed set within 3 documents of the free prompt on P2 and P6",
+   "results": [
+    {
+     "file": "results/report/p2_numbers.json",
+     "path": "arms.pointer.exact",
+     "is": 53
+    },
+    {
+     "file": "results/eval/posthoc_r3_naive_reparsed.json",
+     "path": "splits.P2.naive_null.reparsed_exact.0",
+     "is": 54
+    },
+    {
+     "file": "results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "vars": {
+      "v": "arms.v2.exact.0",
+      "f": "arms.free_null.exact.0"
+     },
+     "expr": "0 <= f - v <= 3",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "The closed set reaches near free-prompt accuracy"
+    ]
+   }
+  },
+  {
+   "id": "cmp.census.bern_bug_most",
+   "why": "Bern's unlinked answers (agenda + parentless) are most of its 2024-25 gap",
+   "results": [
+    {
+     "file": "site/data.json",
+     "vars": {
+      "a": "parliaments.rows.[key=BE].periods.y2425.agenda",
+      "p": "parliaments.rows.[key=BE].periods.y2425.parentless",
+      "m": "parliaments.rows.[key=BE].periods.y2425.written_missing"
+     },
+     "expr": "(a + p) / m > 0.5",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "accounts for most of the canton's gap"
+    ]
+   }
+  },
+  {
+   "id": "role.reviewers_aid",
+   "why": "P1-H2 Branch B and P1-H1 null safety failed: Apertus suggests, a reviewer decides",
+   "results": [
+    {
+     "file": "results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H2.branch",
+     "is": "B"
+    },
+    {
+     "file": "results/eval/hypotheses__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H1.pass",
+     "is": false
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "Apertus as a reviewer's aid"
+    ],
+    "../README.md": [
+     "Apertus as a reviewer's aid"
+    ],
+    "technical_report.md": [
+     "**Branch B**: P1's registered outcome that keeps Apertus off the unattended path",
+     "so Apertus left the unattended path for an opt-in review suggestion (D6)"
+    ]
+   }
+  },
+  {
+   "id": "role.earns_its_place",
+   "why": "Apertus's registered gains: P2-H2 (answer date) and P10-H1 (authors) confirmed",
+   "results": [
+    {
+     "file": "results/eval2/hypotheses2__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "subsets.all.theta_10_40.H2_pointer_vs_rules.holds",
+     "is": true
+    },
+    {
+     "file": "results/p10/p10_scores.json",
+     "path": "primary.hypotheses.tests.H1.verdict",
+     "is": "confirmed"
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "Apertus earns its place choosing the\nright value among printed candidates"
+    ],
+    "technical_report.md": [
+     "**Apertus** earns its place choosing the right value among printed candidates"
+    ]
+   }
+  },
+  {
+   "id": "maturity.table",
+   "why": "the declared maturity of each component (the rubric scores rigour against it)",
+   "docs": {
+    "technical_report.md": [
+     "| *ready to apply* · *ready to deploy* | census and Bern repair lists (relinks: one OPD decision, its hash rule) · nightly job (three real nights on standard GitHub runners: one with the venv unit, 10 Oct, and two consecutive with the Docker unit, 11 Oct) |",
+     "| *audited* · *tested prototype* | source-adapter lists · rules-only converter |",
+     "| *feasibility study* · *drafts for the eCH group* | review mode, whole and virtual affairs · schema v0.1 and v0.2 (P8's roles) |",
+     "feasibility study (D3-5)"
+    ]
+   }
+  },
+  {
+   "id": "maturity.p3b_type_unattended",
+   "why": "P3b: the type on whole affairs reaches the unattended tier",
+   "results": [
+    {
+     "file": "results/eval5/hypotheses_p3b__publicai_swiss-ai_apertus-v1.5-8b.json",
+     "path": "H1.affair_type.tier",
+     "is": "extractable unattended"
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "type 35/36 unattended"
+    ],
+    "technical_report.md": [
+     "**Unattended** (95% lower bound ≥ 0.80, document-level intervals): the rules' answer date where rules exist"
+    ]
+   }
+  },
+  {
+   "id": "maturity.rules_unattended",
+   "why": "the converter's frozen rules run unattended (rules_only is the default)",
+   "docs": {
+    "README.md": [
+     "from the frozen DE/FR/IT rules, unattended |"
+    ]
+   }
+  },
+  {
+   "id": "p8.robust_fields",
+   "why": "P8 verdicts robust under both checks",
+   "results": [
+    {
+     "file": "site/data.json",
+     "path": "evaluation.p8.n_robust",
+     "is": 5
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "same verdict for the five robust fields"
+    ],
+    "technical_report.md": [
+     "| 5 robust; meaning measured for"
+    ]
+   }
+  },
+  {
+   "id": "ops.recommendation",
+   "why": "what the report recommends to operators and public bodies",
+   "docs": {
+    "technical_report.md": [
+     "**Recommendation:** `rules_only` unattended; local 8B: date suggestions only, where no text may leave the machine; the review-queue verifier needs the 70B, for accuracy on infrastructure the operator chooses",
+     "for public bodies it recommends rules only or the local 8B"
+    ]
+   }
+  },
+  {
+   "id": "ops.only_open_decision",
+   "why": "the one decision OPD has to take",
+   "docs": {
+    "docs/form_notes.md": [
+     "the only open decision is its hash rule for relinks"
+    ],
+    "../README.md": [
+     "The only open decision\n  is OPD's hash rule for relinks"
+    ]
+   }
+  },
+  {
+   "id": "repair.every_one_model_free",
+   "why": "every counted repair comes from a model-free route (agenda join, category tag, verified OPD copy, Bern relink, fetch)",
+   "results": [
+    {
+     "file": "results/census/corrected.json",
+     "vars": {
+      "r": "national.all.repaired",
+      "ag": "national.all.opd_elsewhere_parts.agenda",
+      "un": "national.all.unrecognised",
+      "tv": "national.all.image_only_parts.text_verified",
+      "pl": "national.all.opd_elsewhere_parts.parentless",
+      "fe": "national.all.fetchable",
+      "fi": "national.all.image_only_parts.fetchable"
+     },
+     "expr": "r == ag + un + tv + pl + fe + fi",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "every one from model-free rules"
+    ],
+    "technical_report.md": [
+     "every one from model-free rules"
+    ],
+    "docs/form_notes.md": [
+     "every one from model-free rules"
+    ],
+    "../README.md": [
+     "every one from model-free rules"
+    ]
+   }
+  },
+  {
+   "id": "safety.needs_review",
+   "why": "every Apertus value and every value from a parliament without rules is flagged for review",
+   "docs": {
+    "README.md": [
+     "By design, Apertus values arrive with `needs_review: true`",
+     "A parliament with no rules gets `no_rules_for_body` and `needs_review: true`"
+    ],
+    "technical_report.md": [
+     "(suggestions with page, span and margin, flagged `needs_review`)"
+    ]
+   }
+  },
+  {
+   "id": "safety.reader_review_route",
+   "why": "P10's reader puts roles next to the record, never into it",
+   "docs": {
+    "README.md": [
+     "never into it, each marked for review"
+    ]
+   }
+  },
+  {
+   "id": "safety.p7_promotion_rule",
+   "why": "P7's verifier promotes a row only if both questions and the date rule pass",
+   "docs": {
+    "technical_report.md": [
+     "a row is promoted only if both pass and the date passes the adapters' own date rule"
+    ]
+   }
+  },
+  {
+   "id": "sovereignty.model_routes",
+   "why": "where the models run: the 70B via Public AI, the 8B locally on CPU",
+   "docs": {
+    "README.md": [
+     "(70B weights via the Public AI gateway; local 8B on CPU)",
+     "The Apertus 8B runs locally on CPU",
+     "sha256-pinned, run in-process on CPU"
+    ],
+    "technical_report.md": [
+     "(70B weights via the Public AI gateway; local 8B GGUF on CPU)",
+     "sha256-pinned) runs locally on CPU",
+     "and an alert relay only if the operator sets them"
+    ],
+    "../README.md": [
+     "(70B weights via the Public AI gateway; local 8B on CPU)"
+    ]
+   }
+  },
+  {
+   "id": "sovereignty.runtime_hosts",
+   "why": "what the default sends to which host",
+   "docs": {
+    "README.md": [
+     "the default only reads public sources",
+     "| files.openparldata.ch (or none, with `GP_EXPORTS_DIR`) | GET only |",
+     "| huggingface.co, only with `GP_GGUF=1` | GET of the pinned GGUF, once | local 8B |"
+    ]
+   }
+  },
+  {
+   "id": "privacy.committed_data",
+   "why": "what the committed data contains (no full texts, no contact data)",
+   "docs": {
+    "README.md": [
+     "labels and short quotations only, with no full document texts and no personal contact data"
+    ]
+   }
+  },
+  {
+   "id": "schema.split_sources",
+   "why": "the 10 role splits by the source column of the report's Table 1: practice, both (partly OPD's tagging), open",
+   "results": [
+    {
+     "doc": "technical_report.md",
+     "table": "| field | class | source |",
+     "match": {
+      "class": "split",
+      "source": "^practice"
+     },
+     "is": 4
+    },
+    {
+     "doc": "technical_report.md",
+     "table": "| field | class | source |",
+     "match": {
+      "class": "split",
+      "source": "^both"
+     },
+     "is": 4
+    },
+    {
+     "doc": "technical_report.md",
+     "table": "| field | class | source |",
+     "match": {
+      "class": "split",
+      "source": "^open"
+     },
+     "is": 2
+    },
+    {
+     "doc": "technical_report.md",
+     "table": "| field | class | source |",
+     "match": {
+      "class": "split"
+     },
+     "is": 10
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "4 come from\nparliamentary practice, 4 partly from OPD's tagging (which OPD can correct) and 2 are open"
+    ],
+    "technical_report.md": [
+     "by source of the split 4 parliamentary practice, 4 partly OPD's tagging (which OPD can correct), 2 open"
+    ]
+   }
+  },
+  {
+   "id": "schema.body_specific_constructs",
+   "why": "one body-specific field and the two body-specific constructs the schema view lists",
+   "results": [
+    {
+     "file": "site/data.json",
+     "path": "schema.verdict.body_specific",
+     "is": 1
+    },
+    {
+     "file": "site/data.json",
+     "vars": {
+      "b": "schema.body_specific"
+     },
+     "expr": "len(b)",
+     "is": 2
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "1 field and 2 constructs"
+    ],
+    "technical_report.md": [
+     "1 field and 2 constructs"
+    ],
+    "docs/form_notes.md": [
+     "1 field and 2 constructs"
+    ],
+    "../README.md": [
+     "1 field and 2 constructs"
+    ]
+   }
+  },
+  {
+   "id": "schema.robust_fragile",
+   "why": "the 10 role splits: 8 robust and 2 fragile (fragile: the split holds under one of P8's two checks); 6 from P8 (registered), 4 from OPD's label vocabularies (post hoc)",
+   "results": [
+    {
+     "file": "results/report/r17_numbers.json",
+     "path": "role_splits.robust",
+     "is": 8
+    },
+    {
+     "file": "results/report/r17_numbers.json",
+     "path": "role_splits.fragile",
+     "is": 2
+    },
+    {
+     "file": "results/report/r17_numbers.json",
+     "path": "role_splits.p8_registered",
+     "is": 6
+    },
+    {
+     "file": "results/report/r17_numbers.json",
+     "path": "role_splits.labels_only_post_hoc",
+     "is": 4
+    },
+    {
+     "file": "results/p8/p8_hypotheses.json",
+     "path": "fields.addressed_body.verdict_agreed_only",
+     "is": "shared"
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "(8 robust + 2 fragile; 6 from the role test, P8, registered, and 4 from OPD's label vocabularies, post hoc)",
+     "8 are\nrobust and 2 are fragile"
+    ],
+    "technical_report.md": [
+     "**10 fields** (8 robust + 2 fragile, §5)",
+     "(8 robust + 2 fragile; 6 from the role test, P8, registered, and 4 from OPD's label vocabularies, post hoc)"
+    ],
+    "docs/form_notes.md": [
+     "10 fields (8 robust + 2 fragile; 6 from the role test, P8, registered, 4 from OPD's labels, post hoc)"
+    ],
+    "../README.md": [
+     "(8 robust + 2 fragile; 6 from the role test, P8, registered, and 4 from OPD's label vocabularies, post hoc)"
+    ]
+   }
+  },
+  {
+   "id": "cmp.p2.pointer_vs_baseline",
+   "why": "P2 pointer vs the latest date on answer-typed documents (post hoc): 10 vs 1 discordant, the parliament-cluster interval excludes 0; 4 of the 7 answered wins are intervention-typed documents",
+   "results": [
+    {
+     "file": "results/eval2/p2_posthoc_best_baseline.json",
+     "path": "paired.pointer vs latest_date_on_answer_docs_only.a_only",
+     "is": 10
+    },
+    {
+     "file": "results/eval2/p2_posthoc_best_baseline.json",
+     "path": "paired.pointer vs latest_date_on_answer_docs_only.b_only",
+     "is": 1
+    },
+    {
+     "file": "results/eval2/p2_posthoc_best_baseline.json",
+     "path": "paired.pointer vs latest_date_on_answer_docs_only.cluster_interval_excludes_0",
+     "is": true
+    },
+    {
+     "file": "results/eval2/p2_posthoc_best_baseline.json",
+     "path": "paired.pointer vs latest_date_on_answer_docs_only (answered).a_only",
+     "is": 7
+    },
+    {
+     "file": "results/eval2/p2_posthoc_best_baseline.json",
+     "path": "display.answered_wins_on_intervention_typed",
+     "is": 4
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "right on 10 where the baseline is wrong, the reverse on 1",
+     "4 of its 7 wins on answered documents are documents OPD types as interventions, where that baseline returns nothing by construction"
+    ],
+    "technical_report.md": [
+     "right on 10 where the baseline is wrong, the reverse on 1",
+     "4 of its 7 wins on answered documents are documents OPD types as interventions, where that baseline returns nothing by construction"
+    ],
+    "docs/form_notes.md": [
+     "4 of its 7 wins on answered documents are documents OPD types as interventions, where that\n  baseline returns nothing"
+    ],
+    "../README.md": [
+     "right on 10 where the baseline is wrong, the reverse on 1",
+     "4 of its 7 wins on answered documents are documents OPD types as interventions, where that baseline returns nothing by construction"
+    ]
+   }
+  },
+  {
+   "id": "cmp.p10.order_most_gain",
+   "why": "most of the gain over the rules comes from the model-free candidate finder: document order's gain over the rules is at least half of Apertus's (52 - 17 vs 50 - 17 pairs)",
+   "results": [
+    {
+     "file": "results/p10/p10_posthoc_baselines.json",
+     "vars": {
+      "o": "primary.arms.cand_order.matched",
+      "a": "primary.arms.pointer.matched",
+      "r": "primary.arms.rules.matched"
+     },
+     "expr": "(o - r) >= 0.5 * (a - r)",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "most of the gain comes from the model-free candidate finder (document order 52/141)"
+    ],
+    "technical_report.md": [
+     "most of the gain comes from the model-free candidate finder (document order 52/141)"
+    ],
+    "docs/form_notes.md": [
+     "most of the gain comes from the\n  model-free candidate finder (document order 52/141)"
+    ],
+    "../README.md": [
+     "most of the gain comes from the model-free candidate finder (document order 52/141)"
+    ]
+   }
+  },
+  {
+   "id": "ops.local_8b_dates_only",
+   "why": "the local 8B as P7's review-queue verifier: no θ meets the dev rule, it promotes nothing (exploratory; 88 of 190 annotated rows scored)",
+   "results": [
+    {
+     "file": "results/p7/gguf8b/hypotheses.json",
+     "path": "H1_8b_on_p7_sample.promoted_8b",
+     "is": 0
+    },
+    {
+     "file": "results/p7/gguf8b/hypotheses.json",
+     "path": "theta.theta_a",
+     "is": null
+    },
+    {
+     "file": "results/p7/gguf8b/hypotheses.json",
+     "path": "coverage.annotated_scored",
+     "is": 88
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "Local 8B: date suggestions only; the review-queue verifier needs the 70B.",
+     "no θ meets the dev rule, so the 8B promotes\n  nothing"
+    ],
+    "technical_report.md": [
+     "no θ meets the dev rule, so the 8B promotes nothing"
+    ],
+    "docs/form_notes.md": [
+     "(date suggestions; the queue verifier needs the 70B)"
+    ]
+   }
+  },
+  {
+   "id": "schema.v02_roles_exhaustive",
+   "why": "post hoc: every determinable gold value of P8's six role-split fields falls in a named v0.2 role",
+   "results": [
+    {
+     "file": "results/p8/p8_v02_role_coverage.json",
+     "vars": {
+      "n": "summary.named",
+      "d": "summary.determinable"
+     },
+     "expr": "n == d",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "every value of the six role-split fields falls into a named v0.2 role"
+    ],
+    "technical_report.md": [
+     "Every value of the six role-split fields falls into a named v0.2 role"
+    ]
+   }
   }
  ],
  "allow": {
@@ -929,10 +1653,6 @@
    {
     "phrase": "where OPD holds interventions",
     "why": "describes OPD's data"
-   },
-   {
-    "phrase": "The tier it fills holds 214 of 917",
-    "why": "a container, not a verdict (214 bound by claims)"
    },
    {
     "phrase": "fails on any mismatch",
@@ -973,6 +1693,198 @@
    {
     "phrase": "the shipped template's placeholder fails closed",
     "why": "describes the User-Agent guard of the nightly job"
+   },
+   {
+    "phrase": "councils that publish only minutes",
+    "why": "names a construct (minutes-only councils), not a quantifier"
+   },
+   {
+    "phrase": "# Docker, CPU, clean checkout",
+    "why": "make run's comment: the hardware it needs"
+   },
+   {
+    "phrase": "only meeting documents",
+    "why": "names a construct (councils that publish only minutes); 16 bound by claims"
+   },
+   {
+    "phrase": "the date exists only in OPD's events",
+    "why": "federal cell finding: where the answer date lives (7 of 15 bound by claims)"
+   },
+   {
+    "phrase": "pydantic only",
+    "why": "the schema file's only dependency"
+   },
+   {
+    "phrase": "the recommended Docker unit",
+    "why": "operator guidance: the runbook's recommended nightly unit"
+   },
+   {
+    "phrase": "no same-language pair exists at all",
+    "why": "describes 6 affairs (bound by claims)"
+   },
+   {
+    "phrase": "not only for dates",
+    "why": "scope of the schema answer (roles beyond dates)"
+   },
+   {
+    "phrase": "a sole author never sits next to",
+    "why": "states the rule the role-consistency check enforces"
+   },
+   {
+    "phrase": "and a joint author never next to",
+    "why": "states the rule the role-consistency check enforces"
+   },
+   {
+    "phrase": "all 186 v0.2 records pass the check",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "and all 105 the",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "rules never saw",
+    "why": "held-out design: parliaments outside the rules' development set"
+   },
+   {
+    "phrase": "all 66 P8 affairs reach",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "| part (page level) |",
+    "why": "table header: the detection unit"
+   },
+   {
+    "phrase": "**Federal level (",
+    "why": "names the federal cell"
+   },
+   {
+    "phrase": "agree on all 15",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "the language of all 15 question",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "PDF only",
+    "why": "matrix category label: the field lives only in the PDF"
+   },
+   {
+    "phrase": "the instrument behind",
+    "why": "P8's finding (the instrument behind a type), not a comparison"
+   },
+   {
+    "phrase": "or not in OPD at all",
+    "why": "describes where a missing answer is"
+   },
+   {
+    "phrase": "**At most 13,150**",
+    "why": "upper-bound wording of a bound count"
+   },
+   {
+    "phrase": "in OPD all along",
+    "why": "describes where the 2,177 answers were (bound by claims)"
+   },
+   {
+    "phrase": "answer-typed documents only)",
+    "why": "describes the keyword rule's input"
+   },
+   {
+    "phrase": "On all 62 documents the pointer",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "promotes answers only as well (146/146)",
+    "why": "the counts are bound by claims"
+   },
+   {
+    "phrase": "9 Apertus only",
+    "why": "the counts are bound by claims"
+   },
+   {
+    "phrase": "keeping only the candidates it calls authors",
+    "why": "describes the author-filter method"
+   },
+   {
+    "phrase": "with no answer at all",
+    "why": "defines the answerless subset"
+   },
+   {
+    "phrase": "(review mode, residue only)",
+    "why": "architecture diagram: the pointer runs on the residue"
+   },
+   {
+    "phrase": "if the null margin exceeds θ",
+    "why": "defines the null rule"
+   },
+   {
+    "phrase": "a third breaks ties",
+    "why": "annotation protocol"
+   },
+   {
+    "phrase": "all 96 annotator sessions",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "Holm over all 20 registered",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "(Docker, CPU",
+    "why": "what make run needs"
+   },
+   {
+    "phrase": "never a failure",
+    "why": "describes the typed skips"
+   },
+   {
+    "phrase": "never an empty text turned into a null",
+    "why": "describes the OCR guard"
+   },
+   {
+    "phrase": "all 154/154 P1 documents",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "with all capabilities dropped",
+    "why": "describes the container hardening"
+   },
+   {
+    "phrase": "(one core, no GPU)",
+    "why": "the cost-measurement setup"
+   },
+   {
+    "phrase": "all 902,754 documents",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "shared by definition only",
+    "why": "verdict category label (defined once in v0.1)"
+   },
+   {
+    "phrase": "| metadata only |",
+    "why": "converter status label"
+   },
+   {
+    "phrase": "The tier it fills holds 214 of the 917 review rows it was applied to",
+    "why": "what P7's tier contains (214 rows promoted of the 917 the registered run was applied to)"
+   },
+   {
+    "phrase": "OPD\n   confirmed the Bern linking bug (correspondence, 10 Oct 2026)",
+    "why": "OPD's confirmation of the Bern bug (correspondence, 10 Oct 2026)"
+   },
+   {
+    "phrase": "about 5 at ten times\nOPD's volume",
+    "why": "the 10× volume case of the cost estimate (results/report/cost_end_to_end.json)"
+   },
+   {
+    "phrase": "3 dates judged wrong, all Solothurn",
+    "why": "the 3 date verdicts of the re-read fall in exact_doc_date/fetch, Solothurn's eq_gov rows (retier_r18.json audit.after_retier by_stratum)"
+   },
+   {
+    "phrase": "every field only OPD's metadata supplies",
+    "why": "describes which fields become typed nulls (convert --schema v0.2), not a claim about Apertus"
    }
   ],
   "technical_report.md": [
@@ -1001,8 +1913,124 @@
     "why": "describes OPD's data"
    },
    {
-    "phrase": "and rejected 60% of the failed decoys",
-    "why": "audit description; 60% bound by claims"
+    "phrase": "councils that publish only minutes",
+    "why": "names a construct (minutes-only councils), not a quantifier"
+   },
+   {
+    "phrase": "the instrument behind",
+    "why": "P8's finding (the instrument behind a type), not a comparison"
+   },
+   {
+    "phrase": "rules never saw",
+    "why": "held-out design: parliaments outside the rules' development set"
+   },
+   {
+    "phrase": "one core, no GPU",
+    "why": "the cost-measurement setup"
+   },
+   {
+    "phrase": "all 902,754 documents",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "`--cap-drop ALL`",
+    "why": "describes the container hardening"
+   },
+   {
+    "phrase": "never an empty page",
+    "why": "describes the OCR guard"
+   },
+   {
+    "phrase": "all 154/154 P1 documents",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "(committed results only)",
+    "why": "describes the evidence the table's source column uses"
+   },
+   {
+    "phrase": "only the PDF",
+    "why": "matrix category label: the field lives only in the PDF"
+   },
+   {
+    "phrase": "PDF only",
+    "why": "matrix category label: the field lives only in the PDF"
+   },
+   {
+    "phrase": "13 partly or only in the PDF",
+    "why": "the counts are bound by claims"
+   },
+   {
+    "phrase": "only meeting documents",
+    "why": "names a construct (councils that publish only minutes); 16 bound by claims"
+   },
+   {
+    "phrase": "matched by identity and wording only",
+    "why": "describes the Jura matching rule"
+   },
+   {
+    "phrase": "a third breaks ties",
+    "why": "annotation protocol"
+   },
+   {
+    "phrase": "all 96 annotator sessions",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "Holm over all 20 registered",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "**rules only (default)**",
+    "why": "arm label"
+   },
+   {
+    "phrase": "| rules only |",
+    "why": "arm label"
+   },
+   {
+    "phrase": "with no answer at all",
+    "why": "defines the answerless subset"
+   },
+   {
+    "phrase": "all 5 containing an answer",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "but only 40.9% are answers",
+    "why": "the share is bound by claims"
+   },
+   {
+    "phrase": "each verdict unchanged on agreed labels only",
+    "why": "sensitivity check's label set"
+   },
+   {
+    "phrase": "all 15 v0.2 records validate",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "shared by definition only",
+    "why": "verdict category label (defined once in v0.1)"
+   },
+   {
+    "phrase": "(Docker, CPU)",
+    "why": "what make run needs"
+   },
+   {
+    "phrase": "(all locks verified)",
+    "why": "describes the replay step"
+   },
+   {
+    "phrase": "about 5 at ten times OPD's volume",
+    "why": "the 10× volume case of the cost estimate (results/report/cost_end_to_end.json)"
+   },
+   {
+    "phrase": "3 dates judged wrong, all Solothurn",
+    "why": "the 3 date verdicts of the re-read fall in exact_doc_date/fetch, Solothurn's eq_gov rows (retier_r18.json audit.after_retier by_stratum)"
+   },
+   {
+    "phrase": "`promoted_by_apertus` holds 214 of the 917 it was applied to",
+    "why": "what P7's tier contains (214 rows promoted of the 917 the registered run was applied to)"
    }
   ],
   "docs/form_notes.md": [
@@ -1021,6 +2049,18 @@
    {
     "phrase": "every fetch now fails closed",
     "why": "describes the fetch guard"
+   },
+   {
+    "phrase": "in OPD all along",
+    "why": "describes where the 2,177 answers were (bound by claims)"
+   },
+   {
+    "phrase": "a third settles ties",
+    "why": "annotation protocol"
+   },
+   {
+    "phrase": "(Docker, CPU)",
+    "why": "what make run needs"
    }
   ],
   "../README.md": [
@@ -1029,12 +2069,28 @@
     "why": "the brief's question, not a verdict"
    },
    {
-    "phrase": "OPD confirmed the bug",
-    "why": "OPD's correspondence"
-   },
-   {
     "phrase": "fails on any mismatch",
     "why": "describes the claims checker"
+   },
+   {
+    "phrase": "that publish only minutes",
+    "why": "names a construct (minutes-only councils), not a quantifier"
+   },
+   {
+    "phrase": "# Docker, CPU, clean checkout",
+    "why": "make run's comment: the hardware it needs"
+   },
+   {
+    "phrase": "OPD\n   confirmed the Bern linking bug (correspondence, 10 Oct 2026)",
+    "why": "OPD's confirmation of the Bern bug (correspondence, 10 Oct 2026)"
+   },
+   {
+    "phrase": "about 5 at ten times\nOPD's volume",
+    "why": "the 10× volume case of the cost estimate (results/report/cost_end_to_end.json)"
+   },
+   {
+    "phrase": "for all 902,754 documents",
+    "why": "the corpus the cost covers (OPD's export)"
    }
   ]
  }

@@ -377,8 +377,7 @@ decision (P1 rules 136/154, cascade 140/154; P2 pointer 56/62). Documents from t
 independent, so we also resample whole parliaments (percentile bootstrap, 10,000 resamples, post hoc;
 `results/eval/posthoc_r6_cluster.json`); the intervals are given with P2, P5 and P6 below.
 
-**Which Apertus.** Evaluation used Apertus v1.5 70B weights served by Public AI (inferred from the served fingerprint;
-the endpoint name says `8b`); the real 8B was run in-process on CPU on P1, P2 (52 documents) and P6 (67 documents).
+**Which Apertus.** Gateway runs used Apertus 70B (the gateway labels it 8B; the fingerprint check follows); the real 8B was run in-process on CPU on P1, P2 (52 documents) and P6 (67 documents).
 Apertus numbers not marked 8B come from the 70B weights, which Public AI serves under the name
 `swiss-ai/apertus-v1.5-8b`. That is inferred, not documented by Public AI: the served fingerprint (`tp8-pp2-…`, a
 tensor-parallel 8 × pipeline-parallel 2 deployment) and the behaviour (report §3: 760/792 greedy outputs
@@ -390,8 +389,8 @@ call. Re-derived from the response cache, every P1 (1,542) and P2 (351) answer c
 (`Colby/apertus-v1.5-8b-text-Q4_K_M-GGUF`, file `apertus-v1.5-8b-text-q4_k_m.gguf`, sha256 `a037df8d…f299`, pinned in
 `src/gegenprobe/llm.py` `GGUF_PINS`); it is not an official Swiss AI release, and an operator can re-quantise from the
 official weights (`docs/runbook.md` "Supply chain"). It ran with llama.cpp on a 4-vCPU CI runner with its own θ = 16.73
-from 97 dev documents (pre-registered exploratory arms, DEVIATIONS D2/D3), on the P1 arms and, after review
-review, on P2 (D2-6).
+from 97 dev documents (pre-registered exploratory arms, DEVIATIONS D2/D3), on the P1 arms and, after review, on P2
+(D2-6).
 
 **Which size to deploy.** `rules_only` (no model) unattended, the default. For review suggestions, two options:
 - **The 8B is the measured sovereign option** (exploratory; a community 4-bit build of the official weights, not an
@@ -400,7 +399,10 @@ review, on P2 (D2-6).
   reachable P2 documents it finds nearly as many answer dates as the 70B (15 vs 16 of 21) but proposes a date for 11
   of 31 answerless documents (70B: 4), and on P1's residue its suggestions are right 7/34 times (70B: 9/16, p = 0.021), so a reviewer rejects
   far more of them. On P6 the reader v2 restrains it: 5 of 34 answerless documents dated, against 18/34 for v1 (below).
-  Cost: 180 s per document on 4 vCPUs.
+  Cost: 180 s per document on 4 vCPUs. **Local 8B: date suggestions only; the review-queue verifier needs the 70B.**
+  As P7's verifier (exploratory, added after LOCK8: the frozen prompts a2/b1 and date rule, θ_A/θ_B fitted for this
+  build on P7 dev by the rule of `eval/p7/tune.py`), no θ meets the dev rule, so the 8B promotes nothing; 88 of the 190
+  annotated rows were scored before the deadline (`results/p7/gguf8b/hypotheses.json`, `data/p7/gguf8b/theta.json`).
 - **The 70B is the accuracy option**, on infrastructure the operator chooses: all positive Apertus evidence on unseen
   parliaments is the 70B. Its bf16 weights alone are about 140 GB (e.g. two 80 GB GPUs; arithmetic, not measured by
   us); the Public AI service we evaluated on may route outside Switzerland.
@@ -483,7 +485,11 @@ p = 0.63), but it dates 31 of the 33 answerless documents, where the pointer dat
 printed date. Its 4 dates on answerless documents all fall on documents that contain an answer but print no qualifying
 answer date; of the 25 P2 documents with no answer at all it dates none (`results/report/r7docs_numbers.json`). Against the latest date gated by OPD's document type (null on documents OPD types as member
 texts), the pointer is right on 10 documents the baseline gets wrong and the baseline on 1 (p = 0.012), 6 parliaments
-to 0 (p = 0.031; this comparison was chosen after the results, D2-5). **A generic keyword rule** (post hoc, proposed in
+to 0 (p = 0.031; this comparison was chosen after the results, D2-5). Against the latest date on answer-typed documents
+(44/62; the same 10 vs 1), resampling whole parliaments gives an accuracy difference of [0.056, 0.243] (post hoc, `eval/gold2/posthoc_best_baseline.py` →
+`results/eval2/p2_posthoc_best_baseline.json`; 10,000 resamples, rounded outward); 4 of the pointer's 7 wins on
+answered documents are documents OPD types as interventions, where this baseline returns nothing by construction.
+**A generic keyword rule** (post hoc, proposed in
 review; `eval/gold2/posthoc_keyword.py` → `results/eval/p2_posthoc_keyword.json`): a DE/FR/IT rule (government and
 answer cue; the first date after a "Sitzung vom / séance du / seduta del" cue, else the latest date; answer-typed
 documents only), written without the gold and run unchanged on all 62 cached texts (62 sha256-verified), is exact on

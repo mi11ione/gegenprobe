@@ -16,7 +16,7 @@ r8e.p7_h4_uw_trivial	129/146	results/p7/p7_posthoc_r8.json	h4_unweighted.unweigh
 r8e.p7_h4_uw_trivial_rate	88.4%	results/p7/p7_posthoc_r8.json	h4_unweighted.unweighted.trivial_rate	pct1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_h4_without_rest	4.2	results/p7/p7_posthoc_r8.json	display.h4_without_rest_pts	f1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	-	
 r8e.p7_trivial_rest	2/8	results/p7/p7_posthoc_r8.json	h4_unweighted.trivial_by_stratum.rest.correct_dated/h4_unweighted.trivial_by_stratum.rest.promoted	frac	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	-	
-r8e.p7_trivial_is_answer	146/146	results/p7/p7_posthoc_r8.json	trivial.annotated_is_answer.0/trivial.annotated_is_answer.1	frac	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md,README.md,docs/form_notes.md,technical_report.md	
+r8e.p7_trivial_is_answer	146/146	results/p7/p7_posthoc_r8.json	trivial.annotated_is_answer.0/trivial.annotated_is_answer.1	frac	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md,README.md,technical_report.md	
 r8e.p7_gold_no	10	results/p7/p7_posthoc_r8.json	trivial.gold_no	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_trivial_stops	10	results/p7/p7_posthoc_r8.json	trivial.gold_no_stopped.trivial	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_free_stops	8	results/p7/p7_posthoc_r8.json	trivial.gold_no_stopped.free	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	-	
@@ -39,7 +39,7 @@ r8e.p7_date_hit_rule	70.2%	results/p7/p7_posthoc_r8.json	ablation.arms.rule_any_
 r8e.p7_date_hit_trivial	72.2%	results/p7/p7_posthoc_r8.json	ablation.arms.trivial.precision_date_hit.estimate	pct1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	-	
 r8e.p7_minus_rule_date_hit	23.9	results/p7/p7_posthoc_r8.json	display.p7_minus_rule_date_hit_pts	f1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_minus_rule_date_hit_ci	[12.7, 34.7]	results/p7/p7_posthoc_r8.json	display.p7_minus_rule_date_hit_pts_ci	ci	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
-r8e.p7_base_rate	86.7%	results/p7/p7_posthoc_r8.json	base_rate.yes	pct1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md,README.md,technical_report.md,docs/form_notes.md	
+r8e.p7_base_rate	86.7%	results/p7/p7_posthoc_r8.json	base_rate.yes	pct1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md,README.md,technical_report.md	
 r8e.p7_base_rate_dated	40.9%	results/p7/p7_posthoc_r8.json	base_rate.yes_dated	pct1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	-	
 r8e.p7_bar_minus_base	3.3	results/p7/p7_posthoc_r8.json	display.bar_minus_base_pts	f1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	-	
 r8e.p7_qwen_kappa	0.655	results/p7/p7_posthoc_r8.json	display.qwen_kappa	str	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	

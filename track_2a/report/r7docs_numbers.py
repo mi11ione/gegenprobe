@@ -1,8 +1,8 @@
 """Display-ready numbers for the docs pass, derived only from committed files, so claims.tsv can trace them:
 
-  * the 9,720 proposed repairs split by how each row was checked: per-row verified, agenda joins (OPD's own agenda link,
+  * the proposed repairs split by how each row was checked: per-row verified, agenda joins (OPD's own agenda link,
     never sample-checked) and Bern rows the per-row check sent to review (census/corrected.py placement + the Bern lists);
-  * the 5,077 "not found yet" split into rows that wait for a person (adapter review queue, Jura identity-only) and rows
+  * the "not found yet" rows split into rows that wait for a person (adapter review queue, Jura identity-only) and rows
     that need a new or better adapter;
   * what the "answerless" documents of P2 and P6 are: gold without an answer date splits into documents with no answer at
     all (answer_present no/oral) and documents that contain an answer but print no qualifying answer date (answer_present

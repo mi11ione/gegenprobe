@@ -10,15 +10,26 @@ claims_pins.json (at track_2a/), so a docs pass updates them in one place:
                        {file, path, is}                     the JSON value at `path` equals `is` (a verdict, a bool, a
                                                             count), or
                        {file, vars: {name: path}, expr, is} a small expression over JSON values (round(a / b), a - b,
-                                                            lo < 0, ...) equals `is`;
+                                                            lo < 0, ...) equals `is`, or
+                       {doc, table, match: {column: regex}, is} the number of rows of a committed document's table
+                                                            (by the start of its header row) whose cells match: a count
+                                                            stated in prose bound to the table that lists the items;
+                     a path step `[key=value]` selects the one list element whose `key` is `value`;
                      a pin without `results` is a pinned sentence (a statement no results file holds: the safety,
                      sovereignty and coding-assistant sentences)
            docs      {document: [phrase | {phrase, count}]}: each phrase must occur exactly `count` times (default 1)
            polarity  "neg" (every phrase must carry a negation: not, no, none, failed, ...) or "pos" (none may): so a
                      verdict pin cannot be "updated" to the opposite wording while its result stays negative
-  guards   {name: regex}: in every document of `docs`, each match (a verdict word, a multiplier or quantifier word, a
-           safety/sovereignty/declaration phrase) must lie inside an occurrence of a pin phrase or of an `allow` phrase;
-           an inserted "five times" or "Apertus runs unattended" fails even where no pin existed before
+  guards   {name: regex}: in every document of `docs`, each match must lie inside an occurrence of a pin phrase or of
+           an `allow` phrase; an inserted "five times", "Apertus runs unattended", "ahead of", "production-ready" or
+           "runs locally on a laptop" fails even where no pin existed before. The guards: verdict words, multipliers
+           and quantifiers ("about three times"), safety/sovereignty/declaration phrases, comparatives (level, ahead,
+           behind, beats, outperforms, better, worse, ties, ...), maturity and role words (ready to deploy,
+           deployable, prototype, feasibility study, final, essential, earns its place, reviewer's aid, extractor,
+           robust, accurate, unattended, needs_review, recommends, ...), scope quantifiers (every one, most, all,
+           never, always, only) and deployment words (locally, laptop, CPU, GPU, on-prem, air-gapped). A comparative
+           is pinned with the result that makes it true where one exists ("level with document order" with both
+           cluster intervals spanning 0; "beats the rules on 22 and loses on 4" with the discordant pairs)
   allow    {document: [{phrase, why}]}: guard words that are not claims ("fails on any mismatch" describes the checker)
   docs     the documents the guards scan (README.md, technical_report.md, docs/form_notes.md, ../README.md)
 
@@ -27,6 +38,7 @@ they are skipped unless GP_CLAIMS_STRICT=1, which the host CI job sets (as gegen
 
     PYTHONPATH=src:. python -m gegenprobe.claims_pins            check (also part of `python -m gegenprobe.claims check`)
     PYTHONPATH=src:. python -m gegenprobe.claims_pins uncovered  every guard match outside a pin or allow phrase, in context
+    PYTHONPATH=src:. python -m gegenprobe.claims_pins propose    the same, as allow entries to paste ({phrase, why: "TODO"})
 """
 from __future__ import annotations
 
@@ -50,8 +62,17 @@ def config(path: Path | None = None) -> dict:
 
 
 def _get(obj, path: str):
+    """A dotted JSON path; a list is indexed by number or selected by `[key=value]` (the one element whose `key` is
+    `value`, e.g. parliaments.rows.[key=BE].periods), so a pin does not depend on the order of a list."""
     for part in path.split("."):
-        obj = obj[int(part)] if isinstance(obj, list) else obj[part]
+        if isinstance(obj, list) and part.startswith("[") and part.endswith("]") and "=" in part:
+            k, v = part[1:-1].split("=", 1)
+            hits = [x for x in obj if isinstance(x, dict) and str(x.get(k)) == v]
+            if len(hits) != 1:
+                raise KeyError(f"{part}: {len(hits)} elements match")
+            obj = hits[0]
+        else:
+            obj = obj[int(part)] if isinstance(obj, list) else obj[part]
     return obj
 
 
@@ -96,11 +117,39 @@ def evaluate(expr: str, env: dict):
     return ev(ast.parse(expr, mode="eval"))
 
 
-def condition_value(c: dict, root: Path = ROOT):
+def table_count(text: str, header: str, match: dict[str, str]) -> int:
+    """Rows of the markdown table whose header row starts with `header` in which every column named in `match` matches
+    its regex (re.search): a count stated in prose bound to the table that lists the items one by one."""
+    lines = text.split("\n")
+    for k, ln in enumerate(lines):
+        if ln.startswith(header):
+            cols = [c.strip() for c in ln.strip().strip("|").split("|")]
+            n, r = 0, k + 2
+            while r < len(lines) and lines[r].lstrip().startswith("|"):
+                cells = [c.strip() for c in lines[r].strip().strip("|").split("|")]
+                row = dict(zip(cols, cells))
+                n += all(re.search(rx, row.get(col, "")) for col, rx in match.items())
+                r += 1
+            return n
+    raise KeyError(f"no table with header {header!r}")
+
+
+def condition_value(c: dict, root: Path = ROOT, docs: dict[str, str] | None = None):
+    if "table" in c:  # {doc, table, match: {column: regex}, is}: a count over a committed document's table
+        text = _doc_text(c["doc"], docs, root)
+        if text is None:
+            raise FileNotFoundError(c["doc"])
+        return table_count(text, c["table"], c["match"])
     d = json.loads((root / c["file"]).read_text(encoding="utf-8"))
     if "expr" in c:
         return evaluate(c["expr"], {k: _get(d, p) for k, p in (c.get("vars") or {}).items()})
     return _get(d, c["path"])
+
+
+def _cond_name(c: dict) -> str:
+    if "table" in c:
+        return f"{c['doc']} table {c['table']!r} rows matching {c['match']}"
+    return f"{c.get('file')}:{c.get('path') or c.get('expr')}"
 
 
 def _phrases(spec) -> list[tuple[str, int]]:
@@ -155,13 +204,13 @@ def check(cfg: dict | None = None, docs: dict[str, str] | None = None, root: Pat
         seen.add(pid)
         for c in pin.get("results") or []:
             try:
-                got = condition_value(c, root)
+                got = condition_value(c, root, docs)
             except Exception as e:  # missing file / path / bad expression
-                errs.append(f"pin {pid}: cannot evaluate {c.get('file')}:{c.get('path') or c.get('expr')} "
+                errs.append(f"pin {pid}: cannot evaluate {_cond_name(c)} "
                             f"({type(e).__name__}: {e})")
                 continue
             if got != c["is"]:
-                errs.append(f"pin {pid}: {c['file']}:{c.get('path') or c.get('expr')} is {got!r}, the wording states "
+                errs.append(f"pin {pid}: {_cond_name(c)} is {got!r}, the wording states "
                             f"{c['is']!r} (the result changed: rewrite the sentence and update the pin)")
         pol = pin.get("polarity")
         for doc, spec in (pin.get("docs") or {}).items():
@@ -224,10 +273,40 @@ def uncovered(cfg: dict | None = None, root: Path = ROOT) -> list[str]:
     return out
 
 
+def propose(cfg: dict | None = None, root: Path = ROOT) -> dict[str, list[dict]]:
+    """Allow-entry drafts for every uncovered guard match: the clause around the word (to the nearest , ; : . ( ) or
+    line end, widened until it is unique in the document). Review each: a claim gets a pin (bound to its result where
+    one exists), a non-claim an allow entry with its reason."""
+    cfg = config() if cfg is None else cfg
+    out: dict[str, list[dict]] = {}
+    for doc in cfg.get("docs") or []:
+        text = _doc_text(doc, None, root)
+        if text is None:
+            continue
+        spans = covered_spans(cfg, doc, text)
+        for i, j, w, name in guard_matches(cfg, text):
+            if any(a <= i and j <= b for a, b in spans):
+                continue
+            lo = max(text.rfind(c, 0, i) for c in ",;:.()\n") + 1
+            his = [k for k in (text.find(c, j) for c in ",;:.()\n") if k >= 0]
+            hi = min(his) if his else len(text)
+            ph = text[lo:hi].strip()
+            while text.count(ph) > 1 and hi < len(text):
+                hi += 1
+                ph = text[lo:hi].strip()
+            item = dict(phrase=ph, why=f"TODO ({name} word {w!r}): a reason, or a pin bound to its result")
+            if item not in out.setdefault(doc, []):
+                out[doc].append(item)
+    return out
+
+
 def main(argv: list[str]) -> int:
     if argv[:1] == ["uncovered"]:
         for x in uncovered():
             print(x)
+        return 0
+    if argv[:1] == ["propose"]:
+        print(json.dumps(propose(), ensure_ascii=False, indent=1))
         return 0
     errs = check()
     for e in errs:

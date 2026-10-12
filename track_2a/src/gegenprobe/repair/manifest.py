@@ -27,6 +27,7 @@ import sys
 from pathlib import Path
 
 from ..paths import RESULTS, ROOT
+from .adapters import retier
 
 REPAIR = RESULTS / "repair"
 OUT = REPAIR / "MANIFEST.json"
@@ -51,6 +52,11 @@ PRECEDENCE = [
     dict(lists="repair_BE_relink.tsv / repair_BE_begin_date.tsv vs apply_be/apply_BE_plan.*",
          wins="apply_be plan for execution",
          why="the plan is built from the two lists and guards every UPDATE with the before-state (repair.apply_be)."),
+    dict(lists="adapters/retier/retier_<change>.json vs adapter list (same affair)",
+         wins="retier file",
+         why="a logged re-tiering of rows in the committed (LOCK8-hashed, unedited) adapter lists: the rows it names "
+             "are not applied; they go to the review queue with the file's review_reason and date_policy "
+             "(repair/adapters/retier.py; r18: Valais's 140 date_window fetch rows). counted_after_retier below."),
     dict(lists="results/ vs site/downloads/",
          wins="identical",
          why="site/downloads holds byte-identical copies of the lists it offers (sha256 below)."),
@@ -153,6 +159,7 @@ def site_copies(files: list[Path]) -> dict:
 
 def build() -> dict:
     files = list_files()
+    moved = retier.overrides()
     rows = []
     for p in files:
         kind, cmd = _kind(p)
@@ -163,13 +170,18 @@ def build() -> dict:
         if kind == "adapter list" or kind.startswith(("test artefact", "P7 promoted")):
             e["by_tier"] = dict(sorted(collections.Counter(r["tier"] for r in rs).items()))
             e["counted"] = sum(r["counted"] == "true" for r in rs)
+            if kind == "adapter list":
+                b = p.stem[len("adapters_"):]
+                e["counted_after_retier"] = sum(r["counted"] == "true" and (b, int(r["affair_id"])) not in moved
+                                                for r in rs)
         rows.append(e)
     ov = overlaps()
     dup = same_names()
     return dict(
         note="Every repair list under results/repair, the command that writes it and which list wins where two lists "
-             "name the same affair (precedence). Adapter lists: apply rows with counted=true (verified=true is the same); "
-             "tier=review rows are for a person. No two files under results/repair share a name.",
+             "name the same affair (precedence). Adapter lists: apply rows with counted=true (verified=true is the same) "
+             "except the rows a retier file names; tier=review rows and re-tiered rows are for a person. No two files "
+             "under results/repair share a name.",
         precedence=PRECEDENCE,
         files=rows,
         overlaps=ov,
@@ -177,6 +189,8 @@ def build() -> dict:
                             opd_doc_id_differs=sum(o["opd_doc_id_differs"] for o in ov),
                             by_pair=dict(sum((collections.Counter(o["by_route_action_and_adapter_tier"]) for o in ov),
                                              collections.Counter()))),
+        retier=dict(file=str(retier.OUT.relative_to(ROOT)) if retier.OUT.exists() else None, rows=len(moved),
+                    note="rows of the adapter lists not to apply as counted (precedence above); they are review rows"),
         same_name=dup,
         site_copies_identical=site_copies(files),
     )

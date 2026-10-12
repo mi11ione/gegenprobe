@@ -3,9 +3,10 @@
 The census median per parliament (results/census/question.json `bodies[].median_days`) measures submission -> OPD's
 'answer' event. What that event date is differs by parliament (results/census/date_trust.json): a decision date, a weekly
 sitting, a publication or registration date, or in 7 bodies the submission date itself. This module recomputes answer
-times for the affairs whose answer a source adapter verified (results/repair/adapters/adapters_*.tsv, `counted=true`:
-6,613 answers in 27 parliaments) on the date the answer document carries, and compares the per-parliament ranking with
-OPD's plain medians.
+times for the affairs whose answer a source adapter verified (results/repair/adapters/adapters_*.tsv, `counted=true`,
+after the logged re-tierings of repair/adapters/retier.py: results/repair/adapters/retier/retier_r18.json moves Valais's
+140 date-window rows to review, so 6,473 counted answers in 27 parliaments) on the date the answer document carries, and
+compares the per-parliament ranking with OPD's plain medians. `retiered` reports what the 140 rows contributed before.
 
 Answer date per adapter row (`adapter_date`):
   * `check_decision_date`, the document's own date (header or place-date line) as the adapter read it; it was checked
@@ -37,6 +38,8 @@ import re
 import statistics
 from collections import Counter, defaultdict
 from pathlib import Path
+
+from ..repair.adapters import retier
 
 ROOT = Path(__file__).resolve().parents[3]
 ADAPTERS = ROOT / "results" / "repair" / "adapters"
@@ -95,13 +98,17 @@ def spearman(a: list[float], b: list[float], perm: int = PERM, seed: int = SEED)
                 seed=seed)
 
 
-def load_rows() -> tuple[list[dict], dict]:
+def load_rows(apply_retier: bool = True) -> tuple[list[dict], dict]:
+    moved = retier.overrides() if apply_retier else {}
     iv = {(r["body"], r["affair_id"]): r
           for r in csv.DictReader(gzip.open(CENSUS / "interventions.tsv.gz", "rt", encoding="utf-8"), delimiter="\t")}
     rows, excl, excl_body, counted_bodies = [], Counter(), defaultdict(Counter), set()
     for f in sorted(ADAPTERS.glob("adapters_*.tsv")):
         for r in csv.DictReader(open(f, encoding="utf-8"), delimiter="\t"):
             if r["counted"] != "true":
+                continue
+            if moved.get((r["body"], int(r["affair_id"])), {}).get("counted") is False:
+                excl["retiered_rows"] += 1
                 continue
             excl["counted_rows"] += 1
             counted_bodies.add(r["body"])
@@ -146,6 +153,33 @@ def opd_plain_by_type() -> dict:
         if r["days_to_answer"] != "":
             v[(r["body"], r["type"])].append(int(r["days_to_answer"]))
     return v
+
+
+def retiered_effect(rows: list[dict]) -> dict:
+    """What the re-tiered rows contributed: Valais's durations with and without them (the lists as committed vs after
+    retier_r18.json), by type and tier; and Kriens's tiers, which no re-tiering touches."""
+    moved = retier.overrides()
+    before, _ = load_rows(apply_retier=False)
+    gone = [r for r in before if moved.get((r["body"], int(r["affair_id"])), {}).get("counted") is False]
+    vs_before = [r for r in before if r["body"] == "VS"]
+    vs_after = [r for r in rows if r["body"] == "VS"]
+    kr = [r for r in rows if r["body"] == "1059"]
+    return dict(
+        file=str(retier.OUT.relative_to(ROOT)) if retier.OUT.exists() else None,
+        rows_moved=len(moved), durations_moved=len(gone),
+        durations_moved_by_body=dict(Counter(r["body"] for r in gone)),
+        valais_before=dict(_stat([r["days"] for r in vs_before]), types=dict(Counter(r["type"] for r in vs_before)
+                                                                              .most_common())),
+        valais_moved=dict(_stat([r["days"] for r in gone if r["body"] == "VS"]),
+                          types=dict(Counter(r["type"] for r in gone if r["body"] == "VS").most_common())),
+        valais_after=dict(_stat([r["days"] for r in vs_after]), types=dict(Counter(r["type"] for r in vs_after)
+                                                                            .most_common()),
+                          tiers=dict(Counter(r["tier"] for r in vs_after).most_common()),
+                          in_ranking=len(vs_after) >= MIN_N),
+        kriens_tiers=dict(Counter(r["tier"] for r in kr).most_common()),
+        note="the re-tiered rows (Valais date-window fetch rows) are review rows after retier_r18.json and are not "
+             "counted here; valais_before is the finding as it stood on the lists as committed",
+    )
 
 
 def compute() -> dict:
@@ -215,8 +249,10 @@ def compute() -> dict:
     pooled_adapter = _stat([r["days"] for r in rows])
     sp = spearman(plain, adap)
     vs_neg = excl.get("by_body", {}).get("VS", {}).get("negative", 0)
+    moved = retier.overrides()
     vs_counted = sum(1 for f in [ADAPTERS / "adapters_VS.tsv"] if f.exists()
-                     for r in csv.DictReader(open(f, encoding="utf-8"), delimiter="\t") if r["counted"] == "true")
+                     for r in csv.DictReader(open(f, encoding="utf-8"), delimiter="\t") if r["counted"] == "true"
+                     and moved.get((r["body"], int(r["affair_id"])), {}).get("counted") is not False)
     headline = dict(
         counted_rows=excl.get("counted_rows"), parliaments=excl.get("counted_parliaments"), durations=len(rows),
         ranked_parliaments=len(rk), rho_opd_plain_vs_adapter=sp["rho"],
@@ -269,6 +305,7 @@ def compute() -> dict:
                  "3 parliaments is shown but says little)",
             by_type=by_type),
         per_parliament=per,
+        retiered=retiered_effect(rows),
         caveat="The adapter sample is the census gap (answers OPD holds without text, or not at all), not every answer of "
                "a parliament, and its type mix differs (per_parliament.types). The document date is the government's "
                "decision or letter date in most parliaments (Neuchâtel: the date the answer was transmitted to the Grand "

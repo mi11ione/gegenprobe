@@ -39,14 +39,15 @@ def _errs(rows, cfg, doc, old, new):
 
 # ---- 1 scope words are bound to their claims
 @pytest.mark.parametrize("doc,old,new", [
-    ("technical_report.md", "a generic keyword rule 16/29 (post hoc) |", "a generic keyword rule 16/29 (registered) |"),
-    ("technical_report.md", "document order (52/141, F1 0.41; Apertus 50/141, F1 0.42), and Apertus adds",
-     "document order (52/141, F1 0.41; Apertus 50/141, F1 0.42, registered), and Apertus adds"),
+    ("technical_report.md", "registered against the rules (the baselines post hoc, proposed",
+     "registered against the rules (the baselines registered, proposed"),
+    ("technical_report.md", "302/302 across 58 field × parliament cells (post hoc",
+     "302/302 across 58 field × parliament cells (registered"),
     ("technical_report.md", "(held out: pair recall 39/137)", "(in-sample: pair recall 39/137)"),
-    ("README.md", "document order 52/141 (post hoc), level |", "document order 52/141 (registered), level |"),
+    ("README.md", "who is an author (+7.3 points, post hoc)", "who is an author (+7.3 points, registered)"),
     ("README.md", "recall 286/345 (in-sample)", "recall 286/345 (held out)"),
     ("README.md", "**Federal level (exploratory,", "**Federal level (registered,"),
-    ("docs/form_notes.md", "15 federal ones exploratory)", "15 federal ones registered)"),
+    ("docs/form_notes.md", "4 from OPD's labels, post hoc", "4 from OPD's labels, registered"),
     ("docs/form_notes.md", "cascade's 138/154, post hoc)", "cascade's 138/154, registered)"),
 ])
 def test_r14_scope_word_flip_fails(rows, cfg, doc, old, new):
@@ -143,13 +144,14 @@ def test_r14_numbers_step_writes_nothing(tmp_path):
 def test_r14_numbers():
     d = json.loads((RESULTS / "report" / "r14_numbers.json").read_text(encoding="utf-8"))
     c = d["coverage"]
-    assert (c["row_checked"], c["agenda"], c["review"], c["repaired"]) == (9089, 592, 39, 9720)
-    assert (c["share_row_checked"], c["points_unchecked"], c["share_all"]) == ("91.6%", "0.7", "92.3%")
+    # after the r18 re-tiering of Valais's 140 date_window fetch rows (results/repair/adapters/retier/retier_r18.json)
+    assert (c["row_checked"], c["agenda"], c["review"], c["repaired"]) == (8949, 592, 39, 9580)
+    assert (c["share_row_checked"], c["points_unchecked"], c["share_all"]) == ("91.5%", "0.6", "92.1%")
     a = d["p1_model_free_cascade"]["arms"]
     assert (a["model_free_cascade"]["exact"], a["apertus_cascade"]["exact"], a["rules"]["exact"]) == (138, 139, 135)
     assert a["model_free_cascade"]["printed_nowhere"] == 0
     t = d["answer_times"]
-    assert t["names"] == "Kriens and Valais" and (t["rho_same_affairs"], t["rho_plain_without_same_day"]) == (0.99, 0.832)
+    assert t["names"] == "Kriens and Valais" and (t["rho_same_affairs"], t["rho_plain_without_same_day"]) == (0.997, 0.832)
 
 
 def test_r14_converter_coverage():

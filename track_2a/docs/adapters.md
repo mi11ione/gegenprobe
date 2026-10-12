@@ -114,12 +114,21 @@ All 12,150 target affairs (10,800 `absent` + 1,350 `image_only`) were run; outpu
 **Coverage.** Every row below printed the affair's identity and the parliament's answer formula; the tiers differ in the
 date check and no document-type filter fired. Counted as verified repairs (tiers with a date check): **6,613** affairs,
 **5,793** of the 10,800 written answers that had no answer document in OPD and **820** of the 1,350 image-only answers
-(a text copy verified). Deterministic routes now propose repairs for **9,720 of 16,749** interventions without answer
+(a text copy verified). In the lists as committed, deterministic routes propose repairs for **9,720 of 16,749** interventions without answer
 text: **3,107** from the routes before the adapters (Bern relink 2,459 and fetch 49, agenda joins 592, Curia Vista 7)
 plus **6,613** adapter rows. **5,007** written answers still need adapters. **27 of the 50** adapters yield counted
 repairs; 23 yield none (unreachable hosts, answers only in minutes or given orally, no answer file in OPD). Listed
 separately and not counted: **282** Jura answers checked by identity and wording only (OPD's Jura answer events carry no
 date). Another **917** rows are review (661 absent, 256 image-only): listed, not counted.
+
+**Re-tiering (12 Oct 2026, logged; the lists as committed are unchanged).** Valais's 140 date-window rows moved to
+review: OPD's Valais answer event is the session that debated the motion, after the government's letter, so the window
+check cannot confirm OPD's date, and the document's date must not overwrite it (`results/repair/adapters/retier/retier_r18.json`,
+written by `src/gegenprobe/repair/adapters/retier.py`; it records the sha256 of `adapters_VS.tsv`, which LOCK8 hashes).
+Every derived figure applies it (`census/corrected.py`, `repair/manifest.py`, the evidence site): counted rows 6,613 →
+**6,473**, `fetch` 3,584 → **3,444**, tier `date_window` 396 → **256** (Zürich city 215, Kriens 32, Neuchâtel 9),
+`review` 917 → **1,057**; repairs proposed for **9,580 of 16,749**. The tier table and the counts above are the lists as
+committed.
 
 List hygiene after review (11 Oct 2026) moved **220** rows from counted to review and changed no row
 the other way: **211** rows whose only date match was some printed date while the document's own date lay more than 30
@@ -366,3 +375,12 @@ stratified by parliament but the interval treated it as simple random; there wer
   temperature 0; never an Apertus model). `score` reports per auditor the stratified precision (N_h/N weights, 95%
   interval from per-stratum Jeffreys posteriors), date_ok, whether each quote is found in the text, the decoys' yes
   rate, and the two auditors' agreement.
+
+**Audit v3 after the re-tiering (post hoc; `audit.after_retier` in `results/repair/adapters/retier/retier_r18.json`).**
+The audit as run (200 counted rows, 8 strata) gave Claude 197/200 the executive's answer, with the date wrong or
+unsupported on 15; 12 of those 15 date verdicts and 2 of the 3 "no" verdicts fell on the 14 sampled rows of Valais's
+date-window fetch stratum, where OPD's answer event lies beyond the prompt's 30-day tolerance (Valais's window runs to
++118 days) and 2 documents answer another motion with the same per-legislature number. Re-read over the 7 strata that
+still count (186 rows, same N_h weights and estimator): Claude 185/186 (3 dates judged wrong, all Solothurn
+`exact_doc_date/fetch`, where the document's date equals OPD's executive event but the auditor saw OPD's "Beantwortet"
+date, the committee's), stratified date_ok 0.976 [0.928, 0.988]; Qwen-SEA-LION 186/186; both say yes on 185/186.

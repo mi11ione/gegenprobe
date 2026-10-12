@@ -601,5 +601,41 @@
     "n_violating": 0
    }
   }
+ },
+ "validated_records": {
+  "n_records": 186,
+  "n_parliaments": 26,
+  "all_valid": true,
+  "converter": {
+   "n_records": 120,
+   "n_parliaments": 23,
+   "sets": {
+    "p3": 29,
+    "p3b": 36,
+    "p5": 40,
+    "fed": 15
+   },
+   "cantonal_and_communal": {
+    "n_records": 105,
+    "n_parliaments": 22
+   },
+   "federal": {
+    "n_records": 15,
+    "n_parliaments": 1,
+    "records": "fed_records.jsonl"
+   }
+  },
+  "p8_gold": {
+   "n_records": 66,
+   "n_parliaments": 11,
+   "records": "p8_records.jsonl",
+   "parliaments_not_in_converter_sets": [
+    "351",
+    "FR",
+    "TG"
+   ]
+  },
+  "sentence": "186 v0.2 records from 26 parliaments validate: the converter's 120 (105 cantonal and communal + 15 federal, 23 parliaments) and P8's 66 gold records (11 parliaments)",
+  "note": "n_affairs/n_parliaments at the top of this file count v0_2_all's sets p3, p3b, p5 and p8; this block adds the federal cell's records (fed_records.jsonl, validated here)"
  }
 }

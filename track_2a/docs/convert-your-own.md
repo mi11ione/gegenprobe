@@ -108,6 +108,23 @@ OPD source, document values with page and span, typed nulls, and `needs_review` 
 no model; `--mode review` adds Apertus suggestions next to the record. A failure is a typed row and exits 2. Details,
 sources and scope: [docs/affair.md](affair.md#one-affair-from-opd-python--m-gegenprobe-affair).
 
+## A bare PDF as a schema v0.2 record (no OPD affair id)
+
+```bash
+python -m gegenprobe convert answer.pdf --schema v0.2 --body BE --affair-type Interpellation --out record.json
+```
+
+`gegenprobe convert <pdf> --schema v0.2 --body KEY` turns a bare PDF into a validated v0.2 record without an OPD affair
+id: the rules' values with page and span, every field only OPD's metadata supplies a typed null `not_in_corpus`;
+`gegenprobe affair --opd-affair <id>` adds OPD's metadata. The PDF goes through the same record pipeline as `affair`,
+with an empty OPD affair (`src/gegenprobe/convert/v02_pdf.py`); the document id is the v0.1 one (`sha256:<16>`) and its
+source `other`, so nothing claims to come from OPD. `--affair-number` and `--affair-type` are references, not values with
+provenance. v0.2 requires the body's level: give `--body` with an OPD key, or `--body` with `--level`; `--doc-role` sets
+the document's role where the converter cannot. Typed failures exit 2: `level_unknown`, `doc_role_unknown`,
+`invalid_record`. This path runs rules only (`--mode review` and `--batch` with v0.2 exit 2 with a message);
+`--schema v0.1` (the default) is unchanged. On the Bern answer behind the README sample it gives the answer date
+2022-05-18 and the printed lodging date 2021-12-08 (`tests/test_convert_v02_pdf.py`).
+
 ## Many documents
 
 ```bash

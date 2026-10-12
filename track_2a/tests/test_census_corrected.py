@@ -47,7 +47,11 @@ def test_every_gap_row_in_one_place_per_body_and_period():
 def test_repaired_equals_earlier_routes_plus_counted_adapter_rows():
     a = _c()["national"]["all"]
     ad = json.loads((RESULTS / "repair" / "adapters" / "adapters_summary.json").read_text())
-    assert a["repaired"] == ad["coverage"]["repairable_deterministic_with_adapters"] == 3107 + ad["totals"]["verified"]
+    # adapters_summary.json (LOCK8) counts the lists as committed; the r18 re-tiering (repair/adapters/retier.py) moves
+    # Valais's 140 date_window fetch rows to review, and only the derived layer applies it
+    rt = _c()["retiered"]
+    assert rt["n"] == 140 and rt["by_change"] == {"r18": 140}
+    assert a["repaired"] + rt["n"] == ad["coverage"]["repairable_deterministic_with_adapters"] == 3107 + ad["totals"]["verified"]
     # Jura's identity + wording rows are listed, never counted
     lu = _c()["listed_unverified"]
     assert lu["n"] == 282 and lu["bodies"] == ["JU"] and a["open_parts"]["listed_unverified"] == 282
@@ -71,11 +75,12 @@ def test_report_share_after_every_counted_repair():
     r = _c()["report"]
     q = json.loads((RESULTS / "census" / "question.json").read_text())["national"]
     assert r["registered_text_share"] == q["text_share_now"] and r["registered_after_relink"] == q["text_share_after_relink"]
-    assert round(100 * r["after_all_counted_repairs"], 1) == 92.3
+    assert r["after_all_counted_repairs"] == 0.921451 and r["repaired"] == 9580 and r["verified_fetches"] == 3500
     a = _c()["national"]["all"]
     assert r["written"] == a["attached"] + r["repaired"] + r["still_without_text"]
     assert r["still_without_text_written"] == r["still_without_text"] - a["oral"] == a["still_open"]
-    assert "92.3% after every counted repair" in _c()["sentences"]["report"]
+    # the sentence rounds the counts once (84,099 / 91,268 = 92.145%), not the 4-decimal field again
+    assert "92.1% after every counted repair" in _c()["sentences"]["report"]
 
 
 def test_site_rows_never_say_not_in_opd_for_answers_found_in_opd():

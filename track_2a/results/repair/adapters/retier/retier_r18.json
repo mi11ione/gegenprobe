@@ -1,0 +1,4439 @@
+{
+ "audit": {
+  "after_retier": {
+   "agreement_counted": {
+    "both_yes": 185,
+    "n": 186
+   },
+   "auditors": {
+    "claude": {
+     "by_stratum": {
+      "date_window/tag_answer": {
+       "date_no": 0,
+       "frame": 240,
+       "n": 16,
+       "wilson95": [
+        0.8064,
+        1.0
+       ],
+       "yes": 16
+      },
+      "exact_any_printed_date/extract_tag": {
+       "date_no": 0,
+       "frame": 718,
+       "n": 24,
+       "wilson95": [
+        0.862,
+        1.0
+       ],
+       "yes": 24
+      },
+      "exact_any_printed_date/fetch": {
+       "date_no": 0,
+       "frame": 59,
+       "n": 13,
+       "wilson95": [
+        0.6669,
+        0.9863
+       ],
+       "yes": 12
+      },
+      "exact_any_printed_date/tag_answer": {
+       "date_no": 0,
+       "frame": 160,
+       "n": 14,
+       "wilson95": [
+        0.7847,
+        1.0
+       ],
+       "yes": 14
+      },
+      "exact_doc_date/extract_tag": {
+       "date_no": 0,
+       "frame": 51,
+       "n": 13,
+       "wilson95": [
+        0.7719,
+        1.0
+       ],
+       "yes": 13
+      },
+      "exact_doc_date/fetch": {
+       "date_no": 3,
+       "frame": 3255,
+       "n": 67,
+       "wilson95": [
+        0.9458,
+        1.0
+       ],
+       "yes": 67
+      },
+      "exact_doc_date/tag_answer": {
+       "date_no": 0,
+       "frame": 1602,
+       "n": 39,
+       "wilson95": [
+        0.9103,
+        1.0
+       ],
+       "yes": 39
+      }
+     },
+     "counted": "185/186",
+     "date_ok": {
+      "ci95": [
+       0.9281,
+       0.9875
+      ],
+      "estimate": 0.976,
+      "method": "stratified (N_h/N weights); 95% interval: Jeffreys posteriors per stratum, Monte Carlo 20,000 draws, seed 20261212"
+     },
+     "date_ok_no": 3,
+     "date_ok_unclear": 0,
+     "no": 1,
+     "precision": {
+      "ci95": [
+       0.9663,
+       0.9971
+      ],
+      "estimate": 0.9993,
+      "method": "stratified (N_h/N weights); 95% interval: Jeffreys posteriors per stratum, Monte Carlo 20,000 draws, seed 20261212"
+     },
+     "unclear": 0,
+     "unweighted_wilson95": [
+      0.9702,
+      0.9991
+     ]
+    },
+    "qwen": {
+     "by_stratum": {
+      "date_window/tag_answer": {
+       "date_no": 2,
+       "frame": 240,
+       "n": 16,
+       "wilson95": [
+        0.8064,
+        1.0
+       ],
+       "yes": 16
+      },
+      "exact_any_printed_date/extract_tag": {
+       "date_no": 0,
+       "frame": 718,
+       "n": 24,
+       "wilson95": [
+        0.862,
+        1.0
+       ],
+       "yes": 24
+      },
+      "exact_any_printed_date/fetch": {
+       "date_no": 0,
+       "frame": 59,
+       "n": 13,
+       "wilson95": [
+        0.7719,
+        1.0
+       ],
+       "yes": 13
+      },
+      "exact_any_printed_date/tag_answer": {
+       "date_no": 0,
+       "frame": 160,
+       "n": 14,
+       "wilson95": [
+        0.7847,
+        1.0
+       ],
+       "yes": 14
+      },
+      "exact_doc_date/extract_tag": {
+       "date_no": 0,
+       "frame": 51,
+       "n": 13,
+       "wilson95": [
+        0.7719,
+        1.0
+       ],
+       "yes": 13
+      },
+      "exact_doc_date/fetch": {
+       "date_no": 3,
+       "frame": 3255,
+       "n": 67,
+       "wilson95": [
+        0.9458,
+        1.0
+       ],
+       "yes": 67
+      },
+      "exact_doc_date/tag_answer": {
+       "date_no": 0,
+       "frame": 1602,
+       "n": 39,
+       "wilson95": [
+        0.9103,
+        1.0
+       ],
+       "yes": 39
+      }
+     },
+     "counted": "186/186",
+     "date_ok": {
+      "ci95": [
+       0.9228,
+       0.9839
+      ],
+      "estimate": 0.9711,
+      "method": "stratified (N_h/N weights); 95% interval: Jeffreys posteriors per stratum, Monte Carlo 20,000 draws, seed 20261212"
+     },
+     "date_ok_no": 5,
+     "date_ok_unclear": 0,
+     "no": 0,
+     "precision": {
+      "ci95": [
+       0.9672,
+       0.9977
+      ],
+      "estimate": 1.0,
+      "method": "stratified (N_h/N weights); 95% interval: Jeffreys posteriors per stratum, Monte Carlo 20,000 draws, seed 20261212"
+     },
+     "unclear": 0,
+     "unweighted_wilson95": [
+      0.9798,
+      1.0
+     ]
+    }
+   },
+   "note": "audit v3 re-read over the 7 strata that still count (the moved stratum's packets dropped; N_h weights and the estimator of audit3.score_one, seed 20261212); post hoc, the sample was drawn before the re-tiering"
+  },
+  "claude_in_moved_stratum": {
+   "date_ok_no": 12,
+   "is_answer_yes": 12,
+   "not_the_answer": 2
+  },
+  "claude_whole_audit": {
+   "counted": "197/200",
+   "date_ok_no": 15,
+   "no": 3
+  },
+  "committed_history": {
+   "file": "results/repair/adapters/audit3/summary.json",
+   "note": "unchanged: the audit as run and scored on 11 Oct (200 counted rows, 8 strata)",
+   "sha256": "b8e4388c7bdc30f3f6ffa4259cfd4bf447c14382c44b7c671e781a3994db0ac4"
+  },
+  "moved_stratum": "date_window/fetch",
+  "moved_stratum_frame": 124,
+  "moved_stratum_frame_note": "the audit frame excluded the design-audit rows; the stratum has 140 counted rows in the list, 124 of them in the audit v3 frame",
+  "moved_stratum_sampled": 14,
+  "not_the_answer": [
+   {
+    "affair_number": "MO_2.106",
+    "note": "Conseil d'Etat response to a different motion (2.106 on lawyer traineeship), not on electric resistance heating.",
+    "packet": "A3-046"
+   },
+   {
+    "affair_number": "MO_1.232",
+    "note": "Conseil d'Etat response (28 Nov 2008) to a different motion on intercommunal industrial zones, not on infanticide/abandonment.",
+    "packet": "A3-260"
+   }
+  ],
+  "qwen_in_moved_stratum": {
+   "date_ok_no": 7,
+   "is_answer_yes": 14
+  },
+  "rows": [
+   {
+    "affair_id": 332717,
+    "affair_number": "MO_4.0301",
+    "claude": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    },
+    "claude_note": "Conseil d'Etat response to motion 4.0301 (younger people in vote counting), dated 21 Nov 2018, about 3 months before OPD date.",
+    "date_match": "window(+85d)",
+    "document_date": "2018-11-21",
+    "offset_days": 85,
+    "opd_answer_events": [
+     "2019-02-14"
+    ],
+    "opd_submitted": "2018-08-16",
+    "packet": "A3-043",
+    "qwen": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    }
+   },
+   {
+    "affair_id": 332492,
+    "affair_number": "MO_2.106",
+    "claude": {
+     "date_ok": "no",
+     "is_answer": "no"
+    },
+    "claude_note": "Conseil d'Etat response to a different motion (2.106 on lawyer traineeship), not on electric resistance heating.",
+    "date_match": "window(+51d)",
+    "document_date": "2011-10-03",
+    "offset_days": 51,
+    "opd_answer_events": [
+     "2011-11-23"
+    ],
+    "opd_submitted": "2007-10-19",
+    "packet": "A3-046",
+    "qwen": {
+     "date_ok": "yes",
+     "is_answer": "yes"
+    }
+   },
+   {
+    "affair_id": 332369,
+    "affair_number": "MO_5.0210",
+    "claude": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    },
+    "claude_note": "Conseil d'Etat response to motion 5.0210 (construction in co-ownership) dated 28 Nov 2016, about 2 months before OPD date.",
+    "date_match": "window(+57d)",
+    "document_date": "2016-11-28",
+    "offset_days": 57,
+    "opd_answer_events": [
+     "2017-01-24"
+    ],
+    "opd_submitted": "2016-08-08",
+    "packet": "A3-067",
+    "qwen": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    }
+   },
+   {
+    "affair_id": 332758,
+    "affair_number": "MO_4.0248",
+    "claude": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    },
+    "claude_note": "Conseil d'Etat response to motion 4.0248 (curatorship costs) dated 6 Sept 2017, over 2 months before OPD date.",
+    "date_match": "window(+77d)",
+    "document_date": "2017-09-06",
+    "offset_days": 77,
+    "opd_answer_events": [
+     "2017-11-22"
+    ],
+    "opd_submitted": "2017-11-21",
+    "packet": "A3-078",
+    "qwen": {
+     "date_ok": "yes",
+     "is_answer": "yes"
+    }
+   },
+   {
+    "affair_id": 332437,
+    "affair_number": "MO_5.0073",
+    "claude": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    },
+    "claude_note": "Conseil d'Etat response to motion 5.0073 (village/core zones) dated 16 Oct 2014, months before OPD date.",
+    "date_match": "window(+118d)",
+    "document_date": "2014-10-16",
+    "offset_days": 118,
+    "opd_answer_events": [
+     "2015-02-11"
+    ],
+    "opd_submitted": "2015-02-11",
+    "packet": "A3-095",
+    "qwen": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    }
+   },
+   {
+    "affair_id": 332364,
+    "affair_number": "MO_1.0163",
+    "claude": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    },
+    "claude_note": "Conseil d'Etat response to motion 1.0163 (minimum tax) dated 14 Dec 2016, 41 days before OPD date.",
+    "date_match": "window(+41d)",
+    "document_date": "2016-12-14",
+    "offset_days": 41,
+    "opd_answer_events": [
+     "2017-01-24"
+    ],
+    "opd_submitted": "2016-08-08",
+    "packet": "A3-098",
+    "qwen": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    }
+   },
+   {
+    "affair_id": 332482,
+    "affair_number": "MO_2.219",
+    "claude": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    },
+    "claude_note": "Conseil d'Etat response to motion 2.219 (abolish superfluous laws) dated 8 Aug 2012, two months before OPD date.",
+    "date_match": "window(+62d)",
+    "document_date": "2012-08-08",
+    "offset_days": 62,
+    "opd_answer_events": [
+     "2012-10-09"
+    ],
+    "opd_submitted": "2012-05-22",
+    "packet": "A3-099",
+    "qwen": {
+     "date_ok": "yes",
+     "is_answer": "yes"
+    }
+   },
+   {
+    "affair_id": 332485,
+    "affair_number": "MO_4.115",
+    "claude": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    },
+    "claude_note": "Conseil d'Etat response to motion 4.115 dated 5 March 2012, over 2 months before OPD date.",
+    "date_match": "window(+78d)",
+    "document_date": "2012-03-05",
+    "offset_days": 78,
+    "opd_answer_events": [
+     "2012-05-22"
+    ],
+    "opd_submitted": "2012-05-22",
+    "packet": "A3-146",
+    "qwen": {
+     "date_ok": "yes",
+     "is_answer": "yes"
+    }
+   },
+   {
+    "affair_id": 332461,
+    "affair_number": "MO_1.0008",
+    "claude": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    },
+    "claude_note": "Conseil d'Etat response to motion 1.0008 (state guarantee of BCVs) dated 4 Nov 2013, over 3 months before OPD date.",
+    "date_match": "window(+102d)",
+    "document_date": "2013-11-04",
+    "offset_days": 102,
+    "opd_answer_events": [
+     "2014-02-14"
+    ],
+    "opd_submitted": "2014-02-14",
+    "packet": "A3-165",
+    "qwen": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    }
+   },
+   {
+    "affair_id": 331880,
+    "affair_number": "MO_1.060",
+    "claude": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    },
+    "claude_note": "Conseil d'Etat response to motion 1.060 (provisional tax collection) dated 30 Aug 2010, 53 days before OPD date.",
+    "date_match": "window(+53d)",
+    "document_date": "2010-08-30",
+    "offset_days": 53,
+    "opd_answer_events": [
+     "2010-10-22"
+    ],
+    "opd_submitted": "2010-10-22",
+    "packet": "A3-166",
+    "qwen": {
+     "date_ok": "yes",
+     "is_answer": "yes"
+    }
+   },
+   {
+    "affair_id": 332876,
+    "affair_number": "MO_6.0074",
+    "claude": {
+     "date_ok": "yes",
+     "is_answer": "yes"
+    },
+    "claude_note": "Conseil d'Etat response to motion 6.0074 dated 24 Jan 2018 (19 days before OPD date).",
+    "date_match": "window(+19d)",
+    "document_date": "2018-01-24",
+    "offset_days": 19,
+    "opd_answer_events": [
+     "2018-02-12"
+    ],
+    "opd_submitted": "2018-02-12",
+    "packet": "A3-187",
+    "qwen": {
+     "date_ok": "yes",
+     "is_answer": "yes"
+    }
+   },
+   {
+    "affair_id": 332371,
+    "affair_number": "MO_1.0164",
+    "claude": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    },
+    "claude_note": "Conseil d'Etat response to motion 1.0164 (land sales between public bodies) dated 28 Oct 2016, about 3 months before OPD date.",
+    "date_match": "window(+88d)",
+    "document_date": "2016-10-28",
+    "offset_days": 88,
+    "opd_answer_events": [
+     "2017-01-24"
+    ],
+    "opd_submitted": "2016-08-08",
+    "packet": "A3-203",
+    "qwen": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    }
+   },
+   {
+    "affair_id": 332085,
+    "affair_number": "MO_2.0188",
+    "claude": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    },
+    "claude_note": "Conseil d'Etat response to motion 2.0188 (parent counselling) dated 24 Nov 2017, about 2.5 months before OPD date.",
+    "date_match": "window(+80d)",
+    "document_date": "2017-11-24",
+    "offset_days": 80,
+    "opd_answer_events": [
+     "2018-02-12"
+    ],
+    "opd_submitted": "2017-08-16",
+    "packet": "A3-228",
+    "qwen": {
+     "date_ok": "no",
+     "is_answer": "yes"
+    }
+   },
+   {
+    "affair_id": 332477,
+    "affair_number": "MO_1.232",
+    "claude": {
+     "date_ok": "yes",
+     "is_answer": "no"
+    },
+    "claude_note": "Conseil d'Etat response (28 Nov 2008) to a different motion on intercommunal industrial zones, not on infanticide/abandonment.",
+    "date_match": "window(+13d)",
+    "document_date": "2008-11-28",
+    "offset_days": 13,
+    "opd_answer_events": [
+     "2008-12-11",
+     "2013-04-15"
+    ],
+    "opd_submitted": "2008-12-11",
+    "packet": "A3-260",
+    "qwen": {
+     "date_ok": "yes",
+     "is_answer": "yes"
+    }
+   }
+  ],
+  "tolerance_explains_dates": {
+   "audit_tolerance_days": 30,
+   "note": "Claude's date_ok is 'no' exactly where the document date lies more than 30 days before OPD's event: the audit prompt's tolerance, not Valais's documented 0 to +120-day window",
+   "offset_over_tolerance": 12,
+   "offset_over_tolerance_claude_date_no": 12,
+   "offset_within_tolerance": 2,
+   "offset_within_tolerance_claude_date_yes": 2,
+   "offsets_over": [
+    41,
+    51,
+    53,
+    57,
+    62,
+    77,
+    78,
+    80,
+    85,
+    88,
+    102,
+    118
+   ],
+   "offsets_within": [
+    13,
+    19
+   ],
+   "opd_answer_event_equals_opd_submission": 6
+  }
+ },
+ "by_census_link": {
+  "absent": 136,
+  "image_only": 4
+ },
+ "by_type": {
+  "Interpellation": 1,
+  "Motion": 134,
+  "Question": 5
+ },
+ "change": "r18",
+ "date": "2026-10-12",
+ "date_policy": "the document's date must not overwrite OPD's answer event for these rows: OPD's event is the session that treated the motion; record the document's date as answer_decided next to it",
+ "lists_after": {
+  "by_tier": {
+   "date_window": 256,
+   "exact_any_printed_date": 1056,
+   "exact_doc_date": 5161,
+   "identity_wording_only": 282,
+   "review": 1057
+  },
+  "counted": 6473,
+  "counted_by_action": {
+   "extract_tag": 852,
+   "fetch": 3444,
+   "tag_answer": 2177
+  },
+  "rows": 7812
+ },
+ "lists_before": {
+  "by_tier": {
+   "date_window": 396,
+   "exact_any_printed_date": 1056,
+   "exact_doc_date": 5161,
+   "identity_wording_only": 282,
+   "review": 917
+  },
+  "counted": 6613,
+  "counted_by_action": {
+   "extract_tag": 852,
+   "fetch": 3584,
+   "tag_answer": 2177
+  },
+  "rows": 7812
+ },
+ "locked_inputs_unchanged": {
+  "list": "results/repair/adapters/adapters_VS.tsv",
+  "note": "hashed by LOCK8; not edited. This file is the change; every derived figure applies it (census/corrected.py adapter_rows)",
+  "sha256": "0efa51fe44694e686da7ef3061ed0a901d274f36565e2abfac379257099713bb"
+ },
+ "n": 140,
+ "offsets": {
+  "max": 118,
+  "median": 53,
+  "min": 1,
+  "over_audit_tolerance": 106
+ },
+ "opd_answer_event_equals_submission": 58,
+ "rows": [
+  {
+   "affair_id": 86668,
+   "affair_number": "2020.03.079",
+   "body": "VS",
+   "census_link": "image_only",
+   "date_match": "window(+12d)",
+   "document_date": "2020-05-01",
+   "image_or_ocr": true,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 12,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2020-03-12",
+    "2020-05-13"
+   ],
+   "opd_submitted": "2020-03-12",
+   "source_label_year": null,
+   "type": "Question"
+  },
+  {
+   "affair_id": 86675,
+   "affair_number": "2020.03.089",
+   "body": "VS",
+   "census_link": "image_only",
+   "date_match": "window(+1d)",
+   "document_date": "2020-05-25",
+   "image_or_ocr": true,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 1,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2020-03-13",
+    "2020-05-26"
+   ],
+   "opd_submitted": "2020-03-13",
+   "source_label_year": null,
+   "type": "Question"
+  },
+  {
+   "affair_id": 86733,
+   "affair_number": "2020.06.195",
+   "body": "VS",
+   "census_link": "image_only",
+   "date_match": "latest_in_window(+81d)",
+   "document_date": "",
+   "image_or_ocr": true,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 81,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2020-06-17",
+    "2020-12-10"
+   ],
+   "opd_submitted": "2020-06-17",
+   "source_label_year": null,
+   "type": "Question"
+  },
+  {
+   "affair_id": 87286,
+   "affair_number": "2022.05.155",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "latest_in_window(+99d)",
+   "document_date": "",
+   "image_or_ocr": true,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 99,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2022-08-16"
+   ],
+   "opd_submitted": "2022-05-09",
+   "source_label_year": null,
+   "type": "Question"
+  },
+  {
+   "affair_id": 87731,
+   "affair_number": "2023.11.402",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+73d)",
+   "document_date": "2023-11-17",
+   "image_or_ocr": true,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 73,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2024-01-29"
+   ],
+   "opd_submitted": "2023-11-17",
+   "source_label_year": null,
+   "type": "Question"
+  },
+  {
+   "affair_id": 88791,
+   "affair_number": "MO_1.051",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+12d)",
+   "document_date": "2006-03-29",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 12,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2006-04-10"
+   ],
+   "opd_submitted": "2006-04-10",
+   "source_label_year": 2006,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 179050,
+   "affair_number": "MO_4.0475",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+29d)",
+   "document_date": "2005-04-25",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 29,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2005-05-24"
+   ],
+   "opd_submitted": "2005-01-25",
+   "source_label_year": 2005,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 179059,
+   "affair_number": "MO_4.147",
+   "body": "VS",
+   "census_link": "image_only",
+   "date_match": "window(+3d)",
+   "document_date": "2011-11-29",
+   "image_or_ocr": true,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 3,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2011-12-02"
+   ],
+   "opd_submitted": "2011-11-18",
+   "source_label_year": 2011,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 260310,
+   "affair_number": "2019.05.181",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+98d)",
+   "document_date": "2019-01-31",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 98,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2019-05-09"
+   ],
+   "opd_submitted": "2019-05-09",
+   "source_label_year": null,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 331872,
+   "affair_number": "MO_4.0146",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+35d)",
+   "document_date": "2015-10-20",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 35,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2015-11-24"
+   ],
+   "opd_submitted": "2015-05-13",
+   "source_label_year": 2015,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 331875,
+   "affair_number": "MO_3.0175",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+65d)",
+   "document_date": "2015-08-12",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 65,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2015-10-16"
+   ],
+   "opd_submitted": "2015-10-16",
+   "source_label_year": 2015,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 331876,
+   "affair_number": "MO_6.0023",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+33d)",
+   "document_date": "2015-09-23",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 33,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2015-10-26"
+   ],
+   "opd_submitted": "2015-10-26",
+   "source_label_year": 2015,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 331879,
+   "affair_number": "MO_1.039",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+78d)",
+   "document_date": "2010-02-04",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 78,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2010-04-23"
+   ],
+   "opd_submitted": "2010-04-23",
+   "source_label_year": 2010,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 331880,
+   "affair_number": "MO_1.060",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+53d)",
+   "document_date": "2010-08-30",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 53,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2010-10-22"
+   ],
+   "opd_submitted": "2010-10-22",
+   "source_label_year": 2010,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 331899,
+   "affair_number": "MO_3.0403",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+33d)",
+   "document_date": "2019-03-13",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 33,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2019-04-15"
+   ],
+   "opd_submitted": "2018-10-11",
+   "source_label_year": 2019,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 331900,
+   "affair_number": "MO_3.0388",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+33d)",
+   "document_date": "2019-03-13",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 33,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2019-04-15"
+   ],
+   "opd_submitted": "2018-08-16",
+   "source_label_year": 2019,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332077,
+   "affair_number": "MO_1.0111",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+66d)",
+   "document_date": "2015-08-11",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 66,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2015-10-16"
+   ],
+   "opd_submitted": "2015-10-16",
+   "source_label_year": 2015,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332078,
+   "affair_number": "MO_1.0118",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+88d)",
+   "document_date": "2015-07-23",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 88,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2015-10-19"
+   ],
+   "opd_submitted": "2015-05-15",
+   "source_label_year": 2015,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332079,
+   "affair_number": "MO_1.0165",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+96d)",
+   "document_date": "2017-01-12",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 96,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-04-18"
+   ],
+   "opd_submitted": "2016-08-08",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332082,
+   "affair_number": "MO_1.0295",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+93d)",
+   "document_date": "2020-11-11",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 93,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2021-02-12"
+   ],
+   "opd_submitted": "2019-10-17",
+   "source_label_year": 2021,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332083,
+   "affair_number": "MO_1.128",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+116d)",
+   "document_date": "2011-10-28",
+   "image_or_ocr": true,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 116,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2012-02-21"
+   ],
+   "opd_submitted": "2012-02-21",
+   "source_label_year": 2012,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332084,
+   "affair_number": "MO_2.0096",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+96d)",
+   "document_date": "2016-01-14",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 96,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-04-19"
+   ],
+   "opd_submitted": "2015-08-12",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332085,
+   "affair_number": "MO_2.0188",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+80d)",
+   "document_date": "2017-11-24",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 80,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2018-02-12"
+   ],
+   "opd_submitted": "2017-08-16",
+   "source_label_year": 2018,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332087,
+   "affair_number": "MO_3.0165",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+69d)",
+   "document_date": "2015-06-11",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 69,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2015-08-19"
+   ],
+   "opd_submitted": "2015-08-19",
+   "source_label_year": 2015,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332088,
+   "affair_number": "MO_3.0144",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+14d)",
+   "document_date": "2015-04-29",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 14,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2015-05-13"
+   ],
+   "opd_submitted": "2015-05-13",
+   "source_label_year": 2015,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332089,
+   "affair_number": "MO_3.0156",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+44d)",
+   "document_date": "2015-03-30",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 44,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2015-05-13"
+   ],
+   "opd_submitted": "2015-05-13",
+   "source_label_year": 2015,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332090,
+   "affair_number": "MO_4.0168",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+47d)",
+   "document_date": "2016-03-03",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 47,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-04-19"
+   ],
+   "opd_submitted": "2015-11-09",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332091,
+   "affair_number": "MO_5.0251",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+118d)",
+   "document_date": "2017-06-16",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 118,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-10-12"
+   ],
+   "opd_submitted": "2017-04-18",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332092,
+   "affair_number": "MO_5.144",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+55d)",
+   "document_date": "2012-02-21",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 55,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2012-04-16"
+   ],
+   "opd_submitted": "2012-04-16",
+   "source_label_year": 2012,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332095,
+   "affair_number": "MO_7.0035",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+57d)",
+   "document_date": "2015-06-16",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 57,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2015-08-12"
+   ],
+   "opd_submitted": "2015-08-12",
+   "source_label_year": 2015,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332097,
+   "affair_number": "MO_7.014",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+2d)",
+   "document_date": "2013-01-15",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 2,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2013-01-17"
+   ],
+   "opd_submitted": "2012-10-22",
+   "source_label_year": 2013,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332099,
+   "affair_number": "MO_7.005",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+3d)",
+   "document_date": "2011-02-15",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 3,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2011-02-18"
+   ],
+   "opd_submitted": "2011-02-18",
+   "source_label_year": 2011,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332203,
+   "affair_number": "INT_7.0044",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+6d)",
+   "document_date": "2016-05-18",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 6,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-05-24"
+   ],
+   "opd_submitted": "2016-02-09",
+   "source_label_year": 2016,
+   "type": "Interpellation"
+  },
+  {
+   "affair_id": 332356,
+   "affair_number": "MO_3.0290",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+43d)",
+   "document_date": "2017-08-30",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 43,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-10-12"
+   ],
+   "opd_submitted": "2017-04-18",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332358,
+   "affair_number": "MO_2.0157",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+55d)",
+   "document_date": "2017-02-22",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 55,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-04-18"
+   ],
+   "opd_submitted": "2016-10-07",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332360,
+   "affair_number": "MO_4.0218",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+41d)",
+   "document_date": "2016-12-14",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 41,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-01-24"
+   ],
+   "opd_submitted": "2016-10-07",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332361,
+   "affair_number": "MO_4.0191",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+42d)",
+   "document_date": "2016-12-13",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 42,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-01-24"
+   ],
+   "opd_submitted": "2016-08-08",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332363,
+   "affair_number": "MO_1.0176",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+57d)",
+   "document_date": "2016-11-28",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 57,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-01-24"
+   ],
+   "opd_submitted": "2016-08-10",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332364,
+   "affair_number": "MO_1.0163",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+41d)",
+   "document_date": "2016-12-14",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 41,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-01-24"
+   ],
+   "opd_submitted": "2016-08-08",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332365,
+   "affair_number": "MO_1.0195",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+35d)",
+   "document_date": "2017-10-18",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 35,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2017-11-22"
+   ],
+   "opd_submitted": "2017-11-22",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332368,
+   "affair_number": "MO_4.0192",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+41d)",
+   "document_date": "2016-12-14",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 41,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-01-24"
+   ],
+   "opd_submitted": "2016-08-08",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332369,
+   "affair_number": "MO_5.0210",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+57d)",
+   "document_date": "2016-11-28",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 57,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-01-24"
+   ],
+   "opd_submitted": "2016-08-08",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332370,
+   "affair_number": "MO_1.0175",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+74d)",
+   "document_date": "2016-11-11",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 74,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-01-24"
+   ],
+   "opd_submitted": "2016-08-10",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332371,
+   "affair_number": "MO_1.0164",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+88d)",
+   "document_date": "2016-10-28",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 88,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-01-24"
+   ],
+   "opd_submitted": "2016-08-08",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332373,
+   "affair_number": "MO_1.0150",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+36d)",
+   "document_date": "2016-12-19",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 36,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-01-24"
+   ],
+   "opd_submitted": "2016-02-08",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332374,
+   "affair_number": "MO_3.0232",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+47d)",
+   "document_date": "2016-10-05",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 47,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-11-21"
+   ],
+   "opd_submitted": "2016-05-23",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332375,
+   "affair_number": "MO_2.0133",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+38d)",
+   "document_date": "2016-10-14",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 38,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-11-21"
+   ],
+   "opd_submitted": "2016-05-23",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332376,
+   "affair_number": "MO_1.0159",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+75d)",
+   "document_date": "2016-09-07",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 75,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-11-21"
+   ],
+   "opd_submitted": "2016-05-23",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332377,
+   "affair_number": "MO_1.0157",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+33d)",
+   "document_date": "2016-09-07",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 33,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-10-10"
+   ],
+   "opd_submitted": "2016-05-23",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332384,
+   "affair_number": "MO_4.0202",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+6d)",
+   "document_date": "2016-08-10",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 6,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-08-16"
+   ],
+   "opd_submitted": "2016-08-10",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332385,
+   "affair_number": "MO_3.0227",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+85d)",
+   "document_date": "2016-05-18",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 85,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-08-11"
+   ],
+   "opd_submitted": "2016-02-09",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332386,
+   "affair_number": "MO_2.0112",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+100d)",
+   "document_date": "2016-05-03",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 100,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-08-11"
+   ],
+   "opd_submitted": "2015-11-09",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332388,
+   "affair_number": "MO_4.0169",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+99d)",
+   "document_date": "2016-05-04",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 99,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-08-11"
+   ],
+   "opd_submitted": "2015-11-09",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332397,
+   "affair_number": "MO_5.0181",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+52d)",
+   "document_date": "2016-03-29",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 52,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-05-20"
+   ],
+   "opd_submitted": "2015-11-09",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332398,
+   "affair_number": "MO_4.158",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+6d)",
+   "document_date": "2013-04-09",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 6,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2013-04-15"
+   ],
+   "opd_submitted": "2012-01-31",
+   "source_label_year": 2013,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332401,
+   "affair_number": "MO_2.0078",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+83d)",
+   "document_date": "2015-11-19",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 83,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-02-10"
+   ],
+   "opd_submitted": "2015-05-18",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332404,
+   "affair_number": "MO_3.0206",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+84d)",
+   "document_date": "2015-11-18",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 84,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-02-10"
+   ],
+   "opd_submitted": "2015-09-10",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332405,
+   "affair_number": "MO_3.0198",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+84d)",
+   "document_date": "2015-11-18",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 84,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-02-10"
+   ],
+   "opd_submitted": "2015-07-22",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332406,
+   "affair_number": "MO_4.0164",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+55d)",
+   "document_date": "2015-12-17",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 55,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2016-02-10"
+   ],
+   "opd_submitted": "2016-02-10",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332407,
+   "affair_number": "MO_4.0159",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+29d)",
+   "document_date": "2016-01-12",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 29,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-02-10"
+   ],
+   "opd_submitted": "2015-08-18",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332412,
+   "affair_number": "MO_5.0184",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+57d)",
+   "document_date": "2016-02-22",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 57,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-04-19"
+   ],
+   "opd_submitted": "2015-11-09",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332413,
+   "affair_number": "MO_3.0169",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+65d)",
+   "document_date": "2015-08-12",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 65,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2015-10-16"
+   ],
+   "opd_submitted": "2015-10-16",
+   "source_label_year": 2015,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332424,
+   "affair_number": "MO_5.0097",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+63d)",
+   "document_date": "2015-06-10",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 63,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2015-08-12"
+   ],
+   "opd_submitted": "2015-08-12",
+   "source_label_year": 2015,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332430,
+   "affair_number": "MO_4.0111",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+42d)",
+   "document_date": "2015-04-01",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 42,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2015-05-13"
+   ],
+   "opd_submitted": "2015-05-13",
+   "source_label_year": 2015,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332432,
+   "affair_number": "MO_2.0059",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+49d)",
+   "document_date": "2015-02-11",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 49,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2015-04-01"
+   ],
+   "opd_submitted": "2015-04-01",
+   "source_label_year": null,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332433,
+   "affair_number": "MO_4.0100",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+41d)",
+   "document_date": "2015-02-19",
+   "image_or_ocr": true,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 41,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2015-04-01"
+   ],
+   "opd_submitted": "2015-04-01",
+   "source_label_year": null,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332434,
+   "affair_number": "MO_1.0064",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+26d)",
+   "document_date": "2015-03-06",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 26,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2015-04-01"
+   ],
+   "opd_submitted": "2014-05-14",
+   "source_label_year": null,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332437,
+   "affair_number": "MO_5.0073",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+118d)",
+   "document_date": "2014-10-16",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 118,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2015-02-11"
+   ],
+   "opd_submitted": "2015-02-11",
+   "source_label_year": 2015,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332439,
+   "affair_number": "MO_4.0088",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+52d)",
+   "document_date": "2014-09-29",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 52,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2014-11-20"
+   ],
+   "opd_submitted": "2014-11-20",
+   "source_label_year": 2014,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332440,
+   "affair_number": "MO_3.0115",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+77d)",
+   "document_date": "2014-09-03",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 77,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2014-11-19"
+   ],
+   "opd_submitted": "2014-05-16",
+   "source_label_year": 2014,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332441,
+   "affair_number": "MO_1.0070",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+113d)",
+   "document_date": "2014-07-30",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 113,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2014-11-20"
+   ],
+   "opd_submitted": "2014-05-14",
+   "source_label_year": 2014,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332442,
+   "affair_number": "MO_3.0095",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+84d)",
+   "document_date": "2014-08-27",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 84,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2014-11-19"
+   ],
+   "opd_submitted": "2014-04-09",
+   "source_label_year": 2014,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332444,
+   "affair_number": "MO_2.0042",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+53d)",
+   "document_date": "2014-08-28",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 53,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2014-10-20"
+   ],
+   "opd_submitted": "2014-05-16",
+   "source_label_year": 2014,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332446,
+   "affair_number": "MO_5.0039",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+88d)",
+   "document_date": "2014-07-24",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 88,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2014-10-20"
+   ],
+   "opd_submitted": "2014-10-22",
+   "source_label_year": 2014,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332447,
+   "affair_number": "MO_2.0018",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+117d)",
+   "document_date": "2014-04-17",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 117,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2014-08-12"
+   ],
+   "opd_submitted": "2013-08-20",
+   "source_label_year": 2014,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332448,
+   "affair_number": "MO_4.0077",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+61d)",
+   "document_date": "2014-06-12",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 61,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2014-08-12"
+   ],
+   "opd_submitted": "2014-02-12",
+   "source_label_year": 2014,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332449,
+   "affair_number": "MO_2.0029",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+110d)",
+   "document_date": "2014-04-24",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 110,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2014-08-12"
+   ],
+   "opd_submitted": "2014-02-05",
+   "source_label_year": 2014,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332457,
+   "affair_number": "MO_5.0022",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+89d)",
+   "document_date": "2014-01-09",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 89,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2014-04-08"
+   ],
+   "opd_submitted": "2013-09-06",
+   "source_label_year": 2014,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332461,
+   "affair_number": "MO_1.0008",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+102d)",
+   "document_date": "2013-11-04",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 102,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2014-02-14"
+   ],
+   "opd_submitted": "2014-02-14",
+   "source_label_year": 2014,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332463,
+   "affair_number": "MO_4.0019",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+13d)",
+   "document_date": "2013-11-06",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 13,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2013-11-19"
+   ],
+   "opd_submitted": "2013-11-19",
+   "source_label_year": 2013,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332464,
+   "affair_number": "MO_4.0008",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+47d)",
+   "document_date": "2013-08-30",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 47,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2013-10-16"
+   ],
+   "opd_submitted": "2013-10-16",
+   "source_label_year": 2013,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332465,
+   "affair_number": "MO_5.0006",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+90d)",
+   "document_date": "2013-07-18",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 90,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2013-10-16"
+   ],
+   "opd_submitted": "2013-10-16",
+   "source_label_year": 2013,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332466,
+   "affair_number": "MO_5.0007",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+44d)",
+   "document_date": "2013-09-02",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 44,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2013-10-16"
+   ],
+   "opd_submitted": "2013-10-16",
+   "source_label_year": 2013,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332468,
+   "affair_number": "MO_7.0002",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+8d)",
+   "document_date": "2013-08-13",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 8,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2013-08-21"
+   ],
+   "opd_submitted": "2013-08-14",
+   "source_label_year": 2013,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332470,
+   "affair_number": "MO_1.0003",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+118d)",
+   "document_date": "2013-04-23",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 118,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2013-08-19"
+   ],
+   "opd_submitted": "2013-08-14",
+   "source_label_year": 2013,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332472,
+   "affair_number": "MO_1.0004",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+118d)",
+   "document_date": "2013-04-23",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 118,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2013-08-19"
+   ],
+   "opd_submitted": "2013-08-14",
+   "source_label_year": 2013,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332473,
+   "affair_number": "MO_7.0004",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+8d)",
+   "document_date": "2013-08-13",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 8,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2013-08-21"
+   ],
+   "opd_submitted": "2013-08-14",
+   "source_label_year": 2013,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332476,
+   "affair_number": "MO_5.219",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+42d)",
+   "document_date": "2012-12-11",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 42,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2013-01-22"
+   ],
+   "opd_submitted": "2012-10-22",
+   "source_label_year": 2013,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332477,
+   "affair_number": "MO_1.232",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+13d)",
+   "document_date": "2008-11-28",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 13,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2008-12-11",
+    "2013-04-15"
+   ],
+   "opd_submitted": "2008-12-11",
+   "source_label_year": 2008,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332478,
+   "affair_number": "MO_2.250",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+13d)",
+   "document_date": "2013-01-09",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 13,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2013-01-22"
+   ],
+   "opd_submitted": "2012-10-18",
+   "source_label_year": 2013,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332479,
+   "affair_number": "MO_2.217",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+55d)",
+   "document_date": "2012-11-23",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 55,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2013-01-17"
+   ],
+   "opd_submitted": "2012-05-22",
+   "source_label_year": 2013,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332482,
+   "affair_number": "MO_2.219",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+62d)",
+   "document_date": "2012-08-08",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 62,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2012-10-09"
+   ],
+   "opd_submitted": "2012-05-22",
+   "source_label_year": 2012,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332485,
+   "affair_number": "MO_4.115",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+78d)",
+   "document_date": "2012-03-05",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 78,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2012-05-22"
+   ],
+   "opd_submitted": "2012-05-22",
+   "source_label_year": 2012,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332486,
+   "affair_number": "MO_2.153",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+84d)",
+   "document_date": "2012-01-23",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 84,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2012-04-16"
+   ],
+   "opd_submitted": "2012-04-16",
+   "source_label_year": 2012,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332487,
+   "affair_number": "MO_3.126",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+68d)",
+   "document_date": "2012-02-08",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 68,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2012-04-16"
+   ],
+   "opd_submitted": "2012-04-16",
+   "source_label_year": 2012,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332488,
+   "affair_number": "MO_2.141",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+81d)",
+   "document_date": "2012-01-26",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 81,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2012-04-16"
+   ],
+   "opd_submitted": "2012-04-16",
+   "source_label_year": 2012,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332490,
+   "affair_number": "MO_3.129",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+27d)",
+   "document_date": "2012-01-25",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 27,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2012-02-21"
+   ],
+   "opd_submitted": "2012-02-21",
+   "source_label_year": 2012,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332491,
+   "affair_number": "MO_4.145",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+3d)",
+   "document_date": "2011-11-29",
+   "image_or_ocr": true,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 3,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2011-12-02"
+   ],
+   "opd_submitted": "2011-11-18",
+   "source_label_year": 2011,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332492,
+   "affair_number": "MO_2.106",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+51d)",
+   "document_date": "2011-10-03",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 51,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2011-11-23"
+   ],
+   "opd_submitted": "2007-10-19",
+   "source_label_year": 2011,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332493,
+   "affair_number": "MO_1.115",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+10d)",
+   "document_date": "2007-03-23",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 10,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2007-04-02",
+    "2011-10-20"
+   ],
+   "opd_submitted": "2007-04-02",
+   "source_label_year": 2007,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332495,
+   "affair_number": "MO_2.134",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+14d)",
+   "document_date": "2008-11-26",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 14,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2008-12-10",
+    "2011-08-30"
+   ],
+   "opd_submitted": "2008-12-10",
+   "source_label_year": 2008,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332496,
+   "affair_number": "MO_2.088",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+36d)",
+   "document_date": "2011-03-16",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 36,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2011-04-21"
+   ],
+   "opd_submitted": "2011-04-21",
+   "source_label_year": 2011,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332497,
+   "affair_number": "MO_2.093",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+64d)",
+   "document_date": "2011-02-16",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 64,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2011-04-21"
+   ],
+   "opd_submitted": "2011-04-21",
+   "source_label_year": 2011,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332499,
+   "affair_number": "MO_4.081",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+19d)",
+   "document_date": "2007-11-21",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 19,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2007-12-10",
+    "2011-02-18"
+   ],
+   "opd_submitted": "2007-12-10",
+   "source_label_year": 2007,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332501,
+   "affair_number": "MO_2.055",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+56d)",
+   "document_date": "2010-06-17",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 56,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2010-08-12"
+   ],
+   "opd_submitted": "2010-08-12",
+   "source_label_year": 2010,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332505,
+   "affair_number": "MO_2.011",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+20d)",
+   "document_date": "2005-11-24",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 20,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2005-12-14",
+    "2009-10-19"
+   ],
+   "opd_submitted": "2005-10-19",
+   "source_label_year": 2005,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332507,
+   "affair_number": "MO_1.002",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+14d)",
+   "document_date": "2005-05-10",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 14,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2005-05-24",
+    "2009-08-19"
+   ],
+   "opd_submitted": "2005-05-24",
+   "source_label_year": 2005,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332509,
+   "affair_number": "MO_2.071",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+35d)",
+   "document_date": "2011-01-13",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 35,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2011-02-17"
+   ],
+   "opd_submitted": "2011-02-17",
+   "source_label_year": 2011,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332510,
+   "affair_number": "MO_4.057",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+32d)",
+   "document_date": "2011-01-17",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 32,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2011-02-18"
+   ],
+   "opd_submitted": "2011-02-18",
+   "source_label_year": 2011,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332511,
+   "affair_number": "MO_2.087",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+28d)",
+   "document_date": "2011-01-21",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 28,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2011-02-18"
+   ],
+   "opd_submitted": "2011-02-18",
+   "source_label_year": 2011,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332514,
+   "affair_number": "MO_4.046",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+29d)",
+   "document_date": "2011-01-20",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 29,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2011-02-18"
+   ],
+   "opd_submitted": "2011-02-18",
+   "source_label_year": 2011,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332516,
+   "affair_number": "MO_2.001",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+25d)",
+   "document_date": "2010-01-25",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 25,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2010-02-19"
+   ],
+   "opd_submitted": "2010-02-19",
+   "source_label_year": 2010,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332518,
+   "affair_number": "MO_4.011",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+40d)",
+   "document_date": "2009-10-14",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 40,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2009-11-23"
+   ],
+   "opd_submitted": "2009-06-03",
+   "source_label_year": 2009,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332519,
+   "affair_number": "MO_1.073",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "latest_in_window(+34d)",
+   "document_date": "",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 34,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2011-03-01"
+   ],
+   "opd_submitted": "2011-03-01",
+   "source_label_year": 2011,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332521,
+   "affair_number": "MO_2.003",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+58d)",
+   "document_date": "2010-03-29",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 58,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2010-05-26"
+   ],
+   "opd_submitted": "2010-05-26",
+   "source_label_year": 2010,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332522,
+   "affair_number": "MO_1.071",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+32d)",
+   "document_date": "2011-01-28",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 32,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2011-03-01"
+   ],
+   "opd_submitted": "2011-03-01",
+   "source_label_year": 2011,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332523,
+   "affair_number": "MO_1.009",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+7d)",
+   "document_date": "2009-08-12",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 7,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2009-08-19"
+   ],
+   "opd_submitted": "2005-04-22",
+   "source_label_year": 2009,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332524,
+   "affair_number": "MO_1.048",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+12d)",
+   "document_date": "2006-03-29",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 12,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2006-04-10",
+    "2010-08-12"
+   ],
+   "opd_submitted": "2006-04-10",
+   "source_label_year": 2006,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332525,
+   "affair_number": "MO_1.057",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+30d)",
+   "document_date": "2010-09-22",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 30,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2010-10-22"
+   ],
+   "opd_submitted": "2010-10-22",
+   "source_label_year": 2010,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332528,
+   "affair_number": "MO_1.018",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+94d)",
+   "document_date": "2009-11-23",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 94,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2010-02-25"
+   ],
+   "opd_submitted": "2005-04-22",
+   "source_label_year": 2010,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332600,
+   "affair_number": "MO_2.0241",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+84d)",
+   "document_date": "2018-11-22",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 84,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2019-02-14"
+   ],
+   "opd_submitted": "2018-08-16",
+   "source_label_year": 2019,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332620,
+   "affair_number": "MO_2.0195",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+54d)",
+   "document_date": "2018-02-16",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 54,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2018-04-11"
+   ],
+   "opd_submitted": "2018-04-11",
+   "source_label_year": 2018,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332658,
+   "affair_number": "MO_3.0372",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+27d)",
+   "document_date": "2018-09-19",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 27,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2018-10-16"
+   ],
+   "opd_submitted": "2018-04-18",
+   "source_label_year": 2018,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332680,
+   "affair_number": "MO_3.0315",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+36d)",
+   "document_date": "2017-10-17",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 36,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-11-22"
+   ],
+   "opd_submitted": "2017-05-18",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332709,
+   "affair_number": "MO_4.0330",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+70d)",
+   "document_date": "2019-03-11",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 70,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2019-05-20"
+   ],
+   "opd_submitted": "2018-10-11",
+   "source_label_year": 2019,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332710,
+   "affair_number": "MO_4.0327",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+103d)",
+   "document_date": "2019-02-06",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 103,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2019-05-20"
+   ],
+   "opd_submitted": "2018-10-11",
+   "source_label_year": 2019,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332711,
+   "affair_number": "MO_4.0315",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+112d)",
+   "document_date": "2019-01-28",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 112,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2019-05-20"
+   ],
+   "opd_submitted": "2018-08-21",
+   "source_label_year": 2019,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332713,
+   "affair_number": "MO_4.0290",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+42d)",
+   "document_date": "2019-02-27",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 42,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2019-04-10"
+   ],
+   "opd_submitted": "2019-04-10",
+   "source_label_year": 2019,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332716,
+   "affair_number": "MO_4.0309",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+87d)",
+   "document_date": "2018-11-19",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 87,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2019-02-14"
+   ],
+   "opd_submitted": "2018-08-21",
+   "source_label_year": 2019,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332717,
+   "affair_number": "MO_4.0301",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+85d)",
+   "document_date": "2018-11-21",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 85,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2019-02-14"
+   ],
+   "opd_submitted": "2018-08-16",
+   "source_label_year": 2019,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332730,
+   "affair_number": "MO_4.0286",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+20d)",
+   "document_date": "2018-09-26",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 20,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2018-10-16"
+   ],
+   "opd_submitted": "2018-10-16",
+   "source_label_year": 2018,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332758,
+   "affair_number": "MO_4.0248",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+77d)",
+   "document_date": "2017-09-06",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 77,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-11-22"
+   ],
+   "opd_submitted": "2017-11-21",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332763,
+   "affair_number": "MO_4.0245",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+51d)",
+   "document_date": "2017-08-22",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 51,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2017-10-12"
+   ],
+   "opd_submitted": "2017-10-04",
+   "source_label_year": 2017,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332780,
+   "affair_number": "MO_5.0385",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+100d)",
+   "document_date": "2019-07-09",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 100,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2019-10-17"
+   ],
+   "opd_submitted": "2019-02-13",
+   "source_label_year": 2019,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332781,
+   "affair_number": "MO_5.0375",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+45d)",
+   "document_date": "2019-09-02",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 45,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2019-10-17"
+   ],
+   "opd_submitted": "2019-02-13",
+   "source_label_year": 2019,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332824,
+   "affair_number": "MO_5.0316",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+97d)",
+   "document_date": "2018-07-11",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 97,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2018-10-16"
+   ],
+   "opd_submitted": "2018-04-17",
+   "source_label_year": 2018,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332868,
+   "affair_number": "MO_6.0096",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+89d)",
+   "document_date": "2019-05-29",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 89,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2019-08-26"
+   ],
+   "opd_submitted": "2019-02-13",
+   "source_label_year": 2019,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332876,
+   "affair_number": "MO_6.0074",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+19d)",
+   "document_date": "2018-01-24",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 19,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": true,
+   "opd_answer_events": [
+    "2018-02-12"
+   ],
+   "opd_submitted": "2018-02-12",
+   "source_label_year": 2018,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332888,
+   "affair_number": "MO_6.0038",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+78d)",
+   "document_date": "2016-02-01",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 78,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2016-04-19"
+   ],
+   "opd_submitted": "2015-03-03",
+   "source_label_year": 2016,
+   "type": "Motion"
+  },
+  {
+   "affair_id": 332925,
+   "affair_number": "MO_7.0060",
+   "body": "VS",
+   "census_link": "absent",
+   "date_match": "window(+81d)",
+   "document_date": "2017-11-23",
+   "image_or_ocr": false,
+   "new": {
+    "action": "review",
+    "counted": false,
+    "tier": "review"
+   },
+   "offset_days": 81,
+   "old": {
+    "action": "fetch",
+    "counted": true,
+    "tier": "date_window"
+   },
+   "opd_answer_event_equals_submission": false,
+   "opd_answer_events": [
+    "2018-02-12"
+   ],
+   "opd_submitted": "2017-08-17",
+   "source_label_year": 2018,
+   "type": "Motion"
+  }
+ ],
+ "rule": {
+  "review_reason": "r18_retier: Valais date_window: OPD's answer event is the session that treated the motion; the window check cannot confirm OPD's date (blind audit v3: 12 of 14 sampled rows outside the auditors' 30-day tolerance, 2 of 14 another motion with the same number); confirm identity, attach, keep OPD's dates",
+  "select": {
+   "action": "fetch",
+   "body": "VS",
+   "counted": "true",
+   "tier": "date_window"
+  },
+  "set": {
+   "action": "review",
+   "counted": false,
+   "tier": "review"
+  }
+ },
+ "source_label_year_vs_opd_submission_year": {
+  "0-1": 127,
+  ">=2": 4,
+  "unknown": 9
+ },
+ "trigger": "round-17 OPD-partner review (objection 1): the adapter-list date errors of audit v3 sit in one stratum, date_window/fetch, all Valais"
+}

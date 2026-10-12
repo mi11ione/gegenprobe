@@ -6,7 +6,11 @@
   * the tested scope: OPD's affair counts for the two harmonised types next to the five intervention types that are
     named outside the tested scope (data/schema/affair_types.json): parliamentary initiatives and government business;
   * Q/A pairs in the converter's records (validation_all.json `qa_pairing`): records with at least one item, per set;
-  * the real network nights (results/monitor/): the venv night and the two consecutive Docker nights.
+  * the real network nights (results/monitor/): the venv night and the two consecutive Docker nights;
+  * the role splits by where their meaning was measured (data/schema/field_verdict_classes.json): the splits P8 tested
+    as registered (type included, which OPD's labels show as well), the splits measured on OPD's label vocabularies only
+    (classes added post hoc, docs/census.md), and robust vs fragile (fragile: the split holds under one of P8's two
+    checks).
 
 No network, no model.
 
@@ -68,9 +72,19 @@ def nights() -> dict:
                 docker_exit_0=sum(ok), real_nights=1 + len(docker))
 
 
+def role_splits() -> dict:
+    cls = json.loads((ROOT / "data" / "schema" / "field_verdict_classes.json").read_text(encoding="utf-8"))
+    fs = next(c for c in cls if c["key"] == "shared_with_role_split")["fields"]
+    p8 = [f["key"] for f in fs if (f.get("p8") or {}).get("verdict") == "role_split"]
+    labels_only = [f["key"] for f in fs if f["key"] not in p8]
+    fragile = [f["key"] for f in fs if (f.get("p8") or {}).get("robust") is False]
+    return dict(n=len(fs), p8_registered=len(p8), labels_only_post_hoc=len(labels_only), robust=len(fs) - len(fragile),
+                fragile=len(fragile), p8_fields=p8, labels_only_fields=labels_only, fragile_fields=fragile)
+
+
 def main() -> int:
     out = dict(label="display numbers from committed files (report/r17_numbers.py)",
-               v02=v02_split(), scope=scope(), qa_pairing=qa_pairing(), nights=nights())
+               v02=v02_split(), scope=scope(), qa_pairing=qa_pairing(), nights=nights(), role_splits=role_splits())
     OUT.write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps(out, indent=1, ensure_ascii=False))
     return 0

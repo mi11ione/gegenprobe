@@ -8177,11 +8177,11 @@
   },
   "VS": {
    "all": {
-    "after_repair": 0.5163,
+    "after_repair": 0.462,
     "attached": 1167,
-    "fetchable": 141,
+    "fetchable": 5,
     "fetchable_parts": {
-     "adapter": 141,
+     "adapter": 5,
      "be_fetch": 0,
      "che_curia": 0
     },
@@ -8189,8 +8189,8 @@
     "image_only": 103,
     "image_only_ocr": 0,
     "image_only_parts": {
-     "fetchable": 22,
-     "open": 81,
+     "fetchable": 18,
+     "open": 85,
      "text_verified": 0
     },
     "in_writing": 1559,
@@ -8200,16 +8200,16 @@
      "agenda": 0,
      "parentless": 0
     },
-    "open": 148,
+    "open": 284,
     "open_parts": {
      "adapter_failed": 43,
      "listed_unverified": 0,
      "no_adapter": 0,
-     "review": 105
+     "review": 241
     },
     "oral": 1017,
-    "repaired": 163,
-    "still_open": 229,
+    "repaired": 23,
+    "still_open": 369,
     "text_on_affair_share": 0.453,
     "unrecognised": 0,
     "unrecognised_by_tier": {
@@ -8221,11 +8221,11 @@
     "written_lack_text_at_most": 392
    },
    "since2015": {
-    "after_repair": 0.4783,
+    "after_repair": 0.4454,
     "attached": 1024,
-    "fetchable": 77,
+    "fetchable": 3,
     "fetchable_parts": {
-     "adapter": 77,
+     "adapter": 3,
      "be_fetch": 0,
      "che_curia": 0
     },
@@ -8233,8 +8233,8 @@
     "image_only": 102,
     "image_only_ocr": 0,
     "image_only_parts": {
-     "fetchable": 21,
-     "open": 81,
+     "fetchable": 18,
+     "open": 84,
      "text_verified": 0
     },
     "in_writing": 1329,
@@ -8244,16 +8244,16 @@
      "agenda": 0,
      "parentless": 0
     },
-    "open": 126,
+    "open": 200,
     "open_parts": {
      "adapter_failed": 42,
      "listed_unverified": 0,
      "no_adapter": 0,
-     "review": 84
+     "review": 158
     },
     "oral": 1017,
-    "repaired": 98,
-    "still_open": 207,
+    "repaired": 21,
+    "still_open": 284,
     "text_on_affair_share": 0.4365,
     "unrecognised": 0,
     "unrecognised_by_tier": {
@@ -8604,11 +8604,11 @@
  },
  "national": {
   "all": {
-   "after_repair": 0.923,
+   "after_repair": 0.9215,
    "attached": 74519,
-   "fetchable": 3614,
+   "fetchable": 3478,
    "fetchable_parts": {
-    "adapter": 3560,
+    "adapter": 3424,
     "be_fetch": 47,
     "che_curia": 7
    },
@@ -8616,8 +8616,8 @@
    "image_only": 1408,
    "image_only_ocr": 818,
    "image_only_parts": {
-    "fetchable": 26,
-    "open": 530,
+    "fetchable": 22,
+    "open": 534,
     "text_verified": 852
    },
    "in_writing": 89846,
@@ -8627,16 +8627,16 @@
     "agenda": 592,
     "parentless": 2459
    },
-   "open": 5077,
+   "open": 5213,
    "open_parts": {
     "adapter_failed": 4064,
     "listed_unverified": 282,
     "no_adapter": 70,
-    "review": 661
+    "review": 797
    },
    "oral": 1422,
-   "repaired": 9720,
-   "still_open": 5607,
+   "repaired": 9580,
+   "still_open": 5747,
    "text_on_affair_share": 0.8403,
    "unrecognised": 2177,
    "unrecognised_by_tier": {
@@ -8648,11 +8648,11 @@
    "written_lack_text_at_most": 13150
   },
   "since2015": {
-   "after_repair": 0.9207,
+   "after_repair": 0.9194,
    "attached": 49206,
-   "fetchable": 979,
+   "fetchable": 905,
    "fetchable_parts": {
-    "adapter": 925,
+    "adapter": 851,
     "be_fetch": 47,
     "che_curia": 7
    },
@@ -8660,8 +8660,8 @@
    "image_only": 1233,
    "image_only_ocr": 762,
    "image_only_parts": {
-    "fetchable": 25,
-    "open": 412,
+    "fetchable": 22,
+    "open": 415,
     "text_verified": 796
    },
    "in_writing": 58738,
@@ -8671,16 +8671,16 @@
     "agenda": 591,
     "parentless": 2324
    },
-   "open": 2944,
+   "open": 3018,
    "open_parts": {
     "adapter_failed": 2318,
     "listed_unverified": 202,
     "no_adapter": 6,
-    "review": 418
+    "review": 492
    },
    "oral": 1414,
-   "repaired": 6176,
-   "still_open": 3356,
+   "repaired": 6099,
+   "still_open": 3433,
    "text_on_affair_share": 0.8423,
    "unrecognised": 1461,
    "unrecognised_by_tier": {
@@ -8738,23 +8738,31 @@
  },
  "note": "Derived layer over the registered census (census/corrected.py). The registered count stays: 'no answer text' = written-answer interventions without answer text attached in OPD (census gap). This layer places every gap row in one category from the repair results; adapter rows count only in the counted verification tiers (exact_doc_date, exact_any_printed_date, date_window).",
  "report": {
-  "after_all_counted_repairs": 0.923,
-  "after_all_counted_repairs_in_writing": 0.9376,
+  "after_all_counted_repairs": 0.921451,
+  "after_all_counted_repairs_in_writing": 0.936035,
   "image_only_text_verified": 852,
   "in_writing": 89846,
   "registered_after_relink": 0.8499,
   "registered_text_share": 0.823,
-  "repaired": 9720,
-  "still_without_text": 7029,
-  "still_without_text_written": 5607,
-  "verified_fetches": 3640,
+  "repaired": 9580,
+  "still_without_text": 7169,
+  "still_without_text_written": 5747,
+  "verified_fetches": 3500,
   "written": 91268
  },
+ "retiered": {
+  "by_change": {
+   "r18": 140
+  },
+  "file": "results/repair/adapters/retier/retier_r18.json",
+  "n": 140,
+  "note": "rows of the committed (LOCK8) lists counted in a verification tier and moved to review by a logged change (repair/adapters/retier.py); they sit in open/review or image_only/open"
+ },
  "sentences": {
-  "decomposition": "Of the registered 16,749: 1,422 answered orally; 3,051 in OPD with text under an agenda item or without a parent; 2,177 in OPD with text under an unrecognised heading (1,717 exact document date, 204 exact printed date, 256 date window); 1,408 in OPD only as a copy without text (852 of them read and verified from OPD's own copy); 3,614 not in OPD but fetchable from the parliament (verified); 5,077 not found yet.",
+  "decomposition": "Of the registered 16,749: 1,422 answered orally; 3,051 in OPD with text under an agenda item or without a parent; 2,177 in OPD with text under an unrecognised heading (1,717 exact document date, 204 exact printed date, 256 date window); 1,408 in OPD only as a copy without text (852 of them read and verified from OPD's own copy); 3,478 not in OPD but fetchable from the parliament (verified); 5,213 not found yet.",
   "headline": "The registered census counts 16,749 interventions with a written government answer but no answer text attached in OpenParlData; 2,177 of them are in OPD with text under a heading the census lexicon does not recognise, so at most 14,572 lack answer text on their affair in OPD.",
   "jura": "Listed, not counted: 282 Jura answers that match by identity and wording only (OPD's Jura answer events carry no date).",
-  "report": "across 54 parliaments, 82.3% of written answers have their text in OPD (85.0% after the agenda join and the Bern relink; 92.3% after every counted repair, adding the answers OPD already holds under an unrecognised heading, the verified text of OPD's own image-only copies and the verified fetches from the parliaments)",
+  "report": "across 54 parliaments, 82.3% of written answers have their text in OPD (85.0% after the agenda join and the Bern relink; 92.1% after every counted repair, adding the answers OPD already holds under an unrecognised heading, the verified text of OPD's own image-only copies and the verified fetches from the parliaments)",
   "written": "Of these at most 14,572, 1,422 were answered orally in the sitting, so at most 13,150 written answers lack answer text on their affair in OPD.",
   "y2425": "For 2024–25 the registered count is 1,855 (367 oral); 150 are in OPD under an unrecognised heading, so at most 1,705 lack answer text on their affair in OPD and at most 1,338 written answers."
  },

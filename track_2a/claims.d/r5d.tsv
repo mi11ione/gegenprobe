@@ -30,7 +30,7 @@ r5d.p2_latest52_found_n	14	results/eval2/posthoc_r5_p2_table.json	reachable_52_7
 r5d.h1_on_reports	6	results/report/r5d_numbers.json	gold.h1_values_on_reports	int	PYTHONPATH=src:. python -m report.r5d_numbers	docs/evaluation.md	
 r5d.p1_disagreements	21	results/report/r5d_numbers.json	gold.p1_disagreements	int	PYTHONPATH=src:. python -m report.r5d_numbers	docs/evaluation.md	
 r5d.p2_disagreements	8	results/report/r5d_numbers.json	gold.p2_disagreements	int	PYTHONPATH=src:. python -m report.r5d_numbers	docs/evaluation.md	
-r5d.served_layout	tp8-pp2	results/report/r5d_numbers.json	served.layout	str	PYTHONPATH=src:. python -m report.r5d_numbers	technical_report.md,docs/evaluation.md	
+r5d.served_layout	tp8-pp2	results/report/r5d_numbers.json	served.layout	str	PYTHONPATH=src:. python -m report.r5d_numbers	docs/evaluation.md	
 r5d.night_streamed_gb	6.2	results/monitor/night_real_bytes.json	docs_texts_streamed_gb	f1	PYTHONPATH=src:. python -m gegenprobe.monitor.night_bytes	docs/operations.md	
 r5d.night_single_mb	198	results/monitor/night_real_bytes.json	single_exports_mb	int	PYTHONPATH=src:. python -m gegenprobe.monitor.night_bytes	docs/operations.md	
 r5d.sec_venv	1.2	results/ci/systemd_security_38073556535.json	venv.exposure	f1	gh run view 38073556535 --log (job systemd-units)	docs/operations.md,technical_report.md,README.md	

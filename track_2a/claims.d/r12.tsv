@@ -5,7 +5,7 @@ r12.p2_best_nomodel_found	18/29	results/eval/baselines_dates.json	P2_unseen.late
 r12.p2_best_nomodel_wrong	13	results/eval/baselines_dates.json	P2_unseen.latest_date_on_answer_docs_only.misattributed	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
 r12.p2_best_nomodel_answerless	7	results/eval/baselines_dates.json	P2_unseen.latest_date_on_answer_docs_only.values_on_gold_null.0	int	PYTHONPATH=src:. python -m eval.baselines	technical_report.md	
 r12.p2_rules_found	2/29	results/report/p2_numbers.json	arms.rules.value_recall/n_gold_value	frac	PYTHONPATH=src:. python -m report.p2_numbers	docs/form_notes.md	
-r12.p7_date_hit_p7	113/120	results/p7/p7_posthoc_r8.json	ablation.arms.p7.annotated.date_hit/ablation.arms.p7.annotated.n	frac	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	README.md,docs/form_notes.md	
+r12.p7_date_hit_p7	113/120	results/p7/p7_posthoc_r8.json	ablation.arms.p7.annotated.date_hit/ablation.arms.p7.annotated.n	frac	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	README.md	
 r12.p7_date_hit_rule	127/157	results/p7/p7_posthoc_r8.json	ablation.arms.rule_any_view.annotated.date_hit/ablation.arms.rule_any_view.annotated.n	frac	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	-	
 r12.p1_h1_frac	7/90	results/report/eval_numbers.json	arms.cascade.invented_on_null/arms.cascade.n_gold_null	frac	PYTHONPATH=src:. python -m report.eval_numbers	README.md,technical_report.md	
 r12.p3_bodies	10	results/report/p34_numbers.json	p3.n_bodies	int	python -m report.p34_numbers	README.md,technical_report.md	
@@ -32,6 +32,6 @@ r12.readme.matrix.addressed_body.metadata	12	results/census/matrix.json	fields.a
 r12.readme.matrix.addressed_body.mixed	10	results/census/matrix.json	fields.addressed_body.status_counts.mixed	int	make census	README.md	
 r12.readme.matrix.addressed_body.pdf	54	results/census/matrix.json	fields.addressed_body.status_counts.pdf	int	make census	README.md	
 r12.readme.matrix.addressed_body.no_source	10	results/census/matrix.json	fields.addressed_body.status_counts.no_source	int	make census	README.md	
-r12.verdict_robust	8	site/data.json	schema.verdict.need_roles_robust	int	make site	docs/ech-onepager.md	
+r12.verdict_robust	8	site/data.json	schema.verdict.need_roles_robust	int	make site	docs/ech-onepager.md,README.md,technical_report.md,docs/form_notes.md,../README.md	
 r12.verdict_fragile	2	site/data.json	schema.verdict.need_roles_fragile	int	make site	README.md,technical_report.md,docs/form_notes.md,docs/ech-onepager.md	
 r12.verdict_defined_once	6	site/data.json	schema.verdict.defined_once	int	make site	README.md,technical_report.md,docs/form_notes.md,../README.md,docs/ech-onepager.md	

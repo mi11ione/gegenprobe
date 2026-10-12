@@ -45,8 +45,10 @@ steps that need the network or a model endpoint and cannot reach them; the repla
               values need context); every anchor found at its position (claims_anchor.json); in the strict zones
               (README, technical report, form notes, each end to end; claims_strict.json) every number token must
               be bound to its claim by an anchor or be a listed non-claim, every scope word (post hoc, registered,
-              exploratory, in-sample, held out, weighted) must sit inside an anchor or a listed phrase, and
-              444_Report.pdf must contain every anchor phrase of technical_report.md (report/pdf_check.py)
+              exploratory, in-sample, held out, weighted) must sit inside an anchor or a listed phrase, every
+              comparative, maturity, quantifier and deployment word inside a pinned or listed phrase (claims_pins.json),
+              the evidence site's first screen must match its claims (claims_site.json), and 444_Report.pdf must
+              contain every anchor phrase and the whole text of technical_report.md (report/pdf_check.py)
 The last lines: the P1 (and P2) Apertus replay coverage, e.g. "Apertus replay: P1 132/154 decisions re-derived from the
 model cache, 132 match (22 cache misses)", then "RESULT PASS in 537 s"; when a step skipped, the RESULT line names it:
 "RESULT PASS (offline: 3 steps skipped: convert, rederive, rederive_apertus) in 868 s".
