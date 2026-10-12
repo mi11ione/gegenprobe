@@ -43,8 +43,8 @@ r18d.at.valais_before_median	100	results/findings/answer_times.json	retiered.val
 r18d.at.kriens_opd_same	0	results/findings/answer_times.json	per_parliament.1059.opd_same_affairs.median	int	python -m gegenprobe.findings.answer_times	docs/census.md	
 r18d.bilanz.suspense	45.9%	data/census/cited_evidence.json	booking.suspense_share	pct1	copied from the S3-BILANZ spike (data/census/cited_evidence.json)	README.md,docs/census.md,docs/ech-onepager.md	
 r18d.bilanz.bodies	12	data/census/cited_evidence.json	booking.bodies	int	copied from the S3-BILANZ spike (data/census/cited_evidence.json)	README.md,docs/ech-onepager.md	
-r18d.rs.p8	6	results/report/r17_numbers.json	role_splits.p8_registered	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md,technical_report.md,docs/form_notes.md	
-r18d.rs.labels	4	results/report/r17_numbers.json	role_splits.labels_only_post_hoc	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md,technical_report.md,docs/form_notes.md	
+r18d.rs.p8	6	results/report/r17_numbers.json	role_splits.p8_registered	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md,technical_report.md,docs/form_notes.md,../README.md	
+r18d.rs.labels	4	results/report/r17_numbers.json	role_splits.labels_only_post_hoc	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md,technical_report.md,docs/form_notes.md,../README.md	
 r18d.rs.robust	8	results/report/r17_numbers.json	role_splits.robust	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md	
 r18d.rs.fragile	2	results/report/r17_numbers.json	role_splits.fragile	int	PYTHONPATH=src:. python -m report.r17_numbers	-	
 r18d.rs.n	10	results/report/r17_numbers.json	role_splits.n	int	PYTHONPATH=src:. python -m report.r17_numbers	-	

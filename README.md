@@ -8,7 +8,7 @@
 **For OPD, in three lines:**
 1. **Apply now:** repair lists keyed on your ids, as dry-run plans; 3,621 repairs need neither a decision nor a fetch.
 2. **Needs one decision:** your hash rule for relinked documents, which the 2,421 ready Bern relinks follow. OPD confirmed the Bern linking bug (correspondence, 10 Oct 2026).
-3. **Apertus 70B (opt-in) reads layouts no rules cover:** 24 of 29 answer dates vs 2 of 29 for the rules, each confirmed by a reviewer.
+3. **Apertus 70B (opt-in) reads layouts no rules cover:** 24 of 29 answer dates vs 2 of 29 for the rules (pre-registered test); in use, a reviewer confirms each value.
 
 | | |
 |---|---|
@@ -18,11 +18,11 @@
 | **Maturity** | census and Bern repair lists ready to apply (relinks: after the hash decision); nightly job ready to deploy; source-adapter lists audited; rules-only converter a tested prototype; review mode a feasibility study; schema v0.1 and v0.2 drafts for the eCH group |
 
 **Can one schema hold Swiss parliamentary business? Yes, if each field says which role its value plays** (e.g. "answer
-date" = the government's decision, its letter or the submission date), for the 17-field skeleton of OPD's five intervention types: 198,594 of its 325,691 affairs.
+date" = the government's decision, its letter or the submission date), for the 17-field skeleton of OPD's five intervention types (interpellation, motion, postulate, question, question time): 198,594 of its 325,691 affairs.
 
 | verdict | fields | example |
 |---|---|---|
-| needs roles | **10** (8 robust + 2 fragile) | "answer date" is the decision, the letter or, in 7 parliaments, mostly the submission date |
+| needs roles | **10** (8 robust + 2 fragile; 6 from the pre-registered role test, 4 from OPD's labels, post hoc) | "answer date" is the decision, the letter or, in 7 parliaments, mostly the submission date |
 | body-specific | **1 field and 2 constructs** | the submission date; oral answers; councils that publish only minutes |
 | untested | **6**, defined once in v0.1 | whether each means the same everywhere is the next test |
 | beyond interventions | exploratory, 15 affairs | the executive as proposer |
@@ -35,7 +35,7 @@ date" = the government's decision, its letter or the submission date), for the 1
 
 | | |
 |---|---|
-| **81.6% → 92.1%** | of interventions with a recorded government answer have answer text today, and would once the 9,580 model-free repairs proposed to OPD are applied, keyed on OPD ids; the Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation |
+| **81.6% → 92.1%** | of interventions with a recorded government answer have answer text today, and would once the 9,580 model-free repairs proposed to OPD are applied (3,621 apply now · 2,459 Bern relinks after the hash decision · 3,500 fetched from the parliaments), keyed on OPD ids; the Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation |
 | **186** | v0.2 records from 26 parliaments validate; against blind labels on 36 held-out affairs the converter is right on the type 35/36, the submission date 30/34, the submitter 30/36 and the answer date 20/35, 31/35 with Apertus |
 
 ## Evidence at a glance

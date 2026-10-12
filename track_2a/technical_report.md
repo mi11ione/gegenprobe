@@ -14,6 +14,8 @@
 
 *Cost:* the rules take about 0.5 CPU-hours for all 902,754 documents in OPD's export, about 5 at ten times OPD's volume; review mode costs USD 0.59 per 1,000 residue documents on the 70B (§3).
 
+*Terms.* **registered**: frozen by hash before the labels; **post hoc**: analysed after them; **role**: which act or actor a value records; **residue**: documents the rules leave open; test codes and exploratory cells: legend below.
+
 | maturity | components |
 |---|---|
 | *ready to apply* · *ready to deploy* | census and Bern repair lists (relinks: one OPD decision, its hash rule) · nightly job (three real nights on standard GitHub runners + a real two-night Docker pair after a ledger fix: night 2 kept night 1's verdicts) |
@@ -35,7 +37,7 @@
 | **9,580** | answers with a model-free repair proposed to OPD, keyed on OPD ids: 3,621 apply now, 2,459 Bern relinks follow OPD's hash decision, 3,500 are fetched; the Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation |
 | **186** | v0.2 records from 26 parliaments validate: the converter's 120 (105 cantonal and communal + 15 federal, 23 parliaments) and P8's 66 gold records (11 parliaments); against blind labels on 36 held-out affairs (P3b) the converter is right on the type 35/36, the submission date 30/34, the submitter 30/36 and the answer date 20/35, 31/35 with Apertus |
 
-*Terms.* **P1–P8, P10**: the ten pre-registered tests of OPD records and documents (P3b replicates P3; folders: `docs/evaluation.md`), each frozen by hash before its labels except P1's hypothesis script and rules (D4, D12); **P11**, the **federal cell**: locked exploratory cells; **registered**: decided by a rule frozen by hash before the labels; **post hoc**: analysed after the labels, often proposed in review; **exploratory**: a locked cell without confirmatory hypotheses; **residue**: the documents the rules leave open; **D-numbers**: logged deviations from a registration.
+*Test codes.* **P1–P8, P10**: the ten pre-registered tests of OPD records and documents (P3b replicates P3), each frozen by hash before its labels except P1's hypothesis script and rules (D4, D12); **P11**, the **federal cell**: locked exploratory cells, without confirmatory hypotheses; **D-numbers**: logged deviations.
 
 **Schema.** P8 finds roles in authorship, co-signatory lists, the instrument behind a harmonised type and the language. The schema expresses the roles; the converter fills them where the documents print them: 42 of its 142 answer dates carry a split role, and on 5 parliaments its rules never saw the language is right on 60/60 documents and author (name, role) pairs reach precision 39/49 at recall 39/137 (exploratory). Tables, annexes, images, scans and signatures are marked by page range (66 of 105 converter records carry one); in a blind check of 30 documents (108 pages; exploratory, in-sample for the detector) tables are found at page precision 12/12 and recall 12/15, annexes at 6/6 and 6/6, scanned pages at 23/24 and 23/23. Crosswalk to Popolo, Akoma Ntoso, Parla-CLARIN and OParl: `docs/mapping.md`.
 
