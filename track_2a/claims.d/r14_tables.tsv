@@ -38,8 +38,8 @@ r14.tbl.p2.trivial_latest_printed_date.answerless	31	results/eval2/posthoc_r5_p2
 r14.tbl.p2.trivial_latest_date_answer_typ.wrong	13	results/eval2/posthoc_r5_p2_table.json	all_62_70b.latest_date_on_answer_docs_only.wrong_printed_date	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
 r14.tbl.p2.trivial_latest_date_answer_typ.invented	0	results/eval2/posthoc_r5_p2_table.json	all_62_70b.latest_date_on_answer_docs_only.fabricated	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
 r14.tbl.p2.trivial_latest_date_answer_typ.answerless	7	results/eval2/posthoc_r5_p2_table.json	all_62_70b.latest_date_on_answer_docs_only.values_on_answerless.0	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
-r14.tbl.p6.free_prompt_null_allowed.printed_nowhere	0	results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json	arms.free_null.fabricated	int	python -m eval.p6.hypotheses7	technical_report.md	
-r14.tbl.p6.cascade_v2_rules_then_v2.printed_nowhere	0	results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json	arms.cascade_v2.fabricated	int	python -m eval.p6.hypotheses7	technical_report.md	
-r14.tbl.p6.v2.printed_nowhere	0	results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json	arms.v2.fabricated	int	python -m eval.p6.hypotheses7	technical_report.md	
-r14.tbl.p6.rules_only.printed_nowhere	0	results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json	arms.rules.fabricated	int	python -m eval.p6.hypotheses7	technical_report.md	
-r14.tbl.p6.trivial_latest_date_answer_typ.printed_nowhere	0	results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json	arms.latest_on_answer_typed.fabricated	int	python -m eval.p6.hypotheses7	technical_report.md	
+r14.tbl.p6.free_prompt_null_allowed.printed_nowhere	0	results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json	arms.free_null.fabricated	int	python -m eval.p6.hypotheses7	-	
+r14.tbl.p6.cascade_v2_rules_then_v2.printed_nowhere	0	results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json	arms.cascade_v2.fabricated	int	python -m eval.p6.hypotheses7	-	
+r14.tbl.p6.v2.printed_nowhere	0	results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json	arms.v2.fabricated	int	python -m eval.p6.hypotheses7	-	
+r14.tbl.p6.rules_only.printed_nowhere	0	results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json	arms.rules.fabricated	int	python -m eval.p6.hypotheses7	-	
+r14.tbl.p6.trivial_latest_date_answer_typ.printed_nowhere	0	results/p6/hypotheses7__publicai_swiss-ai_apertus-v1.5-8b.json	arms.latest_on_answer_typed.fabricated	int	python -m eval.p6.hypotheses7	-	

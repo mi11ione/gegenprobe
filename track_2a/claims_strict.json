@@ -203,6 +203,18 @@
    {
     "phrase": "(registered class: body-specific)",
     "why": "the class the registered rule (PREREG9 §7) assigns to the submission date; pinned by verdict.p8 (summary.body_specific)"
+   },
+   {
+    "phrase": "12 Oct 2026",
+    "why": "date of the gateway build switch (P11 D1)"
+   },
+   {
+    "phrase": "refuses the new build (exit 3)",
+    "why": "an exit code"
+   },
+   {
+    "phrase": "a registered Italian test",
+    "why": "a next step's design (a test to register), not a result"
    }
   ],
   "technical_report.md": [
@@ -233,10 +245,6 @@
    {
     "phrase": "per 1,000",
     "why": "the unit of a cost (per 1,000 residue documents)"
-   },
-   {
-    "phrase": "in 2025",
-    "why": "a calendar year (the year whose answers are counted)"
    },
    {
     "phrase": "[95% CI]",
@@ -319,10 +327,6 @@
     "why": "bound by the wording pin schema.body_specific_constructs (claims_pins.json: schema.verdict.body_specific and the two constructs in site/data.json)"
    },
    {
-    "phrase": "bug night 2 exposed",
-    "why": "names the second real night (an ordinal), not a count"
-   },
-   {
     "phrase": "| body-specific in 2 |",
     "why": "the two parliaments named in the row (Vernier, Lausanne: results/p8/p8_hypotheses.json fields.date_submission.deviating)"
    },
@@ -343,10 +347,6 @@
     "why": "quantisation of the pinned GGUF, not a result"
    },
    {
-    "phrase": "180 s per document on 4 vCPUs on the 8B",
-    "why": "the measured machine (review_8b_vcpus), a setup, not a result"
-   },
-   {
     "phrase": "θ_A = 8)",
     "why": "a frozen threshold of the P7 verifier (eval/prereg8), a parameter, not a result"
    },
@@ -357,6 +357,18 @@
    {
     "phrase": "documents, 6 of them council reports",
     "why": "document type of the 7 answerless dates (cascade, P1 held-out predictions), no summary path"
+   },
+   {
+    "phrase": "12 Oct 2026",
+    "why": "date of the gateway build switch (P11 D1)"
+   },
+   {
+    "phrase": "refuses the new build (exit 3)",
+    "why": "an exit code"
+   },
+   {
+    "phrase": "a registered Italian test",
+    "why": "a next step's design (a test to register), not a result"
    }
   ],
   "docs/form_notes.md": [
@@ -383,6 +395,10 @@
    {
     "phrase": "per 1,000",
     "why": "the unit of a cost (per 1,000 residue documents)"
+   },
+   {
+    "phrase": "12 Oct 2026",
+    "why": "date of the gateway build switch (P11 D1)"
    }
   ],
   "../README.md": [
@@ -405,14 +421,17 @@
    {
     "phrase": "per 1,000",
     "why": "the unit of a cost (per 1,000 residue documents)"
+   },
+   {
+    "phrase": "12 Oct 2026",
+    "why": "date of the gateway build switch (P11 D1)"
    }
   ]
  },
  "small_int_tables": {
   "technical_report.md": [
    "| P1 arm",
-   "| P2 arm",
-   "| P6 arm"
+   "| P2 arm"
   ]
  },
  "pinned": {
@@ -461,8 +480,8 @@
    },
    {
     "phrase": "printed nowhere",
-    "count": 3,
-    "why": "no closed-set arm returned a date printed nowhere (2); OPD's submission date printed nowhere in Vernier and Lausanne (Table 1)"
+    "count": 2,
+    "why": "no closed-set arm returned a date printed nowhere (1); OPD's submission date printed nowhere in Vernier and Lausanne (Table 1)"
    },
    {
     "phrase": "only picks values printed in the document",

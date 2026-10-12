@@ -26,7 +26,7 @@ r18d.retier.n	140	results/repair/adapters/retier/retier_r18.json	n	int	PYTHONPAT
 r18d.retier.counted_after	6,473	results/repair/adapters/retier/retier_r18.json	lists_after.counted	int	PYTHONPATH=src:. python -m gegenprobe.repair.adapters.retier	README.md,technical_report.md	
 r18d.retier.counted_before	6,613	results/repair/adapters/retier/retier_r18.json	lists_before.counted	int	PYTHONPATH=src:. python -m gegenprobe.repair.adapters.retier	-	
 r18d.retier.window_after	256	results/repair/adapters/retier/retier_r18.json	lists_after.by_tier.date_window	int	PYTHONPATH=src:. python -m gegenprobe.repair.adapters.retier	-	
-r18d.retier.review_after	1,057	results/repair/adapters/retier/retier_r18.json	lists_after.by_tier.review	int	PYTHONPATH=src:. python -m gegenprobe.repair.adapters.retier	technical_report.md	
+r18d.retier.review_after	1,057	results/repair/adapters/retier/retier_r18.json	lists_after.by_tier.review	int	PYTHONPATH=src:. python -m gegenprobe.repair.adapters.retier	-	
 r18d.audit.claude_after	185/186	results/repair/adapters/retier/retier_r18.json	audit.after_retier.auditors.claude.counted	str	PYTHONPATH=src:. python -m gegenprobe.repair.adapters.retier	README.md,technical_report.md,docs/form_notes.md	
 r18d.audit.qwen_after	186/186	results/repair/adapters/retier/retier_r18.json	audit.after_retier.auditors.qwen.counted	str	PYTHONPATH=src:. python -m gegenprobe.repair.adapters.retier	README.md,technical_report.md,docs/form_notes.md	
 r18d.audit.claude_after_date_no	3	results/repair/adapters/retier/retier_r18.json	audit.after_retier.auditors.claude.date_ok_no	int	PYTHONPATH=src:. python -m gegenprobe.repair.adapters.retier	README.md,technical_report.md,docs/form_notes.md	
@@ -34,13 +34,13 @@ r18d.audit.claude_whole	197/200	results/repair/adapters/retier/retier_r18.json	a
 r18d.audit.claude_whole_date_no	15	results/repair/adapters/retier/retier_r18.json	audit.claude_whole_audit.date_ok_no	int	PYTHONPATH=src:. python -m gegenprobe.repair.adapters.retier	README.md	
 r18d.audit.moved_date_no	12	results/repair/adapters/retier/retier_r18.json	audit.claude_in_moved_stratum.date_ok_no	int	PYTHONPATH=src:. python -m gegenprobe.repair.adapters.retier	README.md,technical_report.md	
 r18d.audit.moved_sampled	14	results/repair/adapters/retier/retier_r18.json	audit.moved_stratum_sampled	int	PYTHONPATH=src:. python -m gegenprobe.repair.adapters.retier	README.md,technical_report.md	
-r18d.at.kriens_n	68	results/findings/answer_times.json	per_parliament.1059.adapter.n	int	python -m gegenprobe.findings.answer_times	README.md,technical_report.md	
+r18d.at.kriens_n	68	results/findings/answer_times.json	per_parliament.1059.adapter.n	int	python -m gegenprobe.findings.answer_times	README.md	
 r18d.at.valais_after_n	23	results/findings/answer_times.json	retiered.valais_after.n	int	python -m gegenprobe.findings.answer_times	README.md	
 r18d.at.valais_after_median	2	results/findings/answer_times.json	retiered.valais_after.median	int	python -m gegenprobe.findings.answer_times	-	
 r18d.at.valais_moved	76	results/findings/answer_times.json	retiered.durations_moved	int	python -m gegenprobe.findings.answer_times	-	
 r18d.at.valais_before_n	99	results/findings/answer_times.json	retiered.valais_before.n	int	python -m gegenprobe.findings.answer_times	-	
 r18d.at.valais_before_median	100	results/findings/answer_times.json	retiered.valais_before.median	int	python -m gegenprobe.findings.answer_times	-	
-r18d.at.kriens_opd_same	0	results/findings/answer_times.json	per_parliament.1059.opd_same_affairs.median	int	python -m gegenprobe.findings.answer_times	README.md,technical_report.md,docs/form_notes.md	
+r18d.at.kriens_opd_same	0	results/findings/answer_times.json	per_parliament.1059.opd_same_affairs.median	int	python -m gegenprobe.findings.answer_times	README.md	
 r18d.bilanz.suspense	45.9%	data/census/cited_evidence.json	booking.suspense_share	pct1	copied from the S3-BILANZ spike (data/census/cited_evidence.json)	README.md,technical_report.md,docs/census.md	
 r18d.bilanz.bodies	12	data/census/cited_evidence.json	booking.bodies	int	copied from the S3-BILANZ spike (data/census/cited_evidence.json)	README.md,technical_report.md	
 r18d.rs.p8	6	results/report/r17_numbers.json	role_splits.p8_registered	int	PYTHONPATH=src:. python -m report.r17_numbers	README.md,technical_report.md,docs/form_notes.md,../README.md	

@@ -1,0 +1,237 @@
+{
+ "label": "display numbers from committed files (report/r19_numbers.py); P11 is EXPLORATORY",
+ "p11": {
+  "it": {
+   "n": 12,
+   "bodies": 5,
+   "by_body": {
+    "Bellinzona": 2,
+    "Mendrisio": 3,
+    "Locarno": 2,
+    "Ticino": 3,
+    "Lugano": 2
+   },
+   "documents": 24,
+   "documents_opd_copy": 12,
+   "gold_printed": 10,
+   "gold_null": 2,
+   "answer_date": {
+    "pointer": {
+     "exact": 12,
+     "n": 12,
+     "printed_right": 10,
+     "null_right": 2,
+     "false_null": 0,
+     "invented": 0,
+     "invented_on_null": 0,
+     "ci": "[75.7, 100]"
+    },
+    "rules": {
+     "exact": 8,
+     "n": 12,
+     "printed_right": 6,
+     "null_right": 2,
+     "false_null": 4,
+     "invented": 0,
+     "invented_on_null": 0,
+     "ci": "[39.1, 86.2]"
+    },
+    "latest": {
+     "exact": 9,
+     "n": 12,
+     "printed_right": 9,
+     "null_right": 0,
+     "false_null": 0,
+     "invented": 3,
+     "invented_on_null": 2,
+     "ci": "[46.8, 91.1]"
+    },
+    "record": {
+     "exact": 8,
+     "n": 12,
+     "printed_right": 6,
+     "null_right": 2,
+     "false_null": 4,
+     "invented": 0,
+     "invented_on_null": 0,
+     "ci": "[39.1, 86.2]"
+    }
+   },
+   "roles": {
+    "rules": {
+     "matched": 7,
+     "printed": 8,
+     "gold": 70,
+     "affairs": 12,
+     "precision": "0.875",
+     "recall": "0.10",
+     "f1": "0.18"
+    },
+    "record": {
+     "matched": 21,
+     "printed": 68,
+     "gold": 70,
+     "affairs": 12,
+     "precision": "0.31",
+     "recall": "0.30",
+     "f1": "0.30"
+    },
+    "doc_order": {
+     "matched": 17,
+     "printed": 86,
+     "gold": 70,
+     "affairs": 12,
+     "precision": "0.20",
+     "recall": "0.24",
+     "f1": "0.22"
+    },
+    "opd_first": {
+     "matched": 16,
+     "printed": 77,
+     "gold": 70,
+     "affairs": 12,
+     "precision": "0.21",
+     "recall": "0.23",
+     "f1": "0.22"
+    },
+    "reader": {
+     "matched": 3,
+     "printed": 21,
+     "gold": 31,
+     "affairs": 5,
+     "precision": "0.14",
+     "recall": "0.10",
+     "f1": "0.12"
+    }
+   },
+   "in_sample": {
+    "date_rules": [
+     "Ticino",
+     "Mendrisio",
+     "Lugano"
+    ],
+    "role_rules": [
+     "Ticino",
+     "Mendrisio",
+     "Lugano",
+     "Bellinzona"
+    ],
+    "role_reader_development": [
+     "Bellinzona"
+    ]
+   },
+   "in_sample_n": {
+    "date_rules": 3,
+    "role_rules": 4,
+    "role_reader_development": 1
+   },
+   "reader_affairs": 5,
+   "reader_by_body": {
+    "Ticino": 3,
+    "Mendrisio": 2
+   },
+   "reader_stopped_at_affair": 6,
+   "date_pointer_affairs": 12,
+   "cached_replays_frozen": 145,
+   "agreement": {
+    "answer_date": "12/12",
+    "people": "12/12",
+    "people_pair_f1": 1.0,
+    "type": "11/12",
+    "type_kappa": 0.636,
+    "language": "12/12",
+    "fields_to_a3": 1
+   },
+   "frame_answer_doc_not_answer": 2
+  },
+  "ni": {
+   "n": 15,
+   "government_business": 8,
+   "parliamentary_initiatives": 7,
+   "bodies": 11,
+   "kind_conforms": "15/15",
+   "valid_records": "3/15",
+   "valid_k": 3,
+   "valid_ci": "[7.0, 45.2]",
+   "no_documents": 12,
+   "valid_bodies": [
+    "BE",
+    "BL",
+    "SO"
+   ],
+   "valid_answer_date_not_applicable": 2,
+   "fields": {
+    "n": 17,
+    "carry_over": 7,
+    "not_applicable": 4,
+    "new_roles": 6,
+    "carry_over_fields": [
+     "date_submission",
+     "related_affairs",
+     "documents_usable_text",
+     "procedural_state",
+     "decision_outcome",
+     "submitter",
+     "language"
+    ],
+    "not_applicable_fields": {
+     "date_dispatch": 13,
+     "qa_pairing": 15,
+     "answer_link_status": 13,
+     "date_answer": 13
+    },
+    "new_role_fields": {
+     "date_decision": 5,
+     "procedural_history": 4,
+     "type": 2,
+     "co_signatories": 4,
+     "addressed_body": 1,
+     "government_recommendation": 5
+    }
+   },
+   "new_role_affairs": {
+    "GA": 7,
+    "PI": 2
+   },
+   "agreement": {
+    "raw": "219/270",
+    "fields_to_a3": 51,
+    "packets_with_a3": 14,
+    "lowest_kappa": {
+     "decision_outcome": 0.069,
+     "date_dispatch": 0.089,
+     "government_recommendation": 0.205
+    }
+   }
+  }
+ },
+ "gateway": {
+  "committed_responses": 17568,
+  "labels": {
+   "swiss-ai/apertus-v1.5-8b": 17568
+  },
+  "fingerprints": {
+   "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840": 17568
+  },
+  "n_labels": 1,
+  "n_fingerprints": 1,
+  "last_response_utc": "2026-10-12T01:05:45Z",
+  "last_response_hhmm": "01:05",
+  "probe": {
+   "replays": 3,
+   "labels_live": [
+    "swiss-ai/Apertus-v1.5-70B"
+   ],
+   "fingerprints_live": [
+    "vllm-0.1.dev1+g54b4292c2-tp2-bfd70257"
+   ],
+   "frozen_fingerprint": "vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840",
+   "relabelled": 3,
+   "other_fingerprint": 3,
+   "max_abs_logprob_delta": 4.64,
+   "greedy_changed": 1,
+   "role_reader_requests": 2,
+   "usd": 0.000589
+  }
+ }
+}

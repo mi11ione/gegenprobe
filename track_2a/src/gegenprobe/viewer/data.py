@@ -1474,6 +1474,16 @@ def p10() -> dict | None:
     return out
 
 
+def p11() -> dict | None:
+    """P11 (EXPLORATORY, eval/p11, LOCKP11): the Italian cell and the cell outside interventions, and the gateway build
+    switch of 12 Oct 2026 (D1); display numbers from results/report/r19_numbers.json (report/r19_numbers.py)."""
+    p = RESULTS / "report" / "r19_numbers.json"
+    if not p.exists():
+        return None
+    d = json.loads(p.read_text(encoding="utf-8"))
+    return dict(it=d["p11"]["it"], ni=d["p11"]["ni"], gateway=d["gateway"])
+
+
 def scope() -> dict:
     """What the headline question was asked of: OPD's five intervention types (results/census/summary.json)
     among all of OPD's affairs (results/schema/vocab_summary.json)."""
@@ -1742,6 +1752,7 @@ def collect(full_text: bool = False) -> dict:
     ev["p7"] = p7()
     ev["p8"] = p8()
     ev["p10"] = p10()
+    ev["p11"] = p11()
     ev["parts"] = parts_check()
     return _finite(
         dict(

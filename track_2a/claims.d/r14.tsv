@@ -13,13 +13,13 @@ r14.p1_apertus_cascade_exact	139/154	results/report/r14_numbers.json	p1_model_fr
 r14.p1_rules_exact_check	135/154	results/report/r14_numbers.json	p1_model_free_cascade.arms.rules.exact/p1_model_free_cascade.arms.rules.n	frac	PYTHONPATH=src:. python -m report.r14_numbers	-	
 r14.p1_mfc_apertus_only	6	results/report/r14_numbers.json	p1_model_free_cascade.paired.apertus_only_right	int	PYTHONPATH=src:. python -m report.r14_numbers	-	
 r14.p1_mfc_model_free_only	5	results/report/r14_numbers.json	p1_model_free_cascade.paired.model_free_only_right	int	PYTHONPATH=src:. python -m report.r14_numbers	-	
-r14.at_kriens_doc	26.5	results/findings/answer_times.json	per_parliament.1059.adapter.median	f1	python -m gegenprobe.findings.answer_times	README.md,docs/form_notes.md,docs/census.md,technical_report.md	
+r14.at_kriens_doc	26.5	results/findings/answer_times.json	per_parliament.1059.adapter.median	f1	python -m gegenprobe.findings.answer_times	README.md,docs/census.md	
 r14.at_valais_doc	2	results/findings/answer_times.json	per_parliament.VS.adapter.median	int	python -m gegenprobe.findings.answer_times	docs/census.md	"{""docs/census.md"": ""verified answers that still count give 2 days""}"
 r14.at_kriens_plain	0	results/findings/answer_times.json	per_parliament.1059.opd_plain.median	int	python -m gegenprobe.findings.answer_times	-	
 r14.at_valais_plain	0	results/findings/answer_times.json	per_parliament.VS.opd_plain.median	int	python -m gegenprobe.findings.answer_times	-	
 r14.at_kriens_plain_n	80	results/findings/answer_times.json	per_parliament.1059.opd_plain.n	int	python -m gegenprobe.findings.answer_times	docs/census.md	
 r14.at_valais_plain_n	2,570	results/findings/answer_times.json	per_parliament.VS.opd_plain.n	int	python -m gegenprobe.findings.answer_times	docs/census.md	
-r14.at_rho_same	0.997	results/findings/answer_times.json	ranking.spearman_opd_same_affairs_vs_adapter.rho	str	python -m gegenprobe.findings.answer_times	README.md,docs/census.md,technical_report.md	
+r14.at_rho_same	0.997	results/findings/answer_times.json	ranking.spearman_opd_same_affairs_vs_adapter.rho	str	python -m gegenprobe.findings.answer_times	README.md,docs/census.md	
 r14.at_rho_plain	0.884	results/findings/answer_times.json	ranking.spearman_opd_plain_vs_adapter.rho	str	python -m gegenprobe.findings.answer_times	README.md,docs/census.md	
 r14.at_rho_without	0.832	results/findings/answer_times.json	ranking.spearman_opd_plain_vs_adapter_without_same_day.rho	str	python -m gegenprobe.findings.answer_times	docs/census.md	
 r14.at_rho_plain_same	0.86	results/findings/answer_times.json	ranking.spearman_opd_plain_vs_opd_same_affairs.rho	str	python -m gegenprobe.findings.answer_times	README.md,docs/census.md	

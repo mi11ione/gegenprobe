@@ -14,8 +14,8 @@ r13.fed_eligible	38,307	results/report/r13_numbers.json	federal.eligible_affairs
 r13.fed_fc_event	20,008	results/report/r13_numbers.json	federal.fc_answer_event	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.vs_median_doc	2	results/report/r13_numbers.json	answer_times.valais_median_document_date	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.ranked	17	results/report/r13_numbers.json	answer_times.ranked_parliaments	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
-r13.ocr_match	154/154	results/report/r13_numbers.json	ocr.match/ocr.n	frac	PYTHONPATH=src:. python -m report.r13_numbers	README.md,technical_report.md	
-r13.ocr_scans	22	results/report/r13_numbers.json	ocr.scans	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md,technical_report.md	
+r13.ocr_match	154/154	results/report/r13_numbers.json	ocr.match/ocr.n	frac	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
+r13.ocr_scans	22	results/report/r13_numbers.json	ocr.scans	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.v02_fed_affairs	186	results/report/r13_numbers.json	v02_with_federal.valid	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.v02_fed_parliaments	26	results/report/r13_numbers.json	v02_with_federal.parliaments	int	PYTHONPATH=src:. python -m report.r13_numbers	README.md	
 r13.fed_invented_ci	[19.8, 64.3]	results/report/r13_numbers.json	v02_with_federal.latest_date_invented_ci_pct	ci	PYTHONPATH=src:. python -m report.r13_numbers	README.md	

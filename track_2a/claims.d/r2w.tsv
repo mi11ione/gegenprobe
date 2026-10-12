@@ -29,7 +29,7 @@ r2w.p4_decision_correct	46/63	results/report/p34_numbers.json	p4.decision_correc
 r2w.bern_review	38	results/report/r2_numbers.json	bern_relink_to_review	int	python -m report.r2_numbers	docs/operations.md	
 r2w.dataset_columns	23	results/report/r2_numbers.json	dataset_columns	int	python -m report.r2_numbers	-	
 r2w.local_transfer_bytes	0	results/monitor/run_local_exports.json	transfer_bytes	int	GP_EXPORTS_DIR=<dir> python -m gegenprobe.monitor.nightly offline	docs/operations.md	
-r2w.rules_docs_per_s	480	results/report/cost.json	rules_docs_per_second	int	python -m report.cost	technical_report.md,docs/operations.md,README.md	
+r2w.rules_docs_per_s	480	results/report/cost.json	rules_docs_per_second	int	python -m report.cost	docs/operations.md,README.md	
 r2w.rederive_scans	22	results/report/cost_end_to_end.json	heldout_rederive_scans	int	python -m report.cost e2e	docs/operations.md	
 r2w.x10_rules_cpu_hours	5	results/report/cost_end_to_end.json	x10_rules_cpu_hours	int	python -m report.cost e2e	docs/operations.md	
 r2w.procedural_state_ambiguous	32	results/report/p2_numbers.json	procedural_state_ambiguous	int	python -m report.p2_numbers	technical_report.md,README.md	

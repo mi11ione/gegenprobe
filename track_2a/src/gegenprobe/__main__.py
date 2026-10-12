@@ -124,6 +124,13 @@ def _convert(a) -> int:
     return 0
 
 
+
+def _served_refusal(e: Exception) -> str:
+    """Exit 3 message when the server answers under another model label than the one requested (the label check runs
+    before the fingerprint guard, so a host that swaps the build and its label behind an unchanged name lands here)."""
+    return (f"review mode: {e}. The served build is not the one θ (or the role reader's configuration) was fitted on; "
+            "θ does not transfer across builds. Refit θ for this build (docs/runbook.md, \"Review mode in operation\").")
+
 def main(argv: list[str] | None = None) -> int:
     ocrguard.ensure()  # OCR fails loudly (typed ocr_failed row), also in an installed checkout without sitecustomize
     gguf_guard.ensure()  # local 8B: weights re-hashed at load, sandboxed chat template, GP_USER_AGENT (gguf_guard.py)
@@ -191,6 +198,7 @@ def main(argv: list[str] | None = None) -> int:
     c.add_argument("--doc-role", choices=["question", "answer"],
                    help="--schema v0.2: the member's text or the answer (default: the converter's own doc_role)")
     from . import affair_cli
+    from .llm import ServedModelMismatch
     affair_cli.add_parser(sub)
     sub.add_parser("run", help="the make-run replay")
     a = ap.parse_args(argv)
@@ -200,6 +208,9 @@ def main(argv: list[str] | None = None) -> int:
             return affair_cli.main_args(a)
         except BuildMismatch as e:  # review mode: the served model is not the build θ was fitted on
             print(str(e), file=sys.stderr)
+            return 3
+        except ServedModelMismatch as e:  # the server answered under another model label (llm._Remote._check)
+            print(_served_refusal(e), file=sys.stderr)
             return 3
     if a.cmd == "convert":
         from .convert import body_settings, overlay
@@ -221,6 +232,9 @@ def main(argv: list[str] | None = None) -> int:
             return _convert(a)
         except BuildMismatch as e:  # review mode: the served model is not the build θ was fitted on
             print(str(e), file=sys.stderr)
+            return 3
+        except ServedModelMismatch as e:  # the server answered under another model label (llm._Remote._check)
+            print(_served_refusal(e), file=sys.stderr)
             return 3
     from .run import main as run_main
     return run_main()

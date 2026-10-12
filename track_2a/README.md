@@ -14,7 +14,10 @@ date" = the government's decision, its letter or the submission date). Tested on
 (interpellation, motion, postulate, question, question time): 198,594 of its 325,691 affairs. The "Yes" covers the
 affair's skeleton of 17 fields; the statements inside an answer are a layer of their own (45.9% had no schema account
 in an inventory over 12 bodies, [`docs/census.md`](docs/census.md)). Parliamentary initiatives (5,817) and government
-business (37,864) share the vocabulary and are outside the tested scope.
+business (37,864) share the vocabulary and are outside the tested scope. **Outside interventions the skeleton does not
+carry over as is** (P11, exploratory, 15 affairs): 7 of the 17 fields fit unchanged, 4 answer fields do not apply, and 6
+need roles interventions lack, chiefly the executive acting as proposer (adopting, endorsing and signing its own
+proposal).
 
 - **Shared:** one schema of 17 fields for communal, cantonal and federal business; every value carries its role and
   source (page and span, or the OPD record), every gap a typed reason.
@@ -52,8 +55,10 @@ from `results/schema/v0_2/validation_all.json` (the 15 federal records from an e
 registered against the rules (the baselines post hoc, proposed in review; a generic keyword rule finds 16/29, exact
 McNemar p = 0.057); 50/141 from P10, registered (recall +23.4 points over the rules, Holm p = 0.032), level with OPD's
 contributor list (37/141; H3a, Holm p = 0.17); the author filter's +7.3 points: one-sided p = 0.012, uncorrected.
-**Which model:** Gateway runs used Apertus 70B (the gateway labels it 8B; fingerprint check in
-[`docs/evaluation.md`](docs/evaluation.md#use-of-apertus)); local 8B results: same section.
+**Which model:** every committed gateway response (17,568) comes from one build, Apertus 70B by inference (the gateway
+labelled it 8B; fingerprint check in [`docs/evaluation.md`](docs/evaluation.md#use-of-apertus)); on 12 Oct 2026 Public AI
+switched the route to another build, and the build guard caught it live ([Which model](#operations)); local 8B
+results: same section.
 Codes: P1–P8 and P10 are the ten tests (P3b replicates P3), each frozen by hash before its labels; D-numbers are logged
 deviations from them (`eval/prereg*/DEVIATIONS*.md`, [which folder is which test](docs/evaluation.md#which-folder-is-which-test));
 θ is the frozen margin above which Apertus answers null; post hoc means analysed after the labels.</sub>
@@ -75,6 +80,8 @@ make run    # Docker, CPU, clean checkout: census, Bern join, converter samples,
 >   `virtual`.
 > - **Federal answers** print no answer date and no author: the date exists only in OPD's events (federal cell,
 >   exploratory).
+> - **Government business** puts the executive in the proposer's seat: it adopts and endorses its own proposal and
+>   its officials sign it, roles interventions lack (7 of 8 affairs; P11, exploratory).
 
 **For OPD: the files.** Every list is a dry-run plan keyed on your ids; the one open decision is your hash rule for
 relinked documents (keep the old identifier or issue a new one).
@@ -295,6 +302,18 @@ answer in the census: Bern city, Fribourg, Basel-Landschaft, Vaud and Thurgau ([
   function keeps one meaning (15/15), the converter detects the language of all 15 question and 15 answer documents, and the 15
   records validate as v0.2: with them the converter's records number 120 from 23 parliaments, and with P8's 66 gold
   records 186 affairs from 26 parliaments validate (`results/fed/fed_tables.json`).
+- **Outside interventions (P11, exploratory, `eval/p11/`, locked before the draw and the labels).** On 15
+  government-business and parliamentary-initiative affairs (8 and 7, in German, French and Italian; the gold affair
+  kind matches OPD's type in 15/15), the annotators judged field by field whether the intervention skeleton fits. It
+  does not carry over as is: 7 fields carry over (submission date, related affairs, usable text, procedural state,
+  decision outcome, submitter, language), 4 answer fields do not apply (Q/A pairing, answer date, answer-link status,
+  dispatch date: 13 to 15 of the 15 affairs), and 6 need new roles: the date the executive adopted its own proposal
+  (decision date, 5 affairs), its recommendation to adopt its own proposal (5), its steps before parliament
+  (procedural history, 4), officials signing for it (co-signatories, 4), a general-terms initiative or a spending
+  authorisation (type, 2) and the Confederation addressed through a cantonal initiative (1). Government business needs
+  a new role in 7 of its 8 affairs, initiatives in 2 of 7. The converter returns a valid v0.2 record for 3 of the 15;
+  the other 12 stop with the typed failure `no_documents`, since its pairing rule looks for a member's text and an
+  answer (`results/p11/p11_ni_tables.json`).
 - **Submission date (P8).** In 9 of 11 parliaments OPD's date is the printed lodging date (one exception allowed). In Vernier (0/5) and
   Lausanne (2/5) it is mostly printed nowhere in the documents, 2 to 28 days after the signing or lodging date they
   print: a data-source split between OPD's date and the documents (registered class: body-specific), which a standard
@@ -369,6 +388,16 @@ document order reads as well (below).
   `results/eval2/p2_posthoc_best_baseline.json`). It puts a date on 4 of the 33 answerless documents, where the latest printed date (22/29
   found) dates 31. A free prompt finds 22/29 as registered, 24/29 (null allowed) and 25/29 (plain) once its answers
   are re-parsed (D2-4).
+- **The answer date in Italian (P11, exploratory, locked before the draw and the labels).** On 12 interventions from
+  Ticino, Mendrisio, Lugano, Locarno and Bellinzona, read through the converter's own fetch path (12 of the 24
+  documents from OPD's copy, where the parliament's robots.txt disallows the source), the pointer is exact on 12/12
+  [75.7, 100]: 10 printed answer dates and 2 right nulls, no invented date. The latest date on the answer document is
+  exact on 9/12 and dates both answerless affairs; the rules on 8/12 (in-sample in Ticino, Mendrisio and Lugano), with
+  4 answers left null and no wrong date. Author roles (70 gold pairs): the rules are precise and sparse (precision
+  0.875, recall 0.10), the converter's record reaches F1 0.30, document order and OPD's list 0.22 each (the role rules
+  in-sample in 4 of the 5 parliaments); the Apertus role reader read 5 affairs before the build guard stopped it at the
+  gateway's build switch (F1 0.12 on their 31 gold pairs). The two blind annotators agree on the answer date and the
+  author lists in 12/12 packets (`results/p11/p11_it_tables.json`).
 - **The answer date on the review queue (P7, pre-registered).** On the adapters' review queue Apertus answers two
   closed questions: is this the executive's answer to this intervention, and which printed date is the answer date.
   Blind AI annotators judged 120/120 of its sampled promotions the government's answer (H1, registered, Wilson 95%
@@ -476,6 +505,9 @@ labels come from blind agent annotators by design (below). Full tables, deviatio
   parliaments, where the prompts and thresholds were chosen, F1 is 0.80 (in-sample); on the 14 unseen ones 0.42. In
   Lugano (Italian, outside the family; the rules in-sample) Apertus reaches F1 0.65, OPD's list 0.62, the rules 0/56
   pairs.
+- **Exploratory cells, locked before the draw and the labels:** the federal cell (15 answers) and P11 (12 Italian
+  interventions, 15 affairs outside interventions), both in Findings
+  ([`docs/evaluation.md`](docs/evaluation.md#p11-exploratory-an-italian-cell-and-a-cell-outside-interventions)).
 - **Gold labels, no human labelling by design.** Two blind agent annotators (Claude Opus and Sonnet) label each
   document, a third breaks ties, quotes are verified by code, and all 96 annotator sessions (P1–P8, P10, the
   document-parts check and the federal cell) ended before GitHub received their labels and started after GitHub
@@ -556,8 +588,15 @@ Operator sheet (data protection under the nDSG, hardware, external hosts, exit c
 - **robots.txt.** We found, audited and fixed our own robots.txt bug; every fetch path now fails closed and requests
   OPD's own copy where one exists. Full disclosure: [`docs/incidents.md`](docs/incidents.md).
 
-**Which model.** Gateway runs used Apertus 70B (the gateway labels it 8B; fingerprint check in
-[`docs/evaluation.md`](docs/evaluation.md#use-of-apertus)); the response's `model` field is checked on every call. The 8B is a community 4-bit GGUF of `swiss-ai/Apertus-v1.5-8B`, sha256-pinned, run in-process on CPU. Review mode
+**Which model.** Every committed gateway response (17,568, the cache `make run` replays) comes from one build: route
+and label `swiss-ai/apertus-v1.5-8b`, fingerprint `vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840`, the 70B
+weights by inference ([fingerprint check](docs/evaluation.md#use-of-apertus)); the response's `model` field is checked
+on every call. On 12 Oct 2026 Public AI switched that route to another build: it now answers as
+`swiss-ai/Apertus-v1.5-70B` (the gateway's own label for the new build), fingerprint
+`vllm-0.1.dev1+g54b4292c2-tp2-bfd70257`, with other log-probabilities on the same requests (up to 4.64 apart on 3
+replays). The build guard caught the switch live and stopped P11's role reader at its first response from the new
+build, so no result mixes builds; cached replays stay valid, and review mode refuses the new build (exit 3) until its
+θ is fitted ([routes](docs/runbook.md#review-mode-routes)). The 8B is a community 4-bit GGUF of `swiss-ai/Apertus-v1.5-8B`, sha256-pinned, run in-process on CPU. Review mode
 stops on a served build its θ was not fitted on.
 
 ## Next steps
@@ -578,6 +617,9 @@ stops on a served build its θ was not fitted on.
 - **Gold anyone can check.** Labels come from blind multi-annotator agents, cross-checked by another vendor's model and
   by non-LLM sources; a 30-row kit lets anyone, OPD included, verify the gold in about an hour
   ([`results/opd_spotcheck/`](results/opd_spotcheck/README.md)).
+- **Roles for government business** (P11): the executive as proposer (the adoption date, its own recommendation,
+  officials signing) as v0.3 roles, and a converter route for affairs without a member's text (12 of P11's 15 stop
+  with `no_documents`).
 - **The nightly job's next real nights.** The fixed ledger code runs its first real two-night pair with OPD's next
   exports; two-night tests guard the fix meanwhile.
 
@@ -587,8 +629,9 @@ stops on a served build its θ was not fitted on.
   recommendation on Vernier (0/3) and the language on Fribourg (4/6, where OPD's tag names the other official
   language). On the affairs where the gold and the Qwen check derive the same category, the addressed body and the
   recommendation become shared (5/7 verdicts hold; post hoc, proposed in review). More parliaments per field come next.
-- Italian is covered thinly: Ticino's robots.txt kept it out of P8, P10's primary cell is German and French, and its
-  Italian cell is Lugano (6 affairs). An Italian cell of its own comes next.
+- Italian rests on P11's exploratory cell of 12 affairs; its role reader read 5 before the build switch, and Italian
+  author roles stay low for every arm (F1 0.30 or lower): a registered Italian test with Italian role layouts comes
+  next, with θ and the role reader refitted for the gateway's new build.
 - 6 fields are shared by definition only (defined once in v0.1); their meaning test comes next.
 
 ## What is in the repository

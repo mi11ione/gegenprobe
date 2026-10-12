@@ -9,7 +9,9 @@
 **Can one schema hold Swiss parliamentary business? Yes, if each field says which role its value plays** (e.g. "answer
 date" = the government's decision, its letter or the submission date). Tested on OPD's five intervention types
 (interpellation, motion, postulate, question, question time): 198,594 of its 325,691 affairs; the "Yes" covers the
-affair's skeleton of 17 fields.
+affair's skeleton of 17 fields. Outside interventions the skeleton does not carry over as is (P11, exploratory, 15
+affairs): 7 of the 17 fields fit unchanged, 4 answer fields do not apply, and 6 need roles interventions lack, chiefly
+the executive acting as proposer (adopting, endorsing and signing its own proposal).
 
 - **Shared:** one schema of 17 fields for communal, cantonal and federal business; every value carries its role and
   source, every gap a typed reason.
@@ -44,14 +46,17 @@ OPD's volume; review mode costs USD 0.59 per 1,000 residue documents on the 70B.
 `track_2a/results/schema/v0_2/validation_all.json` (the 15 federal records from an exploratory cell); 24/29 from P2,
 registered against the rules (the baselines post hoc, proposed in review); 50/141 from P10, registered (recall +23.4
 points over the rules, Holm p = 0.032), level with OPD's contributor list
-(37/141; H3a, Holm p = 0.17). Gateway runs used Apertus 70B (the gateway labels it 8B; fingerprint check in
-`track_2a/docs/evaluation.md`). P1–P8 and P10 are the ten pre-registered tests (P3b replicates P3).</sub>
+(37/141; H3a, Holm p = 0.17). Every committed gateway response (17,568) comes from one build, Apertus 70B by inference
+(the gateway labelled it 8B; fingerprint check in `track_2a/docs/evaluation.md`); on 12 Oct 2026 Public AI switched
+the route to another build, and the build guard caught it live. P1–P8 and P10 are the ten pre-registered tests (P3b replicates P3).</sub>
 
 - **Ready for OPD:** Bern relinks, fetches and `begin_date` corrections, per-parliament lists from 50 model-free
   source adapters, a vocabulary error list and a Fedlex resolver for 29,946 federal documents. The only open decision
   is OPD's hash rule for relinks.
 - **Sovereign and cheap to run:** the default runs no model and only reads public sources. A first network night took
   86 min, the next 6.6 min.
+- **Italian and outside interventions (P11, exploratory):** the Apertus pointer is exact on 12/12 Italian answers
+  (the latest printed date on the answer 9/12, the rules 8/12); government business needs roles interventions lack.
 - **Checked:** ten tests, each frozen by hash before its labels; `make claims` recomputes every number in the README,
   the report and the form from its results file and fails on any mismatch.
 

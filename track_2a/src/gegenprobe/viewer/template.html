@@ -691,6 +691,16 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
       <p class="why" id="p10why"></p>
       <div class="hyp" id="p10hyp" style="margin-top:18px"></div></div>
   </div>
+  <div class="grid" style="margin-top:46px" id="p11">
+    <div class="idx"><div class="label">P11 · Italian, and outside interventions (exploratory)</div><p class="small" id="p11Note"></p></div>
+    <div class="work"><p id="p11Intro" style="margin:0 0 14px;max-width:70ch"></p>
+      <div style="overflow-x:auto"><table class="board" id="p11date"></table></div>
+      <div style="overflow-x:auto;margin-top:14px"><table class="board" id="p11roles"></table></div>
+      <p class="why" id="p11why"></p>
+      <div style="overflow-x:auto;margin-top:14px"><table class="board" id="p11ni"></table></div>
+      <p class="why" id="p11niwhy"></p>
+      <p class="why" id="p11build"></p></div>
+  </div>
   <div class="grid" style="margin-top:46px" id="parts">
     <div class="idx"><div class="label">Document parts · blind check</div><p class="small" id="partsNote"></p></div>
     <div class="work"><p id="partsIntro" style="margin:0 0 14px;max-width:70ch"></p>
@@ -834,7 +844,7 @@ $('#factsApertus').append(...factsApertus.filter(Boolean).map(([v, t]) => el('di
     (P10 ? `; ${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs} from the author test (P10), registered (recall +${P10.hypotheses.H1.points} points over the rules, Holm p = ${P10.hypotheses.H1.p_holm}), level with OPD's contributor list (${P10.primary.arms.opd_first.right}/${P10.primary.gold_pairs}; H3a, Holm p = ${P10.hypotheses.H3a.p_holm_2})` : '') +
     (R2 ? `; the federal cell's ${R2.federal} affairs are exploratory` : '') +
     '. P1–P8 and P10 are the ten tests (P3b replicates P3), each frozen by hash before its labels.' +
-    (H.p2 && P10 ? ' Gateway runs used Apertus 70B (the gateway labels it 8B; fingerprint check in docs/evaluation.md); local 8B results: 03 Evaluation. Runtime external services: none by default (public sources only); Apertus review mode sends document text to the Public AI gateway, or nothing with the local 8B.' : ''); }
+    (H.p2 && P10 ? ' Gateway runs: one build, Apertus 70B by inference (the gateway labelled it 8B; fingerprint check in docs/evaluation.md); on 12 Oct 2026 Public AI switched the route to another build, and the build guard caught it live (03 Evaluation, P11); local 8B results: 03 Evaluation. Runtime external services: none by default (public sources only); Apertus review mode sends document text to the Public AI gateway, or nothing with the local 8B.' : ''); }
 /* converter coverage per parliament (results/convert/coverage_by_parliament.json) */
 if (D.coverage) {
   const C = D.coverage, S = C.summary, ST = ['frozen rules', 'source adapter', 'metadata only'];
@@ -1758,12 +1768,40 @@ function renderP10() {
       card('P10-H3b', Hy.H3b.verdict, 'The roles come from Apertus, not from the name list', `F1 +${Hy.H3b.diff}; Holm p = ${Hy.H3b.p_holm}`),
       card('P10-H3a', Hy.H3a.verdict, 'Over OPD’s contributor list', `F1 +${Hy.H3a.diff}; Holm p = ${Hy.H3a.p_holm_2}`));
   }
+  renderP11();
   const Q = D.evaluation.parts; if (!Q) { $('#parts').hidden = true; return; }
   $('#partsIntro').textContent = `Tables, annexes, images, scanned pages and signatures are marked by page range in schema v0.2 (rules parts-1, no model), so a table or annex is referenced where it is, not re-extracted: ${Q.records_with_part} of ${Q.records} converter records carry at least one. Two blind Claude annotators labelled ${Q.documents} of the converter's documents page by page from the page images (${Q.pages} pages), without the detector's output.`;
   $('#partsNote').textContent = `Exploratory: the rules were written on the ${Q.documents_rules} converter documents the checked ones come from, so the check is in-sample for the detector. The detector marks a signature when it is an image; the annotators also counted printed signatory lists. Source: results/parts/blind_check.json.`;
   const PN = { table: 'Table', annex: 'Annex', scanned: 'Scanned page', image: 'Image', signature: 'Signature' };
   $('#partsboard').replaceChildren(el('thead', {}, el('tr', {}, ['Part (page level)', 'Precision', 'Recall'].map(x => el('th', {}, x)))),
     el('tbody', {}, Object.keys(PN).map(k => el('tr', {}, el('td', { class: 'armname' }, PN[k]), el('td', { class: 'num' }, Q.page_level[k].precision), el('td', { class: 'num' }, Q.page_level[k].recall)))));
+}
+
+function renderP11() {
+  const P = D.evaluation.p11; if (!P) { $('#p11').hidden = true; return; }
+  const I = P.it, N = P.ni, G = P.gateway, A = I.answer_date, R = I.roles;
+  const bodies = Object.entries(I.by_body).map(([b, n]) => `${b} ${n}`).join(', ');
+  $('#p11Intro').textContent = `Exploratory, frozen by LOCKP11 before the draw and any label: counts with Wilson 95% intervals, no hypothesis test. Italian cell: ${I.n} interventions (${bodies}), read through the converter's own fetch path; where a parliament's robots.txt disallows a document the converter reads OPD's own copy (${I.documents_opd_copy} of the ${I.documents} documents). Gold: ${I.gold_printed} answers print an answer date, ${I.gold_null} print none.`;
+  $('#p11Note').textContent = `Gold: A1 (Opus) and A2 (Sonnet) blind, A3 (Opus) on disputed fields; Italian cell: they agree on the answer date in ${I.agreement.answer_date} packets and on the author lists in ${I.agreement.people}. In-sample: the date rules in ${I.in_sample.date_rules.join(', ')}; the role rules in ${I.in_sample.role_rules.join(', ')}; the role reader in ${I.in_sample.role_reader_development.join(', ')} (not reached). Source: results/p11/, eval/p11/PROTOCOL.md.`;
+  const DN = { pointer: ['Apertus pointer', 'gateway, the registered build'], latest: ['Latest date on the answer document', 'no model'], rules: ['Frozen rules', 'no model'], record: ['The converter’s record', 'no model'] };
+  $('#p11date').replaceChildren(el('thead', {}, el('tr', {}, ['Answer date, strict', 'Exact [Wilson 95%]', 'Printed dates right', 'Right nulls', 'Answerless dated'].map(x => el('th', {}, x)))),
+    el('tbody', {}, Object.keys(DN).map(k => { const a = A[k]; return el('tr', { class: k === 'pointer' ? 'default' : '' },
+      el('td', { class: 'armname' }, DN[k][0], el('small', {}, DN[k][1])), el('td', { class: 'num' }, k === 'pointer' ? el('b', {}, `${a.exact}/${a.n} ${a.ci}`) : `${a.exact}/${a.n} ${a.ci}`),
+      el('td', { class: 'num' }, `${a.printed_right}/${I.gold_printed}`), el('td', { class: 'num' }, `${a.null_right}/${I.gold_null}`), el('td', { class: 'num' }, `${a.invented_on_null}/${I.gold_null}`)); })));
+  const RN = { rules: ['Frozen rules', 'no model'], record: ['The converter’s record', 'no model'], doc_order: ['Document order', 'no model; P10’s post hoc baseline'], opd_first: ['OPD’s contributor list', 'reference; OPD’s names'], reader: ['Apertus role reader', `partial: ${R.reader.affairs} affairs before the build switch`] };
+  $('#p11roles').replaceChildren(el('thead', {}, el('tr', {}, ['Author roles', 'Pairs right / printed / gold', 'Precision', 'Recall', 'F1'].map(x => el('th', {}, x)))),
+    el('tbody', {}, Object.keys(RN).map(k => { const a = R[k]; return el('tr', {},
+      el('td', { class: 'armname' }, RN[k][0], el('small', {}, RN[k][1])), el('td', { class: 'num' }, `${a.matched}/${a.printed}/${a.gold}`),
+      el('td', { class: 'num' }, a.precision), el('td', { class: 'num' }, a.recall), el('td', { class: 'num' }, a.f1)); })));
+  $('#p11why').textContent = `The pointer prints every answer date the gold has and leaves both answerless affairs null; the latest date on the answer document dates both answerless affairs; the rules leave ${A.rules.false_null} answers null and print no wrong date. Author roles: the rules are precise and sparse; the converter's record reaches F1 ${R.record.f1}, document order ${R.doc_order.f1}, OPD's list ${R.opd_first.f1}.`;
+  const F = N.fields, FL = { date_submission: 'submission date', date_decision: 'decision date', date_dispatch: 'dispatch date', qa_pairing: 'Q/A pairing', related_affairs: 'related affairs', documents_usable_text: 'usable text', answer_link_status: 'answer-link status', date_answer: 'answer date', procedural_history: 'procedural history', procedural_state: 'procedural state', decision_outcome: 'decision outcome', co_signatories: 'co-signatories', addressed_body: 'addressed body', government_recommendation: 'government recommendation' }, lab = k => FL[k] || k.replace(/_/g, ' ');
+  $('#p11ni').replaceChildren(el('thead', {}, el('tr', {}, ['Outside interventions: v0.2’s 17 fields', 'Fields', 'Which'].map(x => el('th', {}, x)))),
+    el('tbody', {},
+      el('tr', {}, el('td', { class: 'armname' }, 'Carry over', el('small', {}, 'every value fits an existing role, or is not printed')), el('td', { class: 'num' }, String(F.carry_over)), el('td', {}, F.carry_over_fields.map(lab).join(', '))),
+      el('tr', {}, el('td', { class: 'armname' }, 'Do not apply', el('small', {}, 'no answer to a member’s affair')), el('td', { class: 'num' }, String(F.not_applicable)), el('td', {}, Object.entries(F.not_applicable_fields).map(([k, v]) => `${lab(k)} (${v}/${N.n})`).join(', '))),
+      el('tr', {}, el('td', { class: 'armname' }, 'Need new roles', el('small', {}, 'a printed value fits no existing role')), el('td', { class: 'num' }, String(F.new_roles)), el('td', {}, Object.entries(F.new_role_fields).map(([k, v]) => `${lab(k)} (${v})`).join(', ')))));
+  $('#p11niwhy').textContent = `${N.n} affairs (government business ${N.government_business}, parliamentary initiatives ${N.parliamentary_initiatives}; German, French, Italian; ${N.bodies} bodies). The intervention skeleton does not carry over as is: the roles the annotators needed are the executive's as proposer (the date it adopted its own proposal, its recommendation to adopt it, officials signing for it, its steps before parliament), needed in ${N.new_role_affairs.GA} of ${N.government_business} government-business affairs and ${N.new_role_affairs.PI} of ${N.parliamentary_initiatives} initiatives. The converter returns a valid v0.2 record for ${N.valid_records.replace('/', ' of ')} affairs (the other ${N.no_documents}: the typed failure no_documents). Annotators agree on ${N.agreement.raw} field labels; ${N.agreement.fields_to_a3} went to A3.`;
+  $('#p11build').textContent = `The gateway build: every committed gateway response (${fmt(G.committed_responses)}) carries one label (${Object.keys(G.labels)[0]}) and one fingerprint (${Object.keys(G.fingerprints)[0]}). On 12 Oct 2026 Public AI began answering the same route as ${G.probe.labels_live[0]} from another build (${G.probe.fingerprints_live[0]}; ${G.probe.replays} replayed requests, log-probabilities up to ${G.probe.max_abs_logprob_delta} apart). The response check stopped the role reader at its first answer from the new build (${I.reader_affairs} of ${I.n} affairs read), so no result mixes builds; review mode refuses the new build (exit 3) until its θ is fitted.`;
 }
 
 /* ---------------- 04 METHOD ---------------- */

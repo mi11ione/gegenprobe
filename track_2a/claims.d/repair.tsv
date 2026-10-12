@@ -28,7 +28,7 @@ repair.che20_inspect_ci	[83.9, 100]	results/repair/che_reproduce.json	ci_inspect
 repair.che50_rule	40/50	results/repair/che_backlog_run.json	verified_rule/total_done	frac	python -m gegenprobe.repair.che backlog 50 && python -m gegenprobe.repair.che stats	docs/repair.md
 repair.che50_rule_ci	[67, 88.8]	results/repair/che_backlog_run.json	ci_rule	ci	python -m gegenprobe.repair.che backlog 50	docs/repair.md
 repair.che50_short_docs	7	results/repair/che_backlog_run.json	failure_types.short_document_identity_ok	int	python -m gegenprobe.repair.che stats	docs/repair.md
-repair.che_s_per_doc	2.1	results/repair/che_backlog_run.json	s_per_doc	f1	python -m gegenprobe.repair.che backlog 50	docs/repair.md,docs/nightly.md,docs/operations.md,technical_report.md,README.md
+repair.che_s_per_doc	2.1	results/repair/che_backlog_run.json	s_per_doc	f1	python -m gegenprobe.repair.che backlog 50	docs/repair.md,docs/nightly.md,docs/operations.md,README.md
 repair.che_curia	7/75	results/repair/che_curia.json	substantive/n	frac	python -m gegenprobe.repair.che curia	docs/repair.md
 repair.che_curia_ci	[4.6, 18]	results/repair/che_curia.json	ci_substantive	ci	python -m gegenprobe.repair.che curia	docs/repair.md
 repair.vs_gap_with_ant	1,112	results/repair/vs_summary.json	counts.gap_with_ant_doc	int	python -m gegenprobe.repair.vs list	docs/repair.md
@@ -38,7 +38,7 @@ repair.ocr_ok	15/15	results/repair/ocr_probe.json	image_only_ok/image_only	frac	
 repair.ocr_ok_ci	[79.6, 100]	results/repair/ocr_probe.json	ci_image_only_ok	ci	python -m gegenprobe.repair.ocr probe 3	docs/repair.md
 repair.ocr_accents_multi	467	results/repair/ocr_probe.json	image_multi.accented_chars	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md
 repair.ocr_accents_eng	133	results/repair/ocr_probe.json	image_eng.accented_chars	int	python -m gegenprobe.repair.ocr probe 3	docs/repair.md
-repair.ocr_s_per_page	6.9	results/repair/ocr_probe.json	image_multi.secs_per_page	f1	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,docs/nightly.md,technical_report.md,docs/operations.md
+repair.ocr_s_per_page	6.9	results/repair/ocr_probe.json	image_multi.secs_per_page	f1	python -m gegenprobe.repair.ocr probe 3	docs/repair.md,docs/nightly.md,docs/operations.md
 repair.nightly_offline_s	233.0	results/monitor/run.json	timings.total_s	f1	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
 repair.nightly_extract_s	215.8	results/monitor/run.json	timings.extract_s	f1	python -m gegenprobe.monitor.nightly offline	docs/nightly.md
 repair.che_backlog_hours	17.5	results/repair/che_backlog_run.json	est_hours_full_backlog	f1	python -m gegenprobe.repair.che stats	docs/repair.md,docs/nightly.md

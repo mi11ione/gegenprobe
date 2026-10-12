@@ -53,7 +53,8 @@ created, so the folder number and the test number differ from P3b on:
 | `eval/prereg4/` | P4 | `LOCK4` | `eval/prereg9/` | P8 | `LOCK9` |
 | `eval/prereg5/` | P3b | `LOCK5` | `eval/prereg10/` | P10 | `LOCK10` |
 
-The federal cell (exploratory) lives in `eval/fed/` with `LOCKFED`. The titles of `PREREG3.md` ("DRAFT") and
+The federal cell (exploratory) lives in `eval/fed/` with `LOCKFED`; P11 (exploratory: an Italian cell and a cell outside
+interventions, [below](#p11-exploratory-an-italian-cell-and-a-cell-outside-interventions)) in `eval/p11/` with `LOCKP11`. The titles of `PREREG3.md` ("DRAFT") and
 `PREREG4.md` ("DRAFT, not locked") were written before their locks and frozen unchanged: LOCK3 and LOCK4 hash the files
 with those titles (`eval/prereg4/DEVIATIONS4.md` D4-1). `make run` verifies all ten locks and LOCKFED.
 
@@ -279,6 +280,114 @@ In Lugano Apertus (F1 0.65) and OPD's list (0.62) are close; the rules, in-sampl
 
 Re-scored offline from the committed arm outputs and gold: `PYTHONPATH=src:. python -m eval.p10.score` (byte-identical).
 
+## P11 (exploratory): an Italian cell and a cell outside interventions
+
+**Design** (`eval/p11/PROTOCOL.md`; `LOCKP11` committed before the draw and before any label; draw and fetch 9cee7176,
+gold 84731fb5, arms and tables 0e55dfa4; deviation D1 in `eval/p11/DEVIATIONS_P11.md`, the gateway build switch
+below). Exploratory: counts with Wilson 95% intervals, no hypothesis test, no pooling with an earlier set. Gold by the
+project's protocol: A1 (Claude Opus) and A2 (Claude Sonnet) label blind, A3 (Claude Opus) decides the disputed fields.
+Tables: `results/p11/p11_it_tables.json`, `results/p11/p11_ni_tables.json`; agreement `results/p11/p11_*_agreement.json`;
+sample `results/p11/sample.json`; display numbers `results/report/r19_numbers.json` (`python -m report.r19_numbers`).
+Re-scored offline from the committed arm outputs and gold, byte-identical: `PYTHONPATH=src:. python -m eval.p11.score it`
+(and `ni`).
+
+### The Italian cell (IT)
+
+12 interventions (9 questions, 3 motions), seeded per body: Ticino 3, Mendrisio 3, Lugano 2, Locarno 2, Bellinzona 2.
+Every document is read through the converter's own fetch path: where a parliament's robots.txt disallows a document
+(Ticino and Locarno disallow every path of the frame), the converter reads OPD's own copy on files.openparldata.ch, so
+12 of the 24 documents came from OPD's copy and 12 from the source. Gold: 10 answers print an answer date (5 the
+decision, 5 the letter), 2 (Locarno) print none. A1 and A2 agree on the answer date in 12/12 packets, on the
+(name, role) lists in 12/12 (pair F1 1.0), on the language in 12/12 and on the type in 11/12 (κ 0.636; that one field
+went to A3). The answer document is labelled the executive's answer in 10 of 12 affairs (2 disputed; the frame check
+passed).
+
+**In-sample, per body** (`in_sample_for` in the tables): the date rules in Ticino, Mendrisio and Lugano
+(`data/convert/rules_coverage.json`); the role rules in Ticino, Mendrisio, Lugano and Bellinzona (P10's role-seen set;
+Lugano's layouts wrote roles-2, post hoc); the role reader in Bellinzona (one of its development parliaments), which it
+did not reach. Locarno is out of sample for every arm.
+
+| answer date, strict (12 affairs) | exact [Wilson 95%] | printed dates right /10 | right nulls /2 | dates on the 2 answerless |
+|---|---|---|---|---|
+| **Apertus pointer** (gateway, θ = 10.40, the registered build) | **12/12 [75.7, 100]** | 10 | 2 | 0 |
+| latest date on the answer document (no model) | 9/12 [46.8, 91.1] | 9 | 0 | 2 |
+| rules (P1's rules arm) | 8/12 [39.1, 86.2] | 6 | 2 | 0 |
+| the converter's record (`qa[0].answer_date`) | 8/12 [39.1, 86.2] | 6 | 2 | 0 |
+
+The pointer prints every one of the 10 answer dates and leaves both answerless affairs null; no arm invents a date
+printed nowhere. The rules miss the 4 answers in Lugano and Bellinzona (null, not a wrong date); the latest date dates
+both Locarno affairs that have no answer and takes a later printed date in one Lugano affair (lenient: 10/12).
+
+| author roles (70 gold (name, role) pairs, P10's scorer) | pairs right / printed | precision | recall | F1 |
+|---|---|---|---|---|
+| rules (`convert.roles`, P10's arm b) | 7/8 | 0.875 | 0.10 | 0.18 |
+| the converter's record (actors) | 21/68 | 0.31 | 0.30 | 0.30 |
+| document order (no model; P10's post hoc baseline) | 17/86 | 0.20 | 0.24 | 0.22 |
+| OPD's contributor list, first author + co-signers (reference; OPD's names) | 16/77 | 0.21 | 0.23 | 0.22 |
+| Apertus role reader, partial: 5 affairs (Ticino 3, Mendrisio 2), 31 gold pairs | 3/21 | 0.14 | 0.10 | 0.12 |
+
+The role reader read 5 of the 12 affairs before the build guard stopped it at the 6th (D1, below); its row is scored
+on those 5 only. Mendrisio's 3 affairs hold 34 of the 70 gold pairs (long signatory lists); there the record prints 41
+pairs and matches none, document order matches 1. The converter's record detects the language of all 24 documents
+(24/24) and names the instrument right in 5 of 12 affairs.
+
+### The cell outside interventions (NI)
+
+15 affairs: government business 8 (German 3, French 2, Italian 3) and parliamentary initiatives 7 (German 3, French
+2, Italian 2), from 11 bodies; the gold affair kind matches OPD's type in 15/15. For each of v0.2's 17 fields the
+annotators judged whether the intervention skeleton holds: a printed value fits an existing role, needs a new role, is
+not printed, or the field does not apply (`GUIDE_P11_NI.md`).
+
+**Answer: the intervention skeleton does not carry over as is.** Grouped by the gold verdicts:
+
+| group | fields | gold verdicts (15 affairs) |
+|---|---|---|
+| carries over (every value fits an existing role, or is not printed) | 7: submission date, related affairs, usable text, procedural state, decision outcome, submitter, language | submission date fits 12, not printed 3; submitter fits 14; usable text, procedural state and language fit 15 |
+| does not apply (no answer to a member's affair) | 4: Q/A pairing, answer date, answer-link status, dispatch date | not applicable 15, 13, 13, 13 |
+| needs new roles | 6: decision date, government recommendation, procedural history, co-signatories, type, addressed body | new role 5, 5, 4, 4, 2, 1 |
+
+The new roles the annotators needed (their own words, `new_roles` in the tables):
+- **decision date:** the date the executive adopted its own proposal (5 government-business affairs, in German,
+  French and Italian);
+- **government recommendation:** the executive proposes that parliament adopt its own proposal (5);
+- **procedural history:** the executive's steps before parliament (adoption, preliminary examination, consultation) (4);
+- **co-signatories:** officials signing on behalf of the executive (4);
+- **type:** a general-terms initiative whose drafting is left to a later stage (Ticino), and the executive's own
+  spending authorisation (1 each);
+- **addressed body:** the Confederation, addressed through a cantonal initiative (1).
+
+Government business needs at least one new role in 7 of its 8 affairs, parliamentary initiatives in 2 of 7: the roles
+interventions lack are the executive's as proposer.
+
+**The converter** (`gegenprobe affair`, rules only, unchanged) returns a valid v0.2 record for 3 of 15 affairs
+[7.0, 45.2] (Basel-Landschaft, Bern, Solothurn); the other 12 stop with the typed failure `no_documents` (its P3 pairing
+rule finds no member's text or answer among the linked documents). 2 of the 3 valid records carry an answer date and
+an answer-link status where the gold says those fields do not apply: valid against the schema, cast in the
+intervention's shape.
+
+**Agreement.** A1 and A2 agree on 219/270 field labels; 51 disputed fields in 14 of 15 packets went to A3. The
+lowest κ: decision outcome 0.069, dispatch date 0.089, government recommendation 0.205.
+
+### The gateway build switch (D1)
+
+Every committed gateway response (17,568 in `data/model_cache/publicai_swiss-ai_apertus-v1.5-8b/`, the cache `make run`
+replays) carries one served label, `swiss-ai/apertus-v1.5-8b`, and one fingerprint,
+`vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840`; the last of them was answered at 01:05 UTC on 12 Oct 2026
+(`results/report/r19_numbers.json` `gateway`). P11's date pointer finished its 12 affairs on that build and the role
+reader 5. Shortly after, Public AI began answering requests for `swiss-ai/apertus-v1.5-8b` with the label
+`swiss-ai/Apertus-v1.5-70B`, and the role reader's first live request for its 6th affair came back from it; the
+response check (`llm._Remote._check`) raised `ServedModelMismatch`. A probe (`eval/p11/served_probe.py`,
+`results/p11/served_model_probe.json`, USD 0.0006) replayed 3 requests cached during registered runs (two P10
+role-reader requests, one P1 date-pointer request) byte for byte: all 3 came back labelled `swiss-ai/Apertus-v1.5-70B`
+with another fingerprint, `vllm-0.1.dev1+g54b4292c2-tp2-bfd70257`, and log-probabilities that differ by up to 4.64
+(the greedy token changed on 1 of the 2 role-reader requests). The build changed, not only the label.
+
+Per PROTOCOL §8.4 the role reader is reported as partial (5 of 12 affairs); the date pointer, complete on the
+registered build, stands, as do the no-model arms. θ and the role reader's configuration were fitted on the registered
+build and are not carried over (`convert/build_guard.py`); no result mixes builds. The 145 cached P11 responses replay
+with the registered label and fingerprint. In operation, review mode refuses the new build with exit 3 until its θ is
+fitted (`docs/runbook.md`, "Review mode in operation").
+
 ## Document parts: blind check of the detector
 
 **What it does** (`src/gegenprobe/convert/parts.py`, rules parts-1, no model): it marks tables (aligned columns in the
@@ -377,9 +486,16 @@ decision (P1 rules 136/154, cascade 140/154; P2 pointer 56/62). Documents from t
 independent, so we also resample whole parliaments (percentile bootstrap, 10,000 resamples, post hoc;
 `results/eval/posthoc_r6_cluster.json`); the intervals are given with P2, P5 and P6 below.
 
-**Which Apertus.** Gateway runs used Apertus 70B (the gateway labels it 8B; the fingerprint check follows); the real 8B was run in-process on CPU on P1, P2 (52 documents) and P6 (67 documents).
-Apertus numbers not marked 8B come from the 70B weights, which Public AI serves under the name
-`swiss-ai/apertus-v1.5-8b`. That is inferred, not documented by Public AI: the served fingerprint (`tp8-pp2-…`, a
+**Which Apertus.** Gateway runs used one build, Apertus 70B by inference (the gateway labelled it 8B; the fingerprint
+check follows); the real 8B was run in-process on CPU on P1, P2 (52 documents) and P6 (67 documents).
+Apertus numbers not marked 8B come from the 70B weights, which Public AI served under the name
+`swiss-ai/apertus-v1.5-8b` with the label `swiss-ai/apertus-v1.5-8b` and the fingerprint
+`vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840` until about 01:05 UTC on 12 Oct 2026; every committed gateway
+response (17,568) carries that label and fingerprint. Since then the same name answers with the label
+`swiss-ai/Apertus-v1.5-70B` from another build (`vllm-0.1.dev1+g54b4292c2-tp2-bfd70257`, different log-probabilities on
+the same requests); the response check stopped P11's role reader there, and review mode refuses that build until its θ
+is fitted ([P11, D1](#the-gateway-build-switch-d1)). The gateway's own label for the new build says 70B; that the
+registered build is the 70B is inferred, not documented by Public AI: the served fingerprint (`tp8-pp2-…`, a
 tensor-parallel 8 × pipeline-parallel 2 deployment) and the behaviour (report §3: 760/792 greedy outputs
 byte-identical to the `-70b` name; MMLU 84.4% vs 70.8% for the v1 8B route) point to the 70B. We use that name because
 the `-70b` name answers prefilled requests with a different model; the response's `model` field is checked on every
@@ -764,7 +880,8 @@ is-answer variant and θ_B.
   match), finding answer dates the rules miss on unseen parliaments (P2 22:4; P6 11:5 on all 68 documents, p = 0.21)
   and doubling submitter detection over the rules (P5: 12/40 → 24/40; free generation 34/40), reading author roles
   where nobody wrote rules (P10: 50/141 pairs right, the rules 17/141, OPD's contributor list 37/141, at precision 0.52
-  vs 0.31 for the rules; over OPD's list not significant, H3a), every extracted value
+  vs 0.31 for the rules; over OPD's list not significant, H3a), the Italian answer date (P11, exploratory: 12/12
+  against the rules' 8/12 and the latest date's 9/12), every extracted value
   a printed one with its location. Accuracy is close to the same model asked freely with null allowed (P2 and P6,
   registered; P7-H3), and a printed-date filter on the free prompt gives the same no-invention guarantee; null safety is left to the reviewer (P1-H1, P2-H3, P6-H2 failed).
 - **Why a pointer:** asked freely when the government answered, Apertus writes a precise date for 15/15 (local 8B) and
@@ -780,6 +897,8 @@ is-answer variant and θ_B.
 - **Local 8B, committed results** (exploratory, in-process on CPU): P1, P2 (52 documents) and P6 (67 documents), under
   "Which Apertus" and "Which size to deploy" above. The 70B weights served by Public AI produced every other Apertus
   number, P2's 53/62 and P10's 50/141 among them.
-- **Builds:** θ does not transfer between builds, so each gets its own; the 70B results above carry θ = 10.40, the
+- **Builds:** θ does not transfer between builds, so each gets its own; the 70B results above carry θ = 10.40 (the
+  registered gateway build, `…tp8-pp2-dd237840`; the build Public AI serves under the same name since 12 Oct 2026,
+  `…tp2-bfd70257`, has no θ yet, so review mode refuses it with exit 3), the
   real 8B θ = 16.73 (dev AUROC 0.90; 97 dev documents, D3). The shipped review mode keeps the v1 reader: P6 found v2
   right on 5 documents v1 missed and wrong on 2 (p = 0.45), not enough to switch.

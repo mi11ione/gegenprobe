@@ -38,7 +38,7 @@ r6c.p6_v2_rules_hi	0.30	results/eval/posthoc_r6_cluster.json	p6.paired.v2 vs rul
 r6c.p6_free_rules_lo	-0.07	results/eval/posthoc_r6_cluster.json	p6.paired.free_null vs rules.cluster_bootstrap95.0	f2	python -m eval.posthoc_r6 cluster	-	
 r6c.p6_free_rules_hi	0.33	results/eval/posthoc_r6_cluster.json	p6.paired.free_null vs rules.cluster_bootstrap95.1	f2	python -m eval.posthoc_r6 cluster	-	
 r6c.p6_model_free_cascade	55/68	results/eval/posthoc_r6_cluster.json	p6.arms.model_free_cascade.exact	frac	python -m eval.posthoc_r6 cluster	docs/evaluation.md	
-r6c.p6_cascade_v2	60/68	results/eval/posthoc_r6_cluster.json	p6.arms.cascade_v2.exact	frac	python -m eval.posthoc_r6 cluster	technical_report.md,docs/evaluation.md	
+r6c.p6_cascade_v2	60/68	results/eval/posthoc_r6_cluster.json	p6.arms.cascade_v2.exact	frac	python -m eval.posthoc_r6 cluster	docs/evaluation.md	
 r6c.p6_free_null	62/68	results/eval/posthoc_r6_cluster.json	p6.arms.free_null.exact	frac	python -m eval.posthoc_r6 cluster	README.md,technical_report.md,docs/evaluation.md	
 r6c.p6_c2_mfc_a	5	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs model_free_cascade.a_only	int	python -m eval.posthoc_r6 cluster	docs/evaluation.md	
 r6c.p6_c2_mfc_b	0	results/eval/posthoc_r6_cluster.json	p6.paired.cascade_v2 vs model_free_cascade.b_only	int	python -m eval.posthoc_r6 cluster	docs/evaluation.md	
@@ -55,4 +55,4 @@ r6c.p6o_title_exact	0/10	results/eval/posthoc_r6_p6_oracle.json	summary.title_da
 r6c.p6o_quote	34/34	results/eval/posthoc_r6_p6_oracle.json	summary.quote_on_page_and_parses	frac	python -m eval.posthoc_r6 p6oracle	technical_report.md,docs/evaluation.md	
 r6c.p6o_opd_type	58/68	results/eval/posthoc_r6_p6_oracle.json	summary.opd_type_agrees	frac	python -m eval.posthoc_r6 p6oracle	docs/evaluation.md	
 r6c.p6o_order	17/22	results/eval/posthoc_r6_p6_oracle.json	summary.submission_order	frac	python -m eval.posthoc_r6 p6oracle	-	
-r6c.p6o_coverage	20/34	results/eval/posthoc_r6_p6_oracle.json	summary.gold_dated_with_any_non_llm_date_source	frac	python -m eval.posthoc_r6 p6oracle	technical_report.md,docs/evaluation.md	
+r6c.p6o_coverage	20/34	results/eval/posthoc_r6_p6_oracle.json	summary.gold_dated_with_any_non_llm_date_source	frac	python -m eval.posthoc_r6 p6oracle	docs/evaluation.md	

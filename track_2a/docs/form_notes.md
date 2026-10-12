@@ -9,7 +9,9 @@ every number here from its results file and fails on any mismatch, or on a numbe
   Needs roles: 10 fields (8 robust + 2 fragile; 6 from the role test, P8, registered, 4 from OPD's labels, post hoc).
   Body-specific: 1 field and 2 constructs (the submission date: in Vernier (5/5) and Lausanne (3/5) OPD's submission
   date is printed in neither document; they print the member's signing or lodging date 2 to 28 days earlier; oral
-  answers, minutes-only councils). Untested: 6 fields, defined once in v0.1.
+  answers, minutes-only councils). Untested: 6 fields, defined once in v0.1. Outside interventions the skeleton does
+  not carry over as is (P11, exploratory, 15 affairs: 6 fields need roles interventions lack, 4 answer fields do not
+  apply).
 - **Delivered.** Repairs for 9,580 answers keyed on OpenParlData (OPD) ids, every one from model-free rules; schema
   v0.2 with the roles; a converter that gives every value its page and span; a nightly job. Apertus only picks values
   printed in the document, and code locates them.
@@ -26,17 +28,17 @@ every number here from its results file and fails on any mismatch, or on a numbe
   answers on 120/120. Author roles, in 14 parliaments without rules (P10): Apertus
   50/141, level with OPD's contributor list (37/141; Holm p = 0.17); Rules 17/141; most of the gain comes from the
   model-free candidate finder (document order 52/141); Apertus adds precision deciding who is an author (+7.3 points,
-  post hoc). Where rules exist it adds one document net (P1: 139/154 vs a model-free cascade's 138/154, post hoc).
+  post hoc). Where rules exist it adds one document net (P1: 139/154 vs a model-free cascade's 138/154, post hoc). In
+  Italian (P11, exploratory) the pointer is exact on 12/12 answers, the rules on 8/12.
 - **Census and OPD.** 2,177 "missing" answers were in OPD all along, under an unrecognised heading. OPD confirmed
   the Bern linking bug (correspondence, 10 Oct 2026); the only open decision is its hash rule for relinks. Lists from
   50 model-free source adapters: blind AI annotators judged 185/186 counted rows to be the answer (Claude; 3 dates
-  judged wrong) and 186/186 (Qwen), post hoc after Valais's 140 date-window rows moved to review. Answer times: where
-  OPD's "answer" event is the submission date its median says 0 days; in Kriens the answer documents give 26.5 (post hoc).
+  judged wrong) and 186/186 (Qwen), post hoc after Valais's 140 date-window rows moved to review.
 - **Sovereign and cheap to run.** The default runs no model and only reads public sources; every model value goes
   to a reviewer. Runtime external services: none by default (public sources only); Apertus review mode sends document
   text to the Public AI gateway, or nothing with the local 8B (date suggestions; the queue verifier needs the 70B).
-  Rules: about 0.5 CPU-hours for OPD's 902,754 documents; review USD 0.59 per 1,000 residue documents. A first
-  network night took 86 min, the next 6.6 min.
+  Rules: about 0.5 CPU-hours for OPD's 902,754 documents; review USD 0.59 per 1,000 residue documents. The build guard
+  caught Public AI's gateway build switch (12 Oct 2026) live: no result mixes builds.
 - **Ten tests, frozen before any label** (P1's hypothesis script followed its labels, its rules came with its
   sample: D4, D12). P1: rules alone right on 135/154, so by default no model runs. P6: no registered hypothesis held.
   The 9 held results of P1–P7 survive Holm over their 20 tests. Null safety failed on the 70B (P1, P2, P6), so

@@ -70,7 +70,8 @@ def test_r14_every_scope_word_in_the_strict_documents_is_bound(rows, cfg):
     ("| **pointer** | **53/62** [74.7, 92.2] | **24/29** [65.5, 92.4] | 8 | 0 | 4 |",
      "| **pointer** | **53/62** [74.7, 92.2] | **24/29** [65.5, 92.4] | 8 | 0 | 1 |", "1"),
     ("| cascade | 139/154 [84.6, 94] | 56 | 11 | 0 | 7 |", "| cascade | 139/154 [84.6, 94] | 56 | 11 | 0 | 3 |", "3"),
-    ("| v2 | 59/68 | 30/34 | 5/34 | 0 |", "| v2 | 59/68 | 30/34 | 5/34 | 2 |", "2"),
+    ("| rules only | 35/62 [44.1, 68.1] | **2/29** [1.9, 22] | 2 | 0 | 0 |",
+     "| rules only | 35/62 [44.1, 68.1] | **2/29** [1.9, 22] | 2 | 0 | 3 |", "3"),  # R19: the P6 table moved to docs
 ])
 def test_r14_small_table_cell_edit_fails(rows, cfg, old, new, token):
     errs = _errs(rows, cfg, "technical_report.md", old, new)

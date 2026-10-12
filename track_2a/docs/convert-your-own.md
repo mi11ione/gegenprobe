@@ -428,8 +428,10 @@ run with exit code 3 and names the fingerprint; `--allow-build-mismatch` continu
   machine. Needs `data/convert/theta/gguf_apertus-v1.5-8b-text-q4_k_m.json`.
 - `--backend openai`: any vLLM-style endpoint serving Apertus (`LLM_BASE_URL`, `LLM_NAME`, `LLM_API_KEY`); the document text
   is sent to that endpoint.
-- The Public AI build (`publicai:swiss-ai/apertus-v1.5-8b`, which serves the 70B weights) was used for the evaluation only.
-  It is not a runtime target: requests may be routed outside Switzerland.
+- The Public AI build (`publicai:swiss-ai/apertus-v1.5-8b`, which served the 70B weights by inference, fingerprint
+  `…tp8-pp2-dd237840`) was used for the evaluation only. It is not a runtime target: requests may be routed outside
+  Switzerland. Since 12 Oct 2026 that name answers from another build (label `swiss-ai/Apertus-v1.5-70B`), which review
+  mode refuses (exit 3) until θ is fitted for it ([runbook](runbook.md#review-mode-in-operation)).
 
 ## Known limits
 

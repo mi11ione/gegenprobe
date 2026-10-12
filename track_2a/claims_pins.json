@@ -849,9 +849,6 @@
    "docs": {
     "README.md": [
      "Night 2\n  exposed a ledger bug (it reset night 1's per-row verdicts to `unchecked`)"
-    ],
-    "technical_report.md": [
-     "the ledger-status bug night 2 exposed is fixed and covered by a two-night test"
     ]
    }
   },
@@ -1618,6 +1615,134 @@
      "Every value of the six role-split fields falls into a named v0.2 role"
     ]
    }
+  },
+  {
+   "id": "p11.ni.not_as_is",
+   "polarity": "neg",
+   "why": "P11 (exploratory): outside interventions some fields need new roles and some answer fields do not apply",
+   "results": [
+    {
+     "file": "results/report/r19_numbers.json",
+     "vars": {
+      "new": "p11.ni.fields.new_roles",
+      "na": "p11.ni.fields.not_applicable"
+     },
+     "expr": "new > 0 and na > 0",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "skeleton does not\ncarry over as is",
+     "does not carry over as is: 7 fields carry over"
+    ],
+    "technical_report.md": [
+     "the skeleton does not carry over to them as is"
+    ],
+    "docs/form_notes.md": [
+     "the skeleton does\n  not carry over as is"
+    ],
+    "../README.md": [
+     "the skeleton does not carry over as is"
+    ]
+   }
+  },
+  {
+   "id": "p11.it.pointer_no_invented",
+   "polarity": "neg",
+   "why": "P11 IT: the pointer dated no answerless affair and printed no wrong date",
+   "results": [
+    {
+     "file": "results/report/r19_numbers.json",
+     "vars": {
+      "inv": "p11.it.answer_date.pointer.invented",
+      "fn": "p11.it.answer_date.pointer.false_null"
+     },
+     "expr": "inv == 0 and fn == 0",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "no invented date"
+    ],
+    "technical_report.md": [
+     "none invented"
+    ]
+   }
+  },
+  {
+   "id": "gateway.no_mixed_builds",
+   "polarity": "neg",
+   "why": "every committed gateway response carries one label and one fingerprint; the role reader stopped at the first response from the new build",
+   "results": [
+    {
+     "file": "results/report/r19_numbers.json",
+     "vars": {
+      "l": "gateway.n_labels",
+      "f": "gateway.n_fingerprints"
+     },
+     "expr": "l == 1 and f == 1",
+     "is": true
+    },
+    {
+     "file": "results/p11/it_arms_pointer.json",
+     "path": "deviation.live_responses_accepted_under_relabel",
+     "is": 0
+    },
+    {
+     "file": "results/p11/it_arms_pointer.json",
+     "path": "n_role_reader",
+     "is": 5
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "so no result mixes builds"
+    ],
+    "technical_report.md": [
+     "so no result mixes builds"
+    ],
+    "docs/form_notes.md": [
+     "live: no result mixes builds"
+    ]
+   }
+  },
+  {
+   "id": "gateway.switch_caught",
+   "why": "the probe: every replay came back under another label and another fingerprint",
+   "results": [
+    {
+     "file": "results/p11/served_model_probe.json",
+     "path": "fingerprint_equal_to_frozen_on_every_call",
+     "is": false
+    },
+    {
+     "file": "results/report/r19_numbers.json",
+     "vars": {
+      "r": "gateway.probe.relabelled",
+      "o": "gateway.probe.other_fingerprint",
+      "n": "gateway.probe.replays"
+     },
+     "expr": "r == n and o == n",
+     "is": true
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "the build guard caught it live",
+     "The build guard caught the switch live"
+    ],
+    "technical_report.md": [
+     "the build guard caught it live"
+    ],
+    "docs/form_notes.md": [
+     "The build guard\n  caught Public AI's gateway build switch (12 Oct 2026) live"
+    ],
+    "../README.md": [
+     "the build guard caught it live"
+    ]
+   }
   }
  ],
  "allow": {
@@ -1901,10 +2026,6 @@
     "why": "a scenario input (10x volume), not a result"
    },
    {
-    "phrase": "OCR fails loudly",
-    "why": "describes the OCR guard"
-   },
-   {
     "phrase": "every fetch path now fails closed",
     "why": "describes the fetch guard"
    },
@@ -1925,24 +2046,12 @@
     "why": "held-out design: parliaments outside the rules' development set"
    },
    {
-    "phrase": "one core, no GPU",
-    "why": "the cost-measurement setup"
-   },
-   {
     "phrase": "all 902,754 documents",
     "why": "the count is bound by claims; 'all' restates it"
    },
    {
     "phrase": "`--cap-drop ALL`",
     "why": "describes the container hardening"
-   },
-   {
-    "phrase": "never an empty page",
-    "why": "describes the OCR guard"
-   },
-   {
-    "phrase": "all 154/154 P1 documents",
-    "why": "the count is bound by claims; 'all' restates it"
    },
    {
     "phrase": "(committed results only)",
@@ -1963,10 +2072,6 @@
    {
     "phrase": "only meeting documents",
     "why": "names a construct (councils that publish only minutes); 16 bound by claims"
-   },
-   {
-    "phrase": "matched by identity and wording only",
-    "why": "describes the Jura matching rule"
    },
    {
     "phrase": "a third breaks ties",
@@ -2027,10 +2132,6 @@
    {
     "phrase": "3 dates judged wrong, all Solothurn",
     "why": "the 3 date verdicts of the re-read fall in exact_doc_date/fetch, Solothurn's eq_gov rows (retier_r18.json audit.after_retier by_stratum)"
-   },
-   {
-    "phrase": "`promoted_by_apertus` holds 214 of the 917 it was applied to",
-    "why": "what P7's tier contains (214 rows promoted of the 917 the registered run was applied to)"
    }
   ],
   "docs/form_notes.md": [

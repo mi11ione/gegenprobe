@@ -50,6 +50,8 @@ GENERATORS = [
     # no-model baseline (post hoc)
     ("gegenprobe.findings.answer_times", "main"),
     ("eval.gold2.posthoc_best_baseline", "main"),
+    # round 19 docs pass: P11 (exploratory) display numbers and the gateway build census of the committed responses
+    ("report.r19_numbers", "main"),
 ]
 
 
