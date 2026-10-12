@@ -6,8 +6,17 @@ One static app, four views, opening on the tool (no backend, no model, no third-
 |---|---|---|
 | Lookup (`#/`, `#/affair/<OPD id>`) | one search box over all 91,268 interventions with a recorded government answer (affair number, title words, OPD id, parliament); the detail: status (attached / oral / repair proposed / review / missing), where the answer is with its evidence (OPD document id, the parliament's document, the check and its dates, a short quote from the committed list), the fix and what OPD decides, links, and the v0.2 record where one exists (value, role, page, character span, route, typed gaps; the located values' boxes drawn on a page outline) | `results/census/interventions.tsv.gz`, `census/corrected.py` placement, the repair lists under `results/repair/`, `data/app/affair_titles.tsv.gz` (OPD titles and parliament links), `results/schema/v0_2/*_records.jsonl` and `span_bboxes.jsonl` |
 | Parliaments (`#/parliaments`, `#/parliament/<key>`) | one row per parliament: answers, share with text today and after the proposed repairs, gap, repairs by action, open, converter status; sortable, filtered by level and language; a parliament's page lists its interventions by status, its committed lists and a CSV export | the same, `results/convert/coverage_by_parliament.json` |
-| Repair queue (`#/queue`) | every counted repair with action, step, check, ready/review and hash decision; filters with live counts, a row's evidence on Enter, CSV export of the selection and, for Bern relinks, the selected guarded statements copied verbatim from the dry-run plan with the plan's all-or-nothing guard set to their count | `results/repair/`, `results/repair/apply_be/apply_BE_plan.sql.txt` |
+| Repair queue (`#/queue`) | every counted repair with action, step, check, ready/review and hash decision; filters with live counts, grouped by step, the selected repair's evidence beside the list, CSV export of the selection and, for Bern relinks, the selected guarded statements copied verbatim from the dry-run plan with the plan's all-or-nothing guard set to their count | `results/repair/`, `results/repair/apply_be/apply_BE_plan.sql.txt` |
 | About (`#/about`) | what this is, the schema answer with the 17-field grid, Apertus's registered results, how a value is proven, links, downloads | `results/evidence/data.json`, `results/report/`, `results/p7/` |
+
+Every view is the same shell, the design system of the team's 2B register: a bar (designation left, the views with their
+counts, Export and Theme right) closed by a thin red line; one mono line of state (OPD snapshot, interventions, answer
+text today → after the repairs, repairs, build id) with its explanation behind `[?]`; then a ruled list on the left
+(filters on one row, group headers that carry their counts) and the selected item on the right (what, where the answer
+is, numbered actions, evidence); a footbar with the project and legal links. IBM Plex Mono for every control, label and
+number, Public Sans only for titles and readable text; red only for signal. Keys: `j`/`k` move in the list, `Enter`
+opens, `/` searches, the number keys trigger the item's numbered actions, `Esc` goes back. Below 900 px the list comes
+first and the selected item replaces it.
 
 ## Commands
 ```bash

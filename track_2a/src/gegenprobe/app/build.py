@@ -616,9 +616,29 @@ def core(bodies: list[dict], types: list[str], rows: list[dict], recs: dict, n_s
         records=sorted(recs), token_keys=None, opd_affair=OPD_AFFAIR, repo=DL.REPO_URL, blob=DL.REPO_BLOB,
         bound=bound_values(), fields=field_grid(), downloads=None,
         links=dict(report="downloads/444_Report.pdf", decision_en=DL.REPO_BLOB + "docs/decision.md",
-                   decision_de=DL.REPO_BLOB + "docs/decision_de.md", readme=DL.REPO_URL + "#readme"),
-        bern_plan="downloads/apply_BE_plan.sql.txt",
+                   decision_de=DL.REPO_BLOB + "docs/decision_de.md", readme=DL.REPO_URL + "#readme",
+                   licences=DL.REPO_BLOB + "docs/licences.md"),
+        bern_plan="downloads/apply_BE_plan.sql.txt", snapshot=snapshot(), build=None,
     )
+
+
+def snapshot() -> str:
+    """The OPD metadata snapshot the census counts from (yyyy-mm-dd), as results/census/vs_reconcile.json records it."""
+    s = _j(RESULTS / "census" / "vs_reconcile.json")["snapshots"]["census"]
+    assert re.match(r"\d{4}-\d\d-\d\d", s), s
+    return s[:10]
+
+
+def build_id(data: dict) -> str:
+    """The status line's build: sha256 over the app's code (index.html, app.js, app.css) and every data file it loads,
+    first 7 hex characters; the same inputs give the same id (it is not a timestamp)."""
+    h = hashlib.sha256()
+    for name in ("index.html", "app.js", "app.css"):
+        h.update((APP / name).read_bytes() + b"\0")
+    core = dict(data["core"], build=None)
+    for part in (core, data["index"], data["queue"], data["tokens"], data["shards"], data["names"], data["records"]):
+        h.update(dumps(part).encode("utf-8") + b"\0")
+    return h.hexdigest()[:7]
 
 
 # ------------------------------------------------------------------------------------------------ write
@@ -641,6 +661,7 @@ def write(out: Path = SITE) -> dict:
     DL.copy(out)
     data["core"]["downloads"] = DL.listing(out)
     data["core"]["token_keys"] = sorted(data["tokens"])
+    data["core"]["build"] = build_id(data)
     d = out / "data"
     for sub in ("t", "s", "n", "r"):
         (d / sub).mkdir(parents=True)

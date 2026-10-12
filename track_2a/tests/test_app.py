@@ -171,14 +171,15 @@ def test_fonts_self_hosted_and_licensed():
     assert "googleapis" not in css and "gstatic" not in css
     urls = set(re.findall(r'url\("(fonts/[^"]+)"\)', css))
     assert urls and all((SITE / u).exists() for u in urls), urls
-    assert all((SITE / "fonts" / f).exists() for f in ("OFL-Archivo.txt", "OFL-IBM-Plex-Mono.txt", "SOURCES.txt"))
+    assert all((SITE / "fonts" / f).exists() for f in ("OFL-PublicSans.txt", "OFL-IBM-Plex-Mono.txt", "SOURCES.txt"))
 
 
 def test_routes_and_views():
     js = (A.APP / "app.js").read_text(encoding="utf-8")
     page = (A.APP / "index.html").read_text(encoding="utf-8")
-    for v in ("lookup", "parliaments", "parliament", "queue", "about"):
+    for v in ("lookup", "parliaments", "queue", "about"):  # a parliament (#/parliament/<key>) is the Parliaments view's detail
         assert f'id="v-{v}"' in page, v
     for r in ("#/affair/", "#/parliament/", "#/parliaments", "#/queue", "#/about"):
         assert r in js or r in page, r
     assert 'data-claims="about"' in js and 'data-claims="queue"' in js and 'data-claims="lookup"' in js
+    assert 'data-claims="status"' in page  # the one line of state under the bar: every number in it is bound

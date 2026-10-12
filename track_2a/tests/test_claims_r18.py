@@ -246,7 +246,9 @@ def test_rendered_app_states_its_numbers(rows):
     queue = S.marked_text(doms["#/queue"])["queue"]
     b = json.loads((ROOT / "site" / "data" / "core.json").read_text(encoding="utf-8"))["bound"]
     assert f"{b['p2_pointer'][0]}/{b['p2_pointer'][1]}" in about and f"+{b['p10_points']}" in about
-    assert f"{b['now']:,} apply now" in queue and f"{b['fetch']:,} fetch" in queue
+    # the queue's group headers: each step with its stated count (all three bound)
+    assert f"Apply now · {b['now']:,}" in queue and f"(Bern) · {b['after_hash']:,}" in queue
+    assert f"Fetch from the parliaments · {b['fetch']:,}" in queue
 
 
 # --------------------------------------------------------------------------------------------------------- the PDF

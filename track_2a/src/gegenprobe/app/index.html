@@ -12,32 +12,62 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="mast">
-  <a class="mark" href="#/" aria-label="Gegenprobe: Lookup">Gegen<span>probe</span></a>
-  <span class="sub">OpenParlData answer check</span>
-  <nav class="tabs" aria-label="Views">
-    <a href="#/" data-view="lookup">Lookup</a><a href="#/parliaments" data-view="parliaments">Parliaments</a><a href="#/queue" data-view="queue">Repair queue</a><a href="#/about" data-view="about">About</a>
-  </nav>
-  <button class="theme" id="theme" type="button" title="Colour theme">Auto</button>
+<div class="app">
+<header class="bar">
+ <a class="wm" href="#/" aria-label="Gegenprobe: Lookup"><span class="n">Gegenprobe</span><span class="d">OpenParlData answer check</span></a>
+ <nav class="views" aria-label="Views">
+  <a class="view" href="#/" data-view="lookup">Lookup<span class="c" id="c-lookup"></span></a>
+  <a class="view" href="#/parliaments" data-view="parliaments">Parliaments<span class="c" id="c-parliaments"></span></a>
+  <a class="view" href="#/queue" data-view="queue">Repair queue<span class="c" id="c-queue"></span></a>
+  <a class="view" href="#/about" data-view="about">About</a>
+ </nav>
+ <div class="tools">
+  <details class="menu" id="xmenu"><summary>Export</summary><div class="mm" id="xmm"></div></details>
+  <button class="tb" id="theme" type="button">Theme: auto</button>
+ </div>
 </header>
+<div class="ctxw">
+ <div class="ctxrow"><p class="ctx" id="ctxline" data-claims="status"></p><p class="demo">Not run by OpenParlData · reads its public data, changes nothing</p></div>
+ <dl class="help" id="help" hidden></dl>
+</div>
 <main id="main" tabindex="-1">
-  <section class="view" id="v-lookup" aria-label="Lookup" hidden>
-    <div class="searchbar">
-      <label class="sr" for="q">Affair number, title words, OPD id or parliament</label>
-      <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Affair number, title, OPD id, parliament" aria-controls="results" aria-keyshortcuts="/" title="Press / to search from anywhere">
-      <div class="seg" id="qstatus" role="group" aria-label="Status filter"></div>
-    </div>
-    <div class="split">
-      <div class="pane-list" id="results" aria-live="polite"></div>
-      <article class="pane-detail" id="detail" aria-live="polite"></article>
-    </div>
+ <div class="work" id="v-lookup" hidden>
+  <section class="register" aria-label="Interventions">
+   <div class="search"><label class="k" for="q">Search <span class="vh">Affair number, title words, OPD id or parliament</span></label>
+    <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="number, title words, OPD id, parliament" aria-controls="lk" aria-keyshortcuts="/"></div>
+   <div class="filters" id="lk-filters"></div>
+   <div class="reg-wrap" id="lk-wrap"><table class="list" id="lk"><colgroup><col class="mk"><col><col class="st"></colgroup>
+    <thead><tr><th></th><th>Affair</th><th>Answer</th></tr></thead><tbody></tbody></table></div>
+   <div class="count" id="lk-count"></div>
   </section>
-  <section class="view" id="v-parliaments" aria-label="Parliaments" hidden></section>
-  <section class="view" id="v-parliament" aria-label="Parliament" hidden></section>
-  <section class="view" id="v-queue" aria-label="Repair queue" hidden></section>
-  <section class="view" id="v-about" aria-label="About" hidden></section>
-  <p class="loading" id="loading">Loading…</p>
-  <noscript><p class="loading">This tool needs JavaScript. Its data and lists are in the <a href="https://github.com/mi11ione/gegenprobe">repository</a>.</p></noscript>
+  <section class="case" id="lk-case" tabindex="-1" aria-label="Affair" aria-live="polite"></section>
+ </div>
+ <div class="work" id="v-parliaments" hidden>
+  <section class="register" aria-label="Parliaments">
+   <div class="filters" id="pl-filters"></div>
+   <div class="reg-wrap" id="pl-wrap"><table class="list" id="pl"><colgroup><col><col class="st"><col class="gp"></colgroup>
+    <thead><tr></tr></thead><tbody></tbody></table></div>
+   <div class="count" id="pl-count"></div>
+  </section>
+  <section class="case" id="pl-case" tabindex="-1" aria-label="Parliament"></section>
+ </div>
+ <div class="work" id="v-queue" hidden>
+  <section class="register" aria-label="Repairs">
+   <div class="filters" id="qu-filters"></div>
+   <div class="reg-wrap" id="qu-wrap"><table class="list" id="qu"><colgroup><col class="mk"><col><col class="st"></colgroup>
+    <thead><tr><th><span class="vh">Select</span></th><th>Repair</th><th>Action</th></tr></thead><tbody></tbody></table></div>
+   <div class="count" id="qu-count"></div>
+  </section>
+  <section class="case" id="qu-case" tabindex="-1" aria-label="Repair"></section>
+ </div>
+ <div class="doc" id="v-about" hidden></div>
+ <p class="loading" id="loading">Loading…</p>
+ <noscript><p class="loading">This tool needs JavaScript. Its data and lists are in the <a href="https://github.com/mi11ione/gegenprobe">repository</a>.</p></noscript>
 </main>
+<footer>
+ <p><span>Gegenprobe</span><span class="sep">·</span><span>Team 444</span><span class="sep">·</span><span>Hack Apertus 2026, Track 2A</span><span class="sep">·</span><span>not run by OpenParlData</span><span class="sep">·</span><a href="https://github.com/mi11ione/gegenprobe">repository</a><span class="sep">·</span><a href="downloads/444_Report.pdf">report (PDF)</a><span class="sep">·</span><a href="https://github.com/mi11ione/gegenprobe/blob/main/track_2a/docs/licences.md">licences</a></p>
+ <p>j/k move · Enter open · / search · [1]–[4] actions · Esc back</p>
+</footer>
+</div>
 </body>
 </html>
