@@ -1,6 +1,6 @@
 id	shown	file	path	fmt	command	where
-r21_b.p2.cascade.exact	49/62	results/eval/p2_posthoc_cascade.json	arms.rules_then_keyword_cue.exact/arms.rules_then_keyword_cue.n	frac	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	README.md,technical_report.md,docs/evaluation.md
-r21_b.p2.cascade.answer_dates	21/29	results/eval/p2_posthoc_cascade.json	arms.rules_then_keyword_cue.value_recall	frac	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	README.md,technical_report.md,docs/evaluation.md
+r21_b.p2.cascade.exact	49/62	results/eval/p2_posthoc_cascade.json	arms.rules_then_keyword_cue.exact/arms.rules_then_keyword_cue.n	frac	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	docs/evaluation.md
+r21_b.p2.cascade.answer_dates	21/29	results/eval/p2_posthoc_cascade.json	arms.rules_then_keyword_cue.value_recall	frac	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	docs/evaluation.md
 r21_b.p2.cascade.answerless_dated	5/33	results/eval/p2_posthoc_cascade.json	arms.rules_then_keyword_cue.values_on_gold_null	frac	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	-
 r21_b.p2.cascade.discordant	9 vs 5	results/eval/p2_posthoc_cascade.json	display.discordant	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	-
 r21_b.p2.cascade.mcnemar_p	0.42	results/eval/p2_posthoc_cascade.json	display.mcnemar_p	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	docs/evaluation.md
@@ -10,8 +10,8 @@ r21_b.p2.cascade.parliaments	4 vs 3	results/eval/p2_posthoc_cascade.json	display
 r21_b.p2.cascade.perm_p	0.64	results/eval/p2_posthoc_cascade.json	display.parliament_permutation_p	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	docs/evaluation.md
 r21_b.p2.cascade.cluster95	[-0.123, 0.234]	results/eval/p2_posthoc_cascade.json	display.cluster95	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	docs/evaluation.md
 r21_b.p2.cascade.answered_cluster95	[-0.286, 0.481]	results/eval/p2_posthoc_cascade.json	display.answered_cluster95	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	-
-r21_b.p2.ladder.rules	35/62	results/eval/p2_posthoc_cascade.json	display.ladder_exact.rules	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	docs/evaluation.md,README.md
-r21_b.p2.ladder.results_table	44/62	results/eval/p2_posthoc_cascade.json	display.ladder_exact.latest_date_on_answer_docs_only	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	README.md,technical_report.md,docs/evaluation.md
+r21_b.p2.ladder.rules	35/62	results/eval/p2_posthoc_cascade.json	display.ladder_exact.rules	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	docs/evaluation.md
+r21_b.p2.ladder.results_table	44/62	results/eval/p2_posthoc_cascade.json	display.ladder_exact.latest_date_on_answer_docs_only	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	docs/evaluation.md
 r21_b.p2.ladder.keyword	45/62	results/eval/p2_posthoc_cascade.json	display.ladder_exact.keyword	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	docs/evaluation.md
 r21_b.p2.ladder.composite	46/62	results/eval/p2_posthoc_cascade.json	display.ladder_exact.composite	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	docs/evaluation.md
 r21_b.p2.ladder.keyword_cue	47/62	results/eval/p2_posthoc_cascade.json	display.ladder_exact.keyword_cue	str	PYTHONPATH=src:. python -m eval.gold2.posthoc_cascade	docs/evaluation.md

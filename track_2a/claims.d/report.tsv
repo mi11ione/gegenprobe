@@ -2,7 +2,7 @@ id	shown	file	path	fmt	command	where
 report.theta_auroc	0.99	results/report/report_numbers.json	theta.auroc	f2	python -m report.stats / CI run (see file)	technical_report.md
 report.theta_loo	124/127	results/report/report_numbers.json	theta.loo_correct/theta.loo_n	frac	python -m report.stats / CI run (see file)	-
 report.theta_loo_ci	[93.3, 99.2]	results/report/report_numbers.json	theta.loo_ci_pct	ci	python -m report.stats / CI run (see file)	-
-report.cited_identical	760/792	results/report/cited_spikes.json	public_ai_identical_greedy_cells.value/public_ai_identical_greedy_cells.of	frac	python -m report.stats / CI run (see file)	docs/evaluation.md
+report.cited_identical	760/792	results/report/cited_spikes.json	public_ai_identical_greedy_cells.value/public_ai_identical_greedy_cells.of	frac	python -m report.stats / CI run (see file)	docs/evaluation.md,technical_report.md
 report.cited_mmlu_8bname	84.4	results/report/cited_spikes.json	mmlu_8b_name.value	f1	python -m report.stats / CI run (see file)	docs/evaluation.md
 report.cited_mmlu_v1	70.8	results/report/cited_spikes.json	mmlu_v1_8b_route.value	f1	python -m report.stats / CI run (see file)	docs/evaluation.md
 report.cited_qwen	3/3	results/report/cited_spikes.json	qwen_fallback.value/qwen_fallback.of	frac	python -m report.stats / CI run (see file)	-

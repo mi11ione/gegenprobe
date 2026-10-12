@@ -49,28 +49,28 @@ def _errs(rows, docs) -> set[str]:
 # (document, text before, text after): J5's nine misses, verbatim where the docs still print them
 J5_MISSES = [
     # 1. a comparative flipped: level -> ahead
-    ("README.md", "with precision not worse (P10, H1 and H2, registered)",
-     "with precision ahead of the rules (P10, H1 and H2, registered)"),
+    ("README.md", "(50/141 pairs vs 17/141); precision not worse |",
+     "(50/141 pairs vs 17/141); precision ahead of the rules |"),
     # 2. the maturity table (what the rubric scores rigour against)
-    ("technical_report.md", "*feasibility study*: review mode",
-     "*deployable prototype*: review mode"),
-    ("technical_report.md", "*drafts for the eCH group*: schema v0.1",
-     "*final eCH standard*: schema v0.1"),
+    ("technical_report.md", "| *feasibility study* · *drafts",
+     "| *deployable prototype* · *drafts"),
+    ("technical_report.md", "*drafts for the eCH group* | review mode",
+     "*final eCH standard* | review mode"),
     # 3. every one -> most
     ("docs/form_notes.md", "every one from model-free rules", "most from model-free rules"),
     # 4. a false sovereignty claim
-    ("README.md", "The Apertus 8B runs locally on CPU", "The Apertus 70B runs locally on a laptop CPU"),
+    ("README.md", "or nothing with the local 8B on CPU |", "or nothing with the local 70B on a laptop CPU |"),
     # 5. the review flag
-    ("README.md", "`needs_review: true`\n  for OPD's", "`needs_review: false`\n  for OPD's"),
+    ("README.md", "`needs_review: true`; a settings file", "`needs_review: false`; a settings file"),
     # 6. the data-protection recommendation
     ("technical_report.md", "it recommends rules only or the local 8B", "it recommends the Public AI gateway"),
     # 7. Apertus's role
-    ("README.md", "Apertus as a reviewer's aid", "Apertus as the unattended extractor"),
-    ("README.md", "**Apertus 70B, opt-in, reads layouts no rules cover:**",
+    ("README.md", "proposes values and a reviewer confirms each |", "runs as the unattended extractor |"),
+    ("README.md", "**Apertus 70B (opt-in) reads layouts no rules cover:**",
      "**Apertus 70B, essential, reads layouts no rules cover:**"),
     # 8. a new sentence without numbers or verdict words
-    ("README.md", "- **Suggestions go to a reviewer;",
-     "**Apertus beats the rules on every field we tested.**\n- **Suggestions go to a reviewer;"),
+    ("README.md", "- **Auditable by construction:**",
+     "**Apertus beats the rules on every field we tested.**\n- **Auditable by construction:**"),
     # 9. small integers in prose
     ("README.md", "4 come from\nparliamentary practice, 4 partly from OPD's tagging",
      "5 come from\nparliamentary practice, 3 partly from OPD's tagging"),
@@ -131,10 +131,10 @@ def test_list_selector_in_pin_paths():
 # ---------------------------------------------------------------------------------------------------- small integers
 @pytest.mark.parametrize("doc,before,after", [
     ("README.md", "in 7 parliaments, mostly the submission date", "in 8 parliaments, mostly the submission date"),
-    ("../README.md", "in 7 parliaments,\n  mostly the submission date", "in 6 parliaments,\n  mostly the submission date"),
+    ("../README.md", "in 7 parliaments, mostly the submission date", "in 6 parliaments, mostly the submission date"),
     ("technical_report.md", "dates 7 of 90 answerless documents", "dates 5 of 90 answerless documents"),
     ("docs/form_notes.md", "The 9 held results", "The 8 held results"),
-    ("README.md", "- **Suggestions go to a reviewer;", "- In 3 parliaments the rules fail.\n- **Suggestions go to a reviewer;"),
+    ("README.md", "- **Auditable by construction:**", "- In 3 parliaments the rules fail.\n- **Auditable by construction:**"),
 ])
 def test_small_integers_in_prose_are_bound(doc, before, after, rows, monkeypatch):
     monkeypatch.setenv("GP_CLAIMS_STRICT", "1")
@@ -242,11 +242,11 @@ def test_pdf_whole_text_in_sync(pdf_raw):
 
 
 @pytest.mark.parametrize("before,after", [
-    ("*feasibility study*: review mode, whole and virtual affairs",
-     "*deployable prototype*: review mode, whole and virtual affairs"),
+    ("*feasibility study* · *drafts for the eCH group* | review mode, whole and virtual affairs",
+     "*deployable prototype* · *drafts for the eCH group* | review mode, whole and virtual affairs"),
     ("for public bodies it recommends rules only or the local 8B", "for public bodies it recommends the Public AI gateway"),
-    ("the rules (135) and the latest date on answer-typed documents (131)",
-     "the latest date on answer-typed documents (135) and the rules (131)"),
+    ("(cascade alone right on 5, rules alone on 1, p = 0.22)",
+     "(cascade alone right on 1, rules alone on 5, p = 0.22)"),
 ])
 def test_pdf_unanchored_drift_fails(pdf_raw, before, after):
     """J5: pdf_check only looked for anchor phrases, so an unanchored sentence (the maturity table) could drift."""

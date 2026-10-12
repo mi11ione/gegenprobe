@@ -1,11 +1,11 @@
 id	shown	file	path	fmt	command	where	context
-r19e.fc.carries_n	1,171	results/schema/v0_2/field_completeness.json	summary.converter_carries	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_completeness	README.md,technical_report.md	
+r19e.fc.carries_n	1,171	results/schema/v0_2/field_completeness.json	summary.converter_carries	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_completeness	README.md	
 r19e.refit.done	40	results/refit_bfd70257/dev_partial_compare.json	n_complete_new_build	int	python -m eval.refit_bfd70257.run partial	README.md,docs/runbook.md,docs/evaluation.md	
-r19e.refit.dev	97	results/refit_bfd70257/dev_partial_compare.json	n_dev	int	python -m eval.refit_bfd70257.run partial	README.md,docs/runbook.md,docs/evaluation.md	
+r19e.refit.dev	97	results/refit_bfd70257/dev_partial_compare.json	n_dev	int	python -m eval.refit_bfd70257.run partial	docs/operations.md,docs/runbook.md,docs/evaluation.md	
 r19e.refit.agree	38/40	results/refit_bfd70257/dev_partial_compare.json	decision_agreement_at_theta_old.0/decision_agreement_at_theta_old.1	frac	python -m eval.refit_bfd70257.run partial	docs/runbook.md	
-r19e.it.reader_matched	21	results/report/r19_numbers.json	p11.it.roles.reader.matched	int	PYTHONPATH=src:. python -m report.r19_numbers	README.md	
-r19e.it.reader_prec	0.33	results/report/r19_numbers.json	p11.it.roles.reader.precision	str	PYTHONPATH=src:. python -m report.r19_numbers	README.md,docs/evaluation.md	
+r19e.it.reader_matched	21	results/report/r19_numbers.json	p11.it.roles.reader.matched	int	PYTHONPATH=src:. python -m report.r19_numbers	docs/evaluation.md	
+r19e.it.reader_prec	0.33	results/report/r19_numbers.json	p11.it.roles.reader.precision	str	PYTHONPATH=src:. python -m report.r19_numbers	docs/evaluation.md	
 r19e.it.reader_rec	0.30	results/report/r19_numbers.json	p11.it.roles.reader.recall	str	PYTHONPATH=src:. python -m report.r19_numbers	README.md,technical_report.md,docs/evaluation.md	
-r19e.oos.function_ni_miss	2	results/schema/v0_2/oos_role_fit.json	fields.instrument_function.tests.p11_ni.unnamed	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_oos_fit	README.md	
+r19e.oos.function_ni_miss	2	results/schema/v0_2/oos_role_fit.json	fields.instrument_function.tests.p11_ni.unnamed	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_oos_fit	docs/schema.md	
 r19e.meta.type_unknown_before	33	results/schema/v0_2/field_completeness.json	before.type_harmonised.converter.untyped	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_completeness	README.md,docs/affair.md	"{""README.md"": ""33 written questions"", ""docs/affair.md"": ""typed 33 written questions""}"
 r19e.meta.type_unknown_after	0	results/schema/v0_2/field_completeness.json	after.type_harmonised.converter.untyped	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_completeness	README.md	"{""README.md"": ""`unknown` (now 0)""}"

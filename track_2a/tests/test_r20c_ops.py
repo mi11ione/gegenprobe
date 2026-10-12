@@ -195,8 +195,10 @@ def test_site_hero_wraps_on_phones_states_the_gain_and_sovereignty():
     tpl = (ROOT / "src" / "gegenprobe" / "viewer" / "template.html").read_text()
     m = re.search(r"@media \(max-width: 480px\) \{\s*\.hero \.rlist \{ display: block;.*?\n\}", tpl, re.S)
     assert m and ".hero .rlist li { display: block; white-space: normal; }" in m.group(0)
-    assert "up from ${pct(1 - x.missing / x.written)} today (+${" in tpl and "points${period === 'all'" in tpl
+    # R22: the hero states the gain as today -> after the repairs, under the repairs line
+    assert "`${pct(1 - x.missing / x.written)} → ${pct(am.after_repair)}`" in tpl
+    assert "today, and once these repairs are applied" in tpl
     sov = re.search(r'<p class="scope sov" id="heroSovereign">(.*?)</p>', tpl).group(1)
     assert "Docker" in sov and "no document text leaves your machine" in sov and "Public AI" in sov
     site = json.loads((ROOT / "claims_site.json").read_text())
-    assert any(b["claim"] == "r20_c.hero.gain_points" and b["fmt"] == "f1" for b in site["bindings"])
+    assert any(b["claim"] == "r7docs.attached_share" for b in site["bindings"])

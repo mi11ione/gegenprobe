@@ -1,0 +1,7 @@
+id	shown	file	path	fmt	command	where	context
+r22.p2_pointer_found_n	24	results/report/p2_numbers.json	arms.pointer.value_recall	int	python -m report.p2_numbers	README.md,../README.md	{"README.md": "24 of 29 answer dates", "../README.md": "24 of 29 answer dates"}
+r22.p2_rules_found_n	2	results/report/p2_numbers.json	arms.rules.value_recall	int	python -m report.p2_numbers	README.md,../README.md	{"README.md": "vs 2 of 29 for the rules", "../README.md": "vs 2 of 29 for the rules"}
+r22.p3b_ca_type	35/36	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	scores.fields.affair_type.CA.correct/scores.fields.affair_type.CA.n	frac	python -m eval.gold5.run_p3b	README.md	
+r22.p3b_ca_submitter	30/36	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	scores.fields.submitter.CA.correct/scores.fields.submitter.CA.n	frac	python -m eval.gold5.run_p3b	README.md	
+r22.p3b_ca_submitted	30/34	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	scores.fields.submitted.CA.correct/scores.fields.submitted.CA.n	frac	python -m eval.gold5.run_p3b	README.md	
+r22.p3b_ca_number	18/29	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	scores.fields.number.CA.correct/scores.fields.number.CA.n	frac	python -m eval.gold5.run_p3b	README.md	

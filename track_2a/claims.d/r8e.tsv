@@ -2,7 +2,7 @@ id	shown	file	path	fmt	command	where	context
 r8e.p7_queue_promoted	214	results/p7/p7_posthoc_r8.json	without_frauenfeld.queue_promotions.all	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_queue_frauenfeld	109	results/p7/p7_posthoc_r8.json	without_frauenfeld.queue_promotions.frauenfeld	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_judged_frauenfeld	72	results/p7/p7_posthoc_r8.json	without_frauenfeld.h1.frauenfeld_only.n	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
-r8e.p7_nf_h1	48/48	results/p7/p7_posthoc_r8.json	without_frauenfeld.h1.correct/without_frauenfeld.h1.n	frac	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md,README.md	
+r8e.p7_nf_h1	48/48	results/p7/p7_posthoc_r8.json	without_frauenfeld.h1.correct/without_frauenfeld.h1.n	frac	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_nf_h1_ci	[92.6, 100]	results/p7/p7_posthoc_r8.json	display.nf_h1_wilson_pct	ci	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_parliaments_judged	9	results/p7/p7_posthoc_r8.json	cluster.n_parliaments_with_p7_rows	int	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_parliament_unit_ci	[70.1, 100]	results/p7/p7_posthoc_r8.json	display.parliament_unit_wilson_pct	ci	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
@@ -39,7 +39,7 @@ r8e.p7_date_hit_rule	70.2%	results/p7/p7_posthoc_r8.json	ablation.arms.rule_any_
 r8e.p7_date_hit_trivial	72.2%	results/p7/p7_posthoc_r8.json	ablation.arms.trivial.precision_date_hit.estimate	pct1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	-	
 r8e.p7_minus_rule_date_hit	23.9	results/p7/p7_posthoc_r8.json	display.p7_minus_rule_date_hit_pts	f1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
 r8e.p7_minus_rule_date_hit_ci	[12.7, 34.7]	results/p7/p7_posthoc_r8.json	display.p7_minus_rule_date_hit_pts_ci	ci	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
-r8e.p7_base_rate	86.7%	results/p7/p7_posthoc_r8.json	base_rate.yes	pct1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md,README.md,technical_report.md	
+r8e.p7_base_rate	86.7%	results/p7/p7_posthoc_r8.json	base_rate.yes	pct1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md,technical_report.md	
 r8e.p7_base_rate_dated	40.9%	results/p7/p7_posthoc_r8.json	base_rate.yes_dated	pct1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	-	
 r8e.p7_bar_minus_base	3.3	results/p7/p7_posthoc_r8.json	display.bar_minus_base_pts	f1	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	-	
 r8e.p7_qwen_kappa	0.655	results/p7/p7_posthoc_r8.json	display.qwen_kappa	str	PYTHONPATH=src:. python -m eval.p7.posthoc_r8	docs/evaluation.md	
@@ -59,7 +59,7 @@ r8e.p5h1_precision_cluster	[66.4, 96.6]	results/eval/posthoc_r8_multiplicity.jso
 r8e.p5h1_recall_cluster	[51.2, 81.2]	results/eval/posthoc_r8_multiplicity.json	summary_display.p5_h1_recall_cluster_pct	ci	PYTHONPATH=src:. python -m eval.posthoc_r8 multiplicity	docs/evaluation.md	
 r8e.p5h2_cluster	[42.3, 79]	results/eval/posthoc_r8_multiplicity.json	summary_display.p5_h2_cluster_pts	ci	PYTHONPATH=src:. python -m eval.posthoc_r8 multiplicity	docs/evaluation.md	
 r8e.p5h4_cluster	[22.4, 55.7]	results/eval/posthoc_r8_multiplicity.json	summary_display.p5_h4_cluster_pts	ci	PYTHONPATH=src:. python -m eval.posthoc_r8 multiplicity	docs/evaluation.md	
-r8e.noans_docs	53	results/eval/posthoc_r8_noanswer.json	headline.no_answer_docs	int	PYTHONPATH=src:. python -m eval.posthoc_r8 noanswer	README.md,docs/evaluation.md	
+r8e.noans_docs	53	results/eval/posthoc_r8_noanswer.json	headline.no_answer_docs	int	PYTHONPATH=src:. python -m eval.posthoc_r8 noanswer	docs/evaluation.md	
 r8e.noans_dated	0/53	results/eval/posthoc_r8_noanswer.json	headline.dated/headline.no_answer_docs	frac	PYTHONPATH=src:. python -m eval.posthoc_r8 noanswer	docs/evaluation.md	
 r8e.noans_ci	[0, 6.8]	results/eval/posthoc_r8_noanswer.json	display.wilson95_pct	ci	PYTHONPATH=src:. python -m eval.posthoc_r8 noanswer	docs/evaluation.md	
 r8e.noans_on_answers	9/14	results/eval/posthoc_r8_noanswer.json	headline.dates_on_answers_without_qualifying_date.0/headline.dates_on_answers_without_qualifying_date.1	frac	PYTHONPATH=src:. python -m eval.posthoc_r8 noanswer	docs/evaluation.md	

@@ -286,3 +286,111 @@ share (about 569k residue documents; an upper bound, since review mode runs only
 take about 28,400 machine-hours on one such machine, the 70B about USD 336 at that list price. **At ten times OPD's
 volume** the rules need about 5 CPU-hours and review mode about USD 3,357 at that list price; fetching and extracting
 the documents (about 2.1 s each) dominates, not the rules.
+
+## Detail from the project README
+
+### Which model
+
+**Which model.** Every committed gateway response (17,720, the cache `make run` replays) comes from one build: route
+and label `swiss-ai/apertus-v1.5-8b`, fingerprint `vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840`, the 70B
+weights by inference ([fingerprint check](docs/evaluation.md#use-of-apertus)); the response's `model` field is checked
+on every call. On 12 Oct 2026 Public AI switched that route to another build and, the same night, back:
+in between it answered as `swiss-ai/Apertus-v1.5-70B`, fingerprint `vllm-0.1.dev1+g54b4292c2-tp2-bfd70257`, with
+other log-probabilities on the same requests (up to 4.64 apart on 3 replays). The build guard caught the switch live
+and stopped P11's role reader at its first response from the other build, so no result mixes builds; on the registered
+build again, the role reader resumed and read all 12 affairs (D2). Review mode refused the other build (exit 3) and
+runs again on the registered θ: a live `convert --mode review` and `affair --mode review --roles apertus` both exited 0
+on the registered fingerprint (`results/refit_bfd70257/e2e_live.json`). A θ refit for the other build had reached 40
+of 97 dev documents when the route switched back (`eval/refit_bfd70257/NOTE.md`); a deployment θ applies only after
+one preflight request shows that the route serves the build it was fitted on (`convert/deploy_theta.py`,
+[routes](docs/runbook.md#review-mode-routes)). The 8B is a community 4-bit GGUF of `swiss-ai/Apertus-v1.5-8B`,
+sha256-pinned, run in-process on CPU. Review mode stops on a served build its θ was not fitted on.
+
+### Supply chain and licences
+
+- **Supply chain and licences** ([`docs/licences.md`](docs/licences.md)). The image installs 8 Python packages under
+  permissive licences, every lock hash-pinned, and runs poppler (GPL) only as a separate program; CycloneDX SBOMs of
+  the Python environment and the image's system layer are in `docs/sbom/`. CI job `sbom-audit` regenerates them and
+  scans every lock for known vulnerabilities: 0 failing; 1 accepted with its reason, in the optional local 8B's lock
+  (diskcache, which llama-cpp-python requires and Gegenprobe never calls). CI job `image-scan` builds the image and scans
+  it with grype (Debian packages, CPython, Python packages) and fails on any HIGH or CRITICAL finding with a published
+  fix: the image builds on `python:3.11.17-slim-bookworm` and applies Debian's updates at build time. Scanned on 12 Oct 2026,
+  that base and the image's system layer have 0 such findings the Dockerfile keeps (71 HIGH or CRITICAL have no Debian
+  fix listed), where the previous base (3.11.14) had 89 ([licences.md, Image scan](docs/licences.md#image-scan)).
+
+### Sovereignty: runtime hosts
+
+- **Sovereignty.** The default nightly job uses no third-party processor. At runtime Gegenprobe makes read-only
+  requests to public sources, at least 1.2 s apart per host; an optional review model runs where the operator chooses
+  (our evaluation used Public AI, which may route outside Switzerland; with the local 8B no text leaves the machine):
+
+  | runtime host | what is sent | needed for |
+  |---|---|---|
+  | files.openparldata.ch (or none, with `GP_EXPORTS_DIR`) | GET only | census, nightly job |
+  | ogd.parl.apps.be.ch, rrgr-service.apps.be.ch (canton Bern) | GET; an affair number | Bern repair |
+  | fedlex.data.admin.ch (SPARQL), www.fedlex.admin.ch | a citation such as "BBl 2014 9657" | federal placeholder repair |
+  | document hosts listed in OPD; the parliaments' sites the source adapters read (one canary per source each network night, on by default) | GET of a public page or PDF and its robots.txt | conversion, adapter lists, canaries |
+  | huggingface.co, only with `GP_GGUF=1` | GET of the pinned GGUF, once | local 8B |
+  | the LLM endpoint the operator sets (`LLM_BASE_URL`), or none | text of public parliamentary documents | review mode |
+  | the webhook or SMTP relay the operator sets (`GP_ALERT_*`), or none | the night's alerts | nightly alerts |
+
+  With the local 8B no document text leaves the machine. Public AI's published terms (publicai.co/tc, retrieved
+  12 Oct 2026) name a US nonprofit, offer no data processing agreement and no data storage outside the US, and route
+  requests through a global load-balancing layer across partners' compute ([what its terms state](docs/runbook.md#public-ai-and-ndsg-art-16)).
+  A body that may not disclose text abroad goes without only the review-queue verifier and the role reader; the rules
+  and the local 8B's date suggestions run on its own machine, and a Swiss-hosted 70B is an estimated 1.64 GPU-hours
+  per 1,000 residue documents ([assumptions](docs/runbook.md#swiss-hosted-70b-estimate)). The evidence site is static
+  and makes no third-party request. Every request Gegenprobe sends carries `GP_USER_AGENT`: document and export fetches, robots.txt, the
+  model endpoint, the GGUF download and the alert webhook; the one exception is the development budget gateway
+  (`gw.py`, outside this repository), which is not a runtime route. A network night refuses to start until
+  `GP_USER_AGENT` names your product and a contact URL (the shipped template's placeholder fails closed;
+  `install.sh --user-agent '…'` writes it); a value carrying an e-mail address is refused before any request.
+
+### One affair, one record
+
+- **One affair, one record.** `python -m gegenprobe affair --opd-affair <id> --schema v0.2` builds one validated v0.2
+  record from OPD's metadata and the affair's question and answer documents, and runs the same post layers as
+  `make schema-v02` (typed gaps, OPD's metadata, answer-date roles; `src/gegenprobe/affair_product.py`), so it writes the
+  published record: the 40 P5 records are its own output on P5's documents (titles 40/40, answer dates located in the
+  text 25/40), and a federal affair is read from OPD's texts export as the federal cell's records were (affair 157601:
+  112/112 fields equal). Its question/answer pairs are the P5 pairing
+  rules' items (question n → answer n, each with page and span; an unmarked answer is a typed null) in `qa[].items`.
+  With them 91 of the 105 converter records carry pairs (P3 26/29, P3b 32/36, P5 33/40; before: 33/105); the rules'
+  held-out P5 precision is 0.83, recall 0.67, and on the P3/P3b documents the pairs are unscored. `make run` runs the
+  command on the three sample affairs (Bern, Vernier, Lugano) and compares each with its committed sample, roles,
+  answering body and title included: 268/268, 380/380 and 325/325 comparable fields equal
+  (`results/affair_cli/product_check.json`).
+
+### What `make run` checks
+
+- **`make run`** (Docker, CPU, clean checkout) recomputes the census and asserts it equal to `results/census/`,
+  replays the Bern join, runs sample documents through the converter and validator, re-scores P1–P8 and P10 from
+  committed predictions and labels and re-runs their hypothesis scripts (the ten pre-registration locks and LOCKFED
+  verified; P7, P8 and P10 byte-identical from the committed `data/p7/`, `data/p8/` and `data/p10/` copies, the P7
+  post-hoc files, P10's gold merge and the federal cell's tables included; step `replay_p10`), re-derives the
+  P1 rules arm from the source PDFs and P1's and P2's Apertus decisions from the model cache (cold cache: P2's 62/62
+  documents re-derived, all matching, in 90 s; the 8 Vaud documents, whose host's robots.txt is unreachable, are read
+  from OPD's own copy, sha256-checked; the last lines report each set's coverage; inside the Docker image, whose
+  pdftotext 22.12 extracts some documents differently from the 26.02 the model cache was built on, the step also prints
+  the misses to expect there, P1 25 and P2 5 as measured in CI, each reported, never scored), regenerates the summary-number files the claims read and asserts them
+  byte-identical, and recomputes every number in `claims.tsv` from its results file. It fails if a document a claim
+  lists does not print the claimed value; if a numeric token in this README, the technical report or the form notes
+  (`claims_strict.json`) is not bound to its claim by an anchor, a phrase recorded for that claim that contains the
+  number at that position (`claims_anchor.json`), or listed as a non-claim with its reason; if a scope word (post hoc,
+  registered, exploratory, in-sample, held out, weighted) sits outside an anchor or listed phrase; or if
+  `444_Report.pdf` lacks a phrase the report's anchors bind. Integers below 10 are checked in the result tables of the
+  report. On a clean clone a source that is gone or a document over its time budget is a typed skip (`source_gone`,
+  `over_budget`), never a failure, and the operator command reads OPD's own copy of a document whose source is gone.
+  Detail: [`docs/operations.md`](docs/operations.md), [`docs/runbook.md`](docs/runbook.md).
+
+### The nightly job: real nights
+
+- **The nightly job** re-runs the census and the Bern route against OPD's exports. Three real network nights ran on
+  standard GitHub runners: one with the venv unit (10 Oct) and two consecutive with the recommended Docker unit
+  (11 Oct): 86 min for the first Docker night, 6.6 min for the incremental second (12 bodies re-scanned); that second
+  night exposed a ledger bug, which is fixed. A real two-night Docker pair on the fixed ledger followed (12 Oct): night 2
+  kept night 1's verdicts, pending 2,468 and review 40 on both nights, and both nights raised the canary's 2 alerts
+  (`results/monitor/two_nights_docker_38187596786/README.md`): the sources did not change; both alerts came from the
+  image's older tesseract reading the two canaries that need OCR. A host re-check on 12 Oct verified all 7 canaries
+  with their committed texts, and a canary now alerts only when its file changes or its text changes under the same
+  extractor (`results/repair/adapters/canary_runs/2026-10-12.json`).

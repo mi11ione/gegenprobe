@@ -3,7 +3,7 @@ r20_a.dates.values	142	results/schema/v0_2/validation_all.json	answer_date_roles
 r20_a.dates.split	42/142	results/schema/v0_2/validation_all.json	answer_date_roles.values_role_split/answer_date_roles.n_answer_date_values	frac	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_parts	-
 r20_a.dates.decided	25	results/schema/v0_2/validation_all.json	answer_date_roles.values_by_role.answer_decided	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_parts	README.md,technical_report.md
 r20_a.dates.dispatched	17	results/schema/v0_2/validation_all.json	answer_date_roles.values_by_role.answer_dispatched	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_parts	README.md,technical_report.md
-r20_a.dates.answered	100	results/schema/v0_2/validation_all.json	answer_date_roles.values_by_role.answered	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_parts	README.md,technical_report.md
+r20_a.dates.answered	100	results/schema/v0_2/validation_all.json	answer_date_roles.values_by_role.answered	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_parts	README.md
 r20_a.dates.records_split	28/120	results/schema/v0_2/validation_all.json	answer_date_roles.records_with_a_split_role/answer_date_roles.n_records	frac	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_parts	-
 r20_a.dates.records_any	83	results/schema/v0_2/validation_all.json	answer_date_roles.records_with_an_answer_date	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_parts	-
 r20_a.dates.counterparts	28	results/schema/v0_2/validation_all.json	answer_date_roles.counterparts.n	int	PYTHONPATH=src:. python -m gegenprobe.schema.v0_2_parts	-

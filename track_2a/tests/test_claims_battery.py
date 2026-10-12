@@ -22,8 +22,8 @@ from gegenprobe.paths import ROOT
 # (id, document, before, after): J5's battery, verbatim (scratch scripts mut.py, mut2.py; ids as in J5.md). E25 ("a number
 # in docs/evaluation.md") had no text in J5's script; it changes the one bound percentage there.
 BATTERY = [
-    ('N1', 'README.md', '| **92.1%** |',
-     '| **93.1%** |'),
+    ('N1', 'README.md', '| **81.6% → 92.1%** |',
+     '| **81.6% → 93.1%** |'),
     ('N2', 'technical_report.md', 'it finds 24/29 answer dates',
      'it finds 25/29 answer dates'),
     ('N3', 'technical_report.md', 'Holm p = 0.032); precision not worse',
@@ -60,32 +60,32 @@ BATTERY = [
      'outside interventions the skeleton carries over as is (exploratory, 15 affairs)'),
     ('C1', 'docs/form_notes.md', 'precision not worse (H1, H2, registered)',
      'precision far better (H1, H2, registered)'),
-    ('C2', 'technical_report.md', "P10's candidates in document order reach F1 0.41 (Apertus 0.42).",
-     "P10's candidates in document order reach F1 0.41, far below Apertus (0.42)."),
+    ('C2', 'docs/evaluation.md', 'the gain over the rules comes from the model-free candidate finder and document order',
+     'the gain over the rules comes from Apertus, far more than from document order'),
     ('C3', 'technical_report.md', 'in 14 it raises author-role recall by 23.4 points',
      'in 14 it raises author-role recall about three times, by 23.4 points'),
     ('C4', 'technical_report.md', '; Holm p = 0.032); precision not worse | the author test',
      '; Holm p = 0.032); recall and precision not worse | the author test'),
     ('C5', 'technical_report.md', '**What the tests say.** ',
      '**What the tests say.** Apertus beats every model-free baseline on every test. '),
-    ('C6', 'technical_report.md', 'the rules (135) and the latest date on answer-typed documents (131) are level',
-     'the rules (135) clearly beat the latest date on answer-typed documents (131)'),
+    ('C6', 'docs/evaluation.md', 'the trivial baseline (latest printed date on documents OPD types as answers) is right on 131/154',
+     'the trivial baseline (latest printed date on documents OPD types as answers) is clearly beaten at 131/154'),
     ('S1', 'docs/form_notes.md', 'Null safety failed on the 70B',
      'Null safety held on the 70B'),
     ('S2', 'technical_report.md', 'the registered null-safety tests on the 70B failed',
      'the registered null-safety tests on the 70B passed'),
     ('S3', 'technical_report.md', 'and a reviewer confirms each;',
      'and no reviewer is needed;'),
-    ('S4', 'README.md', 'Every value it returns is printed in the document and',
-     'Apertus is safe to run unattended. Every value it returns is printed in the document and'),
+    ('S4', 'README.md', '**What only the closed design gives** (post hoc): every value Apertus returns',
+     '**What only the closed design gives** (post hoc): Apertus is safe to run unattended. Every value Apertus returns'),
     ('S5', 'technical_report.md', 'Public AI (may route outside Switzerland)',
      'Public AI (Swiss-hosted)'),
     ('S6', 'technical_report.md', '(0 violations; post hoc,',
      '(0 violations; registered,'),
     ('A1', 'docs/form_notes.md', 'OPD confirmed\n  the Bern linking bug',
      'OPD adopted\n  the Bern repairs'),
-    ('A2', 'README.md', '**Delivered:** repairs for 9,580',
-     '**Delivered and deployed at OPD:** repairs for 9,580'),
+    ('A2', 'technical_report.md', '*Delivered:* repairs for 9,580',
+     '*Delivered and deployed at OPD:* repairs for 9,580'),
     ('A3', 'technical_report.md', '(a linking bug OPD confirmed; correspondence',
      '(a linking bug OPD fixed with our plan; correspondence'),
     ('A4', 'technical_report.md', 'a nightly job re-runs the Bern route.',
@@ -96,24 +96,24 @@ BATTERY = [
      'Claude Code agents (Anthropic) helped with some code.'),
     ('L3', 'technical_report.md', '**Gold, no human labelling by design:**',
      '**Gold, expert-labelled:**'),
-    ('M1', 'technical_report.md', '*feasibility study*: review mode',
-     '*deployable prototype*: review mode'),
-    ('M2', 'technical_report.md', '*audited*: source-adapter lists; *tested prototype*',
-     '*audited*: source-adapter lists; *production-ready*'),
+    ('M1', 'technical_report.md', '| *feasibility study* · *drafts',
+     '| *deployable prototype* · *drafts'),
+    ('M2', 'technical_report.md', '| *audited* · *tested prototype* |',
+     '| *audited* · *production-ready* |'),
     ('M3', 'technical_report.md', '| feasibility study (D3-5) |',
      '| deployable (D3-5) |'),
     ('W1', 'technical_report.md', 'does not carry over as is (exploratory, 15 affairs)',
      'does not carry over as is (15 affairs)'),
-    ('W2', 'technical_report.md', '**Baselines proposed in review** (post hoc, `docs/evaluation.md`)',
-     '**Baselines proposed in review** (registered, `docs/evaluation.md`)'),
+    ('W2', 'technical_report.md', 'By language (post hoc), the pointer finds',
+     'By language (registered), the pointer finds'),
     ('W3', 'docs/form_notes.md', '(at most 0.58; post hoc)',
      '(at most 0.58; registered)'),
     ('W4', 'technical_report.md', '2 right nulls) | P11 | exploratory |',
      '2 right nulls) | P11 | registered |'),
-    ('W5', 'technical_report.md', "for the 17-field skeleton of OPD's five intervention types (198,594 of its 325,691 affairs)",
-     "for the 17-field skeleton of all of OPD's affairs (198,594 of its 325,691 affairs)"),
-    ('W6', 'README.md', "Tested on OPD's five intervention types",
-     "Tested on all of OPD's business"),
+    ('W5', 'technical_report.md', "for the 17-field skeleton of the five intervention types in OpenParlData (OPD; 198,594 of its 325,691 affairs)",
+     "for the 17-field skeleton of all of OpenParlData's affairs (OPD; 198,594 of its 325,691 affairs)"),
+    ('W6', 'README.md', "skeleton of OPD's five intervention types",
+     "skeleton of all of OPD's business"),
     ('W7', 'technical_report.md', ', so it sits in a few parliaments',
      ', so it is robust across parliaments'),
     ('D1', 'technical_report.md', 'the default runs no model.',
@@ -124,18 +124,18 @@ BATTERY = [
      ''),
     ('X2', 'technical_report.md', ' **Why closed:** provenance by construction and a ranked review queue (post hoc).',
      ''),
-    ('X3', 'docs/form_notes.md', ' P6: no registered hypothesis held.',
+    ('X3', 'technical_report.md', ' No registered hypothesis held:',
      ''),
-    ('E1', 'README.md', '**Delivered:** repairs for 9,580',
-     'Apertus is the decisive component of the pipeline. **Delivered:** repairs for 9,580'),
+    ('E1', 'technical_report.md', '*Delivered:* repairs for 9,580',
+     'Apertus is the decisive component of the pipeline. *Delivered:* repairs for 9,580'),
     ('E2', 'technical_report.md', '**What the tests say.** ',
      '**What the tests say.** On new layouts Apertus recovers virtually every answer date. '),
-    ('E3', '../README.md', "Apertus as a reviewer's aid.",
-     'Apertus as the core engine.'),
+    ('E3', '../README.md', '**Apertus 70B (opt-in) reads layouts no rules cover:**',
+     '**Apertus 70B, the core engine, reads layouts no rules cover:**'),
     ('E4', 'README.md', '| untested | **6**, defined once in v0.1 |',
      '| untested | **6**, expected to be shared, defined once in v0.1 |'),
-    ('E5', 'technical_report.md', '*drafts for the eCH group*: schema',
-     '*endorsed by the eCH group*: schema'),
+    ('E5', 'technical_report.md', '*drafts for the eCH group* | review mode',
+     '*endorsed by the eCH group* | review mode'),
     ('E6', 'docs/form_notes.md', 'OPD confirmed\n  the Bern linking bug',
      'OPD endorsed\n  the Bern repair plan'),
     ('E7', 'README.md', 'are outside the tested scope.',
@@ -150,8 +150,8 @@ BATTERY = [
      'goes to a Swiss nonprofit that\n  offers a processing agreement'),
     ('E12', 'technical_report.md', 'the pointer beats the rules on 22 and loses on 4',
      'the pointer beats the rules on 4 and loses on 22'),
-    ('E13', 'technical_report.md', 'write the gold answer date 106 vs 105 times',
-     'write the gold answer date 105 vs 106 times'),
+    ('E13', 'technical_report.md', 'recovers more rows (369 vs 214 queue rows)',
+     'recovers more rows (214 vs 369 queue rows)'),
     ('E14', 'technical_report.md', 'Confirmed: H1, recall over the rules, +23.4 points [5.9, 49.0], Holm p = 0.032',
      'Confirmed: H1, recall over the rules, +23.4 points [5.9, 49.0], two-sided t-test p = 0.032'),
     ('E15', 'technical_report.md', 'so the gain is the date check.',
@@ -160,8 +160,8 @@ BATTERY = [
      'two agent annotators shown the predictions (Claude Opus, Sonnet)'),
     ('E17', 'technical_report.md', '(≥ 1.2 s per host and process)',
      '(≥ 0.2 s per host and process)'),
-    ('E18', 'technical_report.md', 'Apertus 70B by inference',
-     'Apertus 70B, confirmed by Public AI'),
+    ('E18', 'technical_report.md', '(inferred from the served fingerprint',
+     '(confirmed by Public AI and the served fingerprint'),
     ('E19', 'technical_report.md', 'the review-queue verifier and the role reader need the 70B,',
      'the review-queue verifier and the role reader run equally on the 8B,'),
     ('E20', 'technical_report.md', 'no registered decision changes.',
@@ -416,8 +416,8 @@ def test_literal_matches_finditer(text, s):
 # checked. Every edit must ADD a failure, as above; a docs pass that rewrites a sentence rewrites its edit here.
 BATTERY_R20 = [
     # num README 24/29->25/29
-    ('R20-01', 'README.md', 'rules for it finds 24/29',
-     'rules for it finds 25/29'),
+    ('R20-01', 'README.md', 'cover:** 24 of 29 answer dates',
+     'cover:** 25 of 29 answer dates'),
     # num TR p=0.065->0.045
     ('R20-02', 'technical_report.md', 'Holm p = 0.032); precision not worse',
      'Holm p = 0.022); precision not worse'),
@@ -428,8 +428,8 @@ BATTERY_R20 = [
     ('R20-04', 'technical_report.md', 'about 0.5 CPU-hours',
      'about 0.05 CPU-hours'),
     # num form 9 vs 2 -> 11 vs 2
-    ('R20-05', 'docs/form_notes.md', '(62/62,\n  32/32, 35/35;',
-     '(62/62,\n  31/32, 35/35;'),
+    ('R20-05', 'docs/form_notes.md', '(62/62, 32/32, 35/35;',
+     '(62/62, 31/32, 35/35;'),
     # num TR 17,720 -> 7,720
     ('R20-06', 'technical_report.md', '(17,720)',
      '(7,720)'),
@@ -512,8 +512,8 @@ BATTERY_R20 = [
     ('R20-32', 'technical_report.md', '**3 of 4 held**: H1, H2, H3b; H3a not',
      '**4 of 4 held**: H1, H2, H3a, H3b'),
     # TR 'no paired difference significant'->'free prompt significantly worse'
-    ('R20-33', 'technical_report.md', 'about as accurate as the pointer on P1, P2 and P6, without located values',
-     'significantly worse than the pointer on P1, P2 and P6, without located values'),
+    ('R20-33', 'docs/evaluation.md', 'the same Apertus asked freely with a null-allowed prompt is about as accurate',
+     'the same Apertus asked freely with a null-allowed prompt is significantly worse'),
     # TR 'OPD confirmed the bug'->'OPD approved the repairs'
     ('R20-34', 'technical_report.md', '*Bern* (a linking bug OPD confirmed;',
      '*Bern* (a linking bug OPD fixed with our lists;'),
@@ -521,14 +521,14 @@ BATTERY_R20 = [
     ('R20-35', 'technical_report.md', 'wrote most code, documentation and the gold labels.',
      'wrote some code.'),
     # README Apertus 'adds precision' -> 'doubles recall'
-    ('R20-36', 'README.md', 'it raises author-role recall by 23.4 points',
-     'it doubles author-role recall by 23.4 points'),
+    ('R20-36', 'README.md', '| **+23.4 points** author-role recall',
+     '| **+23.4 points, double the** author-role recall'),
     # form: insert unbacked sentence
     ('R20-37', 'docs/form_notes.md', '- **Census and OPD.**',
      '- Apertus beats every model-free baseline on every test.\n- **Census and OPD.**'),
     # TR insert unbacked sentence
-    ('R20-38', 'technical_report.md', '**Which model.** Every',
-     'Apertus beats every model-free baseline on every test. **Which model.** Every'),
+    ('R20-38', 'technical_report.md', '**Which model.** Evaluation',
+     'Apertus beats every model-free baseline on every test. **Which model.** Evaluation'),
     # TR swap answer verdict 'Yes, if'->'Yes'
     ('R20-39', 'technical_report.md', '*Answer:* **Yes, if each field says which role its value plays**',
      '*Answer:* **Yes, every field is shared as is**'),
@@ -536,8 +536,8 @@ BATTERY_R20 = [
     ('R20-40', 'technical_report.md', '**Unattended** (95% lower bound ≥ 0.80, document-level intervals)',
      '**Unattended** (document-level intervals)'),
     # README 'rules match it elsewhere' -> 'rules never match it'
-    ('R20-41', 'README.md', '**Apertus 70B, opt-in, reads layouts no rules cover:**',
-     '**Apertus 70B, opt-in, beats the rules everywhere:**'),
+    ('R20-41', 'README.md', '**Apertus 70B (opt-in) reads layouts no rules cover:**',
+     '**Apertus 70B (opt-in) beats the rules everywhere:**'),
     # TR 'self-hosted' -> 'Swiss-hosted, audited'
     ('R20-42', 'technical_report.md', '| Apertus 70B (θ = 10.40) | Public AI, or self-hosted |',
      '| Apertus 70B (θ = 10.40) | Swiss-hosted and certified |'),
@@ -767,3 +767,25 @@ def test_runbook_operator_sheet_is_guarded(add, fails, cfg, rows, monkeypatch):
     assert bool(set(P.check(one, docs={doc: inside})) - base) is fails
     assert not set(P.check(one, docs={doc: outside})) - base
     assert _check(rows, {doc: text.replace("(peak 2,077.6 MB)", "(peak 1,077.6 MB)", 1)}) - _base(rows)
+
+
+# ------------------------------------------------- round 21 (J5): the two edits the claims check alone let through (R22)
+# (a) the caveat "written for other layouts" dropped from the P2 comparison; (b) "set after the results" flipped to
+# "before" in the threats to validity. Both are pinned now (caveat.p2_rules_other_layouts, threat.nocriterion_set_after).
+BATTERY_R22 = [
+    ('R22-a', 'README.md', 'the rules, written for other layouts, find 2/29',
+     'the rules find 2/29'),
+    ('R22-a2', 'technical_report.md', 'the rules, written for other layouts, 2/29',
+     'the rules 2/29'),
+    ('R22-b', 'technical_report.md', 'The No-criterion (§1) was set after the results',
+     'The No-criterion (§1) was set before the results'),
+]
+
+
+@pytest.mark.parametrize("bid,doc,before,after", BATTERY_R22, ids=[b[0] for b in BATTERY_R22])
+def test_every_r22_battery_edit_fails(bid, doc, before, after, rows, monkeypatch):
+    monkeypatch.setenv("GP_CLAIMS_STRICT", "1")
+    text = _text(doc)
+    assert text is not None and before in text, f"{bid}: {doc} no longer prints {before!r}: rewrite this edit"
+    new = _check(rows, {doc: text.replace(before, after, 1)}) - _base(rows)
+    assert new, f"{bid}: {doc} {before!r} -> {after!r} passed the claims check"

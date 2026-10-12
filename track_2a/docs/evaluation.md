@@ -547,8 +547,8 @@ label `swiss-ai/Apertus-v1.5-70B` from another build (`vllm-0.1.dev1+g54b4292c2-
 log-probabilities on the same requests); the response check stopped P11's role reader there, and review mode refused
 that build ([P11, D1, D2](#the-gateway-build-switch-d1)). The gateway's own label for the new build says 70B; that the
 registered build is the 70B is inferred, not documented by Public AI: the served fingerprint (`tp8-pp2-…`, a
-tensor-parallel 8 × pipeline-parallel 2 deployment) and the behaviour (report §3: 760/792 greedy outputs
-byte-identical to the `-70b` name; MMLU 84.4% vs 70.8% for the v1 8B route) point to the 70B. We use that name because
+tensor-parallel 8 × pipeline-parallel 2 deployment) and the behaviour (`results/report/cited_spikes.json`, cited in report §3: 760/792 greedy
+outputs byte-identical to the `-70b` name; MMLU 84.4% vs 70.8% for the v1 8B route) point to the 70B. We use that name because
 the `-70b` name answers prefilled requests with a different model; the response's `model` field is checked on every
 call. Re-derived from the response cache, every P1 (1,542) and P2 (351) answer comes from one served build
 (`results/eval/served_models.json`). The 8B is `swiss-ai/Apertus-v1.5-8B` (Apache-2.0) as a community text-only export
@@ -971,7 +971,7 @@ bootstrap, B = 10,000; the best signal is chosen on the same rows, which favours
 | P2 | 32 (8) | 0.896 [0.77, 0.986] | rules return no value, 0.583 | [0.154, 0.436] |
 | P6 | 35 (5) | 0.713 [0.339, 1.0] | rules return no value, 0.817 | [-0.479, 0.19] |
 
-On the layouts no rules cover (P2) the margin ranks wrong values first better than every no-model signal (each
+On the layouts no rules cover (P2) the margin ranks wrong values first better than the no-model signals we tested (each
 interval of the difference excludes 0). Where rules exist (P1, P6), whether the rules confirm the value ranks as well or
 better (not significantly). Among the documents the rules leave to the reader (the queue the deployed cascade sends),
 the margin's AUROC is 0.937 on P1 (best signal 0.873, interval [-0.156, 0.292]), 0.912 on P2 (0.606, [0.047, 0.513])
@@ -1029,3 +1029,68 @@ on 138/154, the registered cascade with Apertus on 139/154.
   `…tp2-bfd70257` from about 01:05 to 03:33 UTC on 12 Oct 2026, has no θ, so review mode refused it with exit 3), the
   real 8B θ = 16.73 (dev AUROC 0.90; 97 dev documents, D3). The shipped review mode keeps the v1 reader: P6 found v2
   right on 5 documents v1 missed and wrong on 2 (p = 0.45), not enough to switch.
+
+## What Apertus adds, test by test
+
+- **The answer date on new layouts (P2, pre-registered).** In 15 parliaments nobody wrote rules for, the pointer finds
+  24/29 answer dates in the registered arms, every value a printed date, where the rules, written for other layouts,
+  find 2/29; on all 62 documents it is exact on 53/62 against the rules' 35/62 (H2 held). Resampled by whole
+  parliament, the registered gain over the rules (P2-H2) is [-0.02, 0.54], so it sits in some
+  parliaments, not all. It puts a date on 4 of the 33 answerless documents, where the latest printed date (22/29
+  found) dates 31.
+- **The answer date in Italian (P11, exploratory, locked before the draw and the labels).** On 12 interventions from
+  Ticino, Mendrisio, Lugano, Locarno and Bellinzona, read through the converter's own fetch path (12 of the 24
+  documents from OPD's copy, where the parliament's robots.txt disallows the source), the pointer is exact on 12/12
+  [75.7, 100]: 10 printed answer dates and 2 right nulls, no invented date. The latest date on the answer document is
+  exact on 9/12 and dates both answerless affairs; the rules on 8/12 (in-sample in Ticino, Mendrisio and Lugano), with
+  4 answers left null and no wrong date. Author roles (70 gold pairs): the rules are precise and sparse (precision
+  0.875, recall 0.10), the converter's record reaches F1 0.30, document order and OPD's list 0.22 each (the role rules
+  in-sample in 4 of the 5 parliaments); the Apertus role reader, on all 12 affairs, reads 21 of the 70 pairs right at
+  precision 0.33, recall 0.30, F1 0.32 (its configuration in-sample in Bellinzona; it resumed on the registered build
+  after the gateway's build switch, D2). The two blind annotators agree on the answer date and the author lists in
+  12/12 packets (`results/p11/p11_it_tables.json`).
+- **The answer date on the review queue (P7, pre-registered).** On the adapters' review queue Apertus answers two
+  closed questions: is this the executive's answer to this intervention, and which printed date is the answer date.
+  Blind AI annotators judged 120/120 of its sampled promotions the government's answer (H1, registered, Wilson 95%
+  [96.9, 100]; 48/48 without its largest parliament, Frauenfeld), where 86.7% of queue rows are answers. Registered
+  (H4, weighted): 95.8% of its promotions are answers whose printed answer date passes the date check, against 73.2%
+  for a no-model exact-date match, +22.7 points [10.2, 34.3] (unweighted +7.5 [3.4, 12.2]). The tier it fills holds
+  214 of the 917 review rows it was applied to, a pre-sorted batch for OPD's review step.
+- **Author roles where nobody wrote rules (P10, pre-registered).** Code lists every person or body the two documents
+  print, each with its span; Apertus answers closed true/false questions about each (did it lodge or co-sign this
+  intervention, is it the designated first signatory); code composes the role. On 34 fresh affairs (of 38 planned;
+  the French stratum 4 short under the registered fill rule) from 14 German- and French-speaking parliaments outside
+  every rule set, it reads 50 of 141 gold (name, role) pairs right, about three times the rules (17/141), at precision
+  0.52 against 0.31; it is ahead of the rules in 9 of the 14 parliaments and behind in 1. Registered, Holm-corrected:
+  recall over the rules +23.4 points (H1, p = 0.032), precision non-inferior (H2, observed +0.21). The reader ships as a
+  review route: `python -m gegenprobe affair --opd-affair <id> --roles apertus` puts its roles next to the record,
+  never into it, each marked for review. A fallback to OPD's list where the reader suggests no author is opt-in
+  (`--roles-fallback opd`): on P10's arms it added 32 pairs, none right (post hoc).
+- **Dates where rules exist (P1).** The rules alone are exact on 135/154, so the default runs no model; the cascade
+  (rules, then the pointer) is exact on 139/154, and the pointer's margin separates its right values from its wrong ones
+  (H3 held, AUROC 0.969).
+- **People (P5).** Both model routes beat the rules on submitters: pointing at printed names doubles extraction over
+  the rules (12/40 → 24/40), and free generation finds 34/40.
+- **Provenance by construction.** No closed-set arm returned a date printed nowhere (P1, P2, P6). On the 53 P2/P6
+  documents with no answer at all, the P2 pointer and P6's reader v2 dated none (post hoc; the shipped reader v1
+  dated 1 of P6's 28).
+- **What the closed design buys: provenance and a ranked review queue** (post hoc,
+  `results/eval/closed_vs_free.json`, `results/eval/margin_vs_nomodel.json`). Every value is a printed date with its
+  page and span (P1 62/62, P2 32/32, P6 35/35), while a free prompt's quotes check out on 30/60 (P1) and 17/32 (P2) of
+  its values. Its margin orders the review queue: AUROC for a wrong value 0.73, 0.90 and 0.71 on P1, P2 and P6 (on P1,
+  8 of its 16 wrong values sit in the first quarter of the queue), against 0.63, 0.58 and 0.53 for the free prompt's
+  quote check; on the layouts no rules cover (P2) the margin's 0.90 is above the no-model ranking signals we tested
+  (at most 0.58; the interval of the difference excludes zero).
+- **Suggestions go to a reviewer; rules run unattended.** By design, Apertus values arrive with `needs_review: true`
+  for OPD's existing manual-review step.
+- **Sovereign option.** The Apertus 8B runs locally on CPU (a community 4-bit build, sha256-pinned; 9.3 GB peak
+  memory, 180 s per document on 4 vCPUs). On the unseen parliaments of P2 it reproduces the registered result over the
+  rules (right on 13 documents where the rules are wrong, the reverse on 0; 52 reachable documents), and its two-step
+  reader cuts dates on answerless documents from 18/34 to 5/34 (P6); both runs are exploratory. On P1 its cascade dates
+  25 of the 90 answerless documents, the 70B's 7: on the local route, as on the gateway, every model value goes to a
+  reviewer. Local 8B: date suggestions only; the review-queue verifier and the role reader need the 70B. As P7's
+  verifier (exploratory; 88 of the 190 annotated rows scored before the deadline) no θ meets the dev rule, so the 8B
+  promotes nothing (`results/p7/gguf8b/hypotheses.json`, `data/p7/gguf8b/theta.json`). As P10's author-role reader
+  (exploratory; 34 affairs, 141 gold pairs) the 8B reads 30/141 pairs right, more than the rules (17/141; F1 0.27
+  against 0.17), at precision 0.38 and recall 0.21 (the 70B: F1 0.42), and thresholds
+  refitted on P8's development parliaments give 0.26 (`results/p10/gguf8b/p10_8b_scores.json`).

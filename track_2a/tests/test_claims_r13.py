@@ -33,12 +33,12 @@ def _errs(rows, cfg, doc, old, new):
 
 @pytest.mark.parametrize("doc,old,new,token", [
     # a number still printed correctly elsewhere in the same document
-    ("README.md", "the rules (12/40 → 24/40)", "the rules (12/40 → 29/40)", "29/40"),
+    ("README.md", "submitter 12/40 → 24/40 |", "submitter 12/40 → 29/40 |", "29/40"),
     ("README.md", "κ 0.80–0.93 on P1 and P2", "κ 0.85–0.93 on P1 and P2", "0.85"),
     ("technical_report.md", "| **pointer** | **53/62** [74.7, 92.2] | **24/29**",
      "| **pointer** | **53/62** [74.7, 92.2] | **29/29**", "29/29"),
-    # a number the earlier version bound to no claim in the README
-    ("README.md", "9.3 GB peak", "8.3 GB peak", "8.3"),
+    # a number in the README's facts table (the 8B's 9.3 GB peak moved to docs/evaluation.md, R22)
+    ("README.md", "about 0.5 CPU-hours for all 902,754", "about 0.6 CPU-hours for all 902,754", "0.6"),
     # report numbers the earlier version left unchecked: a cascade cell, an interval, a count
     ("technical_report.md", "| cascade | 139/154 [84.6, 94] | 56 |", "| cascade | 139/154 [84.6, 94] | 58 |", "58"),
     ("technical_report.md", "**53/62** [74.7, 92.2]", "**53/62** [76.7, 92.2]", "[76.7, 92.2]"),
@@ -60,14 +60,16 @@ def test_r13_new_false_sentence_in_the_body_fails(rows, cfg, doc, anchor):
 
 
 def test_r13_p7_numbers_are_bound(rows):
-    """P7's registered result (120/120) and the queue's base rate (86.7%) are anchored in README and report; the
-    baselines proposed in review (106 vs 105 on the shared promotions, 113 vs 127 over all) are anchored where the
-    evaluation sections report them; the form notes (5,000 characters) keep 120/120."""
+    """P7's registered result (120/120) is anchored in README and report, the queue's base rate (86.7%) in the report;
+    the baselines proposed in review (106 vs 105 on the shared promotions, 113 vs 127 over all) are post hoc and stay in
+    docs/evaluation.md (R22), where their claims list it; the form notes (5,000 characters) keep 120/120."""
     anchors = claims.anchor_config()
     by_id = {r["id"]: r for r in rows}
-    for doc in ("README.md", "technical_report.md"):
+    for doc, need in (("README.md", {"120/120"}), ("technical_report.md", {"120/120", "86.7%"})):
         bound = {by_id[c]["shown"] for c, per in anchors.items() if doc in per and c in by_id}
-        assert {"120/120", "86.7%", "106", "105", "113", "127"} <= bound, doc
+        assert need <= bound, doc
+    in_eval = {r["shown"] for r in rows if "docs/evaluation.md" in r["where"].split(",")}
+    assert {"106", "105", "113", "127"} <= in_eval
     form = {by_id[c]["shown"] for c, per in anchors.items() if "docs/form_notes.md" in per and c in by_id}
     assert {"120/120"} <= form
 

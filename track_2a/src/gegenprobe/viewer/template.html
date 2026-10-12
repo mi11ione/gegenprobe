@@ -301,14 +301,21 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
 .banner span { color: var(--ink-2); }
 .banner b, .banner span { min-width: 0; overflow-wrap: anywhere; }
 .hero .label { overflow-wrap: anywhere; }
-/* narrow screens: the four section tabs as a 2 x 2 grid, all visible without scrolling */
+/* phones: a compact masthead (the four section tabs in one row that scrolls sideways; the data and build line moves
+   to the footer), so the hero's Apertus and one-CPU lines sit above the fold at 390 px */
 @media (max-width: 600px) {
-  nav.tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
-  nav.tabs a { white-space: nowrap; text-align: center; border-bottom: 1px solid var(--rule-strong); }
-  nav.tabs a:nth-child(2n) { border-right: 0; }
-  nav.tabs a:nth-child(n+3) { border-bottom: 0; }
-  .mast-meta { min-width: 0; }
+  header.mast { padding-block: 10px 8px; }
+  .mast .grid { row-gap: 6px; }
+  .mast .idx { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .mast .idx .label { margin-top: 0 !important; }
+  .mast-meta { min-width: 0; flex-wrap: nowrap; gap: 8px; align-items: center; }
+  nav.tabs { flex-wrap: nowrap; overflow-x: auto; min-width: 0; flex: 1 1 auto; scrollbar-width: none; }
+  nav.tabs::-webkit-scrollbar { display: none; }
+  nav.tabs a { white-space: nowrap; padding: 6px 9px; flex: 0 0 auto; }
+  #gen { display: none; }
 }
+footer .gen-foot { display: none; }
+@media (max-width: 600px) { footer .gen-foot { display: block; margin-bottom: 6px; } }
 
 /* period switch in the hero */
 .hero .perrow { margin-top: 18px; }
@@ -328,6 +335,7 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
 .facts.two .fact p { max-width: 62ch; }
 .fact p .k { font-weight: 650; color: var(--ink); }
 .hero .factnote { margin: 10px 0 0; font-size: 12px; color: var(--ink-3); max-width: 110ch; }
+.hero .big { font-size: clamp(44px, 8.6vw, 132px); margin-top: 14px; }
 .hero .bigcap { margin: 10px 0 0; font-family: var(--mono); font-size: clamp(12.5px, 1.05vw, 14px); line-height: 1.4; color: var(--ink-2); max-width: 62ch; }
 .hero .scope { margin: 8px 0 0; font-size: 13.5px; color: var(--ink-2); max-width: 86ch; }
 .hero .sov { margin-top: 10px; font-size: 14px; line-height: 1.45; }
@@ -338,7 +346,7 @@ footer { margin-top: 56px; border-top: 2px solid var(--rule-strong); padding-top
 /* phones: the hero comes first; the caveat and the period switch sit under the hero sentence */
 @media (max-width: 900px) { .hero .hero-main { order: -1; } .hero { padding-block: 26px 30px; row-gap: 14px; } }
 @media (max-width: 700px) {
-  .hero .big { font-size: clamp(64px, 21vw, 96px); }
+  .hero .big { font-size: clamp(40px, 11.5vw, 64px); }
   .hero h1 { margin-top: 12px; }
 }
 /* converter coverage per parliament */
@@ -507,10 +515,10 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
     <div class="code muted" id="heroSrc"></div>
   </div>
   <div class="work hero-main">
-    <p class="kicker" id="heroKicker"><b>One schema works if each field names its role.</b> What that repairs in OpenParlData today:</p>
+    <p class="kicker" id="heroKicker"><b>One schema works if each field names its role.</b> Along the way, repairs for OpenParlData:</p>
+    <p class="delivered" id="heroDelivered"></p>
     <p class="big" id="heroBig"></p>
     <p class="bigcap" id="heroBigCap"></p>
-    <p class="delivered" id="heroDelivered"></p>
     <p class="delivered" id="heroApertus"></p>
     <p class="scope sov" id="heroSovereign"><b>Runs in Docker on one CPU core, no GPU; by default no document text leaves your machine.</b> Apertus is optional: a local 8B on CPU, or the 70B through the Public AI gateway.</p>
     <p class="next" id="heroNext"><b>What OPD does next:</b> run the Bern plan (<a href="#bern-numbers">Bern numbers</a>), import the lists keyed on your ids (<a href="#opdDownloads">downloads</a>), and decide the hash rule for relinked documents. OPD confirmed the Bern linking bug (correspondence, 10 Oct 2026).</p>
@@ -753,6 +761,7 @@ table.schema tr.grp td { border-top: 1px solid var(--rule-strong); }
 </main>
 
 <footer>
+  <div class="gen-foot" id="genFoot"></div>
   <div id="foot"></div>
 </footer>
 
@@ -779,6 +788,7 @@ $('#themeBtn').addEventListener('click', () => {
   root.dataset.theme = dark ? 'light' : 'dark'; try { localStorage.setItem('gp-theme', root.dataset.theme); } catch (e) {}
 });
 $('#gen').textContent = `Data ${D.parliaments.snapshot} · build ` + (D.generated || '').split(' ')[0];
+$('#genFoot').textContent = $('#gen').textContent;
 
 /* one period for every number on the page: hero, table, drawers (by the year in the affair number, else its begin date) */
 let period = 'all';
@@ -801,9 +811,9 @@ function drawHero() {
   const am = (H.at_most || {})[period];
   const V = D.schema.verdict;
   // the one lead sentence (README, report, form notes, site): the schema verdict plus the repair result
-  $('#heroBig').textContent = am && am.after_repair != null ? pct(am.after_repair) : fmt(x.missing);
+  $('#heroBig').textContent = am && am.after_repair != null ? `${pct(1 - x.missing / x.written)} → ${pct(am.after_repair)}` : fmt(x.missing);
   $('#heroBigCap').textContent = am && am.after_repair != null
-    ? `of answered interventions${period === 'all' ? '' : ` (${PERW[period]})`} would have their answer text, up from ${pct(1 - x.missing / x.written)} today (+${(100 * (am.after_repair - (1 - x.missing / x.written))).toFixed(1)} points${period === 'all' ? `, all from the ${fmt(D.parliaments.corrected.national.all.repaired)} repairs` + ((D.tiles || {}).row_checked != null ? `: ${fmt(D.tiles.row_checked)} row-checked, ${fmt(D.tiles.agenda)} agenda joins and ${fmt(D.tiles.review)} Bern rows in review` : '') : ''})`
+    ? `of answered interventions${period === 'all' ? '' : ` (${PERW[period]})`} with answer text in OpenParlData: today, and once these repairs are applied`
     : `answered interventions${period === 'all' ? '' : ` (${PERW[period]})`} without answer text in OpenParlData`;
   // the plain answer first (README, report, form notes and site share it), then what was delivered
   $('#heroLine').textContent = 'Can one schema hold Swiss parliamentary business? Yes, if each field says which role its value plays (e.g. “answer date” = the government’s decision, its letter or the submission date).';
@@ -816,7 +826,7 @@ function drawHero() {
     $('#heroDelivered').replaceChildren(el('b', {}, `The ${fmt(N.repaired)} repairs`), ', every one from model-free rules and keyed on OPD ids' +
       (all ? ': ' : '.'), all ? el('ul', { class: 'rlist', 'aria-label': 'what each repair still needs' },
         li('apply now', now), el('li', {}, 'one decision ', el('span', { class: 'n' }, fmt(H.relink)), ` (${fmt(H.relink_ready)} ready)`), li('to fetch', fetch)) : null); }
-  $('#heroApertus').textContent = H.p2 ? `Apertus 70B, opt-in, reads layouts no rules cover: in ${H.p2.bodies} parliaments nobody wrote rules for it finds ${H.p2.pointer.correct}/${H.p2.pointer.of} answer dates, the rules ${H.p2.rules.correct}/${H.p2.rules.of} (the date test, P2, registered). It picks among the dates printed in the document; a reviewer confirms.` : '';
+  $('#heroApertus').textContent = H.p2 ? `Apertus 70B, opt-in, reads layouts no rules cover: in ${H.p2.bodies} parliaments nobody wrote rules for it finds ${H.p2.pointer.correct}/${H.p2.pointer.of} answer dates, the rules ${H.p2.rules.correct}/${H.p2.rules.of} (pre-registered test). It picks among the dates printed in the document; a reviewer confirms.` : '';
   { const C = (D.tiles || {}).cost;
     $('#heroCost').textContent = C ? `Cost: the rules take about ${C.rules_cpu_hours} CPU-hours for all ${fmt(C.documents)} documents in OPD's export, about ${C.x10_rules_cpu_hours} CPU-hours at ten times OPD's volume; review mode costs USD ${C.usd_per_1000.toFixed(2)} per 1,000 documents the rules leave open, on the 70B.` : ''; }
   $('#heroDetail').textContent = am && am.written != null ?
@@ -841,7 +851,7 @@ const kw = t => el('span', { class: 'k' }, t);
 const factsApertus = [
   H.p2 ? [`${H.p2.pointer.correct}/${H.p2.pointer.of}`, el('span', {}, `answer dates Apertus picks right among the printed dates in ${H.p2.bodies} parliaments nobody wrote rules for (the date test on new layouts, P2, registered); the rules, written for other layouts, find ${H.p2.rules.correct}/${H.p2.rules.of}. `,
        T.p2_margin ? kw('What only the closed design gives: ') : null,
-       T.p2_margin ? `every value a printed date located by code (${T.p2_margin.printed[0]}/${T.p2_margin.printed[1]}), and a margin that puts wrong values first for the reviewer (AUROC ${T.p2_margin.auroc.toFixed(2)}, above every no-model ranking signal we computed, at most ${T.p2_margin.best_nomodel.toFixed(2)}; post hoc).` : '')]
+       T.p2_margin ? `every value a printed date located by code (${T.p2_margin.printed[0]}/${T.p2_margin.printed[1]}), and a margin that puts wrong values first for the reviewer (AUROC ${T.p2_margin.auroc.toFixed(2)}, above the no-model ranking signals we tested, at most ${T.p2_margin.best_nomodel.toFixed(2)}; post hoc).` : '')]
        : [`${H.rules_exact}/${H.heldout}`, `documents exact with the default converter (rules, no model).`],
   P10 ? [`${P10.primary.arms.pointer.right}/${P10.primary.gold_pairs}`, el('span', {}, `author roles Apertus reads right in ${P10.primary.parliaments} parliaments without rules (the author test, P10), the rules ${P10.primary.arms.rules.right}/${P10.primary.gold_pairs}: `,
        kw('registered: '), `recall +${P10.hypotheses.H1.points} points over the rules (H1, Holm p = ${P10.hypotheses.H1.p_holm}), precision not worse (H2).`)] : null,

@@ -241,3 +241,92 @@ and numbers them `V` + start date (e.g. Solothurn consultations, "V 2021-06-28")
 `AffairRef.virtual = true` and `AffairRef.derived_from` = the `doc_id` of the meeting document the affair was derived from
 (validated: `derived_from` requires `virtual`, and must be one of the affair's documents). The census measures the frontier:
 `results/census/virtual_affairs.json` lists the bodies whose documents hang on meetings rather than affairs.
+
+## Schema evidence in detail (from the project README)
+
+### Field by field: what the evidence shows
+
+- **Answer date.** OPD's "answer" event is the government's decision in some parliaments, the dispatch or registration
+  date in others, and in 7 parliaments mostly the submission date. Median answer times, described per group of
+  parliaments (different parliaments in each group, so not an effect of the date's role alone): 112 days where the date
+  is the verified decision date (Bern, Ticino), 79 where it falls on a government's weekly sitting, 39 where it is a
+  diffuse, publication-like date (`results/census/answer_days_by_trust.json`). v0.1 carries a `DateRole` on every date
+  and a date-trust tier per parliament.
+- **Procedural history, type, procedural state, decision outcome.** One source label covers several roles: 35 event
+  labels carry different date roles, 42 of 1,038 raw type labels map to different types, 32 state labels and 3 outcome
+  labels are ambiguous (`results/census/comparability.json`).
+- **Authorship, signatories, instrument, language (P8).** On 66 fresh affairs from 11 parliaments, labelled blind
+  against categories fixed in advance (`eval/prereg9/`), none of the seven fields tested passes the registered test
+  of meaning the same thing everywhere. The submitter is a sole author or designated first signatory
+  in Bern city, Vaud and Lausanne, one of several joint authors with none designated first in Zürich city, Thurgau,
+  Fribourg and Vernier, and a parliamentary group in Valais: 35/65 affairs carry the one meaning v0.1 gives it. Bern
+  city prints several first signatories, so OPD's co-signatory list includes authors of record (co-signatories in
+  their v0.1 meaning: 10/41). Two Bellinzona "Motions" propose a decision the council takes itself; two Valais
+  "Postulate" mandate the executive to act. In Fribourg, OPD's language tag names the other official language in 2
+  of 6 affairs.
+- **Language needs roles: the text, the tag and the affair.** A document's text has a language (the converter detects
+  it: 60/60 documents on held-out parliaments); OPD's tag is a second value that can differ (9 of the 210 tagged
+  documents in the converter's records; in OPD's federal texts the Italian slot holds French text in 7,165 of 37,828
+  answers); and an affair can be answered in another language than it was asked (9 of the 105 converter affairs; 214
+  of 1,999 tagged affairs when the lowest-id documents are paired). v0.2 keeps `language_of_text` apart from
+  `language_tag`, per document.
+- **Federal level (exploratory, `eval/fed/`, locked before the draw and the labels).** On 15 Federal Council answers
+  (5 each in German, French and Italian; seeded, stratified; the two blind annotators agree on all 15), the answer
+  prints no answer date and no author: the date exists only in OPD's events (7 of the 15 records carry one; 20,008 of
+  38,307 eligible affairs in the frame). The rules, the Apertus pointer and the converter date none of them (15/15
+  right nulls), where the latest printed date dates an answerless document on 6/15 [19.8, 64.3]; the instrument's
+  function keeps one meaning (15/15), the converter detects the language of all 15 question and 15 answer documents, and the 15
+  records validate as v0.2: with them the converter's records number 120 from 23 parliaments, and with P8's 66 gold
+  records 186 affairs from 26 parliaments validate (`results/fed/fed_tables.json`).
+- **Outside interventions (P11, exploratory, `eval/p11/`, locked before the draw and the labels).** On 15
+  government-business and parliamentary-initiative affairs (8 and 7, in German, French and Italian; the gold affair
+  kind matches OPD's type in 15/15), the annotators judged field by field whether the intervention skeleton fits. It
+  does not carry over as is: 7 fields carry over (submission date, related affairs, usable text, procedural state,
+  decision outcome, submitter, language), 4 answer fields do not apply (Q/A pairing, answer date, answer-link status,
+  dispatch date: 13 to 15 of the 15 affairs), and 6 need new roles: the date the executive adopted its own proposal
+  (decision date, 5 affairs), its recommendation to adopt its own proposal (5), its steps before parliament
+  (procedural history, 4), officials signing for it (co-signatories, 4), a general-terms initiative or a spending
+  authorisation (type, 2) and the Confederation addressed through a cantonal initiative (1). Government business needs
+  a new role in 7 of its 8 affairs, initiatives in 2 of 7. The frozen converter returns a valid v0.2 record for 3 of
+  the 15 (registered arm; the other 12 stop with the typed failure `no_documents`, since its pairing rule looks for a
+  member's text and an answer; `results/p11/p11_ni_tables.json`). Written from the same OPD metadata and the 24
+  documents the draw fetched, with the answer fields typed (`not_applicable`, or `absent` where OPD records an answer
+  event), all 15/15 validate (post hoc, `results/p11/ni_posthoc.json`), and none types an answer field
+  `not_applicable` where P11's gold finds it applies.
+- **Submission date (P8).** In 9 of 11 parliaments OPD's date is the printed lodging date (one exception allowed). In
+  Vernier (5/5 affairs) and Lausanne (3/5) it is printed in neither document, 2 to 28 days after the signing or lodging
+  date they print: a data-source split between OPD's date and the documents (registered class: body-specific), which a standard
+  resolves by recording which event the date is. These five verdicts hold on agreed labels only and on another vendor's
+  labels (details and the two fragile splits: [`docs/evaluation.md`](docs/evaluation.md#p8-what-the-shared-fields-mean)).
+
+### Role fit, the No-criterion and the converter's roles
+
+**Do v0.2's roles fit gold labelled after they were frozen?** Yes on interventions (`results/schema/v0_2/oos_role_fit.json`;
+exploratory, post hoc): every determinable value beyond authorship falls into a named v0.2 role, 58/58 for answer-date
+role, instrument function and instrument name in 27 interventions from 6 parliaments (P11's Italian cell, the federal
+cell), and 267/267 author roles (P10, P11). Outside interventions (P11's 15 affairs) 36/43 fit; the misses show where
+v0.2 needs roles: 5 'cited' submission dates and 2 instrument functions. P8 counts a cited date inside the shared
+meaning; the draft v0.2.1 (`schema/gegenprobe_schema_v0_2_1.py`) adds `cited` as a date role, and 41/43 fit (post hoc,
+proposed in review; a consistency fix, since the labels were seen; v0.2 itself stays frozen). On P8's own gold the roles are exhaustive by
+construction, an exhaustiveness check rather than a test: 302/302 across 58 field × parliament cells (post hoc; v0.2's
+roles were written from P8's categories; `results/p8/p8_v02_role_coverage.json`). **What would have meant No** (proposed in
+review): a field body-specific in 2 or more parliaments for reasons of practice rather than OPD's data, or values
+outside every named role. The one body-specific field, the submission date in Vernier and Lausanne, is a split between
+OPD's date and the documents. Three converter-made v0.2 records, chosen by a written
+rule (Bern in German, Vernier in French, Lugano in Italian), are the samples: `results/schema/v0_2/samples/`; the
+operator command reproduces each field for field.
+Author roles are checked for consistency (`src/gegenprobe/schema/role_consistency.py`): a sole author never sits next to
+joint authors, and a joint author never next to a designated first signatory. The 2 records where the rules printed a
+group's name over signatures as the sole author now list the group as one joint author among the signers, as P8's
+guide defines it; all 186 v0.2 records pass the check: the converter's 120 and P8's 66 gold records.
+
+**The schema expresses the roles; the converter fills them where the documents print them.** v0.2 names a role for
+every value P8 found, and the converter's rules fill a role where its document prints one: 42 of its 142 answer dates
+carry a split role, and on unseen layouts its author rules recall 39/137 gold (name, role) pairs. The rules
+(`src/gegenprobe/convert/roles.py`, fixed rules, no model; exploratory, written after P8's lock): of its 105 records, 75 carry printed authors with their role, 78 the instrument's function and all 105 the
+language of every text; every value has its page, span and quote hash. Scored on 5 P8 parliaments the rules never saw
+(split fixed before their labels were opened; frozen copy in `results/schema/v0_2/converter_roles_frozen/`): the
+language of the text 60/60 documents, the instrument named 27/30 affairs, author (name, role) pairs precision 39/49
+and recall 39/137: on unseen layouts the author rules mostly abstain. With one layout rule per parliament added
+afterwards, all 66 P8 affairs reach pair precision 286/291 and recall 286/345 (in-sample)
+(`results/schema/v0_2/converter_roles.json`).

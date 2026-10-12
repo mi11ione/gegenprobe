@@ -296,3 +296,25 @@ the same affairs. These are the parliaments the date-tier column (`same_day`, `m
 only when its date equals an OPD event, so agreement with OPD on those rows partly follows from how they were verified.
 What the adapter adds is *which* event: the census rule takes the earliest written-answer event, and in four parliaments
 that is not the document's date. Medians pool intervention types unless stated.
+
+## 7. Findings for OPD's data (moved from the project README)
+
+- **Question and answer in different languages.** Where OPD links both language versions, the lowest-id question and
+  the lowest-id answer differ in language in 214 of 1,999 affairs with tagged documents (Graubünden 148, Valais 63,
+  Bern 3); in 6 affairs no same-language pair exists at all, among them one Valais affair split in two
+  (`results/findings/cross_language_links.json`, [`docs/qa.md`](docs/qa.md)). In OPD's federal texts the Italian
+  answer slot holds French text in 7,165 of 37,828 answers (the converter's language detector, `results/fed/pool_probe.json`).
+- **Answer times: where OPD's "answer" event is the submission date, OPD's plain median says 0 days.** In Kriens the
+  verified answer documents give 26.5 days on 68 affairs, where OPD's date on the same affairs gives 0; in Valais the
+  23 verified answers that still count give 2 days, mostly interpellations and questions (post hoc; 6,362 durations,
+  17 parliaments with at least 20). On the same affairs, OPD's answer dates and the documents' dates rank the 17
+  parliaments almost identically (Spearman 0.997); OPD's plain medians and the documents' dates agree at 0.884, and
+  OPD's plain medians and OPD's own dates on these affairs at 0.86: the verified answers are the census gap, with their
+  own type mix (`results/findings/answer_times.json`, [`docs/census.md`](docs/census.md)).
+
+![Answer times in 17 parliaments: the answer document's own date vs OPD's answer event](docs/figures/fig6_answer_times.png)
+
+<sub>Figure 6 (post hoc, descriptive): median days from submission to answer in 17 parliaments, on the date the answer
+document carries (dot and interquartile bar) and on OPD's answer event (diamond), with what OPD's date is in each
+parliament. The rankings agree (Spearman 0.884), but the date's role differs: in Kriens (highlighted) OPD's answer
+date is the submission day, a median of 0 days, where the documents give 26.5 days.</sub>

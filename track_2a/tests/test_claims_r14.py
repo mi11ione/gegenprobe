@@ -39,14 +39,14 @@ def _errs(rows, cfg, doc, old, new):
 
 # ---- 1 scope words are bound to their claims
 @pytest.mark.parametrize("doc,old,new", [
-    ("technical_report.md", "(post hoc, `docs/evaluation.md`): model-free",
-     "(registered, `docs/evaluation.md`): model-free"),
+    ("technical_report.md", "By language (post hoc), the pointer finds",
+     "By language (registered), the pointer finds"),
     ("technical_report.md", "outside interventions 36/43 (exploratory, post hoc",
      "outside interventions 36/43 (exploratory, registered"),
     ("technical_report.md", "at recall 39/137 (exploratory)", "at recall 39/137 (registered)"),
-    ("README.md", "2/29 (P2, registered)", "2/29 (P2, post hoc)"),
-    ("README.md", "recall 286/345 (in-sample)", "recall 286/345 (held out)"),
-    ("README.md", "**Federal level (exploratory,", "**Federal level (registered,"),
+    ("README.md", "(Holm p = 0.032), registered;", "(Holm p = 0.032), post hoc;"),
+    ("README.md", "F1 is 0.80 (in-sample)", "F1 is 0.80 (held out)"),
+    ("README.md", "as is** (P11, exploratory, 15 affairs)", "as is** (P11, registered, 15 affairs)"),
     ("docs/form_notes.md", "4 from OPD's labels, post hoc", "4 from OPD's labels, registered"),
     ("docs/form_notes.md", "(at most 0.58; post hoc)", "(at most 0.58; registered)"),
 ])
@@ -86,7 +86,7 @@ def test_r14_small_table_cells_carry_their_own_claims(rows):
 
 # ---- 3 pinned statements
 @pytest.mark.parametrize("doc,old,new", [
-    ("README.md", "Blind AI annotators judged 120/120", "Blind human annotators judged 120/120"),
+    ("README.md", "AI annotators judged 185/186", "human annotators judged 185/186"),
     ("docs/form_notes.md", "OPD confirmed", "OPD disputes"),
     ("technical_report.md", "only picks values printed in the document", "picks values from the document"),
 ])

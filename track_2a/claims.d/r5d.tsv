@@ -12,8 +12,8 @@ r5d.ne_all_missing	721	site/parliaments.csv	row:key=NE;col:all_written_missing	i
 r5d.ne_all_in_writing	774	site/parliaments.csv	row:key=NE;col:all_in_writing	int	make site	-	
 r5d.sz_interventions	1,316	site/data.json	parliaments.coverage.gaps.3.n	int	make site	docs/operations.md	
 r5d.p3b_c_wrong	4/35	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	scores.fields.answer_date.C.wrong/scores.fields.answer_date.C.n	frac	python -m eval.gold5.run_p3b	docs/evaluation.md	
-r5d.p2_latest_answerless	31	results/eval2/posthoc_r5_p2_table.json	all_62_70b.latest_printed_date.values_on_answerless.0	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	technical_report.md	
-r5d.p2_latest_wrong	38	results/eval2/posthoc_r5_p2_table.json	all_62_70b.latest_printed_date.wrong_printed_date	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	docs/evaluation.md,technical_report.md	
+r5d.p2_latest_answerless	31	results/eval2/posthoc_r5_p2_table.json	all_62_70b.latest_printed_date.values_on_answerless.0	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	-	
+r5d.p2_latest_wrong	38	results/eval2/posthoc_r5_p2_table.json	all_62_70b.latest_printed_date.wrong_printed_date	int	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	docs/evaluation.md	
 r5d.p2_rules_answerless_ci	[0, 10.4]	results/eval2/posthoc_r5_p2_table.json	all_62_70b.rules.values_on_answerless_ci_pct	ci	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	docs/evaluation.md	
 r5d.p2_nnull_answerless_ci	[3.1, 23.6]	results/eval2/posthoc_r5_p2_table.json	all_62_70b.naive_null.values_on_answerless_ci_pct	ci	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	docs/evaluation.md	
 r5d.p2_nplain_found_ci	[54.3, 85.3]	results/eval2/posthoc_r5_p2_table.json	all_62_70b.naive_plain.dates_found_ci_pct	ci	PYTHONPATH=src:. python -m eval.posthoc_r5 p2table	docs/evaluation.md	

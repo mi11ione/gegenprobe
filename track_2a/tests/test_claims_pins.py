@@ -9,7 +9,8 @@ from gegenprobe import claims as C
 from gegenprobe import claims_pins as P
 from gegenprobe.paths import ROOT
 
-DOCS = ("README.md", "technical_report.md", "docs/form_notes.md", "../README.md")
+DOCS = ("README.md", "technical_report.md", "docs/form_notes.md", "../README.md",
+        "docs/evaluation.md", "docs/operations.md")  # the last two hold the README detail moved there (R22)
 
 
 def _docs() -> dict[str, str]:
@@ -26,18 +27,20 @@ REVIEW_MISSES = [
     ("README.md", "H3a, F1 over the stronger OPD reading, is not confirmed",
      "H3a, F1 over the stronger OPD reading, is confirmed"),
     ("technical_report.md", "Not confirmed: H3a", "Confirmed: H3a"),
-    ("README.md", "about three times the rules", "about five times the rules"),
-    ("README.md", "doubles extraction", "triples extraction"),
-    ("README.md", "it raises author-role recall by 23.4 points", "it raises author-role recall about four times, by 23.4 points"),
+    ("docs/evaluation.md", "about three times the rules", "about five times the rules"),
+    ("docs/evaluation.md", "doubles extraction", "triples extraction"),
+    ("docs/form_notes.md", "it raises author-role recall by 23.4 points",
+     "it raises author-role recall about four times, by 23.4 points"),
     ("README.md", "The default runs no model.", "The default runs Apertus."),
     ("technical_report.md", "Apertus never writes a value.", "Apertus writes every value."),
-    ("docs/form_notes.md", "Apertus only suggests.", "Apertus runs unattended."),
+    ("docs/form_notes.md", "Apertus suggests and a reviewer confirms.", "Apertus runs unattended."),
     ("README.md", "its order is a strong baseline", "its order is a weak baseline"),
     ("technical_report.md", "so it sits in a few parliaments", "so it sits in every parliament"),
     ("README.md", "Claude Code agents (Anthropic) wrote most code, documentation and the gold labels.",
      "The team wrote the code, documentation and the gold labels."),
     ("docs/form_notes.md", "Claude Code agents wrote the code and labels.", "The team wrote the code and labels."),
-    ("README.md", "(our evaluation used Public AI, which may route outside Switzerland; with the local 8B no text leaves "
+    ("docs/operations.md",
+     "(our evaluation used Public AI, which may route outside Switzerland; with the local 8B no text leaves "
                   "the machine)", "(with Public AI no text leaves Switzerland)"),
     # the headline answer, the no-invention and rollback sentences, the test count, the night-2 incident and the
     # D4/D12 caveat (number-free sentences that passed the claims check before they were pinned)
@@ -45,13 +48,13 @@ REVIEW_MISSES = [
     ("technical_report.md", "Yes, if each field says which role its value plays", "Yes, without qualification"),
     ("docs/form_notes.md", "Yes, if each field says which role its value plays", "Yes, without qualification"),
     ("../README.md", "Yes, if each field says which role its value plays", "Yes, without qualification"),
-    ("README.md", "No closed-set arm returned a date printed nowhere", "No arm returned a date printed nowhere"),
-    ("README.md", "Every value it returns is printed in the document and",
-     "Every value the free prompt returns is printed in the document and"),
+    ("docs/evaluation.md", "No closed-set arm returned a date printed nowhere", "No arm returned a date printed nowhere"),
+    ("docs/form_notes.md", "Every value it returns\n  is a located printed value",
+     "Every value the free prompt returns\n  is a located printed value"),
     ("README.md", "rolls the whole transaction back", "never rolls the transaction back"),
     ("README.md", "Ten tests, each with code", "Eleven tests, each with code"),
     ("docs/form_notes.md", "**Ten tests, frozen before any label**", "**Eleven tests, frozen before any label**"),
-    ("README.md", "that second\n  night exposed a ledger bug, which is fixed", "that second\n  night ran clean"),
+    ("docs/operations.md", "that second\n  night exposed a ledger bug, which is fixed", "that second\n  night ran clean"),
     ("README.md", " (P1's hypothesis script followed its labels and\n  its rules entered with its sample, both logged: "
                   "D4, D12)", ""),
     ("technical_report.md", " (P1's hypothesis script followed its labels, D4; its rules came with its sample, D12)", ""),

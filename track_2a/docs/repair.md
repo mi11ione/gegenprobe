@@ -215,3 +215,13 @@ pages per document, under concurrent load).
 
 The 11,206 gap affairs with no answer document anywhere in OPD (ZH before 2016, Zürich city, SG, NE, JU, Winterthur, …) need
 per-body source adapters: `repair/adapters/`, results and limits in `docs/adapters.md`. The 1,350 `ocr` rows are candidates; only the 30-document probe was OCR'd.
+
+## Tag rows, workbench schema, downloads
+
+- **Tag rows, guarded plan.** `python -m gegenprobe.repair.apply_tags --exports-dir DIR --out PLAN` turns the counted
+  `tag_answer` and `extract_tag` rows into a before-state CSV and guarded `UPDATE` statements (id, affair,
+  `category_harmonized IS NULL`, and the text hash or "still no text, same URL"); a dry run like `apply_be`.
+- **Workbench schema.** `schema/gegenprobe_schema.py` is schema v0.1 as one file: pydantic only, no imports from
+  `gegenprobe`, no I/O, its JSON Schemas tested equal to `results/schema/*.schema.json`.
+- **Downloads.** Every list above is a direct download on the evidence site, the Fedlex list, `vocab_bugs.tsv`, the
+  P7 tier and `gegenprobe_schema.py` included; a missing path returns HTTP 404.

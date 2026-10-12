@@ -32,7 +32,7 @@ r2w.local_transfer_bytes	0	results/monitor/run_local_exports.json	transfer_bytes
 r2w.rules_docs_per_s	480	results/report/cost.json	rules_docs_per_second	int	python -m report.cost	docs/operations.md,README.md	
 r2w.rederive_scans	22	results/report/cost_end_to_end.json	heldout_rederive_scans	int	python -m report.cost e2e	docs/operations.md	
 r2w.x10_rules_cpu_hours	5	results/report/cost_end_to_end.json	x10_rules_cpu_hours	int	python -m report.cost e2e	docs/operations.md	
-r2w.procedural_state_ambiguous	32	results/report/p2_numbers.json	procedural_state_ambiguous	int	python -m report.p2_numbers	technical_report.md,README.md	
+r2w.procedural_state_ambiguous	32	results/report/p2_numbers.json	procedural_state_ambiguous	int	python -m report.p2_numbers	technical_report.md,docs/schema.md	
 r2w.lock2_time	2026-10-10T07:48:00Z	results/eval/lock_server_times_all.json	rows.2.github_first_run_created	str	GitHub Actions API (see file source)	-	
 r2w.labels2_time	2026-10-10T07:50:28Z	results/eval/lock_server_times_all.json	rows.3.github_first_run_created	str	GitHub Actions API (see file source)	-	
 r2w.lock34_time	2026-10-10T08:41:08Z	results/eval/lock_server_times_all.json	rows.4.github_first_run_created	str	GitHub Actions API (see file source)	-	

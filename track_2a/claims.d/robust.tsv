@@ -41,9 +41,9 @@ robust.lock_server_time	2026-10-09T19:38:07Z	results/eval/lock_server_times.json
 robust.labels_server_time	2026-10-09T19:44:06Z	results/eval/lock_server_times.json	labels_server_time	str	see results/eval/lock_server_times.json	-
 robust.rederive_match	154/154	results/eval/rederive_local.json	match/n	frac	PYTHONPATH=src:. python -m eval.rederive results/eval/rederive_local.json	docs/evaluation.md,docs/operations.md
 robust.rederive_secs	727	results/eval/rederive_local.json	secs	int	PYTHONPATH=src:. python -m eval.rederive results/eval/rederive_local.json	docs/operations.md
-robust.type_ambiguous	42	results/census/comparability.json	type.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	README.md,technical_report.md
-robust.type_raw_labels	1,038	results/census/comparability.json	type.raw_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md,README.md,docs/evaluation.md
-robust.dates_ambiguous	35	results/census/comparability.json	dates_with_roles.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	docs/evaluation.md,technical_report.md,README.md
+robust.type_ambiguous	42	results/census/comparability.json	type.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	docs/schema.md,technical_report.md
+robust.type_raw_labels	1,038	results/census/comparability.json	type.raw_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	technical_report.md,docs/schema.md,docs/evaluation.md
+robust.dates_ambiguous	35	results/census/comparability.json	dates_with_roles.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	docs/evaluation.md,technical_report.md,docs/schema.md
 robust.decision_ambiguous	3	results/census/comparability.json	decision_outcome.ambiguous_labels	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	README.md
 robust.events_unharmonised	29.1%	results/census/comparability.json	dates_with_roles.unharmonised_share	pct1	PYTHONPATH=src:. python -m gegenprobe.census.comparability	-
 robust.tier_fu10_fundamental	5	results/census/tier_sensitivity.json	grid.3.counts.fundamentally different	int	PYTHONPATH=src:. python -m gegenprobe.census.comparability	docs/ech-onepager.md

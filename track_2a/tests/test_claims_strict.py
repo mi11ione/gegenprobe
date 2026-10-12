@@ -48,8 +48,9 @@ def test_committed_documents_pass(rows, cfg):
 def test_altered_readme_fails(rows, cfg):
     """A review mutation: 92.1% -> 97.1% and 9,580 -> 9,780 in the headline table, each next to correct copies elsewhere."""
     t = _text("README.md")
-    assert "| **92.1%** |" in t and "| **9,580** |" in t
-    bad = t.replace("| **92.1%** |", "| **97.1%** |").replace("| **9,580** |", "| **9,780** |")
+    assert "| **81.6% → 92.1%** |" in t and "once the 9,580 model-free" in t
+    bad = t.replace("| **81.6% → 92.1%** |", "| **81.6% → 97.1%** |")
+    bad = bad.replace("once the 9,580 model-free", "once the 9,780 model-free")
     errs = claims.zone_check(rows, cfg, docs={"README.md": bad})
     assert any("'97.1%'" in e for e in errs) and any("'9,780'" in e for e in errs), errs
 
@@ -94,36 +95,38 @@ def test_check_includes_the_anchor_check(monkeypatch, rows):
 # ---- a swap between two valid claims of the same document must fail
 
 def test_m3_readme_headline_swap_between_valid_claims_fails(rows, cfg):
-    """M3 (headline re-cut in review): 24/29 -> 22/29 in the README's Apertus table. 22/29 is a valid claim for
-    README.md (the latest printed date on P2), so a value-set check would pass it; the anchor binds 24/29 to its
-    position."""
+    """M3 (headline re-cut in review): 24/29 -> 18/29 in the README's Apertus table. 18/29 is a valid claim for
+    README.md (P3b's affair number; R22: the P2 baselines left the README), so a value-set check would pass it; the
+    anchor binds 24/29 to its position."""
     t = _text("README.md")
     assert "| **24/29** answer dates" in t
-    assert any(r["shown"] == "22/29" and "README.md" in r["where"] for r in rows)
-    bad = t.replace("| **24/29** answer dates", "| **22/29** answer dates", 1)
+    assert any(r["shown"] == "18/29" and "README.md" in r["where"] for r in rows)
+    bad = t.replace("| **24/29** answer dates", "| **18/29** answer dates", 1)
     errs = claims.zone_check(rows, cfg, docs={"README.md": bad})
-    assert any("README.md:" in e and "'22/29'" in e for e in errs), errs
+    assert any("README.md:" in e and "'18/29'" in e for e in errs), errs
 
 
 def test_m5_report_body_change_with_the_value_elsewhere_fails(rows):
-    """M5 (the case moved with the report's summary): "24/29 answer dates, the rules" -> 22/29 in the
-    abstract, while 24/29 still appears in the §3 table and 22/29 is a valid report claim elsewhere."""
+    """M5 (the case moved with the report's summary): "24/29 answer dates, the rules" -> 27/29 in the
+    abstract, while 24/29 still appears in the §3 table and 27/29 is a valid report claim elsewhere (R22: P3's type;
+    the P2 baselines left the report)."""
     t = _text("technical_report.md")
-    assert "24/29 answer dates, the rules" in t and t.count("24/29") >= 2 and "22/29" in t
-    bad = t.replace("24/29 answer dates, the rules", "22/29 answer dates, the rules", 1)
+    assert "24/29 answer dates, the rules" in t and t.count("24/29") >= 2 and "27/29" in t
+    bad = t.replace("24/29 answer dates, the rules", "27/29 answer dates, the rules", 1)
     errs = claims.anchor_check(rows, docs={"technical_report.md": bad})
     assert any("'24/29 answer dates, the rules' not found in technical_report.md" in e for e in errs), errs
 
 
 def test_m17_readme_results_table_swap_fails(rows, cfg):
-    """M17: "12/40 → 24/40" -> "12/40 → 34/40" in the README's evaluation table; 34/40 is a valid README claim and
-    24/40 still appears elsewhere in the README. The README's results tables are strict zones."""
+    """M17: "12/40 → 24/40" -> "12/40 → 12/40" in the README's evaluation table; 12/40 is a valid README claim and
+    still appears right next to it (R22: the P5 detail with 34/40 moved to docs/evaluation.md). The README's results
+    tables are strict zones."""
     t = _text("README.md")
-    assert "submitter 12/40 → 24/40 |" in t and t.count("24/40") >= 2
-    assert any(r["shown"] == "34/40" and "README.md" in r["where"] for r in rows)
-    bad = t.replace("submitter 12/40 → 24/40 |", "submitter 12/40 → 34/40 |", 1)
+    assert "submitter 12/40 → 24/40 |" in t
+    assert any(r["shown"] == "12/40" and "README.md" in r["where"] for r in rows)
+    bad = t.replace("submitter 12/40 → 24/40 |", "submitter 12/40 → 12/40 |", 1)
     errs = claims.zone_check(rows, cfg, docs={"README.md": bad})
-    assert any("'34/40'" in e for e in errs), errs
+    assert any("'12/40'" in e for e in errs), errs
 
 
 def test_swapped_staging_shares_in_the_report_summary_fail(rows, cfg):

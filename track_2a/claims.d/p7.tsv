@@ -9,7 +9,7 @@ p7.test.trivial_promoted_frame	206	results/p7/test_sample.json	arms_on_frame.tri
 p7.h1.correct	120/120	results/p7/p7_hypotheses.json	H1.correct/H1.n	frac	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	README.md,technical_report.md,docs/evaluation.md,docs/form_notes.md	
 p7.h1.wilson_lb	96.9%	results/p7/p7_hypotheses.json	H1.wilson95.0	pct1	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	technical_report.md,docs/evaluation.md	
 p7.h1.holds	True	results/p7/p7_hypotheses.json	H1.holds	str	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	-	
-p7.h1.dated	95.8%	results/p7/p7_hypotheses.json	H1.precision_dated	pct1	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	README.md,technical_report.md,docs/evaluation.md	
+p7.h1.dated	95.8%	results/p7/p7_hypotheses.json	H1.precision_dated	pct1	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	technical_report.md,docs/evaluation.md	
 p7.h1.date_hit	113	results/p7/p7_hypotheses.json	H1.date_hit	int	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	-	
 p7.h3.free_only	28/30	results/p7/p7_hypotheses.json	H3.correct/H3.n	frac	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	docs/evaluation.md	
 p7.h3.supported	False	results/p7/p7_hypotheses.json	H3.supported	str	python -m eval.p7.test draw; python -m gegenprobe.repair.adapters.adjudicate apply; python -m eval.p7.hypotheses8	-	

@@ -47,14 +47,16 @@
    ],
    "docs": {
     "README.md": [
-     "partial: H3 held; H1 null safety failed (7/90); H2 Branch B",
-     "(H3 held, AUROC 0.969)"
+     "partial: H3 held; H1 null safety failed (7/90); H2 Branch B"
     ],
     "technical_report.md": [
      "**partial**: H3 held; H1 null safety failed (7/90); H2 Branch B",
      "H1 null safety failed (the cascade dates 7 of 90",
      "H2 gave Branch B",
      "H3 held (AUROC 0.969)"
+    ],
+    "docs/evaluation.md": [
+     "(H3 held, AUROC 0.969)"
     ]
    }
   },
@@ -95,12 +97,14 @@
    ],
    "docs": {
     "README.md": [
-     "3 of 4 held; H3 null safety failed (4/33)",
-     "on all 62 documents it is exact on 53/62 against the rules' 35/62 (H2 held)"
+     "3 of 4 held; H3 null safety failed (4/33)"
     ],
     "technical_report.md": [
      "**3 of 4 held**; H3 null safety failed (4/33)",
      "H2 held: on all 62 documents"
+    ],
+    "docs/evaluation.md": [
+     "on all 62 documents it is exact on 53/62 against the rules' 35/62 (H2 held)"
     ]
    }
   },
@@ -122,7 +126,7 @@
     "technical_report.md": [
      "so it sits in a few parliaments"
     ],
-    "README.md": [
+    "docs/evaluation.md": [
      "so it sits in some\n  parliaments, not all"
     ]
    }
@@ -278,9 +282,6 @@
     "technical_report.md": [
      "**no hypothesis held**",
      "No registered hypothesis held: v2 vs free prompting"
-    ],
-    "docs/form_notes.md": [
-     "P6: no registered hypothesis held."
     ]
    }
   },
@@ -336,11 +337,13 @@
    "docs": {
     "README.md": [
      "none uniform: 6 role split, 1 body-specific; 5 robust under both checks",
-     "2 are fragile (the split holds under one of P8's two checks)",
-     "These five verdicts hold on agreed labels only and on another vendor's"
+     "2 are fragile (the split holds under one of P8's two checks)"
     ],
     "technical_report.md": [
      "**none uniform**: 6 role split, 1 body-specific"
+    ],
+    "docs/schema.md": [
+     "These five verdicts hold on agreed labels only and on another vendor's"
     ]
    }
   },
@@ -393,12 +396,12 @@
    ],
    "polarity": "pos",
    "docs": {
-    "README.md": [
-     "precision non-inferior (H2, observed +0.21)"
-    ],
     "technical_report.md": [
      "Confirmed: H1, recall over the rules",
      "H2, precision non-inferior (+0.21)"
+    ],
+    "docs/evaluation.md": [
+     "precision non-inferior (H2, observed +0.21)"
     ]
    }
   },
@@ -517,7 +520,7 @@
     }
    ],
    "docs": {
-    "README.md": [
+    "docs/evaluation.md": [
      "about three times the rules (17/141)"
     ]
    }
@@ -537,7 +540,7 @@
     }
    ],
    "docs": {
-    "README.md": [
+    "docs/evaluation.md": [
      "pointing at printed names doubles extraction over"
     ]
    }
@@ -570,8 +573,7 @@
      "The default runs no model.",
      "The default (`rules_only`) runs no model, and no repair behind the 92.1% and the 9,580 needs one",
      "so the default runs no model |",
-     "| **What runs** | a nightly job on one CPU core: rules write the values; no model runs by default; Apertus (review mode, opt-in) proposes values and a reviewer confirms each |",
-     "so the default runs no model; the cascade"
+     "| **What runs** | a nightly job on one CPU core: rules write the values; no model runs by default; Apertus (review mode, opt-in) proposes values and a reviewer confirms each |"
     ],
     "technical_report.md": [
      "which is why the default runs no model.",
@@ -582,7 +584,11 @@
      "so by default no model runs."
     ],
     "../README.md": [
-     "the default runs no model and only reads public sources."
+     "the default runs no model and only reads public sources.",
+     "| **What runs** | a nightly job on one CPU core: rules write the values; no model runs by default; Apertus (review mode, opt-in) proposes values and a reviewer confirms each |"
+    ],
+    "docs/evaluation.md": [
+     "so the default runs no model; the cascade"
     ]
    }
   },
@@ -591,7 +597,6 @@
    "why": "Apertus never writes a value; it picks printed values, code locates them",
    "docs": {
     "README.md": [
-     "Every value it returns is printed in the document and\n  located by code",
      "every value Apertus extracts is a date or phrase printed in the document, located by"
     ],
     "technical_report.md": [
@@ -599,11 +604,7 @@
      "only picks values printed in the document, code locates them"
     ],
     "docs/form_notes.md": [
-     "Apertus only picks values printed in the document, and code\n  locates them.",
-     "Apertus only suggests."
-    ],
-    "../README.md": [
-     "Apertus only picks values printed in the document,"
+     "Apertus only picks values printed in the document, and code\n  locates them."
     ]
    }
   },
@@ -611,7 +612,7 @@
    "id": "safety.review",
    "why": "model values go to a reviewer; only rules run unattended",
    "docs": {
-    "README.md": [
+    "docs/evaluation.md": [
      "**Suggestions go to a reviewer; rules run unattended.**"
     ]
    }
@@ -621,11 +622,7 @@
    "why": "provenance: every value carries page and span",
    "docs": {
     "README.md": [
-     "a converter whose 120 records give every value its source (page and span, or a source record)",
      "Every value of the converter's\nrecords has its page and span (1,580) or its source record",
-     "every value has its page, span and quote hash",
-     "every value a printed",
-     "Every value is a printed date with its\n  page and span",
      "every value has its page, character span and rule",
      "Every value has its document, page, span and rule, or its OPD record; an empty field says why.",
      "**What only the closed design gives** (post hoc): every value Apertus returns is a printed value located by code (62/62",
@@ -637,12 +634,17 @@
     ],
     "docs/form_notes.md": [
      "a converter whose 120 records give every value its page and span or its source record",
-     "Every value it returns is a located printed value (62/62"
+     "Every value it returns\n  is a located printed value"
     ],
     "../README.md": [
-     "in the converter's 120 records every\n  value carries its role and source",
-     "a converter whose records give every value its page and span or its source record",
      "Every value Apertus returns is a printed value located by code (62/62"
+    ],
+    "docs/schema.md": [
+     "every value has its page, span and quote hash"
+    ],
+    "docs/evaluation.md": [
+     "every value a printed",
+     "Every value is a printed date with its\n  page and span"
     ]
    }
   },
@@ -651,10 +653,9 @@
    "why": "where data goes: no third-party processor by default; Public AI may route outside Switzerland",
    "docs": {
     "README.md": [
+     "| **Runtime external services** | none by default (public sources only); Apertus review mode sends document text to the Public AI gateway, a US nonprofit without a processing agreement (nDSG Art. 16), or nothing with the local 8B on CPU |",
      "The default nightly job uses no third-party processor.",
-     "(our evaluation used Public AI, which may route outside Switzerland; with the local 8B no text leaves the machine)",
-     "With the local 8B no document text leaves the machine.",
-     "| **Runtime external services** | none by default (public sources only); Apertus review mode sends document text to the Public AI gateway, a US nonprofit without a processing agreement (nDSG Art. 16), or nothing with the local 8B on CPU |"
+     "with the local 8B no document text leaves the machine"
     ],
     "technical_report.md": [
      "No third-party processor by default;",
@@ -664,8 +665,13 @@
     "docs/form_notes.md": [
      "Runtime external services: none by default (public sources only); Apertus review mode sends document\n  text to the Public AI gateway, or nothing with the local 8B"
     ],
+    "docs/operations.md": [
+     "The default nightly job uses no third-party processor.",
+     "(our evaluation used Public AI, which may route outside Switzerland; with the local 8B no text leaves the machine)",
+     "With the local 8B no document text leaves the machine."
+    ],
     "../README.md": [
-     "**Runtime external services:** none by\ndefault (public sources only); Apertus review mode sends document text to the Public AI gateway, or nothing with the\nlocal 8B."
+     "| **Runtime external services** | none by default (public sources only); Apertus review mode sends document text to the Public AI gateway, a US nonprofit without a processing agreement (nDSG Art. 16), or nothing with the local 8B on CPU |"
     ]
    }
   },
@@ -774,11 +780,11 @@
     }
    ],
    "docs": {
-    "README.md": [
-     "No closed-set arm returned a date printed nowhere (P1, P2, P6)."
-    ],
     "technical_report.md": [
      "no arm that picks from printed dates returned a date printed nowhere (P1, P2, P6)"
+    ],
+    "docs/evaluation.md": [
+     "No closed-set arm returned a date printed nowhere (P1, P2, P6)."
     ]
    }
   },
@@ -830,13 +836,13 @@
      "Ten tests, each with code, prompts and θ frozen by sha256 before any label was committed",
      "ten tests, each frozen by hash before its labels",
      "P1–P8 and P10 are the ten tests",
-     "the ten pre-registration locks and LOCKFED",
-     "| Evidence: ten pre-registrations |"
+     "| Evidence: ten pre-registrations |",
+     "re-scores the ten tests from"
     ],
     "technical_report.md": [
-     "the ten pre-registered tests of OpenParlData (OPD) records and documents (P3b replicates P3",
      "## 6. Evaluation: ten pre-registrations",
-     "**Table 2. The ten tests, in registration order.**"
+     "**Table 2. The ten tests, in registration order.**",
+     "the ten pre-registered tests of OPD records and documents (P3b replicates P3"
     ],
     "docs/form_notes.md": [
      "**Ten tests, frozen before any label**"
@@ -844,6 +850,9 @@
     "../README.md": [
      "ten tests, each frozen by hash before its labels",
      "P1–P8 and P10 are the ten pre-registered tests"
+    ],
+    "docs/operations.md": [
+     "the ten pre-registration locks and LOCKFED"
     ]
    },
    "must": "(?i)\\bten\\b"
@@ -852,7 +861,7 @@
    "id": "incident.night2_ledger",
    "why": "the incident the second real Docker night exposed, and its fix",
    "docs": {
-    "README.md": [
+    "docs/operations.md": [
      "that second\n  night exposed a ledger bug, which is fixed"
     ]
    }
@@ -866,7 +875,7 @@
     ],
     "technical_report.md": [
      "(P1's hypothesis script followed its labels, D4; its rules came with its sample, D12)",
-     "P1's rules entered with its sample, D12"
+     "its rules entered with its sample (D12)"
     ],
     "docs/form_notes.md": [
      "(P1's hypothesis script followed its labels, its rules came with its\n  sample: D4, D12)"
@@ -970,7 +979,7 @@
     }
    ],
    "docs": {
-    "README.md": [
+    "docs/evaluation.md": [
      "it is ahead of the rules in 9 of the 14 parliaments and behind in 1"
     ]
    }
@@ -1005,11 +1014,8 @@
     }
    ],
    "docs": {
-    "README.md": [
-     "131/154, level with the rules (paired p = 0.48"
-    ],
-    "technical_report.md": [
-     "(131) are level (paired p = 0.48"
+    "docs/evaluation.md": [
+     "the trivial baseline (latest printed date on documents OPD types as answers) is right on 131/154"
     ]
    }
   },
@@ -1058,7 +1064,7 @@
     }
    ],
    "docs": {
-    "README.md": [
+    "docs/evaluation.md": [
      "Both model routes beat the rules on submitters"
     ]
    }
@@ -1100,12 +1106,6 @@
     }
    ],
    "docs": {
-    "README.md": [
-     "Apertus as a reviewer's aid"
-    ],
-    "../README.md": [
-     "Apertus as a reviewer's aid"
-    ],
     "technical_report.md": [
      "so Apertus left the unattended path for an opt-in review suggestion (D6)"
     ]
@@ -1117,9 +1117,14 @@
    "docs": {
     "technical_report.md": [
      "feasibility study (D3-5)",
-     "*ready to apply*: census and Bern repair lists (relinks: one OPD decision, its hash rule); *ready to deploy*: nightly job (three real nights on standard GitHub runners + a real two-night Docker pair after a ledger fix: night 2 kept night 1's verdicts); *audited*: source-adapter lists; *tested prototype*: rules-only converter; *feasibility study*: review mode, whole and virtual affairs; *drafts for the eCH group*: schema v0.1 and v0.2 (P8's roles)."
+     "| *ready to apply* · *ready to deploy* | census and Bern repair lists (relinks: one OPD decision, its hash rule) · nightly job (three real nights on standard GitHub runners + a real two-night Docker pair after a ledger fix: night 2 kept night 1's verdicts) |",
+     "| *audited* · *tested prototype* | source-adapter lists · rules-only converter |",
+     "| *feasibility study* · *drafts for the eCH group* | review mode, whole and virtual affairs · schema v0.1 and v0.2 (P8's roles) |"
     ],
     "README.md": [
+     "| **Maturity** | census and Bern repair lists ready to apply (relinks: after the hash decision); nightly job ready to deploy; source-adapter lists audited; rules-only converter a tested prototype; review mode a feasibility study; schema v0.1 and v0.2 drafts for the eCH group |"
+    ],
+    "../README.md": [
      "| **Maturity** | census and Bern repair lists ready to apply (relinks: after the hash decision); nightly job ready to deploy; source-adapter lists audited; rules-only converter a tested prototype; review mode a feasibility study; schema v0.1 and v0.2 drafts for the eCH group |"
     ]
    }
@@ -1193,7 +1198,8 @@
     ],
     "../README.md": [
      "The only open decision is OPD's hash rule for",
-     "**Needs one decision:** your hash rule"
+     "**Needs one decision:** your hash rule",
+     "2. **Needs one decision:** your hash rule"
     ],
     "README.md": [
      "2. **Needs one decision:** your hash rule",
@@ -1227,16 +1233,10 @@
     }
    ],
    "docs": {
-    "README.md": [
-     "every one from model-free rules"
-    ],
     "technical_report.md": [
      "every one from model-free rules"
     ],
     "docs/form_notes.md": [
-     "every one from model-free rules"
-    ],
-    "../README.md": [
      "every one from model-free rules"
     ]
    }
@@ -1246,11 +1246,13 @@
    "why": "every Apertus value and every value from a parliament without rules is flagged for review",
    "docs": {
     "README.md": [
-     "By design, Apertus values arrive with `needs_review: true`",
      "A parliament with no rules gets `no_rules_for_body` and `needs_review: true`"
     ],
     "technical_report.md": [
      "(suggestions with page, span and margin, flagged `needs_review`)"
+    ],
+    "docs/evaluation.md": [
+     "By design, Apertus values arrive with `needs_review: true`"
     ]
    }
   },
@@ -1258,7 +1260,7 @@
    "id": "safety.reader_review_route",
    "why": "P10's reader puts roles next to the record, never into it",
    "docs": {
-    "README.md": [
+    "docs/evaluation.md": [
      "never into it, each marked for review"
     ]
    }
@@ -1278,15 +1280,17 @@
    "docs": {
     "README.md": [
      "or nothing with the local 8B on CPU",
-     "The Apertus 8B runs locally on CPU",
      "sha256-pinned, run in-process on CPU"
     ],
     "technical_report.md": [
      "locally on CPU, no text leaves",
      "and an alert relay only if the operator sets them"
     ],
+    "docs/evaluation.md": [
+     "The Apertus 8B runs locally on CPU"
+    ],
     "../README.md": [
-     "(70B weights via the Public AI gateway; local 8B on CPU)"
+     "or nothing with the local 8B on CPU"
     ]
    }
   },
@@ -1295,7 +1299,9 @@
    "why": "what the default sends to which host",
    "docs": {
     "README.md": [
-     "the default only reads public sources",
+     "the default only reads public sources"
+    ],
+    "docs/operations.md": [
      "| files.openparldata.ch (or none, with `GP_EXPORTS_DIR`) | GET only |",
      "| huggingface.co, only with `GP_GGUF=1` | GET of the pinned GGUF, once | local 8B |"
     ]
@@ -1429,9 +1435,8 @@
    ],
    "docs": {
     "README.md": [
-     "(8 robust + 2 fragile; 6 from the role test, P8, pre-registered, and 4 from OPD's label vocabularies, after seeing the labels)",
      "8 are\nrobust and 2 are fragile",
-     "the two fragile splits"
+     "**10** (8 robust + 2 fragile)"
     ],
     "technical_report.md": [
      "(8 robust + 2 fragile; 6 from the role test P8, registered, 4 from OPD's labels, post hoc)"
@@ -1439,12 +1444,15 @@
     "docs/form_notes.md": [
      "10 fields (8 robust + 2 fragile; 6 from the role test, P8, registered, 4 from OPD's labels, post hoc)"
     ],
-    "../README.md": [
-     "(8 robust + 2 fragile; 6 from the role test, P8, registered, and 4 from OPD's label vocabularies, post hoc)"
-    ],
     "docs/ech-onepager.md": [
      "10 need\nroles (8 robust, 2 fragile)",
      "(10 of 17: 8 robust, 2 fragile)"
+    ],
+    "docs/schema.md": [
+     "the two fragile splits"
+    ],
+    "../README.md": [
+     "**10** (8 robust + 2 fragile)"
     ]
    }
   },
@@ -1544,15 +1552,18 @@
     }
    ],
    "docs": {
-    "README.md": [
-     "Local 8B: date suggestions only; the review-queue verifier and the role reader need the 70B.",
-     "no θ meets the dev rule, so the 8B\n  promotes nothing"
-    ],
     "technical_report.md": [
      "verifier promotes none"
     ],
     "docs/form_notes.md": [
      "or nothing with the local 8B (date suggestions)"
+    ],
+    "docs/evaluation.md": [
+     "Local 8B: date suggestions only; the review-queue verifier and the role reader need the 70B.",
+     "no θ meets the dev rule, so the 8B\n  promotes nothing"
+    ],
+    "README.md": [
+     "the local 8B gives date suggestions on CPU where no text may leave the machine; the review-queue\nverifier and the role reader need the 70B"
     ]
    }
   },
@@ -1580,11 +1591,11 @@
     }
    ],
    "docs": {
-    "README.md": [
-     "the 8B reads 30/141 pairs right, more than the rules"
-    ],
     "technical_report.md": [
      "roles F1 0.27 |"
+    ],
+    "docs/evaluation.md": [
+     "the 8B reads 30/141 pairs right, more than the rules"
     ]
    }
   },
@@ -1603,7 +1614,7 @@
     }
    ],
    "docs": {
-    "README.md": [
+    "docs/schema.md": [
      "302/302 across 58 field × parliament cells"
     ]
    }
@@ -1625,8 +1636,7 @@
    ],
    "docs": {
     "README.md": [
-     "**Outside\ninterventions the skeleton does not carry over as is**",
-     "does not carry over as is: 7 fields carry over"
+     "**Outside\ninterventions the skeleton does not carry over as is**"
     ],
     "technical_report.md": [
      "outside interventions the skeleton does not carry over as is"
@@ -1634,8 +1644,8 @@
     "docs/form_notes.md": [
      "Outside interventions the skeleton does not carry over as is"
     ],
-    "../README.md": [
-     "the skeleton does not carry over as is"
+    "docs/schema.md": [
+     "does not carry over as is: 7 fields carry over"
     ]
    }
   },
@@ -1655,7 +1665,7 @@
     }
    ],
    "docs": {
-    "README.md": [
+    "docs/evaluation.md": [
      "no invented date"
     ]
    }
@@ -1722,8 +1732,11 @@
     "technical_report.md": [
      "the build guard stopped the run"
     ],
+    "docs/operations.md": [
+     "The build guard caught the switch live"
+    ],
     "../README.md": [
-     "the build guard caught it\nlive"
+     "the build guard caught it live"
     ]
    }
   },
@@ -1872,9 +1885,6 @@
    "id": "sovereignty.abroad_loses_two",
    "why": "a body that may not disclose text abroad: the rules and the local 8B's date suggestions run on its own machine; the review-queue verifier and the role reader need the 70B (docs/runbook.md, Public AI and nDSG Art. 16)",
    "docs": {
-    "README.md": [
-     "A body that may not disclose text abroad goes without only the review-queue verifier and the role reader"
-    ],
     "technical_report.md": [
      "A body that may not disclose text abroad goes without only the review-queue verifier and the role reader"
     ],
@@ -1889,6 +1899,12 @@
     ],
     "docs/runbook.md": [
      "*A body that may not disclose abroad* loses only the review-queue verifier and the role reader"
+    ],
+    "docs/operations.md": [
+     "A body that may not disclose text abroad goes without only the review-queue verifier and the role reader"
+    ],
+    "README.md": [
+     "A body that may not disclose text abroad goes\n  without only the review-queue verifier and the role reader"
     ]
    },
    "must": "(?i)\\b(only|two|zwei)\\b"
@@ -1914,7 +1930,7 @@
     }
    ],
    "docs": {
-    "README.md": [
+    "docs/operations.md": [
      "a live `convert --mode review` and `affair --mode review --roles apertus` both exited 0"
     ]
    }
@@ -1930,7 +1946,7 @@
     }
    ],
    "docs": {
-    "README.md": [
+    "docs/operations.md": [
      "a deployment θ applies only after\none preflight request shows that the route serves the build it was fitted on"
     ]
    }
@@ -1951,8 +1967,10 @@
     }
    ],
    "docs": {
-    "README.md": [
-     "the Apertus role reader, on all 12 affairs",
+    "docs/evaluation.md": [
+     "the Apertus role reader, on all 12 affairs"
+    ],
+    "docs/operations.md": [
      "the role reader resumed and read all 12 affairs"
     ]
    }
@@ -1977,7 +1995,7 @@
     }
    ],
    "docs": {
-    "README.md": [
+    "docs/schema.md": [
      "all 15/15 validate",
      "`not_applicable` where P11's gold finds it applies",
      "and none types an answer field\n  `not_applicable`"
@@ -1999,7 +2017,7 @@
     }
    ],
    "docs": {
-    "README.md": [
+    "docs/operations.md": [
      "documents re-derived, all matching"
     ]
    }
@@ -2020,8 +2038,7 @@
    ],
    "docs": {
     "README.md": [
-     "OPD's date is printed in neither document in Vernier (5/5 affairs) and Lausanne (3/5)",
-     "Vernier (5/5 affairs) and Lausanne (3/5) it is printed in neither document"
+     "OPD's date is printed in neither document in Vernier (5/5 affairs) and Lausanne (3/5)"
     ],
     "technical_report.md": [
      "printed in neither document in Vernier (5/5 affairs) and Lausanne (3/5)",
@@ -2029,6 +2046,12 @@
     ],
     "docs/form_notes.md": [
      "OPD's is printed in neither document in Vernier, 5/5\n  affairs, and Lausanne, 3/5"
+    ],
+    "docs/schema.md": [
+     "Vernier (5/5 affairs) and Lausanne (3/5) it is printed in neither document"
+    ],
+    "../README.md": [
+     "OPD's date is printed in neither document in Vernier (5/5 affairs) and Lausanne (3/5)"
     ]
    }
   },
@@ -2052,9 +2075,6 @@
      "share the vocabulary and are outside the tested scope.",
      "The tested scope is interventions; parliamentary\ninitiatives, government business and other executive business that answers no member's affair are outside it."
     ],
-    "../README.md": [
-     "are outside\n  the tested scope."
-    ],
     "docs/ech-onepager.md": [
      "| **outside the tested scope** | parliamentary initiatives"
     ]
@@ -2070,18 +2090,25 @@
      "every Apertus suggestion before it is written |"
     ],
     "README.md": [
-     "every model value goes to a\n  reviewer.",
-     "**Apertus with a reviewer.** Apertus reads dates and a person confirms them"
+     "**Apertus with a reviewer.** Apertus reads dates and a person confirms them",
+     "for the rules, each confirmed by a reviewer"
     ],
     "technical_report.md": [
      "**Null safety** is left to the reviewer:"
     ],
     "docs/form_notes.md": [
-     "every model value goes\n  to a reviewer."
+     "every model value goes\n  to a reviewer.",
+     "Apertus suggests and a reviewer confirms."
     ],
     "docs/decision_de.md": [
      "schlägt Werte vor, und eine Prüferin oder\nein Prüfer bestätigt sie.",
      "jeden Vorschlag von Apertus, bevor er geschrieben wird |"
+    ],
+    "docs/evaluation.md": [
+     "every model value goes to a\n  reviewer."
+    ],
+    "../README.md": [
+     "for the rules, each confirmed by a reviewer"
     ]
    }
   },
@@ -2112,9 +2139,6 @@
     }
    ],
    "docs": {
-    "README.md": [
-     "name a US nonprofit, offer no data processing agreement and no data storage outside the US"
-    ],
     "technical_report.md": [
      "by its published terms a US nonprofit offering no data processing agreement and no storage outside the US"
     ],
@@ -2123,6 +2147,9 @@
     ],
     "docs/decision_de.md": [
      "gemeinnützige Organisation in den USA, die keinen Auftragsbearbeitungsvertrag anbietet"
+    ],
+    "docs/operations.md": [
+     "name a US nonprofit, offer no data processing agreement and no data storage outside the US"
     ]
    }
   },
@@ -2157,15 +2184,15 @@
     }
    ],
    "docs": {
-    "README.md": [
-     "(publicai.co/tc, retrieved\n  12 Oct 2026)"
-    ],
     "docs/runbook.md": [
      "What Public AI publishes, retrieved on 12 Oct 2026",
      "\"We are a US-based nonprofit.\"",
      "\"Formal Data\n  Processing Agreements (DPAs)\"",
      "\"Localized data storage outside the US\"",
      "\"no Data Processing Agreements are in place.\""
+    ],
+    "docs/operations.md": [
+     "(publicai.co/tc, retrieved\n  12 Oct 2026)"
     ]
    }
   },
@@ -2217,9 +2244,6 @@
     }
    ],
    "docs": {
-    "README.md": [
-     "a Swiss-hosted 70B is an estimated 1.64 GPU-hours"
-    ],
     "technical_report.md": [
      "a Swiss-hosted 70B is an estimated 1.64 GPU-hours"
     ],
@@ -2228,6 +2252,9 @@
     ],
     "docs/decision_de.md": [
      "| Prüfmodus, 70B in der Schweiz betrieben | geschätzt 1.64 GPU-Stunden"
+    ],
+    "docs/operations.md": [
+     "a Swiss-hosted 70B is an estimated 1.64 GPU-hours"
     ]
    }
   },
@@ -2317,8 +2344,8 @@
    ],
    "docs": {
     "README.md": [
-     "**Apertus 70B, opt-in, reads layouts no rules cover:**",
-     "Apertus reads where the rules cannot"
+     "Apertus reads where the rules cannot",
+     "**Apertus 70B (opt-in) reads layouts no rules cover:**"
     ],
     "technical_report.md": [
      "*Apertus:* opt-in; it reads what no rules cover"
@@ -2331,6 +2358,9 @@
     ],
     "docs/decision_de.md": [
      "Es liest Layouts, für die es keine Regeln gibt"
+    ],
+    "../README.md": [
+     "**Apertus 70B (opt-in) reads layouts no rules cover:**"
     ]
    }
   },
@@ -2360,14 +2390,7 @@
      "is": 0
     }
    ],
-   "docs": {
-    "README.md": [
-     "a free prompt that may answer null is about as accurate as the pointer on P1, P2 and P6, without its\n  located values"
-    ],
-    "technical_report.md": [
-     "a free prompt that may answer null is about as accurate as the pointer on P1, P2 and P6, without located values"
-    ]
-   }
+   "docs": {}
   },
   {
    "id": "nightly.fixed_pair",
@@ -2391,14 +2414,14 @@
     "docs/decision_de.md": [
      "| nächtlicher Job | einsatzbereit: drei echte Nächte, dann ein echtes Nächtepaar in Docker mit dem korrigierten Ledger (Nacht 2 behielt die Prüfergebnisse von Nacht 1) |"
     ],
-    "README.md": [
-     "A real two-night Docker pair on the fixed ledger followed (12 Oct): night 2\n  kept night 1's verdicts"
-    ],
     "../README.md": [
      "on a real two-night Docker pair with the fixed ledger, night 2 kept night 1's verdicts."
     ],
     "docs/form_notes.md": [
      "two-night Docker pair: night 2 kept night 1's verdicts)."
+    ],
+    "docs/operations.md": [
+     "A real two-night Docker pair on the fixed ledger followed (12 Oct): night 2\n  kept night 1's verdicts"
     ]
    }
   },
@@ -2418,11 +2441,8 @@
     }
    ],
    "docs": {
-    "README.md": [
-     "a free prompt that may answer null is about as accurate as the pointer on P1, P2 and P6"
-    ],
-    "technical_report.md": [
-     "a free prompt that may answer null is about as accurate as the pointer on P1"
+    "docs/evaluation.md": [
+     "the same Apertus asked freely with a null-allowed prompt is about as accurate"
     ]
    }
   },
@@ -2607,11 +2627,11 @@
     "technical_report.md": [
      "every lock hash-pinned, poppler (GPL) run as a separate program"
     ],
-    "README.md": [
-     "every lock hash-pinned, and runs poppler (GPL) only as a separate program"
-    ],
     "docs/runbook.md": [
      "poppler-utils (GPL-2.0 or GPL-3.0, run as a separate program, not linked)"
+    ],
+    "docs/operations.md": [
+     "every lock hash-pinned, and runs poppler (GPL) only as a separate program"
     ]
    }
   },
@@ -2704,6 +2724,9 @@
      "nDSG Art. 16"
     ],
     "docs/decision_de.md": [
+     "nDSG Art. 16"
+    ],
+    "../README.md": [
      "nDSG Art. 16"
     ]
    }
@@ -2938,11 +2961,16 @@
    "must": "(?i)no answer date|date none",
    "docs": {
     "README.md": [
-     "> - **Federal answers** print no answer date and no author",
-     "the answer\n  prints no answer date and no author"
+     "> - **Federal answers** print no answer date and no author"
     ],
     "technical_report.md": [
      "15 Federal Council answers print no answer date and no author; rules, pointer and converter date none"
+    ],
+    "docs/schema.md": [
+     "the answer\n  prints no answer date and no author"
+    ],
+    "../README.md": [
+     "> - **Federal answers** print no answer date and no author"
     ]
    }
   },
@@ -2986,7 +3014,7 @@
    "polarity": "neg",
    "must": "(?i)\\bnone of the seven\\b",
    "docs": {
-    "README.md": [
+    "docs/schema.md": [
      "none of the seven fields tested passes the registered test"
     ]
    }
@@ -3007,11 +3035,11 @@
     }
    ],
    "docs": {
-    "README.md": [
-     "Two Bellinzona \"Motions\" propose a decision the council takes itself; two Valais"
-    ],
     "docs/ech-onepager.md": [
      "Two Bellinzona \"Motions\"\n  propose a decision the council takes itself; two Valais \"Postulate\" mandate the executive to act"
+    ],
+    "docs/schema.md": [
+     "Two Bellinzona \"Motions\" propose a decision the council takes itself; two Valais"
     ]
    }
   },
@@ -3075,11 +3103,11 @@
    ],
    "must": "(?i)\\bone body-specific field\\b",
    "docs": {
-    "README.md": [
-     "The one body-specific field, the submission date"
-    ],
     "technical_report.md": [
      "the one body-specific field is a split"
+    ],
+    "docs/schema.md": [
+     "The one body-specific field, the submission date"
     ]
    }
   },
@@ -3165,17 +3193,20 @@
    ],
    "must": "(?i)\\bfive\\b",
    "docs": {
-    "README.md": [
-     "Tested on OPD's five intervention types"
-    ],
-    "../README.md": [
-     "Tested on OPD's five intervention types"
-    ],
     "docs/form_notes.md": [
      "Tested on OPD's five\n  intervention types"
     ],
     "docs/ech-onepager.md": [
      "the census and the tests sample interventions (OPD's five intervention types)"
+    ],
+    "README.md": [
+     "17-field skeleton of OPD's five intervention types"
+    ],
+    "../README.md": [
+     "17-field skeleton of OPD's five intervention types"
+    ],
+    "technical_report.md": [
+     "for the 17-field skeleton of the five intervention types in OpenParlData"
     ]
    }
   },
@@ -3197,12 +3228,16 @@
    ],
    "docs": {
     "README.md": [
-     "Two blind AI annotators labelled 30 of its documents",
-     "the two blind annotators agree on all 15",
-     "The two blind annotators agree on the answer date and the author lists in"
+     "Two blind AI annotators labelled 30 of its documents"
     ],
     "docs/ech-onepager.md": [
      "Labels: two blind Claude annotators (Opus, Sonnet)"
+    ],
+    "docs/schema.md": [
+     "the two blind annotators agree on all 15"
+    ],
+    "docs/evaluation.md": [
+     "The two blind annotators agree on the answer date and the author lists in"
     ]
    }
   },
@@ -3210,8 +3245,11 @@
    "id": "nightly.three_real_nights",
    "why": "three real network nights on GitHub runners: one venv night (run 38062530586, 10 Oct) and a two-night Docker pair (run 38098822336); results/monitor/night_real_38062530586, two_nights_docker_38098822336",
    "docs": {
-    "README.md": [
+    "docs/operations.md": [
      "Three real network nights ran on\n  standard GitHub runners: one with the venv unit (10 Oct) and two consecutive with the recommended Docker unit"
+    ],
+    "README.md": [
+     "three real network nights and a\n  real two-night Docker pair ran on standard GitHub runners"
     ]
    }
   },
@@ -3219,9 +3257,14 @@
    "id": "schema.three_samples",
    "why": "three committed converter-made v0.2 sample records (results/schema/v0_2/samples/: Bern, Vernier, Lugano), which make run rebuilds and compares",
    "docs": {
-    "README.md": [
-     "Three converter-made v0.2 records, chosen by a written",
+    "docs/schema.md": [
+     "Three converter-made v0.2 records, chosen by a written"
+    ],
+    "docs/operations.md": [
      "command on the three sample affairs (Bern, Vernier, Lugano)"
+    ],
+    "README.md": [
+     "compares it with the three committed samples"
     ]
    }
   },
@@ -3252,14 +3295,13 @@
    "must": "(?i)\\b(one|every)\\b",
    "docs": {
     "README.md": [
-     "comes from one build:",
-     "on every call"
+     "comes from one build:"
     ],
     "technical_report.md": [
      "its `model` checked on every call"
     ],
-    "../README.md": [
-     "comes\nfrom one build"
+    "docs/operations.md": [
+     "on every call"
     ]
    }
   },
@@ -3352,7 +3394,7 @@
    "polarity": "neg",
    "must": "(?i)\\bnone\\b",
    "docs": {
-    "README.md": [
+    "docs/evaluation.md": [
      "the P2 pointer and P6's reader v2 dated none"
     ]
    }
@@ -3377,18 +3419,20 @@
     }
    ],
    "docs": {
+    "docs/evaluation.md": [
+     "is above the no-model ranking signals we tested\n  (at most 0.58; the interval of the difference excludes zero)"
+    ],
     "README.md": [
-     "above every no-model ranking signal we computed (at most 0.58; the interval of the\ndifference excludes zero)",
-     "is above every no-model ranking signal we computed\n  (at most 0.58; the interval of the difference excludes zero)"
-    ],
-    "technical_report.md": [
-     "above every no-model ranking signal we computed (at most 0.58; the interval of the difference excludes zero)"
-    ],
-    "docs/form_notes.md": [
-     "above every no-model signal we computed (at most 0.58; post hoc)"
+     "above the no-model ranking signals we tested (at most 0.58; the interval of the\ndifference excludes zero)"
     ],
     "../README.md": [
-     "above every no-model ranking signal\nwe computed (at most 0.58; post hoc)"
+     "above the no-model ranking signals\nwe tested (at most 0.58; post hoc)"
+    ],
+    "technical_report.md": [
+     "above the no-model ranking signals we tested (at most 0.58; the interval of the difference excludes zero)"
+    ],
+    "docs/form_notes.md": [
+     "above the no-model signals we tested (at most 0.58; post hoc)"
     ]
    }
   },
@@ -3404,7 +3448,6 @@
    ],
    "docs": {
     "README.md": [
-     "with precision not worse (P10, H1 and H2, registered)",
      "); precision not worse | the author test, P10 (H1, H2) |"
     ],
     "technical_report.md": [
@@ -3439,17 +3482,11 @@
     }
    ],
    "docs": {
-    "README.md": [
-     "+10.5 points, all from the 9,580 repairs (the 8,949 row-checked ones reach 91.5%; the 592 agenda joins and 39 Bern rows in review add the rest"
-    ],
     "technical_report.md": [
      "+10.5 points, all from the 9,580 repairs (the 8,949 row-checked ones reach 91.5%; the 592 agenda joins and 39 Bern rows in review add the rest)"
     ],
     "docs/form_notes.md": [
-     "+10.5 points, all from the 9,580 repairs (91.5% from the 8,949 row-checked alone)"
-    ],
-    "../README.md": [
-     "+10.5 points, all from the 9,580 repairs (the 8,949 row-checked ones reach 91.5%; the 592 agenda joins and 39 Bern rows in review add the rest)"
+     "+10.5 points, all from the 9,580 repairs"
     ]
    },
    "must": "(?i)\\ball\\b"
@@ -3477,7 +3514,7 @@
     }
    ],
    "docs": {
-    "README.md": [
+    "docs/operations.md": [
      "the sources did not change; both alerts came from the\n  image's older tesseract reading the two canaries that need OCR. A host re-check on 12 Oct verified all 7 canaries\n  with their committed texts, and a canary now alerts only when its file changes or its text changes under the same\n  extractor"
     ]
    }
@@ -3497,11 +3534,91 @@
     }
    ],
    "docs": {
-    "docs/form_notes.md": [
-     "On 15 Federal Council answers that print no date it dates none"
+    "technical_report.md": [
+     "rules, pointer and converter date none (15/15 right nulls)"
     ]
    },
    "polarity": "neg"
+  },
+  {
+   "id": "count.p3b_five_fields",
+   "why": "P3b's S2 criterion scores five eligible fields",
+   "results": [
+    {
+     "file": "results/report/p34_numbers.json",
+     "path": "p3b.s2_eligible",
+     "is": 5
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "the five fields it scores"
+    ]
+   },
+   "must": "(?i)\\bfive\\b"
+  },
+  {
+   "id": "caveat.p2_rules_other_layouts",
+   "why": "J5 round 21 miss (a): the rules' 2/29 on P2 are rules written for other layouts (P2 is the transfer test); the caveat stays next to the comparison",
+   "results": [
+    {
+     "file": "results/report/p2_numbers.json",
+     "path": "arms.rules.value_recall",
+     "is": 2
+    }
+   ],
+   "docs": {
+    "README.md": [
+     "the rules, written for other layouts, find 2/29"
+    ],
+    "../README.md": [
+     "the rules, written for other layouts, find 2/29"
+    ],
+    "technical_report.md": [
+     "the rules, written for other layouts, 2/29"
+    ],
+    "docs/evaluation.md": [
+     "where the rules, written for other layouts,"
+    ]
+   },
+   "must": "(?i)written for other layouts"
+  },
+  {
+   "id": "threat.nocriterion_set_after",
+   "why": "J5 round 21 miss (b): the No-criterion was proposed in review, after the results; a threat to validity stated with its timing",
+   "docs": {
+    "technical_report.md": [
+     "The No-criterion (§1) was set after the results"
+    ]
+   },
+   "must": "(?i)\\bafter\\b"
+  },
+  {
+   "id": "gateway.70b_by_inference",
+   "why": "the registered build is the 70B by inference (served fingerprint tp8-pp2 and 760/792 greedy outputs byte-identical to the -70b name, results/report/cited_spikes.json); Public AI did not document it",
+   "results": [
+    {
+     "file": "results/report/cited_spikes.json",
+     "vars": {
+      "a": "public_ai_identical_greedy_cells.value",
+      "b": "public_ai_identical_greedy_cells.of"
+     },
+     "expr": "a == 760 and b == 792",
+     "is": true
+    }
+   ],
+   "docs": {
+    "technical_report.md": [
+     "Evaluation used Apertus v1.5 70B weights served by Public AI under the name `swiss-ai/apertus-v1.5-8b` (inferred from the served fingerprint"
+    ],
+    "README.md": [
+     "build, Apertus 70B by inference"
+    ],
+    "../README.md": [
+     "Apertus 70B by\ninference"
+    ]
+   },
+   "must": "(?i)infer"
   }
  ],
  "allow": {
@@ -3509,10 +3626,6 @@
    {
     "phrase": "Can one schema hold Swiss parliamentary business?",
     "why": "the brief's question, not a verdict"
-   },
-   {
-    "phrase": "co-signatory list holds authors of",
-    "why": "describes OPD's data"
    },
    {
     "phrase": "a category on a document OPD already holds",
@@ -3527,23 +3640,11 @@
     "why": "describes OPD's data"
    },
    {
-    "phrase": "answer slot holds French text",
-    "why": "describes OPD's data"
-   },
-   {
-    "phrase": "Italian slot holds French text",
-    "why": "describes OPD's data"
-   },
-   {
     "phrase": "where OPD holds interventions",
     "why": "describes OPD's data"
    },
    {
     "phrase": "fails on any mismatch",
-    "why": "describes the claims checker"
-   },
-   {
-    "phrase": "It fails if a document a claim",
     "why": "describes the claims checker"
    },
    {
@@ -3575,10 +3676,6 @@
     "why": "definition of a count (54 bound by claims)"
    },
    {
-    "phrase": "the shipped template's placeholder fails closed",
-    "why": "describes the User-Agent guard of the nightly job"
-   },
-   {
     "phrase": "councils that publish only minutes",
     "why": "names a construct (minutes-only councils), not a quantifier"
    },
@@ -3587,64 +3684,16 @@
     "why": "names a construct (councils that publish only minutes); 16 bound by claims"
    },
    {
-    "phrase": "the date exists only in OPD's events",
-    "why": "federal cell finding: where the answer date lives (7 of 15 bound by claims)"
-   },
-   {
     "phrase": "pydantic only",
     "why": "the schema file's only dependency"
-   },
-   {
-    "phrase": "the recommended Docker unit",
-    "why": "operator guidance: the runbook's recommended nightly unit"
-   },
-   {
-    "phrase": "no same-language pair exists at all",
-    "why": "describes 6 affairs (bound by claims)"
    },
    {
     "phrase": "not only for dates",
     "why": "scope of the schema answer (roles beyond dates)"
    },
    {
-    "phrase": "a sole author never sits next to",
-    "why": "states the rule the role-consistency check enforces"
-   },
-   {
-    "phrase": "and a joint author never next to",
-    "why": "states the rule the role-consistency check enforces"
-   },
-   {
-    "phrase": "all 186 v0.2 records pass the check",
-    "why": "the count is bound by claims; 'all' restates it"
-   },
-   {
-    "phrase": "and all 105 the",
-    "why": "the count is bound by claims; 'all' restates it"
-   },
-   {
-    "phrase": "rules never saw",
-    "why": "held-out design: parliaments outside the rules' development set"
-   },
-   {
-    "phrase": "all 66 P8 affairs reach",
-    "why": "the count is bound by claims; 'all' restates it"
-   },
-   {
     "phrase": "| part (page level) |",
     "why": "table header: the detection unit"
-   },
-   {
-    "phrase": "**Federal level (",
-    "why": "names the federal cell"
-   },
-   {
-    "phrase": "agree on all 15",
-    "why": "the count is bound by claims; 'all' restates it"
-   },
-   {
-    "phrase": "the language of all 15 question",
-    "why": "the count is bound by claims; 'all' restates it"
    },
    {
     "phrase": "PDF only",
@@ -3665,10 +3714,6 @@
    {
     "phrase": "in OPD all along",
     "why": "describes where the 2,177 answers were (bound by claims)"
-   },
-   {
-    "phrase": "with no answer at all",
-    "why": "defines the answerless subset"
    },
    {
     "phrase": "(review mode, residue only)",
@@ -3695,10 +3740,6 @@
     "why": "what make run needs"
    },
    {
-    "phrase": "never a failure",
-    "why": "describes the typed skips"
-   },
-   {
     "phrase": "never an empty text turned into a null",
     "why": "describes the OCR guard"
    },
@@ -3723,10 +3764,6 @@
     "why": "converter status label"
    },
    {
-    "phrase": "OPD\n   confirmed the Bern linking bug (correspondence, 10 Oct 2026)",
-    "why": "OPD's confirmation of the Bern bug (correspondence, 10 Oct 2026)"
-   },
-   {
     "phrase": "3 dates judged wrong, all Solothurn",
     "why": "the 3 date verdicts of the re-read fall in exact_doc_date/fetch, Solothurn's eq_gov rows (retier_r18.json audit.after_retier by_stratum)"
    },
@@ -3737,10 +3774,6 @@
    {
     "phrase": "once the proposed repairs are applied",
     "why": "hypothetical: the repairs are proposed, not applied (would ... once applied)"
-   },
-   {
-    "phrase": "it adopts and endorses its own proposal",
-    "why": "the executive adopting its own proposal: a role in government business (P11), not adoption of this work"
    },
    {
     "phrase": "category labels are judgements a person reviews",
@@ -3767,32 +3800,8 @@
     "why": "the executive adopting its own proposal: a role in government business (P11), not adoption of this work"
    },
    {
-    "phrase": "the date the executive adopted its own proposal",
-    "why": "the executive adopting its own proposal: a role in government business (P11), not adoption of this work"
-   },
-   {
-    "phrase": "its recommendation to adopt its own proposal",
-    "why": "the executive adopting its own proposal: a role in government business (P11), not adoption of this work"
-   },
-   {
     "phrase": "A research dataset ships with it",
     "why": "ships in this repository (its release contents), not adoption by OPD"
-   },
-   {
-    "phrase": "Code lists every person or body the two documents",
-    "why": "authors named in the documents, not labellers"
-   },
-   {
-    "phrase": "The reader ships as a\n  review route",
-    "why": "ships in this repository (its release contents), not adoption by OPD"
-   },
-   {
-    "phrase": "- **People (P5).**",
-    "why": "a field or field group of the schema (people named in an affair), not labellers"
-   },
-   {
-    "phrase": "free generation finds 34/40",
-    "why": "the name of an evaluation arm (free generation / free prompting), not a cost"
    },
    {
     "phrase": "free prompt",
@@ -3801,10 +3810,6 @@
    {
     "phrase": "the shipped reader v1",
     "why": "ships in this repository (its release contents), not adoption by OPD"
-   },
-   {
-    "phrase": "for OPD's existing manual-review step",
-    "why": "OPD's own review step that the values go to, not labelling"
    },
    {
     "phrase": "Q/A pairs, people, recommendation",
@@ -3847,20 +3852,8 @@
     "why": "a directory name"
    },
    {
-    "phrase": "records hold a value in",
-    "why": "'hold' as in 'contain', not a verdict"
-   },
-   {
     "phrase": "what they hold differs by field",
     "why": "'hold' as in 'contain', not a verdict"
-   },
-   {
-    "phrase": "only as a separate program",
-    "why": "how the image runs poppler (docs/licences.md), not a result"
-   },
-   {
-    "phrase": "which llama-cpp-python requires and Gegenprobe never calls",
-    "why": "the vulnerability allowlist's justification (docs/sbom/vuln-allowlist.tsv)"
    },
    {
     "phrase": "# Gegenprobe: one schema and a converter for Swiss parliamentary answers",
@@ -3903,18 +3896,6 @@
     "why": "what is committed of the transcripts: their sha256 only"
    },
    {
-    "phrase": "and fails on any HIGH or CRITICAL finding with a published\n  fix",
-    "why": "describes the CI gate of job image-scan (tools/sbom.py image-scan)"
-   },
-   {
-    "phrase": "applies Debian's updates at build time",
-    "why": "the Dockerfile's apt-get upgrade step, not adoption"
-   },
-   {
-    "phrase": "71 HIGH or CRITICAL",
-    "why": "CVSS severity labels of grype findings (docs/licences.md, Image scan)"
-   },
-   {
     "phrase": "**For OPD, in three lines**",
     "why": "format of the summary (three numbered lines follow)"
    },
@@ -3955,18 +3936,6 @@
     "why": "the plan file's columns (the old and the new hash), not a count"
    },
    {
-    "phrase": "schema v0.1 as one file: pydantic only",
-    "why": "the schema module's form (a single file)"
-   },
-   {
-    "phrase": "Where OPD links both language versions",
-    "why": "the two language versions of an affair's documents, a definition"
-   },
-   {
-    "phrase": "among them one Valais affair split in two",
-    "why": "one of the affairs listed in results/findings/cross_language_links.json (no_same_language_pair), described, not a total"
-   },
-   {
     "phrase": "(no\nrole printed at the date: 87;",
     "why": "the name of a typed reason; its count (87) is anchored"
    },
@@ -3975,40 +3944,8 @@
     "why": "the No-criterion's definition (values outside every named role)"
    },
    {
-    "phrase": "list the group as one joint author among the signers",
-    "why": "how the rule records a group (one actor), a description"
-   },
-   {
-    "phrase": "With one layout rule per parliament added",
-    "why": "how the post hoc rules were written (a rule per layout), a description"
-   },
-   {
     "phrase": "(every parliament with its tests:",
     "why": "describes docs/converter-coverage.md"
-   },
-   {
-    "phrase": "v0.1 carries a `DateRole` on every date",
-    "why": "schema design: v0.1 requires a DateRole on each date (data/schema/date_roles.json)"
-   },
-   {
-    "phrase": "One source label covers several roles",
-    "why": "definition of a role split"
-   },
-   {
-    "phrase": "one of several joint authors with none designated first in Zürich city",
-    "why": "P8's role categories per parliament, not counts"
-   },
-   {
-    "phrase": "city prints several first signatories",
-    "why": "P8's finding for Bern city's co-signatory lists, a description"
-   },
-   {
-    "phrase": "function keeps one meaning (15/15)",
-    "why": "'one meaning' = v0.1's meaning; the count is anchored (15/15)"
-   },
-   {
-    "phrase": "(one exception allowed)",
-    "why": "P8's registered tolerance (PREREG9), not a result"
    },
    {
     "phrase": "| field | class | meaning tested | where it lives (metadata · mixed · PDF only · none) |",
@@ -4021,10 +3958,6 @@
    {
     "phrase": "one row per intervention",
     "why": "the dataset's format"
-   },
-   {
-    "phrase": "On the adapters' review queue Apertus answers two\n  closed questions",
-    "why": "the verifier's design (two closed questions, named next)"
    },
    {
     "phrase": "the model scores `null` and every printed date",
@@ -4059,34 +3992,6 @@
     "why": "the command's output (one record per affair)"
    },
    {
-    "phrase": "builds one validated v0.2",
-    "why": "the command's output (one record per affair)"
-   },
-   {
-    "phrase": "(one canary per source each network night",
-    "why": "the canary's schedule, a design"
-   },
-   {
-    "phrase": "or none | text of public parliamentary documents",
-    "why": "no host when the operator sets no endpoint"
-   },
-   {
-    "phrase": "or none | the night's alerts",
-    "why": "no host when the operator sets no relay"
-   },
-   {
-    "phrase": "the one exception is the development budget gateway",
-    "why": "the only request path without GP_USER_AGENT (gw.py, development only), as the operator sheet lists"
-   },
-   {
-    "phrase": "and makes no third-party request",
-    "why": "the default route contacts only the listed public sources (operator sheet, External hosts)"
-   },
-   {
-    "phrase": "scans every lock for known vulnerabilities",
-    "why": "CI job sbom-audit scans each requirements lock (pip-audit)"
-   },
-   {
     "phrase": "OPD's own copy where one exists",
     "why": "'one' as a pronoun or article, not a count"
    },
@@ -4097,18 +4002,6 @@
    {
     "phrase": "| One OPD affair to one v0.2 record (operator command)",
     "why": "the command's output (one record per affair)"
-   },
-   {
-    "phrase": "4 answers left null and no wrong date",
-    "why": "P11's Italian cell: the counts are anchored (4 null), 'no wrong date' pinned by p11.it.pointer_no_invented in README"
-   },
-   {
-    "phrase": "where the reader suggests no author is opt-in",
-    "why": "the fallback's condition (the reader suggests none), a design"
-   },
-   {
-    "phrase": "Every request Gegenprobe sends carries `GP_USER_AGENT`",
-    "why": "every fetch path sets GP_USER_AGENT (the operator sheet lists them); the one exception is named next"
    },
    {
     "phrase": "one validated schema v0.2 record for a cantonal, communal or federal OPD affair",
@@ -4123,32 +4016,48 @@
     "why": "how each row of the list is checked (the method), not a count"
    },
    {
-    "phrase": "where its document prints one:",
-    "why": "a pronoun (a role), not a count"
-   },
-   {
     "phrase": "picks one of the dates or phrases printed",
     "why": "how the closed form works (a choice among printed values)"
-   },
-   {
-    "phrase": "over all their annotated promotions",
-    "why": "the population compared (every annotated promotion of either arm), not a result"
-   },
-   {
-    "phrase": "each reported, never scored",
-    "why": "how make run treats a cache miss (a rule of the replay), not a result"
    },
    {
     "phrase": "although OPD holds the answer",
     "why": "'holds' = has (the answer document is in OPD), not a verdict"
    },
    {
-    "phrase": "The tier it fills holds\n  214 of the 917 review rows it was applied to",
-    "why": "what P7's tier contains (214 rows promoted of the 917 the registered run was applied to)"
+    "phrase": "OPD confirmed the Bern linking bug (correspondence, 10 Oct 2026)",
+    "why": "OPD's confirmation of the Bern bug, from correspondence"
    },
    {
-    "phrase": "v0.2 names a role for\nevery value P8 found",
-    "why": "P8's gold values all fall into a named v0.2 role, exhaustive by construction (302/302, results/p8/p8_v02_role_coverage.json)"
+    "phrase": "16 councils publish only minutes",
+    "why": "describes the councils' publication practice (opd.virtual_bodies)"
+   },
+   {
+    "phrase": "co-signatory list holds\nauthors of record",
+    "why": "describes OPD's data"
+   },
+   {
+    "phrase": "federal answer dates exist only in OPD's events",
+    "why": "describes OPD's data (federal cell)"
+   },
+   {
+    "phrase": "#### Converter accuracy",
+    "why": "section heading"
+   },
+   {
+    "phrase": "accuracy per field is measured against blind labels",
+    "why": "describes how the converter's accuracy is measured (P3b)"
+   },
+   {
+    "phrase": "8 Python packages under permissive licences,\n  every lock hash-pinned",
+    "why": "supply chain: what the image installs and how locks are pinned (docs/licences.md)"
+   },
+   {
+    "phrase": "CI scans every lock and the built image and fails on any\n  HIGH or CRITICAL finding with a published fix",
+    "why": "describes the CI gate (sbom-audit, image-scan)"
+   },
+   {
+    "phrase": "the 9,580 model-free repairs proposed to OPD are applied",
+    "why": "the proposed repairs (r6d.repaired) once OPD applies them; conditional, not a claim of adoption"
    }
   ],
   "technical_report.md": [
@@ -4285,10 +4194,6 @@
     "why": "the brief's question, not a verdict"
    },
    {
-    "phrase": "records hold a value in",
-    "why": "'hold' as in 'contain', not a verdict"
-   },
-   {
     "phrase": "and a reviewer confirms each; the default runs no model",
     "why": "the default mode (rules_only), as pinned in safety.default_runs_no_model"
    },
@@ -4397,24 +4302,24 @@
     "why": "bound by its count (58/58, anchored)"
    },
    {
-    "phrase": "which event or person a field's value stands for",
-    "why": "the definition of a role (the terms list), not who labelled"
-   },
-   {
-    "phrase": "over all their promotions",
-    "why": "the population compared (every annotated promotion of either arm), not a result"
-   },
-   {
     "phrase": "although OPD holds the answer",
     "why": "'holds' = has (the answer document is in OPD), not a verdict"
    },
    {
-    "phrase": "`eval/prereg4/` hold P1 to P4",
-    "why": "'hold' = contain (folders), not a verdict"
-   },
-   {
     "phrase": "*Role split:* one label covers several roles",
     "why": "the definition of a role split (the method box), not a count"
+   },
+   {
+    "phrase": "OCR fails loudly: without the pinned deu/fra/ita models, or on a tesseract error, a scan is a typed `ocr_failed`, never an empty page; with the models all 154/154 P1 documents re-derive",
+    "why": "describes the OCR failure mode; the count is anchored (r13.ocr_match)"
+   },
+   {
+    "phrase": "from what OPD already holds",
+    "why": "describes OPD's data"
+   },
+   {
+    "phrase": "at the lower dated precision above",
+    "why": "refers to H4 (dated precision 95.8% vs 73.2%, registered), stated just before"
    }
   ],
   "docs/form_notes.md": [
@@ -4451,10 +4356,6 @@
     "why": "hypothetical: the repairs are proposed, not applied (would ... once applied)"
    },
    {
-    "phrase": "HIGH/CRITICAL findings kept",
-    "why": "CVSS severity labels of the image and lock scans (docs/licences.md)"
-   },
-   {
     "phrase": "CI scans every lock and the image",
     "why": "CI jobs sbom-audit (each lock) and image-scan"
    },
@@ -4481,24 +4382,8 @@
     "why": "names a construct (minutes-only councils), not a quantifier"
    },
    {
-    "phrase": "OPD\n   confirmed the Bern linking bug (correspondence, 10 Oct 2026)",
-    "why": "OPD's confirmation of the Bern bug (correspondence, 10 Oct 2026)"
-   },
-   {
-    "phrase": "about 5 at ten times\nOPD's volume",
-    "why": "the 10× volume case of the cost estimate (results/report/cost_end_to_end.json)"
-   },
-   {
     "phrase": "for all 902,754 documents",
     "why": "the corpus the cost covers (OPD's export)"
-   },
-   {
-    "phrase": "(adopting, endorsing and signing its own proposal)",
-    "why": "the executive adopting its own proposal: a role in government business (P11), not adoption of this work"
-   },
-   {
-    "phrase": "once the proposed repairs are applied",
-    "why": "hypothetical: the repairs are proposed, not applied (would ... once applied)"
    },
    {
     "phrase": "The eCH expert group's page",
@@ -4513,10 +4398,6 @@
     "why": "format of the summary (three numbered lines follow)"
    },
    {
-    "phrase": "**Shared:** one schema of 17 fields",
-    "why": "'one schema' = a single common schema (the proposal); 17 is anchored"
-   },
-   {
     "phrase": "**One page for OPD's management and a chancellery:**",
     "why": "the decision page's format (a single page), not a result"
    },
@@ -4527,6 +4408,46 @@
    {
     "phrase": "where free\nprompting's quotes",
     "why": "the name of an evaluation arm (free prompting), not a cost"
+   },
+   {
+    "phrase": "at ten times OPD's",
+    "why": "a scenario input (10x volume), not a result"
+   },
+   {
+    "phrase": "councils that publish only minutes",
+    "why": "names a construct (minutes-only councils), not a quantifier"
+   },
+   {
+    "phrase": "(Docker, CPU",
+    "why": "what make run needs"
+   },
+   {
+    "phrase": "all 902,754 documents",
+    "why": "the count is bound by claims; 'all' restates it"
+   },
+   {
+    "phrase": "**10** (8 robust + 2 fragile)",
+    "why": "P8's registered robustness class (robust = under both checks), the same split as the 10 of 17 tile"
+   },
+   {
+    "phrase": "joint authors with none first",
+    "why": "P8's role category (joint authors, none designated first), not a count"
+   },
+   {
+    "phrase": "OPD confirmed the Bern linking bug (correspondence, 10 Oct 2026)",
+    "why": "OPD's confirmation of the Bern bug, from correspondence"
+   },
+   {
+    "phrase": "16 councils publish only minutes",
+    "why": "describes the councils' publication practice (opd.virtual_bodies)"
+   },
+   {
+    "phrase": "the 9,580 model-free repairs proposed to OPD are applied",
+    "why": "the proposed repairs (r6d.repaired) once OPD applies them; conditional, not a claim of adoption"
+   },
+   {
+    "phrase": "the per-field\naccuracy from P3b",
+    "why": "names the source of the converter's per-field accuracy"
    }
   ],
   "docs/decision.md": [

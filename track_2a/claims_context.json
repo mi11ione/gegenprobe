@@ -36,7 +36,8 @@
   "docs/evaluation.md": "| IT commune |"
  },
  "breadth.p2.lang_IT.pointer.found": {
-  "docs/evaluation.md": "by language, pointer"
+  "docs/evaluation.md": "by language, pointer",
+  "technical_report.md": "IT 5/5."
  },
  "breadth.p2.lang_IT.rules.found": {
   "docs/evaluation.md": "rules DE 0/13"
@@ -225,6 +226,7 @@
   "docs/census.md": "| recomputed | explained |"
  },
  "opd.virtual_bodies": {
+  "../README.md": "and 16 councils publish only minutes",
   "README.md": "meeting documents",
   "docs/evaluation.md": "publish only meeting documents (",
   "technical_report.md": "16 bodies; v0.1"
@@ -233,6 +235,7 @@
   "docs/evaluation.md": "no affair at all"
  },
  "p2.bodies": {
+  "../README.md": "15 parliaments nobody wrote rules for;",
   "README.md": "parliaments nobody wrote rules for",
   "docs/decision.md": "parliaments without rules it found",
   "docs/decision_de.md": "für die es keine Regeln gibt: In",
@@ -263,6 +266,8 @@
   "docs/evaluation.md": "absent from every dev and held-out set**"
  },
  "p2.n_value": {
+  "../README.md": "24 of 29 answer dates vs 2 of 29 for the rules",
+  "README.md": "24 of 29 answer dates vs 2 of 29 for the rules",
   "docs/evaluation.md": "with an answer date, from"
  },
  "p2.naive_null_fab": {
@@ -361,7 +366,8 @@
  "p8.date_submission.n_conform": {
   "README.md": "In 9 of 11 parliaments OPD's",
   "docs/ech-onepager.md": "In 9 of 11 parliaments OPD's",
-  "docs/evaluation.md": "9 parliaments conform"
+  "docs/evaluation.md": "9 parliaments conform",
+  "docs/schema.md": "In 9 of 11 parliaments OPD's"
  },
  "p8.government_recommendation.6643": {
   "README.md": "Vernier",
@@ -376,7 +382,8 @@
  },
  "p8.language.FR_other": {
   "README.md": "the other official language in 2",
-  "docs/ech-onepager.md": "In Fribourg 2 of"
+  "docs/ech-onepager.md": "In Fribourg 2 of",
+  "docs/schema.md": "the other official language in 2"
  },
  "p8.language.evaluable": {
   "docs/evaluation.md": "| language | **role split** |"
@@ -400,15 +407,17 @@
   "technical_report.md": "meaning of 7 fields in the documents"
  },
  "p8.n": {
-  "README.md": "On 66 fresh affairs from",
+  "README.md": "| P8 | 66 fresh affairs,",
   "docs/ech-onepager.md": "fields on 66 fresh affairs",
   "docs/evaluation.md": "| P8 | 66 fresh affairs, 11 parliaments |",
+  "docs/schema.md": "On 66 fresh affairs from",
   "technical_report.md": "| P8 | 66 fresh affairs,"
  },
  "p8.parliaments": {
-  "README.md": "affairs from 11 parliaments, labelled blind",
+  "README.md": "66 fresh affairs, 11 parliaments | meaning of 7",
   "docs/ech-onepager.md": "11 parliaments (P8) finds roles",
   "docs/evaluation.md": "| P8 | 66 fresh affairs, 11 parliaments |",
+  "docs/schema.md": "affairs from 11 parliaments, labelled blind",
   "technical_report.md": "11 parliaments | meaning of 7"
  },
  "p8.posthoc.qwen_joint_as_first": {
@@ -472,6 +481,7 @@
   "technical_report.md": "in 7 of 54 bodies"
  },
  "question.same_day_bodies": {
+  "../README.md": "7 parliaments, mostly the submission date",
   "README.md": "in 7 parliaments",
   "docs/ech-onepager.md": "of 54 bodies",
   "technical_report.md": "of 54 bodies"
@@ -496,7 +506,8 @@
   "docs/evaluation.md": "eligible queue rows against"
  },
  "r10.p7_rule_queue": {
-  "docs/evaluation.md": "of the 863 eligible queue rows"
+  "docs/evaluation.md": "of the 863 eligible queue rows",
+  "technical_report.md": "recovers more rows (369 vs"
  },
  "r10.p7_rule_recall": {
   "docs/evaluation.md": "attainable recall",
@@ -525,6 +536,7 @@
  },
  "r11.p7_h4_unweighted": {
   "README.md": "unweighted",
+  "docs/evaluation.md": "unweighted",
   "technical_report.md": "unweighted"
  },
  "r11.p8_robust_role_split": {
@@ -534,7 +546,7 @@
   "technical_report.md": "fields.** *Class*: role split = one label"
  },
  "r11.schema_one_definition": {
-  "../README.md": "fields,** defined once in",
+  "../README.md": "6**, defined once in v0.1",
   "README.md": "| untested | **",
   "technical_report.md": "defined once in v0.1"
  },
@@ -631,6 +643,7 @@
   "technical_report.md": "defined once in v0.1"
  },
  "r12.verdict_fragile": {
+  "../README.md": "2 fragile) | \"answer date\" is",
   "README.md": "fragile",
   "docs/ech-onepager.md": "fragile",
   "docs/form_notes.md": "robust + 2 fragile;",
@@ -638,13 +651,14 @@
  },
  "r12.verdict_robust": {
   "../README.md": "robust",
-  "README.md": "their roles are explicit (8 robust +",
+  "README.md": "**10** (8 robust +",
   "docs/ech-onepager.md": "robust",
   "docs/form_notes.md": "robust",
   "technical_report.md": "| needs roles |"
  },
  "r13.at_min_n": {
   "README.md": "with at least 20",
+  "docs/census.md": "with at least 20",
   "technical_report.md": "at least 20 durations"
  },
  "r13.at_vs_after": {
@@ -655,30 +669,38 @@
   "technical_report.md": "60 decoys"
  },
  "r13.conv_affairs": {
-  "README.md": "of the 105 converter affairs"
+  "README.md": "of the 105 converter affairs",
+  "docs/schema.md": "of the 105 converter affairs"
  },
  "r13.conv_authors": {
-  "README.md": "carry printed authors with their role,"
+  "README.md": "carry printed authors with their role,",
+  "docs/schema.md": "carry printed authors with their role,"
  },
  "r13.conv_function": {
-  "README.md": "78 the instrument's function"
+  "README.md": "78 the instrument's function",
+  "docs/schema.md": "78 the instrument's function"
  },
  "r13.conv_language_all": {
-  "README.md": "converter affairs;"
+  "README.md": "converter affairs;",
+  "docs/schema.md": "converter affairs;"
  },
  "r13.fed_lang_a": {
-  "README.md": "15 answer documents"
+  "README.md": "15 answer documents",
+  "docs/schema.md": "15 answer documents"
  },
  "r13.fed_lang_q": {
-  "README.md": "language of all 15 question"
+  "README.md": "language of all 15 question",
+  "docs/schema.md": "language of all 15 question"
  },
  "r13.fed_n": {
-  "README.md": "On 15 Federal Council answers",
+  "README.md": "**Exploratory cells, locked before the draw and the labels:** the federal cell (15 answers)",
   "docs/ech-onepager.md": "15 Federal Council answers whose v0.2",
+  "docs/schema.md": "On 15 Federal Council answers",
   "technical_report.md": "15 Federal Council answers"
  },
  "r13.ocr_scans": {
-  "README.md": "22 Ticino scans"
+  "README.md": "22 Ticino scans",
+  "technical_report.md": "the 22 Ticino scans included"
  },
  "r13.p1_latest_n": {
   "technical_report.md": "answer-typed documents (131)"
@@ -696,28 +718,38 @@
   "README.md": "of the 173 review rows"
  },
  "r13.ranked": {
-  "README.md": "17 parliaments with at least"
+  "README.md": "17 parliaments with at least",
+  "docs/census.md": "17 parliaments with at least",
+  "docs/evaluation.md": "17 parliaments with at least"
  },
  "r13.tagged_docs": {
-  "README.md": "of the 210 tagged"
+  "README.md": "of the 210 tagged",
+  "docs/schema.md": "of the 210 tagged"
  },
  "r13.v02_fed_affairs": {
-  "README.md": "186 affairs from"
+  "../README.md": "186** | v0.2 records from",
+  "README.md": "186 v0.2 records from",
+  "docs/schema.md": "186 affairs from"
  },
  "r13.v02_fed_parliaments": {
+  "../README.md": "v0.2 records from 26 parliaments validate;",
   "README.md": "from 26 parliaments"
  },
  "r13.vs_median_doc": {
-  "README.md": "2 days, mostly interpellations and questions"
+  "README.md": "2 days, mostly interpellations and questions",
+  "docs/census.md": "2 days, mostly interpellations and questions"
  },
  "r13.xl_first_pair_cross": {
-  "README.md": "in 214 of 1,999"
+  "README.md": "in 214 of 1,999",
+  "docs/census.md": "in 214 of 1,999"
  },
  "r13.xl_gr": {
-  "README.md": "Graubünden 148"
+  "README.md": "Graubünden 148",
+  "docs/census.md": "Graubünden 148"
  },
  "r13.xl_vs": {
-  "README.md": "Valais 63"
+  "README.md": "Valais 63",
+  "docs/census.md": "Valais 63"
  },
  "r14.at_kriens_plain": {
   "technical_report.md": "affairs, OPD's date"
@@ -728,6 +760,7 @@
  "r14.at_ranked": {
   "README.md": "parliaments with at least",
   "docs/census.md": "by definition, untested; meaning is measured for",
+  "docs/evaluation.md": "parliaments with at least",
   "technical_report.md": "*Answer times* (post hoc,"
  },
  "r14.cc_adapter": {
@@ -763,8 +796,9 @@
   "docs/converter-coverage.md": "appear in at least one test,"
  },
  "r14.cc_v02": {
-  "README.md": "parliaments validate (`results/fed/fed_tables.json`).",
-  "docs/converter-coverage.md": "appear in at least one test,"
+  "README.md": "26 have affairs among the validated",
+  "docs/converter-coverage.md": "appear in at least one test,",
+  "docs/schema.md": "parliaments validate (`results/fed/fed_tables.json`)."
  },
  "r14.cov_agenda": {
   "../README.md": "agenda joins and",
@@ -945,30 +979,38 @@
   "technical_report.md": "annotator sessions"
  },
  "r17.qa_records": {
-  "README.md": "lock): of its"
+  "README.md": "lock): of its",
+  "docs/schema.md": "lock): of its"
  },
  "r17.qa_with_items": {
-  "README.md": "converter records carry pairs"
+  "README.md": "converter records carry pairs",
+  "docs/operations.md": "converter records carry pairs"
  },
  "r17.v02_converter_parliaments": {
-  "README.md": "parliaments, and with"
+  "README.md": "parliaments, and with",
+  "docs/schema.md": "parliaments, and with"
  },
  "r17.v02_converter_records": {
-  "README.md": "records pass the check: the converter's",
-  "docs/form_notes.md": "transaction that rolls back on any deviation."
+  "README.md": "120 records this is",
+  "docs/form_notes.md": "transaction that rolls back on any deviation.",
+  "docs/schema.md": "records pass the check: the converter's"
  },
  "r17.v02_gold_records": {
-  "README.md": "gold records."
+  "README.md": "66 gold records leave",
+  "docs/schema.md": "gold records."
  },
  "r18d.at.kriens_n": {
-  "README.md": "68 affairs, where OPD's date on",
+  "README.md": "give 26.5 days on 68 affairs",
+  "docs/census.md": "68 affairs, where OPD's date on",
   "technical_report.md": "affairs, OPD's date"
  },
  "r18d.at.kriens_opd_same": {
-  "README.md": "0 days.** In Kriens the"
+  "README.md": "0 days.** In Kriens the",
+  "docs/census.md": "0 days.** In Kriens the"
  },
  "r18d.at.valais_after_n": {
-  "README.md": "23 verified answers that still count"
+  "README.md": "23 verified answers that still count",
+  "docs/census.md": "23 verified answers that still count"
  },
  "r18d.audit.claude_after_date_no": {
   "README.md": "3 dates judged wrong, all Solothurn,"
@@ -988,20 +1030,24 @@
  },
  "r18d.p7_8b.annotated": {
   "README.md": "190 annotated rows scored before the",
+  "docs/evaluation.md": "190 annotated rows scored before the",
   "docs/runbook.md": "190 annotated rows scored before the"
  },
  "r18d.p7_8b.scored": {
   "README.md": "88 of the",
+  "docs/evaluation.md": "88 of the",
   "docs/runbook.md": "88 of the"
  },
  "r18d.p8cov.cells": {
-  "README.md": "across 58"
+  "README.md": "across 58",
+  "docs/schema.md": "across 58"
  },
  "r18d.p8sub.lausanne": {
   "README.md": "affairs, and Lausanne,",
   "docs/form_notes.md": "affairs, and Lausanne,"
  },
  "r18d.p8sub.vernier": {
+  "../README.md": "Vernier (5/5 affairs) and Lausanne (",
   "README.md": "Vernier (5/5 affairs)",
   "docs/ech-onepager.md": "5/5 affairs) and Lausanne (",
   "docs/form_notes.md": "is printed in neither document in Vernier,",
@@ -1033,6 +1079,7 @@
   "README.md": "converter's 120 (105 cantonal and communal +",
   "docs/ech-onepager.md": "it: the converter's 120 (105 cantonal and communal +",
   "docs/form_notes.md": "105 cantonal and communal +",
+  "docs/schema.md": "105 cantonal and communal +",
   "technical_report.md": "105 cantonal and communal +"
  },
  "r18d.v02.converter": {
@@ -1040,6 +1087,7 @@
   "README.md": "converter's 120 (",
   "docs/ech-onepager.md": "validate in it: the converter's 120 (",
   "docs/form_notes.md": "parliaments validate: the converter's 120 (",
+  "docs/schema.md": "parliaments validate: the converter's 120 (",
   "technical_report.md": "parliaments validate: the converter's 120 ("
  },
  "r18d.v02.converter_parliaments": {
@@ -1061,6 +1109,7 @@
   "README.md": "converter's 120 (105 cantonal and communal + 15 federal, 23 parliaments) and P8's 66 gold records (",
   "docs/ech-onepager.md": "federal, 23 parliaments) and P8's 66 gold records (",
   "docs/form_notes.md": "parliaments) and P8's 66 gold",
+  "docs/schema.md": "66 gold records (",
   "technical_report.md": "66 gold records ("
  },
  "r18d.v02.p8_parliaments": {
@@ -1074,6 +1123,7 @@
   "../README.md": "26 parliaments validate: the converter's",
   "docs/ech-onepager.md": "26 parliaments validate in it: the",
   "docs/form_notes.md": "v0.2 records from 26",
+  "docs/schema.md": "26 parliaments validate: the converter's",
   "technical_report.md": "26 parliaments validate: the converter's"
  },
  "r18d.v02.records": {
@@ -1146,24 +1196,30 @@
   "technical_report.md": "violations; post hoc, `results/eval/annotator_isolation.json`)."
  },
  "r19_b.ni.documents": {
-  "README.md": "the 24\n  documents the draw fetched"
+  "README.md": "the 24\n  documents the draw fetched",
+  "docs/schema.md": "the 24\n  documents the draw fetched"
  },
  "r19_b.oos.iv_affairs": {
   "README.md": "instrument name in 27 interventions",
+  "docs/schema.md": "instrument name in 27 interventions",
   "technical_report.md": "in 27 interventions"
  },
  "r19_b.oos.iv_parliaments": {
   "README.md": "interventions from 6 parliaments",
+  "docs/schema.md": "interventions from 6 parliaments",
   "technical_report.md": "interventions from 6 parliaments"
  },
  "r19_b.oos.subdate_ni_cited": {
-  "README.md": "'cited' submission dates and"
+  "README.md": "'cited' submission dates and",
+  "docs/schema.md": "'cited' submission dates and"
  },
  "r19_b.p2.cold_secs": {
-  "README.md": "documents re-derived, all matching, in"
+  "README.md": "documents re-derived, all matching, in",
+  "docs/operations.md": "documents re-derived, all matching, in"
  },
  "r19_b.p2.opd_copy": {
-  "README.md": "Vaud documents, whose host's robots.txt is unreachable,"
+  "README.md": "Vaud documents, whose host's robots.txt is unreachable,",
+  "docs/operations.md": "Vaud documents, whose host's robots.txt is unreachable,"
  },
  "r19_c.audit.accepted": {
   "README.md": "accepted with its reason, in the optional",
@@ -1181,14 +1237,17 @@
   "technical_report.md": "| needs roles |"
  },
  "r19e.it.reader_matched": {
-  "README.md": "affairs, reads"
+  "README.md": "affairs, reads",
+  "docs/evaluation.md": "affairs, reads"
  },
  "r19e.oos.function_ni_miss": {
-  "README.md": "'cited' submission dates and"
+  "README.md": "'cited' submission dates and",
+  "docs/schema.md": "'cited' submission dates and"
  },
  "r19e.refit.dev": {
   "README.md": "dev documents when the route switched back",
   "docs/evaluation.md": "dev documents when the route",
+  "docs/operations.md": "dev documents when the route switched back",
   "docs/runbook.md": "dev documents when the route went back"
  },
  "r19e.refit.done": {
@@ -1230,10 +1289,12 @@
   "technical_report.md": "9 federal answering bodies"
  },
  "r20_b.cvf.p1.first_quarter_wrong": {
-  "README.md": "8 of its 16 wrong values"
+  "README.md": "8 of its 16 wrong values",
+  "docs/evaluation.md": "8 of its 16 wrong values"
  },
  "r20_b.cvf.p1.wrong": {
-  "README.md": "8 of its 16 wrong values"
+  "README.md": "8 of its 16 wrong values",
+  "docs/evaluation.md": "8 of its 16 wrong values"
  },
  "r20_b.man.sessions": {
   "README.md": "lists all 99",
@@ -1251,10 +1312,12 @@
   "technical_report.md": "(P11's 3 included)"
  },
  "r20_e.night.alerts": {
-  "README.md": "canary's 2 alerts"
+  "README.md": "canary's 2 alerts",
+  "docs/operations.md": "canary's 2 alerts"
  },
  "r20_e.night.review": {
-  "README.md": "review 40 on both nights"
+  "README.md": "review 40 on both nights",
+  "docs/operations.md": "review 40 on both nights"
  },
  "r20_e.prov.conv_record": {
   "README.md": "its source record (578"
@@ -1275,6 +1338,7 @@
   "docs/ech-onepager.md": "| **body-specific** (1 of"
  },
  "r21c.ndsg.art_abroad": {
+  "../README.md": "nDSG Art. 16",
   "README.md": "nDSG Art. 16",
   "docs/decision.md": "nDSG Art. 16",
   "docs/decision_de.md": "nDSG Art. 16",
@@ -1301,10 +1365,12 @@
  },
  "r21d.dates.split_n": {
   "README.md": "a role where its document prints one:",
+  "docs/schema.md": "a role where its document prints one:",
   "technical_report.md": "fills them where the documents print them:"
  },
  "r21d.docker.p1_miss": {
-  "README.md": "the misses to expect there,"
+  "README.md": "the misses to expect there,",
+  "docs/operations.md": "the misses to expect there,"
  },
  "r21d.docker.p2_miss": {
   "README.md": "is printed in neither document in Vernier"
@@ -1446,6 +1512,7 @@
  },
  "r2w.procedural_state_ambiguous": {
   "README.md": "state labels",
+  "docs/schema.md": "state labels",
   "technical_report.md": "labels ambiguous"
  },
  "r2w.rederive_scans": {
@@ -1609,6 +1676,7 @@
  },
  "r4c.8b_cascade_on_null": {
   "README.md": "25 of the 90 answerless",
+  "docs/evaluation.md": "25 of the 90 answerless",
   "docs/viewer.md": "answerless"
  },
  "r4c.lugano_list_page": {
@@ -1802,6 +1870,7 @@
  "r5c.days_diffuse": {
   "README.md": "it falls on a government's weekly sitting,",
   "docs/operations.md": "for diffuse",
+  "docs/schema.md": "it falls on a government's weekly sitting,",
   "docs/viewer.md": "diffuse 39"
  },
  "r5c.days_mixed": {
@@ -1815,11 +1884,13 @@
  "r5c.days_sitting": {
   "README.md": "where it falls on a",
   "docs/operations.md": "where it falls on a",
+  "docs/schema.md": "where it falls on a",
   "docs/viewer.md": "sitting day 79"
  },
  "r5c.days_verified": {
   "README.md": "verified decision date",
   "docs/operations.md": "the median is",
+  "docs/schema.md": "verified decision date",
   "docs/viewer.md": "verified 112 days",
   "technical_report.md": "verified decision date"
  },
@@ -2304,15 +2375,16 @@
   "technical_report.md": "streamed"
  },
  "r7docs.night1_min": {
-  "README.md": "for the first",
+  "README.md": "86 min on a GitHub runner,",
   "docs/operations.md": "night 1 took",
   "docs/runbook.md": "86 min on 4-vCPU GitHub runners,"
  },
  "r7docs.night2_bodies": {
-  "README.md": "bodies re-scanned"
+  "README.md": "bodies re-scanned",
+  "docs/operations.md": "bodies re-scanned"
  },
  "r7docs.night2_min": {
-  "README.md": "incremental second",
+  "README.md": "6.6 min; at ten times OPD's",
   "docs/operations.md": "next export, took",
   "docs/runbook.md": "6.6 min; inside OPD with `GP_EXPORTS_DIR`"
  },
@@ -2468,7 +2540,8 @@
   "technical_report.md": "gave Branch B (cascade alone right on"
  },
  "r9p.noans_n": {
-  "README.md": "On the"
+  "README.md": "On the",
+  "docs/evaluation.md": "On the"
  },
  "r9p.noans_p6_n": {
   "README.md": "of P6's",
@@ -2489,6 +2562,7 @@
  },
  "r9p.p2_answerless_n": {
   "README.md": "answerless documents, where the latest printed date",
+  "docs/evaluation.md": "answerless documents, where the latest printed date",
   "technical_report.md": "answerless dated /33"
  },
  "r9p.p2_bodies": {
@@ -2498,13 +2572,16 @@
  },
  "r9p.p2_latest_answerless": {
   "README.md": "found) dates",
+  "docs/evaluation.md": "found) dates",
   "technical_report.md": "| *trivial: latest printed date* | *24/62*"
  },
  "r9p.p2_latest_found_n": {
-  "README.md": "answerless documents, where the latest printed date"
+  "README.md": "answerless documents, where the latest printed date",
+  "docs/evaluation.md": "answerless documents, where the latest printed date"
  },
  "r9p.p2_pointer_answerless": {
-  "README.md": "It puts a date on"
+  "README.md": "It puts a date on",
+  "docs/evaluation.md": "It puts a date on"
  },
  "repair.agenda_join": {
   "docs/repair.md": "| OPD's own `agendas.item_affair_id`; not sample-verified |"
@@ -2607,6 +2684,7 @@
  "robust.dates_ambiguous": {
   "README.md": "event",
   "docs/evaluation.md": "event labels carry different date roles",
+  "docs/schema.md": "event",
   "technical_report.md": "event labels, several"
  },
  "robust.decision_ambiguous": {
@@ -2621,6 +2699,7 @@
  },
  "robust.type_ambiguous": {
   "README.md": "raw type labels",
+  "docs/schema.md": "raw type labels",
   "technical_report.md": "42 of 1,038 raw labels"
  },
  "schema.event_titles": {
@@ -2636,7 +2715,8 @@
   "docs/schema.md": "| affairs with a harmonised state |"
  },
  "schema.v02.conv_valid": {
-  "README.md": "converter affairs;"
+  "README.md": "converter affairs;",
+  "docs/schema.md": "converter affairs;"
  },
  "u1.adapters_with_counted": {
   "docs/adapters.md": "adapters yield counted",
@@ -2937,6 +3017,7 @@
  },
  "w5.8b.rss_gb": {
   "README.md": "9.3 GB peak",
+  "docs/evaluation.md": "9.3 GB peak",
   "docs/operations.md": "GB memory",
   "docs/runbook.md": "9.3 GB peak memory (a"
  },
@@ -2962,8 +3043,10 @@
   "technical_report.md": "9 parliaments"
  },
  "w5.p3b.n": {
+  "../README.md": "blind labels on 36 held-out affairs",
   "README.md": "fresh",
   "docs/evaluation.md": "fresh",
+  "docs/form_notes.md": "blind labels on 36 held-out affairs",
   "technical_report.md": "fresh affairs"
  },
  "w5.p3b.s2_eligible": {

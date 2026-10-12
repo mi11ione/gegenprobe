@@ -17,18 +17,17 @@ every number here from its results file and fails on any mismatch, or on a numbe
   and communal ones written by the operator command itself;
   a nightly job (three real nights, then a real two-night Docker pair: night 2 kept night 1's verdicts).
 - **Headline.** 92.1% of interventions with a recorded government answer would have answer text once the repairs are
-  applied, up from 81.6%: +10.5 points, all from the 9,580 repairs (91.5% from the 8,949 row-checked alone). The
-  Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation. 186 v0.2 records from 26
+  applied, up from 81.6%: +10.5 points, all from the 9,580 repairs. The Bern plan ran on PostgreSQL: 2,975 rows in one transaction that rolls back on any deviation. 186 v0.2 records from 26
   parliaments validate: the converter's 120 (105 cantonal and communal + 15 federal, 23 parliaments) and P8's 66 gold
-  records (11 parliaments).
+  records (11 parliaments). Against blind labels on 36 held-out affairs the converter is right on the type 35/36, the
+  submission date 30/34, the submitter 30/36 and the answer date 20/35, 31/35 with Apertus.
 - **Apertus, opt-in: it reads what no rules cover.** Apertus only picks values printed in the document, and code
   locates them. In 15 parliaments nobody wrote rules for (P2) it finds 24/29 answer dates, the rules 2/29
   (registered). In 14 parliaments without rules (P10) it raises author-role recall by 23.4 points over the rules,
   precision not worse (H1, H2, registered). On the review queue (P7) 120/120 of its sampled promotions are the
-  government's answer (H1, registered). On 15 Federal Council answers that print no date it dates none, and in
-  Italian (P11) it is exact on 12/12 (both exploratory). Every value it returns is a located printed value (62/62,
-  32/32, 35/35; free prompting's quotes 30/60, 17/32), and its margin ranks the open documents for review: AUROC 0.90
-  on new layouts, above every no-model signal we computed (at most 0.58; post hoc).
+  government's answer (H1, registered). In Italian (P11) it is exact on 12/12 (exploratory). Every value it returns
+  is a located printed value (62/62, 32/32, 35/35; free prompting's quotes 30/60, 17/32), and its margin ranks the
+  open documents for review: AUROC 0.90 on new layouts, above the no-model signals we tested (at most 0.58; post hoc).
 - **Census and OPD.** 2,177 "missing" answers were in OPD all along, under another heading; 7,876 answered
   interventions (5.9%, 73 parliaments) still carry "submitted" as their last OPD state. OPD confirmed
   the Bern linking bug (correspondence, 10 Oct 2026); the only open decision is its hash rule for relinks. Lists from
@@ -38,12 +37,11 @@ every number here from its results file and fails on any mismatch, or on a numbe
   to a reviewer. Runtime external services: none by default (public sources only); Apertus review mode sends document
   text to the Public AI gateway, or nothing with the local 8B (date suggestions).
   Rules: about 0.5 CPU-hours for OPD's 902,754 documents; review USD 0.59 per 1,000 residue documents. A body that
-  may not send text abroad loses only the verifier and the role reader. CI scans every lock and the image (base: 0 fixable
-  HIGH/CRITICAL findings kept); a DPO checklist (EN/DE) gives purpose, recipients and retention.
+  may not send text abroad loses only the verifier and the role reader. CI scans every lock and the image; a DPO
+  checklist (EN/DE) gives purpose, recipients and retention.
 - **Ten tests, frozen before any label** (P1's hypothesis script followed its labels, its rules came with its
-  sample: D4, D12). P1: rules alone right on 135/154, so by default no model runs. P6: no registered hypothesis held.
-  The 9 held results of P1–P7 survive Holm over their 20 tests. Null safety failed on the 70B (P1, P2, P6), so
-  Apertus only suggests.
+  sample: D4, D12). P1: rules alone right on 135/154, so by default no model runs. The 9 held results of P1–P7 survive Holm over their 20 tests. Null safety failed on the 70B (P1, P2, P6), so
+  Apertus suggests and a reviewer confirms.
 - **Labels without human labelling, by design.** Two blind AI annotators label, a third settles ties; Qwen-SEA-LION
   (AI Singapore) relabelled P1, P2, P6 and P7 blind: dates agree with κ 0.80, 0.87 and 0.86.
 - **Operations.** `make run` (Docker, CPU) recomputes the census, re-derives the rules arm from the PDFs, replays
