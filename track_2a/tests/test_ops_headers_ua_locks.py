@@ -1,4 +1,4 @@
-"""Operations: the evidence site's security headers (gegenprobe.viewer.headers), the required contact User-Agent in the
+"""Operations: the app's security headers (gegenprobe.app.headers), the required contact User-Agent in the
 deploy template and install.sh, the dev lock that installs pytest, and the PDF's metadata title. No network, no model."""
 import re
 import subprocess
@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 from gegenprobe.monitor import nightly
-from gegenprobe.viewer import headers as H
+from gegenprobe.app import headers as H
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
@@ -20,12 +20,27 @@ def test_headers_hash_every_inline_block_and_allow_nothing_else(tmp_path):
                                          "<script>console.log(1)</script><script src='x.js'></script></head></html>")
     text = H.render(tmp_path)
     csp = re.search(r"Content-Security-Policy: (.*)", text).group(1)
-    assert "default-src 'self'" in csp and "'unsafe-inline'" not in csp.replace("style-src-attr 'unsafe-inline'", "")
+    assert "default-src 'self'" in csp and "'unsafe-inline'" not in csp and "style-src-attr 'none'" in csp
     assert H._hash("console.log(1)") in csp and H._hash("body{color:red}") in csp
     assert H._hash('{"a":1}') not in csp  # the JSON data block is not executed
     for k in ("Strict-Transport-Security: max-age=31536000", "X-Content-Type-Options: nosniff",
               "Referrer-Policy: no-referrer", "frame-ancestors 'none'", "object-src 'none'"):
         assert k in text
+
+
+def test_app_pages_have_no_inline_code_and_no_third_party_source():
+    """The app's pages load app.js and app.css from files: no inline script, style block or style attribute, so the CSP
+    needs no hash and no 'unsafe-inline'; no source outside the site."""
+    from gegenprobe.app.build import APP
+    for n in ("index.html", "404.html"):
+        page = (APP / n).read_text(encoding="utf-8")
+        assert H.inline_hashes(page) == ([], []), n
+        assert " style=" not in page and not re.search(r'(src|href)="(https?:)?//(?!github\.com/mi11ione)', page), n
+    js = (APP / "app.js").read_text(encoding="utf-8")
+    assert "style=" not in js and "setAttribute('style'" not in js and "eval(" not in js and "new Function" not in js
+    assert not re.search(r"fetch\(['\"]https?:", js)
+    csp = re.search(r"Content-Security-Policy: (.*)", (SITE / "_headers").read_text()).group(1)
+    assert "script-src 'self';" in csp and "style-src 'self';" in csp
 
 
 def test_committed_site_headers_match_the_pages():
@@ -36,7 +51,7 @@ def test_deploy_ships_the_site_directory_with_its_headers():
     w = (ROOT / "deploy" / "site" / "wrangler.jsonc").read_text()
     assert '"directory": "../../site"' in w
     mk = (ROOT / "Makefile").read_text()
-    assert "deploy-site: site" in mk and "gegenprobe.viewer build" in mk
+    assert "deploy-site: site" in mk and "gegenprobe.app build" in mk
 
 
 # ------------------------------------------------------------------------------------------------ User-Agent

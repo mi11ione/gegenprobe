@@ -1,5 +1,5 @@
 id	shown	file	path	fmt	command	where
-r21c.ech.verdict_body_specific	1	site/data.json	schema.verdict.body_specific	int	python -m report.site_data	docs/ech-onepager.md
+r21c.ech.verdict_body_specific	1	results/evidence/data.json	schema.verdict.body_specific	int	python -m report.site_data	docs/ech-onepager.md
 r21c.ech.gov_rec_ambiguous	0	results/census/comparability.json	government_recommendation.ambiguous_labels	int	python -m census.comparability	docs/ech-onepager.md
 r21c.ech.tier10_fundamental	5	results/census/tier_sensitivity.json	grid.3.counts.fundamentally different	int	python -m census.tier_sensitivity	docs/ech-onepager.md
 r21c.ech.tier10_threshold	10%	results/census/tier_sensitivity.json	grid.3.fundamental_min	pct0	python -m census.tier_sensitivity	docs/ech-onepager.md

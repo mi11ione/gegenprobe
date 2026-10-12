@@ -1,8 +1,11 @@
-# written by python -m gegenprobe.viewer.headers (make site); do not edit: the hashes follow the pages
+# written by python -m gegenprobe.app build (make site); do not edit: the hashes follow the pages
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-lUUbWQ/IkyaZQUbRESTqR25P1PE2TcGEqqkCzjINUJw=' 'sha256-22LFzVjK2IAqrJbWk8vRgex+rk9tEQ7rL90fDIQ4UXI='; style-src 'self' 'sha256-atELrXh25QhR+LmOfbZWG38DRXqlnfyDRrtlnjTurM4=' 'sha256-mFF+GWYLadSVuiYM6DNE3ZULNKlZ4iXqWhHZsFt9BII='; style-src-attr 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; style-src-attr 'none'; img-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
   X-Frame-Options: DENY
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Cross-Origin-Opener-Policy: same-origin
+/data/*
+  Cache-Control: public, max-age=0, must-revalidate

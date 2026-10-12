@@ -186,7 +186,7 @@ copies) or `--refresh` (one robots.txt request per host).
 | `work/` | caches, `state.json` (night-over-night diff and 8 nights of rate history) and `nightly/outbox.json` (alerts not yet delivered). Deleting it costs one full re-download; it also resets the history the trend alert needs |
 
 Not runtime: the one-off backlogs (Fedlex placeholder replacement ~17.5 h once; OCR of image-only scans ~7.8 h once; the
-Curia Vista probe on `ws.parlament.ch`), the evaluation (Public AI, CI runners) and the evidence site
+Curia Vista probe on `ws.parlament.ch`), the evaluation (Public AI, CI runners) and the app
 (`gegenprobe.mi11ion.io`, static, Cloudflare). None of them is contacted by the nightly job.
 
 ## Triage: who handles which list
@@ -495,7 +495,7 @@ unchanged. Everything an operator runs (the nightly job, `make run`, the adapter
 
 The job processes only public parliamentary data and sends nothing anywhere unless an alert channel is configured by the
 operator. It runs on any Swiss or EU Linux host; nothing in it depends on a particular provider.
-The evidence viewer is static files only and makes no third-party request: its two fonts are served from `site/fonts/`
+The app is static files only and makes no third-party request: its two fonts are served from `site/fonts/`
 (SIL OFL 1.1), not from Google Fonts.
 
 ## Supply chain

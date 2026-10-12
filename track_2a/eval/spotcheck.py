@@ -88,7 +88,7 @@ def score(path: Path) -> dict:
 # ------------------------------------------------------------------------------------------------ build (dev only)
 def _labels() -> dict[str, str]:
     out = {}
-    with open(ROOT / "site" / "parliaments.csv", encoding="utf-8") as f:
+    with open(ROOT / "results" / "evidence" / "parliaments.csv", encoding="utf-8") as f:
         for r in csv.DictReader(f):
             out[r["key"]] = r["label"]
     return out

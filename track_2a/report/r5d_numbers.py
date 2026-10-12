@@ -1,6 +1,7 @@
 """Display-ready numbers for the docs pass, derived only from committed files, so claims.tsv can trace them:
 
-  * the census at a glance (Bern 2024-25 answers in OPD but unlinked = agenda + parentless, from site/parliaments.csv);
+  * the census at a glance (Bern 2024-25 answers in OPD but unlinked = agenda + parentless, from
+    results/evidence/parliaments.csv);
   * the independent-annotator check (how many of the 7 P1-H1 values fall on documents OPD types as reports; the number of
     listed disagreements per test) from results/eval/posthoc_r5_independent_gold.json;
   * the pointer vs the ungated latest printed date on P2's answered documents, p rounded half up (0.625 -> "0.63");
@@ -20,7 +21,7 @@ from gegenprobe.paths import ROOT, RESULTS
 
 
 def census() -> dict:
-    rows = {r["key"]: r for r in csv.DictReader(open(ROOT / "site" / "parliaments.csv", encoding="utf-8"))}
+    rows = {r["key"]: r for r in csv.DictReader(open(ROOT / "results" / "evidence" / "parliaments.csv", encoding="utf-8"))}
     be = rows["BE"]
     return dict(be_y2425_unlinked=int(be["y2425_agenda"]) + int(be["y2425_parentless"]),
                 be_y2425_agenda=int(be["y2425_agenda"]), be_y2425_parentless=int(be["y2425_parentless"]))

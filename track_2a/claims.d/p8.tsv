@@ -102,11 +102,11 @@ p8.posthoc.qwen_verdict.language	role_split	results/p8/p8_posthoc.json	verdicts_
 p8.posthoc.qwen_verdict.government_recommendation	shared	results/p8/p8_posthoc.json	verdicts_on_qwen_labels.government_recommendation.verdict	str	PYTHONPATH=src:. python -m eval.p8.posthoc9	-	
 p8.posthoc.qwen_verdict.type	role_split	results/p8/p8_posthoc.json	verdicts_on_qwen_labels.type.verdict	str	PYTHONPATH=src:. python -m eval.p8.posthoc9	-	
 p8.posthoc.qwen_joint_as_first	18	results/p8/p8_posthoc.json	qwen_vs_gold_confusion.submitter.joint_person -> author_person	int	PYTHONPATH=src:. python -m eval.p8.posthoc9	docs/evaluation.md	
-p8.robust_n	5	site/data.json	evaluation.p8.n_robust	int	make site	README.md,technical_report.md,docs/evaluation.md	
-p8.meaning_measured_total	11	site/data.json	schema.meaning_measured	int	make site	README.md,technical_report.md,docs/evaluation.md,docs/ech-onepager.md,docs/census.md	
-p8.date_submission.n_conform	9	site/data.json	evaluation.p8.fields.2.n_conform	int	make site	docs/schema.md,docs/ech-onepager.md,docs/evaluation.md	
-p8.addressed_body.n_conform	10	site/data.json	evaluation.p8.fields.3.n_conform	int	make site	docs/ech-onepager.md,docs/evaluation.md	
-p8.language.n_untagged	5	site/data.json	evaluation.p8.fields.4.n_none	int	make site	docs/ech-onepager.md,docs/evaluation.md	
+p8.robust_n	5	results/evidence/data.json	evaluation.p8.n_robust	int	python -m gegenprobe.viewer collect	README.md,technical_report.md,docs/evaluation.md	
+p8.meaning_measured_total	11	results/evidence/data.json	schema.meaning_measured	int	python -m gegenprobe.viewer collect	README.md,technical_report.md,docs/evaluation.md,docs/ech-onepager.md,docs/census.md	
+p8.date_submission.n_conform	9	results/evidence/data.json	evaluation.p8.fields.2.n_conform	int	python -m gegenprobe.viewer collect	docs/schema.md,docs/ech-onepager.md,docs/evaluation.md	
+p8.addressed_body.n_conform	10	results/evidence/data.json	evaluation.p8.fields.3.n_conform	int	python -m gegenprobe.viewer collect	docs/ech-onepager.md,docs/evaluation.md	
+p8.language.n_untagged	5	results/evidence/data.json	evaluation.p8.fields.4.n_none	int	python -m gegenprobe.viewer collect	docs/ech-onepager.md,docs/evaluation.md	
 p8.language.FR_other	2	results/p8/p8_hypotheses.json	fields.language.per_parliament.FR.counts.other_language	int	PYTHONPATH=src:. python -m eval.p8.score; python -m eval.p8.hypotheses9	docs/schema.md,docs/ech-onepager.md	
 p8.submitter.5192	3/6	results/p8/p8_hypotheses.json	fields.submitter.per_parliament.5192.n_E/fields.submitter.per_parliament.5192.n_det	frac	PYTHONPATH=src:. python -m eval.p8.score; python -m eval.p8.hypotheses9	docs/evaluation.md	
 p8.co_signatories.GR	3/5	results/p8/p8_hypotheses.json	fields.co_signatories.per_parliament.GR.n_E/fields.co_signatories.per_parliament.GR.n_det	frac	PYTHONPATH=src:. python -m eval.p8.score; python -m eval.p8.hypotheses9	docs/evaluation.md	

@@ -1,9 +1,10 @@
-"""The committed evidence viewer: renders from site/data.json alone, shows every view's data, and carries document text
-only as short excerpt windows (never full texts)."""
+"""The committed evidence data (results/evidence/data.json, parliaments.csv; written by `python -m gegenprobe.viewer
+collect`, the collector of the former evidence viewer): every section holds its data, and document text appears only as
+short excerpt windows (never full texts). The app that replaced the viewer is tested in tests/test_app.py."""
 import json
-import re
 
-from gegenprobe.viewer.__main__ import SITE, render
+from gegenprobe.paths import ROOT
+from gegenprobe.viewer.__main__ import OUT as SITE
 from gegenprobe.viewer.data import EXCERPT_MAX
 
 
@@ -35,16 +36,6 @@ def test_every_view_has_data():
     assert {"rules", "pointer", "cascade", "naive_plain", "naive_null"} <= set(ev["arms"])
     assert {"H1", "H2", "H3", "H4"} <= set(ev["hypotheses"])
     assert d["headline"]["gap"] == 16749
-
-
-def test_render_is_self_contained(tmp_path):
-    p = render(json.loads((SITE / "data.json").read_text(encoding="utf-8")), tmp_path)
-    html = p.read_text(encoding="utf-8")
-    assert "/*DATA*/" not in html
-    srcs = re.findall(r'<script[^>]+src="([^"]+)"', html)
-    assert srcs == [], "no external scripts"
-    blob = html.split('<script id="data" type="application/json">')[1].split("</script>")[0]
-    json.loads(blob.replace("<\\/", "</"))
 
 
 LINKS = ("attached", "agenda", "parentless", "image_only", "oral", "absent")
@@ -89,26 +80,16 @@ def test_research_dataset_shipped_and_consistent():
 
     from gegenprobe.census.interventions import COLS, load
 
-    rows = load(SITE / "interventions.tsv.gz")
+    src = ROOT / "results" / "census" / "interventions.tsv.gz"
+    rows = load(src)
     assert len(rows) == 91268 and list(rows[0]) == COLS
-    assert (SITE / "interventions.tsv.gz").stat().st_size <= 4 * 1024 * 1024
-    src = SITE.parent / "results" / "census" / "interventions.tsv.gz"
-    assert gzip.open(SITE / "interventions.tsv.gz").read() == gzip.open(src).read()
+    shipped = ROOT / "site" / "downloads" / "interventions.tsv.gz"  # the app's download is the committed file
+    assert src.stat().st_size <= 4 * 1024 * 1024 and gzip.open(shipped).read() == gzip.open(src).read()
     assert sum(r["link_status"] != "attached" for r in rows) == 16749
     assert all(r["opd_url"] == f"https://openparldata.ch/item/affairs/{r['affair_id']}" for r in rows)
     sh = [r for r in rows if r["body"] == "SH" and r["days_to_answer_alt"] != ""]
     assert sh and all(r["answer_hid_alt"] in ("6", "") or r["answer_date_alt"] == r["answer_date"] for r in sh)
-    assert (SITE / "interventions_README.md").exists()
-
-
-def test_missing_lists_match_the_table():
-    d = json.loads((SITE / "data.json").read_text(encoding="utf-8"))
-    m = json.loads((SITE / "missing.json").read_text(encoding="utf-8"))
-    assert "missing" not in d["parliaments"], "missing lists ship in missing.json, not inline"
-    for r in d["parliaments"]["rows"]:
-        listed = m.get(r["key"], {"rows": []})["rows"]
-        assert len(listed) == r["periods"]["all"]["missing"], r["key"]
-        assert sum(1 for x in listed if x[3] and x[3] >= 2015) == r["periods"]["since2015"]["missing"], r["key"]
+    assert (ROOT / "site" / "downloads" / "interventions_README.md").exists()
 
 
 def test_one_period_for_headline_and_table():
@@ -142,25 +123,9 @@ def test_workbench_queue_and_p2_profile():
         assert f["right"] + f["right_null"] + f["missed"] + f["wrong_date"] + f["date_no_answer"] == x["n"], a
     cv, a = p2["cascade_vs_pointer"], p2["arms"]
     assert cv["pointer_only"] - cv["cascade_only"] == a["pointer"]["exact"] - a["cascade"]["exact"]
-    html = (SITE / "index.html").read_text(encoding="utf-8")
-    for s in ("Not in OpenParlData ≠ not published by the parliament", "demo on held-out documents", 'id="bern-numbers"',
-              "not a ranking"):
-        assert s in html, s
 
 
 # ---- self-hosted fonts, coverage gaps, answer times within one type, oral question time in "safe to say"
-def test_fonts_self_hosted(tmp_path):
-    from gegenprobe.viewer.__main__ import TEMPLATE
-
-    html = TEMPLATE.read_text(encoding="utf-8")
-    assert "fonts.googleapis" not in html and "fonts.gstatic" not in html
-    urls = set(re.findall(r'url\("(fonts/[^"]+)"\)', html))
-    assert urls and all((SITE / u).exists() for u in urls), urls
-    assert all((SITE / "fonts" / f).exists() for f in ("OFL-Archivo.txt", "OFL-IBM-Plex-Mono.txt", "SOURCES.txt"))
-    render(json.loads((SITE / "data.json").read_text(encoding="utf-8")), tmp_path)
-    assert all((tmp_path / u).exists() for u in urls), "build --out DIR ships the fonts next to index.html"
-
-
 def test_coverage_gaps_and_times_within_type():
     p = json.loads((SITE / "data.json").read_text(encoding="utf-8"))["parliaments"]
     rows = {r["key"]: r for r in p["rows"]}
@@ -197,10 +162,3 @@ def test_r4_p3b_schema_and_cantons():
     assert rows["VS"]["label"] == "Valais (canton)" and rows["GE"]["label"] == "Genève (canton)"
     assert rows["TI"]["trust"]["tier"] == "verified" and rows["TI"]["trust"]["by"] == "title"
     assert rows["TI"]["years"][0] == 2016 and "OCR recovers" not in rows["TI"]["safe_say"]
-    m = json.loads((SITE / "missing.json").read_text(encoding="utf-8"))
-    assert all(x[5] == 1 for x in m["5192"]["rows"]), "Lugano's affairs point at one list page"
-    html = (SITE / "index.html").read_text(encoding="utf-8")
-    assert "Ten pre-registered tests" in html and "Nine pre-registered" not in html and "Five pre-registered" not in html
-    assert "validated against schema v0.1:" not in html and "(schema v0.1, below)" not in html
-    for s in ("Tessin (canton)", "newsroom", "which OCR recovers"):
-        assert s not in html, s

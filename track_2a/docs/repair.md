@@ -223,5 +223,5 @@ per-body source adapters: `repair/adapters/`, results and limits in `docs/adapte
   `category_harmonized IS NULL`, and the text hash or "still no text, same URL"); a dry run like `apply_be`.
 - **Workbench schema.** `schema/gegenprobe_schema.py` is schema v0.1 as one file: pydantic only, no imports from
   `gegenprobe`, no I/O, its JSON Schemas tested equal to `results/schema/*.schema.json`.
-- **Downloads.** Every list above is a direct download on the evidence site, the Fedlex list, `vocab_bugs.tsv`, the
+- **Downloads.** Every list above is a direct download in the app, the Fedlex list, `vocab_bugs.tsv`, the
   P7 tier and `gegenprobe_schema.py` included; a missing path returns HTTP 404.

@@ -968,12 +968,12 @@
    "why": "parliaments where Apertus reads more pairs right than the rules, and fewer",
    "results": [
     {
-     "file": "site/data.json",
+     "file": "results/evidence/data.json",
      "path": "evaluation.p10.primary.parliaments_pointer_more",
      "is": 9
     },
     {
-     "file": "site/data.json",
+     "file": "results/evidence/data.json",
      "path": "evaluation.p10.primary.parliaments_rules_more",
      "is": 1
     }
@@ -1074,7 +1074,7 @@
    "why": "Bern's unlinked answers (agenda + parentless) are most of its 2024-25 gap",
    "results": [
     {
-     "file": "site/data.json",
+     "file": "results/evidence/data.json",
      "vars": {
       "a": "parliaments.rows.[key=BE].periods.y2425.agenda",
       "p": "parliaments.rows.[key=BE].periods.y2425.parentless",
@@ -1162,7 +1162,7 @@
    "why": "P8 verdicts robust under both checks",
    "results": [
     {
-     "file": "site/data.json",
+     "file": "results/evidence/data.json",
      "path": "evaluation.p8.n_robust",
      "is": 5
     }
@@ -1370,12 +1370,12 @@
    "why": "one body-specific field and the two body-specific constructs the schema view lists",
    "results": [
     {
-     "file": "site/data.json",
+     "file": "results/evidence/data.json",
      "path": "schema.verdict.body_specific",
      "is": 1
     },
     {
-     "file": "site/data.json",
+     "file": "results/evidence/data.json",
      "vars": {
       "b": "schema.body_specific"
      },
@@ -3091,7 +3091,7 @@
    "why": "exactly one of the 17 fields is body-specific (the submission date)",
    "results": [
     {
-     "file": "site/data.json",
+     "file": "results/evidence/data.json",
      "path": "schema.verdict.body_specific",
      "is": 1
     },
@@ -3116,7 +3116,7 @@
    "why": "six of the 17 fields are defined once in v0.1, their meaning untested",
    "results": [
     {
-     "file": "site/data.json",
+     "file": "results/evidence/data.json",
      "path": "schema.verdict.defined_once",
      "is": 6
     }
@@ -3136,7 +3136,7 @@
    "why": "v0.1 encodes the five role splits measured on OPD's labels (answer date, procedural history, type, procedural state, decision outcome)",
    "results": [
     {
-     "file": "site/data.json",
+     "file": "results/evidence/data.json",
      "path": "schema.tested_counts.shared_with_role_split.measured",
      "is": 5
     }

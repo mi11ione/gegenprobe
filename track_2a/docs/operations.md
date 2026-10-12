@@ -16,7 +16,7 @@ Subtracting them leaves at most 13,150 written answers without answer text on th
 not in OPD at all. Answer times are not one quantity across parliaments, because OPD's "answer" date has different
 roles: the median is 112 days where it is the verified decision date (Bern, Ticino), 79 where it falls on a
 government's weekly sitting, 62 for mixed and 39 for diffuse, publication-like dates, and in 7 parliaments the
-"answer" is the submission date (`results/census/answer_days_by_trust.json`). The evidence site compares answer times within one
+"answer" is the submission date (`results/census/answer_days_by_trust.json`). The parliaments table (`results/evidence/parliaments.csv`, a download in the app) compares answer times within one
 intervention type (median and IQR per type; not a league table, since procedures differ), shows 31 parliaments whose
 answers OPD barely covers (among the cantons SZ, UR, GL, AI, NW and GE) as a coverage-gap status rather than as
 unanswered questions, and filters to cantons. Cantons are named by their official name in the language of their
@@ -130,7 +130,7 @@ make test             # unit tests (pip install -e .[dev])
 such as re-deriving the rules arm from the source PDFs, report SKIP offline). The container runs as the
 caller's uid, or uid 10001 when the caller is root, with a read-only root filesystem, a private `/tmp`, all capabilities
 dropped and `no-new-privileges` (`Makefile`, target `run`). It exits non-zero on any failure and writes
-`out/site/index.html`, the same evidence viewer as https://gegenprobe.mi11ion.io. It recomputes the census and asserts
+`out/site/`, the same app as https://gegenprobe.mi11ion.io (serve it: `python -m http.server -d out/site`). It recomputes the census and asserts
 it equal to `results/census/`; replays the Bern join and its triple check; runs sample documents through the converter
 with the validator's checks; re-scores P1–P4 and P3b from the committed predictions and labels, re-runs the nine
 registered hypothesis scripts (P1–P8) and the 8B analysis and verifies the nine LOCK files LOCK–LOCK9 (P7 replays from the
@@ -213,7 +213,7 @@ reasoning starts at the executive's statement, and with `--body` an uncovered re
 | the webhook or SMTP relay the operator sets (`GP_ALERT_*`) — or none | the night's alerts | nightly alerts |
 
 ws.parlament.ch (Curia Vista) was queried once for the federal answers missing from the texts export; it is not part of
-the running system. The evidence site is static files only and makes no third-party request (fonts self-hosted, SIL
+the running system. The app is static files only and makes no third-party request (fonts self-hosted, SIL
 OFL); its links to OPD and to the parliaments' own pages are followed only when clicked. With `GP_GGUF=1` no document
 text leaves the machine; Public AI was used for development and evaluation only (it may route outside Switzerland).
 OPD's API robots.txt disallows `/v1/`; we use the nightly bulk exports, which also makes every number reproducible
@@ -339,7 +339,7 @@ sha256-pinned, run in-process on CPU. Review mode stops on a served build its θ
   requests through a global load-balancing layer across partners' compute ([what its terms state](docs/runbook.md#public-ai-and-ndsg-art-16)).
   A body that may not disclose text abroad goes without only the review-queue verifier and the role reader; the rules
   and the local 8B's date suggestions run on its own machine, and a Swiss-hosted 70B is an estimated 1.64 GPU-hours
-  per 1,000 residue documents ([assumptions](docs/runbook.md#swiss-hosted-70b-estimate)). The evidence site is static
+  per 1,000 residue documents ([assumptions](docs/runbook.md#swiss-hosted-70b-estimate)). The app is static
   and makes no third-party request. Every request Gegenprobe sends carries `GP_USER_AGENT`: document and export fetches, robots.txt, the
   model endpoint, the GGUF download and the alert webhook; the one exception is the development budget gateway
   (`gw.py`, outside this repository), which is not a runtime route. A network night refuses to start until

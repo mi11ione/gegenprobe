@@ -49,7 +49,7 @@ steps that need the network or a model endpoint and cannot reach them; the repla
               be bound to its claim by an anchor or be a listed non-claim, every scope word (post hoc, registered,
               exploratory, in-sample, held out, weighted) must sit inside an anchor or a listed phrase, every
               comparative, maturity, quantifier and deployment word inside a pinned or listed phrase (claims_pins.json),
-              the evidence site's first screen must match its claims (claims_site.json), and 444_Report.pdf must
+              every number the app states must match its claim (claims_app.json), and 444_Report.pdf must
               contain every anchor phrase and the whole text of technical_report.md (report/pdf_check.py)
 The last lines: the P1 (and P2) Apertus replay coverage, e.g. "Apertus replay: P1 132/154 decisions re-derived from the
 model cache, 132 match (22 cache misses)", then "RESULT PASS in 537 s"; when a step skipped, the RESULT line names it:
@@ -254,13 +254,14 @@ def main() -> int:
         report["steps"][name] = res
         line = res.get("summary") or res.get("error") or res.get("reason") or ""
         print(f"[{name:<8}] {res['status']}  ({res['secs']} s)  {line}", flush=True)
-    # evidence viewer: rendered from the committed site/data.json; never fails the run
+    # the app (gegenprobe.app): built from committed files into out/site; never fails the run
     try:
-        from .viewer.__main__ import SITE, render
-        site = render(json.loads((SITE / "data.json").read_text(encoding="utf-8")), OUT / "site")
-        report["site"] = str(site)
+        from .app.build import tree_hash, write as build_app
+        build_app(OUT / "site")
+        report["site"] = str(OUT / "site" / "index.html")
+        report["site_sha256"] = tree_hash(OUT / "site")
     except Exception as e:  # noqa: BLE001 - optional artefact
-        report["site"] = f"not rendered ({type(e).__name__}: {e})"
+        report["site"] = f"not built ({type(e).__name__}: {e})"
     report["secs"] = round(time.time() - t0, 1)
     fails = [k for k, v in report["steps"].items() if v["status"] == "FAIL"]
     report["result"] = "FAIL" if fails else "PASS"
@@ -272,7 +273,7 @@ def main() -> int:
     print(result_line(report))
     print(f"Full report: {OUT / 'run_report.json'}")
     if str(report.get("site", "")).endswith("index.html"):
-        print("Evidence viewer: open out/site/index.html")
+        print("App: python -m http.server -d out/site 8000, then open http://localhost:8000/")
     return 1 if fails else 0
 
 

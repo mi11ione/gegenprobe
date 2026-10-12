@@ -1,0 +1,131 @@
+{
+ "_doc": "The app (site/, gegenprobe.app) under `make claims` (src/gegenprobe/claims_app.py): site/ holds the app's own files and a core.json whose `bound` numbers equal what the committed results give; every `bound` value is bound to the claim it states (bindings: key, claim, fmt optional) or listed under `unbound`; every number the app writes itself (index.html, 404.html, app.js string literals) and, where Chrome is found, every number in the rendered data-claims blocks of the routes under `rendered` is the value of a bound claim or inside an `allow` phrase. Per-affair data (rows, per-parliament counts, filtered counts) is outside this check; its sums are checked against the bound totals.",
+ "dir": "site",
+ "bindings": [
+  {
+   "key": "written",
+   "claim": "census.written_answer_events",
+   "why": "interventions with a recorded government answer (Lookup, About)"
+  },
+  {
+   "key": "attached",
+   "claim": "docs.text_present",
+   "why": "the parliaments' attached counts sum to it"
+  },
+  {
+   "key": "repaired",
+   "claim": "r6d.repaired",
+   "why": "proposed repairs (Lookup, About); the queue holds exactly these rows"
+  },
+  {
+   "key": "share_today",
+   "claim": "r7docs.attached_share",
+   "fmt": "str"
+  },
+  {
+   "key": "share_after",
+   "claim": "r9p.share_all",
+   "fmt": "str"
+  },
+  {
+   "key": "now",
+   "claim": "r9p.now",
+   "why": "Repair queue: apply now"
+  },
+  {
+   "key": "after_hash",
+   "claim": "r9p.after_hash",
+   "why": "Repair queue: Bern relinks after the hash decision"
+  },
+  {
+   "key": "fetch",
+   "claim": "r9p.fetch",
+   "why": "Repair queue: fetch from the parliaments"
+  },
+  {
+   "key": "fields",
+   "claim": "r11.schema_fields"
+  },
+  {
+   "key": "need_roles",
+   "claim": "r11.schema_role_split"
+  },
+  {
+   "key": "body_specific",
+   "claim": "r21c.ech.verdict_body_specific"
+  },
+  {
+   "key": "untested",
+   "claim": "r12.verdict_defined_once"
+  },
+  {
+   "key": "p2_pointer",
+   "claim": "p2.pointer_found",
+   "fmt": "frac"
+  },
+  {
+   "key": "p2_rules",
+   "claim": "p2.rules_found",
+   "fmt": "frac"
+  },
+  {
+   "key": "p2_parliaments",
+   "claim": "p2.bodies"
+  },
+  {
+   "key": "p10_points",
+   "claim": "r15.p10_h1_points",
+   "fmt": "str"
+  },
+  {
+   "key": "p10_parliaments",
+   "claim": "r15.p10_parl"
+  },
+  {
+   "key": "p7",
+   "claim": "p7.h1.correct",
+   "fmt": "frac"
+  },
+  {
+   "key": "records",
+   "claim": "r18d.v02.records"
+  },
+  {
+   "key": "record_parliaments",
+   "claim": "r18d.v02.parliaments"
+  }
+ ],
+ "unbound": [],
+ "allow": [
+  {
+   "phrase": "Team 444",
+   "why": "the team's number"
+  },
+  {
+   "phrase": "2021.RRGR.388",
+   "why": "example query: an affair number (per-affair data)"
+  },
+  {
+   "phrase": "Bern 39369",
+   "why": "example query: an OPD id (per-affair data)"
+  },
+  {
+   "phrase": "404 ·",
+   "why": "the HTTP status of the not-found page"
+  }
+ ],
+ "rendered": [
+  {
+   "route": "#/",
+   "claims": "lookup"
+  },
+  {
+   "route": "#/queue",
+   "claims": "queue"
+  },
+  {
+   "route": "#/about",
+   "claims": "about"
+  }
+ ]
+}

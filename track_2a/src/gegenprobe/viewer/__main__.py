@@ -1,15 +1,12 @@
-"""Static evidence viewer.
+"""Evidence data (the collector of the former evidence viewer; the site itself is now the app, gegenprobe.app).
 
-    python -m gegenprobe.viewer collect            results + cached texts + model cache -> site/data.json, parliaments.csv,
-                                                   missing.json, interventions.tsv.gz (+ README) copied from results/census/,
-                                                   404.html, and site/downloads/ (Bern lists, apply plan, JSON Schemas, the
-                                                   adapter lists per parliament + adapters_manifest.json)
-    python -m gegenprobe.viewer build [--out DIR]   site/data.json + template -> DIR/index.html (default: site/) and
-                                                   DIR/_headers (security headers, gegenprobe.viewer.headers)
-    python -m gegenprobe.viewer build --full-text --out DIR   collect with full page texts into DIR only (never committed)
+    python -m gegenprobe.viewer collect     results + cached texts + model cache -> results/evidence/data.json and
+                                            results/evidence/parliaments.csv (development: needs the WORK caches)
 
-The committed site (track_2a/site/) contains document text only as excerpt windows of at most 280 characters around the
-cited spans; `build` alone needs no network, no model and no document text, so `make run` can always render it.
+results/evidence/data.json holds summary numbers several claims read (claims.d: the schema verdict counts, P8 counts,
+the census periods, the parliaments' coverage classes) and the schema field grid the app's About view shows;
+results/evidence/parliaments.csv is the per-parliament table (column dictionary: results/census/interventions_README.md),
+which the app ships as a download. Both are committed; `make site` (the app) reads them and needs no cache.
 """
 
 from __future__ import annotations
@@ -17,107 +14,25 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from pathlib import Path
 
-from ..paths import ROOT
+from ..paths import RESULTS
 
-SITE = ROOT / "site"
-TEMPLATE = Path(__file__).with_name("template.html")
-# files served next to index.html: the table as CSV, the per-body lists of missing affairs (loaded when a row is opened),
-# and the research dataset with its column dictionary (copied from results/census/)
-# and the 404 page Cloudflare serves (HTTP 404) for any path that is not a file (deploy/site/wrangler.jsonc)
-SHIPPED = ("parliaments.csv", "missing.json", "interventions.tsv.gz", "interventions_README.md", "404.html")
-NOT_FOUND = Path(__file__).with_name("404.html")
-DATASET = ("interventions.tsv.gz", "interventions_README.md")
-FONTS = "fonts"
-DOWNLOADS = "downloads"  # the OPD box's direct downloads (Bern lists, apply plan, JSON Schemas; viewer.data.DOWNLOADS)
-
-
-def copy_downloads(dest: Path) -> list[Path]:
-    """Copy the files viewer.data.DOWNLOADS names into dest/downloads/, write the adapter lists there, and drop files no
-    longer listed."""
-    from .data import DOWNLOADS as LIST
-
-    d = dest / DOWNLOADS
-    d.mkdir(parents=True, exist_ok=True)
-    out = []
-    for _, rel, _ in LIST:
-        src = ROOT / rel
-        (d / src.name).write_bytes(src.read_bytes())
-        out.append(d / src.name)
-    # the adapter repair lists, one TSV per parliament + manifest (census/corrected.py adds tier, counted and category)
-    from ..census.corrected import MANIFEST, write_lists
-
-    man = write_lists(d)
-    out += [d / f["file"] for f in man["files"]] + [d / MANIFEST]
-    for f in d.iterdir():
-        if f.is_file() and f not in out:
-            f.unlink()
-    return out
-
-
-def render(data: dict, out: Path) -> Path:
-    out.mkdir(parents=True, exist_ok=True)
-    blob = json.dumps(data, ensure_ascii=False, separators=(",", ":"), allow_nan=False).replace("</", "<\\/")
-    html = TEMPLATE.read_text(encoding="utf-8").replace("/*DATA*/", blob)
-    p = out / "index.html"
-    p.write_text(html, encoding="utf-8")
-    if out.resolve() != SITE.resolve():
-        for f in SHIPPED:
-            if (SITE / f).exists():
-                (out / f).write_bytes((SITE / f).read_bytes())
-        if (SITE / DOWNLOADS).is_dir():
-            (out / DOWNLOADS).mkdir(exist_ok=True)
-            for f in (SITE / DOWNLOADS).iterdir():
-                if f.is_file():
-                    (out / DOWNLOADS / f.name).write_bytes(f.read_bytes())
-        # self-hosted fonts (OFL); the page references fonts/*.woff2 and makes no third-party request
-        if (SITE / FONTS).is_dir():
-            (out / FONTS).mkdir(exist_ok=True)
-            for f in (SITE / FONTS).iterdir():
-                if f.is_file():
-                    (out / FONTS / f.name).write_bytes(f.read_bytes())
-    # HTTP security headers (CSP with the inline blocks' sha256, HSTS, nosniff, referrer policy) for Cloudflare
-    from .headers import write as write_headers
-
-    write_headers(out)
-    return p
-
-
-def collect(full_text: bool = False) -> dict:
-    from .data import collect as _c
-
-    return _c(full_text=full_text)
+OUT = RESULTS / "evidence"
 
 
 def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser(prog="gegenprobe.viewer")
-    ap.add_argument("cmd", choices=["collect", "build"])
-    ap.add_argument("--out", default=None)
-    ap.add_argument("--full-text", action="store_true")
-    a = ap.parse_args(argv)
-    if a.cmd == "collect":
-        SITE.mkdir(parents=True, exist_ok=True)
-        copy_downloads(SITE)  # first: the OPD box lists the adapter lists from the manifest this writes
-        d = collect()
-        (SITE / "missing.json").write_text(
-            json.dumps(d["parliaments"].pop("missing"), ensure_ascii=False, separators=(",", ":")), encoding="utf-8"
-        )
-        for f in DATASET:
-            (SITE / f).write_bytes((ROOT / "results" / "census" / f).read_bytes())
-        (SITE / NOT_FOUND.name).write_bytes(NOT_FOUND.read_bytes())
-        (SITE / "data.json").write_text(
-            json.dumps(d, ensure_ascii=False, separators=(",", ":"), allow_nan=False), encoding="utf-8"
-        )
-        from .data import write_csv
+    ap.add_argument("cmd", choices=["collect"])
+    ap.parse_args(argv)
+    from .data import collect, write_csv
 
-        write_csv(d["parliaments"], SITE / "parliaments.csv")
-        print(SITE / "data.json", f"{(SITE / 'data.json').stat().st_size // 1024} KB", "+", ", ".join(SHIPPED))
-        return 0
-    out = Path(a.out) if a.out else SITE
-    d = collect(full_text=True) if a.full_text else json.loads((SITE / "data.json").read_text(encoding="utf-8"))
-    p = render(d, out)
-    print(f"open {p}")
+    OUT.mkdir(parents=True, exist_ok=True)
+    d = collect()
+    d["parliaments"].pop("missing", None)  # per-affair lists: the app ships every affair (gegenprobe.app.build)
+    (OUT / "data.json").write_text(json.dumps(d, ensure_ascii=False, separators=(",", ":"), allow_nan=False),
+                                   encoding="utf-8")
+    write_csv(d["parliaments"], OUT / "parliaments.csv")
+    print(OUT / "data.json", f"{(OUT / 'data.json').stat().st_size // 1024} KB", "+ parliaments.csv")
     return 0
 
 

@@ -191,14 +191,10 @@ def test_dpo_checklist_covers_the_register_entries_in_both_languages():
 
 
 # ------------------------------------------------------------------------------------------------ site hero
-def test_site_hero_wraps_on_phones_states_the_gain_and_sovereignty():
-    tpl = (ROOT / "src" / "gegenprobe" / "viewer" / "template.html").read_text()
-    m = re.search(r"@media \(max-width: 480px\) \{\s*\.hero \.rlist \{ display: block;.*?\n\}", tpl, re.S)
-    assert m and ".hero .rlist li { display: block; white-space: normal; }" in m.group(0)
-    # R22: the hero states the gain as today -> after the repairs, under the repairs line
-    assert "`${pct(1 - x.missing / x.written)} → ${pct(am.after_repair)}`" in tpl
-    assert "today, and once these repairs are applied" in tpl
-    sov = re.search(r'<p class="scope sov" id="heroSovereign">(.*?)</p>', tpl).group(1)
-    assert "Docker" in sov and "no document text leaves your machine" in sov and "Public AI" in sov
-    site = json.loads((ROOT / "claims_site.json").read_text())
-    assert any(b["claim"] == "r7docs.attached_share" for b in site["bindings"])
+def test_app_states_the_gain_today_to_after_repairs():
+    """R22 asked the site's first screen for the gain as today -> after the repairs; the app (12 Oct) states it in About
+    from core.json `bound`, both values bound to their claims (claims_app.json)."""
+    js = (ROOT / "src" / "gegenprobe" / "app" / "app.js").read_text()
+    assert "${bd.share_today} with answer text today, ${bd.share_after} once the ${fmt(bd.repaired)} repairs" in js
+    app = json.loads((ROOT / "claims_app.json").read_text())
+    assert {b["claim"] for b in app["bindings"]} >= {"r7docs.attached_share", "r9p.share_all", "r6d.repaired"}

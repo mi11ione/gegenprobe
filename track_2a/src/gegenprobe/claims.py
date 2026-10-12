@@ -34,9 +34,10 @@ claims.tsv, `check` fails (exit 1) when
     to the result it states ("is not confirmed" bound to P10's H3a verdict, "about three times" to 50/17), or a safety,
     sovereignty or coding-assistant sentence, no longer occurs exactly as pinned; or a verdict, quantifier or safety
     word appears outside every pinned or allowlisted phrase, or
-  * the evidence site disagrees with its claims (claims_site.json, gegenprobe.claims_site): site/index.html is not
-    the template with site/data.json, a first-screen value differs from the claim it is bound to, or a number on the
-    first screen (template text; with Chrome, the rendered page) is not the value of a bound claim.
+  * the app disagrees with its claims (claims_app.json, gegenprobe.claims_app): site/ is not the app's own files with
+    the numbers the committed results give, a stated number differs from the claim it is bound to, or a number the
+    app writes (its text and script literals; with Chrome, the rendered About, Lookup and Repair-queue statements)
+    is not the value of a bound claim.
 
 The repository-root README (../README.md) is a strict zone too. It is outside the Docker build context, so
 inside the image it is skipped; the host CI job sets GP_CLAIMS_STRICT=1 and checks it.
@@ -658,8 +659,8 @@ def zone_check(rows: list[dict], cfg: dict | None = None, docs: dict[str, str] |
 
 def check(rows: list[dict] | None = None, render_site: bool = False, notes: list[str] | None = None,
           docs: dict[str, str] | None = None, site: bool = True, recompute: bool = True) -> list[str]:
-    """Every claim, anchor, strict zone, pinned phrase, wording pin and the evidence site (gegenprobe.claims_site; with
-    `render_site`, also the first screen rendered by headless Chrome where one is found). `docs` overrides documents by
+    """Every claim, anchor, strict zone, pinned phrase, wording pin and the app (gegenprobe.claims_app; with
+    `render_site`, also its stated numbers rendered by headless Chrome where one is found). `docs` overrides documents by
     name (the mutation battery checks an edited text without touching the file); `site=False` skips the site check and
     `recompute=False` the recomputation of each value from its results file (neither reads a document)."""
     rows = rows if rows is not None else load(ROOT / "claims.tsv")
@@ -695,7 +696,7 @@ def check(rows: list[dict] | None = None, render_site: bool = False, notes: list
                 elif not context_ok(docs[doc], r["shown"], phrase):
                     errs.append(f"{r['id']}: context {phrase!r} not within {CONTEXT_WINDOW} chars of {r['shown']!r} in {doc}")
     from .claims_pins import check as pins_check
-    from .claims_site import check as site_check
+    from .claims_app import check as site_check
     kw = {"docs": over} if over else {}  # without an override, the plain calls (as before)
     errs += anchor_check(rows, **kw) + zone_check(rows, **kw) + pinned_check(**kw) + scoped_check(**kw) + pins_check(**kw)
     return errs + (site_check(rows=rows, render=None if render_site else False, notes=notes, root=ROOT) if site else [])

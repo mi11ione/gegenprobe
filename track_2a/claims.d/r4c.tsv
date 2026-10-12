@@ -5,14 +5,14 @@ r4c.ti_dated	2,386	results/census/date_trust.json	title_verified.TI.dated	int	py
 r4c.ti_wednesday	73%	results/census/date_trust.json	bodies.TI.modal_share	pct0	python -m gegenprobe.census.interventions	docs/viewer.md	
 r4c.tier_verified	2	results/census/date_trust.json	tier_counts.verified	int	python -m gegenprobe.census.interventions	docs/viewer.md	
 r4c.tier_mixed	14	results/census/date_trust.json	tier_counts.mixed	int	python -m gegenprobe.census.interventions	docs/viewer.md	
-r4c.ti_first_year	2016	site/parliaments.csv	row:key=TI;col:first_year	str	make site	docs/viewer.md	
-r4c.ti_no_text	775	site/parliaments.csv	row:key=TI;col:all_image_only	int	make site	-	
-r4c.ti_missing	776	site/parliaments.csv	row:key=TI;col:all_no_answer_text	int	make site	-	
-r4c.ti_question_median	76	site/parliaments.csv	row:key=TI;col:all_median_days_main_type	int	make site	docs/viewer.md	
-r4c.lugano_list_page	201	site/parliaments.csv	row:key=5192;col:all_no_answer_text	int	make site	docs/viewer.md	
-r4c.p3b_answer_lost	3	site/data.json	evaluation.p3b.answer_date_lost.n	int	make site	docs/viewer.md	
-r4c.schema_shared	7	site/data.json	schema.counts.shared	int	make site	docs/viewer.md	
-r4c.schema_role_split	10	site/data.json	schema.counts.shared_with_role_split	int	make site	docs/viewer.md,docs/ech-onepager.md	
+r4c.ti_first_year	2016	results/evidence/parliaments.csv	row:key=TI;col:first_year	str	python -m gegenprobe.viewer collect	docs/viewer.md	
+r4c.ti_no_text	775	results/evidence/parliaments.csv	row:key=TI;col:all_image_only	int	python -m gegenprobe.viewer collect	-	
+r4c.ti_missing	776	results/evidence/parliaments.csv	row:key=TI;col:all_no_answer_text	int	python -m gegenprobe.viewer collect	-	
+r4c.ti_question_median	76	results/evidence/parliaments.csv	row:key=TI;col:all_median_days_main_type	int	python -m gegenprobe.viewer collect	docs/viewer.md	
+r4c.lugano_list_page	201	results/evidence/parliaments.csv	row:key=5192;col:all_no_answer_text	int	python -m gegenprobe.viewer collect	docs/viewer.md	
+r4c.p3b_answer_lost	3	results/evidence/data.json	evaluation.p3b.answer_date_lost.n	int	python -m gegenprobe.viewer collect	docs/viewer.md	
+r4c.schema_shared	7	results/evidence/data.json	schema.counts.shared	int	python -m gegenprobe.viewer collect	docs/viewer.md	
+r4c.schema_role_split	10	results/evidence/data.json	schema.counts.shared_with_role_split	int	python -m gegenprobe.viewer collect	docs/viewer.md,docs/ech-onepager.md	
 r4c.sample_char_start	177	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	per_affair.21.affair.qa.0.answer_date.char_start	int	python -m eval.gold5.run_p3b	docs/viewer.md	
 r4c.sample_char_end	194	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	per_affair.21.affair.qa.0.answer_date.char_end	int	python -m eval.gold5.run_p3b	docs/viewer.md	
 r4c.sample_affair	301273	results/eval5/p3b__publicai_swiss-ai_apertus-v1.5-8b.json	per_affair.21.affair_id	str	python -m eval.gold5.run_p3b	docs/viewer.md	

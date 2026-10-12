@@ -9,7 +9,7 @@ export PYTHONPATH := src:.
 # ---------------------------------------------------------------- judges' entry point (Docker)
 # Container hardening: never uid 0 (a root caller runs as the image's unprivileged uid 10001, which then owns out/ and
 # .work/make-run), read-only root filesystem, private /tmp (tmpfs), all capabilities dropped, no privilege escalation.
-# Writable: out/ (RUN_OUT: results, evidence viewer), .work/make-run (GP_WORK: PDF/text caches, GGUF weights; kept between runs,
+# Writable: out/ (RUN_OUT: results, the app), .work/make-run (GP_WORK: PDF/text caches, GGUF weights; kept between runs,
 # delete it for a cold run) and /tmp.
 GGUF ?= 0
 RUN_WORK ?= $(CURDIR)/.work/make-run
@@ -41,7 +41,7 @@ lint:
 	$(PY) -m ruff check src eval tests report tools
 
 # claims: every number recomputed and bound (claims.tsv, claims_anchor.json, claims_strict.json), every evaluative word
-#         pinned or listed (claims_pins.json), the evidence site's first screen against its claims (claims_site.json;
+#         pinned or listed (claims_pins.json), the app's stated numbers against their claims (claims_app.json;
 #         rendered with Chrome where found), then 444_Report.pdf checked against technical_report.md (every report anchor
 #         phrase and the whole text, word by word; needs pdftotext)
 claims:
@@ -235,12 +235,22 @@ report:  # technical_report.md -> 444_Report.pdf (needs the [report] extra and C
 figures:
 	$(PY) -m report.figures
 
-# ---- evidence viewer (static site; committed copy in site/ holds excerpts only, never full texts); `build` also writes
-#      site/_headers (CSP with the inline blocks' sha256, HSTS, nosniff, referrer policy), which deploy-site ships
+# ---- the app (static site, gegenprobe.app): Lookup | Parliaments | Repair queue | About, built from committed files only
+#      (census dataset, repair lists, Bern plan, OPD titles slice data/app/, v0.2 records, results/evidence) into site/:
+#      the app, its data shards, the downloads and _headers (strict CSP: scripts and styles from files, no inline code).
+#      Deterministic: two builds give identical bytes (python -m gegenprobe.app hash). Serve: python -m http.server -d site
+# evidence-data: the summary data the claims and the About view read (results/evidence/; needs the WORK caches)
+# app-titles:    re-vendor OPD's titles and parliament links for the app from GP_OPD_RAW (data/app/affair_titles.tsv.gz)
+.PHONY: evidence-data app-titles
 site:
-	$(PY) -m gegenprobe.viewer collect
-	$(PY) -m gegenprobe.viewer build
+	$(PY) -m gegenprobe.app build
 
-# ---- evidence viewer on Cloudflare (static assets; token read from CLOUDFLARE_API_TOKEN, never stored in the repo)
+evidence-data:
+	$(PY) -m gegenprobe.viewer collect
+
+app-titles:
+	$(PY) -m gegenprobe.app.titles
+
+# ---- the app on Cloudflare (static assets; token read from CLOUDFLARE_API_TOKEN, never stored in the repo)
 deploy-site: site
 	cd deploy/site && npx --yes wrangler@4.149.0 deploy

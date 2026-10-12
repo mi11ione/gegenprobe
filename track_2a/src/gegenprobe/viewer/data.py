@@ -1,5 +1,6 @@
-"""Collect the viewer's data from committed results files (and, for the documents view, the cached page texts and the
-hash-keyed model cache). Every number the site prints comes from here; nothing is typed by hand.
+"""Collect the evidence data (results/evidence/data.json, the former viewer's data) from committed results files (and,
+for the documents view, the cached page texts and the hash-keyed model cache). Every number in it comes from here;
+nothing is typed by hand.
 
 Committed mode (default): document text appears only as excerpt windows (<= EXCERPT_MAX characters) around the spans
 that matter — the gold quote, the rule's span, the pointer's choice and each candidate date's immediate context — never
@@ -1612,48 +1613,8 @@ def _finite(o):
     return o
 
 
-REPO_URL = "https://github.com/mi11ione/gegenprobe"
-# files served from site/downloads/ (copied by `python -m gegenprobe.viewer collect`; the OPD box links them):
-# (group, source under track_2a/, what it is)
-DOWNLOADS = (
-    ("Bern lists", "results/repair/repair_BE_relink.tsv",
-     "relink: answers already in OPD under an agenda item, to attach to their affair by the canton's document id"),
-    ("Bern lists", "results/repair/repair_BE_fetch.tsv", "fetch: answers OPD does not hold, with the canton's PDF URL"),
-    ("Bern lists", "results/repair/repair_BE_review.tsv", "review: rows whose per-row check failed, for a person"),
-    ("Bern lists", "results/repair/repair_BE_begin_date.tsv",
-     "begin_date: affairs whose begin date is a load timestamp, with the submission event that replaces it"),
-    ("Apply plan (dry run)", "results/repair/apply_be/apply_BE_plan.sql.txt",
-     "guarded UPDATE statements, one per row, each conditioned on the row's before-state; never executed by us"),
-    ("Apply plan (dry run)", "results/repair/apply_be/apply_BE_relink_plan.csv", "relink plan: before and after per row"),
-    ("Apply plan (dry run)", "results/repair/apply_be/apply_BE_begin_date_plan.csv",
-     "begin_date plan: before and after per row"),
-    ("Apply plan (dry run)", "results/repair/apply_be/apply_BE_plan.json",
-     "plan summary: rows by status, the export identifier rule and the hash/URL side effect"),
-    ("JSON Schemas (v0.1)", "results/schema/affair.schema.json", "Affair: one parliamentary affair with its documents"),
-    ("JSON Schemas (v0.1)", "results/schema/doc_extraction.schema.json", "DocExtraction: what the converter writes per document"),
-    ("Workbench schema (v0.1)", "schema/gegenprobe_schema.py",
-     "schema v0.1 as one Python file for OPD's workbench: pydantic only, no imports from gegenprobe, no I/O; its JSON "
-     "Schemas are tested equal to the two above"),
-    ("Workbench schema (v0.2)", "schema/gegenprobe_schema_v0_2.py",
-     "schema v0.2: v0.1 plus P8's roles (author roles, the instrument's function, the text's language apart from the "
-     "tag, submission-date roles, the recommendation's stage); pydantic only, imports the v0.1 file next to it"),
-    ("Workbench schema (v0.2)", "results/schema/v0_2/p8_validation.json",
-     "the 66 P8 gold affairs converted to v0.2 records, all valid, and the v0.1 samples upgraded losslessly (counts)"),
-    ("Federal (Fedlex) list", "results/repair/repair_CHE.tsv.gz",
-     "placeholder_replace: federal answers whose OPD document is a placeholder; a work queue (source_url resolved and "
-     "verified on a minority of rows; the rest by repair.che backlog)"),
-    ("OPD vocabulary errors", "results/census/vocab_bugs.tsv",
-     "harmonised labels that are wrong as published, with the affairs carrying them and the census snapshot they were "
-     "counted on"),
-    ("Apertus-promoted tier (P7)", "results/repair/adapters/p7/promoted_by_apertus.tsv",
-     "review rows Apertus promotes, in the adapter-list columns (tier promoted_by_apertus, counted=false): a pre-sorted "
-     "batch for a reviewer"),
-    ("Apertus-promoted tier (P7)", "results/repair/adapters/p7/promoted.tsv",
-     "the same rows as the registered P7 output (P7's own columns)"),
-    ("Spot-check kit", "results/opd_spotcheck/spotcheck.csv",
-     "30 gold labels (answer dates, P7 promotions, P8 submitter and type) with link, page, span and quote, for anyone to "
-     "verify in about an hour; scored by python -m eval.spotcheck score"),
-)
+# the downloads the app ships (site/downloads/; gegenprobe.app.downloads): one list for the app and this data
+from ..app.downloads import DOWNLOADS, REPO_URL  # noqa: E402
 
 
 def downloads() -> dict:

@@ -6,5 +6,5 @@ r3w3.gap_absent	10,924	results/census/summary.json	gap_causes.absent	int	make ce
 r3w3.needs_adapters_written	10,800	results/report/figure_numbers.json	gap_parts.needs_adapters	int	python -m report.figures	docs/census.md,docs/operations.md	
 r3w3.question_time_oral_figure	406	results/report/figure_numbers.json	gap_parts.question_time_oral	int	python -m report.figures	-	
 r3w3.link_oral_all	5,448	results/census/summary.json	link_status.oral	int	make census	docs/census.md	
-r3w3.coverage_gap_bodies	31	site/data.json	parliaments.coverage.counts.coverage_gap	int	make site	docs/operations.md,README.md	
+r3w3.coverage_gap_bodies	31	results/evidence/data.json	parliaments.coverage.counts.coverage_gap	int	python -m gegenprobe.viewer collect	docs/operations.md,README.md	
 r3w3.question_time_mostly_oral_bodies	4	results/census/matrix.json	concept_split.question_time_bodies_mostly_oral	int	make census	-	

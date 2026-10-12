@@ -1,57 +1,48 @@
-# Evidence viewer
+# The app (gegenprobe.mi11ion.io)
 
-A static page (`site/index.html`, no server, no external scripts, no third-party requests: fonts are self-hosted) that shows the evidence a reviewer needs:
+One static app, four views, opening on the tool (no backend, no model, no third-party request; fonts self-hosted):
 
-| View | What it shows | Source files |
+| View | What it does | Built from |
 |---|---|---|
-| 01 Parliaments (opens first) | per parliament: written answers, share with text, missing answers by typed cause, median days to answer, repair actions; date trust; per body the list of affairs without attached text (OPD + source links, CSV); answer times by type; Bern reconciliation; research dataset download | `results/census/{summary,question,matrix}.json`, `results/repair/{summary,be_reconcile,be_verify_all}.json`, `results/census/{interventions.tsv.gz,date_trust.json,answer_rule_alt.json}` |
-| 02 Documents | browse: the 154 held-out documents: gold label, default converter (rules only), Apertus review suggestion, naive free generation; every value with page, character span and a highlighted excerpt; typed nulls as states; the closed set of printed dates Apertus could choose from, with its probability share; the null margin against θ ; **workbench**: the 93 documents the rules leave open as a keyboard review queue (demo, gold shown after each decision) | `data/gold/heldout_*.jsonl`, `results/eval/heldout__publicai_swiss-ai_apertus-v1.5-8b.json`, cached texts and the committed model cache (replayed, no calls) |
-| 03 Evaluation | five pre-registered tests (P1, P2, P3, P3b, P4): scoreboards, hypotheses as computed, order of events from git, gold-label agreement, post-hoc θ curve (labelled) | `results/eval*/*`, `eval/prereg*/{LOCK*,DEVIATIONS*.md}` |
-| 04 Method | pipeline and schema v0.1 fields with feasibility tiers | `results/census/matrix.json` |
+| Lookup (`#/`, `#/affair/<OPD id>`) | one search box over all 91,268 interventions with a recorded government answer (affair number, title words, OPD id, parliament); the detail: status (attached / oral / repair proposed / review / missing), where the answer is with its evidence (OPD document id, the parliament's document, the check and its dates, a short quote from the committed list), the fix and what OPD decides, links, and the v0.2 record where one exists (value, role, page, character span, route, typed gaps; the located values' boxes drawn on a page outline) | `results/census/interventions.tsv.gz`, `census/corrected.py` placement, the repair lists under `results/repair/`, `data/app/affair_titles.tsv.gz` (OPD titles and parliament links), `results/schema/v0_2/*_records.jsonl` and `span_bboxes.jsonl` |
+| Parliaments (`#/parliaments`, `#/parliament/<key>`) | one row per parliament: answers, share with text today and after the proposed repairs, gap, repairs by action, open, converter status; sortable, filtered by level and language; a parliament's page lists its interventions by status, its committed lists and a CSV export | the same, `results/convert/coverage_by_parliament.json` |
+| Repair queue (`#/queue`) | every counted repair with action, step, check, ready/review and hash decision; filters with live counts, a row's evidence on Enter, CSV export of the selection and, for Bern relinks, the selected guarded statements copied verbatim from the dry-run plan with the plan's all-or-nothing guard set to their count | `results/repair/`, `results/repair/apply_be/apply_BE_plan.sql.txt` |
+| About (`#/about`) | what this is, the schema answer with the 17-field grid, Apertus's registered results, how a value is proven, links, downloads | `results/evidence/data.json`, `results/report/`, `results/p7/` |
 
 ## Commands
 ```bash
-make site                                   # collect site/data.json from results + build site/index.html (dev)
-python -m gegenprobe.viewer build --out DIR # render from the committed site/data.json only (what `make run` does)
-python -m gegenprobe.viewer build --full-text --out .work/site   # local only: adds full page texts; never commit
+make site                                  # python -m gegenprobe.app build: site/ from committed files (deterministic)
+python -m gegenprobe.app build --out DIR   # the same into DIR (make run: out/site)
+python -m gegenprobe.app hash site         # sha256 over the built tree; two builds give the same hash
+python -m http.server -d site 8000         # serve it locally (the app loads its data with fetch, so file:// does not work)
+make deploy-site                           # Cloudflare static assets (deploy/site/wrangler.jsonc), _headers included
+make evidence-data                         # results/evidence/{data.json,parliaments.csv} (needs the WORK caches)
+make app-titles                            # data/app/affair_titles.tsv.gz from GP_OPD_RAW (OPD's titles and links)
 ```
-`make run` renders the viewer into `out/site/index.html` as a final, non-failing step.
 
-## Downloads (OPD box)
+## Data and size
+`data/core.json` (parliaments, code tables, the stated numbers) and `data/index.json` (one entry per intervention:
+OPD id, number, status, type, year) load first, about 2 MB uncompressed; the rest loads on demand: title-word index
+buckets (`data/t/`), list titles and detail shards of at most 400 rows (`data/n/`, `data/s/`), one file per v0.2 record
+(`data/r/`) and the queue (`data/queue.json`). Every file stays far below Cloudflare's 25 MiB per-file limit. Document
+text appears only as the short quotes the committed lists and records already carry (at most 200 characters).
 
-`python -m gegenprobe.viewer collect` (part of `make site`) copies the files listed in `viewer/data.py` `DOWNLOADS`
-byte for byte into `site/downloads/`, and `build --out DIR` copies that folder next to `DIR/index.html`. The "For OPD's
-data team" box lists them under the three steps, each with its row count and size, plus the repository URL
-(https://github.com/mi11ione/gegenprobe):
+## Numbers
+Every number the app states outside the per-affair data (About, the Lookup line, the queue's three steps) is in
+`data/core.json` `bound` and bound to its claim in `claims_app.json`; `make claims` recomputes them, checks that the
+parliaments and the queue sum to them, that the app's own text and script literals carry no other number, and (with
+Chrome) renders the app and checks what it shows (`gegenprobe.claims_app`). `tests/test_app.py` builds twice and
+compares the trees byte for byte, and checks that the committed `site/` is such a build.
 
-| group | files (source) |
-|---|---|
-| Bern lists | `repair_BE_relink.tsv`, `repair_BE_fetch.tsv`, `repair_BE_review.tsv`, `repair_BE_begin_date.tsv` (`results/repair/`) |
-| Apply plan (dry run) | `apply_BE_plan.sql.txt`, `apply_BE_relink_plan.csv`, `apply_BE_begin_date_plan.csv`, `apply_BE_plan.json` (`results/repair/apply_be/`) |
-| JSON Schemas (v0.1) | `affair.schema.json`, `doc_extraction.schema.json` (`results/schema/`) |
+## Security headers
+`site/_headers` (written by the build): CSP `default-src 'self'`, scripts and styles from files only (no inline code,
+`style-src-attr 'none'`), HSTS, nosniff, no referrer, no framing. A path that is not a file gets `404.html` with HTTP 404.
 
-They add about 3.7 MB to the site (the relink TSV, the SQL text and the relink plan CSV are about 1 MB each; Cloudflare
-compresses text on the wire). The links are relative (`downloads/<file>`); earlier, `/repair_BE_relink.tsv` was not
-served and the single-page fallback returned the index page instead. `tests/test_r5_ops.py` checks that the copies are
-byte-identical to the results files and that a build into another directory carries them.
+# History: the evidence viewer (until 12 Oct 2026)
 
-The schema sample record (top of the page) is the P3b record after the product post-processing
-(`gegenprobe.affair_post`, `docs/affair.md`), carried to schema v0.2 (`gegenprobe.schema.v0_2_all.carry_v0_1`) and
-validated as a whole: `qa[0].answering_body` is the typed null `not_extracted` instead of a false
-`present_unanchored`, and the interpellation's `decision` is `not_applicable`. It shows what the converter itself
-writes: the committed v0.2 records (`results/schema/v0_2/`) then fill the answering body from OPD's metadata where OPD
-names the executive (118 of the converter's 120 records, post hoc; `docs/affair.md`).
-
-## Numbers and texts
-Every number on the page is read from the files above when the page is built; none is typed by hand, so the page is
-traced by construction (the README and report numbers are traced separately in `claims.tsv`). The committed copy carries
-document text only as excerpt windows of at most 280 characters around the cited spans and up to ten short candidate
-contexts per document (`tests/test_viewer.py` asserts this); the original PDFs are linked by URL and sha256.
-
-## Design
-Swiss grid (12 columns, flush left, one signal red) with a technical-manual idiom for data: monospace for every datum,
-part-number style identifiers, hairline rules. Light and dark themes follow the system setting (toggle in the header);
-works from 500 px up to wide screens; keyboard focusable; no motion beyond an optional smooth scroll.
+The sections below describe the single-page evidence viewer the app replaced. Its data collector remains
+(`python -m gegenprobe.viewer collect` -> `results/evidence/data.json` and `parliaments.csv`, read by the claims and the
+About view); the page itself, its template and missing-answer lists are gone.
 
 ## Parliaments view: one denominator (v2)
 

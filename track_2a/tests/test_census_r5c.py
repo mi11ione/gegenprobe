@@ -5,7 +5,7 @@ import json
 
 from gegenprobe.paths import DATA, ROOT
 
-SITE = ROOT / "site"
+SITE = ROOT / "results" / "evidence"
 RES = ROOT / "results" / "census"
 
 
@@ -43,7 +43,7 @@ def test_csv_columns_name_what_they_count():
     assert ne["median_days_all_types"] == "25" and float(ne["since2015_median_days_interpellation"]) == 70
     assert all(r[f"{p}_n_{t}"] == "" or int(r[f"{p}_n_{t}"]) >= 10 for r in rows.values()
                for p in ("all", "y2425") for t in ("interpellation", "question"))
-    readme = (SITE / "interventions_README.md").read_text(encoding="utf-8")
+    readme = (RES / "interventions_README.md").read_text(encoding="utf-8")
     assert "median_days_all_types" in readme and "written_missing" in readme
 
 

@@ -220,12 +220,11 @@ def test_ci_gates_the_exposure_score_of_both_units():
 
 
 # ------------------------------------------------------------------------------------------------ 6 site downloads
-def test_site_downloads_are_the_committed_files_and_the_opd_box_links_them(tmp_path):
-    from gegenprobe.viewer import __main__ as viewer
+def test_site_downloads_are_the_committed_files_and_the_app_lists_them(tmp_path):
+    from gegenprobe.app import downloads as DL
     from gegenprobe.viewer import data
 
-    d = data.downloads()
-    names = {f["name"] for f in d["files"]}
+    names = {p.split("/")[-1] for _, p, _ in DL.DOWNLOADS}
     assert {"repair_BE_relink.tsv", "repair_BE_fetch.tsv", "repair_BE_review.tsv", "repair_BE_begin_date.tsv",
             "apply_BE_plan.sql.txt", "apply_BE_relink_plan.csv", "apply_BE_begin_date_plan.csv", "apply_BE_plan.json",
             "affair.schema.json", "doc_extraction.schema.json",
@@ -237,37 +236,33 @@ def test_site_downloads_are_the_committed_files_and_the_opd_box_links_them(tmp_p
             "spotcheck.csv",
             # schema v0.2 (P8's roles) and its P8 validation counts
             "gegenprobe_schema_v0_2.py", "p8_validation.json"} == names
-    assert d["repo"] == "https://github.com/mi11ione/gegenprobe"
-    relink = next(f for f in d["files"] if f["name"] == "repair_BE_relink.tsv")
-    assert relink["rows"] == 2421 and relink["href"] == "downloads/repair_BE_relink.tsv"
-    copied = viewer.copy_downloads(tmp_path)
-    # + the adapter lists (one TSV per parliament) and their manifest (census/corrected.write_lists)
-    lists = {f["href"].split("/")[-1] for f in d["adapter_lists"]["files"]} | {"adapters_manifest.json"}
-    assert sorted(p.name for p in copied) == sorted(names | lists)
-    for f in d["files"]:  # byte-identical to the results files
-        assert (tmp_path / f["href"]).read_bytes() == (ROOT / f["source"]).read_bytes()
+    assert data.DOWNLOADS is DL.DOWNLOADS and DL.REPO_URL == "https://github.com/mi11ione/gegenprobe"
+    copied = DL.copy(tmp_path)
+    m = json.loads((tmp_path / "downloads" / "adapters_manifest.json").read_text())
+    lists = {f["file"] for f in m["files"]} | {"adapters_manifest.json"}
+    extra = {p.split("/")[-1] for _, p, _ in DL.DATASET}
+    assert sorted(p.name for p in copied) == sorted(names | lists | extra)
+    for _, rel, _ in DL.files():  # byte-identical to the committed files
+        name = rel.split("/")[-1]
+        assert (tmp_path / DL.href(name)).read_bytes() == (ROOT / rel).read_bytes(), rel
     site = ROOT / "site"
-    if (site / "downloads").is_dir():  # the committed site ships them next to index.html
-        assert sorted(p.name for p in (site / "downloads").iterdir()) == sorted(names | lists)
-        for n in lists:  # the committed lists are what write_lists produces from the committed results
-            assert (site / "downloads" / n).read_bytes() == (tmp_path / "downloads" / n).read_bytes(), n
-    t = (ROOT / "src" / "gegenprobe" / "viewer" / "template.html").read_text()
-    assert 'id="opdDownloads"' in t and "DL.repo" in t
-    # a build into another directory (make run's out/) carries the downloads too
-    viewer.render(json.loads((site / "data.json").read_text()), tmp_path / "out")
-    assert (tmp_path / "out" / "downloads" / "repair_BE_relink.tsv").exists()
-    assert {f["name"] for f in json.loads((site / "data.json").read_text())["downloads"]["files"]} == names
+    assert sorted(p.name for p in (site / "downloads").iterdir()) == sorted(names | lists | (extra - set(DL.AT_ROOT)))
+    for n in lists:  # the committed lists are what write_lists produces from the committed results
+        assert (site / "downloads" / n).read_bytes() == (tmp_path / "downloads" / n).read_bytes(), n
+    # the app links every one (About: downloads; core.json carries the list with the href the page uses)
+    core = json.loads((site / "data" / "core.json").read_text())
+    assert {d["f"] for d in core["downloads"]} == names | lists | extra
+    assert all((site / d["h"]).exists() for d in core["downloads"])
 
 
 def test_site_answers_missing_paths_with_404():
     """Cloudflare's single-page-application fallback answered every missing download with the index page and
-    HTTP 200. The config serves site/404.html with HTTP 404 instead; the viewer routes by #hash only."""
-    from gegenprobe.viewer import __main__ as viewer
+    HTTP 200. The config serves site/404.html with HTTP 404 instead; the app routes by #hash only."""
+    from gegenprobe.app.build import APP
 
     cfg = (ROOT / "deploy" / "site" / "wrangler.jsonc").read_text()
     body = "\n".join(line for line in cfg.splitlines() if not line.lstrip().startswith("//"))
     assert re.search(r'"not_found_handling":\s*"404-page"', body) and "single-page-application" not in body
-    assert (ROOT / "site" / "404.html").read_bytes() == viewer.NOT_FOUND.read_bytes()
-    assert "404.html" in viewer.SHIPPED
-    t = (ROOT / "src" / "gegenprobe" / "viewer" / "template.html").read_text()
+    assert (ROOT / "site" / "404.html").read_bytes() == (APP / "404.html").read_bytes()
+    t = (APP / "app.js").read_text()
     assert "pushState" not in t and "location.hash" in t

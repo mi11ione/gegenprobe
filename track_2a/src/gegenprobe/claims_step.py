@@ -1,7 +1,7 @@
 """`make run` step: every claim in claims.tsv recomputed from its results file and found in the documents that print it;
 the wording pins (claims_pins.json: verdicts, multipliers, safety/sovereignty/declaration sentences) checked;
 444_Report.pdf in sync with technical_report.md (every anchor phrase of the report found in the PDF's text, and the
-report's whole text word by word: report/pdf_check.py); the evidence site under the claims (gegenprobe.claims_site)."""
+report's whole text word by word: report/pdf_check.py); the app's stated numbers under the claims (gegenprobe.claims_app)."""
 from .claims import check, load
 from .claims_pins import summary as pins_summary
 from .paths import ROOT

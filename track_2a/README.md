@@ -133,8 +133,8 @@ and its box on the page is in `span_bboxes.jsonl`. The Bern answer is French alt
 
 ## Ready for OPD
 
-Every list is keyed on OPD ids, is in `results/repair/` (vocabulary list: `results/census/`) and is a direct download on
-the evidence site (box "For OPD's data team"). The apply plan is a dry run: we change nothing in OPD.
+Every list is keyed on OPD ids, is in `results/repair/` (vocabulary list: `results/census/`) and is a direct download in
+the app (About, Downloads; the Repair queue exports any selection). The apply plan is a dry run: we change nothing in OPD.
 
 | list | rows | how each row is checked | applies |
 |---|---|---|---|

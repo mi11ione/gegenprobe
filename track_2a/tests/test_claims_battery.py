@@ -16,7 +16,7 @@ import pytest
 
 from gegenprobe import claims as C
 from gegenprobe import claims_pins as P
-from gegenprobe import claims_site as S
+from gegenprobe import claims_app as S
 from gegenprobe.paths import ROOT
 
 # (id, document, before, after): J5's battery, verbatim (scratch scripts mut.py, mut2.py; ids as in J5.md). E25 ("a number
@@ -235,12 +235,29 @@ def test_every_battery_edit_fails(bid, doc, before, after, rows, monkeypatch):
     assert new, f"{bid}: {doc} {before!r} -> {after!r} passed the claims check"
 
 
-def test_site_data_edit_fails(rows):
-    """Z1: the site's headline value changed in site/data.json (the page not rebuilt, or rebuilt from a false value)."""
-    data = json.loads((ROOT / "site/data.json").read_text(encoding="utf-8"))
-    base = set(S.check(rows=rows, data=data, render=False))
-    data["headline"]["rules_exact"] += 1
-    assert set(S.check(rows=rows, data=data, render=False)) - base
+def test_site_data_edit_fails(rows, tmp_path):
+    """Z1: the site's stated value changed in its data (the app: site/data/core.json), not rebuilt from the results."""
+    import shutil
+
+    from gegenprobe.app.build import STATIC
+
+    def _app_copy(dst, core_edit=None):
+        (dst / "data").mkdir(parents=True)
+        for n in STATIC + ("_headers",):
+            shutil.copy(ROOT / "site" / n, dst / n)
+        shutil.copy(ROOT / "site" / "data" / "index.json", dst / "data" / "index.json")
+        core = json.loads((ROOT / "site" / "data" / "core.json").read_text(encoding="utf-8"))
+        if core_edit:
+            core_edit(core)
+        (dst / "data" / "core.json").write_text(json.dumps(core), encoding="utf-8")
+        return dst
+    good = _app_copy(tmp_path / "good")
+    base = set(S.check(rows=rows, site=good, render=False))
+
+    def edit(c):
+        c["bound"]["p2_rules"][0] += 1
+    bad = _app_copy(tmp_path / "bad", edit)
+    assert set(S.check(rows=rows, site=bad, render=False)) - base
 
 
 def test_in_memory_check_matches_the_files(rows, monkeypatch):

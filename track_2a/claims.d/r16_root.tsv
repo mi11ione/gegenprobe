@@ -5,4 +5,4 @@ r16.root.p2_best_nomodel_exact	44/62	results/eval/baselines_dates.json	P2_unseen
 r16.root.fed_n	15	results/fed/fed_tables.json	n	int	PYTHONPATH=src:. python -m eval.fed.score	-	"{""../README.md"": ""federal cell, whose""}"
 r16.root.night1_min	86	results/report/r7docs_numbers.json	nights.night1_min	int	PYTHONPATH=src:. python -m report.r7docs_numbers	../README.md	"{""../README.md"": ""first network night took""}"
 r16.root.night2_min	6.6	results/report/r7docs_numbers.json	nights.night2_min	f1	PYTHONPATH=src:. python -m report.r7docs_numbers	../README.md	"{""../README.md"": ""min, the next""}"
-r16.root.meaning_measured	11	site/data.json	schema.meaning_measured	int	make site	-	"{""../README.md"": ""meaning is measured for the other""}"
+r16.root.meaning_measured	11	results/evidence/data.json	schema.meaning_measured	int	python -m gegenprobe.viewer collect	-	"{""../README.md"": ""meaning is measured for the other""}"

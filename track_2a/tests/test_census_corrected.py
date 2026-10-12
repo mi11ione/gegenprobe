@@ -6,6 +6,7 @@ from gegenprobe.census import corrected
 from gegenprobe.paths import RESULTS, ROOT
 
 SITE = ROOT / "site"
+EVID = ROOT / "results" / "evidence"
 
 
 def _c():
@@ -84,7 +85,7 @@ def test_report_share_after_every_counted_repair():
 
 
 def test_site_rows_never_say_not_in_opd_for_answers_found_in_opd():
-    d = json.loads((SITE / "data.json").read_text(encoding="utf-8"))
+    d = json.loads((EVID / "data.json").read_text(encoding="utf-8"))
     rows = {r["key"]: r for r in d["parliaments"]["rows"]}
     zc = rows["261"]
     assert "1,417 are in OpenParlData with text on the intervention" in zc["safe_say"]
@@ -99,7 +100,7 @@ def test_site_rows_never_say_not_in_opd_for_answers_found_in_opd():
         assert a["written_missing"] == (a["agenda"] + a["parentless"] + a["unrecognised"] + a["opd_image_only"]
                                         + a["fetchable"] + a["still_open"]), r["key"]
     assert d["headline"]["at_most"]["all"]["lack_text"] == 14572 and d["headline"]["periods"]["all"]["missing"] == 16749
-    with open(SITE / "parliaments.csv", encoding="utf-8") as f:
+    with open(EVID / "parliaments.csv", encoding="utf-8") as f:
         csvrows = {r["key"]: r for r in csv.DictReader(f)}
     z = csvrows["261"]
     assert z["all_in_opd_unrecognised_heading"] == "1417" and z["all_no_answer_text"] == "1457"
@@ -121,6 +122,5 @@ def test_adapter_lists_on_the_site():
     # the site copy is the committed list, byte for byte
     assert (SITE / "downloads" / "adapters_TI.tsv").read_bytes() == (RESULTS / "repair" / "adapters" / "adapters_TI.tsv"
                                                                      ).read_bytes()
-    html = (SITE / "index.html").read_text(encoding="utf-8")
-    assert "DL.adapter_lists" in html and "adapters_manifest.json" in json.dumps(
-        json.loads((SITE / "data.json").read_text(encoding="utf-8"))["downloads"]["adapter_lists"])
+    listed = {d["f"] for d in json.loads((SITE / "data" / "core.json").read_text(encoding="utf-8"))["downloads"]}
+    assert {"adapters_manifest.json", "adapters_TI.tsv", "adapters_JU.tsv"} <= listed  # the app's About lists them

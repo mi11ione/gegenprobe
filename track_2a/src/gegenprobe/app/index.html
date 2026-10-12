@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Look up any Swiss parliamentary intervention with a recorded government answer in OpenParlData: is the answer text attached, where is it, and which repair is proposed.">
+<meta name="color-scheme" content="light dark">
+<title>Gegenprobe</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="app.css">
+<script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="mast">
+  <a class="mark" href="#/" aria-label="Gegenprobe: Lookup">Gegen<span>probe</span></a>
+  <span class="sub">OpenParlData answer check</span>
+  <nav class="tabs" aria-label="Views">
+    <a href="#/" data-view="lookup">Lookup</a><a href="#/parliaments" data-view="parliaments">Parliaments</a><a href="#/queue" data-view="queue">Repair queue</a><a href="#/about" data-view="about">About</a>
+  </nav>
+  <button class="theme" id="theme" type="button" title="Colour theme">Auto</button>
+</header>
+<main id="main" tabindex="-1">
+  <section class="view" id="v-lookup" aria-label="Lookup" hidden>
+    <div class="searchbar">
+      <label class="lbl" for="q">Affair number, title words, OPD id or parliament</label>
+      <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Search" aria-controls="results">
+      <div class="seg" id="qstatus" role="group" aria-label="Status filter"></div>
+    </div>
+    <div class="split">
+      <div class="pane-list" id="results" aria-live="polite"></div>
+      <article class="pane-detail" id="detail" aria-live="polite"></article>
+    </div>
+  </section>
+  <section class="view" id="v-parliaments" aria-label="Parliaments" hidden></section>
+  <section class="view" id="v-parliament" aria-label="Parliament" hidden></section>
+  <section class="view" id="v-queue" aria-label="Repair queue" hidden></section>
+  <section class="view" id="v-about" aria-label="About" hidden></section>
+  <p class="loading" id="loading">Loading…</p>
+  <noscript><p class="loading">This tool needs JavaScript. Its data and lists are in the <a href="https://github.com/mi11ione/gegenprobe">repository</a>.</p></noscript>
+</main>
+</body>
+</html>

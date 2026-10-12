@@ -134,7 +134,7 @@ and OPD's decision events (10 → 19 values), and types `decision` `not_applicab
 it reads OPD's harmonised type id: the converter's type table had typed 33 written questions `unknown` (OPD says
 "Question", the table "written question"); now 0 (`validation_all.json` `metadata_fill`,
 `results/schema/v0_2/field_completeness.json`). The
-evidence site's sample record is the post-processed one, carried to schema v0.2.
+records the app shows in Lookup are these committed v0.2 records.
 
 **Metadata vs document values.** In every `Affair` instance, a value taken from OPD metadata has `route: metadata`,
 `basis: metadata`, a `source` naming the OPD record (e.g. `opd:events/…`) and no span. A value read from a document

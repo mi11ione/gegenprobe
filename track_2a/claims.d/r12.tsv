@@ -32,6 +32,6 @@ r12.readme.matrix.addressed_body.metadata	12	results/census/matrix.json	fields.a
 r12.readme.matrix.addressed_body.mixed	10	results/census/matrix.json	fields.addressed_body.status_counts.mixed	int	make census	README.md	
 r12.readme.matrix.addressed_body.pdf	54	results/census/matrix.json	fields.addressed_body.status_counts.pdf	int	make census	README.md	
 r12.readme.matrix.addressed_body.no_source	10	results/census/matrix.json	fields.addressed_body.status_counts.no_source	int	make census	README.md	
-r12.verdict_robust	8	site/data.json	schema.verdict.need_roles_robust	int	make site	docs/ech-onepager.md,technical_report.md,docs/form_notes.md,../README.md,README.md	
-r12.verdict_fragile	2	site/data.json	schema.verdict.need_roles_fragile	int	make site	README.md,technical_report.md,docs/form_notes.md,docs/ech-onepager.md,../README.md	
-r12.verdict_defined_once	6	site/data.json	schema.verdict.defined_once	int	make site	README.md,technical_report.md,docs/form_notes.md,docs/ech-onepager.md	
+r12.verdict_robust	8	results/evidence/data.json	schema.verdict.need_roles_robust	int	python -m gegenprobe.viewer collect	docs/ech-onepager.md,technical_report.md,docs/form_notes.md,../README.md,README.md	
+r12.verdict_fragile	2	results/evidence/data.json	schema.verdict.need_roles_fragile	int	python -m gegenprobe.viewer collect	README.md,technical_report.md,docs/form_notes.md,docs/ech-onepager.md,../README.md	
+r12.verdict_defined_once	6	results/evidence/data.json	schema.verdict.defined_once	int	python -m gegenprobe.viewer collect	README.md,technical_report.md,docs/form_notes.md,docs/ech-onepager.md	

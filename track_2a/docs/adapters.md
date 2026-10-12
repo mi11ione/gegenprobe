@@ -125,7 +125,7 @@ date). Another **917** rows are review (661 absent, 256 image-only): listed, not
 review: OPD's Valais answer event is the session that debated the motion, after the government's letter, so the window
 check cannot confirm OPD's date, and the document's date must not overwrite it (`results/repair/adapters/retier/retier_r18.json`,
 written by `src/gegenprobe/repair/adapters/retier.py`; it records the sha256 of `adapters_VS.tsv`, which LOCK8 hashes).
-Every derived figure applies it (`census/corrected.py`, `repair/manifest.py`, the evidence site): counted rows 6,613 →
+Every derived figure applies it (`census/corrected.py`, `repair/manifest.py`, the app): counted rows 6,613 →
 **6,473**, `fetch` 3,584 → **3,444**, tier `date_window` 396 → **256** (Zürich city 215, Kriens 32, Neuchâtel 9),
 `review` 917 → **1,057**; repairs proposed for **9,580 of 16,749**. The tier table and the counts above are the lists as
 committed.

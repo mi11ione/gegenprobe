@@ -1,3 +1,3 @@
 id	shown	file	path	fmt	command	where	context
-r18site.verdict_p8_splits	6	site/data.json	schema.verdict.need_roles_p8	int	make site	-	
-r18site.verdict_label_splits	4	site/data.json	schema.verdict.need_roles_labels	int	make site	-	
+r18site.verdict_p8_splits	6	results/evidence/data.json	schema.verdict.need_roles_p8	int	python -m gegenprobe.viewer collect	-	
+r18site.verdict_label_splits	4	results/evidence/data.json	schema.verdict.need_roles_labels	int	python -m gegenprobe.viewer collect	-	
