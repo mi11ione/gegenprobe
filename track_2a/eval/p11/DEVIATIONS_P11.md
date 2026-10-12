@@ -34,3 +34,11 @@ the frozen check unchanged.
 Mendrisio 2), not 12; the other arms on all 12. IT answer date: the pointer on all 12. NI: no model arm, unaffected.
 No θ, configuration, prompt, gold or scorer changed. Not run again on the new build: θ (10.395) and the role reader's
 configuration were fitted on the frozen build and do not transfer (`convert/build_guard.py`).
+
+**D2 (12 Oct 2026, written before any further P11 model call).** At about 03:32 UTC the route `swiss-ai/apertus-v1.5-8b`
+began answering again from the frozen build (label `swiss-ai/apertus-v1.5-8b`, fingerprint
+`vllm-0.23.1rc1.dev1029+ga601a9d99-tp8-pp2-dd237840`; probes in `results/refit_bfd70257/probe_0343.json`,
+`probe_0347.json`). The role reader therefore resumes on the frozen build for the 7 IT affairs it had not read, with the
+same configuration, prompts and scorer; every response is checked against the frozen label and fingerprint, and the
+arm stops again (typed stop) at the first response from any other build. Responses from the other build are never used.
+If it completes, the role reader is scored on all 12 affairs; otherwise on those it read, as D1 says.
