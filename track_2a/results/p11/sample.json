@@ -1,0 +1,49 @@
+{
+ "attempts": 33,
+ "by_stratum": {
+  "it:5002": 2,
+  "it:5113": 2,
+  "it:5192": 2,
+  "it:5254": 3,
+  "it:TI": 3,
+  "ni:GA:de": 3,
+  "ni:GA:fr": 2,
+  "ni:GA:it": 3,
+  "ni:PI:de": 3,
+  "ni:PI:fr": 2,
+  "ni:PI:it": 2
+ },
+ "copy_scans": {
+  "5113": "ok",
+  "5254": "ok",
+  "6248": "ok",
+  "TI": "ok"
+ },
+ "documents_by_route": {
+  "it:opd_copy": 12,
+  "it:source": 12,
+  "ni:opd_copy": 5,
+  "ni:source": 19
+ },
+ "filled": 0,
+ "n": {
+  "it": 12,
+  "ni": 15
+ },
+ "packets": {
+  "blind": "packets carry an opaque id, the documents and the parser's date list only; no OPD metadata, body, stratum, hypothesis or arm output",
+  "it": {
+   "key_sha256": "c19016ae9394ba116cfdf0702ddb59b7910bf1ccda515a61bb9b56859e63d008",
+   "packets": 12,
+   "packets_sha256": "6a2470f06de2769c2ee80d1c9c088a6dc35199a128719c9055c23bba4280c2cf"
+  },
+  "ni": {
+   "key_sha256": "5f0b2a31c031e6309b0e295b1f6e6fcefc790ad92f4b052320d7491ac21b7a38",
+   "packets": 15,
+   "packets_sha256": "3fb5369ebc2820abe8c235f27d5636ad2c723542c37acf30e29fd41911cd2644"
+  }
+ },
+ "rejected": 6,
+ "seed": 20261110,
+ "shortfalls": []
+}
