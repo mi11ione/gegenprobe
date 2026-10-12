@@ -1,0 +1,838 @@
+{
+ "exclusions": {
+  "affairs": 2557,
+  "docs": 1234,
+  "from_existing_gold_sets": {
+   "affairs": 833,
+   "docs": 1022
+  },
+  "from_p7_and_audits": 1603,
+  "p10_affairs": 40,
+  "p8_and_fed_affairs": 81
+ },
+ "hosts": {
+  "api.fr.ch": {
+   "robots": "no robots.txt (HTTP 4xx): no restrictions, RFC 9309 2.3.1.3 [HTTP 403]",
+   "urls": {
+    "allowed": 613
+   }
+  },
+  "archiv.sh.ch": {
+   "robots": "no robots.txt (HTTP 4xx): no restrictions, RFC 9309 2.3.1.3",
+   "urls": {
+    "allowed": 150
+   }
+  },
+  "baselland.talus.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 2571
+   }
+  },
+  "cdws-staka-gr.gr.ch": {
+   "robots": "no robots.txt (HTTP 4xx): no restrictions, RFC 9309 2.3.1.3",
+   "urls": {
+    "allowed": 23
+   }
+  },
+  "ftp-sg.oca.ch": {
+   "robots": "no robots.txt (HTTP 4xx): no restrictions, RFC 9309 2.3.1.3",
+   "urls": {
+    "allowed": 1324
+   }
+  },
+  "grgeko.tg.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 122
+   }
+  },
+  "grinfo.ai.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 67
+   }
+  },
+  "grosserrat.bs.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 996
+   }
+  },
+  "kr-geschaefte.zug.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 252
+   }
+  },
+  "legislativo.mendrisio.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 986
+   }
+  },
+  "neuhausen.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 217
+   }
+  },
+  "ogd.parl.apps.be.ch": {
+   "robots": "no robots.txt (HTTP 4xx): no restrictions, RFC 9309 2.3.1.3",
+   "urls": {
+    "allowed": 943
+   }
+  },
+  "parlament.tg.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 12
+   }
+  },
+  "parlament.winterthur.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 510
+   }
+  },
+  "parlement.vs.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 257
+   }
+  },
+  "parlzhcdws.cmicloud.ch": {
+   "robots": "no robots.txt (HTTP 4xx): no restrictions, RFC 9309 2.3.1.3",
+   "urls": {
+    "allowed": 3229
+   }
+  },
+  "ratsinfo.so.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 329
+   }
+  },
+  "ratsinfo.stadtzug.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 306
+   }
+  },
+  "ris.gr.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 146
+   }
+  },
+  "sh.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 32
+   }
+  },
+  "so.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 896
+   }
+  },
+  "stadtrat.bern.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 1084
+   }
+  },
+  "www.aarau.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 234
+   }
+  },
+  "www.adliswil.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 150
+   }
+  },
+  "www.ag.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "disallowed": 988
+   }
+  },
+  "www.ar.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 192
+   }
+  },
+  "www.arbon.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "disallowed": 66
+   }
+  },
+  "www.baselland.ch": {
+   "robots": "no robots.txt (HTTP 4xx): no restrictions, RFC 9309 2.3.1.3",
+   "urls": {
+    "allowed": 16
+   }
+  },
+  "www.bellinzona.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 402
+   }
+  },
+  "www.bs.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 157
+   }
+  },
+  "www.buelach.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 24
+   }
+  },
+  "www.chaux-de-fonds.ch": {
+   "robots": "no robots.txt (HTTP 4xx): no restrictions, RFC 9309 2.3.1.3",
+   "urls": {
+    "allowed": 1
+   }
+  },
+  "www.dietikon.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 190
+   }
+  },
+  "www.duebendorf.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 285
+   }
+  },
+  "www.einwohnerrat-kriens.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "disallowed": 9
+   }
+  },
+  "www.emmen.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 285
+   }
+  },
+  "www.frauenfeld.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 134
+   }
+  },
+  "www.gemeinderat-zuerich.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 2202
+   }
+  },
+  "www.gl.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "disallowed": 505
+   }
+  },
+  "www.herisau.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 146
+   }
+  },
+  "www.horw.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 372
+   }
+  },
+  "www.ilef.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 232
+   }
+  },
+  "www.jura.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 24
+   }
+  },
+  "www.kloten.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 337
+   }
+  },
+  "www.kreuzlingen.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 21
+   }
+  },
+  "www.lenzburg.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 90
+   }
+  },
+  "www.liestal.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 685
+   }
+  },
+  "www.locarno.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "disallowed": 783
+   }
+  },
+  "www.lu.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 206
+   }
+  },
+  "www.lugano.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 1893
+   }
+  },
+  "www.nw.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 357
+   }
+  },
+  "www.opfikon.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 702
+   }
+  },
+  "www.ow.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 416
+   }
+  },
+  "www.pratteln.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 283
+   }
+  },
+  "www.ratsinfo.sg.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 669
+   }
+  },
+  "www.riehen.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 99
+   }
+  },
+  "www.rrgr-service.apps.be.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 299
+   }
+  },
+  "www.schlieren.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 403
+   }
+  },
+  "www.sierre.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 19
+   }
+  },
+  "www.stadtgossau.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 365
+   }
+  },
+  "www.stadtluzern.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 22
+   }
+  },
+  "www.stadtwil.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 297
+   }
+  },
+  "www.sz.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "disallowed": 203
+   }
+  },
+  "www.thun.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 333
+   }
+  },
+  "www.ur.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 2
+   }
+  },
+  "www.uster.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 682
+   }
+  },
+  "www.vernier.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 175
+   }
+  },
+  "www.waedenswil.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 144
+   }
+  },
+  "www.wettingen.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 515
+   }
+  },
+  "www.wetzikon.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 253
+   }
+  },
+  "www.wohlen.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 380
+   }
+  },
+  "www.zofingen.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 31
+   }
+  },
+  "www.zollikofen.ch": {
+   "robots": "unreachable (unreachable (URLError)): disallowed, fail-closed",
+   "urls": {
+    "disallowed": 408
+   }
+  },
+  "www1.mendrisio.ch": {
+   "robots": "no robots.txt (HTTP 4xx): no restrictions, RFC 9309 2.3.1.3",
+   "urls": {
+    "allowed": 899
+   }
+  },
+  "www4.ti.ch": {
+   "robots": "robots.txt read",
+   "urls": {
+    "allowed": 525,
+    "disallowed": 4584
+   }
+  }
+ },
+ "it": {
+  "frame_bodies": [
+   "TI",
+   "5254",
+   "5192",
+   "5113",
+   "5002"
+  ],
+  "per_body": {
+   "5002": {
+    "eligible": 53,
+    "hosts": {
+     "www.bellinzona.ch": 106
+    },
+    "in_sample_for": {
+     "date_rules": false,
+     "p8_registered": true,
+     "role_reader_development": true,
+     "role_rules": true
+    },
+    "level": "city",
+    "name": "Bellinzona",
+    "opd_copy_both": 53,
+    "readable_both": 53,
+    "source_allowed_both": 53,
+    "type_source": {
+     "opd_harmonised": 53
+    },
+    "types": {
+     "Motion": 53
+    }
+   },
+   "5113": {
+    "eligible": 192,
+    "hosts": {
+     "www.locarno.ch": 384
+    },
+    "in_sample_for": {
+     "date_rules": false,
+     "p8_registered": false,
+     "role_reader_development": false,
+     "role_rules": false
+    },
+    "level": "city",
+    "name": "Locarno",
+    "opd_copy_both": 192,
+    "readable_both": 192,
+    "source_allowed_both": 0,
+    "type_source": {
+     "opd_harmonised": 183,
+     "opd_type_name_it": 9
+    },
+    "types": {
+     "Interpellation": 11,
+     "Motion": 9,
+     "Question": 172
+    }
+   },
+   "5192": {
+    "eligible": 488,
+    "hosts": {
+     "www.lugano.ch": 976
+    },
+    "in_sample_for": {
+     "date_rules": true,
+     "p8_registered": true,
+     "role_reader_development": false,
+     "role_rules": true
+    },
+    "level": "city",
+    "name": "Lugano",
+    "opd_copy_both": 488,
+    "readable_both": 488,
+    "source_allowed_both": 488,
+    "type_source": {
+     "opd_harmonised": 488
+    },
+    "types": {
+     "Motion": 85,
+     "Question": 403
+    }
+   },
+   "5254": {
+    "eligible": 693,
+    "hosts": {
+     "legislativo.mendrisio.ch": 934,
+     "www1.mendrisio.ch": 452
+    },
+    "in_sample_for": {
+     "date_rules": true,
+     "p8_registered": false,
+     "role_reader_development": false,
+     "role_rules": true
+    },
+    "level": "city",
+    "name": "Mendrisio",
+    "opd_copy_both": 693,
+    "readable_both": 693,
+    "source_allowed_both": 693,
+    "type_source": {
+     "opd_type_name_it": 693
+    },
+    "types": {
+     "Question": 693
+    }
+   },
+   "TI": {
+    "eligible": 1493,
+    "hosts": {
+     "www4.ti.ch": 2986
+    },
+    "in_sample_for": {
+     "date_rules": true,
+     "p8_registered": true,
+     "role_reader_development": false,
+     "role_rules": true
+    },
+    "level": "canton",
+    "name": "Tessin",
+    "opd_copy_both": 1493,
+    "readable_both": 1493,
+    "source_allowed_both": 0,
+    "type_source": {
+     "opd_harmonised": 1493
+    },
+    "types": {
+     "Interpellation": 480,
+     "Question": 1013
+    }
+   }
+  },
+  "quotas": [
+   [
+    "TI",
+    3
+   ],
+   [
+    "5254",
+    3
+   ],
+   [
+    "5192",
+    2
+   ],
+   [
+    "5113",
+    2
+   ],
+   [
+    "5002",
+    2
+   ]
+  ]
+ },
+ "ni": {
+  "frame": {
+   "excluded_affair": 28,
+   "in_scope:GA:de:opd_harmonised": 34857,
+   "in_scope:GA:fr:opd_harmonised": 240,
+   "in_scope:GA:it:opd_type_name_it": 8395,
+   "in_scope:PI:de:opd_harmonised": 1008,
+   "in_scope:PI:fr:opd_harmonised": 43,
+   "in_scope:PI:it:opd_harmonised": 1615,
+   "no_qualifying_document:GA:de": 7296,
+   "no_qualifying_document:GA:fr": 45,
+   "no_qualifying_document:GA:it": 4790,
+   "no_qualifying_document:PI:de": 86,
+   "no_qualifying_document:PI:fr": 18,
+   "no_qualifying_document:PI:it": 974
+  },
+  "per_cell": {
+   "GA:de": {
+    "bodies": 57,
+    "eligible": 27549,
+    "first_packet_document_source_allowed": 18676,
+    "hosts": 64,
+    "largest_bodies": {
+     "261": 2188,
+     "3203": 1324,
+     "351": 1074,
+     "BE": 1233,
+     "BL": 2562,
+     "BS": 1153,
+     "SO": 1225,
+     "ZH": 2483
+    },
+    "qualifying_documents_per_affair": {
+     "1": 11938,
+     "2": 5920,
+     "3": 3216,
+     "4": 2279,
+     "5": 4196
+    },
+    "type_source": {
+     "opd_harmonised": 27549
+    }
+   },
+   "GA:fr": {
+    "bodies": 3,
+    "eligible": 195,
+    "first_packet_document_source_allowed": 195,
+    "hosts": 3,
+    "largest_bodies": {
+     "6248": 19,
+     "6421": 1,
+     "6643": 175
+    },
+    "qualifying_documents_per_affair": {
+     "1": 39,
+     "2": 22,
+     "3": 63,
+     "4": 45,
+     "5": 26
+    },
+    "type_source": {
+     "opd_harmonised": 195
+    }
+   },
+   "GA:it": {
+    "bodies": 5,
+    "eligible": 3594,
+    "first_packet_document_source_allowed": 2186,
+    "hosts": 6,
+    "largest_bodies": {
+     "5002": 296,
+     "5113": 399,
+     "5192": 917,
+     "5254": 499,
+     "TI": 1483
+    },
+    "qualifying_documents_per_affair": {
+     "1": 1211,
+     "2": 1016,
+     "3": 267,
+     "4": 861,
+     "5": 239
+    },
+    "type_source": {
+     "opd_type_name_it": 3594
+    }
+   },
+   "PI:de": {
+    "bodies": 24,
+    "eligible": 919,
+    "first_packet_document_source_allowed": 880,
+    "hosts": 26,
+    "largest_bodies": {
+     "261": 14,
+     "351": 10,
+     "BE": 9,
+     "BL": 25,
+     "SZ": 9,
+     "TG": 38,
+     "VS": 18,
+     "ZH": 746
+    },
+    "qualifying_documents_per_affair": {
+     "1": 396,
+     "2": 199,
+     "3": 120,
+     "4": 106,
+     "5": 98
+    },
+    "type_source": {
+     "opd_harmonised": 919
+    }
+   },
+   "PI:fr": {
+    "bodies": 1,
+    "eligible": 24,
+    "first_packet_document_source_allowed": 24,
+    "hosts": 1,
+    "largest_bodies": {
+     "JU": 24
+    },
+    "qualifying_documents_per_affair": {
+     "1": 24
+    },
+    "type_source": {
+     "opd_harmonised": 24
+    }
+   },
+   "PI:it": {
+    "bodies": 1,
+    "eligible": 640,
+    "first_packet_document_source_allowed": 51,
+    "hosts": 1,
+    "largest_bodies": {
+     "TI": 640
+    },
+    "qualifying_documents_per_affair": {
+     "1": 274,
+     "2": 200,
+     "3": 84,
+     "4": 78,
+     "5": 4
+    },
+    "type_source": {
+     "opd_harmonised": 640
+    }
+   }
+  },
+  "quotas": [
+   [
+    "GA",
+    "de",
+    3
+   ],
+   [
+    "GA",
+    "fr",
+    2
+   ],
+   [
+    "GA",
+    "it",
+    3
+   ],
+   [
+    "PI",
+    "de",
+    3
+   ],
+   [
+    "PI",
+    "fr",
+    2
+   ],
+   [
+    "PI",
+    "it",
+    2
+   ]
+  ]
+ },
+ "note": "counts only; no affair was selected, no document was requested (robots.txt and OPD's docs exports only); written before LOCKP11",
+ "opd_hosts": {
+  "api.openparldata.ch": "never requested: gegenprobe.net refuses the /v1/ prefix (net.FORBIDDEN; OPD's robots.txt disallows it)",
+  "files.openparldata.ch": "allowed; no robots.txt (HTTP 4xx): no restrictions, RFC 9309 2.3.1.3"
+ },
+ "opd_snapshot": {
+  "index": "2026-10-06T04:43:15Z"
+ },
+ "robots_lenient": {
+  "https://api.fr.ch": "HTTP 403"
+ },
+ "robots_unreachable": {
+  "https://parlament.winterthur.ch": "unreachable (URLError)",
+  "https://www.adliswil.ch": "unreachable (URLError)",
+  "https://www.buelach.ch": "unreachable (URLError)",
+  "https://www.emmen.ch": "unreachable (URLError)",
+  "https://www.herisau.ch": "unreachable (URLError)",
+  "https://www.horw.ch": "unreachable (URLError)",
+  "https://www.ilef.ch": "unreachable (URLError)",
+  "https://www.kloten.ch": "unreachable (URLError)",
+  "https://www.lenzburg.ch": "unreachable (URLError)",
+  "https://www.liestal.ch": "unreachable (URLError)",
+  "https://www.nw.ch": "unreachable (URLError)",
+  "https://www.ow.ch": "unreachable (URLError)",
+  "https://www.pratteln.ch": "unreachable (URLError)",
+  "https://www.schlieren.ch": "unreachable (URLError)",
+  "https://www.stadtgossau.ch": "unreachable (URLError)",
+  "https://www.stadtluzern.ch": "unreachable (URLError)",
+  "https://www.thun.ch": "unreachable (URLError)",
+  "https://www.ur.ch": "unreachable (URLError)",
+  "https://www.uster.ch": "unreachable (URLError)",
+  "https://www.waedenswil.ch": "unreachable (URLError)",
+  "https://www.wettingen.ch": "unreachable (URLError)",
+  "https://www.wohlen.ch": "unreachable (URLError)",
+  "https://www.zollikofen.ch": "unreachable (URLError)"
+ },
+ "user_agent": "hackapertus-research/0.1"
+}
